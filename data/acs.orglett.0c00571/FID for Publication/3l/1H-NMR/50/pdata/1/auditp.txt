@@ -1,0 +1,97 @@
+##TITLE= Audit trail, TopSpin 3.5 pl 7
+##JCAMPDX= 5.01
+##ORIGIN= Bruker BioSpin GmbH
+##OWNER= nmr600
+$$ /opt/topspin3.0/data/nmr600/nmr/6Dec0519/50/pdata/1/auditp.txt
+##AUDIT TRAIL=  $$ (NUMBER, WHEN, WHO, WHERE, PROCESS, VERSION, WHAT)
+(   1,<2019-12-05 10:45:15.136 +0100>,<nmr600>,<av600>,<go4>,<TopSpin 3.5.7>,
+      <created by zg
+	started at 2019-12-05 10:44:06.895 +0100,
+	POWCHK enabled, PULCHK disabled,
+       configuration hash MD5:
+       F6 A8 02 1E 34 7B 5A 86 83 2B 12 75 72 17 B4 3E
+       data hash MD5: 64K
+       92 FF 9D 36 98 48 1E 8A 3E E1 0B EE EF A8 7A 13>)
+(   2,<2019-12-05 10:45:15.193 +0100>,<nmr600>,<av600>,<audit>,<TopSpin 3.5.7>,
+      <user comment:
+       ICON-NMR User ID: nmr600
+       data hash MD5: 64K
+       92 FF 9D 36 98 48 1E 8A 3E E1 0B EE EF A8 7A 13>)
+(   3,<2019-12-05 10:45:15.575 +0100>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <Start of raw data processing
+       ef LB = 0.3 FT_mod = 6 PKNL = 1 SI = 64K 
+       data hash MD5: 64K
+       42 0C 85 48 BC 9C DB 08 03 A1 6D AF 73 92 27 13>)
+(   4,<2019-12-05 10:45:15.980 +0100>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <apk 
+       data hash MD5: 64K
+       13 EC 49 E6 5F 8D 99 EB DB 14 36 45 78 C7 9E C3>)
+(   5,<2019-12-05 10:45:16.058 +0100>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <abs ABSG = 5 
+       data hash MD5: 64K
+       3F 4C 0B C0 E3 D2 8E 3A AC F7 5E 71 15 42 5C C4>)
+$$ //fs.univie.ac.at/homedirs/riometm92/Desktop/mari/mari-0302-carac/50/pdata/1/auditp.txt
+(   6,<2019-12-06 19:44:46.525 +0100>,<U\riometm92>,<A521-D022174>,<dataserver>,<TopSpin 4.0.5>,
+      <INTEGRAL 2019-12-06 19:44:04.204 +0100
+       DELETE_ALL
+       data hash MD5: 64K
+       3F 4C 0B C0 E3 D2 8E 3A AC F7 5E 71 15 42 5C C4>)
+(   7,<2019-12-06 19:44:46.540 +0100>,<U\riometm92>,<A521-D022174>,<dataserver>,<TopSpin 4.0.5>,
+      <INTEGRAL 2019-12-06 19:44:12.550 +0100
+       DEFINE [5.187;5.114]
+       data hash MD5: 64K
+       3F 4C 0B C0 E3 D2 8E 3A AC F7 5E 71 15 42 5C C4>)
+(   8,<2019-12-06 19:44:46.552 +0100>,<U\riometm92>,<A521-D022174>,<dataserver>,<TopSpin 4.0.5>,
+      <INTEGRAL 2019-12-06 19:44:13.989 +0100
+       DEFINE [4.909;4.820]
+       data hash MD5: 64K
+       3F 4C 0B C0 E3 D2 8E 3A AC F7 5E 71 15 42 5C C4>)
+(   9,<2019-12-06 19:44:46.566 +0100>,<U\riometm92>,<A521-D022174>,<dataserver>,<TopSpin 4.0.5>,
+      <INTEGRAL 2019-12-06 19:44:15.350 +0100
+       DEFINE [4.702;4.618]
+       data hash MD5: 64K
+       3F 4C 0B C0 E3 D2 8E 3A AC F7 5E 71 15 42 5C C4>)
+(  10,<2019-12-06 19:44:46.578 +0100>,<U\riometm92>,<A521-D022174>,<dataserver>,<TopSpin 4.0.5>,
+      <INTEGRAL 2019-12-06 19:44:18.982 +0100
+       DEFINE [3.863;3.782]
+       data hash MD5: 64K
+       3F 4C 0B C0 E3 D2 8E 3A AC F7 5E 71 15 42 5C C4>)
+(  11,<2019-12-06 19:44:46.594 +0100>,<U\riometm92>,<A521-D022174>,<dataserver>,<TopSpin 4.0.5>,
+      <INTEGRAL 2019-12-06 19:44:21.222 +0100
+       DEFINE [3.531;3.463]
+       data hash MD5: 64K
+       3F 4C 0B C0 E3 D2 8E 3A AC F7 5E 71 15 42 5C C4>)
+(  12,<2019-12-06 19:44:46.606 +0100>,<U\riometm92>,<A521-D022174>,<dataserver>,<TopSpin 4.0.5>,
+      <INTEGRAL 2019-12-06 19:44:24.598 +0100
+       DEFINE [9.858;9.598]
+       data hash MD5: 64K
+       3F 4C 0B C0 E3 D2 8E 3A AC F7 5E 71 15 42 5C C4>)
+(  13,<2019-12-06 19:44:46.623 +0100>,<U\riometm92>,<A521-D022174>,<dataserver>,<TopSpin 4.0.5>,
+      <INTEGRAL 2019-12-06 19:44:28.310 +0100
+       DEFINE [7.403;7.288]
+       data hash MD5: 64K
+       3F 4C 0B C0 E3 D2 8E 3A AC F7 5E 71 15 42 5C C4>)
+(  14,<2019-12-06 19:44:46.638 +0100>,<U\riometm92>,<A521-D022174>,<dataserver>,<TopSpin 4.0.5>,
+      <INTEGRAL 2019-12-06 19:44:30.526 +0100
+       DEFINE [7.216;7.160]
+       data hash MD5: 64K
+       3F 4C 0B C0 E3 D2 8E 3A AC F7 5E 71 15 42 5C C4>)
+(  15,<2019-12-06 19:44:46.655 +0100>,<U\riometm92>,<A521-D022174>,<dataserver>,<TopSpin 4.0.5>,
+      <INTEGRAL 2019-12-06 19:44:33.334 +0100
+       DEFINE [7.256;7.223]
+       data hash MD5: 64K
+       3F 4C 0B C0 E3 D2 8E 3A AC F7 5E 71 15 42 5C C4>)
+(  16,<2019-12-06 19:44:46.668 +0100>,<U\riometm92>,<A521-D022174>,<dataserver>,<TopSpin 4.0.5>,
+      <INTEGRAL 2019-12-06 19:44:40.694 +0100
+       DEFINE [2.008;1.906]
+       data hash MD5: 64K
+       3F 4C 0B C0 E3 D2 8E 3A AC F7 5E 71 15 42 5C C4>)
+(  17,<2019-12-06 19:44:46.689 +0100>,<U\riometm92>,<A521-D022174>,<dataserver>,<TopSpin 4.0.5>,
+      <INTEGRAL 2019-12-06 19:44:42.766 +0100
+       DEFINE [2.187;2.026]
+       data hash MD5: 64K
+       3F 4C 0B C0 E3 D2 8E 3A AC F7 5E 71 15 42 5C C4>)
+##END=
+
+$$ hash MD5
+$$ E2 2C 53 48 37 35 34 F2 3B 23 3C 14 C2 9E 32 64

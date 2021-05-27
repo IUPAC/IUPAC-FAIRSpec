@@ -1,0 +1,23 @@
+##TITLE= Parameter file, TopSpin 3.5 pl 7
+##JCAMPDX= 5.0
+##DATATYPE= Parameter Values
+##NPOINTS= 1	$$ modification sequence number
+##ORIGIN= Bruker BioSpin GmbH
+##OWNER= nmr600
+$$ 2019-08-30 12:12:15.793 +0200  nmr600@av600
+$$ /opt/topspin3.0/data/nmr600/nmr/6Aug3019/33/acqu2
+$$ process /opt/topspin3.5pl7/prog/mod/xwish3
+##$ACQT0= 0
+##$BF1= 150.93298255
+##$FnMODE= 6
+##$NUC1= <13C>
+##$NusJSP= 0
+##$NusT2= 1
+##$NusTD= 0
+##$O1= 11319.974
+##$ProjAngle= 0
+##$SFO1= 150.944302524
+##$SW= 165
+##$SW_h= 24905.80991646
+##$TD= 128
+##END=

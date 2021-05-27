@@ -1,0 +1,48 @@
+##TITLE= Audit trail, TopSpin 3.5 pl 7
+##JCAMPDX= 5.01
+##ORIGIN= Bruker BioSpin GmbH
+##OWNER= nmr600
+$$ /opt/topspin3.0/data/nmr600/nmr/6Sep0619/101/pdata/1/auditp.txt
+##AUDIT TRAIL=  $$ (NUMBER, WHEN, WHO, WHERE, PROCESS, VERSION, WHAT)
+(   1,<2019-09-07 11:49:18.815 +0200>,<nmr600>,<av600>,<go4>,<TopSpin 3.5.7>,
+      <created by zg
+	started at 2019-09-07 10:58:33.899 +0200,
+	POWCHK enabled, PULCHK disabled,
+       configuration hash MD5:
+       F6 A8 02 1E 34 7B 5A 86 83 2B 12 75 72 17 B4 3E
+       data hash MD5: 64K
+       38 B6 CD 77 8C BD A0 86 05 88 AC 81 AD 31 3E 5B>)
+(   2,<2019-09-07 11:49:18.864 +0200>,<nmr600>,<av600>,<audit>,<TopSpin 3.5.7>,
+      <user comment:
+       ICON-NMR User ID: nmr600
+       data hash MD5: 64K
+       38 B6 CD 77 8C BD A0 86 05 88 AC 81 AD 31 3E 5B>)
+(   3,<2019-09-07 11:49:19.308 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <Start of raw data processing
+       ef LB = 1 FT_mod = 6 PKNL = 1 SI = 128K 
+       data hash MD5: 128K
+       E7 29 D9 97 A5 91 CF 68 5A F8 96 E4 36 47 27 97>)
+(   4,<2019-09-07 11:49:20.403 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <apk 
+       data hash MD5: 128K
+       4D 9E B0 90 ED 1B EA B6 70 95 52 16 B7 DC 57 87>)
+(   5,<2019-09-07 11:49:20.476 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <abs ABSG = 5 
+       data hash MD5: 128K
+       0A 0D 1D D6 9D 8F 4E 54 7F F1 85 96 CF 20 CD 66>)
+(   6,<2019-09-09 10:39:02.460 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <pk fgphup PHC0 = -26.49561 PHC1 = 77.4 
+       data hash MD5: 128K
+       8E 63 A2 56 57 E8 69 AE 49 B9 D8 8E C6 FF 52 B4>)
+(   7,<2019-09-09 10:39:22.880 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <pk fgphup PHC0 = 37.46758 PHC1 = -96.6 
+       data hash MD5: 128K
+       1D 45 D9 7B E2 11 CF 65 40 2C 65 83 31 18 9E FA>)
+(   8,<2019-09-09 10:40:02.855 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <pk fgphup PHC0 = -0.1861496 PHC1 = 1 
+       data hash MD5: 128K
+       03 51 FB C4 AC B2 13 7D 72 F4 D4 B5 F7 42 33 AB>)
+##END=
+
+$$ hash MD5
+$$ A8 BA 16 94 53 B4 B2 F8 74 C4 18 4A 8A FD A2 72

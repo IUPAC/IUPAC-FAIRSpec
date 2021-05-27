@@ -1,0 +1,15 @@
+##TITLE= Audit trail, TopSpin 3.5 pl 7
+##JCAMPDX= 5.01
+##ORIGIN= Bruker BioSpin GmbH
+##OWNER= nmr600
+$$ /opt/topspin3.0/data/nmr600/nmr/6Sep1819/43/pdata/99/auditp.txt
+##AUDIT TRAIL=  $$ (NUMBER, WHEN, WHO, WHERE, PROCESS, VERSION, WHAT)
+(   1,<2019-09-18 14:38:25.650 +0200>,<nmr600>,<av600>,<mvrow>,<TopSpin 3.5.7>,
+      <rvpp from
+       1 43 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       59 1A 42 66 7F BD 03 33 B5 DC B8 F8 E4 E6 E7 89>)
+##END=
+
+$$ hash MD5
+$$ F6 6A A7 DE F2 B0 48 A4 D6 5B 42 2F 72 51 80 3D

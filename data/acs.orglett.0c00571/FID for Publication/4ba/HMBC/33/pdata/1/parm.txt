@@ -1,0 +1,73 @@
+
+Current Data Parameters
+NAME           6Sep1819              
+EXPNO                33              
+PROCNO                1              
+
+F2 - Acquisition Parameters
+Date_          20190918              
+Time              12.50 h            
+INSTRUM           spect              
+PROBHD   Z126545_0016 (              
+PULPROG    hmbcgplpndqf              
+TD                 2048              
+SOLVENT           CDCl3              
+NS                    4              
+DS                   16              
+SWH            5434.783 Hz           
+FIDRES         5.307405 Hz           
+AQ            0.1884160 sec          
+RG                 2050              
+DW               92.000 usec         
+DE                12.00 usec         
+TE                298.1 K            
+CNST2       145.0000000              
+CNST13       10.0000000              
+D0           0.00000300 sec          
+D1           1.44265604 sec          
+D2           0.00344828 sec          
+D6           0.05000000 sec          
+D16          0.00020000 sec          
+IN0          0.00001510 sec          
+TDav                  1              
+SFO1        600.2524942 MHz          
+NUC1                 1H              
+P1                12.25 usec         
+P2                24.50 usec         
+PLW1        25.60000038 W            
+SFO2        150.9480758 MHz          
+NUC2                13C              
+P3                10.00 usec         
+PLW2        66.00000000 W            
+GPNAM[1]     SMSQ10.100              
+GPZ1              50.00 %            
+GPNAM[2]     SMSQ10.100              
+GPZ2              30.00 %            
+GPNAM[3]     SMSQ10.100              
+GPZ3              40.10 %            
+P16             1000.00 usec         
+
+F1 - Acquisition parameters
+TD                  128              
+SFO1           150.9481 MHz          
+FIDRES       517.384094 Hz           
+SW              219.364 ppm          
+FnMODE               QF              
+
+F2 - Processing parameters
+SI                 2048              
+SF          600.2500143 MHz          
+WDW                SINE              
+SSB      0              
+LB       0 Hz           
+GB       0              
+PC                 1.40              
+
+F1 - Processing parameters
+SI                 1024              
+MC2                  QF              
+SF          150.9329825 MHz          
+WDW                SINE              
+SSB      0              
+LB       0 Hz           
+GB       0              

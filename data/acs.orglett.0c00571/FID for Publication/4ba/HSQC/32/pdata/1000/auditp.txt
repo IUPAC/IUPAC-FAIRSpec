@@ -1,0 +1,109 @@
+##TITLE= Audit trail, TopSpin 3.5 pl 7
+##JCAMPDX= 5.01
+##ORIGIN= Bruker BioSpin GmbH
+##OWNER= nmr600
+$$ /opt/topspin3.0/data/nmr600/nmr/6Sep1819/32/pdata/1000/auditp.txt
+##AUDIT TRAIL=  $$ (NUMBER, WHEN, WHO, WHERE, PROCESS, VERSION, WHAT)
+(   1,<2019-09-18 12:49:02.314 +0200>,<nmr600>,<av600>,<mvrow>,<TopSpin 3.5.7>,
+      <rsr 177 from
+       1 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       92 58 9A 4D EA 76 14 6B 8A E6 34 B0 3E 64 A9 DE>)
+(   2,<2019-09-18 12:49:02.328 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <add DC = 1 DATMOD = 1 of
+       1000 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       1001 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       50 19 C2 94 61 C9 B3 AE FD F4 17 93 EA 1F 2C B2>)
+(   3,<2019-09-18 12:49:02.340 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <add DC = 1 DATMOD = 1 of
+       1000 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       1001 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       5C 22 A2 6F 2B 14 B5 D7 AC 1A CB F8 3E A9 FD 2B>)
+(   4,<2019-09-18 12:49:02.351 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <add DC = 1 DATMOD = 1 of
+       1000 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       1001 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       6F 24 DB 5B 8D 7C 41 91 FE 6D 6E A9 64 11 46 55>)
+(   5,<2019-09-18 12:49:02.362 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <add DC = 1 DATMOD = 1 of
+       1000 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       1001 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       BD 2B 80 8C 53 4C 8E C5 E2 0B D2 F2 4D 49 FB 91>)
+(   6,<2019-09-18 12:49:02.374 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <add DC = 1 DATMOD = 1 of
+       1000 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       1001 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       B5 56 A0 03 D5 41 D0 BA F5 94 59 5F ED 2D F8 55>)
+(   7,<2019-09-18 12:49:02.385 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <add DC = 1 DATMOD = 1 of
+       1000 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       1001 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       AD 64 89 FF 2A 75 F4 72 0A 62 BD 08 2F 5A 8C DD>)
+(   8,<2019-09-18 12:49:02.395 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <add DC = 1 DATMOD = 1 of
+       1000 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       1001 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       98 48 C2 0B 58 69 DA 07 8F 4A D8 68 74 36 85 00>)
+(   9,<2019-09-18 12:49:02.407 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <add DC = 1 DATMOD = 1 of
+       1000 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       1001 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       02 45 1C 69 3E 16 F6 6F 18 3D 37 E2 0D 10 BF 72>)
+(  10,<2019-09-18 12:49:02.420 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <add DC = 1 DATMOD = 1 of
+       1000 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       1001 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       F1 F4 A7 87 1C 13 7D 57 FC C8 6E 1F 4E 2E 59 61>)
+(  11,<2019-09-18 12:49:02.432 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <add DC = 1 DATMOD = 1 of
+       1000 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       1001 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       AD F0 36 D8 D3 FB E7 92 15 14 F3 58 4C 93 52 D5>)
+(  12,<2019-09-18 12:49:02.444 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <add DC = 1 DATMOD = 1 of
+       1000 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       1001 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       C4 17 DB 6C BD EE 59 AE 1E D8 DD 36 B4 D6 8F 76>)
+(  13,<2019-09-18 12:49:02.461 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <add DC = 1 DATMOD = 1 of
+       1000 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       1001 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       55 32 8E 9E 75 80 49 B3 F4 A1 BA D6 CB 0C 45 93>)
+(  14,<2019-09-18 12:49:02.477 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <add DC = 1 DATMOD = 1 of
+       1000 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       1001 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       58 72 24 9B C6 AD 38 00 52 54 30 8A 2D 0B EF 9A>)
+(  15,<2019-09-18 12:49:02.491 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <add DC = 1 DATMOD = 1 of
+       1000 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       1001 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       0F 68 F5 2D 4F DA 63 21 58 E4 CE FE C9 C5 5A 1F>)
+(  16,<2019-09-18 12:49:02.505 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <add DC = 1 DATMOD = 1 of
+       1000 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       1001 32 "6Sep1819" "/opt/topspin3.0/data/nmr600/nmr"
+       data hash MD5: 1K
+       09 F0 6B 21 40 8F 08 81 A7 B9 27 54 EF C2 D3 E7>)
+(  17,<2019-09-18 12:49:02.523 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <apk 
+       data hash MD5: 1K
+       E7 5B 0B 18 EF 49 89 06 49 A4 F4 5D 93 4E 16 2B>)
+##END=
+
+$$ hash MD5
+$$ 3D BE 50 26 08 42 9E C2 87 B8 DB D7 9E 5B DD 37

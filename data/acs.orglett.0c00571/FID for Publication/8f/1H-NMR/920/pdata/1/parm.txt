@@ -1,0 +1,40 @@
+
+Current Data Parameters
+NAME           4Aug2219              
+EXPNO               920              
+PROCNO                1              
+
+F2 - Acquisition Parameters
+Date_          20190822              
+Time              18.12              
+INSTRUM        AVIII400              
+PROBHD   5 mm PABBO BB/              
+PULPROG            zg30              
+TD                65536              
+SOLVENT           CDCl3              
+NS                   16              
+DS                    2              
+SWH            8012.820 Hz           
+FIDRES         0.122266 Hz           
+AQ            4.0894465 sec          
+RG                  256              
+DW               62.400 usec         
+DE                 6.50 usec         
+TE                298.2 K            
+D1           1.00000000 sec          
+TD0                   1              
+
+======== CHANNEL f1 ========
+SFO1        400.2724718 MHz          
+NUC1                 1H              
+P1                13.50 usec         
+PLW1        18.00000000 W            
+
+F2 - Processing parameters
+SI                65536              
+SF          400.2700364 MHz          
+WDW                  EM              
+SSB      0              
+LB                 0.30 Hz           
+GB       0              
+PC                 1.00              

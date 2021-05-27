@@ -1,0 +1,76 @@
+
+Current Data Parameters
+NAME           6Aug3019              
+EXPNO                33              
+PROCNO                1              
+
+F2 - Acquisition Parameters
+Date_          20190830              
+Time              12.13 h            
+INSTRUM           spect              
+PROBHD   Z126545_0016 (              
+PULPROG        hsqcetgp              
+TD                 1024              
+SOLVENT           CDCl3              
+NS                    2              
+DS                   16              
+SWH            7812.500 Hz           
+FIDRES        15.258789 Hz           
+AQ            0.0655360 sec          
+RG                 2050              
+DW               64.000 usec         
+DE                12.00 usec         
+TE                298.2 K            
+CNST2       145.0000000              
+D0           0.00000300 sec          
+D1           1.50000000 sec          
+D4           0.00172414 sec          
+D11          0.03000000 sec          
+D16          0.00020000 sec          
+IN0          0.00002010 sec          
+TDav                  1              
+ZGOPTNS                              
+SFO1        600.2537065 MHz          
+NUC1                 1H              
+P1                12.25 usec         
+P2                24.50 usec         
+P28      0 usec         
+PLW1        25.60000038 W            
+SFO2        150.9443025 MHz          
+NUC2                13C              
+CPDPRG[2           garp              
+P3                10.00 usec         
+P4                20.00 usec         
+PCPD2             60.00 usec         
+PLW2        66.00000000 W            
+PLW12        1.83329999 W            
+GPNAM[1]     SMSQ10.100              
+GPZ1              80.00 %            
+GPNAM[2]     SMSQ10.100              
+GPZ2              20.10 %            
+P16             1000.00 usec         
+
+F1 - Acquisition parameters
+TD                  128              
+SFO1           150.9443 MHz          
+FIDRES       388.681580 Hz           
+SW              164.800 ppm          
+FnMODE    Echo-Antiecho              
+
+F2 - Processing parameters
+SI                 1024              
+SF          600.2500000 MHz          
+WDW               QSINE              
+SSB                   2              
+LB       0 Hz           
+GB       0              
+PC                 1.40              
+
+F1 - Processing parameters
+SI                 1024              
+MC2       echo-antiecho              
+SF          150.9329825 MHz          
+WDW               QSINE              
+SSB                   2              
+LB       0 Hz           
+GB       0              

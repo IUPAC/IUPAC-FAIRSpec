@@ -1,0 +1,86 @@
+##TITLE= Audit trail, TopSpin 3.5 pl 7
+##JCAMPDX= 5.01
+##ORIGIN= Bruker BioSpin GmbH
+##OWNER= nmr600
+$$ /opt/topspin3.0/data/nmr600/nmr/6Sep1819/40/pdata/1/auditp.txt
+##AUDIT TRAIL=  $$ (NUMBER, WHEN, WHO, WHERE, PROCESS, VERSION, WHAT)
+(   1,<2019-09-18 13:39:47.709 +0200>,<nmr600>,<av600>,<go4>,<TopSpin 3.5.7>,
+      <created by zg
+	started at 2019-09-18 13:38:39.209 +0200,
+	POWCHK enabled, PULCHK disabled,
+       configuration hash MD5:
+       F6 A8 02 1E 34 7B 5A 86 83 2B 12 75 72 17 B4 3E
+       data hash MD5: 64K
+       98 7E EF 7F 89 75 19 80 E5 D6 38 75 06 4A 9B CD>)
+(   2,<2019-09-18 13:39:47.766 +0200>,<nmr600>,<av600>,<audit>,<TopSpin 3.5.7>,
+      <user comment:
+       ICON-NMR User ID: nmr600
+       data hash MD5: 64K
+       98 7E EF 7F 89 75 19 80 E5 D6 38 75 06 4A 9B CD>)
+(   3,<2019-09-18 13:39:48.173 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <Start of raw data processing
+       ef LB = 0.3 FT_mod = 6 PKNL = 1 SI = 64K 
+       data hash MD5: 64K
+       37 C2 F9 54 1B C9 B1 D5 82 F3 68 82 0F 2B A8 E7>)
+(   4,<2019-09-18 13:39:48.518 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <apk 
+       data hash MD5: 64K
+       45 28 E4 BC 1D A1 B7 42 ED E8 01 D0 62 13 49 A2>)
+(   5,<2019-09-18 13:39:48.567 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <abs ABSG = 5 
+       data hash MD5: 64K
+       36 30 79 6B 11 9E 34 30 27 1E D3 4A A7 2D 41 CB>)
+(   6,<2019-09-19 11:10:59.033 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-09-19 11:09:50.789 +0200
+       DELETE_ALL
+       data hash MD5: 64K
+       36 30 79 6B 11 9E 34 30 27 1E D3 4A A7 2D 41 CB>)
+(   7,<2019-09-19 11:10:59.049 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-09-19 11:10:03.709 +0200
+       DEFINE [5.191;5.141]
+       data hash MD5: 64K
+       36 30 79 6B 11 9E 34 30 27 1E D3 4A A7 2D 41 CB>)
+(   8,<2019-09-19 11:10:59.065 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-09-19 11:10:05.569 +0200
+       DEFINE [4.646;4.568]
+       data hash MD5: 64K
+       36 30 79 6B 11 9E 34 30 27 1E D3 4A A7 2D 41 CB>)
+(   9,<2019-09-19 11:10:59.080 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-09-19 11:10:07.740 +0200
+       DEFINE [4.351;4.281]
+       data hash MD5: 64K
+       36 30 79 6B 11 9E 34 30 27 1E D3 4A A7 2D 41 CB>)
+(  10,<2019-09-19 11:10:59.096 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-09-19 11:10:09.272 +0200
+       DEFINE [3.782;3.718]
+       data hash MD5: 64K
+       36 30 79 6B 11 9E 34 30 27 1E D3 4A A7 2D 41 CB>)
+(  11,<2019-09-19 11:10:59.111 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-09-19 11:10:13.271 +0200
+       DEFINE [6.314;6.218]
+       data hash MD5: 64K
+       36 30 79 6B 11 9E 34 30 27 1E D3 4A A7 2D 41 CB>)
+(  12,<2019-09-19 11:10:59.127 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-09-19 11:10:15.693 +0200
+       DEFINE [6.867;6.811]
+       data hash MD5: 64K
+       36 30 79 6B 11 9E 34 30 27 1E D3 4A A7 2D 41 CB>)
+(  13,<2019-09-19 11:10:59.143 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-09-19 11:10:23.505 +0200
+       DEFINE [7.231;7.195]
+       data hash MD5: 64K
+       36 30 79 6B 11 9E 34 30 27 1E D3 4A A7 2D 41 CB>)
+(  14,<2019-09-19 11:10:59.158 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-09-19 11:10:28.239 +0200
+       DEFINE [7.309;7.267]
+       data hash MD5: 64K
+       36 30 79 6B 11 9E 34 30 27 1E D3 4A A7 2D 41 CB>)
+(  15,<2019-09-19 11:10:59.174 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-09-19 11:10:31.754 +0200
+       DEFINE [7.254;7.231]
+       data hash MD5: 64K
+       36 30 79 6B 11 9E 34 30 27 1E D3 4A A7 2D 41 CB>)
+##END=
+
+$$ hash MD5
+$$ 51 F4 18 78 8D 69 73 33 FD 9E 64 52 E7 37 66 D2

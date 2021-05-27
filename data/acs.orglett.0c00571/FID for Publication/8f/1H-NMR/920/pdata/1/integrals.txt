@@ -1,0 +1,11 @@
+   Current data set:
+   NAME =	hazh106	EXPNO =	920	PROCNO = 1
+   DU   =	//fs.univie.ac.at/homedirs/zhangh94/Desktop/hazh_NMR
+
+   Number   Integrated Region     Integral
+     1      7.361      7.213         5.07525
+     2      5.613      5.535         1.00000
+     3      3.660      3.175         3.79625
+     4      1.974      1.795         3.87868
+     5      1.797      1.753         3.14492
+     6      1.639      1.574         2.90503

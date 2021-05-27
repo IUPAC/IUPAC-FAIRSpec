@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PeakList>
+  <PeakList1D>
+    <PeakList1DHeader creator="nmr600" date="2019-06-26T23:00:48.609+02:00" expNo="25" name="6Jun2619" owner="" procNo="1" source="/opt/topspin3.0/data/nmr600/nmr">
+      <PeakPickDetails>F1=18.562969ppm, F2=-218.562988ppm, MI=0.00cm, MAXI=10000.00cm, PC=1.000
+      </PeakPickDetails>
+    </PeakList1DHeader>
+    <Peak1D F1="-78.666420" intensity="3.652681e-02" type="0"/>
+    <Peak1D F1="-115.076027" intensity="4.196625e-01" type="0"/>
+    <Peak1D F1="-115.089897" intensity="9.079594e-01" type="0"/>
+    <Peak1D F1="-115.101967" intensity="9.385446e-01" type="0"/>
+    <Peak1D F1="-115.115494" intensity="4.599515e-01" type="0"/>
+    <Peak1D F1="-166.375061" intensity="7.631147e-02" type="0"/>
+  </PeakList1D>
+</PeakList>

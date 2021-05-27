@@ -1,0 +1,23 @@
+##TITLE= Audit trail, TopSpin 3.5 pl 7
+##JCAMPDX= 5.01
+##ORIGIN= Bruker BioSpin GmbH
+##OWNER= nmr600
+$$ /opt/topspin3.0/data/nmr600/nmr/6Aug2219/51/audita.txt
+##AUDIT TRAIL=  $$ (NUMBER, WHEN, WHO, WHERE, PROCESS, VERSION, WHAT)
+(   1,<2019-08-22 16:48:34.300 +0200>,<nmr600>,<av600>,<go4>,<TopSpin 3.5.7>,
+      <created by zg
+	started at 2019-08-22 15:57:50.114 +0200,
+	POWCHK enabled, PULCHK disabled,
+       configuration hash MD5:
+       F6 A8 02 1E 34 7B 5A 86 83 2B 12 75 72 17 B4 3E
+       data hash MD5: 64K
+       75 FD DA 20 75 93 34 E4 0F C9 BB DA 4E F2 9B BC>)
+(   2,<2019-08-22 16:48:34.344 +0200>,<nmr600>,<av600>,<audit>,<TopSpin 3.5.7>,
+      <user comment:
+       ICON-NMR User ID: nmr600
+       data hash MD5: 64K
+       75 FD DA 20 75 93 34 E4 0F C9 BB DA 4E F2 9B BC>)
+##END=
+
+$$ hash MD5
+$$ FC 68 D4 E5 88 BF 32 6B 93 7F FC 2C 28 A5 BC 62

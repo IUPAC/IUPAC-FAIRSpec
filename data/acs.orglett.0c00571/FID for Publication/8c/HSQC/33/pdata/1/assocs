@@ -1,0 +1,11 @@
+##TITLE= Parameter file, TopSpin 4.0.2
+##JCAMPDX= 5.0
+##DATATYPE= Parameter Values
+##NPOINTS= 2	$$ modification sequence number
+##ORIGIN= Bruker BioSpin GmbH
+##OWNER= zhangh94
+$$ 2019-12-04 16:43:06.599 +0100  U\zhangh94@A521-D022232
+$$ //fs.univie.ac.at/homedirs/zhangh94/Desktop/hazh_NMR/hazh116/33/pdata/1/assocs
+$$ process C:\Bruker\TopSpin4.0.2\prog\mod\dataserver.exe
+##$MULTDISP= <\\fs.univie.ac.at\homedirs\zhangh94\Desktop\hazh_NMR\hazh116\34\pdata\1>
+##END=

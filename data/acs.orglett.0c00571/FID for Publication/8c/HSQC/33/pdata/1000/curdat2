@@ -1,0 +1,18 @@
+##TITLE= Parameter file, TopSpin 3.5 pl 7
+##JCAMPDX= 5.0
+##DATATYPE= Parameter Values
+##NPOINTS= 2	$$ modification sequence number
+##ORIGIN= Bruker BioSpin GmbH
+##OWNER= nmr600
+$$ 2019-08-30 12:20:37.314 +0200  nmr600@av600
+$$ /opt/topspin3.0/data/nmr600/nmr/6Aug3019/33/pdata/1000/curdat2
+$$ process /opt/topspin3.5pl7/prog/au/bin/proc_2dinv
+##$DATPATH2= </opt/topspin3.0/data/nmr600/nmr>
+##$DATPATH3= </opt/topspin3.0/data/nmr600/nmr>
+##$EXPNO2= 33
+##$EXPNO3= 33
+##$NAME2= <6Aug3019>
+##$NAME3= <6Aug3019>
+##$PROCNO2= 1000
+##$PROCNO3= 1001
+##END=

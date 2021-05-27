@@ -1,0 +1,139 @@
+##TITLE= Audit trail, TopSpin 3.5 pl 7
+##JCAMPDX= 5.01
+##ORIGIN= Bruker BioSpin GmbH
+##OWNER= nmr600
+$$ /opt/topspin3.0/data/nmr600/nmr/6Jul0419/10/pdata/1/auditp.txt
+##AUDIT TRAIL=  $$ (NUMBER, WHEN, WHO, WHERE, PROCESS, VERSION, WHAT)
+(   1,<2019-07-04 13:57:18.881 +0200>,<nmr600>,<av600>,<go4>,<TopSpin 3.5.7>,
+      <created by zg
+	started at 2019-07-04 13:56:10.308 +0200,
+	POWCHK enabled, PULCHK disabled,
+       configuration hash MD5:
+       F6 A8 02 1E 34 7B 5A 86 83 2B 12 75 72 17 B4 3E
+       data hash MD5: 64K
+       A3 F3 EF AD 50 A5 F0 40 33 26 07 14 9C 49 97 1C>)
+(   2,<2019-07-04 13:57:18.955 +0200>,<nmr600>,<av600>,<audit>,<TopSpin 3.5.7>,
+      <user comment:
+       ICON-NMR User ID: nmr600
+       data hash MD5: 64K
+       A3 F3 EF AD 50 A5 F0 40 33 26 07 14 9C 49 97 1C>)
+(   3,<2019-07-04 13:57:19.446 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <Start of raw data processing
+       ef LB = 0.3 FT_mod = 6 PKNL = 1 SI = 64K 
+       data hash MD5: 64K
+       41 4F 70 DD 19 CC D0 E3 D6 FD 59 E8 28 D6 07 39>)
+(   4,<2019-07-04 13:57:19.888 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <apk 
+       data hash MD5: 64K
+       63 07 33 D7 09 2A 20 79 AD EB 0F 71 4B 06 1D 1B>)
+(   5,<2019-07-04 13:57:20.025 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <abs ABSG = 5 
+       data hash MD5: 64K
+       F3 02 BE 02 5F 36 00 42 7E 07 63 CD F1 65 83 CE>)
+(   6,<2019-07-04 13:58:43.853 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <pk fgphup PHC0 = 5.653662 PHC1 = -12.4 
+       data hash MD5: 64K
+       B6 CA 28 B1 CD 77 DC 00 F3 05 7D D5 29 2A 48 38>)
+(   7,<2019-07-04 13:58:52.060 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <abs n ABSG = 5 
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(   8,<2019-07-05 14:14:15.203 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:12:59.374 +0200
+       DELETE_ALL
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(   9,<2019-07-05 14:14:15.218 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:05.187 +0200
+       DEFINE [5.413;5.335]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  10,<2019-07-05 14:14:15.234 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:08.484 +0200
+       DEFINE [9.047;8.917]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  11,<2019-07-05 14:14:15.265 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:12.593 +0200
+       DEFINE [7.410;7.349]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  12,<2019-07-05 14:14:15.281 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:14.484 +0200
+       DEFINE [7.349;7.280]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  13,<2019-07-05 14:14:15.296 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:15.843 +0200
+       DEFINE [7.280;7.215]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  14,<2019-07-05 14:14:15.312 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:17.452 +0200
+       DEFINE [7.202;7.124]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  15,<2019-07-05 14:14:15.328 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:18.952 +0200
+       DEFINE [6.903;6.830]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  16,<2019-07-05 14:14:15.343 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:19.952 +0200
+       DEFINE [6.830;6.747]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  17,<2019-07-05 14:14:15.359 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:24.093 +0200
+       DEFINE [3.967;3.837]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  18,<2019-07-05 14:14:15.374 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:25.484 +0200
+       DEFINE [3.837;3.763]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  19,<2019-07-05 14:14:15.390 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:26.906 +0200
+       DEFINE [3.763;3.698]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  20,<2019-07-05 14:14:15.406 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:31.702 +0200
+       DELETE [3.837;3.763]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  21,<2019-07-05 14:14:15.421 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:33.593 +0200
+       DEFINE [3.841;3.802]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  22,<2019-07-05 14:14:15.437 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:37.499 +0200
+       DEFINE [3.802;3.763]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  23,<2019-07-05 14:14:15.453 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:41.734 +0200
+       DEFINE [3.590;3.491]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  24,<2019-07-05 14:14:15.468 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:43.249 +0200
+       DEFINE [3.222;3.114]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  25,<2019-07-05 14:14:15.484 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:44.984 +0200
+       DEFINE [3.032;2.945]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+(  26,<2019-07-05 14:14:15.499 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-07-05 14:13:46.843 +0200
+       DEFINE [2.252;2.066]
+       data hash MD5: 64K
+       EA B9 1A 79 1C A5 F5 DA BC 1C 80 87 EE EF 8A 5F>)
+##END=
+
+$$ hash MD5
+$$ 8C 8A 3D 5F E3 2A E4 53 0D DC 96 46 76 EC 51 A4

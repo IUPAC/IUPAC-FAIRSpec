@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PeakList modified="2019-12-06T19:51:36">
+  <PeakList1D>
+    <PeakList1DHeader creator="riometm92" date="2019-12-06T19:51:36" expNo="55" name="mari-0302-carac" owner="" procNo="1" source="\\fs.univie.ac.at\homedirs\riometm92\Desktop\mari">
+      <PeakPickDetails>F1=-70.815033ppm, F2=-88.091629ppm, MI=9.27cm, MAXI=19.97cm, PC=1.000
+      </PeakPickDetails>
+    </PeakList1DHeader>
+    <Peak1D F1="-78.180153" intensity="15.0" type="0"/>
+  </PeakList1D>
+</PeakList>

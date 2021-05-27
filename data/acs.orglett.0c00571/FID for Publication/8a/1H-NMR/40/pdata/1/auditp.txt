@@ -1,0 +1,102 @@
+##TITLE= Audit trail, TopSpin 3.5 pl 7
+##JCAMPDX= 5.01
+##ORIGIN= Bruker BioSpin GmbH
+##OWNER= nmr600
+$$ /opt/topspin3.0/data/nmr600/nmr/6Aug0919/40/pdata/1/auditp.txt
+##AUDIT TRAIL=  $$ (NUMBER, WHEN, WHO, WHERE, PROCESS, VERSION, WHAT)
+(   1,<2019-08-09 10:45:01.750 +0200>,<nmr600>,<av600>,<go4>,<TopSpin 3.5.7>,
+      <created by zg
+	started at 2019-08-09 10:43:53.246 +0200,
+	POWCHK enabled, PULCHK disabled,
+       configuration hash MD5:
+       F6 A8 02 1E 34 7B 5A 86 83 2B 12 75 72 17 B4 3E
+       data hash MD5: 64K
+       11 B8 0B 1A C0 1F 5E 37 9F 3E 9B 60 3B 2F 48 7E>)
+(   2,<2019-08-09 10:45:01.984 +0200>,<nmr600>,<av600>,<audit>,<TopSpin 3.5.7>,
+      <user comment:
+       ICON-NMR User ID: nmr600
+       data hash MD5: 64K
+       11 B8 0B 1A C0 1F 5E 37 9F 3E 9B 60 3B 2F 48 7E>)
+(   3,<2019-08-09 10:45:02.405 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <Start of raw data processing
+       ef LB = 0.3 FT_mod = 6 PKNL = 1 SI = 64K 
+       data hash MD5: 64K
+       4A 52 08 81 8F CD 3F 10 7D 40 D2 5B 8E AB EC 1F>)
+(   4,<2019-08-09 10:45:02.978 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <apk 
+       data hash MD5: 64K
+       35 57 56 1C 45 CD 50 1C 40 13 09 C6 E8 D9 68 B8>)
+(   5,<2019-08-09 10:45:03.061 +0200>,<nmr600>,<av600>,<proc1d>,<TopSpin 3.5.7>,
+      <abs ABSG = 5 
+       data hash MD5: 64K
+       0A 3B 6E 2A E8 A5 04 80 E3 52 E5 BB 03 24 40 D4>)
+(   6,<2019-08-09 11:30:40.962 +0200>,<nmr600>,<av600>,<audit>,<TopSpin 3.5.7>,
+      <user comment:
+       TITLE=Auftraggeber Maulide
+       hazh 86TITLE_END
+       data hash MD5: 64K
+       0A 3B 6E 2A E8 A5 04 80 E3 52 E5 BB 03 24 40 D4>)
+(   7,<2019-08-09 12:06:01.717 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-08-09 12:05:22.837 +0200
+       DELETE_ALL
+       data hash MD5: 64K
+       0A 3B 6E 2A E8 A5 04 80 E3 52 E5 BB 03 24 40 D4>)
+(   8,<2019-08-09 12:06:01.740 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-08-09 12:05:34.616 +0200
+       DEFINE [5.926;5.822]
+       data hash MD5: 64K
+       0A 3B 6E 2A E8 A5 04 80 E3 52 E5 BB 03 24 40 D4>)
+(   9,<2019-08-09 12:06:01.790 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-08-09 12:05:36.080 +0200
+       DEFINE [6.813;6.725]
+       data hash MD5: 64K
+       0A 3B 6E 2A E8 A5 04 80 E3 52 E5 BB 03 24 40 D4>)
+(  10,<2019-08-09 12:06:01.805 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-08-09 12:05:39.936 +0200
+       DEFINE [7.166;7.083]
+       data hash MD5: 64K
+       0A 3B 6E 2A E8 A5 04 80 E3 52 E5 BB 03 24 40 D4>)
+(  11,<2019-08-09 12:06:01.818 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-08-09 12:05:47.911 +0200
+       DEFINE [7.249;7.200]
+       data hash MD5: 64K
+       0A 3B 6E 2A E8 A5 04 80 E3 52 E5 BB 03 24 40 D4>)
+(  12,<2019-08-09 12:06:01.832 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-08-09 12:05:50.928 +0200
+       DEFINE [7.359;7.288]
+       data hash MD5: 64K
+       0A 3B 6E 2A E8 A5 04 80 E3 52 E5 BB 03 24 40 D4>)
+(  13,<2019-08-09 12:06:01.845 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-08-09 12:05:53.383 +0200
+       DEFINE [7.429;7.386]
+       data hash MD5: 64K
+       0A 3B 6E 2A E8 A5 04 80 E3 52 E5 BB 03 24 40 D4>)
+(  14,<2019-08-09 12:06:01.858 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-08-09 12:05:55.071 +0200
+       DEFINE [7.471;7.428]
+       data hash MD5: 64K
+       0A 3B 6E 2A E8 A5 04 80 E3 52 E5 BB 03 24 40 D4>)
+(  15,<2019-08-09 12:07:05.292 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-08-09 12:06:17.495 +0200
+       DEFINE [3.818;3.387]
+       data hash MD5: 64K
+       0A 3B 6E 2A E8 A5 04 80 E3 52 E5 BB 03 24 40 D4>)
+(  16,<2019-08-09 12:07:05.319 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-08-09 12:06:22.183 +0200
+       DEFINE [2.038;1.784]
+       data hash MD5: 64K
+       0A 3B 6E 2A E8 A5 04 80 E3 52 E5 BB 03 24 40 D4>)
+(  17,<2019-08-09 12:07:05.333 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-08-09 12:06:25.295 +0200
+       DEFINE [1.369;1.158]
+       data hash MD5: 64K
+       0A 3B 6E 2A E8 A5 04 80 E3 52 E5 BB 03 24 40 D4>)
+(  18,<2019-08-09 12:07:05.349 +0200>,<U\zhangh94>,<A521-D022232>,<dataserver>,<TopSpin 4.0.2>,
+      <INTEGRAL 2019-08-09 12:06:34.343 +0200
+       DEFINE [3.296;3.058]
+       data hash MD5: 64K
+       0A 3B 6E 2A E8 A5 04 80 E3 52 E5 BB 03 24 40 D4>)
+##END=
+
+$$ hash MD5
+$$ 9B AB CF 33 95 EB 6A 73 C2 44 36 5F 30 86 93 E1

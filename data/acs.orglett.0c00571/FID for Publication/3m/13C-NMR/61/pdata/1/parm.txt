@@ -1,0 +1,65 @@
+
+Current Data Parameters
+NAME           6Jul1919              
+EXPNO                61              
+PROCNO                1              
+
+F2 - Acquisition Parameters
+Date_          20190719              
+Time              12.10 h            
+INSTRUM           spect              
+PROBHD   Z126545_0016 (              
+PULPROG       deptqgpsp              
+TD                65536              
+SOLVENT           CDCl3              
+NS                  256              
+DS                    4              
+SWH           36057.691 Hz           
+FIDRES         1.100393 Hz           
+AQ            0.9087659 sec          
+RG                 2050              
+DW               13.867 usec         
+DE                18.00 usec         
+TE                298.2 K            
+CNST2       145.0000000              
+D1           2.00000000 sec          
+D2           0.00344828 sec          
+D12          0.00002000 sec          
+D16          0.00020000 sec          
+TD0                   1              
+SFO1        150.9480754 MHz          
+NUC1                13C              
+P1                10.00 usec         
+P13             2000.00 usec         
+PLW0     0 W            
+PLW1        66.00000000 W            
+SPNAM[5]    Crp60comp.4              
+SPOAL5            0.500              
+SPOFFS5  0 Hz           
+SPW5        10.08399963 W            
+SFO2        600.2524010 MHz          
+NUC2                 1H              
+CNST12        1.5000000              
+CPDPRG[2        waltz16              
+P0                18.38 usec         
+P3                12.25 usec         
+P4                24.50 usec         
+PCPD2             70.00 usec         
+PLW2        25.60000038 W            
+PLW12        0.78399998 W            
+GPNAM[1]     SMSQ10.100              
+GPZ1              31.00 %            
+GPNAM[2]     SMSQ10.100              
+GPZ2              31.00 %            
+GPNAM[3]     SMSQ10.100              
+GPZ3              31.00 %            
+P16             1000.00 usec         
+
+F2 - Processing parameters
+SI               131072              
+SF          150.9329925 MHz          
+WDW                  EM              
+SSB      0              
+LB                 1.00 Hz           
+GB       0              
+PC                 1.40              
