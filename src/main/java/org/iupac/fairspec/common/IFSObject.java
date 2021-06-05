@@ -3,7 +3,6 @@ package org.iupac.fairspec.common;
 import java.util.ArrayList;
 
 import org.iupac.fairspec.api.IFSObjectApi;
-import org.iupac.fairspec.api.IFSObjectApi.ObjectType;
 
 /**
  * IFSObject extends ArrayList so as to allow for storing and retrieving

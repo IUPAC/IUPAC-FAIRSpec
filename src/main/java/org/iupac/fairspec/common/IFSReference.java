@@ -1,10 +1,5 @@
 package org.iupac.fairspec.common;
 
-import java.util.ArrayList;
-
-import org.iupac.fairspec.api.IFSObjectApi;
-import org.iupac.fairspec.api.IFSObjectApi.ObjectType;
-
 /**
  * An IFSReference object allows for saving a String or other form of reference. (But for now, just a String.)
  *  

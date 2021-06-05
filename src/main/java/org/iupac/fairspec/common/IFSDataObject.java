@@ -7,6 +7,7 @@ package org.iupac.fairspec.common;
  * @author hansonr
  *
  */
+@SuppressWarnings("serial")
 public abstract class IFSDataObject<T> extends IFSObject<T> {
 
 }

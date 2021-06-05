@@ -41,6 +41,7 @@ public class PDF2Image {
 		return img;
 	}
 
+	@SuppressWarnings("deprecation")
 	private BufferedImage getNextImage(DataInputStream dis) {
 		// this turned out just to be the Bruker logo!
 		String s = null;

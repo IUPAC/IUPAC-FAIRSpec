@@ -1,8 +1,8 @@
 package org.iupac.fairspec.common;
 
 import org.iupac.fairspec.api.IFSCoreObject;
-import org.iupac.fairspec.api.IFSObjectApi.ObjectType;
 
+@SuppressWarnings("serial")
 public class IFSAnalysis extends IFSObject<IFSAnalysisRepresentation> implements IFSCoreObject {
 
 	
