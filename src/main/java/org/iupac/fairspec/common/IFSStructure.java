@@ -1,10 +1,12 @@
 package org.iupac.fairspec.common;
 
-public class IFSStructure extends IFSObject<IFSStructureRepresentation> {
+import org.iupac.fairspec.api.IFSCoreObject;
+
+public class IFSStructure extends IFSObject<IFSStructureRepresentation> implements IFSCoreObject {
 
 	@Override
 	public ObjectType getObjectType() {
-		return ObjectType.StructureRepresentation;
+		return ObjectType.Structure;
 	}
 
 }

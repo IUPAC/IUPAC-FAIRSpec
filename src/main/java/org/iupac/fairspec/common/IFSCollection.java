@@ -1,6 +1,6 @@
 package org.iupac.fairspec.common;
 
-import org.iupac.fairspec.api.IFSApi;
+import org.iupac.fairspec.api.IFSObjectApi;
 
 @SuppressWarnings("serial")
 public abstract class IFSCollection<T> extends IFSObject<T> {
@@ -14,7 +14,7 @@ public abstract class IFSCollection<T> extends IFSObject<T> {
 
 	@Override
 	public ObjectType getObjectType() {
-		return IFSApi.ObjectType.Collection;
+		return IFSObjectApi.ObjectType.Collection;
 	}
 
 	public CollectionType getCollectionType() {
