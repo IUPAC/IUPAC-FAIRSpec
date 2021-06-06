@@ -20,12 +20,12 @@ public class Extractor {
 	private String extractVersion;
 	private List<String> objects;
 
-	public List<String> getObjectsForFile(File ifsExtractScript, File targetDir) throws IOException {
-		System.out.println("Extracting " + ifsExtractScript.getAbsolutePath() + " to " + targetDir.getAbsolutePath());
-		return getObjectsForStream(ifsExtractScript.toURI().toURL().openStream(), targetDir);
+	public List<String> getObjectsForFile(File ifsExtractScript) throws IOException {
+		System.out.println("Extracting " + ifsExtractScript.getAbsolutePath());
+		return getObjectsForStream(ifsExtractScript.toURI().toURL().openStream());
 	}
 
-	public List<String> getObjectsForStream(InputStream is, File targetDir) throws IOException {
+	public List<String> getObjectsForStream(InputStream is) throws IOException {
 		byte[] bytes = Util.getLimitedStreamBytes(is, -1, null, true);
 		String script = new String(bytes);
 		return objects = parseScript(script);
@@ -104,6 +104,18 @@ public class Extractor {
 		}
 		return objects;
 		
+	}
+
+	public void extractObjects(File targetDir) {
+		
+		// [
+		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.structure.representation.mol.2d::{id}.mol}"
+		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}"
+		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/HRMS.zip|{IFS.ms.representation.pdf::**/*.pdf}"
+		// ]
+
+		
+		System.out.println("extractObjects to " + targetDir.getAbsolutePath());
 	}
 	
 	
