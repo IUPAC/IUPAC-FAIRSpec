@@ -55,20 +55,20 @@ public class Extractor {
 		//         {"hash":"0c00571"},
 		//         {"pubid":"acs.orglett.{hash}"},
 		//         {"src":"IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{pubid}"},
-		//         {"data":"IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_002.zip"},
+		//         {"data":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_002.zip"},
 		//
-		//         {"path":"IFS.finding.aid.object::{data}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}"},
+		//         {"path":"{data}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}"},
 		//         {"objects":"{path}/{IFS.structure.representation.mol.2d::{id}.mol}"},
 		//         {"objects":"{path}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}"},
 		//         {"objects":"{path}/HRMS.zip|{IFS.ms.representation.pdf::**/*.pdf}"},
 		//        ]}
 		
-		
 		//output:
+		
 		// [
-		// "IFS.finding.aid.object::IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.structure.representation.mol.2d::{id}.mol}"
-		// "IFS.finding.aid.object::IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}"
-		// "IFS.finding.aid.object::IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/HRMS.zip|{IFS.ms.representation.pdf::**/*.pdf}"
+		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.structure.representation.mol.2d::{id}.mol}"
+		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}"
+		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/HRMS.zip|{IFS.ms.representation.pdf::**/*.pdf}"
 		// ]
 
 		Lst<String> keys = new Lst<>();
@@ -88,7 +88,7 @@ public class Extractor {
 					val = s;
 				}
 				if (key.equals("objects")) {
-					objects.add(val);
+					objects.add("{IFS.finding.aid.object::" + val + "}");
 				} else {
 					keys.addLast("{" + key + "}");
 					values.addLast(val);
