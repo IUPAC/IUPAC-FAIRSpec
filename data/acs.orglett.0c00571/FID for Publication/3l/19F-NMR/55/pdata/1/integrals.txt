@@ -1,5 +1,0 @@
-   Current data set:
-   NAME =	mari-0302-carac	EXPNO =	55	PROCNO = 1
-   DU   =	//fs.univie.ac.at/homedirs/riometm92/Desktop/mari
-
-   Number   Integrated Region     Integral

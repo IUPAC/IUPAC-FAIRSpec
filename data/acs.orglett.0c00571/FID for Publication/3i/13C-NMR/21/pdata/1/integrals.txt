@@ -1,5 +1,0 @@
-   Current data set:
-   NAME =	hazh54	EXPNO =	21	PROCNO = 1
-   DU   =	//fs.univie.ac.at/homedirs/zhangh94/Desktop/hazh_NMR
-
-   Number   Integrated Region     Integral
