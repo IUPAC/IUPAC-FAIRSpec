@@ -18,7 +18,7 @@ public class ExtractorTest extends Extractor {
 
 
 	public static void main(String[] args) {
-		String script = (args.length < 1 ? "./extract/acs.orglett.0c00571/IFS-extract.js" : args[0]);
+		String script = (args.length < 1 ? "./extract/acs.orglett.0c00571/IFS-extract.json" : args[0]);
 		String targetDir = (args.length < 2 ? "c:/temp/ifs/acs.orglett.0c00571" : args[1]);
 		try {
 			new ExtractorTest(new File(script), new File(targetDir));

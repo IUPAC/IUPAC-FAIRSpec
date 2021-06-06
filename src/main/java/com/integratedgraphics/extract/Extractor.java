@@ -31,6 +31,12 @@ public class Extractor {
 		return objects = parseScript(script);
 	}
 
+	/**
+	 * 
+	 * @param script
+	 * @return parsed list of objects from an IFS-extract.js JSON
+	 * @throws IOException
+	 */
 	@SuppressWarnings("unchecked")
 	private List<String> parseScript(String script) throws IOException {
 		Map<String, Object> jp = (Map<String, Object>) new JSJSONParser().parse(script, false);
@@ -46,7 +52,8 @@ public class Extractor {
 	/**
 	 * Make all variable substitutions in IFS-extract.js.
 	 * 
-	 */
+	 * @return list of IFSObject definitions
+	 */ 
 	private List<String> getObjects(List<Map<String, Object>> pathway) {
 		
 		//input:
