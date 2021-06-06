@@ -1,8 +1,0 @@
-# IUPAC FAIRSpec extraction pathways for acs.orglett.0c00624
-{
- {hash=0c00624}
- {pubid=acs.orglett.{hash}}
- {src=IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{pubid}}
- {data=IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_002.zip}
- {objects=IFS.finding.aid.object::{data}|primary NMR data/{id=IFS.structure.param.compound.id::*}/{IFS.nmr.representation.vender.dataset::{id}-{IFS.nmr.param.expt::*}/**/*}
-}
