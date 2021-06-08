@@ -1,7 +1,5 @@
 package org.iupac.fairspec.api;
 
-import org.iupac.fairspec.api.IFSObjectAPI.ObjectType;
-
 /**
  * This is the public interface for the IFSObject. Note that IFSObject extends
  * ArrayList, so all the methods of ArrayList are also inherited.
@@ -80,7 +78,7 @@ import org.iupac.fairspec.api.IFSObjectAPI.ObjectType;
 public interface IFSObjectAPI<T> {
 
 	enum ObjectType {
-		SpecData, Structure, Analysis, 
+		Unknown, SpecData, Structure, Analysis, 
 		FindingAid, SpecDataCollection, StructureCollection, 
 		StructureSpecCollection, AnalysisCollection,
 		NMRSpecData, IRSpecData, MSSpecData, RAMANSpecData, 
@@ -112,7 +110,7 @@ public interface IFSObjectAPI<T> {
 			return ObjectType.MSSpecData;
 		if (propName.startsWith("IFS.raman."))
 			return ObjectType.RAMANSpecData;
-		return null;		
+		return ObjectType.Unknown;		
 	}
 	
 

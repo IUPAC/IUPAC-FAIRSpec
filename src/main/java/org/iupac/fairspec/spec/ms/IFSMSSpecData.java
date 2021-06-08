@@ -1,8 +1,9 @@
 package org.iupac.fairspec.spec.ms;
 
-import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSProperty;
+import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSSpecData;
+import org.iupac.fairspec.common.IFSSpecDataRepresentation;
 
 /**
  *
@@ -18,4 +19,17 @@ public class IFSMSSpecData extends IFSSpecData {
 //				new IFSProperty("MS.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
 		});
 	}
+	
+
+	public IFSMSSpecData(String name) {
+		super(name);
+	}
+
+
+	@Override
+	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj) {
+		return new IFSMSSpecDataRepresentation(name, ref, obj);
+	}
+
+
 }

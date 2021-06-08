@@ -1,8 +1,5 @@
 package org.iupac.fairspec.common;
 
-import org.iupac.fairspec.api.IFSObjectAPI;
-import org.iupac.fairspec.api.IFSObjectAPI.ObjectType;
-
 public class IFSConst {
 
 

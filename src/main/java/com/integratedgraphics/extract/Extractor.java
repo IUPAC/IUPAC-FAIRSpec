@@ -1,6 +1,5 @@
 package com.integratedgraphics.extract;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,8 +16,6 @@ import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import org.iupac.fairspec.api.IFSObjectAPI;
-import org.iupac.fairspec.api.IFSObjectAPI.ObjectType;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSFindingAid;
 
@@ -27,19 +24,21 @@ import com.integratedgraphics.util.Util;
 import javajs.util.JSJSONParser;
 import javajs.util.Lst;
 import javajs.util.PT;
-import javajs.util.Rdr;
 
 public class Extractor {
-
 
 	public Extractor() {
 		clearZipCache();
 	}
-	
+
 	private String extractVersion;
 	private List<String> objects;
 	private IFSFindingAid findingAid;
 	private String sourceDir;
+	
+	protected static Pattern objectDefPattern = Pattern.compile("\\{([^:]+)::([^}]+)\\}");
+	protected static Pattern pStarDotStar;
+
 
 	public List<String> getObjectsForFile(File ifsExtractScript) throws IOException {
 		System.out.println("Extracting " + ifsExtractScript.getAbsolutePath());
@@ -74,34 +73,41 @@ public class Extractor {
 	 * Make all variable substitutions in IFS-extract.js.
 	 * 
 	 * @return list of IFSObject definitions
-	 */ 
+	 */
 	private List<String> getObjects(List<Map<String, Object>> pathway) {
-		
-		//input:
-		
-		//		 {"IFS-extract-version":"0.1.0-alpha","pathway":[
-		//         {"hash":"0c00571"},
-		//         {"pubid":"acs.orglett.{hash}"},
-		//         {"src":"IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{pubid}"},
-		//         {"data":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_002.zip"},
+
+		// input:
+
+		// {"IFS-extract-version":"0.1.0-alpha","pathway":[
+		// {"hash":"0c00571"},
+		// {"pubid":"acs.orglett.{hash}"},
+		// {"src":"IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{pubid}"},
+		// {"data":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_002.zip"},
 		//
-		//         {"path":"{data}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}"},
-		//         {"objects":"{path}/{IFS.structure.representation.mol.2d::{id}.mol}"},
-		//         {"objects":"{path}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}"},
-		//         {"objects":"{path}/HRMS.zip|{IFS.ms.representation.pdf::**/*.pdf}"},
-		//        ]}
-		
-		//output:
-		
+		// {"path":"{data}|FID for
+		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}"},
+		// {"objects":"{path}/{IFS.structure.representation.mol.2d::{id}.mol}"},
+		// {"objects":"{path}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}"},
+		// {"objects":"{path}/HRMS.zip|{IFS.ms.representation.pdf::**/*.pdf}"},
+		// ]}
+
+		// output:
+
 		// [
-		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.structure.representation.mol.2d::{id}.mol}"
-		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}"
-		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/HRMS.zip|{IFS.ms.representation.pdf::**/*.pdf}"
+		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
+		// for
+		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.structure.representation.mol.2d::{id}.mol}"
+		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
+		// for
+		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}"
+		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
+		// for
+		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/HRMS.zip|{IFS.ms.representation.pdf::**/*.pdf}"
 		// ]
 
 		Lst<String> keys = new Lst<>();
 		Lst<String> values = new Lst<>();
-		List<String> objects = new ArrayList<>(); 
+		List<String> objects = new ArrayList<>();
 		for (int i = 0; i < pathway.size(); i++) {
 			Map<String, Object> def = pathway.get(i);
 			for (Entry<String, Object> e : def.entrySet()) {
@@ -110,7 +116,7 @@ public class Extractor {
 				if (val.indexOf("{") >= 0) {
 					String s = PT.replaceStrings(val, keys, values);
 					if (!s.equals(val)) {
-						System.out.println(val+"\n"+s+"\n");
+						System.out.println(val + "\n" + s + "\n");
 						e.setValue(s);
 					}
 					val = s;
@@ -124,121 +130,145 @@ public class Extractor {
 			}
 		}
 		return objects;
-		
+
 	}
 
 	public Set<String> extractObjects(File targetDir) throws IFSException, IOException {
 
-		
-		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.structure.representation.mol.2d::{id}.mol}"
-		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.structure.representation.mol.2d::{id}.mol}"
+		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
+		// for
+		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.structure.representation.mol.2d::{id}.mol}"
+		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
+		// for
+		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.structure.representation.mol.2d::{id}.mol}"
 
 // [parse first node]
-		
+
 		// {IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}
 
 // [start a new finding aid and download this resource]
-		
+
 		// |
-		
+
 // [get file list]
-				
-		
-		//(\Q^FID for Publication/\E)(\Q{id=IFS.structure.param.compound.id::*}\E)(\Q.zip\E)
-	
+
+		// (\Q^FID for
+		// Publication/\E)(\Q{id=IFS.structure.param.compound.id::*}\E)(\Q.zip\E)
+
 // [pass to StructureIterator]		
 // [find matches and add structures to finding aid structure collection]
-		
+
 		// |
 
 // [get file list]
 		// [for each structure...]
-		
+
 		// \Q{id}/\E(\Q{IFS.structure.representation.mol.2d::{id}.mol}/E)"
 
-		// add this representation to this structure 
+		// add this representation to this structure
 
-		
-		
-		
-		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}"
+		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
+		// for
+		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}"
 
 		// [parse first node]
-				
+
 		// {IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}
 
 		// [start a new finding aid and download this resource]
-				
-				// |
-				
-		// [get file list]
-			
-				//FID for Publication/{id=IFS.structure.param.compound.id::*}.zip     
-		
-		// [pass to StructureIterator]
-		// [find matches and add structures to finding aid structure collection	if necessary	
-				
-				// |                 
+
+		// |
 
 		// [get file list]
-				
-				// {id}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}
+
+		// FID for Publication/{id=IFS.structure.param.compound.id::*}.zip
+
+		// [pass to StructureIterator]
+		// [find matches and add structures to finding aid structure collection if
+		// necessary
+
+		// |
+
+		// [get file list]
+
+		// {id}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}
 
 		// [pass to SpecDataIterator]
-		// [find matches and add NMR spec data to finding aid spec data collection; also add struc+spec to finding aid StrucSpecCollection]	
+		// [find matches and add NMR spec data to finding aid spec data collection; also
+		// add struc+spec to finding aid StrucSpecCollection]
 
-		// bruker files identified with / just before vendor dataset closing }
+		// bruker directories identified with / just before vendor dataset closing }
 		// standard ^....$
-		// * or / at end just removes $
+		// * at end just removes $
 		// *. becomes [^.]
-		// .  becomes [.]
-		// /**/*.pdf  becomes /(?:[^/]+/)*).+\Q.pdf\E
+		// . becomes [.]
+		// **/*.pdf becomes (?:[^/]+/)*).+\Q.pdf\E
 
 //		String s = "test/ok/here/1c.pdf";    // test/**/*.pdf
 //		Pattern p = Pattern.compile("^\\Qtest\\E/(?:[^/]+/)*(.+\\Q.pdf\\E)$");
 //		Matcher m = p.matcher(s);
 //		System.out.println(m.find() ? m.groupCount() + " " + m.group(0) + " -- " + m.group(1) : "");
-		
+
 		System.out.println("=====");
-		
+
 		if (sourceDir != null)
 			System.out.println("extractObjects from " + sourceDir);
 		System.out.println("extractObjects to " + targetDir.getAbsolutePath());
-		
+
 		int[] pt = new int[1];
-		
+
 		for (int i = 0; i < objects.size(); i++) {
 			String sObj = objects.get(i);
 			System.out.println("found object " + sObj);
-			pt[0]= 0;
+			
+			// next should never be a problem, as we do this wrapping ourselves
+			pt[0] = 0;
 			String sAid = getValue(sObj, "IFS.finding.aid.object", pt);
 			if (sAid == null)
 				throw new IFSException("no IFS.finding.aid.object:" + sObj);
+			
+			// must have a source
 			pt[0] = 0;
 			String sUrl = getValue(sAid, "IFS.finding.aid.source.data.uri", pt);
 			if (sUrl == null)
-				throw new IFSException("no IFS.finding.aid.source.data.uri:" + sAid);
-			String sData = sAid.substring(pt[0]);
-			sUrl = localizeURL(sUrl);	
+				throw new IFSException("no IFS.finding.aid.source.data.uri:" + sAid);		
+			String sData = sAid.substring(pt[0] + 1); // skip first "|"
+			sUrl = localizeURL(sUrl);
 			if (findingAid == null)
-				findingAid = new IFSFindingAid(sObj);
-			System.out.println("opening " + sUrl);
-			Map<String, ZipEntry> map = getZipContents(sUrl);
-			if (findingAid.zipContents == null)
-				findingAid.zipContents = new LinkedHashMap<String, ZipEntry>();
-			findingAid.zipContents.putAll(map);
-			processObject(sData, map.keySet());
+				findingAid = new IFSFindingAid(sObj, sUrl);
+			if (debugging)
+				System.out.println("opening " + sUrl);
+			Map<String, ZipEntry> files = getZipContents(sUrl);
+			findingAid.getZipContents().putAll(files);
+			int nFound = processObject(sData, files.keySet());
+			System.out.println("found " + nFound + " objects");
 		}
-		return findingAid.zipContents.keySet();
+		findingAid.finalizeExtraction();
+		return findingAid.getZipContents().keySet();
 	}
 
-	private void processObject(String sData, Set<String> set) {
-//		ParseObject po = new ParseObject(sData);
-//		for (String fname: set) {
-//			po.check(fname);
-//				
-//			}
-//		}
+	private int processObject(String sData, Set<String> set) throws IFSException {
+		ParseObject po = new ParseObject(sData);
+		int n = 0;
+		for (String fname : set) {
+			Matcher m = po.p.matcher(fname);
+			if (m.find()) {
+				n++;
+				findingAid.beginAddObject(fname);
+				if (debugging)
+					System.out.println("found " + fname);
+				for (String key : po.keys.keySet()) {
+					String param = po.keys.get(key);
+					String value = m.group(key);
+					findingAid.addObject(param, value);
+					if (debugging)
+						System.out.println("found " + param + " " + value);;
+				}
+				findingAid.endAddObject();
+
+			}
+		}
+		return n;
 	}
 
 	/**
@@ -250,13 +280,13 @@ public class Extractor {
 	 */
 	private String localizeURL(String sUrl) {
 		if (sourceDir != null) {
-		  int pt = sUrl.lastIndexOf("/");
-		  sUrl = sourceDir + sUrl.substring(pt);
+			int pt = sUrl.lastIndexOf("/");
+			sUrl = sourceDir + sUrl.substring(pt);
 		}
 		return sUrl;
 	}
 
-	private String getValue(String sObj, String key, int[] pt) throws IFSException {
+	private static String getValue(String sObj, String key, int[] pt) throws IFSException {
 		key = "{" + key + "::";
 		int p = sObj.indexOf(key, pt[0]);
 		if (p < 0)
@@ -286,37 +316,8 @@ public class Extractor {
 		return sObj.substring(p, pt[0]++);
 	}
 
-	/**
-	 * parse the object string for a known type
-	 * 
-	 * @param sObj
-	 * @param pt
-	 * @return ObjectType
-	 */
-	private ObjectType parseType(String sObj, int[] pt) {
-		int p = sObj.indexOf("{", pt[0]);
-		if (p != pt[0])
-			return null;
-		ObjectType type = null;
-		int p0 = p + 1;
-		for (int i = p0, len = sObj.length(); i < len; i++) {
-			switch (sObj.charAt(i)) {
-				case '{':
-				return null;
-				case '=':
-					p0 = i + 1;
-					break;
-				case ':':
-				    return IFSObjectAPI.getObjectTypeForName(sObj.substring(p0, i));
-			}
-		}
-		return null;
-	}
-	
-	
-	
 	private static Map<String, Map<String, ZipEntry>> htZipContents = new HashMap<>();
-	
+
 	static boolean debugging;
 
 	/**
@@ -365,7 +366,7 @@ public class Extractor {
 	 * 
 	 * @param zipPath the path to the zip file
 	 * @return a set of file names in alphabetical order
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public static Map<String, ZipEntry> getZipContents(String zipPath) throws IOException {
 		URL url = new URL(zipPath);// getURLWithCachedBytes(zipPath); // BH carry over bytes if we have them
@@ -379,8 +380,9 @@ public class Extractor {
 		return readZipContentsIteratively(url.openStream(), fileNames, "");
 	}
 
-	private static Map<String, ZipEntry> readZipContentsIteratively(InputStream is, Map<String, ZipEntry> fileNames, String baseName) throws IOException {
-		if (baseName.length() > 0)
+	private static Map<String, ZipEntry> readZipContentsIteratively(InputStream is, Map<String, ZipEntry> fileNames,
+			String baseName) throws IOException {
+		if (debugging && baseName.length() > 0)
 			System.out.println("opening " + baseName);
 		ZipInputStream zis = new ZipInputStream(is);
 		ZipEntry zipEntry = null;
@@ -406,20 +408,193 @@ public class Extractor {
 		this.sourceDir = sourceDir;
 	}
 
+	/**
+	 * A class for parsing the object string and using regex to match filenames.
+	 * 
+	 * @author hansonr
+	 *
+	 */
 
-	
-	class ParseObject {
+	static class ParseObject {
 
 		private String sData;
-		
-		private Pattern p;
-		private Matcher m;
 
-		public ParseObject(String sData) {
+		private Pattern p;
+
+		private List<String> regexList;
+
+		private Map<String, String> keys;
+
+		public ParseObject(String sData) throws IFSException {
 			this.sData = sData;
+			init();
 		}
-		
+
+		/**
+		 * Prepare pattern and match.
+		 * 
+		 * @throws IFSException
+		 * 
+		 * 
+		 */
+		private void init() throws IFSException {
+			// Using Java and JavaScript named capture groups for in-line defining.
+			//
+			// {regex::[a-z]} is left unchanged and becomes \\E[a-z]\\Q
+			//
+			// **/ becomes \\E(?:[^/]+/)*)\\Q
+			//
+			// *-* becomes \\E([^-](?:-[^-]+)*)\\Q and matches a-b-c
+			//
+			// * becomes \\E.+\\Q
+			//
+			// {id=IFS.nmr.param.expt::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
+			//
+			// {IFS.nmr.param.expt::xxx} becomes \\E(?<IFS0nmr0param0expt>\\Qxxx\\E)\\Q
+			//
+			// <id> becomes \\k<id>
+			//
+			// generally ... becomes ^\\Q...\\E$
+			//
+			// \\Q\\E in result is removed
+			//
+			// so:
+			//
+			// {IFS.nmr.param.expt::*} becomes \\E(?<IFS0nmr0param0expt>.+)\\Q
+			//
+			// {IFS.nmr.representation.vender.dataset::{IFS.structure.param.compound.id::*-*}-{IFS.nmr.param.expt::*}.jdf}
+			//
+			// becomes:
+			//
+			// ^(?<IFS0nmr0representation0vender0dataset>(?<IFS0structure0param0compound0id>([^-](?:-[^-]+)*))\\Q-\\E(?<IFS0nmr0param0expt>.+)\\Q.jdf\\E)$
+			//
+			// {id=IFS.structure.param.compound.id::*}.zip|{IFS.nmr.representation.vender.dataset::{id}_{IFS.nmr.param.expt::*}/}
+			//
+			// becomes:
+			//
+			// ^(?<id>*)\\Q.zip|\\E(?<IFS0nmr0representation0vender0dataset>\\k<id>\\Q_\\E(<IFS0nmr0param0expt>*)\\Q/\\E)$
+
+			// so....
+
+			// {regex::[a-z]} is left unchanged and becomes \\E[a-z]\\Q
+
+			String s = fixRegex(null);
+
+			// **/ becomes \\E(?:[^/]+/)*\\Q
+
+			s = PT.rep(s, "**/", "\\E(?:[^/]+/)\2\\Q");
+
+			Matcher m;
+			// *-* becomes \\E([^-](?:-[^-]+)*)\\Q and matches a-b-c
+			if (s.indexOf("*") != s.lastIndexOf("*")) {
+				if (pStarDotStar == null)
+					pStarDotStar = Pattern.compile("(\\*.\\*)");
+				while ((m = pStarDotStar.matcher(s)).find()) {
+					String schar = m.group(1);
+					s = PT.rep(s, "*" + schar + "*",
+							"\\E([^" + schar + "](?:\" + schar + \"[^\" + schar + \"]+)\2)\\Q");
+				}
+			}
+			// * becomes \\E.+\\Q
+
+			s = PT.rep(s, "*", "\\E[^|/]+\\Q");
+
+			// {id=IFS.nmr.param.expt::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
+			// {IFS.nmr.param.expt::xxx} becomes \\E(?<IFS0nmr0param0expt>\\Qxxx\\E)\\Q
+			// <id> becomes \\k<id>
+
+
+			s = compileIFSDefs(s, true, true);
+			
+			// restore '*'
+			s = s.replace('\2', '*');
+
+			// restore regex
+			// wrap with quotes and constraints ^\\Q...\\E$
+
+			s = "^\\Q" + fixRegex(s) + "\\E$";
+
+			// \\Q\\E in result is removed
+
+			s = PT.rep(s, "\\Q\\E", "");
+
+			System.out.println("pattern: " + s);
+			p = Pattern.compile(s);
+//			m = p.matcher("FID for Publication/S6.zip|S6/HRMS.zip|HRMS/67563_hazh180_maxis_pos.pdf");
+//			System.out.println(m.find());
+		}
+
+		/**
+		 * Find and regex-ify all {id=IFS.param::value} or {IFS.param::value}.
+		 * 
+		 * @param s growing regex string
+		 * @return regex string with all {...} fixed
+		 * @throws IFSException
+		 */
+		private String compileIFSDefs(String s, boolean isFull, boolean replaceK) throws IFSException {
+			if (isFull)
+				replaceK = (s.indexOf("<") >= 0);
+			while (s.indexOf("::") >= 0) {
+				Matcher m = objectDefPattern.matcher(s);
+				if (!m.find())
+					return s;
+				String param = m.group(1);
+				String val = m.group(2);
+				String pv = "{" + param + "::" + val + "}";
+				if (val.indexOf("::") >= 0)
+					val = compileIFSDefs(val, false, replaceK);
+				int pt = param.indexOf("=");
+				if (pt == 0)
+					throw new IFSException("bad {def=key::val} expression: " + param + "::" + val);
+				if (keys == null)
+					keys = new HashMap<String, String>();
+				String key;
+				if (pt > 0) {
+					key = param.substring(0, pt);
+					param = param.substring(pt + 1);
+				} else {
+					key = param.replace('.', '0');
+				}
+				keys.put(key, param);
+				// escape < and > here
+				s = PT.rep(s, pv, (replaceK ? "\\E(?\3" + key + "\4\\Q" : "\\E(?<" + key + ">\\Q") + val + "\\E)\\Q");
+			}
+			if (replaceK) {
+				// now fix k< references and revert \3 \4
+				s = PT.rep(s, "<", "\\E\\k<");
+				s = PT.rep(s, ">", ">\\Q").replace('\3', '<').replace('\4', '>');
+			}
+			return s;
+		}
+
+		private String fixRegex(String s) throws IFSException {
+			if (sData.indexOf("{regex::") < 0)
+				return (s == null ? sData : s);
+			if (s == null) {
+				// init
+				s = sData;
+				regexList = new ArrayList<>();
+				int[] pt = new int[1];
+				int i = 0;
+				while ((pt[0] = s.indexOf("{regex::")) >= 0) {
+					// save regex and replace by \0n\1
+					int p0 = pt[0];
+					String rx = getValue(s, "regex", pt);
+					regexList.add("\\E" + rx + "\\Q");
+					s = s.substring(0, p0) + "\0" + (i++) + "\1" + s.substring(pt[0]);
+				}
+			} else {
+				// restore regex
+				int p;
+				while ((p = s.indexOf('\0')) >= 0) {
+					int p2 = s.indexOf('\1');
+					int i = Integer.parseInt(s.substring(p + 1, p2));
+					s = s.substring(0, p) + regexList.get(i) + s.substring(p2 + 1);
+				}
+			}
+			return s;
+		}
+
 	}
-	
 
 }

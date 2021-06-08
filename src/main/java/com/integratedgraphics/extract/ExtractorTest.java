@@ -71,7 +71,7 @@ public class ExtractorTest extends Extractor {
 		int i0 = 0;
 		int i1 = 0;
 		
-		debugging = true; // verbose listing of all files
+		debugging = false;//true; // verbose listing of all files
 		
 		int failed = 0;
 		

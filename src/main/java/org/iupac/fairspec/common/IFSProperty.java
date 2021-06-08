@@ -33,9 +33,10 @@ public class IFSProperty {
 		return value;
 	}
 
-	public void setValue(Object value) {
-		this.value = value;
+	public IFSProperty getClone(Object value) {
+		IFSProperty p = new IFSProperty(name, type, units);
+		p.value = value;
+		return p;
 	}
-
 	
 }

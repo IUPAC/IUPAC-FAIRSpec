@@ -6,8 +6,7 @@ public abstract class IFSCollection<T> extends IFSObject<T> {
 	private ObjectType type;
 
 	protected IFSCollection(String name, ObjectType type) {
-		// only called by super()
-		this.name = name;
+		super(name);
 		this.type = type;
 	}
 
@@ -15,5 +14,22 @@ public abstract class IFSCollection<T> extends IFSObject<T> {
 	public ObjectType getObjectType() {
 		return type;
 	}
+	
+	@Override
+	public T getRepresentation(String objectName) {
+		// n/a
+		return null;
+	}
+
+	@Override
+	protected T newRepresentation(String objectName, IFSReference ifsReference, Object object) {
+		// n/a
+		return null;
+	}
+
+
+
+
+
 
 }

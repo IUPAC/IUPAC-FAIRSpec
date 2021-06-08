@@ -14,22 +14,23 @@ public class IFSStructureSpec {
 	public IFSStructureSpec(IFSStructure structure, IFSSpecData specData) {
 		this.structure = structure;
 		this.specData = specData;
+		System.out.println("Creating new StructureSpec for " + structure + " " + specData);
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof IFSStructureSpec))
+			return false;
+		IFSStructureSpec ss = (IFSStructureSpec) o;
+		return (ss.structure == structure && ss.specData == specData);
 	}
 
 	public IFSStructure getStructure() {
 		return structure;
 	}
 
-	public void setStructure(IFSStructure structure) {
-		this.structure = structure;
-	}
-
 	public IFSSpecData getSpecData() {
 		return specData;
-	}
-
-	public void setSpecData(IFSSpecData specData) {
-		this.specData = specData;
 	}
 
 }

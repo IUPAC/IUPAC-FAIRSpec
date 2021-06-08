@@ -21,5 +21,10 @@ public class IFSReference {
 	public void setRef(String ref) {
 		this.ref = ref;
 	}
+
+	@Override
+	public String toString() {
+		return ref;
+	}
 	
 }

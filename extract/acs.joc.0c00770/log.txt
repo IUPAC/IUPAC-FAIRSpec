@@ -1,6 +1,6 @@
 found Test 0 acs.joc.0c00770/22567817
 Extracting C:\Users\hansonr\git\IUPAC-FAIRSpec\.\extract\acs.joc.0c00770\IFS-extract.json
-{IFS-extract-version=0.1.0-alpha, pathway=[{example=compound zip files containing bruker and mnova files identified as'1_13C' and '1_mnova'}, {hash=0c00770}, {pubid=acs.joc.{hash}}, {src={IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{pubid}}}, {data0={IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/jo{hash}_si_002.zip}}, {data={IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22567817}}, {zip={data}|{id=IFS.structure.param.compound.id::*}.zip|}, {objects={zip}{IFS.nmr.representation.vender.dataset::{id}_{IFS.nmr.param.expt::*}/}}, {objects={zip}{IFS.nmr.representation.vender.dataset::{id}_mnova}}]}
+{IFS-extract-version=0.1.0-alpha, pathway=[{example=compound zip files containing bruker and mnova files identified as'1_13C' and '1_mnova'}, {hash=0c00770}, {pubid=acs.joc.{hash}}, {src={IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{pubid}}}, {data0={IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/jo{hash}_si_002.zip}}, {data={IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22567817}}, {zip={data}|{id=IFS.structure.param.compound.id::*}.zip|}, {objects={zip}{IFS.nmr.representation.vender.dataset::<id>_{IFS.nmr.param.expt::*}/}}, {objects={zip}{IFS.nmr.representation.vender.dataset::<id>_mnova}}]}
 0.1.0-alpha
 acs.joc.{hash}
 acs.joc.0c00770
@@ -14,17 +14,17 @@ acs.joc.0c00770
 {data}|{id=IFS.structure.param.compound.id::*}.zip|
 {IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22567817}|{id=IFS.structure.param.compound.id::*}.zip|
 
-{zip}{IFS.nmr.representation.vender.dataset::{id}_{IFS.nmr.param.expt::*}/}
-{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22567817}|{id=IFS.structure.param.compound.id::*}.zip|{IFS.nmr.representation.vender.dataset::{id}_{IFS.nmr.param.expt::*}/}
+{zip}{IFS.nmr.representation.vender.dataset::<id>_{IFS.nmr.param.expt::*}/}
+{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22567817}|{id=IFS.structure.param.compound.id::*}.zip|{IFS.nmr.representation.vender.dataset::<id>_{IFS.nmr.param.expt::*}/}
 
-{zip}{IFS.nmr.representation.vender.dataset::{id}_mnova}
-{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22567817}|{id=IFS.structure.param.compound.id::*}.zip|{IFS.nmr.representation.vender.dataset::{id}_mnova}
+{zip}{IFS.nmr.representation.vender.dataset::<id>_mnova}
+{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22567817}|{id=IFS.structure.param.compound.id::*}.zip|{IFS.nmr.representation.vender.dataset::<id>_mnova}
 
 2 objects found
 =====
 extractObjects from file:///c:/temp/iupac/zip
 extractObjects to C:\Users\hansonr\git\IUPAC-FAIRSpec\file:\c:\temp\iupac\ifs
-found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22567817}|{id=IFS.structure.param.compound.id::*}.zip|{IFS.nmr.representation.vender.dataset::{id}_{IFS.nmr.param.expt::*}/}}
+found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22567817}|{id=IFS.structure.param.compound.id::*}.zip|{IFS.nmr.representation.vender.dataset::<id>_{IFS.nmr.param.expt::*}/}}
 opening file:///c:/temp/iupac/zip/22567817
 1.zip
 opening 1.zip|
@@ -848,7 +848,7 @@ opening 9.zip|
 9.zip|9_1H/uxnmr.par
 9.zip|desktop.ini
 desktop.ini
-found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22567817}|{id=IFS.structure.param.compound.id::*}.zip|{IFS.nmr.representation.vender.dataset::{id}_mnova}}
+found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22567817}|{id=IFS.structure.param.compound.id::*}.zip|{IFS.nmr.representation.vender.dataset::<id>_mnova}}
 opening file:///c:/temp/iupac/zip/22567817
 found 811 files
 DONE failed=0
