@@ -1,9 +1,11 @@
 {"IFS-extract-version":"0.1.0-alpha","pathway":[
+ {"example":"compound directories containing identified bruker directories"},
  {"hash":"0c01297"},
  {"pubid":"acs.orglett.{hash}"},
  {"src":"{IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{pubid}}"},
- {"data":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data0":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data":"{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22612484}"},
 
  {"path":"{data}|NMR fids"},
- {"objects":"{path}/{IFS.nmr.representation.vender.dataset::{id=IFS.structure.param.compound.id::*}/{IFS.nmr.param.expt::*}/**/*}"}
+ {"objects":"{path}/{IFS.nmr.representation.vender.dataset::{id=IFS.structure.param.compound.id::*}/{IFS.nmr.param.expt::*}/}"}
 ]}

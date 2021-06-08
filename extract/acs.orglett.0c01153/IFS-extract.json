@@ -1,12 +1,19 @@
 {"IFS-extract-version":"0.1.0-alpha","pathway":[
+ {"example":"two supporting information zip files; compound zip files containing a single compound directory containing identified bruker zip files and CDX files"},
  {"hash":"0c01153"},
  {"pubid":"acs.orglett.{hash}"},
  {"src":"{IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{pubid}}"},
- {"data1":"IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_002.zip}"},
- {"data2":"IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_003.zip}"},
-
- {"objects":"{data1}|{IFS.nmr.representation.vender.dataset::{id=IFS.structure.param.compound.id::*}/{IFS.nmr.param.expt::*}/**/*}"},
- {"objects":"{data1}|{IFS.structure.representation.cdx::{id=IFS.structure.param.compound.id::*}/*.cdx}"},
- {"objects":"{data2}|{IFS.nmr.representation.vender.dataset::{id=IFS.structure.param.compound.id::*}/{IFS.nmr.param.expt::*}/**/*}"},
- {"objects":"{data2}|{IFS.structure.representation.cdx::{id=IFS.structure.param.compound.id::*}/*.cdx}"},
-}
+ {"data01":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data02":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_003.zip}"},
+ 
+ {"data1":"{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22284726}"},
+ {"data2":"{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22284729}"},
+ 
+ 
+ {"path1":"{data1}|*.zip|{id=IFS.structure.param.compound.id::*}/"},
+ {"path2":"{data2}|*.zip|{id=IFS.structure.param.compound.id::*}/"},
+ {"objects":"{path1}|{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}/}"},
+ {"objects":"{path1}|{IFS.structure.representation.cdx::*.cdx}"},
+ {"objects":"{path2}|{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}/}"},
+ {"objects":"{path2}|{IFS.structure.representation.cdx::*.cdx}"}
+]}
