@@ -1,23 +1,18 @@
 package org.iupac.fairspec.common;
 
-import org.iupac.fairspec.api.IFSObjectApi;
-
 @SuppressWarnings("serial")
 public abstract class IFSCollection<T> extends IFSObject<T> {
 
-	private CollectionType type;
+	private ObjectType type;
 
-	public IFSCollection(String name, CollectionType type) {
+	protected IFSCollection(String name, ObjectType type) {
+		// only called by super()
 		this.name = name;
 		this.type = type;
 	}
 
 	@Override
 	public ObjectType getObjectType() {
-		return IFSObjectApi.ObjectType.Collection;
-	}
-
-	public CollectionType getCollectionType() {
 		return type;
 	}
 

@@ -2,7 +2,7 @@ package org.iupac.fairspec.common;
 
 import java.util.ArrayList;
 
-import org.iupac.fairspec.api.IFSObjectApi;
+import org.iupac.fairspec.api.IFSObjectAPI;
 
 /**
  * IFSObject extends ArrayList so as to allow for storing and retrieving
@@ -15,7 +15,7 @@ import org.iupac.fairspec.api.IFSObjectApi;
  * @param <T>
  */
 @SuppressWarnings("serial")
-public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectApi<T> {
+public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectAPI<T> {
 
 	String name;	
 	

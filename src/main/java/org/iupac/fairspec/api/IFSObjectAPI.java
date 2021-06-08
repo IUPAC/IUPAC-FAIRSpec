@@ -1,5 +1,7 @@
 package org.iupac.fairspec.api;
 
+import org.iupac.fairspec.api.IFSObjectAPI.ObjectType;
+
 /**
  * This is the public interface for the IFSObject. Note that IFSObject extends
  * ArrayList, so all the methods of ArrayList are also inherited.
@@ -75,14 +77,13 @@ package org.iupac.fairspec.api;
  * @author hansonr
  *
  */
-public interface IFSObjectApi<T> {
+public interface IFSObjectAPI<T> {
 
 	enum ObjectType {
-		Collection, SpecData, Structure, Analysis
-	};
-
-	enum CollectionType {
-		FindingAid, SpecDataCollection, StructureCollection, StructureSpecCollection, AnalysisCollection
+		SpecData, Structure, Analysis, 
+		FindingAid, SpecDataCollection, StructureCollection, 
+		StructureSpecCollection, AnalysisCollection,
+		NMRSpecData, IRSpecData, MSSpecData, RAMANSpecData, 
 	};
 
 	String getName();
@@ -90,6 +91,30 @@ public interface IFSObjectApi<T> {
 	T getObject(int index);
 
 	int getObjectCount();
+
+	/** This list will grow.
+	 * 
+	 * @param propName
+	 * @return
+	 */
+	public static ObjectType getObjectTypeForName(String propName) {
+		if (propName.startsWith("IFS.finding.aid."))
+			return ObjectType.FindingAid;
+		if (propName.startsWith("IFS.structure."))
+			return ObjectType.Structure;
+		if (propName.startsWith("IFS.analysis."))
+			return ObjectType.Analysis;
+		if (propName.startsWith("IFS.nmr."))
+			return ObjectType.NMRSpecData;
+		if (propName.startsWith("IFS.ir."))
+			return ObjectType.IRSpecData;
+		if (propName.startsWith("IFS.ms."))
+			return ObjectType.MSSpecData;
+		if (propName.startsWith("IFS.raman."))
+			return ObjectType.RAMANSpecData;
+		return null;		
+	}
+	
 
 	ObjectType getObjectType();
 

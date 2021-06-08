@@ -1,12 +1,12 @@
 package org.iupac.fairspec.common;
 
-import org.iupac.fairspec.api.IFSObjectApi;
+import org.iupac.fairspec.api.IFSObjectAPI;
 
 @SuppressWarnings("serial")
 public class IFSStructureCollection extends IFSCollection<IFSStructure> {
 
 	public IFSStructureCollection(String name) {
-		super(name, IFSObjectApi.CollectionType.StructureCollection);
+		super(name, IFSObjectAPI.ObjectType.StructureCollection);
 	}
 	
 	public void addStructure(IFSStructure s) {
