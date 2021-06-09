@@ -43,7 +43,7 @@ public class ExtractorTest extends Extractor {
 		if (sourceDir != null)
 			super.setSourceDir(sourceDir);
 		// these are the files we want extracted
-		setCachePattern("\\.pdf$|/procs$|\\.png$|\\.mnova$");
+		setCachePattern("\\.pdf$|/procs$|/acqus$|\\.png$|\\.mnova$");
 		// this is the pattern to the files we want rezipped. 
 		// the <path> group is the one used and should point to the directory just above pdata.
 		setRezipCachePattern("^(?<path>.+(?:/|\\|)(?<dir>[^/]+)(?:/|\\|))pdata/[^/]+/procs$", "\\.mnova$");
