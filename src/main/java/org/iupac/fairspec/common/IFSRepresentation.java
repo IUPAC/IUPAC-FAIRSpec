@@ -7,7 +7,7 @@ package org.iupac.fairspec.common;
  * @author hansonr
  *
  */
-public abstract class IFSRepresentation {
+public class IFSRepresentation {
 
 	/**
 	 * The type of this data -- to be specified...

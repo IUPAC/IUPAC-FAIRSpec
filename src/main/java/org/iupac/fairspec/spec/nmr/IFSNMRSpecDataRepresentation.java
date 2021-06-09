@@ -16,18 +16,9 @@ public class IFSNMRSpecDataRepresentation extends IFSSpecDataRepresentation {
 	public final static String NMR_REP_JCAMP_SPEC_1i1r_1D = "nmr.rep.jcamp.spec.1i1r.1d";
 	public final static String NMR_REP_JCAMP_SPEC_2D = "nmr.rep.jcamp.spec.2d";
 
-	private final static String[] repNames = new String[] {
-			NMR_REP_VENDOR_DATASET,
-			NMR_REP_JCAMP_FID_1D,
-			NMR_REP_JCAMP_FID_2D,
-			NMR_REP_JCAMP_SPEC_1r_1D,
-			NMR_REP_JCAMP_SPEC_1i1r_1D,
-			NMR_REP_JCAMP_SPEC_2D,
-			NMR_REP_SPECTRUM_PDF,
-			NMR_REP_SPECTRUM_IMAGE,
-			NMR_REP_SPECTRUM_DESCRIPTION,
-			NMR_REP_PEAKLIST,		
-				};
+	private final static String[] repNames = new String[] { NMR_REP_VENDOR_DATASET, NMR_REP_JCAMP_FID_1D,
+			NMR_REP_JCAMP_FID_2D, NMR_REP_JCAMP_SPEC_1r_1D, NMR_REP_JCAMP_SPEC_1i1r_1D, NMR_REP_JCAMP_SPEC_2D,
+			NMR_REP_SPECTRUM_PDF, NMR_REP_SPECTRUM_IMAGE, NMR_REP_SPECTRUM_DESCRIPTION, NMR_REP_PEAKLIST, };
 
 	public static String[] getRepnames() {
 		return repNames;
@@ -35,6 +26,13 @@ public class IFSNMRSpecDataRepresentation extends IFSSpecDataRepresentation {
 
 	public IFSNMRSpecDataRepresentation(String type, IFSReference ref, Object data) {
 		super(type, ref, data);
+	}
+
+	public static String getNMRTypeFromName(String fname) {
+		return (fname.endsWith(".png") ? "image/png"
+				: fname.endsWith(".pdf") ? "application/pdf"
+						: fname.endsWith("/procs") ? "procs"
+								: fname.endsWith(".jpf") ? "JEOL" : fname.endsWith(".mnova") ? "mnova" : "?");
 	}
 
 }

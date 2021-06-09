@@ -38,7 +38,7 @@ public class Util {
 				getURLBytesAsync(url, whenDone);
 				return;
 			}
-			whenDone.apply(getLimitedStreamBytes(url.openStream(), -1, null, true));
+			whenDone.apply(getLimitedStreamBytes(url.openStream(), -1, null, true, true));
 			return;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -49,13 +49,23 @@ public class Util {
 
 	public static byte[] getURLBytesAsync(URL url, Function<byte[], Void> whenDone) throws IOException {
 		if (whenDone == null)
-			return getLimitedStreamBytes(url.openStream(), 0, null, true);
+			return getLimitedStreamBytes(url.openStream(), 0, null, true, true);
 		jsutil.getURLBytesAsync(url, whenDone);
 		return null;
 	}
 
 	// from javajs.Rdr
+	/**
+	 * @deprecated Use {@link #getLimitedStreamBytes(InputStream,long,OutputStream,boolean,boolean)} instead
+	 */
 	public static byte[] getLimitedStreamBytes(InputStream is, long n, OutputStream out, boolean andCloseInput)
+			throws IOException {
+				return getLimitedStreamBytes(is, n, out, andCloseInput, false);
+			}
+
+
+	// from javajs.Rdr
+	public static byte[] getLimitedStreamBytes(InputStream is, long n, OutputStream out, boolean andCloseInput, boolean andCloseOutput)
 			throws IOException {
 
 		// Note: You cannot use InputStream.available() to reliably read
@@ -88,8 +98,15 @@ public class Util {
 				// ignore
 			}
 		}
-		if (toOut)
+		if (toOut) {
+			if (andCloseOutput)
+			try {
+				out.close();
+			} catch (IOException e) {
+				// ignore
+			}
 			return null;
+		}
 		if (totalLen == bytes.length)
 			return bytes;
 		buf = new byte[totalLen];

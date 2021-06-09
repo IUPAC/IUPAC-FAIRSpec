@@ -1,6 +1,8 @@
 package com.integratedgraphics.extract;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -15,9 +17,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSFindingAid;
+import org.iupac.fairspec.common.IFSReference;
+import org.iupac.fairspec.common.IFSRepresentation;
+import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
 
 import com.integratedgraphics.util.Util;
 
@@ -27,6 +33,11 @@ import javajs.util.PT;
 
 public class Extractor {
 
+	public final static int EXTRACT_MODE_CHECK_ONLY = 0;
+	public final static int EXTRACT_MODE_CREATE_CACHE = 1;
+	public final static int EXTRACT_MODE_REPACKAGE_ZIP = 2;
+		
+	
 	public Extractor() {
 		clearZipCache();
 	}
@@ -39,14 +50,56 @@ public class Extractor {
 	protected static Pattern objectDefPattern = Pattern.compile("\\{([^:]+)::([^}]+)\\}");
 	protected static Pattern pStarDotStar;
 
+	private String zipPath;
+	private File targetDir;
 
+	/**
+	 * files matched will be cached in the target directory
+	 */
+	protected Pattern cachePattern;
+
+	/**
+	 * a memory cache of representations
+	 */
+	protected List<IFSRepresentation> cache;
+
+	public void setCachePattern(String s) {
+		cachePattern = Pattern.compile(s);
+		cache = new ArrayList<>();
+	}
+	
+	/**
+	 * files matched will be cached as zip files
+	 */
+	protected Pattern rezipCachePattern;
+	protected List<IFSRepresentation> rezipCache;
+	private Pattern rezipCacheExcludePattern;
+	
+	/**
+	 * Set the file match zip cache pattern.
+	 * 
+	 * @param procs
+	 * @param toExclude 
+	 */
+	public void setRezipCachePattern(String procs, String toExclude) {
+		rezipCachePattern = Pattern.compile(procs);
+		rezipCacheExcludePattern = Pattern.compile(toExclude);
+		rezipCache = new ArrayList<>();
+	}
+	
+	protected long cachedByteCount;
+	private IFSRepresentation nextRezip;
+	private String nextRezipName;
+	private String rootPath;
+	private Object lastRezipPath;
+	
 	public List<String> getObjectsForFile(File ifsExtractScript) throws IOException {
 		System.out.println("Extracting " + ifsExtractScript.getAbsolutePath());
 		return getObjectsForStream(ifsExtractScript.toURI().toURL().openStream());
 	}
 
 	public List<String> getObjectsForStream(InputStream is) throws IOException {
-		byte[] bytes = Util.getLimitedStreamBytes(is, -1, null, true);
+		byte[] bytes = Util.getLimitedStreamBytes(is, -1, null, true, true);
 		String script = new String(bytes);
 		return objects = parseScript(script);
 	}
@@ -135,8 +188,14 @@ public class Extractor {
 
 	}
 
+	/**
+	 * Find and extract all objects of interest from a ZIP file. 
+	 * 
+	 */
 	public Set<String> extractObjects(File targetDir) throws IFSException, IOException {
 
+		this.targetDir = targetDir;
+		targetDir.mkdir();
 		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
 		// for
 		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.structure.representation.mol.2d::{id}.mol}"
@@ -240,12 +299,21 @@ public class Extractor {
 			sUrl = localizeURL(sUrl);
 			if (debugging)
 				System.out.println("opening " + sUrl);
+			zipPath = sUrl.substring(sUrl.lastIndexOf(":") + 1);
+			rootPath = new File(zipPath).getName();
+			lastRezipPath = null;
 			Map<String, ZipEntry> files = getZipContents(sUrl);
+			if (rezipCache != null && rezipCache.size() > 0) {
+				// this will drain the rezipCache
+				getNextRezipName();
+				readZipContentsIteratively(new URL(sUrl).openStream(), null, "", true);
+			}
+			zipPath = null;
 			findingAid.getZipContents().putAll(files);
 			int nFound = processObject(sData, files.keySet());
 			System.out.println("found " + nFound + " objects");
 		}
-		findingAid.finalizeExtraction();
+		findingAid.finalizeExtraction();		
 		return findingAid.getZipContents().keySet();
 	}
 
@@ -373,7 +441,7 @@ public class Extractor {
 	 * @return a set of file names in alphabetical order
 	 * @throws IOException
 	 */
-	public static Map<String, ZipEntry> getZipContents(String zipPath) throws IOException {
+	public Map<String, ZipEntry> getZipContents(String zipPath) throws IOException {
 		URL url = new URL(zipPath);// getURLWithCachedBytes(zipPath); // BH carry over bytes if we have them
 									// already
 		Map<String, ZipEntry> fileNames = htZipContents.get(url.toString());
@@ -382,31 +450,109 @@ public class Extractor {
 		// Scan URL zip stream for files.
 		fileNames = new LinkedHashMap<String, ZipEntry>();
 		htZipContents.put(url.toString(), fileNames);
-		return readZipContentsIteratively(url.openStream(), fileNames, "");
+		return readZipContentsIteratively(url.openStream(), fileNames, "", false);
 	}
 
-	private static Map<String, ZipEntry> readZipContentsIteratively(InputStream is, Map<String, ZipEntry> fileNames,
-			String baseName) throws IOException {
+	private Map<String, ZipEntry> readZipContentsIteratively(InputStream is, Map<String, ZipEntry> fileNames,
+			String baseName, boolean doRezip) throws IOException {
 		if (debugging && baseName.length() > 0)
 			System.out.println("opening " + baseName);
+		boolean isTopLevel = (baseName.length() == 0);
 		ZipInputStream zis = new ZipInputStream(is);
 		ZipEntry zipEntry = null;
 		int n = 0;
-		while ((zipEntry = zis.getNextEntry()) != null) {
+		ZipEntry rezipEntry = null;
+		while ((zipEntry = (rezipEntry == null ? zis.getNextEntry() : rezipEntry)) != null) {
+			rezipEntry = null;
 			if (!zipEntry.isDirectory() && zipEntry.getSize() == 0)
 				continue;
 			n++;
-			String fname = baseName + zipEntry.getName();
+			String zipname = baseName + zipEntry.getName();
+			if (zipname.indexOf("MACOSX") >= 0) // Test 9: acs.orglett.0c01153/22284726,22284729
+				continue;
 			if (debugging)
-				System.out.println(fname);
-			fileNames.put(fname, zipEntry); // Java has no use for the ZipEntry, but JavaScript can read it.
-			if (fname.endsWith(".zip")) {
-				readZipContentsIteratively(zis, fileNames, fname + "|");
+				System.out.println(zipname);
+			if (fileNames != null)
+				fileNames.put(zipname, zipEntry); // Java has no use for the ZipEntry, but JavaScript can read it.
+			if (zipname.endsWith(".zip")) {
+				readZipContentsIteratively(zis, fileNames, zipname + "|", doRezip);
+			} else if (doRezip) {
+				if (zipname.equals(nextRezipName)) {
+					rezipEntry = rezip(zis, zipname, zipEntry);
+					getNextRezipName();
+				}
+			} else {	
+				checkToCache(zipname, zis, zipEntry);
 			}
 		}
-		if (baseName.length() == 0)
+		if (isTopLevel)
 			zis.close();
 		return fileNames;
+	}
+
+
+	private ZipEntry rezip(ZipInputStream zis, String fname, ZipEntry entry) throws IOException {
+		System.out.println("rezipping " + fname + " for " + entry + " " + new File(entry.getName()).getName());
+		File outFile = getFileTarget(fname + ".zip");
+		FileOutputStream fos = new FileOutputStream(outFile);
+		ZipOutputStream zos = new ZipOutputStream(fos);
+		String dirName = entry.getName();
+		String parent = new File(entry.getName()).getParent();
+		int lenOffset = (parent == null ? 0 : parent.length() + 1);
+		while (entry != null && entry.getName().startsWith(dirName)) {
+			String outName = entry.getName().substring(lenOffset);
+			if (!entry.isDirectory()
+					&& (rezipCacheExcludePattern == null || !rezipCacheExcludePattern.matcher(outName).find())) {
+				zos.putNextEntry(new ZipEntry(outName));
+				if (entry.getSize() != 0)
+					Util.getLimitedStreamBytes(zis, entry.getSize(), zos, false, false);
+				zos.closeEntry();
+			}
+			entry = zis.getNextEntry();
+		}
+		zos.close();
+		fos.close();
+		return entry;
+	}
+
+	private void getNextRezipName() {
+		if (rezipCache.size() == 0) {
+			nextRezipName = null;
+			nextRezip = null;
+		} else {
+			nextRezipName = (nextRezip = rezipCache.remove(0)).getRef().getRef();
+		}
+	}
+
+	private void checkToCache(String zipname, InputStream zis, ZipEntry zipEntry) throws FileNotFoundException, IOException {
+		if (cachePattern != null && cachePattern.matcher(zipname).find()) {
+			File f = getFileTarget(zipname);
+			String fname = rootPath + "|" + zipname;
+			long len = zipEntry.getSize();
+			Util.getLimitedStreamBytes(zis, len, new FileOutputStream(f), false, true);
+			String type = IFSNMRSpecDataRepresentation.getNMRTypeFromName(fname);
+			System.out.println("! caching " + type + " " + len + " " + fname);
+			cachedByteCount += len;
+			cache.add(new IFSRepresentation(type, new IFSReference(fname), f));
+		}
+
+		Matcher m;
+		if (rezipCachePattern != null && (m = rezipCachePattern.matcher(zipname)).find()) {
+			String fname = m.group("path");
+			if (fname.equals(lastRezipPath)) {
+				System.out.println("duplicate path " + fname);
+			} else {
+				lastRezipPath = fname;
+				IFSRepresentation ref = new IFSRepresentation("bruker.zip", new IFSReference(fname), fname);
+				rezipCache.add(ref);
+				System.out.println("! rezip added " + fname);
+			}
+		}
+
+	}
+	
+	private File getFileTarget(String fname) {
+		return new File(targetDir + "/" + (rootPath + "|" + fname).replace('|', '_').replace('/', '_').replace(' ', '_'));
 	}
 
 	public void setSourceDir(String sourceDir) {

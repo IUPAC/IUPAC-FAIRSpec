@@ -2,9 +2,12 @@ package com.integratedgraphics.extract;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.iupac.fairspec.common.IFSException;
+import org.iupac.fairspec.common.IFSReference;
 
 /**
  * 
@@ -39,8 +42,14 @@ public class ExtractorTest extends Extractor {
 		// now actually do the extraction.
 		if (sourceDir != null)
 			super.setSourceDir(sourceDir);
+		// these are the files we want extracted
+		setCachePattern("\\.pdf$|/procs$|\\.png$|\\.mnova$");
+		// this is the pattern to the files we want rezipped. 
+		// the <path> group is the one used and should point to the directory just above pdata.
+		setRezipCachePattern("^(?<path>.+(?:/|\\|)(?<dir>[^/]+)(?:/|\\|))pdata/[^/]+/procs$", "\\.mnova$");
 		Set<String> set = extractObjects(targetDir);
-		System.out.println("found " + set.size() + " files");
+		System.out.println("found " + set.size() + " files "
+				+ (cache == null ? "" : "cached " + cache.size() + " files (" + cachedByteCount + " bytes)"));
 
 	}
 
@@ -104,7 +113,7 @@ public class ExtractorTest extends Extractor {
 					def = def.substring(0, pt);
 				script = "./extract/" + def + "/IFS-extract.json";
 				sourceDir = "file:///c:/temp/iupac/zip";
-				targetDir = "file:///c:/temp/iupac/ifs";
+				targetDir = "c:/temp/iupac/ifs";
 			}
 
 			// ./extract/ should be in the main Eclipse project directory.
