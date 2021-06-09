@@ -6,7 +6,7 @@
  {"data0":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_002.zip}"},
  {"data":"{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22491647}"},
 
- {"path":"{data}|NMR DATA"},
- {"objects":"{path}/products/{IFS.nmr.representation.vender.dataset::{id=IFS.structure.param.compound.id::*}.mnova}"},
- {"objects":"{path}/Substrate/{IFS.nmr.representation.vender.dataset::{id=IFS.structure.param.compound.id::*}.mnova}"}
+ {"path":"{data}|"},
+ {"objects":"{path}products/{IFS.nmr.representation.vender.dataset::{id=IFS.structure.param.compound.id::*}.mnova}"},
+ {"objects":"{path}Substrate/{IFS.nmr.representation.vender.dataset::{id=IFS.structure.param.compound.id::*}.mnova}"}
 ]}

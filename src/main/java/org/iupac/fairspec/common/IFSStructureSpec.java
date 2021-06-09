@@ -14,7 +14,6 @@ public class IFSStructureSpec {
 	public IFSStructureSpec(IFSStructure structure, IFSSpecData specData) {
 		this.structure = structure;
 		this.specData = specData;
-		System.out.println("Creating new StructureSpec for " + structure + " " + specData);
 	}
 	
 	@Override

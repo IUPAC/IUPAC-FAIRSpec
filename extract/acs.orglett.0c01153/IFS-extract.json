@@ -12,8 +12,9 @@
  
  {"path1":"{data1}|*.zip|{id=IFS.structure.param.compound.id::*}/"},
  {"path2":"{data2}|*.zip|{id=IFS.structure.param.compound.id::*}/"},
- {"objects":"{path1}|{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}/}"},
- {"objects":"{path1}|{IFS.structure.representation.cdx::*.cdx}"},
- {"objects":"{path2}|{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}/}"},
- {"objects":"{path2}|{IFS.structure.representation.cdx::*.cdx}"}
+ 
+ {"objects":"{path1}{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}.zip}"},
+ {"objects":"{path2}{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}.zip}"},
+ {"objects":"{path1}{IFS.structure.representation.cdx::*.cdx}"},
+ {"objects":"{path2}{IFS.structure.representation.cdx::*.cdx}"}
 ]}

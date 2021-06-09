@@ -69,7 +69,7 @@ public class ExtractorTest extends Extractor {
 	public static void main(String[] args) {
 
 		int i0 = 0;
-		int i1 = 0;
+		int i1 = 12; // 12 max
 		
 		debugging = false;//true; // verbose listing of all files
 		
@@ -98,7 +98,7 @@ public class ExtractorTest extends Extractor {
 				break;
 			case 0:
 				String def = testSet[itest];
-				System.out.println("found Test " + itest + " " + def);
+				System.out.println("\n!\n! found Test " + itest + " " + def);
 				int pt = def.indexOf("/");
 				if (pt >= 0)
 					def = def.substring(0, pt);

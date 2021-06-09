@@ -60,7 +60,8 @@ public class Extractor {
 	@SuppressWarnings("unchecked")
 	private List<String> parseScript(String script) throws IOException {
 		Map<String, Object> jp = (Map<String, Object>) new JSJSONParser().parse(script, false);
-		System.out.println(jp);
+		if (debugging)
+			System.out.println(jp);
 		extractVersion = (String) jp.get("IFS-extract-version");
 		System.out.println(extractVersion);
 		List<Map<String, Object>> pathway = (List<Map<String, Object>>) jp.get("pathway");
@@ -116,7 +117,8 @@ public class Extractor {
 				if (val.indexOf("{") >= 0) {
 					String s = PT.replaceStrings(val, keys, values);
 					if (!s.equals(val)) {
-						System.out.println(val + "\n" + s + "\n");
+						if (debugging)
+							System.out.println(val + "\n" + s + "\n");
 						e.setValue(s);
 					}
 					val = s;
@@ -233,9 +235,9 @@ public class Extractor {
 			if (sUrl == null)
 				throw new IFSException("no IFS.finding.aid.source.data.uri:" + sAid);		
 			String sData = sAid.substring(pt[0] + 1); // skip first "|"
-			sUrl = localizeURL(sUrl);
 			if (findingAid == null)
 				findingAid = new IFSFindingAid(sObj, sUrl);
+			sUrl = localizeURL(sUrl);
 			if (debugging)
 				System.out.println("opening " + sUrl);
 			Map<String, ZipEntry> files = getZipContents(sUrl);
@@ -250,7 +252,10 @@ public class Extractor {
 	private int processObject(String sData, Set<String> set) throws IFSException {
 		ParseObject po = new ParseObject(sData);
 		int n = 0;
+		//System.out.println(sData);
+		//System.out.println(po.p);
 		for (String fname : set) {
+			//System.out.println(fname);
 			Matcher m = po.p.matcher(fname);
 			if (m.find()) {
 				n++;
@@ -444,7 +449,7 @@ public class Extractor {
 			//
 			// **/ becomes \\E(?:[^/]+/)*)\\Q
 			//
-			// *-* becomes \\E([^-](?:-[^-]+)*)\\Q and matches a-b-c
+			// *-* becomes \\E([^-]+(?:-[^-]+)*)\\Q and matches a-b-c
 			//
 			// * becomes \\E.+\\Q
 			//
@@ -485,14 +490,14 @@ public class Extractor {
 			s = PT.rep(s, "**/", "\\E(?:[^/]+/)\2\\Q");
 
 			Matcher m;
-			// *-* becomes \\E([^-](?:-[^-]+)*)\\Q and matches a-b-c
+			// *-* becomes \\E([^-]+(?:-[^-]+)*)\\Q and matches a-b-c
 			if (s.indexOf("*") != s.lastIndexOf("*")) {
 				if (pStarDotStar == null)
-					pStarDotStar = Pattern.compile("(\\*.\\*)");
+					pStarDotStar = Pattern.compile("\\*(.)\\*");
 				while ((m = pStarDotStar.matcher(s)).find()) {
 					String schar = m.group(1);
 					s = PT.rep(s, "*" + schar + "*",
-							"\\E([^" + schar + "](?:\" + schar + \"[^\" + schar + \"]+)\2)\\Q");
+							"\\E([^" + schar + "]+(?:" + schar + "[^" + schar + "]+)\2)\\Q");
 				}
 			}
 			// * becomes \\E.+\\Q

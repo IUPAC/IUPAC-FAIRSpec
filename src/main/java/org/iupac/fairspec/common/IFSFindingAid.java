@@ -164,10 +164,12 @@ public class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 	}
 
 	public void finalizeExtraction() {
-		System.out.println("IFSFindingAid extraction complete:\n" 
+		if (getStructureCollection().size() == 0 && getSpecDataCollection(ObjectType.Unknown).size() == 0)
+			System.out.println("FA error");
+		System.out.println("! IFSFindingAid extraction complete:\n! " + url + "\n! "
 				+ getStructureCollection().size() + " structures "
 				+ getSpecDataCollection(ObjectType.Unknown).size() + " specdata "
-				+ getStructureSpecCollection().size() + " structure-spectra bindings");
+				+ getStructureSpecCollection().size() + " structure-spec bindings");
 	}
 
 }
