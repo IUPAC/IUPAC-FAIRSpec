@@ -42,15 +42,14 @@ public class ExtractorTest extends Extractor {
 		// now actually do the extraction.
 		if (sourceDir != null)
 			super.setSourceDir(sourceDir);
-		// these are the files we want extracted
-		setCachePattern("\\.pdf$|/procs$|/acqus$|\\.png$|\\.mnova$");
+		// these are the files we want extracted -- no $ for cdx, as that could be cdxml
+		setCachePattern("\\.pdf$|/procs$|/proc2s$|/acqus$|/acqu2s$|\\.png$|\\.mol$|\\.sdf$|\\.cdx|\\.jdf$|\\.mnova$");
 		// this is the pattern to the files we want rezipped. 
 		// the <path> group is the one used and should point to the directory just above pdata.
 		setRezipCachePattern("^(?<path>.+(?:/|\\|)(?<dir>[^/]+)(?:/|\\|))pdata/[^/]+/procs$", "\\.mnova$");
 		Set<String> set = extractObjects(targetDir);
 		System.out.println("found " + set.size() + " files "
 				+ (cache == null ? "" : "cached " + cache.size() + " files (" + cachedByteCount + " bytes)"));
-
 	}
 
 

@@ -67,7 +67,12 @@ public class Extractor {
 		cachePattern = Pattern.compile(s);
 		cache = new ArrayList<>();
 	}
+
 	
+	/**
+	 * patterns to ignore completely. 
+	 */
+	Pattern ignorePattern = Pattern.compile("MACOSX|desktop\\.ini");
 	/**
 	 * files matched will be cached as zip files
 	 */
@@ -301,6 +306,7 @@ public class Extractor {
 				System.out.println("opening " + sUrl);
 			zipPath = sUrl.substring(sUrl.lastIndexOf(":") + 1);
 			rootPath = new File(zipPath).getName();
+			new File(targetDir + "/" + rootPath).mkdir();
 			lastRezipPath = null;
 			Map<String, ZipEntry> files = getZipContents(sUrl);
 			if (rezipCache != null && rezipCache.size() > 0) {
@@ -468,8 +474,11 @@ public class Extractor {
 				continue;
 			n++;
 			String zipname = baseName + zipEntry.getName();
-			if (zipname.indexOf("MACOSX") >= 0) // Test 9: acs.orglett.0c01153/22284726,22284729
+			if (ignorePattern.matcher(zipname).find()) { 
+				// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX, 
+				//    acs.joc.0c00770/22567817
 				continue;
+			}
 			if (debugging)
 				System.out.println(zipname);
 			if (fileNames != null)
@@ -499,20 +508,39 @@ public class Extractor {
 		String dirName = entry.getName();
 		String parent = new File(entry.getName()).getParent();
 		int lenOffset = (parent == null ? 0 : parent.length() + 1);
-		while (entry != null && entry.getName().startsWith(dirName)) {
-			String outName = entry.getName().substring(lenOffset);
+		String newName = "";
+		if (!isNumeric(dirName.substring(lenOffset))) {
+			lenOffset = dirName.length();
+			newName = "1/";
+		}
+		while ((entry = zis.getNextEntry()) != null && entry.getName().startsWith(dirName)) {
+			String outName = newName + entry.getName().substring(lenOffset);
 			if (!entry.isDirectory()
 					&& (rezipCacheExcludePattern == null || !rezipCacheExcludePattern.matcher(outName).find())) {
+				if (ignorePattern.matcher(outName).find()) { 
+					// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX, 
+					//    acs.joc.0c00770/22567817
+					continue;
+				}
+
+				
 				zos.putNextEntry(new ZipEntry(outName));
 				if (entry.getSize() != 0)
 					Util.getLimitedStreamBytes(zis, entry.getSize(), zos, false, false);
 				zos.closeEntry();
 			}
-			entry = zis.getNextEntry();
 		}
 		zos.close();
 		fos.close();
 		return entry;
+	}
+
+	private static boolean isNumeric(String s) {
+		// I just don't like to fire exceptions. 
+		for (int i = s.length(); --i >= 0;)
+			if (!Character.isDigit(s.charAt(i)))
+				return false;
+		return true;
 	}
 
 	private void getNextRezipName() {
@@ -552,7 +580,7 @@ public class Extractor {
 	}
 	
 	private File getFileTarget(String fname) {
-		return new File(targetDir + "/" + (rootPath + "|" + fname).replace('|', '_').replace('/', '_').replace(' ', '_'));
+		return new File(targetDir + "/" + rootPath + "/" + fname.replace('|', '_').replace('/', '_').replace(' ', '_'));
 	}
 
 	public void setSourceDir(String sourceDir) {
