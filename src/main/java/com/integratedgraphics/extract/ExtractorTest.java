@@ -43,7 +43,11 @@ public class ExtractorTest extends Extractor {
 		if (sourceDir != null)
 			super.setSourceDir(sourceDir);
 		// these are the files we want extracted -- no $ for cdx, as that could be cdxml
-		setCachePattern("\\.pdf$|/procs$|/proc2s$|/acqus$|/acqu2s$|\\.png$|\\.mol$|\\.sdf$|\\.cdx|\\.jdf$|\\.mnova$");
+		setCachePattern("/procs$|/proc2s$|/acqus$|/acqu2s$|"
+				+ "\\.pdf$|\\.png$|"
+				+ "\\.mol$|\\.sdf$|\\.cdx|"
+//				+ "\\.log$|\\.out$|\\.txt$|"// maybe put these into JSON only? 
+				+ "\\.jdf$|\\.mnova$");
 		// this is the pattern to the files we want rezipped. 
 		// the <path> group is the one used and should point to the directory just above pdata.
 		setRezipCachePattern("^(?<path>.+(?:/|\\|)(?<dir>[^/]+)(?:/|\\|))pdata/[^/]+/procs$", "\\.mnova$");
@@ -60,8 +64,8 @@ public class ExtractorTest extends Extractor {
 	 */
 	private final static String[] testSet = {
 			"acs.joc.0c00770/22567817",  // 0 727 files; zips of bruker dirs + mnovas
-			"acs.orglett.0c00571/21975525", // 3212 files; zips of bruker zips and HRMS
-			"acs.orglett.0c00624/21947274", // 1143 files; 2 MANY bruker dirs
+			"acs.orglett.0c00571/21975525", // 1 3212 files; zips of bruker zips and HRMS
+			"acs.orglett.0c00624/21947274", // 2 1143 files; MANY bruker dirs
 			"acs.orglett.0c00755/22150197", // 3 MANY bruker dirs
 			"acs.orglett.0c00788/22125318", // 4 jdfs
 			"acs.orglett.0c00874/22233351", // 5 bruker dirs
