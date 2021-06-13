@@ -2,12 +2,9 @@ package com.integratedgraphics.extract;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 import org.iupac.fairspec.common.IFSException;
-import org.iupac.fairspec.common.IFSReference;
+import org.iupac.fairspec.common.IFSFindingAid;
 
 /**
  * 
@@ -36,12 +33,12 @@ import org.iupac.fairspec.common.IFSReference;
  */
 public class ExtractorTest extends Extractor {
 
-	public ExtractorTest(File ifsExtractScript, File targetDir, String sourceDir) throws IOException, IFSException {
+	public ExtractorTest(File ifsExtractScriptFile, File targetDir, String sourceDir) throws IOException, IFSException {
 		// first create super.objects, a List<String>
-		getObjectsForFile(ifsExtractScript);
+		initialize(ifsExtractScriptFile);
 		// now actually do the extraction.
 		if (sourceDir != null)
-			super.setSourceDir(sourceDir);
+			setLocalSourceDir(sourceDir);
 		// these are the files we want extracted -- no $ for cdx, as that could be cdxml
 		setCachePattern("/procs$|/proc2s$|/acqus$|/acqu2s$|"
 				+ "\\.pdf$|\\.png$|"
@@ -51,9 +48,9 @@ public class ExtractorTest extends Extractor {
 		// this is the pattern to the files we want rezipped. 
 		// the <path> group is the one used and should point to the directory just above pdata.
 		setRezipCachePattern("^(?<path>.+(?:/|\\|)(?<dir>[^/]+)(?:/|\\|))pdata/[^/]+/procs$", "\\.mnova$");
-		Set<String> set = extractObjects(targetDir);
-		System.out.println("found " + set.size() + " files "
-				+ (cache == null ? "" : "cached " + cache.size() + " files (" + cachedByteCount + " bytes)"));
+		IFSFindingAid aid = extractObjects(targetDir);
+		System.out.println("extracted " + manifestCount + " files (" + extractedByteCount + " bytes)"
+				+ "; ignored " + ignoredCount + " files (" + ignoredByteCount + " bytes)");
 	}
 
 
@@ -81,7 +78,7 @@ public class ExtractorTest extends Extractor {
 	public static void main(String[] args) {
 
 		int i0 = 0;
-		int i1 = 12; // 12 max
+		int i1 = 0; // 12 max
 		
 		debugging = false;//true; // verbose listing of all files
 		

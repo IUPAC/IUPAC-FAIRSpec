@@ -77,11 +77,28 @@ package org.iupac.fairspec.api;
  */
 public interface IFSObjectAPI<T> {
 
+	/** ObjectType may be expanded upon without limitation
+	 * 
+	 * @author hansonr
+	 *
+	 */
 	enum ObjectType {
-		Unknown, SpecData, Structure, Analysis, 
-		FindingAid, SpecDataCollection, StructureCollection, 
-		StructureSpecCollection, AnalysisCollection,
-		NMRSpecData, IRSpecData, MSSpecData, RAMANSpecData, 
+		// IFS common
+		Unknown, 
+		Structure, StructureCollection, 
+		// IFSCOllection, IFSDataObject, IFSDataObjectCollection, and IFSFindingAid
+		// are all abstract and so do not express their own ObjectType
+		
+		// IFS spec collections:
+		SpecDataFindingAid, 
+		SpecDataCollection, 
+		StructureSpecCollection, 
+		AnalysisCollection,
+		// IFS spec core
+		SpecData, Analysis, 
+		NMRSpecData, IRSpecData, MSSpecData, RAMANSpecData,
+		// IFS spec combined
+		StructureSpec
 	};
 
 	String getName();
@@ -89,30 +106,6 @@ public interface IFSObjectAPI<T> {
 	T getObject(int index);
 
 	int getObjectCount();
-
-	/** This list will grow.
-	 * 
-	 * @param propName
-	 * @return
-	 */
-	public static ObjectType getObjectTypeForName(String propName) {
-		if (propName.startsWith("IFS.finding.aid."))
-			return ObjectType.FindingAid;
-		if (propName.startsWith("IFS.structure."))
-			return ObjectType.Structure;
-		if (propName.startsWith("IFS.analysis."))
-			return ObjectType.Analysis;
-		if (propName.startsWith("IFS.nmr."))
-			return ObjectType.NMRSpecData;
-		if (propName.startsWith("IFS.ir."))
-			return ObjectType.IRSpecData;
-		if (propName.startsWith("IFS.ms."))
-			return ObjectType.MSSpecData;
-		if (propName.startsWith("IFS.raman."))
-			return ObjectType.RAMANSpecData;
-		return ObjectType.Unknown;		
-	}
-	
 
 	ObjectType getObjectType();
 

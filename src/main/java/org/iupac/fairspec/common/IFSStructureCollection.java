@@ -9,11 +9,16 @@ import org.iupac.fairspec.api.IFSObjectAPI;
 public class IFSStructureCollection extends IFSCollection<IFSStructure> {
 
 	public IFSStructureCollection(String name) {
-		super(name, IFSObjectAPI.ObjectType.StructureCollection);
+		super(name, ObjectType.StructureCollection);
 	}
 	
+	public IFSStructureCollection(String name, IFSStructure structure) {
+		super(name, ObjectType.Structure);
+		addStructure(structure);
+	}
+
 	public void addStructure(IFSStructure s) {
-		super.add(s);
+		add(s);
 	}
 
 	private Map<String, IFSStructure> map = new HashMap<>();

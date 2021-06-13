@@ -4,8 +4,8 @@ import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
-import org.iupac.fairspec.common.IFSSpecData;
-import org.iupac.fairspec.common.IFSSpecDataRepresentation;
+import org.iupac.fairspec.spec.IFSSpecData;
+import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 /**
  *
@@ -18,6 +18,7 @@ public class IFSNMRSpecData extends IFSSpecData {
 
 	{
 		super.setProperties(new IFSProperty[] {
+				// TODO
 				new IFSProperty("nmr.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
 				new IFSProperty("nmr.nominalFreq1", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.MHZ),
 				new IFSProperty("nmr.nominalFreq2", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.MHZ),
@@ -30,7 +31,7 @@ public class IFSNMRSpecData extends IFSSpecData {
 	
 
 	public IFSNMRSpecData(String name) {
-		super(name);
+		super(name, ObjectType.NMRSpecData);
 	}
 	
 	
@@ -41,21 +42,16 @@ public class IFSNMRSpecData extends IFSSpecData {
 
 	
 	@Override
-	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj) {
-		return new IFSNMRSpecDataRepresentation(name, ref, obj);
+	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len) {
+		return new IFSNMRSpecDataRepresentation(name, ref, obj, len);
 
 	}	
 	
 	public void setPropertyValue(String name, Object value) throws IFSException {
-		IFSProperty p = htProps.get(name);
-		if (p == null) {
-			params.put(name, value);
-			if (this.name == null
-					&& (name.equals("IFS.nmr.param.expt") || name.equals("IFS.nmr.representation.vender.dataset")))
-				this.name = value.toString();
-			return;
-		}
-		htProps.put(name, p.getClone(value));
+		if (this.name == null
+				&& (name.equals("IFS.nmr.param.expt") || name.equals("IFS.nmr.representation.vender.dataset")))
+			this.name = value.toString();
+		super.setPropertyValue(name, value);
 	}
 
 

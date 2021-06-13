@@ -6,26 +6,26 @@ import org.iupac.fairspec.api.IFSCoreObject;
 public class IFSStructure extends IFSObject<IFSStructureRepresentation> implements IFSCoreObject {
 
 	public IFSStructure(String name) {
-		super(name);
+		super(name, ObjectType.Structure);
 		
 	}
 
 	public IFSStructure(String param, String value) throws IFSException {
-		super(param + ";" + value);
+		super(param + ";" + value, ObjectType.Structure);
 		if (param.equals("IFS.structure.param.compound.id"))
 			name = value;
 		setPropertyValue(param, value);
 	}
 
 	@Override
-	public ObjectType getObjectType() {
-		return ObjectType.Structure;
+	protected IFSStructureRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len) {
+		return new IFSStructureRepresentation(name, ref, obj, len);
+
 	}
-
+	
 	@Override
-	protected IFSStructureRepresentation newRepresentation(String name, IFSReference ref, Object obj) {
-		return new IFSStructureRepresentation(name, ref, obj);
-
+	public String toString() {
+		return (name == null ? super.toString() : "[IFSStructure " + index + " " + name + "]");
 	}
 
 }

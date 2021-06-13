@@ -1,7 +1,7 @@
 package org.iupac.fairspec.api;
 
 /**
- * A tag for IFSStructure, IFSSpecData, IFSAnalysis
+ * A tag for an object that can have a representation - IFSStructure, IFSSpecData, IFSAnalysis
  * 
  * @author hansonr
  *

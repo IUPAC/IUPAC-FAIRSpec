@@ -12,38 +12,33 @@ public class IFSRepresentation {
 	/**
 	 * The type of this data -- to be specified...
 	 */
-	private String type;
-	private IFSReference ref;
-	private Object data;
+	private final String type;
+	private final IFSReference ref;
+	private final Object data;
+	private final long len;
 	
-	public IFSRepresentation(String type, IFSReference ref, Object data) {
+	public IFSRepresentation(String type, IFSReference ref, Object data, long len) {
 		this.type = type;
 		this.ref = ref;
 		this.data = data;
+		this.len = len;
 	}
 
 	public String getType() {
 		return type;
 	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
-
 	public IFSReference getRef() {
 		return ref;
-	}
-
-	public void setRef(IFSReference ref) {
-		this.ref = ref;
 	}
 
 	public Object getData() {
 		return data;
 	}
 
-	public void setData(Object data) {
-		this.data = data;
+	public long getLength() {
+		return len;
 	}
+
 
 }

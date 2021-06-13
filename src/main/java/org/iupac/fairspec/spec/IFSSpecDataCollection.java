@@ -1,17 +1,19 @@
-package org.iupac.fairspec.common;
+package org.iupac.fairspec.spec;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import org.iupac.fairspec.common.IFSDataObjectCollection;
+import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.spec.ir.IFSIRSpecData;
 import org.iupac.fairspec.spec.ms.IFSMSSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 import org.iupac.fairspec.spec.raman.IFSRamanSpecData;
 
 @SuppressWarnings("serial")
-public class IFSSpecDataCollection extends IFSCollection<IFSSpecData> {
+public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> {
 
-	private ObjectType dataType;
+	private final ObjectType dataType;
 
 
 	public IFSSpecDataCollection(String name, ObjectType dataType) {
@@ -20,8 +22,15 @@ public class IFSSpecDataCollection extends IFSCollection<IFSSpecData> {
 	}
 
 	
-	public void addSpecData(IFSSpecData sd) {
-		super.add(sd);
+	public IFSSpecDataCollection(String name, IFSSpecData data) {
+		super(name, ObjectType.SpecDataCollection);
+		dataType = data.getObjectType();
+		addSpecData(data);
+	}
+
+
+	public void addSpecData(IFSSpecData data) {
+		super.add(data);
 	}
 	
 	public ObjectType getDataType() {

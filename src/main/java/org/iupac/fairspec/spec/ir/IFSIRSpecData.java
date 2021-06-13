@@ -2,8 +2,8 @@ package org.iupac.fairspec.spec.ir;
 
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
-import org.iupac.fairspec.common.IFSSpecData;
-import org.iupac.fairspec.common.IFSSpecDataRepresentation;
+import org.iupac.fairspec.spec.IFSSpecData;
+import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 /**
  *
@@ -13,21 +13,20 @@ import org.iupac.fairspec.common.IFSSpecDataRepresentation;
 @SuppressWarnings("serial")
 public class IFSIRSpecData extends IFSSpecData {
 
-
-
 	{
-		super.setProperties(new IFSProperty[] {
+		setProperties(new IFSProperty[] {
+				// TODO
 //				new IFSProperty("ir.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
 		});
 	}
 	
 	public IFSIRSpecData(String name) {
-		super(name);
+		super(name, ObjectType.IRSpecData);
 	}
 
 	@Override
-	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj) {
-		return new IFSIRSpecDataRepresentation(name, ref, obj);
+	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len) {
+		return new IFSIRSpecDataRepresentation(name, ref, obj, len);
 	}	
 
 }

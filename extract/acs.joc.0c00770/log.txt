@@ -1,14 +1,14 @@
 found Test 0 acs.joc.0c00770/22567817
 Extracting C:\Users\hansonr\git\IUPAC-FAIRSpec\.\extract\acs.joc.0c00770\IFS-extract.json
-{IFS-extract-version=0.1.0-alpha, pathway=[{example=compound zip files containing bruker and mnova files identified as'1_13C' and '1_mnova'}, {hash=0c00770}, {pubid=acs.joc.{hash}}, {src={IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{pubid}}}, {data0={IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/jo{hash}_si_002.zip}}, {data={IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22567817}}, {zip={data}|{id=IFS.structure.param.compound.id::*}.zip|}, {objects={zip}{IFS.nmr.representation.vender.dataset::<id>_{IFS.nmr.param.expt::*}/}}, {objects={zip}{IFS.nmr.representation.vender.dataset::<id>_mnova}}]}
+{IFS-extract-version=0.1.0-alpha, pathway=[{example=compound zip files containing bruker and mnova files identified as'1_13C' and '1_mnova'}, {hash=0c00770}, {ifsid=acs.joc.{hash}}, {src={IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{ifsid}}}, {data0={IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/jo{hash}_si_002.zip}}, {data={IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22567817}}, {zip={data}|{id=IFS.structure.param.compound.id::*}.zip|}, {objects={zip}{IFS.nmr.representation.vender.dataset::<id>_{IFS.nmr.param.expt::*}/}}, {objects={zip}{IFS.nmr.representation.vender.dataset::<id>_mnova}}]}
 0.1.0-alpha
 acs.joc.{hash}
 acs.joc.0c00770
 
-{IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{pubid}}
+{IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{ifsid}}
 {IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/acs.joc.0c00770}
 
-{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/jo{hash}_si_002.zip}
+{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/jo{hash}_si_002.zip}
 {IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.joc.0c00770/suppl_file/jo0c00770_si_002.zip}
 
 {data}|{id=IFS.structure.param.compound.id::*}.zip|

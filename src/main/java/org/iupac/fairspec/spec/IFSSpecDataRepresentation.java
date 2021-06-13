@@ -1,4 +1,7 @@
-package org.iupac.fairspec.common;
+package org.iupac.fairspec.spec;
+
+import org.iupac.fairspec.common.IFSReference;
+import org.iupac.fairspec.common.IFSRepresentation;
 
 /**
  * A class that refers to a specific representation of a data object. 
@@ -8,8 +11,8 @@ package org.iupac.fairspec.common;
  */
 public abstract class IFSSpecDataRepresentation extends IFSRepresentation {
 
-	public IFSSpecDataRepresentation(String type, IFSReference ref, Object data) {
-		super(type, ref, data);
+	public IFSSpecDataRepresentation(String type, IFSReference ref, Object data, long len) {
+		super(type, ref, data, len);
 	}
 
 }

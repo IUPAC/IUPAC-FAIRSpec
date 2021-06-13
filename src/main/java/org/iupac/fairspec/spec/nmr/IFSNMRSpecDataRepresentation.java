@@ -1,7 +1,7 @@
 package org.iupac.fairspec.spec.nmr;
 
 import org.iupac.fairspec.common.IFSReference;
-import org.iupac.fairspec.common.IFSSpecDataRepresentation;
+import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 public class IFSNMRSpecDataRepresentation extends IFSSpecDataRepresentation {
 
@@ -24,15 +24,17 @@ public class IFSNMRSpecDataRepresentation extends IFSSpecDataRepresentation {
 		return repNames;
 	}
 
-	public IFSNMRSpecDataRepresentation(String type, IFSReference ref, Object data) {
-		super(type, ref, data);
+	public IFSNMRSpecDataRepresentation(String type, IFSReference ref, Object data, Long len) {
+		super(type, ref, data, len);
 	}
 
 	public static String getNMRTypeFromName(String fname) {
-		return (fname.endsWith(".png") ? "image/png"
+		return (fname.endsWith(".zip") ? "application/zip"
+				: fname.endsWith(".png") ? "image/png"
 				: fname.endsWith(".pdf") ? "application/pdf"
-						: fname.endsWith("/procs") ? "procs"
-								: fname.endsWith(".jpf") ? "JEOL" : fname.endsWith(".mnova") ? "mnova" : "?");
+				: fname.endsWith("/procs") ? "procs"
+				: fname.endsWith(".jpf") ? "JEOL" 
+				: fname.endsWith(".mnova") ? "mnova" : "?");
 	}
 
 }

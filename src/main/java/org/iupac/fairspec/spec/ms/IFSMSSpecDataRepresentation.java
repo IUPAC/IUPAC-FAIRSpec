@@ -1,7 +1,7 @@
 package org.iupac.fairspec.spec.ms;
 
 import org.iupac.fairspec.common.IFSReference;
-import org.iupac.fairspec.common.IFSSpecDataRepresentation;
+import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 public class IFSMSSpecDataRepresentation extends IFSSpecDataRepresentation {
 
@@ -25,8 +25,8 @@ public class IFSMSSpecDataRepresentation extends IFSSpecDataRepresentation {
 		return repNames;
 	}
 
-	public IFSMSSpecDataRepresentation(String type, IFSReference ref, Object data) {
-		super(type, ref, data);
+	public IFSMSSpecDataRepresentation(String type, IFSReference ref, Object data, long len) {
+		super(type, ref, data, len);
 	}
 
 }

@@ -1,10 +1,10 @@
 {"IFS-extract-version":"0.1.0-alpha","pathway":[
  {"example":"two supporting information zip files; compound zip files containing a single compound directory containing identified bruker zip files and CDX files"},
  {"hash":"0c01153"},
- {"pubid":"acs.orglett.{hash}"},
- {"src":"{IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{pubid}}"},
- {"data01":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_002.zip}"},
- {"data02":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_003.zip}"},
+ {"ifsid":"acs.orglett.{hash}"},
+ {"src":"{IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{ifsid}}"},
+ {"data01":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data02":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_003.zip}"},
  
  {"data1":"{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22284726}"},
  {"data2":"{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22284729}"},

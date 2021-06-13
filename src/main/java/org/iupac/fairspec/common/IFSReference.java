@@ -1,30 +1,27 @@
 package org.iupac.fairspec.common;
 
 /**
- * An IFSReference object allows for saving a String or other form of reference. (But for now, just a String.)
+ * An IFSReference object allows for saving a String or other form of reference. 
+ * (But for now, just a String.)
  *  
  * @author hansonr
 
  */
 public class IFSReference {
 
-	private String ref;
+	private final Object ref;
 	
-	public IFSReference(String ref) {
+	public IFSReference(Object ref) {
 		this.ref = ref;
 	}
 
-	public String getRef() {
+	public Object getValue() {
 		return ref;
-	}
-
-	public void setRef(String ref) {
-		this.ref = ref;
 	}
 
 	@Override
 	public String toString() {
-		return ref;
+		return ref.toString();
 	}
 	
 }
