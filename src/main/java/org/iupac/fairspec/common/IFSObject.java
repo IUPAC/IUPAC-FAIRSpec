@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.iupac.fairspec.api.IFSObjectAPI;
-import org.iupac.fairspec.api.IFSObjectAPI.ObjectType;
+
+import javajs.util.PT;
 
 /**
  * IFSObject extends ArrayList so as to allow for storing and retrieving
@@ -119,7 +121,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectAPI<
 		return htProps;
 	}
 
-	public void setPropertyValue(String name, Object value) throws IFSException {
+	public void setPropertyValue(String name, Object value) {
 		IFSProperty p = htProps.get(name);
 		if (p == null) {
 			params.put(name, value);
@@ -128,8 +130,12 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectAPI<
 		htProps.put(name, p.getClone(value));
 	}
 
-	public Object getPropertyValue(String name) throws IFSException {
+	public Object getPropertyValue(String name) {
 		return params.get(name);
+	}
+	
+	public String getParamJSON() {
+		return PT.toJSON("params", params);
 	}
 
 	public String getID() {

@@ -1,13 +1,6 @@
 package org.iupac.fairspec.spec;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.zip.ZipEntry;
-
 import org.iupac.fairspec.api.IFSObjectAPI;
-import org.iupac.fairspec.api.IFSObjectAPI.ObjectType;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSFindingAid;
 import org.iupac.fairspec.common.IFSObject;
@@ -75,7 +68,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		return ObjectType.Unknown;		
 	}
 
-	public void addObject(String param, String value) throws IFSException {
+	public IFSObject<?> addObject(String param, String value) throws IFSException {
 		if (currentObjectFileName == null)
 			throw new IFSException("addObject " + param + " " + value + " called with no current object file name");
 		ObjectType type = getObjectTypeForName(param);
@@ -84,7 +77,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		case Analysis:
 			System.out.println("Analysis not implemented");
 			getAnalysisCollection();
-			break;
+			return null;
 		case IRSpecData:
 		case MSSpecData:
 		case NMRSpecData:
@@ -95,14 +88,14 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 //				String key = param + ";" + value;
 //				currentSpecData.getRepresentation(key);
 //			}
-			break;
+			return currentSpecData;
 		case Structure:
 			if (currentStructure == null) {
 				currentStructure = getStructureCollection().getStructureFor(param, value, currentObjectFileName);
 			} else {
 				currentStructure.getRepresentation(param + ";" + value);
 			}
-			break;
+			return currentStructure;
 		case StructureSpecCollection:
 			// valid data information? maybe
 			getStructureSpecCollection();
@@ -116,6 +109,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 			System.err.println("IFSSpeDataFindingAid could not add " + param + " " + value + " for " + currentObjectFileName);
 			break;
 		}
+		return null;
 	}
 
 	public IFSSpecDataCollection getSpecDataCollection(ObjectType type) {
@@ -144,12 +138,14 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 			setSafely(ANALYSIS_COLLECTION, analysisCollection = new IFSAnalysisCollection(name));
 		return analysisCollection;
 	}
+	
 	public IFSObject<?> endAddObject() {
 		try {
-			return (currentObjectFileName == null ? null
-					: currentStructure != null && currentSpecData != null
-							? getStructureSpecCollection().addSpec(currentObjectFileName, currentStructure, currentSpecData)
-							: currentStructure != null ? currentStructure : currentSpecData);
+			if (currentObjectFileName == null)
+				return null;
+			if (currentStructure != null && currentSpecData != null)
+				return getStructureSpecCollection().addSpec(currentObjectFileName, currentStructure, currentSpecData);
+			return (currentStructure != null ? currentStructure : currentSpecData);
 		} finally {
 			currentObjectFileName = null;
 			currentStructure = null;
@@ -170,6 +166,24 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 				System.out.println("\t" + sd);
 			}
 		}
+	}
+
+	public static String MediaTypeFromName(String fname) {
+		int pt = Math.max(fname.lastIndexOf('/'), fname.lastIndexOf('.'));
+		return (fname.endsWith(".zip") ? "application/zip"
+				: fname.endsWith(".png") ? "image/png"
+				: fname.endsWith(".cdx") ? "chemical/x-cdx"
+						// see https://en.wikipedia.org/wiki/Chemical_file_format
+				: fname.endsWith(".mol") ? "chemical/x-mdl-molfile"
+				: fname.endsWith(".sdf") ? "chemical/x-mdl-sdfile"
+				: fname.endsWith(".inchi") ? "chemical/x-inchi"
+				: fname.endsWith(".smiles") 
+				  || fname.endsWith(".smi") ? "chemical/x-daylight-smiles"
+				: fname.endsWith(".pdf") ? "application/pdf"
+				: fname.endsWith(".jpf") ? "application/octet-stream" 
+				: fname.endsWith(".mnova") ? "application/octet-stream"
+				: pt >= 0 ? "?" + fname.substring(pt)
+				: "?");
 	}
 
 }

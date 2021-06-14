@@ -1,7 +1,6 @@
 package org.iupac.fairspec.spec.nmr;
 
 import org.iupac.fairspec.common.IFSConst;
-import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.spec.IFSSpecData;
@@ -47,7 +46,7 @@ public class IFSNMRSpecData extends IFSSpecData {
 
 	}	
 	
-	public void setPropertyValue(String name, Object value) throws IFSException {
+	public void setPropertyValue(String name, Object value) {
 		if (this.name == null
 				&& (name.equals("IFS.nmr.param.expt") || name.equals("IFS.nmr.representation.vender.dataset")))
 			this.name = value.toString();

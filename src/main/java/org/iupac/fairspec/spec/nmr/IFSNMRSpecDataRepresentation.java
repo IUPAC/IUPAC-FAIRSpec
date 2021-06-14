@@ -28,13 +28,4 @@ public class IFSNMRSpecDataRepresentation extends IFSSpecDataRepresentation {
 		super(type, ref, data, len);
 	}
 
-	public static String getNMRTypeFromName(String fname) {
-		return (fname.endsWith(".zip") ? "application/zip"
-				: fname.endsWith(".png") ? "image/png"
-				: fname.endsWith(".pdf") ? "application/pdf"
-				: fname.endsWith("/procs") ? "procs"
-				: fname.endsWith(".jpf") ? "JEOL" 
-				: fname.endsWith(".mnova") ? "mnova" : "?");
-	}
-
 }

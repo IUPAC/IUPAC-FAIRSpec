@@ -20,14 +20,14 @@ public class IFSStructureSpecCollection extends IFSCollection<IFSStructureSpec> 
 	 * @param spec
 	 * @return this
 	 */
-	public IFSStructureSpecCollection addSpec(String name, IFSStructure struc, IFSSpecData spec) {
+	public IFSStructureSpec addSpec(String name, IFSStructure struc, IFSSpecData spec) {
 		IFSStructureSpec ssc = get(struc);
 		if (ssc == null) {
 			add(new IFSStructureSpec(name, struc, spec));
 		} else if (!ssc.getSpecDataCollection().contains(spec)) {
 			ssc.getSpecDataCollection().add(spec);
 		}
-		return this;
+		return ssc;
 	}
 
 	/**

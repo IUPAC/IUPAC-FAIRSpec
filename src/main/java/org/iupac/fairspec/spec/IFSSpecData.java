@@ -25,4 +25,5 @@ public abstract class IFSSpecData extends IFSDataObject<IFSSpecDataRepresentatio
 	}
 
 
+
 }

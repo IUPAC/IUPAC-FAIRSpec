@@ -40,7 +40,7 @@ public class ExtractorTest extends Extractor {
 		if (sourceDir != null)
 			setLocalSourceDir(sourceDir);
 		// these are the files we want extracted -- no $ for cdx, as that could be cdxml
-		setCachePattern("/procs$|/proc2s$|/acqus$|/acqu2s$|"
+		setCachePattern("(?<param>procs$|proc2s$|acqus$|acqu2s$)|"
 				+ "\\.pdf$|\\.png$|"
 				+ "\\.mol$|\\.sdf$|\\.cdx|"
 //				+ "\\.log$|\\.out$|\\.txt$|"// maybe put these into JSON only? 

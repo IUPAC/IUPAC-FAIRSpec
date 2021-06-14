@@ -19,18 +19,11 @@ import org.iupac.fairspec.api.IFSObjectAPI;
 @SuppressWarnings("serial")
 public class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 
-	protected Map<String, ZipEntry> zipContents;
 	protected List<String> urls = new ArrayList<>();
 
 	public IFSFindingAid(String name, ObjectType type, String sUrl) {
 		super(name, type);
 		urls.add(sUrl);
-	}
-
-	public Map<String, ZipEntry> getZipContents() {
-		if (zipContents == null)
-			zipContents = new LinkedHashMap<String, ZipEntry>();
-		return zipContents;
 	}
 
 	public List<String> getURLs() {
