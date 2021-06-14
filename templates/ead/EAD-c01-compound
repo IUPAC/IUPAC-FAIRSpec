@@ -1,0 +1,22 @@
+			<c01>
+				<did>
+					<note>
+						<p>compound</p>
+					</note>
+				</did>
+				<dao role="compound" href="#COMPOUND_HREF$">
+					<daodesc>
+						<note type="chem-name">
+							<p>#CHEMICAL_NAME#</p>
+						</note>
+						<note type="chem-inchi">
+							<p>#CHEMICAL_INCHI#</p>
+						</note>
+						<note type="chem-inchikey">
+							<p>#CHEMICAL_INCHIKEY#</p>
+						</note>
+					</daodesc>
+				</dao>
+				#EAD-c02-specdata-list#
+			</c01>
+				
