@@ -72,6 +72,7 @@ public class ExtractorTest extends Extractor {
 			"acs.orglett.0c01197/22491647", // 6 many mnovas
 			"acs.orglett.0c01277/22613762", // 7 bruker dirs
 			"acs.orglett.0c01297/22612484", // 8 bruker dirs
+			// these next four are too large to save at GitHub (> 100 MB)
 			//"acs.orglett.0c00571/21975525", // 1 3212 files; zips of bruker zips and HRMS
 			//"acs.orglett.0c00755/22150197", // 3 MANY bruker dirs
 			//"acs.orglett.0c01043/22232721", // 8  single 158-MB mnova
@@ -81,7 +82,7 @@ public class ExtractorTest extends Extractor {
 	public static void main(String[] args) {
 
 		int i0 = 0;
-		int i1 = 8; // 12 max
+		int i1 = 0; // 12 max
 		
 		debugging = false;//true; // verbose listing of all files
 		

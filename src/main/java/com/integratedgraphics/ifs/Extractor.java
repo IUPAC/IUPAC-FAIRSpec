@@ -130,6 +130,12 @@ public class Extractor {
 	private File extractScriptFile;
 	private String extractScript;
 
+	private String dataLicenseURI;
+
+	private String dataLicenseName;
+
+	private String license;
+
 	public Extractor() {
 		clearZipCache();
 	}
@@ -235,9 +241,14 @@ public class Extractor {
 					}
 					val = s;
 				}
-				if (key.equals("objects")) {
+				switch (key) {
+				case "license":
+					license = val;
+					break;
+				case "objects":
 					objects.add("{IFS.finding.aid.object::" + val + "}");
-				} else {
+					break;
+				default:
 					keys.addLast("{" + key + "}");
 					values.addLast(val);
 				}
@@ -349,6 +360,11 @@ public class Extractor {
 		// These may come from multiple sources, or they may be from the same source.
 		paramList = new ArrayList<>(); 
 
+		if (license != null) {
+			dataLicenseURI = getValue(license, "IFS.finding.aid.license.uri", null);
+			dataLicenseName = getValue(license, "IFS.finding.aid.license.name", null);
+			log("! IFS.finding.aid.license: " + dataLicenseName + " " + dataLicenseURI);
+		}
 		for (int i = 0; i < objects.size(); i++) {
 			String sObj = objects.get(i);
 			log("found object " + sObj);
@@ -357,16 +373,16 @@ public class Extractor {
 			// be matched using regex Pattern/Matcher to the file entries.
 	
 			// next should never be a problem, as we do this wrapping ourselves
-			pt[0] = 0;
-			String sAid = getValue(sObj, "IFS.finding.aid.object", pt);
+			String sAid = getValue(sObj, "IFS.finding.aid.object", null);
 			if (sAid == null)
 				throw new IFSException("no IFS.finding.aid.object:" + sObj);
 
 			// must have a source
 			pt[0] = 0;
 			String unlocalizedURL = getValue(sAid, "IFS.finding.aid.source.data.uri", pt);
-			if (unlocalizedURL == null)
+			if (unlocalizedURL == null) {
 				throw new IFSException("no IFS.finding.aid.source.data.uri:" + sAid);
+			}
 			
 			if (findingAid == null) {
 				findingAid = new IFSSpecDataFindingAid(ifsid, unlocalizedURL);
@@ -503,12 +519,19 @@ public class Extractor {
 		// converting d.toString()!
 		String s = "" + System.currentTimeMillis();
 		StringBuffer sb = new StringBuffer();
-		sb.append("{" + "\"IFS.fairspec.version\":\"" + IFSConst.IFS_FAIRSpec_version + "\",\n"
-				+ "\"IFS.extractor.code\":\"" + codeSource + "\",\n" + "\"IFS.extractor.version\":\"" + version
-				+ "\",\n" + "\"IFS.extractor.list.type\":\"" + type + "\",\n"
-				+ "\"IFS.extractor.scirpt\":\"_IFS_extract.json\",\n" + "\"IFS.extractor.source\":\"" + dataSource
-				+ "\",\n" + "\"IFS.extractor.datetime.stamp\":\"" + s + "\",\n" + "\"IFS.extractor.count\":"
-				+ lst.size() + ",\n" + "\"IFS.extractor.list\":\n" + "[\n");
+		sb.append("{" + "\"IFS.fairspec.version\":\"" + IFSConst.IFS_FAIRSpec_version + "\",\n");
+		if (dataLicenseURI != null) {
+		sb.append("\"IFS.fairspec.data.license.uri\":\"" + dataLicenseURI + "\",\n")
+		  .append("\"IFS.fairspec.data.license.name\":\"" + dataLicenseName + "\",\n");
+		}
+		sb.append("\"IFS.extractor.version\":\"" + version + "\",\n") 
+		  .append("\"IFS.extractor.code\":\"" + codeSource + "\",\n") 
+		  .append("\"IFS.extractor.list.type\":\"" + type + "\",\n")
+		  .append("\"IFS.extractor.scirpt\":\"_IFS_extract.json\",\n") 
+		  .append("\"IFS.extractor.source\":\"" + dataSource + "\",\n")
+		  .append("\"IFS.extractor.datetime.stamp\":\"" + s + "\",\n")
+		  .append("\"IFS.extractor.count\":" + lst.size() + ",\n")
+		  .append("\"IFS.extractor.list\":\n" + "[\n");
 		String sep = "";
 		if (type.equals("manifest")) {
 			// list the zip files first
@@ -614,6 +637,8 @@ public class Extractor {
 
 	protected static String getValue(String sObj, String key, int[] pt) throws IFSException {
 		key = "{" + key + "::";
+		if (pt == null) 
+			pt = new int[1];
 		int p = sObj.indexOf(key, pt[0]);
 		if (p < 0)
 			return null;

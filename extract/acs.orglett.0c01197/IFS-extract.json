@@ -1,5 +1,6 @@
 {"IFS-extract-version":"0.1.0-alpha","pathway":[
  {"example":"compound directories containing unidentified mnova files"},
+ {"license":"{IFS.finding.aid.license.uri::https://creativecommons.org/licenses/by-nc-nd/4.0/deed},{IFS.finding.aid.license.name::cc-nc-nd-4.0}"},
  {"hash":"0c01197"},
  {"ifsid":"acs.orglett.{hash}"},
  {"src":"{IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{ifsid}}"},
