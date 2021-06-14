@@ -172,7 +172,8 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		int pt = Math.max(fname.lastIndexOf('/'), fname.lastIndexOf('.'));
 		return (fname.endsWith(".zip") ? "application/zip"
 				: fname.endsWith(".png") ? "image/png"
-				: fname.endsWith(".cdx") ? "chemical/x-cdx"
+				: fname.endsWith(".cdx") ? "chemical/x-cdx (ChemDraw CDX)"
+				: fname.endsWith(".cdxml") ? "chemical/x-cdxml (ChemDraw XML)"
 						// see https://en.wikipedia.org/wiki/Chemical_file_format
 				: fname.endsWith(".mol") ? "chemical/x-mdl-molfile"
 				: fname.endsWith(".sdf") ? "chemical/x-mdl-sdfile"
@@ -180,8 +181,8 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 				: fname.endsWith(".smiles") 
 				  || fname.endsWith(".smi") ? "chemical/x-daylight-smiles"
 				: fname.endsWith(".pdf") ? "application/pdf"
-				: fname.endsWith(".jpf") ? "application/octet-stream" 
-				: fname.endsWith(".mnova") ? "application/octet-stream"
+				: fname.endsWith(".jpf") ? "application/octet-stream (JEOL)" 
+				: fname.endsWith(".mnova") ? "application/octet-stream (mnova)"
 				: pt >= 0 ? "?" + fname.substring(pt)
 				: "?");
 	}
