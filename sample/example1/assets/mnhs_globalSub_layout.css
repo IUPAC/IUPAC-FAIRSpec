@@ -1,0 +1,179 @@
+/*
+	(c)Copyright 2006 Minnesota Historical Society 
+	mnhs.org 2006  GLOBAL CSS
+	Controls global subpage left column structure and layout.	
+*/
+@import "mnhs_nav_standard.css";
+@import "mnhs_header_standard.css";
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #90999b;}
+
+#border {
+	float: inherit;
+	width: 756px;
+	border-right-width: 2px;
+	border-left-width: 2px;
+	border-top-style: none;
+	border-right-style: solid;
+	border-bottom-style: none;
+	border-left-style: solid;
+	border-right-color: #FFFFFF;
+	border-left-color: #FFFFFF;
+	background-color: #FFFFFF;
+	border-top-width: 0px;
+	border-bottom-width: 0px;}	
+
+
+
+#rowHeader {
+	width: 756px; 
+	background-color: #4153C;}
+
+#rowNav {
+	width: 756px; 
+	background-color: #4153C;}
+
+#crumbs {
+	width:756px; 
+	background-image: url(/web_assets/bg_crumbs.jpg) ; 
+	background-color:#FFFFFF;
+}
+
+#templateHeader {
+	width: 756px; 
+	background-color: #FFFFFF;
+}
+
+
+/* CONTENT WRAPPER: 
+includes main content text, primary  navigation on right side, and optional secondary navigation displayed in the left column. 
+*/
+
+#contentWrapper {width: 756px; 
+	background-image: url(/web_assets/bg_content.jpg); 
+	background-color: #FFFFFF;}
+
+
+	
+/* CONTENT:  
+Area for the main content of the page. 
+*/
+
+#content {float: left;	
+ 	width: 564px; 
+ 	border-top-color: #D6CECE;
+ 	border-top-width: 2px;	
+ 	border-right-color: #FFFFFF; 
+ 	border-right-width: 2px;
+ 	border-top-style: solid; 
+ 	border-right-style: solid;}
+
+
+/* PRIMARYNAV:
+Primary navigation for each section.  Controlled through an indclude file in the template. 
+*/
+
+.primaryNav {
+	float: right;
+	width: 190px;
+}
+
+
+#submenu {
+	width: 756px; 
+	background-color: #ECE8E8;
+}
+
+/* promo: 
+controls styles for promo boxes under primary menu 
+*/
+
+#promo {}
+#promo img{
+	margin-left:-10px;
+}
+#promo a{
+	border-bottom:none;
+}
+
+/* footer */
+
+#footer {
+	background-color: #D6CECE; 
+	width:756px; 
+	color: #585858; 
+	border-top: 3px; 
+	border-top-style: solid; 
+	border-top-color: #42525A; 
+}
+
+#footerlinks {
+	background-color: #CBC0C0; 
+	width:746px; 
+	padding-top: 6px; 
+	padding-bottom: 8px;
+	padding-left: 10px;	
+}
+
+#footerlinks2{
+	line-height: normal;
+	padding-left: 7px;
+	padding-top: 6px;
+	padding-bottom: 5px;
+}
+
+address{
+	width:751px; 
+	padding-bottom:15px;
+	margin-left:5px;
+}
+
+#copyright {
+display: none
+}
+
+/* HIDDEN: 
+Contextual cues for just for screen reader users 
+*/
+
+.skiplinks{	
+	position:absolute;
+	left:0px;
+	top:-500px;
+	width:1px;
+	height:1px;
+	overflow:hidden;
+	}
+
+ .hidden{
+	position:absolute;
+	left:0px;
+	top:-500px;
+	width:1px;
+	height:1px;
+	overflow:hidden;
+}
+
+
+/* 
+NO PRIMARY NAV LAYOUT 
+*/
+#noprimarynav #contentWrapper {width: 756px; 
+	background-image: none; 
+	background-color: #FFFFFF;
+}
+
+#noprimarynav #content {float: left;	
+ 	width: 756px; 
+ 	border-top-color: #D6CECE;
+ 	border-top-width: 2px;	
+ 	border-right-color: #FFFFFF; 
+ 	border-right-width: 2px;
+ 	border-top-style: solid; 
+ 	border-right-style: solid;
+	background-color: #FFFFFF;
+}

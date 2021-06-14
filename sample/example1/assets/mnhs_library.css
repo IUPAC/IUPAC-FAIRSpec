@@ -1,0 +1,18 @@
+/*
+	(c)Copyright 2006 Minnesota Historical Society 
+	mnhs.org 2006
+	Controls unique styles and fonts for the section "Library"	
+*/
+#library{}
+
+#promo {
+	background-color:#E5F0F6;
+}
+
+#promo a{
+	background-color: #E5F0F6;
+}
+
+.findaidlist {
+	font-size: .7em;
+}

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="assets/webead.xsl"?>
+<!DOCTYPE ead PUBLIC "+//ISBN 1-931666-00-8//DTD ead.dtd (Encoded Archival Description (EAD) Version 2002)//EN" "assets/ead.dtd">
+<ead audience="external" relatedencoding="USMARC">
+	<eadheader findaidstatus="edited-full-draft"
+		scriptencoding="iso15924" dateencoding="iso8601"
+		countryencoding="iso3166-1" repositoryencoding="iso15511"
+		langencoding="iso639-2">
+		<eadid countrycode="us" mainagencycode="MnHi">00008</eadid>
+		<filedesc>
+			<titlestmt>
+				<titleproper>#filedesc.titlestmt.titleproper#</titleproper>
+				<subtitle>#filedesc.titlestmt.subtitle#</subtitle>
+				<sponsor>#filedesc.titlestmt.sponsor#</sponsor>
+			</titlestmt>
+			<publicationstmt>
+				<publisher encodinganalog="Publisher">#filedesc.publicationstmt.publisher#</publisher>
+				<address>
+					<addressline>#filedesc.publicationstmt.address.addressline#</addressline>
+				</address>
+			</publicationstmt>
+			<seriesstmt>
+				<p>#filedesc.seriesstmt.p#</p>
+			</seriesstmt>
+		</filedesc>
+		<profiledesc>
+			<creation>
+				#profiledesc.creation#
+				<date era="ce" calendar="gregorian">#profiledesc.creation.date#</date>
+			</creation>
+		</profiledesc>
+		<revisiondesc>
+			<change>
+				<date>#revisiondesc.change.date#</date>
+				<item>#revisiondesc.change.item#</item>
+			</change>
+		</revisiondesc>
+	</eadheader>
+	<archdesc relatedencoding="MARC" type="inventory"
+		level="collection">
+		<did id="a1">
+			<head>#archdesc.did.head#</head>
+			<repository label="Repository:">#archdesc.did.repository#</repository>
+			<origination label="Creator:" encodinganalog="110">
+				<corpname encodinganalog="110" role="creator">
+					#archdesc.did.origination.corpname#</corpname>
+			</origination>
+			<unittitle label="Title:">#archdesc.did.unittitle#</unittitle>
+			<unitdate label="Date:" encodinganalog="245$f"
+				normal="1913/2010" type="inclusive">#archdesc.did.unitdate#</unitdate>
+			<langmaterial label="Language of Materials">
+				<language langcode="eng">#archdesc.did.langmaterial.language#</language>
+			</langmaterial>
+			<abstract label="Abstract:">#archdesc.did.abstract#</abstract>
+			<physdesc label="Quantity:">#archdesc.did.physdesc#</physdesc>
+			<physloc label="Location:">
+				See
+				<ref target="a9">#archdesc.did.physloc.ref#</ref>
+				#archdesc.did.physloc#>
+			</physloc>
+		</did>
+		<bioghist>
+			<head id="a2" altrender="history">#archdesc.bioghist.head#</head>
+			<p>#archdesc.bioghist.p#</p>
+		</bioghist>
+		<descgrp type="admininfo">
+			<head id="a8">#archdesc.descgrp[admininfo].head#</head>
+			<prefercite>
+				<head>#archdesc.descgrp[admininfo].prefercite.head#</head>
+				<p>#archdesc.descgrp[admininfo].prefercite.p#</p>
+				<p>#archdesc.descgrp[admininfo].prefercite.p#</p>
+			</prefercite>
+			<acqinfo>
+				<head>#archdesc.descgrp[admininfo].acqinfo.head#</head>
+				<p>#archdesc.descgrp[admininfo].acqinfo.p#</p>
+			</acqinfo>
+			<processinfo>
+				<head>#archdesc.descgrp[admininfo].processinfo.head#</head>
+				<p>#archdesc.descgrp[admininfo].processinfo.p#</p>
+				<p>
+					#archdesc.descgrp[admininfo].processinfo.p#
+					<extref actuate="onrequest" audience="external" show="new"
+						href="http://www.archives.gov/nhprc/">
+						#extref#
+						<extptr show="embed" altrender="right" title="#extptr#"
+							href="images/nhprc-178x178.jpg" />
+					</extref>
+				</p>
+				<p>
+					#archdesc.descgrp[admininfo].processinfo.p#
+					<extref actuate="onrequest" audience="external"
+						href="http://www.archives.gov/nhprc/"> #extref#</extref>
+				</p>
+				<p>#archdesc.descgrp[admininfo].processinfo.p#</p>
+			</processinfo>
+		</descgrp>
+		<controlaccess>
+			<head id="a7">#archdesc.controlAcess.head[a7]#</head>
+
+			<controlaccess>
+				<head>#archdesc.controlAcess.controlAccess.head#</head>
+				<subject>#archdesc.controlAcess.controlAccess.subject#</subject>
+				<subject>#archdesc.controlAcess.controlAccess.subject#</subject>
+			</controlaccess>
+			<controlaccess>
+				<head>#archdesc.controlAcess.controlAccess.head#</head>
+				<corpname>#archdesc.controlAcess.controlAccess.corpname#</corpname>
+			</controlaccess>
+		</controlaccess>
+		<relatedmaterial>
+			<head id="a5">#archdesc.relatedmateral.head#</head>
+			<p>#archdesc.relatedmateral.p#</p>
+			<p>#archdesc.relatedmateral.p#</p>
+		</relatedmaterial>
+		<dsc type="combined" audience="external">
+			<c01>
+				<did>
+					<note>
+						<p>compound</p>
+					</note>
+				</did>
+				<dao role="compound" href="https://doi.org/10.14469/hpc/6681">
+					<daodesc>
+						<note type="chem-name">
+							<p>6-propyltetrahydro-2H-pyran-2-ol</p>
+						</note>
+						<note type="chem-inchi">
+							<p>InChI=1S/C8H16O2/c1-2-4-7-5-3-6-8(9)10-7/h7-9H,2-6H2,1H3/t7-,8+/m0/s1</p>
+						</note>
+						<note type="chem-inchikey">
+							<p>InChIKey=MNGKKXNULWENEQ-JGVFFNPUNA-N</p>
+						</note>
+					</daodesc>
+				</dao>
+				<c02>
+					<did>
+						<unittitle>NMR</unittitle>
+					</did>
+					<dao role="nmr:dataset"
+						href="https://data.hpc.imperial.ac.uk/resolve/?doi=6681&amp;file=1">
+						<daodesc>
+							<note type="type">
+								<p>Bruker Dataset</p>
+							</note>
+							<note type="filename">
+								<p>13C.zip</p>
+							</note>
+							<note type="size">
+								<p>966KB</p>
+							</note>
+							<note type="mime-type">
+								<p>application/zip</p>
+							</note>
+						</daodesc>
+					</dao>
+					<dao role="nmr:dataset"
+						href="https://data.hpc.imperial.ac.uk/resolve/?doi=6681&amp;file=2">
+						<daodesc>
+							<note type="type">
+								<p>Bruker Dataset</p>
+							</note>
+							<note type="filename">
+								<p>1H.zip</p>
+							</note>
+							<note type="size">
+								<p>684KB</p>
+							</note>
+							<note type="mime-type">
+								<p>application/zip</p>
+							</note>
+						</daodesc>
+					</dao>
+					<dao role="nmr:dataset"
+						href="https://data.hpc.imperial.ac.uk/resolve/?doi=6681&amp;file=3">
+						<daodesc>
+							<note type="type">
+								<p>Mestranova Dataset</p>
+							</note>
+							<note type="filename">
+								<p>lactol 1c.mnova</p>
+							</note>
+							<note type="size">
+								<p>705KB</p>
+							</note>
+							<note type="mime-type">
+								<p>chemical/x-mnova</p>
+							</note>
+						</daodesc>
+					</dao>
+					<dao role="nmr:model cdx"
+						href="https://data.hpc.imperial.ac.uk/resolve/?doi=6681&amp;file=4">
+						<daodesc>
+							<note type="type">
+								<p>Chemdraw connection file</p>
+							</note>
+							<note type="filename">
+								<p>6-propyltetrahydro-2H-pyran-2-ol.cdxml</p>
+							</note>
+							<note type="size">
+								<p>5KB</p>
+							</note>
+							<note type="mime-type">
+								<p>chemical/x-cdxml</p>
+							</note>
+						</daodesc>
+					</dao>
+				</c02>
+				<c02>
+					<did>
+						<unittitle>IR</unittitle>
+					</did>
+				</c02>
+			</c01>
+			<c01>
+<did><note><p>compound</p></note></did><dao role="compound" href="https://doi.org/10.14469/hpc/6682"><daodesc><note type="chem-name"><p>6-methyltetrahydro-2H-pyran-2-ol</p></note><note type="chem-inchi"><p>InChI=1S/C6H12O2/c1-5-3-2-4-6(7)8-5/h5-7H,2-4H2,1H3/t5-,6+/m0/s1</p></note><note type="chem-inchikey"><p>InChIKey=XCNWVNNDBZRDEA-NTSWFWBYNA-N</p></note></daodesc></dao>
+				<c02>
+					<did>
+						<unittitle>NMR</unittitle>
+					</did>
+				</c02>
+				<c02>
+					<did>
+						<unittitle>IR</unittitle>
+					</did>
+				</c02>
+
+			</c01>
+			<c01>
+<did><note><p>compound</p></note></did><dao role="compound" href="https://doi.org/10.14469/hpc/6683"><daodesc><note type="chem-name"><p>tetrahydro-2H-pyran-2-ol</p></note><note type="chem-inchi"><p>InChI=1S/C5H10O2/c6-5-3-1-2-4-7-5/h5-6H,1-4H2/t5-/m0/s1</p></note><note type="chem-inchikey"><p>InChIKey=CELWCAITJAEQNL-YFKPBYRVNA-N</p></note></daodesc></dao>
+				<c02>
+					<did>
+						<unittitle>NMR</unittitle>
+					</did>
+				</c02>
+				<c02>
+					<did>
+						<unittitle>IR</unittitle>
+					</did>
+				</c02>
+
+			</c01>
+			<c01>
+<did><note><p>compound</p></note></did><dao role="compound" href="https://doi.org/10.14469/hpc/6684"><daodesc><note type="chem-name"><p>6-pentyltetrahydro-2H-pyran-2-ol</p></note><note type="chem-inchi"><p>InChI=1S/C10H20O2/c1-2-3-4-6-9-7-5-8-10(11)12-9/h9-11H,2-8H2,1H3/t9-,10+/m0/s1</p></note><note type="chem-inchikey"><p>InChIKey=MQEDUMDVRONSJZ-VHSXEESVNA-N</p></note></daodesc></dao>
+				<c02>
+					<did>
+						<unittitle>NMR</unittitle>
+					</did>
+				</c02>
+				<c02>
+					<did>
+						<unittitle>IR</unittitle>
+					</did>
+				</c02>
+			</c01>
+			<c01>
+<did><note><p>compound</p></note></did><dao role="compound" href="https://doi.org/10.14469/hpc/6685"><daodesc><note type="chem-name"><p>(R)-hexane-1,5-diyl dibenzoate</p></note><note type="chem-inchi"><p>InChI=1S/C20H22O4/c1-16(24-20(22)18-13-6-3-7-14-18)10-8-9-15-23-19(21)17-11-4-2-5-12-17/h2-7,11-14,16H,8-10,15H2,1H3/t16-/m1/s1</p></note><note type="chem-inchikey"><p>InChIKey=ALCRVMODCYBKAK-MRXNPFEDNA-N</p></note></daodesc></dao>
+				<c02>
+					<did>
+						<unittitle>NMR</unittitle>
+					</did>
+				</c02>
+				<c02>
+					<did>
+						<unittitle>IR</unittitle>
+					</did>
+				</c02>
+			</c01>
+			<c01>
+<did><note><p>compound</p></note></did><dao role="compound" href="https://doi.org/10.14469/hpc/6686"><daodesc><note type="chem-name"><p>(R)-octane-1,5-diyl dibenzoate</p></note><note type="chem-inchi"><p>InChI=1S/C22H26O4/c1-2-11-20(26-22(24)19-14-7-4-8-15-19)16-9-10-17-25-21(23)18-12-5-3-6-13-18/h3-8,12-15,20H,2,9-11,16-17H2,1H3/t20-/m1/s1</p></note><note type="chem-inchikey"><p>InChIKey=DWNNCWYUUFBKIX-HXUWFJFHNA-N</p></note></daodesc></dao>
+				<c02>
+					<did>
+						<unittitle>NMR</unittitle>
+					</did>
+				</c02>
+				<c02>
+					<did>
+						<unittitle>IR</unittitle>
+					</did>
+				</c02>
+			</c01>
+			<c01>
+<did><note><p>compound</p></note></did><dao role="compound" href="https://doi.org/10.14469/hpc/6687"><daodesc><note type="chem-name"><p>(R)-decane-1,5-diyl dibenzoate</p></note><note type="chem-inchi"><p>InChI=1S/C24H30O4/c1-2-3-6-17-22(28-24(26)21-15-9-5-10-16-21)18-11-12-19-27-23(25)20-13-7-4-8-14-20/h4-5,7-10,13-16,22H,2-3,6,11-12,17-19H2,1H3/t22-/m1/s1</p></note><note type="chem-inchikey"><p>InChIKey=VFEFIKPQIOEYNR-JOCHJYFZNA-N</p></note></daodesc></dao>
+				<c02>
+					<did>
+						<unittitle>NMR</unittitle>
+					</did>
+				</c02>
+				<c02>
+					<did>
+						<unittitle>IR</unittitle>
+					</did>
+				</c02>
+			</c01>
+			<c01>
+<did><note><p>compound</p></note></did><dao role="compound" href="https://doi.org/10.14469/hpc/6688"><daodesc><note type="chem-name"><p>(R,E)-5-hydroxyhexanal oxime</p></note><note type="chem-inchi"><p>InChI=1S/C6H13NO2/c1-6(8)4-2-3-5-7-9/h5-6,8-9H,2-4H2,1H3/b7-5+/t6-/m1/s1</p></note><note type="chem-inchikey"><p>InChIKey=LUZLJFZRMFXZEE-LUFONEFENA-N</p></note></daodesc></dao>
+				<c02>
+					<did>
+						<unittitle>NMR</unittitle>
+					</did>
+				</c02>
+				<c02>
+					<did>
+						<unittitle>IR</unittitle>
+					</did>
+				</c02>
+			</c01>
+			<c01>
+<did><note><p>compound</p></note></did><dao role="compound" href="https://doi.org/10.14469/hpc/6689"><daodesc><note type="chem-name"><p>(R,E)-5-hydroxyoctanal oxime</p></note><note type="chem-inchi"><p>InChI=1S/C8H17NO2/c1-2-5-8(10)6-3-4-7-9-11/h7-8,10-11H,2-6H2,1H3/b9-7+/t8-/m1/s1</p></note><note type="chem-inchikey"><p>InChIKey=SVPUVGPIADWQEK-KGOFQHAKNA-N</p></note></daodesc></dao>
+				<c02>
+					<did>
+						<unittitle>NMR</unittitle>
+					</did>
+				</c02>
+				<c02>
+					<did>
+						<unittitle>IR</unittitle>
+					</did>
+				</c02>
+			</c01>
+			<c01>
+<did><note><p>compound</p></note></did><dao role="compound" href="https://doi.org/10.14469/hpc/6690"><daodesc><note type="chem-name"><p>(R)-5-hydroxydecanal oxime</p></note><note type="chem-inchi"><p>InChI=1S/C10H21NO2/c1-2-3-4-7-10(12)8-5-6-9-11-13/h9-10,12-13H,2-8H2,1H3/b11-9+/t10-/m1/s1</p></note><note type="chem-inchikey"><p>InChIKey=IZQDYJOODYXWEN-OYVNLZQHNA-N</p></note></daodesc></dao>
+				<c02>
+					<did>
+						<unittitle>NMR</unittitle>
+					</did>
+				</c02>
+				<c02>
+					<did>
+						<unittitle>IR</unittitle>
+					</did>
+				</c02>
+			</c01>
+		</dsc>
+	</archdesc>
+</ead>
+
