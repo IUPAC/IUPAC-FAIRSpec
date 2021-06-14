@@ -75,7 +75,7 @@ package org.iupac.fairspec.api;
  * @author hansonr
  *
  */
-public interface IFSObjectAPI<T> {
+public interface IFSObjectI<T> {
 
 	/** ObjectType may be expanded upon without limitation
 	 * 

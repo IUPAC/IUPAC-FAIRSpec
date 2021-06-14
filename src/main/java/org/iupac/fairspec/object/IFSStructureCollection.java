@@ -3,7 +3,7 @@ package org.iupac.fairspec.object;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.iupac.fairspec.api.IFSObjectAPI;
+import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.common.IFSException;
 
 @SuppressWarnings("serial")

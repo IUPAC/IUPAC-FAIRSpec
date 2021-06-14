@@ -1,11 +1,11 @@
 package org.iupac.fairspec.spec;
 
-import org.iupac.fairspec.api.IFSCoreObject;
+import org.iupac.fairspec.api.IFSCoreObjectI;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.object.IFSObject;
 
 @SuppressWarnings("serial")
-public class IFSAnalysis extends IFSObject<IFSAnalysisRepresentation> implements IFSCoreObject {
+public class IFSAnalysis extends IFSObject<IFSAnalysisRepresentation> implements IFSCoreObjectI {
 
 	
 	public IFSAnalysis(String name) {

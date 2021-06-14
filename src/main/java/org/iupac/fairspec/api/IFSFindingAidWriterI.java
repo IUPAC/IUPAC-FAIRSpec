@@ -1,6 +1,6 @@
 package org.iupac.fairspec.api;
 
-public interface IFSFindingAidWriter {
+public interface IFSFindingAidWriterI {
 	
 	
 

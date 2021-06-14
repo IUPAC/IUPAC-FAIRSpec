@@ -6,6 +6,6 @@ package org.iupac.fairspec.api;
  * @author hansonr
  *
  */
-public interface IFSCoreObject {
+public interface IFSCoreObjectI {
 
 }

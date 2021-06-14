@@ -6,7 +6,7 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.iupac.fairspec.api.IFSObjectAPI;
+import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
@@ -28,7 +28,7 @@ import javajs.util.PT;
  * @param <T>
  */
 @SuppressWarnings("serial")
-public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectAPI<T>, Cloneable {
+public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>, Cloneable {
 
 	public final static String REP_TYPE_UNKNOWN = "unknown";
 

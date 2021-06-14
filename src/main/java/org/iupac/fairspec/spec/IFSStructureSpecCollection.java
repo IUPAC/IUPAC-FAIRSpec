@@ -1,6 +1,6 @@
 package org.iupac.fairspec.spec;
 
-import org.iupac.fairspec.api.IFSObjectAPI;
+import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.object.IFSCollection;
 import org.iupac.fairspec.object.IFSStructure;
 
@@ -8,7 +8,7 @@ import org.iupac.fairspec.object.IFSStructure;
 public class IFSStructureSpecCollection extends IFSCollection<IFSStructureSpec> {
 
 	public IFSStructureSpecCollection(String name) {
-		super(name, IFSObjectAPI.ObjectType.StructureSpecCollection);
+		super(name, IFSObjectI.ObjectType.StructureSpecCollection);
 	}
 
 	/**

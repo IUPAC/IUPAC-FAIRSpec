@@ -1,6 +1,6 @@
 package org.iupac.fairspec.spec;
 
-import org.iupac.fairspec.api.IFSObjectAPI;
+import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.object.IFSFindingAid;
 import org.iupac.fairspec.object.IFSObject;
@@ -32,7 +32,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	private IFSAnalysisCollection analysisCollection;
 	
 	public IFSSpecDataFindingAid(String name, String sUrl) {
-		super(name, IFSObjectAPI.ObjectType.SpecDataFindingAid, sUrl);
+		super(name, IFSObjectI.ObjectType.SpecDataFindingAid, sUrl);
 		add(null);
 		add(null);
 		add(null);
