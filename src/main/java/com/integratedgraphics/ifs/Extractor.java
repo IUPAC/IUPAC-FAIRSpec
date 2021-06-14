@@ -22,6 +22,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
@@ -36,6 +37,8 @@ import javajs.util.Lst;
 import javajs.util.PT;
 
 /**
+ * Copyright 2021 Integrated Graphics and Robert M. Hanson
+ * 
  * A class to handle the extraction of objects from a "raw" dataset following 
  * the sequence:
  * 
@@ -49,10 +52,14 @@ import javajs.util.PT;
  * 
  * extractObjects(targetDir);
  * 
+ * see ExtractorTest for these values
+ * 
  * @author hansonr
  *
  */
 public class Extractor {
+
+	private static final String version = "0.0.1-alpha_2021_06_14";
 
 	public final static int EXTRACT_MODE_CHECK_ONLY = 1;
 	public final static int EXTRACT_MODE_CREATE_CACHE = 2;
@@ -60,6 +67,7 @@ public class Extractor {
 	protected static final int LOG_IGNORED = 1;
 	protected static final int LOG_OUTPUT = 2;
 
+	private static final String codeSource = "https://github.com/BobHanson/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifs/Extractor.java";
 
 	protected String extractVersion;
 	protected List<String> objects;
@@ -97,6 +105,8 @@ public class Extractor {
 	private Map<String, IFSObject<?>> rootPathToObject;
 
 	public void setCachePattern(String s) {
+		if (s == null)
+			s = IFSConst.defaultCachePattern;
 		cachePattern = Pattern.compile((s.indexOf("(?<type>") < 0 ? "(?<type>" : "") + s + ")");
 		cachePatternHasParam = (s.indexOf("(?<param>") >= 0);
 		cache = new HashMap<String, IFSRepresentation>();
@@ -117,6 +127,8 @@ public class Extractor {
 	protected int ignoredCount;
 	private Map<String, IFSSpecData> htManifestNameToSpecData = new TreeMap<>();
 	private String zipDirName;
+	private File extractScriptFile;
+	private String extractScript;
 
 	public Extractor() {
 		clearZipCache();
@@ -133,20 +145,21 @@ public class Extractor {
 	 * @param toExclude
 	 */
 	public void setRezipCachePattern(String procs, String toExclude) {
-		rezipCachePattern = Pattern.compile(procs);
-		rezipCacheExcludePattern = Pattern.compile(toExclude);
+		rezipCachePattern = Pattern.compile(procs == null ? IFSConst.defaultRezipPattern : procs);
+		rezipCacheExcludePattern = Pattern.compile(toExclude == null ? IFSConst.defaultRezipIgnorePattern : toExclude);
 		rezipCache = new ArrayList<>();
 	}
 
 	public List<String> getObjectsForFile(File ifsExtractScript) throws IOException {
+		extractScriptFile = ifsExtractScript;
 		log("Extracting " + ifsExtractScript.getAbsolutePath());
 		return getObjectsForStream(ifsExtractScript.toURI().toURL().openStream());
 	}
 
 	public List<String> getObjectsForStream(InputStream is) throws IOException {
 		byte[] bytes = Util.getLimitedStreamBytes(is, -1, null, true, true);
-		String script = new String(bytes);
-		return objects = parseScript(script);
+		extractScript = new String(bytes);
+		return objects = parseScript(extractScript);
 	}
 
 	/**
@@ -239,9 +252,13 @@ public class Extractor {
 	 * 
 	 */
 	public IFSSpecDataFindingAid extractObjects(File targetDir) throws IFSException, IOException {
-
+		if (cache == null)
+			setCachePattern(null);
+		if (rezipCache == null) 
+			setRezipCachePattern(null, null);
 		this.targetDir = targetDir;
 		targetDir.mkdir();
+		
 		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
 		// for
 		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.structure.representation.mol.2d::{id}.mol}"
@@ -372,6 +389,7 @@ public class Extractor {
 			String rootPath = new File(zipPath).getName();
 			
 			
+			
 			// remove ".zip" if present in the overall name
 			
 			if (rootPath.endsWith(".zip"))
@@ -385,7 +403,7 @@ public class Extractor {
 			}
 			if (!rootPath.equals(lastRootPath)) {
 				// open a new log
-				this.rootPath = lastRootPath = rootPath;
+				this.rootPath = lastRootPath = rootPath;				
 				setCollectionManifests(true);
 			}
 			
@@ -464,6 +482,10 @@ public class Extractor {
 			lstManifest.clear();
 			lstIgnored.clear();
 		} else {
+			FileOutputStream fos = new FileOutputStream(getFileTarget("_IFS_extract.json"));
+			fos.write(this.extractScript.getBytes());
+			fos.close();
+			
 			outputListJSON(lstManifest, getFileTarget("_IFS_manifest.json"), "manifest");
 			if (lstIgnored.size() > 0)
 				outputListJSON(lstIgnored, getFileTarget("_IFS_ignored.json"), "ignored");
@@ -475,24 +497,38 @@ public class Extractor {
 	protected void outputListJSON(List<String> lst, File fileTarget, String type) throws IOException {
 		log("! saved " + fileTarget + " (" + lst.size() + " items)");
 		// Date d = new Date();
-		// all of a sudden, on 2021.06.13 at 1 PM ile:/C:/Program%20Files/Java/jdk1.8.0_251/jre/lib/sunrsasign.jar cannot be found when 
-		// converting d.toString()! 
+		// all of a sudden, on 2021.06.13 at 1 PM
+		// ile:/C:/Program%20Files/Java/jdk1.8.0_251/jre/lib/sunrsasign.jar cannot be
+		// found when
+		// converting d.toString()!
 		String s = "" + System.currentTimeMillis();
 		StringBuffer sb = new StringBuffer();
-		sb.append("{\"IFS.extractor.list.type\":\"" + type + "\",\n"
-				+ "\"IFS.extractor.source\":\"" + dataSource + "\",\n"
-				+ "\"IFS.extractor.datetime.stamp\":\"" + s + "\",\n"
-				+ "\"IFS.extractor.count\":" + lst.size() + ",\n"
-				+ "\"IFS.extractor.list\":\n"
-				+ "[\n");
+		sb.append("{" + "\"IFS.fairspec.version\":\"" + IFSConst.IFS_FAIRSpec_version + "\",\n"
+				+ "\"IFS.extractor.code\":\"" + codeSource + "\",\n" + "\"IFS.extractor.version\":\"" + version
+				+ "\",\n" + "\"IFS.extractor.list.type\":\"" + type + "\",\n"
+				+ "\"IFS.extractor.scirpt\":\"_IFS_extract.json\",\n" + "\"IFS.extractor.source\":\"" + dataSource
+				+ "\",\n" + "\"IFS.extractor.datetime.stamp\":\"" + s + "\",\n" + "\"IFS.extractor.count\":"
+				+ lst.size() + ",\n" + "\"IFS.extractor.list\":\n" + "[\n");
 		String sep = "";
-		for (String name : lst) {
-			if (type.equals("manifest")) {
-				sb.append(sep).append(getManifestEntry(name));
-			} else {
-				sb.append((sep + "\"" + name + "\"\n"));
+		if (type.equals("manifest")) {
+			// list the zip files first
+			for (String name : lst) {
+				if (type.equals("manifest") && name.endsWith(".zip")) {
+					sb.append(sep).append(getManifestEntry(name));
+					sep = ",";
+				}
 			}
-			sep = ",";
+			for (String name : lst) {
+				if (type.equals("manifest") && !name.endsWith(".zip")) {
+					sb.append(sep).append(getManifestEntry(name));
+					sep = ",";
+				}
+			}
+		} else {
+			for (String name : lst) {
+				sb.append((sep + "\"" + name + "\"\n"));
+				sep = ",";
+			}
 		}
 		sb.append("]}\n");
 		FileOutputStream fos = new FileOutputStream(fileTarget);

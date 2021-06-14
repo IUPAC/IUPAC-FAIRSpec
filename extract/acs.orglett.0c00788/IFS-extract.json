@@ -2,10 +2,10 @@
  {"example":"JEOL files identified as '3a-Carbon'"},
  {"hash":"0c00788"},
  {"ifsid":"acs.orglett.{hash}"},
+ {"figshareid": "22125318"},
  {"src":"{IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{ifsid}}"},
  {"data0":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
- {"data":"{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22125318}"},
-
+ {"data":"{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
  {"path":"{data}|"},
  {"objects":"{path}{IFS.nmr.representation.vender.dataset::{IFS.structure.param.compound.id::*-*}-{IFS.nmr.param.expt::*}.jdf}"}
 ]}

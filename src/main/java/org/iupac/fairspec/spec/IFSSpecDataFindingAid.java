@@ -177,6 +177,8 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 						// see https://en.wikipedia.org/wiki/Chemical_file_format
 				: fname.endsWith(".mol") ? "chemical/x-mdl-molfile"
 				: fname.endsWith(".sdf") ? "chemical/x-mdl-sdfile"
+				: fname.endsWith(".txt") || fname.endsWith(".log")
+					|| fname.endsWith(".out") ? "text/plain"
 				: fname.endsWith(".inchi") ? "chemical/x-inchi"
 				: fname.endsWith(".smiles") 
 				  || fname.endsWith(".smi") ? "chemical/x-daylight-smiles"

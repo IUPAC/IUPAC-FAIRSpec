@@ -3,10 +3,12 @@ package com.integratedgraphics.ifs;
 import java.io.File;
 import java.io.IOException;
 
+import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.object.IFSFindingAid;
 
 /**
+ * Copyright 2021 Integrated Graphics and Robert M. Hanson
  * 
  * A test class to extract metadata and representation objects from the ACS
  * sample set of 13 articles. specifically: 
@@ -33,23 +35,24 @@ import org.iupac.fairspec.object.IFSFindingAid;
  */
 public class ExtractorTest extends Extractor {
 
-	public ExtractorTest(File ifsExtractScriptFile, File targetDir, String sourceDir) throws IOException, IFSException {
+	public ExtractorTest(File ifsExtractScriptFile, File targetDir, String localSourceDir) throws IOException, IFSException {
 		// first create super.objects, a List<String>
-		initialize(ifsExtractScriptFile);
+		
+		super.initialize(ifsExtractScriptFile);
+		
 		// now actually do the extraction.
-		if (sourceDir != null)
-			setLocalSourceDir(sourceDir);
-		// these are the files we want extracted -- no $ for cdx, as that could be cdxml
-		setCachePattern("(?<param>procs$|proc2s$|acqus$|acqu2s$)|"
-				+ "\\.pdf$|\\.png$|"
-				+ "\\.mol$|\\.sdf$|\\.cdx|"
-//				+ "\\.log$|\\.out$|\\.txt$|"// maybe put these into JSON only? 
-				+ "\\.jdf$|\\.mnova$");
-		// this is the pattern to the files we want rezipped. 
-		// the <path> group is the one used and should point to the directory just above pdata.
-		setRezipCachePattern("^(?<path>.+(?:/|\\|)(?<dir>[^/]+)(?:/|\\|))pdata/[^/]+/procs$", "\\.mnova$");
-		IFSFindingAid aid = extractObjects(targetDir);
-		System.out.println("extracted " + manifestCount + " files (" + extractedByteCount + " bytes)"
+		
+		if (localSourceDir != null)
+			super.setLocalSourceDir(localSourceDir);
+		
+		super.setCachePattern(IFSConst.defaultCachePattern);
+		super.setRezipCachePattern(IFSConst.defaultRezipPattern, IFSConst.defaultRezipIgnorePattern);
+	
+		IFSFindingAid aid = super.extractObjects(targetDir);
+		
+		
+		System.out.println(
+				"extracted " + manifestCount + " files (" + extractedByteCount + " bytes)"
 				+ "; ignored " + ignoredCount + " files (" + ignoredByteCount + " bytes)");
 	}
 
@@ -61,24 +64,24 @@ public class ExtractorTest extends Extractor {
 	 */
 	private final static String[] testSet = {
 			"acs.joc.0c00770/22567817",  // 0 727 files; zips of bruker dirs + mnovas
-			"acs.orglett.0c00571/21975525", // 1 3212 files; zips of bruker zips and HRMS
-			"acs.orglett.0c00624/21947274", // 2 1143 files; MANY bruker dirs
-			"acs.orglett.0c00755/22150197", // 3 MANY bruker dirs
-			"acs.orglett.0c00788/22125318", // 4 jdfs
-			"acs.orglett.0c00874/22233351", // 5 bruker dirs
-			"acs.orglett.0c00967/22111341", // 6 bruker dirs + jdfs
-			"acs.orglett.0c01022/22195341", // 7  many mnovas
-			"acs.orglett.0c01043/22232721", // 8  single mnova
-			"acs.orglett.0c01153/22284726,22284729", // 9 bruker dirs (1 MB)
-			"acs.orglett.0c01197/22491647", // 10 many mnovas
-			"acs.orglett.0c01277/22613762", // 11 bruker dirs
-			"acs.orglett.0c01297/22612484", // 12 bruker dirs
+			"acs.orglett.0c00624/21947274", // 1 1143 files; MANY bruker dirs
+			"acs.orglett.0c00788/22125318", // 2 jdfs
+			"acs.orglett.0c00874/22233351", // 3 bruker dirs
+			"acs.orglett.0c00967/22111341", // 4 bruker dirs + jdfs
+			"acs.orglett.0c01022/22195341", // 5  many mnovas
+			"acs.orglett.0c01197/22491647", // 6 many mnovas
+			"acs.orglett.0c01277/22613762", // 7 bruker dirs
+			"acs.orglett.0c01297/22612484", // 8 bruker dirs
+			//"acs.orglett.0c00571/21975525", // 1 3212 files; zips of bruker zips and HRMS
+			//"acs.orglett.0c00755/22150197", // 3 MANY bruker dirs
+			//"acs.orglett.0c01043/22232721", // 8  single 158-MB mnova
+			//"acs.orglett.0c01153/22284726,22284729", // 9 bruker dirs
 	};
 	
 	public static void main(String[] args) {
 
 		int i0 = 0;
-		int i1 = 0; // 12 max
+		int i1 = 8; // 12 max
 		
 		debugging = false;//true; // verbose listing of all files
 		
