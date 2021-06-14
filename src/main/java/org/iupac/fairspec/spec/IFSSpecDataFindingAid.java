@@ -2,10 +2,10 @@ package org.iupac.fairspec.spec;
 
 import org.iupac.fairspec.api.IFSObjectAPI;
 import org.iupac.fairspec.common.IFSException;
-import org.iupac.fairspec.common.IFSFindingAid;
-import org.iupac.fairspec.common.IFSObject;
-import org.iupac.fairspec.common.IFSStructure;
-import org.iupac.fairspec.common.IFSStructureCollection;
+import org.iupac.fairspec.object.IFSFindingAid;
+import org.iupac.fairspec.object.IFSObject;
+import org.iupac.fairspec.object.IFSStructure;
+import org.iupac.fairspec.object.IFSStructureCollection;
 
 /**
  * The master class for a full collection, as from a publication or thesis or whatever.

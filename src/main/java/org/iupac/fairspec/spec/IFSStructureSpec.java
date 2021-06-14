@@ -1,10 +1,10 @@
 package org.iupac.fairspec.spec;
 
 import org.iupac.fairspec.common.IFSException;
-import org.iupac.fairspec.common.IFSObject;
 import org.iupac.fairspec.common.IFSReference;
-import org.iupac.fairspec.common.IFSStructure;
-import org.iupac.fairspec.common.IFSStructureCollection;
+import org.iupac.fairspec.object.IFSObject;
+import org.iupac.fairspec.object.IFSStructure;
+import org.iupac.fairspec.object.IFSStructureCollection;
 
 /**
  * An class to correlation one or more IFSStructure with one or more

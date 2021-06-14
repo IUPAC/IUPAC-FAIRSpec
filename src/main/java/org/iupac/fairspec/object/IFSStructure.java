@@ -1,6 +1,9 @@
-package org.iupac.fairspec.common;
+package org.iupac.fairspec.object;
 
 import org.iupac.fairspec.api.IFSCoreObject;
+import org.iupac.fairspec.common.IFSException;
+import org.iupac.fairspec.common.IFSReference;
+import org.iupac.fairspec.common.IFSStructureRepresentation;
 
 @SuppressWarnings("serial")
 public class IFSStructure extends IFSObject<IFSStructureRepresentation> implements IFSCoreObject {

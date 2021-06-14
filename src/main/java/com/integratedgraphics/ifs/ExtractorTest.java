@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.iupac.fairspec.common.IFSException;
-import org.iupac.fairspec.common.IFSFindingAid;
+import org.iupac.fairspec.object.IFSFindingAid;
 
 /**
  * 

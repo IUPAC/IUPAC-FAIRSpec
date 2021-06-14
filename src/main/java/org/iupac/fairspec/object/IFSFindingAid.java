@@ -1,4 +1,4 @@
-package org.iupac.fairspec.common;
+package org.iupac.fairspec.object;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -17,7 +17,7 @@ import org.iupac.fairspec.api.IFSObjectAPI;
  *
  */
 @SuppressWarnings("serial")
-public class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
+public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 
 	protected List<String> urls = new ArrayList<>();
 

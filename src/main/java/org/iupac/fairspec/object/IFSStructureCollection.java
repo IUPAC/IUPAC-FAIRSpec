@@ -1,9 +1,10 @@
-package org.iupac.fairspec.common;
+package org.iupac.fairspec.object;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairspec.api.IFSObjectAPI;
+import org.iupac.fairspec.common.IFSException;
 
 @SuppressWarnings("serial")
 public class IFSStructureCollection extends IFSCollection<IFSStructure> {

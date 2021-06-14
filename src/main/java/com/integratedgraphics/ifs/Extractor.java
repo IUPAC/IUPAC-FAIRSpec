@@ -23,9 +23,9 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairspec.common.IFSException;
-import org.iupac.fairspec.common.IFSObject;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
+import org.iupac.fairspec.object.IFSObject;
 import org.iupac.fairspec.spec.IFSSpecData;
 import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 

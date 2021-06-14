@@ -1,8 +1,8 @@
 package org.iupac.fairspec.spec;
 
 import org.iupac.fairspec.api.IFSObjectAPI;
-import org.iupac.fairspec.common.IFSCollection;
-import org.iupac.fairspec.common.IFSStructure;
+import org.iupac.fairspec.object.IFSCollection;
+import org.iupac.fairspec.object.IFSStructure;
 
 @SuppressWarnings({ "serial" })
 public class IFSStructureSpecCollection extends IFSCollection<IFSStructureSpec> {

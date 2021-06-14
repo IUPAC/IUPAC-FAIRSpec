@@ -1,4 +1,4 @@
-package org.iupac.fairspec.common;
+package org.iupac.fairspec.object;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.iupac.fairspec.api.IFSObjectAPI;
+import org.iupac.fairspec.common.IFSException;
+import org.iupac.fairspec.common.IFSProperty;
+import org.iupac.fairspec.common.IFSReference;
 
 import javajs.util.PT;
 

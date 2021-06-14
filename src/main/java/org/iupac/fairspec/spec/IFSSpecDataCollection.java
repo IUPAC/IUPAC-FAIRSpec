@@ -3,8 +3,8 @@ package org.iupac.fairspec.spec;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.iupac.fairspec.common.IFSDataObjectCollection;
 import org.iupac.fairspec.common.IFSException;
+import org.iupac.fairspec.object.IFSDataObjectCollection;
 import org.iupac.fairspec.spec.ir.IFSIRSpecData;
 import org.iupac.fairspec.spec.ms.IFSMSSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;

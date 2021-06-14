@@ -1,7 +1,7 @@
 package org.iupac.fairspec.spec;
 
 import org.iupac.fairspec.api.IFSObjectAPI;
-import org.iupac.fairspec.common.IFSCollection;
+import org.iupac.fairspec.object.IFSCollection;
 
 @SuppressWarnings({ "serial" })
 public class IFSAnalysisCollection extends IFSCollection<IFSAnalysis> {

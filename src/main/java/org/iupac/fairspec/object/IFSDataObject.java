@@ -1,7 +1,9 @@
-package org.iupac.fairspec.common;
+package org.iupac.fairspec.object;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.iupac.fairspec.common.IFSRepresentation;
 
 /**
  * A generic interface indicating some sort of data. Implemented here as
