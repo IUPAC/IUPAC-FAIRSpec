@@ -1,4 +1,4 @@
-package com.integratedgraphics.extract;
+package com.integratedgraphics.ifs;
 
 import java.io.File;
 import java.io.IOException;

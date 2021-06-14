@@ -1,4 +1,4 @@
-package com.integratedgraphics.extract;
+package com.integratedgraphics.ifs;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -608,7 +608,7 @@ public class Extractor {
 
 	protected static Map<String, Map<String, ZipEntry>> htZipContents = new HashMap<>();
 
-	static boolean debugging;
+	protected static boolean debugging;
 
 	/**
 	 * zip contents caching can save time in complex loading.
