@@ -48,7 +48,7 @@ public class IFSNMRSpecData extends IFSSpecData {
 	
 	public void setPropertyValue(String name, Object value) {
 		if (this.name == null
-				&& (name.equals("IFS.spec.nmr.param.expt") || name.equals("IFS.spec.nmr.representation.vender.dataset")))
+				&& (name.equals("IFS.spec.nmr.param.expt") || name.equals("IFS.spec.nmr.representation.vendor.dataset")))
 			this.name = value.toString();
 		super.setPropertyValue(name, value);
 	}

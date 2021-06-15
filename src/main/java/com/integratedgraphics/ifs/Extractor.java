@@ -209,7 +209,7 @@ public class Extractor {
 		// {"path":"{data}|FID for
 		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}"},
 		// {"objects":"{path}/{IFS.structure.representation.mol.2d::{id}.mol}"},
-		// {"objects":"{path}/{IFS.spec.nmr.representation.vender.dataset::{IFS.spec.nmr.param.expt::*}-NMR.zip}"},
+		// {"objects":"{path}/{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.param.expt::*}-NMR.zip}"},
 		// {"objects":"{path}/HRMS.zip|{IFS.spec.hrms.representation.pdf::**/*.pdf}"},
 		// ]}
 
@@ -221,7 +221,7 @@ public class Extractor {
 		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.structure.representation.mol.2d::{id}.mol}"
 		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
 		// for
-		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.spec.nmr.representation.vender.dataset::{IFS.spec.nmr.param.expt::*}-NMR.zip}"
+		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.param.expt::*}-NMR.zip}"
 		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
 		// for
 		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/HRMS.zip|{IFS.spec.hrms.representation.pdf::**/*.pdf}"
@@ -310,7 +310,7 @@ public class Extractor {
 
 		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
 		// for
-		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.spec.nmr.representation.vender.dataset::{IFS.spec.nmr.param.expt::*}-NMR.zip}"
+		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.param.expt::*}-NMR.zip}"
 
 		// [parse first node]
 
@@ -332,7 +332,7 @@ public class Extractor {
 
 		// [get file list]
 
-		// {id}/{IFS.spec.nmr.representation.vender.dataset::{IFS.spec.nmr.param.expt::*}-NMR.zip}
+		// {id}/{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.param.expt::*}-NMR.zip}
 
 		// [pass to SpecDataIterator]
 		// [find matches and add NMR spec data to finding aid spec data collection; also
@@ -595,7 +595,7 @@ public class Extractor {
 	 * The parser specifically looks for Matcher groups, regex (?<xxxx>...), that 
 	 * have been created by the ObjectParser from an object line such as: 
 	 * 
-	 *  {IFS.spec.nmr.representation.vender.dataset::{IFS.structure.param.compound.id::*-*}-{IFS.spec.nmr.param.expt::*}.jdf}
+	 *  {IFS.spec.nmr.representation.vendor.dataset::{IFS.structure.param.compound.id::*-*}-{IFS.spec.nmr.param.expt::*}.jdf}
      *
      * 
 	 * 
@@ -1003,17 +1003,17 @@ public class Extractor {
 			//
 			// {IFS.spec.nmr.param.expt::*} becomes \\E(?<IFS0nmr0param0expt>.+)\\Q
 			//
-			// {IFS.spec.nmr.representation.vender.dataset::{IFS.structure.param.compound.id::*-*}-{IFS.spec.nmr.param.expt::*}.jdf}
+			// {IFS.spec.nmr.representation.vendor.dataset::{IFS.structure.param.compound.id::*-*}-{IFS.spec.nmr.param.expt::*}.jdf}
 			//
 			// becomes:
 			//
-			// ^(?<IFS0nmr0representation0vender0dataset>(?<IFS0structure0param0compound0id>([^-](?:-[^-]+)*))\\Q-\\E(?<IFS0nmr0param0expt>.+)\\Q.jdf\\E)$
+			// ^(?<IFS0nmr0representation0vendor0dataset>(?<IFS0structure0param0compound0id>([^-](?:-[^-]+)*))\\Q-\\E(?<IFS0nmr0param0expt>.+)\\Q.jdf\\E)$
 			//
-			// {id=IFS.structure.param.compound.id::*}.zip|{IFS.spec.nmr.representation.vender.dataset::{id}_{IFS.spec.nmr.param.expt::*}/}
+			// {id=IFS.structure.param.compound.id::*}.zip|{IFS.spec.nmr.representation.vendor.dataset::{id}_{IFS.spec.nmr.param.expt::*}/}
 			//
 			// becomes:
 			//
-			// ^(?<id>*)\\Q.zip|\\E(?<IFS0nmr0representation0vender0dataset>\\k<id>\\Q_\\E(<IFS0nmr0param0expt>*)\\Q/\\E)$
+			// ^(?<id>*)\\Q.zip|\\E(?<IFS0nmr0representation0vendor0dataset>\\k<id>\\Q_\\E(<IFS0nmr0param0expt>*)\\Q/\\E)$
 
 			// so....
 

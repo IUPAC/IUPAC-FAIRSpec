@@ -8,5 +8,5 @@
  {"data":"{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22613762}"},
 
  {"path":"alkylation orginal FID submitted/{id=IFS.structure.param.compound.id::*}/{IFS.spec.nmr.param.expt::*}/"}, 
- {"objects":"{data}|{IFS.spec.nmr.representation.vender.dataset::{path}}"}
+ {"objects":"{data}|{IFS.spec.nmr.representation.vendor.dataset::{path}}"}
 ]}
