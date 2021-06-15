@@ -5,12 +5,12 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 public class IFSMSSpecDataRepresentation extends IFSSpecDataRepresentation {
 
-	public final static String MS_REP_VENDOR_DATASET = "IFS.ms.rep.vendor.dataset";
-	public final static String MS_REP_SPECTRUM_PDF = "IFS.ms.rep.spectrum.pdf";
-	public final static String MS_REP_SPECTRUM_IMAGE = "IFS.ms.rep.spectrum.image";
-	public final static String MS_REP_SPECTRUM_DESCRIPTION = "IFS.ms.rep.spectrum.description";
-	public final static String MS_REP_PEAKLIST = "IFS.ms.rep.peaklist";
-	public final static String MS_REP_JCAMP = "IFS.ms.rep.jcamp";
+	public final static String MS_REP_VENDOR_DATASET = "IFS.spec.ms.rep.vendor.dataset";
+	public final static String MS_REP_SPECTRUM_PDF = "IFS.spec.ms.rep.spectrum.pdf";
+	public final static String MS_REP_SPECTRUM_IMAGE = "IFS.spec.ms.rep.spectrum.image";
+	public final static String MS_REP_SPECTRUM_DESCRIPTION = "IFS.spec.ms.rep.spectrum.description";
+	public final static String MS_REP_PEAKLIST = "IFS.spec.ms.rep.peaklist";
+	public final static String MS_REP_JCAMP = "IFS.spec.ms.rep.jcamp";
 
 	private final static String[] repNames = new String[] {
 			MS_REP_VENDOR_DATASET,

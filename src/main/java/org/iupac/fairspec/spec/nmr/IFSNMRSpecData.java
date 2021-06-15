@@ -18,13 +18,13 @@ public class IFSNMRSpecData extends IFSSpecData {
 	{
 		super.setProperties(new IFSProperty[] {
 				// TODO
-				new IFSProperty("IFS.nmr.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
-				new IFSProperty("IFS.nmr.nominalFreq1", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.MHZ),
-				new IFSProperty("IFS.nmr.nominalFreq2", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.MHZ),
-				new IFSProperty("IFS.nmr.nominalFreq3", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.MHZ),
-				new IFSProperty("IFS.nmr.nucleus1", IFSConst.PROPERTY_TYPE.NUCL, IFSConst.UNITS.NONE), 
-				new IFSProperty("IFS.nmr.nucleus2", IFSConst.PROPERTY_TYPE.NUCL, IFSConst.UNITS.NONE),
-				new IFSProperty("IFS.nmr.nucleus3", IFSConst.PROPERTY_TYPE.NUCL, IFSConst.UNITS.NONE) 
+				new IFSProperty("IFS.spec.nmr.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
+				new IFSProperty("IFS.spec.nmr.nominalFreq1", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.MHZ),
+				new IFSProperty("IFS.spec.nmr.nominalFreq2", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.MHZ),
+				new IFSProperty("IFS.spec.nmr.nominalFreq3", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.MHZ),
+				new IFSProperty("IFS.spec.nmr.nucleus1", IFSConst.PROPERTY_TYPE.NUCL, IFSConst.UNITS.NONE), 
+				new IFSProperty("IFS.spec.nmr.nucleus2", IFSConst.PROPERTY_TYPE.NUCL, IFSConst.UNITS.NONE),
+				new IFSProperty("IFS.spec.nmr.nucleus3", IFSConst.PROPERTY_TYPE.NUCL, IFSConst.UNITS.NONE) 
 		});
 	}
 	
@@ -48,7 +48,7 @@ public class IFSNMRSpecData extends IFSSpecData {
 	
 	public void setPropertyValue(String name, Object value) {
 		if (this.name == null
-				&& (name.equals("IFS.nmr.param.expt") || name.equals("IFS.nmr.representation.vender.dataset")))
+				&& (name.equals("IFS.spec.nmr.param.expt") || name.equals("IFS.spec.nmr.representation.vender.dataset")))
 			this.name = value.toString();
 		super.setPropertyValue(name, value);
 	}

@@ -16,7 +16,7 @@ public class IFSIRSpecData extends IFSSpecData {
 	{
 		setProperties(new IFSProperty[] {
 				// TODO
-//				new IFSProperty("IFS.ir.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
+//				new IFSProperty("IFS.spec.ir.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
 		});
 	}
 	

@@ -77,7 +77,7 @@ import javajs.util.PT;
  * 
  * A data object references one or more Digital Objects that are what a
  * scientist would call "their data", such as a full vendor experiment dataset
- * (a Bruker NMR experment), a PNG image of a spectrum, or a peaklist.
+ * (a Bruker NMR experiment), a PNG image of a spectrum, or a peaklist.
  * 
  * For the IUPAC FAIRSpec Project, we extend this class to IFSSpecData and its
  * subclasses (IFSNMRSpecData, IFSIRSpecData, etc.). We recognize, however, that

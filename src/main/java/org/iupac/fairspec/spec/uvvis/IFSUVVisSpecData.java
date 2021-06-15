@@ -22,7 +22,7 @@ public class IFSUVVisSpecData extends IFSSpecData {
 	{
 		super.setProperties(new IFSProperty[] {
 				// TODO
-//				new IFSProperty("MS.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
+//				new IFSProperty("IFS.spec.uvvis.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
 		});
 	}
 	

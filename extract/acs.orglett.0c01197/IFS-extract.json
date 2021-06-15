@@ -8,6 +8,6 @@
  {"data":"{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22491647}"},
 
  {"path":"{data}|"},
- {"objects":"{path}products/{IFS.nmr.representation.vender.dataset::{id=IFS.structure.param.compound.id::*}.mnova}"},
- {"objects":"{path}Substrate/{IFS.nmr.representation.vender.dataset::{id=IFS.structure.param.compound.id::*}.mnova}"}
+ {"objects":"{path}products/{IFS.spec.nmr.representation.vender.dataset::{id=IFS.structure.param.compound.id::*}.mnova}"},
+ {"objects":"{path}Substrate/{IFS.spec.nmr.representation.vender.dataset::{id=IFS.structure.param.compound.id::*}.mnova}"}
 ]}

@@ -7,5 +7,5 @@
  {"data0":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
  {"data":"{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22232721}"},
 
- {"objects":"{data}|metadataNMR/{IFS.nmr.representation.vender.dataset::NMR spectra.mnova}"}
+ {"objects":"{data}|metadataNMR/{IFS.spec.nmr.representation.vender.dataset::NMR spectra.mnova}"}
 ]}

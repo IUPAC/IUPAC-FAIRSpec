@@ -17,7 +17,7 @@ public class IFSMSSpecData extends IFSSpecData {
 	{
 		super.setProperties(new IFSProperty[] {
 				// TODO
-//				new IFSProperty("MS.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
+//				new IFSProperty("IFS.spec.ms.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
 		});
 	}
 	

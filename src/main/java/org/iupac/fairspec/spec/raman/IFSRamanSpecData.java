@@ -16,7 +16,7 @@ public class IFSRamanSpecData extends IFSSpecData {
 	{
 		super.setProperties(new IFSProperty[] {
 				// TODO
-//				new IFSProperty("raman.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
+//				new IFSProperty("IFS.spec.raman.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
 		});
 	}
 	

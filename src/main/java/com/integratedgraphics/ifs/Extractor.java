@@ -209,8 +209,8 @@ public class Extractor {
 		// {"path":"{data}|FID for
 		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}"},
 		// {"objects":"{path}/{IFS.structure.representation.mol.2d::{id}.mol}"},
-		// {"objects":"{path}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}"},
-		// {"objects":"{path}/HRMS.zip|{IFS.ms.representation.pdf::**/*.pdf}"},
+		// {"objects":"{path}/{IFS.spec.nmr.representation.vender.dataset::{IFS.spec.nmr.param.expt::*}-NMR.zip}"},
+		// {"objects":"{path}/HRMS.zip|{IFS.spec.hrms.representation.pdf::**/*.pdf}"},
 		// ]}
 
 		// output:
@@ -221,10 +221,10 @@ public class Extractor {
 		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.structure.representation.mol.2d::{id}.mol}"
 		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
 		// for
-		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}"
+		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.spec.nmr.representation.vender.dataset::{IFS.spec.nmr.param.expt::*}-NMR.zip}"
 		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
 		// for
-		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/HRMS.zip|{IFS.ms.representation.pdf::**/*.pdf}"
+		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/HRMS.zip|{IFS.spec.hrms.representation.pdf::**/*.pdf}"
 		// ]
 
 		Lst<String> keys = new Lst<>();
@@ -310,7 +310,7 @@ public class Extractor {
 
 		// "{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
 		// for
-		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}"
+		// Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.spec.nmr.representation.vender.dataset::{IFS.spec.nmr.param.expt::*}-NMR.zip}"
 
 		// [parse first node]
 
@@ -332,7 +332,7 @@ public class Extractor {
 
 		// [get file list]
 
-		// {id}/{IFS.nmr.representation.vender.dataset::{IFS.nmr.param.expt::*}-NMR.zip}
+		// {id}/{IFS.spec.nmr.representation.vender.dataset::{IFS.spec.nmr.param.expt::*}-NMR.zip}
 
 		// [pass to SpecDataIterator]
 		// [find matches and add NMR spec data to finding aid spec data collection; also
@@ -595,7 +595,7 @@ public class Extractor {
 	 * The parser specifically looks for Matcher groups, regex (?<xxxx>...), that 
 	 * have been created by the ObjectParser from an object line such as: 
 	 * 
-	 *  {IFS.nmr.representation.vender.dataset::{IFS.structure.param.compound.id::*-*}-{IFS.nmr.param.expt::*}.jdf}
+	 *  {IFS.spec.nmr.representation.vender.dataset::{IFS.structure.param.compound.id::*-*}-{IFS.spec.nmr.param.expt::*}.jdf}
      *
      * 
 	 * 
@@ -989,9 +989,9 @@ public class Extractor {
 			//
 			// * becomes \\E.+\\Q
 			//
-			// {id=IFS.nmr.param.expt::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
+			// {id=IFS.spec.nmr.param.expt::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
 			//
-			// {IFS.nmr.param.expt::xxx} becomes \\E(?<IFS0nmr0param0expt>\\Qxxx\\E)\\Q
+			// {IFS.spec.nmr.param.expt::xxx} becomes \\E(?<IFS0nmr0param0expt>\\Qxxx\\E)\\Q
 			//
 			// <id> becomes \\k<id>
 			//
@@ -1001,15 +1001,15 @@ public class Extractor {
 			//
 			// so:
 			//
-			// {IFS.nmr.param.expt::*} becomes \\E(?<IFS0nmr0param0expt>.+)\\Q
+			// {IFS.spec.nmr.param.expt::*} becomes \\E(?<IFS0nmr0param0expt>.+)\\Q
 			//
-			// {IFS.nmr.representation.vender.dataset::{IFS.structure.param.compound.id::*-*}-{IFS.nmr.param.expt::*}.jdf}
+			// {IFS.spec.nmr.representation.vender.dataset::{IFS.structure.param.compound.id::*-*}-{IFS.spec.nmr.param.expt::*}.jdf}
 			//
 			// becomes:
 			//
 			// ^(?<IFS0nmr0representation0vender0dataset>(?<IFS0structure0param0compound0id>([^-](?:-[^-]+)*))\\Q-\\E(?<IFS0nmr0param0expt>.+)\\Q.jdf\\E)$
 			//
-			// {id=IFS.structure.param.compound.id::*}.zip|{IFS.nmr.representation.vender.dataset::{id}_{IFS.nmr.param.expt::*}/}
+			// {id=IFS.structure.param.compound.id::*}.zip|{IFS.spec.nmr.representation.vender.dataset::{id}_{IFS.spec.nmr.param.expt::*}/}
 			//
 			// becomes:
 			//
@@ -1039,8 +1039,8 @@ public class Extractor {
 
 			s = PT.rep(s, "*", "\\E[^|/]+\\Q");
 
-			// {id=IFS.nmr.param.expt::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
-			// {IFS.nmr.param.expt::xxx} becomes \\E(?<IFS0nmr0param0expt>\\Qxxx\\E)\\Q
+			// {id=IFS.spec.nmr.param.expt::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
+			// {IFS.spec.nmr.param.expt::xxx} becomes \\E(?<IFS0nmr0param0expt>\\Qxxx\\E)\\Q
 			// <id> becomes \\k<id>
 
 			s = compileIFSDefs(s, true, true);

@@ -64,14 +64,18 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 			return ObjectType.Structure;
 		if (propName.startsWith("IFS.analysis."))
 			return ObjectType.SpecAnalysis;
-		if (propName.startsWith("IFS.nmr."))
+		if (propName.startsWith("IFS.spec.nmr."))
 			return ObjectType.NMRSpecData;
-		if (propName.startsWith("IFS.ir."))
+		if (propName.startsWith("IFS.spec.ir."))
 			return ObjectType.IRSpecData;
-		if (propName.startsWith("IFS.ms."))
-			return ObjectType.MSSpecData;
-		if (propName.startsWith("IFS.raman."))
+		if (propName.startsWith("IFS.spec.raman."))
 			return ObjectType.RAMANSpecData;
+		if (propName.startsWith("IFS.spec.hrms."))
+			return ObjectType.HRMSSpecData;
+		if (propName.startsWith("IFS.spec.ms."))
+			return ObjectType.MSSpecData;
+		if (propName.startsWith("IFS.spec.uvvis."))
+			return ObjectType.UVVisSpecData;
 		return ObjectType.Unknown;		
 	}
 
