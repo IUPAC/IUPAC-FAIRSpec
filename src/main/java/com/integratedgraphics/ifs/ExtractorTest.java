@@ -6,6 +6,8 @@ import java.io.IOException;
 import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.object.IFSFindingAid;
+import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
+import org.iupac.fairspec.spec.IFSStructureSpecCollection;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
@@ -48,12 +50,15 @@ public class ExtractorTest extends Extractor {
 		super.setCachePattern(IFSConst.defaultCachePattern);
 		super.setRezipCachePattern(IFSConst.defaultRezipPattern, IFSConst.defaultRezipIgnorePattern);
 	
-		IFSFindingAid aid = super.extractObjects(targetDir);
-		
-		
+		IFSSpecDataFindingAid aid = super.extractObjects(targetDir);
+				
 		System.out.println(
 				"extracted " + manifestCount + " files (" + extractedByteCount + " bytes)"
 				+ "; ignored " + ignoredCount + " files (" + ignoredByteCount + " bytes)");
+		System.out.println(aid.getURLs() + " " + aid.getParams());
+		IFSStructureSpecCollection ssc = aid.getStructureSpecCollection();
+		new EADWriter(targetDir, rootPath, aid).write();
+		
 	}
 
 
@@ -63,6 +68,7 @@ public class ExtractorTest extends Extractor {
 	 * for example: https://ndownloader.figshare.com/files/21947274
 	 */
 	private final static String[] testSet = {
+			"acs.orglett.0c01153/22284726,22284729", // 9 bruker dirs
 			"acs.joc.0c00770/22567817",  // 0 727 files; zips of bruker dirs + mnovas
 			"acs.orglett.0c00624/21947274", // 1 1143 files; MANY bruker dirs
 			"acs.orglett.0c00788/22125318", // 2 jdfs
@@ -76,7 +82,6 @@ public class ExtractorTest extends Extractor {
 			//"acs.orglett.0c00571/21975525", // 1 3212 files; zips of bruker zips and HRMS
 			//"acs.orglett.0c00755/22150197", // 3 MANY bruker dirs
 			//"acs.orglett.0c01043/22232721", // 8  single 158-MB mnova
-			//"acs.orglett.0c01153/22284726,22284729", // 9 bruker dirs
 	};
 	
 	public static void main(String[] args) {

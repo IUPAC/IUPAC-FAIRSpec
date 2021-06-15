@@ -29,7 +29,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	private IFSStructureCollection structureCollection;
 	private IFSSpecDataCollection specDataCollection;
 	private IFSStructureSpecCollection structureSpecCollection;
-	private IFSAnalysisCollection analysisCollection;
+	private IFSSpecAnalysisCollection analysisCollection;
 	
 	public IFSSpecDataFindingAid(String name, String sUrl) {
 		super(name, IFSObjectI.ObjectType.SpecDataFindingAid, sUrl);
@@ -56,7 +56,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		if (propName.startsWith("IFS.structure."))
 			return ObjectType.Structure;
 		if (propName.startsWith("IFS.analysis."))
-			return ObjectType.Analysis;
+			return ObjectType.SpecAnalysis;
 		if (propName.startsWith("IFS.nmr."))
 			return ObjectType.NMRSpecData;
 		if (propName.startsWith("IFS.ir."))
@@ -68,13 +68,13 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		return ObjectType.Unknown;		
 	}
 
-	public IFSObject<?> addObject(String param, String value) throws IFSException {
+	public IFSObject<?> addObject(String rootPath, String param, String value) throws IFSException {
 		if (currentObjectFileName == null)
 			throw new IFSException("addObject " + param + " " + value + " called with no current object file name");
 		ObjectType type = getObjectTypeForName(param);
 		switch (type) {
-		case AnalysisCollection:
-		case Analysis:
+		case SpecAnalysisCollection:
+		case SpecAnalysis:
 			System.out.println("Analysis not implemented");
 			getAnalysisCollection();
 			return null;
@@ -82,7 +82,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		case MSSpecData:
 		case NMRSpecData:
 		case RAMANSpecData:
-			currentSpecData = getSpecDataCollection(type).getSpecDataFor(param, value, currentObjectFileName, type);
+			currentSpecData = getSpecDataCollection(type).getSpecDataFor(rootPath, param, value, currentObjectFileName, type);
 //			if (currentSpecData == null) {
 //			} else {
 //				String key = param + ";" + value;
@@ -91,8 +91,9 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 			return currentSpecData;
 		case Structure:
 			if (currentStructure == null) {
-				currentStructure = getStructureCollection().getStructureFor(param, value, currentObjectFileName);
+				currentStructure = getStructureCollection().getStructureFor(rootPath, param, value, currentObjectFileName);
 			} else {
+				currentStructure.setPath(rootPath);
 				currentStructure.getRepresentation(param + ";" + value);
 			}
 			return currentStructure;
@@ -114,7 +115,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 
 	public IFSSpecDataCollection getSpecDataCollection(ObjectType type) {
 		if (specDataCollection == null) {
-			setSafely(SPECDATA_COLLECTION, specDataCollection = new IFSSpecDataCollection(name, type));			
+			setSafely(SPECDATA_COLLECTION, specDataCollection = new IFSSpecDataCollection(name, type));
 		}
 		return specDataCollection;
 	}
@@ -133,9 +134,9 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		return structureSpecCollection;
 	}
 
-	public IFSAnalysisCollection getAnalysisCollection() {
+	public IFSSpecAnalysisCollection getAnalysisCollection() {
 		if (analysisCollection == null)
-			setSafely(ANALYSIS_COLLECTION, analysisCollection = new IFSAnalysisCollection(name));
+			setSafely(ANALYSIS_COLLECTION, analysisCollection = new IFSSpecAnalysisCollection(name));
 		return analysisCollection;
 	}
 	

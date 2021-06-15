@@ -93,10 +93,11 @@ public interface IFSObjectI<T> {
 		SpecDataFindingAid, 
 		SpecDataCollection, 
 		StructureSpecCollection, 
-		AnalysisCollection,
+		SpecAnalysisCollection,
 		// IFS spec core
-		SpecData, Analysis, 
-		NMRSpecData, IRSpecData, MSSpecData, RAMANSpecData,
+		SpecData, SpecAnalysis, 
+		NMRSpecData, IRSpecData, MSSpecData, 
+		HRMSSpecData, RAMANSpecData, UVVisSpecData,
 		// IFS spec combined
 		StructureSpec
 	};

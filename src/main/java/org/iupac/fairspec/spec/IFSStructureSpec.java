@@ -2,9 +2,9 @@ package org.iupac.fairspec.spec;
 
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSReference;
-import org.iupac.fairspec.object.IFSObject;
 import org.iupac.fairspec.object.IFSStructure;
 import org.iupac.fairspec.object.IFSStructureCollection;
+import org.iupac.fairspec.object.IFSStructureData;
 
 /**
  * An class to correlation one or more IFSStructure with one or more
@@ -23,14 +23,14 @@ import org.iupac.fairspec.object.IFSStructureCollection;
  *
  */
 @SuppressWarnings("serial")
-public class IFSStructureSpec extends IFSObject<IFSObject<?>> {
+public class IFSStructureSpec extends IFSStructureData {
 	
 	public IFSStructureSpec(String name, IFSStructure structure, IFSSpecData data) {
-		super(name, ObjectType.StructureSpec, 2, new IFSStructureCollection("structures", structure), new IFSSpecDataCollection("specData", data));
+		super(name, ObjectType.StructureSpec, new IFSStructureCollection("structures", structure), new IFSSpecDataCollection("specData", data));
 	}
 
 	public IFSStructureSpec(String name, IFSStructureCollection structureCollection, IFSSpecDataCollection specDataCollection) {
-		super(name, ObjectType.StructureSpec, 2, structureCollection, specDataCollection);
+		super(name, ObjectType.StructureSpec, structureCollection, specDataCollection);
 	}
 	
 	@Override
@@ -39,10 +39,6 @@ public class IFSStructureSpec extends IFSObject<IFSObject<?>> {
 			return false;
 		IFSStructureSpec ss = (IFSStructureSpec) o;
 		return (ss.get(0).equals(get(0)) && ss.get(1).equals(get(1)));
-	}
-
-	public IFSStructureCollection getStructureCollection() {
-		return (IFSStructureCollection) get(0);
 	}
 
 	public IFSSpecDataCollection getSpecDataCollection() {
@@ -66,7 +62,7 @@ public class IFSStructureSpec extends IFSObject<IFSObject<?>> {
 		return getStructureCollection().get(0);
 	}
 
-	public IFSSpecData getFirstSpecData() {
+	public IFSSpecData getFirstDataObject() {
 		return getSpecDataCollection().get(0);
 	}
 

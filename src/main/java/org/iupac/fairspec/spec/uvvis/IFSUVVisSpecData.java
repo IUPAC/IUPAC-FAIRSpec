@@ -1,0 +1,42 @@
+package org.iupac.fairspec.spec.uvvis;
+
+import org.iupac.fairspec.common.IFSProperty;
+import org.iupac.fairspec.common.IFSReference;
+import org.iupac.fairspec.spec.IFSSpecData;
+import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
+
+/**
+ *
+ * @author hansonr
+ *
+ */
+@SuppressWarnings("serial")
+public class IFSUVVisSpecData extends IFSSpecData {
+
+
+	public IFSUVVisSpecData(String name, ObjectType type) {
+		super(name, type);
+		// TODO Auto-generated constructor stub
+	}
+
+
+	{
+		super.setProperties(new IFSProperty[] {
+				// TODO
+//				new IFSProperty("MS.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
+		});
+	}
+	
+
+	public IFSUVVisSpecData(String name) {
+		super(name, ObjectType.UVVisSpecData);
+	}
+
+
+	@Override
+	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len) {
+		return new IFSUVVisSpecDataRepresentation(name, ref, obj, len);
+	}
+
+
+}

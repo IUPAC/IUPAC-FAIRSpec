@@ -1,12 +1,7 @@
 package org.iupac.fairspec.object;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.zip.ZipEntry;
-
-import org.iupac.fairspec.api.IFSObjectI;
 
 /**
  * The master class for a full collection, as from a publication or thesis or whatever.

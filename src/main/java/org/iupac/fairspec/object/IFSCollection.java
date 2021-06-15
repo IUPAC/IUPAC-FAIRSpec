@@ -2,7 +2,6 @@ package org.iupac.fairspec.object;
 
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSReference;
-import org.iupac.fairspec.spec.IFSStructureSpec;
 
 @SuppressWarnings("serial")
 public abstract class IFSCollection<T> extends IFSObject<T> {

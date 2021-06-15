@@ -3,8 +3,8 @@ package org.iupac.fairspec.object;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.common.IFSException;
@@ -48,6 +48,11 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	 * an arbitrary identifier to provide some sort of context
 	 */
 	protected String id;
+
+	/**
+	 * an arbitrary path to provide some sort of context
+	 */
+	private String path;
 
 	/**
 	 * known properties of this class, fully identified in terms of data type and
@@ -124,6 +129,10 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 		return htProps;
 	}
 
+	public Map<String, Object> getParams() {
+		return params;
+	}
+
 	public void setPropertyValue(String name, Object value) {
 		IFSProperty p = htProps.get(name);
 		if (p == null) {
@@ -134,7 +143,8 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	}
 
 	public Object getPropertyValue(String name) {
-		return params.get(name);
+		IFSProperty p = htProps.get(name);		
+		return (p == null ? params.get(name) : p.getValue());
 	}
 	
 	public String getParamJSON() {
@@ -169,14 +179,14 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 		return size();
 	}
 
-	protected final Map<String, T> htReps = new HashMap<>();
+	protected final Map<String, T> htReps = new LinkedHashMap<>();
 
 	public T getRepresentation(String objectName) throws IFSException {
-		T rep = htReps.get(objectName);
+		T rep = htReps.get(path + "::" + objectName);
 		if (rep == null) {
 			rep = newRepresentation(REP_TYPE_UNKNOWN, new IFSReference(objectName), null, 0);
 			add(rep);
-			htReps.put(objectName, rep);
+			htReps.put(path + "::" + objectName, rep);
 		}
 		return rep;
 	}
@@ -224,6 +234,14 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 
 	public String toString() {
 		return "[" + getClass().getSimpleName() + " " + index + " " + " size=" + size() + "]";
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 

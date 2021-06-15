@@ -10,12 +10,13 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
+import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
@@ -125,7 +126,7 @@ public class Extractor {
 	protected long ignoredByteCount;
 	protected int manifestCount;
 	protected int ignoredCount;
-	private Map<String, IFSSpecData> htManifestNameToSpecData = new TreeMap<>();
+	private Map<String, IFSSpecData> htManifestNameToSpecData = new LinkedHashMap<>();
 	private String zipDirName;
 	private File extractScriptFile;
 	private String extractScript;
@@ -135,6 +136,8 @@ public class Extractor {
 	private String dataLicenseName;
 
 	private String license;
+
+	private String puburi;
 
 	public Extractor() {
 		clearZipCache();
@@ -242,6 +245,9 @@ public class Extractor {
 					val = s;
 				}
 				switch (key) {
+				case "puburi":
+					puburi = val;
+					break;
 				case "license":
 					license = val;
 					break;
@@ -386,6 +392,15 @@ public class Extractor {
 			
 			if (findingAid == null) {
 				findingAid = new IFSSpecDataFindingAid(ifsid, unlocalizedURL);
+				if (dataLicenseURI != null) {
+					findingAid.setPropertyValue("IFS.fairspec.data.license.uri", dataLicenseURI);
+				}
+				if (dataLicenseName != null) {
+					findingAid.setPropertyValue("IFS.fairspec.data.license.name", dataLicenseName);
+				}
+				if (puburi != null) {
+					findingAid.setPropertyValue("IFS.finding.aid.source.publication.uri", puburi);
+				}
 				rootPathToObject = new HashMap<>();
 			} else if (!unlocalizedURL.equals(lastURL)){
 				findingAid.addUrl(unlocalizedURL);
@@ -428,7 +443,7 @@ public class Extractor {
 			// At this point we now have all spectra ready to be associated with structures. 
 
 			
-			addAllIFSObject(parser, sURL);
+			addAllIFSObjects(parser, sURL);
 			
 			processZipFilesAndParameters(sURL);
 
@@ -458,7 +473,7 @@ public class Extractor {
 		paramList.clear();
 	}
 
-	private void addAllIFSObject(ObjectParser parser, String sURL) throws IOException, IFSException {
+	private void addAllIFSObjects(ObjectParser parser, String sURL) throws IOException, IFSException {
 		Map<String, ZipEntry> zipFiles = getZipContents(sURL);
 		for (String zipName : zipFiles.keySet()) {
 			IFSObject<?> obj = addIFSObjectsForName(parser, zipName);
@@ -494,10 +509,7 @@ public class Extractor {
 	}
 
 	protected void setCollectionManifests(boolean isOpen) throws IOException {
-		if (isOpen) {
-			lstManifest.clear();
-			lstIgnored.clear();
-		} else {
+		if (!isOpen) {
 			FileOutputStream fos = new FileOutputStream(getFileTarget("_IFS_extract.json"));
 			fos.write(this.extractScript.getBytes());
 			fos.close();
@@ -505,31 +517,34 @@ public class Extractor {
 			outputListJSON(lstManifest, getFileTarget("_IFS_manifest.json"), "manifest");
 			if (lstIgnored.size() > 0)
 				outputListJSON(lstIgnored, getFileTarget("_IFS_ignored.json"), "ignored");
-			lstManifest.clear();
-			lstIgnored.clear();
 		}
+		lstManifest.clear();
+		lstIgnored.clear();
 	}
 
 	protected void outputListJSON(List<String> lst, File fileTarget, String type) throws IOException {
 		log("! saved " + fileTarget + " (" + lst.size() + " items)");
 		// Date d = new Date();
 		// all of a sudden, on 2021.06.13 at 1 PM
-		// ile:/C:/Program%20Files/Java/jdk1.8.0_251/jre/lib/sunrsasign.jar cannot be
+		// file:/C:/Program%20Files/Java/jdk1.8.0_251/jre/lib/sunrsasign.jar cannot be
 		// found when
-		// converting d.toString()!
-		String s = "" + System.currentTimeMillis();
+		// converting d.toString() due to a check in Date.toString for daylight savings time!
+		
+		String s = new Date().toGMTString();
 		StringBuffer sb = new StringBuffer();
 		sb.append("{" + "\"IFS.fairspec.version\":\"" + IFSConst.IFS_FAIRSpec_version + "\",\n");
 		if (dataLicenseURI != null) {
-		sb.append("\"IFS.fairspec.data.license.uri\":\"" + dataLicenseURI + "\",\n")
-		  .append("\"IFS.fairspec.data.license.name\":\"" + dataLicenseName + "\",\n");
+			sb.append("\"IFS.fairspec.data.license.uri\":\"" + dataLicenseURI + "\",\n");
+		}
+		if (dataLicenseName != null) {
+			sb.append("\"IFS.fairspec.data.license.name\":\"" + dataLicenseName + "\",\n");
 		}
 		sb.append("\"IFS.extractor.version\":\"" + version + "\",\n") 
 		  .append("\"IFS.extractor.code\":\"" + codeSource + "\",\n") 
 		  .append("\"IFS.extractor.list.type\":\"" + type + "\",\n")
 		  .append("\"IFS.extractor.scirpt\":\"_IFS_extract.json\",\n") 
 		  .append("\"IFS.extractor.source\":\"" + dataSource + "\",\n")
-		  .append("\"IFS.extractor.datetime.stamp\":\"" + s + "\",\n")
+		  .append("\"IFS.extractor.datetime\":\"" + s + "\",\n")
 		  .append("\"IFS.extractor.count\":" + lst.size() + ",\n")
 		  .append("\"IFS.extractor.list\":\n" + "[\n");
 		String sep = "";
@@ -582,11 +597,12 @@ public class Extractor {
 	 * 
 	 *  {IFS.nmr.representation.vender.dataset::{IFS.structure.param.compound.id::*-*}-{IFS.nmr.param.expt::*}.jdf}
      *
-	 * 
+     * 
 	 * 
 	 * @param parser
 	 * @param zipName
-	 * @return
+	 * @return one of IFSStructureSpec, IFSSpecData, IFSStructure, in that order, depending upon availability
+	 * 
 	 * @throws IFSException
 	 */
 	private IFSObject<?> addIFSObjectsForName(ObjectParser parser, String zipName) throws IFSException {
@@ -596,14 +612,15 @@ public class Extractor {
 		findingAid.beginAddObject(zipName);
 		if (debugging)
 			log("found " + zipName);
+		
+		// If an IFSSpecData object is added, then it will also be added to htManifestNameToSpecData
+
 		for (String key : parser.keys.keySet()) {
 			String param = parser.keys.get(key);
 			String value = m.group(key);
-			IFSObject<?> obj = findingAid.addObject(param, value);
+			IFSObject<?> obj = findingAid.addObject(rootPath, param, value);
 			if (obj instanceof IFSSpecData) {
 				htManifestNameToSpecData.put(getManifestName(zipName), (IFSSpecData) obj);
-				if (zipName.startsWith("1.") && param.endsWith(".dataset"))
-					System.out.println(zipName);
 			}
 			if (debugging)
 				log("found " + param + " " + value);
@@ -895,7 +912,7 @@ public class Extractor {
 				log("duplicate path " + zipName);
 			} else {
 				lastRezipPath = zipName;
-				IFSRepresentation ref = new IFSRepresentation("bruker.zip", new IFSReference(zipName), zipName, len);
+				IFSRepresentation ref = new IFSRepresentation("bruker.zip", new IFSReference(zipName, rootPath), zipName, len);
 				rezipCache.add(ref);
 				log("rezip added " + zipName);
 			}
@@ -914,7 +931,7 @@ public class Extractor {
 
 	private void cacheFile(String path, String zipName, long len, String type) {
 		type = IFSSpecDataFindingAid.MediaTypeFromName(path);
-		cache.put(path, new IFSRepresentation(type, new IFSReference(zipName), null, len));
+		cache.put(path, new IFSRepresentation(type, new IFSReference(zipName, rootPath), null, len));
 	}
 
 	protected File getFileTarget(String fname) {

@@ -1,7 +1,5 @@
 package org.iupac.fairspec.common;
 
-import java.util.regex.Pattern;
-
 public class IFSConst {
 
 	public final static String IFS_FAIRSpec_version = "0.0.1-2021_06_14";

@@ -3,6 +3,7 @@ package org.iupac.fairspec.object;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.iupac.fairspec.api.IFSCoreObjectI;
 import org.iupac.fairspec.common.IFSRepresentation;
 
 /**
@@ -15,7 +16,7 @@ import org.iupac.fairspec.common.IFSRepresentation;
  *
  */
 @SuppressWarnings("serial")
-public abstract class IFSDataObject<T> extends IFSObject<T> {
+public abstract class IFSDataObject<T> extends IFSObject<T> implements IFSCoreObjectI {
 
 	protected final Map<String, IFSRepresentation> htReps = new HashMap<>();
 	

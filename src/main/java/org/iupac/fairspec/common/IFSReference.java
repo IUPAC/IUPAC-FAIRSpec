@@ -10,18 +10,29 @@ package org.iupac.fairspec.common;
 public class IFSReference {
 
 	private final Object ref;
+	private final String path;
 	
 	public IFSReference(Object ref) {
+		this(ref, null);
+	}
+	
+	public IFSReference(Object ref, String path) {
 		this.ref = ref;
+		this.path = path;
 	}
 
 	public Object getValue() {
 		return ref;
 	}
 
-	@Override
-	public String toString() {
-		return ref.toString();
+	public String getPath() {
+		return path;
 	}
 	
+	@Override
+	public String toString() {
+		return "[IFSReference " + (path == null ? "" : path + "::") + ref + "]";
+	}
+
+
 }

@@ -13,8 +13,9 @@ public class IFSStructure extends IFSObject<IFSStructureRepresentation> implemen
 		
 	}
 
-	public IFSStructure(String param, String value) throws IFSException {
+	public IFSStructure(String path, String param, String value) throws IFSException {
 		super(param + ";" + value, ObjectType.Structure);
+		setPath(path);
 		if (param.equals("IFS.structure.param.compound.id"))
 			name = value;
 		setPropertyValue(param, value);

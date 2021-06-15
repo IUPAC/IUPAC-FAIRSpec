@@ -40,5 +40,8 @@ public class IFSRepresentation {
 		return len;
 	}
 
+	public String toString() {
+		return "[IFSRepresentation type=" + type + " ref=" + ref + "]";
+	}
 
 }

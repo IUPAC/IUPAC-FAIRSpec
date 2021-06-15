@@ -3,7 +3,7 @@
  {"license":"{IFS.finding.aid.license.uri::https://creativecommons.org/licenses/by-nc-nd/4.0/deed},{IFS.finding.aid.license.name::cc-nc-nd-4.0}"},
  {"hash":"0c01197"},
  {"ifsid":"acs.orglett.{hash}"},
- {"src":"{IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{ifsid}}"},
+ {"puburi":"{IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{ifsid}}"},
  {"data0":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
  {"data":"{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22491647}"},
 

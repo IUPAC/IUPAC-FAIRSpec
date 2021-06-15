@@ -54,5 +54,8 @@ public class IFSNMRSpecData extends IFSSpecData {
 	}
 
 
+	public String toString() {
+		return super.toString();
+	}
 
 }

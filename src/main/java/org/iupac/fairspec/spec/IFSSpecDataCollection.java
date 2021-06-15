@@ -39,11 +39,11 @@ public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> 
 
 	private Map<String, IFSSpecData> map = new HashMap<>();
 
-	public IFSSpecData getSpecDataFor(String param, String value, String objectFile, ObjectType type) throws IFSException {
-		String keyValue = objectFile;
+	public IFSSpecData getSpecDataFor(String path, String param, String value, String objectFile, ObjectType type) throws IFSException {
+		String keyValue = path + "::" + objectFile;
 		IFSSpecData sd = map.get(keyValue);
 		if (sd == null) {
- 			map.put(keyValue,  sd = newIFSSpecData(param, value, type));
+ 			map.put(keyValue,  sd = newIFSSpecData(path, param, value, type));
  			add(sd);
 		} else {
 			sd.setPropertyValue(param, value);
@@ -53,7 +53,7 @@ public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> 
 	}
 
 
-	public static IFSSpecData newIFSSpecData(String param, String value, ObjectType type) throws IFSException {
+	public static IFSSpecData newIFSSpecData(String path, String param, String value, ObjectType type) throws IFSException {
 		IFSSpecData sd;
 		switch(type) {
 		case IRSpecData:
@@ -71,6 +71,7 @@ public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> 
 		default:
 			return null;	
 		}
+		sd.setPath(path);
 		sd.setPropertyValue(param, value);
 		return sd;
 	}
