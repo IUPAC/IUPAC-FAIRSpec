@@ -1,4 +1,7 @@
-package org.iupac.fairspec.common;
+package org.iupac.fairspec.core;
+
+import org.iupac.fairspec.common.IFSReference;
+import org.iupac.fairspec.common.IFSRepresentation;
 
 public class IFSStructureRepresentation extends IFSRepresentation {
 

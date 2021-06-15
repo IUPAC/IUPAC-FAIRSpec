@@ -3,7 +3,7 @@ package com.integratedgraphics.ifs;
 import java.io.File;
 
 import org.iupac.fairspec.api.IFSFindingAidWriterI;
-import org.iupac.fairspec.object.IFSFindingAid;
+import org.iupac.fairspec.assoc.IFSFindingAid;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson

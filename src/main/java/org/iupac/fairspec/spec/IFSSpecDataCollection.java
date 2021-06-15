@@ -4,12 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairspec.common.IFSException;
-import org.iupac.fairspec.object.IFSDataObjectCollection;
+import org.iupac.fairspec.core.IFSDataObjectCollection;
 import org.iupac.fairspec.spec.ir.IFSIRSpecData;
 import org.iupac.fairspec.spec.ms.IFSMSSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 import org.iupac.fairspec.spec.raman.IFSRamanSpecData;
 
+/**
+ * A collection of IFSSpecData objects.
+ * 
+ * @author hansonr
+ *
+ */
 @SuppressWarnings("serial")
 public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> {
 

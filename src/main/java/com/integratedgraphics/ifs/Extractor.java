@@ -27,7 +27,7 @@ import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
-import org.iupac.fairspec.object.IFSObject;
+import org.iupac.fairspec.core.IFSObject;
 import org.iupac.fairspec.spec.IFSSpecData;
 import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 

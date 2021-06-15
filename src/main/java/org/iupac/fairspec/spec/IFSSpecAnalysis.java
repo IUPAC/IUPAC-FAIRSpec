@@ -1,20 +1,22 @@
 package org.iupac.fairspec.spec;
 
-import org.iupac.fairspec.common.IFSReference;
-import org.iupac.fairspec.object.IFSAnalysis;
+import org.iupac.fairspec.assoc.IFSAnalysis;
+import org.iupac.fairspec.core.IFSDataObjectCollection;
+import org.iupac.fairspec.core.IFSStructureCollection;
 
+/**
+ * A subclass of IFSAnalysis that provides a detailed atom-based analysis of
+ * chemical structure in relation to spectroscopy.
+ * 
+ * @author hansonr
+ *
+ */
 @SuppressWarnings("serial")
-public class IFSSpecAnalysis extends IFSAnalysis<IFSSpecAnalysisRepresentation> {
+public class IFSSpecAnalysis extends IFSAnalysis {
 
-	
-	public IFSSpecAnalysis(String name) {
-		super(name, ObjectType.SpecAnalysis);
-	}
-
-	@Override
-	protected IFSSpecAnalysisRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len) {
-		return new IFSSpecAnalysisRepresentation(name, ref, obj, len);
-
+	public IFSSpecAnalysis(String name, IFSStructureCollection structureCollection,
+			IFSDataObjectCollection<?> dataCollection) {
+		super(name, ObjectType.SpecAnalysis, structureCollection, dataCollection);
 	}
 
 }

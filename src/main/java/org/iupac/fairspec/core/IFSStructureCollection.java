@@ -1,4 +1,4 @@
-package org.iupac.fairspec.object;
+package org.iupac.fairspec.core;
 
 import java.util.HashMap;
 import java.util.Map;

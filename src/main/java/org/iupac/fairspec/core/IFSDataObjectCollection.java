@@ -1,4 +1,4 @@
-package org.iupac.fairspec.object;
+package org.iupac.fairspec.core;
 
 @SuppressWarnings("serial")
 public abstract class IFSDataObjectCollection<T> extends IFSCollection<T> {

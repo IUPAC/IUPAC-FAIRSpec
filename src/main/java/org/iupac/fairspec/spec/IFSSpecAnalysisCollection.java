@@ -1,8 +1,14 @@
 package org.iupac.fairspec.spec;
 
 import org.iupac.fairspec.api.IFSObjectI;
-import org.iupac.fairspec.object.IFSDataObjectCollection;
+import org.iupac.fairspec.core.IFSDataObjectCollection;
 
+/**
+ * A collection of IFSSpecAnalysis, which may be for completely different compounds.
+ * 
+ * @author hansonr
+ *
+ */
 @SuppressWarnings({ "serial" })
 public class IFSSpecAnalysisCollection extends IFSDataObjectCollection<IFSSpecAnalysis> {
 

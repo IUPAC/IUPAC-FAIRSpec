@@ -1,15 +1,22 @@
 package org.iupac.fairspec.spec;
 
 import org.iupac.fairspec.api.IFSObjectI;
+import org.iupac.fairspec.assoc.IFSFindingAid;
 import org.iupac.fairspec.common.IFSException;
-import org.iupac.fairspec.object.IFSFindingAid;
-import org.iupac.fairspec.object.IFSObject;
-import org.iupac.fairspec.object.IFSStructure;
-import org.iupac.fairspec.object.IFSStructureCollection;
+import org.iupac.fairspec.core.IFSObject;
+import org.iupac.fairspec.core.IFSStructure;
+import org.iupac.fairspec.core.IFSStructureCollection;
 
 /**
- * The master class for a full collection, as from a publication or thesis or whatever.
- * This class ultimately extends ArrayList, so all of the methods of that class are allowed, 
+ * The master class for a full FAIRSpec collection, as from a publication or
+ * thesis, lab experiment, or spectral prediction.
+ * 
+ * This class ultimately extends ArrayList, so all of the methods of that class
+ * are allowed. Access to this list is restricted, with the first four slots
+ * reserved for an IFSStructureCollection, an IFSSpectDataCollection, an
+ * IFSStructureSpecCollection, and an IFSAnalysisCollection.
+ * 
+ * 
  * 
  * @author hansonr
  *

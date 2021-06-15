@@ -3,9 +3,9 @@ package com.integratedgraphics.ifs;
 import java.io.File;
 import java.io.IOException;
 
+import org.iupac.fairspec.assoc.IFSFindingAid;
 import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
-import org.iupac.fairspec.object.IFSFindingAid;
 import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 import org.iupac.fairspec.spec.IFSStructureSpecCollection;
 

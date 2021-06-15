@@ -1,7 +1,9 @@
-package org.iupac.fairspec.object;
+package org.iupac.fairspec.assoc;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.iupac.fairspec.core.IFSCollection;
 
 /**
  * The master class for a full collection, as from a publication or thesis or whatever.

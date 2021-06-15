@@ -1,8 +1,8 @@
 package org.iupac.fairspec.spec;
 
 import org.iupac.fairspec.api.IFSObjectI;
-import org.iupac.fairspec.object.IFSCollection;
-import org.iupac.fairspec.object.IFSStructure;
+import org.iupac.fairspec.core.IFSCollection;
+import org.iupac.fairspec.core.IFSStructure;
 
 @SuppressWarnings({ "serial" })
 public class IFSStructureSpecCollection extends IFSCollection<IFSStructureSpec> {
@@ -12,8 +12,7 @@ public class IFSStructureSpecCollection extends IFSCollection<IFSStructureSpec> 
 	}
 
 	/**
-	 * Add a spectrum to a collection that has this structure as its sole associated
-	 * structure. A one-to-many structure-to-spectrum may result
+	 * A collection of IFSStructureSpec objects. 
 	 * 
 	 * @param name
 	 * @param struc

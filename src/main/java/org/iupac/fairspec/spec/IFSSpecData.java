@@ -1,12 +1,13 @@
 package org.iupac.fairspec.spec;
 
-import org.iupac.fairspec.object.IFSDataObject;
+import org.iupac.fairspec.core.IFSDataObject;
 
 /**
  * 
- * A class that can refer to multiple spectroscopy data representations.
- * There is nothing special characterizing this relative to IFSDataObject 
- * other than its class name.
+ * An abstract class that can refer to multiple spectroscopy data
+ * representations. There is nothing special characterizing this relative to
+ * IFSDataObject other than its class name; methods and properties specific to
+ * specific types of spectroscopy are provided in subclasses of this class.
  * 
  * @author hansonr
  *

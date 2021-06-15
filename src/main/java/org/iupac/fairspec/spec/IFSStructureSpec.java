@@ -1,29 +1,30 @@
 package org.iupac.fairspec.spec;
 
+import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSReference;
-import org.iupac.fairspec.object.IFSStructure;
-import org.iupac.fairspec.object.IFSStructureCollection;
-import org.iupac.fairspec.object.IFSStructureData;
+import org.iupac.fairspec.core.IFSStructure;
+import org.iupac.fairspec.core.IFSStructureCollection;
 
 /**
- * An class to correlation one or more IFSStructure with one or more
- * IFSDataObject. Only two objects are allowed -- one IFSStructureCollection and
- * one IFSSpecDataCollection. 
+ * An abstract class to correlation one or more IFSStructure with one or more
+ * IFSSpecData objects. Only two array items are allowed -- one
+ * IFSStructureCollection and one IFSSpecDataCollection.
  * 
- * Generally, but not necessarily, this will be one
- * structure and one spectrum. But nothing says the spectrum collection could
- * not be more than one spectrum, and the structure collection could not be more
- * than one structure. Thus, we allow for a "many to one" (spectrum of a mixture), 
- * "one to many," (NMR, IR, MS of a specific compound), and "many to many" (mixture with multiple NMR) associations.
+ * Generally, but not necessarily, this will be one structure and one spectrum.
+ * But nothing says the spectrum collection could not be more than one spectrum,
+ * and the structure collection could not be more than one structure. Thus, we
+ * allow for a "many to one" (spectrum of a mixture), "one to many," (NMR, IR,
+ * MS of a specific compound), and "many to many" (mixture with multiple NMR)
+ * associations.
  * 
- * An abstract object that does not allow representations. 
+ * This class implements IFSAstractObjectI and does not allow representations.
  * 
  * @author hansonr
  *
  */
 @SuppressWarnings("serial")
-public class IFSStructureSpec extends IFSStructureData {
+public class IFSStructureSpec extends IFSStructureDataAssociation {
 	
 	public IFSStructureSpec(String name, IFSStructure structure, IFSSpecData data) {
 		super(name, ObjectType.StructureSpec, new IFSStructureCollection("structures", structure), new IFSSpecDataCollection("specData", data));
@@ -46,8 +47,13 @@ public class IFSStructureSpec extends IFSStructureData {
 	}
 
 	@Override
-	protected IFSStructureSpec newRepresentation(String objectName, IFSReference ifsReference, Object object, long len) throws IFSException {
-		throw new IFSException("IFSStructureSpec is an abstract object; representations are not allowed");
+	protected IFSStructureSpec newRepresentation(String objectName, IFSReference ifsReference, Object object, long len)
+			throws IFSException {
+		super.newRepresentation(objectName, ifsReference, object, len);
+		// This return will never be reached. The IFSStructureDataAssociation superclass will throw
+		// an exception indicating that IFSStructureDataAssociation is an "abstract object" and
+		// therefore does is have multiple representations.
+		return null;
 	}
 
 	public IFSStructure getStructure(int i) {

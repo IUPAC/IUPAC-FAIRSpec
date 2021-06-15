@@ -1,10 +1,11 @@
-package org.iupac.fairspec.object;
+package org.iupac.fairspec.core;
 
+import org.iupac.fairspec.api.IFSAbstractObjectI;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSReference;
 
 @SuppressWarnings("serial")
-public abstract class IFSCollection<T> extends IFSObject<T> {
+public abstract class IFSCollection<T> extends IFSObject<T> implements IFSAbstractObjectI {
 
 	protected IFSCollection(String name, ObjectType type) {
 		super(name, type);

@@ -16,7 +16,6 @@ public class IFSUVVisSpecData extends IFSSpecData {
 
 	public IFSUVVisSpecData(String name, ObjectType type) {
 		super(name, type);
-		// TODO Auto-generated constructor stub
 	}
 
 
