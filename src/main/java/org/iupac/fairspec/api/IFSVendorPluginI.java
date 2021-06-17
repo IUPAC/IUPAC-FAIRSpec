@@ -38,7 +38,7 @@ public interface IFSVendorPluginI {
 
 	boolean accept(IFSFindingAid findingAid, String fname, byte[] data);
 
-	boolean populateProperties(IFSObject<?> object);
+	boolean populat(IFSObject<?> object);
 
 	static void registerIFSVendorPlugin(Class<? extends IFSVendorPluginI> adapter) {
 		try {
