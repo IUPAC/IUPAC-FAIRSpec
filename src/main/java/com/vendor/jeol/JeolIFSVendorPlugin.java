@@ -1,16 +1,19 @@
-package com.vendor.jcampdx;
+package com.vendor.jeol;
 
 import org.iupac.fairspec.api.IFSObjectI.ObjectType;
-import org.iupac.fairspec.assoc.IFSFindingAid;
-import org.iupac.fairspec.api.IFSPropertyAdapterI;
+import org.iupac.fairspec.api.IFSVendorPluginI;
 import org.iupac.fairspec.core.IFSObject;
 
-public class JCAMPDXPropertyAdapter implements IFSPropertyAdapterI {
+public class JeolIFSVendorPlugin implements IFSVendorPluginI {
 
 	static {
-		IFSFindingAid.registerPropertyAdapter(com.vendor.jcampdx.JCAMPDXPropertyAdapter.class);
+		IFSVendorPluginI.registerIFSVendorPlugin(com.vendor.jeol.JeolIFSVendorPlugin.class);
 	}
 
+	public JeolIFSVendorPlugin() {
+		
+	}
+	
 	@Override
 	public boolean register() {
 		// TODO Auto-generated method stub

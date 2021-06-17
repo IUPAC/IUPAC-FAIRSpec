@@ -21,6 +21,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSReference;
@@ -57,7 +58,7 @@ import javajs.util.PT;
  * @author hansonr
  *
  */
-public class Extractor {
+public class Extractor implements IFSExtractorI {
 
 	private static final String version = "0.0.1-alpha_2021_06_14";
 
@@ -104,6 +105,7 @@ public class Extractor {
 	private String ifsid;
 	private Map<String, IFSObject<?>> localNameToObject;
 
+	@Override
 	public void setCachePattern(String s) {
 		if (s == null)
 			s = IFSConst.defaultCachePattern;
@@ -141,14 +143,13 @@ public class Extractor {
 
 	private Map<String, Object> pubInfo = new LinkedHashMap<>();
 
-
 	public Extractor() {
 		clearZipCache();
 	}
 	
 	///////// PHASE 1: Reading the IFS-extract.json file ////////
 
-	@SuppressWarnings("deprecation")
+	@Override
 	public void initialize(File ifsExtractScriptFile) throws IOException {
 		getObjectsForFile(ifsExtractScriptFile);
 		if (puburi != null) {
@@ -215,6 +216,8 @@ public class Extractor {
 	 * @param procs
 	 * @param toExclude
 	 */
+	
+	@Override
 	public void setRezipCachePattern(String procs, String toExclude) {
 		rezipCachePattern = Pattern.compile(procs == null ? IFSConst.defaultRezipPattern : procs);
 		rezipCacheExcludePattern = Pattern.compile(toExclude == null ? IFSConst.defaultRezipIgnorePattern : toExclude);
@@ -339,6 +342,7 @@ public class Extractor {
 	 * Find and extract all objects of interest from a ZIP file.
 	 * 
 	 */
+	@Override
 	public IFSSpecDataFindingAid extractObjects(File targetDir) throws IFSException, IOException {
 		if (cache == null)
 			setCachePattern(null);
@@ -1022,6 +1026,7 @@ public class Extractor {
 		return fname.replace('|', '_').replace('/', '_').replace(' ', '_') + (isDir ? ".zip" : "");
 	}
 
+	@Override
 	public void setLocalSourceDir(String sourceDir) {
 		this.sourceDir = sourceDir;
 	}

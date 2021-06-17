@@ -1,15 +1,19 @@
-package com.vendor.bruker;
+package com.vendor.mestrelab;
 
 import org.iupac.fairspec.api.IFSObjectI.ObjectType;
-import org.iupac.fairspec.api.IFSPropertyAdapterI;
-import org.iupac.fairspec.assoc.IFSFindingAid;
+import org.iupac.fairspec.api.IFSVendorPluginI;
 import org.iupac.fairspec.core.IFSObject;
 
-public class BrukerPropertyAdapter implements IFSPropertyAdapterI {
-	
+public class MestrelabIFSVendorPlugin implements IFSVendorPluginI {
+
 	static {
-		IFSFindingAid.registerPropertyAdapter(com.vendor.bruker.BrukerPropertyAdapter.class);
+		IFSVendorPluginI.registerIFSVendorPlugin(com.vendor.mestrelab.MestrelabIFSVendorPlugin.class);
 	}
+	
+	public MestrelabIFSVendorPlugin() {
+		
+	}
+
 
 	@Override
 	public boolean register() {
