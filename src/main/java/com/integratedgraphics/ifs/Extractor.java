@@ -52,7 +52,7 @@ import javajs.util.PT;
  * 
  * extractObjects(targetDir);
  * 
- * see ExtractorTest for these values
+ * see ExtractorTest and IFSConst for these values
  * 
  * @author hansonr
  *
