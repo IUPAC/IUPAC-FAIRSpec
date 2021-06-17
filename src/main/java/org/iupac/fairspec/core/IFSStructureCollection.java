@@ -23,14 +23,15 @@ public class IFSStructureCollection extends IFSCollection<IFSStructure> {
 
 	private Map<String, IFSStructure> map = new HashMap<>();
 
-	public IFSStructure getStructureFor(String path, String localName, String param, String value, String objectFile) throws IFSException {
+	public IFSStructure getStructureFor(String path, String localName, String param, String value, String zipName) throws IFSException {
 		String keyValue = param + ";" + value;
 		IFSStructure sd = map.get(keyValue);
 		if (sd == null) {
 			map.put(keyValue,  sd = new IFSStructure(path, param, value));
 			add(sd);
 		}
-		sd.getRepresentation(param.indexOf(".param.") >= 0 ? "param" : objectFile, localName, true);
+		if (param.indexOf(".param.") < 0)
+			sd.getRepresentation(zipName, localName, true);
 		return sd;
 	}
 

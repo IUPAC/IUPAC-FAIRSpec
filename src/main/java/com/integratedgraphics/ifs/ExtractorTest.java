@@ -54,7 +54,7 @@ public class ExtractorTest extends Extractor {
 		System.out.println(
 				"extracted " + manifestCount + " files (" + extractedByteCount + " bytes)"
 				+ "; ignored " + ignoredCount + " files (" + ignoredByteCount + " bytes)");
-		System.out.println(aid.getURLs() + " " + aid.getParams());
+//		System.out.println(aid.getURLs() + " " + aid.getParams());
 //		IFSStructureSpecCollection ssc = aid.getStructureSpecCollection();
 //		new EADWriter(targetDir, rootPath, aid).write();
 		String s = new IFSJSONDefaultSerializer().serialize(findingAid);

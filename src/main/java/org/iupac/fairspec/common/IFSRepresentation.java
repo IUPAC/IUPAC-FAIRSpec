@@ -15,7 +15,7 @@ public class IFSRepresentation implements IFSSerializableI {
 	/**
 	 * The type of this data -- to be specified...
 	 */
-	private final String type;
+	private String type;
 	private final IFSReference ref;
 	private final Object data;
 	private long len;
@@ -29,6 +29,10 @@ public class IFSRepresentation implements IFSSerializableI {
 
 	public String getType() {
 		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public IFSReference getRef() {

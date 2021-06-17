@@ -24,9 +24,12 @@ import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
+import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
 import org.iupac.fairspec.core.IFSObject;
+import org.iupac.fairspec.core.IFSStructure;
+import org.iupac.fairspec.core.IFSStructureRepresentation;
 import org.iupac.fairspec.spec.IFSSpecData;
 import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 
@@ -125,6 +128,7 @@ public class Extractor {
 	protected long ignoredByteCount;
 	protected int manifestCount;
 	protected int ignoredCount;
+	private Map<String, IFSStructure> htManifestNameToStructure = new LinkedHashMap<>();
 	private Map<String, IFSSpecData> htManifestNameToSpecData = new LinkedHashMap<>();
 	//private String zipDirName;
 	//private File extractScriptFile;
@@ -140,12 +144,14 @@ public class Extractor {
 
 	private Map<String, Object> pubInfo = new LinkedHashMap<>();
 
+
 	public Extractor() {
 		clearZipCache();
 	}
 	
 	///////// PHASE 1: Reading the IFS-extract.json file ////////
 
+	@SuppressWarnings("deprecation")
 	public void initialize(File ifsExtractScriptFile) throws IOException {
 		getObjectsForFile(ifsExtractScriptFile);
 		if (puburi != null) {
@@ -555,15 +561,26 @@ public class Extractor {
 
 	private void processParamList() {
 		for (String[] a: paramList) {
-			String rootName = a[0];
+			String localName = a[0];
 			String param = a[1];
 			String value = a[2];
-			IFSSpecData spec = htManifestNameToSpecData.get(rootName);
+			IFSSpecData spec = htManifestNameToSpecData.get(localName);
 			if (spec != null) {
 				spec.setPropertyValue(param, value);
 			}
 		}
 		paramList.clear();
+		
+		for (Entry<String, IFSRepresentation> e : cache.entrySet()) {
+			String localName = e.getKey();
+			IFSStructure s = htManifestNameToStructure.get(localName);
+			if (s != null) {
+				IFSRepresentation r = e.getValue();
+				IFSRepresentation r1 = s.getRepresentation(r.getRef().getPath(), localName, true);
+				r1.setLength(r.getLength());
+				r1.setType(r.getType());
+			}
+		}
 	}
 
 	protected void setCollectionManifests(boolean isOpen) throws IOException {
@@ -585,6 +602,7 @@ public class Extractor {
 	}
 
 
+	@SuppressWarnings("deprecation")
 	protected void outputListJSON(List<String> lst, File fileTarget, String type) throws IOException {
 		log("! saved " + fileTarget + " (" + lst.size() + " items)");
 		// Date d = new Date();
@@ -593,7 +611,6 @@ public class Extractor {
 		// found when
 		// converting d.toString() due to a check in Date.toString for daylight savings time!
 		
-		String s = new Date().toString();
 		StringBuffer sb = new StringBuffer();
 		sb.append("{" + "\"IFS.fairspec.version\":\"" + IFSConst.IFS_FAIRSpec_version + "\",\n");
 		if (dataLicenseURI != null) {
@@ -607,7 +624,7 @@ public class Extractor {
 		  .append("\"IFS.extractor.list.type\":\"" + type + "\",\n")
 		  .append("\"IFS.extractor.scirpt\":\"_IFS_extract.json\",\n") 
 		  .append("\"IFS.extractor.source\":\"" + dataSource + "\",\n")
-		  .append("\"IFS.extractor.datetime\":\"" + s + "\",\n")
+		  .append("\"IFS.extractor.creation.date\":\"" + findingAid.getDate().toGMTString() + "\",\n")
 		  .append("\"IFS.extractor.count\":" + lst.size() + ",\n")
 		  .append("\"IFS.extractor.list\":\n" + "[\n");
 		String sep = "";
@@ -685,7 +702,9 @@ public class Extractor {
 			IFSObject<?> obj = findingAid.addObject(rootPath, param, value, localName);
 			if (obj instanceof IFSSpecData) {
 				htManifestNameToSpecData.put(localName, (IFSSpecData) obj);
-			}
+			} else if (obj instanceof IFSStructure && param.indexOf("structure.representation.") >= 0) {
+				htManifestNameToStructure.put(localName, (IFSStructure) obj);
+			}				
 			if (debugging)
 				log("found " + param + " " + value);
 			;
@@ -923,7 +942,6 @@ public class Extractor {
 		fos.close();
 		len = outFile.length();
 		IFSRepresentation r = findingAid.getSpecDataRepresentation(zipDirName);
-		
 		r.setLength(len);
 		cacheFile(localName, zipDirName, len, "application/zip");
 		logCollectionFile(localName, LOG_OUTPUT, len);
@@ -956,10 +974,8 @@ public class Extractor {
 			String type = m.group("type");
 			String param = getParamName(m);
 			File f = (param == null ? getFileTarget(zipName) : null);
-//			String rootName = rootPath + "|" + zipName;
 			OutputStream os = (param == null ? new FileOutputStream(f) : new ByteArrayOutputStream());
 			Util.getLimitedStreamBytes(zis, len, os, false, true);
-//			cacheNMRFile(f, zipName, len);
 			if (param == null) {
 				final String localName = getLocalName(zipName);
 				if (len < 0)
@@ -993,9 +1009,9 @@ public class Extractor {
 		return null;
 	}
 
-	private void cacheFile(String path, String zipName, long len, String type) {
-		type = IFSSpecDataFindingAid.MediaTypeFromName(path);
-		cache.put(path, new IFSRepresentation(type, new IFSReference(zipName, getLocalName(zipName), "./" + rootPath), null, len));
+	private void cacheFile(String localName, String zipName, long len, String type) {
+		type = IFSSpecDataFindingAid.MediaTypeFromName(localName);		
+		cache.put(localName, new IFSRepresentation(type, new IFSReference(zipName, localName, "./" + rootPath), null, len));
 	}
 
 	protected File getFileTarget(String fname) {

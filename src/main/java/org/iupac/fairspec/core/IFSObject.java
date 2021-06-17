@@ -263,6 +263,9 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	}
 
 	public void setPropertyValue(String name, Object value) {
+		// check for .representation., which is not stored in the object.
+		if (name.indexOf(".representation.")>=0)
+			return;
 		IFSProperty p = htProps.get(name);
 		if (p == null) {
 			params.put(name, value);
@@ -276,10 +279,6 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 		return (p == null ? params.get(name) : p.getValue());
 	}
 	
-	public String getParamJSON() {
-		return PT.toJSON("params", params);
-	}
-
 	public void setIndex(int i) {
 		index = i;
 	}
@@ -433,6 +432,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 
 	protected void serializeList(IFSSerializerI serializer) {
 		if (size() > 0) {
+			serializer.addAttrInt("listCount", size());
 			List<T> list = new ArrayList<T>();
 			for (int i = 0, n = size(); i < n; i++)
 				list.add(get(i));

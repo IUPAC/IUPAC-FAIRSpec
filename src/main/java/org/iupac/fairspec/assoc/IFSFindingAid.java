@@ -1,6 +1,7 @@
 package org.iupac.fairspec.assoc;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +22,12 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 	protected List<String> urls = new ArrayList<>();
 
 	private Map<String, Object> pubInfo;
+	
+	@SuppressWarnings("deprecation")
 
 	protected int currentUrlIndex;
+
+	private Date date = new Date();
 
 	public IFSFindingAid(String name, ObjectType type, String sUrl) {
 		super(name, type);
@@ -47,12 +52,17 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 	}
 
 	
+	public Date getDate() {
+		return date;
+	}
 	private boolean serializing;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void serialize(IFSSerializerI serializer) {
 		if (serializing) {
 			serializeTop(serializer);
+			serializer.addObject("created", date.toGMTString());
 			serializer.addObject("pubInfo", pubInfo);
 			serializer.addObject("urls", urls);
 			serializeProps(serializer);
