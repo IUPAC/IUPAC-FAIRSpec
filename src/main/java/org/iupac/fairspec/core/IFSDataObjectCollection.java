@@ -28,12 +28,6 @@ public abstract class IFSDataObjectCollection<T extends IFSDataObject<?>> extend
 		return super.add(t);
 	}
 	
-	@Override
-	public void serialize(IFSSerializerI serializer) {
-		serializer.addAttr("dataType", dataType.toString());
-		super.serialize(serializer);
-	}
-
 	private Map<String, T> map = new HashMap<>();
 
 	public T getSpecDataFor(String path, String localName, String param, String value, String objectFile, ObjectType type)  throws IFSException {
@@ -49,8 +43,23 @@ public abstract class IFSDataObjectCollection<T extends IFSDataObject<?>> extend
 		return sd;
 	}
 
+	/**
+	 * subclasses are responsible for delivering their own new IFSDataObject
+	 * 
+	 * @param path
+	 * @param param
+	 * @param value
+	 * @param type
+	 * @return
+	 */
 	protected abstract T newIFSDataObject(String path, String param, String value, ObjectType type);
 	
+	@Override
+	public void serialize(IFSSerializerI serializer) {
+		serializer.addAttr("dataType", dataType.toString());
+		super.serialize(serializer);
+	}
+
 	
 	
 }

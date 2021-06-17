@@ -168,7 +168,6 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	 */
 	private int urlIndex = -1;
 
-
 	/**
 	 * an arbitrary name given to provide some sort of context
 	 */
@@ -209,7 +208,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	private final int minCount;
 
 	protected final ObjectType type;
-	
+
 	/**
 	 * Optional allowance for creating a new representation of this object type.
 	 * This method should return null if it cannot process this request.
@@ -221,7 +220,8 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	 * @return
 	 * @throws IFSException
 	 */
-	abstract protected IFSRepresentation newRepresentation(String objectName, IFSReference ifsReference, Object object, long len);
+	abstract protected IFSRepresentation newRepresentation(String objectName, IFSReference ifsReference, Object object,
+			long len);
 
 	@SuppressWarnings("unchecked")
 	public IFSObject(String name, ObjectType type) {
@@ -264,7 +264,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 
 	public void setPropertyValue(String name, Object value) {
 		// check for .representation., which is not stored in the object.
-		if (name.indexOf(".representation.")>=0)
+		if (name.indexOf(".representation.") >= 0)
 			return;
 		IFSProperty p = htProps.get(name);
 		if (p == null) {
@@ -275,18 +275,17 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	}
 
 	public Object getPropertyValue(String name) {
-		IFSProperty p = htProps.get(name);		
+		IFSProperty p = htProps.get(name);
 		return (p == null ? params.get(name) : p.getValue());
 	}
-	
+
 	public void setIndex(int i) {
 		index = i;
 	}
-	
+
 	public int getIndex() {
 		return index;
 	}
-
 
 	public void setUrlIndex(int urlIndex) {
 		this.urlIndex = urlIndex;
@@ -361,7 +360,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	protected void setSafely(int index, T c) {
 		super.set(index, c);
 	}
-	
+
 	private void checkRange(int index) {
 		if (index < minCount)
 			throw new IndexOutOfBoundsException("operation not allowed for index < " + minCount);
@@ -413,7 +412,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 		serializeProps(serializer);
 		serializeList(serializer);
 	}
-	
+
 	protected void serializeTop(IFSSerializerI serializer) {
 		serializer.addAttr("type", getSerializedType());
 		serializer.addAttr("name", getName());
@@ -439,6 +438,5 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 			serializer.addObject("list", list);
 		}
 	}
-
 
 }
