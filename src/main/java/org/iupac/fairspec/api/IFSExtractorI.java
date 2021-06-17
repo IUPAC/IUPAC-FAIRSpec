@@ -3,6 +3,7 @@ package org.iupac.fairspec.api;
 import java.io.File;
 import java.io.IOException;
 
+import org.iupac.fairspec.assoc.IFSFindingAid;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 
@@ -21,6 +22,8 @@ public interface IFSExtractorI {
 	void setCachePattern(String s);
 
 	void setRezipCachePattern(String procs, String toExclude);
+	
+	IFSFindingAid getFindingAid();
 
 	/**
 	 * Find and extract all objects of interest from a ZIP file.

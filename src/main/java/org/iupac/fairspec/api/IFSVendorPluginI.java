@@ -3,7 +3,6 @@ package org.iupac.fairspec.api;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.iupac.fairspec.assoc.IFSFindingAid;
 import org.iupac.fairspec.core.IFSObject;
 
 /**
@@ -22,7 +21,8 @@ import org.iupac.fairspec.core.IFSObject;
  * By accepting a data block either by reading its bytes or by recognizing a
  * file name, the plugin will be offered the opportunity to populate standard
  * IFSConst.Property fields with values. (Or, for that matter, do anything else
- * it wants, including create new files from the data.
+ * it wants, including create new files from the data, since it will have access
+ * to both the IFSExtractorI and IFSFindingAidI instances once it accepts.)
  * 
  * @author hansonr
  *
@@ -36,9 +36,9 @@ public interface IFSVendorPluginI {
 
 	String getRegex(IFSObjectI.ObjectType type);
 
-	boolean accept(IFSFindingAid findingAid, String fname, byte[] data);
+	boolean accept(IFSExtractorI extractor, String fname, byte[] data);
 
-	boolean populat(IFSObject<?> object);
+	boolean populateProperties(IFSObject<?> object);
 
 	static void registerIFSVendorPlugin(Class<? extends IFSVendorPluginI> adapter) {
 		try {

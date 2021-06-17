@@ -22,6 +22,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairspec.api.IFSExtractorI;
+import org.iupac.fairspec.assoc.IFSFindingAid;
 import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSReference;
@@ -73,6 +74,11 @@ public class Extractor implements IFSExtractorI {
 	protected String extractVersion;
 	protected List<String> objects;
 	protected IFSSpecDataFindingAid findingAid;
+	
+	@Override
+	public IFSFindingAid getFindingAid() {
+		return findingAid;
+	}
 	protected String sourceDir;
 
 	protected static Pattern objectDefPattern = Pattern.compile("\\{([^:]+)::([^}]+)\\}");

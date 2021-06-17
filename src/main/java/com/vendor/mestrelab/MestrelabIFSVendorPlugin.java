@@ -1,8 +1,8 @@
 package com.vendor.mestrelab;
 
+import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSObjectI.ObjectType;
 import org.iupac.fairspec.api.IFSVendorPluginI;
-import org.iupac.fairspec.assoc.IFSFindingAid;
 import org.iupac.fairspec.core.IFSObject;
 
 public class MestrelabIFSVendorPlugin implements IFSVendorPluginI {
@@ -29,7 +29,7 @@ public class MestrelabIFSVendorPlugin implements IFSVendorPluginI {
 	}
 
 	@Override
-	public boolean accept(IFSFindingAid findingAid, String fname, byte[] data) {
+	public boolean accept(IFSExtractorI extractor, String fname, byte[] data) {
 		// TODO Auto-generated method stub
 		return false;
 	}
