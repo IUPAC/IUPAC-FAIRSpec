@@ -4,7 +4,7 @@ import org.iupac.fairspec.assoc.IFSFindingAid;
 import org.iupac.fairspec.core.IFSObject;
 
 /**
- * A plugin class that implements IFSParamAdapterI can take parameter data and
+ * A plugin class that implements IFSPropertyAdapterI can take parameter data and
  * fill IUPAC FAIRSpec standardized parameter property fields.
  * 
  * After registering with IFSFindingAid's static method
@@ -18,7 +18,7 @@ import org.iupac.fairspec.core.IFSObject;
  * @author hansonr
  *
  */
-public interface IFSParamAdapterI {
+public interface IFSPropertyAdapterI {
 	
 	boolean register();
 	

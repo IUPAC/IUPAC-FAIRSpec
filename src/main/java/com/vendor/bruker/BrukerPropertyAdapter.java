@@ -1,10 +1,15 @@
-package org.iupac.fairspec.vendor.bruker;
+package com.vendor.bruker;
 
 import org.iupac.fairspec.api.IFSObjectI.ObjectType;
-import org.iupac.fairspec.api.IFSParamAdapterI;
+import org.iupac.fairspec.api.IFSPropertyAdapterI;
+import org.iupac.fairspec.assoc.IFSFindingAid;
 import org.iupac.fairspec.core.IFSObject;
 
-public class BrukerNMRPropertyAdapter implements IFSParamAdapterI {
+public class BrukerPropertyAdapter implements IFSPropertyAdapterI {
+	
+	static {
+		IFSFindingAid.registerPropertyAdapter(com.vendor.bruker.BrukerPropertyAdapter.class);
+	}
 
 	@Override
 	public boolean register() {

@@ -5,8 +5,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.iupac.fairspec.api.IFSPropertyAdapterI;
 import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.core.IFSCollection;
+
+import com.vendor.bruker.BrukerPropertyAdapter;
 
 /**
  * The master class for a full collection, as from a publication or thesis or whatever.
@@ -71,6 +74,9 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 			serializer.addObject("IFS.findingaid", this);
 			serializing = false;
 		}
+	}
+
+	public static void registerPropertyAdapter(Class<? extends IFSPropertyAdapterI> adapter) {
 	}
 	
 }
