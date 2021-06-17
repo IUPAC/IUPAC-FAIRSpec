@@ -1,10 +1,8 @@
 package org.iupac.fairspec.spec;
 
 import org.iupac.fairspec.api.IFSObjectI;
-import org.iupac.fairspec.api.IFSObjectI.ObjectType;
 import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
 import org.iupac.fairspec.assoc.IFSStructureDataAssociationCollection;
-import org.iupac.fairspec.core.IFSCollection;
 import org.iupac.fairspec.core.IFSDataObject;
 import org.iupac.fairspec.core.IFSStructure;
 

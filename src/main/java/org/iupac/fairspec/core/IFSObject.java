@@ -15,8 +15,6 @@ import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
 
-import javajs.util.PT;
-
 /**
  * 
  * IFSObject extends ArrayList so as to allow for storing and retrieving

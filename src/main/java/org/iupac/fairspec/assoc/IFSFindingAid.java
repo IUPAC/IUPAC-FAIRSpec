@@ -23,8 +23,6 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 
 	private Map<String, Object> pubInfo;
 	
-	@SuppressWarnings("deprecation")
-
 	protected int currentUrlIndex;
 
 	private Date date = new Date();

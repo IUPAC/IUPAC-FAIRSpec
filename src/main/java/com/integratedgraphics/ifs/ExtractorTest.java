@@ -6,7 +6,6 @@ import java.io.IOException;
 import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSJSONDefaultSerializer;
-import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
@@ -49,7 +48,8 @@ public class ExtractorTest extends Extractor {
 		super.setCachePattern(IFSConst.defaultCachePattern);
 		super.setRezipCachePattern(IFSConst.defaultRezipPattern, IFSConst.defaultRezipIgnorePattern);
 	
-		IFSSpecDataFindingAid aid = super.extractObjects(targetDir);
+		//IFSSpecDataFindingAid aid = 
+				super.extractObjects(targetDir);
 				
 		System.out.println(
 				"extracted " + manifestCount + " files (" + extractedByteCount + " bytes)"

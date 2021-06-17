@@ -10,7 +10,6 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -24,12 +23,10 @@ import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
-import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
 import org.iupac.fairspec.core.IFSObject;
 import org.iupac.fairspec.core.IFSStructure;
-import org.iupac.fairspec.core.IFSStructureRepresentation;
 import org.iupac.fairspec.spec.IFSSpecData;
 import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 
