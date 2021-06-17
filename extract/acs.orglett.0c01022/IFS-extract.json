@@ -1,11 +1,11 @@
 {"IFS-extract-version":"0.1.0-alpha","pathway":[
  {"example":"compound directories containing identified mnova files"},
- {"license":"{IFS.finding.aid.license.uri::https://creativecommons.org/licenses/by-nc/4.0},{IFS.finding.aid.license.name::cc-by-nc-4.0}"},
+ {"license":"{IFS.findingaid.license.uri::https://creativecommons.org/licenses/by-nc/4.0},{IFS.findingaid.license.name::cc-by-nc-4.0}"},
  {"hash":"0c01022"},
  {"ifsid":"acs.orglett.{hash}"},
- {"puburi":"{IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{ifsid}}"},
- {"data0":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
- {"data":"{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22195341}"},
+ {"puburi":"{IFS.findingaid.source.publication.uri::https://doi.org/10.1021/{ifsid}}"},
+ {"data0":"{IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data":"{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22195341}"},
  
  {"path":"{data}|NMR DATA"},
  {"objects":"{path}/product/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.param.compound.id::*}-{IFS.spec.nmr.param.expt::*}.mnova}"},

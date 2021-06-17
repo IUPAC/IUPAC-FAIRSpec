@@ -63,7 +63,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	 * @return
 	 */
 	public static ObjectType getObjectTypeForName(String propName) {
-		if (propName.startsWith("IFS.finding.aid."))
+		if (propName.startsWith("IFS.findingaid."))
 			return ObjectType.SpecDataFindingAid;
 		if (propName.startsWith("IFS.structure."))
 			return ObjectType.Structure;

@@ -68,7 +68,7 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 		} else {
 			// addObject will call this method after wrapping
 			serializing = true;
-			serializer.addObject("IFS.finding.aid", this);
+			serializer.addObject("IFS.findingaid", this);
 			serializing = false;
 		}
 	}

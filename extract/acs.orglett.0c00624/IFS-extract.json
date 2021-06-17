@@ -2,12 +2,12 @@
 
 "pathway":[
  {"example":"compound directories containing  bruker files identified as '1-C' or '1-H'"},
- {"license":"{IFS.finding.aid.license.uri::https://creativecommons.org/licenses/by-nc/4.0},{IFS.finding.aid.license.name::cc-by-nc-4.0}"},
+ {"license":"{IFS.findingaid.license.uri::https://creativecommons.org/licenses/by-nc/4.0},{IFS.findingaid.license.name::cc-by-nc-4.0}"},
  {"hash":"0c00624"},
  {"ifsid":"acs.orglett.{hash}"},
- {"puburi":"{IFS.finding.aid.source.publication.uri::https://doi.org/10.1021/{ifsid}}"},
- {"data0":"{IFS.finding.aid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
- {"data": "{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/21947274}"},
+ {"puburi":"{IFS.findingaid.source.publication.uri::https://doi.org/10.1021/{ifsid}}"},
+ {"data0":"{IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data": "{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/21947274}"},
 
  {"path":"{data}|primary NMR data/{id=IFS.structure.param.compound.id::*}/"},
  {"objects":"{path}{IFS.spec.nmr.representation.vendor.dataset::<id>-{IFS.spec.nmr.param.expt::*}/}"}

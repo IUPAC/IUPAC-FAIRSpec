@@ -143,64 +143,64 @@ public class ExtractorTest extends Extractor {
 	
 //	found Test 0 acs.joc.0c00770/22567817
 //	2 objects found
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22567817}|{id=IFS.structure.param.compound.id::*}.zip|{IFS.spec.nmr.representation.vendor.dataset::{id}_{IFS.spec.nmr.param.expt::*}/}}
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22567817}|{id=IFS.structure.param.compound.id::*}.zip|{IFS.spec.nmr.representation.vendor.dataset::{id}_mnova}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22567817}|{id=IFS.structure.param.compound.id::*}.zip|{IFS.spec.nmr.representation.vendor.dataset::{id}_{IFS.spec.nmr.param.expt::*}/}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22567817}|{id=IFS.structure.param.compound.id::*}.zip|{IFS.spec.nmr.representation.vendor.dataset::{id}_mnova}}
 //	found 727 files
 //	found Test 1 acs.orglett.0c00571/21975525
 //	3 objects found
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/21975525}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.structure.representation.mol.2d::{id}.mol}}
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/21975525}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.param.expt::*}-NMR.zip}}
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/21975525}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/HRMS.zip|**/{IFS.spec.hrms.representation.pdf::*.pdf}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/21975525}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.structure.representation.mol.2d::{id}.mol}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/21975525}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.param.expt::*}-NMR.zip}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/21975525}|FID for Publication/{id=IFS.structure.param.compound.id::*}.zip|{id}/HRMS.zip|**/{IFS.spec.hrms.representation.pdf::*.pdf}}
 //	found 3212 files
 //	found Test 2 acs.orglett.0c00624/21947274
 //	1 objects found
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/21947274}|primary NMR data/{id=IFS.structure.param.compound.id::*}/{IFS.spec.nmr.representation.vendor.dataset::{id}-{IFS.spec.nmr.param.expt::*}/}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/21947274}|primary NMR data/{id=IFS.structure.param.compound.id::*}/{IFS.spec.nmr.representation.vendor.dataset::{id}-{IFS.spec.nmr.param.expt::*}/}}
 //	found 1143 files
 //	found Test 3 acs.orglett.0c00755/22150197
 //	1 objects found
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22150197}|NMR/{id=IFS.structure.param.compound.id::*}/{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.param.expt::*}/}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22150197}|NMR/{id=IFS.structure.param.compound.id::*}/{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.param.expt::*}/}}
 //	found 2150 files
 //	found Test 4 acs.orglett.0c00788/22125318
 //	1 objects found
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22125318}|primary NMR data/{IFS.spec.nmr.representation.vendor.dataset::{IFS.structure.param.compound.id::*}-{IFS.spec.nmr.param.expt::*}.jdf}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22125318}|primary NMR data/{IFS.spec.nmr.representation.vendor.dataset::{IFS.structure.param.compound.id::*}-{IFS.spec.nmr.param.expt::*}.jdf}}
 //	found 82 files
 //	found Test 5 acs.orglett.0c00874/22233351
 //	1 objects found
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22233351}|NMR FID files/{id=IFS.structure.param.compound.id::*}/{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.param.expt::*}/}*}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22233351}|NMR FID files/{id=IFS.structure.param.compound.id::*}/{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.param.expt::*}/}*}
 //	found 1598 files
 //	found Test 6 acs.orglett.0c00967/22111341
 //	2 objects found
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22111341}|{id=IFS.structure.param.compound.id::*}//{IFS.spec.nmr.representation.vendor.dataset::{id}-{IFS.spec.nmr.param.expt::*}/}}
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22111341}|{id=IFS.structure.param.compound.id::*}/{IFS.spec.nmr.representation.vendor.dataset::{id}-{IFS.spec.nmr.param.expt::*}.jdf}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22111341}|{id=IFS.structure.param.compound.id::*}//{IFS.spec.nmr.representation.vendor.dataset::{id}-{IFS.spec.nmr.param.expt::*}/}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22111341}|{id=IFS.structure.param.compound.id::*}/{IFS.spec.nmr.representation.vendor.dataset::{id}-{IFS.spec.nmr.param.expt::*}.jdf}}
 //	found 1354 files
 //	found Test 7 acs.orglett.0c01022/22195341
 //	2 objects found
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22195341}|NMR DATA/product/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.param.compound.id::*}-{IFS.spec.nmr.param.expt::*}.mnova}}
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22195341}|NMR DATA/starting material/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.param.compound.id::*}-{IFS.spec.nmr.param.expt::*}.mnova}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22195341}|NMR DATA/product/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.param.compound.id::*}-{IFS.spec.nmr.param.expt::*}.mnova}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22195341}|NMR DATA/starting material/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.param.compound.id::*}-{IFS.spec.nmr.param.expt::*}.mnova}}
 //	found 66 files
 //	found Test 8 acs.orglett.0c01043/22232721
 //	1 objects found
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22232721}|metadataNMR/{IFS.spec.nmr.representation.vendor.dataset::NMR spectra.mnova}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22232721}|metadataNMR/{IFS.spec.nmr.representation.vendor.dataset::NMR spectra.mnova}}
 //	found 1 files
 //	found Test 9 acs.orglett.0c01153/22284726,22284729
 //	4 objects found
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22284726}|*.zip|{id=IFS.structure.param.compound.id::*}/|{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.param.expt::*}/}}
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22284726}|*.zip|{id=IFS.structure.param.compound.id::*}/|{IFS.structure.representation.cdx::*.cdx}}
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22284729}|*.zip|{id=IFS.structure.param.compound.id::*}/|{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.param.expt::*}/}}
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22284729}|*.zip|{id=IFS.structure.param.compound.id::*}/|{IFS.structure.representation.cdx::*.cdx}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22284726}|*.zip|{id=IFS.structure.param.compound.id::*}/|{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.param.expt::*}/}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22284726}|*.zip|{id=IFS.structure.param.compound.id::*}/|{IFS.structure.representation.cdx::*.cdx}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22284729}|*.zip|{id=IFS.structure.param.compound.id::*}/|{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.param.expt::*}/}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22284729}|*.zip|{id=IFS.structure.param.compound.id::*}/|{IFS.structure.representation.cdx::*.cdx}}
 //	found 3476 files
 //	found Test 10 acs.orglett.0c01197/22491647
 //	2 objects found
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22491647}|NMR DATA/products/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.param.compound.id::*}.mnova}}
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22491647}|NMR DATA/Substrate/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.param.compound.id::*}.mnova}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22491647}|NMR DATA/products/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.param.compound.id::*}.mnova}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22491647}|NMR DATA/Substrate/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.param.compound.id::*}.mnova}}
 //	found 61 files
 //	found Test 11 acs.orglett.0c01277/22613762
 //	1 objects found
-//	found object {IFS.finding.aid.object::{IFS.spec.nmr.representation.vendor.dataset::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22613762}|alkylation original FID submitted/{id=IFS.structure.param.compound.id::*}-{IFS.spec.nmr.param.expt::*}/**/*}}
+//	found object {IFS.findingaid.object::{IFS.spec.nmr.representation.vendor.dataset::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22613762}|alkylation original FID submitted/{id=IFS.structure.param.compound.id::*}-{IFS.spec.nmr.param.expt::*}/**/*}}
 //	found 5372 files
 //	found Test 12 acs.orglett.0c01297/22612484
 //	1 objects found
-//	found object {IFS.finding.aid.object::{IFS.finding.aid.source.data.uri::https://ndownloader.figshare.com/files/22612484}|NMR fids/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.param.compound.id::*}/{IFS.spec.nmr.param.expt::*}/}}
+//	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22612484}|NMR fids/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.param.compound.id::*}/{IFS.spec.nmr.param.expt::*}/}}
 //	found 1495 files
 
 	
