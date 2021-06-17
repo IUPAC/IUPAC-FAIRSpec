@@ -10,6 +10,7 @@ import java.util.Map;
 import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.api.IFSSerializableI;
 import org.iupac.fairspec.api.IFSSerializerI;
+import org.iupac.fairspec.api.IFSObjectI.ObjectType;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
@@ -206,6 +207,8 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	private final int minCount;
 
 	protected final ObjectType type;
+
+	protected ObjectType subtype = ObjectType.Unknown;
 
 	/**
 	 * Optional allowance for creating a new representation of this object type.
@@ -413,6 +416,8 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 
 	protected void serializeTop(IFSSerializerI serializer) {
 		serializer.addAttr("type", getSerializedType());
+		if (subtype != null)
+			serializer.addAttr("subtype", subtype.toString());
 		serializer.addAttr("name", getName());
 		serializer.addAttr("id", getID());
 	}

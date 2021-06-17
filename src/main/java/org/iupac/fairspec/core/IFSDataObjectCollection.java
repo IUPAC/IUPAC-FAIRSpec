@@ -10,7 +10,6 @@ import org.iupac.fairspec.common.IFSException;
 @SuppressWarnings("serial")
 public abstract class IFSDataObjectCollection<T extends IFSDataObject<?>> extends IFSCollection<T> {
 	
-	protected ObjectType dataType = ObjectType.Unknown;
 	private boolean hasRepresentations = true;
 
 	protected IFSDataObjectCollection(String name, ObjectType type) {
@@ -21,10 +20,10 @@ public abstract class IFSDataObjectCollection<T extends IFSDataObject<?>> extend
 		// not allowing for widely mixed types here.
 		if (hasRepresentations && !(t instanceof IFSRepresentableObjectI))
 				hasRepresentations = false;
-		if (dataType == ObjectType.Unknown)
-			dataType = t.getType();
-		else if (t.getType() != dataType)
-			dataType = ObjectType.Mixed;
+		if (subtype == ObjectType.Unknown)
+			subtype = t.getType();
+		else if (t.getType() != subtype)
+			subtype = ObjectType.Mixed;
 		return super.add(t);
 	}
 	
@@ -54,12 +53,6 @@ public abstract class IFSDataObjectCollection<T extends IFSDataObject<?>> extend
 	 */
 	protected abstract T newIFSDataObject(String path, String param, String value, ObjectType type);
 	
-	@Override
-	public void serialize(IFSSerializerI serializer) {
-		serializer.addAttr("dataType", dataType.toString());
-		super.serialize(serializer);
-	}
-
 	
 	
 }

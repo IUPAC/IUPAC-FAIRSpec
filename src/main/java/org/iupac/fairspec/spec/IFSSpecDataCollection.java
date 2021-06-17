@@ -29,7 +29,7 @@ public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> 
 	}
 	
 	public ObjectType getDataType() {
-		return dataType;
+		return subtype;
 	}
 
 	public IFSSpecData newIFSDataObject(String path, String param, String value, ObjectType type) {
