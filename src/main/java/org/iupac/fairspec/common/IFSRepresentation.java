@@ -1,5 +1,8 @@
 package org.iupac.fairspec.common;
 
+import org.iupac.fairspec.api.IFSSerializableI;
+import org.iupac.fairspec.api.IFSSerializerI;
+
 /**
  * Metadata referencing a representation (an actual digital object), optionally
  * holding a copy of it.
@@ -7,7 +10,7 @@ package org.iupac.fairspec.common;
  * @author hansonr
  *
  */
-public class IFSRepresentation {
+public class IFSRepresentation implements IFSSerializableI {
 
 	/**
 	 * The type of this data -- to be specified...
@@ -15,7 +18,7 @@ public class IFSRepresentation {
 	private final String type;
 	private final IFSReference ref;
 	private final Object data;
-	private final long len;
+	private long len;
 	
 	public IFSRepresentation(String type, IFSReference ref, Object data, long len) {
 		this.type = type;
@@ -36,12 +39,29 @@ public class IFSRepresentation {
 		return data;
 	}
 
+	public void setLength(long len) {
+		this.len = len;
+	}
 	public long getLength() {
 		return len;
 	}
 
 	public String toString() {
 		return "[IFSRepresentation type=" + type + " ref=" + ref + "]";
+	}
+
+	@Override
+	public void serialize(IFSSerializerI serializer) {
+		serializer.addAttr("type", type);
+		serializer.addAttrInt("len", (int) len);
+		serializer.addObject("ref", ref);
+		if (data != null)
+			serializer.addObject("data", data);
+	}
+
+	@Override
+	public String getSerializedType() {
+		return type;
 	}
 
 }

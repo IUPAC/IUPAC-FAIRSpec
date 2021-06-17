@@ -1,8 +1,13 @@
 package org.iupac.fairspec.spec;
 
 import org.iupac.fairspec.api.IFSObjectI;
+import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.assoc.IFSFindingAid;
+import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
 import org.iupac.fairspec.common.IFSException;
+import org.iupac.fairspec.common.IFSRepresentation;
+import org.iupac.fairspec.core.IFSCollection;
+import org.iupac.fairspec.core.IFSDataObject;
 import org.iupac.fairspec.core.IFSObject;
 import org.iupac.fairspec.core.IFSStructure;
 import org.iupac.fairspec.core.IFSStructureCollection;
@@ -79,7 +84,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		return ObjectType.Unknown;		
 	}
 
-	public IFSObject<?> addObject(String rootPath, String param, String value) throws IFSException {
+	public IFSObject<?> addObject(String rootPath, String param, String value, String localName) throws IFSException {
 		if (currentObjectFileName == null)
 			throw new IFSException("addObject " + param + " " + value + " called with no current object file name");
 		ObjectType type = getObjectTypeForName(param);
@@ -88,24 +93,22 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		case SpecAnalysis:
 			System.out.println("Analysis not implemented");
 			getAnalysisCollection();
+			// TODO
 			return null;
 		case IRSpecData:
 		case MSSpecData:
 		case NMRSpecData:
 		case RAMANSpecData:
-			currentSpecData = getSpecDataCollection(type).getSpecDataFor(rootPath, param, value, currentObjectFileName, type);
-//			if (currentSpecData == null) {
-//			} else {
-//				String key = param + ";" + value;
-//				currentSpecData.getRepresentation(key);
-//			}
+			currentSpecData = getSpecDataCollection().getSpecDataFor(rootPath, localName, param, value, currentObjectFileName, type);
+			currentSpecData.setUrlIndex(currentUrlIndex);
 			return currentSpecData;
 		case Structure:
 			if (currentStructure == null) {
-				currentStructure = getStructureCollection().getStructureFor(rootPath, param, value, currentObjectFileName);
+				currentStructure = getStructureCollection().getStructureFor(rootPath, localName, param, value, currentObjectFileName);
+				currentStructure.setUrlIndex(currentUrlIndex);
 			} else {
-				currentStructure.setPath(rootPath);
-				currentStructure.getRepresentation(param + ";" + value);
+				currentStructure.setPropertyValue(param, value);
+//			currentStructure.getRepresentation(param + ";" + value, localName, true);
 			}
 			return currentStructure;
 		case StructureSpecCollection:
@@ -124,9 +127,9 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		return null;
 	}
 
-	public IFSSpecDataCollection getSpecDataCollection(ObjectType type) {
+	public IFSSpecDataCollection getSpecDataCollection() {
 		if (specDataCollection == null) {
-			setSafely(SPECDATA_COLLECTION, specDataCollection = new IFSSpecDataCollection(name, type));
+			setSafely(SPECDATA_COLLECTION, specDataCollection = new IFSSpecDataCollection(name));
 		}
 		return specDataCollection;
 	}
@@ -140,9 +143,14 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 
 	public IFSStructureSpecCollection getStructureSpecCollection() {
 		if (structureSpecCollection == null) {
-			setSafely(STRUCTURESPEC_COLLECTION, structureSpecCollection = new IFSStructureSpecCollection(name));			
+			setSafely(STRUCTURESPEC_COLLECTION, structureSpecCollection = new IFSStructureSpecCollection(name, ObjectType.StructureSpecCollection));
 		}
 		return structureSpecCollection;
+	}
+
+	private void setSafely(int type, IFSStructureSpecCollection c) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public IFSSpecAnalysisCollection getAnalysisCollection() {
@@ -166,15 +174,15 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	}
 
 	public void finalizeExtraction() {
-		if (getStructureCollection().size() == 0 && getSpecDataCollection(ObjectType.Unknown).size() == 0)
+		if (getStructureCollection().size() == 0 && getSpecDataCollection().size() == 0)
 			System.out.println("FA error");
 		System.out.println("! IFSFindingAid extraction complete:\n! " + urls + "\n! "
 				+ getStructureCollection().size() + " structures "
-				+ getSpecDataCollection(ObjectType.Unknown).size() + " specdata "
+				+ getSpecDataCollection().size() + " specdata "
 				+ getStructureSpecCollection().size() + " structure-spec bindings");
-		for (IFSStructureSpec ssc : getStructureSpecCollection()) {
+		for (IFSStructureDataAssociation ssc : getStructureSpecCollection()) {
 			System.out.println("Structure " + ssc.getFirstStructure().getName());
-			for (IFSSpecData sd : ssc.getSpecDataCollection()) {
+			for (IFSDataObject<?> sd : ssc.getDataObjectCollection()) {
 				System.out.println("\t" + sd);
 			}
 		}
@@ -200,5 +208,33 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 				: pt >= 0 ? "?" + fname.substring(pt)
 				: "?");
 	}
+	
+	private void normalizeListIndices(IFSCollection<?> c) {
+		if (c != null) {
+			for (int i = c.size(); --i >= 0;)
+				((IFSObject<?>) c.get(i)).setIndex(i);
+		}
+	}
+
+	public IFSRepresentation getSpecDataRepresentation(String zipName) {
+		return (specDataCollection == null ? null : specDataCollection.getRepresentation(zipName));
+	}
+	
+	@Override
+	protected void serializeList(IFSSerializerI serializer) {
+		normalizeListIndices(structureCollection);
+		normalizeListIndices(specDataCollection);
+		normalizeListIndices(structureSpecCollection);
+		normalizeListIndices(analysisCollection);
+		if (structureCollection != null)
+			serializer.addObject("structures", structureCollection);
+		if (specDataCollection != null)
+			serializer.addObject("specData", specDataCollection);
+		if (structureSpecCollection != null)
+			serializer.addObject("structureSpecData", structureSpecCollection);
+		if (analysisCollection != null)
+			serializer.addObject("analyses", analysisCollection);
+	}
+
 
 }

@@ -3,6 +3,7 @@ package org.iupac.fairspec.spec;
 import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSReference;
+import org.iupac.fairspec.common.IFSRepresentation;
 import org.iupac.fairspec.core.IFSStructure;
 import org.iupac.fairspec.core.IFSStructureCollection;
 
@@ -47,12 +48,7 @@ public class IFSStructureSpec extends IFSStructureDataAssociation {
 	}
 
 	@Override
-	protected IFSStructureSpec newRepresentation(String objectName, IFSReference ifsReference, Object object, long len)
-			throws IFSException {
-		super.newRepresentation(objectName, ifsReference, object, len);
-		// This return will never be reached. The IFSStructureDataAssociation superclass will throw
-		// an exception indicating that IFSStructureDataAssociation is an "abstract object" and
-		// therefore does is have multiple representations.
+	protected IFSRepresentation newRepresentation(String objectName, IFSReference ifsReference, Object object, long len) {
 		return null;
 	}
 

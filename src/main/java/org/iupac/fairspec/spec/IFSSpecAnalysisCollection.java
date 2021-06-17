@@ -1,6 +1,5 @@
 package org.iupac.fairspec.spec;
 
-import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.core.IFSDataObjectCollection;
 
 /**
@@ -10,10 +9,10 @@ import org.iupac.fairspec.core.IFSDataObjectCollection;
  *
  */
 @SuppressWarnings({ "serial" })
-public class IFSSpecAnalysisCollection extends IFSDataObjectCollection<IFSSpecAnalysis> {
+public class IFSSpecAnalysisCollection extends IFSStructureSpecCollection  {
 
 	public IFSSpecAnalysisCollection(String name) {
-		super(name, IFSObjectI.ObjectType.SpecAnalysisCollection);
+		super(name, ObjectType.SpecAnalysisCollection);
 	}
 
 	public void addAnalysis(IFSSpecAnalysis a) {

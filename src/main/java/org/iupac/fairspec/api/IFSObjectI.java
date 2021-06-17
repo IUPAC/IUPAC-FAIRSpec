@@ -17,7 +17,7 @@ public interface IFSObjectI<T> {
 	 */
 	enum ObjectType {
 		// IFS common
-		Unknown, 
+		Unknown, Mixed,
 		Structure, StructureCollection, 
 		// IFSCOllection, IFSDataObject, IFSDataObjectCollection, and IFSFindingAid
 		// are all abstract and so do not express their own ObjectType

@@ -9,12 +9,12 @@
 		<eadid countrycode="us" mainagencycode="MnHi">00008</eadid>
 		<filedesc>
 			<titlestmt>
-				<titleproper>#filedesc.titlestmt.titleproper#</titleproper>
-				<subtitle>#filedesc.titlestmt.subtitle#</subtitle>
-				<sponsor>#filedesc.titlestmt.sponsor#</sponsor>
+				<titleproper>#IFS.finding.aid.pub.title#</titleproper>
+				<subtitle>#IFS.finding.aid.pub.authors#</subtitle>
+				<sponsor>#IFS.finding.aid.pub.citation#</sponsor>
 			</titlestmt>
 			<publicationstmt>
-				<publisher encodinganalog="Publisher">#filedesc.publicationstmt.publisher#</publisher>
+				<publisher encodinganalog="Publisher">#IFS.finding.aid.pub.publisher#</publisher>
 				<address>
 					<addressline>#filedesc.publicationstmt.address.addressline#</addressline>
 				</address>

@@ -1,9 +1,11 @@
 package org.iupac.fairspec.common;
 
+import org.iupac.fairspec.api.IFSSerializableI;
+import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.common.IFSConst.PROPERTY_TYPE;
 import org.iupac.fairspec.common.IFSConst.UNITS;
 
-public class IFSProperty {
+public class IFSProperty implements IFSSerializableI {
 
 	private final String name;
 	private final PROPERTY_TYPE type;
@@ -37,6 +39,21 @@ public class IFSProperty {
 		IFSProperty p = new IFSProperty(name, type, units);
 		p.value = value;
 		return p;
+	}
+	
+	@Override
+	public String getSerializedType() {
+		return "IFSProperty";
+	}
+
+	@Override
+	public void serialize(IFSSerializerI serializer) {
+		if (value == null)
+			return;
+		serializer.addAttr("name", name);
+		serializer.addAttr("type", type.toString());
+		serializer.addAttr("units", units.toString());
+		serializer.addValue(value);
 	}
 	
 }

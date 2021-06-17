@@ -1,15 +1,24 @@
 package org.iupac.fairspec.spec;
 
 import org.iupac.fairspec.api.IFSObjectI;
+import org.iupac.fairspec.api.IFSObjectI.ObjectType;
+import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
+import org.iupac.fairspec.assoc.IFSStructureDataAssociationCollection;
 import org.iupac.fairspec.core.IFSCollection;
+import org.iupac.fairspec.core.IFSDataObject;
 import org.iupac.fairspec.core.IFSStructure;
 
 @SuppressWarnings({ "serial" })
-public class IFSStructureSpecCollection extends IFSCollection<IFSStructureSpec> {
+public class IFSStructureSpecCollection extends IFSStructureDataAssociationCollection {
 
 	public IFSStructureSpecCollection(String name) {
 		super(name, IFSObjectI.ObjectType.StructureSpecCollection);
 	}
+
+	public IFSStructureSpecCollection(String name, ObjectType type) {
+		super(name, type);
+	}
+
 
 	/**
 	 * A collection of IFSStructureSpec objects. 
@@ -20,27 +29,12 @@ public class IFSStructureSpecCollection extends IFSCollection<IFSStructureSpec> 
 	 * @return this
 	 */
 	public IFSStructureSpec addSpec(String name, IFSStructure struc, IFSSpecData spec) {
-		IFSStructureSpec ssc = get(struc);
-		if (ssc == null) {
-			add(new IFSStructureSpec(name, struc, spec));
-		} else if (!ssc.getSpecDataCollection().contains(spec)) {
-			ssc.getSpecDataCollection().add(spec);
-		}
-		return ssc;
+		return (IFSStructureSpec) super.addData(name, struc, spec);
 	}
 
-	/**
-	 * Find the structure collection associated with this structure as its only item.
-	 * 
-	 * @param struc
-	 * @return the found item or null
-	 */
-	private IFSStructureSpec get(IFSStructure struc) {
-		for (IFSStructureSpec ssc : this) {
-			if (ssc.getStructureCollection().size() == 1 && ssc.getFirstStructure() == struc)
-				return ssc;
-		}
-		return null;
+	@Override
+	protected IFSStructureDataAssociation newAssociation(String name, IFSStructure struc, IFSDataObject<?> data) {
+		return new IFSStructureSpec(name, struc, (IFSSpecData) data);
 	}
-	
+
 }

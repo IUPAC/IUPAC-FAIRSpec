@@ -1,9 +1,5 @@
 package org.iupac.fairspec.spec;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.core.IFSDataObjectCollection;
 import org.iupac.fairspec.spec.ir.IFSIRSpecData;
 import org.iupac.fairspec.spec.ms.IFSMSSpecData;
@@ -19,21 +15,14 @@ import org.iupac.fairspec.spec.raman.IFSRamanSpecData;
 @SuppressWarnings("serial")
 public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> {
 
-	private final ObjectType dataType;
-
-
-	public IFSSpecDataCollection(String name, ObjectType dataType) {
+	public IFSSpecDataCollection(String name) {
 		super(name, ObjectType.SpecDataCollection);
-		this.dataType = dataType;
 	}
-
 	
 	public IFSSpecDataCollection(String name, IFSSpecData data) {
 		super(name, ObjectType.SpecDataCollection);
-		dataType = data.getObjectType();
 		addSpecData(data);
 	}
-
 
 	public void addSpecData(IFSSpecData data) {
 		super.add(data);
@@ -43,23 +32,7 @@ public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> 
 		return dataType;
 	}
 
-	private Map<String, IFSSpecData> map = new HashMap<>();
-
-	public IFSSpecData getSpecDataFor(String path, String param, String value, String objectFile, ObjectType type) throws IFSException {
-		String keyValue = path + "::" + objectFile;
-		IFSSpecData sd = map.get(keyValue);
-		if (sd == null) {
- 			map.put(keyValue,  sd = newIFSSpecData(path, param, value, type));
- 			add(sd);
-		} else {
-			sd.setPropertyValue(param, value);
-		}
-		sd.getRepresentation(objectFile);
-		return sd;
-	}
-
-
-	public static IFSSpecData newIFSSpecData(String path, String param, String value, ObjectType type) throws IFSException {
+	public IFSSpecData newIFSDataObject(String path, String param, String value, ObjectType type) {
 		IFSSpecData sd;
 		switch(type) {
 		case IRSpecData:
@@ -81,4 +54,5 @@ public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> 
 		sd.setPropertyValue(param, value);
 		return sd;
 	}
+
 }

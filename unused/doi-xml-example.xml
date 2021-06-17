@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://datacite.org/schema/kernel-4" xsi:schemaLocation="http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd">
+  <identifier identifierType="DOI">10.1021/acs.orglett.0c01153</identifier>
+  <creators>
+    <creator>
+      <creatorName nameType="Personal">Romeo, Joseph R.</creatorName>
+      <givenName>Joseph R.</givenName>
+      <familyName>Romeo</familyName>
+      <affiliation>Department of Chemistry, Tufts University, Medford, Massachusetts 02155, United States</affiliation>
+    </creator>
+    <creator>
+      <creatorName nameType="Personal">McDermott, Luca</creatorName>
+      <givenName>Luca</givenName>
+      <familyName>McDermott</familyName>
+      <affiliation>Department of Chemistry, Tufts University, Medford, Massachusetts 02155, United States</affiliation>
+    </creator>
+    <creator>
+      <creatorName nameType="Personal">Bennett, Clay S.</creatorName>
+      <givenName>Clay S.</givenName>
+      <familyName>Bennett</familyName>
+      <nameIdentifier nameIdentifierScheme="ORCID" schemeURI="https://orcid.org">https://orcid.org/0000-0001-8070-4988</nameIdentifier>
+      <affiliation>Department of Chemistry, Tufts University, Medford, Massachusetts 02155, United States</affiliation>
+    </creator>
+  </creators>
+  <titles>
+    <title>Reagent-Controlled Î±-Selective Dehydrative Glycosylation of 2,6-Dideoxy Sugars: Construction of the Arugomycin Tetrasaccharide</title>
+  </titles>
+  <publisher>American Chemical Society (ACS)</publisher>
+  <publicationYear>2020</publicationYear>
+  <resourceType resourceTypeGeneral="Text">JournalArticle</resourceType>
+  <dates>
+    <date dateType="Issued">2020-04-13</date>
+    <date dateType="Updated">2020-05-01T08:11:31Z</date>
+  </dates>
+  <relatedIdentifiers>
+    <relatedIdentifier relatedIdentifierType="ISSN" relationType="IsPartOf" resourceTypeGeneral="Collection">1523-7052</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1039/c4cs00426d</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/acs.chemrev.7b00731</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ja030496v</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1002/chem.200600462</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1073/pnas.0503270102</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ml1000933</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1016/j.chembiol.2004.03.011</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1016/j.carres.2009.07.013</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1016/s0040-4039(03)01647-2</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/acs.joc.6b01685</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1038/nchem.663</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ol1027267</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ja3018187</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1039/jr9620003429</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/jo990403l</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ol035705v</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1002/anie.200604031</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ol501101f</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1002/asia.200800448</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ol0515107</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1016/j.tetlet.2018.09.008</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ol501711v</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1002/anie.201403543</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1039/c4cc08465a</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/jacs.7b08898</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/acs.joc.6b02498</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1126/science.aal1875</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1002/ejoc.201400006</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/jacs.9b03982</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ja4116956</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ol9908070</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/jo7022526</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1002/anie.201004467</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1016/j.carres.2010.08.020</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ja205339p</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1002/chem.201405516</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1080/07328303.2017.1397682</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1039/c8ra06619a</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/acs.orglett.9b02033</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ja039400n</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/jo062534+</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ol800697k</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ja305321e</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1002/1521-3773(20011001)40:19&lt;3653::aid-anie3653&gt;3.0.co;2-w</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ol017195f</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ol901923x</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ol4018547</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ja500410c</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ol200726v</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1002/ejoc.201200907</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1002/anie.201605091</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1002/chem.201800736</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/acs.orglett.9b02056</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/acs.orglett.9b01118</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1002/anie.201913706</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1002/anie.201915787</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.7164/antibiotics.36.1569</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1016/s0040-4039(01)90081-4</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.7164/antibiotics.40.1266</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1093/nar/19.11.2897</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/acs.orglett.8b01355</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1039/c4ob02056a</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/acs.joc.7b00065</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ja063247q</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/ja990690a</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/jo0103322</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1002/anie.201901346</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/acs.orglett.7b03940</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/jo402551x</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1039/c4ob01807a</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1021/acs.joc.8b00006</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="References">10.1016/s0040-4039(02)00538-5</relatedIdentifier>
+  </relatedIdentifiers>
+  <sizes/>
+  <formats/>
+  <version/>
+  <descriptions>
+    <description descriptionType="SeriesInformation">Organic Letters, 22(9), 3649-3654</description>
+  </descriptions>
+  <fundingReferences>
+    <fundingReference>
+      <funderName>Division of Chemistry</funderName>
+      <awardNumber>CHE-1566233</awardNumber>
+    </fundingReference>
+    <fundingReference>
+      <funderName>National Institute of General Medical Sciences</funderName>
+      <awardNumber>U01-GM120414</awardNumber>
+    </fundingReference>
+  </fundingReferences>
+</resource>
+

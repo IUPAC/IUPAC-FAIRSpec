@@ -16,7 +16,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
@@ -100,10 +99,10 @@ public class Extractor {
 	protected String rootPath;
 	protected Object lastRezipPath;
 	List<String> lstManifest = new ArrayList<>(); 
-	List<String> lstIgnored = new ArrayList();
+	List<String> lstIgnored = new ArrayList<>();
 	private String dataSource;
 	private String ifsid;
-	private Map<String, IFSObject<?>> rootPathToObject;
+	private Map<String, IFSObject<?>> localNameToObject;
 
 	public void setCachePattern(String s) {
 		if (s == null)
@@ -127,8 +126,8 @@ public class Extractor {
 	protected int manifestCount;
 	protected int ignoredCount;
 	private Map<String, IFSSpecData> htManifestNameToSpecData = new LinkedHashMap<>();
-	private String zipDirName;
-	private File extractScriptFile;
+	//private String zipDirName;
+	//private File extractScriptFile;
 	private String extractScript;
 
 	private String dataLicenseURI;
@@ -139,12 +138,72 @@ public class Extractor {
 
 	private String puburi;
 
+	private Map<String, Object> pubInfo = new LinkedHashMap<>();
+
 	public Extractor() {
 		clearZipCache();
 	}
+	
+	///////// PHASE 1: Reading the IFS-extract.json file ////////
 
 	public void initialize(File ifsExtractScriptFile) throws IOException {
 		getObjectsForFile(ifsExtractScriptFile);
+		if (puburi != null) {
+			getPubInfo(puburi);
+		}
+	}
+
+	private final static String crossciteURI = "https://data.crosscite.org/application/vnd.datacite.datacite+xml/";
+	
+	private void getPubInfo(String puburi) {
+		if (puburi != null && puburi.startsWith("https://doi.org/")) {
+			String url = crossciteURI + puburi.substring(16);
+			try {
+				InputStream is = new URL(url).openStream();
+				byte[] bytes = Util.getLimitedStreamBytes(is, -1, null, true, true);
+				is.close();
+				extractPubInfo(new String(bytes));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	protected void extractPubInfo(String pubxml) {
+		log(pubxml);
+		pubInfo.clear();
+		int[] pt = new int[1];
+		List<String> authors = new ArrayList<>();				
+		String au;
+		String s = "";
+		while ((au = extractXML("creatorName", pubxml, pt)) != null) {
+			authors.add(au);
+			s += ", " + au;
+		}
+		if (s.length() > 0)
+			pubInfo.put("authors", s.substring(2));
+		s = extractXML("title>", pubxml, null);
+		if (s != null)
+			pubInfo.put("title", s);
+		s = extractXML("description descriptionType=\"SeriesInformation\"", pubxml, null);
+		if (s != null)
+			pubInfo.put("desc", s);
+		pubInfo.put("uri",  puburi);
+	}
+
+	private String extractXML(String key, String xml, int[] pt) {
+		if (pt == null)
+			pt = new int[1];
+		int p = xml.indexOf("<" + key, pt[0]);
+		if (p < 0 || (p = xml.indexOf(">", p) + 1) <= 0)
+			return null;
+		int p2 = key.indexOf(" ");
+		p2= xml.indexOf("</" + (p2 < 0 ? key : key.substring(0, p2)), p);
+		if (p2 < 0)
+			return null;
+		pt[0] = p2 + key.length() + 2;
+		return xml.substring(p, p2);
 	}
 
 	/**
@@ -160,7 +219,7 @@ public class Extractor {
 	}
 
 	public List<String> getObjectsForFile(File ifsExtractScript) throws IOException {
-		extractScriptFile = ifsExtractScript;
+		//extractScriptFile = ifsExtractScript;
 		log("Extracting " + ifsExtractScript.getAbsolutePath());
 		return getObjectsForStream(ifsExtractScript.toURI().toURL().openStream());
 	}
@@ -191,6 +250,7 @@ public class Extractor {
 		return objects;
 	}
 
+	
 	/**
 	 * Make all variable substitutions in IFS-extract.js.
 	 * 
@@ -246,7 +306,11 @@ public class Extractor {
 				}
 				switch (key) {
 				case "puburi":
-					puburi = val;
+					try {
+						puburi = getValue(val, "IFS.finding.aid.source.publication.uri", null);
+					} catch (IFSException e1) {
+					}
+					log(puburi);
 					break;
 				case "license":
 					license = val;
@@ -264,6 +328,10 @@ public class Extractor {
 
 	}
 
+	///////// PHASE 2: Parsing the ZIP file and extrating objects from it ////////
+
+
+	
 	/**
 	 * Find and extract all objects of interest from a ZIP file.
 	 * 
@@ -398,10 +466,10 @@ public class Extractor {
 				if (dataLicenseName != null) {
 					findingAid.setPropertyValue("IFS.fairspec.data.license.name", dataLicenseName);
 				}
-				if (puburi != null) {
-					findingAid.setPropertyValue("IFS.finding.aid.source.publication.uri", puburi);
-				}
-				rootPathToObject = new HashMap<>();
+//				if (puburi != null) {
+//					findingAid.setPropertyValue("IFS.finding.aid.source.publication.uri", puburi);
+//				}
+				localNameToObject = new HashMap<>();
 			} else if (!unlocalizedURL.equals(lastURL)){
 				findingAid.addUrl(unlocalizedURL);
 				lastURL = unlocalizedURL;
@@ -443,21 +511,46 @@ public class Extractor {
 			// At this point we now have all spectra ready to be associated with structures. 
 
 			
-			addAllIFSObjects(parser, sURL);
+			parseZipFileNamesForObjects(parser, sURL);
 			
-			processZipFilesAndParameters(sURL);
+			rezipFilesAndExtractParameters(sURL);
 
 			processParamList();
 
-			log("found " + rootPathToObject.size() + " IFS objects");
-			
-			
-			// And now those files read are associated. 
+			log("found " + localNameToObject.size() + " IFS objects");
 			
 		}
+		findingAid.setPubInfo(pubInfo);
 		setCollectionManifests(false);
 		findingAid.finalizeExtraction();
 		return findingAid;
+	}
+
+	private void parseZipFileNamesForObjects(ObjectParser parser, String zipPath) throws IOException, IFSException {
+		URL url = new URL(zipPath);// getURLWithCachedBytes(zipPath); // BH carry over bytes if we have them
+		Map<String, ZipEntry> zipFiles = htZipContents.get(url.toString());
+		if (zipFiles == null) {
+			// Scan URL zip stream for files.
+			zipFiles = readZipContentsIteratively(url.openStream(), new LinkedHashMap<String, ZipEntry>(), "", false);
+			htZipContents.put(url.toString(), zipFiles);
+		}
+		for (String zipName : zipFiles.keySet()) {
+			IFSObject<?> obj = addIFSObjectsForName(parser, zipName);
+			if (obj != null) {
+				localNameToObject.put(getLocalName(zipName), obj);
+			}
+			;
+		}
+
+	}
+
+	private void rezipFilesAndExtractParameters(String sURL) throws MalformedURLException, IOException {
+		if (rezipCache != null && rezipCache.size() > 0) {
+			lastRezipPath = null;
+			// this will drain the rezipCache
+			getNextRezipName();
+			readZipContentsIteratively(new URL(sURL).openStream(), null, "", true);
+		}		
 	}
 
 	private void processParamList() {
@@ -473,46 +566,9 @@ public class Extractor {
 		paramList.clear();
 	}
 
-	private void addAllIFSObjects(ObjectParser parser, String sURL) throws IOException, IFSException {
-		Map<String, ZipEntry> zipFiles = getZipContents(sURL);
-		for (String zipName : zipFiles.keySet()) {
-			IFSObject<?> obj = addIFSObjectsForName(parser, zipName);
-			if (obj != null) {
-				rootPathToObject.put(getManifestName(zipName),  obj);
-  			};
-		}
-		
-	}
-
-	private void processZipFilesAndParameters(String sURL) throws MalformedURLException, IOException {
-		if (rezipCache != null && rezipCache.size() > 0) {
-			lastRezipPath = null;
-			// this will drain the rezipCache
-			getNextRezipName();
-			readZipContentsIteratively(new URL(sURL).openStream(), null, "", true);
-		}		
-	}
-
-	protected void logCollectionFile(String fileName, int mode, long len) {
-		switch (mode) {
-		case LOG_IGNORED:
-			ignoredByteCount += len;
-			ignoredCount++;
-			lstIgnored.add(fileName);
-			break;
-		case LOG_OUTPUT:
-			extractedByteCount += len;
-			manifestCount++;
-			lstManifest.add(fileName);
-			break;
-		}
-	}
-
 	protected void setCollectionManifests(boolean isOpen) throws IOException {
 		if (!isOpen) {
-			FileOutputStream fos = new FileOutputStream(getFileTarget("_IFS_extract.json"));
-			fos.write(this.extractScript.getBytes());
-			fos.close();
+			writeStringToFile(extractScript, getFileTarget("_IFS_extract.json"));
 			
 			outputListJSON(lstManifest, getFileTarget("_IFS_manifest.json"), "manifest");
 			if (lstIgnored.size() > 0)
@@ -522,6 +578,13 @@ public class Extractor {
 		lstIgnored.clear();
 	}
 
+	protected static void writeStringToFile(String s, File fileTarget) throws IOException {
+		FileOutputStream fos = new FileOutputStream(fileTarget);
+		fos.write(s.getBytes());
+		fos.close();
+	}
+
+
 	protected void outputListJSON(List<String> lst, File fileTarget, String type) throws IOException {
 		log("! saved " + fileTarget + " (" + lst.size() + " items)");
 		// Date d = new Date();
@@ -530,7 +593,7 @@ public class Extractor {
 		// found when
 		// converting d.toString() due to a check in Date.toString for daylight savings time!
 		
-		String s = new Date().toGMTString();
+		String s = new Date().toString();
 		StringBuffer sb = new StringBuffer();
 		sb.append("{" + "\"IFS.fairspec.version\":\"" + IFSConst.IFS_FAIRSpec_version + "\",\n");
 		if (dataLicenseURI != null) {
@@ -552,13 +615,15 @@ public class Extractor {
 			// list the zip files first
 			for (String name : lst) {
 				if (type.equals("manifest") && name.endsWith(".zip")) {
-					sb.append(sep).append(getManifestEntry(name));
+					sb.append((sep + "\"" + name + "\"\n"));
+//					sb.append(sep).append(getManifestEntry(name));
 					sep = ",";
 				}
 			}
 			for (String name : lst) {
 				if (type.equals("manifest") && !name.endsWith(".zip")) {
-					sb.append(sep).append(getManifestEntry(name));
+					sb.append((sep + "\"" + name + "\"\n"));
+//					sb.append(sep).append(getManifestEntry(name));
 					sep = ",";
 				}
 			}
@@ -569,23 +634,21 @@ public class Extractor {
 			}
 		}
 		sb.append("]}\n");
-		FileOutputStream fos = new FileOutputStream(fileTarget);
-		fos.write(sb.toString().getBytes());
-		fos.close();
+		writeStringToFile(sb.toString(), fileTarget);
 	}
 
-	private Object getManifestEntry(String name) {
-		IFSRepresentation rep = cache.get(name);
-		IFSSpecData sd = htManifestNameToSpecData.get(name);
-		String params = (sd == null ? "" : ", " + sd.getParamJSON());
-		long len = rep.getLength();
-		return "{\"name\":\"" + name + "\","
-				+ "\"len\":" + len + ","
-				+ "\"type\":\"" + rep.getType() + "\","
-				+ "\"origin\":\"" + rep.getRef().getValue() + "\""
-				+ params
-				+ "}\n";
-	}
+//	private Object getManifestEntry(String name) {
+//		IFSRepresentation rep = cache.get(name);
+//		IFSSpecData sd = htManifestNameToSpecData.get(name);
+//		String params = "";//(sd == null ? "" : ", " + sd.getParamJSON());
+//		long len = rep.getLength();
+//		return "{\"name\":\"" + name + "\","
+//				+ "\"len\":" + len + ","
+//				+ "\"type\":\"" + rep.getType() + "\","
+//				+ "\"origin\":\"" + rep.getRef().getValue() + "\""
+//				+ params
+//				+ "}\n";
+//	}
 
 	/**
 	 * Use the regex ObjectParser to match a file name with a pattern defined in the IFS-extract.json description.
@@ -618,9 +681,10 @@ public class Extractor {
 		for (String key : parser.keys.keySet()) {
 			String param = parser.keys.get(key);
 			String value = m.group(key);
-			IFSObject<?> obj = findingAid.addObject(rootPath, param, value);
+			final String localName = getLocalName(zipName);
+			IFSObject<?> obj = findingAid.addObject(rootPath, param, value, localName);
 			if (obj instanceof IFSSpecData) {
-				htManifestNameToSpecData.put(getManifestName(zipName), (IFSSpecData) obj);
+				htManifestNameToSpecData.put(localName, (IFSSpecData) obj);
 			}
 			if (debugging)
 				log("found " + param + " " + value);
@@ -684,7 +748,7 @@ public class Extractor {
 		return sObj.substring(p, pt[0]++);
 	}
 
-	protected static Map<String, Map<String, ZipEntry>> htZipContents = new HashMap<>();
+	protected static Map<String, Map<String, ZipEntry>> htZipContents = new LinkedHashMap<>();
 
 	protected static boolean debugging;
 
@@ -729,25 +793,6 @@ public class Extractor {
 //		return null;
 //	}
 
-	/**
-	 * Gets the contents of a zip file.
-	 * 
-	 * @param zipPath the path to the zip file
-	 * @return a set of file names in alphabetical order
-	 * @throws IOException
-	 */
-	public Map<String, ZipEntry> getZipContents(String zipPath) throws IOException {
-		URL url = new URL(zipPath);// getURLWithCachedBytes(zipPath); // BH carry over bytes if we have them
-									// already
-		Map<String, ZipEntry> fileNames = htZipContents.get(url.toString());
-		if (fileNames != null)
-			return fileNames;
-		// Scan URL zip stream for files.
-		fileNames = new LinkedHashMap<String, ZipEntry>();
-		htZipContents.put(url.toString(), fileNames);
-		return readZipContentsIteratively(url.openStream(), fileNames, "", false);
-	}
-
 	protected Map<String, ZipEntry> readZipContentsIteratively(InputStream is, Map<String, ZipEntry> fileNames,
 			String baseName, boolean doRezip) throws IOException {
 		if (debugging && baseName.length() > 0)
@@ -755,15 +800,13 @@ public class Extractor {
 		boolean isTopLevel = (baseName.length() == 0);
 		ZipInputStream zis = new ZipInputStream(is);
 		ZipEntry zipEntry = null;
-		int n = 0;
 		ZipEntry rezipEntry = null;
 		while ((zipEntry = (rezipEntry == null ? zis.getNextEntry() : rezipEntry)) != null) {
 			rezipEntry = null;
 			if (zipEntry.isDirectory())
-				zipDirName = baseName + zipEntry.getName();
+				//zipDirName = baseName + zipEntry.getName();
 			if (!zipEntry.isDirectory() && zipEntry.getSize() == 0)
 				continue;
-			n++;
 			String zipName = baseName + zipEntry.getName();
 			if (ignorePattern.matcher(zipName).find()) {
 				// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX,
@@ -783,8 +826,8 @@ public class Extractor {
 					rezipEntry = rezip(zis, zipName, zipEntry);
 					getNextRezipName();
 				} else {
-					String path = getManifestName(zipName);
-					if (!zipEntry.isDirectory() && !lstIgnored.contains(zipName) && !lstManifest.contains(path)) {
+					final String localName = getLocalName(zipName);
+					if (!zipEntry.isDirectory() && !lstIgnored.contains(zipName) && !lstManifest.contains(localName)) {
 						logCollectionFile(zipName, LOG_IGNORED, zipEntry.getSize());
 						log("! ignoring " + rootPath + "|" + zipName);
 					}
@@ -796,6 +839,21 @@ public class Extractor {
 		if (isTopLevel)
 			zis.close();
 		return fileNames;
+	}
+
+	protected void logCollectionFile(String fileName, int mode, long len) {
+		switch (mode) {
+		case LOG_IGNORED:
+			ignoredByteCount += Math.max(len, 0);
+			ignoredCount++;
+			lstIgnored.add(fileName);
+			break;
+		case LOG_OUTPUT:
+			extractedByteCount += len;
+			manifestCount++;
+			lstManifest.add(fileName);
+			break;
+		}
 	}
 
 	/**
@@ -813,7 +871,7 @@ public class Extractor {
 	protected ZipEntry rezip(ZipInputStream zis, String zipDirName, ZipEntry entry) throws IOException {
 		log("rezipping " + zipDirName + " for " + entry + " " + new File(entry.getName()).getName());
 		File outFile = getFileTarget(zipDirName + ".zip");
-		String path = getManifestName(zipDirName);		
+		final String localName = getLocalName(zipDirName);		
 		FileOutputStream fos = new FileOutputStream(outFile);
 		ZipOutputStream zos = new ZipOutputStream(fos);
 		String dirName = entry.getName();
@@ -854,8 +912,8 @@ public class Extractor {
 						byte[] bytes = ((ByteArrayOutputStream) os).toByteArray();
 						zos.write(bytes);
 						String pval = new String(bytes);
-						paramList.add(new String[] {path, param, pval});
-						log("!added param " + param + " for " + path + " (" + pval.length() + " bytes)");
+						paramList.add(new String[] {localName, param, pval});
+						log("!added param " + param + " for " + localName + " (" + pval.length() + " bytes)");
 					}
 				}
 				zos.closeEntry();
@@ -864,8 +922,11 @@ public class Extractor {
 		zos.close();
 		fos.close();
 		len = outFile.length();
-		cacheFile(path, zipDirName, len, "application/zip");
-		logCollectionFile(path, LOG_OUTPUT, len);
+		IFSRepresentation r = findingAid.getSpecDataRepresentation(zipDirName);
+		
+		r.setLength(len);
+		cacheFile(localName, zipDirName, len, "application/zip");
+		logCollectionFile(localName, LOG_OUTPUT, len);
 		extractedByteCount += len;
 		return entry;
 	}
@@ -894,17 +955,19 @@ public class Extractor {
 		if (cachePattern != null && (m = cachePattern.matcher(zipName)).find()) {
 			String type = m.group("type");
 			String param = getParamName(m);
-			File f = getFileTarget(zipName);
+			File f = (param == null ? getFileTarget(zipName) : null);
 //			String rootName = rootPath + "|" + zipName;
 			OutputStream os = (param == null ? new FileOutputStream(f) : new ByteArrayOutputStream());
 			Util.getLimitedStreamBytes(zis, len, os, false, true);
-			extractedByteCount += len;
 //			cacheNMRFile(f, zipName, len);
 			if (param == null) {
-				String path = getManifestName(zipName);
-				cacheFile(path, zipName, len, type);
-				logCollectionFile(path, LOG_OUTPUT, len);
+				final String localName = getLocalName(zipName);
+				if (len < 0)
+					len = f.length();
+				cacheFile(localName, zipName, len, type);
+				logCollectionFile(localName, LOG_OUTPUT, len);
 			}
+			extractedByteCount += len;
 		}
 		if (rezipCachePattern != null && (m = rezipCachePattern.matcher(zipName)).find()) {
 			zipName = m.group("path");
@@ -912,7 +975,8 @@ public class Extractor {
 				log("duplicate path " + zipName);
 			} else {
 				lastRezipPath = zipName;
-				IFSRepresentation ref = new IFSRepresentation("bruker.zip", new IFSReference(zipName, rootPath), zipName, len);
+				// just a temporary reference here
+				IFSRepresentation ref = new IFSRepresentation("bruker.zip", new IFSReference(zipName, getLocalName(zipName), "./" + rootPath), zipName, len);
 				rezipCache.add(ref);
 				log("rezip added " + zipName);
 			}
@@ -931,17 +995,17 @@ public class Extractor {
 
 	private void cacheFile(String path, String zipName, long len, String type) {
 		type = IFSSpecDataFindingAid.MediaTypeFromName(path);
-		cache.put(path, new IFSRepresentation(type, new IFSReference(zipName, rootPath), null, len));
+		cache.put(path, new IFSRepresentation(type, new IFSReference(zipName, getLocalName(zipName), "./" + rootPath), null, len));
 	}
 
 	protected File getFileTarget(String fname) {
-		return new File(targetDir + "/" + rootPath + "/" + getManifestName(fname));
+		return new File(targetDir + "/" + rootPath + "/" + getLocalName(fname));
 	}
 
-	protected static String getManifestName(String fname) {
+	protected static String getLocalName(String fname) {
 		boolean isDir = fname.endsWith("/");
-		if (isDir)
-			System.out.println(fname);
+//		if (isDir)
+//			System.out.println(fname);
 		return fname.replace('|', '_').replace('/', '_').replace(' ', '_') + (isDir ? ".zip" : "");
 	}
 
@@ -1072,8 +1136,6 @@ public class Extractor {
 		 * @throws IFSException
 		 */
 		protected String compileIFSDefs(String s, boolean isFull, boolean replaceK) throws IFSException {
-			if (isFull)
-				replaceK = (s.indexOf("<") >= 0);
 			while (s.indexOf("::") >= 0) {
 				Matcher m = objectDefPattern.matcher(s);
 				if (!m.find())
@@ -1087,7 +1149,7 @@ public class Extractor {
 				if (pt == 0)
 					throw new IFSException("bad {def=key::val} expression: " + param + "::" + val);
 				if (keys == null)
-					keys = new HashMap<String, String>();
+					keys = new LinkedHashMap<String, String>();
 				String key;
 				if (pt > 0) {
 					key = param.substring(0, pt);
@@ -1096,10 +1158,14 @@ public class Extractor {
 					key = param.replace('.', '0');
 				}
 				keys.put(key, param);
+				String bk = "{" + key + "}";
+				if (s.indexOf(bk) >= 0) {
+					s = PT.rep(s,  bk, "<" + key + ">");					
+				}
 				// escape < and > here
 				s = PT.rep(s, pv, (replaceK ? "\\E(?\3" + key + "\4\\Q" : "\\E(?<" + key + ">\\Q") + val + "\\E)\\Q");
 			}
-			if (replaceK) {
+			if (isFull && (s.indexOf("<") >= 0 || s.indexOf("\3") >= 0)) {
 				// now fix k< references and revert \3 \4
 				s = PT.rep(s, "<", "\\E\\k<");
 				s = PT.rep(s, ">", ">\\Q").replace('\3', '<').replace('\4', '>');

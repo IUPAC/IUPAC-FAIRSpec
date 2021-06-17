@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE ead PUBLIC "+//ISBN 1-931666-00-8//DTD ead.dtd (Encoded Archival Description (EAD) Version 2002)//EN" "ead3_undeprecated.dtd">
+<ead xmlns="http://ead3.archivists.org/schema/" xmlns:dc="http://purl.org/DC/elements/1.0/" relatedencoding="MARC" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<control countryencoding="iso3166-1" dateencoding="iso8601" langencoding="iso639-2b" relatedencoding="iso15511" scriptencoding="iso15924">
+  <recordid instanceurl="https://eadiva.com/sample-docs/QD011.xml">UA-QD011</recordid>
+  <otherrecordid localtype="ark">https://piecemaking.edu/ark:/1313/qd011</otherrecordid>
+  <representation href="https://eadiva.com/QD011" linktitle="HTML transformation of the finding aid" show="new"/>
+  <filedesc>
+    <titlestmt>
+      <titleproper>Guide to Quilting Technologies Department Records, 1978-2020</titleproper>
+      <subtitle>A guide records of the Quilting Technologies Department at Piecemaking University</subtitle>
+      <author>Ruth Tillman</author>
+      <sponsor>Funding for the initial creation of this electronic finding aid was made possible in 1992 by a generous gift of the National Alliance of Peace Quilters. Funding for encoding was made possible in 2008 by a Piecemaking University Digital Initiatives Grant.</sponsor>
+    </titlestmt>
+    <editionstmt>
+      <edition>2nd edition</edition>
+      <p>Edition was updated during EAD3 encoding to conform to DACS standards.</p>
+    </editionstmt>
+
+    <publicationstmt>
+
+
+      <publisher>Piecemaking University</publisher>
+      <date normal="2020-06-08">June 8, 2020</date>
+      <address>
+        <addressline>University Archives</addressline>
+        <addressline>Piecemaking University</addressline>
+        <addressline>Lancaster, PA 17603</addressline>
+        <addressline localtype="phone">+1-717-555-1313</addressline>
+        <addressline localtype="email">archivist@piecemaking.edu</addressline>
+      </address>
+    </publicationstmt>
+    <seriesstmt>
+      <titleproper>Piecemaking University Departmental Records</titleproper> <num>13</num>
+    </seriesstmt>
+    <notestmt>
+      <controlnote audience="external">
+        <p>To submit corrections or request clarifications, please use the <ref show="new" actuate="onrequest" href="https://archives.piecemaking.edu/contact/finding-aid-feedback">University Archives' feedback form</ref>.</p>
+      </controlnote>
+    </notestmt>
+  </filedesc>
+  <maintenancestatus value="revised"/>
+  <publicationstatus value="published"/>
+  <maintenanceagency>
+    <agencycode>US-Papmua</agencycode>
+    <otheragencycode localtype="quiltlink">PMU</otheragencycode>
+    <agencyname>Piecemaking University Archives</agencyname>
+  </maintenanceagency>
+  <languagedeclaration>
+    <language langcode="eng">English</language>
+    <script scriptcode="latn">Latin</script>
+  </languagedeclaration>
+  <conventiondeclaration>
+    <abbr>DACS</abbr>
+    <citation href="https://saa-ts-dacs.github.io/dacs/" lastdatetimeverified="2020-06-09T16:30:21Z" linktitle="DACS in HTML on GitHub" actuate="onload" show="new">Describing Archives: a Content Standard</citation>
+    <descriptivenote>
+      <p>This finding aid conforms to the University Archives' standards for DACS-compliant description, including all Required and Optimum fields.</p>
+    </descriptivenote>
+  </conventiondeclaration>
+  <conventiondeclaration>
+    <abbr>quiltlink</abbr>
+    <citation href="http://id.quiltlink.org" linktitle="Linked Open Quilting Vocabulary" actuate="onload" show="new">Linked Open Quilting</citation>
+    <descriptivenote>
+    <p>Terms from the <title><part>Linked Open Quilting</part></title> vocabulary (published 2018) are used to enhance the finding aid in cases where no asppropriate term exists in Library of Congress vocabularies.</p>
+    </descriptivenote>
+  </conventiondeclaration>
+  <localtypedeclaration>
+  	<citation>Piecemaking University Archives Controlled Terms for Processing</citation>
+  	<descriptivenote>
+      <p>This internal manual documents appropriate terms to be used in localtype attributes and contains an FAQ for which controlled terms should be used to describe component levels of description, when bulk dates should be used alongside inclusive, etc.</p>
+  	</descriptivenote>
+  </localtypedeclaration>
+  <localcontrol localtype="descriptionlevel">
+    <term>subseries</term>
+  </localcontrol>
+  <localcontrol localtype="processinglevel">
+    <term>folder</term>
+  </localcontrol>
+  <maintenancehistory>
+    <maintenanceevent>
+      <eventtype value="derived"/>
+      <eventdatetime standarddatetime="2017-03-01T08:05:33Z">March 1 2017</eventdatetime>
+      <agenttype value="machine"/>
+      <agent>ead2-to-ead3.xslt</agent>
+      <eventdescription>Conversion from EAD 2002 finding aid using XSL transformation.</eventdescription>
+    </maintenanceevent>
+    <maintenanceevent>
+      <eventtype value="revised"/>
+      <eventdatetime standarddatetime="2017-03-02T10:05:23Z">March 2 2017</eventdatetime>
+      <agenttype value="human"/>
+      <agent>Ruth Tillman</agent>
+      <eventdescription>Conversion from EAD 2002 revised using updated DACS principles.</eventdescription>
+    </maintenanceevent>
+    <maintenanceevent>
+        <eventtype value="updated"/>
+        <eventdatetime standarddatetime="2018-06-03T13:43:33Z">June 3, 2018</eventdatetime>
+        <agenttype value="human"/>
+        <agent>María Ramirez</agent>
+        <eventdescription>Updated to include 2017-2018 school year materials added to the collection.</eventdescription>
+    </maintenanceevent>
+      <maintenanceevent>
+          <eventtype value="updated"/>
+          <eventdatetime standarddatetime="2019-06-06T10:21:49Z">June 6, 2019</eventdatetime>
+          <agenttype value="human"/>
+          <agent>María Ramirez</agent>
+          <eventdescription>Updated to include 2018-2019 school year materials added to the collection.</eventdescription>
+      </maintenanceevent>
+      <maintenanceevent>
+          <eventtype value="updated"/>
+          <eventdatetime standarddatetime="2020-06-08T13:50:12Z">June 8, 2020</eventdatetime>
+          <agenttype value="human"/>
+          <agent>María Ramirez</agent>
+          <eventdescription>Updated to include 2019-2020 school year materials added to the collection.</eventdescription>
+      </maintenanceevent>
+  </maintenancehistory>
+  <sources>
+    <source id="patchwork">
+      <sourceentry>Patchwork: A History of Quilting Education in the United States</sourceentry>
+      <objectxmlwrap>
+        <rdf:Description>
+            <dc:title>Patchwork: A History of Quilting Education in the United States</dc:title>
+            <dc:creator>Amelia Robinson</dc:creator>
+            <dc:date>1998</dc:date>
+            <dc:identifier>TX165 .R63 1998</dc:identifier>
+        </rdf:Description>
+      </objectxmlwrap>
+      <descriptivenote>
+        <p>Context for the department history note was taken from <title><part>Patchwork: A History of Quilting Education in the United States</part></title>.</p>
+      </descriptivenote>
+    </source>
+  </sources>
+</control>
+<archdesc level="collection">
+  <did>
+    <unittitle>Quilting Technologies Department Records</unittitle>
+    <unitid>QD-011</unitid>
+    <unitdate normal="1978/2020" unitdatetype="inclusive">1978-2020</unitdate>
+    <unitdatestructured certainty="circa" unitdatetype="inclusive">
+      <daterange>
+        <fromdate notbefore="1975" standarddate="1978">1978, no earlier than 1975</fromdate>
+        <todate standarddate="2020">2020</todate>
+      </daterange>
+  </unitdatestructured>
+  <origination>
+    <corpname encodinganalog="110" relator="creator" source="lcnaf"><part>Quilting Technologies Department</part><part>Piecemaking University</part></corpname>
+  </origination>
+  <physdesc>20 linear feet</physdesc>
+  <physdesc>793 GB</physdesc>
+  <physdescset coverage="whole" parallel="false">
+    <physdescstructured coverage="part" physdescstructuredtype="spaceoccupied">
+      <quantity>20</quantity>
+      <unittype>linear feet</unittype>
+    </physdescstructured>
+    <physdescstructured coverage="part" physdescstructuredtype="carrier">
+      <quantity>40</quantity>
+      <unittype>boxes</unittype>
+    </physdescstructured>
+    <physdescstructured coverage="part" physdescstructuredtype="spaceoccupied">
+      <quantity>793</quantity>
+      <unittype>GB</unittype>
+    </physdescstructured>
+    <physdescstructured coverage="part" physdescstructuredtype="carrier">
+      <quantity>2</quantity>
+      <unittype>hard drives</unittype>
+      <physfacet>labeled with printed sticker</physfacet>
+      <dimensions localtype="width" unit="inches">3.5</dimensions>
+        <descriptivenote>
+          <p>Labels on hard drives were applied by department before transfer to University Archives. If hard drives are used incorrectly, labels may melt and damage equipment. Use Archives-provided chassis to safely read hard drives.</p>
+          <p>Seagate drives sizes are 500GB each, however less than 120GB is used on each hard drive.</p>
+        </descriptivenote>
+      </physdescstructured>
+    </physdescset>
+    <physloc audience="external">Stored offsite.</physloc>
+    <physloc audience="internal" localtype="buillding">ANNEX</physloc>
+    <physloc audience="internal" localtype="shelfloc">13:1</physloc>
+    <repository>
+      <corpname identifier="http://id.quiltlink.org/organizations/9385" source="lcnaf"><part>University Archives</part><part>Piecemaking University</part></corpname>
+    </repository>
+  </did>
+  <accessrestrict>
+    <head>Restrictions on Access</head>
+    <p>The collection is open for research. The following series require review by the archivist to redact protected information:</p>
+    <list listtype="unordered">
+      <item>Meeting Notes (for records less than 20 years old)</item>
+      <item>Grants</item>
+    </list>
+  </accessrestrict>
+  <accruals>
+    <head>Accruals to the Collection</head>
+    <p>This collection receives annual accruals of department meeting notes, faculty lists, grants awarded, and annual reports. It receives periodic accruals of recordings of symposia and other hosted events. Grants recordkeeping practices require the department to maintain all documentation for 7 years, after which time it is transferred to the archives.</p>
+  </accruals>
+  <acqinfo>
+    <head>Acquisition History</head>
+    <p>Records from 1978 to 1988 were acquired in 1989 from contemporaneous and previous department faculty and the department secretary.</p>
+    <p>Materials are transferred annually from the Quilting Technologies department in accordance with University Records Schedule UA-113. Because all files are now electronic, the department retains copies of these records for ongoing reference.</p>
+    <p>A 2006 donation of papers and two hard drives by <persname normal="Russel, Martha A. (Martha Anita), 1941-2010"><part>Dr. Martha Russel</part></persname> was used to fill gaps in the record.</p>
+  </acqinfo>
+  <altformavail>
+    <head>Streaming Video</head>
+    <p>Recordings of some symposia and colloquia are available on the department's <ref show="new" href="https://youtube.com/quilttech/colloquia" actuate="onload">YouTube page</ref>.</p>
+  </altformavail>
+  <appraisal>
+    <head>Appraisal of Materials</head>
+    <p>The initial records collection came to the University Archives as part of a records management initiative in 1989. During processing, University Archivist Wilhelmena Ransom discarded event fliers, duplicate copies of meeting notes, and department publications. Working with the records manager, she drafted the schedule which became schedule UA-113 to guide further materials transfer.</p>
+    <p>If records received in an annual transfer (per schedule UA-113) do not fit within existing series, the current University Archivist evaluates them for the potential creation of a new series or subseries.</p>
+    <p>Duplicate materials are discarded during processing.</p>
+  </appraisal>
+  <arrangement>
+    <head>Arrangement of the Materials</head>
+    <p>Materials are arranged into series and subseries based on contents. Records are arranged chronologically unless otherwise noted.</p>
+  </arrangement>
+  <bibliography>
+    <head>Works Citing the Collection</head>
+    <bibref>Collins, Portia. <title><part>"Tools, Techniques, and Technologies: the Evolution of Quilting Practice from 1820 to 2000"</part></title>. Quilting Studies Quarterly 83:2 (<date normal="2013-06">June 2013</date>): 283-312.</bibref>
+    <bibref>Gilmore, Marian. <title render="italic"><part>Rethinking Women's Technologies</part></title>. <date normal="1998">1998</date>. <ref href="https://catalog.piecemaking.edu/catalog/9twe2" show="new" actuate="onload">Catalog record.</ref></bibref>
+    <bibref>Miller, Marcus. <title render="italic"><part>Teaching Textiles</part></title>. <date normal="2010">2010</date>. <ref href="https://catalog.piecemaking.edu/catalog/93952" show="new" actuate="onload">Catalog record.</ref></bibref>
+  </bibliography>
+  <bioghist>
+    <head>Departmental History</head>
+    <p>The Quilting Technologies Department was created in 1978, 3 years after the founding of <corpname><part>Piecemaking University</part></corpname> in order to <quote>study the history of technologies of quilting and promote the exploration and development of new technologies.</quote> Its two full-time faculty members were <persname identifier="http://id.loc.gov/authorities/names/no2019174587" normal="Russel, Martha A. (Martha Anita), 1941-2010"><part>Dr. Martha Russel</part></persname> and <persname identifier="http://id.loc.gov/authorities/names/no2019174587233" normal="Carter, Caroline, 1932-"><part>Dr. Caroline Carter</part></persname>. At the time of its founding, the department only offered a single degree, the Doctorate in Quilting.</p>
+    <p>According to historian Amelia Robinson:</p>
+    <blockquote><p>...the late 1970s saw Quilt Education to shift from a discipline concerned with history to an interdisciplinary and forward-looking field. No longer confined to studying and describing the textiles themselves or the persons who created them, quilt educators began exploring the techniques and technologies of quilting and its intersection with other textile arts and crafts. Entire departments, such as the Quilting Technologies Department at Piecemaking University, began stitching together connections with women's history, the history of industrialization, the study of technology, and experimental research.<lb/>
+    <footnote>
+    <p><ptr target="patchwork" show="replace" linktitle="Patchwork: A History of Quilting Education in the United States"/></p>
+    </footnote></p>
+    </blockquote>
+    <p>By 1985, the department had grown to 5 faculty positions and 3 interdisciplinary positions shared with other parts. It began offering three program tracks: textile history, history of technology, and women's history. Around 1987, the department began offering 400-level classes for undergraduates majoring in general history and women's studies.</p>
+    <p>In 2000, the department began including courses on digital technologies, although the department's mission continues to define Quilting Technology as "the broad set of processes, skills, tools, and techniques developed for the creation of quilts and related textiles." In 2010, the department partnered with the library in the creation of a makerspace.</p>
+  </bioghist>
+  <controlaccess>
+    <persname identifier="http://id.loc.gov/authorities/names/no2019174587" encodinganalog="600" normal="Russel, Martha A. (Martha Anita), 1941-2010" source="lcnaf"><part localtype="familyname">Russel</part> <part localtype="forename">Martha</part><part localtype="date">1941-2010</part></persname>
+    <corpname identifier="http://id.loc.gov/authorities/names/no2019174523526" encodinganalog="610"><part>Quilting Technologies Department</part><part>Piecemaking University</part></corpname>
+    <subject encodinganalog="650" source="lcsh"><part identifier="http://id.loc.gov/authorities/subjects/sh85109859">Quilting</part><part identifier="http://id.loc.gov/authorities/subjects/sh99005024">History</part></subject>
+    <subject identifier="http://id.loc.gov/authorities/subjects/sh85133169" encodinganalog="650" source="lcsh"><part>Technology</part><part>Social aspects</part></subject>
+    <subject identifier="http://id.quiltlink.org/subjects/T29485" encodinganalog="650" source="quiltlink"><part>Technologies of quilting</part></subject>
+    <subject identifier="http://id.quiltlink.org/subjects/T2532" encodinganalog="650" source="quiltlink"><part>Quilt study</part></subject>
+    <genreform identifier="http://id.loc.gov/authorities/genreForms/gf2014026128" encodinganalog="655" source="lcgft"><part>Minutes (Records)</part></genreform>
+    <genreform identifier="http://id.loc.gov/authorities/genreForms/gf2014026046" encodinganalog="655" source="lcgft"><part>Annual reports</part></genreform>
+    <genreform identifier="http://id.loc.gov/authorities/genreForms/gf2014026067" encodinganalog="655" source="lcgft"><part>Conference materials</part></genreform>
+    <genreform identifier="http://id.quiltlink.org/genres/F23569" encodinganalog="655" source="quiltlink"><part>Grant materials</part></genreform>
+    <occupation identifier="http://vocab.getty.edu/page/aat/300025359" encodinganalog="656" source="aat"><part>quiltmakers</part></occupation>  
+  </controlaccess>
+  <custodhist>
+    <head>Custodial History</head>
+    <chronlist>
+      <chronitem>
+        <daterange>
+          <fromdate standarddate="1978">1978</fromdate>
+          <todate standarddate="1989">1989</todate>
+        </daterange>
+        <chronitemset>
+          <event>Materials held by faculty members.</event>
+          <event>Materials collected by departmental secretaries as informal archive</event>        
+        </chronitemset>
+      </chronitem>
+      <chronitem>
+        <datesingle>1989</datesingle>
+        <event>Departmental Records Collection Initiative conducted by <corpname normal="University Archives, Piecemaking University"><part>University Archives</part></corpname></event>
+      </chronitem>
+      <chronitem>
+        <daterange>
+          <fromdate standarddate="1989">1989</fromdate>
+          <todate notbefore="2020">2020</todate>
+        </daterange>
+        <event>Records held by University Archives</event>
+      </chronitem>
+    </chronlist>
+  </custodhist>
+  <legalstatus>
+    <head>Legal Status of the Materials</head>
+    <p>Under copyright.</p>
+  </legalstatus>
+  <phystech>
+    <head>Technical Notes</head>
+    <p>Access to hard drives included in the collection require the use of docking station which supports 3.5" SATA 3GB/s drives. Docking stations may be found in the University Archives' reading room.</p>
+  </phystech>
+  <prefercite>
+    <head>Citation</head>
+    <p>Cite materials as follows:</p>
+    <p>[Description or identification of item], [ date, if known]; Quilting Technologies Department Records (QD011). Piecemaking University Archives, Lancaster, PA 17603.</p>
+  </prefercite>
+  <processinfo>
+    <head>Processing Information</head>
+    <p>The original collection was accessioned and processed by University Archivist Wilhelmena Ransom between 1989 and 1990. Accruals are processed annually by student workers with guidance by the University Archivist on occasions when material warranted the creation of a new series.</p>
+    <p>In 2006, upon <persname normal="Russel, Martha A. (Martha Anita), 1941-2010"><part>Dr. Martha Russel's</part></persname> transition to emerita status, Digital Archivist Monica Brown accessioned and processed the two hard drives on which Dr. Russel had stored digital meeting notes, colloquia and symposium reccordings, and other miscellaneous departmental materials. These were used to fill gaps in existing series.</p>
+    <p>From 2016 to 2020, Electronic Records Archivist María Ramirez has annually accessioned and processed the meeting notes, policies, and annual reports via a Box folder shared with the department's administative assistant. Copies of these born-digital materials are stored on the University Archives' fileserver and linked in the finding aid.</p>
+  </processinfo>
+  <relatedmaterial>
+    <head>Related material</head>
+    <archref><title><part>Martha Russel Papers, 1962-2010</part></title>, #<num localtype="collection_id">mr012</num>, <ref href="https://piecemaking.edu/ark:/1313/mr012">view finding aid</ref></archref>
+  </relatedmaterial>
+  <relations>
+    <relation relationtype="cpfrelation" actuate="onload" show="new" href="https://piecemaking.edu/ark:/1313/mr012-cpf.xml">
+      <relationentry>Martha Russel</relationentry>
+      <daterange>
+          <fromdate standarddate="1978">1978</fromdate>
+          <todate standarddate="2010">2010</todate>
+      </daterange>
+      <descriptivenote>
+        <p>Department founder and chair from 1978-2001. Professor from 2001-2006. Professor emerita from 2006 until her death in 2010.</p>
+      </descriptivenote>
+    </relation>
+    <relation relationtype="cpfrelation" actuate="onload" show="new" href="https://piecemaking.edu/ark:1313/gqt014">
+      <relationentry>Graduate Society of Quilting Technologists</relationentry>
+      <daterange>
+        <fromdate standarddate="1980">1980</fromdate>
+      </daterange>
+      <descriptivenote>
+        <p>Organized and run by graduate students within the department with a rotating faculty advisor, this society co-sponsors the "Threads and Voices" symposium series. Its students invite speakers, conduct event planning, and host the event, while the department provides financial support and guidance.</p>
+      </descriptivenote>
+    </relation>
+    <relation relationtype="resourcerelation" actuate="onload" show="new" href="https://quilthismus.org/archives/coll/9274">
+      <relationentry>Collaborations</relationentry>
+      <objectxmlwrap>
+        <rdf:Description>
+          <dc:title>Collaborations: Quilting History Museum and Piecemaking U</dc:title>
+          <dc:identifier>9274</dc:identifier>
+          <dc:date>1986-1992</dc:date>
+          <dc:subject>exhibits</dc:subject>
+          <dc:subject>teaching</dc:subject>
+          <dc:subject>quilts</dc:subject>
+          <dc:subject>technology</dc:subject>
+        </rdf:Description>
+      </objectxmlwrap>
+      <descriptivenote><p>Exhibit notes and meeting minutes from a project partnership between the Quilting History Museum and department members of the Quilting Technologies Department</p></descriptivenote>
+    </relation>
+  </relations>
+  <scopecontent>
+    <head>Scope and Content of the Collection</head>
+    <p>The collection contains departmental business records: meeting notes, policies, grants, and annual reports. A selection of syllabuses ranging from 1978-1999 reflect the department's practice of allowing prospective and enrolled students to browse a course's contents before registration. The collection also contains recordings of symposia and colloquia sponsored by the department.</p>
+  </scopecontent>
+  <separatedmaterial>
+    <head>Separated Material</head>
+    <p>While the hard drives are retained within this collection, all of <persname normal="Russel, Martha A. (Martha Anita), 1941-2010"><part>Dr. Martha Russel's</part></persname> personal records, (digital and analog) including correspondence, external committee service documents, and other manuscript materials were separated during processing to create the Martha Russel Papers. <ref href="https://piecemaking.edu/ark:/1313/mr012">View finding aid.</ref></p>
+    <archref><title><part>Martha Russel Papers, 1962-2010</part></title>, #<num localtype="collection_id">mr012</num></archref>
+  </separatedmaterial>
+  <userestrict>
+    <head>Restrictions on Use of Materials</head>
+    <p>Duplication of event recordings may require the permission of their copyright holders.</p>
+    <table frame="all" colsep="true" rowsep="true">
+      <tgroup align="center" cols="3">
+        <colspec colname="materialtype" colnum="1"/>
+        <colspec colname="usetype" colnum="2"/>
+        <colspec colname="permissionrequired" colnum="3"/>
+        <thead valign="middle">
+          <row>
+            <entry colname="materialtype">Material Type</entry>
+            <entry colname="usetype">Use Type</entry>
+            <entry colname="permissionrequired">Permission Required</entry>
+          </row>
+        </thead>
+        <tbody valign="middle">
+          <row>
+            <entry colname="materialtype">Event recordings, 1980-2008</entry>
+            <entry colname="usetype">File copying or other duplication of audio or visual content</entry>
+            <entry colname="permissionrequired">Requires permission of the speakers or copyright holders as no waivers or permission slips were obtained</entry>
+          </row>
+          <row>
+            <entry colname="materialtype">Event recordings, 2009-</entry>
+            <entry colname="usetype">File copying or other duplication of audio or visual content</entry>
+            <entry colname="permissionrequired">Consult with the archivist for waivers which contain specific guidance by each speaker for the duplication and use of each recording. Speakers were given the following options: to restrict duplication entirely, to allow duplication for personal research use, to allow duplication for personal research use and teaching, or to freely allow duplication and use of the materials. These permissions were obtained separately from streaming permissions and copies of the video streaming in the university's YouTube channel should not be interpreted as license to duplicate.</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+  </userestrict>
+  <dsc>
+    <c level="series">
+      <did>
+        <unittitle>Department Minutes</unittitle>
+        <unitdatestructured unitdatetype="inclusive">
+          <dateset>
+            <daterange>
+              <fromdate standarddate="1978">1978</fromdate>
+              <todate standarddate="1982">1983</todate>
+            </daterange>
+            <datesingle standarddate="1985">1985</datesingle>
+            <daterange>
+              <fromdate standarddate="1987">1987</fromdate>
+              <todate standarddate="2020">2020</todate>
+            </daterange>
+          </dateset>
+          </unitdatestructured>
+          <container containerid="9095822543098" localtype="box">1</container>
+          <container containerid="9095822543099" localtype="box">2</container>
+          <container containerid="9095822543100" localtype="box">3</container>
+          <container containerid="9095822543101" localtype="box">4</container>
+          <container containerid="9095822543102" localtype="box">5</container>
+          <container containerid="9095822543103" localtype="box">6</container>
+          <physdescset parallel="true" coverage="part">
+            <physdescstructured coverage="part" physdescstructuredtype="spaceoccupied">
+              <quantity>12</quantity>
+              <unittype>linear feet</unittype>
+            </physdescstructured>
+            <physdescstructured coverage="part" physdescstructuredtype="carrier">
+              <quantity>6</quantity>
+              <unittype>boxes</unittype>
+            </physdescstructured>
+            <physdescstructured coverage="part" physdescstructuredtype="materialtype">
+              <quantity>152</quantity>
+              <unittype>paper reports</unittype>
+              <physfacet>Because minutes prior to 1989 were acquired from department faculty and staff, some have annotations, stains, or wear-and-tear from use.</physfacet>
+            </physdescstructured>
+          </physdescset>
+          <physdescstructured coverage="part" physdescstructuredtype="spaceoccupied">
+            <quantity>38</quantity>
+            <unittype>MB</unittype>
+          </physdescstructured>
+          <abstract>Regular department meetings are held in September-December and February-April of each school year. Some years include minutes of additional meetings. Minutes for the years 1983 and 1986 were not retained by anyone in the department.</abstract>
+        </did>
+        <accruals>
+          <head>Accruals</head>
+          <p>The department minutes for each school year are acquired in June, following the conclusion of Maymester.</p>
+        </accruals>
+        <accessrestrict>
+          <head>Resctrictions on Access</head>
+          <p>Minutes older than 20 years are open for access. Meeting notes from the past 20 years require review by an archivist before access.</p>
+        </accessrestrict>
+        <arrangement>
+          <head>Arrangement</head>
+          <p>Minutes are arranged chronologically.</p>
+        </arrangement>
+        <phystech>
+          <head>Technical Requirements</head>
+          <p>Minutes from 2001- are in PDF format and require Adobe Acrobat or another PDF viewer to read.</p>
+        </phystech>
+        <odd>
+          <head>Other Descriptive Data</head>
+          <p>There is no recorded notetaker on most minutes. Styles vary from brief bullet points to longform notes.</p>    
+        </odd>
+    </c>
+    <c level="series">
+      <did>
+        <unittitle>Annual Reports</unittitle>
+        <unitdatestructured unitdatetype="inclusive">
+          <daterange>
+            <fromdate standarddate="1979">1979</fromdate>
+            <todate standarddate="2019">2019</todate>
+          </daterange>
+        </unitdatestructured>
+        <physdescset coverage="whole" parallel="false">
+          <physdescstructured coverage="part" physdescstructuredtype="carrier">
+            <quantity>2</quantity>
+            <unittype>boxes</unittype>
+          </physdescstructured>
+          <physdescstructured coverage="part" physdescstructuredtype="spaceoccupied">
+            <quantity>149</quantity>
+            <unittype>MB</unittype>
+          </physdescstructured>
+        </physdescset>
+        <container containerid="9095822543104" localtype="box">7</container>
+        <container containerid="9095822543105" localtype="box">8</container>
+        <daoset>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 1999" href="https://archives.piecemaking.edu/files/qd011/annual-report-1999.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2000" href="https://archives.piecemaking.edu/files/qd011/annual-report-2000.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2001" href="http://archives.piecemaking.edu/files/qd011/annual-report-2001.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2002" href="https://archives.piecemaking.edu/files/qd011/annual-report-2002.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2003" href="https://archives.piecemaking.edu/files/qd011/annual-report-2003.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2004" href="https://archives.piecemaking.edu/files/qd011/annual-report-2004.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2005" href="https://archives.piecemaking.edu/files/qd011/annual-report-20045.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2006" href="https://archives.piecemaking.edu/files/qd011/annual-report-2006.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2007" href="https://archives.piecemaking.edu/files/qd011/annual-report-2007.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2008" href="https://archives.piecemaking.edu/files/qd011/annual-report-2008.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2009" href="https://archives.piecemaking.edu/files/qd011/annual-report-2009.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2010" href="https://archives.piecemaking.edu/files/qd011/annual-report-2010.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2011" href="https://archives.piecemaking.edu/files/qd011/annual-report-2011.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2012" href="https://archives.piecemaking.edu/files/qd011/annual-report-2012.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2013" href="https://archives.piecemaking.edu/files/qd011/annual-report-2013.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2014" href="https://archives.piecemaking.edu/files/qd011/annual-report-2014.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2015" href="https://archives.piecemaking.edu/files/qd011/annual-report-2015.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2016" href="https://archives.piecemaking.edu/files/qd011/annual-report-2016.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2017" href="https://archives.piecemaking.edu/files/qd011/annual-report-2017.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2018" href="https://archives.piecemaking.edu/files/qd011/annual-report-2018.pdf"/>
+          <dao daotype="borndigital" coverage="part" actuate="onrequest" show="new" linkrole="application/pdf" linktitle="Annual Report: 2019" href="https://archives.piecemaking.edu/files/qd011/annual-report-2019.pdf"/>
+          <descriptivenote>
+            <p>Annual reports from 1999 to present available as PDFs.</p>
+          </descriptivenote>                
+        </daoset>
+      </did>
+      <accruals>
+        <head>Accruals</head>
+        <p>The annual report is published in July or August and transferred to the archives sometime between then and the end of the following school year.</p>
+      </accruals>
+      <arrangement>
+        <head>Arrangement</head>
+        <p>Annual reports are arranged chronologically.</p>
+      </arrangement>
+      <phystech>
+        <head>Technical Requirements</head>
+        <p>Minutes from 2001- are in PDF format and require Adobe Acrobat or another PDF viewer to read.</p>
+      </phystech>
+      <legalstatus>
+        <head>Legal Status</head>
+        <p>Annual reports are copyright Piecemaking University, which has released all its departmental annual reports to the public domain.</p>
+      </legalstatus>
+    </c>  
+    <c level="series">
+      <did>
+        <unittitle>Grants</unittitle>
+        <unitdatestructured unitdatetype="inclusive">
+          <daterange>
+           <fromdate standarddate="1978">1978</fromdate>
+          </daterange>
+        </unitdatestructured>
+        <physdescstructured coverage="whole" physdescstructuredtype="carrier">
+          <quantity>17</quantity>
+          <unittype>boxes</unittype>
+        </physdescstructured>
+        <container containerid="9095822543106" localtype="box">9</container>
+        <container containerid="9095822543107" localtype="box">10</container>
+        <container containerid="9095822543108" localtype="box">11</container>
+        <container containerid="9095822543109" localtype="box">12</container>
+        <container containerid="9095822543110" localtype="box">13</container>
+        <container containerid="9095822692384" localtype="box">14</container>
+        <container containerid="9095822692385" localtype="box">15</container>
+        <container containerid="9095822692386" localtype="box">16</container>
+        <container containerid="9095822692387" localtype="box">17</container>
+        <container containerid="9095822692387" localtype="box">18</container>
+        <container containerid="9095822692623" localtype="box">19</container>   
+        <container containerid="9095822692624" localtype="box">20</container>
+        <container containerid="9095822692625" localtype="box">21</container>
+        <container containerid="9095822692626" localtype="box">22</container>
+        <container containerid="9095822692627" localtype="box">23</container>
+        <container containerid="9095822792940" localtype="box">24</container>
+        <container containerid="9095822792941" localtype="box">25</container>
+      </did> 
+      <c level="file">
+        <did>
+          <unittitle>Marshall Family Grant</unittitle>
+          <unitdatestructured>
+            <daterange>
+              <fromdate standarddate="1992">1992</fromdate>
+            </daterange>
+          </unitdatestructured>
+          <physdescstructured coverage="whole" physdescstructuredtype="carrier">
+            <quantity>10</quantity>
+            <unittype>boxes</unittype>
+          </physdescstructured>
+          <abstract>Records of the Marshall Family Grants awarded, including original proposal along with project documents and presentations created using grant funding.</abstract>
+        </did>
+        <arrangement>
+          <head>Arrangement</head>
+          <p>Chronological.</p>
+        </arrangement>
+        <controlaccess>
+          <famname encodinganalog="600" source="local"><part>Marshall family</part></famname>
+        </controlaccess>
+        <bioghist>
+          <head>Historical Note</head>
+          <p>The Marshall Family Grant was established by Elias and Padmini Marshall to fund international collaborations on quilting and quilting-adjacent technologies. Students in the third or fourth year of their PhD program may apply to collaborate with an international partner. Funds from this two-year grant may be used for the student and their partner to visit each other's countries, to attend one meeting of the International Quilting Technologists Association, to buy supplies used in completing grant outcomes, and to present on grant outcomes.</p>
+        </bioghist>
+        <accruals>
+          <head>Accruals</head>
+          <p>Grant applications and paperwork are retained by the department until 7 years from the grant's completion. Unsuccessful applications and all financial documents are then shredded. The successful application and non-financial paperwork are transferred to the University Archives.</p>
+        </accruals>
+      </c>
+      <c level="file">
+        <did>
+            <unittitle>Student Research Travel Grant</unittitle>
+            <abstract>Records of student travel grants awarded along with reports and presentations on research project outcomes.</abstract>
+        </did>
+        <arrangement>
+          <head>Arrangement</head>
+          <p>Chronological.</p>
+        </arrangement>
+        <accruals>
+          <head>Accruals</head>
+          <p>Grant applications and paperwork are retained by the department until 7 years from the grant's completion. Unsuccessful applications and all financial documents are shredded. The successful application and non-financial paperwork are transferred to the University Archives.</p>
+        </accruals>
+      </c>
+      <c level="file">
+        <did>
+          <unittitle>Faculty Research Grants</unittitle>
+          <unitdatestructured>
+            <daterange>
+              <fromdate standarddate="1978">1978</fromdate>
+            </daterange>
+          </unitdatestructured> 
+          <physdescstructured coverage="whole" physdescstructuredtype="carrier">
+            <quantity>3</quantity>
+            <unittype>boxes</unittype>
+          </physdescstructured>
+          <abstract>Records and reports from research, teaching, and travel grants received by faculty members in the department.</abstract>
+        </did>
+        <arrangement>
+          <head>Arrangement</head>
+          <p>Chronological.</p>
+        </arrangement>
+        <accruals>
+          <head>Accruals</head>
+          <p>Copies of all paperwork connected to facultys' completion of externally-awarded grants are retained by the department until 7 years from the grant's completion. Records are transferred to the University Archives, including financial records.</p>
+        </accruals>
+        <accessrestrict>
+          <head>Restrictions on Access</head>
+          <p>Archivist must review any requested files for any unredacted personal protected information, including financial information.</p>
+        </accessrestrict>
+      </c>
+    </c>
+    <c level="series">
+      <did>
+        <unittitle>Colloquia and Symposia</unittitle>
+        <unitdatestructured>
+          <dateset>
+            <daterange>
+              <fromdate standarddate="1997">1997</fromdate>
+              <todate standarddate="2006">2006</todate>
+            </daterange>
+            <datesingle standarddate="2008">2008</datesingle>
+            <daterange>
+              <fromdate standarddate="2010">2010</fromdate>
+              <todate standarddate="2015">2015</todate>
+            </daterange>
+            <datesingle standarddate="2017">2017</datesingle>
+            <daterange>
+                <fromdate standarddate="2019">2019</fromdate>
+            </daterange>
+          </dateset>
+        </unitdatestructured>
+        <physdescset parallel="true" coverage="part">
+          <physdescstructured physdescstructuredtype="spaceoccupied" coverage="part">
+            <quantity>7</quantity>
+            <unittype>linear feet</unittype>
+          </physdescstructured>
+          <physdescstructured physdescstructuredtype="carrier" coverage="part">
+            <quantity>14</quantity>
+            <unittype>boxes</unittype>
+          </physdescstructured>
+          <physdescstructured physdescstructuredtype="materialtype" coverage="part">
+            <quantity>28</quantity>
+            <unittype>videocasettes</unittype>
+          </physdescstructured>
+        </physdescset>
+        <physdescstructured physdescstructuredtype="spaceoccupied" coverage="part">
+          <quantity>792</quantity>
+          <unittype>GB</unittype>
+        </physdescstructured>
+       <container containerid="9095822712839" localtype="box">26</container>
+        <container containerid="9095822712840" localtype="box">27</container>
+        <container containerid="9095822712841" localtype="box">28</container>
+        <container containerid="9095822712841" localtype="box">29</container>
+        <container containerid="9095822712842" localtype="box">30</container>
+        <container containerid="9095822712843" localtype="box">31</container>
+        <container containerid="9095822712844" localtype="box">32</container>
+        <container containerid="9095822712845" localtype="box">33</container>
+        <container containerid="9095822712846" localtype="box">34</container>
+        <container containerid="9095822712847" localtype="box">35</container>
+        <container containerid="9095822712848" localtype="box">36</container>
+        <container containerid="9095822712849" localtype="box">37</container>
+        <container containerid="9095822712850" localtype="box">38</container>
+        <container containerid="9095822712851" localtype="box">39</container>
+      </did>
+      <phystech>
+        <head>Technical Requirements</head>
+        <p>Recordings from <date normal="1997/2006">1997-2006</date> are only available on VHS. These may be watched in the reading room.</p>
+      </phystech>
+      <otherfindaid>
+        <head>Other Finding Aids</head>
+        <p>A reverse-chronological list of digitized colloquia and symposia in this collection may be found on the <ref href="https://archives.piecemaking.edu/videos/quilttech-guide">Archives' website</ref>.</p>
+      </otherfindaid>
+      <index>
+        <p>Index of speakers and associated videos.</p>
+        <listhead>
+          <head01>Speaker</head01>
+          <head02>Video(s)</head02>
+        </listhead>
+        <indexentry>
+          <persname><part>Rachel Acosta</part></persname>
+          <ref href="https://archives.piecemaking.edu/videos/player/3953" linktitle="The Original Digital: Handquilting in an Era of Machine Quilting"/>
+        </indexentry>
+        <indexentry>
+          <namegrp>
+            <persname><part>Wallis Culver</part></persname>
+            <persname><part>Susan Shibata</part></persname>
+          </namegrp>
+          <ref href="https://archives.piecemaking.edu/videos/player/4548" linktitle="The Role of the Quilt Guild in Dispersing Technologies of Quilting"/>
+        </indexentry>
+        <indexentry>
+          <namegrp>
+            <persname><part>Erica Haywood</part></persname>
+            <persname><part>Angelina Moorhead</part></persname>
+          </namegrp>
+          <ref href="https://archives.piecemaking.edu/videos/player/954" linktitle="Embroidery, Embellishments and Quilting, a Conversation"/>
+        </indexentry>
+        <indexentry>
+          <persname><part>Deon Jones</part></persname>
+          <ref href="https://archives.piecemaking.edu/videos/player/1398" linktitle="Abstractions: Modern Quilt Design after 1990"/>
+        </indexentry>
+        <indexentry>
+          <persname><part>Rhonda Lee</part></persname>
+          <ref href="https://archives.piecemaking.edu/videos/player/2768" linktitle="To Sandwich or Not to Sandwich: How Many Layers Does a Quilt Need to be a Quilt"/>
+        </indexentry>
+        <indexentry>
+          <persname><part>Jazmín Medina</part></persname>
+          <ref href="https://archives.piecemaking.edu/videos/player/359" linktitle="Analysis of Applique, 1950-1980"/>
+        </indexentry>
+        <indexentry>
+          <namegrp>
+            <persname><part>Noor Qader</part></persname>
+            <persname><part>Maya Reynolds</part></persname>
+          </namegrp>
+          <ref href="https://archives.piecemaking.edu/videos/player/445" linktitle="Pattern Design and Dispersal from Newspapers and Magazines to Quilting Software and Websites"/>
+        </indexentry>
+        <indexentry>
+          <persname><part>Amelia Robinson</part></persname>
+          <ptrgrp>
+            <ref href="https://archives.piecemaking.edu/videos/player/527" linktitle="Quilting Education: 1937 to 1999"/>
+            <ptr target="patchwork" linktitle="based on her history of quilting education in the United States"/>
+          </ptrgrp>
+        </indexentry>
+        <indexentry>
+          <persname><part>Atlas Sozen</part></persname>
+          <ref href="https://archives.piecemaking.edu/videos/player/7188" linktitle="Youtube's and the Dissemination of Quilting Techniques"/>
+        </indexentry>
+        <indexentry>
+          <namegrp>
+              <persname><part>Joseph Yang</part></persname>
+              <persname><part>Elizabeth Zook</part></persname>
+          </namegrp>
+          <ref href="https://archives.piecemaking.edu/videos/player/2523" linktitle="From Cotton to Polyester and Beyond: Thread's Role in Quilting"/>
+        </indexentry>
+        <indexentry>
+          <persname><part>Gladys Yoder</part></persname>
+          <ptrgrp>
+            <ref href="https://archives.piecemaking.edu/videos/player/2943" linktitle="Economies of Sale: Marketability and Quilt Design"/>
+            <ref href="https://archives.piecemaking.edu/videos/player/3526" linktitle="Technologies of Amish Quilting"/>
+          </ptrgrp>
+        </indexentry>
+      </index>
+    </c>
+    <c level="series">
+      <did>
+        <unittitle>Syllabuses</unittitle>
+        <unitdatestructured>
+          <daterange>
+              <fromdate standarddate="1978">1978</fromdate>
+              <todate standarddate="1999">1999</todate>
+          </daterange>
+        </unitdatestructured>
+        <physdescstructured physdescstructuredtype="carrier" coverage="whole">
+          <quantity>1</quantity>
+          <unittype>box</unittype>
+        </physdescstructured>
+        <abstract>A collection of syllabuses previously retained by the department and used by students to select courses for upcoming semesters.</abstract>
+        <didnote>For a <emph render="italic">current</emph> list of courses taught within the department, see <ptr href="https://quilttech.piecemaking.edu/courses" linkrole="text/html" linktitle="course listings on the department's website" />.</didnote>
+        <container containerid="9095822784719" localtype="box">40</container>
+      </did>
+      <arrangement>
+          <head>Arrangement</head>
+          <p>The series is arranged by course number and chronologically within courses.</p>
+      </arrangement>
+      <fileplan>
+        <head>List of Courses</head>
+        <p>The following list associates course codes with course titles represented in the syllabuses.</p>
+        <list listtype="deflist">
+          <listhead>
+            <head01>Course Number</head01>
+            <head02>Course Title</head02>
+          </listhead>
+          <defitem>
+            <label>QT-512</label>
+            <item>What is Technology?</item>
+          </defitem>
+          <defitem>
+            <label>QT-537</label>
+            <item>History of the Quilt</item>
+          </defitem>
+          <defitem>
+            <label>QT-570</label>
+            <item>Traditional Quilts, Art Quilts, and Feminism</item>
+          </defitem>
+          <defitem>
+            <label>QT-614</label>
+            <item>Quilting and the Industrial Revolution</item>
+          </defitem>
+          <defitem>
+            <label>QT-638</label>
+            <item>Women's Work: Society, Technology, and Misogyny</item>
+          </defitem>
+          <defitem>
+            <label>QT-687</label>
+            <item>Technologies of Improvisation</item>
+          </defitem>
+          <defitem>
+            <label>QT-712</label>
+            <item>Needle, Thimble, and Computer: Textiles and Technologies</item>
+          </defitem>
+          <defitem>
+            <label>QT-729</label>
+            <item>Technological Design and the Textile Future</item>
+          </defitem>
+        </list>
+      </fileplan>
+    </c>
+  </dsc>
+</archdesc>
+</ead>

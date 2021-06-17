@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.iupac.fairspec.api.IFSObjectI;
+import org.iupac.fairspec.api.IFSSerializableI;
+import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
+import org.iupac.fairspec.common.IFSRepresentation;
 
 import javajs.util.PT;
 
@@ -147,7 +151,7 @@ import javajs.util.PT;
  * @param <T> the class for items of the list
  */
 @SuppressWarnings("serial")
-public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>, Cloneable {
+public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>, Cloneable, IFSSerializableI {
 
 	public final static String REP_TYPE_UNKNOWN = "unknown";
 
@@ -157,6 +161,13 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	 * a unique identifier for debugging
 	 */
 	protected int index;
+
+	/**
+	 * index of source URL in the IFSFindingAid URLs list; must be set nonnegative
+	 * to register
+	 */
+	private int urlIndex = -1;
+
 
 	/**
 	 * an arbitrary name given to provide some sort of context
@@ -198,10 +209,10 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	private final int minCount;
 
 	protected final ObjectType type;
-
+	
 	/**
 	 * Optional allowance for creating a new representation of this object type.
-	 * This method should be overridden to throw an IFSException of no representations are allowed.
+	 * This method should return null if it cannot process this request.
 	 * 
 	 * @param objectName
 	 * @param ifsReference
@@ -210,8 +221,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	 * @return
 	 * @throws IFSException
 	 */
-	abstract protected T newRepresentation(String objectName, IFSReference ifsReference, Object object, long len)
-			throws IFSException;
+	abstract protected IFSRepresentation newRepresentation(String objectName, IFSReference ifsReference, Object object, long len);
 
 	@SuppressWarnings("unchecked")
 	public IFSObject(String name, ObjectType type) {
@@ -270,8 +280,25 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 		return PT.toJSON("params", params);
 	}
 
+	public void setIndex(int i) {
+		index = i;
+	}
+	
+	public int getIndex() {
+		return index;
+	}
+
+
+	public void setUrlIndex(int urlIndex) {
+		this.urlIndex = urlIndex;
+	}
+
+	public int getUrlIndex() {
+		return urlIndex;
+	}
+
 	public String getID() {
-		return id;
+		return (id == null ? "" + index : id);
 	}
 
 	public void setID(String id) {
@@ -298,14 +325,15 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 		return size();
 	}
 
-	protected final Map<String, T> htReps = new LinkedHashMap<>();
+	protected final Map<String, IFSRepresentation> htReps = new LinkedHashMap<>();
 
-	public T getRepresentation(String objectName) throws IFSException {
-		T rep = htReps.get(path + "::" + objectName);
-		if (rep == null) {
-			rep = newRepresentation(REP_TYPE_UNKNOWN, new IFSReference(objectName), null, 0);
-			add(rep);
-			htReps.put(path + "::" + objectName, rep);
+	@SuppressWarnings("unchecked")
+	public IFSRepresentation getRepresentation(String zipName, String localName, boolean createNew) {
+		IFSRepresentation rep = htReps.get(path + "::" + zipName);
+		if (rep == null && createNew) {
+			rep = newRepresentation(REP_TYPE_UNKNOWN, new IFSReference(zipName, localName, path), null, 0);
+			add((T) rep);
+			htReps.put(path + "::" + zipName, rep);
 		}
 		return rep;
 	}
@@ -361,6 +389,55 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	/**
+	 * 
+	 * @return true if any property value is not null
+	 */
+	public boolean haveProperties() {
+		for (IFSProperty p : htProps.values()) {
+			if (p.getValue() != null)
+				return true;
+		}
+		return false;
+	}
+
+	@Override
+	public String getSerializedType() {
+		return type.toString();
+	}
+
+	@Override
+	public void serialize(IFSSerializerI serializer) {
+		serializeTop(serializer);
+		serializeProps(serializer);
+		serializeList(serializer);
+	}
+	
+	protected void serializeTop(IFSSerializerI serializer) {
+		serializer.addAttr("type", getSerializedType());
+		serializer.addAttr("name", getName());
+		serializer.addAttr("id", getID());
+	}
+
+	protected void serializeProps(IFSSerializerI serializer) {
+		if (urlIndex >= 0)
+			serializer.addAttrInt("urlIndex", urlIndex);
+		serializer.addAttr("path", getPath());
+		if (haveProperties())
+			serializer.addObject("properties", getProperties());
+		if (getParams().size() > 0)
+			serializer.addObject("params", getParams());
+	}
+
+	protected void serializeList(IFSSerializerI serializer) {
+		if (size() > 0) {
+			List<T> list = new ArrayList<T>();
+			for (int i = 0, n = size(); i < n; i++)
+				list.add(get(i));
+			serializer.addObject("list", list);
+		}
 	}
 
 

@@ -1,10 +1,12 @@
 package org.iupac.fairspec.assoc;
 
 import org.iupac.fairspec.api.IFSAbstractObjectI;
+import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSReference;
-import org.iupac.fairspec.core.IFSDataObjectCollection;
+import org.iupac.fairspec.common.IFSRepresentation;
 import org.iupac.fairspec.core.IFSDataObject;
+import org.iupac.fairspec.core.IFSDataObjectCollection;
 import org.iupac.fairspec.core.IFSObject;
 import org.iupac.fairspec.core.IFSStructure;
 import org.iupac.fairspec.core.IFSStructureCollection;
@@ -41,8 +43,8 @@ public abstract class IFSStructureDataAssociation extends IFSObject<IFSObject<?>
 		return (IFSStructureCollection) get(0);
 	}
 
-	public IFSDataObjectCollection<?> getDataObjectCollection() {
-		return (IFSDataObjectCollection<?>) get(1);
+	public IFSDataObjectCollection<IFSDataObject<?>> getDataObjectCollection() {
+		return (IFSDataObjectCollection<IFSDataObject<?>>) get(1);
 	}
 
 	public IFSStructure getStructure(int i) {
@@ -62,9 +64,16 @@ public abstract class IFSStructureDataAssociation extends IFSObject<IFSObject<?>
 	}
 
 	@Override
-	protected IFSStructureDataAssociation newRepresentation(String objectName, IFSReference ifsReference, Object object, long len) throws IFSException {
-		throw new IFSException("IFSStructureDataAssociation is an abstract object; representations are not allowed");
+	protected IFSRepresentation newRepresentation(String objectName, IFSReference ifsReference, Object object, long len) {
+		return null;
 	}
+
+	
+	protected void serializeList(IFSSerializerI serializer) {
+		serializer.addObject("struc", getStructureCollection().getIndexList());
+		serializer.addObject("data", getDataObjectCollection().getIndexList());
+	}
+
 
 
 }

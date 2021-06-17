@@ -3,11 +3,10 @@ package com.integratedgraphics.ifs;
 import java.io.File;
 import java.io.IOException;
 
-import org.iupac.fairspec.assoc.IFSFindingAid;
 import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
+import org.iupac.fairspec.common.IFSJSONDefaultSerializer;
 import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
-import org.iupac.fairspec.spec.IFSStructureSpecCollection;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
@@ -37,7 +36,7 @@ import org.iupac.fairspec.spec.IFSStructureSpecCollection;
  */
 public class ExtractorTest extends Extractor {
 
-	public ExtractorTest(File ifsExtractScriptFile, File targetDir, String localSourceDir) throws IOException, IFSException {
+	public ExtractorTest(String key, File ifsExtractScriptFile, File targetDir, String localSourceDir) throws IOException, IFSException {
 		// first create super.objects, a List<String>
 		
 		super.initialize(ifsExtractScriptFile);
@@ -56,9 +55,10 @@ public class ExtractorTest extends Extractor {
 				"extracted " + manifestCount + " files (" + extractedByteCount + " bytes)"
 				+ "; ignored " + ignoredCount + " files (" + ignoredByteCount + " bytes)");
 		System.out.println(aid.getURLs() + " " + aid.getParams());
-		IFSStructureSpecCollection ssc = aid.getStructureSpecCollection();
-		new EADWriter(targetDir, rootPath, aid).write();
-		
+//		IFSStructureSpecCollection ssc = aid.getStructureSpecCollection();
+//		new EADWriter(targetDir, rootPath, aid).write();
+		String s = new IFSJSONDefaultSerializer().serialize(findingAid);
+		writeStringToFile(s, new File(targetDir + "/" + (key == null ? "" : key + ".") + "_IFS_findingaid.json"));
 	}
 
 
@@ -103,7 +103,9 @@ public class ExtractorTest extends Extractor {
 //		System.out.println(m.find());
 //		String v = m.group(1);
 //		
+			
 //		
+			String key = null;
 			String script, targetDir = null, sourceDir = null;
 			switch (args.length) {
 			default:
@@ -115,12 +117,12 @@ public class ExtractorTest extends Extractor {
 				script = args[0];
 				break;
 			case 0:
-				String def = testSet[itest];
-				System.out.println("\n!\n! found Test " + itest + " " + def);
-				int pt = def.indexOf("/");
+				key = testSet[itest];
+				System.out.println("\n!\n! found Test " + itest + " " + key);
+				int pt = key.indexOf("/");
 				if (pt >= 0)
-					def = def.substring(0, pt);
-				script = "./extract/" + def + "/IFS-extract.json";
+					key = key.substring(0, pt);
+				script = "./extract/" + key + "/IFS-extract.json";
 				sourceDir = "file:///c:/temp/iupac/zip";
 				targetDir = "c:/temp/iupac/ifs";
 			}
@@ -128,7 +130,7 @@ public class ExtractorTest extends Extractor {
 			// ./extract/ should be in the main Eclipse project directory.
 
 			try {
-				new ExtractorTest(new File(script), new File(targetDir), sourceDir);
+				new ExtractorTest(key, new File(script), new File(targetDir), sourceDir);
 			} catch (Exception e) {
 				failed++;
 				System.err.println("Exception " + e + " for test " + itest);

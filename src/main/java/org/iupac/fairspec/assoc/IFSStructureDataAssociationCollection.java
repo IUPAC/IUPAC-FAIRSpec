@@ -2,6 +2,9 @@ package org.iupac.fairspec.assoc;
 
 import org.iupac.fairspec.core.IFSCollection;
 import org.iupac.fairspec.core.IFSStructure;
+import org.iupac.fairspec.core.IFSDataObject;
+import org.iupac.fairspec.spec.IFSSpecDataCollection;
+import org.iupac.fairspec.spec.IFSStructureSpec;
 
 @SuppressWarnings({ "serial" })
 public abstract class IFSStructureDataAssociationCollection extends IFSCollection<IFSStructureDataAssociation> {
@@ -24,5 +27,18 @@ public abstract class IFSStructureDataAssociationCollection extends IFSCollectio
 		}
 		return null;
 	}
+
+	public IFSStructureDataAssociation addData(String name, IFSStructure struc, IFSDataObject<?> data) {
+		IFSStructureDataAssociation ssc = get(struc);
+		if (ssc == null) {
+			add(newAssociation(name, struc, data));
+		} else if (!ssc.getDataObjectCollection().contains(data)) {
+			ssc.getDataObjectCollection().add(data);
+		}
+		return ssc;
+	}
+
+	protected abstract IFSStructureDataAssociation newAssociation(String name, IFSStructure struc,
+			IFSDataObject<?> data);
 
 }
