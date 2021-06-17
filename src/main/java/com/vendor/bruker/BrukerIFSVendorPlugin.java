@@ -2,6 +2,7 @@ package com.vendor.bruker;
 
 import org.iupac.fairspec.api.IFSObjectI.ObjectType;
 import org.iupac.fairspec.api.IFSVendorPluginI;
+import org.iupac.fairspec.assoc.IFSFindingAid;
 import org.iupac.fairspec.core.IFSObject;
 
 public class BrukerIFSVendorPlugin implements IFSVendorPluginI {
@@ -28,7 +29,7 @@ public class BrukerIFSVendorPlugin implements IFSVendorPluginI {
 	}
 
 	@Override
-	public boolean accept(String fname, byte[] data) {
+	public boolean accept(IFSFindingAid findingAid, String fname, byte[] data) {
 		// TODO Auto-generated method stub
 		return false;
 	}
