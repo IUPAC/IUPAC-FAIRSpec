@@ -31,4 +31,6 @@ public interface IFSExtractorI {
 	 */
 	IFSSpecDataFindingAid extractObjects(File targetDir) throws IFSException, IOException;
 
+	void addParam(String param, Object val);
+
 }

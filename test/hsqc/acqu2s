@@ -1,0 +1,17 @@
+##TITLE= Parameter file, TOPSPIN		Version 2.1
+##JCAMPDX= 5.0
+##DATATYPE= Parameter Values
+##NPOINTS= 257	$$ modification sequence number
+##ORIGIN= Bruker BioSpin GmbH
+##OWNER= JRomeo
+$$ 2019-12-15 17:39:02.393 -0500  JRomeo@ASCHEM500NMR
+$$ C:\Bruker\TOPSPIN/data/JRomeo/nmr/2JR98/4/acqu2s
+$$ process C:\Bruker\TOPSPIN\prog\mod\go.exe
+##$BF1= 125.757789
+##$FnMODE= 6
+##$NUC1= <13C>
+##$O1= 9379.17492599638
+##$SFO1= 125.767168174926
+##$SW= 165.639250774185
+##$TD= 256
+##END=

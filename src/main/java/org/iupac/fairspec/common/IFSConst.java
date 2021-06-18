@@ -1,30 +1,35 @@
 package org.iupac.fairspec.common;
 
 public class IFSConst {
-
-	public final static String IFS_FAIRSpec_version = "0.0.1-2021_06_14";
+	
+	public final static String IFS_FAIRSpec_version = "0.0.1-2021_06_18";
 	/**
 	 * 	the files we want extracted -- no $ for cdx, as that could be cdxml
 	 */
 	public final static String defaultCachePattern = ""
-			+ "(?<param>procs$|proc2s$|acqus$|acqu2s$|audita.txt$)|" // for parameters
 			+ "\\.pdf$|\\.png$|"
 			+ "\\.mol$|\\.sdf$|\\.cdx|"
 //			+ "\\.log$|\\.out$|\\.txt$|"// maybe put these into JSON only? 
 			+ "\\.jdx$|\\.dx$|\\.jdf$|\\.mnova$";
 
-	
-
-	// . 
-
 	/**
-	 * this is the pattern to the files we want rezipped; the "path" group is the
-	 * one used and should point to the directory just above pdata; "dir" is not used 
+	 * Not sure about this one -- the idea is that we found a .mnova file within a 
+	 * directory that needs to be rezipped. Ignore this as not valid?
 	 */
-	public final static String defaultRezipPattern = "^(?<path>.+(?:/|\\|)(?<dir>[^/]+)(?:/|\\|))pdata/[^/]+/procs$";
-	
-	public final static String defaultRezipIgnorePattern = "\\.mnova$";
+ 	
 
+	public static final String IFS_SPEC_NMR_FREQ_1 = "IFS.spec.nmr.freq.1";
+	public static final String IFS_SPEC_NMR_FREQ_2 = "IFS.spec.nmr.freq.2";
+	public static final String IFS_SPEC_NMR_FREQ_3 = "IFS.spec.nmr.freq.3";
+	public static final String IFS_SPEC_NMR_FREQ_4 = "IFS.spec.nmr.freq.4";
+
+	public static final String IFS_SPEC_NMR_NUCL_1 = "IFS.spec.nmr.nucl.1";
+	public static final String IFS_SPEC_NMR_NUCL_2 = "IFS.spec.nmr.nucl.2";
+	public static final String IFS_SPEC_NMR_NUCL_3 = "IFS.spec.nmr.nucl.3";
+	public static final String IFS_SPEC_NMR_NUCL_4 = "IFS.spec.nmr.nucl.4";
+	public static final String IFS_SPEC_NMR_EXPT_DIM = "IFS.spec.nmr.expt.dim";
+	public static final String IFS_SPEC_NMR_NOMINAL_SPECTROMETER_FREQ = "IFS.spec.nmr.freq.nominal";
+	public static final String IFS_SPEC_NMR_PULSE_PROG = "IFS.spec.nmr.pulse.prog";
 	public enum PROPERTY_TYPE { INT, NUCL, OBJ };
 	public enum UNITS { NONE, MHZ };
 		

@@ -269,7 +269,10 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 			return;
 		IFSProperty p = htProps.get(name);
 		if (p == null) {
-			params.put(name, value);
+			if (value == null)
+				params.remove(name);
+			else
+				params.put(name, value);
 			return;
 		}
 		htProps.put(name, p.getClone(value));

@@ -22,7 +22,7 @@ import org.iupac.fairspec.core.IFSObject;
  * file name, the plugin will be offered the opportunity to populate standard
  * IFSConst.Property fields with values. (Or, for that matter, do anything else
  * it wants, including create new files from the data, since it will have access
- * to both the IFSExtractorI and IFSFindingAidI instances once it accepts.)
+ * to both the IFSExtractorI and IFSVendorPluginI instances once it accepts.)
  * 
  * @author hansonr
  *
@@ -31,22 +31,90 @@ public interface IFSVendorPluginI {
 
 	public static List<IFSVendorPluginI> vendorPlugins = new ArrayList<>();
 
+	// TODO These should be in a config file
+	public final static String[] knownVendors = {
+			"com.vendor.bruker.BrukerIFSVendorPlugin",
+			"com.vendor.jcamp.JCAMPDXIFSVendorPlugin",
+			"com.vendor.jeol.JeolIFSVendorPlugin",
+			"com.vendor.mestrelab.MestrelabIFSVendorPlugin",
+			"com.vendor.varian.VarianIFSVendorPlugin",
+		};
 
-	boolean register();
+	public final static List<VendorInfo> activeVendors = new ArrayList<VendorInfo>();
 
-	String getRegex(IFSObjectI.ObjectType type);
+	public static class VendorInfo {
+		
+		public IFSVendorPluginI vendor;
+		public int index;
+		public String vrezip;
+		public String vcache;
 
-	boolean accept(IFSExtractorI extractor, String fname, byte[] data);
+		private VendorInfo(IFSVendorPluginI vendor, int index) {
+			this.vendor = vendor;
+			this.index = index;
+			String p = vendor.getRezipRegex();
+			if (p != null)
+				vrezip = "(?<rezip" + index + ">" + p + ")";
+			p = vendor.getParamRegex();
+			if (p != null)
+				vcache = "(?<param" + index + ">" + p + ")"; 
+		}
+		
+	}
 
-	boolean populateProperties(IFSObject<?> object);
+	static void init() {
+		if (activeVendors.size() > 0)
+			return;
+		for (int i = 0, n = IFSVendorPluginI.knownVendors.length; i < n; i++) {
+			String sv = IFSVendorPluginI.knownVendors[i];
+			IFSVendorPluginI v;
+			try {
+				v = (IFSVendorPluginI) Class.forName(sv).getDeclaredConstructor().newInstance();
+				if (v.isEnabled()) {
+					activeVendors.add(new VendorInfo(v, activeVendors.size()));
+					System.out.println("! IFSVendorPluginI vendorPlugin " + sv + " active");
+				}
+			} catch (Exception e) {
+				System.err.println("! IFSVendorPluginI Trying to instatiation of " + sv + " failed.");
+				e.printStackTrace(System.err);
+			}
 
+		}
+	}
+	
+	/**
+	 * Populate the activeVendors list.
+	 * 
+	 * @param adapter
+	 */
 	static void registerIFSVendorPlugin(Class<? extends IFSVendorPluginI> adapter) {
 		try {
-			vendorPlugins.add(adapter.getDeclaredConstructor().newInstance());
-			System.out.println("! IFSFindingAid vendorPlugin " + adapter + " registered");
+			IFSVendorPluginI v = adapter.getDeclaredConstructor().newInstance();
+			vendorPlugins.add(v);
+			System.out.println("! IFSVendorPluginI vendorPlugin " + adapter + " registered");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	
 	}
+
+	boolean isEnabled();
+
+	String getParamRegex();
+
+	String getRezipRegex();
+
+	String getRezipPrefix(String dirname);
+
+	void startRezip(IFSExtractorI extractor);
+	
+	boolean doRezipInclude(String entryName);
+
+	boolean accept(IFSExtractorI extractor, String fname, byte[] bytes);
+
+	void endRezip();
+	
+	
+
 
 }

@@ -3,7 +3,6 @@ package com.integratedgraphics.ifs;
 import java.io.File;
 import java.io.IOException;
 
-import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSJSONDefaultSerializer;
 
@@ -45,8 +44,8 @@ public class ExtractorTest extends Extractor {
 		if (localSourceDir != null)
 			super.setLocalSourceDir(localSourceDir);
 		
-		super.setCachePattern(IFSConst.defaultCachePattern);
-		super.setRezipCachePattern(IFSConst.defaultRezipPattern, IFSConst.defaultRezipIgnorePattern);
+		super.setCachePattern(null);
+		super.setRezipCachePattern(null, null);
 	
 		//IFSSpecDataFindingAid aid = 
 				super.extractObjects(targetDir);
