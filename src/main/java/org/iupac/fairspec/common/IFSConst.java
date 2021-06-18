@@ -27,10 +27,12 @@ public class IFSConst {
 	public static final String IFS_SPEC_NMR_NUCL_2 = "IFS.spec.nmr.nucl.2";
 	public static final String IFS_SPEC_NMR_NUCL_3 = "IFS.spec.nmr.nucl.3";
 	public static final String IFS_SPEC_NMR_NUCL_4 = "IFS.spec.nmr.nucl.4";
-	public static final String IFS_SPEC_NMR_EXPT_DIM = "IFS.spec.nmr.expt.dim";
 	public static final String IFS_SPEC_NMR_NOMINAL_SPECTROMETER_FREQ = "IFS.spec.nmr.freq.nominal";
-	public static final String IFS_SPEC_NMR_PULSE_PROG = "IFS.spec.nmr.pulse.prog";
+	public static final String IFS_SPEC_NMR_EXPT_DIM = "IFS.spec.nmr.expt.dim";
+	public static final String IFS_SPEC_NMR_EXPT_PULSE_PROG = "IFS.spec.nmr.expt.pulseprog";
+	
 	public enum PROPERTY_TYPE { INT, NUCL, OBJ };
+	
 	public enum UNITS { NONE, MHZ };
 		
 }
