@@ -3,8 +3,6 @@ package org.iupac.fairspec.assoc;
 import org.iupac.fairspec.core.IFSCollection;
 import org.iupac.fairspec.core.IFSStructure;
 import org.iupac.fairspec.core.IFSDataObject;
-import org.iupac.fairspec.spec.IFSSpecDataCollection;
-import org.iupac.fairspec.spec.IFSStructureSpec;
 
 @SuppressWarnings({ "serial" })
 public abstract class IFSStructureDataAssociationCollection extends IFSCollection<IFSStructureDataAssociation> {

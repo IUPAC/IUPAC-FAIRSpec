@@ -2,7 +2,6 @@ package org.iupac.fairspec.assoc;
 
 import org.iupac.fairspec.api.IFSAbstractObjectI;
 import org.iupac.fairspec.api.IFSSerializerI;
-import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
 import org.iupac.fairspec.core.IFSDataObject;
@@ -43,6 +42,7 @@ public abstract class IFSStructureDataAssociation extends IFSObject<IFSObject<?>
 		return (IFSStructureCollection) get(0);
 	}
 
+	@SuppressWarnings("unchecked")
 	public IFSDataObjectCollection<IFSDataObject<?>> getDataObjectCollection() {
 		return (IFSDataObjectCollection<IFSDataObject<?>>) get(1);
 	}

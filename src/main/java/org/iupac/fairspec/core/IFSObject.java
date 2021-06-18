@@ -10,7 +10,6 @@ import java.util.Map;
 import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.api.IFSSerializableI;
 import org.iupac.fairspec.api.IFSSerializerI;
-import org.iupac.fairspec.api.IFSObjectI.ObjectType;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;

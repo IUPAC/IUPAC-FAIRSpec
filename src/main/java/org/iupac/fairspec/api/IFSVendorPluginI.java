@@ -3,8 +3,6 @@ package org.iupac.fairspec.api;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.iupac.fairspec.core.IFSObject;
-
 /**
  * A clas that implemends IFSVendorPluginI extends the ability of an
  * IFSExtractorI class to extract data and metadata from a dataset.

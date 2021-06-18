@@ -1,7 +1,5 @@
 package org.iupac.fairspec.spec;
 
-import org.iupac.fairspec.core.IFSDataObjectCollection;
-
 /**
  * A collection of IFSSpecAnalysis, which may be for completely different compounds.
  * 

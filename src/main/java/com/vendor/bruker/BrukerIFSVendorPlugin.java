@@ -9,7 +9,6 @@ import java.util.Map;
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSVendorPluginI;
 import org.iupac.fairspec.common.IFSConst;
-import org.iupac.fairspec.core.IFSObject;
 
 import javajs.util.Rdr;
 import jspecview.source.JDXDataObject;
@@ -59,8 +58,9 @@ public class BrukerIFSVendorPlugin implements IFSVendorPluginI {
 	private final static Map<String, String> ifsMap = new HashMap<>();
 	
 	static {
+		// order here is not significant
 		String[] keys = {
-				"##$PULPROG", IFSConst.IFS_SPEC_NMR_PULSE_PROG,
+				"##$PULPROG", IFSConst.IFS_SPEC_NMR_EXPT_PULSE_PROG,
 				"##$BF1", IFSConst.IFS_SPEC_NMR_FREQ_1,
 				"##$BF2", IFSConst.IFS_SPEC_NMR_FREQ_2,
 				"##$BF3", IFSConst.IFS_SPEC_NMR_FREQ_3,
@@ -94,10 +94,10 @@ public class BrukerIFSVendorPlugin implements IFSVendorPluginI {
 		// no need to close a ByteArrayInputStream
 //		System.out.println(map.toString().replace(',', '\n'));
 		int ndim = 0;
-		String nuc1, nuc2;
+		String nuc1;
 		if ((nuc1 = processString(map, "##$NUC1", "<off>")) != null)
 			ndim++;
-		if ((nuc2 = processString(map, "##$NUC2", "<off>")) != null)
+		if ((processString(map, "##$NUC2", "<off>")) != null)
 			ndim++;
 		if (processString(map, "##$NUC3", "<off>") != null)
 			ndim++;

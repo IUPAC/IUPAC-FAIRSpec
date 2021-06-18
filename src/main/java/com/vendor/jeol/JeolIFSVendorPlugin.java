@@ -2,7 +2,6 @@ package com.vendor.jeol;
 
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSVendorPluginI;
-import org.iupac.fairspec.core.IFSObject;
 
 public class JeolIFSVendorPlugin implements IFSVendorPluginI {
 

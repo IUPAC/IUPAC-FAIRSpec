@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairspec.api.IFSRepresentableObjectI;
-import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.common.IFSException;
 
 @SuppressWarnings("serial")

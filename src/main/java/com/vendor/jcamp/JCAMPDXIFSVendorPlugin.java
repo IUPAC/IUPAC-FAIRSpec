@@ -2,7 +2,6 @@ package com.vendor.jcamp;
 
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSVendorPluginI;
-import org.iupac.fairspec.core.IFSObject;
 
 public class JCAMPDXIFSVendorPlugin implements IFSVendorPluginI {
 
