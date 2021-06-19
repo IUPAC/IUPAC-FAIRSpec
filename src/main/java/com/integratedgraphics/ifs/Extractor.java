@@ -419,9 +419,7 @@ public class Extractor implements IFSExtractorI {
 	 * @throws IOException
 	 */
 	public List<String> getObjectsForStream(InputStream is) throws IOException {
-		byte[] bytes = Util.getLimitedStreamBytes(is, -1, null, true, true);
-		extractScript = new String(bytes);
-		return objects = parseScript(extractScript);
+		return objects = parseScript(extractScript = new String(Util.getLimitedStreamBytes(is, -1, null, true, true)));
 	}
 
 	/**
