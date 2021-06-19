@@ -29,7 +29,10 @@ public class IFSConst {
 	 */
  	
 
-	public static final String IFS_SPEC_NMR_INSTR_FREQ_NOMINAL = "IFS.spec.nmr.instr.freq.nominal";
+	public static final String IFS_SPEC_NMR_INSTR_MANUFACTURER_NAME = "IFS.spec.nmr.instr.manufacturer.name";
+	public static final String IFS_SPEC_NMR_INSTR_FREQ_NOMINAL      = "IFS.spec.nmr.instr.freq.nominal";
+	public static final String IFS_SPEC_NMR_INSTR_PROBEID           = "IFS.spec.nmr.instr.probe.id";
+
 
 	public static final String IFS_SPEC_NMR_EXPT_DIM        = "IFS.spec.nmr.expt.dim";
 	public static final String IFS_SPEC_NMR_EXPT_FREQ_1     = "IFS.spec.nmr.expt.freq.1";
@@ -42,6 +45,8 @@ public class IFSConst {
 	public static final String IFS_SPEC_NMR_EXPT_NUCL_4     = "IFS.spec.nmr.expt.nucl.4";
 	public static final String IFS_SPEC_NMR_EXPT_PULSE_PROG = "IFS.spec.nmr.expt.pulse.prog";
 	public static final String IFS_SPEC_NMR_EXPT_SOLVENT    = "IFS.spec.nmr.expt.solvent";
+
+
 
 		
 }

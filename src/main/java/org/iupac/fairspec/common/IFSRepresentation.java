@@ -56,7 +56,8 @@ public class IFSRepresentation implements IFSSerializableI {
 
 	@Override
 	public void serialize(IFSSerializerI serializer) {
-		serializer.addAttr("type", type);
+		if (type != null && !type.equals("unknown"))
+			serializer.addAttr("type", type);
 		serializer.addAttrInt("len", (int) len);
 		serializer.addObject("ref", ref);
 		if (data != null)

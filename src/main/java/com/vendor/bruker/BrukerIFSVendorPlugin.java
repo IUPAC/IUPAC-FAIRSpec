@@ -40,7 +40,8 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 				"##$NUC4", IFSConst.IFS_SPEC_NMR_EXPT_NUCL_4, //
 				"##$PULPROG", IFSConst.IFS_SPEC_NMR_EXPT_PULSE_PROG, //
 				"SOLVENT", IFSConst.IFS_SPEC_NMR_EXPT_SOLVENT, //
-				"SF", IFSConst.IFS_SPEC_NMR_INSTR_FREQ_NOMINAL, //
+				"SF", IFSConst.IFS_SPEC_NMR_INSTR_FREQ_NOMINAL,
+				"##$PROBHD", IFSConst.IFS_SPEC_NMR_INSTR_PROBEID, //
 		};
 		for (int i = 0; i < keys.length;)
 			ifsMap.put(keys[i++], keys[i++]);
@@ -89,8 +90,8 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	@Override
 	public void startRezip(IFSExtractorI extractor) {
 		// we will need dim for setting 1D
-		dim = null;
 		super.startRezip(extractor);
+		dim = null;
 	}
 
 	@Override
@@ -113,8 +114,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	 */
 	@Override
 	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
-		if (extractor != null)
-			this.extractor = extractor;
+		super.accept(extractor, fname, bytes);
 		Map<String, String> map = null;
 		try {
 			map = JDXReader.getHeaderMap(new ByteArrayInputStream(bytes), null);
@@ -127,13 +127,13 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		// no need to close a ByteArrayInputStream
 		int ndim = 0;
 		String nuc1;
-		if ((nuc1 = processString(map, "##$NUC1", "<off>")) != null)
+		if ((nuc1 = processString(map, "##$NUC1", "off")) != null)
 			ndim++;
-		if ((processString(map, "##$NUC2", "<off>")) != null)
+		if ((processString(map, "##$NUC2", "off")) != null)
 			ndim++;
-		if (processString(map, "##$NUC3", "<off>") != null)
+		if (processString(map, "##$NUC3", "off") != null)
 			ndim++;
-		if (processString(map, "##$NUC4", "<off>") != null)
+		if (processString(map, "##$NUC4", "off") != null)
 			ndim++;
 		if (ndim == 0)
 			return false;
@@ -150,6 +150,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		}
 		report("SF", getNominalSpectrometerFrequency(nuc1, freq1));
 		report("SOLVENT", getSolvent(map));
+		processString(map, "##$PROBHD", null);
 		if (extractor != null)
 			this.extractor = null;
 		return true;
@@ -242,6 +243,11 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public String getVendorName() {
+		return "Bruker";
 	}
 
 }

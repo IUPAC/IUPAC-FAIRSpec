@@ -20,8 +20,14 @@ public class VarianIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	@Override
 	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
+		super.accept(extractor, fname, bytes);
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public String getVendorName() {
+		return "Varian";
 	}
 
 

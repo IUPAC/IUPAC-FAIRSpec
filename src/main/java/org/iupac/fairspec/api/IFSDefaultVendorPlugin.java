@@ -2,6 +2,8 @@ package org.iupac.fairspec.api;
 
 import java.util.Map;
 
+import org.iupac.fairspec.common.IFSConst;
+
 /**
  * An abstract class that underlies all the vendor plugins.
  * 
@@ -106,6 +108,9 @@ public abstract class IFSDefaultVendorPlugin implements IFSVendorPluginI {
 	 */
 	@Override
 	public boolean accept(IFSExtractorI extractor, String entryName, byte[] bytes) {
+		if (extractor != null) {
+			this.extractor = extractor;
+		}
 		return false;
 	}
 
@@ -127,7 +132,12 @@ public abstract class IFSDefaultVendorPlugin implements IFSVendorPluginI {
 	@Override
 	public void startRezip(IFSExtractorI extractor) {
 		this.extractor = extractor;
+		reportName();
 		rezipping = true;
+	}
+
+	protected void reportName() {
+		addProperty(IFSConst.IFS_SPEC_NMR_INSTR_MANUFACTURER_NAME, getVendorName());
 	}
 
 	/**
@@ -193,7 +203,7 @@ public abstract class IFSDefaultVendorPlugin implements IFSVendorPluginI {
 		return (val == null 
 				|| (n = val.length()) < 3 
 				|| val.charAt(0) != c0 || val.charAt(n - 1) != c1 ? null
-				: val.substring(1, val.length() - 1));
+				: val.substring(1, val.length() - 1).trim());
 	}
 
 	/**

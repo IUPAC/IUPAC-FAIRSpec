@@ -1,11 +1,10 @@
 package org.iupac.fairspec.core;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.api.IFSSerializableI;
@@ -186,13 +185,13 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	 * units
 	 * 
 	 */
-	protected final Map<String, IFSProperty> htProps = new Hashtable<>();
+	protected final Map<String, IFSProperty> htProps = new TreeMap<>();
 
 	/**
 	 * generic properties that could be anything but are not in the list of known
 	 * properties
 	 */
-	protected Map<String, Object> params = new HashMap<>();
+	protected Map<String, Object> params = new TreeMap<>();
 
 	/**
 	 * the maximum number of items allowed in this list; may be 0

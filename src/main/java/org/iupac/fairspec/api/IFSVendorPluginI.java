@@ -99,6 +99,8 @@ public interface IFSVendorPluginI {
 
 	boolean isEnabled();
 
+	String getVendorName();
+
 	String getParamRegex();
 
 	String getRezipRegex();
@@ -118,4 +120,5 @@ public interface IFSVendorPluginI {
 	int getIndex();
 	
 	void setIndex(int index);
+
 }

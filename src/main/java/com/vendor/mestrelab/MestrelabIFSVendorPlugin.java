@@ -15,9 +15,15 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	@Override
 	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
+		super.accept(extractor, fname, bytes);
 		// TODO Auto-generated method stub
 		System.out.println("! TODO: accept mnova file " + fname);
 		return true;
+	}
+
+	@Override
+	public String getVendorName() {
+		return "Mestrelab";
 	}
 	
 }
