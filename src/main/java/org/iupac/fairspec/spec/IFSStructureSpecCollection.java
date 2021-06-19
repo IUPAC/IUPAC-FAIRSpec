@@ -4,7 +4,7 @@ import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
 import org.iupac.fairspec.assoc.IFSStructureDataAssociationCollection;
 import org.iupac.fairspec.core.IFSDataObject;
-import org.iupac.fairspec.core.IFSStructure;
+import org.iupac.fairspec.struc.IFSStructure;
 
 @SuppressWarnings({ "serial" })
 public class IFSStructureSpecCollection extends IFSStructureDataAssociationCollection {

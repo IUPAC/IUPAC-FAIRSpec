@@ -9,8 +9,8 @@ import org.iupac.fairspec.common.IFSRepresentation;
 import org.iupac.fairspec.core.IFSCollection;
 import org.iupac.fairspec.core.IFSDataObject;
 import org.iupac.fairspec.core.IFSObject;
-import org.iupac.fairspec.core.IFSStructure;
-import org.iupac.fairspec.core.IFSStructureCollection;
+import org.iupac.fairspec.struc.IFSStructure;
+import org.iupac.fairspec.struc.IFSStructureCollection;
 
 /**
  * The master class for a full FAIRSpec collection, as from a publication or

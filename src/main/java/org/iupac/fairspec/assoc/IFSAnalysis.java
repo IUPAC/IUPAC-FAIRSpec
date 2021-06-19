@@ -1,7 +1,7 @@
 package org.iupac.fairspec.assoc;
 
 import org.iupac.fairspec.core.IFSDataObjectCollection;
-import org.iupac.fairspec.core.IFSStructureCollection;
+import org.iupac.fairspec.struc.IFSStructureCollection;
 
 /**
  * An IFSAnalysis is a specialized IFSStructureDataAssociation that provides more

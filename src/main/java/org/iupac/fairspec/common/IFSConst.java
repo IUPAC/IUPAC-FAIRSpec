@@ -17,7 +17,8 @@ public class IFSConst {
 	 */
 	public final static String defaultCachePattern = ""
 			+ "\\.pdf$|\\.png$|"
-			+ "\\.mol$|\\.sdf$|\\.cdx$|\\.cdxml$"
+			+ "\\.mol$|\\.sdf$|"
+			+ "\\.cdx$|\\.cdxml$"
 //			+ "\\.log$|\\.out$|\\.txt$|"// maybe put these into JSON only? 
 			;
 
