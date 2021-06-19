@@ -1,6 +1,6 @@
 package org.iupac.fairspec.spec;
 
-import org.iupac.fairspec.core.IFSDataObjectCollection;
+import org.iupac.fairspec.data.IFSDataObjectCollection;
 import org.iupac.fairspec.spec.ir.IFSIRSpecData;
 import org.iupac.fairspec.spec.ms.IFSMSSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;

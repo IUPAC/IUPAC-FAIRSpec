@@ -4,9 +4,9 @@ import org.iupac.fairspec.api.IFSAbstractObjectI;
 import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
-import org.iupac.fairspec.core.IFSDataObject;
-import org.iupac.fairspec.core.IFSDataObjectCollection;
 import org.iupac.fairspec.core.IFSObject;
+import org.iupac.fairspec.data.IFSDataObject;
+import org.iupac.fairspec.data.IFSDataObjectCollection;
 import org.iupac.fairspec.struc.IFSStructure;
 import org.iupac.fairspec.struc.IFSStructureCollection;
 

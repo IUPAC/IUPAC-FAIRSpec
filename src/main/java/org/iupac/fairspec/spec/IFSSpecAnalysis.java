@@ -1,7 +1,7 @@
 package org.iupac.fairspec.spec;
 
 import org.iupac.fairspec.assoc.IFSAnalysis;
-import org.iupac.fairspec.core.IFSDataObjectCollection;
+import org.iupac.fairspec.data.IFSDataObjectCollection;
 import org.iupac.fairspec.struc.IFSStructureCollection;
 
 /**

@@ -1,6 +1,7 @@
-package org.iupac.fairspec.core;
+package org.iupac.fairspec.data;
 
 import org.iupac.fairspec.api.IFSRepresentableObjectI;
+import org.iupac.fairspec.core.IFSObject;
 
 /**
  * A generic interface indicating some sort of data. Implemented here as

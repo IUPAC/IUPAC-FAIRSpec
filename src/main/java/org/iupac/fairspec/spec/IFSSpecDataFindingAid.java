@@ -7,8 +7,8 @@ import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSRepresentation;
 import org.iupac.fairspec.core.IFSCollection;
-import org.iupac.fairspec.core.IFSDataObject;
 import org.iupac.fairspec.core.IFSObject;
+import org.iupac.fairspec.data.IFSDataObject;
 import org.iupac.fairspec.struc.IFSStructure;
 import org.iupac.fairspec.struc.IFSStructureCollection;
 

@@ -1,10 +1,11 @@
-package org.iupac.fairspec.core;
+package org.iupac.fairspec.data;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairspec.api.IFSRepresentableObjectI;
 import org.iupac.fairspec.common.IFSException;
+import org.iupac.fairspec.core.IFSCollection;
 
 @SuppressWarnings("serial")
 public abstract class IFSDataObjectCollection<T extends IFSDataObject<?>> extends IFSCollection<T> {

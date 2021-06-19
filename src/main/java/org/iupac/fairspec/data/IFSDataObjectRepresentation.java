@@ -1,4 +1,4 @@
-package org.iupac.fairspec.core;
+package org.iupac.fairspec.data;
 
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
