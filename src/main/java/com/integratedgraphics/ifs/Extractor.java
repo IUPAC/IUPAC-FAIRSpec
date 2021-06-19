@@ -396,7 +396,7 @@ public class Extractor implements IFSExtractorI {
 	 */
 	@Override
 	public void initialize(File ifsExtractScriptFile) throws IOException {
-		getObjectsForFile(ifsExtractScriptFile);
+		objects = getObjectsForFile(ifsExtractScriptFile);
 	}
 
 	/**
@@ -419,7 +419,8 @@ public class Extractor implements IFSExtractorI {
 	 * @throws IOException
 	 */
 	public List<String> getObjectsForStream(InputStream is) throws IOException {
-		return objects = parseScript(extractScript = new String(Util.getLimitedStreamBytes(is, -1, null, true, true)));
+		extractScript = new String(Util.getLimitedStreamBytes(is, -1, null, true, true));
+		return parseScript(extractScript);
 	}
 
 	/**

@@ -1,8 +1,5 @@
 package org.iupac.fairspec.struc;
 
-import org.iupac.fairspec.common.IFSReference;
-import org.iupac.fairspec.common.IFSRepresentation;
-
 public class IFSStructurePropertyManager {
 
 	/**
