@@ -145,7 +145,9 @@ import org.iupac.fairspec.common.IFSRepresentation;
  * 
  * @author hansonr
  *
- * @param <T> the class for items of the list
+ * @param <T> the class for items of the list - IFSRepresentations for
+ *            DataObjects and Structures; relevant IFSObject types for
+ *            IFSCollections
  */
 @SuppressWarnings("serial")
 public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>, Cloneable, IFSSerializableI {
