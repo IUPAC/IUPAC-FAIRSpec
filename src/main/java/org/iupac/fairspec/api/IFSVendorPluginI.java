@@ -50,6 +50,7 @@ public interface IFSVendorPluginI {
 		private VendorInfo(IFSVendorPluginI vendor, int index) {
 			this.vendor = vendor;
 			this.index = index;
+			vendor.setIndex(index);
 			String p = vendor.getRezipRegex();
 			if (p != null)
 				vrezip = "(?<rezip" + index + ">" + p + ")";
@@ -83,13 +84,13 @@ public interface IFSVendorPluginI {
 	/**
 	 * Populate the activeVendors list.
 	 * 
-	 * @param adapter
+	 * @param plugin
 	 */
-	static void registerIFSVendorPlugin(Class<? extends IFSVendorPluginI> adapter) {
+	static void registerIFSVendorPlugin(Class<? extends IFSVendorPluginI> plugin) {
 		try {
-			IFSVendorPluginI v = adapter.getDeclaredConstructor().newInstance();
+			IFSVendorPluginI v = plugin.getDeclaredConstructor().newInstance();
 			vendorPlugins.add(v);
-			System.out.println("! IFSVendorPluginI vendorPlugin " + adapter + " registered");
+			System.out.println("! IFSVendorPluginI vendorPlugin " + plugin + " registered");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -113,8 +114,8 @@ public interface IFSVendorPluginI {
 	void endRezip();
 
 	boolean doExtract(String entryName);
-	
-	
 
-
+	int getIndex();
+	
+	void setIndex(int index);
 }

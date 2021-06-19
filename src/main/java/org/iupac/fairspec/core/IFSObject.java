@@ -418,7 +418,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 
 	protected void serializeTop(IFSSerializerI serializer) {
 		serializer.addAttr("type", getSerializedType());
-		if (subtype != null)
+		if (subtype != null && subtype != ObjectType.Unknown)
 			serializer.addAttr("subtype", subtype.toString());
 		serializer.addAttr("name", getName());
 		serializer.addAttr("id", getID());

@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.iupac.fairspec.api.IFSDefaultVendorPlugin;
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSVendorPluginI;
 import org.iupac.fairspec.common.IFSConst;
@@ -14,38 +15,65 @@ import javajs.util.Rdr;
 import jspecview.source.JDXDataObject;
 import jspecview.source.JDXReader;
 
-public class BrukerIFSVendorPlugin implements IFSVendorPluginI {
+public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	static {
-		IFSVendorPluginI.registerIFSVendorPlugin(com.vendor.bruker.BrukerIFSVendorPlugin.class);
+		register(com.vendor.bruker.BrukerIFSVendorPlugin.class);
 	}
 
-	private IFSExtractorI extractor;
+	// public final static String defaultRezipIgnorePattern = "\\.mnova$";
+
+	private final static Map<String, String> ifsMap = new HashMap<>();
+
+	static {
+		// order here is not significant; keys without the JCAMP vendor prefix are
+		// derived, not the value itself
+		String[] keys = { //
+				"DIM", IFSConst.IFS_SPEC_NMR_EXPT_DIM, //
+				"##$BF1", IFSConst.IFS_SPEC_NMR_EXPT_FREQ_1, //
+				"##$BF2", IFSConst.IFS_SPEC_NMR_EXPT_FREQ_2, //
+				"##$BF3", IFSConst.IFS_SPEC_NMR_EXPT_FREQ_3, //
+				"##$BF4", IFSConst.IFS_SPEC_NMR_EXPT_FREQ_4, //
+				"##$NUC1", IFSConst.IFS_SPEC_NMR_EXPT_NUCL_1, //
+				"##$NUC2", IFSConst.IFS_SPEC_NMR_EXPT_NUCL_2, //
+				"##$NUC3", IFSConst.IFS_SPEC_NMR_EXPT_NUCL_3, //
+				"##$NUC4", IFSConst.IFS_SPEC_NMR_EXPT_NUCL_4, //
+				"##$PULPROG", IFSConst.IFS_SPEC_NMR_EXPT_PULSE_PROG, //
+				"SOLVENT", IFSConst.IFS_SPEC_NMR_EXPT_SOLVENT, //
+				"SF", IFSConst.IFS_SPEC_NMR_INSTR_FREQ_NOMINAL, //
+		};
+		for (int i = 0; i < keys.length;)
+			ifsMap.put(keys[i++], keys[i++]);
+	}
+
+	/**
+	 * 1D, 2D, ...; this value cannot be determined directly from parameters (I think)
+	 */
 	private String dim;
 
 	public BrukerIFSVendorPlugin() {
-
+		// files of interest; procs is just for solvent
+		// presence of acqu2s indicates a 2D experiment
+		paramRegex = "acqus$|acqu2s$|procs$";
+		// rezip triggers for procs in a directory (1, 2, 3...) below a pdata directory,
+		// such as pdata/1/procs. We do not add the "/" before pdata, because that could
+		// be the| symbol, and that will be attached by IFSDefaultVendorPlugin in
+		// super.getRezipRegex()
+		rezipRegex = "pdata/[^/]+/procs$";
 	}
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-
-	@Override
-	public String getRezipRegex() {
-		return "^(?<path>.+(?:/|\\|)(?<dir>[^/]+)(?:/|\\|))pdata/[^/]+/procs$";
-	}
-
-	@Override
-	public String getParamRegex() {
-		return "acqus$|acqu2s$";
-	}
-
+	/**
+	 * Require an unsigned integer, and if that is not there, replace the directory name with "1".
+	 */
 	@Override
 	public String getRezipPrefix(String dirName) {
-		return (isNumeric(dirName) ? null : "1");
+		return (isUnsignedInteger(dirName) ? null : "1");
 	}
+
+	/**
+	 * .mnova files will be extracted by the mestrelab plugin. They should not be
+	 * left in the Bruker dataset.
+	 */
 
 	@Override
 	public boolean doRezipInclude(String entryName) {
@@ -54,36 +82,35 @@ public class BrukerIFSVendorPlugin implements IFSVendorPluginI {
 
 	@Override
 	public boolean doExtract(String entryName) {
+		// don't extract these parameter files. Could be set to true for debugging.
 		return false;
 	}
 
-	//	public final static String defaultRezipIgnorePattern = "\\.mnova$";
-
-	
-	private final static Map<String, String> ifsMap = new HashMap<>();
-	
-	static {
-		// order here is not significant
-		String[] keys = {
-				"##$PULPROG", IFSConst.IFS_SPEC_NMR_EXPT_PULSE_PROG,
-				"##$BF1", IFSConst.IFS_SPEC_NMR_FREQ_1,
-				"##$BF2", IFSConst.IFS_SPEC_NMR_FREQ_2,
-				"##$BF3", IFSConst.IFS_SPEC_NMR_FREQ_3,
-				"##$BF4", IFSConst.IFS_SPEC_NMR_FREQ_4,
-				"##$NUC1", IFSConst.IFS_SPEC_NMR_NUCL_1,
-				"##$NUC2", IFSConst.IFS_SPEC_NMR_NUCL_2,
-				"##$NUC3", IFSConst.IFS_SPEC_NMR_NUCL_3,
-				"##$NUC4", IFSConst.IFS_SPEC_NMR_NUCL_4,
-				"DIM", IFSConst.IFS_SPEC_NMR_EXPT_DIM,
-				"SF", IFSConst.IFS_SPEC_NMR_NOMINAL_SPECTROMETER_FREQ,
-
-				
-		};
-		for (int i = 0; i < keys.length;)
-			ifsMap.put(keys[i++], keys[i++]);
+	@Override
+	public void startRezip(IFSExtractorI extractor) {
+		// we will need dim for setting 1D
+		dim = null;
+		super.startRezip(extractor);
 	}
-	
 
+	@Override
+	public void endRezip() {
+		// if we found an acqu2s file, then dim has been set to 2D already.
+		// NUC2 will be set already, but that might just involve decoupling, which we
+		// don't generally indicate. So here we remove the NUC2 property if this is a 1D
+		// experiment.
+		if (dim == null) {
+			report("DIM", "1D");
+			report("##$NUC2", null);
+		}
+		dim = null;
+		super.endRezip();
+	}
+
+	/**
+	 * We use jspecview.source.JDXReader (in Jmol.jar) to pull out the header as a map.
+	 *  
+	 */
 	@Override
 	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
 		if (extractor != null)
@@ -91,13 +118,13 @@ public class BrukerIFSVendorPlugin implements IFSVendorPluginI {
 		Map<String, String> map = null;
 		try {
 			map = JDXReader.getHeaderMap(new ByteArrayInputStream(bytes), null);
+			// System.out.println(map.toString().replace(',', '\n'));
 		} catch (Exception e) {
 			// invalid format
 			e.printStackTrace();
 			return false;
 		}
 		// no need to close a ByteArrayInputStream
-//		System.out.println(map.toString().replace(',', '\n'));
 		int ndim = 0;
 		String nuc1;
 		if ((nuc1 = processString(map, "##$NUC1", "<off>")) != null)
@@ -110,94 +137,99 @@ public class BrukerIFSVendorPlugin implements IFSVendorPluginI {
 			ndim++;
 		if (ndim == 0)
 			return false;
-		double freq1 = processFreq(map, "##$BF1");
+		double freq1 = getDoubleValue(map, "##$BF1");
 		if (ndim >= 2)
-			processFreq(map, "##$BF2");
+			getDoubleValue(map, "##$BF2");
 		if (ndim >= 3)
-			processFreq(map, "##$BF3");
+			getDoubleValue(map, "##$BF3");
 		if (ndim >= 4)
-			processFreq(map, "##$BF4");
+			getDoubleValue(map, "##$BF4");
 		processString(map, "##$PULPROG", null);
 		if (fname.endsWith("acqu2s")) {
 			report("DIM", dim = "2D");
 		}
 		report("SF", getNominalSpectrometerFrequency(nuc1, freq1));
+		report("SOLVENT", getSolvent(map));
 		if (extractor != null)
 			this.extractor = null;
 		return true;
 	}
 
-	private int getNominalSpectrometerFrequency(String nuc1, double freq1) {
-		return JDXDataObject.getNominalSpecFreq(nuc1, freq1);
-	}
-
-	private String processString(Map<String, String> map, String key, String ignore) {
-		String nuc = map.get(key);
-		if (nuc == null || nuc.equals(ignore) || nuc.length() < 3)
-			return null;
-		nuc = nuc.substring(1, nuc.length() - 1); // remove <  >
-		if (nuc.length() > 0)
-			report(key, nuc);
-		return nuc;
-	}
-
-	private double processFreq(Map<String, String> map, String key) {
-		String f = map.get(key);
-		if (f == null)
-			return Double.NaN;
-		double freq = Double.valueOf(f);
-//		report(ifsMap.get(key), freq);
-		return freq;
-	}
-
-	private void report(String key, Object val) {
-		key = ifsMap.get(key);
-		System.out.println(key + " = " + val);
-		if (extractor != null)
-			extractor.addParam(key, val);
+	/**
+	 * Looking here for &lt;nucl.solvent&gt; in ##$SREGLST
+	 * 
+	 * @param map
+	 * @return "CDCl3" or "DMSO", for example
+	 */
+	private Object getSolvent(Map<String, String> map) {
+		String nuc_solv = getBrukerString(map, "##$SREGLST");
+		int pt;
+		return (nuc_solv != null && (pt = nuc_solv.indexOf(".")) >= 0 ? nuc_solv.substring(pt + 1) : null);
 	}
 
 	/**
-	 * Only allow numerical top directories.
+	 * This is the simple number 300, 400, etc., that characterizes the
+	 * spectrometer. It is derived from the gyromagnetic ratio of the nucleus, which
+	 * is used to get the 1H frequency.
 	 * 
-	 * @param s
+	 * [Note that this method uses the static method in
+	 * jspecview.source.JDXDataObject, linked here by lib/Jmol.jar in the
+	 * classpath.]
+	 * 
+	 * @param nuc1
+	 * @param freq1
 	 * @return
 	 */
-	private static boolean isNumeric(String s) {
-		// I just don't like to fire exceptions.
-		for (int i = s.length(); --i >= 0;)
-			if (!Character.isDigit(s.charAt(i)))
-				return false;
-		return true;
+	private static int getNominalSpectrometerFrequency(String nuc1, double freq1) {
+		return JDXDataObject.getNominalSpecFreq(nuc1, freq1);
 	}
 
-	@Override
-	public void startRezip(IFSExtractorI extractor) {
-		this.extractor = extractor;
-		dim = null;
+	/**
+	 * Extract a Bruker &lt;xxxx&gt; string
+	 * 
+	 * @param map
+	 * @param key
+	 * @param ignore a value such as "off" to disregard
+	 * @return null if not found or empty
+	 */
+	private String processString(Map<String, String> map, String key, String ignore) {
+		String val = getBrukerString(map, key);
+		if (val != null && !val.equals(ignore))
+			report(key, val);
+		return val;
 	}
 
-	@Override
-	public void endRezip() {
-		if (dim == null) {
-			report("DIM", "1D");
-			report("##$NUC2", null);
-		}
-		dim = null;
-		extractor = null;
+	/**
+	 * remove &lt; and &gt; from the string
+	 * 
+	 * @param map
+	 * @param key
+	 * @return null if the value is not of the form &lt;xxx&gt; or is empty &lt;&gt;
+	 */
+	private static String getBrukerString(Map<String, String> map, String key) {
+		return getDelimitedString(map, key, '<', '>');
 	}
 
-	
+	/**
+	 * Report the found property back to the IFSExtractorI class.
+	 * 
+	 * @param key
+	 * @param val if null, this property is removed
+	 */
+	private void report(String key, Object val) {
+		addProperty(ifsMap.get(key), val);
+	}
+
 ////////// testing ///////////
-	
+
 	public static void main(String[] args) {
 		test("test/cosy/acqus");
 		test("test/cosy/acqu2s");
-//		test("test/cosy/procs");
-//		test("test/cosy/proc2s");
-//		test("test/13c/procs");
+		test("test/cosy/procs");
+		test("test/cosy/proc2s");
+		test("test/13c/procs");
 		test("test/13c/acqus");
-		
+
 	}
 
 	private static void test(String fname) {
@@ -211,7 +243,5 @@ public class BrukerIFSVendorPlugin implements IFSVendorPluginI {
 			e.printStackTrace();
 		}
 	}
-
-
 
 }

@@ -1,32 +1,21 @@
 package com.vendor.jeol;
 
+import org.iupac.fairspec.api.IFSDefaultVendorPlugin;
 import org.iupac.fairspec.api.IFSExtractorI;
-import org.iupac.fairspec.api.IFSVendorPluginI;
-
-import com.vendor.IFSDefaultVendorPlugin;
 
 public class JeolIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	static {
-		IFSVendorPluginI.registerIFSVendorPlugin(com.vendor.jeol.JeolIFSVendorPlugin.class);
+		register(com.vendor.jeol.JeolIFSVendorPlugin.class);
 	}
 
 	public JeolIFSVendorPlugin() {
-		
+		paramRegex = "\\.jdf$";
 	}
 	
 	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-
-	@Override
-	public String getParamRegex() {
-		return "\\.jdf$";
-	}
-
-	@Override
 	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
+		// TODO Auto-generated method stub
 		System.out.println("! TODO: accept JEOL file " + fname);
 		return true;
 	}

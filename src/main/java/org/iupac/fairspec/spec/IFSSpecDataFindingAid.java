@@ -43,8 +43,9 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	private IFSStructureSpecCollection structureSpecCollection;
 	private IFSSpecAnalysisCollection analysisCollection;
 	
-	public IFSSpecDataFindingAid(String name, String sUrl) {
-		super(name, IFSObjectI.ObjectType.SpecDataFindingAid, sUrl);
+	public IFSSpecDataFindingAid(String id, String sUrl) {
+		super(null, IFSObjectI.ObjectType.SpecDataFindingAid, sUrl);
+		setID(id);
 		add(null);
 		add(null);
 		add(null);
