@@ -1,7 +1,7 @@
 package com.vendor.mestrelab;
 
-import org.iupac.fairspec.api.IFSDefaultVendorPlugin;
 import org.iupac.fairspec.api.IFSExtractorI;
+import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
 
 public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 

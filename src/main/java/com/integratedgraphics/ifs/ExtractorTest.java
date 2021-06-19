@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.iupac.fairspec.common.IFSException;
-import org.iupac.fairspec.common.IFSJSONDefaultSerializer;
+import org.iupac.fairspec.util.IFSDefaultJSONSerializer;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
@@ -56,7 +56,7 @@ public class ExtractorTest extends Extractor {
 //		System.out.println(aid.getURLs() + " " + aid.getParams());
 //		IFSStructureSpecCollection ssc = aid.getStructureSpecCollection();
 //		new EADWriter(targetDir, rootPath, aid).write();
-		String s = new IFSJSONDefaultSerializer().serialize(findingAid);
+		String s = new IFSDefaultJSONSerializer().serialize(findingAid);
 		writeBytesToFile(s.getBytes(), new File(targetDir + "/" + (key == null ? "" : key + ".") + "_IFS_findingaid.json"));
 	}
 

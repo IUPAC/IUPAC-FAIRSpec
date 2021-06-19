@@ -1,4 +1,4 @@
-package org.iupac.fairspec.common;
+package org.iupac.fairspec.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import javajs.util.PT;
  * @author hansonr
  *
  */
-public class IFSJSONDefaultSerializer implements IFSSerializerI {
+public class IFSDefaultJSONSerializer implements IFSSerializerI {
 
 	private Obj thisObj;
 	private List<Obj> stack = new ArrayList<>();

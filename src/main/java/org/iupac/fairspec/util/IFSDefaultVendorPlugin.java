@@ -1,7 +1,9 @@
-package org.iupac.fairspec.api;
+package org.iupac.fairspec.util;
 
 import java.util.Map;
 
+import org.iupac.fairspec.api.IFSExtractorI;
+import org.iupac.fairspec.api.IFSVendorPluginI;
 import org.iupac.fairspec.common.IFSConst;
 
 /**

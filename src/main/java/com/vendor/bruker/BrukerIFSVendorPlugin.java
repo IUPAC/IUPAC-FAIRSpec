@@ -6,10 +6,10 @@ import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.iupac.fairspec.api.IFSDefaultVendorPlugin;
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSVendorPluginI;
 import org.iupac.fairspec.common.IFSConst;
+import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
 
 import javajs.util.Rdr;
 import jspecview.source.JDXDataObject;
