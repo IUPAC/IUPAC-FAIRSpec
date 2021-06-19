@@ -3,7 +3,9 @@ package com.vendor.jcamp;
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSVendorPluginI;
 
-public class JCAMPDXIFSVendorPlugin implements IFSVendorPluginI {
+import com.vendor.IFSDefaultVendorPlugin;
+
+public class JCAMPDXIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	static {
 		IFSVendorPluginI.registerIFSVendorPlugin(com.vendor.jcamp.JCAMPDXIFSVendorPlugin.class);
@@ -14,50 +16,19 @@ public class JCAMPDXIFSVendorPlugin implements IFSVendorPluginI {
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public String getRezipRegex() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public String getParamRegex() {
-		// TODO Auto-generated method stub
-		return null;
+		return "\\.jdx$|\\.dx$";
 	}
 
 	@Override
-	public String getRezipPrefix(String dirname) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
+		System.out.println("! TODO: accept JDX file " + fname);
+		return true;
 	}
 
-	@Override
-	public boolean doRezipInclude(String entryName) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	@Override
-	public void startRezip(IFSExtractorI extractor) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void endRezip() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

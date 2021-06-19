@@ -52,6 +52,11 @@ public class BrukerIFSVendorPlugin implements IFSVendorPluginI {
 		return !entryName.endsWith(".mnova");
 	}
 
+	@Override
+	public boolean doExtract(String entryName) {
+		return false;
+	}
+
 	//	public final static String defaultRezipIgnorePattern = "\\.mnova$";
 
 	

@@ -57,7 +57,7 @@ public class ExtractorTest extends Extractor {
 //		IFSStructureSpecCollection ssc = aid.getStructureSpecCollection();
 //		new EADWriter(targetDir, rootPath, aid).write();
 		String s = new IFSJSONDefaultSerializer().serialize(findingAid);
-		writeStringToFile(s, new File(targetDir + "/" + (key == null ? "" : key + ".") + "_IFS_findingaid.json"));
+		writeBytesToFile(s.getBytes(), new File(targetDir + "/" + (key == null ? "" : key + ".") + "_IFS_findingaid.json"));
 	}
 
 

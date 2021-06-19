@@ -3,17 +3,17 @@ package org.iupac.fairspec.common;
 import org.iupac.fairspec.api.IFSSerializableI;
 import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.common.IFSConst.PROPERTY_TYPE;
-import org.iupac.fairspec.common.IFSConst.UNITS;
+import org.iupac.fairspec.common.IFSConst.PROPERTY_UNITS;
 
 public class IFSProperty implements IFSSerializableI {
 
 	private final String name;
 	private final PROPERTY_TYPE type;
-	private final UNITS units;
+	private final PROPERTY_UNITS units;
 	
 	private Object value;
 
-	public IFSProperty(String name, PROPERTY_TYPE type, UNITS units) {
+	public IFSProperty(String name, PROPERTY_TYPE type, PROPERTY_UNITS units) {
 		this.name = name;
 		this.type = type;
 		this.units = units;
@@ -23,7 +23,7 @@ public class IFSProperty implements IFSSerializableI {
 		return name;
 	}
 
-	public UNITS getUnits() {
+	public PROPERTY_UNITS getUnits() {
 		return units;
 	}
 	

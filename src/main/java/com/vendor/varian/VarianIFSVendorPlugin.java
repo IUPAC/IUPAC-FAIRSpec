@@ -3,7 +3,9 @@ package com.vendor.varian;
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSVendorPluginI;
 
-public class VarianIFSVendorPlugin implements IFSVendorPluginI {
+import com.vendor.IFSDefaultVendorPlugin;
+
+public class VarianIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	static {
 		IFSVendorPluginI.registerIFSVendorPlugin(com.vendor.varian.VarianIFSVendorPlugin.class);
@@ -20,7 +22,7 @@ public class VarianIFSVendorPlugin implements IFSVendorPluginI {
 	}
 
 	@Override
-	public String getRezipRegex() {
+	public String getParamRegex() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -31,35 +33,5 @@ public class VarianIFSVendorPlugin implements IFSVendorPluginI {
 		return false;
 	}
 
-	@Override
-	public String getParamRegex() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public String getRezipPrefix(String dirname) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean doRezipInclude(String entryName) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void startRezip(IFSExtractorI extractor) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void endRezip() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
 }

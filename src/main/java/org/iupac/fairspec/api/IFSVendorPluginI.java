@@ -111,6 +111,8 @@ public interface IFSVendorPluginI {
 	boolean accept(IFSExtractorI extractor, String fname, byte[] bytes);
 
 	void endRezip();
+
+	boolean doExtract(String entryName);
 	
 	
 
