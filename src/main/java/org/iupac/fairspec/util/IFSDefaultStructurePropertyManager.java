@@ -20,19 +20,20 @@ public class IFSDefaultStructurePropertyManager implements IFSPropertyManagerI {
 	private IFSExtractorI extractor;
 
 	private Viewer jmolViewer;
-	
+
 	/**
-	 * A class to process structures using Jmol methods to extract and discover properties of a model.
+	 * A class to process structures using Jmol methods to extract and discover
+	 * properties of a model.
 	 * 
 	 */
-	
+
 	public IFSDefaultStructurePropertyManager(IFSExtractorI extractor) {
 		this.extractor = extractor;
 	}
 
 	@Override
 	public String getParamRegex() {
- 		return "(?<struc>(?<mol>\\.mol$|\\.sdf$)|(?<cdx>\\.cdx$|\\.cdxml$))";
+		return "(?<struc>(?<mol>\\.mol$|\\.sdf$)|(?<cdx>\\.cdx$|\\.cdxml$))";
 	}
 
 	@Override
@@ -41,7 +42,7 @@ public class IFSDefaultStructurePropertyManager implements IFSPropertyManagerI {
 	}
 
 	private Map<String, String> fileToType = new HashMap<>();
-	
+
 	@Override
 	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
 		fileToType.put(fname, getType(fname, bytes));
@@ -73,19 +74,19 @@ public class IFSDefaultStructurePropertyManager implements IFSPropertyManagerI {
 			type = ext.toUpperCase();
 			break;
 		}
-		
+
 		boolean is2D = false;
 		String smiles = null, inchi = null, inchiKey = null;
-		
+
 		if (check2d) {
 			try {
 				Viewer v = getJmolViewer();
 				v.loadInline(new String(bytes));
 				BS atoms = v.bsA();
 
-				smiles = v.getSmiles(null);
-				inchi = v.getInchi(atoms,  null,  null);
-				inchiKey = v.getInchi(atoms,  null,  "key");
+				smiles = v.getSmiles(atoms);
+				inchi = v.getInchi(atoms, null, null);
+				inchiKey = v.getInchi(atoms, null, "key");
 
 				// check 2D or 3D
 				Map<String, Object> info = v.getCurrentModelAuxInfo();

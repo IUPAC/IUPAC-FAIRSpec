@@ -16,7 +16,8 @@ public class IFSConst {
 	public static final String junkFilePattern = "(MACOSX)|(desktop\\.ini)|(\\.DS_Store)";
 
 	/**
-	 * 	the files we want extracted -- no $ for cdx, as that could be cdxml
+	 * 	the files we want extracted -- just PDF and PNG here; all others are taken care of by
+	 *  individual IFSVendorPluginI classes
 	 */
 	public static final String defaultCachePattern = ""
 			+ "(?<img>\\.pdf$|\\.png$)"
@@ -27,6 +28,21 @@ public class IFSConst {
 		return (param.indexOf(".representation.") >= 0);
 	}
 
+	// These lists will grow substantially. Those that are not just strings have their definitions declared in 
+	// the specified classes:
+	
+
+	// core.IFStructure
+	
+	public static final String IFS_STRUCTURE_PROP_COMPOUND_ID  = "IFS.structure.property.compound.id";
+	public static final String IFS_STRUCTURE_PROP_SMILES       = "IFS.structure.property.smiles";
+	public static final String IFS_STRUCTURE_PROP_INCHI        = "IFS.structure.property.inchi";
+	public static final String IFS_STRUCTURE_PROP_INCHIKEY     = "IFS.structure.property.inchikey";
+	
+
+	
+	// core.IFSNMRSpecData
+	
 	public static final String IFS_SPEC_NMR_INSTR_MANUFACTURER_NAME = "IFS.spec.nmr.instr.manufacturer.name";
 	public static final String IFS_SPEC_NMR_INSTR_FREQ_NOMINAL      = "IFS.spec.nmr.instr.freq.nominal";
 	public static final String IFS_SPEC_NMR_INSTR_PROBEID           = "IFS.spec.nmr.instr.probe.id";
@@ -44,12 +60,6 @@ public class IFSConst {
 	public static final String IFS_SPEC_NMR_EXPT_PULSE_PROG = "IFS.spec.nmr.expt.pulse.prog";
 	public static final String IFS_SPEC_NMR_EXPT_SOLVENT    = "IFS.spec.nmr.expt.solvent";
 
-
-	public static final String IFS_STRUCTURE_PROP_COMPOUND_ID  = "IFS.structure.property.compound.id";
-	public static final String IFS_STRUCTURE_PROP_SMILES       = "IFS.structure.property.smiles";
-	public static final String IFS_STRUCTURE_PROP_INCHI        = "IFS.structure.property.inchi";
-	public static final String IFS_STRUCTURE_PROP_INCHIKEY     = "IFS.structure.property.inchikey";
-	
 
 
 		
