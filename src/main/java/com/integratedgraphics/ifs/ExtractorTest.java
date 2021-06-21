@@ -73,16 +73,13 @@ public class ExtractorTest extends Extractor {
 	
 	public static void main(String[] args) {
 
-		int i0 = 11;
-		int i1 = 11; // 12 max
+		int i0 = 0;
+		int i1 = 12; // 12 max
 		
-		debugging = true;//false;//true; // verbose listing of all files
+		debugging = false;//true; // verbose listing of all files
 		
 		int failed = 0;
 		
-		for (int itest = (args.length == 0 ? i0 : 0); 
-				itest <= (args.length == 0 ? i1 : 0); 
-				itest++) {
 			
 //		String s = "test/ok/1c.nmr";
 //		Pattern p = Pattern.compile("^\\Qtest/ok/\\E(.+)\\Q.nmr\\E");
@@ -104,18 +101,27 @@ public class ExtractorTest extends Extractor {
 				script = args[0];
 				break;
 			case 0:
+				sourceDir = "file:///c:/temp/iupac/zip";
+				targetDir = "c:/temp/iupac/ifs";
+				script = null;
+			}
+
+			setLogging(targetDir + "/extractor.log");
+			
+			for (int itest = (args.length == 0 ? i0 : 0); 
+			itest <= (args.length == 0 ? i1 : 0); 
+			itest++) {
+
+			// ./extract/ should be in the main Eclipse project directory.
+
+			if (args.length == 0) {
 				key = testSet[itest];
 				System.out.println("\n!\n! found Test " + itest + " " + key);
 				int pt = key.indexOf("/");
 				if (pt >= 0)
 					key = key.substring(0, pt);
 				script = "./extract/" + key + "/IFS-extract.json";
-				sourceDir = "file:///c:/temp/iupac/zip";
-				targetDir = "c:/temp/iupac/ifs";
 			}
-
-			// ./extract/ should be in the main Eclipse project directory.
-
 			try {
 				new ExtractorTest(key, new File(script), new File(targetDir), sourceDir);
 				System.out.println("ok " + key);
@@ -126,9 +132,10 @@ public class ExtractorTest extends Extractor {
 			}
 
 		}
-		System.out.println ("DONE failed=" + failed);
+		log("! DONE failed=" + failed);
+		setLogging(null);
 	}
-	
+
 //	found Test 0 acs.joc.0c00770/22567817
 //	2 objects found
 //	found object {IFS.findingaid.object::{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22567817}|{id=IFS.structure.property.compound.id::*}.zip|{IFS.spec.nmr.representation.vendor.dataset::{id}_{IFS.spec.nmr.property.expt::*}/}}

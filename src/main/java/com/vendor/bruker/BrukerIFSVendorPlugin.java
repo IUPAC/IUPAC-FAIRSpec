@@ -128,6 +128,10 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 			e.printStackTrace();
 			return false;
 		}
+		if (fname.indexOf("procs")>=0) {
+			report("SOLVENT", getSolvent(map));
+			return true;
+		}
 		// no need to close a ByteArrayInputStream
 		int ndim = 0;
 		String nuc1;
@@ -153,7 +157,6 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 			report("DIM", dim = "2D");
 		}
 		report("SF", getNominalSpectrometerFrequency(nuc1, freq1));
-		report("SOLVENT", getSolvent(map));
 		processString(map, "##$PROBHD", null);
 		if (extractor != null)
 			this.extractor = null;

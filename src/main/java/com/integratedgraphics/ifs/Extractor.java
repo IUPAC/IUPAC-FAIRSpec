@@ -93,6 +93,8 @@ public class Extractor implements IFSExtractorI {
 	protected static Pattern pStarDotStar;
 
 	protected static boolean debugging;
+	
+	protected static String logfile;
 
 	/**
 	 * the finding aid - only one per instance
@@ -151,6 +153,8 @@ public class Extractor implements IFSExtractorI {
 	 * 
 	 */
 	protected static Map<String, Map<String, ZipEntry>> IFSZipContents = new LinkedHashMap<>();
+
+	private static OutputStream logStream;
 
 	/**
 	 * an optional local source directory to use instead of the one indicated in IFS-extract.json
@@ -1245,11 +1249,30 @@ public class Extractor implements IFSExtractorI {
 	 * @param msg
 	 */
 	protected static void log(String msg) {
+		if (logStream != null)
+			try {
+				logStream.write((msg + "\n").getBytes());
+			} catch (IOException e) {
+			}
 		if (msg.startsWith("!!"))
 			System.err.println(msg);
 		else if (debugging || msg.startsWith("!"))
 			System.out.println(msg);
 	}
+
+	protected static void setLogging(String fname) {
+		try {
+			if (fname == null) {
+				if (logStream != null)
+					logStream.close();
+				return;
+			}
+			logStream = new FileOutputStream(fname);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	/**
 	 * For testing (or for whatever reason zip files are local or should not use the
