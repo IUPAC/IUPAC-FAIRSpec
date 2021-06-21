@@ -70,7 +70,7 @@ public class Extractor implements IFSExtractorI {
 	static {
 		IFSVendorPluginI.init();
 	}
-	private static final String version = "0.0.1-alpha_2021_06_19";
+	private static final String version = "0.0.1-alpha_2021_06_21";
 
 	private static final String codeSource = "https://github.com/BobHanson/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifs/Extractor.java";
 
@@ -634,7 +634,7 @@ public class Extractor implements IFSExtractorI {
 			if (aff != null)
 				map.put("affiliation", aff);
 			authorList.add(map);
-			s += ", " + au;
+			s += "; " + au;
 		}
 		info.put("crossrefUrl", url);
 		info.put("metadata", pubxml);

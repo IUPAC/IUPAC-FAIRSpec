@@ -55,9 +55,9 @@ public class ExtractorTest extends Extractor {
 	 * for example: https://ndownloader.figshare.com/files/21947274
 	 */
 	private final static String[] testSet = {
-			"acs.orglett.0c00571/21975525", // 1 3212 files; zips of bruker zips and HRMS
-			"acs.orglett.0c01153/22284726,22284729", // 9 bruker dirs
-			"acs.joc.0c00770/22567817",  // 0 727 files; zips of bruker dirs + mnovas
+			"acs.orglett.0c00571/21975525", // 0 3212 files; zips of bruker zips and HRMS
+			"acs.orglett.0c01153/22284726,22284729", // 1 bruker dirs
+			"acs.joc.0c00770/22567817",  // 2 727 files; zips of bruker dirs + mnovas
 			"acs.orglett.0c00624/21947274", // 1 1143 files; MANY bruker dirs
 			"acs.orglett.0c00788/22125318", // 2 jdfs
 			"acs.orglett.0c00874/22233351", // 3 bruker dirs
@@ -73,8 +73,8 @@ public class ExtractorTest extends Extractor {
 	
 	public static void main(String[] args) {
 
-		int i0 = 0;
-		int i1 = 0; // 12 max
+		int i0 = 2;
+		int i1 = 2; // 12 max
 		
 		debugging = false;//true; // verbose listing of all files
 		

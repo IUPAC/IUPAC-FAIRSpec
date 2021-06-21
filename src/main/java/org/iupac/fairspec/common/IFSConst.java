@@ -2,7 +2,7 @@ package org.iupac.fairspec.common;
 
 public class IFSConst {
 	
-	public static final String IFS_FAIRSpec_version = "0.0.1-2021_06_18";
+	public static final String IFS_FAIRSpec_version = "0.0.1-2021_06_21";
 
 	public enum PROPERTY_TYPE { INT, FLOAT, STRING, NUCL, OBJ };
 	
