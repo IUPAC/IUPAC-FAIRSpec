@@ -1,5 +1,9 @@
 package org.iupac.fairspec.spec;
 
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.List;
+
 import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.assoc.IFSFindingAid;
@@ -8,10 +12,12 @@ import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSRepresentation;
 import org.iupac.fairspec.core.IFSCollection;
 import org.iupac.fairspec.core.IFSDataObject;
+import org.iupac.fairspec.core.IFSDataObjectCollection;
 import org.iupac.fairspec.core.IFSObject;
 import org.iupac.fairspec.core.IFSRepresentableObject;
 import org.iupac.fairspec.core.IFSStructure;
 import org.iupac.fairspec.core.IFSStructureCollection;
+import org.jmol.util.C;
 
 /**
  * The master class for a full FAIRSpec collection, as from a publication or
@@ -247,5 +253,28 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		}
 	}
 
-
+	/**
+	 * Remove a set of spectra, both from specDataCollection and structureSpecCollection items, 
+	 * removing those associations if they have no spectra remaining.
+	 * 
+	 * @param list
+	 * @return number of IFSSpecData removed
+	 */
+	public int removeSpecData(List<IFSSpecData> list) {
+		IFSSpecDataCollection c = getSpecDataCollection();
+		int n = c.size();
+		getSpecDataCollection().removeAll(list);
+		n -= c.size();
+		IFSStructureSpecCollection ssc = getStructureSpecCollection();
+		List<IFSStructureDataAssociation> lstRemove = new ArrayList<>();
+		for (IFSStructureDataAssociation ss : ssc) {
+			lstRemove.clear();
+			IFSDataObjectCollection<IFSDataObject<?>> dc = ss.getDataObjectCollection();
+			dc.removeAll(list);
+			if (dc.size() == 0)
+				lstRemove.add(ss);
+		}
+		ssc.removeAll(lstRemove);
+		return n;
+	}
 }

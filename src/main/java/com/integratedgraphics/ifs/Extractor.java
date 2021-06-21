@@ -33,6 +33,7 @@ import org.iupac.fairspec.common.IFSRepresentation;
 import org.iupac.fairspec.core.IFSDataObject;
 import org.iupac.fairspec.core.IFSObject;
 import org.iupac.fairspec.core.IFSRepresentableObject;
+import org.iupac.fairspec.spec.IFSSpecData;
 import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 import org.iupac.fairspec.spec.IFSStructureSpec;
 import org.iupac.fairspec.util.IFSDefaultJSONSerializer;
@@ -311,8 +312,6 @@ public class Extractor implements IFSExtractorI {
 			return false;
 		}
 				
-
-		
 		setLocalSourceDir(localSourceDir);
 		// options here to set cache and rezip options -- debugging only!
 		setCachePattern(null);
@@ -838,10 +837,37 @@ public class Extractor implements IFSExtractorI {
 		
 		updateObjectLengthAndType();
 
-		findingAid.setPubInfo(pubCrossrefInfo);
+		removeUnmanifestedRepresentations();
+		
 		saveCollectionManifests(false);
+		
 		findingAid.finalizeExtraction();
 		return findingAid;
+	}
+
+	/**
+	 * The issue here is that sometimes we have to identify directories that are not
+	 * going to be zipped up in the end, because they do not match the rezip
+	 * trigger.
+	 */
+	private void removeUnmanifestedRepresentations() {
+		List<IFSSpecData> removed = new ArrayList<>();
+		for (IFSSpecData spec : findingAid.getSpecDataCollection()) {
+			List<IFSRepresentation> lstRepRemoved = new ArrayList<>();
+			for (IFSRepresentation rep : spec) {
+				if (rep.getLength() == 0) {
+					lstRepRemoved.add(rep);
+					log("! removing 0-length representation " + rep);
+				}
+			}
+			spec.removeAll(lstRepRemoved);
+			if (spec.size() == 0) {
+				removed.add(spec);
+				log("! preliminary spec data " + spec + " removed - no representations");
+			}
+		}
+		int n = findingAid.removeSpecData(removed);
+		log("! " + n + " preliminary objects removed");
 	}
 
 	/**
@@ -867,9 +893,9 @@ public class Extractor implements IFSExtractorI {
 			if (dataLicenseName != null) {
 				findingAid.setPropertyValue("IFS.fairspec.data.license.name", dataLicenseName);
 			}
-//			if (puburi != null) {
-//				findingAid.setPropertyValue("IFS.findingaid.source.publication.uri", puburi);
-//			}
+			
+			findingAid.setPubInfo(pubCrossrefInfo);
+
 		} else if (!unlocalizedURL.equals(lastURL)) {
 			findingAid.addUrl(unlocalizedURL);
 			lastURL = unlocalizedURL;
@@ -922,6 +948,8 @@ public class Extractor implements IFSExtractorI {
 	private boolean parseZipFileNamesForObjects(String zipPath, String sData) throws IOException, IFSException {
 		ObjectParser parser = newObjectParser(sData);
 		boolean haveData = false;
+		
+		// first build the file list
 		Map<String, ZipEntry> zipFiles = IFSZipContents.get(zipPath);
 		if (zipFiles == null) {
 			// Scan URL zip stream for files.
@@ -929,6 +957,8 @@ public class Extractor implements IFSExtractorI {
 			zipFiles = readZipContentsIteratively(url.openStream(), new LinkedHashMap<String, ZipEntry>(), "", false);
 			IFSZipContents.put(zipPath, zipFiles);
 		}
+		// next, we process those names
+		
 		for (String zipName : zipFiles.keySet()) {
 			IFSObject<?> obj = addIFSObjectsForName(parser, zipName);
 			if (obj != null) {
@@ -950,6 +980,52 @@ public class Extractor implements IFSExtractorI {
 	 */
 	protected ObjectParser newObjectParser(String sData) throws IFSException {
 		return new ObjectParser(sData);
+	}
+
+	protected Map<String, ZipEntry> readZipContentsIteratively(InputStream is, Map<String, ZipEntry> fileNames,
+			String baseName, boolean doRezip) throws IOException {
+		if (debugging && baseName.length() > 0)
+			log("! opening " + baseName);
+		boolean isTopLevel = (baseName.length() == 0);
+		ZipInputStream zis = new ZipInputStream(is);
+		ZipEntry zipEntry = null;
+		ZipEntry rezipEntry = null;
+		int n = 0;
+		int phase = (doRezip ? 2 : 1);
+		while ((zipEntry = (rezipEntry == null ? zis.getNextEntry() : rezipEntry)) != null) {
+			n++;
+			rezipEntry = null;
+			String zipName = baseName + zipEntry.getName();
+			if (zipEntry.isDirectory()) {
+				log("Phase " + phase + " checking zip directory: " + n + " " + zipName);
+			} else if (!zipEntry.isDirectory() && zipEntry.getSize() == 0) {
+
+				continue;
+			}
+
+			if (junkPattern.matcher(zipName).find()) {
+				// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX,
+				// acs.joc.0c00770/22567817
+				addFileToFileLists(zipName, LOG_IGNORED, zipEntry.getSize());
+				continue;
+			}
+			if (debugging)
+				log("reading zip entry: " + n + " " + zipName);
+
+			if (fileNames != null) {
+				fileNames.put(zipName, zipEntry); // Java has no use for the ZipEntry, but JavaScript can read it.
+			}
+			if (zipName.endsWith(".zip")) {
+				readZipContentsIteratively(zis, fileNames, zipName + "|", doRezip);
+			} else if (doRezip) {
+				rezipEntry = processRezipEntry(baseName, zipName, zis, zipEntry);
+			} else {
+				processZipEntry(zipName, zis, zipEntry);
+			}
+		}
+		if (isTopLevel)
+			zis.close();
+		return fileNames;
 	}
 
 	/**
@@ -1130,7 +1206,7 @@ public class Extractor implements IFSExtractorI {
 			return null;
 		findingAid.beginAddObject(zipName);
 		if (debugging)
-			log("found " + zipName);
+			log("adding IFSObjects for " + zipName);
 
 		// If an IFSSpecData object is added, then it will also be added to
 		// htManifestNameToSpecData
@@ -1241,77 +1317,6 @@ public class Extractor implements IFSExtractorI {
 		IFSZipContents.clear();
 	}
 
-//	/**
-//	 * Retrieve the ZipEntry for a file in a given zip file.
-//	 * 
-//	 * Note that in JavaScript only, the ZipEntry returned contains a reference to
-//	 * the underlying ByteArrayInputStream ultimately backing this zip file. This
-//	 * allows us to retrieve the file data directly from the ZipEntry using
-//	 * jsutil.getZipBytes(zipEntry).
-//	 * 
-//	 * Names starting with "." are taken as case-insensitive extensions
-//	 * 
-//	 * 
-//	 * @param zipFile
-//	 * @param fileName   zip entry name or lower-case extension starting with "."
-//	 * @param isContains fileName is a fragment of the entry name, not the other way
-//	 *                   around
-//	 * @return the ZipEntry for this file, possibly cached.
-//	 */
-//	protected static ZipEntry findZipEntry(String zipFile, String fileName, boolean isContains) {
-//		Map<String, ZipEntry> contents = getZipContents(zipFile);
-//		if (contents == null)
-//			return null;
-//		if (!isContains) {
-//			return contents.get(fileName);
-//		}
-//		boolean isLCExt = fileName.startsWith(".");
-//		for (Entry<String, ZipEntry> entry : contents.entrySet()) {
-//			String key = entry.getKey();
-//			if ((isLCExt ? key.toLowerCase() : key).indexOf(fileName) >= 0)
-//				return entry.getValue();
-//		}
-//		return null;
-//	}
-
-	protected Map<String, ZipEntry> readZipContentsIteratively(InputStream is, Map<String, ZipEntry> fileNames,
-			String baseName, boolean doRezip) throws IOException {
-		if (debugging && baseName.length() > 0)
-			log("! opening " + baseName);
-		boolean isTopLevel = (baseName.length() == 0);
-		ZipInputStream zis = new ZipInputStream(is);
-		ZipEntry zipEntry = null;
-		ZipEntry rezipEntry = null;
-		while ((zipEntry = (rezipEntry == null ? zis.getNextEntry() : rezipEntry)) != null) {
-			rezipEntry = null;
-			if (!zipEntry.isDirectory() && zipEntry.getSize() == 0)
-				continue;
-			String zipName = baseName + zipEntry.getName();
-
-			if (junkPattern.matcher(zipName).find()) {
-				// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX,
-				// acs.joc.0c00770/22567817
-				addFileToFileLists(zipName, LOG_IGNORED, zipEntry.getSize());
-				continue;
-			}
-			if (debugging)
-				log(zipName);
-
-			if (fileNames != null) {
-				fileNames.put(zipName, zipEntry); // Java has no use for the ZipEntry, but JavaScript can read it.
-			}
-			if (zipName.endsWith(".zip")) {
-				readZipContentsIteratively(zis, fileNames, zipName + "|", doRezip);
-			} else if (doRezip) {
-				rezipEntry = processRezipEntry(baseName, zipName, zis, zipEntry);
-			} else {
-				processZipEntry(zipName, zis, zipEntry);
-			}
-		}
-		if (isTopLevel)
-			zis.close();
-		return fileNames;
-	}
 
 	private ZipEntry processRezipEntry(String baseName, String zipName, ZipInputStream zis, ZipEntry zipEntry) throws IOException {
 		if (!zipName.equals(currentRezipPath)) {
@@ -1503,6 +1508,7 @@ public class Extractor implements IFSExtractorI {
 			boolean doExtract = (v == null || v.doExtract(zipName));
 			boolean doCheck = (v != null);
 
+			System.out.println("! caching " + zipName);
 //			1. we don't have params 
 //		      - generic file, just save it.  doExtract and not doCheck
 //			2. we have params and there is extraction
@@ -1561,7 +1567,7 @@ public class Extractor implements IFSExtractorI {
 				IFSRepresentation ref = new IFSRepresentation(new IFSReference(zipName, getLocalName(zipName), "./" + rootPath),
 						v, len, null, "application/zip");
 				rezipCache.add(ref);
-				log("rezip added " + zipName);
+				log("rezip pattern found " + zipName);
 			}
 		}
 

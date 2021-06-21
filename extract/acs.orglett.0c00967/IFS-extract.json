@@ -8,6 +8,7 @@
  {"data":"{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22111341}"},
  
  {"path":"{data}|{id=IFS.structure.property.compound.id::*}/"},
- {"objects":"{path}{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.property.expt::{id}*}/}"},
- {"objects":"{path}{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.property.expt::{id}*}.jdf}"}
+ {"objects":"{path}{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.property.expt::*}/}"},
+ {"objects":"{path}{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.property.expt::*}/*/}"},
+ {"objects":"{path}{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.property.expt::*}.jdf}"}
 ]}
