@@ -8,5 +8,6 @@
  {"data":"{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22233351}"},
  
  {"path":"{data}|NMR FID files/{id=IFS.structure.property.compound.id::*}/"},
- {"objects":"{path}{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.property.expt::*}/}*"}
+ {"objects":"{path}{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.property.expt::*}/}"},
+ {"objects":"{path}{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.property.expt::cd*/*}/}"}
 ]}

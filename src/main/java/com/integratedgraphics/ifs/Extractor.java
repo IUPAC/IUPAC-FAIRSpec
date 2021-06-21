@@ -1156,6 +1156,7 @@ public class Extractor implements IFSExtractorI {
 	 */
 	private void linkManifestNameToObject(String localName, IFSRepresentableObject<?> obj, String param) {
 		if (IFSConst.isRepresentation(param)) {
+			log("! adding manifest entry for " + localName + ": " + obj);
 			htManifestNameToObject.put(localName, obj);
 		}
 	}
@@ -1759,7 +1760,7 @@ public class Extractor implements IFSExtractorI {
 
 			s = PT.rep(s, "\\Q\\E", "");
 
-			log("pattern: " + s);
+			log("! pattern: " + s);
 			p = Pattern.compile(s);
 //			m = p.matcher("FID for Publication/S6.zip|S6/HRMS.zip|HRMS/67563_hazh180_maxis_pos.pdf");
 //			log(m.find());
