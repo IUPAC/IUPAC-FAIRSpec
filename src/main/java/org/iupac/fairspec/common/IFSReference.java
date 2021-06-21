@@ -41,9 +41,8 @@ public class IFSReference implements IFSSerializableI {
 
 	@Override
 	public void serialize(IFSSerializerI serializer) {
-		serializer.addAttr("path", path);
-		serializer.addAttr("localName", localName);
-		serializer.addValue(ref);
+		serializer.addAttr("path", path + "/" + localName);
+		//serializer.addValue(ref);
 	}
 
 	@Override

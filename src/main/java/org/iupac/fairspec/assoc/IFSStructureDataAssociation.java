@@ -1,14 +1,12 @@
 package org.iupac.fairspec.assoc;
 
-import org.iupac.fairspec.api.IFSAbstractObjectI;
 import org.iupac.fairspec.api.IFSSerializerI;
-import org.iupac.fairspec.common.IFSReference;
-import org.iupac.fairspec.common.IFSRepresentation;
+import org.iupac.fairspec.core.IFSAbstractObject;
+import org.iupac.fairspec.core.IFSDataObject;
+import org.iupac.fairspec.core.IFSDataObjectCollection;
 import org.iupac.fairspec.core.IFSObject;
-import org.iupac.fairspec.data.IFSDataObject;
-import org.iupac.fairspec.data.IFSDataObjectCollection;
-import org.iupac.fairspec.struc.IFSStructure;
-import org.iupac.fairspec.struc.IFSStructureCollection;
+import org.iupac.fairspec.core.IFSStructure;
+import org.iupac.fairspec.core.IFSStructureCollection;
 
 /**
  * An class to correlation one or more IFSStructure with one or more
@@ -24,7 +22,7 @@ import org.iupac.fairspec.struc.IFSStructureCollection;
  *
  */
 @SuppressWarnings("serial")
-public abstract class IFSStructureDataAssociation extends IFSObject<IFSObject<?>> implements IFSAbstractObjectI {
+public abstract class IFSStructureDataAssociation extends IFSAbstractObject<IFSObject<?>> {
 	
 	public IFSStructureDataAssociation(String name, ObjectType type, IFSStructureCollection structureCollection, IFSDataObjectCollection<?> dataCollection) {
 		super(name, type, 2, structureCollection, dataCollection);
@@ -63,12 +61,6 @@ public abstract class IFSStructureDataAssociation extends IFSObject<IFSObject<?>
 		return (IFSDataObject<?>) getDataObjectCollection().get(0);
 	}
 
-	@Override
-	protected IFSRepresentation newRepresentation(String objectName, IFSReference ifsReference, Object object, long len) {
-		return null;
-	}
-
-	
 	protected void serializeList(IFSSerializerI serializer) {
 		serializer.addObject("struc", getStructureCollection().getIndexList());
 		serializer.addObject("data", getDataObjectCollection().getIndexList());

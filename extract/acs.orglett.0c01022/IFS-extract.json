@@ -8,6 +8,6 @@
  {"data":"{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22195341}"},
  
  {"path":"{data}|NMR DATA"},
- {"objects":"{path}/product/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.param.compound.id::*}-{IFS.spec.nmr.param.expt::*}.mnova}"},
- {"objects":"{path}/starting material/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.param.compound.id::*}-{IFS.spec.nmr.param.expt::*}.mnova}"}
+ {"objects":"{path}/product/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.property.compound.id::*}-{IFS.spec.nmr.property.expt::*}.mnova}"},
+ {"objects":"{path}/starting material/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.property.compound.id::*}-{IFS.spec.nmr.property.expt::*}.mnova}"}
 ]}

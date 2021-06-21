@@ -1,7 +1,4 @@
-package org.iupac.fairspec.data;
-
-import org.iupac.fairspec.api.IFSRepresentableObjectI;
-import org.iupac.fairspec.core.IFSObject;
+package org.iupac.fairspec.core;
 
 /**
  * A generic interface indicating some sort of data. Implemented here as
@@ -13,7 +10,7 @@ import org.iupac.fairspec.core.IFSObject;
  *
  */
 @SuppressWarnings("serial")
-public abstract class IFSDataObject<T> extends IFSObject<T> implements IFSRepresentableObjectI {
+public abstract class IFSDataObject<T> extends IFSRepresentableObject<T> {
 
 	public IFSDataObject(String name, ObjectType type) {
 		super(name, type);

@@ -9,6 +9,7 @@ import java.util.Map;
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSVendorPluginI;
 import org.iupac.fairspec.common.IFSConst;
+import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
 import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
 
 import javajs.util.Rdr;
@@ -77,14 +78,17 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	 */
 
 	@Override
-	public boolean doRezipInclude(String entryName) {
+	public boolean doRezipInclude(String baseName, String entryName) {
+		if (entryName.endsWith(".pdf"))
+			addProperty(IFSNMRSpecDataRepresentation.NMR_REP_SPECTRUM_PDF, baseName + entryName);
+		else if (entryName.endsWith("thumb.png"))
+			addProperty(IFSNMRSpecDataRepresentation.NMR_REP_SPECTRUM_IMAGE, baseName + entryName);			
 		return !entryName.endsWith(".mnova");
 	}
 
 	@Override
 	public boolean doExtract(String entryName) {
-		// don't extract these parameter files. Could be set to true for debugging.
-		return false;
+		return false;						
 	}
 
 	@Override
@@ -248,6 +252,11 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	@Override
 	public String getVendorName() {
 		return "Bruker";
+	}
+
+	@Override
+	public String getDatasetType(String zipName) {
+		return IFSNMRSpecDataRepresentation.NMR_REP_VENDOR_DATASET;
 	}
 
 }

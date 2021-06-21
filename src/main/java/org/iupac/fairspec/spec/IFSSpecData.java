@@ -1,6 +1,6 @@
 package org.iupac.fairspec.spec;
 
-import org.iupac.fairspec.data.IFSDataObject;
+import org.iupac.fairspec.core.IFSDataObject;
 
 /**
  * 

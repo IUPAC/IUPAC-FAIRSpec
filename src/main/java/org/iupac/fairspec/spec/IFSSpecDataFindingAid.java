@@ -7,10 +7,11 @@ import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSRepresentation;
 import org.iupac.fairspec.core.IFSCollection;
+import org.iupac.fairspec.core.IFSDataObject;
 import org.iupac.fairspec.core.IFSObject;
-import org.iupac.fairspec.data.IFSDataObject;
-import org.iupac.fairspec.struc.IFSStructure;
-import org.iupac.fairspec.struc.IFSStructureCollection;
+import org.iupac.fairspec.core.IFSRepresentableObject;
+import org.iupac.fairspec.core.IFSStructure;
+import org.iupac.fairspec.core.IFSStructureCollection;
 
 /**
  * The master class for a full FAIRSpec collection, as from a publication or
@@ -29,7 +30,7 @@ import org.iupac.fairspec.struc.IFSStructureCollection;
 @SuppressWarnings("serial")
 public class IFSSpecDataFindingAid extends IFSFindingAid {
 
-	private String currentObjectFileName;
+	private String currentObjectZipName;
 	private IFSStructure currentStructure;
 	private IFSSpecData currentSpecData;
 
@@ -53,9 +54,9 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	}
 	
 	public void beginAddObject(String fname) {
-		if (currentObjectFileName != null)
+		if (currentObjectZipName != null)
 			endAddObject();
-		currentObjectFileName = fname;
+		currentObjectZipName = fname;
 	}
 	
 	/** This list will grow.
@@ -85,9 +86,20 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		return ObjectType.Unknown;		
 	}
 
-	public IFSObject<?> addObject(String rootPath, String param, String value, String localName) throws IFSException {
-		if (currentObjectFileName == null)
+	/**
+	 * Add the object to the appropriate collection. 
+	 * 
+	 * @param rootPath
+	 * @param param
+	 * @param value
+	 * @param localName
+	 * @return
+	 * @throws IFSException
+	 */
+	public IFSRepresentableObject<?> addObject(String rootPath, String param, String value, String localName) throws IFSException {
+		if (currentObjectZipName == null)
 			throw new IFSException("addObject " + param + " " + value + " called with no current object file name");
+		
 		ObjectType type = getObjectTypeForName(param);
 		switch (type) {
 		case SpecAnalysisCollection:
@@ -96,16 +108,17 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 			getAnalysisCollection();
 			// TODO
 			return null;
-		case IRSpecData:
-		case MSSpecData:
 		case NMRSpecData:
+		case IRSpecData:
 		case RAMANSpecData:
-			currentSpecData = getSpecDataCollection().getSpecDataFor(rootPath, localName, param, value, currentObjectFileName, type);
+		case HRMSSpecData:
+		case MSSpecData:
+			currentSpecData = getSpecDataCollection().getSpecDataFor(rootPath, localName, param, value, currentObjectZipName, type, mediaTypeFromName(localName));
 			currentSpecData.setUrlIndex(currentUrlIndex);
 			return currentSpecData;
 		case Structure:
 			if (currentStructure == null) {
-				currentStructure = getStructureCollection().getStructureFor(rootPath, localName, param, value, currentObjectFileName);
+				currentStructure = getStructureCollection().getStructureFor(rootPath, localName, param, value, currentObjectZipName, mediaTypeFromName(localName));
 				currentStructure.setUrlIndex(currentUrlIndex);
 			} else {
 				currentStructure.setPropertyValue(param, value);
@@ -122,7 +135,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 			// should not be generic
 		case SpecDataFindingAid:
 		default:
-			System.err.println("IFSSpeDataFindingAid could not add " + param + " " + value + " for " + currentObjectFileName);
+			System.err.println("IFSSpeDataFindingAid could not add " + param + " " + value + " for " + currentObjectZipName);
 			break;
 		}
 		return null;
@@ -162,13 +175,13 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	
 	public IFSObject<?> endAddObject() {
 		try {
-			if (currentObjectFileName == null)
+			if (currentObjectZipName == null)
 				return null;
 			if (currentStructure != null && currentSpecData != null)
-				return getStructureSpecCollection().addSpec(currentObjectFileName, currentStructure, currentSpecData);
+				return getStructureSpecCollection().addSpec(currentObjectZipName, currentStructure, currentSpecData);
 			return (currentStructure != null ? currentStructure : currentSpecData);
 		} finally {
-			currentObjectFileName = null;
+			currentObjectZipName = null;
 			currentStructure = null;
 			currentSpecData = null;
 		}
@@ -189,7 +202,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		}
 	}
 
-	public static String MediaTypeFromName(String fname) {
+	public static String mediaTypeFromName(String fname) {
 		int pt = Math.max(fname.lastIndexOf('/'), fname.lastIndexOf('.'));
 		return (fname.endsWith(".zip") ? "application/zip"
 				: fname.endsWith(".png") ? "image/png"

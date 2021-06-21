@@ -33,8 +33,8 @@ public class IFSUVVisSpecData extends IFSSpecData {
 
 
 	@Override
-	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len) {
-		return new IFSUVVisSpecDataRepresentation(name, ref, obj, len);
+	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len, String type, String subtype) {
+		return new IFSUVVisSpecDataRepresentation(ref, obj, len, type, subtype);
 	}
 
 

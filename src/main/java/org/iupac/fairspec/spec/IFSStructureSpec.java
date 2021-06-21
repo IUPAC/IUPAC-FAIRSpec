@@ -1,10 +1,8 @@
 package org.iupac.fairspec.spec;
 
 import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
-import org.iupac.fairspec.common.IFSReference;
-import org.iupac.fairspec.common.IFSRepresentation;
-import org.iupac.fairspec.struc.IFSStructure;
-import org.iupac.fairspec.struc.IFSStructureCollection;
+import org.iupac.fairspec.core.IFSStructure;
+import org.iupac.fairspec.core.IFSStructureCollection;
 
 /**
  * An abstract class to correlation one or more IFSStructure with one or more
@@ -44,11 +42,6 @@ public class IFSStructureSpec extends IFSStructureDataAssociation {
 
 	public IFSSpecDataCollection getSpecDataCollection() {
 		return (IFSSpecDataCollection) get(1);
-	}
-
-	@Override
-	protected IFSRepresentation newRepresentation(String objectName, IFSReference ifsReference, Object object, long len) {
-		return null;
 	}
 
 	public IFSStructure getStructure(int i) {

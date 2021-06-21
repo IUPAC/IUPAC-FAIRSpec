@@ -3,6 +3,7 @@ package org.iupac.fairspec.util;
 import java.util.Map;
 
 import org.iupac.fairspec.api.IFSExtractorI;
+import org.iupac.fairspec.api.IFSPropertyManagerI;
 import org.iupac.fairspec.api.IFSVendorPluginI;
 import org.iupac.fairspec.common.IFSConst;
 
@@ -156,7 +157,7 @@ public abstract class IFSDefaultVendorPlugin implements IFSVendorPluginI {
 	 * When rezipping, include this zip entry or not.
 	 */
 	@Override
-	public boolean doRezipInclude(String entryName) {
+	public boolean doRezipInclude(String zipfileName, String entryName) {
 		return true;
 	}
 
@@ -167,11 +168,7 @@ public abstract class IFSDefaultVendorPlugin implements IFSVendorPluginI {
 	 * @param val
 	 */
 	public void addProperty(String key, Object val) {
-		if (val == null)
-			return;
-		System.out.println(key + " = " + val);
-		if (extractor != null)
-			extractor.addProperty(key, val);
+		IFSPropertyManagerI.addProperty(extractor, key, val);
 	}
 
 	/**

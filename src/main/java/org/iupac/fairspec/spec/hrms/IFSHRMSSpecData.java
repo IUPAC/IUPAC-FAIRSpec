@@ -21,13 +21,13 @@ public class IFSHRMSSpecData extends IFSSpecData {
 	
 
 	public IFSHRMSSpecData(String name) {
-		super(name, ObjectType.MSSpecData);
+		super(name, ObjectType.HRMSSpecData);
 	}
 
 
 	@Override
-	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len) {
-		return new IFSHRMSSpecDataRepresentation(name, ref, obj, len);
+	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len, String type, String subtype) {
+		return new IFSHRMSSpecDataRepresentation(ref, obj, len, type, subtype);
 	}
 
 

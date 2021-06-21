@@ -19,12 +19,14 @@ public class IFSRepresentation implements IFSSerializableI {
 	private final IFSReference ref;
 	private final Object data;
 	private long len;
+	private String subtype;
 	
-	public IFSRepresentation(String type, IFSReference ref, Object data, long len) {
+	public IFSRepresentation(IFSReference ref, Object data, long len, String type, String subtype) {
 		this.type = type;
 		this.ref = ref;
 		this.data = data;
 		this.len = len;
+		this.subtype = subtype;
 	}
 
 	public String getType() {
@@ -50,6 +52,15 @@ public class IFSRepresentation implements IFSSerializableI {
 		return len;
 	}
 
+
+	public String getSubtype() {
+		return subtype;
+	}
+
+	public void setSubtype(String subtype) {
+		this.subtype = subtype;
+	}
+
 	public String toString() {
 		return "[IFSRepresentation type=" + type + " ref=" + ref + "]";
 	}
@@ -58,6 +69,8 @@ public class IFSRepresentation implements IFSSerializableI {
 	public void serialize(IFSSerializerI serializer) {
 		if (type != null && !type.equals("unknown"))
 			serializer.addAttr("type", type);
+		if (subtype != null)
+			serializer.addAttr("subtype", subtype);
 		serializer.addAttrInt("len", (int) len);
 		serializer.addObject("ref", ref);
 		if (data != null)

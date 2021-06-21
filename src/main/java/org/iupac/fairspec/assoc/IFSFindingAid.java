@@ -61,7 +61,8 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 		if (serializing) {
 			serializeTop(serializer);
 			serializer.addObject("created", date.toGMTString());
-			serializer.addObject("pubInfo", pubInfo);
+			if (pubInfo != null)
+				serializer.addObject("pubInfo", pubInfo);
 			serializer.addObject("urls", urls);
 			serializeProps(serializer);
 			serializeList(serializer);
@@ -72,5 +73,6 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 			serializing = false;
 		}
 	}
+	
 	
 }

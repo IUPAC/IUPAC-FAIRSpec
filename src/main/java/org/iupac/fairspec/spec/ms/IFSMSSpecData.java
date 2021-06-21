@@ -28,8 +28,8 @@ public class IFSMSSpecData extends IFSSpecData {
 
 
 	@Override
-	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len) {
-		return new IFSMSSpecDataRepresentation(name, ref, obj, len);
+	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len, String type, String subtype) {
+		return new IFSMSSpecDataRepresentation(ref, obj, len, type, subtype);
 	}
 
 

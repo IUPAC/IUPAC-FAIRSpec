@@ -1,6 +1,7 @@
 package com.vendor.jeol;
 
 import org.iupac.fairspec.api.IFSExtractorI;
+import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
 import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
 
 public class JeolIFSVendorPlugin extends IFSDefaultVendorPlugin {
@@ -24,6 +25,11 @@ public class JeolIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	@Override
 	public String getVendorName() {
 		return "JEOL";
+	}
+
+	@Override
+	public String getDatasetType(String zipName) {
+		return IFSNMRSpecDataRepresentation.NMR_REP_VENDOR_DATASET;
 	}
 	
 }

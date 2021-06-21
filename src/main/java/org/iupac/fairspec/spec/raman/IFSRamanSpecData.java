@@ -25,8 +25,8 @@ public class IFSRamanSpecData extends IFSSpecData {
 	}
 	
 	@Override
-	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len) {
-		return new IFSRamanSpecDataRepresentation(name, ref, obj, len);
+	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len, String type, String subtype) {
+		return new IFSRamanSpecDataRepresentation(ref, obj, len, type, subtype);
 
 	}	
 

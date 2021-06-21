@@ -5,12 +5,12 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 public class IFSUVVisSpecDataRepresentation extends IFSSpecDataRepresentation {
 
-	public final static String MS_REP_VENDOR_DATASET = "IFS.uvvis.rep.vendor.dataset";
-	public final static String MS_REP_SPECTRUM_PDF = "IFS.uvvis.rep.spectrum.pdf";
-	public final static String MS_REP_SPECTRUM_IMAGE = "IFS.uvvis.rep.spectrum.image";
-	public final static String MS_REP_SPECTRUM_DESCRIPTION = "IFS.uvvis.rep.spectrum.description";
-	public final static String MS_REP_PEAKLIST = "IFS.uvvis.rep.peaklist";
-	public final static String MS_REP_JCAMP = "IFS.uvvis.rep.jcamp";
+	public final static String MS_REP_VENDOR_DATASET = "IFS.uvvis.representation.vendor.dataset";
+	public final static String MS_REP_SPECTRUM_PDF = "IFS.uvvis.representation.spectrum.pdf";
+	public final static String MS_REP_SPECTRUM_IMAGE = "IFS.uvvis.representation.spectrum.image";
+	public final static String MS_REP_SPECTRUM_DESCRIPTION = "IFS.uvvis.representation.spectrum.description";
+	public final static String MS_REP_PEAKLIST = "IFS.uvvis.representation.peaklist";
+	public final static String MS_REP_JCAMP = "IFS.uvvis.representation.jcamp";
 
 	private final static String[] repNames = new String[] {
 			MS_REP_VENDOR_DATASET,
@@ -25,8 +25,8 @@ public class IFSUVVisSpecDataRepresentation extends IFSSpecDataRepresentation {
 		return repNames;
 	}
 
-	public IFSUVVisSpecDataRepresentation(String type, IFSReference ref, Object data, long len) {
-		super(type, ref, data, len);
+	public IFSUVVisSpecDataRepresentation(IFSReference ref, Object data, long len, String type, String subtype) {
+		super(ref, data, len, type, subtype);
 	}
 
 }

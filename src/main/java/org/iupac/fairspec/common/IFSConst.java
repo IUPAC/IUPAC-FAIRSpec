@@ -2,33 +2,30 @@ package org.iupac.fairspec.common;
 
 public class IFSConst {
 	
-	public final static String IFS_FAIRSpec_version = "0.0.1-2021_06_18";
-	
-	
+	public static final String IFS_FAIRSpec_version = "0.0.1-2021_06_18";
 
-	public enum PROPERTY_TYPE { INT, NUCL, OBJ };
+	public enum PROPERTY_TYPE { INT, FLOAT, STRING, NUCL, OBJ };
 	
 	public enum PROPERTY_UNITS { NONE, MHZ };
 	
 	
-	
+
+	/**
+	 * regex for files that are absolutely worthless
+	 */
+	public static final String junkFilePattern = "(MACOSX)|(desktop\\.ini)|(\\.DS_Store)";
+
 	/**
 	 * 	the files we want extracted -- no $ for cdx, as that could be cdxml
 	 */
-	public final static String defaultCachePattern = ""
-			+ "\\.pdf$|\\.png$|"
-			+ "\\.mol$|\\.sdf$|"
-			+ "\\.cdx$|\\.cdxml$"
-//			+ "\\.log$|\\.out$|\\.txt$|"// maybe put these into JSON only? 
+	public static final String defaultCachePattern = ""
+			+ "(?<img>\\.pdf$|\\.png$)"
+//			+ "|(?<text>\\.log$|\\.out$|\\.txt$)"// maybe put these into JSON only? 
 			;
-
-	
-	
-	/**
-	 * Not sure about this one -- the idea is that we found a .mnova file within a 
-	 * directory that needs to be rezipped. Ignore this as not valid?
-	 */
  	
+	public static boolean isRepresentation(String param) {
+		return (param.indexOf(".representation.") >= 0);
+	}
 
 	public static final String IFS_SPEC_NMR_INSTR_MANUFACTURER_NAME = "IFS.spec.nmr.instr.manufacturer.name";
 	public static final String IFS_SPEC_NMR_INSTR_FREQ_NOMINAL      = "IFS.spec.nmr.instr.freq.nominal";
@@ -47,6 +44,12 @@ public class IFSConst {
 	public static final String IFS_SPEC_NMR_EXPT_PULSE_PROG = "IFS.spec.nmr.expt.pulse.prog";
 	public static final String IFS_SPEC_NMR_EXPT_SOLVENT    = "IFS.spec.nmr.expt.solvent";
 
+
+	public static final String IFS_STRUCTURE_PROP_COMPOUND_ID  = "IFS.structure.property.compound.id";
+	public static final String IFS_STRUCTURE_PROP_SMILES       = "IFS.structure.property.smiles";
+	public static final String IFS_STRUCTURE_PROP_INCHI        = "IFS.structure.property.inchi";
+	public static final String IFS_STRUCTURE_PROP_INCHIKEY     = "IFS.structure.property.inchikey";
+	
 
 
 		

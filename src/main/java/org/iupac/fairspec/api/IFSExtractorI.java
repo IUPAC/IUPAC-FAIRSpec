@@ -15,7 +15,7 @@ import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
  */
 public interface IFSExtractorI {
 
-	void initialize(File ifsExtractScriptFile) throws IOException;
+	void readIFSExtractJSON(File ifsExtractScriptFile) throws IOException;
 
 	void setLocalSourceDir(String sourceDir);
 
@@ -32,5 +32,8 @@ public interface IFSExtractorI {
 	IFSSpecDataFindingAid extractObjects(File targetDir) throws IFSException, IOException;
 
 	void addProperty(String param, Object val);
+
+	boolean extractAndCreateFindingAid(File ifsExtractScriptFile, String localSourceDir, File targetDir, String prefix)
+			throws IOException, IFSException;
 
 }

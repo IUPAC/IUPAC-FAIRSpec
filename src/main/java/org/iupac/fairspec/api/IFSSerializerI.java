@@ -15,5 +15,4 @@ public interface IFSSerializerI {
 	void addObject(String string, Object oval);
 
 	String closeObject();
-
 }

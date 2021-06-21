@@ -7,7 +7,7 @@
  {"data0":"{IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/jo{hash}_si_002.zip}"},
  {"data":"{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22567817}"},
  
- {"zip":"{data}|{id=IFS.structure.param.compound.id::*}.zip|"},
- {"objects":"{zip}{IFS.spec.nmr.representation.vendor.dataset::<id>_{IFS.spec.nmr.param.expt::*}/}"},
+ {"zip":"{data}|{id=IFS.structure.property.compound.id::*}.zip|"},
+ {"objects":"{zip}{IFS.spec.nmr.representation.vendor.dataset::<id>_{IFS.spec.nmr.property.expt::*}/}"},
  {"objects":"{zip}{IFS.spec.nmr.representation.vendor.dataset::<id>.mnova}"}
 ]}

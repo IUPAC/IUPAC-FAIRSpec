@@ -1,6 +1,7 @@
 package org.iupac.fairspec.spec;
 
-import org.iupac.fairspec.data.IFSDataObjectCollection;
+import org.iupac.fairspec.core.IFSDataObjectCollection;
+import org.iupac.fairspec.spec.hrms.IFSHRMSSpecData;
 import org.iupac.fairspec.spec.ir.IFSIRSpecData;
 import org.iupac.fairspec.spec.ms.IFSMSSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
@@ -35,19 +36,23 @@ public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> 
 	public IFSSpecData newIFSDataObject(String path, String param, String value, ObjectType type) {
 		IFSSpecData sd;
 		switch(type) {
-		case IRSpecData:
-			sd = new IFSIRSpecData(null);
-			break;
-		case MSSpecData:
-			sd = new IFSMSSpecData(null);
-			break;
 		case NMRSpecData:
 			sd = new IFSNMRSpecData(null);
+			break;
+		case IRSpecData:
+			sd = new IFSIRSpecData(null);
 			break;
 		case RAMANSpecData:
 			sd = new IFSRamanSpecData(null);
 			break;
+		case HRMSSpecData:
+			sd = new IFSHRMSSpecData(null);
+			break;
+		case MSSpecData:
+			sd = new IFSMSSpecData(null);
+			break;
 		default:
+			System.err.println("IFSSpecData unidentified type! " + type);
 			return null;	
 		}
 		sd.setPath(path);

@@ -88,6 +88,7 @@ public class IFSDefaultJSONSerializer implements IFSSerializerI {
 	public void addValue(Object val) {
 		addValue(val, true);
 	}
+	
 	private void addValue(Object val, boolean addKey) {
 		if (val instanceof IFSSerializableI) {
 			val = serialize((IFSSerializableI) val);

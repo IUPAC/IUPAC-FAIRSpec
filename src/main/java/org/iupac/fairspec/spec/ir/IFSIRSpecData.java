@@ -25,8 +25,8 @@ public class IFSIRSpecData extends IFSSpecData {
 	}
 
 	@Override
-	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len) {
-		return new IFSIRSpecDataRepresentation(name, ref, obj, len);
+	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len, String type, String subtype) {
+		return new IFSIRSpecDataRepresentation(ref, obj, len, type, subtype);
 	}	
 
 }

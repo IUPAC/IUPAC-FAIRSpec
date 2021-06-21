@@ -11,8 +11,8 @@ import org.iupac.fairspec.common.IFSRepresentation;
  */
 public abstract class IFSSpecDataRepresentation extends IFSRepresentation {
 
-	public IFSSpecDataRepresentation(String type, IFSReference ref, Object data, long len) {
-		super(type, ref, data, len);
+	public IFSSpecDataRepresentation(IFSReference ref, Object data, long len, String type, String subtype) {
+		super(ref, data, len, type, subtype);
 	}
 
 }

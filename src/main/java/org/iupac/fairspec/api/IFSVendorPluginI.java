@@ -25,7 +25,7 @@ import java.util.List;
  * @author hansonr
  *
  */
-public interface IFSVendorPluginI {
+public interface IFSVendorPluginI extends IFSPropertyManagerI {
 
 	public static List<IFSVendorPluginI> vendorPlugins = new ArrayList<>();
 
@@ -101,21 +101,15 @@ public interface IFSVendorPluginI {
 
 	String getVendorName();
 
-	String getParamRegex();
-
 	String getRezipRegex();
 
 	String getRezipPrefix(String dirname);
 
 	void startRezip(IFSExtractorI extractor);
 	
-	boolean doRezipInclude(String entryName);
-
-	boolean accept(IFSExtractorI extractor, String fname, byte[] bytes);
+	boolean doRezipInclude(String zipfileName, String entryName);
 
 	void endRezip();
-
-	boolean doExtract(String entryName);
 
 	int getIndex();
 	

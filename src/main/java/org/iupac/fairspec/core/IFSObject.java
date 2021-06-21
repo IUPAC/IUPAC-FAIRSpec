@@ -1,18 +1,16 @@
 package org.iupac.fairspec.core;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.api.IFSSerializableI;
 import org.iupac.fairspec.api.IFSSerializerI;
-import org.iupac.fairspec.common.IFSException;
+import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSProperty;
-import org.iupac.fairspec.common.IFSReference;
-import org.iupac.fairspec.common.IFSRepresentation;
 
 /**
  * 
@@ -23,11 +21,11 @@ import org.iupac.fairspec.common.IFSRepresentation;
  * maximum count, or with a name, a maximum count, and an "immutable" starting
  * set that are not allowed to be set or removed or changed.
  * 
- * IFSObject and its subclasses implement the IFSObjectI interface and come in
- * two flavors: IFSRepresentableObjectI and IFSAbstractObjectI.
+ * IFSObject and its subclasses implement the IFSObjectI interface and comes in
+ * two flavors: IFSRepresentableObject and IFSAbstractObject.
  * 
  * 
- * *** IFSRepresentableObjectI ***
+ * *** IFSRepresentableObject ***
  * 
  * IFSStructure and IFSDataObject
  * 
@@ -46,7 +44,7 @@ import org.iupac.fairspec.common.IFSRepresentation;
  * local file system directory.
  * 
  * 
- * *** IFSAbstractObjectI ***
+ * *** IFSAbstractObject ***
  * 
  * IFSCollection and IFSStructureDataAssociation
  * 
@@ -60,7 +58,7 @@ import org.iupac.fairspec.common.IFSRepresentation;
  * To be sure, an IFSCollection could describe a Digital Object in the form of a
  * zip file (and usually does). Nonetheless, this does not make it
  * "representable" in the sense that it is likely to have multiple distinctly
- * different representations that characterize IFSRepresentableObjectI classes.
+ * different representations that characterize IFSRepresentableObject classes.
  * 
  * 
  * *** core IFSObjectI classes ***
@@ -180,7 +178,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	/**
 	 * an arbitrary path to provide some sort of context
 	 */
-	private String path;
+	protected String path;
 
 	/**
 	 * known properties of this class, fully identified in terms of data type and
@@ -210,20 +208,6 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 
 	protected ObjectType subtype = ObjectType.Unknown;
 
-	/**
-	 * Optional allowance for creating a new representation of this object type.
-	 * This method should return null if it cannot process this request.
-	 * 
-	 * @param objectName
-	 * @param ifsReference
-	 * @param object
-	 * @param len
-	 * @return
-	 * @throws IFSException
-	 */
-	abstract protected IFSRepresentation newRepresentation(String objectName, IFSReference ifsReference, Object object,
-			long len);
-
 	@SuppressWarnings("unchecked")
 	public IFSObject(String name, ObjectType type) {
 		this(name, type, Integer.MAX_VALUE);
@@ -232,6 +216,8 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	@SuppressWarnings("unchecked")
 	public IFSObject(String name, ObjectType type, int maxCount, T... initialSet) {
 		this.name = name;
+		if (type == null)
+			System.out.println("IFSObject type null ???");
 		this.type = type;
 		this.maxCount = maxCount;
 		this.index = indexCount++;
@@ -265,7 +251,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 
 	public void setPropertyValue(String name, Object value) {
 		// check for .representation., which is not stored in the object.
-		if (name.indexOf(".representation.") >= 0)
+		if (IFSConst.isRepresentation(name))
 			return;
 		IFSProperty p = htProps.get(name);
 		if (p == null) {
@@ -325,19 +311,6 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	@Override
 	public int getObjectCount() {
 		return size();
-	}
-
-	protected final Map<String, IFSRepresentation> htReps = new LinkedHashMap<>();
-
-	@SuppressWarnings("unchecked")
-	public IFSRepresentation getRepresentation(String zipName, String localName, boolean createNew) {
-		IFSRepresentation rep = htReps.get(path + "::" + zipName);
-		if (rep == null && createNew) {
-			rep = newRepresentation(REP_TYPE_UNKNOWN, new IFSReference(zipName, localName, path), null, 0);
-			add((T) rep);
-			htReps.put(path + "::" + zipName, rep);
-		}
-		return rep;
 	}
 
 	@Override
@@ -429,8 +402,16 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 		if (urlIndex >= 0)
 			serializer.addAttrInt("urlIndex", urlIndex);
 		serializer.addAttr("path", getPath());
-		if (haveProperties())
-			serializer.addObject("properties", getProperties());
+		if (haveProperties()) {
+			// general serialization does not write out units
+			Map<String, Object> map = new TreeMap<>();
+			for (Entry<String, IFSProperty> e: htProps.entrySet()) {
+				Object val = e.getValue().getValue();
+				if (val != null)
+					map.put(e.getKey(), val);
+			}
+			serializer.addObject("properties", map);
+		}
 		if (getParams().size() > 0)
 			serializer.addObject("params", getParams());
 	}

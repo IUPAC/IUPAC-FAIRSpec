@@ -1,6 +1,7 @@
 package com.vendor.jcamp;
 
 import org.iupac.fairspec.api.IFSExtractorI;
+import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
 import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
 
 public class JCAMPDXIFSVendorPlugin extends IFSDefaultVendorPlugin {
@@ -24,6 +25,11 @@ public class JCAMPDXIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	@Override
 	public String getVendorName() {
 		return "JCAMP-DX";
+	}
+
+	@Override
+	public String getDatasetType(String zipName) {
+		return IFSNMRSpecDataRepresentation.NMR_REP_VENDOR_DATASET;
 	}
 
 }

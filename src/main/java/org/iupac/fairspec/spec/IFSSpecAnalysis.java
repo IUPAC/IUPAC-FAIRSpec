@@ -1,8 +1,8 @@
 package org.iupac.fairspec.spec;
 
 import org.iupac.fairspec.assoc.IFSAnalysis;
-import org.iupac.fairspec.data.IFSDataObjectCollection;
-import org.iupac.fairspec.struc.IFSStructureCollection;
+import org.iupac.fairspec.core.IFSDataObjectCollection;
+import org.iupac.fairspec.core.IFSStructureCollection;
 
 /**
  * A subclass of IFSAnalysis that provides a detailed atom-based analysis of

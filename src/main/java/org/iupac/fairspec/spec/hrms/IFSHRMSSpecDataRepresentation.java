@@ -5,10 +5,10 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 public class IFSHRMSSpecDataRepresentation extends IFSSpecDataRepresentation {
 
-	public final static String HRMS_REP_VENDOR_DATASET = "IFS.hrms.rep.vendor.dataset";
-	public final static String HRMS_REP_SPECTRUM_PDF = "IFS.hrms.rep.spectrum.pdf";
-	public final static String HRMS_REP_SPECTRUM_IMAGE = "IFS.hrms.rep.spectrum.image";
-	public final static String HRMS_REP_SPECTRUM_DESCRIPTION = "IFS.hrms.rep.spectrum.description";
+	public final static String HRMS_REP_VENDOR_DATASET = "IFS.hrms.representation.vendor.dataset";
+	public final static String HRMS_REP_SPECTRUM_PDF = "IFS.hrms.representation.spectrum.pdf";
+	public final static String HRMS_REP_SPECTRUM_IMAGE = "IFS.hrms.representation.spectrum.image";
+	public final static String HRMS_REP_SPECTRUM_DESCRIPTION = "IFS.hrms.representation.spectrum.description";
 	
 	private final static String[] repNames = new String[] {
 			HRMS_REP_VENDOR_DATASET,
@@ -21,8 +21,8 @@ public class IFSHRMSSpecDataRepresentation extends IFSSpecDataRepresentation {
 		return repNames;
 	}
 
-	public IFSHRMSSpecDataRepresentation(String type, IFSReference ref, Object data, long len) {
-		super(type, ref, data, len);
+	public IFSHRMSSpecDataRepresentation(IFSReference ref, Object data, long len, String type, String subtype) {
+		super(ref, data, len, type, subtype);
 	}
 
 }
