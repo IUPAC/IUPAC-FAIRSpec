@@ -1,8 +1,5 @@
 package org.iupac.fairspec.util;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,12 +7,10 @@ import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSPropertyManagerI;
 import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.core.IFSStructureRepresentation;
-import org.jmol.adapter.smarter.Resolver;
 import org.jmol.api.JmolViewer;
 import org.jmol.viewer.Viewer;
 
 import javajs.util.BS;
-import javajs.util.Rdr;
 
 public class IFSDefaultStructurePropertyManager implements IFSPropertyManagerI {
 
@@ -84,14 +79,16 @@ public class IFSDefaultStructurePropertyManager implements IFSPropertyManagerI {
 		
 		if (check2d) {
 			try {
-				JmolViewer v = getJmolViewer();
-				jmolViewer.loadInline(new String(bytes));
-				smiles = jmolViewer.getSmiles(null);
-				BS atoms = jmolViewer.bsA();
-				inchi = jmolViewer.getInchi(atoms,  null,  null);
-				inchiKey = jmolViewer.getInchi(atoms,  null,  "key");
-				Map<String, Object> info = jmolViewer.getCurrentModelAuxInfo();
-				System.out.println(info);
+				Viewer v = getJmolViewer();
+				v.loadInline(new String(bytes));
+				BS atoms = v.bsA();
+
+				smiles = v.getSmiles(null);
+				inchi = v.getInchi(atoms,  null,  null);
+				inchiKey = v.getInchi(atoms,  null,  "key");
+
+				// check 2D or 3D
+				Map<String, Object> info = v.getCurrentModelAuxInfo();
 				is2D = "2D".equals(info.get("dimension"));
 				if (is2D) {
 					type += ".2d";
@@ -114,7 +111,7 @@ public class IFSDefaultStructurePropertyManager implements IFSPropertyManagerI {
 		return type;
 	}
 
-	protected JmolViewer getJmolViewer() {
+	protected Viewer getJmolViewer() {
 		if (jmolViewer == null) {
 			System.out.println("IFSDefaultStructurePropertyManager initializing Jmol...");
 			jmolViewer = (Viewer) JmolViewer.allocateViewer(null, null);
