@@ -7,5 +7,5 @@
  {"data0":"{IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
  {"data": "{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22150197}"},
  {"path":"{data}|NMR/{id=IFS.structure.property.compound.id::*}/"},
- {"objects":"{path}{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.property.expt::*}/}"}
+ {"objects":"{path}{IFS.spec.nmr.representation.vendor.dataset::{IFS.spec.nmr.property.expt::*}/*/}"}
 ]}

@@ -58,23 +58,23 @@ public class ExtractorTest extends Extractor {
 			"acs.orglett.0c00571/21975525", // 0 3212 files; zips of bruker zips and HRMS
 			"acs.orglett.0c01153/22284726,22284729", // 1 bruker dirs
 			"acs.joc.0c00770/22567817",  // 2 727 files; zips of bruker dirs + mnovas
-			"acs.orglett.0c00624/21947274", // 1 1143 files; MANY bruker dirs
-			"acs.orglett.0c00788/22125318", // 2 jdfs
-			"acs.orglett.0c00874/22233351", // 3 bruker dirs
-			"acs.orglett.0c00967/22111341", // 4 bruker dirs + jdfs
-			"acs.orglett.0c01022/22195341", // 5  many mnovas
-			"acs.orglett.0c01197/22491647", // 6 many mnovas
-			"acs.orglett.0c01277/22613762", // 7 bruker dirs
-			"acs.orglett.0c01297/22612484", // 8 bruker dirs
+			"acs.orglett.0c00624/21947274", // 3 1143 files; MANY bruker dirs
+			"acs.orglett.0c00788/22125318", // 4 jdfs
+			"acs.orglett.0c00874/22233351", // 5 bruker dirs
+			"acs.orglett.0c00967/22111341", // 6 bruker dirs + jdfs
+			"acs.orglett.0c01022/22195341", // 7  many mnovas
+			"acs.orglett.0c01197/22491647", // 8 many mnovas
+			"acs.orglett.0c01277/22613762", // 9 bruker dirs
+			"acs.orglett.0c01297/22612484", // 10 bruker dirs
 			// these next four are too large to save at GitHub (> 100 MB)
-			//"acs.orglett.0c00755/22150197", // 3 MANY bruker dirs
-			//"acs.orglett.0c01043/22232721", // 8  single 158-MB mnova
+			"acs.orglett.0c00755/22150197", // 11 MANY bruker dirs
+			"acs.orglett.0c01043/22232721", // 12  single 158-MB mnova
 	};
 	
 	public static void main(String[] args) {
 
-		int i0 = 7;
-		int i1 = 7; // 12 max
+		int i0 = 11;
+		int i1 = 11; // 12 max
 		
 		debugging = true;//false;//true; // verbose listing of all files
 		
