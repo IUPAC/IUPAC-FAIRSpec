@@ -13,10 +13,12 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 @SuppressWarnings("serial")
 public class IFSIRSpecData extends IFSSpecData {
 
+	public static final String IFS_PROP_SPEC_IR_EXPT_ID    = "IFS.property.spec.ir.expt.id";
+
 	{
 		setProperties(new IFSProperty[] {
 				// TODO
-//				new IFSProperty("IFS.spec.ir.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
+				new IFSProperty(IFSIRSpecData.IFS_PROP_SPEC_IR_EXPT_ID),
 		});
 	}
 	

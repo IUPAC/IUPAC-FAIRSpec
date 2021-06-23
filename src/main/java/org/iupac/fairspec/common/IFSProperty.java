@@ -15,18 +15,23 @@ public class IFSProperty implements IFSSerializableI {
 	
 	private Object value;
 
-	public IFSProperty(String name, PROPERTY_TYPE type, PROPERTY_UNITS units) {
+	public IFSProperty(String name, Object value, PROPERTY_TYPE type, PROPERTY_UNITS units) {
 		this.name = name;
 		this.type = type;
 		this.units = units;
+		this.value = value;
 	}
 
+	public IFSProperty(String name, PROPERTY_TYPE type, PROPERTY_UNITS units) {
+		this(name, null, type, units);
+	}
+	
 	public IFSProperty(String name, PROPERTY_TYPE type) {
-		this(name, type, PROPERTY_UNITS.NONE);
+		this(name, null, type, PROPERTY_UNITS.NONE);
 	}
 
 	public IFSProperty(String name) {
-		this(name, PROPERTY_TYPE.STRING, PROPERTY_UNITS.NONE);
+		this(name, null, PROPERTY_TYPE.STRING, PROPERTY_UNITS.NONE);
 	}
 
 
@@ -47,9 +52,7 @@ public class IFSProperty implements IFSSerializableI {
 	}
 
 	public IFSProperty getClone(Object value) {
-		IFSProperty p = new IFSProperty(name, type, units);
-		p.value = value;
-		return p;
+		return new IFSProperty(name, value, type, units);
 	}
 	
 	@Override

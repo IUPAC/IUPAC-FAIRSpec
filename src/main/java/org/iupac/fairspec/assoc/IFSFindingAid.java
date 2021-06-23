@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.iupac.fairspec.api.IFSSerializerI;
+import org.iupac.fairspec.common.IFSConst;
+import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.core.IFSCollection;
+import org.iupac.fairspec.spec.ms.IFSMSSpecData;
 
 /**
  * The master class for a full collection, as from a publication or thesis or whatever.
@@ -18,6 +21,14 @@ import org.iupac.fairspec.core.IFSCollection;
  */
 @SuppressWarnings("serial")
 public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
+	
+	
+	{
+		super.setProperties(new IFSProperty[] {
+				new IFSProperty(IFSConst.IFS_FINDINGAID_DATA_LICENSE_NAME),
+				new IFSProperty(IFSConst.IFS_FINDINGAID_DATA_LICENSE_URI),
+		});
+	}
 
 	protected List<String> urls = new ArrayList<>();
 
@@ -69,7 +80,7 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 		} else {
 			// addObject will call this method after wrapping
 			serializing = true;
-			serializer.addObject("IFS.findingaid", this);
+			serializer.addObject(IFSConst.IFS_FINDINGAID, this);
 			serializing = false;
 		}
 	}

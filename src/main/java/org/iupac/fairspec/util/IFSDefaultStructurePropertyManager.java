@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSPropertyManagerI;
-import org.iupac.fairspec.common.IFSConst;
+import org.iupac.fairspec.core.IFSStructure;
 import org.iupac.fairspec.core.IFSStructureRepresentation;
 import org.jmol.api.JmolViewer;
 import org.jmol.viewer.Viewer;
@@ -101,13 +101,13 @@ public class IFSDefaultStructurePropertyManager implements IFSPropertyManagerI {
 			// .getFileType(Rdr.getBufferedReader(Rdr.getBIS(bytes), null));
 		}
 		if (smiles != null) {
-			IFSPropertyManagerI.addProperty(extractor, IFSConst.IFS_STRUCTURE_PROP_SMILES, smiles);
+			IFSPropertyManagerI.addProperty(extractor, IFSStructure.IFS_PROP_STRUC_SMILES, smiles);
 		}
 		if (inchi != null) {
-			IFSPropertyManagerI.addProperty(extractor, IFSConst.IFS_STRUCTURE_PROP_INCHI, inchi);
+			IFSPropertyManagerI.addProperty(extractor, IFSStructure.IFS_PROP_STRUC_INCHI, inchi);
 		}
 		if (inchiKey != null) {
-			IFSPropertyManagerI.addProperty(extractor, IFSConst.IFS_STRUCTURE_PROP_INCHIKEY, inchiKey);
+			IFSPropertyManagerI.addProperty(extractor, IFSStructure.IFS_PROP_STRUC_INCHIKEY, inchiKey);
 		}
 		return type;
 	}

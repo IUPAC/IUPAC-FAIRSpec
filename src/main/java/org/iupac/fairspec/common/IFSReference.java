@@ -34,6 +34,10 @@ public class IFSReference implements IFSSerializableI {
 		return path;
 	}
 	
+	public Object getLocalName() {
+		return localName;
+	}
+
 	@Override
 	public String toString() {
 		return "[IFSReference " + (path == null ? "" : path + "::") + ref + "]";

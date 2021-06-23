@@ -1,6 +1,6 @@
-{"IFS-extract-version":"0.1.0-alpha","pathway":[
+{"IFS-extract-version":"0.1.0-alpha","keys":[
  {"example":"two supporting information zip files; compound zip files containing a single compound directory containing identified bruker zip files and CDX files"},
- {"license":"{IFS.findingaid.license.uri::https://creativecommons.org/licenses/by-nc/4.0},{IFS.findingaid.license.name::cc-by-nc-4.0}"},
+ {"license":"{IFS.findingaid.data.license.uri::https://creativecommons.org/licenses/by-nc/4.0},{IFS.findingaid.data.license.name::cc-by-nc-4.0}"},
  {"hash":"0c01153"},
  {"ifsid":"acs.orglett.{hash}"},
  {"puburi":"{IFS.findingaid.source.publication.uri::https://doi.org/10.1021/{ifsid}}"},
@@ -8,12 +8,12 @@
  {"data02":"{IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_003.zip}"},
  
  {"data1":"{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22284726}"},
- {"path1":"{data1}|*.zip|{id=IFS.structure.property.compound.id::*}/"},  
- {"objects":"{path1}{IFS.spec.nmr.representation.vendor.dataset::{expt=IFS.spec.nmr.property.expt::*}.zip|{expt}/}"},
- {"objects":"{path1}{IFS.structure.representation.cdx::*.cdx}"},
+ {"path1":"{data1}|*.zip|{id=IFS.property.struc.compound.id::*}/"},  
+ {"objects":"{path1}{IFS.representation.spec.nmr.vendor.dataset::{expt=IFS.property.spec.nmr.expt.id::*}.zip|{expt}/}"},
+ {"objects":"{path1}{IFS.representation.struc.cdx::*.cdx}"},
 
  {"data2":"{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22284729}"},
- {"path2":"{data2}|*.zip|{id=IFS.structure.property.compound.id::*}/"},
- {"objects":"{path2}{IFS.spec.nmr.representation.vendor.dataset::{expt=IFS.spec.nmr.property.expt::*}.zip|{expt}/}"},
- {"objects":"{path2}{IFS.structure.representation.cdx::*.cdx}"}
+ {"path2":"{data2}|*.zip|{id=IFS.property.struc.compound.id::*}/"},
+ {"objects":"{path2}{IFS.representation.spec.nmr.vendor.dataset::{expt=IFS.property.spec.nmr.expt.id::*}.zip|{expt}/}"},
+ {"objects":"{path2}{IFS.representation.struc.cdx::*.cdx}"}
 ]}

@@ -1,13 +1,13 @@
 package org.iupac.fairspec.spec;
 
 import java.util.ArrayList;
-import java.util.BitSet;
 import java.util.List;
 
 import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.assoc.IFSFindingAid;
 import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
+import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSRepresentation;
 import org.iupac.fairspec.core.IFSCollection;
@@ -17,7 +17,8 @@ import org.iupac.fairspec.core.IFSObject;
 import org.iupac.fairspec.core.IFSRepresentableObject;
 import org.iupac.fairspec.core.IFSStructure;
 import org.iupac.fairspec.core.IFSStructureCollection;
-import org.jmol.util.C;
+
+import javajs.util.PT;
 
 /**
  * The master class for a full FAIRSpec collection, as from a publication or
@@ -69,25 +70,32 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	 * 
 	 * @param propName
 	 * @return
+	 * @throws IFSException 
 	 */
-	public static ObjectType getObjectTypeForName(String propName) {
-		if (propName.startsWith("IFS.findingaid."))
+	public static ObjectType getObjectTypeForName(String propName) throws IFSException {
+		if (IFSConst.isFindingAid(propName))
 			return ObjectType.SpecDataFindingAid;
-		if (propName.startsWith("IFS.structure."))
+		if (IFSConst.isProperty(propName))
+			propName = PT.rep(propName,IFSConst.IFS_PROPERTY_FLAG, "\0");
+		else if (IFSConst.isRepresentation(propName))
+			propName = PT.rep(propName,IFSConst.IFS_REPRESENTATION_FLAG, "\0");
+		else
+			throw new IFSException("bad IFS identifier: " + propName);
+		if (propName.startsWith("\0struc."))
 			return ObjectType.Structure;
-		if (propName.startsWith("IFS.analysis."))
+		if (propName.startsWith("\0analysis."))
 			return ObjectType.SpecAnalysis;
-		if (propName.startsWith("IFS.spec.nmr."))
+		if (propName.startsWith("\0spec.nmr."))
 			return ObjectType.NMRSpecData;
-		if (propName.startsWith("IFS.spec.ir."))
+		if (propName.startsWith("\0spec.ir."))
 			return ObjectType.IRSpecData;
-		if (propName.startsWith("IFS.spec.raman."))
+		if (propName.startsWith("\0spec.raman."))
 			return ObjectType.RAMANSpecData;
-		if (propName.startsWith("IFS.spec.hrms."))
+		if (propName.startsWith("\0spec.hrms."))
 			return ObjectType.HRMSSpecData;
-		if (propName.startsWith("IFS.spec.ms."))
+		if (propName.startsWith("\0spec.ms."))
 			return ObjectType.MSSpecData;
-		if (propName.startsWith("IFS.spec.uvvis."))
+		if (propName.startsWith("\0spec.uvvis."))
 			return ObjectType.UVVisSpecData;
 		return ObjectType.Unknown;		
 	}
@@ -125,6 +133,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		case Structure:
 			if (currentStructure == null) {
 				currentStructure = getStructureCollection().getStructureFor(rootPath, localName, param, value, currentObjectZipName, mediaTypeFromName(localName));
+				System.out.println("creating Structure " + currentStructure.getName());
 				currentStructure.setUrlIndex(currentUrlIndex);
 			} else {
 				currentStructure.setPropertyValue(param, value);
@@ -253,28 +262,30 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		}
 	}
 
-	/**
-	 * Remove a set of spectra, both from specDataCollection and structureSpecCollection items, 
-	 * removing those associations if they have no spectra remaining.
-	 * 
-	 * @param list
-	 * @return number of IFSSpecData removed
-	 */
-	public int removeSpecData(List<IFSSpecData> list) {
-		IFSSpecDataCollection c = getSpecDataCollection();
-		int n = c.size();
-		getSpecDataCollection().removeAll(list);
-		n -= c.size();
-		IFSStructureSpecCollection ssc = getStructureSpecCollection();
+	public int cleanStructureSpecs() {
 		List<IFSStructureDataAssociation> lstRemove = new ArrayList<>();
+		IFSStructureSpecCollection ssc = getStructureSpecCollection();
+		int n = 0;
 		for (IFSStructureDataAssociation ss : ssc) {
-			lstRemove.clear();
+			List<IFSSpecData> empty = new ArrayList<>();
 			IFSDataObjectCollection<IFSDataObject<?>> dc = ss.getDataObjectCollection();
-			dc.removeAll(list);
-			if (dc.size() == 0)
+			for (IFSDataObject<?> d : dc) {
+				if (d.size() == 0)
+					empty.add((IFSSpecData) d);
+			}
+			n += empty.size();
+			dc.removeAll(empty);
+			if (dc.size() == 0) {
 				lstRemove.add(ss);
+				IFSStructure st = ss.getFirstStructure();
+				System.out.println("removing structure " + st.getName());
+				getStructureCollection().remove(st);
+				n++;
+			}
 		}
+		n += lstRemove.size();
 		ssc.removeAll(lstRemove);
 		return n;
 	}
+
 }

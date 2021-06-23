@@ -5,17 +5,17 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 public class IFSHRMSSpecDataRepresentation extends IFSSpecDataRepresentation {
 
-	public final static String HRMS_REP_VENDOR_DATASET = "IFS.hrms.representation.vendor.dataset";
-	public final static String HRMS_REP_SPECTRUM_PDF = "IFS.hrms.representation.spectrum.pdf";
-	public final static String HRMS_REP_SPECTRUM_IMAGE = "IFS.hrms.representation.spectrum.image";
-	public final static String HRMS_REP_SPECTRUM_DESCRIPTION = "IFS.hrms.representation.spectrum.description";
+	public final static String IFS_REP_SPEC_HRMS_VENDOR_DATASET = "IFS.representation.spec.hrms.vendor.dataset";
+	public final static String IFS_REP_SPEC_HRMS_SPECTRUM_PDF = "IFS.representation.spec.hrms.spectrum.pdf";
+	public final static String IFS_REP_SPEC_HRMS_SPECTRUM_IMAGE = "IFS.representation.spec.hrms.spectrum.image";
+	public final static String IFS_REP_SPEC_HRMS_SPECTRUM_DESCRIPTION = "IFS.representation.spec.hrms.spectrum.description";
 	
 	private final static String[] repNames = new String[] {
-			HRMS_REP_VENDOR_DATASET,
-			HRMS_REP_SPECTRUM_PDF,
-			HRMS_REP_SPECTRUM_IMAGE,
-			HRMS_REP_SPECTRUM_DESCRIPTION
-				};
+			IFS_REP_SPEC_HRMS_VENDOR_DATASET,
+			IFS_REP_SPEC_HRMS_SPECTRUM_PDF,
+			IFS_REP_SPEC_HRMS_SPECTRUM_IMAGE,
+			IFS_REP_SPEC_HRMS_SPECTRUM_DESCRIPTION
+	};
 
 	public static String[] getRepnames() {
 		return repNames;

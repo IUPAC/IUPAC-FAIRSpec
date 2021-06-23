@@ -5,21 +5,21 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 public class IFSIRSpecDataRepresentation extends IFSSpecDataRepresentation {
 
-	public final static String IR_REP_VENDOR_DATASET = "IFS.spec.ir.representation.vendor.dataset";
-	public final static String IR_REP_SPECTRUM_PDF = "IFS.spec.ir.representation.spectrum.pdf";
-	public final static String IR_REP_SPECTRUM_IMAGE = "IFS.spec.ir.representation.spectrum.image";
-	public final static String IR_REP_SPECTRUM_DESCRIPTION = "IFS.spec.ir.representation.spectrum.description";
-	public final static String IR_REP_PEAKLIST = "IFS.spec.ir.representation.peaklist";
-	public final static String IR_REP_JCAMP = "IFS.spec.ir.representation.jcamp";
+	public final static String IFS_REP_SPEC_IR_VENDOR_DATASET = "IFS.representation.spec.ir.vendor.dataset";
+	public final static String IFS_REP_SPEC_IR_SPECTRUM_PDF = "IFS.representation.spec.ir.spectrum.pdf";
+	public final static String IFS_REP_SPEC_IR_SPECTRUM_IMAGE = "IFS.representation.spec.ir.spectrum.image";
+	public final static String IFS_REP_SPEC_IR_SPECTRUM_DESCRIPTION = "IFS.representation.spec.ir.spectrum.description";
+	public final static String IFS_REP_SPEC_IR_PEAKLIST = "IFS.representation.spec.ir.peaklist";
+	public final static String IFS_REP_SPEC_IR_JCAMP = "IFS.representation.spec.ir.jcamp";
 
 	private final static String[] repNames = new String[] {
-			IR_REP_VENDOR_DATASET,
-			IR_REP_JCAMP,
-			IR_REP_SPECTRUM_PDF,
-			IR_REP_SPECTRUM_IMAGE,
-			IR_REP_SPECTRUM_DESCRIPTION,
-			IR_REP_PEAKLIST,		
-				};
+			IFS_REP_SPEC_IR_VENDOR_DATASET,
+			IFS_REP_SPEC_IR_JCAMP,
+			IFS_REP_SPEC_IR_SPECTRUM_PDF,
+			IFS_REP_SPEC_IR_SPECTRUM_IMAGE,
+			IFS_REP_SPEC_IR_SPECTRUM_DESCRIPTION,
+			IFS_REP_SPEC_IR_PEAKLIST		
+	};
 
 	public static String[] getRepnames() {
 		return repNames;

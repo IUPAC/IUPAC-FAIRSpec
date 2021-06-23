@@ -7,7 +7,7 @@ import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
 
 @SuppressWarnings("serial")
-public abstract class IFSRepresentableObject<T> extends IFSObject<T> {
+public abstract class IFSRepresentableObject<T extends IFSRepresentation> extends IFSObject<T> {
 
 	public IFSRepresentableObject(String name, ObjectType type) {
 		super(name, type);
@@ -42,5 +42,13 @@ public abstract class IFSRepresentableObject<T> extends IFSObject<T> {
 	 */
 	abstract protected IFSRepresentation newRepresentation(String objectName, IFSReference ifsReference, Object object,
 			long len, String type, String subtype);
+
+	public void removeRepresentationFor(String localName) {
+		for (int i = size(); --i >= 0;)
+			if (localName.equals(get(i).getRef().getLocalName())) {
+				remove(i);
+				break;
+			}
+	}
 
 }

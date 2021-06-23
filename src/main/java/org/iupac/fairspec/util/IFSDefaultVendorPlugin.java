@@ -5,7 +5,7 @@ import java.util.Map;
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSPropertyManagerI;
 import org.iupac.fairspec.api.IFSVendorPluginI;
-import org.iupac.fairspec.common.IFSConst;
+import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 
 /**
  * An abstract class that underlies all the vendor plugins.
@@ -140,7 +140,7 @@ public abstract class IFSDefaultVendorPlugin implements IFSVendorPluginI {
 	}
 
 	protected void reportName() {
-		addProperty(IFSConst.IFS_SPEC_NMR_INSTR_MANUFACTURER_NAME, getVendorName());
+		addProperty(IFSNMRSpecData.IFS_SPEC_NMR_INSTR_MANUFACTURER_NAME, getVendorName());
 	}
 
 	/**

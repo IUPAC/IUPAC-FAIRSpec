@@ -13,10 +13,11 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 @SuppressWarnings("serial")
 public class IFSRamanSpecData extends IFSSpecData {
 
+	public static final String IFS_PROP_SPEC_RAMAN_EXPT_ID = "IFS.property.spec.raman.expt.id";
+
 	{
 		super.setProperties(new IFSProperty[] {
-				// TODO
-//				new IFSProperty("IFS.spec.raman.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
+				new IFSProperty(IFSRamanSpecData.IFS_PROP_SPEC_RAMAN_EXPT_ID),
 		});
 	}
 	

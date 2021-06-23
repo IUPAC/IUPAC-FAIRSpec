@@ -8,7 +8,6 @@ public class IFSConst {
 	
 	public enum PROPERTY_UNITS { NONE, MHZ };
 	
-	
 
 	/**
 	 * regex for files that are absolutely worthless
@@ -23,44 +22,41 @@ public class IFSConst {
 			+ "(?<img>\\.pdf$|\\.png$)"
 //			+ "|(?<text>\\.log$|\\.out$|\\.txt$)"// maybe put these into JSON only? 
 			;
- 	
-	public static boolean isRepresentation(String param) {
-		return (param.indexOf(".representation.") >= 0);
+
+
+	public static final String IFS_FINDINGAID_DATA_LICENSE_NAME = "IFS.findingaid.data.license.name";
+	public static final String IFS_FINDINGAID_DATA_LICENSE_URI  = "IFS.findingaid.data.license.uri";
+
+
+	// generic standard names:
+
+	public static final String IFS_FINDINGAID                 = "IFS.findingaid";
+	public static final String IFS_FINDINGAID_OBJECT          = "IFS.findingaid.object";
+	public static final String IFS_FINDINGAID_SOURCE_DATA_URI = "IFS.findingaid.source.data.uri";
+
+	public static final String IFS_EXPT_ID_FLAG = ".expt.id";
+	public static final String IFS_REPRESENTATION_FLAG = "IFS.representation.";
+	public static final String IFS_PROPERTY_FLAG = "IFS.property.";
+	public static final String IFS_FINDINGAID_FLAG = "IFS.findingaid.";
+
+
+	
+
+	public static boolean isExptID(String propName) {
+		return (propName != null && propName.endsWith(IFS_EXPT_ID_FLAG));
 	}
 
-	// These lists will grow substantially. Those that are not just strings have their definitions declared in 
-	// the specified classes:
+	public static boolean isRepresentation(String propName) {
+		return (propName != null && propName.startsWith(IFS_REPRESENTATION_FLAG));
+	}
+
+	public static boolean isProperty(String propName) {
+		return (propName != null && propName.startsWith(IFS_PROPERTY_FLAG));
+	}
+
+	public static boolean isFindingAid(String propName) {
+		return (propName != null && propName.startsWith(IFS_FINDINGAID_FLAG));
+	}
 	
 
-	// core.IFStructure
-	
-	public static final String IFS_STRUCTURE_PROP_COMPOUND_ID  = "IFS.structure.property.compound.id";
-	public static final String IFS_STRUCTURE_PROP_SMILES       = "IFS.structure.property.smiles";
-	public static final String IFS_STRUCTURE_PROP_INCHI        = "IFS.structure.property.inchi";
-	public static final String IFS_STRUCTURE_PROP_INCHIKEY     = "IFS.structure.property.inchikey";
-	
-
-	
-	// core.IFSNMRSpecData
-	
-	public static final String IFS_SPEC_NMR_INSTR_MANUFACTURER_NAME = "IFS.spec.nmr.instr.manufacturer.name";
-	public static final String IFS_SPEC_NMR_INSTR_FREQ_NOMINAL      = "IFS.spec.nmr.instr.freq.nominal";
-	public static final String IFS_SPEC_NMR_INSTR_PROBEID           = "IFS.spec.nmr.instr.probe.id";
-
-
-	public static final String IFS_SPEC_NMR_EXPT_DIM        = "IFS.spec.nmr.expt.dim";
-	public static final String IFS_SPEC_NMR_EXPT_FREQ_1     = "IFS.spec.nmr.expt.freq.1";
-	public static final String IFS_SPEC_NMR_EXPT_FREQ_2     = "IFS.spec.nmr.expt.freq.2";
-	public static final String IFS_SPEC_NMR_EXPT_FREQ_3     = "IFS.spec.nmr.expt.freq.3";
-	public static final String IFS_SPEC_NMR_EXPT_FREQ_4     = "IFS.spec.nmr.expt.freq.4";
-	public static final String IFS_SPEC_NMR_EXPT_NUCL_1     = "IFS.spec.nmr.expt.nucl.1";
-	public static final String IFS_SPEC_NMR_EXPT_NUCL_2     = "IFS.spec.nmr.expt.nucl.2";
-	public static final String IFS_SPEC_NMR_EXPT_NUCL_3     = "IFS.spec.nmr.expt.nucl.3";
-	public static final String IFS_SPEC_NMR_EXPT_NUCL_4     = "IFS.spec.nmr.expt.nucl.4";
-	public static final String IFS_SPEC_NMR_EXPT_PULSE_PROG = "IFS.spec.nmr.expt.pulse.prog";
-	public static final String IFS_SPEC_NMR_EXPT_SOLVENT    = "IFS.spec.nmr.expt.solvent";
-
-
-
-		
 }

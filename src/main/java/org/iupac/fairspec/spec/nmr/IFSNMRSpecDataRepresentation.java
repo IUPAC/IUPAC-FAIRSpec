@@ -5,28 +5,29 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 public class IFSNMRSpecDataRepresentation extends IFSSpecDataRepresentation {
 
-	public final static String NMR_REP_VENDOR_DATASET = "IFS.spec.nmr.representation.vendor.dataset";
-	public final static String NMR_REP_SPECTRUM_PDF = "IFS.spec.nmr.representation.spectrum.pdf";
-	public final static String NMR_REP_SPECTRUM_IMAGE = "IFS.spec.nmr.representation.spectrum.image";
-	public final static String NMR_REP_SPECTRUM_DESCRIPTION = "IFS.spec.nmr.representation.spectrum.description";
-	public final static String NMR_REP_PEAKLIST = "IFS.spec.nmr.representation.peaklist";
-	public final static String NMR_REP_JCAMP_FID_1D = "IFS.spec.nmr.representation.jcamp.fid.1d";
-	public final static String NMR_REP_JCAMP_FID_2D = "IFS.spec.nmr.representation.jcamp.fid.2d";
-	public final static String NMR_REP_JCAMP_SPEC_1r_1D = "IFS.spec.nmr.representation.jcamp.spec.1r.1d";
-	public final static String NMR_REP_JCAMP_SPEC_1i1r_1D = "IFS.spec.nmr.representation.jcamp.spec.1i1r.1d";
-	public final static String NMR_REP_JCAMP_SPEC_2D = "IFS.spec.nmr.representation.jcamp.spec.2d";
+	public final static String IFS_REP_SPEC_NMR_VENDOR_DATASET = "IFS.representation.spec.nmr.vendor.dataset";
+	public final static String IFS_REP_SPEC_NMR_SPECTRUM_PDF = "IFS.representation.spec.nmr.spectrum.pdf";
+	public final static String IFS_REP_SPEC_NMR_SPECTRUM_IMAGE = "IFS.representation.spec.nmr.spectrum.image";
+	public final static String IFS_REP_SPEC_NMR_SPECTRUM_DESCRIPTION = "IFS.representation.spec.nmr.spectrum.description";
+	public final static String IFS_REP_SPEC_NMR_PEAKLIST = "IFS.representation.spec.nmr.peaklist";
+	public final static String IFS_REP_SPEC_NMR_JCAMP_FID_1D = "IFS.representation.spec.nmr.jcamp.fid.1d";
+	public final static String IFS_REP_SPEC_NMR_JCAMP_FID_2D = "IFS.representation.spec.nmr.jcamp.fid.2d";
+	public final static String IFS_REP_SPEC_NMR_JCAMP_SPEC_1r_1D = "IFS.representation.spec.nmr.jcamp.spec.1r.1d";
+	public final static String IFS_REP_SPEC_NMR_JCAMP_SPEC_1i1r_1D = "IFS.representation.spec.nmr.jcamp.spec.1i1r.1d";
+	public final static String IFS_REP_SPEC_NMR_JCAMP_SPEC_2D = "IFS.representation.spec.nmr.jcamp.spec.2d";
 
 	private final static String[] repNames = new String[] { 
-			NMR_REP_VENDOR_DATASET, 
-			NMR_REP_JCAMP_FID_1D,
-			NMR_REP_JCAMP_FID_2D, 
-			NMR_REP_JCAMP_SPEC_1r_1D, 
-			NMR_REP_JCAMP_SPEC_1i1r_1D, 
-			NMR_REP_JCAMP_SPEC_2D,
-			NMR_REP_SPECTRUM_PDF, 
-			NMR_REP_SPECTRUM_IMAGE, 
-			NMR_REP_SPECTRUM_DESCRIPTION, 
-			NMR_REP_PEAKLIST, };
+			IFS_REP_SPEC_NMR_VENDOR_DATASET, 
+			IFS_REP_SPEC_NMR_JCAMP_FID_1D,
+			IFS_REP_SPEC_NMR_JCAMP_FID_2D, 
+			IFS_REP_SPEC_NMR_JCAMP_SPEC_1r_1D, 
+			IFS_REP_SPEC_NMR_JCAMP_SPEC_1i1r_1D, 
+			IFS_REP_SPEC_NMR_JCAMP_SPEC_2D,
+			IFS_REP_SPEC_NMR_SPECTRUM_PDF, 
+			IFS_REP_SPEC_NMR_SPECTRUM_IMAGE, 
+			IFS_REP_SPEC_NMR_SPECTRUM_DESCRIPTION, 
+			IFS_REP_SPEC_NMR_PEAKLIST
+	};
 
 	public static String[] getRepnames() {
 		return repNames;

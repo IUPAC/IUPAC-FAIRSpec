@@ -14,10 +14,12 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 public class IFSMSSpecData extends IFSSpecData {
 
 
+	public static final String IFS_PROP_SPEC_MS_EXPT_ID    = "IFS.property.spec.ms.expt.id";
+
+
 	{
 		super.setProperties(new IFSProperty[] {
-				// TODO
-//				new IFSProperty("IFS.spec.ms.dimension", IFSConst.PROPERTY_TYPE.INT, IFSConst.UNITS.NONE),
+				new IFSProperty(IFSMSSpecData.IFS_PROP_SPEC_MS_EXPT_ID),
 		});
 	}
 	

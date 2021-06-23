@@ -1,6 +1,6 @@
-{"IFS-extract-version":"0.1.0-alpha","pathway":[
+{"IFS-extract-version":"0.1.0-alpha","keys":[
  {"example":"compound directories containing unidentified mnova files"},
- {"license":"{IFS.findingaid.license.uri::https://creativecommons.org/licenses/by-nc/4.0},{IFS.findingaid.license.name::cc-by-nc-4.0}"},
+ {"license":"{IFS.findingaid.data.license.uri::https://creativecommons.org/licenses/by-nc/4.0},{IFS.findingaid.data.license.name::cc-by-nc-4.0}"},
  {"hash":"0c01197"},
  {"ifsid":"acs.orglett.{hash}"},
  {"puburi":"{IFS.findingaid.source.publication.uri::https://doi.org/10.1021/{ifsid}}"},
@@ -8,6 +8,6 @@
  {"data":"{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22491647}"},
 
  {"path":"{data}|"},
- {"objects":"{path}products/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.property.compound.id::*}.mnova}"},
- {"objects":"{path}Substrate/{IFS.spec.nmr.representation.vendor.dataset::{id=IFS.structure.property.compound.id::*}.mnova}"}
+ {"objects":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::products/{id=IFS.property.struc.compound.id::*}.mnova}}"},
+ {"objects":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::Substrate/{id=IFS.property.struc.compound.id::*}.mnova}}"}
 ]}

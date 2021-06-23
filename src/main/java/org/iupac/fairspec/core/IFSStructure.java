@@ -1,6 +1,5 @@
 package org.iupac.fairspec.core;
 
-import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
@@ -8,16 +7,21 @@ import org.iupac.fairspec.common.IFSReference;
 @SuppressWarnings("serial")
 public class IFSStructure extends IFSRepresentableObject<IFSStructureRepresentation> {
 
+	public static final String IFS_PROP_STRUC_COMPOUND_ID  = "IFS.property.struc.compound.id";
+	public static final String IFS_PROP_STRUC_SMILES       = "IFS.property.struc.smiles";
+	public static final String IFS_PROP_STRUC_INCHI        = "IFS.property.struc.inchi";
+	public static final String IFS_PROP_STRUC_INCHIKEY     = "IFS.property.struc.inchikey";
+
 	public IFSStructure(String name) {
 		super(name, ObjectType.Structure);
 	}
 	
 	{
 		super.setProperties(new IFSProperty[] {
-				new IFSProperty(IFSConst.IFS_STRUCTURE_PROP_COMPOUND_ID),
-				new IFSProperty(IFSConst.IFS_STRUCTURE_PROP_SMILES),
-				new IFSProperty(IFSConst.IFS_STRUCTURE_PROP_INCHI),
-				new IFSProperty(IFSConst.IFS_STRUCTURE_PROP_INCHIKEY),
+				new IFSProperty(IFSStructure.IFS_PROP_STRUC_COMPOUND_ID),
+				new IFSProperty(IFSStructure.IFS_PROP_STRUC_SMILES),
+				new IFSProperty(IFSStructure.IFS_PROP_STRUC_INCHI),
+				new IFSProperty(IFSStructure.IFS_PROP_STRUC_INCHIKEY),
 		});
 	}
 	
@@ -26,7 +30,7 @@ public class IFSStructure extends IFSRepresentableObject<IFSStructureRepresentat
 	public IFSStructure(String path, String param, String value) throws IFSException {
 		super(param + ";" + value, ObjectType.Structure);
 		setPath(path);
-		if (param.equals(IFSConst.IFS_STRUCTURE_PROP_COMPOUND_ID))
+		if (param.equals(IFSStructure.IFS_PROP_STRUC_COMPOUND_ID))
 			name = value;
 		setPropertyValue(param, value);
 	}

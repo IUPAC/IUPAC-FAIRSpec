@@ -14,6 +14,9 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 public class IFSUVVisSpecData extends IFSSpecData {
 
 
+	public static final String IFS_PROP_SPEC_UVVIS_EXPT_ID = "IFS.property.spec.uvvis.expt.id";
+
+
 	public IFSUVVisSpecData(String name, ObjectType type) {
 		super(name, type);
 	}

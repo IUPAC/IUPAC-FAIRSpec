@@ -5,25 +5,22 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 public class IFSRamanSpecDataRepresentation extends IFSSpecDataRepresentation {
 
-	public final static String RAMAN_REP_VENDOR_DATASET = "raman.representation.vendor.dataset";
-	public final static String RAMAN_REP_SPECTRUM_PDF = "raman.representation.spectrum.pdf";
-	public final static String RAMAN_REP_SPECTRUM_IMAGE = "raman.representation.spectrum.image";
-	public final static String RAMAN_REP_SPECTRUM_DESCRIPTION = "raman.representation.spectrum.description";
-	public final static String RAMAN_REP_PEAKLIST = "raman.representation.peaklist";
-	public final static String RAMAN_REP_JCAMP = "raman.representation.jcamp";
+
+	public final static String IFS_REP_SPEC_RAMAN_VENDOR_DATASET = "IFS.representation.spec.raman.vendor.dataset";
+	public final static String IFS_REP_SPEC_RAMAN_SPECTRUM_PDF = "IFS.representation.spec.raman.spectrum.pdf";
+	public final static String IFS_REP_SPEC_RAMAN_SPECTRUM_IMAGE = "IFS.representation.spec.raman.spectrum.image";
+	public final static String IFS_REP_SPEC_RAMAN_SPECTRUM_DESCRIPTION = "IFS.representation.spec.raman.spectrum.description";
+	public final static String IFS_REP_SPEC_RAMAN_PEAKLIST = "IFS.representation.spec.raman.peaklist";
+	public final static String IFS_REP_SPEC_RAMAN_JCAMP = "IFS.representation.spec.raman.jcamp";
 
 	private final static String[] repNames = new String[] {
-			RAMAN_REP_VENDOR_DATASET,
-			RAMAN_REP_JCAMP,
-			RAMAN_REP_SPECTRUM_PDF,
-			RAMAN_REP_SPECTRUM_IMAGE,
-			RAMAN_REP_SPECTRUM_DESCRIPTION,
-			RAMAN_REP_PEAKLIST,		
-				};
-
-	public static String[] getRepnames() {
-		return repNames;
-	}
+			IFS_REP_SPEC_RAMAN_VENDOR_DATASET,
+			IFS_REP_SPEC_RAMAN_JCAMP,
+			IFS_REP_SPEC_RAMAN_SPECTRUM_PDF,
+			IFS_REP_SPEC_RAMAN_SPECTRUM_IMAGE,
+			IFS_REP_SPEC_RAMAN_SPECTRUM_DESCRIPTION,
+			IFS_REP_SPEC_RAMAN_PEAKLIST	
+	};
 
 	public IFSRamanSpecDataRepresentation(IFSReference ref, Object data, long len, String type, String subtype) {
 		super(ref, data, len, type, subtype);

@@ -5,15 +5,15 @@ import org.iupac.fairspec.common.IFSRepresentation;
 
 public class IFSStructureRepresentation extends IFSRepresentation {
 
-	public static final String IFS_STRUCTURE_REP_MOL      = "IFS.structure.representation.mol"; 
-	public static final String IFS_STRUCTURE_REP_MOL_2D   = "IFS.structure.representation.mol.2d"; 
-	public static final String IFS_STRUCTURE_REP_MOL_3D   = "IFS.structure.representation.mol.3d"; 
-	public static final String IFS_STRUCTURE_REP_SDF      = "IFS.structure.representation.sdf";
-	public static final String IFS_STRUCTURE_REP_SDF_2D   = "IFS.structure.representation.sdf.2d";
-	public static final String IFS_STRUCTURE_REP_SDF_3D   = "IFS.structure.representation.sdf.3d";
-	public static final String IFS_STRUCTURE_REP_CDF      = "IFS.structure.representation.cdf";
-	public static final String IFS_STRUCTURE_REP_CDXML    = "IFS.structure.representation.cdxml";
-	public static final String IFS_STRUCTURE_REP_UNKNOWN  = "IFS.structure.representation.unkown";
+	public static final String IFS_STRUCTURE_REP_MOL      = "IFS.representation.struc.mol"; 
+	public static final String IFS_STRUCTURE_REP_MOL_2D   = "IFS.representation.struc.mol.2d"; 
+	public static final String IFS_STRUCTURE_REP_MOL_3D   = "IFS.representation.struc.mol.3d"; 
+	public static final String IFS_STRUCTURE_REP_SDF      = "IFS.representation.struc.sdf";
+	public static final String IFS_STRUCTURE_REP_SDF_2D   = "IFS.representation.struc.sdf.2d";
+	public static final String IFS_STRUCTURE_REP_SDF_3D   = "IFS.representation.struc.sdf.3d";
+	public static final String IFS_STRUCTURE_REP_CDF      = "IFS.representation.struc.cdf";
+	public static final String IFS_STRUCTURE_REP_CDXML    = "IFS.representation.struc.cdxml";
+	public static final String IFS_STRUCTURE_REP_UNKNOWN  = "IFS.representation.struc.unkown";
 
 	private final static String[] repNames = new String[] {
 			IFS_STRUCTURE_REP_MOL, 

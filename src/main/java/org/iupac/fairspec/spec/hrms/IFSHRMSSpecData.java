@@ -14,8 +14,12 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 public class IFSHRMSSpecData extends IFSSpecData {
 
 
+	public static final String IFS_PROP_SPEC_HRMS_EXPT_ID  = "IFS.property.spec.hrms.expt.id";
+
+
 	{
 		super.setProperties(new IFSProperty[] {
+				new IFSProperty(IFSHRMSSpecData.IFS_PROP_SPEC_HRMS_EXPT_ID),
 		});
 	}
 	

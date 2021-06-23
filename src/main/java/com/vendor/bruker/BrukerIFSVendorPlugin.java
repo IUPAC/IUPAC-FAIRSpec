@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSVendorPluginI;
-import org.iupac.fairspec.common.IFSConst;
+import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
 import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
 
@@ -30,19 +30,19 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		// order here is not significant; keys without the JCAMP vendor prefix are
 		// derived, not the value itself
 		String[] keys = { //
-				"DIM", IFSConst.IFS_SPEC_NMR_EXPT_DIM, //
-				"##$BF1", IFSConst.IFS_SPEC_NMR_EXPT_FREQ_1, //
-				"##$BF2", IFSConst.IFS_SPEC_NMR_EXPT_FREQ_2, //
-				"##$BF3", IFSConst.IFS_SPEC_NMR_EXPT_FREQ_3, //
-				"##$BF4", IFSConst.IFS_SPEC_NMR_EXPT_FREQ_4, //
-				"##$NUC1", IFSConst.IFS_SPEC_NMR_EXPT_NUCL_1, //
-				"##$NUC2", IFSConst.IFS_SPEC_NMR_EXPT_NUCL_2, //
-				"##$NUC3", IFSConst.IFS_SPEC_NMR_EXPT_NUCL_3, //
-				"##$NUC4", IFSConst.IFS_SPEC_NMR_EXPT_NUCL_4, //
-				"##$PULPROG", IFSConst.IFS_SPEC_NMR_EXPT_PULSE_PROG, //
-				"SOLVENT", IFSConst.IFS_SPEC_NMR_EXPT_SOLVENT, //
-				"SF", IFSConst.IFS_SPEC_NMR_INSTR_FREQ_NOMINAL,
-				"##$PROBHD", IFSConst.IFS_SPEC_NMR_INSTR_PROBEID, //
+				"DIM", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_DIM, //
+				"##$BF1", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_FREQ_1, //
+				"##$BF2", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_FREQ_2, //
+				"##$BF3", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_FREQ_3, //
+				"##$BF4", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_FREQ_4, //
+				"##$NUC1", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_NUCL_1, //
+				"##$NUC2", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_NUCL_2, //
+				"##$NUC3", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_NUCL_3, //
+				"##$NUC4", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_NUCL_4, //
+				"##$PULPROG", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_PULSE_PROG, //
+				"SOLVENT", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_SOLVENT, //
+				"SF", IFSNMRSpecData.IFS_SPEC_NMR_INSTR_FREQ_NOMINAL,
+				"##$PROBHD", IFSNMRSpecData.IFS_SPEC_NMR_INSTR_PROBEID, //
 		};
 		for (int i = 0; i < keys.length;)
 			ifsMap.put(keys[i++], keys[i++]);
@@ -80,9 +80,9 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	@Override
 	public boolean doRezipInclude(String baseName, String entryName) {
 		if (entryName.endsWith(".pdf"))
-			addProperty(IFSNMRSpecDataRepresentation.NMR_REP_SPECTRUM_PDF, baseName + entryName);
+			addProperty(IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_SPECTRUM_PDF, baseName + entryName);
 		else if (entryName.endsWith("thumb.png"))
-			addProperty(IFSNMRSpecDataRepresentation.NMR_REP_SPECTRUM_IMAGE, baseName + entryName);			
+			addProperty(IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_SPECTRUM_IMAGE, baseName + entryName);			
 		return !entryName.endsWith(".mnova");
 	}
 
@@ -259,7 +259,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	@Override
 	public String getDatasetType(String zipName) {
-		return IFSNMRSpecDataRepresentation.NMR_REP_VENDOR_DATASET;
+		return IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_VENDOR_DATASET;
 	}
 
 }
