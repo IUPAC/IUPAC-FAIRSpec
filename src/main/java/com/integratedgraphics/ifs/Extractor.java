@@ -619,6 +619,12 @@ public class Extractor implements IFSExtractorI {
 		String creator;
 		String s = "";
 		List<Map<String, Object>> authorList = new ArrayList<>();
+		String identifier = extractOuterXML("identifier", pubxml);
+		if (identifier.indexOf("identifierType=\"DOI\"") >= 0) {
+			info.put("DOI", "https://doi.org/" + extractXML("identifier", pubxml, null));			
+		} else {
+			info.put("identifier", extractXML("identifier", pubxml, null));			
+		}
 		while ((creator = extractXML("creator", pubxml, pt)) != null) {
 			String au = extractXML("creatorName", creator, null);
 			String orcid = extractXML("nameIdentifier", creator, null);
@@ -645,8 +651,20 @@ public class Extractor implements IFSExtractorI {
 		s = extractXML("description descriptionType=\"SeriesInformation\"", pubxml, null);
 		if (s != null)
 			info.put("desc", s);
-		info.put("url", url);
 		return info;
+	}
+
+	private static String extractOuterXML(String key, String xml) {
+		if (xml == null)
+			return null;
+		int p = xml.indexOf("<" + key);
+		int p2 = key.indexOf(" ");
+		p2 = xml.indexOf("</" + (p2 < 0 ? key : key.substring(0, p2)) 
+				+ (key.endsWith(">") ? "" : ">"), p);
+		if (p2 < 0)
+			return null;
+		p2 = xml.indexOf(">", p2) + 1;
+		return xml.substring(p, p2);
 	}
 
 	/**
@@ -658,13 +676,16 @@ public class Extractor implements IFSExtractorI {
 	 * @return
 	 */
 	private static String extractXML(String key, String xml, int[] pt) {
+		if (xml == null)
+			return null;
 		if (pt == null)
 			pt = new int[1];
 		int p = xml.indexOf("<" + key, pt[0]);
 		if (p < 0 || (p = xml.indexOf(">", p) + 1) <= 0)
 			return null;
 		int p2 = key.indexOf(" ");
-		p2 = xml.indexOf("</" + (p2 < 0 ? key : key.substring(0, p2)) + ">", p);
+		p2 = xml.indexOf("</" + (p2 < 0 ? key : key.substring(0, p2)) 
+				+ (key.endsWith(">") ? "" : ">"), p);
 		if (p2 < 0)
 			return null;
 		pt[0] = p2 + key.length() + 2;
