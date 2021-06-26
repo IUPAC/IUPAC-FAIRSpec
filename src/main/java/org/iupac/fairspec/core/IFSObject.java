@@ -10,24 +10,27 @@ import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.api.IFSSerializableI;
 import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.common.IFSConst;
+import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 
 /**
+ * IFSObject is the base abstract superclass for all IFS Data Model objects.
  * 
  * IFSObject extends ArrayList so as to allow for storing and retrieving
  * multiple objects or representations with standard ArrayList methods.
  * 
- * It can be initialized with just an arbitrary name or with a name and a
- * maximum count, or with a name, a maximum count, and an "immutable" starting
- * set that are not allowed to be set or removed or changed.
+ * An IFSObject can be initialized with just an arbitrary name or with a name
+ * and a maximum count, or with a name, a maximum count, and an "immutable"
+ * starting set that are not allowed to be set or removed or changed.
  * 
  * IFSObject and its subclasses implement the IFSObjectI interface and comes in
- * two flavors: IFSRepresentableObject and IFSAbstractObject.
+ * two flavors: IFSRepresentableObject and IFSCollection.
  * 
  * 
  * *** IFSRepresentableObject ***
  * 
- * IFSStructure and IFSDataObject
+ * IFSStructure, IFSDataObject, IFSSample, IFSStructureAnalysis,
+ * IFSSampleAnalysis
  * 
  * A class implementing IFSRepresentableObjectI is expected to have one or more
  * distinctly different digital representations (byte sequences) that amount to
@@ -36,29 +39,34 @@ import org.iupac.fairspec.common.IFSProperty;
  * predicted, or simulated NMR or IR data associated with a chemical compound or
  * mixture of compounds.
  * 
- * The representations themselves, in the form of IFSStructureRepresentation and
- * IFSDataObjectRepresentation, do not implement IFSObjectI. (They are not
- * themselves lists of anything.) They could be any Java Object, but most likely
+ * The representations themselves, in the form of subclasses of
+ * IFSRepresentation, do not implement IFSObjectI. (They are not themselves
+ * inherently lists of anything.) They could be any Java Object, but most likely
  * will be of the type String or byte[] (byte array). They represent the actual
  * "Digital Items" that might be found in a ZIP file or within a cloud-based or
  * local file system directory.
  * 
+ * Note that there is no mechanism for IFSStructure, IFSSample, or IFSDataObject
+ * objects to refer to each other. This is a key aspect of the IFS Data Model.
+ * The model is based on the idea of a collection, and it is the IFSCollection
+ * objects that do this referencing. This model allows for a relatively simple
+ * and flexible packaging of objects, with their relationships identified only
+ * in key metadata resources.
  * 
- * *** IFSAbstractObject ***
+ * *** IFSCollection ***
  * 
- * IFSCollection and IFSStructureDataAssociation
+ * IFSCollection objects are "pure metadata" and thus have no digital
+ * representation outside of that role. They point to and associate IFSObject
+ * instances. IFSCollection objects may be collections of IFSCollection objects.
+ * This allows for a nesting of collections in meaningful ways. For example,
+ * IFSStructureDataAssociation objects maintain two specific collections: one of
+ * structures, and one of data objects.
  * 
- * These classes are "pure metadata" and thus have no digital representation
- * outside of that role. They point to and associate IFSObject instances.
- * IFSCollection objects in particular may be collections of IFSCollection
- * object. This allows for a nesting of collections in meaningful ways.
- * Similarly, IFSStructureDataAssociation objects maintain two specific
- * collections, one of structures, and one of data objects.
- * 
- * To be sure, an IFSCollection could describe a Digital Object in the form of a
- * zip file (and usually does). Nonetheless, this does not make it
- * "representable" in the sense that it is likely to have multiple distinctly
- * different representations that characterize IFSRepresentableObject classes.
+ * To be sure, an IFSCollection could represent a Digital Object in the form of
+ * a zip file (and usually does) or perhaps a finding aid. Nonetheless, this
+ * does not make it "representable" in the sense that it is likely to have
+ * multiple distinctly different representations that characterize
+ * IFSRepresentableObject classes.
  * 
  * 
  * *** core IFSObjectI classes ***
@@ -84,6 +92,12 @@ import org.iupac.fairspec.common.IFSProperty;
  * future implementations of this data model may subclass IFSDataObject in
  * completely different ways for completely different purposes.
  * 
+ * -- IFSSample --
+ * 
+ * IFSSample corresponds to a specific physical sample that may or may not (yet)
+ * have a chemical structure, spectroscopic data, or representations associated
+ * with it.
+ * 
  * -- IFSStructureCollection and IFSDataObjectCollection --
  * 
  * These two classes each collect distinctly different structures and data,
@@ -95,9 +109,11 @@ import org.iupac.fairspec.common.IFSProperty;
  * 
  * *** associative IFSObjectI classes ***
  *
- * The org/iupac/fairspec/assoc package includes three higher-level abstract
- * IFSObjectI classes: IFSStructureDataAssociation, IFSAnalysis (a subclass of
- * IFSStrctureDataAssociation), and IFSFindingAid (a subclass of IFSCollection).
+ * The org/iupac/fairspec/assoc package includes four higher-level abstract
+ * IFSObjectI classes: IFSStructureDataAssociation, IFSSampleDataAssociation,
+ * and their collections. These classes associate specific structures, samples,
+ * and data to each other. In addition, the IFSAnalysis-related classes and the
+ * IFSFindingAid class fall into this category.
  * 
  * 
  * -- IFSStructureDataAssociation --
@@ -106,14 +122,26 @@ import org.iupac.fairspec.common.IFSProperty;
  * IFSDataObject instances. It provides the "connecting links" between spectra
  * and structure.
  * 
+ * -- IFSSampleAssociation --
  * 
- * -- IFSAnalysis --
+ * This class correlates one IFSSample instance with one or more IFSDataObject
+ * and IFSStructure instances. It provides a way of linking samples with their
+ * associated molecular structure (if known) and spectra (if taken).
  * 
- * The IFSAnalysis class represents a more detailed correlation between chemical
- * structure and its related experimental or theoretical data. For instance, it
- * might correlate specific atoms or groups of atoms of a chemical structure
- * with specific signals in a spectrum or other sort of data object.
+ * -- IFSStructureAnalysis --
+ * 
+ * The IFSAnalysis class is intended to represent a detailed correlation between
+ * chemical structure for a compound and its related experimental or theoretical
+ * spectroscopic data. For instance, it might correlate specific atoms or groups
+ * of atoms of a chemical structure with specific signals in a spectrum or other
+ * sort of data object.
  *
+ * -- IFSSampleAnalysis --
+ * 
+ * The IFSSampleAnalysis class is intended to represent a detailed correlation
+ * between a specific chemical sample and its structure and spectroscopic data.
+ * The details of this analysis would be designed into the subclass being
+ * implemented.
  *
  * -- IFSFindingAid --
  *
@@ -202,22 +230,22 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	 * the minimum number of items allowed in this list, set by initializing it with
 	 * a set of "fixed" items
 	 */
-	private final int minCount;
+	private int minCount;
 
 	protected final ObjectType type;
 
 	protected ObjectType subtype = ObjectType.Unknown;
 
 	@SuppressWarnings("unchecked")
-	public IFSObject(String name, ObjectType type) {
+	public IFSObject(String name, ObjectType type) throws IFSException {
 		this(name, type, Integer.MAX_VALUE);
 	}
 
 	@SuppressWarnings("unchecked")
-	public IFSObject(String name, ObjectType type, int maxCount, T... initialSet) {
+	public IFSObject(String name, ObjectType type, int maxCount, T... initialSet) throws IFSException {
 		this.name = name;
 		if (type == null)
-			System.out.println("IFSObject type null ???");
+			throw new IFSException("IFSObject must have a type");
 		this.type = type;
 		this.maxCount = maxCount;
 		this.index = indexCount++;
@@ -228,6 +256,16 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 			for (int i = 0; i < minCount; i++)
 				super.add(initialSet[i]);
 		}
+	}
+
+	/**
+	 * Set the minimum count of list objects such that an attempt to remove one of
+	 * these objects will result in an IFSException.
+	 * 
+	 * @param n
+	 */
+	protected void setMinCount(int n) {
+		minCount = n;
 	}
 
 	/**
@@ -253,7 +291,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 		// check for .representation., which is not stored in the object.
 		if (IFSConst.isRepresentation(name))
 			return;
-		if (IFSConst.isExptID(name)) 
+		if (IFSConst.isExptID(name))
 			this.name = value.toString();
 		IFSProperty p = htProps.get(name);
 		if (p == null) {
@@ -336,6 +374,12 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 		return super.set(index, c);
 	}
 
+	/**
+	 * Subclasses can bypass the minimum/maximum restrictions.
+	 * 
+	 * @param index
+	 * @param c
+	 */
 	protected void setSafely(int index, T c) {
 		super.set(index, c);
 	}
@@ -347,6 +391,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 			throw new IndexOutOfBoundsException("operation not allowed for index > " + maxCount);
 	}
 
+	@Override
 	public Object clone() {
 		IFSObject<?> c = (IFSObject<?>) super.clone();
 		return c;
@@ -356,6 +401,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 		return type;
 	}
 
+	@Override
 	public String toString() {
 		return "[" + getClass().getSimpleName() + " " + index + " " + " size=" + size() + "]";
 	}
@@ -407,7 +453,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 		if (haveProperties()) {
 			// general serialization does not write out units
 			Map<String, Object> map = new TreeMap<>();
-			for (Entry<String, IFSProperty> e: htProps.entrySet()) {
+			for (Entry<String, IFSProperty> e : htProps.entrySet()) {
 				Object val = e.getValue().getValue();
 				if (val != null)
 					map.put(e.getKey(), val);

@@ -1,8 +1,9 @@
-package org.iupac.fairspec.core;
+package org.iupac.fairspec.struc;
 
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
+import org.iupac.fairspec.core.IFSRepresentableObject;
 
 @SuppressWarnings("serial")
 public class IFSStructure extends IFSRepresentableObject<IFSStructureRepresentation> {
@@ -12,10 +13,6 @@ public class IFSStructure extends IFSRepresentableObject<IFSStructureRepresentat
 	public static final String IFS_PROP_STRUC_INCHI        = "IFS.property.struc.inchi";
 	public static final String IFS_PROP_STRUC_INCHIKEY     = "IFS.property.struc.inchikey";
 
-	public IFSStructure(String name) {
-		super(name, ObjectType.Structure);
-	}
-	
 	{
 		super.setProperties(new IFSProperty[] {
 				new IFSProperty(IFSStructure.IFS_PROP_STRUC_COMPOUND_ID),
@@ -23,10 +20,12 @@ public class IFSStructure extends IFSRepresentableObject<IFSStructureRepresentat
 				new IFSProperty(IFSStructure.IFS_PROP_STRUC_INCHI),
 				new IFSProperty(IFSStructure.IFS_PROP_STRUC_INCHIKEY),
 		});
+	}	
+
+	public IFSStructure(String name) throws IFSException {
+		super(name, ObjectType.Structure);
 	}
 	
-
-
 	public IFSStructure(String path, String param, String value) throws IFSException {
 		super(param + ";" + value, ObjectType.Structure);
 		setPath(path);

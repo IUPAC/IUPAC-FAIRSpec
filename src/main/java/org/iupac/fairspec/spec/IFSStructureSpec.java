@@ -1,11 +1,12 @@
 package org.iupac.fairspec.spec;
 
 import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
-import org.iupac.fairspec.core.IFSStructure;
-import org.iupac.fairspec.core.IFSStructureCollection;
+import org.iupac.fairspec.common.IFSException;
+import org.iupac.fairspec.struc.IFSStructure;
+import org.iupac.fairspec.struc.IFSStructureCollection;
 
 /**
- * An abstract class to correlation one or more IFSStructure with one or more
+ * A class that correlates one or more IFSStructure with one or more
  * IFSSpecData objects. Only two array items are allowed -- one
  * IFSStructureCollection and one IFSSpecDataCollection.
  * 
@@ -24,11 +25,11 @@ import org.iupac.fairspec.core.IFSStructureCollection;
 @SuppressWarnings("serial")
 public class IFSStructureSpec extends IFSStructureDataAssociation {
 	
-	public IFSStructureSpec(String name, IFSStructure structure, IFSSpecData data) {
+	public IFSStructureSpec(String name, IFSStructure structure, IFSSpecData data) throws IFSException {
 		super(name, ObjectType.StructureSpec, new IFSStructureCollection("structures", structure), new IFSSpecDataCollection("specData", data));
 	}
 
-	public IFSStructureSpec(String name, IFSStructureCollection structureCollection, IFSSpecDataCollection specDataCollection) {
+	public IFSStructureSpec(String name, IFSStructureCollection structureCollection, IFSSpecDataCollection specDataCollection) throws IFSException {
 		super(name, ObjectType.StructureSpec, structureCollection, specDataCollection);
 	}
 	
@@ -44,6 +45,7 @@ public class IFSStructureSpec extends IFSStructureDataAssociation {
 		return (IFSSpecDataCollection) get(1);
 	}
 
+	@Override
 	public IFSStructure getStructure(int i) {
 		return getStructureCollection().get(i);
 	}
@@ -52,10 +54,12 @@ public class IFSStructureSpec extends IFSStructureDataAssociation {
 		return getSpecDataCollection().get(i);
 	}
 
+	@Override
 	public IFSStructure getFirstStructure() {
 		return getStructureCollection().get(0);
 	}
 
+	@Override
 	public IFSSpecData getFirstDataObject() {
 		return getSpecDataCollection().get(0);
 	}

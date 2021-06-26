@@ -1,7 +1,5 @@
 package org.iupac.fairspec.common;
 
-import java.util.Map;
-
 import org.iupac.fairspec.api.IFSSerializableI;
 import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.common.IFSConst.PROPERTY_TYPE;

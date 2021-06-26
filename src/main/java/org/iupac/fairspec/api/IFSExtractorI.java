@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.iupac.fairspec.assoc.IFSFindingAid;
 import org.iupac.fairspec.common.IFSException;
+import org.iupac.fairspec.core.IFSFindingAid;
 import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 
 import com.integratedgraphics.ifs.Extractor.ObjectParser;

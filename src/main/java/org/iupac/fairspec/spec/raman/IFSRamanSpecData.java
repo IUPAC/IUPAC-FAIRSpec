@@ -1,5 +1,6 @@
 package org.iupac.fairspec.spec.raman;
 
+import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.spec.IFSSpecData;
@@ -21,7 +22,7 @@ public class IFSRamanSpecData extends IFSSpecData {
 		});
 	}
 	
-	public IFSRamanSpecData(String name) {
+	public IFSRamanSpecData(String name) throws IFSException {
 		super(name, ObjectType.RAMANSpecData);
 	}
 	

@@ -1,5 +1,6 @@
 package org.iupac.fairspec.spec.ir;
 
+import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.spec.IFSSpecData;
@@ -22,7 +23,7 @@ public class IFSIRSpecData extends IFSSpecData {
 		});
 	}
 	
-	public IFSIRSpecData(String name) {
+	public IFSIRSpecData(String name) throws IFSException {
 		super(name, ObjectType.IRSpecData);
 	}
 

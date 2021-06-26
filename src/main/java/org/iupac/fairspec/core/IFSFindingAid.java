@@ -1,4 +1,4 @@
-package org.iupac.fairspec.assoc;
+package org.iupac.fairspec.core;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,9 +7,8 @@ import java.util.Map;
 
 import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.common.IFSConst;
+import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
-import org.iupac.fairspec.core.IFSCollection;
-import org.iupac.fairspec.spec.ms.IFSMSSpecData;
 
 /**
  * The master class for a full collection, as from a publication or thesis or whatever.
@@ -38,7 +37,7 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 
 	private Date date = new Date();
 
-	public IFSFindingAid(String name, ObjectType type, String sUrl) {
+	public IFSFindingAid(String name, ObjectType type, String sUrl) throws IFSException {
 		super(name, type);
 		urls.add(sUrl);
 	}
@@ -84,6 +83,5 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 			serializing = false;
 		}
 	}
-	
-	
+
 }

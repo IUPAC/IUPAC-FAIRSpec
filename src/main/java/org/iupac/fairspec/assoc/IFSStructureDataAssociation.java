@@ -1,15 +1,15 @@
 package org.iupac.fairspec.assoc;
 
 import org.iupac.fairspec.api.IFSSerializerI;
-import org.iupac.fairspec.core.IFSAbstractObject;
+import org.iupac.fairspec.common.IFSException;
+import org.iupac.fairspec.core.IFSCollection;
 import org.iupac.fairspec.core.IFSDataObject;
 import org.iupac.fairspec.core.IFSDataObjectCollection;
-import org.iupac.fairspec.core.IFSObject;
-import org.iupac.fairspec.core.IFSStructure;
-import org.iupac.fairspec.core.IFSStructureCollection;
+import org.iupac.fairspec.struc.IFSStructure;
+import org.iupac.fairspec.struc.IFSStructureCollection;
 
 /**
- * An class to correlation one or more IFSStructure with one or more
+ * A class to correlation one or more IFSStructure with one or more
  * IFSDataObject. Only two array items are allowed -- one IFSStructureCollection
  * and one IFSDataObjectCollection.
  * 
@@ -22,10 +22,12 @@ import org.iupac.fairspec.core.IFSStructureCollection;
  *
  */
 @SuppressWarnings("serial")
-public abstract class IFSStructureDataAssociation extends IFSAbstractObject<IFSObject<?>> {
+public abstract class IFSStructureDataAssociation extends IFSCollection<IFSCollection<?>> {
 	
-	public IFSStructureDataAssociation(String name, ObjectType type, IFSStructureCollection structureCollection, IFSDataObjectCollection<?> dataCollection) {
+	public IFSStructureDataAssociation(String name, ObjectType type, IFSStructureCollection structureCollection, IFSDataObjectCollection<?> dataCollection) throws IFSException {
 		super(name, type, 2, structureCollection, dataCollection);
+		if (dataCollection == null || structureCollection == null)
+			throw new IFSException("IFSSample constructure must provide IFSStructureCollection and IFSDataCollection");
 	}
 	
 	@Override
@@ -61,9 +63,18 @@ public abstract class IFSStructureDataAssociation extends IFSAbstractObject<IFSO
 		return (IFSDataObject<?>) getDataObjectCollection().get(0);
 	}
 
+	@Override
 	protected void serializeList(IFSSerializerI serializer) {
 		serializer.addObject("struc", getStructureCollection().getIndexList());
 		serializer.addObject("data", getDataObjectCollection().getIndexList());
+	}
+	
+	protected boolean addStructure(IFSStructure struc) {
+		return getStructureCollection().add(struc);
+	}
+
+	protected boolean addDataObject(IFSDataObject<?> data) {
+		return getDataObjectCollection().add(data);
 	}
 
 

@@ -3,13 +3,19 @@ package org.iupac.fairspec.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSRepresentation;
 
 @SuppressWarnings("serial")
-public abstract class IFSCollection<T extends IFSObject<?>> extends IFSAbstractObject<T> {
+public abstract class IFSCollection<T extends IFSObject<?>> extends IFSObject<T> {
 
-	protected IFSCollection(String name, ObjectType type) {
+	protected IFSCollection(String name, ObjectType type) throws IFSException {
 		super(name, type);
+	}
+
+	@SafeVarargs
+	public IFSCollection(String name, ObjectType type, int n, T... initialSet) throws IFSException {
+		super(name, type, n, initialSet);
 	}
 
 	public List<Integer> getIndexList() {
@@ -22,8 +28,13 @@ public abstract class IFSCollection<T extends IFSObject<?>> extends IFSAbstractO
 	
 	private boolean hasRepresentations = false;
 
+	/**
+	 * Does not allow duplicates.
+	 */
 	@Override
 	public boolean add(T t) {
+		if (t != null && contains(t))
+			return false;
 		if (!hasRepresentations && (t instanceof IFSRepresentableObject))
 			hasRepresentations = true;
 		return super.add(t);

@@ -5,8 +5,8 @@ import java.util.Map;
 
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSPropertyManagerI;
-import org.iupac.fairspec.core.IFSStructure;
-import org.iupac.fairspec.core.IFSStructureRepresentation;
+import org.iupac.fairspec.struc.IFSStructure;
+import org.iupac.fairspec.struc.IFSStructureRepresentation;
 import org.jmol.api.JmolViewer;
 import org.jmol.viewer.Viewer;
 

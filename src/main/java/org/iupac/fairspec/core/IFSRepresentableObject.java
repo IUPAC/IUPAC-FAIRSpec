@@ -3,13 +3,14 @@ package org.iupac.fairspec.core;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
 
 @SuppressWarnings("serial")
 public abstract class IFSRepresentableObject<T extends IFSRepresentation> extends IFSObject<T> {
 
-	public IFSRepresentableObject(String name, ObjectType type) {
+	public IFSRepresentableObject(String name, ObjectType type) throws IFSException {
 		super(name, type);
 	}
 

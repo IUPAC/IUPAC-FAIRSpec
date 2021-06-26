@@ -1,5 +1,6 @@
 package org.iupac.fairspec.spec.ms;
 
+import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.spec.IFSSpecData;
@@ -24,7 +25,7 @@ public class IFSMSSpecData extends IFSSpecData {
 	}
 	
 
-	public IFSMSSpecData(String name) {
+	public IFSMSSpecData(String name) throws IFSException {
 		super(name, ObjectType.MSSpecData);
 	}
 

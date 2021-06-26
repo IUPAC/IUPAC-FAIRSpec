@@ -1,6 +1,7 @@
 package org.iupac.fairspec.spec.nmr;
 
 import org.iupac.fairspec.common.IFSConst;
+import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.spec.IFSSpecData;
@@ -52,7 +53,7 @@ public class IFSNMRSpecData extends IFSSpecData {
 	}
 	
 
-	public IFSNMRSpecData(String name) {
+	public IFSNMRSpecData(String name) throws IFSException {
 		super(name, ObjectType.NMRSpecData);
 	}
 	
@@ -68,11 +69,13 @@ public class IFSNMRSpecData extends IFSSpecData {
 
 	}	
 	
+	@Override
 	public void setPropertyValue(String name, Object value) {
 		super.setPropertyValue(name, value);
 	}
 
 
+	@Override
 	public String toString() {
 		return super.toString();
 	}

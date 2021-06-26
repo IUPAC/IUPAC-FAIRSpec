@@ -22,6 +22,11 @@ public class IFSRamanSpecDataRepresentation extends IFSSpecDataRepresentation {
 			IFS_REP_SPEC_RAMAN_PEAKLIST	
 	};
 
+	public static String[] getRepnames() {
+		return repNames;
+	}
+
+
 	public IFSRamanSpecDataRepresentation(IFSReference ref, Object data, long len, String type, String subtype) {
 		super(ref, data, len, type, subtype);
 	}

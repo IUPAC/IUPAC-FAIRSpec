@@ -4,6 +4,8 @@ package org.iupac.fairspec.api;
  * The IFSObectI is the public interface for the IFSObject. Note that IFSObject extends
  * ArrayList, so all the methods of ArrayList are also inherited.
  * 
+ * See IFSObject for a detailed explanation of IFS objects.
+ * 
  * 
  * @author hansonr
  *
@@ -16,23 +18,26 @@ public interface IFSObjectI<T> {
 	 *
 	 */
 	enum ObjectType {
-		// IFS common
-		Unknown, Mixed,
-		Structure, StructureCollection, 
-		// IFSCOllection, IFSDataObject, IFSDataObjectCollection, and IFSFindingAid
+		// IFS core
+		Unknown, Mixed, Custom,
+		// IFS struc
+		Structure, StructureCollection, StructureAnalysis, StructureAnalysisCollection,
+		// IFS sample
+		Sample, SampleCollection, SampleAnalysis, SampleAnalysisCollection,
+	
+		// IFSCollection, IFSDataObject, IFSDataObjectCollection, and IFSFindingAid
 		// are all abstract and so do not express their own ObjectType
 		
-		// IFS spec collections:
+		// IFS spec core and collections
 		SpecDataFindingAid, 
-		SpecDataCollection, 
-		StructureSpecCollection, 
-		SpecAnalysisCollection,
-		// IFS spec core
-		SpecData, SpecAnalysis, 
+		SpecData, SpecDataCollection,
+		SpecAnalysis, SpecAnalysisCollection, 
 		NMRSpecData, IRSpecData, MSSpecData, 
 		HRMSSpecData, RAMANSpecData, UVVisSpecData,
 		// IFS spec combined
-		StructureSpec
+		StructureSpec, StructureSpecCollection, 
+		StructureSpecAnalysis, StructureSpecAnalysisCollection,
+		SampleSpecCollection, SampleSpecAnalysis, SampleSpecAnalysisCollection,
 	};
 
 	String getName();

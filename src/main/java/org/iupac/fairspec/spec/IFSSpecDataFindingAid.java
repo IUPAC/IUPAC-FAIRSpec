@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.api.IFSSerializerI;
-import org.iupac.fairspec.assoc.IFSFindingAid;
 import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
 import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
@@ -13,10 +12,13 @@ import org.iupac.fairspec.common.IFSRepresentation;
 import org.iupac.fairspec.core.IFSCollection;
 import org.iupac.fairspec.core.IFSDataObject;
 import org.iupac.fairspec.core.IFSDataObjectCollection;
+import org.iupac.fairspec.core.IFSFindingAid;
 import org.iupac.fairspec.core.IFSObject;
 import org.iupac.fairspec.core.IFSRepresentableObject;
-import org.iupac.fairspec.core.IFSStructure;
-import org.iupac.fairspec.core.IFSStructureCollection;
+import org.iupac.fairspec.sample.IFSSample;
+import org.iupac.fairspec.sample.IFSSampleCollection;
+import org.iupac.fairspec.struc.IFSStructure;
+import org.iupac.fairspec.struc.IFSStructureCollection;
 
 import javajs.util.PT;
 
@@ -40,24 +42,35 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	private String currentObjectZipName;
 	private IFSStructure currentStructure;
 	private IFSSpecData currentSpecData;
+	private IFSSample currentSample;
 
 	public final static int STRUCTURE_COLLECTION = 0;
 	public final static int SPECDATA_COLLECTION = 1;
-	public final static int STRUCTURESPEC_COLLECTION = 2;
-	public final static int ANALYSIS_COLLECTION = 3;
+	public final static int STRUCTURE_SPEC_COLLECTION = 2;
+	public final static int STRUCTURE_SPEC_ANALYSIS_COLLECTION = 3;
+	public final static int SAMPLE_COLLECTION = 4;
+	public final static int SAMPLE_SPEC_COLLECTION = 5;
+	public final static int SAMPLE_SPEC_ANALYSIS_COLLECTION = 6;
 	
 	private IFSStructureCollection structureCollection;
 	private IFSSpecDataCollection specDataCollection;
 	private IFSStructureSpecCollection structureSpecCollection;
-	private IFSSpecAnalysisCollection analysisCollection;
+	private IFSStructureSpecAnalysisCollection structureSpecAnalysisCollection;
+	private IFSSampleCollection sampleCollection;
+	private IFSSampleSpecCollection sampleSpecCollection;
+	private IFSSampleSpecAnalysisCollection sampleSpecAnalysisCollection;
 	
-	public IFSSpecDataFindingAid(String id, String sUrl) {
+	public IFSSpecDataFindingAid(String id, String sUrl) throws IFSException {
 		super(null, IFSObjectI.ObjectType.SpecDataFindingAid, sUrl);
 		setID(id);
 		add(null);
 		add(null);
 		add(null);
 		add(null);
+		add(null);
+		add(null);
+		add(null);
+		super.setMinCount(7);
 	}
 	
 	public void beginAddObject(String fname) {
@@ -83,8 +96,10 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 			throw new IFSException("bad IFS identifier: " + propName);
 		if (propName.startsWith("\0struc."))
 			return ObjectType.Structure;
-		if (propName.startsWith("\0analysis."))
-			return ObjectType.SpecAnalysis;
+		if (propName.startsWith("\0analysis.structure.spec."))
+			return ObjectType.StructureSpecAnalysis;
+		if (propName.startsWith("\0analysis.sample.spec."))
+			return ObjectType.SampleSpecAnalysis;
 		if (propName.startsWith("\0spec.nmr."))
 			return ObjectType.NMRSpecData;
 		if (propName.startsWith("\0spec.ir."))
@@ -116,10 +131,12 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		
 		ObjectType type = getObjectTypeForName(param);
 		switch (type) {
-		case SpecAnalysisCollection:
-		case SpecAnalysis:
+		case SampleSpecAnalysisCollection:
+		case SampleSpecAnalysis:
+		case StructureSpecAnalysisCollection:
+		case StructureSpecAnalysis:
 			System.out.println("Analysis not implemented");
-			getAnalysisCollection();
+			getStructureSpecAnalysisCollection();
 			// TODO
 			return null;
 		case NMRSpecData:
@@ -130,6 +147,15 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 			currentSpecData = getSpecDataCollection().getSpecDataFor(rootPath, localName, param, value, currentObjectZipName, type, mediaTypeFromName(localName));
 			currentSpecData.setUrlIndex(currentUrlIndex);
 			return currentSpecData;
+		case Sample:
+			if (currentSample == null) {
+				currentSample = getSampleCollection().getSampleFor(rootPath, localName, param, value, currentObjectZipName, mediaTypeFromName(localName));
+				System.out.println("creating Sample " + currentSample.getName());
+				currentSample.setUrlIndex(currentUrlIndex);
+			} else {
+				currentSample.setPropertyValue(param, value);
+			}
+			return currentSample;
 		case Structure:
 			if (currentStructure == null) {
 				currentStructure = getStructureCollection().getStructureFor(rootPath, localName, param, value, currentObjectZipName, mediaTypeFromName(localName));
@@ -137,9 +163,11 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 				currentStructure.setUrlIndex(currentUrlIndex);
 			} else {
 				currentStructure.setPropertyValue(param, value);
-//			currentStructure.getRepresentation(param + ";" + value, localName, true);
 			}
 			return currentStructure;
+		case SampleSpecCollection:
+			getSampleSpecCollection();
+			break;
 		case StructureSpecCollection:
 			// valid data information? maybe
 			getStructureSpecCollection();
@@ -158,34 +186,77 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 
 	public IFSSpecDataCollection getSpecDataCollection() {
 		if (specDataCollection == null) {
-			setSafely(SPECDATA_COLLECTION, specDataCollection = new IFSSpecDataCollection(name));
+			try {
+				setSafely(SPECDATA_COLLECTION, specDataCollection = new IFSSpecDataCollection(name));
+			} catch (IFSException e) {
+				// unattainable
+			}
 		}
 		return specDataCollection;
 	}
 
 	public IFSStructureCollection getStructureCollection() {
 		if (structureCollection == null) {
-			setSafely(STRUCTURE_COLLECTION, structureCollection = new IFSStructureCollection(name));			
+			try {
+				setSafely(STRUCTURE_COLLECTION, structureCollection = new IFSStructureCollection(name));
+			} catch (IFSException e) {
+				// type is defined
+			}			
 		}
 		return structureCollection;
 	}
 
+	public IFSSampleCollection getSampleCollection() {
+		if (sampleCollection == null) {
+			try {
+				setSafely(SAMPLE_COLLECTION, sampleCollection = new IFSSampleCollection(name));
+			} catch (IFSException e) {
+				// type is defined
+			}			
+		}
+		return sampleCollection;
+	}
+
 	public IFSStructureSpecCollection getStructureSpecCollection() {
 		if (structureSpecCollection == null) {
-			setSafely(STRUCTURESPEC_COLLECTION, structureSpecCollection = new IFSStructureSpecCollection(name, ObjectType.StructureSpecCollection));
+			try {
+				setSafely(STRUCTURE_SPEC_COLLECTION, structureSpecCollection = new IFSStructureSpecCollection(name));
+			} catch (IFSException e) {
+				// not attainable
+			}
 		}
 		return structureSpecCollection;
 	}
 
-	private void setSafely(int type, IFSStructureSpecCollection c) {
-		// TODO Auto-generated method stub
-		
+	public IFSSampleSpecCollection getSampleSpecCollection() {
+		if (sampleSpecCollection == null) {
+			try {
+				setSafely(SAMPLE_SPEC_COLLECTION, sampleSpecCollection = new IFSSampleSpecCollection(name));
+			} catch (IFSException e) {
+				// not attainable
+			}
+		}
+		return sampleSpecCollection;
 	}
 
-	public IFSSpecAnalysisCollection getAnalysisCollection() {
-		if (analysisCollection == null)
-			setSafely(ANALYSIS_COLLECTION, analysisCollection = new IFSSpecAnalysisCollection(name));
-		return analysisCollection;
+	public IFSStructureSpecAnalysisCollection getStructureSpecAnalysisCollection() {
+		if (structureSpecAnalysisCollection == null)
+			try {
+				setSafely(STRUCTURE_SPEC_ANALYSIS_COLLECTION, structureSpecAnalysisCollection = new IFSStructureSpecAnalysisCollection(name));
+			} catch (IFSException e) {
+				// not attainable
+			}
+		return structureSpecAnalysisCollection;
+	}
+	
+	public IFSSampleSpecAnalysisCollection getSampleSpecAnalysisCollection() {
+		if (sampleSpecAnalysisCollection == null)
+			try {
+				setSafely(SAMPLE_SPEC_ANALYSIS_COLLECTION, sampleSpecAnalysisCollection = new IFSSampleSpecAnalysisCollection(name));
+			} catch (IFSException e) {
+				// not attainable
+			}
+		return sampleSpecAnalysisCollection;
 	}
 	
 	public IFSObject<?> endAddObject() {
@@ -247,16 +318,17 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		listCollection(serializer, "structures", structureCollection);
 		listCollection(serializer, "specData", specDataCollection);
 		listCollection(serializer, "structureSpecData", structureSpecCollection);
-		listCollection(serializer, "analyses", analysisCollection);
+		listCollection(serializer, "structureSpecAnalyses", structureSpecAnalysisCollection);
+		listCollection(serializer, "samples", sampleCollection);
+		listCollection(serializer, "sampleSpecData", sampleSpecCollection);
+		listCollection(serializer, "sampleSpecAnalyses", sampleSpecAnalysisCollection);
 	}
 
 	private void listCollection(IFSSerializerI serializer, String name, IFSCollection<?> c) {
 		if (c != null && c.size() > 0) {
 			// normalize indices
-			if (c != null) {
-				for (int i = c.size(); --i >= 0;)
-					((IFSObject<?>) c.get(i)).setIndex(i);
-			}
+			for (int i = c.size(); --i >= 0;)
+				((IFSObject<?>) c.get(i)).setIndex(i);
 			serializer.addAttrInt(name + "Count", c.size());
 			serializer.addObject(name, c);
 		}

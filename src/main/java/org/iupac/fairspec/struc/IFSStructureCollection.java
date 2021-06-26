@@ -1,19 +1,20 @@
-package org.iupac.fairspec.core;
+package org.iupac.fairspec.struc;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
+import org.iupac.fairspec.core.IFSCollection;
 
 @SuppressWarnings("serial")
 public class IFSStructureCollection extends IFSCollection<IFSStructure> {
 
-	public IFSStructureCollection(String name) {
+	public IFSStructureCollection(String name) throws IFSException {
 		super(name, ObjectType.StructureCollection);
 	}
 	
-	public IFSStructureCollection(String name, IFSStructure structure) {
+	public IFSStructureCollection(String name, IFSStructure structure) throws IFSException {
 		super(name, ObjectType.Structure);
 		addStructure(structure);
 	}

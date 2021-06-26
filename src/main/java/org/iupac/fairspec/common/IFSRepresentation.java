@@ -61,6 +61,7 @@ public class IFSRepresentation implements IFSSerializableI {
 		this.subtype = subtype;
 	}
 
+	@Override
 	public String toString() {
 		return "[IFSRepresentation type=" + type + " ref=" + ref + "]";
 	}
