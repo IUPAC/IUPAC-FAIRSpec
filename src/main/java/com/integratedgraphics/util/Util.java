@@ -9,6 +9,7 @@ import java.util.function.Function;
 
 import swingjs.api.JSUtilI;
 
+@SuppressWarnings("deprecation")
 public class Util {
 
 	public static boolean isJS = /** @j2sNative true || */ false;
