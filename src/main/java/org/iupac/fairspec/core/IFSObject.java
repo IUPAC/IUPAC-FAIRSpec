@@ -14,7 +14,7 @@ import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 
 /**
- * IFSObject is the base abstract superclass for all IFS Data Model objects.
+ * IFSObject is the base abstract superclass for all IFS Data Model metadata objects.
  * 
  * IFSObject extends ArrayList so as to allow for storing and retrieving
  * multiple objects or representations with standard ArrayList methods.
@@ -23,7 +23,7 @@ import org.iupac.fairspec.common.IFSProperty;
  * and a maximum count, or with a name, a maximum count, and an "immutable"
  * starting set that are not allowed to be set or removed or changed.
  * 
- * IFSObject and its subclasses implement the IFSObjectI interface and comes in
+ * IFSObject and its subclasses implement the IFSObjectI interface and come in
  * two flavors: IFSRepresentableObject and IFSCollection.
  * 
  * 
