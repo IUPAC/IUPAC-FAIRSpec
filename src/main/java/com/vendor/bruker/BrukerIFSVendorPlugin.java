@@ -31,19 +31,17 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		// order here is not significant; keys without the JCAMP vendor prefix are
 		// derived, not the value itself
 		String[] keys = { //
-				"DIM", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_DIM, //
-				"##$BF1", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_FREQ_1, //
-				"##$BF2", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_FREQ_2, //
-				"##$BF3", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_FREQ_3, //
-				"##$BF4", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_FREQ_4, //
-				"##$NUC1", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_NUCL_1, //
-				"##$NUC2", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_NUCL_2, //
-				"##$NUC3", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_NUCL_3, //
-				"##$NUC4", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_NUCL_4, //
-				"##$PULPROG", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_PULSE_PROG, //
-				"SOLVENT", IFSNMRSpecData.IFS_SPEC_NMR_EXPT_SOLVENT, //
-				"SF", IFSNMRSpecData.IFS_SPEC_NMR_INSTR_FREQ_NOMINAL,
-				"##$PROBHD", IFSNMRSpecData.IFS_SPEC_NMR_INSTR_PROBEID, //
+				"DIM", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_DIM, //
+				"##$BF1", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_FREQ_1, //
+				"##$BF2", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_FREQ_2, //
+				"##$BF3", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_FREQ_3, //
+				"##$NUC1", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_NUCL_1, //
+				"##$NUC2", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_NUCL_2, //
+				"##$NUC3", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_NUCL_3, //
+				"##$PULPROG", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_PULSE_PROG, //
+				"SOLVENT", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_SOLVENT, //
+				"SF", IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL,
+				"##$PROBHD", IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_PROBEID, //
 		};
 		for (int i = 0; i < keys.length;)
 			ifsMap.put(keys[i++], keys[i++]);

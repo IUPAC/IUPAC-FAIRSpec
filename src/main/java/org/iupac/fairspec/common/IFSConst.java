@@ -1,14 +1,29 @@
 package org.iupac.fairspec.common;
 
+/**
+ * Constants relating to properties and extraction.
+ * 
+ * @author hansonr
+ *
+ */
 public class IFSConst {
+
 	
-	public static final String IFS_FAIRSpec_version = "0.0.1-2021_06_21";
+	public static final String IFS_FAIRSpec_version = "0.0.1-alpha-2021_06_27";
 
 	public enum PROPERTY_TYPE { INT, FLOAT, STRING, NUCL, OBJ };
 	
 	public enum PROPERTY_UNITS { NONE, MHZ };
 	
 
+	// Finding Aid properties:
+
+	public static final String IFS_FINDINGAID_DATA_LICENSE_NAME = "IFS.findingaid.data.license.name";
+	public static final String IFS_FINDINGAID_DATA_LICENSE_URI  = "IFS.findingaid.data.license.uri";
+
+	
+	// IFSExtractorI constants:
+	
 	/**
 	 * regex for files that are absolutely worthless
 	 */
@@ -24,20 +39,13 @@ public class IFSConst {
 			;
 
 
-	public static final String IFS_FINDINGAID_DATA_LICENSE_NAME = "IFS.findingaid.data.license.name";
-	public static final String IFS_FINDINGAID_DATA_LICENSE_URI  = "IFS.findingaid.data.license.uri";
-
-
-	// generic standard names:
-
 	public static final String IFS_FINDINGAID                 = "IFS.findingaid";
-	public static final String IFS_FINDINGAID_OBJECT          = "IFS.findingaid.object";
+	public static final String IFS_FINDINGAID_FLAG            = "IFS.findingaid.";
 	public static final String IFS_FINDINGAID_SOURCE_DATA_URI = "IFS.findingaid.source.data.uri";
 
-	public static final String IFS_EXPT_ID_FLAG = ".expt.id";
+	public static final String IFS_EXPT_ID_FLAG        = ".expt.id";
+	public static final String IFS_PROPERTY_FLAG       = "IFS.property.";
 	public static final String IFS_REPRESENTATION_FLAG = "IFS.representation.";
-	public static final String IFS_PROPERTY_FLAG = "IFS.property.";
-	public static final String IFS_FINDINGAID_FLAG = "IFS.findingaid.";
 
 
 	

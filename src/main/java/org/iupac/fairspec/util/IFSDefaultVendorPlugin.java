@@ -140,7 +140,7 @@ public abstract class IFSDefaultVendorPlugin implements IFSVendorPluginI {
 	}
 
 	protected void reportName() {
-		addProperty(IFSNMRSpecData.IFS_SPEC_NMR_INSTR_MANUFACTURER_NAME, getVendorName());
+		addProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME, getVendorName());
 	}
 
 	/**

@@ -26,7 +26,7 @@ import org.iupac.fairspec.core.IFSRepresentableObject;
  *
  */
 @SuppressWarnings("serial")
-public class IFSStructureAnalysis extends IFSRepresentableObject<IFSStructureAnalysisRepresentation> {
+public abstract class IFSStructureAnalysis extends IFSRepresentableObject<IFSStructureAnalysisRepresentation> {
 
 	private IFSStructureCollection StructureCollection;
 	private IFSDataObjectCollection<?> dataCollection;
@@ -36,12 +36,6 @@ public class IFSStructureAnalysis extends IFSRepresentableObject<IFSStructureAna
 			IFSDataObjectCollection<?> dataCollection) throws IFSException {
 		super(name, (type == null ? ObjectType.StructureAnalysis : type));
 		
-	}
-
-	@Override
-	protected IFSRepresentation newRepresentation(String objectName, IFSReference ifsReference, Object object, long len,
-			String type, String subtype) {
-		return new IFSStructureAnalysisRepresentation(ifsReference, object, len, type, subtype);
 	}
 
 	public IFSStructureCollection getStructureCollection() {

@@ -30,7 +30,7 @@ import org.iupac.fairspec.core.IFSRepresentableObject;
  *
  */
 @SuppressWarnings("serial")
-public class IFSSampleAnalysis extends IFSRepresentableObject<IFSSampleAnalysisRepresentation>{
+public abstract class IFSSampleAnalysis extends IFSRepresentableObject<IFSSampleAnalysisRepresentation>{
 
 	private IFSSampleCollection sampleCollection;
 	private IFSDataObjectCollection<?> dataCollection;
@@ -59,13 +59,6 @@ public class IFSSampleAnalysis extends IFSRepresentableObject<IFSSampleAnalysisR
 	public void setDataCollection(IFSDataObjectCollection<?> dataCollection) {
 		this.dataCollection = dataCollection;
 	}
-
-	@Override
-	protected IFSRepresentation newRepresentation(String objectName, IFSReference ifsReference, Object object, long len,
-			String type, String subtype) {
-		return new IFSSampleAnalysisRepresentation(ifsReference, object, len, type, subtype);
-	}
-
 	
 	@Override
 	protected void serializeList(IFSSerializerI serializer) {

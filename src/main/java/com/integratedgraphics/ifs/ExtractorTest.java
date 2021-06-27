@@ -74,7 +74,7 @@ public class ExtractorTest extends Extractor {
 	public static void main(String[] args) {
 
 		int i0 = 0;
-		int i1 = 0; // 12 max
+		int i1 = 12; // 12 max
 		
 		debugging = false;//true; // verbose listing of all files
 		

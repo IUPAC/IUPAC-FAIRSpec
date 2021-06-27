@@ -3,7 +3,7 @@ package org.iupac.fairspec.struc;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
 
-public class IFSStructureAnalysisRepresentation extends IFSRepresentation {
+public abstract class IFSStructureAnalysisRepresentation extends IFSRepresentation {
 
 	private final static String[] repNames = new String[] {
 	};

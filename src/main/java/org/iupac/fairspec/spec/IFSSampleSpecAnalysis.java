@@ -27,4 +27,5 @@ public class IFSSampleSpecAnalysis extends IFSSampleAnalysis {
 		return new IFSSampleSpecAnalysisRepresentation(ifsReference, object, len, type, subtype);
 	}
 
+
 }
