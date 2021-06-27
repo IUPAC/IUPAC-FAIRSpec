@@ -4,6 +4,7 @@ import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.spec.IFSSpecData;
+import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 /**
@@ -18,7 +19,7 @@ public class IFSUVVisSpecData extends IFSSpecData {
 	public static final String IFS_PROP_SPEC_UVVIS_EXPT_ID = "IFS.property.spec.uvvis.expt.id";
 
 
-	public IFSUVVisSpecData(String name, ObjectType type) throws IFSException {
+	public IFSUVVisSpecData(String name, String type) throws IFSException {
 		super(name, type);
 	}
 
@@ -32,7 +33,7 @@ public class IFSUVVisSpecData extends IFSSpecData {
 	
 
 	public IFSUVVisSpecData(String name) throws IFSException {
-		super(name, ObjectType.UVVisSpecData);
+		super(name, IFSSpecDataFindingAid.SpecType.UVVisSpecData);
 	}
 
 

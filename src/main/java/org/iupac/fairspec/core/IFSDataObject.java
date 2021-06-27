@@ -15,7 +15,7 @@ import org.iupac.fairspec.common.IFSRepresentation;
 @SuppressWarnings("serial")
 public abstract class IFSDataObject<T extends IFSRepresentation> extends IFSRepresentableObject<T> {
 
-	public IFSDataObject(String name, ObjectType type) throws IFSException {
+	public IFSDataObject(String name, String type) throws IFSException {
 		super(name, type);
 	}
 	

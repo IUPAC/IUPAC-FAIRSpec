@@ -32,7 +32,7 @@ import org.iupac.fairspec.common.IFSProperty;
  * IFSStructure, IFSDataObject, IFSSample, IFSStructureAnalysis,
  * IFSSampleAnalysis
  * 
- * A class implementing IFSRepresentableObjectI is expected to have one or more
+ * A class extending IFSRepresentableObject is expected to have one or more
  * distinctly different digital representations (byte sequences) that amount to
  * more than just metadata. These are the 2D or 3D MOL or SDF models, InChI or
  * SMILES strings representing chemical structure, and the experimental,
@@ -225,24 +225,23 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	 * the maximum number of items allowed in this list; may be 0
 	 */
 	private final int maxCount;
-
 	/**
 	 * the minimum number of items allowed in this list, set by initializing it with
 	 * a set of "fixed" items
 	 */
 	private int minCount;
 
-	protected final ObjectType type;
+	protected final String type;
 
-	protected ObjectType subtype = ObjectType.Unknown;
+	protected String subtype = ObjectType.Unknown;
 
 	@SuppressWarnings("unchecked")
-	public IFSObject(String name, ObjectType type) throws IFSException {
+	public IFSObject(String name, String type) throws IFSException {
 		this(name, type, Integer.MAX_VALUE);
 	}
 
 	@SuppressWarnings("unchecked")
-	public IFSObject(String name, ObjectType type, int maxCount, T... initialSet) throws IFSException {
+	public IFSObject(String name, String type, int maxCount, T... initialSet) throws IFSException {
 		this.name = name;
 		if (type == null)
 			throw new IFSException("IFSObject must have a type");
@@ -344,7 +343,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	}
 
 	@Override
-	public ObjectType getObjectType() {
+	public String getObjectType() {
 		return type;
 	}
 
@@ -397,7 +396,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 		return c;
 	}
 
-	public ObjectType getType() {
+	public String getType() {
 		return type;
 	}
 
@@ -428,7 +427,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 
 	@Override
 	public String getSerializedType() {
-		return type.toString();
+		return type;
 	}
 
 	@Override
@@ -441,7 +440,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	protected void serializeTop(IFSSerializerI serializer) {
 		serializer.addAttr("type", getSerializedType());
 		if (subtype != null && subtype != ObjectType.Unknown)
-			serializer.addAttr("subtype", subtype.toString());
+			serializer.addAttr("subtype", subtype);
 		serializer.addAttr("name", getName());
 		serializer.addAttr("id", getID());
 	}

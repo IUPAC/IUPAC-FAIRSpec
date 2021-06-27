@@ -4,6 +4,7 @@ import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.spec.IFSSpecData;
+import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 /**
@@ -24,7 +25,7 @@ public class IFSIRSpecData extends IFSSpecData {
 	}
 	
 	public IFSIRSpecData(String name) throws IFSException {
-		super(name, ObjectType.IRSpecData);
+		super(name, IFSSpecDataFindingAid.SpecType.IRSpecData);
 	}
 
 	@Override

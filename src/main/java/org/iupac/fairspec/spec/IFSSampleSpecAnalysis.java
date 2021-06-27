@@ -18,7 +18,7 @@ public class IFSSampleSpecAnalysis extends IFSSampleAnalysis {
 
 	public IFSSampleSpecAnalysis(String name, IFSSampleCollection sampleCollection,
 			IFSDataObjectCollection<?> dataCollection) throws IFSException {
-		super(name, ObjectType.SampleSpecAnalysis, sampleCollection, dataCollection);
+		super(name, IFSSpecDataFindingAid.SpecType.SampleSpecAnalysis, sampleCollection, dataCollection);
 	}
 
 	@Override

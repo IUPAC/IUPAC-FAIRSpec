@@ -42,23 +42,21 @@ public interface IFSVendorPluginI extends IFSPropertyManagerI {
 
 	public static class VendorInfo {
 		
-		public IFSVendorPluginI vendor;
-		public int index;
-		public String vrezip;
-		public String vcache;
+		final public IFSVendorPluginI vendor;
+		final public int index;
+		final public String vrezip;
+		final public String vcache;
 
 		private VendorInfo(IFSVendorPluginI vendor, int index) {
 			this.vendor = vendor;
 			this.index = index;
 			vendor.setIndex(index);
 			String p = vendor.getRezipRegex();
-			if (p != null)
-				vrezip = "(?<rezip" + index + ">" + p + ")";
+			vrezip = (p == null ? null : "(?<rezip" + index + ">" + p + ")");
 			p = vendor.getParamRegex();
-			if (p != null)
-				vcache = "(?<param" + index + ">" + p + ")"; 
+			vcache = (p == null ? null : "(?<param" + index + ">" + p + ")"); 
 		}
-		
+
 	}
 
 	static void init() {

@@ -37,7 +37,7 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 
 	private Date date = new Date();
 
-	public IFSFindingAid(String name, ObjectType type, String sUrl) throws IFSException {
+	public IFSFindingAid(String name, String type, String sUrl) throws IFSException {
 		super(name, type);
 		urls.add(sUrl);
 	}
@@ -63,6 +63,7 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 	public Date getDate() {
 		return date;
 	}
+	
 	private boolean serializing;
 
 	@SuppressWarnings("deprecation")

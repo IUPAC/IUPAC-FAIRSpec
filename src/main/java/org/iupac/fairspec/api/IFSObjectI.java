@@ -12,32 +12,27 @@ package org.iupac.fairspec.api;
  */
 public interface IFSObjectI<T> {
 
-	/** ObjectType may be expanded upon without limitation
-	 * 
-	 * @author hansonr
-	 *
-	 */
-	enum ObjectType {
+	
+	public static interface ObjectType {
 		// IFS core
-		Unknown, Mixed, Custom,
+		public final static String Unknown = "Unknown";
+		public final static String Mixed = "Mixed";
+		public final static String Custom = "Custom";
 		// IFS struc
-		Structure, StructureCollection, StructureAnalysis, StructureAnalysisCollection,
+		public final static String Structure = "Structure";
+		public final static String StructureCollection = "StructureCollection";
+		public final static String StructureAnalysis = "StructureAnalysis";
+		public final static String StructureAnalysisCollection = "StructureAnalysisCollection";
 		// IFS sample
-		Sample, SampleCollection, SampleAnalysis, SampleAnalysisCollection,
+		public final static String Sample = "Sample";
+		public final static String SampleCollection = "SampleCollection";
+		public final static String SampleAnalysis = "SampleAnalysis";
+		public final static String SampleAnalysisCollection = "SampleAnalysisCollection";
 	
 		// IFSCollection, IFSDataObject, IFSDataObjectCollection, and IFSFindingAid
 		// are all abstract and so do not express their own ObjectType
-		
-		// IFS spec core and collections
-		SpecDataFindingAid, 
-		SpecData, SpecDataCollection,
-		SpecAnalysis, SpecAnalysisCollection, 
-		NMRSpecData, IRSpecData, MSSpecData, 
-		HRMSSpecData, RAMANSpecData, UVVisSpecData,
-		// IFS spec combined
-		StructureSpec, StructureSpecCollection, 
-		StructureSpecAnalysis, StructureSpecAnalysisCollection,
-		SampleSpecCollection, SampleSpecAnalysis, SampleSpecAnalysisCollection,
+
+
 	};
 
 	String getName();
@@ -46,6 +41,6 @@ public interface IFSObjectI<T> {
 
 	int getObjectCount();
 
-	ObjectType getObjectType();
+	String getObjectType();
 
 }

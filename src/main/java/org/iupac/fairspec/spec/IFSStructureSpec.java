@@ -26,11 +26,11 @@ import org.iupac.fairspec.struc.IFSStructureCollection;
 public class IFSStructureSpec extends IFSStructureDataAssociation {
 	
 	public IFSStructureSpec(String name, IFSStructure structure, IFSSpecData data) throws IFSException {
-		super(name, ObjectType.StructureSpec, new IFSStructureCollection("structures", structure), new IFSSpecDataCollection("specData", data));
+		super(name, IFSSpecDataFindingAid.SpecType.StructureSpec, new IFSStructureCollection("structures", structure), new IFSSpecDataCollection("specData", data));
 	}
 
 	public IFSStructureSpec(String name, IFSStructureCollection structureCollection, IFSSpecDataCollection specDataCollection) throws IFSException {
-		super(name, ObjectType.StructureSpec, structureCollection, specDataCollection);
+		super(name, IFSSpecDataFindingAid.SpecType.StructureSpec, structureCollection, specDataCollection);
 	}
 	
 	@Override

@@ -18,11 +18,11 @@ import org.iupac.fairspec.spec.raman.IFSRamanSpecData;
 public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> {
 
 	public IFSSpecDataCollection(String name) throws IFSException {
-		super(name, ObjectType.SpecDataCollection);
+		super(name, IFSSpecDataFindingAid.SpecType.SpecDataCollection);
 	}
 	
 	public IFSSpecDataCollection(String name, IFSSpecData data) throws IFSException {
-		super(name, ObjectType.SpecDataCollection);
+		super(name, IFSSpecDataFindingAid.SpecType.SpecDataCollection);
 		addSpecData(data);
 	}
 
@@ -30,12 +30,21 @@ public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> 
 		return super.add(data);
 	}
 	
-	public ObjectType getDataType() {
+	public String getDataType() {
 		return subtype;
 	}
 
+	public final static String 
+	// IFS spec core and collections
+	NMRSpecData = "NMRSpecData", 
+	IRSpecData = "IRSpecData", 
+	MSSpecData = "SpecData", 
+	HRMSSpecData = "HRMSSpecData", 
+	RAMANSpecData = "SRAMANpecData", 
+	UVVisSpecData = "UVVisSpecData";
+
 	@Override
-	public IFSSpecData newIFSDataObject(String path, String param, String value, ObjectType type) throws IFSException {
+	public IFSSpecData newIFSDataObject(String path, String param, String value, String type) throws IFSException {
 		IFSSpecData sd = null;
 		try {
 			switch (type) {

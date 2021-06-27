@@ -11,7 +11,7 @@ import org.iupac.fairspec.core.IFSCollection;
 @SuppressWarnings({ "serial" })
 public class IFSStructureAnalysisCollection extends IFSCollection<IFSStructureAnalysis> {
 
-	public IFSStructureAnalysisCollection(String name, ObjectType type) throws IFSException {
+	public IFSStructureAnalysisCollection(String name, String type) throws IFSException {
 		super(name, (type == null ? ObjectType.StructureAnalysisCollection : type));
 	}
 

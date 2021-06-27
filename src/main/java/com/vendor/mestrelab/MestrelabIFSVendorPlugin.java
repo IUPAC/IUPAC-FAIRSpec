@@ -31,5 +31,5 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	public String getDatasetType(String zipName) {
 		return IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_VENDOR_DATASET;
 	}
-	
+
 }

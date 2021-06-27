@@ -13,7 +13,7 @@ import org.iupac.fairspec.struc.IFSStructureAnalysisCollection;
 public class IFSStructureSpecAnalysisCollection extends IFSStructureAnalysisCollection  {
 
 	public IFSStructureSpecAnalysisCollection(String name) throws IFSException {
-		super(name, ObjectType.SpecAnalysisCollection);
+		super(name, IFSSpecDataFindingAid.SpecType.SpecAnalysisCollection);
 	}
 
 }

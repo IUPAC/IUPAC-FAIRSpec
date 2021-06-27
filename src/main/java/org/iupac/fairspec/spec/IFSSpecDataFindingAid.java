@@ -3,7 +3,6 @@ package org.iupac.fairspec.spec;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
 import org.iupac.fairspec.common.IFSConst;
@@ -51,7 +50,52 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	public final static int SAMPLE_COLLECTION = 4;
 	public final static int SAMPLE_SPEC_COLLECTION = 5;
 	public final static int SAMPLE_SPEC_ANALYSIS_COLLECTION = 6;
-	
+
+	public static interface SpecType {
+		public final static String StructureSpec = "StructureSpec";
+		public final static String StructureSpecCollection = "StructureSpecCollection";
+		public final static String StructureSpecAnalysis = "StructureSpecAnalysis";
+		public final static String StructureSpecAnalysisCollection = "StructureSpecAnalysisCollection";
+
+		public final static String SampleSpec = "SampleSpec";
+		public final static String SampleSpecCollection = "SampleSpecCollection";
+		public final static String SampleSpecAnalysis = "SampleSpecAnalysis";
+		public final static String SampleSpecAnalysisCollection = "SampleSpecAnalysisCollection";
+
+		public final static String SpecData = "SpecData";
+		public final static String SpecDataCollection = "SpecDataCollection";
+		public final static String SpecAnalysis = "SpecAnalysis";
+		public final static String SpecAnalysisCollection = "SpecAnalysisCollection";
+		public final static String SpecDataFindingAid = "SpecDataFindingAid";
+
+
+		public final static String 
+		// IFS spec core and collections
+		NMRSpecData = "NMRSpecData", IRSpecData = "IRSpecData", MSSpecData = "MSSpecData", 
+		HRMSSpecData = "HRMSSpecData", RAMANSpecData = "RAMANSpecData", UVVisSpecData = "UVVisSpecData";
+		
+		public static String getSpecType(String key) {
+			switch(key) {
+			case "nmr":
+				return NMRSpecData;
+			case "ir":
+				return IRSpecData;
+			case "raman":
+				return RAMANSpecData;
+			case "hrms":
+				return HRMSSpecData;
+			case "ms":
+				return MSSpecData;
+			case "uvvis":
+				return UVVisSpecData;
+			}
+			return null;
+		}
+
+	}
+
+
+
 	private IFSStructureCollection structureCollection;
 	private IFSSpecDataCollection specDataCollection;
 	private IFSStructureSpecCollection structureSpecCollection;
@@ -61,7 +105,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	private IFSSampleSpecAnalysisCollection sampleSpecAnalysisCollection;
 	
 	public IFSSpecDataFindingAid(String id, String sUrl) throws IFSException {
-		super(null, IFSObjectI.ObjectType.SpecDataFindingAid, sUrl);
+		super(null, SpecType.SpecDataFindingAid, sUrl);
 		setID(id);
 		add(null);
 		add(null);
@@ -85,9 +129,9 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	 * @return
 	 * @throws IFSException 
 	 */
-	public static ObjectType getObjectTypeForName(String propName) throws IFSException {
+	public static String getObjectTypeForName(String propName) throws IFSException {
 		if (IFSConst.isFindingAid(propName))
-			return ObjectType.SpecDataFindingAid;
+			return SpecType.SpecDataFindingAid;
 		if (IFSConst.isProperty(propName))
 			propName = PT.rep(propName,IFSConst.IFS_PROPERTY_FLAG, "\0");
 		else if (IFSConst.isRepresentation(propName))
@@ -97,21 +141,11 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		if (propName.startsWith("\0struc."))
 			return ObjectType.Structure;
 		if (propName.startsWith("\0analysis.structure.spec."))
-			return ObjectType.StructureSpecAnalysis;
+			return SpecType.StructureSpecAnalysis;
 		if (propName.startsWith("\0analysis.sample.spec."))
-			return ObjectType.SampleSpecAnalysis;
-		if (propName.startsWith("\0spec.nmr."))
-			return ObjectType.NMRSpecData;
-		if (propName.startsWith("\0spec.ir."))
-			return ObjectType.IRSpecData;
-		if (propName.startsWith("\0spec.raman."))
-			return ObjectType.RAMANSpecData;
-		if (propName.startsWith("\0spec.hrms."))
-			return ObjectType.HRMSSpecData;
-		if (propName.startsWith("\0spec.ms."))
-			return ObjectType.MSSpecData;
-		if (propName.startsWith("\0spec.uvvis."))
-			return ObjectType.UVVisSpecData;
+			return SpecType.SampleSpecAnalysis;
+		if (propName.startsWith("\0spec."))
+			return SpecType.getSpecType(propName.substring(6, propName.indexOf(".", 6)));
 		return ObjectType.Unknown;		
 	}
 
@@ -129,25 +163,26 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		if (currentObjectZipName == null)
 			throw new IFSException("addObject " + param + " " + value + " called with no current object file name");
 		
-		ObjectType type = getObjectTypeForName(param);
+		String type = getObjectTypeForName(param);
+		
 		switch (type) {
-		case SampleSpecAnalysisCollection:
-		case SampleSpecAnalysis:
-		case StructureSpecAnalysisCollection:
-		case StructureSpecAnalysis:
+		case SpecType.SampleSpecAnalysisCollection:
+		case SpecType.SampleSpecAnalysis:
+		case SpecType.StructureSpecAnalysisCollection:
+		case SpecType.StructureSpecAnalysis:
 			System.out.println("Analysis not implemented");
 			getStructureSpecAnalysisCollection();
 			// TODO
 			return null;
-		case NMRSpecData:
-		case IRSpecData:
-		case RAMANSpecData:
-		case HRMSSpecData:
-		case MSSpecData:
+		case SpecType.NMRSpecData:
+		case SpecType.IRSpecData:
+		case SpecType.RAMANSpecData:
+		case SpecType.HRMSSpecData:
+		case SpecType.MSSpecData:
 			currentSpecData = getSpecDataCollection().getSpecDataFor(rootPath, localName, param, value, currentObjectZipName, type, mediaTypeFromName(localName));
 			currentSpecData.setUrlIndex(currentUrlIndex);
 			return currentSpecData;
-		case Sample:
+		case ObjectType.Sample:
 			if (currentSample == null) {
 				currentSample = getSampleCollection().getSampleFor(rootPath, localName, param, value, currentObjectZipName, mediaTypeFromName(localName));
 				System.out.println("creating Sample " + currentSample.getName());
@@ -156,7 +191,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 				currentSample.setPropertyValue(param, value);
 			}
 			return currentSample;
-		case Structure:
+		case ObjectType.Structure:
 			if (currentStructure == null) {
 				currentStructure = getStructureCollection().getStructureFor(rootPath, localName, param, value, currentObjectZipName, mediaTypeFromName(localName));
 				System.out.println("creating Structure " + currentStructure.getName());
@@ -165,18 +200,18 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 				currentStructure.setPropertyValue(param, value);
 			}
 			return currentStructure;
-		case SampleSpecCollection:
+		case SpecType.SampleSpecCollection:
 			getSampleSpecCollection();
 			break;
-		case StructureSpecCollection:
+		case SpecType.StructureSpecCollection:
 			// valid data information? maybe
 			getStructureSpecCollection();
 			break;
-		case SpecData: 
-		case SpecDataCollection:
-		case StructureCollection:
+		case SpecType.SpecData: 
+		case SpecType.SpecDataCollection:
+		case ObjectType.StructureCollection:
 			// should not be generic
-		case SpecDataFindingAid:
+		case SpecType.SpecDataFindingAid:
 		default:
 			System.err.println("IFSSpeDataFindingAid could not add " + param + " " + value + " for " + currentObjectZipName);
 			break;

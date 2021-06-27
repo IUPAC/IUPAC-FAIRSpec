@@ -24,7 +24,7 @@ import org.iupac.fairspec.struc.IFSStructureCollection;
 @SuppressWarnings("serial")
 public abstract class IFSStructureDataAssociation extends IFSCollection<IFSCollection<?>> {
 	
-	public IFSStructureDataAssociation(String name, ObjectType type, IFSStructureCollection structureCollection, IFSDataObjectCollection<?> dataCollection) throws IFSException {
+	public IFSStructureDataAssociation(String name, String type, IFSStructureCollection structureCollection, IFSDataObjectCollection<?> dataCollection) throws IFSException {
 		super(name, type, 2, structureCollection, dataCollection);
 		if (dataCollection == null || structureCollection == null)
 			throw new IFSException("IFSSample constructure must provide IFSStructureCollection and IFSDataCollection");

@@ -18,7 +18,7 @@ import org.iupac.fairspec.core.IFSDataObject;
 @SuppressWarnings("serial")
 public abstract class IFSSpecData extends IFSDataObject<IFSSpecDataRepresentation> {
 
-	public IFSSpecData(String name, ObjectType type) throws IFSException {
+	public IFSSpecData(String name, String type) throws IFSException {
 		super(name, type);
 	}
 	

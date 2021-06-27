@@ -1,6 +1,5 @@
 package org.iupac.fairspec.spec;
 
-import org.iupac.fairspec.api.IFSObjectI;
 import org.iupac.fairspec.assoc.IFSSampleAssociationCollection;
 import org.iupac.fairspec.common.IFSException;
 
@@ -14,7 +13,7 @@ import org.iupac.fairspec.common.IFSException;
 public class IFSSampleSpecCollection extends IFSSampleAssociationCollection  {
 
 	public IFSSampleSpecCollection(String name) throws IFSException {
-		super(name, IFSObjectI.ObjectType.SampleSpecCollection);
+		super(name, IFSSpecDataFindingAid.SpecType.SampleSpecCollection);
 	}
 	
 }

@@ -9,12 +9,12 @@ import org.iupac.fairspec.common.IFSRepresentation;
 @SuppressWarnings("serial")
 public abstract class IFSCollection<T extends IFSObject<?>> extends IFSObject<T> {
 
-	protected IFSCollection(String name, ObjectType type) throws IFSException {
+	protected IFSCollection(String name, String type) throws IFSException {
 		super(name, type);
 	}
 
 	@SafeVarargs
-	public IFSCollection(String name, ObjectType type, int n, T... initialSet) throws IFSException {
+	public IFSCollection(String name, String type, int n, T... initialSet) throws IFSException {
 		super(name, type, n, initialSet);
 	}
 

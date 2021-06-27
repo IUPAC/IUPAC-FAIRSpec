@@ -22,7 +22,7 @@ public abstract class IFSSampleAssociation extends IFSDataObjectCollection<IFSDa
 	private IFSSample sample;
 	private IFSStructureCollection structureCollection;
 
-	public IFSSampleAssociation(String name, ObjectType type, IFSSample sample) throws IFSException {
+	public IFSSampleAssociation(String name, String type, IFSSample sample) throws IFSException {
 		super(name, type);
 		if (sample == null)
 			throw new IFSException("IFSSampleDataAssociation must involve a non-null IFSSample");

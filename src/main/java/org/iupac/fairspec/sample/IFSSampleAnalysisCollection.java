@@ -11,7 +11,7 @@ import org.iupac.fairspec.core.IFSCollection;
 @SuppressWarnings({ "serial" })
 public class IFSSampleAnalysisCollection extends IFSCollection<IFSSampleAnalysis> {
 
-	public IFSSampleAnalysisCollection(String name, ObjectType type) throws IFSException {
+	public IFSSampleAnalysisCollection(String name, String type) throws IFSException {
 		super(name, (type == null ? ObjectType.SampleAnalysisCollection : type));
 	}
 

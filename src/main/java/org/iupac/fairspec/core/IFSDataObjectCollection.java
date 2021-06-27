@@ -8,7 +8,7 @@ import org.iupac.fairspec.common.IFSException;
 @SuppressWarnings("serial")
 public abstract class IFSDataObjectCollection<T extends IFSDataObject<?>> extends IFSCollection<T> {
 
-	protected IFSDataObjectCollection(String name, ObjectType type) throws IFSException {
+	protected IFSDataObjectCollection(String name, String type) throws IFSException {
 		super(name, type);
 	}
 	
@@ -30,7 +30,7 @@ public abstract class IFSDataObjectCollection<T extends IFSDataObject<?>> extend
 	
 	private Map<String, T> map = new HashMap<>();
 
-	public T getSpecDataFor(String path, String localName, String param, String value, String zipName, ObjectType type, String mediaType)  throws IFSException {
+	public T getSpecDataFor(String path, String localName, String param, String value, String zipName, String type, String mediaType)  throws IFSException {
 		String keyValue = path + "::" + zipName;
 		T sd = map.get(keyValue);
 		if (sd == null) {
@@ -53,6 +53,6 @@ public abstract class IFSDataObjectCollection<T extends IFSDataObject<?>> extend
 	 * @return
 	 * @throws IFSException 
 	 */
-	protected abstract T newIFSDataObject(String path, String param, String value, ObjectType type) throws IFSException;
+	protected abstract T newIFSDataObject(String path, String param, String value, String type) throws IFSException;
 	
 }

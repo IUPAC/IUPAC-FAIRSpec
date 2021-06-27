@@ -35,7 +35,7 @@ public class IFSSampleAnalysis extends IFSRepresentableObject<IFSSampleAnalysisR
 	private IFSSampleCollection sampleCollection;
 	private IFSDataObjectCollection<?> dataCollection;
 
-	public IFSSampleAnalysis(String name, ObjectType type, IFSSampleCollection sampleCollection,
+	public IFSSampleAnalysis(String name, String type, IFSSampleCollection sampleCollection,
 			IFSDataObjectCollection<?> dataCollection) throws IFSException {
 		super(name, (type == null ? ObjectType.SampleAnalysis : type));
 		this.sampleCollection = sampleCollection;

@@ -40,7 +40,7 @@ public class IFSSample extends IFSRepresentableObject<IFSSampleRepresentation> {
 		});
 	}
 	
-	public IFSSample(String name, ObjectType type) throws IFSException {
+	public IFSSample(String name, String type) throws IFSException {
 		super(name, type);
 	}
 

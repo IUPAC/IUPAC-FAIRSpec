@@ -17,7 +17,7 @@ public class IFSStructureSpecAnalysis extends IFSStructureAnalysis {
 
 	public IFSStructureSpecAnalysis(String name, IFSStructureCollection structureCollection,
 			IFSDataObjectCollection<?> dataCollection) throws IFSException {
-		super(name, ObjectType.SpecAnalysis, structureCollection, dataCollection);
+		super(name, IFSSpecDataFindingAid.SpecType.SpecAnalysis, structureCollection, dataCollection);
 	}
 
 }

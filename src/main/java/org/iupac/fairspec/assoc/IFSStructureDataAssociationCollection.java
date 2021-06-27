@@ -8,7 +8,7 @@ import org.iupac.fairspec.struc.IFSStructure;
 @SuppressWarnings({ "serial" })
 public abstract class IFSStructureDataAssociationCollection extends IFSCollection<IFSStructureDataAssociation> {
 
-	public IFSStructureDataAssociationCollection(String name, ObjectType type) throws IFSException {
+	public IFSStructureDataAssociationCollection(String name, String type) throws IFSException {
 		super(name, type);
 	}
 

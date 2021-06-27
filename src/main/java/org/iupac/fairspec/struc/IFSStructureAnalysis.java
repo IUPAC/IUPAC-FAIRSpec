@@ -10,8 +10,6 @@ import org.iupac.fairspec.core.IFSRepresentableObject;
  * An IFSAnalysis is a specialized IFSStructureDataAssociation that provides more
  * detailed metadata correlating one or more IFSStructure and one or more IFSDataObject.
  * 
- * Q: Should IFSAnalysis be representable? If so, then it should not connect
- * 
  * Typically, only one structure will be involved, but the class allows for any
  * number of structures (such as in the case of a chemical mixture).
  * 
@@ -34,7 +32,7 @@ public class IFSStructureAnalysis extends IFSRepresentableObject<IFSStructureAna
 	private IFSDataObjectCollection<?> dataCollection;
 
 
-	public IFSStructureAnalysis(String name, ObjectType type, IFSStructureCollection structureCollection,
+	public IFSStructureAnalysis(String name, String type, IFSStructureCollection structureCollection,
 			IFSDataObjectCollection<?> dataCollection) throws IFSException {
 		super(name, (type == null ? ObjectType.StructureAnalysis : type));
 		

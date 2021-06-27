@@ -7,10 +7,29 @@ import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
 
+/**
+ * A class implementing IFSRepresentableObject is expected to have one or more
+ * distinctly different digital representations (byte sequences) that amount to
+ * more than just metadata. These are the 2D or 3D MOL or SDF models, InChI or
+ * SMILES strings representing chemical structure, and the experimental,
+ * predicted, or simulated NMR or IR data associated with a chemical compound or
+ * mixture of compounds.
+ *
+ * The representations themselves, in the form of subclasses of
+ * IFSRepresentation, do not implement IFSObjectI. (They are not themselves
+ * inherently lists of anything.) They could be any Java Object, but most likely
+ * will be of the type String or byte[] (byte array). They represent the actual
+ * "Digital Items" that might be found in a ZIP file or within a cloud-based or
+ * local file system directory.
+ * 
+ * @author hansonr
+ *
+ * @param <T>
+ */
 @SuppressWarnings("serial")
 public abstract class IFSRepresentableObject<T extends IFSRepresentation> extends IFSObject<T> {
 
-	public IFSRepresentableObject(String name, ObjectType type) throws IFSException {
+	public IFSRepresentableObject(String name, String type) throws IFSException {
 		super(name, type);
 	}
 
