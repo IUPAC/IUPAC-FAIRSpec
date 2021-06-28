@@ -32,6 +32,7 @@ loadRightPanel: function(aid) {
  	demo.loadTop(aid);
 	if (aid.structures){
 		demo.loadStructures(aid.structures);
+		demo.loadSpecData(aid.specData);
 		demo.loadStructureSpecs(aid.structureSpecData);
 	} else {
 		demo.loadSpecData(aid.specData);
@@ -45,26 +46,26 @@ loadTop: function(aid) {
 	s += "<table>";
 	if (info) {
 	  if (info.title) {
-		s += "<tr><td>Title</td><td>" + info.title + "</td></tr>";
+		s += "<tr><td valign=top>Title</td><td valign=top>" + info.title + "</td></tr>";
 	  }
 	  if (info.authors) {
-		s += "<tr><td>Authors</td><td>" + info.authors + "</td></tr>";
+		s += "<tr><td valign=top>Authors</td><td valign=top>" + info.authors + "</td></tr>";
 	  }
 	  if (info.desc) {
-		s += "<tr><td>Description</td><td>" + info.desc+ "</td></tr>";
+		s += "<tr><td valign=top>Description</td><td valign=top>" + info.desc+ "</td></tr>";
 	  }
 	  if (info.DOI) {
-		s += "<tr><td>DOI</td><td><a target=_blank href=\"" + info.DOI + "\">" + info.DOI + "</a></td></tr>";
+		s += "<tr><td valign=top>DOI</td><td valign=top><a target=_blank href=\"" + info.DOI + "\">" + info.DOI + "</a></td></tr>";
 	  } 
-	  if (info.urls && info.urls.length) {
-		s += "<tr><td>Dataset URL</td><td>"
+	}
+	if (aid.urls && aid.urls.length) {
+		s += "<tr><td valign=top>Dataset URL(s)</td><td valign=top>"
 		var sep = "";
-		for (var i = 0; i < info.urls.length; i++) {
-			s += sep + "<a target=_blank href=\"" + info.urls[i] + "\">" + info.urls[i] + "</a>";
-			s += ", ";
+		for (var i = 0; i < aid.urls.length; i++) {
+			s += sep + "<a target=_blank href=\"" + aid.urls[i] + "\">" + aid.urls[i] + "</a>";
+			sep = ", ";
 		}
 		s += "</td></tr>";
-	  }
 	}
 	s += "</table>";
 	$("#top").html(s);
@@ -80,7 +81,7 @@ loadStructures: function(structures) {
 		list[i].index = i;
 	}
 	list.sort(demo.structureSorter);
-	var s = '<select onchange="demo.loadStructure(this.selectedOptions[0].value)"><option>Select a structure</option>'
+	var s = '<select onchange="demo.loadStructure(this.selectedOptions[0].value)"><option>Select a structure ('+list.length+')</option>'
 	for (var i = 1; i < list.length; i++) {
 		var struc = list[i];
 		s += "<option value=\"" + struc.index + "\">" + struc.name + "</option>"
@@ -111,7 +112,7 @@ loadSpecData: function(specData) {
 		list[i].index = i;
 	}
 	list.sort(demo.specDataSorter || demo.structureSorter);
-	var s = '<select onchange="demo.loadSpec(this.selectedOptions[0].value)"><option>Select a spectrum</option>'
+	var s = '<select onchange="demo.loadSpec(this.selectedOptions[0].value)"><option>Select a spectrum ('+list.length+')</option>'
 	for (var i = 1; i < list.length; i++) {
 		var spec = list[i];
 		s += "<option value=\"" + i + "\">" + spec.name + "</option>"
@@ -139,7 +140,7 @@ loadStructureSpecs: function(structureSpecs) {
 		list[i].name = name;
 	}
 	list.sort(demo.structureSorter);
-	var s = '<select onchange="demo.loadStructureSpec(this.selectedOptions[0].value)"><option>Select a structure-spectrum combination</option>'
+	var s = '<select onchange="demo.loadStructureSpec(this.selectedOptions[0].value)"><option>Select a structure-spectrum combination ('+list.length+')</option>'
 	for (var i = 1; i < list.length; i++) {
 		var struc = list[i];
 		s += "<option value=\"" + struc.index + "\">" + struc.name + "</option>"
