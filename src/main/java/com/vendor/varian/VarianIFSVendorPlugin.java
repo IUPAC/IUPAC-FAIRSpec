@@ -1,28 +1,36 @@
 package com.vendor.varian;
 
+import java.io.ByteArrayInputStream;
+
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
-import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
+import org.nmrml.parser.Acqu;
 
-public class VarianIFSVendorPlugin extends IFSDefaultVendorPlugin {
+import com.vendor.NmrMLIFSVendorPlugin;
+
+
+public class VarianIFSVendorPlugin extends NmrMLIFSVendorPlugin {
 
 	static {
 		register(com.vendor.varian.VarianIFSVendorPlugin.class);
 	}
 
 	public VarianIFSVendorPlugin() {
-		paramRegex = "TODO";
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return false;
+		paramRegex = "procpar$";
+		rezipRegex = "procpar";
 	}
 
 	@Override
 	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
 		super.accept(extractor, fname, bytes);
-		// TODO Auto-generated method stub
+		try {
+			// UNTESTED 
+			NmrMLVarianAcquStreamReader varian = new NmrMLVarianAcquStreamReader(new ByteArrayInputStream(bytes));
+			Acqu acq = varian.read();
+			setParams(varian.getDimension(), acq);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return true;
 	}
 

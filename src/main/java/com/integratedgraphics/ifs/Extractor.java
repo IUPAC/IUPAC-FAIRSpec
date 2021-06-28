@@ -54,7 +54,7 @@ import javajs.util.PT;
  * A class to handle the extraction of objects from a "raw" dataset following
  * the sequence:
  * 
- * initialize(ifsExtractScriptFile)
+ * initialize(ifsExtractScriptFile)`
  * 
  * setLocalSourceDir(sourceDir)
  * 

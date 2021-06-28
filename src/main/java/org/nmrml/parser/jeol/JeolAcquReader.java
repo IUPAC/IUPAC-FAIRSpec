@@ -5,11 +5,9 @@
 package org.nmrml.parser.jeol;
 
 import org.nmrml.parser.Acqu;
-import org.nmrml.parser.Proc;
 import org.nmrml.cv.SpectrometerMapper;
 
 import java.math.BigInteger;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.io.IOException;
@@ -17,7 +15,6 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.*;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.Locale;
 
 /**

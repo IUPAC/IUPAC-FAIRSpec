@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSVendorPluginI;
-import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
 import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
@@ -40,7 +39,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 				"##$NUC3", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_NUCL_3, //
 				"##$PULPROG", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_PULSE_PROG, //
 				"SOLVENT", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_SOLVENT, //
-				"SF", IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL,
+				"SF", IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL, //
 				"##$PROBHD", IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_PROBEID, //
 		};
 		for (int i = 0; i < keys.length;)
