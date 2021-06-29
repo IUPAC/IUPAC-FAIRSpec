@@ -5,8 +5,6 @@
 package org.nmrml.parser.varian;
 
 import org.nmrml.parser.Acqu;
-import org.nmrml.parser.Proc;
-
 import java.math.BigInteger;
 import java.io.BufferedReader;
 import java.io.File;

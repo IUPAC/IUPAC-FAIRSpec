@@ -5,7 +5,6 @@
 package com.integratedgraphics.ifs.vendor.varian;
 
 import org.nmrml.parser.Acqu;
-import org.nmrml.parser.Proc;
 import org.nmrml.parser.varian.AcquReader;
 
 import java.math.BigInteger;

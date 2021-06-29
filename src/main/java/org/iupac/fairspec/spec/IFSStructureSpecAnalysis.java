@@ -5,7 +5,6 @@ import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
 import org.iupac.fairspec.core.IFSDataObjectCollection;
 import org.iupac.fairspec.struc.IFSStructureAnalysis;
-import org.iupac.fairspec.struc.IFSStructureAnalysisRepresentation;
 import org.iupac.fairspec.struc.IFSStructureCollection;
 
 /**

@@ -49,10 +49,11 @@ import org.nmrml.model.UserParamType;
 import org.nmrml.model.ValueWithUnitType;
 import org.nmrml.parser.Acqu;
 import org.nmrml.parser.BinaryData;
+import org.nmrml.parser.NmrMLversion;
 
 public class Acqu2nmrML {
 
-    private static final String nmrMLVersion = nmrMLversion.value;
+    private static final String nmrMLVersion = NmrMLversion.value;
 
     public static int ID_count;
 

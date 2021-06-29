@@ -2,8 +2,6 @@ package org.iupac.fairspec.sample;
 
 import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.common.IFSException;
-import org.iupac.fairspec.common.IFSReference;
-import org.iupac.fairspec.common.IFSRepresentation;
 import org.iupac.fairspec.core.IFSDataObjectCollection;
 import org.iupac.fairspec.core.IFSRepresentableObject;
 

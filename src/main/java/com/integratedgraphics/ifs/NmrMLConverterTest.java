@@ -1,18 +1,13 @@
 package com.integratedgraphics.ifs;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 
 import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
-import org.nmrml.converter.Acqu2nmrML;
 import org.nmrml.cv.SpectrometerMapper;
 import org.nmrml.parser.Acqu;
-
 import com.integratedgraphics.ifs.vendor.jeol.NmrMLJeolAcquStreamReader;
 import com.integratedgraphics.ifs.vendor.varian.NmrMLVarianAcquStreamReader;
-
-import javajs.util.Rdr;
 
 public class NmrMLConverterTest {
 
@@ -47,7 +42,7 @@ public class NmrMLConverterTest {
 			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(fis);
 			fis.close();
 			SpectrometerMapper vendorMapper = new SpectrometerMapper(
-					Acqu2nmrML.class.getResourceAsStream("resources/jeol.ini"));
+					Acqu.class.getResourceAsStream("resources/jeol.ini"));
 			jeol.setVendorMapper(vendorMapper);
 			acq = jeol.read();
 

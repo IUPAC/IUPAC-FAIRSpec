@@ -4,7 +4,6 @@
 
 package com.integratedgraphics.ifs.vendor.jeol;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,13 +17,10 @@ import java.nio.charset.CharsetEncoder;
 import java.util.Locale;
 import java.util.regex.Matcher;
 
-import org.nmrml.converter.Acqu2nmrML;
 import org.nmrml.cv.SpectrometerMapper;
 import org.nmrml.parser.Acqu;
 import org.nmrml.parser.jeol.AcquReader;
 import org.nmrml.parser.jeol.JeolParameter;
-
-import javajs.util.Rdr;
 
 /**
  * Reader for Jeol JDF file
@@ -507,7 +503,7 @@ public class NmrMLJeolAcquStreamReader implements AcquReader {
 //			nmrmlObj.setCVLoader(cvLoader);
 
 			SpectrometerMapper vendorMapper = new SpectrometerMapper(
-					Acqu2nmrML.class.getResourceAsStream("resources/jeol.ini"));
+					Acqu.class.getResourceAsStream("resources/jeol.ini"));
 
 //			nmrmlObj.setVendorMapper(vendorMapper);
 

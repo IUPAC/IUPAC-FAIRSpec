@@ -1,22 +1,13 @@
 package com.integratedgraphics.ifs.vendor.jeol;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.iupac.fairspec.api.IFSExtractorI;
-import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
-import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
-import org.nmrml.converter.Acqu2nmrML;
 import org.nmrml.cv.SpectrometerMapper;
 import org.nmrml.parser.Acqu;
-
 import com.integratedgraphics.ifs.vendor.NmrMLIFSVendorPlugin;
-
-import jspecview.common.Spectrum;
 
 public class JeolIFSVendorPlugin extends NmrMLIFSVendorPlugin {
 
@@ -36,7 +27,7 @@ public class JeolIFSVendorPlugin extends NmrMLIFSVendorPlugin {
 		super.accept(extractor, fname, bytes);
 		try {
 			if (vendorMapper == null) {
-				vendorMapper = new SpectrometerMapper(Acqu2nmrML.class.getResourceAsStream("resources/jeol.ini"));
+				vendorMapper = new SpectrometerMapper(Acqu.class.getResourceAsStream("resources/jeol.ini"));
 			}
 			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(new ByteArrayInputStream(bytes));
 			jeol.setVendorMapper(vendorMapper);

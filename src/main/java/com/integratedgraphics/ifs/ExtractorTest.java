@@ -41,8 +41,8 @@ public class ExtractorTest extends Extractor {
 		debugging = false;             //true for verbose listing of all files
 		createFindingAidsOnly = false; //true if extraction files already exist or you otherwise don't want not write them
 
-		int first = 0; // first test to run
-		int last = 0;  // last test to run; 12 max, 9 for smaller files only
+		int first = 2; // first test to run
+		int last = 2;  // last test to run; 12 max, 9 for smaller files only
 		String targetDir = "./site/ifs";
 		String sourceDir = null;//"file:///c:/temp/iupac/zip";
 		runExtraction(first, last, targetDir, sourceDir, args);
