@@ -28,12 +28,25 @@ import com.integratedgraphics.ifs.util.Util;
 	acs.orglett.0c01297
  </code>
  * 
+ * Just modify the first few parameters 
  * 
  * 
  * @author hansonr
  *
  */
 public class ExtractorTest extends Extractor {
+
+	public static void main(String[] args) {
+
+		debugging = false;             //true for verbose listing of all files
+		createFindingAidsOnly = false; //true if extraction files already exist or you otherwise don't want not write them
+
+		int first = 0; // first test to run
+		int last = 0;  // last test to run; 12 max, 9 for smaller files only
+		String targetDir = "./site/ifs";
+		String sourceDir = null;//"file:///c:/temp/iupac/zip";
+		runExtraction(first, last, targetDir, sourceDir, args);
+	}
 
 	public ExtractorTest(String key, File ifsExtractScriptFile, File targetDir, String localSourceDir) throws IOException, IFSException {
 		
@@ -73,13 +86,10 @@ public class ExtractorTest extends Extractor {
 			"acs.orglett.0c00571/21975525", // 180+MB 12 3212 files; zips of bruker zips and HRMS
 	};
 	
-	public static void main(String[] args) {
-
-		int i0 = 0;
-		int i1 = 0; // set this to a larger number12 max; 9 for smaller files
+	private static void runExtraction(int first, int last, String targetDir, String sourceDir, String[] args) {
+		int i0 = first;
+		int i1 = last; 
 		
-		debugging = false;//true; // verbose listing of all files
-		createFindingAidsOnly = false; // set to true if files already exist in order to save a bit of time (maybe)
 		int failed = 0;
 		
 			
@@ -92,7 +102,7 @@ public class ExtractorTest extends Extractor {
 			
 //		
 			String key = null;
-			String script, targetDir = null, sourceDir = null;
+			String script;
 			switch (args.length) {
 			default:
 			case 3:
@@ -105,8 +115,6 @@ public class ExtractorTest extends Extractor {
 				script = args[0];
 				break;
 			case 0:
-				//sourceDir = "file:///c:/temp/iupac/zip";
-				targetDir = "./site/ifs";
 				script = null;
 			}
 
@@ -172,5 +180,6 @@ public class ExtractorTest extends Extractor {
 //print(r.status_code)
 //results = r.json()
 //pp(results)
+
 	
 }
