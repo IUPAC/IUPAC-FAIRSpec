@@ -1,4 +1,4 @@
-package com.vendor.varian;
+package com.integratedgraphics.ifs.vendor.varian;
 
 import java.io.ByteArrayInputStream;
 
@@ -6,13 +6,13 @@ import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
 import org.nmrml.parser.Acqu;
 
-import com.vendor.NmrMLIFSVendorPlugin;
+import com.integratedgraphics.ifs.vendor.NmrMLIFSVendorPlugin;
 
 
 public class VarianIFSVendorPlugin extends NmrMLIFSVendorPlugin {
 
 	static {
-		register(com.vendor.varian.VarianIFSVendorPlugin.class);
+		register(com.integratedgraphics.ifs.vendor.varian.VarianIFSVendorPlugin.class);
 	}
 
 	public VarianIFSVendorPlugin() {

@@ -1,30 +1,30 @@
-package com.vendor.mestrelab;
+package com.integratedgraphics.ifs.vendor.jcamp;
 
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
 import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
 
-public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
+public class JCAMPDXIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	static {
-		register(com.vendor.mestrelab.MestrelabIFSVendorPlugin.class);
+		register(com.integratedgraphics.ifs.vendor.jcamp.JCAMPDXIFSVendorPlugin.class);
 	}
-	
-	public MestrelabIFSVendorPlugin() {
-		paramRegex = "\\.mnova$";
+
+	public JCAMPDXIFSVendorPlugin() {
+		paramRegex = "\\.jdx$|\\.dx$";
 	}
 
 	@Override
 	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
 		super.accept(extractor, fname, bytes);
 		// TODO Auto-generated method stub
-		System.out.println("! TODO: accept mnova file " + fname);
+		System.out.println("! TODO: accept JDX file " + fname);
 		return true;
 	}
 
 	@Override
 	public String getVendorName() {
-		return "Mestrelab";
+		return "JCAMP-DX";
 	}
 
 	@Override

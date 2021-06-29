@@ -2,7 +2,7 @@
  * CC-BY 4.0
  */
 
-package com.vendor.varian;
+package com.integratedgraphics.ifs.vendor.varian;
 
 import org.nmrml.parser.Acqu;
 import org.nmrml.parser.Proc;

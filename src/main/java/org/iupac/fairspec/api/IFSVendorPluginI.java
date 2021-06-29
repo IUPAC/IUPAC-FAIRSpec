@@ -31,11 +31,11 @@ public interface IFSVendorPluginI extends IFSPropertyManagerI {
 
 	// TODO These should be in a config file
 	public final static String[] knownVendors = {
-			"com.vendor.bruker.BrukerIFSVendorPlugin",
-			"com.vendor.jcamp.JCAMPDXIFSVendorPlugin",
-			"com.vendor.jeol.JeolIFSVendorPlugin",
-			"com.vendor.mestrelab.MestrelabIFSVendorPlugin",
-			"com.vendor.varian.VarianIFSVendorPlugin",
+			"com.integratedgraphics.ifs.vendor.bruker.BrukerIFSVendorPlugin",
+			"com.integratedgraphics.ifs.vendor.jcamp.JCAMPDXIFSVendorPlugin",
+			"com.integratedgraphics.ifs.vendor.jeol.JeolIFSVendorPlugin",
+			"com.integratedgraphics.ifs.vendor.mestrelab.MestrelabIFSVendorPlugin",
+			"com.integratedgraphics.ifs.vendor.varian.VarianIFSVendorPlugin",
 		};
 
 	public final static List<VendorInfo> activeVendors = new ArrayList<VendorInfo>();

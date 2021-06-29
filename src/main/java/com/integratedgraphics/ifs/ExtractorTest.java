@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.iupac.fairspec.common.IFSException;
 
-import com.integratedgraphics.util.Util;
+import com.integratedgraphics.ifs.util.Util;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
@@ -57,29 +57,29 @@ public class ExtractorTest extends Extractor {
 	 * for example: https://ndownloader.figshare.com/files/21947274
 	 */
 	private final static String[] testSet = {
-			"acs.orglett.0c00571/21975525", // 0 3212 files; zips of bruker zips and HRMS
-			"acs.orglett.0c01153/22284726,22284729", // 1 bruker dirs
-			"acs.joc.0c00770/22567817",  // 2 727 files; zips of bruker dirs + mnovas
-			"acs.orglett.0c00624/21947274", // 3 1143 files; MANY bruker dirs
-			"acs.orglett.0c00788/22125318", // 4 jdfs
-			"acs.orglett.0c00874/22233351", // 5 bruker dirs
-			"acs.orglett.0c00967/22111341", // 6 bruker dirs + jdfs
-			"acs.orglett.0c01022/22195341", // 7  many mnovas
-			"acs.orglett.0c01197/22491647", // 8 many mnovas
-			"acs.orglett.0c01277/22613762", // 9 bruker dirs
-			"acs.orglett.0c01297/22612484", // 10 bruker dirs
-			// these next four are too large to save at GitHub (> 100 MB)
-			"acs.orglett.0c00755/22150197", // 11 MANY bruker dirs
-			"acs.orglett.0c01043/22232721", // 12  single 158-MB mnova
+			"acs.joc.0c00770/22567817",  // 0 727 files; zips of bruker dirs + mnovas
+			"acs.orglett.0c00624/21947274", // 1 1143 files; MANY bruker dirs
+			"acs.orglett.0c00788/22125318", // 2 jeol jdfs
+			"acs.orglett.0c00874/22233351", // 3 bruker dirs
+			"acs.orglett.0c00967/22111341", // 4 bruker dirs + jeol jdfs
+			"acs.orglett.0c01022/22195341", // 5  many mnovas
+			"acs.orglett.0c01197/22491647", // 6 many mnovas
+			"acs.orglett.0c01277/22613762", // 7 bruker dirs
+			"acs.orglett.0c01297/22612484", // 8 bruker dirs
+			// these next four are very large (> 100 MB) and take some time to process if not using a local sourceDir
+			"acs.orglett.0c00755/22150197", // 9 MANY bruker dirs
+			"acs.orglett.0c01043/22232721", // 10  single 158-MB mnova
+			"acs.orglett.0c01153/22284726,22284729", // two remote locations, 11 bruker dirs
+			"acs.orglett.0c00571/21975525", // 180+MB 12 3212 files; zips of bruker zips and HRMS
 	};
 	
 	public static void main(String[] args) {
 
 		int i0 = 0;
-		int i1 = 12; // 12 max
+		int i1 = 0; // set this to a larger number12 max; 9 for smaller files
 		
 		debugging = false;//true; // verbose listing of all files
-		
+		createFindingAidsOnly = false; // set to true if files already exist in order to save a bit of time (maybe)
 		int failed = 0;
 		
 			
@@ -105,12 +105,18 @@ public class ExtractorTest extends Extractor {
 				script = args[0];
 				break;
 			case 0:
-				sourceDir = "file:///c:/temp/iupac/zip";
-				targetDir = "c:/temp/iupac/ifs";
+				//sourceDir = "file:///c:/temp/iupac/zip";
+				targetDir = "./site/ifs";
 				script = null;
 			}
 
+			System.out.println("output to " + new File(targetDir).getAbsolutePath());
+			new File(targetDir).mkdirs();
+
+			String json = "";
+			
 			Util.setLogging(targetDir + "/extractor.log");
+
 			
 			for (int itest = (args.length == 0 ? i0 : 0); 
 			itest <= (args.length == 0 ? i1 : 0); 
@@ -126,17 +132,30 @@ public class ExtractorTest extends Extractor {
 					key = key.substring(0, pt);
 				script = "./extract/" + key + "/IFS-extract.json";
 			}
+			if (json.length() == 0) {
+				json = "{\"findingaids\":[\n";
+			} else {
+				json += ",\n";
+			}
 			try {
 				new ExtractorTest(key, new File(script), new File(targetDir), sourceDir);
+				json += "\""+key +"\"";
 				System.out.println("ok " + key);
 			} catch (Exception e) {
 				failed++;
 				System.err.println("Exception " + e + " for test " + itest);
 				e.printStackTrace();
 			}
-
 		}
 		log("! DONE failed=" + failed);
+		json += "\n]}\n";
+		try {
+			File f = new File(targetDir + "/_IFS_findingaids.json");
+			Util.writeBytesToFile(json.getBytes(), f);
+			System.out.println("File " + f.getAbsolutePath() + " created");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		Util.setLogging(null);
 	}
 

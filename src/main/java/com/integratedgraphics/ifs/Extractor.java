@@ -42,8 +42,8 @@ import org.iupac.fairspec.spec.IFSStructureSpecCollection;
 import org.iupac.fairspec.util.IFSDefaultJSONSerializer;
 import org.iupac.fairspec.util.IFSDefaultStructurePropertyManager;
 
-import com.integratedgraphics.util.PubInfoExtractor;
-import com.integratedgraphics.util.Util;
+import com.integratedgraphics.ifs.util.PubInfoExtractor;
+import com.integratedgraphics.ifs.util.Util;
 
 import javajs.util.JSJSONParser;
 import javajs.util.Lst;
@@ -95,7 +95,12 @@ public class Extractor implements IFSExtractorI {
 	protected static Pattern objectDefPattern = Pattern.compile("\\{([^:]+)::([^}]+)\\}");
 	protected static Pattern pStarDotStar;
 
-	protected static boolean debugging;
+	protected static boolean debugging = false;
+	
+	/**
+	 * set true to only create finding aides, not extract file data
+	 */
+	protected static boolean createFindingAidsOnly = false;
 	
 	protected static String logfile;
 
@@ -872,6 +877,7 @@ public class Extractor implements IFSExtractorI {
 		Map<String, ZipEntry> zipFiles = IFSZipContents.get(zipPath);
 		if (zipFiles == null) {
 			// Scan URL zip stream for files.
+			log("! retrieving " + zipPath);
 			URL url = new URL(zipPath);// getURLWithCachedBytes(zipPath); // BH carry over bytes if we have them for JS
 			zipFiles = readZipContentsIteratively(url.openStream(), new LinkedHashMap<String, ZipEntry>(), "", false);
 			IFSZipContents.put(zipPath, zipFiles);
@@ -1027,7 +1033,7 @@ public class Extractor implements IFSExtractorI {
 	 * @throws IOException
 	 */
 	protected void saveCollectionManifests(boolean isOpen) throws IOException {
-		if (!isOpen) {
+		if (!isOpen && !createFindingAidsOnly) {
 			Util.writeBytesToFile(extractScript.getBytes(), getFileTarget("_IFS_extract.json"));
 			outputListJSON(lstManifest, getFileTarget("_IFS_manifest.json"), "manifest");
 			outputListJSON(lstIgnored, getFileTarget("_IFS_ignored.json"), "ignored");
@@ -1283,7 +1289,7 @@ public class Extractor implements IFSExtractorI {
 		log("! rezipping " + zipDirName + " for " + entry + " " + new File(entry.getName()).getName());
 		File outFile = getFileTarget(zipDirName + ".zip");
 		final String localName = getLocalName(zipDirName);
-		FileOutputStream fos = new FileOutputStream(outFile);
+		OutputStream fos = (createFindingAidsOnly ? new ByteArrayOutputStream() : new FileOutputStream(outFile));
 		ZipOutputStream zos = new ZipOutputStream(fos);
 		String parent = new File(entry.getName()).getParent();
 		int lenOffset = (parent == null ? 0 : parent.length() + 1);
@@ -1353,7 +1359,7 @@ public class Extractor implements IFSExtractorI {
 		zos.close();
 		fos.close();
 		String dataType = vendor.getDatasetType(zipDirName);
-		len = outFile.length();
+		len = (createFindingAidsOnly ? ((ByteArrayOutputStream) fos).size() : outFile.length());
 		IFSRepresentation r = findingAid.getSpecDataRepresentation(zipDirName);
 		if (r == null)  {
 			System.out.println("! r not found for " + zipDirName);
@@ -1438,20 +1444,20 @@ public class Extractor implements IFSExtractorI {
 
 			File f = getFileTarget(zipName);
 			OutputStream os = (!doCheck && !doExtract ? null
-					: doCheck ? new ByteArrayOutputStream() : new FileOutputStream(f));
+					: doCheck || createFindingAidsOnly ? new ByteArrayOutputStream() : new FileOutputStream(f));
 			if (os != null)
 				Util.getLimitedStreamBytes(zis, len, os, false, true);
 			String localName = getLocalName(zipName);
 			String refName = f.getAbsolutePath();
 			if (doExtract) {
-				len = f.length();
+				byte[] bytes = (doCheck || createFindingAidsOnly ? ((ByteArrayOutputStream) os).toByteArray() : null);
+				len = (doCheck || createFindingAidsOnly ? bytes.length : f.length());
 				if (doCheck) {
-					byte[] bytes = ((ByteArrayOutputStream) os).toByteArray();
 					// set this.localName for parameters
 					// preserve this.localName, as we might be in a rezip.
 					// as, for example, a JDX file within a Bruker dataset
-					Util.writeBytesToFile(bytes, f);
-					len = bytes.length;
+					if (!createFindingAidsOnly)
+						Util.writeBytesToFile(bytes, f);
 					String oldLocal = this.localName;
 					this.localName = localName;
 					// indicating "this" here notifies the vendor plugin that

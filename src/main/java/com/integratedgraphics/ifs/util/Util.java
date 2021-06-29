@@ -1,4 +1,4 @@
-package com.integratedgraphics.util;
+package com.integratedgraphics.ifs.util;
 
 import java.io.File;
 import java.io.FileOutputStream;

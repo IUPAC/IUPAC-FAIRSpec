@@ -1,5 +1,7 @@
-package com.vendor.jeol;
+package com.integratedgraphics.ifs.vendor.jeol;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +14,7 @@ import org.nmrml.converter.Acqu2nmrML;
 import org.nmrml.cv.SpectrometerMapper;
 import org.nmrml.parser.Acqu;
 
-import com.vendor.NmrMLIFSVendorPlugin;
+import com.integratedgraphics.ifs.vendor.NmrMLIFSVendorPlugin;
 
 import jspecview.common.Spectrum;
 
@@ -21,7 +23,7 @@ public class JeolIFSVendorPlugin extends NmrMLIFSVendorPlugin {
 	protected static SpectrometerMapper vendorMapper;
 
 	static {
-		register(com.vendor.jeol.JeolIFSVendorPlugin.class);
+		register(com.integratedgraphics.ifs.vendor.jeol.JeolIFSVendorPlugin.class);
 	}
 
 
@@ -36,7 +38,7 @@ public class JeolIFSVendorPlugin extends NmrMLIFSVendorPlugin {
 			if (vendorMapper == null) {
 				vendorMapper = new SpectrometerMapper(Acqu2nmrML.class.getResourceAsStream("resources/jeol.ini"));
 			}
-			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(bytes);
+			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(new ByteArrayInputStream(bytes));
 			jeol.setVendorMapper(vendorMapper);
 			Acqu acq = jeol.read();
 			setParams(jeol.getDimension(), acq);

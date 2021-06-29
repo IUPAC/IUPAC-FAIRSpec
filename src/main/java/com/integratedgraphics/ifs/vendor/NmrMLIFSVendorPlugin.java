@@ -1,4 +1,4 @@
-package com.vendor;
+package com.integratedgraphics.ifs.vendor;
 
 import java.util.HashMap;
 import java.util.Map;

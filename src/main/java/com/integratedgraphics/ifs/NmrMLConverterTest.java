@@ -1,18 +1,20 @@
-package org.nmrml.converter;
+package com.integratedgraphics.ifs;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 
 import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
+import org.nmrml.converter.Acqu2nmrML;
 import org.nmrml.cv.SpectrometerMapper;
 import org.nmrml.parser.Acqu;
 
-import com.vendor.jeol.NmrMLJeolAcquStreamReader;
-import com.vendor.varian.NmrMLVarianAcquStreamReader;
+import com.integratedgraphics.ifs.vendor.jeol.NmrMLJeolAcquStreamReader;
+import com.integratedgraphics.ifs.vendor.varian.NmrMLVarianAcquStreamReader;
 
 import javajs.util.Rdr;
 
-public class TestBH {
+public class NmrMLConverterTest {
 
 	public final static void main(String[] args) {
 		try {
@@ -37,20 +39,19 @@ public class TestBH {
 			inputFolder = new File("test/varian/agilent_2d/procpar").getAbsolutePath();
 			varian = new NmrMLVarianAcquStreamReader(inputFolder);
 			acq = varian.read();
-			
+
 			setParams(varian.getDimension(), acq);
 
 			inputFolder = new File("test/jeol/1d_1d-13C.jdf").getAbsolutePath();
-			byte[] bytes = Rdr.getLimitedStreamBytes(new FileInputStream(inputFolder), -1);
-			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(bytes);
+			FileInputStream fis = new FileInputStream(inputFolder);
+			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(fis);
+			fis.close();
 			SpectrometerMapper vendorMapper = new SpectrometerMapper(
 					Acqu2nmrML.class.getResourceAsStream("resources/jeol.ini"));
 			jeol.setVendorMapper(vendorMapper);
 			acq = jeol.read();
 
 			setParams(jeol.getDimension(), acq);
-			
-			
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -60,17 +61,17 @@ public class TestBH {
 	}
 
 	protected static void setParams(int dim, Acqu acq) {
-		//reportName();
+		// reportName();
 		report("DIM", dim);
 		double freq = acq.getTransmiterFreq();
 		report("F1", freq);
- 		String nuc = acq.getObservedNucleus();
+		String nuc = acq.getObservedNucleus();
 		nuc = IFSDefaultVendorPlugin.fixNucleus(nuc);
 		report("N1", nuc);
 		int nominalFreq = IFSDefaultVendorPlugin.getNominalFrequency(freq, nuc);
 		report("SF", nominalFreq);
 		String solvent = acq.getSolvent();
-		report("SOLVENT",solvent);
+		report("SOLVENT", solvent);
 		String pp = acq.getPulseProgram();
 		report("PP", pp);
 		String probe = acq.getProbehead();
@@ -79,7 +80,7 @@ public class TestBH {
 
 	private static void report(String key, Object val) {
 		System.out.println(key + " = " + val);
-		
+
 	}
 
 }

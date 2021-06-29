@@ -2,27 +2,29 @@
  * CC-BY 4.0
  */
 
-package com.vendor.jeol;
+package com.integratedgraphics.ifs.vendor.jeol;
 
-import org.nmrml.parser.Acqu;
-import org.nmrml.parser.Proc;
-import org.nmrml.parser.jeol.AcquReader;
-import org.nmrml.parser.jeol.JeolParameter;
-import org.nmrml.cv.SpectrometerMapper;
-
-import java.math.BigInteger;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FilterInputStream;
-import java.io.RandomAccessFile;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.charset.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CharsetEncoder;
 import java.util.Locale;
+import java.util.regex.Matcher;
+
+import org.nmrml.converter.Acqu2nmrML;
+import org.nmrml.cv.SpectrometerMapper;
+import org.nmrml.parser.Acqu;
+import org.nmrml.parser.jeol.AcquReader;
+import org.nmrml.parser.jeol.JeolParameter;
+
+import javajs.util.Rdr;
 
 /**
  * Reader for Jeol JDF file
@@ -34,7 +36,7 @@ import java.util.Locale;
  */
 public class NmrMLJeolAcquStreamReader implements AcquReader {
 
-    private ByteArrayInputStream in;
+    private InputStream in;
     private SpectrometerMapper vendorMapper;
 
     public void setVendorMapper(SpectrometerMapper vendorMapper) {
@@ -53,7 +55,7 @@ public class NmrMLJeolAcquStreamReader implements AcquReader {
 //        return (int)buffer.getInt();
 //    }
 //
-	private JeolParameter readParam(int len) {
+	private JeolParameter readParam(int len) throws IOException {
 		byte[] buf = getBuf(len);
 		int nb = in.read(buf, 0, len);
 
@@ -128,31 +130,26 @@ public class NmrMLJeolAcquStreamReader implements AcquReader {
 		return buf;
 	}
     
-    private void seek(long n) {
-    	in.reset();
-    	in.skip(n);
-    }
-
-	private String readString(int len) {
+	private String readString(int len) throws IOException {
     	byte[] b = getBuf(len);
     	in.read(b, 0, len);
     	return new String(b, 0, len);
     }
 
-	private int readInt() {
+	private int readInt() throws IOException {
     	byte[] b = getBuf(4);
     	in.read(b, 0, 4);
     	return buffer.getInt();
 		
 	}
 	
-	private long readLong() {
+	private long readLong() throws IOException {
     	byte[] b = getBuf(8);
     	in.read(b, 0, 8);
     	return buffer.getLong();
 	}
 	
-	private double readDouble() {
+	private double readDouble() throws IOException {
     	byte[] b = getBuf(8);
     	in.read(b, 0, 8);
     	return buffer.getDouble();
@@ -161,27 +158,10 @@ public class NmrMLJeolAcquStreamReader implements AcquReader {
     public NmrMLJeolAcquStreamReader() {
     }
     
-    public NmrMLJeolAcquStreamReader(byte[] bytes) {
-        in = new ByteArrayInputStream(bytes);
+    public NmrMLJeolAcquStreamReader(InputStream in) {
+    	this.in = in;
     }
     
-	/**
-	 * acquisition.setSoftware() Author acquisition.setSoftVersion() version
-	 * acquisition.setProbehead() x_probe_map acquisition.setSolvent() solvent
-	 * acquisition.setNumberOfScans() total_scans
-	 * acquisition.setNumberOfSteadyStateScans() x_prescans
-	 * acquisition.setTemperature() temp_set acquisition.setRelaxationDelay()
-	 * relaxation_delay acquisition.setSpiningRate() spin_set
-	 * acquisition.setDspGroupDelay() orders & factors acquisition.setPulseProgram()
-	 * experiment acquisition.setAquiredPoints() x_points
-	 * acquisition.setObservedNucleus() x_domain acquisition.setDecoupledNucleus
-	 * acquisition.setSpectralWidthHz() x_sweep acquisition.setTransmiterFreq()
-	 * x_freq / irr_freq ??? (SF01) acquisition.setFreqOffset() x_offset*Base_Freq
-	 * acquisition.setSpectralFrequency() ??? (BF1) acquisition.setPulseWidth()
-	 * x_pulse
-	 * @throws IOException 
-	 **/
-
 	@Override
 	public Acqu read() throws IOException {
 
@@ -191,8 +171,7 @@ public class NmrMLJeolAcquStreamReader implements AcquReader {
 		Locale.setDefault(new Locale("en", "US"));
 		Acqu acquisition = new Acqu(Acqu.Spectrometer.JEOL);
 
-		seek(0);
-		String File_Identifier = this.readString(8);
+		String File_Identifier = readString(8);
 		if (fprt)
 			System.err.println(String.format("Header: File_Identifier = %s", File_Identifier));
 
@@ -207,23 +186,21 @@ public class NmrMLJeolAcquStreamReader implements AcquReader {
 		int Major_version = in.read();
 		if (fprt)
 			System.err.println(String.format("Header: Major_version = %d", Major_version));
-
-		seek(12);
+		in.skip(2);//seek(12);
 		data_Dimension_Number = in.read();
 		if (fprt)
 			System.err.println(String.format("Header: Data_Dimension_Number = %d", data_Dimension_Number));
-
-		seek(14);
+		in.skip(1);//seek(14);
 		int Data_Type = in.read();
 		if (fprt)
 			System.err.println(String.format("Header: Data_Type = %d", Data_Type));
 
 		if (vendorMapper != null) {
-			String Instrument = this.vendorMapper.getTerm("INSTRUMENT", String.format("%d", in.read()));
+			String Instrument = vendorMapper.getTerm("INSTRUMENT", String.format("%d", in.read()));
 			if (fprt)
 				System.err.println(String.format("Header: Instrument = %s", Instrument));
 		}
-		seek(24);
+		in.skip(8);//seek(24);
 		byte[] Data_Axis_Type = new byte[8];
 		in.read(Data_Axis_Type);
 		if (fprt)
@@ -234,21 +211,21 @@ public class NmrMLJeolAcquStreamReader implements AcquReader {
 		if (fprt)
 			System.err.println(String.format("Header: Data_Units = %d, %d, ...", Data_Units[0], Data_Units[1]));
 
-		title = this.readString(124);
+		title = readString(124);
 		if (fprt)
 			System.err.println(String.format("Header: Title = %s", title));
 
-		seek(176);
+		in.skip(4);//seek(176);
 		int Data_Points = readInt();
 		if (fprt)
 			System.err.println(String.format("Header: Data_Points = %d", Data_Points));
 
-		seek(208);
+		in.skip(28);//seek(208);
 		int Data_Offset_Start = readInt();
 		if (fprt)
 			System.err.println(String.format("Header: Data_Offset_Start = %d", Data_Offset_Start));
 
-		seek(408);
+		in.skip(196);//seek(408);
 		String Node_Name = readString(16);
 		if (fprt)
 			System.err.println(String.format("Header: Node_Name = %s", Node_Name));
@@ -266,23 +243,23 @@ public class NmrMLJeolAcquStreamReader implements AcquReader {
 		if (fprt)
 			System.err.println(String.format("Header: Data_Axis_Titles = %s", Data_Axis_Titles));
 
-		seek(1064);
+		//seek(1064);
 		base_Freq = readDouble();
 		if (fprt)
 			System.err.println(String.format("Header: Base_Freq = %f", base_Freq));
 
-		seek(1128);
+		in.skip(56);//seek(1128);
 		double Zero_Freq = readDouble();
 		if (fprt)
 			System.err.println(String.format("Header: Zero_Freq = %s", Zero_Freq));
 
-		seek(1212);
+		in.skip(76);//seek(1212);
 		int Param_Start = readInt();
 		if (fprt)
 			System.err.println(String.format("Header: Param_Start = %d", Param_Start));
 
 //        seek(1228);
-		seek(1284);
+		in.skip(68);//seek(1284);
 		long Data_Start = readInt();
 		if (fprt)
 			System.err.println(String.format("Header: Data_Start = %d", Data_Start));
@@ -293,13 +270,13 @@ public class NmrMLJeolAcquStreamReader implements AcquReader {
 		if (fprt)
 			System.err.println("------");
 
-		seek(Param_Start);
+		in.skip(Param_Start - 1296);////seek(Param_Start);
 
 		buffer.order(this.byteOrder = byteOrder);
-		int Parameter_Size = this.readInt();
-		int Low_Index = this.readInt();
-		int High_Index = this.readInt();
-		int Total_Size = this.readInt();
+		int Parameter_Size = readInt();
+		int Low_Index = readInt();
+		int High_Index = readInt();
+		int Total_Size = readInt();
 		if (fprt)
 			System.err.println(String.format("Header: Params: Size=%d, Low_Index=%d, High_Index=%d, Total_Size=%d",
 					Parameter_Size, Low_Index, High_Index, Total_Size));
@@ -313,7 +290,7 @@ public class NmrMLJeolAcquStreamReader implements AcquReader {
 
 		for (int count = 0; count <= High_Index; count++) {
 
-			JeolParameter param = this.readParam(64);
+			JeolParameter param = readParam(64);
 			String param_name = param.name.trim();
 			String Unit_label = "";
 
@@ -358,7 +335,7 @@ public class NmrMLJeolAcquStreamReader implements AcquReader {
 				flg = true;
 			}
 			if (param_name.equals("temp_set")) {
-				Unit_label = this.vendorMapper.getTerm("Unit_labels", String.format("%d", param.unit));
+				Unit_label = vendorMapper.getTerm("Unit_labels", String.format("%d", param.unit));
 				if (Unit_label.equals("dC")) {
 					acquisition.setTemperature(param.valueDouble + 273.15);
 				} else {
@@ -419,7 +396,7 @@ public class NmrMLJeolAcquStreamReader implements AcquReader {
 				flg = true;
 			}
 			if (param_name.equals("x_freq")) {
-				Unit_label = this.vendorMapper.getTerm("Unit_labels", String.format("%d", param.unit));
+				Unit_label = vendorMapper.getTerm("Unit_labels", String.format("%d", param.unit));
 				if (Unit_label.equals("Hz")) {
 					acquisition.setTransmiterFreq(param.valueDouble / 1000000.0);
 				} else {
@@ -475,10 +452,9 @@ public class NmrMLJeolAcquStreamReader implements AcquReader {
 				if (param.value_type == 2)
 					System.err.print(String.format("\t = \t %f", param.valueDouble));
 				System.err.println(String.format(" %s%s",
-						this.vendorMapper.getTerm("Unit_prefix", String.format("%d", param.unit_prefix)),
-						this.vendorMapper.getTerm("Unit_labels", String.format("%d", param.unit))));
+						vendorMapper.getTerm("Unit_prefix", String.format("%d", param.unit_prefix)),
+						vendorMapper.getTerm("Unit_labels", String.format("%d", param.unit))));
 			}
-			;
 		}
 
 		/* Software */
@@ -517,5 +493,45 @@ public class NmrMLJeolAcquStreamReader implements AcquReader {
 	public int getDimension() {
 		return data_Dimension_Number;
 	}
+	
+	public final static void main(String[] args) {
+		try {
 
+//			Acqu2nmrML nmrmlObj = new Acqu2nmrML();
+//
+//			Properties prop = new Properties();
+//			prop.load(Acqu2nmrML.class.getResourceAsStream("resources/config.properties"));
+//			nmrmlObj.setSchemaLocation(prop.getProperty("schemaLocation"));
+//			CVLoader cvLoader = new CVLoader(
+//					Acqu2nmrML.class.getResourceAsStream("resources/onto.ini"));
+//			nmrmlObj.setCVLoader(cvLoader);
+
+			SpectrometerMapper vendorMapper = new SpectrometerMapper(
+					Acqu2nmrML.class.getResourceAsStream("resources/jeol.ini"));
+
+//			nmrmlObj.setVendorMapper(vendorMapper);
+
+			String f = new File("test/jeol/1d_1d-13C.jdf").getAbsolutePath();
+//			nmrmlObj.setInputFolder(inputFolder);
+			FileInputStream fis = new FileInputStream(f);
+			NmrMLJeolAcquStreamReader jeolAcqObj = new NmrMLJeolAcquStreamReader(fis);
+			jeolAcqObj.setVendorMapper(vendorMapper);
+			Acqu acq = jeolAcqObj.read();
+			fis.close();
+			System.out.println(acq);
+//			nmrmlObj.setAcqu(acq);
+//
+//	           nmrmlObj.setVendorLabel("JEOL");//Vendor.toUpperCase());
+//	           nmrmlObj.setIfbinarydata(false);//cmd.hasOption("b"));
+//	           nmrmlObj.setCompressed(false);//cmd.hasOption("z"));
+//
+//	           nmrmlObj.Convert2nmrML( "c:/temp/iupac/nmrml/test.nmrml.xml" );
+//
+//
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 }

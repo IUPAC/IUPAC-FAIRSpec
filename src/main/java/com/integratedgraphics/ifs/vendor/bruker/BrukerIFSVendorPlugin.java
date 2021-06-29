@@ -1,4 +1,4 @@
-package com.vendor.bruker;
+package com.integratedgraphics.ifs.vendor.bruker;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -18,7 +18,7 @@ import jspecview.source.JDXReader;
 public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	static {
-		register(com.vendor.bruker.BrukerIFSVendorPlugin.class);
+		register(com.integratedgraphics.ifs.vendor.bruker.BrukerIFSVendorPlugin.class);
 	}
 
 	// public final static String defaultRezipIgnorePattern = "\\.mnova$";
