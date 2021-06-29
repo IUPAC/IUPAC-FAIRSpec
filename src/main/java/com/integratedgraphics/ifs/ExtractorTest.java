@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import org.iupac.fairspec.common.IFSException;
 
+import com.integratedgraphics.util.Util;
+
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
  * 
@@ -108,7 +110,7 @@ public class ExtractorTest extends Extractor {
 				script = null;
 			}
 
-			setLogging(targetDir + "/extractor.log");
+			Util.setLogging(targetDir + "/extractor.log");
 			
 			for (int itest = (args.length == 0 ? i0 : 0); 
 			itest <= (args.length == 0 ? i1 : 0); 
@@ -135,7 +137,7 @@ public class ExtractorTest extends Extractor {
 
 		}
 		log("! DONE failed=" + failed);
-		setLogging(null);
+		Util.setLogging(null);
 	}
 
 

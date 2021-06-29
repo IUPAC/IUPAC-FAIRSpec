@@ -52,10 +52,10 @@ loadTop: function(aid) {
 		s += "<tr><td valign=top>Authors</td><td valign=top>" + info.authors + "</td></tr>";
 	  }
 	  if (info.desc) {
-		s += "<tr><td valign=top>Description</td><td valign=top>" + info.desc+ "</td></tr>";
+		s += "<tr><td valign=top>Description</td><td valign=top>" + info.desc+ "</td></tr>"
 	  }
-	  if (info.DOI) {
-		s += "<tr><td valign=top>DOI</td><td valign=top><a target=_blank href=\"" + info.DOI + "\">" + info.DOI + "</a></td></tr>";
+	  if (info.url) {
+		s += "<tr><td valign=top>url</td><td valign=top><a target=_blank href=\"" + info.url + "\">" + info.url + "</a></td></tr>";
 	  } 
 	}
 	if (aid.urls && aid.urls.length) {

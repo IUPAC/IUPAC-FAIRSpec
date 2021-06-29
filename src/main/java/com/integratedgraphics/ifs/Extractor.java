@@ -42,6 +42,7 @@ import org.iupac.fairspec.spec.IFSStructureSpecCollection;
 import org.iupac.fairspec.util.IFSDefaultJSONSerializer;
 import org.iupac.fairspec.util.IFSDefaultStructurePropertyManager;
 
+import com.integratedgraphics.util.PubInfoExtractor;
 import com.integratedgraphics.util.Util;
 
 import javajs.util.JSJSONParser;
@@ -77,8 +78,6 @@ public class Extractor implements IFSExtractorI {
 	private static final String version = "0.0.1-alpha_2021_06_21";
 
 	private static final String codeSource = "https://github.com/BobHanson/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifs/Extractor.java";
-
-	private final static String crossciteURI = "https://data.crosscite.org/application/vnd.datacite.datacite+xml/";
 
 	/**
 	 * patterns to ignore completely.
@@ -157,8 +156,6 @@ public class Extractor implements IFSExtractorI {
 	 * 
 	 */
 	protected static Map<String, Map<String, ZipEntry>> IFSZipContents = new LinkedHashMap<>();
-
-	private static OutputStream logStream;
 
 	/**
 	 * an optional local source directory to use instead of the one indicated in IFS-extract.json
@@ -328,7 +325,7 @@ public class Extractor implements IFSExtractorI {
 
 		String path = targetDir + "/" + findingAidFileName;
 		String s = new IFSDefaultJSONSerializer().serialize(findingAid);
-		writeBytesToFile(s.getBytes(), new File(path));
+		Util.writeBytesToFile(s.getBytes(), new File(path));
 		return true;
 	}
 
@@ -554,9 +551,16 @@ public class Extractor implements IFSExtractorI {
 				case "puburi":
 					try {
 						puburi = getIFSExtractValue(val, "IFS.findingaid.source.publication.uri", null);
-						if (puburi != null)
-							pubCrossrefInfo = getPubInfo(puburi);
-					} catch (IFSException e1) {
+						if (puburi != null) {
+							pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi);
+							if (pubCrossrefInfo != null) {
+								log("! crossref url " + pubCrossrefInfo.get("crossrefUrl"));
+								log("! crossref metadata: \n" + pubCrossrefInfo.get("metadata"));
+							}
+						}
+					} catch (IFSException | IOException e1) {
+						System.out.println("Could not access " + PubInfoExtractor.getCrossrefUrl(puburi));
+						e1.printStackTrace();
 					}
 					log(puburi);
 					continue;
@@ -577,120 +581,7 @@ public class Extractor implements IFSExtractorI {
 		return parsers;
 	}
 
-	/**
-	 * Retrieve the crossref uri+xml metadata for the published work and process it
-	 * to return a Map summarizing its contents. This map contains a "metadata" item
-	 * that provides the original XML if desired.
-	 * 
-	 * @param puburi
-	 * @return null if there is an problem getting this URL
-	 * 
-	 */
-	private static Map<String, Object> getPubInfo(String puburi) {
-		if (puburi != null && puburi.startsWith("https://doi.org/")) {
-			String url = crossciteURI + puburi.substring(16);
-			try {
-				log("! opening " + url);
-				InputStream is = new URL(url).openStream();
-				byte[] bytes = Util.getLimitedStreamBytes(is, -1, null, true, true);
-				is.close();
-				return extractPubInfo(url, new String(bytes));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
-
-	}
-
-	/**
-	 * Very minimalist XML processing of the CrossRef record for this publication. 
-	 * 
-	 * @param url
-	 * @param pubxml
-	 * @return
-	 */
-	protected static Map<String, Object> extractPubInfo(String url, String pubxml) {
-		log("! crossref metadata: \n" + pubxml);
-		Map<String, Object> info =  new LinkedHashMap<>(); 
-		info.clear();
-		int[] pt = new int[1];
-		List<String> authors = new ArrayList<>();
-		String creator;
-		String s = "";
-		List<Map<String, Object>> authorList = new ArrayList<>();
-		String identifier = extractOuterXML("identifier", pubxml);
-		if (identifier.indexOf("identifierType=\"DOI\"") >= 0) {
-			info.put("DOI", "https://doi.org/" + extractXML("identifier", pubxml, null));			
-		} else {
-			info.put("identifier", extractXML("identifier", pubxml, null));			
-		}
-		while ((creator = extractXML("creator", pubxml, pt)) != null) {
-			String au = extractXML("creatorName", creator, null);
-			String orcid = extractXML("nameIdentifier", creator, null);
-			String aff = extractXML("affiliation", creator, null);
-			authors.add(au);
-			Map<String, Object> map = new LinkedHashMap<>();
-			map.put("name", au);
-			if (orcid != null && orcid.indexOf("orcid") >= 0)
-				map.put("orcid", orcid);
-			if (aff != null)
-				map.put("affiliation", aff);
-			authorList.add(map);
-			s += "; " + au;
-		}
-		info.put("crossrefUrl", url);
-		info.put("metadata", pubxml);
-		if (s.length() > 0) {
-			info.put("authors", s.substring(2));
-			info.put("authorData", authorList);
-		}
-		s = extractXML("title>", pubxml, null);
-		if (s != null)
-			info.put("title", s);
-		s = extractXML("description descriptionType=\"SeriesInformation\"", pubxml, null);
-		if (s != null)
-			info.put("desc", s);
-		return info;
-	}
-
-	private static String extractOuterXML(String key, String xml) {
-		if (xml == null)
-			return null;
-		int p = xml.indexOf("<" + key);
-		int p2 = key.indexOf(" ");
-		p2 = xml.indexOf("</" + (p2 < 0 ? key : key.substring(0, p2)) 
-				+ (key.endsWith(">") ? "" : ">"), p);
-		if (p2 < 0)
-			return null;
-		p2 = xml.indexOf(">", p2) + 1;
-		return xml.substring(p, p2);
-	}
-
-	/**
-	 * Super-simple XML parser. 
-	 * 
-	 * @param key
-	 * @param xml
-	 * @param pt
-	 * @return
-	 */
-	private static String extractXML(String key, String xml, int[] pt) {
-		if (xml == null)
-			return null;
-		if (pt == null)
-			pt = new int[1];
-		int p = xml.indexOf("<" + key, pt[0]);
-		if (p < 0 || (p = xml.indexOf(">", p) + 1) <= 0)
-			return null;
-		int p2 = key.indexOf(" ");
-		p2 = xml.indexOf("</" + (p2 < 0 ? key : key.substring(0, p2)) 
-				+ (key.endsWith(">") ? "" : ">"), p);
-		if (p2 < 0)
-			return null;
-		pt[0] = p2 + key.length() + 2;
-		return xml.substring(p, p2);
-	}
+	
 
 	///////// PHASE 2: Parsing the ZIP file and extracting objects from it ////////
 
@@ -1137,7 +1028,7 @@ public class Extractor implements IFSExtractorI {
 	 */
 	protected void saveCollectionManifests(boolean isOpen) throws IOException {
 		if (!isOpen) {
-			writeBytesToFile(extractScript.getBytes(), getFileTarget("_IFS_extract.json"));
+			Util.writeBytesToFile(extractScript.getBytes(), getFileTarget("_IFS_extract.json"));
 			outputListJSON(lstManifest, getFileTarget("_IFS_manifest.json"), "manifest");
 			outputListJSON(lstIgnored, getFileTarget("_IFS_ignored.json"), "ignored");
 		}
@@ -1202,7 +1093,7 @@ public class Extractor implements IFSExtractorI {
 			}
 		}
 		sb.append("]}\n");
-		writeBytesToFile(sb.toString().getBytes(), fileTarget);
+		Util.writeBytesToFile(sb.toString().getBytes(), fileTarget);
 	}
 
 	/**
@@ -1270,9 +1161,9 @@ public class Extractor implements IFSExtractorI {
 	 * @param msg
 	 */
 	protected static void log(String msg) {
-		if (logStream != null)
+		if (Util.logStream != null)
 			try {
-				logStream.write((msg + "\n").getBytes());
+				Util.logStream.write((msg + "\n").getBytes());
 			} catch (IOException e) {
 			}
 		if (msg.startsWith("!!"))
@@ -1280,20 +1171,6 @@ public class Extractor implements IFSExtractorI {
 		else if (debugging || msg.startsWith("!"))
 			System.out.println(msg);
 	}
-
-	protected static void setLogging(String fname) {
-		try {
-			if (fname == null) {
-				if (logStream != null)
-					logStream.close();
-				return;
-			}
-			logStream = new FileOutputStream(fname);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 
 	/**
 	 * For testing (or for whatever reason zip files are local or should not use the
@@ -1573,7 +1450,7 @@ public class Extractor implements IFSExtractorI {
 					// set this.localName for parameters
 					// preserve this.localName, as we might be in a rezip.
 					// as, for example, a JDX file within a Bruker dataset
-					writeBytesToFile(bytes, f);
+					Util.writeBytesToFile(bytes, f);
 					len = bytes.length;
 					String oldLocal = this.localName;
 					this.localName = localName;
@@ -1683,20 +1560,6 @@ public class Extractor implements IFSExtractorI {
 	protected static String getLocalName(String fname) {
 		boolean isDir = fname.endsWith("/");
 		return fname.replace('|', '_').replace('/', '_').replace(' ', '_') + (isDir ? ".zip" : "");
-	}
-
-
-	/**
-	 * Write bytes to a file. Failure to write could leave a dangling object.
-	 * 
-	 * @param bytes
-	 * @param fileTarget
-	 * @throws IOException
-	 */
-	protected static void writeBytesToFile(byte[] bytes, File fileTarget) throws IOException {
-		FileOutputStream fos = new FileOutputStream(fileTarget);
-		fos.write(bytes);
-		fos.close();
 	}
 
 

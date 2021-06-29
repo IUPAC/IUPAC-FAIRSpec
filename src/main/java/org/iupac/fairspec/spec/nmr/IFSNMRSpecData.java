@@ -28,6 +28,7 @@ public class IFSNMRSpecData extends IFSSpecData {
 	public static final String IFS_PROP_SPEC_NMR_EXPT_NUCL_3     = "IFS.property.spec.nmr.expt.nucl.3";
 	public static final String IFS_PROP_SPEC_NMR_EXPT_PULSE_PROG = "IFS.property.spec.nmr.expt.pulse.prog";
 	public static final String IFS_PROP_SPEC_NMR_EXPT_SOLVENT    = "IFS.property.spec.nmr.expt.solvent";
+	public static final String IFS_PROP_SPEC_NMR_EXPT_TEMPERATURE_K= "IFS.property.spec.nmr.expt.temperature.K";
 	public static final String IFS_PROP_SPEC_NMR_EXPT_ID   = "IFS.property.spec.nmr.expt.id";
 
 
@@ -47,7 +48,8 @@ public class IFSNMRSpecData extends IFSSpecData {
 				new IFSProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_FREQ_3, IFSConst.PROPERTY_TYPE.INT, IFSConst.PROPERTY_UNITS.MHZ),
 				new IFSProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_NUCL_1, IFSConst.PROPERTY_TYPE.NUCL, IFSConst.PROPERTY_UNITS.NONE), 
 				new IFSProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_NUCL_2, IFSConst.PROPERTY_TYPE.NUCL, IFSConst.PROPERTY_UNITS.NONE),
-				new IFSProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_NUCL_3, IFSConst.PROPERTY_TYPE.NUCL, IFSConst.PROPERTY_UNITS.NONE) 
+				new IFSProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_NUCL_3, IFSConst.PROPERTY_TYPE.NUCL, IFSConst.PROPERTY_UNITS.NONE), 
+				new IFSProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_TEMPERATURE_K, IFSConst.PROPERTY_TYPE.FLOAT, IFSConst.PROPERTY_UNITS.KELVIN) 
 		});
 	}
 	

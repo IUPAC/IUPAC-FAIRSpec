@@ -13,7 +13,6 @@ import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
 import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
 
 import javajs.util.Rdr;
-import jspecview.source.JDXDataObject;
 import jspecview.source.JDXReader;
 
 public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
@@ -38,6 +37,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 				"##$NUC2", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_NUCL_2, //
 				"##$NUC3", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_NUCL_3, //
 				"##$PULPROG", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_PULSE_PROG, //
+				"##$TE", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_TEMPERATURE_K, //
 				"SOLVENT", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_SOLVENT, //
 				"SF", IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL, //
 				"##$PROBHD", IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_PROBEID, //
@@ -47,7 +47,8 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	}
 
 	/**
-	 * 1D, 2D, ...; this value cannot be determined directly from parameters (I think)
+	 * 1D, 2D, ...; this value cannot be determined directly from parameters (I
+	 * think)
 	 */
 	private String dim;
 
@@ -63,7 +64,8 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	}
 
 	/**
-	 * Require an unsigned integer, and if that is not there, replace the directory name with "1".
+	 * Require an unsigned integer, and if that is not there, replace the directory
+	 * name with "1".
 	 */
 	@Override
 	public String getRezipPrefix(String dirName) {
@@ -80,13 +82,13 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		if (entryName.endsWith(".pdf"))
 			addProperty(IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_SPECTRUM_PDF, baseName + entryName);
 		else if (entryName.endsWith("thumb.png"))
-			addProperty(IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_SPECTRUM_IMAGE, baseName + entryName);			
+			addProperty(IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_SPECTRUM_IMAGE, baseName + entryName);
 		return !entryName.endsWith(".mnova");
 	}
 
 	@Override
 	public boolean doExtract(String entryName) {
-		return false;						
+		return false;
 	}
 
 	@Override
@@ -111,8 +113,9 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	}
 
 	/**
-	 * We use jspecview.source.JDXReader (in Jmol.jar) to pull out the header as a map.
-	 *  
+	 * We use jspecview.source.JDXReader (in Jmol.jar) to pull out the header as a
+	 * map.
+	 * 
 	 */
 	@Override
 	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
@@ -126,7 +129,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 			e.printStackTrace();
 			return false;
 		}
-		if (fname.indexOf("procs")>=0) {
+		if (fname.indexOf("procs") >= 0) {
 			report("SOLVENT", getSolvent(map));
 			return true;
 		}
@@ -150,11 +153,12 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 			getDoubleValue(map, "##$BF3");
 		if (ndim >= 4)
 			getDoubleValue(map, "##$BF4");
+		report("##$TE", getDoubleValue(map, "##$TE"));
 		processString(map, "##$PULPROG", null);
 		if (fname.endsWith("acqu2s")) {
 			report("DIM", dim = "2D");
 		}
-		report("SF", getNominalSpectrometerFrequency(nuc1, freq1));
+		report("SF", getNominalFrequency(freq1, nuc1));
 		processString(map, "##$PROBHD", null);
 		if (extractor != null)
 			this.extractor = null;
@@ -171,23 +175,6 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		String nuc_solv = getBrukerString(map, "##$SREGLST");
 		int pt;
 		return (nuc_solv != null && (pt = nuc_solv.indexOf(".")) >= 0 ? nuc_solv.substring(pt + 1) : null);
-	}
-
-	/**
-	 * This is the simple number 300, 400, etc., that characterizes the
-	 * spectrometer. It is derived from the gyromagnetic ratio of the nucleus, which
-	 * is used to get the 1H frequency.
-	 * 
-	 * [Note that this method uses the static method in
-	 * jspecview.source.JDXDataObject, linked here by lib/Jmol.jar in the
-	 * classpath.]
-	 * 
-	 * @param nuc1
-	 * @param freq1
-	 * @return
-	 */
-	private static int getNominalSpectrometerFrequency(String nuc1, double freq1) {
-		return JDXDataObject.getNominalSpecFreq(nuc1, freq1);
 	}
 
 	/**

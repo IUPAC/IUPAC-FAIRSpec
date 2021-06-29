@@ -1,8 +1,11 @@
 package com.integratedgraphics.util;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.function.Function;
@@ -114,5 +117,46 @@ public class Util {
 		System.arraycopy(bytes, 0, buf, 0, totalLen);
 		return buf;
 	}
+
+
+	public static byte[] getURLBytes(String url) throws MalformedURLException, IOException {
+		return getLimitedStreamBytes(new URL(url).openStream(), -1, null, true, true);
+	}
+
+
+	public static String getURLContentsAsString(String url) throws MalformedURLException, IOException {
+		return new String(getURLBytes(url));
+	}
+
+
+	/**
+	 * Write bytes to a file. Failure to write could leave a dangling object.
+	 * 
+	 * @param bytes
+	 * @param fileTarget
+	 * @throws IOException
+	 */
+	public static void writeBytesToFile(byte[] bytes, File fileTarget) throws IOException {
+		FileOutputStream fos = new FileOutputStream(fileTarget);
+		fos.write(bytes);
+		fos.close();
+	}
+
+
+	public static void setLogging(String fname) {
+		try {
+			if (fname == null) {
+				if (Util.logStream != null)
+					Util.logStream.close();
+				return;
+			}
+			Util.logStream = new FileOutputStream(fname);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	public static OutputStream logStream;
 
 }

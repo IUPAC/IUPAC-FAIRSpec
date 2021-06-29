@@ -24,6 +24,7 @@ public abstract class NmrMLIFSVendorPlugin extends IFSDefaultVendorPlugin {
 				"SOLVENT", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_SOLVENT, //
 				"SF", IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL, //
 				"PROBE", IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_PROBEID, //
+				"TEMPERATURE", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_TEMPERATURE_K, //
 		};
 
 		for (int i = 0; i < keys.length;)
@@ -46,16 +47,12 @@ public abstract class NmrMLIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		double freq = acq.getTransmiterFreq();
 		report("F1", freq);
  		String nuc = fixNucleus(acq.getObservedNucleus());
-		report("N1", nuc);
-		
-		int nominalFreq = getNominalFrequency(freq, nuc);
-		report("SF", nominalFreq);
-		String solvent = fixSolvent(acq.getSolvent());
-		report("SOLVENT", solvent);
-		String pp = acq.getPulseProgram();
-		report("PP", pp);
-		String probe = acq.getProbehead();
-		report("PROBE", probe);
+		report("N1", nuc);		
+		report("SF", getNominalFrequency(freq, nuc));
+		report("SOLVENT", fixSolvent(acq.getSolvent()));
+		report("TEMPERATURE", acq.getTemperature());
+		report("PP", acq.getPulseProgram());
+		report("PROBE", acq.getProbehead());
 	}
 
 }

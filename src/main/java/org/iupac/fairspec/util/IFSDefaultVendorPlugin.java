@@ -9,7 +9,7 @@ import org.iupac.fairspec.api.IFSPropertyManagerI;
 import org.iupac.fairspec.api.IFSVendorPluginI;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 
-import jspecview.common.Spectrum;
+import jspecview.source.JDXDataObject;
 
 /**
  * An abstract class that underlies all the vendor plugins.
@@ -187,6 +187,10 @@ public abstract class IFSDefaultVendorPlugin implements IFSVendorPluginI {
 	 * @param val
 	 */
 	public void addProperty(String key, Object val) {
+		if (val instanceof Double) {
+			if (Double.isNaN((Double)val))
+				return;
+		}
 		IFSPropertyManagerI.addProperty(extractor, key, val);
 	}
 
@@ -271,12 +275,14 @@ public abstract class IFSDefaultVendorPlugin implements IFSVendorPluginI {
 		return solvent;
 	}
 
+	/**
+	 * Get the "nominal" spectrometer frequency -- 300, 400, 500, etc. -- from the frequency and identity of the nucleus
+	 * @param freq
+	 * @param nuc if null, just do the century cleaning
+	 * @return
+	 */
 	public static int getNominalFrequency(double freq, String nuc) {
-		double gm = Spectrum.getGyromagneticRatio(fixNucleus(nuc));
-		freq = freq / gm * Spectrum.getGyromagneticRatio("1H");
-		int century = (int) Math.round(freq/100) * 100;
-		return (Math.abs(freq - century) < 2 ? century : (int) Math.round(freq));
+		return JDXDataObject.getNominalSpecFreq(nuc, freq);
 	}
-
-	
+		
 }
