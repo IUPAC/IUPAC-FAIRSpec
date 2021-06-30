@@ -10,5 +10,5 @@
  {"data": "{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/21947274}"},
 
  {"path":"{data}|primary NMR data/{id=IFS.property.struc.compound.id::*}/"},
- {"objects":"{path}{IFS.representation.spec.nmr.vendor.dataset::<id>-{IFS.property.spec.nmr.expt.id::*}/}"}
+ {"objects":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::<id>-*}/}"}
 ]}

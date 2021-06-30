@@ -110,6 +110,11 @@ public class Extractor implements IFSExtractorI {
 	 * set true to only create finding aides, not extract file data
 	 */
 	protected static boolean createFindingAidsOnly = false;
+	
+	/**
+	 * set true to allow failure to create pub info
+	 */
+	protected static boolean allowNoPubInfo = false;
 
 	/**
 	 * set true to zip up the extracted collection, placing that in the target
@@ -334,7 +339,7 @@ public class Extractor implements IFSExtractorI {
 
 		getObjectParsersForFile(ifsExtractScriptFile);
 
-		if (pubCrossrefInfo == null) {
+		if (pubCrossrefInfo == null && !allowNoPubInfo) {
 			log("!! Finding aid does not contain PubInfo! No internet? cannot continue");
 			return false;
 		}

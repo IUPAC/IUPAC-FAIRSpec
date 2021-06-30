@@ -7,7 +7,7 @@
  {"data0":"{IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
  {"data":"{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22233351}"},
  
- {"path":"{data}|NMR FID files/{id=IFS.property.struc.compound.id::*}/"},
- {"objects":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::*}/}"},
- {"objects":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::cd*/*}/}"}
+ {"path":"{data}|NMR FID files/"},
+ {"objects":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::{id=IFS.property.struc.compound.id::*}/*}/}"},
+ {"objects":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::{id=IFS.property.struc.compound.id::*}/cd*/*}/}"}
 ]}

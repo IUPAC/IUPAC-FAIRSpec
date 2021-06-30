@@ -52,9 +52,9 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 		@Override
 		public void serialize(IFSSerializerI serializer) {
 			if (ref != null)
-				serializer.addAttr("dataRef", ref);
+				serializer.addAttr("ref", ref);
 			if (len > 0)
-				serializer.addAttrInt("dataLength", len);
+				serializer.addAttrInt("len", len);
 		}
 
 		@Override
@@ -77,7 +77,7 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 	}
 
 	public int addSource(String ref) {
-		for (int i = sources.size(); -i >= 0;) {
+		for (int i = sources.size(); --i >= 0;) {
 			if (sources.get(i).ref.equals(ref)) {
 				return i;
 			}
@@ -114,7 +114,10 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 		if (serializing) {
 			serializeTop(serializer);
 			if (myResource.len > 0) {
-				myResource.serialize(serializer);
+				if (myResource.ref != null)
+					serializer.addAttr("collectionRef", myResource.ref);
+				if (myResource.len != 0)
+					serializer.addAttrInt("collectionLen", myResource.len);
 			}
 			serializer.addObject("created", date.toGMTString());
 			if (pubInfo != null)

@@ -77,17 +77,23 @@ loadTop: function(aid) {
 		s += "<tr><td valign=top>url</td><td valign=top><a target=_blank href=\"" + info.url + "\">" + info.url + "</a></td></tr>";
 	  } 
 	}
-	if (aid.urls && aid.urls.length) {
-		s += "<tr><td valign=top>Dataset URL(s)</td><td valign=top>"
+	if (aid.sources && aid.sources.length) {
+		s += "<tr><td valign=top>Dataset Source(s)</td><td valign=top>"
 		var sep = "";
-		for (var i = 0; i < aid.urls.length; i++) {
-			var dir = aid.urls[i].split('/');
+		for (var i = 0; i < aid.sources.length; i++) {
+			var ref = aid.sources[i].ref;
+			var len = aid.sources[i].len;
+			var dir = ref.split('/');
 			dir = dir[dir.length - 1];
-			s += sep + "<a target=_blank href=\"" + aid.urls[i] + "\">" + aid.urls[i] + "</a> "
+			s += sep + "<a target=_blank href=\"" + ref + "\">" + ref + "</a> (" + len + " bytes) "
 				+ "<a target=_blank href=\""+rootdir + dir +"\">extracted collection</a>";
 			sep = ", ";
 		}
 		s += "</td></tr>";
+	}
+	if (aid.collectionRef) {
+		s += "<tr><td valign=top>IFS collection</td><td valign=top><a target=_blank href=\"" + aid.collectionRef + "\">" + aid.collectionRef + "</a> (" +  aid.collectionLen + " bytes)</td></tr>";
+		
 	}
 	s += "</table>";
 	$("#top").html(s);
@@ -145,6 +151,7 @@ loadSpecData: function(specData) {
 },
 
 loadStructureSpecs: function(structureSpecs) {
+	if (!structureSpecs || !structureSpecs.list)return;
 	var n = structureSpecs.list.length;
 	var list = [];
 	for (var i = 0; i < n; i++) {

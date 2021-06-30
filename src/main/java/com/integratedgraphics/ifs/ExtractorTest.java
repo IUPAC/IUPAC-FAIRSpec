@@ -11,8 +11,7 @@ import com.integratedgraphics.ifs.util.Util;
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
  * 
  * A test class to extract metadata and representation objects from the ACS
- * sample set of 13 articles. specifically: 
- * <code>
+ * sample set of 13 articles. specifically: <code>
 	acs.joc.0c00770
 	acs.orglett.0c00571
 	acs.orglett.0c00624
@@ -28,7 +27,7 @@ import com.integratedgraphics.ifs.util.Util;
 	acs.orglett.0c01297
  </code>
  * 
- * Just modify the first few parameters 
+ * Just modify the first few parameters
  * 
  * 
  * @author hansonr
@@ -39,64 +38,65 @@ public class ExtractorTest extends Extractor {
 	private static boolean createFindingAidJSONList;
 	private static boolean stopOnAnyFailure;
 
-	public static void main(String[] args) {
-
-		readOnly = false;				 // for testing; when true, not output other than a log file is produced
-		debugging = false;               // true for verbose listing of all files
-		createFindingAidsOnly = false;   // true if extraction files already exist or you otherwise don't want not write them
-
-		// this next is independent of readOnly
-		createZippedCollection = true; // false to bypass final creation of an _IFS_collection.zip file
-
-		// local to this Test class:
-		createFindingAidJSONList = false; // false for testing and you don't want to mess up _IFS_findingaids.json
-		stopOnAnyFailure = true;         // set false to allow continuing after an error.
-		
-		int first = 0; // first test to run
-		int last = 11;  // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova file test
-		String targetDir = "./site/ifs";
-		String sourceDir = null;//"file:///c:/temp/iupac/zip";
-		runExtraction(first, last, targetDir, sourceDir, args);
-	}
-
-	public ExtractorTest(String key, File ifsExtractScriptFile, File targetDir, String localSourceDir) throws IOException, IFSException {
-		
-		String findingAidFileName = (key == null ? "" : key + ".");
-		
-		if (!super.extractAndCreateFindingAid(ifsExtractScriptFile, localSourceDir, targetDir, findingAidFileName)) {
-			throw new IFSException("Test failed");
-		}
-		
-		System.out.println(
-				"extracted " + manifestCount + " files (" + extractedByteCount + " bytes)"
-				+ "; ignored " + ignoredCount + " files (" + ignoredByteCount + " bytes)");
-	
-
-	}
-
-
 	/**
-	 * ACS/FigShare codes   /21947274  
+	 * ACS/FigShare codes /21947274
 	 * 
 	 * for example: https://ndownloader.figshare.com/files/21947274
 	 */
-	private final static String[] testSet = {
-			"acs.joc.0c00770/22567817",  // 0 727 files; zips of bruker dirs + mnovas
+	private final static String[] testSet = { "acs.joc.0c00770/22567817", // 0 727 files; zips of bruker dirs + mnovas
 			"acs.orglett.0c00624/21947274", // 1 1143 files; MANY bruker dirs
 			"acs.orglett.0c00788/22125318", // 2 jeol jdfs
 			"acs.orglett.0c00874/22233351", // 3 bruker dirs
 			"acs.orglett.0c00967/22111341", // 4 bruker dirs + jeol jdfs
-			"acs.orglett.0c01022/22195341", // 5  many mnovas
+			"acs.orglett.0c01022/22195341", // 5 many mnovas
 			"acs.orglett.0c01197/22491647", // 6 many mnovas
 			"acs.orglett.0c01277/22613762", // 7 bruker dirs
 			"acs.orglett.0c01297/22612484", // 8 bruker dirs
-			// these next four are very large (> 100 MB) and take some time to process if not using a local sourceDir
+			// these next four are very large (> 100 MB) and take some time to process if
+			// not using a local sourceDir
 			"acs.orglett.0c00755/22150197", // 9 MANY bruker dirs
 			"acs.orglett.0c01153/22284726,22284729", // 10 two remote locations; bruker dirs
 			"acs.orglett.0c00571/21975525", // 11 180+MB 3212 files; zips of bruker zips and HRMS
-			"acs.orglett.0c01043/22232721", // 12  single 158-MB mnova  -- IGNORING!
+			"acs.orglett.0c01043/22232721", // 12 single 158-MB mnova -- IGNORING!
 	};
-	
+
+	public static void main(String[] args) {
+
+		// normally false:
+		
+		readOnly = false; // for testing; when true, not output other than a log file is produced
+		debugging = false; // true for verbose listing of all files
+		createFindingAidsOnly = false; // true if extraction files already exist or you otherwise don't want not write
+		allowNoPubInfo = false; // true to allow no internet connection and so no pub calls
+		// normally true:
+		
+		// this next is independent of readOnly
+		createZippedCollection = true; // false to bypass final creation of an _IFS_collection.zip file
+		createFindingAidJSONList = true; // false for testing and you don't want to mess up _IFS_findingaids.json
+		stopOnAnyFailure = true; // set false to allow continuing after an error.
+
+		int first = 0; // first test to run
+		int last = 11; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+						// file test
+		String targetDir = "./site/ifs";
+		String sourceDir = "c:/temp/iupac/zip";
+		runExtraction(first, last, targetDir, sourceDir, args);
+	}
+
+	public ExtractorTest(String key, File ifsExtractScriptFile, File targetDir, String localSourceDir)
+			throws IOException, IFSException {
+
+		String findingAidFileName = (key == null ? "" : key + ".");
+
+		if (!super.extractAndCreateFindingAid(ifsExtractScriptFile, localSourceDir, targetDir, findingAidFileName) && !allowNoPubInfo) {
+			throw new IFSException("Test failed");
+		}
+
+		System.out.println("extracted " + manifestCount + " files (" + extractedByteCount + " bytes)" + "; ignored "
+				+ ignoredCount + " files (" + ignoredByteCount + " bytes)");
+
+	}
+
 	private static void runExtraction(int first, int last, String targetDir, String sourceDir, String[] args) {
 		int i0 = first;
 		int i1 = last;
@@ -182,7 +182,6 @@ public class ExtractorTest extends Extractor {
 		Util.setLogging(null);
 	}
 
-
 // BH note: 
 //
 //FigShare searching:
@@ -196,5 +195,4 @@ public class ExtractorTest extends Extractor {
 //results = r.json()
 //pp(results)
 
-	
 }
