@@ -141,7 +141,7 @@ public class NmrMLJeolAcquStreamReader {
 
 		String File_Identifier = readString(8);
 		if (fprt)
-			System.err.println("Header: File_Identifier = " + File_Identifier);
+			System.out.println("Header: File_Identifier = " + File_Identifier);
 
 		int endian = in.read();
 		ByteOrder byteOrder = (endian == 1 ? ByteOrder.LITTLE_ENDIAN : ByteOrder.BIG_ENDIAN);
@@ -149,92 +149,92 @@ public class NmrMLJeolAcquStreamReader {
 		acquisition.setBiteSyze(8);
 
 		if (fprt)
-			System.err.println("Header: Endian = " +endian);
+			System.out.println("Header: Endian = " +endian);
 
 		int Major_version = in.read();
 		if (fprt)
-			System.err.println("Header: Major_version = " + Major_version);
+			System.out.println("Header: Major_version = " + Major_version);
 		in.skip(2);//seek(12);
 		data_Dimension_Number = in.read();
 		if (fprt)
-			System.err.println("Header: Data_Dimension_Number = " +data_Dimension_Number);
+			System.out.println("Header: Data_Dimension_Number = " +data_Dimension_Number);
 		in.skip(1);//seek(14);
 		int Data_Type = in.read();
 		if (fprt)
-			System.err.println("Header: Data_Type = " +Data_Type);
+			System.out.println("Header: Data_Type = " +Data_Type);
 
 		String Instrument = getTerm("INSTRUMENT", in.read());
 		if (fprt)
-			System.err.println("Header: Instrument = " + Instrument);
+			System.out.println("Header: Instrument = " + Instrument);
 		in.skip(8);//seek(24);
 		byte[] Data_Axis_Type = new byte[8];
 		in.read(Data_Axis_Type);
 		if (fprt)
-			System.err.println("Header: Data_Axis_Type = " + Data_Axis_Type[0] + ", ... ");
+			System.out.println("Header: Data_Axis_Type = " + Data_Axis_Type[0] + ", ... ");
 
 		byte[] Data_Units = new byte[16];
 		in.read(Data_Units);
 		if (fprt)
-			System.err.println(String.format("Header: Data_Units = %d, %d, ...", Data_Units[0], Data_Units[1]));
+			System.out.println(String.format("Header: Data_Units = %d, %d, ...", Data_Units[0], Data_Units[1]));
 
 		title = readString(124);
 		if (fprt)
-			System.err.println("Header: Title = " + title);
+			System.out.println("Header: Title = " + title);
 
 		in.skip(4);//seek(176);
 		int Data_Points = readInt();
 		if (fprt)
-			System.err.println("Header: Data_Points = " +Data_Points);
+			System.out.println("Header: Data_Points = " +Data_Points);
 
 		in.skip(28);//seek(208);
 		int Data_Offset_Start = readInt();
 		if (fprt)
-			System.err.println("Header: Data_Offset_Start = " +Data_Offset_Start);
+			System.out.println("Header: Data_Offset_Start = " +Data_Offset_Start);
 
 		in.skip(196);//seek(408);
 		String Node_Name = readString(16);
 		if (fprt)
-			System.err.println("Header: Node_Name = " + Node_Name);
+			System.out.println("Header: Node_Name = " + Node_Name);
 		String Site = readString(128);
 		if (fprt)
-			System.err.println("Header: Site = " + Site);
+			System.out.println("Header: Site = " + Site);
 		String Author = readString(128);
 
 		if (fprt)
-			System.err.println("Header: Author = " + Author);
+			System.out.println("Header: Author = " + Author);
 		comment = readString(128);
 		if (fprt)
-			System.err.println("Header: Comment = " + comment);
+			System.out.println("Header: Comment = " + comment);
 		String Data_Axis_Titles = readString(256);
 		if (fprt)
-			System.err.println("Header: Data_Axis_Titles = " + Data_Axis_Titles);
+			System.out.println("Header: Data_Axis_Titles = " + Data_Axis_Titles);
 
 		//seek(1064);
 		base_Freq = readDouble();
 		if (fprt)
-			System.err.println("Header: Base_Freq = " + base_Freq);
+			System.out.println("Header: Base_Freq = " + base_Freq);
 
 		in.skip(56);//seek(1128);
 		double Zero_Freq = readDouble();
 		if (fprt)
-			System.err.println("Header: Zero_Freq = " + Zero_Freq);
+			System.out.println("Header: Zero_Freq = " + Zero_Freq);
 
 		in.skip(76);//seek(1212);
 		int Param_Start = readInt();
 		if (fprt)
-			System.err.println("Header: Param_Start = " +Param_Start);
+			System.out.println("Header: Param_Start = " +Param_Start);
 
 //        seek(1228);
 		in.skip(68);//seek(1284);
 		long Data_Start = readInt();
 		if (fprt)
-			System.err.println("Header: Data_Start = " +Data_Start);
+			System.out.println("Header: Data_Start = " +Data_Start);
 		long Data_Length = readLong();
 		if (fprt)
-			System.err.println("Header: Data_Length = " +Data_Length);
+			System.out.println("Header: Data_Length = " +Data_Length);
 
 		if (fprt)
-			System.err.println("------");
+			System.out.println("------");
 
 		in.skip(Param_Start - 1296);////seek(Param_Start);
 
@@ -244,11 +244,11 @@ public class NmrMLJeolAcquStreamReader {
 		int High_Index = readInt();
 		int Total_Size = readInt();
 		if (fprt)
-			System.err.println(String.format("Header: Params: Size=%d, Low_Index=%d, High_Index=%d, Total_Size=%d",
+			System.out.println(String.format("Header: Params: Size=%d, Low_Index=%d, High_Index=%d, Total_Size=%d",
 					Parameter_Size, Low_Index, High_Index, Total_Size));
 
 		if (fprt)
-			System.err.println("------");
+			System.out.println("------");
 
 		//boolean irr_mode = false;
 		int[] factors = null;
@@ -410,14 +410,14 @@ public class NmrMLJeolAcquStreamReader {
 				flg = true;
 			}	
 			if (fprt & flg) {
-				System.err.print("Param: %s" + param.name);
+				System.out.print("Param: %s" + param.name);
 				if (param.value_type == 0)
-					System.err.print("\t = \t " + param.valueString + "%s ");
+					System.out.print("\t = \t " + param.valueString + "%s ");
 				else if (param.value_type == 1)
-					System.err.print("\t = \t " +param.valueInt);
+					System.out.print("\t = \t " +param.valueInt);
 				else if (param.value_type == 2)
-					System.err.print("\t = \t " + param.valueDouble);
-				System.err.println(String.format(" %s%s",
+					System.out.print("\t = \t " + param.valueDouble);
+				System.out.println(String.format(" %s%s",
 						getTerm("Unit_prefix", param.unit_prefix),
 						getTerm("Unit_labels", param.unit)));
 			}
@@ -449,7 +449,7 @@ public class NmrMLJeolAcquStreamReader {
 		acquisition.setDataLength(Data_Length);
 
 		if (fprt)
-			System.err.println("------");
+			System.out.println("------");
 
 		in.close();
 
