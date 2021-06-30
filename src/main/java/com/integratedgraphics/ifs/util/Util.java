@@ -1,6 +1,7 @@
 package com.integratedgraphics.ifs.util;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,8 +10,11 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javajs.util.JSJSONParser;
 import swingjs.api.JSUtilI;
@@ -165,6 +169,51 @@ public class Util {
 
 	public static Map<String, Object> getJSONURL(String url) throws MalformedURLException, IOException {
 		return new JSJSONParser().parseMap(Util.getURLContentsAsString(url), false);
+	}
+
+
+	public static long zip(String fileName, String prefix, String filePrefix, List<String> products) throws IOException {
+		ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(fileName));
+		for (int i = 0; i < products.size(); i++) {
+			File f = new File(products.get(i));
+			copyFiles(zos, f, new File(fileName).getParentFile(), prefix, filePrefix);
+		}
+		zos.close();
+		return new File(fileName).length();
+	}
+
+	private static void copyFiles(ZipOutputStream zos, File dirOrFile, File target, String prefix, String filePrefix) throws IOException {
+		File[] files = (dirOrFile.isDirectory() ? dirOrFile.listFiles() : new File[] { dirOrFile });
+		if (files == null)
+			return;
+		if (dirOrFile.isDirectory()) 
+			zipAdd(zos, dirOrFile, prefix, filePrefix);
+		for (int i = 0; i < files.length; i++) {
+			File f = files[i];
+			if (f == null) {
+				//
+			} else if (f.isDirectory()) {
+				copyFiles(zos, f, new File(target, f.getName()), prefix, filePrefix);
+			} else if (f.length() > 0) {
+				zipAdd(zos, f, prefix, filePrefix);
+			}
+		}
+	}
+
+	private static void zipAdd(ZipOutputStream zos, File f, String prefix, String filePrefix) throws IOException {
+		boolean isDir = f.isDirectory();
+		String name = f.getPath();
+		if (filePrefix != null && name.startsWith(filePrefix))
+			name = name.substring(filePrefix.length());
+		else
+			name = name.substring(prefix.length());
+		name = name.replace('\\','/') + (isDir ? "/" : "");
+		ZipEntry e = new ZipEntry(name);
+		e.setSize(f.isDirectory() ? 0 : f.length());
+		zos.putNextEntry(e);
+		if (!f.isDirectory())
+			getLimitedStreamBytes(new FileInputStream(f), -1, zos, true, false);
+		zos.closeEntry();
 	}
 
 }

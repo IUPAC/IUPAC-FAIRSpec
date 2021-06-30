@@ -74,7 +74,7 @@ public class IFSDefaultJSONSerializer implements IFSSerializerI {
 	}
 
 	@Override
-	public void addAttrInt(String key, int ival) {
+	public void addAttrInt(String key, long ival) {
 		thisObj.appendNoEsc(key, "" + ival);		
 	}
 

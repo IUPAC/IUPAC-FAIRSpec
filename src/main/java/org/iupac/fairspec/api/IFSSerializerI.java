@@ -8,7 +8,7 @@ public interface IFSSerializerI {
 
 	void addAttr(String key, String val);
 
-	void addAttrInt(String key, int ival);
+	void addAttrInt(String key, long ival);
 
 	void addValue(Object val);
 

@@ -37,16 +37,23 @@ import com.integratedgraphics.ifs.util.Util;
 public class ExtractorTest extends Extractor {
 
 	private static boolean createFindingAidJSONList;
+	private static boolean stopOnAnyFailure;
 
 	public static void main(String[] args) {
 
+		readOnly = false;				 // for testing; when true, not output other than a log file is produced
 		debugging = false;               // true for verbose listing of all files
 		createFindingAidsOnly = false;   // true if extraction files already exist or you otherwise don't want not write them
-		createFindingAidJSONList = true; // false when testing and you don't want to mess up _IFS_findingaids.json
-		readOnly = true;				 // for testing; when true, not output other than a log file is produced
 
+		// this next is independent of readOnly
+		createZippedCollection = true; // false to bypass final creation of an _IFS_collection.zip file
+
+		// local to this Test class:
+		createFindingAidJSONList = false; // false for testing and you don't want to mess up _IFS_findingaids.json
+		stopOnAnyFailure = true;         // set false to allow continuing after an error.
+		
 		int first = 0; // first test to run
-		int last = 1;  // last test to run; 12 max, 9 for smaller files only
+		int last = 11;  // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova file test
 		String targetDir = "./site/ifs";
 		String sourceDir = null;//"file:///c:/temp/iupac/zip";
 		runExtraction(first, last, targetDir, sourceDir, args);
@@ -54,7 +61,7 @@ public class ExtractorTest extends Extractor {
 
 	public ExtractorTest(String key, File ifsExtractScriptFile, File targetDir, String localSourceDir) throws IOException, IFSException {
 		
-		String findingAidFileName = (key == null ? "" : key + ".") + "_IFS_findingaid.json";
+		String findingAidFileName = (key == null ? "" : key + ".");
 		
 		if (!super.extractAndCreateFindingAid(ifsExtractScriptFile, localSourceDir, targetDir, findingAidFileName)) {
 			throw new IFSException("Test failed");
@@ -85,9 +92,9 @@ public class ExtractorTest extends Extractor {
 			"acs.orglett.0c01297/22612484", // 8 bruker dirs
 			// these next four are very large (> 100 MB) and take some time to process if not using a local sourceDir
 			"acs.orglett.0c00755/22150197", // 9 MANY bruker dirs
-			"acs.orglett.0c01043/22232721", // 10  single 158-MB mnova
-			"acs.orglett.0c01153/22284726,22284729", // two remote locations, 11 bruker dirs
-			"acs.orglett.0c00571/21975525", // 180+MB 12 3212 files; zips of bruker zips and HRMS
+			"acs.orglett.0c01153/22284726,22284729", // 10 two remote locations; bruker dirs
+			"acs.orglett.0c00571/21975525", // 11 180+MB 3212 files; zips of bruker zips and HRMS
+			"acs.orglett.0c01043/22232721", // 12  single 158-MB mnova  -- IGNORING!
 	};
 	
 	private static void runExtraction(int first, int last, String targetDir, String sourceDir, String[] args) {
@@ -146,6 +153,7 @@ public class ExtractorTest extends Extractor {
 			} else {
 				json += ",\n";
 			}
+			n++;
 			try {
 				new ExtractorTest(key, new File(script), new File(targetDir), sourceDir);
 				json += "\"" + key + "\"";
@@ -154,8 +162,9 @@ public class ExtractorTest extends Extractor {
 				failed++;
 				System.err.println("Exception " + e + " for test " + itest);
 				e.printStackTrace();
+				if (stopOnAnyFailure)
+					break;
 			}
-			n++;
 		}
 		log("! DONE total=" + n + " failed=" + failed);
 		json += "\n]}\n";
