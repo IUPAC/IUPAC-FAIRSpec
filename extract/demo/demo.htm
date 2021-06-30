@@ -1,18 +1,21 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>IUPAC FAIRSpec Extractor Demo</title>
-<script src="../../jmol/jsmol/JSmol.min.js"></script>
-<script src="js/findingaids.js"></script>
+<script src="https://chemapps.stolaf.edu/jmol/jsmol/JSmol.min.js"></script>
+<script>
+rootdir = "../site/ifs/";
+</script>
 <script src="js/demo.js"></script>
 <script src="js/jsmol.js"></script>
+
 
 <script>
 
 $(document).ready(function() {
 demo.loadFindingAids();
-demo.select(1);
 
 //  $("#appdiv").html(Jmol.getAppletHtml("jmolApplet0", Info))
 })
@@ -31,7 +34,7 @@ var lastPrompt=0;
 <div id="rightpanel">
 <div id="top"></div>
 <div id="selections">
-<a href="javascript:demo.showAid()">Finding Aid</a>&nbsp;&nbsp;&nbsp;<span id="struc"></span><span id="spec"></span><span id="structurespec"></span>
+<span id="files"></span><span id="struc"></span><span id="spec"></span><span id="structurespec"></span>
 </div>
 <div id="main">
 </div>

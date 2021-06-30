@@ -1,13 +1,26 @@
+
 demo = {
 
 loadFindingAids: function() {
-	$("#nfa").html("" + (FindingAids.length - 1));
+    $.ajax({url:rootdir + "_IFS_findingaids.json", dataType:"json", 
+    	success:demo.loadLeftPanel,
+    	error:function(x){ 
+    		alert("failed - do you have your browser enabled for local file reading?");
+    		$("#main").html("<a target=_blank href=\"http://wiki.jmol.org/index.php/Troubleshooting/Local_Files\">http://wiki.jmol.org/index.php/Troubleshooting/Local_Files</a>");
+    	} 
+    });
+},
+
+loadLeftPanel: function(json) {
+	var aids = demo.findingaids = json.findingaids;
+	$("#nfa").html("" + aids.length);
 	var s = '<select id=articles onchange="demo.loadSelected(this.selectedOptions[0].value)"><option>Select an ACS article</option>'
-	for (var i = 1; i < FindingAids.length; i++) {
-		s += "<option value=\"" + FindingAids[i]  + "\">" + FindingAids[i] + "</option>"
+	for (var i = 0; i < aids.length; i++) {
+		s += "<option value=\"" + aids[i]  + "\">" + aids[i] + "</option>"
 	}
 	s += '</select>'
 	$("#leftpanel").html(s);
+	demo.select(1);
 },
 
 select: function(n) {
@@ -19,7 +32,7 @@ select: function(n) {
 
 loadSelected: function(fa) {
 	if (!fa)return;
-	demo.findingAidFile = "../ifs/" + fa + "._IFS_findingaid.json";
+	demo.findingAidFile = rootdir + fa + "._IFS_findingaid.json";
 	$.ajax({url:demo.findingAidFile, dataType:"json", success:demo.loaded});
 },
 
@@ -30,6 +43,7 @@ loaded: function(json) {
 loadRightPanel: function(aid) {
 	demo.aid = aid;
  	demo.loadTop(aid);
+ 	demo.loadFiles();
 	if (aid.structures){
 		demo.loadStructures(aid.structures);
 		demo.loadSpecData(aid.specData);
@@ -38,6 +52,11 @@ loadRightPanel: function(aid) {
 		demo.loadSpecData(aid.specData);
 	}
 
+},
+
+loadFiles: function() {
+	var s = '<a href="javascript:demo.showAid()">Finding Aid</a>&nbsp;&nbsp;&nbsp;';
+	$("#files").html(s);	
 },
 
 loadTop: function(aid) {
@@ -62,7 +81,10 @@ loadTop: function(aid) {
 		s += "<tr><td valign=top>Dataset URL(s)</td><td valign=top>"
 		var sep = "";
 		for (var i = 0; i < aid.urls.length; i++) {
-			s += sep + "<a target=_blank href=\"" + aid.urls[i] + "\">" + aid.urls[i] + "</a>";
+			var dir = aid.urls[i].split('/');
+			dir = dir[dir.length - 1];
+			s += sep + "<a target=_blank href=\"" + aid.urls[i] + "\">" + aid.urls[i] + "</a> "
+				+ "<a target=_blank href=\""+rootdir + dir +"\">extracted collection</a>";
 			sep = ", ";
 		}
 		s += "</td></tr>";
@@ -171,7 +193,13 @@ showAid: function() {
 	window.open(demo.findingAidFile, "_blank");
 },
 
+showAid: function() {
+	window.open(rootdir + demo.dir, "_blank");
+},
+
+
 clearMain: function() {
+	$("#top").html("");
 	$("#main").html("");
 }
 
