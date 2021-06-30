@@ -156,7 +156,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		if (type.startsWith("spec.")) {
 			currentSpecData = getSpecDataCollection().getDataObjectFor(rootPath, localName, param, value,
 					currentObjectZipName, type, mediaTypeFromName(localName));
-			currentSpecData.setUrlIndex(currentUrlIndex);
+			currentSpecData.setUrlIndex(currentSourceIndex);
 			return currentSpecData;
 		}
 		switch (type) {
@@ -173,7 +173,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 				currentSample = getSampleCollection().getSampleFor(rootPath, localName, param, value,
 						currentObjectZipName, mediaTypeFromName(localName));
 				System.out.println("creating Sample " + currentSample.getName());
-				currentSample.setUrlIndex(currentUrlIndex);
+				currentSample.setUrlIndex(currentSourceIndex);
 			} else {
 				currentSample.setPropertyValue(param, value);
 			}
@@ -183,7 +183,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 				currentStructure = getStructureCollection().getStructureFor(rootPath, localName, param, value,
 						currentObjectZipName, mediaTypeFromName(localName));
 				System.out.println("creating Structure " + currentStructure.getName());
-				currentStructure.setUrlIndex(currentUrlIndex);
+				currentStructure.setUrlIndex(currentSourceIndex);
 			} else {
 				currentStructure.setPropertyValue(param, value);
 			}
@@ -302,7 +302,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	public void finalizeExtraction() {
 		if (getStructureCollection().size() == 0 && getSpecDataCollection().size() == 0)
 			System.out.println("IFSSpecDataFindingAid no structures or spectra?");
-		System.out.println("! IFSFindingAid extraction complete:\n! " + urls + "\n! " + getStructureCollection().size()
+		System.out.println("! IFSFindingAid extraction complete:\n! " + sources + "\n! " + getStructureCollection().size()
 				+ " structures " + getSpecDataCollection().size() + " specdata " + getStructureSpecCollection().size()
 				+ " structure-spec bindings");
 		for (IFSStructureDataAssociation ssc : getStructureSpecCollection()) {

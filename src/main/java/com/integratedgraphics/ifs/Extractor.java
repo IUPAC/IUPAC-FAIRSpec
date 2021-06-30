@@ -852,7 +852,7 @@ public class Extractor implements IFSExtractorI {
 			findingAid.setPubInfo(pubCrossrefInfo);
 
 		} else if (!unlocalizedURL.equals(lastURL)) {
-			findingAid.addUrl(unlocalizedURL);
+			findingAid.addSource(unlocalizedURL);
 			lastURL = unlocalizedURL;
 		}
 		return lastURL;

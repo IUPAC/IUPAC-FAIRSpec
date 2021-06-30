@@ -191,7 +191,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	 * index of source URL in the IFSFindingAid URLs list; must be set nonnegative
 	 * to register
 	 */
-	private int urlIndex = -1;
+	private int sourceIndex = -1;
 
 	/**
 	 * an arbitrary name given to provide some sort of context
@@ -317,11 +317,11 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	}
 
 	public void setUrlIndex(int urlIndex) {
-		this.urlIndex = urlIndex;
+		this.sourceIndex = urlIndex;
 	}
 
 	public int getUrlIndex() {
-		return urlIndex;
+		return sourceIndex;
 	}
 
 	public String getID() {
@@ -446,8 +446,8 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	}
 
 	protected void serializeProps(IFSSerializerI serializer) {
-		if (urlIndex >= 0)
-			serializer.addAttrInt("urlIndex", urlIndex);
+		if (sourceIndex >= 0)
+			serializer.addAttrInt("sourceIndex", sourceIndex);
 		serializer.addAttr("path", getPath());
 		if (haveProperties()) {
 			// general serialization does not write out units

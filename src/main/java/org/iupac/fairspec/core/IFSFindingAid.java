@@ -30,11 +30,11 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 		});
 	}
 
-	protected List<Resource> urls = new ArrayList<>();
+	protected List<Resource> sources = new ArrayList<>();
 
 	private Map<String, Object> pubInfo;
 	
-	protected int currentUrlIndex;
+	protected int currentSourceIndex;
 
 	private Date date = new Date();
 
@@ -61,24 +61,29 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 		public String getSerializedType() {
 			return "resource";
 		}
+		
+		@Override
+		public String toString() {
+			return "[Resource " + ref + " len " + len + "]";
+		}
 	}
 	public IFSFindingAid(String name, String type, String sUrl) throws IFSException {
 		super(name, type);
-		urls.add(new Resource(sUrl, 0));
+		sources.add(new Resource(sUrl, 0));
 	}
 
-	public List<Resource> getURLs() {
-		return urls;
+	public List<Resource> getSources() {
+		return sources;
 	}
 
-	public int addUrl(String sUrl) {
-		for (int i = urls.size(); -i >= 0;) {
-			if (urls.get(i).ref.equals(sUrl)) {
+	public int addSource(String ref) {
+		for (int i = sources.size(); -i >= 0;) {
+			if (sources.get(i).ref.equals(ref)) {
 				return i;
 			}
 		}
-		urls.add(new Resource(sUrl, 0));
-		return currentUrlIndex = urls.size() - 1;
+		sources.add(new Resource(ref, 0));
+		return currentSourceIndex = sources.size() - 1;
 	}
 
 	public void setResource(String name, long len) {
@@ -87,9 +92,9 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 	}
 	
 	public void setCurrentURLLength(long len) {
-		if (currentUrlIndex < 0)
+		if (currentSourceIndex < 0)
 			return;
-		urls.get(currentUrlIndex).len = len;
+		sources.get(currentSourceIndex).len = len;
 	}
 
 	public void setPubInfo(Map<String, Object> pubInfo) {
@@ -114,7 +119,7 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 			serializer.addObject("created", date.toGMTString());
 			if (pubInfo != null)
 				serializer.addObject("pubInfo", pubInfo);
-			serializer.addObject("urls", urls);
+			serializer.addObject("sources", sources);
 			serializeProps(serializer);
 			serializeList(serializer);
 		} else {
