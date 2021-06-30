@@ -44,8 +44,8 @@ public class ExtractorTest extends Extractor {
 		createFindingAidsOnly = false; //true if extraction files already exist or you otherwise don't want not write them
 		createFindingAidJSONList = true; // false when testing and you don't want to mess up _IFS_findingaids.json
 
-		int first = 2; // first test to run
-		int last = 9;  // last test to run; 12 max, 9 for smaller files only
+		int first = 0; // first test to run
+		int last = 1;  // last test to run; 12 max, 9 for smaller files only
 		String targetDir = "./site/ifs";
 		String sourceDir = null;//"file:///c:/temp/iupac/zip";
 		runExtraction(first, last, targetDir, sourceDir, args);
@@ -165,7 +165,7 @@ public class ExtractorTest extends Extractor {
 			if (createFindingAidJSONList) { 
 			File f = new File(targetDir + "/_IFS_findingaids.json");
 			Util.writeBytesToFile(json.getBytes(), f);
-			System.out.println("File " + f.getAbsolutePath() + " created");
+			System.out.println("File " + f.getAbsolutePath() + " created \n" + json);
 			} else {
 				System.out.println("_IFS_findingaids.json was not created.");
 			}
