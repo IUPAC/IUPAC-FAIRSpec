@@ -43,6 +43,7 @@ public class IFSConst {
 	public static final String IFS_FINDINGAID_FLAG            = "IFS.findingaid.";
 	public static final String IFS_FINDINGAID_SOURCE_DATA_URI = "IFS.findingaid.source.data.uri";
 
+	public static final String IFS_STRUC_ID_FLAG        = ".struc.id";
 	public static final String IFS_EXPT_ID_FLAG        = ".expt.id";
 	public static final String IFS_PROPERTY_FLAG       = "IFS.property.";
 	public static final String IFS_REPRESENTATION_FLAG = "IFS.representation.";
@@ -50,8 +51,8 @@ public class IFSConst {
 
 	
 
-	public static boolean isExptID(String propName) {
-		return (propName != null && propName.endsWith(IFS_EXPT_ID_FLAG));
+	public static boolean isID(String propName) {
+		return (propName != null && (propName.endsWith(IFS_EXPT_ID_FLAG) || propName.endsWith(IFS_STRUC_ID_FLAG)));
 	}
 
 	public static boolean isRepresentation(String propName) {

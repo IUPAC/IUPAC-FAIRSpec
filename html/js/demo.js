@@ -92,7 +92,7 @@ loadTop: function(aid) {
 		s += "</td></tr>";
 	}
 	if (aid.collectionRef) {
-		s += "<tr><td valign=top>IFS collection</td><td valign=top><a target=_blank href=\"" + aid.collectionRef + "\">" + aid.collectionRef + "</a> (" +  aid.collectionLen + " bytes)</td></tr>";
+		s += "<tr><td valign=top>IFS collection</td><td valign=top><a target=_blank href=\"" + rootdir + aid.collectionRef + "\">" + aid.collectionRef + "</a> (" +  aid.collectionLen + " bytes)</td></tr>";
 		
 	}
 	s += "</table>";

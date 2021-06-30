@@ -290,7 +290,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 		// check for .representation., which is not stored in the object.
 		if (IFSConst.isRepresentation(name))
 			return;
-		if (IFSConst.isExptID(name))
+		if (IFSConst.isID(name))
 			this.name = value.toString();
 		IFSProperty p = htProps.get(name);
 		if (p == null) {

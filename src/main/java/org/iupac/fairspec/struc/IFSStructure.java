@@ -1,5 +1,6 @@
 package org.iupac.fairspec.struc;
 
+import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
@@ -29,7 +30,7 @@ public class IFSStructure extends IFSRepresentableObject<IFSStructureRepresentat
 	public IFSStructure(String path, String param, String value) throws IFSException {
 		super(param + ";" + value, ObjectType.Structure);
 		setPath(path);
-		if (param.equals(IFSStructure.IFS_PROP_STRUC_COMPOUND_ID))
+		if (param.equals(IFSStructure.IFS_PROP_STRUC_COMPOUND_ID) || IFSConst.isRepresentation(param))
 			name = value;
 		setPropertyValue(param, value);
 	}
