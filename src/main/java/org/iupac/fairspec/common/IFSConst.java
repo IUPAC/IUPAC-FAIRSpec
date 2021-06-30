@@ -13,7 +13,7 @@ public class IFSConst {
 
 	public enum PROPERTY_TYPE { INT, FLOAT, STRING, NUCL, OBJ };
 	
-	public enum PROPERTY_UNITS { NONE, HZ, MHZ, CELCIUS, KELVIN };
+	public enum PROPERTY_UNIT { NONE, HZ, MHZ, CELCIUS, KELVIN };
 	
 
 	// Finding Aid properties:

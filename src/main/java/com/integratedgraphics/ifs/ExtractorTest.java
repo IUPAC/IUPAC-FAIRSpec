@@ -40,9 +40,10 @@ public class ExtractorTest extends Extractor {
 
 	public static void main(String[] args) {
 
-		debugging = false;             //true for verbose listing of all files
-		createFindingAidsOnly = false; //true if extraction files already exist or you otherwise don't want not write them
+		debugging = false;               // true for verbose listing of all files
+		createFindingAidsOnly = false;   // true if extraction files already exist or you otherwise don't want not write them
 		createFindingAidJSONList = true; // false when testing and you don't want to mess up _IFS_findingaids.json
+		readOnly = true;				 // for testing; when true, not output other than a log file is produced
 
 		int first = 0; // first test to run
 		int last = 1;  // last test to run; 12 max, 9 for smaller files only
@@ -91,47 +92,44 @@ public class ExtractorTest extends Extractor {
 	
 	private static void runExtraction(int first, int last, String targetDir, String sourceDir, String[] args) {
 		int i0 = first;
-		int i1 = last; 
-		
+		int i1 = last;
+
 		int failed = 0;
-		
-			
+
 //		String s = "test/ok/1c.nmr";
 //		Pattern p = Pattern.compile("^\\Qtest/ok/\\E(.+)\\Q.nmr\\E");
 //		Matcher m = p.matcher(s);
 //		System.out.println(m.find());
 //		String v = m.group(1);
 //		
-			
+
 //		
-			String key = null;
-			String script;
-			switch (args.length) {
-			default:
-			case 3:
-				sourceDir = args[2];
-				//$FALL-THROUGH$
-			case 2:
-				targetDir = args[1];
-				//$FALL-THROUGH$
-			case 1:
-				script = args[0];
-				break;
-			case 0:
-				script = null;
-			}
+		String key = null;
+		String script;
+		switch (args.length) {
+		default:
+		case 3:
+			sourceDir = args[2];
+			//$FALL-THROUGH$
+		case 2:
+			targetDir = args[1];
+			//$FALL-THROUGH$
+		case 1:
+			script = args[0];
+			break;
+		case 0:
+			script = null;
+		}
 
-			System.out.println("output to " + new File(targetDir).getAbsolutePath());
-			new File(targetDir).mkdirs();
+		System.out.println("output to " + new File(targetDir).getAbsolutePath());
+		new File(targetDir).mkdirs();
 
-			String json = "";
-			
-			Util.setLogging(targetDir + "/extractor.log");
+		String json = "";
 
-			int  n = 0;
-			for (int itest = (args.length == 0 ? i0 : 0); 
-			itest <= (args.length == 0 ? i1 : 0); 
-			itest++) {
+		Util.setLogging(targetDir + "/extractor.log");
+
+		int n = 0;
+		for (int itest = (args.length == 0 ? i0 : 0); itest <= (args.length == 0 ? i1 : 0); itest++) {
 
 			// ./extract/ should be in the main Eclipse project directory.
 
@@ -150,7 +148,7 @@ public class ExtractorTest extends Extractor {
 			}
 			try {
 				new ExtractorTest(key, new File(script), new File(targetDir), sourceDir);
-				json += "\""+key +"\"";
+				json += "\"" + key + "\"";
 				System.out.println("ok " + key);
 			} catch (Exception e) {
 				failed++;
@@ -159,15 +157,15 @@ public class ExtractorTest extends Extractor {
 			}
 			n++;
 		}
-		log("! DONE total="+ n + " failed=" + failed);
+		log("! DONE total=" + n + " failed=" + failed);
 		json += "\n]}\n";
 		try {
-			if (createFindingAidJSONList) { 
-			File f = new File(targetDir + "/_IFS_findingaids.json");
-			Util.writeBytesToFile(json.getBytes(), f);
-			System.out.println("File " + f.getAbsolutePath() + " created \n" + json);
+			if (createFindingAidJSONList && !readOnly) {
+				File f = new File(targetDir + "/_IFS_findingaids.json");
+				Util.writeBytesToFile(json.getBytes(), f);
+				System.out.println("File " + f.getAbsolutePath() + " created \n" + json);
 			} else {
-				System.out.println("_IFS_findingaids.json was not created.");
+				System.out.println("_IFS_findingaids.json was not created for\n" + json);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

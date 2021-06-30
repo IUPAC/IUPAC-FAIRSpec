@@ -334,27 +334,6 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		return (specDataCollection == null ? null : specDataCollection.getRepresentation(zipName));
 	}
 
-	@Override
-	protected void serializeList(IFSSerializerI serializer) {
-		listCollection(serializer, "structures", structureCollection);
-		listCollection(serializer, "specData", specDataCollection);
-		listCollection(serializer, "structureSpecData", structureSpecCollection);
-		listCollection(serializer, "structureSpecAnalyses", structureSpecAnalysisCollection);
-		listCollection(serializer, "samples", sampleCollection);
-		listCollection(serializer, "sampleSpecData", sampleSpecCollection);
-		listCollection(serializer, "sampleSpecAnalyses", sampleSpecAnalysisCollection);
-	}
-
-	private void listCollection(IFSSerializerI serializer, String name, IFSCollection<?> c) {
-		if (c != null && c.size() > 0) {
-			// normalize indices
-			for (int i = c.size(); --i >= 0;)
-				((IFSObject<?>) c.get(i)).setIndex(i);
-			serializer.addAttrInt(name + "Count", c.size());
-			serializer.addObject(name, c);
-		}
-	}
-
 	public int cleanStructureSpecs() {
 		List<IFSStructureDataAssociation> lstRemove = new ArrayList<>();
 		IFSStructureSpecCollection ssc = getStructureSpecCollection();
@@ -380,5 +359,27 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		ssc.removeAll(lstRemove);
 		return n;
 	}
+
+	@Override
+	protected void serializeList(IFSSerializerI serializer) {
+		listCollection(serializer, "structures", structureCollection);
+		listCollection(serializer, "specData", specDataCollection);
+		listCollection(serializer, "structureSpecData", structureSpecCollection);
+		listCollection(serializer, "structureSpecAnalyses", structureSpecAnalysisCollection);
+		listCollection(serializer, "samples", sampleCollection);
+		listCollection(serializer, "sampleSpecData", sampleSpecCollection);
+		listCollection(serializer, "sampleSpecAnalyses", sampleSpecAnalysisCollection);
+	}
+
+	private void listCollection(IFSSerializerI serializer, String name, IFSCollection<?> c) {
+		if (c != null && c.size() > 0) {
+			// normalize indices
+			for (int i = c.size(); --i >= 0;)
+				((IFSObject<?>) c.get(i)).setIndex(i);
+			serializer.addAttrInt(name + "Count", c.size());
+			serializer.addObject(name, c);
+		}
+	}
+
 
 }

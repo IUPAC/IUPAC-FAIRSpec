@@ -193,11 +193,6 @@ showAid: function() {
 	window.open(demo.findingAidFile, "_blank");
 },
 
-showAid: function() {
-	window.open(rootdir + demo.dir, "_blank");
-},
-
-
 clearMain: function() {
 	$("#top").html("");
 	$("#main").html("");

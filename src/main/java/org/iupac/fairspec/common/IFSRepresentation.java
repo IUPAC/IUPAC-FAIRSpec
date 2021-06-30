@@ -10,7 +10,7 @@ import org.iupac.fairspec.api.IFSSerializerI;
  * @author hansonr
  *
  */
-public class IFSRepresentation implements IFSSerializableI {
+public abstract class IFSRepresentation implements IFSSerializableI {
 
 	/**
 	 * The type of this data -- to be specified...

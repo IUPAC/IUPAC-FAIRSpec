@@ -72,6 +72,15 @@ import javajs.util.PT;
  */
 public class Extractor implements IFSExtractorI {
 
+	private class CacheRepresentation extends IFSRepresentation {
+
+		public CacheRepresentation(IFSReference ifsReference, Object o, long len, String type, String subtype) {
+			super(ifsReference, o, len, type, subtype);
+		}
+
+	}
+
+
 	static {
 		IFSVendorPluginI.init();
 	}
@@ -96,7 +105,8 @@ public class Extractor implements IFSExtractorI {
 	protected static Pattern pStarDotStar;
 
 	protected static boolean debugging = false;
-	
+	protected static boolean readOnly = false;
+
 	/**
 	 * set true to only create finding aides, not extract file data
 	 */
@@ -299,12 +309,18 @@ public class Extractor implements IFSExtractorI {
 	 * 
 	 */
 	private IFSPropertyManagerI structurePropertyManager;
+
+	/**
+	 * produce no output other than a log file
+	 */
+	private boolean noOutput;
 	
 
 	
 	public Extractor() {
 		clearZipCache();
 		getStructurePropertyManager();
+		noOutput = (createFindingAidsOnly || readOnly);
 	}
 
 	@Override
@@ -330,7 +346,7 @@ public class Extractor implements IFSExtractorI {
 
 		String path = targetDir + "/" + findingAidFileName;
 		String s = new IFSDefaultJSONSerializer().serialize(findingAid);
-		Util.writeBytesToFile(s.getBytes(), new File(path));
+		writeBytesToFile(s.getBytes(), new File(path));
 		return true;
 	}
 
@@ -1008,7 +1024,7 @@ public class Extractor implements IFSExtractorI {
 				log("!! manifest not found for " + localName);
 			} else {
 				IFSRepresentation r = e.getValue();
-				String zipName = r.getRef().getValue().toString();
+				String zipName = r.getRef().getOrigin().toString();
 				String type = r.getType();
 				String subtype = r.getSubtype();				
 				IFSRepresentation r1 = obj.getRepresentation(zipName, localName, true, r.getType(), null);
@@ -1033,8 +1049,8 @@ public class Extractor implements IFSExtractorI {
 	 * @throws IOException
 	 */
 	protected void saveCollectionManifests(boolean isOpen) throws IOException {
-		if (!isOpen && !createFindingAidsOnly) {
-			Util.writeBytesToFile(extractScript.getBytes(), getFileTarget("_IFS_extract.json"));
+		if (!isOpen && !createFindingAidsOnly && !readOnly) {
+			writeBytesToFile(extractScript.getBytes(), getFileTarget("_IFS_extract.json"));
 			outputListJSON(lstManifest, getFileTarget("_IFS_manifest.json"), "manifest");
 			outputListJSON(lstIgnored, getFileTarget("_IFS_ignored.json"), "ignored");
 		}
@@ -1099,7 +1115,7 @@ public class Extractor implements IFSExtractorI {
 			}
 		}
 		sb.append("]}\n");
-		Util.writeBytesToFile(sb.toString().getBytes(), fileTarget);
+		writeBytesToFile(sb.toString().getBytes(), fileTarget);
 	}
 
 	/**
@@ -1289,7 +1305,7 @@ public class Extractor implements IFSExtractorI {
 		log("! rezipping " + zipDirName + " for " + entry + " " + new File(entry.getName()).getName());
 		File outFile = getFileTarget(zipDirName + ".zip");
 		final String localName = getLocalName(zipDirName);
-		OutputStream fos = (createFindingAidsOnly ? new ByteArrayOutputStream() : new FileOutputStream(outFile));
+		OutputStream fos = (noOutput ? new ByteArrayOutputStream() : new FileOutputStream(outFile));
 		ZipOutputStream zos = new ZipOutputStream(fos);
 		String parent = new File(entry.getName()).getParent();
 		int lenOffset = (parent == null ? 0 : parent.length() + 1);
@@ -1359,7 +1375,7 @@ public class Extractor implements IFSExtractorI {
 		zos.close();
 		fos.close();
 		String dataType = vendor.getDatasetType(zipDirName);
-		len = (createFindingAidsOnly ? ((ByteArrayOutputStream) fos).size() : outFile.length());
+		len = (noOutput ? ((ByteArrayOutputStream) fos).size() : outFile.length());
 		IFSRepresentation r = findingAid.getSpecDataRepresentation(zipDirName);
 		if (r == null)  {
 			System.out.println("! r not found for " + zipDirName);
@@ -1404,7 +1420,7 @@ public class Extractor implements IFSExtractorI {
 			currentRezipPath = null;
 			currentRezipRepresentation = null;
 		} else {
-			currentRezipPath = (String) (currentRezipRepresentation = rezipCache.remove(0)).getRef().getValue();
+			currentRezipPath = (String) (currentRezipRepresentation = rezipCache.remove(0)).getRef().getOrigin();
 			currentRezipVendor = (IFSVendorPluginI) currentRezipRepresentation.getData();
 		}
 	}
@@ -1444,20 +1460,19 @@ public class Extractor implements IFSExtractorI {
 
 			File f = getFileTarget(zipName);
 			OutputStream os = (!doCheck && !doExtract ? null
-					: doCheck || createFindingAidsOnly ? new ByteArrayOutputStream() : new FileOutputStream(f));
+					: doCheck || noOutput ? new ByteArrayOutputStream() : new FileOutputStream(f));
 			if (os != null)
 				Util.getLimitedStreamBytes(zis, len, os, false, true);
 			String localName = getLocalName(zipName);
 			String refName = f.getAbsolutePath();
 			if (doExtract) {
-				byte[] bytes = (doCheck || createFindingAidsOnly ? ((ByteArrayOutputStream) os).toByteArray() : null);
-				len = (doCheck || createFindingAidsOnly ? bytes.length : f.length());
+				byte[] bytes = (doCheck || noOutput ? ((ByteArrayOutputStream) os).toByteArray() : null);
+				len = (doCheck ||  noOutput ? bytes.length : f.length());
 				if (doCheck) {
 					// set this.localName for parameters
 					// preserve this.localName, as we might be in a rezip.
 					// as, for example, a JDX file within a Bruker dataset
-					if (!createFindingAidsOnly)
-						Util.writeBytesToFile(bytes, f);
+					writeBytesToFile(bytes, f);
 					String oldLocal = this.localName;
 					this.localName = localName;
 					// indicating "this" here notifies the vendor plugin that
@@ -1490,7 +1505,7 @@ public class Extractor implements IFSExtractorI {
 				log("duplicate path " + zipName);
 			} else {
 				lastRezipPath = zipName;
-				IFSRepresentation ref = new IFSRepresentation(new IFSReference(zipName, getLocalName(zipName), "./" + rootPath),
+				IFSRepresentation ref = new CacheRepresentation(new IFSReference(zipName, getLocalName(zipName), "./" + rootPath),
 						v, len, null, "application/zip");
 				rezipCache.add(ref);
 				log("rezip pattern found " + zipName);
@@ -1544,7 +1559,7 @@ public class Extractor implements IFSExtractorI {
 		if (subtype == null)
 			subtype = IFSSpecDataFindingAid.mediaTypeFromName(localName);
 		cache.put(localName,
-				new IFSRepresentation(new IFSReference(zipName, localName, rootPath), null, len, type, subtype));
+				new CacheRepresentation(new IFSReference(zipName, localName, rootPath), null, len, type, subtype));
 	}
 
 	/**
@@ -1568,6 +1583,11 @@ public class Extractor implements IFSExtractorI {
 		return fname.replace('|', '_').replace('/', '_').replace(' ', '_') + (isDir ? ".zip" : "");
 	}
 
+
+	private void writeBytesToFile(byte[] bytes, File f) throws IOException {
+		if (!noOutput)
+			Util.writeBytesToFile(bytes, f);
+	}
 
 	/**
 	 * A class for parsing the object string and using regex to match filenames.
