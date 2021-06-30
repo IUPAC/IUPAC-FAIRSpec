@@ -4,20 +4,15 @@
 
 package com.integratedgraphics.ifs.vendor.varian;
 
-import org.nmrml.parser.Acqu;
-import org.nmrml.parser.varian.AcquReader;
-
-import java.math.BigInteger;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.ByteOrder;
+import java.math.BigInteger;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Locale;
+
+import org.nmrml.parser.Acqu;
 
 /**
  * Reader for Varian's propar files
@@ -28,7 +23,7 @@ import java.util.Locale;
  * Time: 15:00
  *
  */
-public class NmrMLVarianAcquStreamReader implements AcquReader {
+public class NmrMLVarianAcquStreamReader {
 
     private BufferedReader inputAcqReader;
 
@@ -61,28 +56,10 @@ public class NmrMLVarianAcquStreamReader implements AcquReader {
     private final static Pattern REGEXP_PROBHD = Pattern.compile("^probe_ "); // probehead
     private final static Pattern REGEXP_PULPROG = Pattern.compile("^seqfil "); //pulse program
 
-
-    public NmrMLVarianAcquStreamReader() {
-    }
-    
-    public NmrMLVarianAcquStreamReader(File acquFile) throws IOException {
-        inputAcqReader = new BufferedReader(new FileReader(acquFile));
-    }
-    
     public NmrMLVarianAcquStreamReader(InputStream acqFileInputStream) {
         inputAcqReader = new BufferedReader(new InputStreamReader(acqFileInputStream));
     }
 
-    public NmrMLVarianAcquStreamReader(String filename) throws IOException {
-        this(new File(filename));
-        // required parameters so far...
-        // AquiredPoints: FidReader
-        // SpectraWidth: FidReader
-        // transmiterFreq: FidReader
-        //
-    }
-
-    @Override
     public Acqu read() throws Exception {
         Matcher matcher;
         Locale.setDefault(new Locale("en", "US"));

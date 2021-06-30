@@ -2,10 +2,11 @@ package com.integratedgraphics.ifs;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
-import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
-import org.nmrml.cv.SpectrometerMapper;
 import org.nmrml.parser.Acqu;
+
+import com.integratedgraphics.ifs.util.IFSDefaultVendorPlugin;
 import com.integratedgraphics.ifs.vendor.jeol.NmrMLJeolAcquStreamReader;
 import com.integratedgraphics.ifs.vendor.varian.NmrMLVarianAcquStreamReader;
 
@@ -14,38 +15,25 @@ public class NmrMLConverterTest {
 	public final static void main(String[] args) {
 		try {
 
-//			Acqu2nmrML nmrmlObj = new Acqu2nmrML();
-
-//			Properties prop = new Properties();
-//			prop.load(nmrMLpipe.class.getResourceAsStream("resources/config.properties"));
-//			nmrmlObj.setSchemaLocation(prop.getProperty("schemaLocation"));
-//			CVLoader cvLoader = new CVLoader(
-//					nmrMLpipe.class.getResourceAsStream("resources/onto.ini"));
-//			nmrmlObj.setCVLoader(cvLoader);
-//
-			String inputFolder;
+			FileInputStream fis;
 			Acqu acq;
 
-			inputFolder = new File("test/varian/sucrose_1h/procpar").getAbsolutePath();
-			NmrMLVarianAcquStreamReader varian = new NmrMLVarianAcquStreamReader(inputFolder);
+			fis = newStream("test/varian/sucrose_1h/procpar");
+			NmrMLVarianAcquStreamReader varian = new NmrMLVarianAcquStreamReader(fis);
 			acq = varian.read();
-			setParams(varian.getDimension(), acq);
-
-			inputFolder = new File("test/varian/agilent_2d/procpar").getAbsolutePath();
-			varian = new NmrMLVarianAcquStreamReader(inputFolder);
-			acq = varian.read();
-
-			setParams(varian.getDimension(), acq);
-
-			inputFolder = new File("test/jeol/1d_1d-13C.jdf").getAbsolutePath();
-			FileInputStream fis = new FileInputStream(inputFolder);
-			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(fis);
 			fis.close();
-			SpectrometerMapper vendorMapper = new SpectrometerMapper(
-					Acqu.class.getResourceAsStream("resources/jeol.ini"));
-			jeol.setVendorMapper(vendorMapper);
-			acq = jeol.read();
+			setParams(varian.getDimension(), acq);
 
+			fis = newStream("test/varian/agilent_2d/procpar");
+			varian = new NmrMLVarianAcquStreamReader(fis);
+			acq = varian.read();
+			fis.close();
+			setParams(varian.getDimension(), acq);
+
+			fis = newStream("test/jeol/1d_1d-13C.jdf");
+			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(fis);
+			acq = jeol.read();
+			fis.close();
 			setParams(jeol.getDimension(), acq);
 
 		} catch (Exception e) {
@@ -53,6 +41,11 @@ public class NmrMLConverterTest {
 			e.printStackTrace();
 		}
 
+	}
+
+	private static FileInputStream newStream(String f) throws FileNotFoundException {
+		String inputFolder = new File(f).getAbsolutePath();
+		return new FileInputStream(inputFolder);
 	}
 
 	protected static void setParams(int dim, Acqu acq) {

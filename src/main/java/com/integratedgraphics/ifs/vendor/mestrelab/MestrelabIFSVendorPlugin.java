@@ -2,7 +2,8 @@ package com.integratedgraphics.ifs.vendor.mestrelab;
 
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
-import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
+
+import com.integratedgraphics.ifs.util.IFSDefaultVendorPlugin;
 
 public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 

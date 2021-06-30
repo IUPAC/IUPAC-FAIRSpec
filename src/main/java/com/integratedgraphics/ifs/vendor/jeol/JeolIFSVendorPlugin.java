@@ -5,13 +5,11 @@ import java.io.IOException;
 
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
-import org.nmrml.cv.SpectrometerMapper;
 import org.nmrml.parser.Acqu;
+
 import com.integratedgraphics.ifs.vendor.NmrMLIFSVendorPlugin;
 
 public class JeolIFSVendorPlugin extends NmrMLIFSVendorPlugin {
-
-	protected static SpectrometerMapper vendorMapper;
 
 	static {
 		register(com.integratedgraphics.ifs.vendor.jeol.JeolIFSVendorPlugin.class);
@@ -26,11 +24,7 @@ public class JeolIFSVendorPlugin extends NmrMLIFSVendorPlugin {
 	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
 		super.accept(extractor, fname, bytes);
 		try {
-			if (vendorMapper == null) {
-				vendorMapper = new SpectrometerMapper(Acqu.class.getResourceAsStream("resources/jeol.ini"));
-			}
 			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(new ByteArrayInputStream(bytes));
-			jeol.setVendorMapper(vendorMapper);
 			Acqu acq = jeol.read();
 			setParams(jeol.getDimension(), acq);
 		} catch (IOException e) {

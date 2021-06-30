@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
-import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
 import org.nmrml.parser.Acqu;
+
+import com.integratedgraphics.ifs.util.IFSDefaultVendorPlugin;
 
 public abstract class NmrMLIFSVendorPlugin extends IFSDefaultVendorPlugin {
 

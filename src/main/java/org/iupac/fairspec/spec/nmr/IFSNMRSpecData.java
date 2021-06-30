@@ -14,7 +14,7 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
  *
  */
 @SuppressWarnings("serial")
-public class IFSNMRSpecData extends IFSSpecData {
+public final class IFSNMRSpecData extends IFSSpecData {
 
 	public static final String IFS_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME = "IFS.property.spec.nmr.instr.manufacturer.name";
 	public static final String IFS_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL      = "IFS.property.spec.nmr.instr.freq.nominal";
@@ -30,6 +30,20 @@ public class IFSNMRSpecData extends IFSSpecData {
 	public static final String IFS_PROP_SPEC_NMR_EXPT_SOLVENT    = "IFS.property.spec.nmr.expt.solvent";
 	public static final String IFS_PROP_SPEC_NMR_EXPT_TEMPERATURE_K= "IFS.property.spec.nmr.expt.temperature.K";
 	public static final String IFS_PROP_SPEC_NMR_EXPT_ID   = "IFS.property.spec.nmr.expt.id";
+	final public static String[][] nmrSolvents = {{"1,1,2,2-tetrachloroethane-d2","Cl2CDCDCl2","C([2H])(Cl)Cl)([2H])(Cl)Cl"},
+	{"acetone-d6","CD3COCD3","[2H]C([2H])([2H])C(=O)C([2H])([2H])[2H]"},
+	{"acetonitrile-d3","CD3CN","[2H]C([2H])([2H])C#N"},
+	{"chloroform-d","CDCl3","[2H]C(Cl)(Cl)Cl"},
+	{"deuterium oxide","D2O","[2H]O[2H]"},
+	{"dichloromethane-d2","CD2Cl2","[2H]C([2H])(Cl)Cl"},
+	{"dimethyl sulfoxide-d6","CD3SOCD3;d6-DMSO","[2H]C([2H])([2H])S(=O)C([2H])([2H])[2H]"},
+	{"ethanol-d6","CD3CD2OD","[2H]C([2H])([2H])C([2H])([2H])O[2H]"},
+	{"methanol-d4","CD3COD; MeOD","[2H]C([2H])([2H])O[2H]"},
+	{"nitrobenzene-d5","C6D5NO2","[2H]C1=C([2H])C([2H])=C(C([2H])=C1[2H])[N+]([O-])=O"},
+	{"nitromethane-d3","CD3NO2","[2H]C([2H])([2H])[N+]([O-])=O"},
+	{"pyridine-d5","C5D5N","[2H]C1=NC([2H])=C([2H])C([2H])=C1[2H]"},
+	{"toluene-d8","C6D5CD3","[2H]C([2H])([2H])C1=C([2H])C([2H])=C([2H])C([2H])=C1[2H]"},
+	{"benzene-d6","C6D6","C1([2H])=C([2H])C([2H])=C([2H])C([2H])=C1[2H]"}};
 
 
 	{
@@ -53,9 +67,8 @@ public class IFSNMRSpecData extends IFSSpecData {
 		});
 	}
 	
-
-	public IFSNMRSpecData(String name) throws IFSException {
-		super(name, IFSSpecDataFindingAid.SpecType.NMRSpecData);
+	public IFSNMRSpecData() throws IFSException {
+		super(null, "spec.nmr");
 	}
 	
 	

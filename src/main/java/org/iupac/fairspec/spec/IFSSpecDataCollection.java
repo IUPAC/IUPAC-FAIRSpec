@@ -1,12 +1,14 @@
 package org.iupac.fairspec.spec;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.core.IFSDataObjectCollection;
-import org.iupac.fairspec.spec.hrms.IFSHRMSSpecData;
-import org.iupac.fairspec.spec.ir.IFSIRSpecData;
-import org.iupac.fairspec.spec.ms.IFSMSSpecData;
-import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
-import org.iupac.fairspec.spec.raman.IFSRamanSpecData;
+
+import javajs.util.PT;
 
 /**
  * A collection of IFSSpecData objects.
@@ -16,6 +18,8 @@ import org.iupac.fairspec.spec.raman.IFSRamanSpecData;
  */
 @SuppressWarnings("serial")
 public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> {
+
+	private Map<String, Constructor<?>> htConstructors = new HashMap<>();
 
 	public IFSSpecDataCollection(String name) throws IFSException {
 		super(name, IFSSpecDataFindingAid.SpecType.SpecDataCollection);
@@ -34,47 +38,32 @@ public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> 
 		return subtype;
 	}
 
-	public final static String 
-	// IFS spec core and collections
-	NMRSpecData = "NMRSpecData", 
-	IRSpecData = "IRSpecData", 
-	MSSpecData = "SpecData", 
-	HRMSSpecData = "HRMSSpecData", 
-	RAMANSpecData = "SRAMANpecData", 
-	UVVisSpecData = "UVVisSpecData";
-
+	/**
+	 * Use dynamic class loading to create a new IFSSpecData object, caching the
+	 * Constructor for speed.
+	 */
 	@Override
 	public IFSSpecData newIFSDataObject(String path, String param, String value, String type) throws IFSException {
-		IFSSpecData sd = null;
 		try {
-			switch (type) {
-			case NMRSpecData:
-				sd = new IFSNMRSpecData(null);
-				break;
-			case IRSpecData:
-				sd = new IFSIRSpecData(null);
-				break;
-			case RAMANSpecData:
-				sd = new IFSRamanSpecData(null);
-				break;
-			case HRMSSpecData:
-				sd = new IFSHRMSSpecData(null);
-				break;
-			case MSSpecData:
-				sd = new IFSMSSpecData(null);
-				break;
-			default:
-				// throw the unrecognized type exception
-				break;
+			// spec.xxx --> org.iupac.fairspec.spec.xxx.IFSXXXSpecData
+			String className = IFSSpecData.class.getName();
+			className = PT.rep(className, "spec.IFS",
+					type.toLowerCase() + ".IFS" + type.substring(type.indexOf('.') + 1).toUpperCase());
+			Constructor<?> c = htConstructors.get(className);
+			if (c == null) {
+				htConstructors .put(className, c = Class.forName(className).getDeclaredConstructor());
 			}
-		} catch (IFSException e) {
-			// not attainable
+			IFSSpecData sd = (IFSSpecData) c.newInstance();
+			if (sd == null)
+				throw new IFSException("Unrecognized IFSSpecData type " + type);
+			sd.setPath(path);
+			sd.setPropertyValue(param, value);
+			return sd;
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException | ClassNotFoundException e1) {
+			e1.printStackTrace();
+			return null;
 		}
-		if (sd == null)
-			throw new IFSException("Unrecognized IFSSpecData type " + type);
-		sd.setPath(path);
-		sd.setPropertyValue(param, value);
-		return sd;
 	}
 
 }

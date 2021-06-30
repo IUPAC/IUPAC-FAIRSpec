@@ -13,7 +13,7 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
  *
  */
 @SuppressWarnings("serial")
-public class IFSIRSpecData extends IFSSpecData {
+public final class IFSIRSpecData extends IFSSpecData {
 
 	public static final String IFS_PROP_SPEC_IR_EXPT_ID    = "IFS.property.spec.ir.expt.id";
 
@@ -24,8 +24,8 @@ public class IFSIRSpecData extends IFSSpecData {
 		});
 	}
 	
-	public IFSIRSpecData(String name) throws IFSException {
-		super(name, IFSSpecDataFindingAid.SpecType.IRSpecData);
+	public IFSIRSpecData() throws IFSException {
+		super(null, "spec.ir");
 	}
 
 	@Override

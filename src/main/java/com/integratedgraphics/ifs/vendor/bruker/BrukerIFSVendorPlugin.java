@@ -7,10 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairspec.api.IFSExtractorI;
-import org.iupac.fairspec.api.IFSVendorPluginI;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
-import org.iupac.fairspec.util.IFSDefaultVendorPlugin;
+
+import com.integratedgraphics.ifs.api.IFSVendorPluginI;
+import com.integratedgraphics.ifs.util.IFSDefaultVendorPlugin;
 
 import javajs.util.Rdr;
 import jspecview.source.JDXReader;

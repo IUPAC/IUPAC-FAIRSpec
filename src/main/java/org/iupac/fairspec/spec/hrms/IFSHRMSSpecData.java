@@ -8,12 +8,14 @@ import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 /**
- *
+ * A final class for high-resolution mass spec data.
+ * It is final because it is created by reflection.
+ * 
  * @author hansonr
  *
  */
 @SuppressWarnings("serial")
-public class IFSHRMSSpecData extends IFSSpecData {
+public final class IFSHRMSSpecData extends IFSSpecData {
 
 
 	public static final String IFS_PROP_SPEC_HRMS_EXPT_ID  = "IFS.property.spec.hrms.expt.id";
@@ -26,8 +28,8 @@ public class IFSHRMSSpecData extends IFSSpecData {
 	}
 	
 
-	public IFSHRMSSpecData(String name) throws IFSException {
-		super(name, IFSSpecDataFindingAid.SpecType.HRMSSpecData);
+	public IFSHRMSSpecData() throws IFSException {
+		super(null, "spec.hrms");
 	}
 
 

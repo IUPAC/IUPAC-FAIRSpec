@@ -1,0 +1,1 @@
+ini4j is only for the nmrML JEOL reader. 

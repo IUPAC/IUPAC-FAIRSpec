@@ -45,16 +45,16 @@ public class PubInfoExtractor {
 		Map<String, Object> map;
 
 		String url = getCrossciteUrl(puburi);
-		System.out.println("CrossRefExtractor: " + url);
+		System.out.println("PubInfoExtractor: " + url);
 		map =  new LinkedHashMap<>();
-		Map<String, Object> crossCite = new JSJSONParser().parseMap(Util.getURLContentsAsString(url), false);
+		Map<String, Object> crossCite = Util.getJSONURL(url);
 		map.put("type", "crosscite");
 		map.put("url", url);
 		map.put("info", crossCite);
 		list.add(map);
 		
 		url = getCrossrefUrl(puburi);
-		System.out.println("CrossRefExtractor: " + url);
+		System.out.println("PubInfoExtractor: " + url);
 		map =  new LinkedHashMap<>();
 		map.put("type", "crossref");
 		map.put("url", url);

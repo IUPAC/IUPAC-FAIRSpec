@@ -1,10 +1,18 @@
-package org.iupac.fairspec.api;
+package com.integratedgraphics.ifs.api;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import org.iupac.fairspec.api.IFSExtractorI;
+import org.iupac.fairspec.api.IFSPropertyManagerI;
+
+import com.integratedgraphics.ifs.Extractor;
+import com.integratedgraphics.ifs.util.Util;
 
 /**
- * A clas that implemends IFSVendorPluginI extends the ability of an
+ * A clas that implements IFSVendorPluginI extends the ability of an
  * IFSExtractorI class to extract data and metadata from a dataset.
  * 
  * After statically (i.e. automatically upon the first time an instance of the
@@ -28,15 +36,6 @@ import java.util.List;
 public interface IFSVendorPluginI extends IFSPropertyManagerI {
 
 	public static List<IFSVendorPluginI> vendorPlugins = new ArrayList<>();
-
-	// TODO These should be in a config file
-	public final static String[] knownVendors = {
-			"com.integratedgraphics.ifs.vendor.bruker.BrukerIFSVendorPlugin",
-			"com.integratedgraphics.ifs.vendor.jcamp.JCAMPDXIFSVendorPlugin",
-			"com.integratedgraphics.ifs.vendor.jeol.JeolIFSVendorPlugin",
-			"com.integratedgraphics.ifs.vendor.mestrelab.MestrelabIFSVendorPlugin",
-			"com.integratedgraphics.ifs.vendor.varian.VarianIFSVendorPlugin",
-		};
 
 	public final static List<VendorInfo> activeVendors = new ArrayList<VendorInfo>();
 
@@ -62,23 +61,40 @@ public interface IFSVendorPluginI extends IFSPropertyManagerI {
 	static void init() {
 		if (activeVendors.size() > 0)
 			return;
-		for (int i = 0, n = IFSVendorPluginI.knownVendors.length; i < n; i++) {
-			String sv = IFSVendorPluginI.knownVendors[i];
+		Map<String, Object> vendors = null;
+		try {
+			vendors = Util.getJSONResource(Extractor.class, "extractor.config.json");
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
+		@SuppressWarnings("unchecked")
+		List<Object> knownVendors = (List<Object>) vendors.get("knownVendors");
+		for (int i = 0, n = knownVendors.size(); i < n; i++) {
+			String sv = (String) knownVendors.get(i);
 			IFSVendorPluginI v;
 			try {
 				v = (IFSVendorPluginI) Class.forName(sv).getDeclaredConstructor().newInstance();
 				if (v.isEnabled()) {
-					activeVendors.add(new VendorInfo(v, activeVendors.size()));
-					System.out.println("! IFSVendorPluginI vendorPlugin " + sv + " active");
+					addVendor(v);
 				}
 			} catch (Exception e) {
 				System.err.println("! IFSVendorPluginI Trying to instatiation of " + sv + " failed.");
 				e.printStackTrace(System.err);
 			}
-
 		}
 	}
-	
+
+	/**
+	 * This method can be used to add a vendor if desired.
+	 * 
+	 * @param v
+	 */
+	public static void addVendor(IFSVendorPluginI v) {
+		activeVendors.add(new VendorInfo(v, activeVendors.size()));
+		System.out.println("! IFSVendorPluginI vendorPlugin " + v.getClass().getName() + " active");
+	}
+
 	/**
 	 * Populate the activeVendors list.
 	 * 

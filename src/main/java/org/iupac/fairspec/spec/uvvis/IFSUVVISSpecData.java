@@ -13,16 +13,10 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
  *
  */
 @SuppressWarnings("serial")
-public class IFSUVVisSpecData extends IFSSpecData {
+public class IFSUVVISSpecData extends IFSSpecData {
 
 
 	public static final String IFS_PROP_SPEC_UVVIS_EXPT_ID = "IFS.property.spec.uvvis.expt.id";
-
-
-	public IFSUVVisSpecData(String name, String type) throws IFSException {
-		super(name, type);
-	}
-
 
 	{
 		super.setProperties(new IFSProperty[] {
@@ -31,15 +25,14 @@ public class IFSUVVisSpecData extends IFSSpecData {
 		});
 	}
 	
-
-	public IFSUVVisSpecData(String name) throws IFSException {
-		super(name, IFSSpecDataFindingAid.SpecType.UVVisSpecData);
+	public IFSUVVISSpecData() throws IFSException {
+		super(null, "spec.uvvis");
 	}
 
 
 	@Override
 	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len, String type, String subtype) {
-		return new IFSUVVisSpecDataRepresentation(ref, obj, len, type, subtype);
+		return new IFSUVISSpecDataRepresentation(ref, obj, len, type, subtype);
 	}
 
 

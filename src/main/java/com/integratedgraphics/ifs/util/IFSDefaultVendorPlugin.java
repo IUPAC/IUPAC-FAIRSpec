@@ -1,4 +1,4 @@
-package org.iupac.fairspec.util;
+package com.integratedgraphics.ifs.util;
 
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -6,8 +6,9 @@ import java.util.regex.Pattern;
 
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSPropertyManagerI;
-import org.iupac.fairspec.api.IFSVendorPluginI;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
+
+import com.integratedgraphics.ifs.api.IFSVendorPluginI;
 
 import jspecview.source.JDXDataObject;
 
@@ -18,21 +19,6 @@ import jspecview.source.JDXDataObject;
  *
  */
 public abstract class IFSDefaultVendorPlugin implements IFSVendorPluginI {
-
-	final static String[][] nmrSolvents = {{"1,1,2,2-tetrachloroethane-d2","Cl2CDCDCl2","C([2H])(Cl)Cl)([2H])(Cl)Cl"},
-			{"acetone-d6","CD3COCD3","[2H]C([2H])([2H])C(=O)C([2H])([2H])[2H]"},
-			{"acetonitrile-d3","CD3CN","[2H]C([2H])([2H])C#N"},
-			{"chloroform-d","CDCl3","[2H]C(Cl)(Cl)Cl"},
-			{"deuterium oxide","D2O","[2H]O[2H]"},
-			{"dichloromethane-d2","CD2Cl2","[2H]C([2H])(Cl)Cl"},
-			{"dimethyl sulfoxide-d6","CD3SOCD3;d6-DMSO","[2H]C([2H])([2H])S(=O)C([2H])([2H])[2H]"},
-			{"ethanol-d6","CD3CD2OD","[2H]C([2H])([2H])C([2H])([2H])O[2H]"},
-			{"methanol-d4","CD3COD; MeOD","[2H]C([2H])([2H])O[2H]"},
-			{"nitrobenzene-d5","C6D5NO2","[2H]C1=C([2H])C([2H])=C(C([2H])=C1[2H])[N+]([O-])=O"},
-			{"nitromethane-d3","CD3NO2","[2H]C([2H])([2H])[N+]([O-])=O"},
-			{"pyridine-d5","C5D5N","[2H]C1=NC([2H])=C([2H])C([2H])=C1[2H]"},
-			{"toluene-d8","C6D5CD3","[2H]C([2H])([2H])C1=C([2H])C([2H])=C([2H])C([2H])=C1[2H]"},
-			{"benzene-d6","C6D6","C1([2H])=C([2H])C([2H])=C([2H])C([2H])=C1[2H]"}};
 
 	/*
 	 * note that as coded, ONLY ONE vendor can use this. 

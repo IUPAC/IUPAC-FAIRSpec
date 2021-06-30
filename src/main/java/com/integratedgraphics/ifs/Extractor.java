@@ -24,7 +24,6 @@ import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSPropertyManagerI;
-import org.iupac.fairspec.api.IFSVendorPluginI;
 import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
 import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
@@ -42,6 +41,7 @@ import org.iupac.fairspec.spec.IFSStructureSpecCollection;
 import org.iupac.fairspec.util.IFSDefaultJSONSerializer;
 import org.iupac.fairspec.util.IFSDefaultStructurePropertyManager;
 
+import com.integratedgraphics.ifs.api.IFSVendorPluginI;
 import com.integratedgraphics.ifs.util.PubInfoExtractor;
 import com.integratedgraphics.ifs.util.Util;
 

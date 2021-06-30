@@ -55,41 +55,17 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		public final static String SpecAnalysisCollection = "SpecAnalysisCollection";
 		public final static String SpecDataFindingAid = "SpecDataFindingAid";
 
-		// IFS spec core and collections
+		// Predefined types include hrms, ir, ms, nmr, raman, and uvvis
+		//
+		// To add another type xxx, simply carry out these few steps:
+		//
+		// 1) Create the org/iupac/fairspec/spec/xxx/ folder
+		//
+		// 2) Create the xxx/IFSXXXSpecData and xxx/IFSXXXSpecDataRepresentation classes
+		//
+		// 3) Modify the code to suit, adding properties and patterns and methods to run to
+		//    extract metadata from the data.
 		
-		// To add another type Xxx:
-		
-		// 1) Add it in the following list and in the getSpecType(key) method, below.
-		
-		// 2) Create the org/iupac/fairspec/spec/xxx/ folder
-		
-		// 3) Create the xxx/IFSXxxSpecData and xxx/IFSXxxSpecDataRepresentation classes
-		
-		public final static String NMRSpecData = "NMRSpecData";
-		public final static String IRSpecData = "IRSpecData";
-		public final static String MSSpecData = "MSSpecData";
-		public final static String HRMSSpecData = "HRMSSpecData";
-		public final static String RAMANSpecData = "RAMANSpecData";
-		public final static String UVVisSpecData = "UVVisSpecData";
-		
-		public static String getSpecType(String key) {
-			switch (key) {
-			case "nmr":
-				return NMRSpecData;
-			case "ir":
-				return IRSpecData;
-			case "raman":
-				return RAMANSpecData;
-			case "hrms":
-				return HRMSSpecData;
-			case "ms":
-				return MSSpecData;
-			case "uvvis":
-				return UVVisSpecData;
-			}
-			return null;
-		}
-
 	}
 
 	private IFSStructureCollection structureCollection;
@@ -156,7 +132,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		if (propName.startsWith("\0analysis.sample.spec."))
 			return SpecType.SampleSpecAnalysis;
 		if (propName.startsWith("\0spec."))
-			return SpecType.getSpecType(propName.substring(6, propName.indexOf(".", 6)));
+			return propName.substring(1, propName.indexOf(".", 6));
 		return ObjectType.Unknown;
 	}
 
@@ -177,24 +153,21 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 
 		String type = getObjectTypeForName(param);
 
+		if (type.startsWith("spec.")) {
+			currentSpecData = getSpecDataCollection().getDataObjectFor(rootPath, localName, param, value,
+					currentObjectZipName, type, mediaTypeFromName(localName));
+			currentSpecData.setUrlIndex(currentUrlIndex);
+			return currentSpecData;
+		}
 		switch (type) {
 		case SpecType.SampleSpecAnalysisCollection:
 		case SpecType.SampleSpecAnalysis:
 		case SpecType.StructureSpecAnalysisCollection:
 		case SpecType.StructureSpecAnalysis:
-			System.out.println("Analysis not implemented");
+			System.out.println("Analysise not implemented");
 			getStructureSpecAnalysisCollection();
 			// TODO
 			return null;
-		case SpecType.NMRSpecData:
-		case SpecType.IRSpecData:
-		case SpecType.RAMANSpecData:
-		case SpecType.HRMSSpecData:
-		case SpecType.MSSpecData:
-			currentSpecData = getSpecDataCollection().getSpecDataFor(rootPath, localName, param, value,
-					currentObjectZipName, type, mediaTypeFromName(localName));
-			currentSpecData.setUrlIndex(currentUrlIndex);
-			return currentSpecData;
 		case ObjectType.Sample:
 			if (currentSample == null) {
 				currentSample = getSampleCollection().getSampleFor(rootPath, localName, param, value,
@@ -344,30 +317,17 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		int pt = Math.max(fname.lastIndexOf('/'), fname.lastIndexOf('.'));
 		return (fname.endsWith(".zip") ? "application/zip"
 				: fname.endsWith(".png") ? "image/png"
-						: fname.endsWith(".cdx") ? "chemical/x-cdx (ChemDraw CDX)"
-								: fname.endsWith(".cdxml") ? "chemical/x-cdxml (ChemDraw XML)"
-										// see https://en.wikipedia.org/wiki/Chemical_file_format
-										: fname.endsWith(".mol") ? "chemical/x-mdl-molfile"
-												: fname.endsWith(".sdf") ? "chemical/x-mdl-sdfile"
-														: fname.endsWith(".txt") || fname.endsWith(".log")
-																|| fname.endsWith(".out")
-																		? "text/plain"
-																		: fname.endsWith(".inchi") ? "chemical/x-inchi"
-																				: fname.endsWith(".smiles")
-																						|| fname.endsWith(".smi")
-																								? "chemical/x-daylight-smiles"
-																								: fname.endsWith(".pdf")
-																										? "application/pdf"
-																										: fname.endsWith(
-																												".jpf") ? "application/octet-stream (JEOL)"
-																														: fname.endsWith(
-																																".mnova")
-																																		? "application/octet-stream (mnova)"
-																																		: pt >= 0
-																																				? "?" + fname
-																																						.substring(
-																																								pt)
-																																				: "?");
+				: fname.endsWith(".cdx") ? "chemical/x-cdx (ChemDraw CDX)"
+				: fname.endsWith(".cdxml") ? "chemical/x-cdxml (ChemDraw XML)"
+					// see https://en.wikipedia.org/wiki/Chemical_file_format
+				: fname.endsWith(".mol") ? "chemical/x-mdl-molfile"
+				: fname.endsWith(".sdf") ? "chemical/x-mdl-sdfile"
+				: fname.endsWith(".txt") || fname.endsWith(".log") || fname.endsWith(".out") ? "text/plain"
+				: fname.endsWith(".inchi") ? "chemical/x-inchi"
+				: fname.endsWith(".smiles") || fname.endsWith(".smi") ? "chemical/x-daylight-smiles"
+				: fname.endsWith(".pdf") ? "application/pdf" : fname.endsWith(".jpf") ? "application/octet-stream (JEOL)"
+				: fname.endsWith(".mnova") ? "application/octet-stream (mnova)"
+				: pt >= 0 ? "?" + fname.substring(pt) : "?");
 	}
 
 	public IFSRepresentation getSpecDataRepresentation(String zipName) {

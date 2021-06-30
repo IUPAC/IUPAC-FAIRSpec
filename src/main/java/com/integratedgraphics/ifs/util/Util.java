@@ -1,6 +1,7 @@
 package com.integratedgraphics.ifs.util;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,8 +9,10 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.function.Function;
 
+import javajs.util.JSJSONParser;
 import swingjs.api.JSUtilI;
 
 @SuppressWarnings("deprecation")
@@ -57,16 +60,6 @@ public class Util {
 		jsutil.getURLBytesAsync(url, whenDone);
 		return null;
 	}
-
-	// from javajs.Rdr
-	/**
-	 * @deprecated Use {@link #getLimitedStreamBytes(InputStream,long,OutputStream,boolean,boolean)} instead
-	 */
-	public static byte[] getLimitedStreamBytes(InputStream is, long n, OutputStream out, boolean andCloseInput)
-			throws IOException {
-				return getLimitedStreamBytes(is, n, out, andCloseInput, false);
-			}
-
 
 	// from javajs.Rdr
 	public static byte[] getLimitedStreamBytes(InputStream is, long n, OutputStream out, boolean andCloseInput, boolean andCloseOutput)
@@ -158,5 +151,20 @@ public class Util {
 
 
 	public static OutputStream logStream;
+
+
+	public static String getResource(Class<?> c, String fileName) throws FileNotFoundException, IOException {
+		return new String(getLimitedStreamBytes(c.getResourceAsStream(fileName), -1, null, true, true));
+	}
+
+
+	public static Map<String, Object> getJSONResource(Class<?> c, String fileName) throws FileNotFoundException, IOException {
+		return new JSJSONParser().parseMap(getResource(c, fileName), false);
+	}
+
+
+	public static Map<String, Object> getJSONURL(String url) throws MalformedURLException, IOException {
+		return new JSJSONParser().parseMap(Util.getURLContentsAsString(url), false);
+	}
 
 }

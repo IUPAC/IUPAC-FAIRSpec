@@ -30,7 +30,7 @@ public abstract class IFSDataObjectCollection<T extends IFSDataObject<?>> extend
 	
 	private Map<String, T> map = new HashMap<>();
 
-	public T getSpecDataFor(String path, String localName, String param, String value, String zipName, String type, String mediaType)  throws IFSException {
+	public T getDataObjectFor(String path, String localName, String param, String value, String zipName, String type, String mediaType)  throws IFSException {
 		String keyValue = path + "::" + zipName;
 		T sd = map.get(keyValue);
 		if (sd == null) {

@@ -13,7 +13,7 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
  *
  */
 @SuppressWarnings("serial")
-public class IFSMSSpecData extends IFSSpecData {
+public final class IFSMSSpecData extends IFSSpecData {
 
 
 	public static final String IFS_PROP_SPEC_MS_EXPT_ID    = "IFS.property.spec.ms.expt.id";
@@ -26,8 +26,8 @@ public class IFSMSSpecData extends IFSSpecData {
 	}
 	
 
-	public IFSMSSpecData(String name) throws IFSException {
-		super(name, IFSSpecDataFindingAid.SpecType.MSSpecData);
+	public IFSMSSpecData() throws IFSException {
+		super(null, "spec.ms");
 	}
 
 

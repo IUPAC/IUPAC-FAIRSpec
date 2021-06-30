@@ -13,7 +13,7 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
  *
  */
 @SuppressWarnings("serial")
-public class IFSRamanSpecData extends IFSSpecData {
+public final class IFSRamanSpecData extends IFSSpecData {
 
 	public static final String IFS_PROP_SPEC_RAMAN_EXPT_ID = "IFS.property.spec.raman.expt.id";
 
@@ -23,8 +23,8 @@ public class IFSRamanSpecData extends IFSSpecData {
 		});
 	}
 	
-	public IFSRamanSpecData(String name) throws IFSException {
-		super(name, IFSSpecDataFindingAid.SpecType.RAMANSpecData);
+	public IFSRamanSpecData() throws IFSException {
+		super(null, "spec.raman");
 	}
 	
 	@Override
