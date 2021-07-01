@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSPropertyManagerI;
+import org.iupac.fairspec.util.Util;
 
 import com.integratedgraphics.ifs.Extractor;
-import com.integratedgraphics.ifs.util.Util;
 
 /**
  * A clas that implements IFSVendorPluginI extends the ability of an

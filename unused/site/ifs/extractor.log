@@ -1,0 +1,777 @@
+! Extracting C:\Users\hansonr\git\IUPAC-FAIRSpec\.\extract\acs.joc.0c00770\IFS-extract.json
+0.1.0-alpha
+! crossref url null
+! crossref metadata: 
+null
+https://doi.org/10.1021/acs.joc.0c00770
+! pattern: ^(?<id>[^|/]+)\Q.zip|\E(?<IFS0representation0spec0nmr0vendor0dataset>(?<IFS0property0spec0nmr0expt0id>[^|/]+)\Q/\E)$
+! pattern: ^(?<id>[^|/]+)\Q.zip|\E(?<IFS0representation0spec0nmr0vendor0dataset>(?<IFS0property0spec0nmr0expt0id>[^|/]+\Q.mnova\E))$
+2 digital objects found
+=====
+extractObjects to C:\Users\hansonr\git\IUPAC-FAIRSpec\.\site\ifs
+! IFS.findingaid.data.license: cc-by-nc-4.0 https://creativecommons.org/licenses/by-nc/4.0/
+! PHASE 2.1 
+https://ndownloader.figshare.com/files/22567817
+{id=IFS.property.struc.compound.id::*}.zip|{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::*}/}
+! retrieving https://ndownloader.figshare.com/files/22567817
+Phase 1 checking zip directory: 2 1.zip|1_13C/
+Phase 1 checking zip directory: 11 1.zip|1_13C/pdata/
+Phase 1 checking zip directory: 12 1.zip|1_13C/pdata/1/
+rezip pattern found 1.zip|1_13C/
+Phase 1 checking zip directory: 29 1.zip|1_1H/
+Phase 1 checking zip directory: 37 1.zip|1_1H/pdata/
+Phase 1 checking zip directory: 38 1.zip|1_1H/pdata/1/
+rezip pattern found 1.zip|1_1H/
+Phase 1 checking zip directory: 2 10.zip|10_13C/
+Phase 1 checking zip directory: 11 10.zip|10_13C/pdata/
+Phase 1 checking zip directory: 12 10.zip|10_13C/pdata/1/
+rezip pattern found 10.zip|10_13C/
+Phase 1 checking zip directory: 29 10.zip|10_1H/
+Phase 1 checking zip directory: 36 10.zip|10_1H/pdata/
+Phase 1 checking zip directory: 37 10.zip|10_1H/pdata/1/
+rezip pattern found 10.zip|10_1H/
+Phase 1 checking zip directory: 2 11.zip|11_13C/
+Phase 1 checking zip directory: 11 11.zip|11_13C/pdata/
+Phase 1 checking zip directory: 12 11.zip|11_13C/pdata/1/
+rezip pattern found 11.zip|11_13C/
+Phase 1 checking zip directory: 31 11.zip|11_1H/
+Phase 1 checking zip directory: 38 11.zip|11_1H/pdata/
+Phase 1 checking zip directory: 39 11.zip|11_1H/pdata/1/
+rezip pattern found 11.zip|11_1H/
+Phase 1 checking zip directory: 2 13.zip|13_13C/
+Phase 1 checking zip directory: 11 13.zip|13_13C/pdata/
+Phase 1 checking zip directory: 12 13.zip|13_13C/pdata/1/
+rezip pattern found 13.zip|13_13C/
+Phase 1 checking zip directory: 29 13.zip|13_1H/
+Phase 1 checking zip directory: 36 13.zip|13_1H/pdata/
+Phase 1 checking zip directory: 37 13.zip|13_1H/pdata/1/
+rezip pattern found 13.zip|13_1H/
+Phase 1 checking zip directory: 2 16.zip|16_13C/
+Phase 1 checking zip directory: 11 16.zip|16_13C/pdata/
+Phase 1 checking zip directory: 12 16.zip|16_13C/pdata/1/
+rezip pattern found 16.zip|16_13C/
+Phase 1 checking zip directory: 38 16.zip|16_1H/
+Phase 1 checking zip directory: 46 16.zip|16_1H/pdata/
+Phase 1 checking zip directory: 47 16.zip|16_1H/pdata/1/
+rezip pattern found 16.zip|16_1H/
+Phase 1 checking zip directory: 75 16.zip|dia-16_13C/
+Phase 1 checking zip directory: 84 16.zip|dia-16_13C/pdata/
+Phase 1 checking zip directory: 85 16.zip|dia-16_13C/pdata/1/
+rezip pattern found 16.zip|dia-16_13C/
+Phase 1 checking zip directory: 102 16.zip|dia-16_1H/
+Phase 1 checking zip directory: 109 16.zip|dia-16_1H/pdata/
+Phase 1 checking zip directory: 110 16.zip|dia-16_1H/pdata/1/
+rezip pattern found 16.zip|dia-16_1H/
+Phase 1 checking zip directory: 2 17.zip|17_13C/
+Phase 1 checking zip directory: 11 17.zip|17_13C/pdata/
+Phase 1 checking zip directory: 12 17.zip|17_13C/pdata/1/
+rezip pattern found 17.zip|17_13C/
+Phase 1 checking zip directory: 28 17.zip|17_1H/
+Phase 1 checking zip directory: 35 17.zip|17_1H/pdata/
+Phase 1 checking zip directory: 36 17.zip|17_1H/pdata/1/
+rezip pattern found 17.zip|17_1H/
+Phase 1 checking zip directory: 2 2.zip|2_13C/
+Phase 1 checking zip directory: 10 2.zip|2_13C/pdata/
+Phase 1 checking zip directory: 11 2.zip|2_13C/pdata/1/
+rezip pattern found 2.zip|2_13C/
+Phase 1 checking zip directory: 28 2.zip|2_1H-13C_NUS_HSQC/
+Phase 1 checking zip directory: 42 2.zip|2_1H-13C_NUS_HSQC/pdata/
+Phase 1 checking zip directory: 43 2.zip|2_1H-13C_NUS_HSQC/pdata/1/
+rezip pattern found 2.zip|2_1H-13C_NUS_HSQC/
+Phase 1 checking zip directory: 52 2.zip|2_1H-13C_NUS_HSQC/pdata/999/
+duplicate path 2.zip|2_1H-13C_NUS_HSQC/
+Phase 1 checking zip directory: 70 2.zip|2_1H/
+Phase 1 checking zip directory: 76 2.zip|2_1H/pdata/
+Phase 1 checking zip directory: 77 2.zip|2_1H/pdata/1/
+rezip pattern found 2.zip|2_1H/
+Phase 1 checking zip directory: 2 21.zip|21_13C/
+Phase 1 checking zip directory: 11 21.zip|21_13C/pdata/
+Phase 1 checking zip directory: 12 21.zip|21_13C/pdata/1/
+rezip pattern found 21.zip|21_13C/
+Phase 1 checking zip directory: 30 21.zip|21_1H/
+Phase 1 checking zip directory: 37 21.zip|21_1H/pdata/
+Phase 1 checking zip directory: 38 21.zip|21_1H/pdata/1/
+rezip pattern found 21.zip|21_1H/
+Phase 1 checking zip directory: 2 3.zip|3_13C/
+Phase 1 checking zip directory: 10 3.zip|3_13C/pdata/
+Phase 1 checking zip directory: 11 3.zip|3_13C/pdata/1/
+rezip pattern found 3.zip|3_13C/
+Phase 1 checking zip directory: 28 3.zip|3_1H-13C_NUS_HMBC/
+Phase 1 checking zip directory: 41 3.zip|3_1H-13C_NUS_HMBC/pdata/
+Phase 1 checking zip directory: 42 3.zip|3_1H-13C_NUS_HMBC/pdata/1/
+rezip pattern found 3.zip|3_1H-13C_NUS_HMBC/
+Phase 1 checking zip directory: 51 3.zip|3_1H-13C_NUS_HMBC/pdata/999/
+duplicate path 3.zip|3_1H-13C_NUS_HMBC/
+Phase 1 checking zip directory: 68 3.zip|3_1H-13C_NUS_HSQC/
+Phase 1 checking zip directory: 81 3.zip|3_1H-13C_NUS_HSQC/pdata/
+Phase 1 checking zip directory: 82 3.zip|3_1H-13C_NUS_HSQC/pdata/1/
+rezip pattern found 3.zip|3_1H-13C_NUS_HSQC/
+Phase 1 checking zip directory: 91 3.zip|3_1H-13C_NUS_HSQC/pdata/999/
+duplicate path 3.zip|3_1H-13C_NUS_HSQC/
+Phase 1 checking zip directory: 108 3.zip|3_1H/
+Phase 1 checking zip directory: 115 3.zip|3_1H/pdata/
+Phase 1 checking zip directory: 116 3.zip|3_1H/pdata/1/
+rezip pattern found 3.zip|3_1H/
+Phase 1 checking zip directory: 2 8.zip|8_13C/
+Phase 1 checking zip directory: 11 8.zip|8_13C/pdata/
+Phase 1 checking zip directory: 12 8.zip|8_13C/pdata/1/
+rezip pattern found 8.zip|8_13C/
+Phase 1 checking zip directory: 36 8.zip|8_1H/
+Phase 1 checking zip directory: 44 8.zip|8_1H/pdata/
+Phase 1 checking zip directory: 45 8.zip|8_1H/pdata/1/
+rezip pattern found 8.zip|8_1H/
+Phase 1 checking zip directory: 2 9.zip|9_13C/
+Phase 1 checking zip directory: 11 9.zip|9_13C/pdata/
+Phase 1 checking zip directory: 12 9.zip|9_13C/pdata/1/
+rezip pattern found 9.zip|9_13C/
+Phase 1 checking zip directory: 29 9.zip|9_1H/
+Phase 1 checking zip directory: 36 9.zip|9_1H/pdata/
+Phase 1 checking zip directory: 37 9.zip|9_1H/pdata/1/
+rezip pattern found 9.zip|9_1H/
+! PHASE 2.2 rezip haveData=true
+Phase 2 checking zip directory: 2 1.zip|1_13C/
+! rezipping 1.zip|1_13C/ for 1_13C/ 1_13C
+Phase 2 checking zip directory: 3 1.zip|1_1H/
+! rezipping 1.zip|1_1H/ for 1_1H/ 1_1H
+Phase 2 checking zip directory: 2 10.zip|10_13C/
+! rezipping 10.zip|10_13C/ for 10_13C/ 10_13C
+Phase 2 checking zip directory: 3 10.zip|10_1H/
+! rezipping 10.zip|10_1H/ for 10_1H/ 10_1H
+Phase 2 checking zip directory: 2 11.zip|11_13C/
+! rezipping 11.zip|11_13C/ for 11_13C/ 11_13C
+Phase 2 checking zip directory: 3 11.zip|11_1H/
+! rezipping 11.zip|11_1H/ for 11_1H/ 11_1H
+Phase 2 checking zip directory: 2 13.zip|13_13C/
+! rezipping 13.zip|13_13C/ for 13_13C/ 13_13C
+Phase 2 checking zip directory: 3 13.zip|13_1H/
+! rezipping 13.zip|13_1H/ for 13_1H/ 13_1H
+Phase 2 checking zip directory: 2 16.zip|16_13C/
+! rezipping 16.zip|16_13C/ for 16_13C/ 16_13C
+Phase 2 checking zip directory: 3 16.zip|16_1H/
+! rezipping 16.zip|16_1H/ for 16_1H/ 16_1H
+Phase 2 checking zip directory: 5 16.zip|dia-16_13C/
+! rezipping 16.zip|dia-16_13C/ for dia-16_13C/ dia-16_13C
+Phase 2 checking zip directory: 6 16.zip|dia-16_1H/
+! rezipping 16.zip|dia-16_1H/ for dia-16_1H/ dia-16_1H
+Phase 2 checking zip directory: 2 17.zip|17_13C/
+! rezipping 17.zip|17_13C/ for 17_13C/ 17_13C
+Phase 2 checking zip directory: 3 17.zip|17_1H/
+! rezipping 17.zip|17_1H/ for 17_1H/ 17_1H
+Phase 2 checking zip directory: 2 2.zip|2_13C/
+! rezipping 2.zip|2_13C/ for 2_13C/ 2_13C
+Phase 2 checking zip directory: 3 2.zip|2_1H-13C_NUS_HSQC/
+! rezipping 2.zip|2_1H-13C_NUS_HSQC/ for 2_1H-13C_NUS_HSQC/ 2_1H-13C_NUS_HSQC
+Phase 2 checking zip directory: 4 2.zip|2_1H/
+! rezipping 2.zip|2_1H/ for 2_1H/ 2_1H
+Phase 2 checking zip directory: 2 21.zip|21_13C/
+! rezipping 21.zip|21_13C/ for 21_13C/ 21_13C
+Phase 2 checking zip directory: 3 21.zip|21_1H/
+! rezipping 21.zip|21_1H/ for 21_1H/ 21_1H
+Phase 2 checking zip directory: 2 3.zip|3_13C/
+! rezipping 3.zip|3_13C/ for 3_13C/ 3_13C
+Phase 2 checking zip directory: 3 3.zip|3_1H-13C_NUS_HMBC/
+! rezipping 3.zip|3_1H-13C_NUS_HMBC/ for 3_1H-13C_NUS_HMBC/ 3_1H-13C_NUS_HMBC
+Phase 2 checking zip directory: 4 3.zip|3_1H-13C_NUS_HSQC/
+! rezipping 3.zip|3_1H-13C_NUS_HSQC/ for 3_1H-13C_NUS_HSQC/ 3_1H-13C_NUS_HSQC
+Phase 2 checking zip directory: 5 3.zip|3_1H/
+! rezipping 3.zip|3_1H/ for 3_1H/ 3_1H
+Phase 2 checking zip directory: 2 8.zip|8_13C/
+! rezipping 8.zip|8_13C/ for 8_13C/ 8_13C
+Phase 2 checking zip directory: 3 8.zip|8_1H/
+! rezipping 8.zip|8_1H/ for 8_1H/ 8_1H
+Phase 2 checking zip directory: 2 9.zip|9_13C/
+! rezipping 9.zip|9_13C/ for 9_13C/ 9_13C
+Phase 2 checking zip directory: 3 9.zip|9_1H/
+! rezipping 9.zip|9_1H/ for 9_1H/ 9_1H
+found 16 IFS objects
+! PHASE 2.1 
+https://ndownloader.figshare.com/files/22567817
+{id=IFS.property.struc.compound.id::*}.zip|{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::*.mnova}}
+! PHASE 2.2 rezip haveData=true
+found 28 IFS objects
+! saved .\site\ifs\22567817\_IFS_manifest.json (69 items)
+! saved .\site\ifs\22567817\_IFS_ignored.json (62 items)
+! Extracting C:\Users\hansonr\git\IUPAC-FAIRSpec\.\extract\acs.orglett.0c00624\IFS-extract.json
+0.1.0-alpha
+! crossref url null
+! crossref metadata: 
+null
+https://doi.org/10.1021/acs.orglett.0c00624
+! pattern: ^\Qprimary NMR data/\E(?<id>[^|/]+)\Q/\E(?<IFS0representation0spec0nmr0vendor0dataset>\k<id>\Q-\E(?<IFS0property0spec0nmr0expt0id>[^|/]+)\Q/\E)$
+1 digital objects found
+=====
+extractObjects to C:\Users\hansonr\git\IUPAC-FAIRSpec\.\site\ifs
+! IFS.findingaid.data.license: cc-by-nc-4.0 https://creativecommons.org/licenses/by-nc/4.0
+! PHASE 2.1 
+https://ndownloader.figshare.com/files/21947274
+primary NMR data/{id=IFS.property.struc.compound.id::*}/{IFS.representation.spec.nmr.vendor.dataset::<id>-{IFS.property.spec.nmr.expt.id::*}/}
+! retrieving https://ndownloader.figshare.com/files/21947274
+Phase 1 checking zip directory: 1 primary NMR data/
+Phase 1 checking zip directory: 2 primary NMR data/3aa/
+Phase 1 checking zip directory: 3 primary NMR data/3aa/3aa-C/
+Phase 1 checking zip directory: 10 primary NMR data/3aa/3aa-C/pdata/
+Phase 1 checking zip directory: 11 primary NMR data/3aa/3aa-C/pdata/1/
+rezip pattern found primary NMR data/3aa/3aa-C/
+Phase 1 checking zip directory: 20 primary NMR data/3aa/3aa-H/
+Phase 1 checking zip directory: 27 primary NMR data/3aa/3aa-H/pdata/
+Phase 1 checking zip directory: 28 primary NMR data/3aa/3aa-H/pdata/1/
+rezip pattern found primary NMR data/3aa/3aa-H/
+Phase 1 checking zip directory: 40 primary NMR data/3ab/
+Phase 1 checking zip directory: 41 primary NMR data/3ab/3ab-C/
+Phase 1 checking zip directory: 49 primary NMR data/3ab/3ab-C/pdata/
+Phase 1 checking zip directory: 50 primary NMR data/3ab/3ab-C/pdata/1/
+rezip pattern found primary NMR data/3ab/3ab-C/
+Phase 1 checking zip directory: 62 primary NMR data/3ab/3ab-H/
+Phase 1 checking zip directory: 68 primary NMR data/3ab/3ab-H/pdata/
+Phase 1 checking zip directory: 69 primary NMR data/3ab/3ab-H/pdata/1/
+rezip pattern found primary NMR data/3ab/3ab-H/
+Phase 1 checking zip directory: 78 primary NMR data/3ac/
+Phase 1 checking zip directory: 79 primary NMR data/3ac/3ac-C/
+Phase 1 checking zip directory: 86 primary NMR data/3ac/3ac-C/pdata/
+Phase 1 checking zip directory: 87 primary NMR data/3ac/3ac-C/pdata/1/
+rezip pattern found primary NMR data/3ac/3ac-C/
+Phase 1 checking zip directory: 96 primary NMR data/3ac/3ac-H/
+Phase 1 checking zip directory: 102 primary NMR data/3ac/3ac-H/pdata/
+Phase 1 checking zip directory: 103 primary NMR data/3ac/3ac-H/pdata/1/
+rezip pattern found primary NMR data/3ac/3ac-H/
+Phase 1 checking zip directory: 111 primary NMR data/3ad/
+Phase 1 checking zip directory: 112 primary NMR data/3ad/3ad-C/
+Phase 1 checking zip directory: 120 primary NMR data/3ad/3ad-C/pdata/
+Phase 1 checking zip directory: 121 primary NMR data/3ad/3ad-C/pdata/1/
+rezip pattern found primary NMR data/3ad/3ad-C/
+Phase 1 checking zip directory: 133 primary NMR data/3ad/3ad-H/
+Phase 1 checking zip directory: 140 primary NMR data/3ad/3ad-H/pdata/
+Phase 1 checking zip directory: 141 primary NMR data/3ad/3ad-H/pdata/1/
+rezip pattern found primary NMR data/3ad/3ad-H/
+Phase 1 checking zip directory: 153 primary NMR data/3ae/
+Phase 1 checking zip directory: 154 primary NMR data/3ae/3ae-C/
+Phase 1 checking zip directory: 162 primary NMR data/3ae/3ae-C/pdata/
+Phase 1 checking zip directory: 163 primary NMR data/3ae/3ae-C/pdata/1/
+rezip pattern found primary NMR data/3ae/3ae-C/
+Phase 1 checking zip directory: 175 primary NMR data/3ae/3ae-H/
+Phase 1 checking zip directory: 181 primary NMR data/3ae/3ae-H/pdata/
+Phase 1 checking zip directory: 182 primary NMR data/3ae/3ae-H/pdata/1/
+rezip pattern found primary NMR data/3ae/3ae-H/
+Phase 1 checking zip directory: 191 primary NMR data/3af/
+Phase 1 checking zip directory: 192 primary NMR data/3af/3af-C/
+Phase 1 checking zip directory: 200 primary NMR data/3af/3af-C/pdata/
+Phase 1 checking zip directory: 201 primary NMR data/3af/3af-C/pdata/1/
+rezip pattern found primary NMR data/3af/3af-C/
+Phase 1 checking zip directory: 213 primary NMR data/3af/3af-H/
+Phase 1 checking zip directory: 219 primary NMR data/3af/3af-H/pdata/
+Phase 1 checking zip directory: 220 primary NMR data/3af/3af-H/pdata/1/
+rezip pattern found primary NMR data/3af/3af-H/
+Phase 1 checking zip directory: 229 primary NMR data/3ag/
+Phase 1 checking zip directory: 230 primary NMR data/3ag/3ag-C/
+Phase 1 checking zip directory: 237 primary NMR data/3ag/3ag-C/pdata/
+Phase 1 checking zip directory: 238 primary NMR data/3ag/3ag-C/pdata/1/
+rezip pattern found primary NMR data/3ag/3ag-C/
+Phase 1 checking zip directory: 246 primary NMR data/3ag/3ag-H/
+Phase 1 checking zip directory: 252 primary NMR data/3ag/3ag-H/pdata/
+Phase 1 checking zip directory: 253 primary NMR data/3ag/3ag-H/pdata/1/
+rezip pattern found primary NMR data/3ag/3ag-H/
+Phase 1 checking zip directory: 261 primary NMR data/3ah/
+Phase 1 checking zip directory: 262 primary NMR data/3ah/3ah-C/
+Phase 1 checking zip directory: 270 primary NMR data/3ah/3ah-C/pdata/
+Phase 1 checking zip directory: 271 primary NMR data/3ah/3ah-C/pdata/1/
+rezip pattern found primary NMR data/3ah/3ah-C/
+Phase 1 checking zip directory: 283 primary NMR data/3ah/3ah-H/
+Phase 1 checking zip directory: 289 primary NMR data/3ah/3ah-H/pdata/
+Phase 1 checking zip directory: 290 primary NMR data/3ah/3ah-H/pdata/1/
+rezip pattern found primary NMR data/3ah/3ah-H/
+Phase 1 checking zip directory: 299 primary NMR data/3ai/
+Phase 1 checking zip directory: 300 primary NMR data/3ai/3ai-C/
+Phase 1 checking zip directory: 308 primary NMR data/3ai/3ai-C/pdata/
+Phase 1 checking zip directory: 309 primary NMR data/3ai/3ai-C/pdata/1/
+rezip pattern found primary NMR data/3ai/3ai-C/
+Phase 1 checking zip directory: 321 primary NMR data/3ai/3ai-H/
+Phase 1 checking zip directory: 327 primary NMR data/3ai/3ai-H/pdata/
+Phase 1 checking zip directory: 328 primary NMR data/3ai/3ai-H/pdata/1/
+rezip pattern found primary NMR data/3ai/3ai-H/
+Phase 1 checking zip directory: 337 primary NMR data/3aj/
+Phase 1 checking zip directory: 338 primary NMR data/3aj/3aj-C/
+Phase 1 checking zip directory: 347 primary NMR data/3aj/3aj-C/pdata/
+Phase 1 checking zip directory: 348 primary NMR data/3aj/3aj-C/pdata/1/
+rezip pattern found primary NMR data/3aj/3aj-C/
+Phase 1 checking zip directory: 360 primary NMR data/3aj/3aj-H/
+Phase 1 checking zip directory: 366 primary NMR data/3aj/3aj-H/pdata/
+Phase 1 checking zip directory: 367 primary NMR data/3aj/3aj-H/pdata/1/
+rezip pattern found primary NMR data/3aj/3aj-H/
+Phase 1 checking zip directory: 375 primary NMR data/3ak/
+Phase 1 checking zip directory: 376 primary NMR data/3ak/3ak-C/
+Phase 1 checking zip directory: 383 primary NMR data/3ak/3ak-C/pdata/
+Phase 1 checking zip directory: 384 primary NMR data/3ak/3ak-C/pdata/1/
+rezip pattern found primary NMR data/3ak/3ak-C/
+Phase 1 checking zip directory: 393 primary NMR data/3ak/3ak-H/
+Phase 1 checking zip directory: 399 primary NMR data/3ak/3ak-H/pdata/
+Phase 1 checking zip directory: 400 primary NMR data/3ak/3ak-H/pdata/1/
+rezip pattern found primary NMR data/3ak/3ak-H/
+Phase 1 checking zip directory: 408 primary NMR data/3al/
+Phase 1 checking zip directory: 409 primary NMR data/3al/3al-C/
+Phase 1 checking zip directory: 416 primary NMR data/3al/3al-C/pdata/
+Phase 1 checking zip directory: 417 primary NMR data/3al/3al-C/pdata/1/
+rezip pattern found primary NMR data/3al/3al-C/
+Phase 1 checking zip directory: 426 primary NMR data/3al/3al-H/
+Phase 1 checking zip directory: 432 primary NMR data/3al/3al-H/pdata/
+Phase 1 checking zip directory: 433 primary NMR data/3al/3al-H/pdata/1/
+rezip pattern found primary NMR data/3al/3al-H/
+Phase 1 checking zip directory: 441 primary NMR data/3am/
+Phase 1 checking zip directory: 442 primary NMR data/3am/3am-C/
+Phase 1 checking zip directory: 450 primary NMR data/3am/3am-C/pdata/
+Phase 1 checking zip directory: 451 primary NMR data/3am/3am-C/pdata/1/
+rezip pattern found primary NMR data/3am/3am-C/
+Phase 1 checking zip directory: 463 primary NMR data/3am/3am-H/
+Phase 1 checking zip directory: 469 primary NMR data/3am/3am-H/pdata/
+Phase 1 checking zip directory: 470 primary NMR data/3am/3am-H/pdata/1/
+rezip pattern found primary NMR data/3am/3am-H/
+Phase 1 checking zip directory: 478 primary NMR data/3an/
+Phase 1 checking zip directory: 479 primary NMR data/3an/3an-C/
+Phase 1 checking zip directory: 487 primary NMR data/3an/3an-C/pdata/
+Phase 1 checking zip directory: 488 primary NMR data/3an/3an-C/pdata/1/
+rezip pattern found primary NMR data/3an/3an-C/
+Phase 1 checking zip directory: 500 primary NMR data/3an/3an-H/
+Phase 1 checking zip directory: 506 primary NMR data/3an/3an-H/pdata/
+Phase 1 checking zip directory: 507 primary NMR data/3an/3an-H/pdata/1/
+rezip pattern found primary NMR data/3an/3an-H/
+Phase 1 checking zip directory: 516 primary NMR data/3ao/
+Phase 1 checking zip directory: 517 primary NMR data/3ao/3ao-C/
+Phase 1 checking zip directory: 525 primary NMR data/3ao/3ao-C/pdata/
+Phase 1 checking zip directory: 526 primary NMR data/3ao/3ao-C/pdata/1/
+rezip pattern found primary NMR data/3ao/3ao-C/
+Phase 1 checking zip directory: 538 primary NMR data/3ao/3ao-H/
+Phase 1 checking zip directory: 544 primary NMR data/3ao/3ao-H/pdata/
+Phase 1 checking zip directory: 545 primary NMR data/3ao/3ao-H/pdata/1/
+rezip pattern found primary NMR data/3ao/3ao-H/
+Phase 1 checking zip directory: 554 primary NMR data/3ap/
+Phase 1 checking zip directory: 555 primary NMR data/3ap/3ap-C/
+Phase 1 checking zip directory: 562 primary NMR data/3ap/3ap-C/pdata/
+Phase 1 checking zip directory: 563 primary NMR data/3ap/3ap-C/pdata/1/
+rezip pattern found primary NMR data/3ap/3ap-C/
+Phase 1 checking zip directory: 576 primary NMR data/3ap/3ap-H/
+Phase 1 checking zip directory: 582 primary NMR data/3ap/3ap-H/pdata/
+Phase 1 checking zip directory: 583 primary NMR data/3ap/3ap-H/pdata/1/
+rezip pattern found primary NMR data/3ap/3ap-H/
+Phase 1 checking zip directory: 591 primary NMR data/3aq/
+Phase 1 checking zip directory: 592 primary NMR data/3aq/3aq-C/
+Phase 1 checking zip directory: 600 primary NMR data/3aq/3aq-C/pdata/
+Phase 1 checking zip directory: 601 primary NMR data/3aq/3aq-C/pdata/1/
+rezip pattern found primary NMR data/3aq/3aq-C/
+Phase 1 checking zip directory: 613 primary NMR data/3aq/3aq-H/
+Phase 1 checking zip directory: 620 primary NMR data/3aq/3aq-H/pdata/
+Phase 1 checking zip directory: 621 primary NMR data/3aq/3aq-H/pdata/1/
+rezip pattern found primary NMR data/3aq/3aq-H/
+Phase 1 checking zip directory: 633 primary NMR data/3ar/
+Phase 1 checking zip directory: 634 primary NMR data/3ar/3ar-C/
+Phase 1 checking zip directory: 642 primary NMR data/3ar/3ar-C/pdata/
+Phase 1 checking zip directory: 643 primary NMR data/3ar/3ar-C/pdata/1/
+rezip pattern found primary NMR data/3ar/3ar-C/
+Phase 1 checking zip directory: 656 primary NMR data/3ar/3ar-H/
+Phase 1 checking zip directory: 663 primary NMR data/3ar/3ar-H/pdata/
+Phase 1 checking zip directory: 664 primary NMR data/3ar/3ar-H/pdata/1/
+rezip pattern found primary NMR data/3ar/3ar-H/
+Phase 1 checking zip directory: 676 primary NMR data/3at/
+Phase 1 checking zip directory: 677 primary NMR data/3at/3at-C/
+Phase 1 checking zip directory: 684 primary NMR data/3at/3at-C/pdata/
+Phase 1 checking zip directory: 685 primary NMR data/3at/3at-C/pdata/1/
+rezip pattern found primary NMR data/3at/3at-C/
+Phase 1 checking zip directory: 694 primary NMR data/3at/3at-H/
+Phase 1 checking zip directory: 700 primary NMR data/3at/3at-H/pdata/
+Phase 1 checking zip directory: 701 primary NMR data/3at/3at-H/pdata/1/
+rezip pattern found primary NMR data/3at/3at-H/
+Phase 1 checking zip directory: 709 primary NMR data/3au/
+Phase 1 checking zip directory: 710 primary NMR data/3au/3au-C/
+Phase 1 checking zip directory: 717 primary NMR data/3au/3au-C/pdata/
+Phase 1 checking zip directory: 718 primary NMR data/3au/3au-C/pdata/1/
+rezip pattern found primary NMR data/3au/3au-C/
+Phase 1 checking zip directory: 726 primary NMR data/3au/3au-H/
+Phase 1 checking zip directory: 732 primary NMR data/3au/3au-H/pdata/
+Phase 1 checking zip directory: 733 primary NMR data/3au/3au-H/pdata/1/
+rezip pattern found primary NMR data/3au/3au-H/
+Phase 1 checking zip directory: 741 primary NMR data/3av/
+Phase 1 checking zip directory: 742 primary NMR data/3av/3av-C/
+Phase 1 checking zip directory: 749 primary NMR data/3av/3av-C/pdata/
+Phase 1 checking zip directory: 750 primary NMR data/3av/3av-C/pdata/1/
+rezip pattern found primary NMR data/3av/3av-C/
+Phase 1 checking zip directory: 758 primary NMR data/3av/3av-H/
+Phase 1 checking zip directory: 764 primary NMR data/3av/3av-H/pdata/
+Phase 1 checking zip directory: 765 primary NMR data/3av/3av-H/pdata/1/
+rezip pattern found primary NMR data/3av/3av-H/
+Phase 1 checking zip directory: 773 primary NMR data/3aw/
+Phase 1 checking zip directory: 774 primary NMR data/3aw/3aw-C/
+Phase 1 checking zip directory: 781 primary NMR data/3aw/3aw-C/pdata/
+Phase 1 checking zip directory: 782 primary NMR data/3aw/3aw-C/pdata/1/
+rezip pattern found primary NMR data/3aw/3aw-C/
+Phase 1 checking zip directory: 790 primary NMR data/3aw/3aw-H/
+Phase 1 checking zip directory: 796 primary NMR data/3aw/3aw-H/pdata/
+Phase 1 checking zip directory: 797 primary NMR data/3aw/3aw-H/pdata/1/
+rezip pattern found primary NMR data/3aw/3aw-H/
+Phase 1 checking zip directory: 805 primary NMR data/3ax/
+Phase 1 checking zip directory: 806 primary NMR data/3ax/3ax-C/
+Phase 1 checking zip directory: 813 primary NMR data/3ax/3ax-C/pdata/
+Phase 1 checking zip directory: 814 primary NMR data/3ax/3ax-C/pdata/1/
+rezip pattern found primary NMR data/3ax/3ax-C/
+Phase 1 checking zip directory: 823 primary NMR data/3ax/3ax-H/
+Phase 1 checking zip directory: 829 primary NMR data/3ax/3ax-H/pdata/
+Phase 1 checking zip directory: 830 primary NMR data/3ax/3ax-H/pdata/1/
+rezip pattern found primary NMR data/3ax/3ax-H/
+Phase 1 checking zip directory: 838 primary NMR data/3ay/
+Phase 1 checking zip directory: 839 primary NMR data/3ay/3ay-C/
+Phase 1 checking zip directory: 847 primary NMR data/3ay/3ay-C/pdata/
+Phase 1 checking zip directory: 848 primary NMR data/3ay/3ay-C/pdata/1/
+rezip pattern found primary NMR data/3ay/3ay-C/
+Phase 1 checking zip directory: 865 primary NMR data/3ay/3ay-H/
+Phase 1 checking zip directory: 872 primary NMR data/3ay/3ay-H/pdata/
+Phase 1 checking zip directory: 873 primary NMR data/3ay/3ay-H/pdata/1/
+rezip pattern found primary NMR data/3ay/3ay-H/
+Phase 1 checking zip directory: 885 primary NMR data/3az/
+Phase 1 checking zip directory: 886 primary NMR data/3az/3az-C/
+Phase 1 checking zip directory: 894 primary NMR data/3az/3az-C/pdata/
+Phase 1 checking zip directory: 895 primary NMR data/3az/3az-C/pdata/1/
+rezip pattern found primary NMR data/3az/3az-C/
+Phase 1 checking zip directory: 912 primary NMR data/3az/3az-H/
+Phase 1 checking zip directory: 919 primary NMR data/3az/3az-H/pdata/
+Phase 1 checking zip directory: 920 primary NMR data/3az/3az-H/pdata/1/
+rezip pattern found primary NMR data/3az/3az-H/
+Phase 1 checking zip directory: 932 primary NMR data/3ba/
+Phase 1 checking zip directory: 933 primary NMR data/3ba/3ba-C/
+Phase 1 checking zip directory: 940 primary NMR data/3ba/3ba-C/pdata/
+Phase 1 checking zip directory: 941 primary NMR data/3ba/3ba-C/pdata/1/
+rezip pattern found primary NMR data/3ba/3ba-C/
+Phase 1 checking zip directory: 949 primary NMR data/3ba/3ba-H/
+Phase 1 checking zip directory: 955 primary NMR data/3ba/3ba-H/pdata/
+Phase 1 checking zip directory: 956 primary NMR data/3ba/3ba-H/pdata/1/
+rezip pattern found primary NMR data/3ba/3ba-H/
+Phase 1 checking zip directory: 965 primary NMR data/3bq/
+Phase 1 checking zip directory: 966 primary NMR data/3bq/3bq-C/
+Phase 1 checking zip directory: 974 primary NMR data/3bq/3bq-C/pdata/
+Phase 1 checking zip directory: 975 primary NMR data/3bq/3bq-C/pdata/1/
+rezip pattern found primary NMR data/3bq/3bq-C/
+Phase 1 checking zip directory: 987 primary NMR data/3bq/3bq-H/
+Phase 1 checking zip directory: 993 primary NMR data/3bq/3bq-H/pdata/
+Phase 1 checking zip directory: 994 primary NMR data/3bq/3bq-H/pdata/1/
+rezip pattern found primary NMR data/3bq/3bq-H/
+Phase 1 checking zip directory: 1002 primary NMR data/3bx/
+Phase 1 checking zip directory: 1003 primary NMR data/3bx/3bx-C/
+Phase 1 checking zip directory: 1010 primary NMR data/3bx/3bx-C/pdata/
+Phase 1 checking zip directory: 1011 primary NMR data/3bx/3bx-C/pdata/1/
+rezip pattern found primary NMR data/3bx/3bx-C/
+Phase 1 checking zip directory: 1020 primary NMR data/3bx/3bx-H/
+Phase 1 checking zip directory: 1026 primary NMR data/3bx/3bx-H/pdata/
+Phase 1 checking zip directory: 1027 primary NMR data/3bx/3bx-H/pdata/1/
+rezip pattern found primary NMR data/3bx/3bx-H/
+Phase 1 checking zip directory: 1036 primary NMR data/3ca/
+Phase 1 checking zip directory: 1037 primary NMR data/3ca/3ca-C/
+Phase 1 checking zip directory: 1044 primary NMR data/3ca/3ca-C/pdata/
+Phase 1 checking zip directory: 1045 primary NMR data/3ca/3ca-C/pdata/1/
+rezip pattern found primary NMR data/3ca/3ca-C/
+Phase 1 checking zip directory: 1053 primary NMR data/3ca/3ca-H/
+Phase 1 checking zip directory: 1059 primary NMR data/3ca/3ca-H/pdata/
+Phase 1 checking zip directory: 1060 primary NMR data/3ca/3ca-H/pdata/1/
+rezip pattern found primary NMR data/3ca/3ca-H/
+Phase 1 checking zip directory: 1068 primary NMR data/3cq/
+Phase 1 checking zip directory: 1069 primary NMR data/3cq/3cq-C/
+Phase 1 checking zip directory: 1076 primary NMR data/3cq/3cq-C/pdata/
+Phase 1 checking zip directory: 1077 primary NMR data/3cq/3cq-C/pdata/1/
+rezip pattern found primary NMR data/3cq/3cq-C/
+Phase 1 checking zip directory: 1086 primary NMR data/3cq/3cq-H/
+Phase 1 checking zip directory: 1092 primary NMR data/3cq/3cq-H/pdata/
+Phase 1 checking zip directory: 1093 primary NMR data/3cq/3cq-H/pdata/1/
+rezip pattern found primary NMR data/3cq/3cq-H/
+Phase 1 checking zip directory: 1102 primary NMR data/3da/
+Phase 1 checking zip directory: 1103 primary NMR data/3da/3da-C/
+Phase 1 checking zip directory: 1110 primary NMR data/3da/3da-C/pdata/
+Phase 1 checking zip directory: 1111 primary NMR data/3da/3da-C/pdata/1/
+rezip pattern found primary NMR data/3da/3da-C/
+Phase 1 checking zip directory: 1120 primary NMR data/3da/3da-H/
+Phase 1 checking zip directory: 1126 primary NMR data/3da/3da-H/pdata/
+Phase 1 checking zip directory: 1127 primary NMR data/3da/3da-H/pdata/1/
+rezip pattern found primary NMR data/3da/3da-H/
+Phase 1 checking zip directory: 1135 primary NMR data/3dq/
+Phase 1 checking zip directory: 1136 primary NMR data/3dq/3dq-C/
+Phase 1 checking zip directory: 1143 primary NMR data/3dq/3dq-C/pdata/
+Phase 1 checking zip directory: 1144 primary NMR data/3dq/3dq-C/pdata/1/
+rezip pattern found primary NMR data/3dq/3dq-C/
+Phase 1 checking zip directory: 1153 primary NMR data/3dq/3dq-H/
+Phase 1 checking zip directory: 1159 primary NMR data/3dq/3dq-H/pdata/
+Phase 1 checking zip directory: 1160 primary NMR data/3dq/3dq-H/pdata/1/
+rezip pattern found primary NMR data/3dq/3dq-H/
+Phase 1 checking zip directory: 1169 primary NMR data/3dx/
+Phase 1 checking zip directory: 1170 primary NMR data/3dx/3dx-C/
+Phase 1 checking zip directory: 1177 primary NMR data/3dx/3dx-C/pdata/
+Phase 1 checking zip directory: 1178 primary NMR data/3dx/3dx-C/pdata/1/
+rezip pattern found primary NMR data/3dx/3dx-C/
+Phase 1 checking zip directory: 1187 primary NMR data/3dx/3dx-H/
+Phase 1 checking zip directory: 1193 primary NMR data/3dx/3dx-H/pdata/
+Phase 1 checking zip directory: 1194 primary NMR data/3dx/3dx-H/pdata/1/
+rezip pattern found primary NMR data/3dx/3dx-H/
+Phase 1 checking zip directory: 1203 primary NMR data/3ex/
+Phase 1 checking zip directory: 1204 primary NMR data/3ex/3ex-C/
+Phase 1 checking zip directory: 1211 primary NMR data/3ex/3ex-C/pdata/
+Phase 1 checking zip directory: 1212 primary NMR data/3ex/3ex-C/pdata/1/
+rezip pattern found primary NMR data/3ex/3ex-C/
+Phase 1 checking zip directory: 1221 primary NMR data/3ex/3ex-H/
+Phase 1 checking zip directory: 1227 primary NMR data/3ex/3ex-H/pdata/
+Phase 1 checking zip directory: 1228 primary NMR data/3ex/3ex-H/pdata/1/
+rezip pattern found primary NMR data/3ex/3ex-H/
+Phase 1 checking zip directory: 1236 primary NMR data/3fq/
+Phase 1 checking zip directory: 1237 primary NMR data/3fq/3fq-C/
+Phase 1 checking zip directory: 1245 primary NMR data/3fq/3fq-C/pdata/
+Phase 1 checking zip directory: 1246 primary NMR data/3fq/3fq-C/pdata/1/
+rezip pattern found primary NMR data/3fq/3fq-C/
+Phase 1 checking zip directory: 1258 primary NMR data/3fq/3fq-H/
+Phase 1 checking zip directory: 1264 primary NMR data/3fq/3fq-H/pdata/
+Phase 1 checking zip directory: 1265 primary NMR data/3fq/3fq-H/pdata/1/
+rezip pattern found primary NMR data/3fq/3fq-H/
+Phase 1 checking zip directory: 1273 primary NMR data/3gq/
+Phase 1 checking zip directory: 1274 primary NMR data/3gq/3gq-C/
+Phase 1 checking zip directory: 1282 primary NMR data/3gq/3gq-C/pdata/
+Phase 1 checking zip directory: 1283 primary NMR data/3gq/3gq-C/pdata/1/
+rezip pattern found primary NMR data/3gq/3gq-C/
+Phase 1 checking zip directory: 1300 primary NMR data/3gq/3gq-H/
+Phase 1 checking zip directory: 1307 primary NMR data/3gq/3gq-H/pdata/
+Phase 1 checking zip directory: 1308 primary NMR data/3gq/3gq-H/pdata/1/
+rezip pattern found primary NMR data/3gq/3gq-H/
+Phase 1 checking zip directory: 1320 primary NMR data/3ha/
+Phase 1 checking zip directory: 1321 primary NMR data/3ha/3ha-C/
+Phase 1 checking zip directory: 1328 primary NMR data/3ha/3ha-C/pdata/
+Phase 1 checking zip directory: 1329 primary NMR data/3ha/3ha-C/pdata/1/
+rezip pattern found primary NMR data/3ha/3ha-C/
+Phase 1 checking zip directory: 1338 primary NMR data/3ha/3ha-H/
+Phase 1 checking zip directory: 1344 primary NMR data/3ha/3ha-H/pdata/
+Phase 1 checking zip directory: 1345 primary NMR data/3ha/3ha-H/pdata/1/
+rezip pattern found primary NMR data/3ha/3ha-H/
+Phase 1 checking zip directory: 1354 primary NMR data/3ia/
+Phase 1 checking zip directory: 1355 primary NMR data/3ia/3ia-C/
+Phase 1 checking zip directory: 1362 primary NMR data/3ia/3ia-C/pdata/
+Phase 1 checking zip directory: 1363 primary NMR data/3ia/3ia-C/pdata/1/
+rezip pattern found primary NMR data/3ia/3ia-C/
+Phase 1 checking zip directory: 1375 primary NMR data/3ia/3ia-H/
+Phase 1 checking zip directory: 1381 primary NMR data/3ia/3ia-H/pdata/
+Phase 1 checking zip directory: 1382 primary NMR data/3ia/3ia-H/pdata/1/
+rezip pattern found primary NMR data/3ia/3ia-H/
+Phase 1 checking zip directory: 1390 primary NMR data/3ja/
+Phase 1 checking zip directory: 1391 primary NMR data/3ja/3ja-C/
+Phase 1 checking zip directory: 1398 primary NMR data/3ja/3ja-C/pdata/
+Phase 1 checking zip directory: 1399 primary NMR data/3ja/3ja-C/pdata/1/
+rezip pattern found primary NMR data/3ja/3ja-C/
+Phase 1 checking zip directory: 1407 primary NMR data/3ja/3ja-H/
+Phase 1 checking zip directory: 1413 primary NMR data/3ja/3ja-H/pdata/
+Phase 1 checking zip directory: 1414 primary NMR data/3ja/3ja-H/pdata/1/
+rezip pattern found primary NMR data/3ja/3ja-H/
+Phase 1 checking zip directory: 1422 primary NMR data/4aa/
+Phase 1 checking zip directory: 1423 primary NMR data/4aa/4aa-H/
+Phase 1 checking zip directory: 1429 primary NMR data/4aa/4aa-H/pdata/
+Phase 1 checking zip directory: 1430 primary NMR data/4aa/4aa-H/pdata/1/
+rezip pattern found primary NMR data/4aa/4aa-H/
+Phase 1 checking zip directory: 1438 primary NMR data/5ia/
+Phase 1 checking zip directory: 1439 primary NMR data/5ia/5ia-H/
+Phase 1 checking zip directory: 1445 primary NMR data/5ia/5ia-H/pdata/
+Phase 1 checking zip directory: 1446 primary NMR data/5ia/5ia-H/pdata/1/
+rezip pattern found primary NMR data/5ia/5ia-H/
+! PHASE 2.2 rezip haveData=true
+Phase 2 checking zip directory: 1 primary NMR data/
+Phase 2 checking zip directory: 2 primary NMR data/3aa/
+Phase 2 checking zip directory: 3 primary NMR data/3aa/3aa-C/
+! rezipping primary NMR data/3aa/3aa-C/ for primary NMR data/3aa/3aa-C/ 3aa-C
+Phase 2 checking zip directory: 4 primary NMR data/3aa/3aa-H/
+! rezipping primary NMR data/3aa/3aa-H/ for primary NMR data/3aa/3aa-H/ 3aa-H
+Phase 2 checking zip directory: 5 primary NMR data/3ab/
+Phase 2 checking zip directory: 6 primary NMR data/3ab/3ab-C/
+! rezipping primary NMR data/3ab/3ab-C/ for primary NMR data/3ab/3ab-C/ 3ab-C
+Phase 2 checking zip directory: 7 primary NMR data/3ab/3ab-H/
+! rezipping primary NMR data/3ab/3ab-H/ for primary NMR data/3ab/3ab-H/ 3ab-H
+Phase 2 checking zip directory: 8 primary NMR data/3ac/
+Phase 2 checking zip directory: 9 primary NMR data/3ac/3ac-C/
+! rezipping primary NMR data/3ac/3ac-C/ for primary NMR data/3ac/3ac-C/ 3ac-C
+Phase 2 checking zip directory: 10 primary NMR data/3ac/3ac-H/
+! rezipping primary NMR data/3ac/3ac-H/ for primary NMR data/3ac/3ac-H/ 3ac-H
+Phase 2 checking zip directory: 11 primary NMR data/3ad/
+Phase 2 checking zip directory: 12 primary NMR data/3ad/3ad-C/
+! rezipping primary NMR data/3ad/3ad-C/ for primary NMR data/3ad/3ad-C/ 3ad-C
+Phase 2 checking zip directory: 13 primary NMR data/3ad/3ad-H/
+! rezipping primary NMR data/3ad/3ad-H/ for primary NMR data/3ad/3ad-H/ 3ad-H
+Phase 2 checking zip directory: 14 primary NMR data/3ae/
+Phase 2 checking zip directory: 15 primary NMR data/3ae/3ae-C/
+! rezipping primary NMR data/3ae/3ae-C/ for primary NMR data/3ae/3ae-C/ 3ae-C
+Phase 2 checking zip directory: 16 primary NMR data/3ae/3ae-H/
+! rezipping primary NMR data/3ae/3ae-H/ for primary NMR data/3ae/3ae-H/ 3ae-H
+Phase 2 checking zip directory: 17 primary NMR data/3af/
+Phase 2 checking zip directory: 18 primary NMR data/3af/3af-C/
+! rezipping primary NMR data/3af/3af-C/ for primary NMR data/3af/3af-C/ 3af-C
+Phase 2 checking zip directory: 19 primary NMR data/3af/3af-H/
+! rezipping primary NMR data/3af/3af-H/ for primary NMR data/3af/3af-H/ 3af-H
+Phase 2 checking zip directory: 20 primary NMR data/3ag/
+Phase 2 checking zip directory: 21 primary NMR data/3ag/3ag-C/
+! rezipping primary NMR data/3ag/3ag-C/ for primary NMR data/3ag/3ag-C/ 3ag-C
+Phase 2 checking zip directory: 22 primary NMR data/3ag/3ag-H/
+! rezipping primary NMR data/3ag/3ag-H/ for primary NMR data/3ag/3ag-H/ 3ag-H
+Phase 2 checking zip directory: 23 primary NMR data/3ah/
+Phase 2 checking zip directory: 24 primary NMR data/3ah/3ah-C/
+! rezipping primary NMR data/3ah/3ah-C/ for primary NMR data/3ah/3ah-C/ 3ah-C
+Phase 2 checking zip directory: 25 primary NMR data/3ah/3ah-H/
+! rezipping primary NMR data/3ah/3ah-H/ for primary NMR data/3ah/3ah-H/ 3ah-H
+Phase 2 checking zip directory: 26 primary NMR data/3ai/
+Phase 2 checking zip directory: 27 primary NMR data/3ai/3ai-C/
+! rezipping primary NMR data/3ai/3ai-C/ for primary NMR data/3ai/3ai-C/ 3ai-C
+Phase 2 checking zip directory: 28 primary NMR data/3ai/3ai-H/
+! rezipping primary NMR data/3ai/3ai-H/ for primary NMR data/3ai/3ai-H/ 3ai-H
+Phase 2 checking zip directory: 29 primary NMR data/3aj/
+Phase 2 checking zip directory: 30 primary NMR data/3aj/3aj-C/
+! rezipping primary NMR data/3aj/3aj-C/ for primary NMR data/3aj/3aj-C/ 3aj-C
+Phase 2 checking zip directory: 31 primary NMR data/3aj/3aj-H/
+! rezipping primary NMR data/3aj/3aj-H/ for primary NMR data/3aj/3aj-H/ 3aj-H
+Phase 2 checking zip directory: 32 primary NMR data/3ak/
+Phase 2 checking zip directory: 33 primary NMR data/3ak/3ak-C/
+! rezipping primary NMR data/3ak/3ak-C/ for primary NMR data/3ak/3ak-C/ 3ak-C
+Phase 2 checking zip directory: 34 primary NMR data/3ak/3ak-H/
+! rezipping primary NMR data/3ak/3ak-H/ for primary NMR data/3ak/3ak-H/ 3ak-H
+Phase 2 checking zip directory: 35 primary NMR data/3al/
+Phase 2 checking zip directory: 36 primary NMR data/3al/3al-C/
+! rezipping primary NMR data/3al/3al-C/ for primary NMR data/3al/3al-C/ 3al-C
+Phase 2 checking zip directory: 37 primary NMR data/3al/3al-H/
+! rezipping primary NMR data/3al/3al-H/ for primary NMR data/3al/3al-H/ 3al-H
+Phase 2 checking zip directory: 38 primary NMR data/3am/
+Phase 2 checking zip directory: 39 primary NMR data/3am/3am-C/
+! rezipping primary NMR data/3am/3am-C/ for primary NMR data/3am/3am-C/ 3am-C
+Phase 2 checking zip directory: 40 primary NMR data/3am/3am-H/
+! rezipping primary NMR data/3am/3am-H/ for primary NMR data/3am/3am-H/ 3am-H
+Phase 2 checking zip directory: 41 primary NMR data/3an/
+Phase 2 checking zip directory: 42 primary NMR data/3an/3an-C/
+! rezipping primary NMR data/3an/3an-C/ for primary NMR data/3an/3an-C/ 3an-C
+Phase 2 checking zip directory: 43 primary NMR data/3an/3an-H/
+! rezipping primary NMR data/3an/3an-H/ for primary NMR data/3an/3an-H/ 3an-H
+Phase 2 checking zip directory: 44 primary NMR data/3ao/
+Phase 2 checking zip directory: 45 primary NMR data/3ao/3ao-C/
+! rezipping primary NMR data/3ao/3ao-C/ for primary NMR data/3ao/3ao-C/ 3ao-C
+Phase 2 checking zip directory: 46 primary NMR data/3ao/3ao-H/
+! rezipping primary NMR data/3ao/3ao-H/ for primary NMR data/3ao/3ao-H/ 3ao-H
+Phase 2 checking zip directory: 47 primary NMR data/3ap/
+Phase 2 checking zip directory: 48 primary NMR data/3ap/3ap-C/
+! rezipping primary NMR data/3ap/3ap-C/ for primary NMR data/3ap/3ap-C/ 3ap-C
+Phase 2 checking zip directory: 49 primary NMR data/3ap/3ap-H/
+! rezipping primary NMR data/3ap/3ap-H/ for primary NMR data/3ap/3ap-H/ 3ap-H
+Phase 2 checking zip directory: 50 primary NMR data/3aq/
+Phase 2 checking zip directory: 51 primary NMR data/3aq/3aq-C/
+! rezipping primary NMR data/3aq/3aq-C/ for primary NMR data/3aq/3aq-C/ 3aq-C
+Phase 2 checking zip directory: 52 primary NMR data/3aq/3aq-H/
+! rezipping primary NMR data/3aq/3aq-H/ for primary NMR data/3aq/3aq-H/ 3aq-H
+Phase 2 checking zip directory: 53 primary NMR data/3ar/
+Phase 2 checking zip directory: 54 primary NMR data/3ar/3ar-C/
+! rezipping primary NMR data/3ar/3ar-C/ for primary NMR data/3ar/3ar-C/ 3ar-C
+Phase 2 checking zip directory: 55 primary NMR data/3ar/3ar-H/
+! rezipping primary NMR data/3ar/3ar-H/ for primary NMR data/3ar/3ar-H/ 3ar-H
+Phase 2 checking zip directory: 56 primary NMR data/3at/
+Phase 2 checking zip directory: 57 primary NMR data/3at/3at-C/
+! rezipping primary NMR data/3at/3at-C/ for primary NMR data/3at/3at-C/ 3at-C
+Phase 2 checking zip directory: 58 primary NMR data/3at/3at-H/
+! rezipping primary NMR data/3at/3at-H/ for primary NMR data/3at/3at-H/ 3at-H
+Phase 2 checking zip directory: 59 primary NMR data/3au/
+Phase 2 checking zip directory: 60 primary NMR data/3au/3au-C/
+! rezipping primary NMR data/3au/3au-C/ for primary NMR data/3au/3au-C/ 3au-C
+Phase 2 checking zip directory: 61 primary NMR data/3au/3au-H/
+! rezipping primary NMR data/3au/3au-H/ for primary NMR data/3au/3au-H/ 3au-H
+Phase 2 checking zip directory: 62 primary NMR data/3av/
+Phase 2 checking zip directory: 63 primary NMR data/3av/3av-C/
+! rezipping primary NMR data/3av/3av-C/ for primary NMR data/3av/3av-C/ 3av-C
+Phase 2 checking zip directory: 64 primary NMR data/3av/3av-H/
+! rezipping primary NMR data/3av/3av-H/ for primary NMR data/3av/3av-H/ 3av-H
+Phase 2 checking zip directory: 65 primary NMR data/3aw/
+Phase 2 checking zip directory: 66 primary NMR data/3aw/3aw-C/
+! rezipping primary NMR data/3aw/3aw-C/ for primary NMR data/3aw/3aw-C/ 3aw-C
+Phase 2 checking zip directory: 67 primary NMR data/3aw/3aw-H/
+! rezipping primary NMR data/3aw/3aw-H/ for primary NMR data/3aw/3aw-H/ 3aw-H
+Phase 2 checking zip directory: 68 primary NMR data/3ax/
+Phase 2 checking zip directory: 69 primary NMR data/3ax/3ax-C/
+! rezipping primary NMR data/3ax/3ax-C/ for primary NMR data/3ax/3ax-C/ 3ax-C
+Phase 2 checking zip directory: 70 primary NMR data/3ax/3ax-H/
+! rezipping primary NMR data/3ax/3ax-H/ for primary NMR data/3ax/3ax-H/ 3ax-H
+Phase 2 checking zip directory: 71 primary NMR data/3ay/
+Phase 2 checking zip directory: 72 primary NMR data/3ay/3ay-C/
+! rezipping primary NMR data/3ay/3ay-C/ for primary NMR data/3ay/3ay-C/ 3ay-C
+Phase 2 checking zip directory: 73 primary NMR data/3ay/3ay-H/
+! rezipping primary NMR data/3ay/3ay-H/ for primary NMR data/3ay/3ay-H/ 3ay-H
+Phase 2 checking zip directory: 74 primary NMR data/3az/
+Phase 2 checking zip directory: 75 primary NMR data/3az/3az-C/
+! rezipping primary NMR data/3az/3az-C/ for primary NMR data/3az/3az-C/ 3az-C
+Phase 2 checking zip directory: 76 primary NMR data/3az/3az-H/
+! rezipping primary NMR data/3az/3az-H/ for primary NMR data/3az/3az-H/ 3az-H
+Phase 2 checking zip directory: 77 primary NMR data/3ba/
+Phase 2 checking zip directory: 78 primary NMR data/3ba/3ba-C/
+! rezipping primary NMR data/3ba/3ba-C/ for primary NMR data/3ba/3ba-C/ 3ba-C
+Phase 2 checking zip directory: 79 primary NMR data/3ba/3ba-H/
+! rezipping primary NMR data/3ba/3ba-H/ for primary NMR data/3ba/3ba-H/ 3ba-H
+Phase 2 checking zip directory: 80 primary NMR data/3bq/
+Phase 2 checking zip directory: 81 primary NMR data/3bq/3bq-C/
+! rezipping primary NMR data/3bq/3bq-C/ for primary NMR data/3bq/3bq-C/ 3bq-C
+Phase 2 checking zip directory: 82 primary NMR data/3bq/3bq-H/
+! rezipping primary NMR data/3bq/3bq-H/ for primary NMR data/3bq/3bq-H/ 3bq-H
+Phase 2 checking zip directory: 83 primary NMR data/3bx/
+Phase 2 checking zip directory: 84 primary NMR data/3bx/3bx-C/
+! rezipping primary NMR data/3bx/3bx-C/ for primary NMR data/3bx/3bx-C/ 3bx-C
+Phase 2 checking zip directory: 85 primary NMR data/3bx/3bx-H/
+! rezipping primary NMR data/3bx/3bx-H/ for primary NMR data/3bx/3bx-H/ 3bx-H
+Phase 2 checking zip directory: 86 primary NMR data/3ca/
+Phase 2 checking zip directory: 87 primary NMR data/3ca/3ca-C/
+! rezipping primary NMR data/3ca/3ca-C/ for primary NMR data/3ca/3ca-C/ 3ca-C
+Phase 2 checking zip directory: 88 primary NMR data/3ca/3ca-H/
+! rezipping primary NMR data/3ca/3ca-H/ for primary NMR data/3ca/3ca-H/ 3ca-H
+Phase 2 checking zip directory: 89 primary NMR data/3cq/
+Phase 2 checking zip directory: 90 primary NMR data/3cq/3cq-C/
+! rezipping primary NMR data/3cq/3cq-C/ for primary NMR data/3cq/3cq-C/ 3cq-C
+Phase 2 checking zip directory: 91 primary NMR data/3cq/3cq-H/
+! rezipping primary NMR data/3cq/3cq-H/ for primary NMR data/3cq/3cq-H/ 3cq-H
+Phase 2 checking zip directory: 92 primary NMR data/3da/
+Phase 2 checking zip directory: 93 primary NMR data/3da/3da-C/
+! rezipping primary NMR data/3da/3da-C/ for primary NMR data/3da/3da-C/ 3da-C
+Phase 2 checking zip directory: 94 primary NMR data/3da/3da-H/
+! rezipping primary NMR data/3da/3da-H/ for primary NMR data/3da/3da-H/ 3da-H
+Phase 2 checking zip directory: 95 primary NMR data/3dq/
+Phase 2 checking zip directory: 96 primary NMR data/3dq/3dq-C/
+! rezipping primary NMR data/3dq/3dq-C/ for primary NMR data/3dq/3dq-C/ 3dq-C
+Phase 2 checking zip directory: 97 primary NMR data/3dq/3dq-H/
+! rezipping primary NMR data/3dq/3dq-H/ for primary NMR data/3dq/3dq-H/ 3dq-H
+Phase 2 checking zip directory: 98 primary NMR data/3dx/
+Phase 2 checking zip directory: 99 primary NMR data/3dx/3dx-C/
+! rezipping primary NMR data/3dx/3dx-C/ for primary NMR data/3dx/3dx-C/ 3dx-C
+Phase 2 checking zip directory: 100 primary NMR data/3dx/3dx-H/
+! rezipping primary NMR data/3dx/3dx-H/ for primary NMR data/3dx/3dx-H/ 3dx-H
+Phase 2 checking zip directory: 101 primary NMR data/3ex/
+Phase 2 checking zip directory: 102 primary NMR data/3ex/3ex-C/
+! rezipping primary NMR data/3ex/3ex-C/ for primary NMR data/3ex/3ex-C/ 3ex-C
+Phase 2 checking zip directory: 103 primary NMR data/3ex/3ex-H/
+! rezipping primary NMR data/3ex/3ex-H/ for primary NMR data/3ex/3ex-H/ 3ex-H
+Phase 2 checking zip directory: 104 primary NMR data/3fq/
+Phase 2 checking zip directory: 105 primary NMR data/3fq/3fq-C/
+! rezipping primary NMR data/3fq/3fq-C/ for primary NMR data/3fq/3fq-C/ 3fq-C
+Phase 2 checking zip directory: 106 primary NMR data/3fq/3fq-H/
+! rezipping primary NMR data/3fq/3fq-H/ for primary NMR data/3fq/3fq-H/ 3fq-H
+Phase 2 checking zip directory: 107 primary NMR data/3gq/
+Phase 2 checking zip directory: 108 primary NMR data/3gq/3gq-C/
+! rezipping primary NMR data/3gq/3gq-C/ for primary NMR data/3gq/3gq-C/ 3gq-C
+Phase 2 checking zip directory: 109 primary NMR data/3gq/3gq-H/
+! rezipping primary NMR data/3gq/3gq-H/ for primary NMR data/3gq/3gq-H/ 3gq-H
+Phase 2 checking zip directory: 110 primary NMR data/3ha/
+Phase 2 checking zip directory: 111 primary NMR data/3ha/3ha-C/
+! rezipping primary NMR data/3ha/3ha-C/ for primary NMR data/3ha/3ha-C/ 3ha-C
+Phase 2 checking zip directory: 112 primary NMR data/3ha/3ha-H/
+! rezipping primary NMR data/3ha/3ha-H/ for primary NMR data/3ha/3ha-H/ 3ha-H
+Phase 2 checking zip directory: 113 primary NMR data/3ia/
+Phase 2 checking zip directory: 114 primary NMR data/3ia/3ia-C/
+! rezipping primary NMR data/3ia/3ia-C/ for primary NMR data/3ia/3ia-C/ 3ia-C
+Phase 2 checking zip directory: 115 primary NMR data/3ia/3ia-H/
+! rezipping primary NMR data/3ia/3ia-H/ for primary NMR data/3ia/3ia-H/ 3ia-H
+Phase 2 checking zip directory: 116 primary NMR data/3ja/
+Phase 2 checking zip directory: 117 primary NMR data/3ja/3ja-C/
+! rezipping primary NMR data/3ja/3ja-C/ for primary NMR data/3ja/3ja-C/ 3ja-C
+Phase 2 checking zip directory: 118 primary NMR data/3ja/3ja-H/
+! rezipping primary NMR data/3ja/3ja-H/ for primary NMR data/3ja/3ja-H/ 3ja-H
+Phase 2 checking zip directory: 119 primary NMR data/4aa/
+Phase 2 checking zip directory: 120 primary NMR data/4aa/4aa-H/
+! rezipping primary NMR data/4aa/4aa-H/ for primary NMR data/4aa/4aa-H/ 4aa-H
+Phase 2 checking zip directory: 121 primary NMR data/5ia/
+Phase 2 checking zip directory: 122 primary NMR data/5ia/5ia-H/
+! rezipping primary NMR data/5ia/5ia-H/ for primary NMR data/5ia/5ia-H/ 5ia-H
+found 39 IFS objects
+! saved .\site\ifs\21947274\_IFS_manifest.json (83 items)
+! saved .\site\ifs\21947274\_IFS_ignored.json (0 items)
+! DONE total=2 failed=0

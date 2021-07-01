@@ -28,13 +28,18 @@ public interface DOMNode {
 	}
 	
 	/**
-	 * avoiding GCC inability to handle .finally and .catch
-	 * 
 	 * @j2sNative
 	 * 
-	 * 		eval("Promise.prototype.$then = function(resolve,reject){this.then(function(value) {resolve &&resolve.accept$O(value)},function(reason){reject &&reject.apply$O(reason)})};");
-	 *      eval("Promise.prototype.$finally = function(r){this.finally(function(){r.run$()})};");
-	 *      eval("Promise.prototype.$catch = function(err){this.catch(function(){err.accept$S('' + err)})};");
+	 * 			Promise.prototype.$then = function(resolve,reject)
+	 *            {this.then(function(value) {resolve &&
+	 *            resolve.accept$O(value)},function(reason){reject &&
+	 *            reject.apply$O(reason)})};
+	 * 
+	 *          Promise.prototype.$finally = function(r)
+	 *            {this.finally(function(){r.run$()})};
+	 * 
+	 *          Promise.prototype.$catch = function(err)
+	 *            {this.catch(function(){err.accept$S("" + err)})};
 	 */
 	public interface Promise {
 		public Promise then(JSFunction resolve, JSFunction reject);

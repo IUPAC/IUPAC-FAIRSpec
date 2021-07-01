@@ -25,6 +25,7 @@ import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.api.IFSPropertyManagerI;
+import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
 import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
@@ -32,7 +33,6 @@ import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
 import org.iupac.fairspec.core.IFSDataObject;
 import org.iupac.fairspec.core.IFSDataObjectCollection;
-import org.iupac.fairspec.core.IFSFindingAid;
 import org.iupac.fairspec.core.IFSObject;
 import org.iupac.fairspec.core.IFSRepresentableObject;
 import org.iupac.fairspec.spec.IFSSpecData;
@@ -41,10 +41,10 @@ import org.iupac.fairspec.spec.IFSStructureSpec;
 import org.iupac.fairspec.spec.IFSStructureSpecCollection;
 import org.iupac.fairspec.util.IFSDefaultJSONSerializer;
 import org.iupac.fairspec.util.IFSDefaultStructurePropertyManager;
+import org.iupac.fairspec.util.Util;
 
 import com.integratedgraphics.ifs.api.IFSVendorPluginI;
 import com.integratedgraphics.ifs.util.PubInfoExtractor;
-import com.integratedgraphics.ifs.util.Util;
 
 import javajs.util.JSJSONParser;
 import javajs.util.Lst;
@@ -209,7 +209,7 @@ public class Extractor implements IFSExtractorI {
 	 */
 	protected String rootPath;
 
-	protected List<String> products = new ArrayList<String>();
+	protected List<Object> products = new ArrayList<>();
 	/**
 	 * working local name, without the rootPath, as found in _IFS_manifest.json
 	 */
@@ -331,8 +331,10 @@ public class Extractor implements IFSExtractorI {
 		noOutput = (createFindingAidsOnly || readOnly);
 	}
 
-	@Override
-	public final boolean extractAndCreateFindingAid(File ifsExtractScriptFile, String localSourceDir, File targetDir,
+	/**
+	 * @return the FindingAid as a string
+	 */
+	public final String extractAndCreateFindingAid(File ifsExtractScriptFile, String localSourceDir, File targetDir,
 			String findingAidFileNameRoot) throws IOException, IFSException {
 
 		// first create objects, a List<String>
@@ -341,7 +343,7 @@ public class Extractor implements IFSExtractorI {
 
 		if (pubCrossrefInfo == null && !allowNoPubInfo) {
 			log("!! Finding aid does not contain PubInfo! No internet? cannot continue");
-			return false;
+			return null;
 		}
 
 		setLocalSourceDir(localSourceDir);
@@ -353,32 +355,18 @@ public class Extractor implements IFSExtractorI {
 
 		extractObjects(targetDir);
 
-		String faPath = targetDir + "/" + findingAidFileNameRoot + "_IFS_findingaid.json";
-		String s = new IFSDefaultJSONSerializer().serialize(findingAid);
-		if (createZippedCollection) {
-			writeBytesToFile(s.getBytes(), new File(faPath));
-			products.add(0, faPath);
-			String fname = findingAidFileNameRoot + "_IFS_collection.zip";
-			String path = targetDir + "/" + fname;
-			log("! creating " + path);
-			long len = Util.zip(path, targetDir + File.separator, targetDir + File.separator + findingAidFileNameRoot, products);
-			findingAid.setResource(fname, len);
-			// update external finding aid
-			s = new IFSDefaultJSONSerializer().serialize(findingAid);
-		}
-		writeBytesToFile(s.getBytes(), new File(faPath));
-		return true;
+		return findingAid.createSerialization((noOutput ? null : targetDir), findingAidFileNameRoot, createZippedCollection ? products : null, getSerializer());
 	}
 
 	/**
-	 * Get the IFSFindingAid associated with this Extractor instance.
+	 * Implementing subclass could use a different serializer.
+	 * 
+	 * @return a serializer
 	 */
-	@Override
-	public IFSFindingAid getFindingAid() {
-		return findingAid;
+	protected IFSSerializerI getSerializer() {
+		return new IFSDefaultJSONSerializer();
 	}
 
-	@Override
 	public void setLocalSourceDir(String sourceDir) {
 		if (sourceDir != null && sourceDir.indexOf("://") < 0)
 			sourceDir = "file:///" + sourceDir;
@@ -402,7 +390,6 @@ public class Extractor implements IFSExtractorI {
 	 * them all with (?<param>....), then add on our non-vender checks, and finally
 	 * wrap all this using (?<type>...).
 	 */
-	@Override
 	public void setCachePattern(String sp) {
 		if (sp == null)
 			sp = IFSConst.defaultCachePattern + "|" + structurePropertyManager.getParamRegex();
@@ -453,7 +440,6 @@ public class Extractor implements IFSExtractorI {
 	 * @param procs
 	 * @param toExclude
 	 */
-	@Override
 	public void setRezipCachePattern(String procs, String toExclude) {
 		String s = "";
 
@@ -495,7 +481,6 @@ public class Extractor implements IFSExtractorI {
 	 * @throws IOException
 	 * @throws IFSException
 	 */
-	@Override
 	public List<ObjectParser> getObjectParsersForFile(File ifsExtractScript) throws IOException, IFSException {
 		log("! Extracting " + ifsExtractScript.getAbsolutePath());
 		return getObjectsForStream(ifsExtractScript.toURI().toURL().openStream());
@@ -627,7 +612,6 @@ public class Extractor implements IFSExtractorI {
 	 * Find and extract all objects of interest from a ZIP file.
 	 * 
 	 */
-	@Override
 	public IFSSpecDataFindingAid extractObjects(File targetDir) throws IFSException, IOException {
 		if (findingAid != null)
 			throw new IFSException("Only one extraction per instance of Extractor is allowed (for now).");

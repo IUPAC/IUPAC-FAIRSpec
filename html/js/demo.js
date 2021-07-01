@@ -85,19 +85,29 @@ loadTop: function(aid) {
 			var len = aid.sources[i].len;
 			var dir = ref.split('/');
 			dir = dir[dir.length - 1];
-			s += sep + "<a target=_blank href=\"" + ref + "\">" + ref + "</a> (" + len + " bytes) "
+			s += sep + "<a target=_blank href=\"" + ref + "\">" + ref + "</a> (" + demo.bytesFor(len) + ") "
 				+ "<a target=_blank href=\""+rootdir + dir +"\">extracted collection</a>";
 			sep = ", ";
 		}
 		s += "</td></tr>";
 	}
 	if (aid.collectionRef) {
-		s += "<tr><td valign=top>IFS collection</td><td valign=top><a target=_blank href=\"" + rootdir + aid.collectionRef + "\">" + aid.collectionRef + "</a> (" +  aid.collectionLen + " bytes)</td></tr>";
+		s += "<tr><td valign=top>IFS collection</td><td valign=top><a target=_blank href=\"" + rootdir + aid.collectionRef + "\">" + aid.collectionRef + "</a> (" +  demo.bytesFor(aid.collectionLen) + ")</td></tr>";
 		
 	}
 	s += "</table>";
 	$("#top").html(s);
 
+},
+
+bytesFor: function(len) {
+	if (len > 1000000000)
+		return (Math.round(len/100000000)/10) + " GB";
+	if (len > 1000000)
+		return (Math.round(len/100000)/10) + " MB";
+	if (len > 1000)
+		return (Math.round(len/100)/10) + " KB";
+	return len + " bytes";
 },
 
 loadStructures: function(structures) {

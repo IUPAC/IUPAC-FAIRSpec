@@ -18,10 +18,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.iupac.fairspec.util.Util;
 import org.nmrml.parser.Acqu;
 import org.nmrml.parser.jeol.JeolParameter;
-
-import com.integratedgraphics.ifs.util.Util;
 
 /**
  * Reader for Jeol JDF file

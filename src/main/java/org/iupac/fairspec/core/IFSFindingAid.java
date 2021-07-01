@@ -1,5 +1,7 @@
 package org.iupac.fairspec.core;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +12,7 @@ import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
+import org.iupac.fairspec.util.IFSDefaultJSONSerializer;
 
 /**
  * The master class for a full collection, as from a publication or thesis or whatever.
@@ -40,6 +43,12 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 
 	private Resource myResource = new Resource(null, 0);
 	
+	/**
+	 * A simple reference/length holder.
+	 * 
+	 * @author hansonr
+	 *
+	 */
 	public static class Resource implements IFSSerializableI {
 		private String ref;
 		private long len;
@@ -72,10 +81,19 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 		sources.add(new Resource(sUrl, 0));
 	}
 
+	/**
+	 * Get the list of sources
+	 * @return
+	 */
 	public List<Resource> getSources() {
 		return sources;
 	}
 
+	/**
+	 * Add a source or return the index of a source if already present
+	 * @param ref the reference for this source
+	 * @return index of the source if found or added
+	 */
 	public int addSource(String ref) {
 		for (int i = sources.size(); --i >= 0;) {
 			if (sources.get(i).ref.equals(ref)) {
@@ -92,9 +110,8 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 	}
 	
 	public void setCurrentURLLength(long len) {
-		if (currentSourceIndex < 0)
-			return;
-		sources.get(currentSourceIndex).len = len;
+		if (currentSourceIndex >= 0)
+			sources.get(currentSourceIndex).len = len;
 	}
 
 	public void setPubInfo(Map<String, Object> pubInfo) {
@@ -132,5 +149,25 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 			serializing = false;
 		}
 	}
-
+	
+	/**
+	 * 
+	 * Generate the serialization and optionally save it to disk as
+	 * [rootname]_IFS_findingaid.[ext] and optionally create an _IFS_collection.zip
+	 * in that same directory.
+	 * 
+	 * @param targetDir or null for no output
+	 * @param rootName  a prefix root to add to the _IFS_findingaid.json (or.xml)
+	 *                  finding aid created
+	 * @param products  optionally, a list of directories containing the files referenced by the
+	 *                  finding aid for creating the IFS_collection.zip file
+	 * @param serializer optionally, a non-default IFSSerializerI (XML, JSON, etc.)
+	 * @return the serialization as a String
+	 * @throws IOException
+	 */
+	public String createSerialization(File targetDir, String rootName, List<Object> products, IFSSerializerI serializer) throws IOException {
+		if (serializer == null)
+			serializer = new IFSDefaultJSONSerializer();
+		return serializer.createSerialization(this, targetDir, rootName, products);
+	}
 }

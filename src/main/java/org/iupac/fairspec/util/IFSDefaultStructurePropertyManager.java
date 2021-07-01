@@ -12,6 +12,13 @@ import org.jmol.viewer.Viewer;
 
 import javajs.util.BS;
 
+/**
+ * A class to handle the extraction of structure objects and metadata related to
+ * structures. This class leverages Jmol for these purposes.
+ * 
+ * @author hansonr
+ *
+ */
 public class IFSDefaultStructurePropertyManager implements IFSPropertyManagerI {
 
 	/**

@@ -1,5 +1,7 @@
 package org.iupac.fairspec.util;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +9,7 @@ import java.util.Map.Entry;
 
 import org.iupac.fairspec.api.IFSSerializableI;
 import org.iupac.fairspec.api.IFSSerializerI;
+import org.iupac.fairspec.core.IFSFindingAid;
 
 import javajs.util.PT;
 
@@ -131,6 +134,37 @@ public class IFSDefaultJSONSerializer implements IFSSerializerI {
 		int n = stack.size();
 		thisObj = (n > 1 ? stack.get(n - 2) : null);
 		return stack.remove(n - 1).close();
+	}
+
+	@Override
+	public String getFileExt() {
+		return "json";
+	}
+
+	@Override
+	public String createSerialization(IFSFindingAid findingAid, File targetDir, String rootName, List<Object> products) throws IOException {
+		// subclasses should be able to use this directly with no changes.
+		String s = serialize(findingAid);
+		if (targetDir == null)
+			return s;
+		String aidName = "_IFS_findingaid." + getFileExt();
+		if (products != null) {
+			findingAid.setResource(null, 0);
+			// byte[] followed by entry name
+			products.add(0, s.getBytes());
+			products.add(1, aidName);
+			String zipName = rootName + "_IFS_collection.zip";
+			String path = targetDir + "/" + zipName;
+			long len = Util.zip(path, targetDir.toString().length() + 1, products);
+			findingAid.setResource(zipName, len);
+			products.remove(1);
+			products.remove(0);
+			// update external finding aid
+			s = serialize(findingAid);
+		}
+		String faPath = targetDir + "/" + rootName + aidName;
+		Util.writeBytesToFile(s.getBytes(), new File(faPath));
+		return s;
 	}
 
 }
