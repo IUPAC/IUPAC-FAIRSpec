@@ -18,8 +18,8 @@ public class IFSConst {
 
 	// Finding Aid properties:
 
-	public static final String IFS_FINDINGAID_DATA_LICENSE_NAME = "IFS.findingaid.data.license.name";
-	public static final String IFS_FINDINGAID_DATA_LICENSE_URI  = "IFS.findingaid.data.license.uri";
+	public static final String IFS_PROP_COLLECTION_DATA_LICENSE_NAME = "IFS.property.collection.data.license.name";
+	public static final String IFS_PROP_COLLECTION_DATA_LICENSE_URI  = "IFS.property.collection.data.license.uri";
 
 	
 	// IFSExtractorI constants:
@@ -38,17 +38,22 @@ public class IFSConst {
 //			+ "|(?<text>\\.log$|\\.out$|\\.txt$)"// maybe put these into JSON only? 
 			;
 
+	public static final String IFS_FINDINGAID                        = "IFS.findingaid"; // root name for JSON
+	public static final String IFS_FINDINGAID_FLAG                   = "IFS.findingaid.";
 
-	public static final String IFS_FINDINGAID                 = "IFS.findingaid";
-	public static final String IFS_FINDINGAID_FLAG            = "IFS.findingaid.";
-	public static final String IFS_FINDINGAID_SOURCE_DATA_URI = "IFS.findingaid.source.data.uri";
+	public static final String IFS_PROP_COLLECTION                        = "IFS.property.collection";
+	public static final String IFS_PROP_COLLECTION_ID                     = "IFS.property.collection.id";
+	public static final String IFS_PROP_COLLECTION_REF                    = "IFS.property.collection.ref";
+	public static final String IFS_PROP_COLLECTION_LEN                    = "IFS.property.collection.len";
+	public static final String IFS_PROP_COLLECTION_OBJECT                 = "IFS.property.collection.object";
+	public static final String IFS_PROP_COLLECTION_SOURCE_DATA_URI        = "IFS.property.collection.source.data.uri";
+	public static final String IFS_PROP_COLLECTION_SOURCE_PUBLICATION_URI = "IFS.property.collection.source.publication.uri";
 
-	public static final String IFS_STRUC_ID_FLAG        = ".struc.id";
-	public static final String IFS_EXPT_ID_FLAG        = ".expt.id";
 	public static final String IFS_PROPERTY_FLAG       = "IFS.property.";
 	public static final String IFS_REPRESENTATION_FLAG = "IFS.representation.";
 
-
+	public static final String IFS_STRUC_ID_FLAG       = ".struc.id";
+	public static final String IFS_EXPT_ID_FLAG        = ".expt.id";
 	
 
 	public static boolean isID(String propName) {

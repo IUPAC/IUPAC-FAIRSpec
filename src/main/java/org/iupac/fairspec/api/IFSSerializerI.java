@@ -27,12 +27,12 @@ public interface IFSSerializerI {
 	/**
 	 * 
 	 * Generate the serialization and optionally save it to disk as
-	 * [rootname]_IFS_findingaid.[ext] and optionally create an _IFS_collection.zip
+	 * [rootname]_IFS_PROP_COLLECTION.[ext] and optionally create an _IFS_collection.zip
 	 * in that same directory.
 	 * 
 	 * @param ifsFindingAid the requesting IFSFindingAid
 	 * @param targetDir or null for no output
-	 * @param rootName  a prefix root such as "acs.orglett.0c00572." to add to the _IFS_findingaid.json (or.xml)
+	 * @param rootName  a prefix root such as "acs.orglett.0c00572." to add to the _IFS_PROP_COLLECTION.json (or.xml)
 	 *                  finding aid created
 	 * @param products  optionally, a list of directories containing the files referenced by the
 	 *                  finding aid for creating the IFS_collection.zip file

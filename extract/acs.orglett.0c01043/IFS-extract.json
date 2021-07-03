@@ -1,11 +1,16 @@
 {"IFS-extract-version":"0.1.0-alpha","keys":[
  {"example":"compound directories containing a single mnova file"},
- {"license":"{IFS.findingaid.data.license.uri::https://creativecommons.org/licenses/by-nc/4.0},{IFS.findingaid.data.license.name::cc-by-nc-4.0}"},
- {"hash":"0c01043"},
- {"ifsid":"acs.orglett.{hash}"},
- {"puburi":"{IFS.findingaid.source.publication.uri::https://doi.org/10.1021/{ifsid}}"},
- {"data0":"{IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
- {"data":"{IFS.findingaid.source.data.uri::https://ndownloader.figshare.com/files/22232721}"},
+ {"journal":"acs.orglett"},{"hash":"0c01043"},
+ {"figshareid":"22232721"},
+ 
+ {"ifsid=IFS.property.collection.id":"{journal}.{hash}"},
+ {"IFS.property.collection.source.publication.uri":"https://doi.org/10.1021/{ifsid}"},
+ {"IFS.property.collection.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFS.property.collection.data.license.name":"cc-by-nc-4.0"},
+ 
+ {"data0":"{IFS.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data":"{IFS.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
- {"objects":"{data}|metadataNMR/{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::NMR spectra.mnova}}"}
+ {"path":"{data}|metadataNMR"},
+ {"IFS.property.collection.object":"{path}/{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::NMR spectra.mnova}}"}
 ]}

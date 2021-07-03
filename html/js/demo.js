@@ -26,12 +26,13 @@ loadLeftPanel: function(json) {
 select: function(n) {
 	var d = $("#articles")[0];
 	d.selectedIndex = n;
-	demo.loadSelected(d.selectedOptions[0].value);
 	demo.clearMain();
+	demo.loadSelected(d.selectedOptions[0].value);
 },
 
 loadSelected: function(fa) {
 	if (!fa)return;
+	demo.clearMain();
 	demo.findingAidFile = rootdir + fa + "._IFS_findingaid.json";
 	$.ajax({url:demo.findingAidFile, dataType:"json", success:demo.loaded});
 },
@@ -91,8 +92,10 @@ loadTop: function(aid) {
 		}
 		s += "</td></tr>";
 	}
-	if (aid.collectionRef) {
-		s += "<tr><td valign=top>IFS collection</td><td valign=top><a target=_blank href=\"" + rootdir + aid.collectionRef + "\">" + aid.collectionRef + "</a> (" +  demo.bytesFor(aid.collectionLen) + ")</td></tr>";
+	if (aid.properties["IFS.collection.ref"]) {
+		s += "<tr><td valign=top>IFS collection</td><td valign=top><a target=_blank href=\"" 
+			+ rootdir + aid.properties["IFS.collection.ref"] + "\">" 
++ aid.properties["IFS.collection.ref"] + "</a> (" +  demo.bytesFor(aid.properties["IFS.collection.len"]) + ")</td></tr>";
 		
 	}
 	s += "</table>";
@@ -120,7 +123,7 @@ loadStructures: function(structures) {
 	}
 	list.sort(demo.structureSorter);
 	var s = '<select onchange="demo.loadStructure(this.selectedOptions[0].value)"><option>Select a structure ('+list.length+')</option>'
-	for (var i = 1; i < list.length; i++) {
+	for (var i = 0; i < list.length; i++) {
 		var struc = list[i];
 		s += "<option value=\"" + struc.index + "\">" + struc.name + "</option>"
 	}
@@ -151,7 +154,7 @@ loadSpecData: function(specData) {
 	}
 	list.sort(demo.specDataSorter || demo.structureSorter);
 	var s = '<select onchange="demo.loadSpec(this.selectedOptions[0].value)"><option>Select a spectrum ('+list.length+')</option>'
-	for (var i = 1; i < list.length; i++) {
+	for (var i = 0; i < list.length; i++) {
 		var spec = list[i];
 		s += "<option value=\"" + i + "\">" + spec.name + "</option>"
 	}
@@ -180,7 +183,7 @@ loadStructureSpecs: function(structureSpecs) {
 	}
 	list.sort(demo.structureSorter);
 	var s = '<select onchange="demo.loadStructureSpec(this.selectedOptions[0].value)"><option>Select a structure-spectrum combination ('+list.length+')</option>'
-	for (var i = 1; i < list.length; i++) {
+	for (var i = 0; i < list.length; i++) {
 		var struc = list[i];
 		s += "<option value=\"" + struc.index + "\">" + struc.name + "</option>"
 	}
@@ -213,6 +216,9 @@ showAid: function() {
 clearMain: function() {
 	$("#top").html("");
 	$("#main").html("");
+	$("#structurespec").html(s);
+	$("#specData").html(s);
+	$("#struc").html(s);
 }
 
 

@@ -75,10 +75,10 @@ public class ExtractorTest extends Extractor {
 		stopOnAnyFailure = true; // set false to allow continuing after an error.
 
 		int first = 0; // first test to run
-		int last = 11; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+		int last = 12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 						// file test
 		String targetDir = "./site/ifs";
-		String sourceDir = null;//"c:/temp/iupac/zip";// or a local dir if you have already downloaded the zip files
+		String sourceDir = "c:/temp/iupac/zip";// or a local dir if you have already downloaded the zip files
 			
 		runExtraction(first, last, targetDir, sourceDir, args);
 	}

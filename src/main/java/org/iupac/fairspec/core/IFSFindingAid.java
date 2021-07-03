@@ -28,8 +28,12 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 	
 	{
 		super.setProperties(new IFSProperty[] {
-				new IFSProperty(IFSConst.IFS_FINDINGAID_DATA_LICENSE_NAME),
-				new IFSProperty(IFSConst.IFS_FINDINGAID_DATA_LICENSE_URI),
+				new IFSProperty(IFSConst.IFS_PROP_COLLECTION_ID),
+				new IFSProperty(IFSConst.IFS_PROP_COLLECTION_REF),
+				new IFSProperty(IFSConst.IFS_PROP_COLLECTION_LEN),
+				new IFSProperty(IFSConst.IFS_PROP_COLLECTION_SOURCE_PUBLICATION_URI),
+				new IFSProperty(IFSConst.IFS_PROP_COLLECTION_DATA_LICENSE_NAME),
+				new IFSProperty(IFSConst.IFS_PROP_COLLECTION_DATA_LICENSE_URI),
 		});
 	}
 
@@ -41,8 +45,8 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 
 	private Date date = new Date();
 
-	private Resource myResource = new Resource(null, 0);
-	
+	private String creator;
+
 	/**
 	 * A simple reference/length holder.
 	 * 
@@ -76,9 +80,9 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 			return "[Resource " + ref + " len " + len + "]";
 		}
 	}
-	public IFSFindingAid(String name, String type, String sUrl) throws IFSException {
+	public IFSFindingAid(String name, String type, String creator) throws IFSException {
 		super(name, type);
-		sources.add(new Resource(sUrl, 0));
+		this.creator = creator;
 	}
 
 	/**
@@ -104,11 +108,6 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 		return currentSourceIndex = sources.size() - 1;
 	}
 
-	public void setResource(String name, long len) {
-		myResource.ref = name;
-		myResource.len = len;
-	}
-	
 	public void setCurrentURLLength(long len) {
 		if (currentSourceIndex >= 0)
 			sources.get(currentSourceIndex).len = len;
@@ -130,13 +129,9 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 	public void serialize(IFSSerializerI serializer) {
 		if (serializing) {
 			serializeTop(serializer);
-			if (myResource.len > 0) {
-				if (myResource.ref != null)
-					serializer.addAttr("collectionRef", myResource.ref);
-				if (myResource.len != 0)
-					serializer.addAttrInt("collectionLen", myResource.len);
-			}
 			serializer.addObject("created", date.toGMTString());
+			if (creator != null)
+				serializer.addObject("createdBy", creator);
 			if (pubInfo != null)
 				serializer.addObject("pubInfo", pubInfo);
 			serializer.addObject("sources", sources);
@@ -153,11 +148,11 @@ public abstract class IFSFindingAid extends IFSCollection<IFSCollection<?>> {
 	/**
 	 * 
 	 * Generate the serialization and optionally save it to disk as
-	 * [rootname]_IFS_findingaid.[ext] and optionally create an _IFS_collection.zip
+	 * [rootname]_IFS_PROP_COLLECTION.[ext] and optionally create an _IFS_collection.zip
 	 * in that same directory.
 	 * 
 	 * @param targetDir or null for no output
-	 * @param rootName  a prefix root to add to the _IFS_findingaid.json (or.xml)
+	 * @param rootName  a prefix root to add to the _IFS_PROP_COLLECTION.json (or.xml)
 	 *                  finding aid created
 	 * @param products  optionally, a list of directories containing the files referenced by the
 	 *                  finding aid for creating the IFS_collection.zip file

@@ -90,8 +90,8 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	public final static int SAMPLE_SPEC_ANALYSIS_COLLECTION = 6;
 
 
-	public IFSSpecDataFindingAid(String id, String sUrl) throws IFSException {
-		super(null, SpecType.SpecDataFindingAid, sUrl);
+	public IFSSpecDataFindingAid(String id, String creator) throws IFSException {
+		super(null, SpecType.SpecDataFindingAid, creator);
 		setID(id);
 		add(null);
 		add(null);
@@ -117,8 +117,6 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	 * @throws IFSException
 	 */
 	public static String getObjectTypeForName(String propName) throws IFSException {
-		if (IFSConst.isFindingAid(propName))
-			return SpecType.SpecDataFindingAid;
 		if (IFSConst.isProperty(propName))
 			propName = PT.rep(propName, IFSConst.IFS_PROPERTY_FLAG, "\0");
 		else if (IFSConst.isRepresentation(propName))
@@ -199,7 +197,6 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		case SpecType.SpecDataCollection:
 		case ObjectType.StructureCollection:
 			// should not be generic
-		case SpecType.SpecDataFindingAid:
 		default:
 			System.err.println(
 					"IFSSpeDataFindingAid could not add " + param + " " + value + " for " + currentObjectZipName);

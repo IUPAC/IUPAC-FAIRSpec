@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import org.iupac.fairspec.api.IFSSerializableI;
 import org.iupac.fairspec.api.IFSSerializerI;
+import org.iupac.fairspec.common.IFSConst;
 import org.iupac.fairspec.core.IFSFindingAid;
 
 import javajs.util.PT;
@@ -149,14 +150,16 @@ public class IFSDefaultJSONSerializer implements IFSSerializerI {
 			return s;
 		String aidName = "_IFS_findingaid." + getFileExt();
 		if (products != null) {
-			findingAid.setResource(null, 0);
+			findingAid.setPropertyValue(IFSConst.IFS_PROP_COLLECTION_REF, null);
+			findingAid.setPropertyValue(IFSConst.IFS_PROP_COLLECTION_LEN, null);
 			// byte[] followed by entry name
 			products.add(0, s.getBytes());
 			products.add(1, aidName);
 			String zipName = rootName + "_IFS_collection.zip";
 			String path = targetDir + "/" + zipName;
 			long len = Util.zip(path, targetDir.toString().length() + 1, products);
-			findingAid.setResource(zipName, len);
+			findingAid.setPropertyValue(IFSConst.IFS_PROP_COLLECTION_REF, zipName);
+			findingAid.setPropertyValue(IFSConst.IFS_PROP_COLLECTION_LEN, len);
 			products.remove(1);
 			products.remove(0);
 			// update external finding aid

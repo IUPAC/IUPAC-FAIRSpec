@@ -84,7 +84,7 @@ public class Extractor implements IFSExtractorI {
 	static {
 		IFSVendorPluginI.init();
 	}
-	private static final String version = "0.0.1-alpha_2021_06_21";
+	private static final String version = "0.0.1-alpha_2021_07_2";
 
 	private static final String codeSource = "https://github.com/BobHanson/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifs/Extractor.java";
 
@@ -133,37 +133,6 @@ public class Extractor implements IFSExtractorI {
 	 * the IFS-extract.json script
 	 */
 	private String extractScript;
-
-	/**
-	 * derived from the extraction variable {isfid} in IFS-extract.json, and put in
-	 * the id field of the FindingAid
-	 */
-	private String findingAidId;
-
-	/**
-	 * IFS-extract.json {license}
-	 */
-	private String license;
-
-	/**
-	 * from IFS-extract.json {license}
-	 */
-	private String dataLicenseURI;
-
-	/**
-	 * from IFS-extract.json {license}
-	 */
-	private String dataLicenseName;
-
-	/**
-	 * form IFS-extract.json {puburi} IFS.findingaid.source.publication.uri
-	 */
-	private String puburi;
-
-	/**
-	 * map of information created form parsing the crossref uri+xml metadata
-	 */
-	private Map<String, Object> pubCrossrefInfo;
 
 	/**
 	 * extract version from IFS-extract.json
@@ -325,6 +294,8 @@ public class Extractor implements IFSExtractorI {
 
 	private String localizedURL;
 
+	private boolean haveExtracted;
+
 	public Extractor() {
 		clearZipCache();
 		getStructurePropertyManager();
@@ -340,7 +311,18 @@ public class Extractor implements IFSExtractorI {
 		// first create objects, a List<String>
 
 		getObjectParsersForFile(ifsExtractScriptFile);
-
+		String puburi = null;
+		Map<String, Object> pubCrossrefInfo = null;
+		try {
+			puburi = (String) findingAid.getPropertyValue(IFSConst.IFS_PROP_COLLECTION_SOURCE_PUBLICATION_URI);
+			if (puburi != null) {
+				pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi);
+				findingAid.setPubInfo(pubCrossrefInfo);
+			}
+		} catch (IOException e) {
+			System.out.println("Could not access " + PubInfoExtractor.getCrossrefUrl(puburi));
+			e.printStackTrace();
+		}
 		if (pubCrossrefInfo == null && !allowNoPubInfo) {
 			log("!! Finding aid does not contain PubInfo! No internet? cannot continue");
 			return null;
@@ -511,14 +493,27 @@ public class Extractor implements IFSExtractorI {
 	 */
 	@SuppressWarnings("unchecked")
 	protected List<ObjectParser> parseScript(String script) throws IOException, IFSException {
+		if (findingAid != null)
+			throw new IFSException("Only one finding aid per instance of Extractor is allowed (for now).");
+
+		findingAid = newFindingAid();
+	
 		Map<String, Object> jsonMap = (Map<String, Object>) new JSJSONParser().parse(script, false);
 		if (debugging)
 			log(jsonMap.toString());
 		extractVersion = (String) jsonMap.get("IFS-extract-version");
 		log(extractVersion);
 		List<ObjectParser> objectParsers = getObjects((List<Map<String, Object>>) jsonMap.get("keys"));
-		log(objectParsers.size() + " digital objects found");
+		log(objectParsers.size() + " extractor regex strings");
+		
+		log("! license: " + findingAid.getPropertyValue(IFSConst.IFS_PROP_COLLECTION_DATA_LICENSE_NAME) + " at "
+				+ findingAid.getPropertyValue(IFSConst.IFS_PROP_COLLECTION_DATA_LICENSE_URI));
+
 		return objectParsers;
+	}
+
+	private IFSSpecDataFindingAid newFindingAid() throws IFSException {
+		return new IFSSpecDataFindingAid(null, codeSource + " " + version);
 	}
 
 	/**
@@ -535,8 +530,8 @@ public class Extractor implements IFSExtractorI {
 		// {"IFS-extract-version":"0.1.0-alpha","pathway":[
 		// {"hash":"0c00571"},
 		// {"pubid":"acs.orglett.{hash}"},
-		// {"src":"IFS.findingaid.source.publication.uri::https://doi.org/10.1021/{pubid}"},
-		// {"data":"{IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_002.zip"},
+		// {"src":"IFS.property.collection.source.publication.uri::https://doi.org/10.1021/{pubid}"},
+		// {"data":"{IFS.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_002.zip"},
 		//
 		// {"path":"{data}|FID for
 		// Publication/{id=IFS.property.struc.compound.id::*}.zip|{id}"},
@@ -548,13 +543,13 @@ public class Extractor implements IFSExtractorI {
 		// output:
 
 		// [
-		// "{IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
+		// "{IFS.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
 		// for
 		// Publication/{id=IFS.property.struc.compound.id::*}.zip|{id}/{IFS.representation.struc.mol.2d::{id}.mol}"
-		// "{IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
+		// "{IFS.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
 		// for
 		// Publication/{id=IFS.property.struc.compound.id::*}.zip|{id}/{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::*}-NMR.zip}"
-		// "{IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
+		// "{IFS.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
 		// for
 		// Publication/{id=IFS.property.struc.compound.id::*}.zip|{id}/HRMS.zip|{IFS.representation.spec.hrms.pdf::**/*.pdf}"
 		// ]
@@ -576,30 +571,26 @@ public class Extractor implements IFSExtractorI {
 					}
 					val = s;
 				}
-				switch (key) {
-				case "puburi":
-					try {
-						puburi = getIFSExtractValue(val, "IFS.findingaid.source.publication.uri", null);
-						if (puburi != null) {
-							pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi);
-						}
-					} catch (IFSException | IOException e1) {
-						System.out.println("Could not access " + PubInfoExtractor.getCrossrefUrl(puburi));
-						e1.printStackTrace();
-					}
-					log(puburi);
-					continue;
-				case "license":
-					license = val;
-					continue;
-				case "objects":
-					parsers.add(newObjectParser(val));
-					continue;
-				case "ifsid":
-					findingAidId = val;
-					break;
+				String keyDef = null;
+				int pt = key.indexOf("=");
+				if (pt > 0) {
+					keyDef = key.substring(0, pt);
+					key = key.substring(pt + 1);
 				}
-				keys.addLast("{" + key + "}");
+				if (key.startsWith("IFS.property")) {
+					switch (key) {
+					case IFSConst.IFS_PROP_COLLECTION_ID:
+						findingAid.setID(val);
+						break;
+					case IFSConst.IFS_PROP_COLLECTION_OBJECT:
+						parsers.add(newObjectParser(val));
+						continue;
+					}
+					findingAid.setPropertyValue(key, val);
+					if (keyDef == null)
+						continue;
+				}
+				keys.addLast("{" + (keyDef == null ? key : keyDef) + "}");
 				values.addLast(val);
 			}
 		}
@@ -613,8 +604,9 @@ public class Extractor implements IFSExtractorI {
 	 * 
 	 */
 	public IFSSpecDataFindingAid extractObjects(File targetDir) throws IFSException, IOException {
-		if (findingAid != null)
+		if (haveExtracted)
 			throw new IFSException("Only one extraction per instance of Extractor is allowed (for now).");
+		haveExtracted = true;
 		if (targetDir == null)
 			throw new IFSException("The target directory may not be null.");
 		if (cache == null)
@@ -623,75 +615,6 @@ public class Extractor implements IFSExtractorI {
 			setRezipCachePattern(null, null);
 		this.targetDir = targetDir;
 		targetDir.mkdir();
-
-		// "{IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
-		// for
-		// Publication/{id=IFS.property.struc.compound.id::*}.zip|{id}/{IFS.representation.struc.mol.2d::{id}.mol}"
-		// "{IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
-		// for
-		// Publication/{id=IFS.property.struc.compound.id::*}.zip|{id}/{IFS.representation.struc.mol.2d::{id}.mol}"
-
-// [parse first node]
-
-		// {IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}
-
-// [start a new finding aid and download this resource]
-
-		// |
-
-// [get file list]
-
-		// (\Q^FID for
-		// Publication/\E)(\Q{id=IFS.property.struc.compound.id::*}\E)(\Q.zip\E)
-
-// [pass to StructureIterator]		
-// [find matches and add structures to finding aid structure collection]
-
-		// |
-
-// [get file list]
-		// [for each structure...]
-
-		// \Q{id}/\E(\Q{IFS.representation.struc.mol.2d::{id}.mol}/E)"
-
-		// add this representation to this structure
-
-		// "{IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
-		// for
-		// Publication/{id=IFS.property.struc.compound.id::*}.zip|{id}/{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::*}-NMR.zip}"
-
-		// [parse first node]
-
-		// {IFS.findingaid.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}
-
-		// [start a new finding aid and download this resource]
-
-		// |
-
-		// [get file list]
-
-		// FID for Publication/{id=IFS.property.struc.compound.id::*}.zip
-
-		// [pass to StructureIterator]
-		// [find matches and add structures to finding aid structure collection if
-		// necessary
-
-		// |
-
-		// [get file list]
-
-		// {id}/{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::*}-NMR.zip}
-
-		// [pass to SpecDataIterator]
-		// [find matches and add NMR spec data to finding aid spec data collection; also
-		// add struc+spec to finding aid StrucSpecCollection]
-
-		// bruker directories identified with / just before vendor dataset closing }
-		// standard ^....$
-		// * at end just removes $
-		// *. becomes [^.]
-		// . becomes [.]
-		// **/*.pdf becomes (?:[^/]+/)*).+\Q.pdf\E
 
 //		String s = "test/ok/here/1c.pdf";    // test/**/*.pdf
 //		Pattern p = Pattern.compile("^\\Qtest\\E/(?:[^/]+/)*(.+\\Q.pdf\\E)$");
@@ -706,22 +629,20 @@ public class Extractor implements IFSExtractorI {
 
 		String lastRootPath = null;
 		String lastURL = null;
-		findingAid = null;
-
+		
+		
 		// Note that some files have multiple objects.
 		// These may come from multiple sources, or they may be from the same source.
 		propertyList = new ArrayList<>();
 
-		if (license != null) {
-			dataLicenseURI = getIFSExtractValue(license, IFSConst.IFS_FINDINGAID_DATA_LICENSE_URI, null);
-			dataLicenseName = getIFSExtractValue(license, IFSConst.IFS_FINDINGAID_DATA_LICENSE_NAME, null);
-			log("! IFS.findingaid.data.license: " + dataLicenseName + " " + dataLicenseURI);
-		}
 		for (int i = 0; i < objectParsers.size(); i++) {
 
 			ObjectParser parser = objectParsers.get(i);
 			dataSource = parser.dataSource;
-			lastURL = setFindingAidAndGlobals(parser.sObj, dataSource, lastURL);
+			if (!dataSource.equals(lastURL)) {
+				findingAid.addSource(dataSource);
+				lastURL = dataSource;
+			}
 			// localize the URL if we are using a local copy of a remote resource.
 
 			localizedURL = localizeURL(dataSource);
@@ -729,12 +650,13 @@ public class Extractor implements IFSExtractorI {
 				log("opening " + localizedURL);
 			lastRootPath = initializeCollection(lastRootPath);
 
-			// At this point we now have all spectra ready to be associated with struc!tures.
+			// At this point we now have all spectra ready to be associated with
+			// struc!tures.
 
 			// 2.1
 			log("! PHASE 2.1 \n" + localizedURL + "\n" + parser.sData);
 			boolean haveData = parseZipFileNamesForObjects(parser);
-			
+
 			// 2.2
 			log("! PHASE 2.2 rezip haveData=" + haveData);
 			if (haveData)
@@ -817,34 +739,6 @@ public class Extractor implements IFSExtractorI {
 			if (n > 0)
 				log("! " + n + " objects removed");
 		}
-	}
-
-	/**
-	 * Set up the global findingAid and give it a starting license property.
-	 * 
-	 * @param sAid
-	 * @param unlocalizedURL
-	 * @param lastURL
-	 * @return
-	 * @throws IFSException
-	 */
-	private String setFindingAidAndGlobals(String sAid, String unlocalizedURL, String lastURL) throws IFSException {
-		if (findingAid == null) {
-			findingAid = new IFSSpecDataFindingAid(findingAidId, unlocalizedURL);
-			if (dataLicenseURI != null) {
-				findingAid.setPropertyValue(IFSConst.IFS_FINDINGAID_DATA_LICENSE_URI, dataLicenseURI);
-			}
-			if (dataLicenseName != null) {
-				findingAid.setPropertyValue(IFSConst.IFS_FINDINGAID_DATA_LICENSE_NAME, dataLicenseName);
-			}
-
-			findingAid.setPubInfo(pubCrossrefInfo);
-
-		} else if (!unlocalizedURL.equals(lastURL)) {
-			findingAid.addSource(unlocalizedURL);
-			lastURL = unlocalizedURL;
-		}
-		return lastURL;
 	}
 
 	/**
@@ -1097,12 +991,6 @@ public class Extractor implements IFSExtractorI {
 
 		StringBuffer sb = new StringBuffer();
 		sb.append("{" + "\"IFS.fairspec.version\":\"" + IFSConst.IFS_FAIRSpec_version + "\",\n");
-		if (dataLicenseURI != null) {
-			sb.append("\"IFS.fairspec.data.license.uri\":\"" + dataLicenseURI + "\",\n");
-		}
-		if (dataLicenseName != null) {
-			sb.append("\"IFS.fairspec.data.license.name\":\"" + dataLicenseName + "\",\n");
-		}
 		sb.append("\"IFS.extractor.version\":\"" + version + "\",\n")
 				.append("\"IFS.extractor.code\":\"" + codeSource + "\",\n")
 				.append("\"IFS.extractor.list.type\":\"" + type + "\",\n")
@@ -1171,13 +1059,15 @@ public class Extractor implements IFSExtractorI {
 
 		for (String key : parser.keys.keySet()) {
 			String param = parser.keys.get(key);
-			String value = m.group(key);
-			final String localName = getLocalName(zipName);
-			IFSRepresentableObject<?> obj = findingAid.addObject(rootPath, param, value, localName);
-			linkManifestNameToObject(localName, obj, param);
-			if (debugging)
-				log("found " + param + " " + value);
-			;
+			if (param.length() > 0) {	
+				String value = m.group(key);
+				final String localName = getLocalName(zipName);
+				IFSRepresentableObject<?> obj = findingAid.addObject(rootPath, param, value, localName);
+				linkManifestNameToObject(localName, obj, param);
+				if (debugging)
+					log("found " + param + " " + value);
+				;
+			}
 		}
 		return findingAid.endAddObject();
 	}
@@ -1643,8 +1533,10 @@ public class Extractor implements IFSExtractorI {
 		public ObjectParser(String sObj) throws IFSException {
 			this.sObj = sObj;
 			int[] pt = new int[1];
-			this.dataSource = getIFSExtractValue(sObj, IFSConst.IFS_FINDINGAID_SOURCE_DATA_URI, pt);
-			this.sData = sObj.substring(pt[0] + 1); // skip first "|"
+			dataSource = getIFSExtractValue(sObj, IFSConst.IFS_PROP_COLLECTION_SOURCE_DATA_URI, pt);
+			if (dataSource == null)
+				throw new IFSException("No {" + IFSConst.IFS_PROP_COLLECTION_SOURCE_DATA_URI + "::...} found in " + sObj);
+			sData = sObj.substring(pt[0] + 1); // skip first "|"
 			init();
 		}
 
