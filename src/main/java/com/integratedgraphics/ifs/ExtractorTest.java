@@ -78,7 +78,7 @@ public class ExtractorTest extends Extractor {
 		int last = 12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 						// file test
 		String targetDir = "./site/ifs";
-		String sourceDir = "c:/temp/iupac/zip";// or a local dir if you have already downloaded the zip files
+		String sourceDir = null;//"c:/temp/iupac/zip";// or a local dir if you have already downloaded the zip files
 			
 		runExtraction(first, last, targetDir, sourceDir, args);
 	}
