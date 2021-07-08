@@ -67,18 +67,21 @@ public class ExtractorTest extends Extractor {
 		debugging = false; // true for verbose listing of all files
 		createFindingAidsOnly = false; // true if extraction files already exist or you otherwise don't want not write
 		allowNoPubInfo = false; // true to allow no internet connection and so no pub calls
+		
 		// normally true:
 		
 		// this next is independent of readOnly
 		createZippedCollection = true; // false to bypass final creation of an _IFS_collection.zip file
 		createFindingAidJSONList = true; // false for testing and you don't want to mess up _IFS_findingaids.json
+
 		stopOnAnyFailure = true; // set false to allow continuing after an error.
 
 		int first = 0; // first test to run
 		int last = 12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 						// file test
-		String targetDir = "./site/ifs";
 		String sourceDir = null;//"c:/temp/iupac/zip";// or a local dir if you have already downloaded the zip files
+
+		String targetDir = "./site/ifs";
 			
 		runExtraction(first, last, targetDir, sourceDir, args);
 	}
@@ -135,6 +138,7 @@ public class ExtractorTest extends Extractor {
 
 		Util.setLogging(targetDir + "/extractor.log");
 
+		errorLog = "";
 		int n = 0;
 		for (int itest = (args.length == 0 ? i0 : 0); itest <= (args.length == 0 ? i1 : 0); itest++) {
 
@@ -179,6 +183,7 @@ public class ExtractorTest extends Extractor {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.err.println(errorLog);
 		Util.setLogging(null);
 	}
 

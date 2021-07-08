@@ -296,6 +296,8 @@ public class Extractor implements IFSExtractorI {
 
 	private boolean haveExtracted;
 
+	private String ifsid;
+
 	public Extractor() {
 		clearZipCache();
 		getStructurePropertyManager();
@@ -324,7 +326,7 @@ public class Extractor implements IFSExtractorI {
 			e.printStackTrace();
 		}
 		if (pubCrossrefInfo == null && !allowNoPubInfo) {
-			log("!! Finding aid does not contain PubInfo! No internet? cannot continue");
+			logErr("Finding aid does not contain PubInfo! No internet? cannot continue");
 			return null;
 		}
 
@@ -527,32 +529,26 @@ public class Extractor implements IFSExtractorI {
 
 		// input:
 
-		// {"IFS-extract-version":"0.1.0-alpha","pathway":[
-		// {"hash":"0c00571"},
-		// {"pubid":"acs.orglett.{hash}"},
-		// {"src":"IFS.property.collection.source.publication.uri::https://doi.org/10.1021/{pubid}"},
-		// {"data":"{IFS.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{pubid}/suppl_file/ol{hash}_si_002.zip"},
-		//
-		// {"path":"{data}|FID for
-		// Publication/{id=IFS.property.struc.compound.id::*}.zip|{id}"},
-		// {"objects":"{path}/{IFS.representation.struc.mol.2d::{id}.mol}"},
-		// {"objects":"{path}/{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::*}-NMR.zip}"},
-		// {"objects":"{path}/HRMS.zip|{IFS.representation.spec.hrms.pdf::**/*.pdf}"},
-		// ]}
+//		{"IFS-extract-version":"0.1.0-alpha","keys":[
+//         {"example":"compound directories containing unidentified bruker files and hrms zip file containing .pdf"},
+//         {"journal":"acs.orglett"},{"hash":"0c00571"},
+//         {"figshareid":"21975525"},
+//         
+//         {"ifsid=IFS.property.collection.id":"{journal}.{hash}"},
+//         {"IFS.property.collection.source.publication.uri":"https://doi.org/10.1021/{ifsid}"},
+//         {"IFS.property.collection.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+//         {"IFS.property.collection.data.license.name":"cc-by-nc-4.0"},
+//         
+//         {"data0":"{IFS.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
+//         {"data":"{IFS.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
+//
+//         {"path":"{data}|FID for Publication/{id=IFS.property.struc.compound.id::*}.zip|"},
+//         {"IFS.property.collection.object":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
+//         {"IFS.property.collection.object":"{path}<id>/{IFS.representation.struc.mol.2d::<id>.mol}"},
+//         {"IFS.property.collection.object":"{path}{IFS.representation.spec.hrms.pdf::{IFS.property.spec.hrms.expt.id::<id>/HRMS.zip|**/*}.pdf}"}
+//        ]}
 
-		// output:
 
-		// [
-		// "{IFS.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
-		// for
-		// Publication/{id=IFS.property.struc.compound.id::*}.zip|{id}/{IFS.representation.struc.mol.2d::{id}.mol}"
-		// "{IFS.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
-		// for
-		// Publication/{id=IFS.property.struc.compound.id::*}.zip|{id}/{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::*}-NMR.zip}"
-		// "{IFS.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/acs.orglett.0c00571/suppl_file/ol0c00571_si_002.zip}|FID
-		// for
-		// Publication/{id=IFS.property.struc.compound.id::*}.zip|{id}/HRMS.zip|{IFS.representation.spec.hrms.pdf::**/*.pdf}"
-		// ]
 
 		Lst<String> keys = new Lst<>();
 		Lst<String> values = new Lst<>();
@@ -580,6 +576,7 @@ public class Extractor implements IFSExtractorI {
 				if (key.startsWith("IFS.property")) {
 					switch (key) {
 					case IFSConst.IFS_PROP_COLLECTION_ID:
+						ifsid = val;
 						findingAid.setID(val);
 						break;
 					case IFSConst.IFS_PROP_COLLECTION_OBJECT:
@@ -909,7 +906,7 @@ public class Extractor implements IFSExtractorI {
 			Object value = a[2];
 			IFSRepresentableObject<?> spec = htManifestNameToObject.get(localName);
 			if (spec == null) {
-				log("!! manifest not found for " + localName);
+				logErr("manifest not found for " + localName);
 			} else if (param.indexOf(".representation.") >= 0) {
 				String zipName = value.toString();
 				localName = getLocalName(zipName);
@@ -933,7 +930,7 @@ public class Extractor implements IFSExtractorI {
 			IFSRepresentableObject<?> obj = htManifestNameToObject.get(localName);
 //			System.out.println(localName);
 			if (obj == null) {
-				log("!! manifest not found for " + localName);
+				logErr("manifest not found for " + localName);
 			} else {
 				IFSRepresentation r = e.getValue();
 				String zipName = r.getRef().getOrigin().toString();
@@ -962,10 +959,16 @@ public class Extractor implements IFSExtractorI {
 	 * @throws IOException
 	 */
 	protected void saveCollectionManifests(boolean isOpen) throws IOException {
-		if (!isOpen && !createFindingAidsOnly && !readOnly) {
-			writeBytesToFile(extractScript.getBytes(), getFileTarget("_IFS_extract.json"));
-			outputListJSON(lstManifest, getFileTarget("_IFS_manifest.json"), "manifest");
-			outputListJSON(lstIgnored, getFileTarget("_IFS_ignored.json"), "ignored");
+		if (!isOpen) {
+			if (createFindingAidsOnly || readOnly) {
+				if (lstIgnored.size() > 0) {
+					logErr ("ignored " + lstIgnored.size() + " files");
+				}
+			} else {
+				writeBytesToFile(extractScript.getBytes(), getFileTarget("_IFS_extract.json"));
+				outputListJSON(lstManifest, getFileTarget("_IFS_manifest.json"), "manifest");
+				outputListJSON(lstIgnored, getFileTarget("_IFS_ignored.json"), "ignored");
+			}
 		}
 		lstManifest.clear();
 		lstIgnored.clear();
@@ -1084,6 +1087,13 @@ public class Extractor implements IFSExtractorI {
 		}
 	}
 
+	protected void logErr(String msg) {
+		msg = "!! " + ifsid + " " + rootPath + " ERR: " + msg;
+		log(msg);
+		errorLog += msg + "\n";
+	}
+	
+	protected static String errorLog = "";
 	/**
 	 * Just a very simple logger. Messages that start with "!" are always logged;
 	 * others are logged if debugging is set to true.
@@ -1097,10 +1107,11 @@ public class Extractor implements IFSExtractorI {
 				Util.logStream.write((msg + "\n").getBytes());
 			} catch (IOException e) {
 			}
-		if (msg.startsWith("!!"))
+		if (msg.startsWith("!!")) {
 			System.err.println(msg);
-		else if (debugging || msg.startsWith("!"))
+		} else if (debugging || msg.startsWith("!")) {
 			System.out.println(msg);
+		}
 	}
 
 	/**
@@ -1175,7 +1186,7 @@ public class Extractor implements IFSExtractorI {
 			String localName = getLocalName(zipName);
 			if (!zipEntry.isDirectory() && !lstIgnored.contains(zipName) && !lstManifest.contains(localName)) {
 				addFileToFileLists(zipName, LOG_IGNORED, zipEntry.getSize());
-				log("! ignoring " + rootPath + "|" + zipName);
+				logErr("ignoring " + zipName);
 			}
 			return null;
 		}
@@ -1514,6 +1525,36 @@ public class Extractor implements IFSExtractorI {
 
 	public static class ObjectParser {
 
+		private static final String REGEX_QUOTE = "\\Q";
+		private static final String REGEX_UNQUOTE = "\\E";		
+		private static final String REGEX_ANY_NOT_PIPE_OR_DIR =  REGEX_UNQUOTE + "[^|/]+" + REGEX_QUOTE;
+		private static final String REGEX_KEYDEF_START = REGEX_UNQUOTE + "(?<";
+		private static final String REGEX_KEYVAL_START = REGEX_UNQUOTE + "\\k<";
+		private static final String REGEX_KV_END = ">" + REGEX_QUOTE;
+		private static final String REGEX_END_PARENS = REGEX_UNQUOTE + ")" + REGEX_QUOTE;
+		private static final String REGEX_EMPTY_QUOTE = REGEX_QUOTE + REGEX_UNQUOTE;
+
+		private static final String RAW_REGEX_TAG = "{regex::";
+
+		private static final char TEMP_RAW_IN_CHAR      = '\0';    // --> <
+		private static final char TEMP_RAW_OUT_CHAR     = '\1';    // --> >
+		private static final char TEMP_STAR_CHAR        = '\2';    // --> *
+		private static final char TEMP_KEYVAL_IN_CHAR    = '\3';    // --> <
+		private static final char TEMP_KEYVAL_OUT_CHAR   = '\4';    // --> >
+		private static final char TEMP_ANY_SEP_ANY_CHAR = '\5';    // see below
+
+		private static final String TEMP_KEYVAL_IN = REGEX_UNQUOTE + "(?" + TEMP_KEYVAL_IN_CHAR;
+
+		private static final String TEMP_KEYVAL_OUT = TEMP_KEYVAL_OUT_CHAR + REGEX_QUOTE;
+
+		/**
+		 * for example *-*.zip   --> 
+		 */
+		private static final String TEMP_ANY_SEP_ANY_GROUPS = REGEX_UNQUOTE + "(" + "[^\5]+(?:\5[^\5]+)" + TEMP_STAR_CHAR + ")" + REGEX_QUOTE;
+
+		private static final String TEMP_ANY_DIRECTORIES = REGEX_UNQUOTE + "(?:[^/]+/)" + TEMP_STAR_CHAR + REGEX_QUOTE;
+
+
 		protected String sData;
 
 		protected Pattern p;
@@ -1593,7 +1634,7 @@ public class Extractor implements IFSExtractorI {
 
 			// **/ becomes \\E(?:[^/]+/)*\\Q
 
-			s = PT.rep(s, "**/", "\\E(?:[^/]+/)\2\\Q");
+			s = PT.rep(s, "**/", TEMP_ANY_DIRECTORIES);
 
 			Matcher m;
 			// *-* becomes \\E([^-]+(?:-[^-]+)*)\\Q and matches a-b-c
@@ -1602,12 +1643,12 @@ public class Extractor implements IFSExtractorI {
 					pStarDotStar = Pattern.compile("\\*(.)\\*");
 				while ((m = pStarDotStar.matcher(s)).find()) {
 					String schar = m.group(1);
-					s = PT.rep(s, "*" + schar + "*", "\\E([^" + schar + "]+(?:" + schar + "[^" + schar + "]+)\2)\\Q");
+					s = PT.rep(s, "*" + schar + "*", TEMP_ANY_SEP_ANY_GROUPS.replace(TEMP_ANY_SEP_ANY_CHAR,schar.charAt(0)));
 				}
 			}
 			// * becomes \\E.+\\Q
 
-			s = PT.rep(s, "*", "\\E[^|/]+\\Q");
+			s = PT.rep(s, "*", REGEX_ANY_NOT_PIPE_OR_DIR);
 
 			// {id=IFS.property.spec.nmr.expt.id::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
 			// {IFS.property.spec.nmr.expt.id::xxx} becomes
@@ -1617,16 +1658,16 @@ public class Extractor implements IFSExtractorI {
 			s = compileIFSDefs(s, true, true);
 
 			// restore '*'
-			s = s.replace('\2', '*');
+			s = s.replace(TEMP_STAR_CHAR, '*');
 
 			// restore regex
 			// wrap with quotes and constraints ^\\Q...\\E$
 
-			s = "^\\Q" + protectRegex(s) + "\\E$";
+			s = "^" + REGEX_QUOTE + protectRegex(s) + REGEX_UNQUOTE + "$";
 
 			// \\Q\\E in result is removed
 
-			s = PT.rep(s, "\\Q\\E", "");
+			s = PT.rep(s, REGEX_EMPTY_QUOTE, "");
 
 			log("! pattern: " + s);
 			p = Pattern.compile(s);
@@ -1667,18 +1708,19 @@ public class Extractor implements IFSExtractorI {
 					s = PT.rep(s, bk, "<" + key + ">");
 				}
 				// escape < and > here
-				s = PT.rep(s, pv, (replaceK ? "\\E(?\3" + key + "\4\\Q" : "\\E(?<" + key + ">\\Q") + val + "\\E)\\Q");
+				s = PT.rep(s, pv, (replaceK ? TEMP_KEYVAL_IN + key + TEMP_KEYVAL_OUT 
+						: REGEX_KEYDEF_START + key + REGEX_KV_END) + val + REGEX_END_PARENS);
 			}
-			if (isFull && (s.indexOf("<") >= 0 || s.indexOf("\3") >= 0)) {
+			if (isFull && (s.indexOf("<") >= 0 || s.indexOf(TEMP_KEYVAL_IN_CHAR) >= 0)) {
 				// now fix k< references and revert \3 \4
-				s = PT.rep(s, "<", "\\E\\k<");
-				s = PT.rep(s, ">", ">\\Q").replace('\3', '<').replace('\4', '>');
+				s = PT.rep(s, "<", REGEX_KEYVAL_START);
+				s = PT.rep(s, ">", REGEX_KV_END).replace(TEMP_KEYVAL_IN_CHAR, '<').replace(TEMP_KEYVAL_OUT_CHAR, '>');
 			}
 			return s;
 		}
 
 		/**
-		 * fix up {regex::...} phrases in IFS-extract.json. First pass isinitialization
+		 * fix up {regex::...} phrases in IFS-extract.json. First pass initialization
 		 * clips out regex sections so that they are not processed by ObjectParser;
 		 * second pass puts it all together.
 		 * 
@@ -1688,7 +1730,7 @@ public class Extractor implements IFSExtractorI {
 		 * @throws IFSException
 		 */
 		protected String protectRegex(String s) throws IFSException {
-			if (sData.indexOf("{regex::") < 0)
+			if (sData.indexOf(RAW_REGEX_TAG) < 0)
 				return (s == null ? sData : s);
 			if (s == null) {
 				// init
@@ -1696,18 +1738,18 @@ public class Extractor implements IFSExtractorI {
 				regexList = new ArrayList<>();
 				int[] pt = new int[1];
 				int i = 0;
-				while ((pt[0] = s.indexOf("{regex::")) >= 0) {
+				while ((pt[0] = s.indexOf(RAW_REGEX_TAG)) >= 0) {
 					// save regex and replace by \0n\1
 					int p0 = pt[0];
 					String rx = getIFSExtractValue(s, "regex", pt);
-					regexList.add("\\E" + rx + "\\Q");
-					s = s.substring(0, p0) + "\0" + (i++) + "\1" + s.substring(pt[0]);
+					regexList.add(REGEX_UNQUOTE + rx + REGEX_QUOTE);
+					s = s.substring(0, p0) + TEMP_RAW_IN_CHAR + (i++) + TEMP_RAW_OUT_CHAR + s.substring(pt[0]);
 				}
 			} else {
 				// restore regex
 				int p;
-				while ((p = s.indexOf('\0')) >= 0) {
-					int p2 = s.indexOf('\1');
+				while ((p = s.indexOf(TEMP_RAW_IN_CHAR)) >= 0) {
+					int p2 = s.indexOf(TEMP_RAW_OUT_CHAR);
 					int i = Integer.parseInt(s.substring(p + 1, p2));
 					s = s.substring(0, p) + regexList.get(i) + s.substring(p2 + 1);
 				}

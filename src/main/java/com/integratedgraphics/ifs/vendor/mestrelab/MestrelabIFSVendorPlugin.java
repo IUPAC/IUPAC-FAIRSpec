@@ -12,7 +12,7 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	}
 	
 	public MestrelabIFSVendorPlugin() {
-		paramRegex = "\\.mnova$";
+		paramRegex = "\\.mnova[^/]*$";
 	}
 
 	@Override

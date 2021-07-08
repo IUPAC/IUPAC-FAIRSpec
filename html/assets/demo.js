@@ -9,12 +9,38 @@ findingAidMap:{},
 strucspecList:null,
 whatSpec:null,
 whatStructure:null,
+messages:[],
+messageCount:0,
+query:document.location.search,
+loadCount:0,
 
 cacheFindingAid: function(fa) {
 	if (!fa)return;
-	demo.clearMain();
+	demo.clearAll();
 	demo.findingAidFile = rootdir + fa + "._IFS_findingaid.json";
-	$.ajax({url:demo.findingAidFile, dataType:"json", success:function(json) {demo.findingAidMap[fa] = json;}});	
+	$.ajax({url:demo.findingAidFile, dataType:"json", success:function(json) {demo.register(fa, json, false)}});	
+},
+
+register: function(fa, json, andLoad) {
+	demo.findingAidMap[fa] = json;
+	if (andLoad)demo.loaded(json);
+	demo.loadCount++;
+	if (demo.loadCount == demo.findingAids.length) {
+		demo.finalize();
+	}
+},
+
+finalize: function() {
+	var query = demo.query;
+	if (query) {
+		var pub = demo.getQueryField(query, "pub");
+		var struc = demo.getQueryField(query, "struc");
+		var spec = demo.getQueryField(query, "spec");
+		if (pub || struc || spec) {
+			demo.search(pub, struc, spec);
+			return;
+		}
+	}
 },
 
 loadFindingAids: function() {
@@ -27,26 +53,39 @@ loadFindingAids: function() {
     });
 },
 
+getQueryField: function(query, key) {
+	return decodeURIComponent(("&" + query.substring(1) + "&" + key + "=").split(key + "=")[1].split("&")[0]); 
+},
+
 loadLeftPanel: function(json) {
 	var aids = demo.findingAids = json.findingaids;
 	$("#nfa").html("" + aids.length);
 	demo.loadLeftTop();
 	demo.loadLeftSelect();
-	demo.select(1);
 },
 
 loadLeftTop: function() {
 	var s = "";
-	s += "pub search:<br><input id=search type=text style='width:140px' onchange='demo.search(this.value, null, null)'/>";
-	s += "structure search:<br><input id=search type=text style='width:140px' onchange='demo.search(null, this.value, null)'/>";
-	s += "spectrum search:<br><input id=search type=text style='width:140px' onchange='demo.search(null, null, this.value)'/>";
+	s += "pub search:<br><input id=searchpub type=text style='width:140px' onchange='demo.search(this.value, null, null)'/>";
+	s += "structure search:<br><input id=searchstruc type=text style='width:140px' onchange='demo.search(null, this.value, null)'/>";
+	s += "spectrum search:<br><input id=searchspec type=text style='width:140px' onchange='demo.search(null, null, this.value)'/>";
+	s += '<br><a href="javascript:demo.clearSearch()">Clear Search</a>';
 	$("#left_top").html(s);
 },
 
+clearSearch: function() {
+ $("#searchpub").val("");
+ $("#searchstruc").val("");
+ $("#searchspec").val("");
+ demo.query = null;
+ demo.loadFindingAids();
+},
+
 search: function(whatPub, whatStruc, whatSpec) {
-	demo.clearMain();
+	demo.clearAll();
 	demo.loadLeftSelect(whatPub, whatStruc, whatSpec);
 	var d = $("#articles")[0];
+	// todo: -1 here for "all"?
 	demo.select(d ? 1 : 0);
 },
 
@@ -61,25 +100,13 @@ loadLeftSelect: function(whatPub, whatStruc, whatSpec) {
 	var n = 0;
 	var defFound = !(demo.whatSpec || demo.whatStructure);
 	s += '<select id=articles onchange="demo.loadSelected(this.selectedOptions[0].value)"><option>Select an ACS article</option>'
+	demo.clearFound(defFound);
 	for (var ai = 0; ai < aids.length; ai++) {
 		var fa = aids[ai];
 		var found = false;
 		var aid = (demo.findingAidMap[fa] ? demo.findingAidMap[fa]["IFS.findingaid"] : null);
-		var structures = null, spectra = null;
-		if (aid) {
-			if (aid.structures) {
-				structures = aid.structures.list;
-				for (var i = 0; i < structures.length; i++) {
-					structures[i]._found = defFound;
-				}
-			}
-			if (aid.specData) {
-				spectra = aid.specData.list;
-				for (var i = 0; i < spectra.length; i++) {
-					spectra[i]._found = defFound;
-				}
-			}
-		}
+		var structures = (aid && aid.structures && aid.structures.list);
+		var spectra = (aid && aid.specData && aid.specData.list);
 		if (whatPub) {
 			var json = aid.pubInfo;
 			var stext = JSON.stringify(json).toLowerCase();
@@ -146,24 +173,52 @@ loadLeftSelect: function(whatPub, whatStruc, whatSpec) {
 	}
 },
 
+clearFound: function(aid, defFound) {
+	var aids = demo.findingAids;
+	for (var ai = 0; ai < aids.length; ai++) {
+		var fa = aids[ai];
+		var aid = (demo.findingAidMap[fa] ? demo.findingAidMap[fa]["IFS.findingaid"] : null);
+		if (aid) {
+			if (aid.structures) {
+				var structures = aid.structures.list;
+				for (var i = 0; i < structures.length; i++) {
+					structures[i]._found = defFound;
+				}
+			}
+			if (aid.specData) {
+				var spectra = aid.specData.list;
+				for (var i = 0; i < spectra.length; i++) {
+					spectra[i]._found = defFound;
+				}
+			}
+		}
+	}
+},
+
 select: function(n) {
 	var d = $("#articles")[0];
 	if (!d)
 		return;
-	d.selectedIndex = n;
-	demo.clearMain();
-	demo.loadSelected(d.selectedOptions[0].value);
+		demo.clearAll();
+	if (n < 0) {
+		d.selectedIndex = 0;
+	} else {
+		d.selectedIndex = n;
+		demo.loadSelected(d.selectedOptions[0].value);
+	}
 },
 
 loadSelected: function(fa) {
 	if (!fa)return;
-	demo.clearMain();
+	if (fa == -1)
+		fa = demo.aid.id;
+	demo.clearAll();
 	demo.findingAidFile = rootdir + fa + "._IFS_findingaid.json";
 	var json = demo.findingAidMap[fa];
 	if (json) {
 		demo.loaded(json);
 	} else {
-		$.ajax({url:demo.findingAidFile, dataType:"json", success:function(json){demo.findingAidMap[fa] = json;demo.loaded(json)}});
+		$.ajax({url:demo.findingAidFile, dataType:"json", success:function(json){demo.register(fa, json, true)}});
 	}
 },
 
@@ -267,7 +322,7 @@ loadStructures: function(structures) {
 			n++;
 		}
 	}
-	s = '<select onchange="demo.loadStructure(this.selectedOptions[0].value)"><option>Select a structure ('+n+')</option>' + s + '</select>';
+	s = '<select onchange="demo.loadStructure(this.selectedOptions[0].value)"><option>Structure Metadata ('+n+')</option>' + s + '</select>';
 	$("#struc").html(s);
 },
 
@@ -302,7 +357,7 @@ loadSpecData: function(specData) {
 			n++;
 		}		
 	}
-	s = '<select onchange="demo.loadSpec(this.selectedOptions[0].value)"><option>Select a spectrum ('+n+')</option>' + s + '</select>'
+	s = '<select onchange="demo.loadSpec(this.selectedOptions[0].value)"><option>SpecData Metadata ('+n+')</option>' + s + '</select>'
 	$("#spec").html(s);
 
 },
@@ -356,14 +411,43 @@ loadSpec: function(i) {
 },
 
 loadStructureSpec: function(i) {
-	var spec = demo.aid.structureSpecData.list[+i];
-	var s = JSON.stringify(spec, null, 2);
-	$("#right_main").html("<pre>" + s + "</pre>");
+	demo.query = null;
+	demo.clearFound(true);
+	var s = "<table>" + demo.getStructureSpecHTML(demo.aid.structureSpecData.list[+i], false) + "</table>";
+	$("#right_main").html(s);
+//	var s = JSON.stringify(sspec, null, 2);
+//	$("#right_main").html("<pre>" + s + "</pre>");
 },
 
+fixSmiles: function(smiles) {
+// more here?
+	return smiles.replace("#","%23");
+},
+	
 getStructureHTML: function(struc) {
 	var props = struc.properties;
-	return struc.name;
+	var smiles = props["IFS.property.struc.smiles"];
+	var s = '<a href="javascript:demo.loadSelected(-1)">' + demo.aid.id + '</a> <b>' + struc.name + '</b>' 
+		+ demo.alertHref("InChI", props["IFS.property.struc.inchi"]) 
+		+ demo.alertHref("InChIKey", props["IFS.property.struc.inchikey"])  
+		+ demo.alertHref("SMILES", smiles);
+	if (smiles) {
+		s += '&nbsp;&nbsp;<a target=_blank href="https://chemapps.stolaf.edu/jmol/jmol.php?model='+demo.fixSmiles(smiles)+'">3D model</a>&nbsp;&nbsp;'
+	}
+	if (struc.list) {
+		for (var i = 0; i < struc.list.length; i++) {
+			var rep = struc.list[i];
+			switch (rep.type) {
+			case "IFS.representation.struc.mol.2d":
+				s += demo.repHref(rep, "mol-2d","");			
+				break;
+			}
+		}
+	}
+	if (smiles) {
+		s += '<br><img src="https://cactus.nci.nih.gov/chemical/structure/'+demo.fixSmiles(smiles)+'/image?width=250&height=250"/>';
+	}
+	return s;
 },
 
 
@@ -376,16 +460,16 @@ getSpectrumHTML: function(spec) {
 		var path = demo.pathTo(rep.ref);
 		switch (rep.subtype) {
 			case "application/octet-stream (mnova)":
-				name = "<a href=\"" + path + "\">" + name +" (" + demo.bytesFor(rep.len) +")</a>";
+				name = demo.repHref(rep, name, "");
 				break;
 			case "application/zip":
-				name = "<a href=\"" + path + "\">" + name +" (zip " + demo.bytesFor(rep.len) +")</a>";
+				name = demo.repHref(rep, name, "zip");
 				break;
 			case "image/png":
 				s += "<br><img src=\"" + path + "\">";
 				break;
 			case "application/pdf":
-				s += "<br><a href=\"" + path + "\">pdf (" + demo.bytesFor(rep.len) +")</a>";
+				s += "<br>" + demo.repHref(rep, "pdf", "");
 				break;
 		}
 	}
@@ -400,31 +484,35 @@ showAid: function() {
 	window.open(demo.findingAidFile, "_blank");
 },
 
+getStructureSpecHTML: function(sspec, isAll) {
+	var structures = demo.aid.structures.list;
+	var spectra = demo.aid.specData.list;
+	var strucs = sspec.struc;
+	var specs = sspec.data;
+	if (isAll && structures[strucs[0]]._found === false) {
+		return "";
+	}
+	s = "<tr><td><table>";		
+	s += "<tr><td><table cellspacing=0 cellpadding=10><tr>";
+	for (var j = 0; j < strucs.length; j++) {
+		s += "<td valign=top>" + demo.getStructureHTML(structures[strucs[j]]) + "</td>";
+	}
+	s += "</tr></table></td></tr>";
+	s += "<tr><td><table cellspacing=0 cellpadding=10><tr>"
+	for (var  j= 0; j < specs.length; j++) {
+		s += "<td valign=top class=td" + (j%2) + ">" + demo.getSpectrumHTML(spectra[specs[j]]) + "</td>";
+	}
+	s += "</tr></table></td></tr>";
+	s += "</table></td></tr>";
+	return s;
+},
+
 showAll: function(){
 	var s = "<table border=1>";
 	var spectra = demo.aid.specData.list;
 	if (demo.strucspecList) {
-		var structures = demo.aid.structures.list;
 		for (var i = 0; i < demo.strucspecList.length; i++) {
-			var sspec = demo.strucspecList[i];
-			var strucs = sspec.struc;
-			var specs = sspec.data;
-			if (structures[strucs[0]]._found === false) {
-				continue;
-			}
-			s += "<tr><td><table>";		
-			s += "<tr><td><table cellspacing=0 cellpadding=10><tr>";
-			for (var j = 0; j < strucs.length; j++) {
-				s += "<td valign=top>" + demo.getStructureHTML(structures[strucs[j]]) + "</td>";
-			}
-			s += "</tr></table></td></tr>";
-
-			s += "<tr><td><table cellspacing=0 cellpadding=10><tr>"
-			for (var  j= 0; j < specs.length; j++) {
-				s += "<td valign=top class=td" + (j%2) + ">" + demo.getSpectrumHTML(spectra[specs[j]]) + "</td>";
-			}
-			s += "</tr></table></td></tr>";
-			s += "</table></td></tr>";
+			s += demo.getStructureSpecHTML(demo.strucspecList[i], true);
 		}
 	} else {
 		var specs = demo.aid.specData.list;
@@ -442,9 +530,30 @@ showAll: function(){
 	$("#right_main").html(s);
 },
 
+alertHref: function(key, val) {
+	if (!val) return "";
+	var n = demo.messageCount++;
+	demo.messages[n] = val;
+	return '&nbsp;&nbsp;<a href="javascript:demo.alertMsg('+n+')">' + key + '</a>&nbsp;&nbsp;';
+},
+
+alertMsg: function(n) {
+	alert(demo.messages[n]);
+},
+
+repHref: function(rep, name, type) {
+	return "<a target=_blank href=\"" + demo.pathTo(rep.ref) + "\">" + name 
+		+ (type === null ? "" : " (" + (type === "" ? "" : type + " ") + demo.bytesFor(rep.len) +")")
+		+ "</a>";
+},
+
 clearMain: function() {
-	$("#right_top").html("");
 	$("#right_main").html("");
+},
+
+clearAll: function() {
+	demo.clearMain();
+	$("#right_top").html("");
 	$("#structurespec").html(s);
 	$("#struc").html(s);
 	$("#spec").html(s);

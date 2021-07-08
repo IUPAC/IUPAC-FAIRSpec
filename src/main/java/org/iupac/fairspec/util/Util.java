@@ -103,8 +103,9 @@ public class Util {
 	public static void setLogging(String fname) {
 		try {
 			if (fname == null) {
-				if (Util.logStream != null)
+				if (Util.logStream != null) {
 					Util.logStream.close();
+				}
 				return;
 			}
 			Util.logStream = new FileOutputStream(fname);

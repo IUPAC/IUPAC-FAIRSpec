@@ -15,7 +15,9 @@
  {"data1":"{IFS.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid1}}"},
 
  {"path1":"{data1}|*.zip|"},  
+ {"note":"using **/*.mnova* here because it is .mnova_copy for Compound 5"},
  {"IFS.property.collection.object":"{path1}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::{id=IFS.property.struc.compound.id::*}/{expt=::*}}.zip|{expt}/}"},
+ {"IFS.property.collection.object":"{path1}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::{id=IFS.property.struc.compound.id::*}/**/*.mnova*}}"},
  {"IFS.property.collection.object":"{path1}{IFS.representation.struc.cdx::{id=IFS.property.struc.compound.id::*}/*.cdx}"},
 
  {"data2":"{IFS.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid2}}"},
