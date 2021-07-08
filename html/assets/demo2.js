@@ -277,31 +277,21 @@ loadTop: function(aid) {
 			var len = aid.sources[i].len;
 			var dir = ref.split('/');
 			dir = dir[dir.length - 1];
-			s += sep + "<a target=_blank href=\"" + ref + "\">" + ref + "</a> (" + demo.bytesFor(len) + ") "
-				+ "<a target=_blank href=\""+rootdir + dir +"\">extracted collection</a>";
+			s += sep + "<a target=_blank href=\"" + ref + "\">" + ref + "</a> (" + demo.bytesFor(len) + ")"
+				+ "&nbsp;&nbsp;<a target=_blank href=\""+rootdir + dir +"\">extracted collection</a>";
 			sep = ", ";
 		}
 		s += "</td></tr>";
 	}
-	if (aid.properties["IFS.collection.ref"]) {
-		s += "<tr><td valign=top>IFS collection</td><td valign=top><a target=_blank href=\"" 
-			+ rootdir + aid.properties["IFS.collection.ref"] + "\">" 
-+ aid.properties["IFS.collection.ref"] + "</a> (" +  demo.bytesFor(aid.properties["IFS.collection.len"]) + ")</td></tr>";
-		
+	if (aid.properties["IFS.property.collection.ref"]) {
+		s += "<tr><td valign=top>FAIRSpec Collection</td><td valign=top>"
+		+ "<a target=_blank href=\"" + rootdir + aid.properties["IFS.property.collection.ref"] + "\">" 
+		+ aid.properties["IFS.property.collection.ref"] + "</a> (" +  demo.bytesFor(aid.properties["IFS.property.collection.len"]) + ")"
+		+"</td></tr>";
 	}
 	s += "</table>";
 	$("#right_top").html(s);
 
-},
-
-bytesFor: function(len) {
-	if (len > 1000000000)
-		return (Math.round(len/100000000)/10) + " GB";
-	if (len > 1000000)
-		return (Math.round(len/100000)/10) + " MB";
-	if (len > 1000)
-		return (Math.round(len/100)/10) + " KB";
-	return len + " bytes";
 },
 
 loadStructures: function(structures) {
@@ -492,7 +482,7 @@ getStructureSpecHTML: function(sspec, isAll) {
 	if (isAll && structures[strucs[0]]._found === false) {
 		return "";
 	}
-	s = "<tr><td><table>";		
+	var s = "<tr><td><table>";		
 	s += "<tr><td><table cellspacing=0 cellpadding=10><tr>";
 	for (var j = 0; j < strucs.length; j++) {
 		s += "<td valign=top>" + demo.getStructureHTML(structures[strucs[j]]) + "</td>";
@@ -541,6 +531,16 @@ alertMsg: function(n) {
 	alert(demo.messages[n]);
 },
 
+bytesFor: function(len) {
+	if (len > 1000000000)
+		return (Math.round(len/100000000)/10) + " GB";
+	if (len > 1000000)
+		return (Math.round(len/100000)/10) + " MB";
+	if (len > 1000)
+		return (Math.round(len/100)/10) + " KB";
+	return len + " bytes";
+},
+
 repHref: function(rep, name, type) {
 	return "<a target=_blank href=\"" + demo.pathTo(rep.ref) + "\">" + name 
 		+ (type === null ? "" : " (" + (type === "" ? "" : type + " ") + demo.bytesFor(rep.len) +")")
@@ -554,10 +554,10 @@ clearMain: function() {
 clearAll: function() {
 	demo.clearMain();
 	$("#right_top").html("");
-	$("#structurespec").html(s);
-	$("#struc").html(s);
-	$("#spec").html(s);
-	$("#files").html(s);
+	$("#structurespec").html("");
+	$("#struc").html("");
+	$("#spec").html("");
+	$("#files").html("");
 }
 
 
