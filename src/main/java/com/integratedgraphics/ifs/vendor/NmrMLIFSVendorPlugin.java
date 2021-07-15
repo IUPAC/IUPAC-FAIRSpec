@@ -48,7 +48,7 @@ public abstract class NmrMLIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		double freq = acq.getTransmiterFreq();
 		report("F1", freq);
  		String nuc = fixNucleus(acq.getObservedNucleus());
-		report("N1", nuc);		
+		report("N1", nuc);
 		report("SF", getNominalFrequency(freq, nuc));
 		report("SOLVENT", fixSolvent(acq.getSolvent()));
 		report("TEMPERATURE", acq.getTemperature());

@@ -42,7 +42,8 @@ public class ExtractorTest extends Extractor {
 	 * 
 	 * for example: https://ndownloader.figshare.com/files/21947274
 	 */
-	private final static String[] testSet = { "acs.joc.0c00770/22567817", // 0 727 files; zips of bruker dirs + mnovas
+	private final static String[] testSet = { 
+			"acs.joc.0c00770/22567817", // 0 727 files; zips of bruker dirs + mnovas
 			"acs.orglett.0c00624/21947274", // 1 1143 files; MANY bruker dirs
 			"acs.orglett.0c00788/22125318", // 2 jeol jdfs
 			"acs.orglett.0c00874/22233351", // 3 bruker dirs
@@ -61,25 +62,28 @@ public class ExtractorTest extends Extractor {
 
 	public static void main(String[] args) {
 
+		String sourceDir = "c:/temp/iupac/zip";// or a local dir if you have already downloaded the zip files
+		boolean debugReadOnly = true;
+
 		// normally false:
 		
-		readOnly = false; // for testing; when true, not output other than a log file is produced
+		readOnly = debugReadOnly; // for testing; when true, not output other than a log file is produced
 		debugging = false; // true for verbose listing of all files
 		createFindingAidsOnly = false; // true if extraction files already exist or you otherwise don't want not write
-		allowNoPubInfo = false; // true to allow no internet connection and so no pub calls
+		allowNoPubInfo = debugReadOnly; // true to allow no internet connection and so no pub calls
+		skipPubInfo = debugReadOnly;
 		
 		// normally true:
 		
 		// this next is independent of readOnly
-		createZippedCollection = true; // false to bypass final creation of an _IFS_collection.zip file
-		createFindingAidJSONList = true; // false for testing and you don't want to mess up _IFS_findingaids.json
+		createZippedCollection = !debugReadOnly; // false to bypass final creation of an _IFS_collection.zip file
+		createFindingAidJSONList = !debugReadOnly; // false for testing and you don't want to mess up _IFS_findingaids.json
 
 		stopOnAnyFailure = true; // set false to allow continuing after an error.
 
-		int first = 0; // first test to run
-		int last = 12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+		int first = 5; // first test to run
+		int last = 5; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 						// file test
-		String sourceDir = "c:/temp/iupac/zip";// or a local dir if you have already downloaded the zip files
 
 		String targetDir = "./site/ifs";
 			
@@ -97,7 +101,6 @@ public class ExtractorTest extends Extractor {
 
 		System.out.println("extracted " + manifestCount + " files (" + extractedByteCount + " bytes)" + "; ignored "
 				+ ignoredCount + " files (" + ignoredByteCount + " bytes)");
-
 	}
 
 	private static void runExtraction(int first, int last, String targetDir, String sourceDir, String[] args) {

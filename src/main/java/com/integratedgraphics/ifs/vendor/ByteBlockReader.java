@@ -1,0 +1,486 @@
+package com.integratedgraphics.ifs.vendor;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
+/**
+ * A reader that can process blocks that contain an initial byte length followed
+ * by a series of bytes.
+ * 
+ * @author hansonr
+ *
+ */
+public class ByteBlockReader {
+
+	/**
+	 * set to true for debuggin
+	 */
+	protected static boolean logging = false;
+	
+	/**
+	 * must be able to use available() -- so not http or https
+	 */
+	private InputStream in;
+
+	
+	/**
+	 * byte array for ByteBuffer
+	 */
+	private byte[] buf = new byte[1];
+	
+	/**
+	 * byte order
+	 */
+	private ByteOrder byteOrder = ByteOrder.BIG_ENDIAN;
+	
+	/**
+	 * current input stream position
+	 */
+	private long position = 0;
+	
+	/**
+	 * ByteBuffer for processing int, double
+	 */
+	private ByteBuffer buffer;
+	
+	/**
+	 * mark for input stream
+	 */
+	private long mark;
+
+	public ByteBlockReader(InputStream in) throws IOException {
+		this.in = in;
+		in.reset();
+	}
+
+	protected void setByteOrder(ByteOrder byteOrder) {		
+		this.byteOrder = byteOrder;
+		if (buffer != null)
+			buffer.order(byteOrder);
+	}
+
+	/** Get the current buffer
+	 * 
+	 * @return this.buf
+	 */
+	public byte[] getBuf() {
+		return buf;
+	}
+
+	/**
+	 * Get the current input stream position
+	 * @return
+	 */
+	protected long readPosition() {
+		return position;
+	}
+
+	/**
+	 * Read bytes into the ByteBuffer and byte[] array from the input stream.
+	 * 
+	 * @param len  number of bytes to read
+	 * @return current buffer
+	 * @throws IOException
+	 */
+    protected byte[] setBuf(int len) throws IOException {
+    	if (buf.length < len) {
+    		buf = new byte[len << 1];
+    		buffer = ByteBuffer.wrap(buf);
+    		buffer.order(byteOrder);
+    	}
+    	buffer.rewind();
+    	int n = in.read(buf, 0, len);
+    	if (n != len)
+    		throw new java.io.EOFException("Tried to read " + len + " bytes but read only " + n);
+    	position += len;
+		return buf;
+	}
+    
+    /**
+     * Mark the input stream.
+     * 
+     * @param n
+     */
+    protected void markIn(int n) {
+    	mark = position;
+    	in.mark(n);
+    }
+    
+    /**
+     * Reset the input stream.
+     * 
+     * @throws IOException
+     */
+    protected void resetIn() throws IOException {
+    	position = mark;
+    	in.reset();
+    }
+    
+	protected void skipIn(int n) throws IOException {
+		position += in.skip(n);
+		if (logging)System.out.println("skip from " + (position - n) + " by " + n + " to " + position);
+	}
+
+	/**
+	 * Find the integer key array past the current point
+	 * 
+	 * @param key
+	 * @param length maximum distance to check or -1 for in.available()
+	 * @return found position or -1
+	 * @throws IOException
+	 */
+	protected int findIn(int[] key, int length) throws IOException {
+		if (length < 0)
+			length = readAvailable();
+		markIn(length);
+		setBuf(length);
+		resetIn();
+		int keylen = key.length;
+		ByteBuffer b = buffer;
+		buf = new byte[0];
+		for (int i = 0, n = length - keylen * 4; i < n;) {
+			for (int j = 0;;) {
+				int test = b.getInt();
+				if (test != key[j]) {
+					b.position(++i);
+					break;
+				}
+				if (++j == keylen)
+					return i;
+			}
+		}
+		return -1;
+	}
+
+	protected String readString(int len) throws IOException {
+		String s = new String(setBuf(len), 0, len);
+		if (s.indexOf("NMR") >= 0)
+			if (logging)System.out.println("NMR");
+		if (logging)System.out.println("readString " + s);
+		return s;
+    }
+	
+	public int readAvailable() throws IOException {
+		return in.available();
+	}
+
+	protected int readByte() throws IOException {
+		position++;
+		int b = in.read();
+    	if (logging)System.out.println("readByte " + b + " = 0x" + Integer.toHexString(b).toUpperCase());
+    	return b;
+	}
+	
+	public int read(byte[] b, int offset, int len) throws IOException {
+		int n = in.read(b, offset, len);
+		position += n;
+		return n;
+	}
+
+	protected int readShort() throws IOException {
+    	setBuf(2);
+    	int i = buffer.getShort();
+    	if (logging)System.out.println("readShort " + i + " = 0x" + Integer.toHexString(i).toUpperCase());
+    	return i;
+		
+	}
+	protected int readInt() throws IOException {
+    	setBuf(4);
+    	int i = buffer.getInt();
+    	if (logging) {
+    		String s = new String(getBuf(), 0, 4);
+    		System.out.println("readInt " + (position-4) + ": " + i
+        			+ " = 0x" + Integer.toHexString(i).toUpperCase()
+        			+ " -> " + (position + i) + " " + s);
+    	}
+
+    	return i;
+		
+	}
+	
+	protected String readLenString() throws IOException {
+		return readString(readInt());
+	}
+
+	protected String readUTF16String() throws IOException {
+		long p = readPosition();
+		int len = readInt();
+		setBuf(len);
+		String s = new String(buf, 0, len, "utf16");
+		if (logging)System.out.println("ReadUTF16 " + p + "("+len+"): " + s);
+		return s;
+	}
+
+	protected void readInts(int n) throws IOException {
+		for (int i = 0; i < n; i++) {
+			if (logging)System.out.print(i + " ");
+			readInt();
+		}
+	}
+
+	protected long readLong() throws IOException {
+    	setBuf(8);
+    	return buffer.getLong();
+	}
+	
+	protected double readDouble() throws IOException {
+    	setBuf(8);
+    	double d = buffer.getDouble();
+    	buffer.position(buffer.position() - 8);
+    	long l = buffer.getLong();
+    	if (logging)System.out.println("ReadDouble 0x" + Long.toHexString(l).toUpperCase() + "\t" + d);
+    	return d;
+	}
+
+	protected void peekInts(int n) throws IOException {
+		boolean l = logging;
+		logging = true;
+		System.out.println("---peak " + readPosition());
+		markIn(n * 4);
+		readInts(n);
+		resetIn();
+		System.out.println("---reset " + readPosition());
+		logging = l;
+	}
+
+	protected int peekInt() throws IOException {
+		markIn(4);
+		int n = readInt();
+		resetIn();
+		if (logging)System.out.println("peakInt " + n);
+		return n;
+	}
+
+	public void close() throws IOException {
+		position = -1;
+		in.close();
+	}
+
+	protected ByteBuffer get(byte[] b, int offset, int len) {
+		return buffer.get(b, offset, len);		
+	}
+
+	protected byte getByte() {
+		return buffer.get();
+	}
+    
+	protected int getInt() {
+		return buffer.getInt();
+	}
+		
+	protected int getShort() {
+		return buffer.getShort();
+	}
+
+	protected int getBufferPosition() {
+		return buffer.position();
+	}
+
+	public double getDouble() {
+		return buffer.getDouble();
+	}
+
+	protected void markBuffer() {
+		buffer.mark();
+	}
+
+	protected void resetBuffer() {
+		buffer.reset();		
+	}
+
+	protected void findRef(int loc) throws IOException {
+		int n = readAvailable() - 4;
+		markIn(n + 4);
+		setBuf(n + 4);
+		for (int i = 0; i < n;) {
+			buffer.mark();
+			int val = buffer.getInt();
+			buffer.reset();
+			if (i + 4 + val == loc) {
+				if (logging)System.out.println(i + "\t0x" + Integer.toHexString(i) + "\t+\t" + val + "\t0x" + Integer.toHexString(val)+"\t=\t"+loc);
+			}
+			buffer.position(++i);			
+		}
+		resetIn();
+	}
+
+
+	protected double peakDouble() throws IOException {
+		int p = buffer.position();
+		double d = buffer.getDouble();
+		buffer.position(p);
+		if (d != 0 && Math.abs(d) >= 1e-10 && Math.abs(d) <= 1e10) {
+		} else {
+			d = Double.NaN;
+		}
+		return d;
+	}
+
+	protected void checkDouble(int loc, int n) throws IOException {
+
+		markIn(loc + n*8 + 8);
+		skipIn(loc);
+		setBuf(n*8 + 8);
+		for (int i = 0; i < 8;) {
+			markBuffer();
+			for (int j = 0; j < n; j++) {
+				double d = buffer.getDouble();
+				if (d != 0 && Math.abs(d) > 1e-10 && Math.abs(d) < 1e10) {
+					buffer.position(buffer.position() - 8);
+					if (logging)System.out.println(i + " " + j + " = "  + Long.toHexString(buffer.getLong()) + "\t" + d);
+				}
+			}
+			resetBuffer();
+			buffer.position(++i);
+		}
+		resetIn();
+	}
+	
+
+	protected static void doubleTest() {
+		for (int i = -20; i <= 20; i++) {
+			double d = Math.pow(10,i/2.);
+			showDoubleLong(d);
+		}
+		for (int i = -20; i <= 20; i++) {
+			double d = -Math.pow(10,i/2.);
+			showDoubleLong(d);
+		}
+		// 3E-41 indicates positive double between 10E-9 and 10E9
+		// BE-C0 indicates negative double between 10E-9 and 10E9
+		if (logging)System.out.println(Long.toHexString(Double.doubleToLongBits(Double.NaN)).toUpperCase() + "\t" + Double.NaN);
+		
+//		3DDB7CDFD9D7BDBB	1.0E-10
+//		3DF5BB233FCB6A90	3.1622776601683795E-10
+//		3E112E0BE826D695	1.0E-9
+//		3E2B29EC0FBE4534	3.1622776601683795E-9
+//		3E45798EE2308C3A	1.0E-8
+//		3E60FA3389D6EB40	3.162277660168379E-8
+//		3E7AD7F29ABCAF48	1.0E-7
+//		3E9538C06C4CA610	3.162277660168379E-7
+//		3EB0C6F7A0B5ED8D	1.0E-6
+//		3ECA86F0875FCF94	3.162277660168379E-6
+//		3EE4F8B588E368F1	1.0E-5
+//		3F009456549BE1BD	3.1622776601683795E-5
+//		3F1A36E2EB1C432D	1.0E-4
+//		3F34B96BE9C2DA2C	3.1622776601683794E-4
+//		3F50624DD2F1A9FC	0.001
+//		3F69E7C6E43390B7	0.0031622776601683794
+//		3F847AE147AE147B	0.01
+//		3FA030DC4EA03A72	0.03162277660168379
+//		3FB999999999999A	0.1
+//		3FD43D136248490F	0.31622776601683794
+//		3FF0000000000000	1.0
+//		40094C583ADA5B53	3.1622776601683795
+//		4024000000000000	10.0
+//		403F9F6E4990F227	31.622776601683793
+//		4059000000000000	100.0
+//		4073C3A4EDFA9759	316.22776601683796
+//		408F400000000000	1000.0
+//		40A8B48E29793D2F	3162.2776601683795
+//		40C3880000000000	10000.0
+//		40DEE1B1B3D78C7A	31622.776601683792
+//		40F86A0000000000	100000.0
+//		41134D0F1066B7CC	316227.7660168379
+//		412E848000000000	1000000.0
+//		41482052D48065C0	3162277.6601683795
+//		416312D000000000	1.0E7
+//		417E286789A07F2F	3.162277660168379E7
+//		4197D78400000000	1.0E8
+//		41B2D940B6044F7E	3.1622776601683795E8
+//		41CDCD6500000000	1.0E9
+//		41E78F90E385635D	3.1622776601683793E9
+//		4202A05F20000000	1.0E10
+//		BDDB7CDFD9D7BDBB	-1.0E-10
+//		BDF5BB233FCB6A90	-3.1622776601683795E-10
+//		BE112E0BE826D695	-1.0E-9
+//		BE2B29EC0FBE4534	-3.1622776601683795E-9
+//		BE45798EE2308C3A	-1.0E-8
+//		BE60FA3389D6EB40	-3.162277660168379E-8
+//		BE7AD7F29ABCAF48	-1.0E-7
+//		BE9538C06C4CA610	-3.162277660168379E-7
+//		BEB0C6F7A0B5ED8D	-1.0E-6
+//		BECA86F0875FCF94	-3.162277660168379E-6
+//		BEE4F8B588E368F1	-1.0E-5
+//		BF009456549BE1BD	-3.1622776601683795E-5
+//		BF1A36E2EB1C432D	-1.0E-4
+//		BF34B96BE9C2DA2C	-3.1622776601683794E-4
+//		BF50624DD2F1A9FC	-0.001
+//		BF69E7C6E43390B7	-0.0031622776601683794
+//		BF847AE147AE147B	-0.01
+//		BFA030DC4EA03A72	-0.03162277660168379
+//		BFB999999999999A	-0.1
+//		BFD43D136248490F	-0.31622776601683794
+//		BFF0000000000000	-1.0
+//		C0094C583ADA5B53	-3.1622776601683795
+//		C024000000000000	-10.0
+//		C03F9F6E4990F227	-31.622776601683793
+//		C059000000000000	-100.0
+//		C073C3A4EDFA9759	-316.22776601683796
+//		C08F400000000000	-1000.0
+//		C0A8B48E29793D2F	-3162.2776601683795
+//		C0C3880000000000	-10000.0
+//		C0DEE1B1B3D78C7A	-31622.776601683792
+//		C0F86A0000000000	-100000.0
+//		C1134D0F1066B7CC	-316227.7660168379
+//		C12E848000000000	-1000000.0
+//		C1482052D48065C0	-3162277.6601683795
+//		C16312D000000000	-1.0E7
+//		C17E286789A07F2F	-3.162277660168379E7
+//		C197D78400000000	-1.0E8
+//		C1B2D940B6044F7E	-3.1622776601683795E8
+//		C1CDCD6500000000	-1.0E9
+//		C1E78F90E385635D	-3.1622776601683793E9
+//		C202A05F20000000	-1.0E10
+//		7FF8000000000000	NaN
+		
+	}
+
+	protected static void showDoubleLong(double d) {
+		if (logging)
+			System.out.println(Long.toHexString(Double.doubleToLongBits(d)).toUpperCase() + "\t" + d);
+	}
+
+	protected void readDoubleBox() throws IOException {
+		readDouble();
+		readDouble();
+		readDouble();
+		readDouble();		
+	}
+
+
+	protected boolean readSubblock(int i) throws IOException {
+		readInt();
+		return readBlock(i);
+	}
+
+	protected boolean readBlock(int blockIndex) throws IOException {
+		long navail = readAvailable();
+		if (navail < 4) {
+			if (navail > 0)
+				System.err.println("broken");
+			return false;
+		}
+		int len = readInt();
+		while (len < 0) {
+			System.out.println("!!!readNeg");// " skipping " +
+			len = readInt();
+		}
+		if (logging) {
+			long pos = readPosition();
+			System.out.println(pos + " reading " + len + " to " + (pos + len));// " skipping " +
+			setBuf(len);
+			for (int i = 0, n = Math.min(len >> 2, 64); i < n; i++) {
+				double d = (i < n - 1 ? peakDouble() : Double.NaN);
+				System.out.println(
+						i + ":" + Integer.toHexString(getInt()).toUpperCase() + "\t" + (Double.isNaN(d) ? "" : d));
+			}
+		} else {
+			skipIn(len);
+		}
+		return true;
+	}
+
+}

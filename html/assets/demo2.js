@@ -1,4 +1,5 @@
 // Bob Hanson hansonr@stolaf.edu
+// last revised 2021.07.08
 
 demo = {
 
@@ -463,6 +464,49 @@ getSpectrumHTML: function(spec) {
 				break;
 		}
 	}
+	var dim = "1D",nuc1, nuc2, pulseProg,solvent,temp,freq,manuf;
+	
+	for (prop in spec.properties) {
+		var val = spec.properties[prop];
+		switch (prop) {
+			case "IFS.property.spec.nmr.expt.dim":
+				dim = val;
+				break;
+			case "IFS.property.spec.nmr.expt.nucl.1":
+				nuc1 = val;
+				break;
+			case "IFS.property.spec.nmr.expt.nucl.2":
+				nuc2 = val;
+				break;
+			case "IFS.property.spec.nmr.expt.pulse.prog":
+				pulseProg = val;
+				break;
+			case "IFS.property.spec.nmr.expt.solvent":
+				solvent = val;
+				break;
+			case "IFS.property.spec.nmr.expt.temperature.K":
+				temp = val;
+				break;
+			case "IFS.property.spec.nmr.instr.freq.nominal":
+				freq = val;
+				break;
+			case "IFS.property.spec.nmr.instr.manufacturer.name":
+				manuf = val;
+				break;
+			case "IFS.property.spec.nmr.instr.probe.id":
+			case "IFS.property.spec.nmr.expt.id":
+				break;
+		}
+	}
+	if (freq) {
+		var sp = "<br>" + dim + (!nuc1 ? "" : " " + nuc1 + (dim == "2D" && nuc2 && nuc2 != nuc1 ? "/" + nuc2 : "")) 
+			+ "<br>" + manuf + " " + freq + "<br>";
+		if (solvent)
+			sp += solvent + " ";
+		if (temp)
+			sp += temp + " K";
+		s += sp;
+	}
 	return name + s;
 },
 
@@ -543,7 +587,7 @@ bytesFor: function(len) {
 
 repHref: function(rep, name, type) {
 	return "<a target=_blank href=\"" + demo.pathTo(rep.ref) + "\">" + name 
-		+ (type === null ? "" : " (" + (type === "" ? "" : type + " ") + demo.bytesFor(rep.len) +")")
+		+ (type === null ? "" : " (" + (type === "" ? "" : type + "&nbsp;") + demo.bytesFor(rep.len) +")")
 		+ "</a>";
 },
 

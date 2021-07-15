@@ -117,6 +117,11 @@ public class Extractor implements IFSExtractorI {
 	protected static boolean allowNoPubInfo = false;
 
 	/**
+	 * don't even try to read pub info -- debugging
+	 */
+	protected static boolean skipPubInfo = false;
+	
+	/**
 	 * set true to zip up the extracted collection, placing that in the target
 	 * directory
 	 */
@@ -317,7 +322,7 @@ public class Extractor implements IFSExtractorI {
 		Map<String, Object> pubCrossrefInfo = null;
 		try {
 			puburi = (String) findingAid.getPropertyValue(IFSConst.IFS_PROP_COLLECTION_SOURCE_PUBLICATION_URI);
-			if (puburi != null) {
+			if (puburi != null && !skipPubInfo) {
 				pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi);
 				findingAid.setPubInfo(pubCrossrefInfo);
 			}
