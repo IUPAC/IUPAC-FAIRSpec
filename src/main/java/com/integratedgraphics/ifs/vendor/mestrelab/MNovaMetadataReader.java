@@ -15,6 +15,8 @@ import com.integratedgraphics.ifs.vendor.ByteBlockReader;
 class MNovaMetadataReader extends ByteBlockReader {
 
 	private final static int magicNumber = 0x4D657374; // M e s t
+	private final static int magicNumberBE = 0xF1E2D3C4;// F1 E2 D3 C4
+	private final static int magicNumberLE = 0xC4D3E2F1;// C4 D3 E2 F1
 
 	private MestrelabIFSVendorPlugin plugin;
 
@@ -38,15 +40,21 @@ class MNovaMetadataReader extends ByteBlockReader {
 			// doubleTest();
 			// findRef(20425);
 			// checkDouble(432893, 10);
-			if (!readHeader(magicNumber))
+			if (!checkMagicNumber(magicNumber))
 				return false;
 			readSimpleString(headerLength);
+			if (!checkMagicNumber(magicNumberBE)) {
+				if (!checkMagicNumber(magicNumberLE)) {
+					return false;
+				}
+				setByteOrder(ByteOrder.LITTLE_ENDIAN);
+			}
 			int maxBlocks = 20;
 			out: for (int i = 0; i < maxBlocks; i++) {
 				System.out.println("\nblock " + i + " pos " + readPosition() + " avail " + readAvailable());
 				switch (i) {
 				case 0:
-					readInt(); // F1E2D3C4
+					readInt();
 					if (!readSubblock(0))
 						break out;
 					break;

@@ -150,9 +150,9 @@ public class ByteBlockReader {
 	 * @return true if successful.
 	 * @throws IOException
 	 */
-	protected boolean readHeader(int magicNumber) throws IOException {
+	protected boolean checkMagicNumber(int magicNumber) throws IOException {
 		int nAvail = readAvailable();
-		if (nAvail < 1)
+		if (nAvail < 4)
 			return false;
 		return (peekInt() == magicNumber);
 	}
