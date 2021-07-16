@@ -56,7 +56,7 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 		Locale.setDefault(new Locale("en", "US"));
 		Acqu acquisition = new Acqu(Acqu.Spectrometer.JEOL);
 
-		String File_Identifier = readString(8);
+		String File_Identifier = readSimpleString(8);
 		if (fprt)
 			System.out.println("Header: File_Identifier = " + File_Identifier);
 
@@ -95,7 +95,7 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 		if (fprt)
 			System.out.println(String.format("Header: Data_Units = %d, %d, ...", Data_Units[0], Data_Units[1]));
 
-		title = readString(124);
+		title = readSimpleString(124);
 		if (fprt)
 			System.out.println("Header: Title = " + title);
 
@@ -110,20 +110,20 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 			System.out.println("Header: Data_Offset_Start = " + Data_Offset_Start);
 
 		skipIn(196);// seek(408);
-		String Node_Name = readString(16);
+		String Node_Name = readSimpleString(16);
 		if (fprt)
 			System.out.println("Header: Node_Name = " + Node_Name);
-		String Site = readString(128);
+		String Site = readSimpleString(128);
 		if (fprt)
 			System.out.println("Header: Site = " + Site);
-		String Author = readString(128);
+		String Author = readSimpleString(128);
 
 		if (fprt)
 			System.out.println("Header: Author = " + Author);
-		comment = readString(128);
+		comment = readSimpleString(128);
 		if (fprt)
 			System.out.println("Header: Comment = " + comment);
-		String Data_Axis_Titles = readString(256);
+		String Data_Axis_Titles = readSimpleString(256);
 		if (fprt)
 			System.out.println("Header: Data_Axis_Titles = " + Data_Axis_Titles);
 

@@ -7,8 +7,7 @@ import java.nio.ByteOrder;
 import com.integratedgraphics.ifs.vendor.ByteBlockReader;
 
 /**
- * A rough MestReNova file reader. Not particularly useful. But it does check
- * for spectra at least.
+ * A rough MestReNova file reader that can deliver metadata only. 
  * 
  * @author hansonr
  *
@@ -17,13 +16,9 @@ class MNovaReader extends ByteBlockReader {
 
 	private final static int magicNumber = 0x4D657374; // M e s t
 
-//	static {
-//		long x = Double.doubleToLongBits(100.622829328806);
-//		System.out.println(Long.toHexString(x).toUpperCase());
-//		// <40><59><27><DC><6F><8B><8D><88>
-//		x = 0;
-//	}
 	private MestrelabIFSVendorPlugin plugin;
+
+	private int nPages = 0;
 
 	MNovaReader(MestrelabIFSVendorPlugin mestrelabIFSVendorPlugin, InputStream in) throws IOException {
 		super(in);
@@ -40,21 +35,19 @@ class MNovaReader extends ByteBlockReader {
 		int headerLength = 23;
 		setByteOrder(ByteOrder.BIG_ENDIAN);
 		try {
-			// cannot find temperature in code showDoubleLong(298.1983);
 			// doubleTest();
-			// double:
-			findRef(20425);
+			// findRef(20425);
 			// checkDouble(432893, 10);
 			if (!readHeader(magicNumber))
 				return false;
-			readString(headerLength);
+			readSimpleString(headerLength);
 			int maxBlocks = 20;
 			out: for (int i = 0; i < maxBlocks; i++) {
 				System.out.println("\nblock " + i + " pos " + readPosition() + " avail " + readAvailable());
 				switch (i) {
 				case 0:
 					readInt(); // F1E2D3C4
-					if (!readSubblock(i))
+					if (!readSubblock(0))
 						break out;
 					break;
 				case 1:
@@ -68,23 +61,21 @@ class MNovaReader extends ByteBlockReader {
 					readSubblock(3);
 					break;
 				case 4:
-					readItems();
+					// Discovered this was not necessary;
+					if (testing)
+						readItems();
+					else
+						skipBlock();
 					break;
 				case 5:
-					readSpecs(5);
+					readPages(5);
 					break;
 				default:
 					if (!readBlock(i))
 						break out;
 				}
 			}
-			// 178 + 376 = 554
-//			markIn(376);
-//			skip(372);
-//			if (!readNMRParameters()) {
-//				return true;
-//			}
-			System.out.println("MNOVA ------- nSpec=" + nSpec);
+			System.out.println("MNovaReader ------- nPages=" + nPages);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,37 +89,26 @@ class MNovaReader extends ByteBlockReader {
 		}
 	}
 
-	private boolean readHeader(int magicNumber) throws IOException {
-		int nAvail = readAvailable();
-		if (nAvail < 1)
-			return false;
-		int n = peekInt();
-		if (n != magicNumber) {
-			return false;
-		}
-		return true;
-	}
-
 	/**
-	 * Read items. 
+	 * Read the items. 
 	 */
 	private void readItems() throws IOException {
 		readInt(); // byte block length
 		int nItems = readInt();
 		for (int j = 0; j < nItems; j++) {
-			if (logging)
+			if (testing)
 				System.out.println("j=" + j);
-			readItem();
+			readItem(j);
 		}
 	}
 
-	private void readItem() throws IOException {
+	private void readItem(int index) throws IOException {
 		long n = readPosition();
-		if (logging)
+		if (testing)
 			System.out.println("---item--- pos=" + readPosition());
 		int type = readInt(); // 0, 53, 63 -- version dependent?
 		int i = readInt();
-		if (logging)
+		if (testing)
 			System.out.println("----------  " + type + "," + i);
 		if (type == 0) {
 			// older version?
@@ -151,10 +131,11 @@ class MNovaReader extends ByteBlockReader {
 		if (test > 0) {
 			readInt();
 			readInt();
-			readLenString(); // "Item Type"
-			readLenString(); // "NMR Spectrum"
+			String itemType = readLenString(); // "Item Type"
+			String subtype = readLenString(); // "NMR Spectrum"
+			System.out.println("Item " + (index + 1) + ": " + itemType + "/" + subtype);
 		}
-		if (logging)
+		if (testing)
 			System.out.println("---item end---" + (readPosition() - n) + " pos=" + readPosition());
 	}
 
@@ -163,57 +144,66 @@ class MNovaReader extends ByteBlockReader {
 	 */
 	private final static int[] paramsKey = new int[] { 0x0D, 0x05, 0x00 };
 
-	private void readSpecs(int i) throws IOException {
-		System.out.println("---readSpecInfo " + readPosition());	//  38628 - 39077	
+	private void readPages(int i) throws IOException {
+		if (testing)
+			System.out.println("---readSpecInfo " + readPosition());	//  38628 - 39077	
 		readInt(); // to EOF
-		readBlock(i); // 32 bytes
+		skipBlock(); // 32 bytes
 		readInts(4); // also to EOF
 		while (readAvailable() > 0 && peekInt() == 40) {
-			System.out.println("---read spec at " + readPosition());
-			plugin.newPage();
-			long pt = readSpec(i);
-			int len = (int) (pt - readPosition());
-			int pos = findIn(paramsKey, len);
-			if (pos >= 4) {
-				skipIn(pos - 4);
-				readParams(i);
-			}
-			skipIn((int)(pt - readPosition()));
+			if (testing)
+				System.out.println("---read spec at " + readPosition());
+			readPage(i);
 		}
-		System.out.println("---read done ");
+		if (testing)
+			System.out.println("---read done ");
 	}
 
-	int nSpec = 0;
-
-	private long readSpec(int i) throws IOException {
-		nSpec++;
-		System.out.println("reading spectrum " + nSpec);
-		readBlock(i); // 40
+	/**
+	 * Just skipping most of this information now, but it gives us the pointer we
+	 * need for skipping to the next block.
+	 * 
+	 * @param i
+	 * @return
+	 * @throws IOException
+	 */
+	private void readPage(int i) throws IOException {
+		plugin.newPage();
+		nPages++;
+		System.out.println("reading page " + nPages);
+		skipBlock(); // 40
 		int len = readInt(); // to next spectrum
 		long pos = readPosition();
-		long pt = pos + len;
-		readBlock(i); // 40
-		readBlock(i); // 32
-		readInts(10);
-		readInts(12);
-		// looking for "1D" or "2D" -- seems to be variable length
-		while (peekInt() != 4) {
-			readInt();
+		int skip = findIn(paramsKey, len);
+		if (skip >= 4) {
+			// actually targeting the integer just before 0x0000000D0000000500000000, which
+			// holds the number of parameters.
+			skipIn(skip - 4);
+			readParams();
 		}
-		String dim = readUTF16String(); // 1D
-		String nuc = readUTF16String(); // 13C
-		// 2D will report "1H13C, Unknown"
-		plugin.addParam("DIM", dim, null, null);
-		plugin.addParam("NUC12", nuc, null, null);
-		readInts(15);
-		readDouble();
-		readDouble();
-		readByte();
-		readInts(15);
-		readLenString(); // NMR Spectrum
-		readUTF16String(); // N M R
-		readDoubleBox();
-		return pt;
+		skipIn(len - (int)(readPosition() - pos));
+
+//		readBlock(i); // 40
+//		readBlock(i); // 32
+//		readInts(10);
+//		readInts(12);
+//		// looking for "1D" or "2D" -- seems to be variable length
+//		while (peekInt() != 4) {
+//			readInt();
+//		}
+//		String dim = readUTF16String(); // 1D
+//		String nuc = readUTF16String(); // 13C
+//		// 2D will report "1H13C, Unknown"
+//		//plugin.addParam("DIM", dim, null, null);
+//		//plugin.addParam("NUC12", nuc, null, null);
+//		readInts(15);
+//		readDouble();
+//		readDouble();
+//		readByte();
+//		readInts(15);
+//		readLenString(); // NMR Spectrum
+//		readUTF16String(); // N M R
+//		readDoubleBox();
 
 //		// all this next varies with spectrum - test 5 only
 //		readByte();
@@ -327,15 +317,18 @@ class MNovaReader extends ByteBlockReader {
 //		readInts(202);
 //		readInt(); // 00 00 0FED @ 20425
 //		readInt(); // 0
+//		return pt;
 	}
 
-	private void readParams(int ib) throws IOException {
-
+	/**
+	 * Key method fore reading all parameters available in the MNova file.
+	 * 
+	 * @throws IOException
+	 */
+	private void readParams() throws IOException {
 		int n = readInt();
-
 		for (int i = 0; i < n; i++) {
-			int b = readParam();
-			System.out.println(" param " + i + ": " + b);
+			readParam(i);
 		}
 		return;
 
@@ -406,7 +399,14 @@ class MNovaReader extends ByteBlockReader {
 		}
 	}
 	
-	private int readParam() throws IOException {
+	/**
+	 * Key method to read a parameter from the MNova file. 
+	 * 
+	 * @param index for debugging only
+	 * @return
+	 * @throws IOException
+	 */
+	private void readParam(int index) throws IOException {
 //		peekInts(80);
 //		logging = true;
 		readInt(); // D
@@ -420,7 +420,8 @@ class MNovaReader extends ByteBlockReader {
 		readByte();
 		String key = readUTF16String();
 		plugin.addParam(key, null, param1, param2);
-		return type;
+		if (testing)
+			System.out.println(" param " + (index + 1) + ": " + type);
 	}
 
 }

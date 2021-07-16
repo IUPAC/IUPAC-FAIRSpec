@@ -24,6 +24,8 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	private String fileName;	
 
+	private int page = 0;
+
 	static {
 		String[] keys = { //
 				"Pulse Sequence", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_PULSE_PROG, //
@@ -85,7 +87,7 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	
 	private boolean isJDF;
 
-	private boolean is2D;
+//	private boolean is2D;
 
 	private String nuc1;
 
@@ -98,11 +100,29 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 			val = (param1.value == null || param1.value.length() == 0 ? param1.calc : param1.value);
 		Object oval = null;
 		if (val != null && val.length() > 0) {
+			String key0 = key;
 			val = val.trim();
 			switch (key) {
-			case "DIM":
-				is2D = val.equals("2D");
-				break;
+//			case "NUC12":
+//			if (is2D) {
+//				int pt = val.indexOf(",");
+//				if (pt >= 0) {
+//					key = "N2";
+//					val = val.substring(0, pt);
+//					int i = 0;
+//					while (i < val.length() && Character.isDigit(val.charAt(i)))
+//						i++;
+//					while (i < val.length() && !Character.isDigit(val.charAt(i)))
+//						i++;
+//					val = val.substring(i).trim();
+//					nuc2 = val;
+//				}
+//			}
+//			break;
+//			case "DIM":
+//			case "Experiment":
+//				//is2D = val.equals("2D");
+//				break;
 			case "Data File Name":
 				isJDF = (val.endsWith(".jdf"));
 				break;
@@ -129,35 +149,14 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 					params.put("F2", Double.valueOf(param2.value));
 				}
 				break;
-			case "NUC12":
-				if (is2D) {
-					int pt = val.indexOf(",");
-					if (pt >= 0) {
-						key = "N2";
-						val = val.substring(0, pt);
-						int i = 0;
-						while (i < val.length() && Character.isDigit(val.charAt(i)))
-							i++;
-						while (i < val.length() && !Character.isDigit(val.charAt(i)))
-							i++;
-						val = val.substring(i).trim();
-						nuc2 = val;
-					}
-				}
-				break;
 			}
 			if (oval == null)
 				oval = val;
 			params.put(key, oval);
 			System.out.println("----------- page " + page + " " 
-					+ key + " = " + oval + " " + param1 + " " + param2);
-			if (param2 != null)
-				return;
+					+ key + " = " + oval + " was " + key0 + " " + param1 + (param2 == null ? "" : "/" + param2));
 		}
-		return;
 	}
-
-	private int page = 0;
 
 	void newPage() {
 		addParams();
@@ -183,10 +182,10 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	private void close() {
 		addParams();
-		System.out.println("MestreLabIFSVendorPlubin done " + page + " pages for " + fileName);
+		System.out.println("MestreLabIFSVendorPlugin done " + page + " pages for " + fileName);
 		page = 0;
 		params = null;
-		isJDF = is2D = false;
+		isJDF = false;//is2D = false;
 		nuc1 = nuc2 = null;
 		freq = 0;
 		return;
