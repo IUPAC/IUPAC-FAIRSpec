@@ -12,7 +12,7 @@ import com.integratedgraphics.ifs.vendor.ByteBlockReader;
  * @author hansonr
  *
  */
-class MNovaReader extends ByteBlockReader {
+class MNovaMetadataReader extends ByteBlockReader {
 
 	private final static int magicNumber = 0x4D657374; // M e s t
 
@@ -20,7 +20,7 @@ class MNovaReader extends ByteBlockReader {
 
 	private int nPages = 0;
 
-	MNovaReader(MestrelabIFSVendorPlugin mestrelabIFSVendorPlugin, InputStream in) throws IOException {
+	MNovaMetadataReader(MestrelabIFSVendorPlugin mestrelabIFSVendorPlugin, InputStream in) throws IOException {
 		super(in);
 		this.plugin = mestrelabIFSVendorPlugin;
 	}

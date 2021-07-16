@@ -10,7 +10,7 @@ import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
 
 import com.integratedgraphics.ifs.util.IFSDefaultVendorPlugin;
-import com.integratedgraphics.ifs.vendor.mestrelab.MNovaReader.Param;
+import com.integratedgraphics.ifs.vendor.mestrelab.MNovaMetadataReader.Param;
 
 public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
@@ -55,11 +55,11 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		if (super.accept(extractor, fname, bytes)) {
 			close();
 		}
-		MNovaReader reader;
+		MNovaMetadataReader reader;
 		try {
 			page = 0;
 			params = null;
-			reader = new MNovaReader(this, new ByteArrayInputStream(bytes));
+			reader = new MNovaMetadataReader(this, new ByteArrayInputStream(bytes));
 			fileName = fname;
 			if (reader.process()) {
 				addParams();
