@@ -110,12 +110,12 @@ public abstract class IFSDefaultVendorPlugin implements IFSVendorPluginI {
 	 * 
 	 * @param extractor will be null if rezipping, otherwise the calling
 	 *                  IFSExtractorI
-	 * @param entryName the zip entry name for this file
 	 * @param bytes     the decompressed contents of this file
+	 * @param entryName the zip entry name for this file
 	 * @return true if accepted (but may be ignored by the extractor)
 	 */
 	@Override
-	public boolean accept(IFSExtractorI extractor, String entryName, byte[] bytes) {
+	public boolean accept(IFSExtractorI extractor, String entryName, String zipName, byte[] bytes) {
 		if (extractor != null) {
 			this.extractor = extractor;
 		}
@@ -270,5 +270,13 @@ public abstract class IFSDefaultVendorPlugin implements IFSVendorPluginI {
 	public static int getNominalFrequency(double freq, String nuc) {
 		return JDXDataObject.getNominalSpecFreq(nuc, freq);
 	}
-		
+
+//	/**
+//	 * First pass for a plugin may not have established a finding aid struc and spec
+//	 */
+//	@Override
+//	public void processVendorFile(String zipName) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 }

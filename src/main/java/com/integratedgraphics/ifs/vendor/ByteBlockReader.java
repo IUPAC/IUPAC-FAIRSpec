@@ -345,13 +345,15 @@ public class ByteBlockReader {
 	 */
 	protected void peekInts(int n) throws IOException {
 		boolean l = testing;
-		testing = true;
+		boolean l1 = showInts;
+		testing = showInts = true;
 		System.out.println("---peek " + readPosition());
 		markIn(n * 4);
 		readInts(n);
 		resetIn();
 		System.out.println("---reset " + readPosition());
 		testing = l;
+		showInts = l1;
 	}
 
 	/**

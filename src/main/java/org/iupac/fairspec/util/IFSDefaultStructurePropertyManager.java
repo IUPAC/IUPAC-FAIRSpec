@@ -51,7 +51,7 @@ public class IFSDefaultStructurePropertyManager implements IFSPropertyManagerI {
 	private Map<String, String> fileToType = new HashMap<>();
 
 	@Override
-	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
+	public boolean accept(IFSExtractorI extractor, String fname, String zipName, byte[] bytes) {
 		fileToType.put(fname, getType(fname, bytes));
 		return true;
 	}

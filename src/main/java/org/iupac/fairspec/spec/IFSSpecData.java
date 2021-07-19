@@ -1,5 +1,6 @@
 package org.iupac.fairspec.spec;
 
+import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.core.IFSDataObject;
 
@@ -25,6 +26,12 @@ public abstract class IFSSpecData extends IFSDataObject<IFSSpecDataRepresentatio
 	@Override
 	public String toString() {
 		return (name == null ? super.toString() : "[" + type + " " + index + " " + name  + " " + (size() > 0 ? get(0) : null) + "]");
+	}
+
+	
+	@Override
+	protected void serializeProps(IFSSerializerI serializer) {
+		super.serializeProps(serializer);
 	}
 
 

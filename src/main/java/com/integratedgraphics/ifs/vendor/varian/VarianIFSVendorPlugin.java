@@ -21,8 +21,8 @@ public class VarianIFSVendorPlugin extends NmrMLIFSVendorPlugin {
 	}
 
 	@Override
-	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
-		super.accept(extractor, fname, bytes);
+	public boolean accept(IFSExtractorI extractor, String fname, String zipName, byte[] bytes) {
+		super.accept(extractor, fname, zipName, bytes);
 		try {
 			NmrMLVarianAcquStreamReader varian = new NmrMLVarianAcquStreamReader(new ByteArrayInputStream(bytes));
 			Acqu acq = varian.read();

@@ -16,8 +16,8 @@ public class JCAMPDXIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	}
 
 	@Override
-	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
-		super.accept(extractor, fname, bytes);
+	public boolean accept(IFSExtractorI extractor, String fname, String zipName, byte[] bytes) {
+		super.accept(extractor, fname, zipName, bytes);
 		// TODO Auto-generated method stub
 		System.out.println("! TODO: accept JDX file " + fname);
 		return true;

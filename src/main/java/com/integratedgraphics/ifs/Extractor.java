@@ -303,6 +303,8 @@ public class Extractor implements IFSExtractorI {
 
 	private String ifsid;
 
+//	private Map<String, IFSVendorPluginI> zipNameVendors = new HashMap<>();
+
 	public Extractor() {
 		clearZipCache();
 		getStructurePropertyManager();
@@ -344,7 +346,7 @@ public class Extractor implements IFSExtractorI {
 
 		extractObjects(targetDir);
 
-		return findingAid.createSerialization((noOutput ? null : targetDir), findingAidFileNameRoot, createZippedCollection ? products : null, getSerializer());
+		return findingAid.createSerialization((noOutput && !createFindingAidsOnly ? null : targetDir), findingAidFileNameRoot, createZippedCollection ? products : null, getSerializer());
 	}
 
 	/**
@@ -371,6 +373,11 @@ public class Extractor implements IFSExtractorI {
 	@Override
 	public void addProperty(String key, Object val) {
 		propertyList.add(new Object[] { localName, key, val });
+	}
+
+	@Override
+	public IFSSpecDataFindingAid getFindingAid() {
+		return findingAid;
 	}
 
 	/**
@@ -819,6 +826,11 @@ public class Extractor implements IFSExtractorI {
 			if (obj != null) {
 				System.out.println(zipName);
 				ifsObjectCount++;
+//				IFSVendorPluginI vendor = zipNameVendors.get(zipName); 
+//				if (vendor != null) {
+//					vendor.processVendorFile(zipName);
+//					
+//				}
 				if (obj instanceof IFSDataObject || obj instanceof IFSStructureSpec)
 					haveData = true;
 			}
@@ -1288,9 +1300,9 @@ public class Extractor implements IFSExtractorI {
 						zos.write(bytes);
 					this.localName = localName;
 					if (mgr == null || mgr == vendor) {
-						vendor.accept(null, outName, bytes);
+						vendor.accept(null, outName, localName, bytes);
 					} else {
-						mgr.accept(this, outName, bytes);
+						mgr.accept(this, outName, localName, bytes);
 					}
 				}
 				if (doInclude)
@@ -1404,7 +1416,7 @@ public class Extractor implements IFSExtractorI {
 					this.localName = localName;
 					// indicating "this" here notifies the vendor plugin that
 					// this is a one-shot file, not a collection.
-					v.accept(this, refName, bytes);
+					v.accept(this, refName, zipName, bytes);
 					this.localName = oldLocal;
 				}
 				String type = (v == null ? null : v.getDatasetType(refName));
@@ -1764,4 +1776,11 @@ public class Extractor implements IFSExtractorI {
 
 	}
 
+//	/**
+//	 * Register a plug-in to process a given file
+//	 */
+//	@Override
+//	public void registerFileVendor(String fname, IFSVendorPluginI plugin) {
+//		zipNameVendors.put(fname, plugin);
+//	}
 }

@@ -6,7 +6,7 @@ public interface IFSPropertyManagerI {
 
 	boolean doExtract(String entryName);
 
-	boolean accept(IFSExtractorI extractor, String fname, byte[] bytes);
+	boolean accept(IFSExtractorI extractor, String fname, String zipName, byte[] bytes);
 
 	String getDatasetType(String refName);
 

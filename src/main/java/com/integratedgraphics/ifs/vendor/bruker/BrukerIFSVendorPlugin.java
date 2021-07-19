@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairspec.api.IFSExtractorI;
+import org.iupac.fairspec.core.IFSObject;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
 import org.iupac.fairspec.util.Util;
@@ -120,8 +121,8 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	 * 
 	 */
 	@Override
-	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
-		super.accept(extractor, fname, bytes);
+	public boolean accept(IFSExtractorI extractor, String fname, String zipName, byte[] bytes) {
+		super.accept(extractor, fname, zipName, bytes);
 		Map<String, String> map = null;
 		try {
 			map = JDXReader.getHeaderMap(new ByteArrayInputStream(bytes), null);
@@ -233,7 +234,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		try {
 			String filename = new File(fname).getAbsolutePath();
 			byte[] bytes = Util.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
-			new BrukerIFSVendorPlugin().accept(null, filename, bytes);
+			new BrukerIFSVendorPlugin().accept(null, filename, null, bytes);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

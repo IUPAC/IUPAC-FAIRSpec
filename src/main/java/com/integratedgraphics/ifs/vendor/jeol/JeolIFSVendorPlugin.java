@@ -21,8 +21,8 @@ public class JeolIFSVendorPlugin extends NmrMLIFSVendorPlugin {
 	}
 
 	@Override
-	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
-		super.accept(extractor, fname, bytes);
+	public boolean accept(IFSExtractorI extractor, String fname, String zipName, byte[] bytes) {
+		super.accept(extractor, fname, zipName, bytes);
 		try {
 			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(new ByteArrayInputStream(bytes));
 			Acqu acq = jeol.read();

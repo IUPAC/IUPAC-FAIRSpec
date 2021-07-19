@@ -129,4 +129,6 @@ public interface IFSVendorPluginI extends IFSPropertyManagerI {
 	
 	void setIndex(int index);
 
+//	void processVendorFile(String zipName);
+
 }

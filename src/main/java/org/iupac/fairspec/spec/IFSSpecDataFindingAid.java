@@ -378,4 +378,12 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		}
 	}
 
+	public IFSStructure getCurrentStructure() {
+		return currentStructure;
+	}
+	
+	public IFSSpecData getCurrentSpecData() {
+		return currentSpecData;
+	}
+
 }

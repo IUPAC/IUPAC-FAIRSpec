@@ -1,14 +1,21 @@
 package com.integratedgraphics.ifs.vendor.mestrelab;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.iupac.fairspec.api.IFSExtractorI;
+import org.iupac.fairspec.core.IFSObject;
+import org.iupac.fairspec.spec.IFSSpecData;
+import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
+import org.iupac.fairspec.struc.IFSStructure;
 
 import com.integratedgraphics.ifs.util.IFSDefaultVendorPlugin;
 import com.integratedgraphics.ifs.vendor.mestrelab.MNovaMetadataReader.Param;
@@ -23,9 +30,11 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	private Map<String, Object> params;
 
-	private String fileName;	
-
 	private int page = 0;
+
+	private String fullFileName;	
+
+	private String zipName;
 
 	static {
 		String[] keys = { //
@@ -52,16 +61,16 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	}
 	
 	@Override
-	public boolean accept(IFSExtractorI extractor, String fname, byte[] bytes) {
-		if (super.accept(extractor, fname, bytes)) {
-			close();
-		}
+	public boolean accept(IFSExtractorI extractor, String fname, String zipName, byte[] bytes) {
+		super.accept(extractor, fname, zipName, bytes);
 		MNovaMetadataReader reader;
 		try {
 			page = 0;
 			params = null;
 			reader = new MNovaMetadataReader(this, new ByteArrayInputStream(bytes));
-			fileName = fname;
+			fullFileName = fname;
+			this.zipName = zipName;
+			//extractor.registerFileVendor(zipName, this);
 			if (reader.process()) {
 				addParams();
 				close();
@@ -76,7 +85,8 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	@Override
 	public String getVendorName() {
-		return "Mestrelab";
+		String origin = (String) (params == null ? null : params.get("Origin"));
+		return "Mestrelab"  + (origin == null ? "": "/" + origin);
 	}
 
 	@Override
@@ -87,8 +97,6 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	// called from MNovaReader
 	
 	private boolean isJDF;
-
-//	private boolean is2D;
 
 	private String nuc1;
 
@@ -106,26 +114,6 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 			String key0 = key;
 			val = val.trim();
 			switch (key) {
-//			case "NUC12":
-//			if (is2D) {
-//				int pt = val.indexOf(",");
-//				if (pt >= 0) {
-//					key = "N2";
-//					val = val.substring(0, pt);
-//					int i = 0;
-//					while (i < val.length() && Character.isDigit(val.charAt(i)))
-//						i++;
-//					while (i < val.length() && !Character.isDigit(val.charAt(i)))
-//						i++;
-//					val = val.substring(i).trim();
-//					nuc2 = val;
-//				}
-//			}
-//			break;
-//			case "DIM":
-//			case "Experiment":
-//				//is2D = val.equals("2D");
-//				break;
 			case "Data File Name":
 				isJDF = (val.endsWith(".jdf"));
 				break;
@@ -172,14 +160,19 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 				oval = val;
 			params.put(key, oval);
 			System.out.println("----------- page " + page + " " 
-					+ key + " = " + oval + " was " + key0 + " " + param1 + (param2 == null ? "" : "/" + param2));
+					+ key + " = " + oval + " was " + key0 + " " + param1 + (param2 == null ? "" : "/ " + param2));
 		}
 	}
 
+	List<Map<String, Object>> pageList = new ArrayList<>();
+	
 	void newPage() {
-		addParams();
-		System.out.println("------------ page " + ++page);
+		clearParams();
 		params = new HashMap<>();
+		params.put("_fileName", zipName);
+		params.put("mnovaVersion", mnovaVersion);
+		pageList.add(params);
+		System.out.println("------------ page " + ++page);
 		return;
 	}
 	
@@ -193,15 +186,26 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	 * 
 	 */
 	private void addParams() {
-		if (params != null) {
-			double f = getNominalFrequency(freq, nuc1);
-			System.out.println("nom freq " + f + " for " + nuc1 + " " + nuc2 + " " + freq);
-			params.put("SF", f);
-			for (Entry<String, Object> p: params.entrySet()) {
-				report(p.getKey(), p.getValue());				
-			}
-			System.out.println(params);
+		if (pageList.size() == 0)
+			return;
+		clearParams();
+		if (pageList.size() == 1) {
+			processSpec(pageList.get(0));
+			params = null;
+			return;
 		}
+		System.out.println("?? multiple spectra in MNova file");
+	}
+
+	private void processSpec(Map<String, Object> params) {
+		this.params = params;
+		reportName();
+			for (Entry<String, Object> p: params.entrySet()) {
+				String key = p.getKey();
+				if (!key.startsWith("_"))
+					report(key, p.getValue());				
+			}
+//		extractor.registerFileVendor(zipName, null);
 	}
 
 	/**
@@ -214,20 +218,39 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		String k = ifsMap.get(key);
 		addProperty(k == null ? key : k, val);
 	}
+
 	private void close() {
-		addParams();
-		System.out.println("MestreLabIFSVendorPlugin done " + page + " pages for " + fileName);
+		System.out.println("MestreLabIFSVendorPlugin done " + page + " pages for " + fullFileName);
+		clearParams();
 		page = 0;
-		params = null;
-		isJDF = false;//is2D = false;
-		nuc1 = nuc2 = null;
-		freq = 0;
-		return;
 	}
 	
+	private void clearParams() {
+		if (params != null && freq != 0) {
+			double f = getNominalFrequency(freq, nuc1);
+			System.out.println("nom freq " + f + " for " + nuc1 + " " + nuc2 + " " + freq);
+			params.put("SF", f);
+		}
+		params = null;
+		isJDF = false;
+		freq = 0;
+		nuc1 = nuc2 = null;
+		mnovaVersion = null;
+	}
+
 	void setVersion(String mnovaVersion) {
 		this.mnovaVersion = mnovaVersion;
 	}
 
-
+//	@Override
+//	public void processVendorFile(String zipName) {
+//		for (int i = pageList.size(); --i >= 0;) {
+//			Map<String, Object> p = pageList.get(i);
+//			if (p.get("_fileName").equals(zipName)) {
+//				processSpec(p);
+//			}
+//		}
+//	}
+	
+	
 }

@@ -63,26 +63,26 @@ public class ExtractorTest extends Extractor {
 	public static void main(String[] args) {
 
 		String sourceDir = "c:/temp/iupac/zip";// null or a local dir if you have already downloaded the zip files
-		boolean debugReadOnly = true;
+		boolean debugReadOnly = false;
 
 		// normally false:
 		
 		readOnly = debugReadOnly; // for testing; when true, not output other than a log file is produced
 		debugging = false; // true for verbose listing of all files
-		createFindingAidsOnly = false; // true if extraction files already exist or you otherwise don't want not write
-		allowNoPubInfo = debugReadOnly; // true to allow no internet connection and so no pub calls
-		skipPubInfo = debugReadOnly;
+		createFindingAidsOnly = true;//false; // true if extraction files already exist or you otherwise don't want not write
+		allowNoPubInfo = true;//debugReadOnly; // true to allow no internet connection and so no pub calls
+		skipPubInfo = true;//debugReadOnly;
 		
 		// normally true:
 		
 		// this next is independent of readOnly
 		createZippedCollection = !debugReadOnly; // false to bypass final creation of an _IFS_collection.zip file
-		createFindingAidJSONList = !debugReadOnly; // false for testing and you don't want to mess up _IFS_findingaids.json
+		createFindingAidJSONList = false;//!debugReadOnly; // false for testing and you don't want to mess up _IFS_findingaids.json
 
 		stopOnAnyFailure = true; // set false to allow continuing after an error.
 
-		int first =0; // first test to run
-		int last = 0; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+		int first =12; // first test to run
+		int last = 12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 						// file test
 
 		String targetDir = "./site/ifs";
