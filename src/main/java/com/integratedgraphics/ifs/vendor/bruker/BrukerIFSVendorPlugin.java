@@ -9,6 +9,7 @@ import java.util.Map;
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
+import org.iupac.fairspec.util.Util;
 
 import com.integratedgraphics.ifs.api.IFSVendorPluginI;
 import com.integratedgraphics.ifs.util.IFSDefaultVendorPlugin;
@@ -231,7 +232,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		System.out.println("====================" + fname);
 		try {
 			String filename = new File(fname).getAbsolutePath();
-			byte[] bytes = Rdr.getLimitedStreamBytes(new FileInputStream(filename), -1);
+			byte[] bytes = Util.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
 			new BrukerIFSVendorPlugin().accept(null, filename, bytes);
 		} catch (Exception e) {
 			e.printStackTrace();

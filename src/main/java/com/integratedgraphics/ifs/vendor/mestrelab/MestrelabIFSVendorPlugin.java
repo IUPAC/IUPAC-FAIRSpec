@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
@@ -95,6 +96,8 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	private double freq;
 
+	private String mnovaVersion;
+
 	public void addParam(String key, String val, Param param1, Param param2) {
 		if (param1 != null)
 			val = (param1.value == null || param1.value.length() == 0 ? param1.calc : param1.value);
@@ -149,7 +152,22 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 					params.put("F2", Double.valueOf(param2.value));
 				}
 				break;
+			case "Spectral Width":
+			case "Receiver Gain":
+			case "Purity":
+			case "Relaxation Delay":
+			case "Spectrum Quality":
+			case "Lowest Frequency":
+			case "Acquisition Time":
+				oval = Double.valueOf(Double.parseDouble(val));
+				break;
+			case "Number of Scans":
+			case "Acquired Size":
+			case "Spectral Size":
+				oval = Integer.valueOf(Integer.parseInt(val));
+				break;
 			}
+			
 			if (oval == null)
 				oval = val;
 			params.put(key, oval);
@@ -170,16 +188,32 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	}
 
 	// private
-	
+
+	/**
+	 * 
+	 */
 	private void addParams() {
 		if (params != null) {
 			double f = getNominalFrequency(freq, nuc1);
 			System.out.println("nom freq " + f + " for " + nuc1 + " " + nuc2 + " " + freq);
 			params.put("SF", f);
+			for (Entry<String, Object> p: params.entrySet()) {
+				report(p.getKey(), p.getValue());				
+			}
 			System.out.println(params);
 		}
 	}
 
+	/**
+	 * Report the found property back to the IFSExtractorI class.
+	 * 
+	 * @param key
+	 * @param val if null, this property is removed
+	 */
+	protected void report(String key, Object val) {
+		String k = ifsMap.get(key);
+		addProperty(k == null ? key : k, val);
+	}
 	private void close() {
 		addParams();
 		System.out.println("MestreLabIFSVendorPlugin done " + page + " pages for " + fileName);
@@ -189,6 +223,10 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		nuc1 = nuc2 = null;
 		freq = 0;
 		return;
+	}
+	
+	void setVersion(String mnovaVersion) {
+		this.mnovaVersion = mnovaVersion;
 	}
 
 

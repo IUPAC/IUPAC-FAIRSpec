@@ -1,5 +1,7 @@
 package com.integratedgraphics.ifs.vendor.jeol;
 
+import java.io.ByteArrayInputStream;
+
 /*
  * derived from NmrMLJeolAcquReader
  * 
@@ -62,7 +64,6 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 
 		int endian = readByte();
 		ByteOrder byteOrder = (endian == 1 ? ByteOrder.LITTLE_ENDIAN : ByteOrder.BIG_ENDIAN);
-		setByteOrder(byteOrder);
 		acquisition.setByteOrder(byteOrder);
 		acquisition.setBiteSyze(8);
 
@@ -155,6 +156,7 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 			System.out.println("------");
 
 		skipIn(Param_Start - 1296);//// seek(Param_Start);
+		setByteOrder(byteOrder);
 		int Parameter_Size = readInt();
 		int Low_Index = readInt();
 		int High_Index = readInt();
@@ -428,11 +430,16 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 	}
 
 	public final static void main(String[] args) {
+		String testFile = "test/jeol/1d_1d-13C.jdf";
+		String fname = (args.length == 0 ? testFile : args[0]);
+		testing = false;
+		showInts = false;
+		showChars = false;
 		try {
-			String f = new File("test/jeol/1d_1d-13C.jdf").getAbsolutePath();
-			FileInputStream fis = new FileInputStream(f);
-			Acqu acq = new NmrMLJeolAcquStreamReader(fis).read();
-			fis.close();
+			String filename = new File(fname).getAbsolutePath();
+			byte[] bytes = Util.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
+			System.out.println(bytes.length + " bytes in " + filename);
+			Acqu acq = new NmrMLJeolAcquStreamReader(new ByteArrayInputStream(bytes)).read();
 			System.out.println(acq);
 		} catch (Exception e) {
 			e.printStackTrace();
