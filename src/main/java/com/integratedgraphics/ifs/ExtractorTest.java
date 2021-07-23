@@ -70,18 +70,18 @@ public class ExtractorTest extends Extractor {
 		readOnly = debugReadOnly; // for testing; when true, not output other than a log file is produced
 		debugging = false; // true for verbose listing of all files
 		createFindingAidsOnly = true;//false; // true if extraction files already exist or you otherwise don't want not write
-		allowNoPubInfo = true;//debugReadOnly; // true to allow no internet connection and so no pub calls
-		skipPubInfo = true;//debugReadOnly;
+		allowNoPubInfo = debugReadOnly; // true to allow no internet connection and so no pub calls
+		skipPubInfo = debugReadOnly;
 		
 		// normally true:
 		
 		// this next is independent of readOnly
 		createZippedCollection = !debugReadOnly; // false to bypass final creation of an _IFS_collection.zip file
-		createFindingAidJSONList = false;//!debugReadOnly; // false for testing and you don't want to mess up _IFS_findingaids.json
+		createFindingAidJSONList = !debugReadOnly; // false for testing and you don't want to mess up _IFS_findingaids.json
 
 		stopOnAnyFailure = true; // set false to allow continuing after an error.
 
-		int first =12; // first test to run
+		int first =0; // first test to run
 		int last = 12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 						// file test
 
