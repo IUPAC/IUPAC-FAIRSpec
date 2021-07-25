@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteOrder;
+import java.util.List;
 
 import org.iupac.fairspec.util.Util;
 
@@ -31,8 +32,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 
 	private int nPages = 0;
 	private String mnovaVersion;
-	private long ptrToVersion;
-	private int mnovaVersionXX;
+	private int mnovaVersionNumber;
 
 	MNovaMetadataReader(MestrelabIFSVendorPlugin mestrelabIFSVendorPlugin, InputStream in) throws IOException {
 		super(in);
@@ -41,7 +41,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 
 	/**
 	 * 
-	 * @param extractor
+	x``` * @param extractor
 	 * @return
 	 */
 	public boolean process() {
@@ -77,10 +77,10 @@ class MNovaMetadataReader extends ByteBlockReader {
 					readItems();
 					break;
 				case 3:
-					readPages(3);
+					readPages();
 					break;
 				default:
-					if (!readBlock(i))
+					if (!readBlock())
 						break out;
 				}
 			}
@@ -99,7 +99,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	}
 
 	private boolean readBlock1() throws IOException {
-		readBlock(1);
+		readBlock();
 		// 0x10
 		// 0xFA1E5CE
 		// 0x1E094C2F
@@ -182,47 +182,9 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * @throws IOException
 	 */
 	private boolean readBlock0() throws IOException {
-		int len0 = readInt(); // to just after version
-		ptrToVersion = readPointer();
-		long pos = readPosition(); // 35
-		readInt();// -> 3393
-		readInt();// -> 3381
-		readInt();// -> 3365
-		readInt();// -> 3364
-		readInt();// -> 3363
-		int flag = readShort();
-		if (flag == 1) {
-			readInt();
-			readInts(7); // 8 0 0 0 4 0 1
-			readByte(); // 110 0x6E
-			readInt(); // 0
-			readInt(); // 8
-			readInt(); // 0
-			readInt(); // 0
-			// was "block1"
-			readVersion();
-			return true;
-		}
-		skipInTo(ptrToVersion);
+		readInt(); // to just after version
+		readBlock();
 		readVersion();
-//		readShort(); // 0xD6
-//		readInt();// 0xC6
-//		readInt();// 0
-//		readInt();// 0
-//		readInt();// 66
-//		readUTF16String();// MS Shell Dlg 2
-//		readInts(4);
-//		readByte(); // 0x10
-//		readUTF16String(); // {index}
-//		readInts(6);
-//		readInt(); // 36 --> 206
-//		readUTF16String();// MS Shell Dlg 2
-//		readInts(4);
-//		readByte(); // 0x10
-//		readUTF16String(); // {name, 0}
-//		readByte();// 1
-//		peekInts(100);
-//		readInts(9);
 		return true;
 	}
 
@@ -234,75 +196,10 @@ class MNovaMetadataReader extends ByteBlockReader {
 			plugin.setVersion(mnovaVersion);
 		System.out.println("MNova version " + mnovaVersion);
 		try {
-			mnovaVersionXX = Integer.parseInt(mnovaVersion.substring(0, mnovaVersion.indexOf(".")));			
+			mnovaVersionNumber = Integer.parseInt(mnovaVersion.substring(0, mnovaVersion.indexOf(".")));			
 		} catch (NumberFormatException nfe) {
-			mnovaVersionXX = Integer.MAX_VALUE;
+			mnovaVersionNumber = Integer.MAX_VALUE;
 		}
-	}
-
-	private void readParams0() throws IOException {
-		readInt(); // 30 @4781 -taxol
-		readInt(); // D
-		readInt(); // 5
-		readByte(); // 0
-		readInt(); // 1
-		int type = readInt(); // 0
-		int count = readInt(); // 0
-		readInt(); // 5
-		readShort();
-		readByte();
-		readByte(); // 1
-		readInt();
-		readByte(); // 0
-		readInt(); // -1
-		readByte();
-		readInt();// 35 0x23 -> 4863
-		readInts(4);
-		readInt(); // 0x3A
-		readInt(); // 2
-		readLenString(); // timestamp
-		readByte(); // 7
-		readInts(3);
-		readLenString(); // origin
-		readInt(); // 0A
-		readUTF16String(); // Mnova
-		int len1 = readInt(); // -> 5072
-		readLenString(); // C 0 0 0 0
-
-		readBlock(0);
-//		readInt(); // 0x7c
-//		readInt(); // 1
-//		readInt(); // 25
-//		readInt(); // 17
-//		readInt(); // 5
-//		readInt(); // 0
-//		readInt(); // 0
-//		readInt(); // 0
-//		readInt(); // 0
-//		readByte(); // 0
-//		readInt(); // 0
-//		peekInts(60);
-//		readInt();
-		long pt = readPointer();
-//		readInt(); // 110 -> 5310
-//		readInt(); // ->5759		
-//		readInt(); // ->5755
-//
-//		readInt(); // ->5735
-//		readInt(); // ->5727
-//		readInt(); // ->5723
-//		readInt(); // ->5719
-//		readInt(); // ->5715
-//		
-//		readInt(); // ->5711
-//		readInt(); // 8
-//		readInt(); // 0
-//		readInt(); // 0
-//		readInt(); // 0
-
-		skipInTo(pt);
-		return;
-//		return;
 	}
 
 	/**
@@ -403,7 +300,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 			readInt(); // 0xC
 			if (peekInt() == 0) {
 				readInts(3); // ?
-				readBlock(-1);
+				readBlock();
 			}
 			String itemType = readLenString(); // "Item Type"
 			String subtype = readLenString(); // "NMR Spectrum"
@@ -435,212 +332,44 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 */
 	private final static int[] paramsKey = new int[] { 0xD, 0x5, 0x0 };
 
-	private void readPages(int i) throws IOException {
+	private void readPages() throws IOException {
 		if (testing)
-			System.out.println("---readSpecInfo " + readPosition()); // 38628 - 39077
+			System.out.println("---readPages " + readPosition()); // 38628 - 39077
+		peekInts(50);
 		readInt(); // to EOF
-		//peekInts(50);
-		readBlock(i);
-//		skipBlock(); // 32 bytes
-		readInts(4); // also to EOF
-		// TODO: Properly check for end of pages
-		boolean done = false;
-		while (readAvailable() > 0 && !done) {
-			if (testing)
-				System.out.println("---read spec at " + readPosition());
-			switch (peekInt()) {
-			case 40:
+		readPageInsets();
+		readLong(); // long to EOF
+		int nPages = readInt();
+		readInt();  // also to EOF
+		for (int i = 0; i < nPages; i++) {
 				readPage(i);
-				break;
-			case 61:
-				readPage14(i);
-				break;
-			default:
-				done = true;
-				break;
-			}
 		}
 		if (testing)
 			System.out.println("---read done ");
+	}
+
+	private void readPageInsets() throws IOException {
+		skipBlock(); // 32 bytes
+		// pairs of integers, e.g. (0,0), (296,209), (5,5) (291, 204)
 	}
 
 	/**
 	 * Just skipping most of this information now, but it gives us the pointer we
 	 * need for skipping to the next block.
 	 * 
-	 * @param i
+	 * @param index
 	 * @return
 	 * @throws IOException
 	 */
-	private void readPage(int i) throws IOException {
-		//peekInts(60);
-		readBlock(i);
-//		skipBlock(); // 40
-		if (readAvailable() == 0)
-			return;
+	private void readPage(int index) throws IOException {
+
+		readBlock(); // 40 or 61 bytes, depending upon version
 		if (plugin != null)
 			plugin.newPage();
 		nPages++;
-		System.out.println("reading page " + nPages);
-		int len = readInt(); // to next spectrum
-		long pos = readPosition();
-		int skip = findIn(paramsKey, len, false);
-		if (skip >= 4) {
-			// actually targeting the integer just before 0x0000000D0000000500000000, which
-			// holds the number of parameters.
-			skipIn(skip - 4);
-			readParams();
-		}
-		skipInTo(pos + len);
-
-//		readBlock(i); // 40
-//		readBlock(i); // 32
-//		readInts(10);
-//		readInts(12);
-//		// looking for "1D" or "2D" -- seems to be variable length
-//		while (peekInt() != 4) {
-//			readInt();
-//		}
-//		String dim = readUTF16String(); // 1D
-//		String nuc = readUTF16String(); // 13C
-//		// 2D will report "1H13C, Unknown"
-//		//plugin.addParam("DIM", dim, null, null);
-//		//plugin.addParam("NUC12", nuc, null, null);
-//		readInts(15);
-//		readDouble();
-//		readDouble();
-//		readByte();
-//		readInts(15);
-//		readLenString(); // NMR Spectrum
-//		readUTF16String(); // N M R
-//		readDoubleBox();
-
-//		// all this next varies with spectrum - test 5 only
-//		readByte();
-//		readInts(46);
-//		readByte();
-//		readInts(30);
-//		readByte();
-//		readShort();
-//		readInts(2);
-//		readUTF16String(); // SimSun
-//		readInts(8);
-//		readUTF16String(); // MNova Default
-//		readInt();
-//		readInts(2); // 2E wrap
-//		readUTF16String(); // Red-Blue (Gradient)
-//		readBlock(i); // 464 block of gradient colors
-//		readByte();
-//		readShort();
-//		readInts(2);
-//		//
-////		skip(479);
-//		readUTF16String(); // Helvetica
-//		readInts(44); // more?
-//		readInts(44); // more?
-//		readInts(44); // more?
-//		readInts(2);
-//		readInts(4);
-//		readUTF16String(); // Arial
-//		readInts(39); // more?
-//		readUTF16String(); // f1 (ppm)
-//		readByte();
-//		readShort();
-//		readInts(24);
-//		readUTF16String(); // Intensity
-//		readByte();
-//		readShort();
-//		readInts(52);
-//		readUTF16String(); // Helvetica
-//		readInts(66);
-//		readUTF16String(); // Standard
-//		readBlock(i); // 464 block of gradient colors
-//		readInts(3);
-//		readUTF16String(); // Arial
-//		readInts(83);
-//		readUTF16String(); // Arial
-//		readByte();
-//		readShort();
-//		readInts(25); // more?
-//		readUTF16String(); // Arial
-//		readByte();
-//		readShort();
-//		readInts(78);
-//		readUTF16String(); // SimSun
-//		readInts(41);
-//		readUTF16String(); // Arial
-//		readInts(15);
-//		readUTF16String(); // SimSun
-//		readByte();
-//		readInts(21);
-//		readUTF16String(); // MNovaDecault
-//		readByte();
-//		readShort();
-//		readInts(14);
-//		readUTF16String(); // SimSun
-//		readByte();
-//		readShort();
-//		readInts(29);
-//		readUTF16String(); // SimSun
-//		readInts(14);
-//		readUTF16String(); // SimSun
-//		readByte();
-//		readShort();
-//		readInts(14);
-//		readUTF16String(); // SimSun
-//		readByte();
-//		readShort();
-//		readInts(20);
-//		readUTF16String(); // SimSun
-//		readShort();
-//		readInts(18);
-//		readUTF16String(); // Standard
-//		readBlock(i); // 464 block of gradient colors
-//		readInts(3);
-//		readInts(10);
-//		readUTF16String(); // SimSun
-//		readInts(6);
-//		readInts(43);
-//		readUTF16String(); // SimSun
-//		readByte();
-//		readInts(26);
-//		readUTF16String(); // SimSun
-//		readByte();
-//		readShort();
-//		readInts(14);
-//		readUTF16String(); // SimSun
-//		readShort();
-//		readInts(69);
-//		readUTF16String(); // SimSun
-//		readByte();
-//		readShort();
-//		readInts(10);
-//		readUTF16String(); // $ d ....
-//		readUTF16String(); // Intensity
-//		readByte();
-//		readShort();
-//		readInts(45);
-//		readShort();
-//		readInts(45);
-//		readByte();
-//		readShort();
-//		readInts(202);
-//		readInt(); // 00 00 0FED @ 20425
-//		readInt(); // 0
-//		return pt;
-	}
-
-	private void readPage14(int i) throws IOException {
-		readBlock(i);
-//		skipBlock(); // 40
-		if (readAvailable() == 0)
-			return;
-		if (plugin != null)
-			plugin.newPage();
-		nPages++;
-		int len = peekInt(); // to next spectrum
+		System.out.println("reading page " + (index + 1));
+		int len = peekInt(); // to next spectrum or EOF
 		long pt = readPointer();
-		System.out.println("reading page " + nPages + " " + readPosition() + " " + pt);
 		int skip = findIn(paramsKey, len, false);
 		if (skip >= 4) {
 			// actually targeting the integer just before 0x0000000D0000000500000000, which
@@ -649,142 +378,6 @@ class MNovaMetadataReader extends ByteBlockReader {
 			readParams();
 		}
 		skipInTo(pt);
-
-//		readBlock(i); // 40
-//		readBlock(i); // 32
-//		readInts(10);
-//		readInts(12);
-//		// looking for "1D" or "2D" -- seems to be variable length
-//		while (peekInt() != 4) {
-//			readInt();
-//		}
-//		String dim = readUTF16String(); // 1D
-//		String nuc = readUTF16String(); // 13C
-//		// 2D will report "1H13C, Unknown"
-//		//plugin.addParam("DIM", dim, null, null);
-//		//plugin.addParam("NUC12", nuc, null, null);
-//		readInts(15);
-//		readDouble();
-//		readDouble();
-//		readByte();
-//		readInts(15);
-//		readLenString(); // NMR Spectrum
-//		readUTF16String(); // N M R
-//		readDoubleBox();
-
-//		// all this next varies with spectrum - test 5 only
-//		readByte();
-//		readInts(46);
-//		readByte();
-//		readInts(30);
-//		readByte();
-//		readShort();
-//		readInts(2);
-//		readUTF16String(); // SimSun
-//		readInts(8);
-//		readUTF16String(); // MNova Default
-//		readInt();
-//		readInts(2); // 2E wrap
-//		readUTF16String(); // Red-Blue (Gradient)
-//		readBlock(i); // 464 block of gradient colors
-//		readByte();
-//		readShort();
-//		readInts(2);
-//		//
-////		skip(479);
-//		readUTF16String(); // Helvetica
-//		readInts(44); // more?
-//		readInts(44); // more?
-//		readInts(44); // more?
-//		readInts(2);
-//		readInts(4);
-//		readUTF16String(); // Arial
-//		readInts(39); // more?
-//		readUTF16String(); // f1 (ppm)
-//		readByte();
-//		readShort();
-//		readInts(24);
-//		readUTF16String(); // Intensity
-//		readByte();
-//		readShort();
-//		readInts(52);
-//		readUTF16String(); // Helvetica
-//		readInts(66);
-//		readUTF16String(); // Standard
-//		readBlock(i); // 464 block of gradient colors
-//		readInts(3);
-//		readUTF16String(); // Arial
-//		readInts(83);
-//		readUTF16String(); // Arial
-//		readByte();
-//		readShort();
-//		readInts(25); // more?
-//		readUTF16String(); // Arial
-//		readByte();
-//		readShort();
-//		readInts(78);
-//		readUTF16String(); // SimSun
-//		readInts(41);
-//		readUTF16String(); // Arial
-//		readInts(15);
-//		readUTF16String(); // SimSun
-//		readByte();
-//		readInts(21);
-//		readUTF16String(); // MNovaDecault
-//		readByte();
-//		readShort();
-//		readInts(14);
-//		readUTF16String(); // SimSun
-//		readByte();
-//		readShort();
-//		readInts(29);
-//		readUTF16String(); // SimSun
-//		readInts(14);
-//		readUTF16String(); // SimSun
-//		readByte();
-//		readShort();
-//		readInts(14);
-//		readUTF16String(); // SimSun
-//		readByte();
-//		readShort();
-//		readInts(20);
-//		readUTF16String(); // SimSun
-//		readShort();
-//		readInts(18);
-//		readUTF16String(); // Standard
-//		readBlock(i); // 464 block of gradient colors
-//		readInts(3);
-//		readInts(10);
-//		readUTF16String(); // SimSun
-//		readInts(6);
-//		readInts(43);
-//		readUTF16String(); // SimSun
-//		readByte();
-//		readInts(26);
-//		readUTF16String(); // SimSun
-//		readByte();
-//		readShort();
-//		readInts(14);
-//		readUTF16String(); // SimSun
-//		readShort();
-//		readInts(69);
-//		readUTF16String(); // SimSun
-//		readByte();
-//		readShort();
-//		readInts(10);
-//		readUTF16String(); // $ d ....
-//		readUTF16String(); // Intensity
-//		readByte();
-//		readShort();
-//		readInts(45);
-//		readShort();
-//		readInts(45);
-//		readByte();
-//		readShort();
-//		readInts(202);
-//		readInt(); // 00 00 0FED @ 20425
-//		readInt(); // 0
-//		return pt;
 	}
 
 	/**
@@ -793,10 +386,13 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * @throws IOException
 	 */
 	private void readParams() throws IOException {
+
+		System.out.println("readParams0 " + readPosition());
 		int n = readInt();
 		for (int i = 0; i < n; i++) {
 			readParam(i);
 		}
+		System.out.println("readParams1 " + readPosition());
 		return;
 
 	}
@@ -874,6 +470,8 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * @throws IOException
 	 */
 	private void readParam(int index) throws IOException {
+		System.out.println("readParam " + index + " " + readPosition());
+
 		//peekInts(80);
 		readInt(); // D
 		readInt(); // 5
@@ -888,7 +486,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		if (plugin != null)
 			plugin.addParam(key, null, param1, param2);
 		if (testing)
-			System.out.println(" param " + (index + 1) + ": " + type + " " + param1 + " " + param2);
+			System.out.println(" param " + (index + 1) + ": type=" + type + " p1=" + param1 + " p2=" + param2);
 	}
 
 	/**
@@ -898,48 +496,22 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 */
 	@SuppressWarnings("unused")
 	private void test() throws IOException {
-		if (!testing)
-			return;
-		// Q: In 3a-C.mnova (test #5), is the temperature saved in binary format?
-		// System.out.println(findDoubleApprox(298.5953, 6, -1));
-		// A: no
-		// How about the spec freq for carbon?
-//		int pt = findDouble(100.622829328806,-1);
-		// yes, 38402
-//		checkDouble(pt-32, 10);
-//		0 3 = c09e9b9b9c3f66d8	-1958.901963225033
-//		0 4 = 405927dc6f8b8d88	100.622829328806
-//		0 5 = 40d7799d89d89d7d	24038.46153846149
-//		0 6 = 4050fef8c0000001	67.9839324951172
-//		0 7 = c0030064df5ebfa8	-2.375192399100303
-//		0 8 = 3fc94f5fcc4607da	0.19773480867666998
-//		0 9 = c01803273e4a7afe	-6.0030793889006855
-
-		// Q: In 1.mnova (test #0), where is the spectrometer frequency?
-//		int pt = findDouble(400.13280091,-1, true);
-//		checkDouble(pt-32, 10);
-//		checkDouble(66243-32, 10);
-//		0 3 = c08926dfb45f1ed0	-804.8592307502058
-//		0 4 = 4079021ff3d8d544	400.13280091   ##$SFO1
-//		0 5 = 40bc2b89d89d89e4	7211.538461538472 ##$SW_h
-//		0 6 = 4050ff18c0000001	67.9858856201172 ##$GRPDLY
-//		0 7 = c01147a67363ea9f	-4.319970896695536
-//		0 8 = 3fc6eed117459591	0.17916310917204872
-//		0 9 = c08a3d343e377689	-839.650509293847
-//		4 6 = c0000001c01147a6	-2.000003338363018
-//		4 9 = 3e37768900000000	5.462911900622203E-9
-
-		
-//		 findRef(106);
-//		 findRef(8030); // 1-v14.mnova to version
+//		if (!testing)
+//			return;
+//		checkDouble(38969, 4);
+//		skipInTo(38965);
+//		peekInts(100);
+//		findRef(42031);
+//		traceRef(39135, true);
+		return;
 	}
 
 	public static void main(String[] args) {
 		String testFile;
-		//testFile = "test/mnova/3a-C.mnova"; // OK one page
+		testFile = "test/mnova/3a-C.mnova"; // OK one page
 		//testFile = "test/mnova/1.mnova"; // OK two pages
 		//testFile = "test/mnova/1-v14.mnova"; // OK two pages
-		testFile = "test/mnova/3a-C-taxol.mnova"; // (v 14) OK, but looking for model
+		//testFile = "test/mnova/3a-C-taxol.mnova"; // (v 14) OK, but looking for model
 		String fname = (args.length == 0 ? testFile : args[0]);
 		try {
 			testing = true;
@@ -957,14 +529,3 @@ class MNovaMetadataReader extends ByteBlockReader {
 	}
 }
 
-// references to EOF 
-//834277 bytes in C:\Users\hansonr\git\IUPAC-FAIRSpec\test\mnova\1-v14.mnova
-//8135	0x1fc7	+	826138	0xc9b1a	=	834277
-//8179	0x1ff3	+	826094	0xc9aee	=	834277
-//8187	0x1ffb	+	826086	0xc9ae6	=	834277
-//456366	0x6f6ae	+	377907	0x5c433	=	834277
-//456470	0x6f716	+	377803	0x5c3cb	=	834277
-//456478	0x6f71e	+	377795	0x5c3c3	=	834277
-//818002	0xc7b52	+	16271	0x3f8f	=	834277
-//818566	0xc7d86	+	15707	0x3d5b	=	834277
-//818586	0xc7d9a	+	15687	0x3d47	=	834277

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A reader that can process blocks that contain an initial byte length followed
@@ -193,7 +195,7 @@ public class ByteBlockReader {
 		position++;
 		int b = in.read();
 		if (testing)
-			System.out.println("readByte " + b + " = 0x" + Integer.toHexString(b).toUpperCase());
+			dump("Byte", b, Integer.toHexString(b).toUpperCase(), "");
 		return b;
 	}
 
@@ -207,7 +209,7 @@ public class ByteBlockReader {
 		setBuf(2);
 		int i = buffer.getShort();
 		if (testing)
-			System.out.println("readShort " + i + " = 0x" + Integer.toHexString(i).toUpperCase());
+			dump("Short", i, Integer.toHexString(i).toUpperCase(), "");
 		return i;
 	}
 
@@ -221,9 +223,7 @@ public class ByteBlockReader {
 		setBuf(4);
 		int i = buffer.getInt();
 		if (testing && showInts) {
-			String s = (showChars ? new String(getBuf(), 0, 4) : "");
-			System.out.println("readInt " + (position - 4) + ": " + i + " = 0x" + Integer.toHexString(i).toUpperCase()
-					+ " -> " + (position + i) + " " + s);
+			dump("Int", i, toHex(i), (showChars ? new String(getBuf(), 0, 4) : ""));
 		}
 		return i;
 	}
@@ -236,7 +236,26 @@ public class ByteBlockReader {
 	 */
 	protected long readLong() throws IOException {
 		setBuf(8);
-		return buffer.getLong();
+		long l = buffer.getLong();
+		if (testing)
+			dump("Long", l, toHex(l), "");
+		return l;
+	}
+
+	
+	private void dump(String type, long val, String hex, String s) {
+		System.out.println("read" + type + " " + (position - 4) + ": " + hex
+		+ " " + val + " = " + " -> " + (position + val) + " " + s);
+	}
+
+	private String toHex(int i) {
+		String s= "00000000" + Integer.toHexString(i).toUpperCase();
+		return "0x" + s.substring(s.length() - 8) + " ";
+	}
+
+	private String toHex(long i) {
+		String s= "0000000000000000" + Long.toHexString(i).toUpperCase();
+		return "0x" + s.substring(s.length() - 16) + " ";
 	}
 
 	/**
@@ -566,12 +585,61 @@ public class ByteBlockReader {
 				break;
 			if (i + 4 + val == loc) {
 				if (testing)
-					System.out.println(i + "\t0x" + Integer.toHexString(i) + "\t+\t" + val + "\t0x"
-							+ Integer.toHexString(val) + "\t=\t" + loc);
+					System.out.println(i + "\t0x" + toHex(i) + "\t+\t" + val + "\t0x"
+							+ toHex(val) + "\t=\t" + loc);
 			}
 			buffer.position(++i);
 		}
 		resetIn();
+	}
+
+	protected List<Object> traceRef(int loc, boolean isTop) throws IOException {
+		List<Object> nextLevel = new ArrayList<>();
+		nextLevel.add(loc);
+		int n = readAvailable() - 4;
+		markIn(n + 4);
+		setBuf(n + 4);
+		for (int i = 0; i < n;) {
+			buffer.mark();
+			int val = buffer.getInt();
+			buffer.reset();
+			if (i >= loc)
+				break;
+			if (i + 4 + val == loc) {
+				if (testing)
+					System.out.println(i + "\t0x" + toHex(i) + "\t+\t" + val + "\t0x"
+							+ toHex(val) + "\t=\t" + loc);
+				nextLevel.add(i);				
+			}
+			buffer.position(++i);
+		}
+		resetIn();
+		for (int i = 1; i < nextLevel.size(); i++) {
+			loc = ((Integer) nextLevel.get(i)).intValue();
+			List<Object> tree = traceRef(loc, false);
+			if (tree.size() > 1)
+				nextLevel.set(i, tree);
+		}
+		if (isTop) {
+			System.out.println(loc);
+			dumpList(nextLevel, "");
+		}
+		return nextLevel;
+	}
+
+	private void dumpList(List<Object> nextLevel, String indent) {
+		indent += nextLevel.get(0) + " ";
+		for (int i = 1; i < nextLevel.size(); i++) {
+			Object o = nextLevel.get(i);
+			if (o instanceof List) {
+				dumpList((List<Object>) o, indent);
+			} else {
+				System.out.println(indent + o);
+			}
+			
+		}
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -603,7 +671,7 @@ public class ByteBlockReader {
 	protected void checkDouble(int loc, int n) throws IOException {
 
 		markIn(loc + n * 8 + 8);
-		skipIn(loc);
+		skipInTo(loc);
 		setBuf(n * 8 + 8);
 		for (int i = 0; i < 8;) {
 			markBuffer();
@@ -659,7 +727,7 @@ public class ByteBlockReader {
 	 * @throws IOException when that integer is less than 0 or greater than the
 	 *                     number of bytes available.
 	 */
-	protected boolean readBlock(int blockIndex) throws IOException {
+	protected boolean readBlock() throws IOException {
 		long pos = readPosition();
 		long navail = readAvailable();
 		if (navail == 0)
@@ -690,9 +758,9 @@ public class ByteBlockReader {
 	 * @return true if successful
 	 * @throws IOException
 	 */
-	protected boolean readSubblock(int i) throws IOException {
+	protected boolean readSubblock() throws IOException {
 		readInt(); // length
-		return readBlock(i);
+		return readBlock();
 	}
 
 	/**

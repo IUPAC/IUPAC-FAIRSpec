@@ -63,7 +63,7 @@ public class ExtractorTest extends Extractor {
 	public static void main(String[] args) {
 
 		String sourceDir = "c:/temp/iupac/zip";// null or a local dir if you have already downloaded the zip files
-		boolean debugReadOnly = false;
+		boolean debugReadOnly = true;
 
 		// normally false:
 		
@@ -81,8 +81,8 @@ public class ExtractorTest extends Extractor {
 
 		stopOnAnyFailure = true; // set false to allow continuing after an error.
 
-		int first =0; // first test to run
-		int last = 12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+		int first =5; // first test to run
+		int last = 5; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 						// file test
 
 		String targetDir = "./site/ifs";
