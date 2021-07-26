@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import org.iupac.fairspec.util.Util;
 import org.nmrml.parser.Acqu;
 
 import com.integratedgraphics.ifs.util.IFSDefaultVendorPlugin;
@@ -29,9 +30,9 @@ public class NmrMLConverterTest {
 			acq = varian.read();
 			fis.close();
 			setParams(varian.getDimension(), acq);
-
-			fis = newStream("test/jeol/1d_1d-13C.jdf");
-			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(fis);
+			String filename = "test/jeol/1d_1d-13C.jdf";
+			byte[] bytes = Util.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
+			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(bytes);
 			acq = jeol.read();
 			fis.close();
 			setParams(jeol.getDimension(), acq);

@@ -1,7 +1,5 @@
 package com.integratedgraphics.ifs.vendor.mestrelab;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,12 +8,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.iupac.fairspec.api.IFSExtractorI;
-import org.iupac.fairspec.core.IFSObject;
-import org.iupac.fairspec.spec.IFSSpecData;
-import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
-import org.iupac.fairspec.struc.IFSStructure;
 
 import com.integratedgraphics.ifs.util.IFSDefaultVendorPlugin;
 import com.integratedgraphics.ifs.vendor.mestrelab.MNovaMetadataReader.Param;
@@ -67,7 +61,7 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		try {
 			page = 0;
 			params = null;
-			reader = new MNovaMetadataReader(this, new ByteArrayInputStream(bytes));
+			reader = new MNovaMetadataReader(this, bytes);
 			fullFileName = fname;
 			this.zipName = zipName;
 			//extractor.registerFileVendor(zipName, this);

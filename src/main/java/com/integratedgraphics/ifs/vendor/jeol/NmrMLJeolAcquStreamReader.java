@@ -1,7 +1,5 @@
 package com.integratedgraphics.ifs.vendor.jeol;
 
-import java.io.ByteArrayInputStream;
-
 /*
  * derived from NmrMLJeolAcquReader
  * 
@@ -12,7 +10,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigInteger;
 import java.nio.ByteOrder;
 import java.util.List;
@@ -44,8 +41,8 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 	public String comment;
 	public double base_Freq;
 
-	public NmrMLJeolAcquStreamReader(InputStream in) throws FileNotFoundException, IOException {
-		super(in);
+	public NmrMLJeolAcquStreamReader(byte[] bytes) throws FileNotFoundException, IOException {
+		super(bytes);
 		if (jeolIni == null) {
 			jeolIni = Util.getJSONResource(Acqu.class, "jeol.ini.json");
 		}
@@ -439,7 +436,7 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 			String filename = new File(fname).getAbsolutePath();
 			byte[] bytes = Util.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
 			System.out.println(bytes.length + " bytes in " + filename);
-			Acqu acq = new NmrMLJeolAcquStreamReader(new ByteArrayInputStream(bytes)).read();
+			Acqu acq = new NmrMLJeolAcquStreamReader(bytes).read();
 			System.out.println(acq);
 		} catch (Exception e) {
 			e.printStackTrace();

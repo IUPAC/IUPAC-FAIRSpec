@@ -1,5 +1,6 @@
 package com.integratedgraphics.ifs.vendor;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -7,9 +8,12 @@ import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.iupac.fairspec.util.Util;
+
 /**
  * A reader that can process blocks that contain an initial byte length followed
- * by a series of bytes.
+ * by a series of bytes. It allows for reading the bytes with a variable byte order, 
+ * creating smaller ByteBuffers to handle chunks of the byte array.
  * 
  * @author hansonr
  *
@@ -34,7 +38,7 @@ public class ByteBlockReader {
 	/**
 	 * must be able to use available() -- so not http or https
 	 */
-	private InputStream in;
+	private RewindableInputStream in;
 
 	/**
 	 * byte array for ByteBuffer
@@ -62,12 +66,11 @@ public class ByteBlockReader {
 	private long mark;
 
 	public ByteBlockReader(InputStream in) throws IOException {
-		this.in = in;
-		try {
-			in.reset();
-		} catch (Exception e) {
-			// ignore
-		}
+		this(Util.getLimitedStreamBytes(in, -1, null, true, true));
+	}
+
+	public ByteBlockReader(byte[] bytes) {
+		this.in = new RewindableInputStream(bytes);
 	}
 
 	protected void setByteOrder(ByteOrder byteOrder) {
@@ -159,12 +162,19 @@ public class ByteBlockReader {
 			System.out.println("skip from " + (position - n) + " by " + n + " to " + position);
 	}
 
-	protected void skipInTo(long pt) throws IOException {
+	protected void seekIn(long pt) throws IOException {
+		if (readPosition() > pt)
+			rewindIn();
 		skipIn((int)(pt - readPosition()));
 	}
 
 	protected long readPointer() throws IOException {
-		int len = readInt(); // to next spectrum
+		int len = readInt();
+		long pos = readPosition();
+		return pos + len;
+	}
+	protected long readLongPtr() throws IOException {
+		long len = readLong();
 		long pos = readPosition();
 		return pos + len;
 	}
@@ -195,7 +205,7 @@ public class ByteBlockReader {
 		position++;
 		int b = in.read();
 		if (testing)
-			dump("Byte", b, Integer.toHexString(b).toUpperCase(), "");
+			dump("Byte", b, 1, Integer.toHexString(b).toUpperCase(), "");
 		return b;
 	}
 
@@ -209,7 +219,7 @@ public class ByteBlockReader {
 		setBuf(2);
 		int i = buffer.getShort();
 		if (testing)
-			dump("Short", i, Integer.toHexString(i).toUpperCase(), "");
+			dump("Short", i, 2, Integer.toHexString(i).toUpperCase(), "");
 		return i;
 	}
 
@@ -223,7 +233,7 @@ public class ByteBlockReader {
 		setBuf(4);
 		int i = buffer.getInt();
 		if (testing && showInts) {
-			dump("Int", i, toHex(i), (showChars ? new String(getBuf(), 0, 4) : ""));
+			dump("Int", i, 4, toHex(i), (showChars ? new String(getBuf(), 0, 4) : ""));
 		}
 		return i;
 	}
@@ -238,24 +248,24 @@ public class ByteBlockReader {
 		setBuf(8);
 		long l = buffer.getLong();
 		if (testing)
-			dump("Long", l, toHex(l), "");
+			dump("Long", l, 8, toHex(l), "");
 		return l;
 	}
 
 	
-	private void dump(String type, long val, String hex, String s) {
-		System.out.println("read" + type + " " + (position - 4) + ": " + hex
-		+ " " + val + " = " + " -> " + (position + val) + " " + s);
+	private void dump(String type, long val, int len, String hex, String s) {
+		System.out.println("read" + type + " " + (position - len) + ": " + hex
+		+ " = " + val + (type == "Int" ? " -> " + (position + val) : "") + " " + s);
 	}
 
 	private String toHex(int i) {
 		String s= "00000000" + Integer.toHexString(i).toUpperCase();
-		return "0x" + s.substring(s.length() - 8) + " ";
+		return "0x" + s.substring(s.length() - 8);
 	}
 
 	private String toHex(long i) {
 		String s= "0000000000000000" + Long.toHexString(i).toUpperCase();
-		return "0x" + s.substring(s.length() - 16) + " ";
+		return "0x" + s.substring(s.length() - 16);
 	}
 
 	/**
@@ -341,6 +351,15 @@ public class ByteBlockReader {
 		}
 	}
 
+	protected int peekByte() throws IOException {
+		markIn(1);
+		int n = readByte();
+		resetIn();
+		if (testing)
+			System.out.println("peekByte " + n);
+		return n;
+	}
+
 	/**
 	 * Check the next integer position; the input stream is marked and reset.
 	 * 
@@ -363,14 +382,25 @@ public class ByteBlockReader {
 	 * @throws IOException
 	 */
 	protected void peekInts(int n) throws IOException {
+		System.out.println("PeekInts " + n);
 		boolean l = testing;
 		boolean l1 = showInts;
 		testing = showInts = true;
-		System.out.println("---peek " + readPosition());
 		markIn(n * 4);
 		readInts(n);
 		resetIn();
-		System.out.println("---reset " + readPosition());
+		testing = l;
+		showInts = l1;
+	}
+
+	protected void peekIntsAt(long pos, int n) throws IOException {
+		boolean l = testing;
+		boolean l1 = showInts;
+		testing = showInts = true;
+		long pos0 = readPosition();
+		setPosition(pos);
+		readInts(n);
+		setPosition(pos0);
 		testing = l;
 		showInts = l1;
 	}
@@ -627,6 +657,7 @@ public class ByteBlockReader {
 		return nextLevel;
 	}
 
+	@SuppressWarnings("unchecked")
 	private void dumpList(List<Object> nextLevel, String indent) {
 		indent += nextLevel.get(0) + " ";
 		for (int i = 1; i < nextLevel.size(); i++) {
@@ -638,8 +669,6 @@ public class ByteBlockReader {
 			}
 			
 		}
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -649,15 +678,11 @@ public class ByteBlockReader {
 	 * @return double
 	 * @throws IOException
 	 */
-	protected double peekDouble() throws IOException {
+	protected double peekBufferDouble() throws IOException {
 		int p = buffer.position();
 		double d = buffer.getDouble();
 		buffer.position(p);
-		if (d != 0 && Math.abs(d) >= 1e-10 && Math.abs(d) <= 1e10) {
-		} else {
-			d = Double.NaN;
-		}
-		return d;
+		return (d != 0 && Math.abs(d) >= 1e-10 && Math.abs(d) <= 1e10 ? d : Double.NaN);
 	}
 
 	/**
@@ -671,7 +696,7 @@ public class ByteBlockReader {
 	protected void checkDouble(int loc, int n) throws IOException {
 
 		markIn(loc + n * 8 + 8);
-		skipInTo(loc);
+		seekIn(loc);
 		setBuf(n * 8 + 8);
 		for (int i = 0; i < 8;) {
 			markBuffer();
@@ -728,38 +753,47 @@ public class ByteBlockReader {
 	 *                     number of bytes available.
 	 */
 	protected boolean readBlock() throws IOException {
-		long pos = readPosition();
 		long navail = readAvailable();
 		if (navail == 0)
 			return false;
-		int len = readInt();
+		int len = peekInt();
+		long pos = readPosition();
 		if (len < 0 || len > navail)
 			throw new IOException(
 					"invalid length " + len + " for reading Block where pos=" + pos + " navail=" + navail);
+		long pt = readPointer();
+		setBuf(len);
 		if (testing) {
-			System.out.println(pos + " reading " + len + " to " + (pos + len));// " skipping " +
-			setBuf(len);
-			for (int i = 0, n = Math.min(len >> 2, 64); i < n; i++) {
-				double d = (i < n - 1 ? peekDouble() : Double.NaN);
+			System.out.println(pos + " reading " + len + " to " + pt);// " skipping " +
+			pos += 4;
+			int n = len >> 2;
+			if (n > 30)
+				n = 30;
+			for (int i = 0, p = (int) pos; i < n; i++, p += 4) {
+				double d = (i < n - 1 ? peekBufferDouble() : Double.NaN);
+				int val = getInt();
 				System.out.println(
-						i + ":" + Integer.toHexString(getInt()).toUpperCase() + "\t" + (Double.isNaN(d) ? "" : d));
+						p + ": " + toHex(val)  + " = " + val 
+						+ (val <= 0 ? "" : " -> " + (p + 4 + val))
+						+ "\t" + (Double.isNaN(d) ? "" : d));
 			}
-		} else {
-			skipIn(len);
+			if (n << 4 != len)
+				System.out.println("...");
+			System.out.println("read " + len + " bytes pos=" + position);
+			buffer.rewind();
 		}
 		return true;
 	}
 
 	/**
-	 * Read a length record, then read the block that is indicated by the next
-	 * integer.
+	 * Skip a number of pointers and read the block that is indicated by the next pointer.
 	 * 
-	 * @param i block index for display only
+	 * @param n the depth of the subblock to read
 	 * @return true if successful
 	 * @throws IOException
 	 */
-	protected boolean readSubblock() throws IOException {
-		readInt(); // length
+	protected boolean readSubblock(int n) throws IOException {
+		readInts(n);
 		return readBlock();
 	}
 
@@ -871,5 +905,31 @@ public class ByteBlockReader {
 	protected static void showDoubleLong(double d) {
 		System.out.println(Long.toHexString(Double.doubleToLongBits(d)).toUpperCase() + "\t" + d);
 	}
+
+	public static class RewindableInputStream extends ByteArrayInputStream {
+
+		public RewindableInputStream(byte[] buf) {
+			super(buf);
+		}
+
+		public void setPosition(long pt) {
+			pos = mark = (int) pt;
+		}
+		
+	}
+
+	public void rewindIn() throws IOException {
+		setPosition(0);
+	}
+
+	private void setPosition(long pos) throws IOException {
+		@SuppressWarnings("resource")
+		RewindableInputStream ris = (in instanceof RewindableInputStream ? (RewindableInputStream) in : null);
+		if (ris == null) {
+			throw new IOException("Operation not allowed - InputString is not rewindable");
+		}
+		ris.setPosition(position = pos);
+	}
+
 
 }
