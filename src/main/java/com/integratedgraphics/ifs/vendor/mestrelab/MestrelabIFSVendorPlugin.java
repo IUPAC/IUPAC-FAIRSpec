@@ -108,6 +108,8 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 			String key0 = key;
 			val = val.trim();
 			switch (key) {
+			case "MOL_FILE_DATA":
+				break;
 			case "Data File Name":
 				isJDF = (val.endsWith(".jdf"));
 				break;

@@ -141,6 +141,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	public String mnovaVersion;
 	public int mnovaVersionNumber;
 	private int nSpectra;
+	private int nMolecules;
 
 	/**
 	 * For testing only, with no extractor plugin.
@@ -192,7 +193,9 @@ class MNovaMetadataReader extends ByteBlockReader {
 				while (readAvailable() > 0)
 					skipBlock();			
 			}
-			System.out.println("MNovaReader ------- nPages=" + nPages + " nSpectra=" + nSpectra);
+			System.out.println("MNovaReader ------- nPages=" + nPages 
+					+ " nSpectra=" + nSpectra
+					+ " nMolecules=" + nMolecules);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -399,27 +402,34 @@ class MNovaMetadataReader extends ByteBlockReader {
 			if (plugin != null)
 				plugin.newPage();
 			readParams();
+			searchForMolecule(index, pt);
 		}
 		seekIn(pt);
 	}
 
+	/**
+	 * Read to the parameters for this page. 
+	 * 
+	 * @return -pt if no parameters, otherwise pt to next page
+	 * 
+	 * @throws IOException
+	 */
 	private long readToParameters() throws IOException {
-		testing = showInts = true;
 		readBlock(); // 40 or 61 bytes, depending upon version
 		int len = peekInt(); // to next spectrum or EOF
-		long pt = readPointer();
-		readBlock(); // 40
-		readCoordinateBlock(); // 32
+		long pt = readPointer(); // to next page
+		readPageBlock2(); // 40
+		readPageInsets(); // 32
 		readFourUnknownInts();
 		readInt(); // 0
-		readPointer();
-		readInt(); // 2 -- two what? 4 in taxol
-		readInt(); // pointer to what?
+		readPointer(); // to next page
+		readInt(); // 2 -- two what? 3? 4 in taxol
+		readPointer(); // to next page
 		if (readPosition() == pt)
 			return -pt; // nothing on this page
-		readInt();
-		readInt();
-		int n2 = readInt(); // 109, 107 ? 
+		readInt(); // 0
+		readPointer(); // to ? 394266 in 1.mnova
+		readInt(); // usually 109; can be 107? Not a pointer 
 		if (peekInt() == 0) {
 			// no spectrum 
 			return -pt;
@@ -452,6 +462,27 @@ class MNovaMetadataReader extends ByteBlockReader {
 			readInt(); // 0
 		}
 		return pt;
+	}
+
+	/**
+	 * Read an unknown block on every page.
+	 * 
+	 * @throws IOException
+	 */
+	private void readPageBlock2() throws IOException {
+		readBlock();
+		// 1.mnova test
+//		38732 reading 40 to 38776
+//		38736: 0x000036DB = 14043 -> 52783	
+//		38740: 0x000036DB = 14043 -> 52787	
+//		38744: 0x40279F3E = 1076338494 -> 1076377242	11.811023622047244
+//		38748: 0x7CF9F3E8 = 2096755688 -> 2096794440	
+//		38752: 0x4072C000 = 1081262080 -> 1081300836	300.0
+//		38756: 0x00000000 = 0	
+//		38760: 0x00000000 = 0	
+//		38764: 0x00000000 = 0	
+//		38768: 0x000036DA = 14042 -> 52814	
+//		38772: 0x000036DA = 14042 -> 52818	
 	}
 
 	/**
@@ -492,33 +523,6 @@ class MNovaMetadataReader extends ByteBlockReader {
 				readBlock();
 			}
 		}
-	}
-
-// not for V.14
-//	private void readPageOld(int index) throws IOException {
-//		System.out.println("reading page " + (index + 1));
-//		nPages++;
-//		if (plugin != null)
-//			plugin.newPage();
-//		readBlock(); // 40 or 61 bytes, depending upon version
-//		int len = peekInt();
-//		long pt = readPointer();
-//		int skip = findIn(paramsKey, len, false);
-//		if (skip >= 4) {
-//			// actually targeting the integer just before 0x0000000D0000000500000000, which
-//			// holds the number of parameters.
-//			skipIn(skip - 4);
-//			readParams();
-//		}
-//		seekIn(pt);
-//	}
-
-	private void readColorMap() throws IOException {
-		readBlock(); // 64 - color map
-	}
-
-	private void readCoordinateBlock() throws IOException {
-		readBlock();
 	}
 
 	/**
@@ -614,161 +618,113 @@ class MNovaMetadataReader extends ByteBlockReader {
 	private void readParam(int index) throws IOException {
 		if (testing)
 			System.out.println("readParam " + (index + 1) + " at " + readPosition());
-		readInt(); // D
-		readInt(); // 5
-		readByte(); // 0
-		readInt(); // 1
-		readInt(); // type
+		readBlock(); // D 5 0 1 type
 		int count = readInt(); // 1 or 2 (or more?)
 		Param param1 = new Param(1);
 		Param param2 = (count == 2 ? new Param(2) : null);
-		readByte();
+		readByte(); // EF, e.g. -- identifier?
 		String key = readUTF16String();
 		if (plugin != null)
 			plugin.addParam(key, null, param1, param2);
 		System.out.println(" param " + (index + 1) + " " + key + " = " + param1 + (param2 == null ? "" : "," + param2));
 	}
 
-	// first try, for reference. Or see the GitHub history.
-	//
-//		public boolean process0() {
-//			
-//			int headerLength = 23;
-//			setByteOrder(ByteOrder.BIG_ENDIAN);
-//			try {
-//				if (!checkMagicNumber(magicNumber))
-//					return false;
-//				readSimpleString(headerLength);
-//				int maxBlocks = 20;
-//				out: for (int i = 0; i < maxBlocks; i++) {
-//					System.out.println("\nblock " + i + " pos " + readPosition() + " avail " + readAvailable());
-//					switch (i) {
-//					case 0:
-//						readInt(); // F1E2D3C4
-//						if (!readSubblock())
-//							break out;
-//						break;
-//					case 1:
-//						readUTF16String();
-//						readUTF16String();
-//						break;
-//					case 2:
-//						readBlock();
-//						break;
-//					case 3:
-//						readSubblock();
-//						break;
-//					case 4:
-//						// Discovered this was not necessary;
-//						if (testing)
-//							readItems();
-//						else
-//							skipBlock();
-//						break;
-//					case 5:
-//						readPages();
-//						break;
-//					default:
-//						if (!readBlock())
-//							break out;
-//					}
-//				}
-//				System.out.println("MNovaReader ------- nPages=" + nPages);
-//				return true;
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				return false;
-//			} finally {
-//				try {
-//					System.out.println("closing pos " + readPosition() + " avail " + readAvailable());
-//					close();
-//				} catch (IOException e) {
-//				}
-//			}
-//		}
-//
-//	private void dumpFileInfo() throws IOException {
-//		showChars = false;
-//		showInts = false;
-//		rewindIn();
-//		seekIn(27);
-//		long ptr27 = readPointer();
-//		long ptr31 = readPointer();
-//		seekIn(ptr31);
-//		readVersion(this);
-//		seekIn(27);
-//		readBlock();
-//		readBlock();
-//		readBlock();
-//		// pages
-//		System.out.println("\n===Pages start at " + readPosition());
-//		readPointer(); // -> EOF
-//		readBlock(); // 32
-//		readInt(); // 0
-//		readPointer(); // -> EOF
-//		int nPages = readInt();
-//		System.out.println("...Page count = " + nPages);
-//		readPointer(); // -> EOF
-//		for (int i = 0; i < nPages; i++) {
-//			System.out.println("\n======Page " + (i + 1) + " starts at " + readPosition());
-//			long ptNext = readToParameters();
-//			System.out.println(" params at " + readPosition());
-//
-//			readParams();
-//			System.out.println("\n======Page " + (i + 1) + " parameters end at " + readPosition());
-//			int nBlocks = 0;
-//			long lastPosition = -1;
-//			while (readPosition() < ptNext) {
-//
-//				lastPosition = readPosition();
-//				nBlocks++;
-//				peekInts(100);
-//				System.out.println("extra block " + nBlocks + " len=" + peekInt() + " from " + lastPosition + " to "
-//						+ (lastPosition + peekInt()));
-//				String s = blockToString();
-//				System.out.println(s);
-//				if (s.indexOf("MEND") >= 0)
-//					checkMolecule(s, nBlocks, lastPosition);
-//				else
-//					readBlock();
-//			}
-//			System.out.println("\n======Page " + (i + 1) + " additional blocks: " + nBlocks);
-//			seekIn(ptNext);
-//		}
-//		System.out.println("\n===Pages end at " + readPosition() + " available=" + readAvailable());
-//	}
-//
-//	private void checkMolecule(String s, int i, long lastPosition) throws IOException {
+	private void dumpFileInfo() throws IOException {
+		showChars = false;
+		showInts = false;
+		rewindIn();
+		seekIn(27);
+		long ptr27 = readPointer();
+		long ptr31 = readPointer();
+		seekIn(ptr31);
+		readVersion();
+		seekIn(27);
+		readBlock();
+		readBlock();
+		readBlock();
+		// pages
+		System.out.println("\n===Pages start at " + readPosition());
+		readPointer(); // -> EOF
+		readBlock(); // 32
+		readInt(); // 0
+		readPointer(); // -> EOF
+		int nPages = readInt();
+		System.out.println("...Page count = " + nPages);
+		readPointer(); // -> EOF
+		for (int i = 0; i < nPages; i++) {
+			System.out.println("\n======Page " + (i + 1) + " starts at " + readPosition());
+			long ptNext = readToParameters();
+			System.out.println(" params at " + readPosition());
+
+			readParams();
+			System.out.println("\n======Page " + (i + 1) + " parameters end at " + readPosition());
+			searchForMolecule(i, ptNext);
+			seekIn(ptNext);
+		}
+		System.out.println("\n===Pages end at " + readPosition() + " available=" + readAvailable());
+	}
+
+	
+	
+
+	
+	
+	private void searchForMolecule(int index, long ptNext) throws IOException {
+		int nBlocks = 0;
+		long lastPosition = -1;
+		while (readPosition() < ptNext) {
+			lastPosition = readPosition();
+			nBlocks++;
+			System.out.println("extra block " + nBlocks + " len=" + peekInt() + " from " + lastPosition + " to "
+					+ (lastPosition + peekInt()));
+			readBlock();
+		}
+		System.out.println("\n======Page " + (index + 1) + " additional blocks: " + nBlocks);
+		checkMolecule(lastPosition);
+	}
+
+	private void checkMolecule(long lastPosition) throws IOException {
+ 		// notes are for 1-taxol-drop.mnova
 //		peekIntsAt(lastPosition - 80, 20 + 0);
 //		peekIntsAt(lastPosition, 40);
-////		readBlock();
-//		if (true) {
-//			readBlock();
-//			return;
-//		}
-//		seekIn(lastPosition);
-//		long ptNext = readPointer();
-//		readPointer(); //
-//		readInts(4);
-//		readInt(); // 0
-//		readBlock(); //
-//		readBlock(); // 178-long Molecule block
-//		readInt(); // to next
-//		// testing
-//		// OK
-//		readBlock();
-//		readBlock();
-//		readBlock();
-//		peekInts(40);
-//		readInt();
-//		if (true)
-//			return;
-//		readSubblock(4);
-//		String molFileData = readLenString();
-//
-//		seekIn(ptNext);
-//
-//	}
+		seekIn(lastPosition);
+		peekInts(20);
+		
+//		findRef(499987);
+//		findRef(500015);
+//		findRef(501150);
+//		findRef(501332);
+//		findRef(503184);
+//		findRef(503280);
+//		findRef(503738);
+//		findRef(503796); // mol data
+
+		long ptNext = readPointer();
+		readInt();//
+		if (peekInt() == 0)
+			return;
+		readFourUnknownInts();
+		readInt(); // 0
+		readBlock(); // -> 501150
+		readBlock(); // 178-long Molecule block
+		readInt(); // to next
+		if (peekInt() == 0)
+			return; // 3a-c.mnova
+		readBlock();
+		readBlock();
+		readBlock();
+		readSubblock(4);
+		String molFileData = readLenString();
+		System.out.println("=====MOL FILE DATA>>>>>");
+		nMolecules++;
+		if (plugin != null)
+			plugin.addParam("MOL_FILE_DATA", molFileData, null, null);
+		System.out.println(molFileData);
+		System.out.println("<<<<<MOL FILE DATA=====");
+		
+		seekIn(ptNext);
+
+	}
 
 	private static String testFile;
 
@@ -792,17 +748,23 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * @throws IOException
 	 */
 	private void test() throws IOException {
+		testing = true;
 		if (!testing)
 			return;
 		rewindIn();
 		showInts = true;
 		showChars = true;
-
+		
 		// dumpFileInfo();
 
 //		peekIntsAt(241195, 40);
 //		peekIntsAt(102117, 20);
 //		checkDouble(38744,2);
+		
+//		dumpFileInfo();
+		showInts = false;
+		showChars = false;
+		testing = false;
 		return;
 	}
 
@@ -853,11 +815,13 @@ class MNovaMetadataReader extends ByteBlockReader {
 		 //testFile = "test/mnova/1.mnova"; // OK two pages
 		 //testFile = "test/mnova/1-deleted.mnova"; // first page param list only, next page blank
 		//testFile = "test/mnova/1-v14.mnova"; // OK two pages
-		// testFile = "test/mnova/3a-C-taxol.mnova"; // (v 14) OK, but looking for model
+		testFile = "test/mnova/3a-C-taxol.mnova"; // (v 14) OK, but looking for model
 		//testFile = "test/mnova/1-caff-taxol.mnova"; // two structures
-		// testFile = "test/mnova/1-caff-taxol-rev.mnova"; // two structures
+		//testFile = "test/mnova/1-caff-taxol-rev.mnova"; // two structures
 		// testFile = "test/mnova/1-caff-taxol-delete.mnova"; // caffeine deleted in
-		//testFile = "test/mnova/1-taxol-drop.mnova"; // caffeine deleted in page 1
+		
+		// ok for structure:
+		// testFile = "test/mnova/1-taxol-drop.mnova"; // caffeine deleted in page 1
 		// testFile = "test/mnova/1-taxol-drop-move.mnova"; // caffeine deleted in page
 	}
 

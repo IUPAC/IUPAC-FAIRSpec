@@ -159,7 +159,8 @@ public class ByteBlockReader {
 	 * @throws IOException
 	 */
 	public void skipIn(int n) throws IOException {
-		position += in.skip(n);
+		if (n > 0)
+			position += in.skip(n);
 		if (testing)
 			System.out.println("skip from " + (position - n) + " by " + n + " to " + position);
 	}
@@ -607,6 +608,8 @@ public class ByteBlockReader {
 	 */
 	public void findRef(int loc) throws IOException {
 		int n = readAvailable() - 4;
+		if (n < 0)
+			return;
 		markIn(n + 4);
 		setBuf(n + 4);
 		for (int i = 0; i < n;) {
