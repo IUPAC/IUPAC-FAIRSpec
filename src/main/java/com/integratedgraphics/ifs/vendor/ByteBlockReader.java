@@ -6,7 +6,9 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.Stack;
 
 import org.iupac.fairspec.util.Util;
 
@@ -23,17 +25,17 @@ public class ByteBlockReader {
 	/**
 	 * set to true for debugging
 	 */
-	protected static boolean testing = false;
+	public static boolean testing = false;
 
 	/**
 	 * when testing, show integers read
 	 */
-	protected static boolean showInts = false;
+	public static boolean showInts = false;
 
 	/**
 	 * when testing, show the characters associated with integers
 	 */
-	protected static boolean showChars = false;
+	public static boolean showChars = false;
 
 	/**
 	 * must be able to use available() -- so not http or https
@@ -73,7 +75,7 @@ public class ByteBlockReader {
 		this.in = new RewindableInputStream(bytes);
 	}
 
-	protected void setByteOrder(ByteOrder byteOrder) {
+	public void setByteOrder(ByteOrder byteOrder) {
 		this.byteOrder = byteOrder;
 		if (buffer != null)
 			buffer.order(byteOrder);
@@ -93,7 +95,7 @@ public class ByteBlockReader {
 	 * 
 	 * @return
 	 */
-	protected long readPosition() {
+	public long readPosition() {
 		return position;
 	}
 
@@ -104,7 +106,7 @@ public class ByteBlockReader {
 	 * @return current buffer
 	 * @throws IOException
 	 */
-	protected byte[] setBuf(int len) throws IOException {
+	public byte[] setBuf(int len) throws IOException {
 		if (buf.length < len) {
 			buf = new byte[len << 1];
 			buffer = ByteBuffer.wrap(buf);
@@ -135,7 +137,7 @@ public class ByteBlockReader {
 	 * 
 	 * @param n
 	 */
-	protected void markIn(int n) {
+	public void markIn(int n) {
 		mark = position;
 		in.mark(n);
 	}
@@ -145,7 +147,7 @@ public class ByteBlockReader {
 	 * 
 	 * @throws IOException
 	 */
-	protected void resetIn() throws IOException {
+	public void resetIn() throws IOException {
 		position = mark;
 		in.reset();
 	}
@@ -156,24 +158,24 @@ public class ByteBlockReader {
 	 * @param n
 	 * @throws IOException
 	 */
-	protected void skipIn(int n) throws IOException {
+	public void skipIn(int n) throws IOException {
 		position += in.skip(n);
 		if (testing)
 			System.out.println("skip from " + (position - n) + " by " + n + " to " + position);
 	}
 
-	protected void seekIn(long pt) throws IOException {
+	public void seekIn(long pt) throws IOException {
 		if (readPosition() > pt)
 			rewindIn();
 		skipIn((int)(pt - readPosition()));
 	}
 
-	protected long readPointer() throws IOException {
+	public long readPointer() throws IOException {
 		int len = readInt();
 		long pos = readPosition();
 		return pos + len;
 	}
-	protected long readLongPtr() throws IOException {
+	public long readLongPtr() throws IOException {
 		long len = readLong();
 		long pos = readPosition();
 		return pos + len;
@@ -188,7 +190,7 @@ public class ByteBlockReader {
 	 * @return true if successful.
 	 * @throws IOException
 	 */
-	protected boolean checkMagicNumber(int magicNumber) throws IOException {
+	public boolean checkMagicNumber(int magicNumber) throws IOException {
 		int nAvail = readAvailable();
 		if (nAvail < 4)
 			return false;
@@ -201,10 +203,10 @@ public class ByteBlockReader {
 	 * @return a byte value
 	 * @throws IOException
 	 */
-	protected int readByte() throws IOException {
+	public int readByte() throws IOException {
 		position++;
 		int b = in.read();
-		if (testing)
+		if (testing && showInts)
 			dump("Byte", b, 1, Integer.toHexString(b).toUpperCase(), "");
 		return b;
 	}
@@ -215,10 +217,10 @@ public class ByteBlockReader {
 	 * @return a short value
 	 * @throws IOException
 	 */
-	protected int readShort() throws IOException {
+	public int readShort() throws IOException {
 		setBuf(2);
 		int i = buffer.getShort();
-		if (testing)
+		if (testing && showInts)
 			dump("Short", i, 2, Integer.toHexString(i).toUpperCase(), "");
 		return i;
 	}
@@ -229,7 +231,7 @@ public class ByteBlockReader {
 	 * @return a short value
 	 * @throws IOException
 	 */
-	protected int readInt() throws IOException {
+	public int readInt() throws IOException {
 		setBuf(4);
 		int i = buffer.getInt();
 		if (testing && showInts) {
@@ -244,10 +246,10 @@ public class ByteBlockReader {
 	 * @return a long value
 	 * @throws IOException
 	 */
-	protected long readLong() throws IOException {
+	public long readLong() throws IOException {
 		setBuf(8);
 		long l = buffer.getLong();
-		if (testing)
+		if (testing && showInts)
 			dump("Long", l, 8, toHex(l), "");
 		return l;
 	}
@@ -274,7 +276,7 @@ public class ByteBlockReader {
 	 * @return a double value
 	 * @throws IOException
 	 */
-	protected double readDouble() throws IOException {
+	public double readDouble() throws IOException {
 		setBuf(8);
 		double d = buffer.getDouble();
 		buffer.position(buffer.position() - 8);
@@ -308,7 +310,7 @@ public class ByteBlockReader {
 	 * @return the string
 	 * @throws IOException
 	 */
-	protected String readSimpleString(int len) throws IOException {
+	public String readSimpleString(int len) throws IOException {
 		String s = new String(setBuf(len), 0, len);
 		if (testing)
 			System.out.println("readString " + s);
@@ -322,7 +324,7 @@ public class ByteBlockReader {
 	 * @return
 	 * @throws IOException
 	 */
-	protected String readLenString() throws IOException {
+	public String readLenString() throws IOException {
 		return readSimpleString(readInt());
 	}
 
@@ -333,7 +335,7 @@ public class ByteBlockReader {
 	 * @return
 	 * @throws IOException
 	 */
-	protected String readUTF16String() throws IOException {
+	public String readUTF16String() throws IOException {
 		long p = readPosition();
 		int len = readInt();
 		setBuf(len);
@@ -343,7 +345,7 @@ public class ByteBlockReader {
 		return s;
 	}
 
-	protected void readInts(int n) throws IOException {
+	public void readInts(int n) throws IOException {
 		for (int i = 0; i < n; i++) {
 			if (testing)
 				System.out.print(i + " ");
@@ -351,7 +353,7 @@ public class ByteBlockReader {
 		}
 	}
 
-	protected int peekByte() throws IOException {
+	public int peekByte() throws IOException {
 		markIn(1);
 		int n = readByte();
 		resetIn();
@@ -366,11 +368,11 @@ public class ByteBlockReader {
 	 * @return
 	 * @throws IOException
 	 */
-	protected int peekInt() throws IOException {
+	public int peekInt() throws IOException {
 		markIn(4);
 		int n = readInt();
 		resetIn();
-		if (testing)
+		if (testing && showInts)
 			System.out.println("peekInt " + n);
 		return n;
 	}
@@ -381,8 +383,8 @@ public class ByteBlockReader {
 	 * @param n
 	 * @throws IOException
 	 */
-	protected void peekInts(int n) throws IOException {
-		System.out.println("PeekInts " + n);
+	public void peekInts(int n) throws IOException {
+		System.out.println("PeekInts " + n + " pos=" + readPosition() + " navail=" + readAvailable());
 		boolean l = testing;
 		boolean l1 = showInts;
 		testing = showInts = true;
@@ -393,7 +395,7 @@ public class ByteBlockReader {
 		showInts = l1;
 	}
 
-	protected void peekIntsAt(long pos, int n) throws IOException {
+	public void peekIntsAt(long pos, int n) throws IOException {
 		boolean l = testing;
 		boolean l1 = showInts;
 		testing = showInts = true;
@@ -415,7 +417,7 @@ public class ByteBlockReader {
 	 * @return found position or -1
 	 * @throws IOException
 	 */
-	protected int findDouble(double d, int length, boolean isAll) throws IOException {
+	public int findDouble(double d, int length, boolean isAll) throws IOException {
 		long l = Double.doubleToLongBits(d);
 		int high = (int) ((l >> 32) & 0xFFFFFFFF);
 		int low = (int) (l & 0xFFFFFFFF);
@@ -433,7 +435,7 @@ public class ByteBlockReader {
 	 * @return found position or -1
 	 * @throws IOException
 	 */
-	protected int findDoubleApprox(double d, int nBytes, int length, boolean isAll) throws IOException {
+	public int findDoubleApprox(double d, int nBytes, int length, boolean isAll) throws IOException {
 		ByteBuffer dbuf = ByteBuffer.allocate(8);
 		dbuf.putDouble(d);
 		byte[] bytes = dbuf.array();
@@ -478,7 +480,7 @@ public class ByteBlockReader {
 	 * @return found position or -1
 	 * @throws IOException
 	 */
-	protected int findIn(int[] key, int length, boolean isAll) throws IOException {
+	public int findIn(int[] key, int length, boolean isAll) throws IOException {
 		if (length < 0)
 			length = readAvailable();
 		markIn(length);
@@ -515,21 +517,21 @@ public class ByteBlockReader {
 	 * 
 	 * @return the position
 	 */
-	protected int getBufferPosition() {
+	public int getBufferPosition() {
 		return buffer.position();
 	}
 
 	/**
 	 * Mark the ByteBuffer.
 	 */
-	protected void markBuffer() {
+	public void markBuffer() {
 		buffer.mark();
 	}
 
 	/**
 	 * Reset the ByteBuffer.
 	 */
-	protected void resetBuffer() {
+	public void resetBuffer() {
 		buffer.reset();
 	}
 
@@ -548,7 +550,7 @@ public class ByteBlockReader {
 	 * 
 	 * @return the byte value
 	 */
-	protected byte getByte() {
+	public byte getByte() {
 		return buffer.get();
 	}
 
@@ -557,7 +559,7 @@ public class ByteBlockReader {
 	 * 
 	 * @return the integer value
 	 */
-	protected int getInt() {
+	public int getInt() {
 		return buffer.getInt();
 	}
 
@@ -566,7 +568,7 @@ public class ByteBlockReader {
 	 * 
 	 * @return the short value
 	 */
-	protected int getShort() {
+	public int getShort() {
 		return buffer.getShort();
 	}
 
@@ -588,7 +590,7 @@ public class ByteBlockReader {
 	 * @param len    the number of bytes to transfer
 	 * @return the actual number of bytes transferred
 	 */
-	protected ByteBuffer get(byte[] b, int offset, int len) {
+	public ByteBuffer get(byte[] b, int offset, int len) {
 		return buffer.get(b, offset, len);
 	}
 
@@ -603,7 +605,7 @@ public class ByteBlockReader {
 	 * @param loc
 	 * @throws IOException
 	 */
-	protected void findRef(int loc) throws IOException {
+	public void findRef(int loc) throws IOException {
 		int n = readAvailable() - 4;
 		markIn(n + 4);
 		setBuf(n + 4);
@@ -623,7 +625,7 @@ public class ByteBlockReader {
 		resetIn();
 	}
 
-	protected List<Object> traceRef(int loc, boolean isTop) throws IOException {
+	public List<Object> traceRef(int loc, boolean isTop) throws IOException {
 		List<Object> nextLevel = new ArrayList<>();
 		nextLevel.add(loc);
 		int n = readAvailable() - 4;
@@ -678,7 +680,7 @@ public class ByteBlockReader {
 	 * @return double
 	 * @throws IOException
 	 */
-	protected double peekBufferDouble() throws IOException {
+	public double peekBufferDouble() throws IOException {
 		int p = buffer.position();
 		double d = buffer.getDouble();
 		buffer.position(p);
@@ -693,7 +695,7 @@ public class ByteBlockReader {
 	 * @param n
 	 * @throws IOException
 	 */
-	protected void checkDouble(int loc, int n) throws IOException {
+	public void checkDouble(int loc, int n) throws IOException {
 
 		markIn(loc + n * 8 + 8);
 		seekIn(loc);
@@ -719,7 +721,7 @@ public class ByteBlockReader {
 	 * 
 	 * @throws IOException
 	 */
-	protected void readDoubleBox() throws IOException {
+	public void readDoubleBox() throws IOException {
 		readDouble();
 		readDouble();
 		readDouble();
@@ -733,7 +735,7 @@ public class ByteBlockReader {
 	 * @throws IOException when that integer is less than 0 or greater than the
 	 *                     number of bytes available.
 	 */
-	protected void skipBlock() throws IOException {
+	public void skipBlock() throws IOException {
 		long pos = readPosition();
 		long navail = readAvailable();
 		int len = readInt();
@@ -752,7 +754,7 @@ public class ByteBlockReader {
 	 * @throws IOException when that integer is less than 0 or greater than the
 	 *                     number of bytes available.
 	 */
-	protected boolean readBlock() throws IOException {
+	public boolean readBlock() throws IOException {
 		long navail = readAvailable();
 		if (navail == 0)
 			return false;
@@ -765,22 +767,22 @@ public class ByteBlockReader {
 		setBuf(len);
 		if (testing) {
 			System.out.println(pos + " reading " + len + " to " + pt);// " skipping " +
-			pos += 4;
-			int n = len >> 2;
-			if (n > 30)
-				n = 30;
-			for (int i = 0, p = (int) pos; i < n; i++, p += 4) {
-				double d = (i < n - 1 ? peekBufferDouble() : Double.NaN);
-				int val = getInt();
-				System.out.println(
-						p + ": " + toHex(val)  + " = " + val 
-						+ (val <= 0 ? "" : " -> " + (p + 4 + val))
-						+ "\t" + (Double.isNaN(d) ? "" : d));
+			if (showInts) {
+				pos += 4;
+				int n = len >> 2;
+				if (n > 30)
+					n = 30;
+				for (int i = 0, p = (int) pos; i < n; i++, p += 4) {
+					double d = (i < n - 1 ? peekBufferDouble() : Double.NaN);
+					int val = getInt();
+					System.out.println(p + ": " + toHex(val) + " = " + val + (val <= 0 ? "" : " -> " + (p + 4 + val))
+							+ "\t" + (Double.isNaN(d) ? "" : d));
+				}
+				if (n << 4 != len)
+					System.out.println("...");
+				System.out.println("read " + len + " bytes pos=" + position);
+				buffer.rewind();
 			}
-			if (n << 4 != len)
-				System.out.println("...");
-			System.out.println("read " + len + " bytes pos=" + position);
-			buffer.rewind();
 		}
 		return true;
 	}
@@ -792,7 +794,7 @@ public class ByteBlockReader {
 	 * @return true if successful
 	 * @throws IOException
 	 */
-	protected boolean readSubblock(int n) throws IOException {
+	public boolean readSubblock(int n) throws IOException {
 		readInts(n);
 		return readBlock();
 	}
@@ -805,7 +807,7 @@ public class ByteBlockReader {
 	 * First byte BE-C0 indicates negative double between 10E-9 and 10E9
 	 * 
 	 */
-	protected static void doubleTest() {
+	public static void doubleTest() {
 		for (int i = -20; i <= 20; i++) {
 			double d = Math.pow(10, i / 2.);
 			showDoubleLong(d);
@@ -902,7 +904,7 @@ public class ByteBlockReader {
 
 	}
 
-	protected static void showDoubleLong(double d) {
+	public static void showDoubleLong(double d) {
 		System.out.println(Long.toHexString(Double.doubleToLongBits(d)).toUpperCase() + "\t" + d);
 	}
 
@@ -931,5 +933,62 @@ public class ByteBlockReader {
 		ris.setPosition(position = pos);
 	}
 
+	public String blockToString() throws IOException {
+		long ptr = readPosition();
+		int len = peekInt();
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0, p = 0; i < len; i++) {
+			int b = readByte();
+			if (b >= 60 && b <= 122) {
+				sb.append((char) b);
+				if (++p % 80 == 0)
+					sb.append('\n');
+			}
+		}
+		seekIn(ptr);
+		return sb.toString();
+	}
+
+	public Stack<Block> getObjectStack() throws IOException {
+		Stack<Long> ptrStack = new Stack<>();
+		Stack<Block> objStack = new Stack<>();
+		while (peekInt() > 0)
+			ptrStack.push(readPointer());
+//		showStack(ptrStack);
+		long pt = readPosition();
+		while (ptrStack.size() > 0) {
+			long ptr = ptrStack.pop();
+			int len = (int) (ptr - pt);
+			objStack.push(new Block(pt, len));
+			pt = ptr;
+		}
+		seekIn(pt);
+		return objStack;
+	}
+
+	public void showStack(Stack<?> stack) {
+		Enumeration<?> e = stack.elements();
+		while (e.hasMoreElements()) {
+			Object o = e.nextElement();
+			System.out.print(o + " ");
+		}
+		System.out.println();
+	}
+
+	public class Block {
+		public long loc;
+		public int len;
+		
+	    public Block(long loc, int len) {
+			this.loc = loc;
+			this.len = len;
+		}
+	    
+	    @Override
+		public String toString() {
+	    	return "[Block loc=" + loc + " len=" + len + "]";
+	    }
+	}
+	
 
 }
