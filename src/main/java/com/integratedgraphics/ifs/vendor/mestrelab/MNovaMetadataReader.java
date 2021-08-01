@@ -2,6 +2,8 @@ package com.integratedgraphics.ifs.vendor.mestrelab;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteOrder;
 import java.util.Enumeration;
@@ -10,6 +12,8 @@ import java.util.Stack;
 import org.iupac.fairspec.util.Util;
 
 import com.integratedgraphics.ifs.vendor.ByteBlockReader;
+
+import javajs.util.Rdr;
 
 /**
  * A rough MestReNova file reader that can deliver metadata only. I have not
@@ -220,6 +224,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		if (!isMNova())
 			return false;
 		readSimpleString(23); // Mestrelab Research S.L.
+		setByteOrder(ByteOrder.BIG_ENDIAN);
 		if (!checkMagicNumber(magicNumberBE)) { //
 			if (!checkMagicNumber(magicNumberLE)) {
 				return false;
@@ -319,26 +324,6 @@ class MNovaMetadataReader extends ByteBlockReader {
 		readInts(4);
 	}
 
-	private void readItemData14(int index) throws IOException {
-		readLenString(); // Import Item, for example
-		readInts(4); // these are often the same for non-spectra?
-		readUTF16String(); // user name?
-		readInts(2);
-		readByte(); // 255
-		readInt(); // -1
-		int test = readInt();
-		if (test > 0) {
-			int i = 0;
-			while (peekInt() != -1) {
-				readBlock();
-				++i;
-			}
-			System.out.println(i + " items read");
-			readInt(); // -1
-			return;
-		}
-	}
-
 	/**
 	 * Read an item header.
 	 * 
@@ -359,6 +344,11 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * key for
 	 */
 	private final static int[] paramsKey = new int[] { 0xD, 0x5, 0x0 };
+
+	private final static int[] cdxKey = new int[] { 0x44494600, 0x566A4344 };// le x00464944, 0x44436A56 }; // 
+
+	public static final String CDX_FILE_DATA = ".cdx";
+	public static final String MOL_FILE_DATA = ".mol";
 
 	private int readPages() throws IOException {
 		if (testing)
@@ -592,10 +582,6 @@ class MNovaMetadataReader extends ByteBlockReader {
 			} else {
 				readInt();
 			}
-//			if (index == 2) {
-//				System.out.println(toString());
-//				return;
-//			}
 		}
 
 		@Override
@@ -663,42 +649,61 @@ class MNovaMetadataReader extends ByteBlockReader {
 		}
 		System.out.println("\n===Pages end at " + readPosition() + " available=" + readAvailable());
 	}
-
-	
-	
-
-	
 	
 	private void searchForMolecule(int index, long ptNext) throws IOException {
 		int nBlocks = 0;
 		long lastPosition = -1;
+		boolean haveCDX = false;
 		while (readPosition() < ptNext) {
-			lastPosition = readPosition();
-			nBlocks++;
-			System.out.println("extra block " + nBlocks + " len=" + peekInt() + " from " + lastPosition + " to "
-					+ (lastPosition + peekInt()));
+			if (peekInt() > 0) {
+				nBlocks++;
+				lastPosition = readPosition();
+				int len = peekInt();
+				System.out.println("extra block " + nBlocks + " len=" + len + " from " + lastPosition + " to "
+						+ (lastPosition + len));
+				int cdx = (haveCDX ? -1 : findIn(cdxKey, len, false));
+				if (cdx >= 0) {
+					haveCDX = true;
+					checkCDX(lastPosition, cdx);
+					continue;
+				}
+			}
 			readBlock();
 		}
 		System.out.println("\n======Page " + (index + 1) + " additional blocks: " + nBlocks);
-		checkMolecule(lastPosition);
+		if (lastPosition >= 0)
+			checkMolecule(lastPosition);
+	}
+
+	private void checkCDX(long lastPosition, int skip) throws IOException {
+		testing = showInts = showChars = true;
+		seekIn(lastPosition);
+		long ptNext = readPointer();
+		skipIn(skip - 9);
+		ByteOrder bo = byteOrder;
+		setByteOrder(ByteOrder.LITTLE_ENDIAN);
+		int len = readInt() - 7; // accounts for extra 0 0 
+		readInt();
+		readByte();
+		setByteOrder(bo);
+		// VjCD block peekBlockAsString(true);
+		byte[] cdxFileData = new byte[len];
+		read(cdxFileData, 0, len);
+		System.out.println("=====CDX FILE DATA>>>>>");
+		nMolecules++;
+		System.out.println("[" + cdxFileData.length + " bytes]");
+		System.out.println("<<<<<CDX FILE DATA=====");		
+		handleModelFileData(CDX_FILE_DATA, cdxFileData, len);
+		seekIn(ptNext);
+		
 	}
 
 	private void checkMolecule(long lastPosition) throws IOException {
  		// notes are for 1-taxol-drop.mnova
 //		peekIntsAt(lastPosition - 80, 20 + 0);
 //		peekIntsAt(lastPosition, 40);
+		//testing = true;
 		seekIn(lastPosition);
-		peekInts(20);
-		
-//		findRef(499987);
-//		findRef(500015);
-//		findRef(501150);
-//		findRef(501332);
-//		findRef(503184);
-//		findRef(503280);
-//		findRef(503738);
-//		findRef(503796); // mol data
-
 		long ptNext = readPointer();
 		readInt();//
 		if (peekInt() == 0)
@@ -710,20 +715,49 @@ class MNovaMetadataReader extends ByteBlockReader {
 		readInt(); // to next
 		if (peekInt() == 0)
 			return; // 3a-c.mnova
+		peekInts(10);
 		readBlock();
+		peekInts(10);
 		readBlock();
+		peekInts(10);
 		readBlock();
+		peekInts(10);
 		readSubblock(4);
-		String molFileData = readLenString();
-		System.out.println("=====MOL FILE DATA>>>>>");
-		nMolecules++;
-		if (plugin != null)
-			plugin.addParam("MOL_FILE_DATA", molFileData, null, null);
-		System.out.println(molFileData);
-		System.out.println("<<<<<MOL FILE DATA=====");
-		
+		peekInts(10);
+		int len = peekInt();
+		handleModelFileData(MOL_FILE_DATA, readLenString(), len);
 		seekIn(ptNext);
+	}
 
+	private void handleModelFileData(String type, Object fileData, int len) {
+		nMolecules++;
+		System.out.println("=====" + type + ">>>>>");
+		if (plugin != null)
+			plugin.addParam(type, fileData, null, null);
+		System.out.println(fileData);
+		System.out.println("<<<<<"+ type +"=====");		
+		if (testing) {
+			File f = new File("test" + zeroFill(nPages, 2) + type);
+			try (FileOutputStream fis = new FileOutputStream(f)) {
+				if (fileData instanceof String) {
+					fileData = ((String) fileData).getBytes();
+				}
+				fis.write((byte[]) fileData);
+				System.out.println("File " + f.getAbsolutePath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private final static String zeros = "0000";
+
+	private static String zeroFill(int n, int ndig) {
+		// n = 100, ndig = 2, s = "0000100" -> "100"
+		String s = zeros + n;
+		int len;
+		return s.substring((len = s.length()) - Math.max(len - 4, ndig));
 	}
 
 	private static String testFile;
@@ -732,7 +766,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		String fname = (args.length == 0 ? testFile : args[0]);
 		try {
 			String filename = new File(fname).getAbsolutePath();
-//			filename = "c:\\temp\\iupac\\zip\\22232721\\metadatanmr\\nmr spectra.mnova";
+// this is the 158-MB file
 			byte[] bytes = Util.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
 			System.out.println(bytes.length + " bytes in " + filename);
 			new MNovaMetadataReader(bytes).process();
@@ -748,20 +782,15 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * @throws IOException
 	 */
 	private void test() throws IOException {
-		testing = true;
-		if (!testing)
-			return;
 		rewindIn();
+		
+		testing = true;
 		showInts = true;
 		showChars = true;
-		
+		setByteOrder(ByteOrder.LITTLE_ENDIAN);
+		setByteOrder(ByteOrder.BIG_ENDIAN);
 		// dumpFileInfo();
 
-//		peekIntsAt(241195, 40);
-//		peekIntsAt(102117, 20);
-//		checkDouble(38744,2);
-		
-//		dumpFileInfo();
 		showInts = false;
 		showChars = false;
 		testing = false;
@@ -806,16 +835,15 @@ class MNovaMetadataReader extends ByteBlockReader {
 			Block obj = e.nextElement();
 			System.out.println("obj " + obj);
 			int len = obj.len;
-//			peekIntsAt(obj.loc, Math.min(250, Math.max(1, len / 4)));
 		}
 	}
 
 	static {
-		 //testFile = "test/mnova/3a-C.mnova"; // OK one page
+		 //testFile = "test/mnova/3a-C.mnova"; // OK one page, with ChemDraw drawing
 		 //testFile = "test/mnova/1.mnova"; // OK two pages
 		 //testFile = "test/mnova/1-deleted.mnova"; // first page param list only, next page blank
 		//testFile = "test/mnova/1-v14.mnova"; // OK two pages
-		testFile = "test/mnova/3a-C-taxol.mnova"; // (v 14) OK, but looking for model
+		//testFile = "test/mnova/3a-C-taxol.mnova"; // (v 14) OK, but looking for model
 		//testFile = "test/mnova/1-caff-taxol.mnova"; // two structures
 		//testFile = "test/mnova/1-caff-taxol-rev.mnova"; // two structures
 		// testFile = "test/mnova/1-caff-taxol-delete.mnova"; // caffeine deleted in
@@ -823,6 +851,8 @@ class MNovaMetadataReader extends ByteBlockReader {
 		// ok for structure:
 		// testFile = "test/mnova/1-taxol-drop.mnova"; // caffeine deleted in page 1
 		// testFile = "test/mnova/1-taxol-drop-move.mnova"; // caffeine deleted in page
+		// testFile = "test/mnova/3a-c-morphine.mnova"; // morphine.mol added using file...open
+		testFile = "c:\\temp\\iupac\\zip\\22232721\\metadatanmr\\nmr spectra.mnova";
 	}
 
 }

@@ -50,7 +50,7 @@ public class ByteBlockReader {
 	/**
 	 * byte order
 	 */
-	private ByteOrder byteOrder = ByteOrder.BIG_ENDIAN;
+	protected ByteOrder byteOrder = ByteOrder.BIG_ENDIAN;
 
 	/**
 	 * current input stream position
@@ -502,7 +502,6 @@ public class ByteBlockReader {
 					if (isAll) {
 						if (found == -1)
 							found = i;
-						System.out.println(i);
 						b.position(++i);
 						break;
 					}
@@ -927,31 +926,59 @@ public class ByteBlockReader {
 		setPosition(0);
 	}
 
+	/**
+	 * Sets the position ("seeks") on the rewindableInputStream.
+	 * @param pos
+	 * @throws IOException
+	 */
 	private void setPosition(long pos) throws IOException {
-		@SuppressWarnings("resource")
-		RewindableInputStream ris = (in instanceof RewindableInputStream ? (RewindableInputStream) in : null);
-		if (ris == null) {
-			throw new IOException("Operation not allowed - InputString is not rewindable");
-		}
-		ris.setPosition(position = pos);
+		in.setPosition(position = pos);
 	}
 
-	public String blockToString() throws IOException {
+	/**
+	 * For debugging, extract printable [A-z] characters from a block. This is just
+	 * a quick way to get a sense of what is in a block when decoding.
+	 * 
+	 * @param doblock Set true to cut to 60-wide string
+	 * @return cleaned ASCII string.
+	 * @throws IOException
+	 */
+	public String peekBlockAsString(boolean doblock) throws IOException {
 		long ptr = readPosition();
 		int len = peekInt();
 		StringBuffer sb = new StringBuffer();
+		boolean t = testing;
+		testing = false;
 		for (int i = 0, p = 0; i < len; i++) {
 			int b = readByte();
 			if (b >= 60 && b <= 122) {
 				sb.append((char) b);
-				if (++p % 80 == 0)
+				if (doblock && ++p % 80 == 0)
 					sb.append('\n');
 			}
 		}
 		seekIn(ptr);
-		return sb.toString();
+		testing = t;
+		String s = sb.toString();
+		if (doblock)
+			System.out.println(s);
+		return s;
 	}
 
+	/**
+	 * Read the pointer stack and then return a stack of Block objects indicating
+	 * the location and length of the data for that object.
+	 * 
+	 * A pointer stack involves a series of monotonically decreasing numbers ending
+	 * with 0.
+	 * 
+	 * Each pointer points to its forward-relative location. The difference between
+	 * two sequential pointers gives the length.
+	 * 
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	public Stack<Block> getObjectStack() throws IOException {
 		Stack<Long> ptrStack = new Stack<>();
 		Stack<Block> objStack = new Stack<>();
@@ -991,6 +1018,15 @@ public class ByteBlockReader {
 		public String toString() {
 	    	return "[Block loc=" + loc + " len=" + len + "]";
 	    }
+	}
+
+	public void peekBufferInts(int n) {
+		int pos = getBufferPosition();
+		markBuffer();
+		for (int i = 0; i < n; i++) {
+			int v = getInt();
+		}
+		resetBuffer();
 	}
 	
 

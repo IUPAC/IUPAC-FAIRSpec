@@ -100,63 +100,68 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	private String mnovaVersion;
 
-	public void addParam(String key, String val, Param param1, Param param2) {
+	public void addParam(String key, Object oval, Param param1, Param param2) {
 		if (param1 != null)
-			val = (param1.value == null || param1.value.length() == 0 ? param1.calc : param1.value);
-		Object oval = null;
-		if (val != null && val.length() > 0) {
-			String key0 = key;
-			val = val.trim();
-			switch (key) {
-			case "MOL_FILE_DATA":
-				break;
-			case "Data File Name":
-				isJDF = (val.endsWith(".jdf"));
-				break;
-			case "Temperature":
-				double d = Double.parseDouble(val);
-				if (isJDF) {
-					// JDF temp is oC not K from MNOVA
-					d += 273.15;
+			oval = (param1.value == null || param1.value.length() == 0 ? param1.calc : param1.value);
+		String key0 = key;
+		if (oval instanceof String) {
+			String val = (String) oval;
+			if (oval == null || val.length() == 0) {
+				oval = null;
+			} else {
+				oval = val = val.trim();
+				switch (key) {
+				case MNovaMetadataReader.CDX_FILE_DATA:
+					break;
+				case MNovaMetadataReader.MOL_FILE_DATA:
+					break;
+				case "Data File Name":
+					isJDF = (val.endsWith(".jdf"));
+					break;
+				case "Temperature":
+					double d = Double.parseDouble(val);
+					if (isJDF) {
+						// JDF temp is oC not K from MNOVA
+						d += 273.15;
+					}
+					oval = Double.valueOf(d);
+					break;
+				case "Nucleus":
+					key = "N1";
+					nuc1 = val;
+					if (param2 != null) {
+						params.put("N2", param2.value);
+					}
+					break;
+				case "Spectrometer Frequency":
+					key = "F1";
+					freq = Double.parseDouble(val);
+					oval = Double.valueOf(freq);
+					if (param2 != null) {
+						params.put("F2", Double.valueOf(param2.value));
+					}
+					break;
+				case "Spectral Width":
+				case "Receiver Gain":
+				case "Purity":
+				case "Relaxation Delay":
+				case "Spectrum Quality":
+				case "Lowest Frequency":
+				case "Acquisition Time":
+					oval = Double.valueOf(Double.parseDouble(val));
+					break;
+				case "Number of Scans":
+				case "Acquired Size":
+				case "Spectral Size":
+					oval = Integer.valueOf(Integer.parseInt(val));
+					break;
 				}
-				oval = Double.valueOf(d);
-				break;
-			case "Nucleus":
-				key = "N1";
-				nuc1 = val;
-				if (param2 != null) {
-					params.put("N2", param2.value);
-				}
-				break;
-			case "Spectrometer Frequency":
-				key = "F1";
-				freq = Double.parseDouble(val);
-				oval =  Double.valueOf(freq);
-				if (param2 != null) {
-					params.put("F2", Double.valueOf(param2.value));
-				}
-				break;
-			case "Spectral Width":
-			case "Receiver Gain":
-			case "Purity":
-			case "Relaxation Delay":
-			case "Spectrum Quality":
-			case "Lowest Frequency":
-			case "Acquisition Time":
-				oval = Double.valueOf(Double.parseDouble(val));
-				break;
-			case "Number of Scans":
-			case "Acquired Size":
-			case "Spectral Size":
-				oval = Integer.valueOf(Integer.parseInt(val));
-				break;
 			}
-			
-			if (oval == null)
-				oval = val;
+		}
+		if (oval != null) {
 			params.put(key, oval);
-			System.out.println("----------- page " + page + " " 
-					+ key + " = " + oval + " was " + key0 + " " + param1 + (param2 == null ? "" : "/ " + param2));
+			System.out.println("----------- page " + page + " " + key + " = " + oval + " was " + key0 + " " + param1
+					+ (param2 == null ? "" : "/ " + param2));
 		}
 	}
 
