@@ -12,36 +12,47 @@ import org.iupac.fairspec.util.Util;
 import com.integratedgraphics.ifs.vendor.ByteBlockReader;
 
 /**
- * A rough MestReNova file reader that can deliver metadata only. I have not
- * seen any MestReNova code, so I am guessing here.
+ * A rough MestReNova file reader that can deliver metadata only (including CDX
+ * and MOL files).
+ * 
+ * DISCLAIMER: I have not seen any MestReNova code, so I am guessing here.
  * 
  * File Format
  * 
- * The file format appears to be based on a stack that can be read from the data
- * stream. Internal references are forward-relative. Some of these may be long
- * references, but I don't think it matters. For the most part, I assume they
- * are integer references. A 32-bit reference 109 points to an address 109+4
- * from the reference itself. In other words, not inclusive of the the four bits
- * of the reference itself.
+ * The file format appears to be based on a nested set of big-endian block data
+ * that can be read from the data stream. Internal references are
+ * forward-relative. I assume they are integer references.
  * 
- * A series of references {r1, r2, r3,..., 0}, where r1 > r2 > r3 > ... > 0, can
- * be interpreted as a stack of objects or primitives having size r1 - r2 - 4,
- * r2 - r3 - 4, etc. positioned following the four bytes of the 0 in reverse
- * order -- ...., r3, r2, r1.
+ * So we have:
  * 
- * Whether these are address pointers to objects or lengths of data structures
- * is not defined in the file itself. The reader must interpret them
- * appropriately. So, for example, if the block read looks like this:
+ * [ block ] [ block ] ... [ block ]
+ * 
+ * where [ block ] consists of a pointer stack and a set of data items. The
+ * stack is a set of 32-bit integer "forward references" ending in 0.
+ * 
+ * [ [ pointer-n ] [ pointer-(n-1) ] [ pointer-(n-2) ] ... [ pointer-1 ] 0 ]
+ * 
+ * Following this are the data items:
+ * 
+ * [ [ data-1 ] [ data-2 ] [ data-3 ] ... [data-n] ]
+ * 
+ * Block data can -- and usually do -- contain more data blocks themselves.
+ * 
+ * A 32-bit reference of 109 points to an address 109+4 bytes past the reference
+ * itself. In other words, the reference value 109 does not include the the four
+ * bits of the reference itself. These references are to the buffer position
+ * *after* the data pointed to. So, for example, if the block read looks like
+ * this:
  * 
  * <code> 
-31: 0x0000007F = 71 -> 106
-35: 0x0000002E = 46 -> 85	
-39: 0x0000001E = 30 -> 73	
-43: 0x0000000A = 10 -> 57	
-47: 0x00000005 = 5 -> 56	
-51: 0x00000000 = 0 -> 55	
-55: 0x00010000 = 65536
-59: 0x00000000 = 0	
+31: 0x0000007F = 71 -> 106   Pointer 5 to 21 bytes (106 - 85)
+35: 0x0000002E = 46 -> 85	 Pointer 4 to 12 bytes (85 - 73)
+39: 0x0000001E = 30 -> 73	 Pointer 3 to 16 bytes (73 - 57)
+43: 0x0000000A = 10 -> 57	 Pointer 2 to one byte (57 - 56)
+47: 0x00000005 = 5 -> 56	 Pointer 1 to one byte (56 - 55)
+51: 0x00000000 = 0 -> 55	 start of data
+55: 0x00010000 = 65536       Item 1 [0x00], Item 2 [0x01], and part of Item 3 
+59: 0x00000000 = 0	         Item 3
 63: 0x00080000 = 524288	
 67: 0x00000000 = 0	
 71: 0x00000000 = 0	
@@ -52,49 +63,77 @@ import com.integratedgraphics.ifs.vendor.ByteBlockReader;
 91: 0x00000000 = 0	
 95: 0x00000800 = 2048	
 99: 0x00000000 = 0
-103: 0x000000 
+103: 0x000000
+106:
 </code>
  * 
  * The pointers are {71, 46, 30, 10, 5, 0}. There are five data elements here.
  * First up are two single bytes (5 - 0 - 4 = 1 and 10 - 5 - 4 = 1). These are
- * followed by a 16-byte element (30 - 10 - 4 = 16), a twelve-byte element (46 -
- * 30 - 4 = 12), and a 21-byte element (71 - 46 - 4 = 21).
+ * followed by a 16-byte element (30 - 10 - 4 = 16), a 12-byte element (46 - 30
+ * - 4 = 12), and a 21-byte element (71 - 46 - 4 = 21).
  * 
  * Read as bytes and ints, we have the sequence:
  * 
  * 0x00, 0x01, [0, 8, 0, 0], [0, 4, 0], and [1, 0x6E, 8, 0, 0]
  * 
- * (Note that we have interpreted the 1 starting at byte 53 as an integer, and
- * the next byte as its own element. We could be completely wrong here. [0, 8]
- * could indicate that the next eight bits are a long, and [0, 4] could indicate
- * an int. Maybe they are all just bytes. That's the fun part!)
+ * (Note that I have interpreted the 32 bits starting at byte 53 as an integer
+ * (the number 1, 0x00000001), and the next byte as its own element (0x6E). I
+ * easily could be completely wrong here. [0, 8] could indicate that the next
+ * eight bits are a long, and [0, 4] could indicate an int. Maybe they are all
+ * just bytes. Who knows? That's the fun part!)
  * 
  * Included in the superclass ByteBlockReader are several utility methods that
  * can be used to read the byte array in syntactically defined ways. For
- * example, readBLock() reads a four-byte address and creates a ByteBuffer field
+ * example, nextBlock() reads a four-byte address and creates a ByteBuffer field
  * comprising the bytes from the current address (after reading that 4-byte
  * reference) to the address pointed to by the reference. This ByteBuffer can
  * then be to read data from that particular block of bytes using super.get...
  * methods.
  * 
- * The basic MNova file format is as follows (example from 1.mnova test sample):
+ * Byte Order
+ * 
+ * All examples I have seen are for the most part big-endian byte order. There
+ * are situations where the format switches to little-endian format. But this
+ * seems to be minimal, and I only found it the case in association with CDX
+ * file storage.
+ * 
+ * Strings
+ * 
+ * Strings are stored preceded by their length encoded as a 32-bit integer. They
+ * may be straight ASCII character strings or UTF-16. There is no way I know of
+ * to be sure which it will be. I had I had to look at the binary data and
+ * decide each time whether the string was UTF-16 ([0x00] a [0x00] c [0x00] q
+ * [0x00] u [0x00] s) or not.
+ * 
+ * 
+ * Example
+ * 
+ * Several examples are in the GitHub folder test/mnova. These vary in versions,
+ * including 7, 12, and 14.
+ * 
+ * An example basic MNova file format is as follows (example from 1.mnova test
+ * sample in the GitHub test/mnova folder):
  *
  * <code>
  0000000  23-byte sequence "Mestrelab Research S.L.
  0000023  0xF1E2C3D4  byte order test mark
-
            block 1 -- 40-byte block of pointers:
- 0000027  -> to block 2 (158 here)
- 0000031  -> to version (106 here)
- ...      
-           version
+ 0000027  0x0000007F = 127 -> 158 (to part 2)
+ 0000031  0x00000047 = 71 -> 106 (to version)
+ 0000035  0x0000002E = 46 -> 85
+ 0000039  0x0000001E = 30 -> 73 
+ 0000043  0x0000000A = 10 -> 57 
+ 0000047  0x00000005 = 5 -> 56 
+ 0000051  0x00000000 = 0 (end of pointers) 
+...
+          version
  0000106  20 ".M.e.s.t.R.e.N.o.v.a"  ('.' being <00>, unicode high byte)
  0000124  24 ".1.2...0.3._.2. .1.3.8.4" 
 
-           block 2
- 0000158  -> to block 3 (178 here)
+           part 2
+ 0000158  -> to part 3 (178 here)
  ...
-           block 3
+           part 3
  0000178  -> to pages (38628 here) 
  ...
  0038628  -> EOF* (*or a final signature block just before that)
@@ -116,7 +155,7 @@ import com.integratedgraphics.ifs.vendor.ByteBlockReader;
  ...
            page 2
  0408829  -> EOF* (765767 in this case)
- ...
+ ... etc.
  0765767  17 "MestReNova.Uh7580"   
 
 </code>
@@ -127,17 +166,16 @@ import com.integratedgraphics.ifs.vendor.ByteBlockReader;
  * guess. All we are interested in here are the parameters. These are found in
  * the page block using the readToParameters() method, several blocks down
  * within the page block. (This was determined ad hoc and could easily be
- * flawed.) Generally 31 parameters are encountered:
-<code>
+ * flawed.) Generally 31 parameters are encountered: <code>
    Data File Name = ...fid
    Title = Y12180222-0320-HWY-34.2.fid
    Comment = null
    Origin = Bruker BioSpin GmbH FROM acqus
    Owner = root FROM acqus
    Site = null
-   Instrument = spect FROM acqus
+   Instrument = spect FROM acqus ("Spectrometer" in Version 7? JDX vs Bruker?)
    Author = null
-   Solvent = CDCl3 FROM acqus   ("Spectrometer" in Version 7?)
+   Solvent = CDCl3 FROM acqus   
    Temperature = 298.5953 FROM acqus
    Pulse Sequence = zgpg30 FROM acqus
    Experiment = 1D
@@ -166,17 +204,23 @@ import com.integratedgraphics.ifs.vendor.ByteBlockReader;
  * 
  * Molecules are (somewhere) within the set of 10-12 blocks that follow the
  * parameter blocks. CDX and MOL files (as far as I can tell) have to be
- * discovered ungracefully, scanning the blocks for key byte sequences, but once
- * the correct block is identified, scanning to the byte or string data appears
- * to be no problem. Once again, though, it is not at all guaranteed that these
- * methods are totally general.
+ * discovered ungracefully, scanning the block data for key byte sequences, but
+ * once the correct block is identified, scanning to the byte or string data
+ * appears to be no problem. Once again, though, it is not at all guaranteed
+ * that these methods are totally general.
  * 
- * General
+ * MNova converts structure files to V2000 MOL files using OpenBabel.
+ * 
+ * 
+ * General Performance
  * 
  * The reader is very fast, since all we are doing is manipulating pointers, for
- * the most part. Searching for byte sequences takes a bit of time.
+ * the most part. Searching for byte sequences (MOL and CDX) takes a bit of
+ * time, but the full file byte stream is read first into a
+ * ByteBlockReader.RewindableInputStream that is then used as the basis for a
+ * ByteBuffer.
  * 
- * @author hansonr
+ * @author hansonr 2021.08.01
  *
  */
 class MNovaMetadataReader extends ByteBlockReader {
@@ -189,15 +233,15 @@ class MNovaMetadataReader extends ByteBlockReader {
 	private final static int magicNumberBE = 0xF1E2D3C4;// F1 E2 D3 C4
 	private final static int magicNumberLE = 0xC4D3E2F1;// C4 D3 E2 F1
 
-	private final static byte[] molKey = new byte[] { 'M', ' ', ' ', 'E', 'N', 'D' }; 
+	private final static byte[] molKey = new byte[] { 'M', ' ', ' ', 'E', 'N', 'D' };
 
-	private final static byte[] cdxKey = new byte[] { 
-		/* (CD) IF\0 */ (byte)0x49, (byte)0x46, (byte)0x00, 
-		/*      VjCD */ (byte)0x56, (byte)0x6A, (byte)0x43, (byte)0x44 };
+	private final static byte[] cdxKey = new byte[] { /* (CD) IF\0 */ (byte) 0x49, (byte) 0x46, (byte) 0x00,
+			/* VjCD */ (byte) 0x56, (byte) 0x6A, (byte) 0x43, (byte) 0x44 };
 
 	public static final String CDX_FILE_DATA = ".cdx";
 	public static final String MOL_FILE_DATA = ".mol";
-	private static final int minLengthForMoleculeData = 50;
+	
+	private static final int minBlockLengthForStructureData = 50;
 
 	private MestrelabIFSVendorPlugin plugin;
 
@@ -230,7 +274,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * output CDX and MOL files
 	 */
 	private static boolean createStructureFiles = false;
-	
+
 	/**
 	 * Process the file.
 	 * 
@@ -243,10 +287,9 @@ class MNovaMetadataReader extends ByteBlockReader {
 			if (!checkByteOrder())
 				return false;
 			test();
-			readFileAsStack();				
-			System.out.println("MNovaReader ------- nPages=" + nPages 
-					+ " nSpectra=" + nSpectra
-					+ " nMolecules=" + nMolecules);
+			readFileAsStack();
+			System.out.println(
+					"MNovaReader ------- nPages=" + nPages + " nSpectra=" + nSpectra + " nMolecules=" + nMolecules);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -293,6 +336,36 @@ class MNovaMetadataReader extends ByteBlockReader {
 		} catch (NumberFormatException nfe) {
 			mnovaVersionNumber = Integer.MAX_VALUE;
 		}
+	}
+
+	/**
+	 * The cleanest way to read the file found so far.
+	 * 
+	 * 1) read the 27-byte header. 2) read the pointers onto a stack 3) read byte[]
+	 * objects off the stack 4) process the pages
+	 * 
+	 * @throws IOException
+	 */
+	private void readFileAsStack() throws IOException {
+		rewindIn();
+		seekIn(27);
+		Stack<BlockData> objects = getObjectStack();
+		System.out.println(objects.size() + " objects");
+		long pt = readPosition();
+		// last is version
+		BlockData verObject = objects.pop();
+		seekIn(verObject.loc);
+		readVersion();
+//		testStack(objects);
+		// at pages
+		seekIn(pt);
+		nextBlock(); // 16
+		nextBlock(); // items?
+		int nPages = readPages(readPosition());
+		while (readAvailable() > 0) {
+			nextBlock();
+		}
+		System.out.println(nPages + " pages processed, version=" + mnovaVersion);
 	}
 
 //	/**
@@ -418,17 +491,17 @@ class MNovaMetadataReader extends ByteBlockReader {
 //		int test = readInt();
 //		if (test > 0) {
 //			while (peekInt() != -1) {
-//				readBlock();
+//				nextBlock();
 //			}
 //		}
 //	}
-
 
 	private void readFourUnknownInts() throws IOException {
 		readInts(4);
 	}
 
-	private int readPages() throws IOException {
+	private int readPages(long pt) throws IOException {
+		seekIn(pt);
 		if (testing)
 			System.out.println("--- readPages " + readPosition()); // 38628 - 39077
 		readPointer(); // to EOF or next block
@@ -447,7 +520,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	}
 
 	private void readPageInsets() throws IOException {
-		readBlock(); // 32 bytes
+		nextBlock(); // 32 bytes
 		// pairs of integers, e.g. (0,0), (296,209), (5,5) (291, 204)
 	}
 
@@ -477,7 +550,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	}
 
 	/**
-	 * Read to the parameters for this page. 
+	 * Read to the parameters for this page.
 	 * 
 	 * @return -pt if no parameters, otherwise pt to next page
 	 * 
@@ -485,39 +558,51 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 */
 	private long readToParameters(long pt0) throws IOException {
 		seekIn(pt0);
-		readBlock(); // 40 or 61 bytes, depending upon version
+		readPageHeader();
 		long pt = readPointer(); // to next page
 		readPageBlock2(); // 40
 		readPageInsets(); // 32
 		readFourUnknownInts();
 		readInt(); // 0
 		readPointer(); // to next page
-		readInt(); // 2 -- two what? 3? 4 in taxol
+		readInt(); // 1 (in cyclehex.mnova? 2 -- two what? 3? 4 in taxol
 		readPointer(); // to next page
 		if (readPosition() == pt)
 			return -pt; // nothing on this page
 		readInt(); // 0
 		readPointer(); // to ? 394266 in 1.mnova
-		readInt(); // usually 109; can be 107? Not a pointer 
+		readInt(); // usually 109; can be 107, 110; id? type?  Not a pointer
 		if (peekInt() == 0) {
-			// no spectrum 
+			// no spectrum
 			return -pt;
 		}
 		readFourUnknownInts();
 		readInt(); // 0 in 1.mnova
 		// skipping our way through to parameters -- ad hoc
-		readBlock(); 
-		readBlock();
-		readInt();
-		readBlock(); // 189 bytes in 1.mnova; 197 in v14
-		readBlock(); // 5957 bytes in 1.mnova; 7107 in v14
-		readPointer(); // to next
-		readPointer(); // to ? 65042 in 1.mnova; 82869 in v14
-		readPointer(); // to ? 60663 in 1.mnova; 78252 in v14
-		readBlock(); // 1081 bytes in 1.mnova; 11373 in v14
-		readPointer(); // to 50418 in 1.mnova; 68007 in v14
-		readInt(); // 0
-		return pt;
+		nextBlock(); // to 38964
+		nextBlock(); // 172 to 39140 
+		readPointer(); // -> 394266 
+		nextBlock(); // 189 -> 39337 bytes in 1.mnova; 197 in v14
+		nextBlock(); // 5957 -> 45298 bytes in 1.mnova; 7107 in v14
+		Stack<BlockData> stack = getObjectStack();
+		System.out.println(
+				stack.elementAt(1).getData().length
+				+ " " + stack.elementAt(1).getData()[0]);
+		BlockData params = stack.get(stack.size() - 3);
+		params.seek();
+		readPointer();
+		if (readInt() != 0)
+			return -pt; // no parameters    // 0
+		System.out.println(readPosition());
+		return pt; // 46403
+	}
+
+	/**
+	 * Read a 40 or 61 byte header, depending upon version
+	 * @throws IOException
+	 */
+	private void readPageHeader() throws IOException {
+		nextBlock();
 	}
 
 	/**
@@ -526,7 +611,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * @throws IOException
 	 */
 	private void readPageBlock2() throws IOException {
-		readBlock();
+		nextBlock();
 		// 1.mnova test -- unclear what this is
 //		38732 reading 40 to 38776
 //		38736: 0x000036DB = 14043 -> 52783	
@@ -548,7 +633,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 */
 	private void readParams() throws IOException {
 		System.out.println("parameters found at " + readPosition());
-		int n = readInt();
+		int n = readInt(); // cound of parameters
 		for (int i = 0; i < n; i++) {
 			readParam(i);
 		}
@@ -615,8 +700,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		public String toString() {
 			if (value == null)
 				return null;
-			return value.replace('\n', ' ') 
-					+ (units == null ? "" : " " + units)
+			return value.replace('\n', ' ') + (units == null ? "" : " " + units)
 					+ (source == null ? "" : " FROM " + source);
 		}
 	}
@@ -630,7 +714,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 */
 	private void readParam(int index) throws IOException {
 		System.out.println(" param " + (index + 1) + " at " + readPosition());
-		readBlock(); // D 5 0 1 type
+		nextBlock(); // D 5 0 1 type
 		int count = readInt(); // 1 or 2 (or more?)
 		Param param1 = new Param(1);
 		Param param2 = (count == 2 ? new Param(2) : null);
@@ -656,13 +740,13 @@ class MNovaMetadataReader extends ByteBlockReader {
 		seekIn(ptr31);
 		readVersion();
 		seekIn(27);
-		readBlock();
-		readBlock();
-		readBlock();
+		nextBlock();
+		nextBlock();
+		nextBlock();
 		// pages
 		System.out.println("\n===Pages start at " + readPosition());
 		readPointer(); // -> EOF
-		readBlock(); // 32
+		nextBlock(); // 32
 		readInt(); // 0
 		readPointer(); // -> EOF
 		int nPages = readInt();
@@ -680,7 +764,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		}
 		System.out.println("\n===Pages end at " + readPosition() + " available=" + readAvailable());
 	}
-	
+
 	private void searchForStructures(long pos0, int index, long ptNext) throws IOException {
 		int nBlocks = 0;
 		boolean haveCDX = false;
@@ -693,25 +777,25 @@ class MNovaMetadataReader extends ByteBlockReader {
 				long ptr = readPosition();
 				if (testing)
 					System.out.println("additional block " + nBlocks + " len=" + len + " from " + ptr + " to "
-						+ (ptr + len) + " ptNext=" + ptNext);
-				if (len > minLengthForMoleculeData) {
+							+ (ptr + len) + " ptNext=" + ptNext);
+				if (len > minBlockLengthForStructureData) {
 
 					int offset = (haveMOL ? -1 : findBytes(molKey, len, false));
 					if (offset >= 0) {
 						haveMOL = true;
-						checkMOL(ptr, offset);
+						exportMOL(ptr, offset);
 					}
 					if (readAvailable() == 0)
 						return;
 					offset = (haveCDX ? -1 : findBytes(cdxKey, len, false));
 					if (offset >= 0) {
 						haveCDX = true;
-						checkCDX(ptr, offset);
+						exportCDX(ptr, offset);
 						continue;
 					}
 				}
 			}
-			readBlock();
+			nextBlock();
 		}
 		if (testing)
 			System.out.println("\n======Page " + (index + 1) + " additional blocks: " + nBlocks);
@@ -719,17 +803,18 @@ class MNovaMetadataReader extends ByteBlockReader {
 
 	/**
 	 * found the C
+	 * 
 	 * @param lastPosition
 	 * @param skip
 	 * @throws IOException
 	 */
-	private void checkCDX(long lastPosition, int skip) throws IOException {
+	private void exportCDX(long lastPosition, int skip) throws IOException {
 		seekIn(lastPosition);
 		long ptNext = readPointer();
 		skipIn(skip - 11);
 		ByteOrder bo = byteOrder;
 		setByteOrder(ByteOrder.LITTLE_ENDIAN);
-		int len = readInt() - 7; // accounts for extra 0 0 
+		int len = readInt() - 7; // accounts for extra 0 0
 		readInt();
 		readByte();
 		setByteOrder(bo);
@@ -739,10 +824,10 @@ class MNovaMetadataReader extends ByteBlockReader {
 		nMolecules++;
 		handleFileData(CDX_FILE_DATA, cdxFileData, len, null);
 		seekIn(ptNext);
-		
+
 	}
 
-	private void checkMOL(long lastPosition, int skip) throws IOException {
+	private void exportMOL(long lastPosition, int skip) throws IOException {
 		seekIn(lastPosition);
 		long ptNext = readPointer();
 		readInt();//
@@ -750,29 +835,36 @@ class MNovaMetadataReader extends ByteBlockReader {
 			return;
 		readFourUnknownInts();
 		readInt(); // 0
-		readBlock(); // -> 501150
-		readBlock(); // 178-long Molecule block
+		nextBlock(); // -> 501150
+		nextBlock(); // 178-long Molecule block
 		readInt(); // to next
 		if (peekInt() == 0)
 			return; // 3a-c.mnova
-		readBlock();
-		readBlock();
-		readBlock();
-		readSubblock(4);
+		nextBlock();
+		nextBlock();
+		nextBlock();
+		nextSubblock(4);
 		if (peekInt() == -1) {
 			// page 4 22232721/metadatanmr/nmr spectra.mnova
 			readByte();
-			readInts(9); // hack 
+			readInts(9); // hack
 		}
 		int len = peekInt();
 		nMolecules++;
-		handleFileData(MOL_FILE_DATA, readLenString(), len, null);
+		handleFileData(MOL_FILE_DATA, readLenStringSafely(), len, null);
 		seekIn(ptNext);
 	}
 
+	/**
+	 * Handle this CDX or MOL file export, sending it to the plugin if present or
+	 * creating the file if that option is chosen and testing.
+	 * 
+	 * @param type
+	 * @param fileData
+	 * @param len
+	 * @param fname
+	 */
 	private void handleFileData(String type, Object fileData, int len, String fname) {
-		if (fname == null)
-			fname = "test" + zeroFill(nPages, 2) + type;
 		boolean isString = (type == MOL_FILE_DATA);
 		System.out.println("=====Page Molecule " + nPages + " " + type + ">>>>>");
 		if (plugin != null)
@@ -780,6 +872,8 @@ class MNovaMetadataReader extends ByteBlockReader {
 		System.out.println(isString ? fileData : "[" + len + " bytes]");
 		System.out.println("<<<<<" + type + "=====");
 		if (testing && createStructureFiles) {
+			if (fname == null)
+				fname = "test_" + nTests + "_" + zeroFill(nPages, 2) + type;
 			File f = new File(fname);
 			try (FileOutputStream fis = new FileOutputStream(f)) {
 				if (isString) {
@@ -803,19 +897,30 @@ class MNovaMetadataReader extends ByteBlockReader {
 	}
 
 	private static String testFile;
+	private static int defaultTest = 2;
+	private static int nTests;
 
 	public static void main(String[] args) {
-		String fname = (args.length == 0 ? testFile : args[0]);
+		if (args.length == 0 && testFile == null) {
+			testAll();
+		} else {
+			String fname = (args.length == 0 ? testFiles[defaultTest] : args[0]);
+			runFileTest(fname);
+		}
+	}
+
+	private static boolean runFileTest(String fname) {
 		try {
 			String filename = new File(fname).getAbsolutePath();
 // this is the 158-MB file
 			byte[] bytes = Util.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
 			System.out.println(bytes.length + " bytes in " + filename);
 			new MNovaMetadataReader(bytes).process();
+			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		}
-
 	}
 
 	/**
@@ -825,19 +930,19 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 */
 	private void test() throws IOException {
 		rewindIn();
-		
+
 		testing = true;
 		showInts = true;
 		showChars = true;
 		createStructureFiles = true;
-		
+
 //		peekIntsAt(2135288-80, 20);
 //		findRef(1984530);
 //		peekIntsAt(1721399, 10);
 //		checkDoubles(1721418,3,0);
 //
 //		seekIn(1721085);
-//		readBlock();
+//		nextBlock();
 //		readDouble();
 //		readDouble();
 //		readByte(); // 2
@@ -852,27 +957,27 @@ class MNovaMetadataReader extends ByteBlockReader {
 //		readDouble();
 //		readByte();
 //		peekInts(30);
-//		readBlock();
+//		nextBlock();
 //		peekInts(30);
-//		readBlock();
+//		nextBlock();
 //		peekInts(30);
-//		readBlock();
+//		nextBlock();
 //		peekInts(30);
-//		readBlock();
+//		nextBlock();
 //		peekInts(30);
-//		readBlock();
+//		nextBlock();
 //		peekInts(30);
-//		readBlock();
+//		nextBlock();
 //		peekInts(30);
 //		
 //		seekIn(1721442-180);
 //		peekInts(50);
-//		readBlock();
+//		nextBlock();
 //		readInts(6);
 //		peekInts(30);
-//		readBlock();
+//		nextBlock();
 //		readInts(6);
-//		readBlock();
+//		nextBlock();
 //		peekInts(30);
 //		
 //		
@@ -908,43 +1013,10 @@ class MNovaMetadataReader extends ByteBlockReader {
 //		findRef(2135288);
 //		// dumpFileInfo();
 //
-		//showInts = false;
+		// showInts = false;
 		showChars = false;
 		testing = false;
 		return;
-	}
-
-
-	/**
-	 * The cleanest way to read the file found so far. 
-	 * 
-	 * 1) read the 27-byte header.
-	 * 2) read the pointers onto a stack
-	 * 3) read byte[] objects off the stack
-	 * 4) process the pages
-	 * 
-	 * @throws IOException
-	 */
-	private void readFileAsStack() throws IOException {
-		rewindIn();
-		seekIn(27);
-		Stack<Block> objects = getObjectStack();
-		System.out.println(objects.size() + " objects");
-		long pt = readPosition();
-		// last is version
-		Block verObject = objects.pop();
-		seekIn(verObject.loc);
-		readVersion();
-//		testStack(objects);
-		// at pages
-		seekIn(pt);
-		readBlock(); // 16
-		readBlock(); // items?
-		int nPages = readPages();
-		while (readAvailable() > 0) {
-			skipBlock();
-		}
-		System.out.println(nPages + " pages processed, version=" + mnovaVersion);
 	}
 
 //	private void testStack(Stack<Block> objects) throws IOException {
@@ -956,21 +1028,43 @@ class MNovaMetadataReader extends ByteBlockReader {
 //		}
 //	}
 
-	static {
-		//testFile = "test/mnova/3a-C.mnova"; // OK one page, with ChemDraw drawing
-		//testFile = "test/mnova/1.mnova"; // OK two pages, no structures
-		//testFile = "test/mnova/1-deleted.mnova"; // first page param list only, next page blank
-		//testFile = "test/mnova/1-v14.mnova"; // OK two pages
-		//testFile = "test/mnova/3a-C-taxol.mnova"; // (v 14) OK, but looking for model
-		//testFile = "test/mnova/1-caff-taxol.mnova"; // two structures
-		//testFile = "test/mnova/1-caff-taxol-rev.mnova"; // two structures
-		// testFile = "test/mnova/1-caff-taxol-delete.mnova"; // caffeine deleted in
+	static void testAll() {
+
+		boolean ok = true;
+		for (int i = 0; i < testFiles.length; i++) {
+			nTests = i + 1;
+			if (runFileTest(testFiles[i])) {
+				System.out.println("Test " + i + " on " + testFiles[i] + " OK");
+			} else {
+				System.err.println("Test " + i + " on " + testFiles[i] + " failed");
+				ok = false;
+				break;
+			}
+		}
+		if (ok)
+			System.out.println("All tests successful");
 		
-		// ok for structure:
-		 testFile = "test/mnova/1-taxol-drop.mnova"; // caffeine deleted in page 1; taxol on page 2
-		// testFile = "test/mnova/1-taxol-drop-move.mnova"; // caffeine deleted in page
-		// testFile = "test/mnova/3a-c-morphine.mnova"; // morphine.mol added using file...open
-		//testFile = "c:\\temp\\iupac\\zip\\22232721\\metadatanmr\\nmr spectra.mnova";
+	}
+	
+	static final String[] testFiles = {
+			// no structure?
+			/* 0 */ "test/mnova/cyclohex.mnova", // no spectrum, just a cyclohexane .xyz structure
+			// ok for structure:
+			/* 1 */ "test/mnova/3a-C.mnova", // OK one page, with ChemDraw drawing
+			/* 2 */ "test/mnova/1.mnova", // OK two pages, no structures
+			/* 3 */ "test/mnova/1-deleted.mnova", // first page param list only, next page blank
+			/* 4 */ "test/mnova/1-v14.mnova", // OK two pages
+			/* 5 */ "test/mnova/3a-C-taxol.mnova", // (v 14) OK, but looking for model
+			/* 6 */ "test/mnova/1-caff-taxol.mnova", // two structures
+			/* 7 */ "test/mnova/1-caff-taxol-rev.mnova", // two structures
+			/* 8 */ "test/mnova/1-caff-taxol-delete.mnova", // caffeine deleted in
+			/* 9 */ "test/mnova/1-taxol-drop.mnova", // caffeine deleted in page 1, taxol on page 2
+			/* 10 */ "test/mnova/1-taxol-drop-move.mnova", // caffeine deleted in page
+			/* 11 */ "test/mnova/3a-c-morphine.mnova", // morphine.mol added using file...open
+			/* 12 */ "c:\\temp\\iupac\\zip\\22232721\\metadatanmr\\nmr spectra.mnova", };
+
+	static {
+//		testFile = testFiles[12];
 	}
 
 }

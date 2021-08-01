@@ -84,7 +84,7 @@ public class ByteBlockReader {
 	}
 
 	/**
-	 * Get the current buffer
+	 * Get the current byte array underlying the ByteBuffer and InputStream.
 	 * 
 	 * @return this.buf
 	 */
@@ -102,7 +102,9 @@ public class ByteBlockReader {
 	}
 
 	/**
-	 * Read bytes into the ByteBuffer and byte[] array from the input stream.
+	 * Read bytes into the ByteBuffer and byte[] array from the input stream. the
+	 * "read" methods in this class handle this automatically, but if you prefer,
+	 * you can load the buffer this way yourself and then use the "get" methods (getByte, getShort, getInt, getLong, getDouble).
 	 * 
 	 * @param len number of bytes to read
 	 * @return current buffer
@@ -135,11 +137,12 @@ public class ByteBlockReader {
 	}
 
 	/**
-	 * Mark the input stream.
+	 * Mark the input stream. A future resetIn() will return to this position. This method is private. To do this 
+	 * publicly, just use long ptr = readPosition() and then, later, seekIn(ptr). 
 	 * 
 	 * @param n
 	 */
-	public void markIn(int n) {
+	private void markIn(int n) {
 		mark = position;
 		in.mark(n);
 	}
@@ -167,17 +170,32 @@ public class ByteBlockReader {
 			System.out.println("skip from " + (position - n) + " by " + n + " to " + position);
 	}
 
-	public void seekIn(long pt) throws IOException {
-		if (readPosition() > pt)
+	/**
+	 * Set the position of the input stream to the given location.
+	 * 
+	 * @param loc
+	 * @throws IOException when attempting to read a negative location or past the
+	 *                     end of the input stream.
+	 */
+	public void seekIn(long loc) throws IOException {
+		if (readPosition() > loc)
 			rewindIn();
-		skipIn((int)(pt - readPosition()));
+		skipIn((int)(loc - readPosition()));
 	}
 
+	/**
+	 * Read a 32-bit integer as a byte block data pointer, adding its value to the
+	 * address of the byte that follows it.
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	public long readPointer() throws IOException {
 		int len = readInt();
 		long pos = readPosition();
 		return pos + len;
 	}
+	
 	public long readLongPtr() throws IOException {
 		long len = readLong();
 		long pos = readPosition();
@@ -256,7 +274,6 @@ public class ByteBlockReader {
 			dump("Long", l, 8, toHex(l), "");
 		return l;
 	}
-
 	
 	private void dump(String type, long val, int len, String hex, String s) {
 		System.out.println("read" + type + " " + (position - len) + ": " + hex
@@ -322,13 +339,16 @@ public class ByteBlockReader {
 
 	/**
 	 * Read an ASCII String that has its length indicated as an integer just before
-	 * it.
+	 * it. However, if that string starts with 0x00xx00xx, we will assume you meant
+	 * to read a UTF-16 string and switch to that.
 	 * 
 	 * @return
 	 * @throws IOException
 	 */
-	public String readLenString() throws IOException {
-		return readSimpleString(readInt());
+	public String readLenStringSafely() throws IOException {
+		int len = readInt();
+		long b = peekInt();
+		return ((b & 0xFF00FF00) == 0 ? readUTF16String(len) : readSimpleString(len));
 	}
 
 	/**
@@ -339,8 +359,19 @@ public class ByteBlockReader {
 	 * @throws IOException
 	 */
 	public String readUTF16String() throws IOException {
+		return readUTF16String(readInt());
+	}
+
+	/**
+	 * Read a UTF-16 String of given length, converting 2-, 3-, and 4-byte sequences
+	 * properly. Regular ASCII text sent to this method will return what looks like
+	 * Mandarin.
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	public String readUTF16String(int len) throws IOException {
 		long p = readPosition();
-		int len = readInt();
 		setBuf(len);
 		String s = new String(buf, 0, len, "utf16");
 		if (testing)
@@ -348,6 +379,12 @@ public class ByteBlockReader {
 		return s;
 	}
 
+	/** 
+	 * Read through a set of 4-byte integers. 
+	 * 
+	 * @param n
+	 * @throws IOException
+	 */
 	public void readInts(int n) throws IOException {
 		for (int i = 0; i < n; i++) {
 			if (testing)
@@ -356,6 +393,12 @@ public class ByteBlockReader {
 		}
 	}
 
+	/**
+	 * Just look at a byte; don't change the input stream position.
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	public int peekByte() throws IOException {
 		markIn(1);
 		int n = readByte();
@@ -378,99 +421,6 @@ public class ByteBlockReader {
 		if (testing && showInts)
 			System.out.println("peekInt " + n);
 		return n;
-	}
-
-	/**
-	 * Read out the nexts n integers, resetting the input stream after doing so.
-	 * 
-	 * @param n
-	 * @throws IOException
-	 */
-	public void peekInts(int n) throws IOException {
-		System.out.println("PeekInts " + n + " pos=" + readPosition() + " navail=" + readAvailable());
-		boolean l = testing;
-		boolean l1 = showInts;
-		testing = showInts = true;
-		markIn(n * 4);
-		readInts(n);
-		resetIn();
-		testing = l;
-		showInts = l1;
-	}
-
-	public void peekIntsAt(long pos, int n) throws IOException {
-		boolean l = testing;
-		boolean l1 = showInts;
-		testing = showInts = true;
-		long pos0 = readPosition();
-		setPosition(pos);
-		readInts(n);
-		setPosition(pos0);
-		testing = l;
-		showInts = l1;
-	}
-
-	/**
-	 * Find a double value in the input stream within a given distance after the
-	 * current point.
-	 * 
-	 * @param d      double to find
-	 * @param length maximum distance to check or -1 for in.available()
-	 * @param isAll  true to report all
-	 * @return found position or -1
-	 * @throws IOException
-	 */
-	public int findDouble(double d, int length, boolean isAll) throws IOException {
-		long l = Double.doubleToLongBits(d);
-		int high = (int) ((l >> 32) & 0xFFFFFFFF);
-		int low = (int) (l & 0xFFFFFFFF);
-		return findInts(new int[] { high, low }, length, isAll);
-	}
-
-	/**
-	 * Find an approximate double value in the input stream within a given distance
-	 * after the current point.
-	 * 
-	 * @param d      double to find
-	 * @param nBytes the number of bytes of significance, from 2 to 8
-	 * @param length maximum distance to check or -1 for in.available()
-	 * @param isAll
-	 * @return found position or -1
-	 * @throws IOException
-	 */
-	public int findDoubleApprox(double d, int nBytes, int length, boolean isAll) throws IOException {
-		ByteBuffer dbuf = ByteBuffer.allocate(8);
-		dbuf.putDouble(d);
-		byte[] bytes = dbuf.array();
-		nBytes = Math.max(2, Math.min(nBytes, 8));
-		if (length < 0)
-			length = readAvailable();
-		markIn(length);
-		setBuf(length);
-		resetIn();
-		ByteBuffer b = buffer;
-		buf = new byte[0];
-		int found = -1;
-		for (int i = 0, n = length - 8; i < n;) {
-			for (int j = 0;;) {
-				byte test = b.get();
-				if (test != bytes[j]) {
-					b.position(++i);
-					break;
-				}
-				if (++j == nBytes) {
-					if (isAll) {
-						if (found == -1)
-							found = i;
-						System.out.println(i);
-						b.position(++i);
-						break;
-					}
-					return i;
-				}
-			}
-		}
-		return found;
 	}
 
 	/**
@@ -603,6 +553,15 @@ public class ByteBlockReader {
 	}
 
 	/**
+	 * Get the next 64-bit long integer from the ByteBuffer.
+	 * 
+	 * @return the long value
+	 */
+	public long getLong() {
+		return buffer.getLong();
+	}
+
+	/**
 	 * Get the next 16-bit integer from the ByteBuffer.
 	 * 
 	 * @return the short value
@@ -631,6 +590,109 @@ public class ByteBlockReader {
 	 */
 	public ByteBuffer get(byte[] b, int offset, int len) {
 		return buffer.get(b, offset, len);
+	}
+
+	
+	//////// debugging tools ///////
+
+	/**
+	 * Read out the next n integers, resetting the input stream after doing so.
+	 * 
+	 * @param n
+	 * @throws IOException
+	 */
+	public void peekInts(int n) throws IOException {
+		System.out.println("PeekInts " + n + " pos=" + readPosition() + " navail=" + readAvailable());
+		boolean l = testing;
+		boolean l1 = showInts;
+		testing = showInts = true;
+		markIn(n * 4);
+		readInts(n);
+		resetIn();
+		testing = l;
+		showInts = l1;
+	}
+
+	/**
+	 * Peek at a set of integers for debugging.
+	 * 
+	 * @param pos
+	 * @param n
+	 * @throws IOException
+	 */
+	public void peekIntsAt(long pos, int n) throws IOException {
+		boolean l = testing;
+		boolean l1 = showInts;
+		testing = showInts = true;
+		long pos0 = readPosition();
+		setPosition(pos);
+		readInts(n);
+		setPosition(pos0);
+		testing = l;
+		showInts = l1;
+	}
+
+	/**
+	 * Find a double value in the input stream within a given distance after the
+	 * current point.
+	 * 
+	 * @param d      double to find
+	 * @param length maximum distance to check or -1 for in.available()
+	 * @param isAll  true to report all
+	 * @return found position or -1
+	 * @throws IOException
+	 */
+	public int findDouble(double d, int length, boolean isAll) throws IOException {
+		long l = Double.doubleToLongBits(d);
+		int high = (int) ((l >> 32) & 0xFFFFFFFF);
+		int low = (int) (l & 0xFFFFFFFF);
+		return findInts(new int[] { high, low }, length, isAll);
+	}
+
+	/**
+	 * Find an approximate double value in the input stream within a given distance
+	 * after the current point.
+	 * 
+	 * @param d      double to find
+	 * @param nBytes the number of bytes of significance, from 2 to 8
+	 * @param length maximum distance to check or -1 for in.available()
+	 * @param isAll
+	 * @return found position or -1
+	 * @throws IOException
+	 */
+	public int findDoubleApprox(double d, int nBytes, int length, boolean isAll) throws IOException {
+		ByteBuffer dbuf = ByteBuffer.allocate(8);
+		dbuf.putDouble(d);
+		byte[] bytes = dbuf.array();
+		nBytes = Math.max(2, Math.min(nBytes, 8));
+		if (length < 0)
+			length = readAvailable();
+		markIn(length);
+		setBuf(length);
+		resetIn();
+		ByteBuffer b = buffer;
+		buf = new byte[0];
+		int found = -1;
+		for (int i = 0, n = length - 8; i < n;) {
+			for (int j = 0;;) {
+				byte test = b.get();
+				if (test != bytes[j]) {
+					b.position(++i);
+					break;
+				}
+				if (++j == nBytes) {
+					if (isAll) {
+						if (found == -1)
+							found = i;
+						System.out.println(i);
+						b.position(++i);
+						break;
+					}
+					return i;
+				}
+			}
+		}
+		return found;
 	}
 
 	/**
@@ -714,19 +776,6 @@ public class ByteBlockReader {
 		}
 	}
 
-	/**
-	 * Peek at the next eight bytes to see if they might be a reasonable double
-	 * value.
-	 * 
-	 * @return double
-	 * @throws IOException
-	 */
-	public double peekBufferDouble() throws IOException {
-		int p = buffer.position();
-		double d = buffer.getDouble();
-		buffer.position(p);
-		return (d != 0 && Math.abs(d) >= 1e-10 && Math.abs(d) <= 1e10 ? d : Double.NaN);
-	}
 
 	/**
 	 * Check a block of doubles starting at a given location, allowing for all
@@ -771,62 +820,27 @@ public class ByteBlockReader {
 
 	/**
 	 * Skip the number of bytes indicated in the next 32-bit integer of the input
-	 * stream.
+	 * stream, adding four bytes for the reference itself.
+	 * 
 	 * 
 	 * @throws IOException when that integer is less than 0 or greater than the
 	 *                     number of bytes available.
 	 */
-	public void skipBlock() throws IOException {
-		long pos = readPosition();
-		long navail = readAvailable();
-		int len = readInt();
-		if (len < 0 || len > navail)
-			throw new IOException(
-					"invalid length " + len + " for reading Block where pos=" + pos + " navail=" + navail);
-		skipIn(len);
-	}
-
-	/**
-	 * Read a block into the ByteBuffer for testing, just skipping it if not
-	 * testing.
-	 * 
-	 * @param blockIndex for testing only
-	 * @return true if successful; false if EOF
-	 * @throws IOException when that integer is less than 0 or greater than the
-	 *                     number of bytes available.
-	 */
-	public boolean readBlock() throws IOException {
+	public boolean nextBlock() throws IOException {
 		long navail = readAvailable();
 		if (navail == 0)
 			return false;
-		int len = peekInt();
 		long pos = readPosition();
+		int len = readInt();
 		if (len < 0 || len > navail)
-			throw new IOException(
-					"invalid length " + len + " for reading Block where pos=" + pos + " navail=" + navail);
-		long pt = readPointer();
-		setBuf(len);
-		if (testing) {
-			System.out.println(pos + " reading " + len + " to " + pt);// " skipping " +
-			if (showInts) {
-				pos += 4;
-				int n = len >> 2;
-				if (n > 30)
-					n = 30;
-				for (int i = 0, p = (int) pos; i < n; i++, p += 4) {
-					double d = (i < n - 1 ? peekBufferDouble() : Double.NaN);
-					int val = getInt();
-					System.out.println(p + ": " + toHex(val) + " = " + val + (val <= 0 ? "" : " -> " + (p + 4 + val))
-							+ "\t" + (Double.isNaN(d) ? "" : d));
-				}
-				if (n << 4 != len)
-					System.out.println("...");
-				System.out.println("read " + len + " bytes pos=" + position);
-				buffer.rewind();
-			}
-		}
+			throw new IOException("invalid length " + len + " for nextBlock where pos=" + pos + " navail=" + navail);
+		skipIn(len);
 		return true;
 	}
+
+//	 * When testing, read into the ByteBuffer from the current location up to the block indicated by the 
+//	 * data pointer at the current location. When not testing, the same as skipToBlock().
+//	 * 
 
 	/**
 	 * Skip a number of pointers and read the block that is indicated by the next pointer.
@@ -835,9 +849,9 @@ public class ByteBlockReader {
 	 * @return true if successful
 	 * @throws IOException
 	 */
-	public boolean readSubblock(int n) throws IOException {
+	public boolean nextSubblock(int n) throws IOException {
 		readInts(n);
-		return readBlock();
+		return nextBlock();
 	}
 
 	/**
@@ -1018,17 +1032,18 @@ public class ByteBlockReader {
 	 * @return
 	 * @throws IOException
 	 */
-	public Stack<Block> getObjectStack() throws IOException {
+	public Stack<BlockData> getObjectStack() throws IOException {
 		Stack<Long> ptrStack = new Stack<>();
-		Stack<Block> objStack = new Stack<>();
+		Stack<BlockData> objStack = new Stack<>();
 		while (peekInt() > 0)
 			ptrStack.push(readPointer());
+		readInt(); // 0
 //		showStack(ptrStack);
 		long pt = readPosition();
 		while (ptrStack.size() > 0) {
 			long ptr = ptrStack.pop();
 			int len = (int) (ptr - pt);
-			objStack.push(new Block(pt, len));
+			objStack.push(new BlockData(pt, len));
 			pt = ptr;
 		}
 		seekIn(pt);
@@ -1044,18 +1059,31 @@ public class ByteBlockReader {
 		System.out.println();
 	}
 
-	public class Block {
+	public class BlockData {
 		public long loc;
 		public int len;
 		
-	    public Block(long loc, int len) {
+	    public BlockData(long loc, int len) {
 			this.loc = loc;
 			this.len = len;
 		}
 	    
+	    public void seek() throws IOException {
+	    	seekIn(loc);
+	    }
+	    
+	    public byte[] getData() throws IOException {
+	    	long pt = readPosition();
+	    	seekIn(loc);
+	    	byte[] bytes = new byte[len];
+	    	read(bytes, 0, len);
+	    	seekIn(pt);
+	    	return bytes;
+	    }
+	    
 	    @Override
 		public String toString() {
-	    	return "[Block loc=" + loc + " len=" + len + "]";
+	    	return "[Block loc=" + loc + " len=" + len + " to " + (loc + len) + "]";
 	    }
 	}
 
