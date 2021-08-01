@@ -1,6 +1,8 @@
 package com.integratedgraphics.ifs.vendor;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -422,7 +424,7 @@ public class ByteBlockReader {
 		long l = Double.doubleToLongBits(d);
 		int high = (int) ((l >> 32) & 0xFFFFFFFF);
 		int low = (int) (l & 0xFFFFFFFF);
-		return findIn(new int[] { high, low }, length, isAll);
+		return findInts(new int[] { high, low }, length, isAll);
 	}
 
 	/**
@@ -481,7 +483,7 @@ public class ByteBlockReader {
 	 * @return found position or -1
 	 * @throws IOException
 	 */
-	public int findIn(int[] key, int length, boolean isAll) throws IOException {
+	public int findInts(int[] key, int length, boolean isAll) throws IOException {
 		if (length < 0)
 			length = readAvailable();
 		markIn(length);
@@ -503,6 +505,43 @@ public class ByteBlockReader {
 						if (found == -1)
 							found = i;
 						b.position(++i);
+						System.out.println("byteBlock found pos=" + i);
+						break;
+					}
+					return i;
+				}
+			}
+		}
+		return found;
+	}
+
+	public int findBytes(byte[] key, int length, boolean isAll) throws IOException {
+		if (length < 0)
+			length = readAvailable();
+		markIn(length);
+		setBuf(length);
+		resetIn();
+		int keylen = key.length;
+		ByteBuffer b = buffer;
+		buf = new byte[0];
+		int found = -1;
+		byte b0 = key[0];
+		for (int i = 0, n = length - keylen; i < n;) {
+			for (int j = 0, ptb0 = 0;;) {
+				byte test = b.get();
+				if (test == key[j]) {
+					if (j > 0 && test == b0 && ptb0 == 0)
+						ptb0 = j;
+				} else {
+					b.position(i = i + (ptb0 == 0 ? j + 1 : ptb0));
+					break;
+				}
+				if (++j == keylen) {
+					if (isAll) {
+						if (found == -1)
+							found = i;
+						System.out.println("byteBlock found pos=" + i);
+						b.position(i = i + (ptb0 == 0 ? j + 1 : ptb0));
 						break;
 					}
 					return i;
@@ -697,19 +736,19 @@ public class ByteBlockReader {
 	 * @param n
 	 * @throws IOException
 	 */
-	public void checkDouble(int loc, int n) throws IOException {
+	public void checkDoubles(int loc, int n, int offset) throws IOException {
 
 		markIn(loc + n * 8 + 8);
 		seekIn(loc);
 		setBuf(n * 8 + 8);
-		for (int i = 0; i < 8;) {
+		for (int i = (offset == -1 ? 0 : offset), i1 = (offset == -1 ? 8 : offset + 1); i < i1;) {
 			markBuffer();
 			for (int j = 0; j < n; j++) {
 				double d = buffer.getDouble();
 				if (d != 0 && Math.abs(d) > 1e-10 && Math.abs(d) < 1e10) {
 					buffer.position(buffer.position() - 8);
 					if (testing)
-						System.out.println(i + " " + j + " = " + Long.toHexString(buffer.getLong()) + "\t" + d);
+						System.out.println(i + " " + (loc + i + j*8) + " : " + Long.toHexString(buffer.getLong()) + "\t" + d);
 				}
 			}
 			resetBuffer();
@@ -1021,13 +1060,51 @@ public class ByteBlockReader {
 	}
 
 	public void peekBufferInts(int n) {
-		int pos = getBufferPosition();
 		markBuffer();
 		for (int i = 0; i < n; i++) {
-			int v = getInt();
+			getInt();
 		}
 		resetBuffer();
 	}
 	
+	public void extractDoubles(long loc, int len, String fname) throws IOException {
+		boolean t = testing;
+		testing = false;
+		seekIn(loc);
+		long ptr = readPosition();
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < len; i++)
+			sb.append(readDouble()).append('\n');
+		File f = new File(fname);
+		try(FileOutputStream fis = new FileOutputStream(f)) {
+			byte[] bytes = sb.toString().getBytes();
+			fis.write(bytes);
+				System.out.println(bytes.length + " bytes written to " + f.getAbsolutePath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		seekIn(ptr);
+		testing = t;
+	}
+
+	public void extractInts(long loc, int len, String fname) throws IOException {
+		boolean t = testing;
+		testing = false;
+		seekIn(loc);
+		long ptr = readPosition();
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < len; i++)
+			sb.append(readInt()).append('\n');
+		File f = new File(fname);
+		try(FileOutputStream fis = new FileOutputStream(f)) {
+			byte[] bytes = sb.toString().getBytes();
+			fis.write(bytes);
+			System.out.println(bytes.length + " bytes written to " + f.getAbsolutePath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		seekIn(ptr);
+		testing = t;
+	}
 
 }

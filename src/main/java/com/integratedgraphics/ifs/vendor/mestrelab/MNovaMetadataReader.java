@@ -2,28 +2,27 @@ package com.integratedgraphics.ifs.vendor.mestrelab;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteOrder;
-import java.util.Enumeration;
 import java.util.Stack;
 
 import org.iupac.fairspec.util.Util;
 
 import com.integratedgraphics.ifs.vendor.ByteBlockReader;
 
-import javajs.util.Rdr;
-
 /**
  * A rough MestReNova file reader that can deliver metadata only. I have not
- * seen any MestReNova code, so I am guessing here. The file format appears to
- * be based on a stack that can be read from the data stream. Internal
- * references are forward-relative. Some of these may be long references, but I
- * don't think it matters. For the most part, I assume they are integer
- * references. A 32-bit reference 109 points to an address 109+4 from the
- * reference itself. In other words, not inclusive of the the four bits of the
- * reference itself.
+ * seen any MestReNova code, so I am guessing here.
+ * 
+ * File Format
+ * 
+ * The file format appears to be based on a stack that can be read from the data
+ * stream. Internal references are forward-relative. Some of these may be long
+ * references, but I don't think it matters. For the most part, I assume they
+ * are integer references. A 32-bit reference 109 points to an address 109+4
+ * from the reference itself. In other words, not inclusive of the the four bits
+ * of the reference itself.
  * 
  * A series of references {r1, r2, r3,..., 0}, where r1 > r2 > r3 > ... > 0, can
  * be interpreted as a stack of objects or primitives having size r1 - r2 - 4,
@@ -107,24 +106,75 @@ import javajs.util.Rdr;
  0038672  -> EOF*         
            page 1
  0038684  40 -> 38728 (40 or 61 bytes, depending upon the version)
- ...
  0038728  -> to next page (408829 here)
  ...
-           page 2
- 0408829  -> EOF* (in this case)
+ 0046403  parameters 
  ...
- 0765763  1
+ 0050418  additional block 1
+ ...		(structure would be here somewhere)
+ 0408829  additional block 11          
+ ...
+           page 2
+ 0408829  -> EOF* (765767 in this case)
+ ...
  0765767  17 "MestReNova.Uh7580"   
 
 </code>
  * 
- * The reader is very fast, since all we are doing is manipulating pointers, for
- * the most part.
+ * Parameters
  * 
  * Again, the syntactic meaning of the pointers and data elements is a complete
- * guess. All we are interested in here are the parameters. So, how to get them?
+ * guess. All we are interested in here are the parameters. These are found in
+ * the page block using the readToParameters() method, several blocks down
+ * within the page block. (This was determined ad hoc and could easily be
+ * flawed.) Generally 31 parameters are encountered:
+<code>
+   Data File Name = ...fid
+   Title = Y12180222-0320-HWY-34.2.fid
+   Comment = null
+   Origin = Bruker BioSpin GmbH FROM acqus
+   Owner = root FROM acqus
+   Site = null
+   Instrument = spect FROM acqus
+   Author = null
+   Solvent = CDCl3 FROM acqus   ("Spectrometer" in Version 7?)
+   Temperature = 298.5953 FROM acqus
+   Pulse Sequence = zgpg30 FROM acqus
+   Experiment = 1D
+   Probe = 5 mm PABBO BB/19F-1H/D Z-GRD Z116098/0047  FROM acqus
+   Number of Scans = 64 FROM acqus
+   Receiver Gain = 203 FROM acqus
+   Relaxation Delay = 2 FROM acqus
+   Pulse Width = 9 FROM acqus
+   Presaturation Frequency = 
+   Acquisition Time = 1.3631488
+   Acquisition Date = 2019-03-21T05:40:00
+   Modification Date = 2019-03-21T05:40:16 FROM acqus
+   Class = null
+   Purity = 100 %
+   Spectrum Quality = 0.250679443239435
+   Spectrometer Frequency = 100.622829328806
+   Spectral Width = 24038.4615384615
+   Lowest Frequency = -1958.90196322503
+   Nucleus = 13C
+   Acquired Size = 32768
+   Spectral Size = 65536
+   Absolute Reference = null
+</code>
  * 
+ * Molecules
  * 
+ * Molecules are (somewhere) within the set of 10-12 blocks that follow the
+ * parameter blocks. CDX and MOL files (as far as I can tell) have to be
+ * discovered ungracefully, scanning the blocks for key byte sequences, but once
+ * the correct block is identified, scanning to the byte or string data appears
+ * to be no problem. Once again, though, it is not at all guaranteed that these
+ * methods are totally general.
+ * 
+ * General
+ * 
+ * The reader is very fast, since all we are doing is manipulating pointers, for
+ * the most part. Searching for byte sequences takes a bit of time.
  * 
  * @author hansonr
  *
@@ -138,6 +188,16 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 */
 	private final static int magicNumberBE = 0xF1E2D3C4;// F1 E2 D3 C4
 	private final static int magicNumberLE = 0xC4D3E2F1;// C4 D3 E2 F1
+
+	private final static byte[] molKey = new byte[] { 'M', ' ', ' ', 'E', 'N', 'D' }; 
+
+	private final static byte[] cdxKey = new byte[] { 
+		/* (CD) IF\0 */ (byte)0x49, (byte)0x46, (byte)0x00, 
+		/*      VjCD */ (byte)0x56, (byte)0x6A, (byte)0x43, (byte)0x44 };
+
+	public static final String CDX_FILE_DATA = ".cdx";
+	public static final String MOL_FILE_DATA = ".mol";
+	private static final int minLengthForMoleculeData = 50;
 
 	private MestrelabIFSVendorPlugin plugin;
 
@@ -166,7 +226,10 @@ class MNovaMetadataReader extends ByteBlockReader {
 		return checkMagicNumber(magicNumber);
 	}
 
-	private final static boolean newWay = true;
+	/**
+	 * output CDX and MOL files
+	 */
+	private static boolean createStructureFiles = false;
 	
 	/**
 	 * Process the file.
@@ -175,28 +238,12 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 */
 	public boolean process() {
 		try {
+			// pretty sure this will always be big-endian.
 			setByteOrder(ByteOrder.BIG_ENDIAN);
-			test();
 			if (!checkByteOrder())
 				return false;
-			if (newWay) {
-				readFileAsStack();				
-			} else {
-				readPointer();
-				readBlock();
-				readVersion();
-				readBlock(); // unknown 16 bytes
-				boolean skipItems = true;
-				if (skipItems) {
-					// necessary for v.14 right now
-					readBlock(); // skip to pages
-				} else {
-					readItems();
-				}
-				readPages();
-				while (readAvailable() > 0)
-					skipBlock();			
-			}
+			test();
+			readFileAsStack();				
 			System.out.println("MNovaReader ------- nPages=" + nPages 
 					+ " nSpectra=" + nSpectra
 					+ " nMolecules=" + nMolecules);
@@ -206,7 +253,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 			return false;
 		} finally {
 			try {
-				System.out.println("closing pos " + readPosition() + " avail " + readAvailable());
+				System.out.println("closing pos=" + readPosition() + " avail=" + readAvailable());
 				close();
 			} catch (IOException e) {
 			}
@@ -248,123 +295,154 @@ class MNovaMetadataReader extends ByteBlockReader {
 		}
 	}
 
-	/**
-	 * Read the items. Bypassed in current code.
-	 */
-	private void readItems() throws IOException {
-		readPointer();
-		readInt();// 0
-		long pt = readPointer(); // next; EOF in v.14
-		int nItems = readInt();
-		if (nItems < 0) {
-			for (int j = 0; j < -nItems; j++) {
-				readItem14(j);
-			}
-		} else {
-			if (testing) {
-				for (int j = 0; j < nItems; j++) {
-					readItem(j);
-				}
-			} else {
-				seekIn(pt);
-			}
-		}
-		return;
-	}
+//	/**
+//	 * Read the items. Bypassed in current code.
+//	 */
+//	private void readItems() throws IOException {
+//		readPointer();
+//		readInt();// 0
+//		long pt = readPointer(); // next; EOF in v.14
+//		int nItems = readInt();
+//		if (nItems < 0) {
+//			for (int j = 0; j < -nItems; j++) {
+//				readItem14(j);
+//			}
+//		} else {
+//			if (testing) {
+//				for (int j = 0; j < nItems; j++) {
+//					readItem(j);
+//				}
+//			} else {
+//				seekIn(pt);
+//			}
+//		}
+//		return;
+//	}
+//
+//	/**
+//	 * Read an item:
+//	 * 
+//	 * 
+//	 * type
+//	 * 
+//	 * i
+//	 * 
+//	 * String "MestReNova"
+//	 * 
+//	 * int relative address to next record
+//	 * 
+//	 * ... information
+//	 * 
+//	 * 
+//	 * @param index
+//	 * @throws IOException
+//	 */
+//	private void readItem(int index) throws IOException {
+//		long pos = readPosition();
+//		int type = readInt(); // 0, 53, 63 -- version dependent?
+//		int i = readInt();
+//		if (testing)
+//			System.out.println("---item--- " + index + " pos=" + pos + " type=" + type + " i=" + i);
+//		if (type == 0) {
+//			// older version?
+//		} else {
+//			readInt(); // 0
+//			readItemHeader();
+//		}
+//		readLenString(); // Import Item, for example
+//		readFourUnknownInts();
+//		readUTF16String(); // name?
+//		readInts(2);
+//		readByte(); // 255
+//		readInt(); // -1
+//		int test = readInt();
+//		if (test > 0) {
+//			readInt();
+//			readInt();
+//			String itemType = readLenString(); // "Item Type"
+//			String subtype = readLenString(); // "NMR Spectrum"
+//			System.out.println("Item " + (index + 1) + ": " + itemType + "/" + subtype);
+//		}
+//		if (testing)
+//			System.out.println("---item end---" + (readPosition() - pos) + " pos=" + readPosition());
+//	}
+//	/**
+//	 * Read an item header.
+//	 * 
+//	 * @return pointer to next record
+//	 * @throws IOException
+//	 */
+//	private long readItemHeader() throws IOException {
+//		readLenString(); // MestReNova
+//		readInt(); // pointer?
+//		readInt(); // 0x3000C;
+//		readLenString(); // Windows 10
+//		readLenString(); // DESKTOP-ORV6S3F
+//		long pt = readPointer();
+//		return pt;
+//	}
+//
+//
+//	/**
+//	 * early hack
+//	 * 
+//	 * @param index
+//	 * @throws IOException
+//	 */
+//	private void readItem14(int index) throws IOException {
+//		long pos = readPosition();
+//		int type = readInt(); // 0, 53, 63 --0xC0000000 ? version dependent?
+//		int i = (type < 0 ? -1 : readInt());
+//		if (testing)
+//			System.out.println("---item--- " + index + " pos=" + pos + " type=" + type + " i=" + i);
+//		long pt = -1;
+//		if (type == 0) {
+//			// older version?
+//		} else {
+//			readInt(); // 0
+//			pt = readItemHeader();
+//		}
+//		System.out.println("item pt=" + pt);
+//		readItemData0(index);
+//		if (testing)
+//			System.out.println("---item end---" + (readPosition() - pos) + " pos=" + readPosition());
+//	}
+//
+//	private void readItemData0(int index) throws IOException {
+//		readLenString(); // Import Item, for example
+//		readFourUnknownInts();
+//		readUTF16String(); // user name?
+//		readByte(); // 255
+//		readInts(2);
+//		readInt(); // -1
+//		int test = readInt();
+//		if (test > 0) {
+//			while (peekInt() != -1) {
+//				readBlock();
+//			}
+//		}
+//	}
 
-	/**
-	 * Read an item:
-	 * 
-	 * 
-	 * type
-	 * 
-	 * i
-	 * 
-	 * String "MestReNova"
-	 * 
-	 * int relative address to next record
-	 * 
-	 * ... information
-	 * 
-	 * 
-	 * @param index
-	 * @throws IOException
-	 */
-	private void readItem(int index) throws IOException {
-		long pos = readPosition();
-		int type = readInt(); // 0, 53, 63 -- version dependent?
-		int i = readInt();
-		if (testing)
-			System.out.println("---item--- " + index + " pos=" + pos + " type=" + type + " i=" + i);
-		if (type == 0) {
-			// older version?
-		} else {
-			readInt(); // 0
-			readItemHeader();
-		}
-		readLenString(); // Import Item, for example
-		readFourUnknownInts();
-		readUTF16String(); // name?
-		readInts(2);
-		readByte(); // 255
-		readInt(); // -1
-		int test = readInt();
-		if (test > 0) {
-			readInt();
-			readInt();
-			String itemType = readLenString(); // "Item Type"
-			String subtype = readLenString(); // "NMR Spectrum"
-			System.out.println("Item " + (index + 1) + ": " + itemType + "/" + subtype);
-		}
-		if (testing)
-			System.out.println("---item end---" + (readPosition() - pos) + " pos=" + readPosition());
-	}
 
 	private void readFourUnknownInts() throws IOException {
 		readInts(4);
 	}
 
-	/**
-	 * Read an item header.
-	 * 
-	 * @return pointer to next record
-	 * @throws IOException
-	 */
-	private long readItemHeader() throws IOException {
-		readLenString(); // MestReNova
-		readInt(); // pointer?
-		readInt(); // 0x3000C;
-		readLenString(); // Windows 10
-		readLenString(); // DESKTOP-ORV6S3F
-		long pt = readPointer();
-		return pt;
-	}
-
-	/**
-	 * key for
-	 */
-	private final static int[] paramsKey = new int[] { 0xD, 0x5, 0x0 };
-
-	private final static int[] cdxKey = new int[] { 0x44494600, 0x566A4344 };// le x00464944, 0x44436A56 }; // 
-
-	public static final String CDX_FILE_DATA = ".cdx";
-	public static final String MOL_FILE_DATA = ".mol";
-
 	private int readPages() throws IOException {
 		if (testing)
-			System.out.println("---readPages " + readPosition()); // 38628 - 39077
-		readInt(); // to EOF
-
+			System.out.println("--- readPages " + readPosition()); // 38628 - 39077
+		readPointer(); // to EOF or next block
 		readPageInsets();
-		readLong(); // long to EOF or next block?
+		readInt();
+		readPointer(); // to EOF or next block
 		int nPages = readInt();
-		readInt(); // also to EOF
+		readPointer(); // also to EOF
 		nSpectra = 0;
 		for (int i = 0; i < nPages; i++) {
 			readPage(i);
 		}
 		if (testing)
-			System.out.println("---read done for " + nPages + " pages");
+			System.out.println("--- " + nPages + " pages read");
 		return nPages;
 	}
 
@@ -382,17 +460,18 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * @throws IOException
 	 */
 	private void readPage(int index) throws IOException {
-		System.out.println("reading page " + (index + 1));
 		nPages++;
-		long pt = readToParameters();
+		System.out.println("reading page " + (index + 1) + " pos=" + readPosition());
+		long pt = readToParameters(readPosition());
 		if (pt < 0) {
+			// parameters where not found
 			pt = -pt;
 		} else {
 			nSpectra++;
 			if (plugin != null)
 				plugin.newPage();
 			readParams();
-			searchForMolecule(index, pt);
+			searchForStructures(readPosition(), index, pt);
 		}
 		seekIn(pt);
 	}
@@ -404,9 +483,9 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * 
 	 * @throws IOException
 	 */
-	private long readToParameters() throws IOException {
+	private long readToParameters(long pt0) throws IOException {
+		seekIn(pt0);
 		readBlock(); // 40 or 61 bytes, depending upon version
-		int len = peekInt(); // to next spectrum or EOF
 		long pt = readPointer(); // to next page
 		readPageBlock2(); // 40
 		readPageInsets(); // 32
@@ -426,31 +505,18 @@ class MNovaMetadataReader extends ByteBlockReader {
 		}
 		readFourUnknownInts();
 		readInt(); // 0 in 1.mnova
-		readBlock(); // 
+		// skipping our way through to parameters -- ad hoc
+		readBlock(); 
 		readBlock();
 		readInt();
-		boolean doSearch = false;
-		if (doSearch) {
-			// a quick hack -- only works in earlier versions.
-			int skip = findIn(paramsKey, len, false);
-			if (skip < 4)
-				return -1;
-			if (skip >= 4) {
-				// actually targeting the integer just before 0x0000000D0000000500000000, which
-				// holds the number of parameters.
-				skipIn(skip - 4);
-			}
-		} else {
-			// skipping our way through to parameters.
-			readBlock(); // 189 bytes in 1.mnova; 197 in v14
-			readBlock(); // 5957 bytes in 1.mnova; 7107 in v14
-			readPointer(); // to next
-			readPointer(); // to ? 65042 in 1.mnova; 82869 in v14
-			readPointer(); // to ? 60663 in 1.mnova; 78252 in v14
-			readBlock(); // 1081 bytes in 1.mnova; 11373 in v14
-			readPointer(); // to 50418 in 1.mnova; 68007 in v14
-			readInt(); // 0
-		}
+		readBlock(); // 189 bytes in 1.mnova; 197 in v14
+		readBlock(); // 5957 bytes in 1.mnova; 7107 in v14
+		readPointer(); // to next
+		readPointer(); // to ? 65042 in 1.mnova; 82869 in v14
+		readPointer(); // to ? 60663 in 1.mnova; 78252 in v14
+		readBlock(); // 1081 bytes in 1.mnova; 11373 in v14
+		readPointer(); // to 50418 in 1.mnova; 68007 in v14
+		readInt(); // 0
 		return pt;
 	}
 
@@ -461,7 +527,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 */
 	private void readPageBlock2() throws IOException {
 		readBlock();
-		// 1.mnova test
+		// 1.mnova test -- unclear what this is
 //		38732 reading 40 to 38776
 //		38736: 0x000036DB = 14043 -> 52783	
 //		38740: 0x000036DB = 14043 -> 52787	
@@ -476,51 +542,12 @@ class MNovaMetadataReader extends ByteBlockReader {
 	}
 
 	/**
-	 * early hack
-	 * 
-	 * @param index
-	 * @throws IOException
-	 */
-	private void readItem14(int index) throws IOException {
-		long pos = readPosition();
-		int type = readInt(); // 0, 53, 63 --0xC0000000 ? version dependent?
-		int i = (type < 0 ? -1 : readInt());
-		if (testing)
-			System.out.println("---item--- " + index + " pos=" + pos + " type=" + type + " i=" + i);
-		long pt = -1;
-		if (type == 0) {
-			// older version?
-		} else {
-			readInt(); // 0
-			pt = readItemHeader();
-		}
-		System.out.println("item pt=" + pt);
-		readItemData0(index);
-		if (testing)
-			System.out.println("---item end---" + (readPosition() - pos) + " pos=" + readPosition());
-	}
-
-	private void readItemData0(int index) throws IOException {
-		readLenString(); // Import Item, for example
-		readFourUnknownInts();
-		readUTF16String(); // user name?
-		readByte(); // 255
-		readInts(2);
-		readInt(); // -1
-		int test = readInt();
-		if (test > 0) {
-			while (peekInt() != -1) {
-				readBlock();
-			}
-		}
-	}
-
-	/**
 	 * Key method fore reading all parameters available in the MNova file.
 	 * 
 	 * @throws IOException
 	 */
 	private void readParams() throws IOException {
+		System.out.println("parameters found at " + readPosition());
 		int n = readInt();
 		for (int i = 0; i < n; i++) {
 			readParam(i);
@@ -602,8 +629,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * @throws IOException
 	 */
 	private void readParam(int index) throws IOException {
-		if (testing)
-			System.out.println("readParam " + (index + 1) + " at " + readPosition());
+		System.out.println(" param " + (index + 1) + " at " + readPosition());
 		readBlock(); // D 5 0 1 type
 		int count = readInt(); // 1 or 2 (or more?)
 		Param param1 = new Param(1);
@@ -612,15 +638,20 @@ class MNovaMetadataReader extends ByteBlockReader {
 		String key = readUTF16String();
 		if (plugin != null)
 			plugin.addParam(key, null, param1, param2);
-		System.out.println(" param " + (index + 1) + " " + key + " = " + param1 + (param2 == null ? "" : "," + param2));
+		System.out.println("   " + key + " = " + param1 + (param2 == null ? "" : "," + param2));
 	}
 
-	private void dumpFileInfo() throws IOException {
+	/**
+	 * The general idea.
+	 * 
+	 * @throws IOException
+	 */
+	void dumpFileInfo() throws IOException {
 		showChars = false;
 		showInts = false;
 		rewindIn();
 		seekIn(27);
-		long ptr27 = readPointer();
+		readPointer();
 		long ptr31 = readPointer();
 		seekIn(ptr31);
 		readVersion();
@@ -638,48 +669,64 @@ class MNovaMetadataReader extends ByteBlockReader {
 		System.out.println("...Page count = " + nPages);
 		readPointer(); // -> EOF
 		for (int i = 0; i < nPages; i++) {
-			System.out.println("\n======Page " + (i + 1) + " starts at " + readPosition());
-			long ptNext = readToParameters();
+			long pt = readPosition();
+			System.out.println("\n======Page " + (i + 1) + " starts at " + pt);
+			long ptNext = readToParameters(pt);
 			System.out.println(" params at " + readPosition());
-
 			readParams();
 			System.out.println("\n======Page " + (i + 1) + " parameters end at " + readPosition());
-			searchForMolecule(i, ptNext);
+			searchForStructures(readPosition(), i, ptNext);
 			seekIn(ptNext);
 		}
 		System.out.println("\n===Pages end at " + readPosition() + " available=" + readAvailable());
 	}
 	
-	private void searchForMolecule(int index, long ptNext) throws IOException {
+	private void searchForStructures(long pos0, int index, long ptNext) throws IOException {
 		int nBlocks = 0;
-		long lastPosition = -1;
 		boolean haveCDX = false;
+		boolean haveMOL = false;
+		seekIn(pos0); // for debugging dynamic change of method
 		while (readPosition() < ptNext) {
-			if (peekInt() > 0) {
+			int len = peekInt();
+			if (len > 0) {
 				nBlocks++;
-				lastPosition = readPosition();
-				int len = peekInt();
-				System.out.println("extra block " + nBlocks + " len=" + len + " from " + lastPosition + " to "
-						+ (lastPosition + len));
-				int cdx = (haveCDX ? -1 : findIn(cdxKey, len, false));
-				if (cdx >= 0) {
-					haveCDX = true;
-					checkCDX(lastPosition, cdx);
-					continue;
+				long ptr = readPosition();
+				if (testing)
+					System.out.println("additional block " + nBlocks + " len=" + len + " from " + ptr + " to "
+						+ (ptr + len) + " ptNext=" + ptNext);
+				if (len > minLengthForMoleculeData) {
+
+					int offset = (haveMOL ? -1 : findBytes(molKey, len, false));
+					if (offset >= 0) {
+						haveMOL = true;
+						checkMOL(ptr, offset);
+					}
+					if (readAvailable() == 0)
+						return;
+					offset = (haveCDX ? -1 : findBytes(cdxKey, len, false));
+					if (offset >= 0) {
+						haveCDX = true;
+						checkCDX(ptr, offset);
+						continue;
+					}
 				}
 			}
 			readBlock();
 		}
-		System.out.println("\n======Page " + (index + 1) + " additional blocks: " + nBlocks);
-		if (lastPosition >= 0)
-			checkMolecule(lastPosition);
+		if (testing)
+			System.out.println("\n======Page " + (index + 1) + " additional blocks: " + nBlocks);
 	}
 
+	/**
+	 * found the C
+	 * @param lastPosition
+	 * @param skip
+	 * @throws IOException
+	 */
 	private void checkCDX(long lastPosition, int skip) throws IOException {
-		testing = showInts = showChars = true;
 		seekIn(lastPosition);
 		long ptNext = readPointer();
-		skipIn(skip - 9);
+		skipIn(skip - 11);
 		ByteOrder bo = byteOrder;
 		setByteOrder(ByteOrder.LITTLE_ENDIAN);
 		int len = readInt() - 7; // accounts for extra 0 0 
@@ -689,20 +736,13 @@ class MNovaMetadataReader extends ByteBlockReader {
 		// VjCD block peekBlockAsString(true);
 		byte[] cdxFileData = new byte[len];
 		read(cdxFileData, 0, len);
-		System.out.println("=====CDX FILE DATA>>>>>");
 		nMolecules++;
-		System.out.println("[" + cdxFileData.length + " bytes]");
-		System.out.println("<<<<<CDX FILE DATA=====");		
-		handleModelFileData(CDX_FILE_DATA, cdxFileData, len);
+		handleFileData(CDX_FILE_DATA, cdxFileData, len, null);
 		seekIn(ptNext);
 		
 	}
 
-	private void checkMolecule(long lastPosition) throws IOException {
- 		// notes are for 1-taxol-drop.mnova
-//		peekIntsAt(lastPosition - 80, 20 + 0);
-//		peekIntsAt(lastPosition, 40);
-		//testing = true;
+	private void checkMOL(long lastPosition, int skip) throws IOException {
 		seekIn(lastPosition);
 		long ptNext = readPointer();
 		readInt();//
@@ -715,37 +755,39 @@ class MNovaMetadataReader extends ByteBlockReader {
 		readInt(); // to next
 		if (peekInt() == 0)
 			return; // 3a-c.mnova
-		peekInts(10);
 		readBlock();
-		peekInts(10);
 		readBlock();
-		peekInts(10);
 		readBlock();
-		peekInts(10);
 		readSubblock(4);
-		peekInts(10);
+		if (peekInt() == -1) {
+			// page 4 22232721/metadatanmr/nmr spectra.mnova
+			readByte();
+			readInts(9); // hack 
+		}
 		int len = peekInt();
-		handleModelFileData(MOL_FILE_DATA, readLenString(), len);
+		nMolecules++;
+		handleFileData(MOL_FILE_DATA, readLenString(), len, null);
 		seekIn(ptNext);
 	}
 
-	private void handleModelFileData(String type, Object fileData, int len) {
-		nMolecules++;
-		System.out.println("=====" + type + ">>>>>");
+	private void handleFileData(String type, Object fileData, int len, String fname) {
+		if (fname == null)
+			fname = "test" + zeroFill(nPages, 2) + type;
+		boolean isString = (type == MOL_FILE_DATA);
+		System.out.println("=====Page Molecule " + nPages + " " + type + ">>>>>");
 		if (plugin != null)
 			plugin.addParam(type, fileData, null, null);
-		System.out.println(fileData);
-		System.out.println("<<<<<"+ type +"=====");		
-		if (testing) {
-			File f = new File("test" + zeroFill(nPages, 2) + type);
+		System.out.println(isString ? fileData : "[" + len + " bytes]");
+		System.out.println("<<<<<" + type + "=====");
+		if (testing && createStructureFiles) {
+			File f = new File(fname);
 			try (FileOutputStream fis = new FileOutputStream(f)) {
-				if (fileData instanceof String) {
+				if (isString) {
 					fileData = ((String) fileData).getBytes();
 				}
 				fis.write((byte[]) fileData);
 				System.out.println("File " + f.getAbsolutePath());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -787,15 +829,91 @@ class MNovaMetadataReader extends ByteBlockReader {
 		testing = true;
 		showInts = true;
 		showChars = true;
-		setByteOrder(ByteOrder.LITTLE_ENDIAN);
-		setByteOrder(ByteOrder.BIG_ENDIAN);
-		// dumpFileInfo();
-
-		showInts = false;
+		createStructureFiles = true;
+		
+//		peekIntsAt(2135288-80, 20);
+//		findRef(1984530);
+//		peekIntsAt(1721399, 10);
+//		checkDoubles(1721418,3,0);
+//
+//		seekIn(1721085);
+//		readBlock();
+//		readDouble();
+//		readDouble();
+//		readByte(); // 2
+//		readInt();  // 0
+//		readByte(); // 1
+//		readInt(); // 21
+//		readByte(); // 0
+//		readInts(9); 
+//		readDouble();
+//		readDouble();
+//		readInts(19);
+//		readDouble();
+//		readByte();
+//		peekInts(30);
+//		readBlock();
+//		peekInts(30);
+//		readBlock();
+//		peekInts(30);
+//		readBlock();
+//		peekInts(30);
+//		readBlock();
+//		peekInts(30);
+//		readBlock();
+//		peekInts(30);
+//		readBlock();
+//		peekInts(30);
+//		
+//		seekIn(1721442-180);
+//		peekInts(50);
+//		readBlock();
+//		readInts(6);
+//		peekInts(30);
+//		readBlock();
+//		readInts(6);
+//		readBlock();
+//		peekInts(30);
+//		
+//		
+////		checkDoubles(1985716, 50, -1);
+//
+//		peekIntsAt(1985562, 400);
+//		peekIntsAt(1985718, 600);
+//		
+////		extractInts(1985566, 16000, "testI2.xls");
+//		checkDoubles(1722461, 50, 0);
+//		checkDoubles(1984529, 50, 0);
+//		extractDoubles(1722461, (1984529-1722461)/8, "testD1.xls");
+//
+//		checkDoubles(2002393,200, 0);
+//		checkDoubles(1982393,200, 0);
+//		checkDoubles(1942393,200, 0);
+//		checkDoubles(1882393,200, 0);
+//		checkDoubles(1842393,200, 0);
+//		checkDoubles(1802393,200, 0);
+//		checkDoubles(1782393,200, 0);
+//		checkDoubles(1762393,200, 0);
+//		checkDoubles(1742393,200, 0);
+//		checkDoubles(1722393,200, 0);
+//		checkDoubles(1984429, 50, 0);
+//
+//			
+//		peekIntsAt(2111538-1380,300);
+//		peekIntsAt(2093742-80,24);
+//		peekIntsAt(215276-40,20);
+//		findRef(2135276);
+//		findRef(2135280);
+//		findRef(2135284);
+//		findRef(2135288);
+//		// dumpFileInfo();
+//
+		//showInts = false;
 		showChars = false;
 		testing = false;
 		return;
 	}
+
 
 	/**
 	 * The cleanest way to read the file found so far. 
@@ -829,19 +947,19 @@ class MNovaMetadataReader extends ByteBlockReader {
 		System.out.println(nPages + " pages processed, version=" + mnovaVersion);
 	}
 
-	private void testStack(Stack<Block> objects) throws IOException {
-		Enumeration<Block> e = objects.elements();
-		while (e.hasMoreElements()) {
-			Block obj = e.nextElement();
-			System.out.println("obj " + obj);
-			int len = obj.len;
-		}
-	}
+//	private void testStack(Stack<Block> objects) throws IOException {
+//		Enumeration<Block> e = objects.elements();
+//		while (e.hasMoreElements()) {
+//			Block obj = e.nextElement();
+//			System.out.println("obj " + obj);
+//			int len = obj.len;
+//		}
+//	}
 
 	static {
-		 //testFile = "test/mnova/3a-C.mnova"; // OK one page, with ChemDraw drawing
-		 //testFile = "test/mnova/1.mnova"; // OK two pages
-		 //testFile = "test/mnova/1-deleted.mnova"; // first page param list only, next page blank
+		//testFile = "test/mnova/3a-C.mnova"; // OK one page, with ChemDraw drawing
+		//testFile = "test/mnova/1.mnova"; // OK two pages, no structures
+		//testFile = "test/mnova/1-deleted.mnova"; // first page param list only, next page blank
 		//testFile = "test/mnova/1-v14.mnova"; // OK two pages
 		//testFile = "test/mnova/3a-C-taxol.mnova"; // (v 14) OK, but looking for model
 		//testFile = "test/mnova/1-caff-taxol.mnova"; // two structures
@@ -849,10 +967,10 @@ class MNovaMetadataReader extends ByteBlockReader {
 		// testFile = "test/mnova/1-caff-taxol-delete.mnova"; // caffeine deleted in
 		
 		// ok for structure:
-		// testFile = "test/mnova/1-taxol-drop.mnova"; // caffeine deleted in page 1
+		 testFile = "test/mnova/1-taxol-drop.mnova"; // caffeine deleted in page 1; taxol on page 2
 		// testFile = "test/mnova/1-taxol-drop-move.mnova"; // caffeine deleted in page
 		// testFile = "test/mnova/3a-c-morphine.mnova"; // morphine.mol added using file...open
-		testFile = "c:\\temp\\iupac\\zip\\22232721\\metadatanmr\\nmr spectra.mnova";
+		//testFile = "c:\\temp\\iupac\\zip\\22232721\\metadatanmr\\nmr spectra.mnova";
 	}
 
 }

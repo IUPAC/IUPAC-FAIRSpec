@@ -14,6 +14,8 @@ import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
 import com.integratedgraphics.ifs.util.IFSDefaultVendorPlugin;
 import com.integratedgraphics.ifs.vendor.mestrelab.MNovaMetadataReader.Param;
 
+import javajs.util.PT;
+
 public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	static {
@@ -111,12 +113,34 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 			} else {
 				oval = val = val.trim();
 				switch (key) {
-				case MNovaMetadataReader.CDX_FILE_DATA:
-					break;
-				case MNovaMetadataReader.MOL_FILE_DATA:
+				case "Owner":
+					// skipping
+					return;
+				case "Acquisition Date":
+				case "Author":
+				case "Comment":
+				case "Experiment":
+				case "Modification Date":
+				case "Origin":
+				case "Pulse Sequence":
+				case "Site":
+				case "Solvent":
+				case "Title":
+				case "Class":
+				case "Presaturation Frequency":
+				case "Probe":
+				default:
+					oval = PT.rep(val, "\n", " ").trim();
 					break;
 				case "Data File Name":
 					isJDF = (val.endsWith(".jdf"));
+					return;
+				case "Instrument":
+				case "Spectrometer":
+					break;
+				case MNovaMetadataReader.CDX_FILE_DATA:
+					break;
+				case MNovaMetadataReader.MOL_FILE_DATA:
 					break;
 				case "Temperature":
 					double d = Double.parseDouble(val);
@@ -150,6 +174,7 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 				case "Acquisition Time":
 					oval = Double.valueOf(Double.parseDouble(val));
 					break;
+				case "Pulse Width":
 				case "Number of Scans":
 				case "Acquired Size":
 				case "Spectral Size":
