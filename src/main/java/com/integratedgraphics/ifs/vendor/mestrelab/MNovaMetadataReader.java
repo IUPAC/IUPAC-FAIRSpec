@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteOrder;
+import java.util.Date;
 import java.util.Stack;
 
 import org.iupac.fairspec.util.Util;
@@ -12,8 +13,7 @@ import org.iupac.fairspec.util.Util;
 import com.integratedgraphics.ifs.vendor.ByteBlockReader;
 
 /**
- * A rough MestReNova file reader that can deliver metadata only (including CDX
- * and MOL files).
+ * A rough MestReNova file reader that can deliver metadata only (including MOL, CDX, and PNG files).
  * 
  * DISCLAIMER: I have not seen any MestReNova code, so I am guessing here.
  * 
@@ -234,12 +234,15 @@ class MNovaMetadataReader extends ByteBlockReader {
 	private final static int magicNumberLE = 0xC4D3E2F1;// C4 D3 E2 F1
 
 	private final static byte[] molKey = new byte[] { 'M', ' ', ' ', 'E', 'N', 'D' };
+	
+	private final static byte[] cdxKey = new byte[] { /* (CD) IF\0 */ 0x49, 0x46, 0x00,
+			/* VjCD */ 0x56, 0x6A, 0x43, 0x44 };
 
-	private final static byte[] cdxKey = new byte[] { /* (CD) IF\0 */ (byte) 0x49, (byte) 0x46, (byte) 0x00,
-			/* VjCD */ (byte) 0x56, (byte) 0x6A, (byte) 0x43, (byte) 0x44 };
+	private final static byte[] pngKey = new byte[] { (byte) 0x89, 'P', 'N', 'G' };
 
-	public static final String CDX_FILE_DATA = ".cdx";
-	public static final String MOL_FILE_DATA = ".mol";
+	public static final String CDX_FILE_DATA = "_struc.cdx";
+	public static final String MOL_FILE_DATA = "_struc.mol";
+	public static final String PNG_FILE_DATA = "_struc.png";
 	
 	private static final int minBlockLengthForStructureData = 50;
 
@@ -249,7 +252,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	public String mnovaVersion;
 	public int mnovaVersionNumber;
 	private int nSpectra;
-	private int nMolecules;
+	private int nStructures;
 
 	/**
 	 * For testing only, with no extractor plugin.
@@ -289,7 +292,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 			test();
 			readFileAsStack();
 			System.out.println(
-					"MNovaReader ------- nPages=" + nPages + " nSpectra=" + nSpectra + " nMolecules=" + nMolecules);
+					"MNovaReader ------- nPages=" + nPages + " nSpectra=" + nSpectra + " nStructures=" + nStructures);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -497,7 +500,11 @@ class MNovaMetadataReader extends ByteBlockReader {
 //	}
 
 	private void readFourUnknownInts() throws IOException {
-		readInts(4);
+		if (testing) {
+			readInts(4);
+		} else {
+			skipIn(16);
+		}
 	}
 
 	private int readPages(long pt) throws IOException {
@@ -585,15 +592,12 @@ class MNovaMetadataReader extends ByteBlockReader {
 		nextBlock(); // 189 -> 39337 bytes in 1.mnova; 197 in v14
 		nextBlock(); // 5957 -> 45298 bytes in 1.mnova; 7107 in v14
 		Stack<BlockData> stack = getObjectStack();
-		System.out.println(
-				stack.elementAt(1).getData().length
-				+ " " + stack.elementAt(1).getData()[0]);
+		// third from last data block is the parameter block
 		BlockData params = stack.get(stack.size() - 3);
 		params.seek();
 		readPointer();
 		if (readInt() != 0)
 			return -pt; // no parameters    // 0
-		System.out.println(readPosition());
 		return pt; // 46403
 	}
 
@@ -769,6 +773,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		int nBlocks = 0;
 		boolean haveCDX = false;
 		boolean haveMOL = false;
+		boolean havePNG = false;
 		seekIn(pos0); // for debugging dynamic change of method
 		while (readPosition() < ptNext) {
 			int len = peekInt();
@@ -776,29 +781,30 @@ class MNovaMetadataReader extends ByteBlockReader {
 				nBlocks++;
 				long ptr = readPosition();
 				if (testing)
-					System.out.println("additional block " + nBlocks + " len=" + len + " from " + ptr + " to "
-							+ (ptr + len) + " ptNext=" + ptNext);
+					System.out.println("additional block " + nBlocks + " len=" + len + " from " + ptr + " to " + (ptr + len)
+						+ " ptNext=" + ptNext);
 				if (len > minBlockLengthForStructureData) {
-
-					int offset = (haveMOL ? -1 : findBytes(molKey, len, false));
-					if (offset >= 0) {
-						haveMOL = true;
-						exportMOL(ptr, offset);
-					}
-					if (readAvailable() == 0)
-						return;
+					int offset;
 					offset = (haveCDX ? -1 : findBytes(cdxKey, len, false));
 					if (offset >= 0) {
 						haveCDX = true;
-						exportCDX(ptr, offset);
-						continue;
+						exportCDX(ptr, offset, nBlocks);
+					}
+					offset = (haveMOL ? -1 : findBytes(molKey, len, false));
+					if (offset >= 0) {
+						haveMOL = true;
+						exportMOL(ptr, offset, nBlocks, !haveCDX);
+					}
+					offset = (havePNG || !(haveMOL || haveCDX) ? -1 : findBytes(pngKey, len, false));
+					if (offset >= 0) {
+						havePNG = true;
+						exportPNG(ptr, offset, nBlocks);
 					}
 				}
 			}
 			nextBlock();
 		}
-		if (testing)
-			System.out.println("\n======Page " + (index + 1) + " additional blocks: " + nBlocks);
+		System.out.println("\n======Page " + (index + 1) + " additional blocks: " + nBlocks);
 	}
 
 	/**
@@ -808,38 +814,73 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * @param skip
 	 * @throws IOException
 	 */
-	private void exportCDX(long lastPosition, int skip) throws IOException {
-		seekIn(lastPosition);
-		long ptNext = readPointer();
-		skipIn(skip - 11);
+	private void exportCDX(long lastPosition, int skip, int nBlock) throws IOException {
+		seekIn(lastPosition + skip - 6); // back past \0CD + 4 bytes
 		ByteOrder bo = byteOrder;
 		setByteOrder(ByteOrder.LITTLE_ENDIAN);
-		int len = readInt() - 7; // accounts for extra 0 0
+		int len = readInt() - 7; // accounts for extra 0 0 at end
 		readInt();
 		readByte();
 		setByteOrder(bo);
-		// VjCD block peekBlockAsString(true);
-		byte[] cdxFileData = new byte[len];
-		read(cdxFileData, 0, len);
-		nMolecules++;
-		handleFileData(CDX_FILE_DATA, cdxFileData, len, null);
-		seekIn(ptNext);
-
+		byte[] bytes = new byte[len];
+		read(bytes, 0, len);
+		nStructures++;
+		handleFileData(readPosition() - len, nBlock, CDX_FILE_DATA, bytes, len, null, null);
+		seekIn(lastPosition);
 	}
 
-	private void exportMOL(long lastPosition, int skip) throws IOException {
+	/**
+	 * found the CDX file
+	 * 
+	 * @param lastPosition
+	 * @param skip
+	 * @throws IOException
+	 */
+	private void exportPNG(long lastPosition, int skip, int nBlock) throws IOException {
 		seekIn(lastPosition);
-		long ptNext = readPointer();
-		readInt();//
-		if (peekInt() == 0)
-			return;
+		readPointer();
+		readInt();
+		readFourUnknownInts();
+		readInt(); // 0
+		nextBlock(); // -> 501150
+		long ptr = readPointer();
+		readFourUnknownInts();
+		readFourUnknownInts(); // same
+		readDouble();
+		readDouble();
+		readByte();
+		readInts(15); // DANGER, WILL ROBINSON!
+		String ole = readLenStringSafely();
+		if (ole.equals("OLE Object")) {
+			readUTF16String(); // OLE Container
+			readDouble();
+			readDouble();
+			int w = (int) Math.round(readDouble());
+			int h = (int) Math.round(readDouble());
+			readDoubleBox(); // position
+			readByte(); // 1
+			readInt(); // 1
+			int len = (int) (ptr - readPosition());
+			byte[] bytes = new byte[len];
+			read(bytes, 0, len);
+			handleFileData(readPosition(), nBlock, PNG_FILE_DATA, bytes, len, null, "width:" + w + "px;height:" + h + "px");
+		} else {
+			System.err.println("PNG not found! " + ole);
+		}
+		seekIn(lastPosition);
+	}
+
+	private void exportMOL(long lastPosition, int skip, int nBlock, boolean incrementStructureCount) throws IOException {
+		// targeting the END of the mol file here, so we need to back up to its start.
+		// note that this is NOT the mol file dropped. It is created in MNova by OpenBabel.
+		seekIn(lastPosition);
+		readPointer();
+		readInt(); // 107, 109, 110, etc.
 		readFourUnknownInts();
 		readInt(); // 0
 		nextBlock(); // -> 501150
 		nextBlock(); // 178-long Molecule block
 		readInt(); // to next
-		if (peekInt() == 0)
-			return; // 3a-c.mnova
 		nextBlock();
 		nextBlock();
 		nextBlock();
@@ -847,33 +888,36 @@ class MNovaMetadataReader extends ByteBlockReader {
 		if (peekInt() == -1) {
 			// page 4 22232721/metadatanmr/nmr spectra.mnova
 			readByte();
-			readInts(9); // hack
+			readInts(9); // DANGER, WILL ROBINSON!
 		}
 		int len = peekInt();
-		nMolecules++;
-		handleFileData(MOL_FILE_DATA, readLenStringSafely(), len, null);
-		seekIn(ptNext);
+		if (incrementStructureCount)
+			nStructures++;
+		handleFileData(readPosition() + 4, nBlock, MOL_FILE_DATA, readLenStringSafely(), len, null, null);
+		seekIn(lastPosition);
 	}
 
 	/**
 	 * Handle this CDX or MOL file export, sending it to the plugin if present or
 	 * creating the file if that option is chosen and testing.
 	 * 
+	 * @param nBlock
+	 * 
 	 * @param type
 	 * @param fileData
 	 * @param len
 	 * @param fname
 	 */
-	private void handleFileData(String type, Object fileData, int len, String fname) {
-		boolean isString = (type == MOL_FILE_DATA);
-		System.out.println("=====Page Molecule " + nPages + " " + type + ">>>>>");
+	private void handleFileData(long ptr, int nBlock, String type, Object fileData, int len, String fname, String info) {
 		if (plugin != null)
 			plugin.addParam(type, fileData, null, null);
-		System.out.println(isString ? fileData : "[" + len + " bytes]");
-		System.out.println("<<<<<" + type + "=====");
-		if (testing && createStructureFiles) {
-			if (fname == null)
-				fname = "test_" + nTests + "_" + zeroFill(nPages, 2) + type;
+		if (fname == null)
+			fname = "file_" + zeroFill(nTests, 2) + "_" + zeroFill(nPages, 2) + type;
+		boolean isString = (type == MOL_FILE_DATA);
+		String s = "=====Page " + nPages + " block " + nBlock + " byte " + ptr +" " + fname + " [" + len
+				+ " bytes]" + (isString ? ">>>>>\n" + fileData + "\n<<<<<" : info != null ? info : "");
+		System.out.println(s);
+		if (createStructureFiles) {
 			File f = new File(fname);
 			try (FileOutputStream fis = new FileOutputStream(f)) {
 				if (isString) {
@@ -904,7 +948,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		if (args.length == 0 && testFile == null) {
 			testAll();
 		} else {
-			String fname = (args.length == 0 ? testFiles[defaultTest] : args[0]);
+			String fname = (args.length != 0 ? args[0] : testFile != null ? testFile : testFiles[defaultTest]);
 			runFileTest(fname);
 		}
 	}
@@ -916,6 +960,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 			byte[] bytes = Util.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
 			System.out.println(bytes.length + " bytes in " + filename);
 			new MNovaMetadataReader(bytes).process();
+			System.out.println("MNova file closed for " + filename);
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -934,86 +979,16 @@ class MNovaMetadataReader extends ByteBlockReader {
 		testing = true;
 		showInts = true;
 		showChars = true;
-		createStructureFiles = true;
 
 //		peekIntsAt(2135288-80, 20);
 //		findRef(1984530);
 //		peekIntsAt(1721399, 10);
 //		checkDoubles(1721418,3,0);
 //
-//		seekIn(1721085);
-//		nextBlock();
-//		readDouble();
-//		readDouble();
-//		readByte(); // 2
-//		readInt();  // 0
-//		readByte(); // 1
-//		readInt(); // 21
-//		readByte(); // 0
-//		readInts(9); 
-//		readDouble();
-//		readDouble();
-//		readInts(19);
-//		readDouble();
-//		readByte();
-//		peekInts(30);
-//		nextBlock();
-//		peekInts(30);
-//		nextBlock();
-//		peekInts(30);
-//		nextBlock();
-//		peekInts(30);
-//		nextBlock();
-//		peekInts(30);
-//		nextBlock();
-//		peekInts(30);
-//		nextBlock();
-//		peekInts(30);
-//		
-//		seekIn(1721442-180);
-//		peekInts(50);
-//		nextBlock();
-//		readInts(6);
-//		peekInts(30);
-//		nextBlock();
-//		readInts(6);
-//		nextBlock();
-//		peekInts(30);
-//		
-//		
-////		checkDoubles(1985716, 50, -1);
-//
-//		peekIntsAt(1985562, 400);
-//		peekIntsAt(1985718, 600);
-//		
-////		extractInts(1985566, 16000, "testI2.xls");
-//		checkDoubles(1722461, 50, 0);
-//		checkDoubles(1984529, 50, 0);
-//		extractDoubles(1722461, (1984529-1722461)/8, "testD1.xls");
-//
-//		checkDoubles(2002393,200, 0);
-//		checkDoubles(1982393,200, 0);
-//		checkDoubles(1942393,200, 0);
-//		checkDoubles(1882393,200, 0);
-//		checkDoubles(1842393,200, 0);
-//		checkDoubles(1802393,200, 0);
-//		checkDoubles(1782393,200, 0);
-//		checkDoubles(1762393,200, 0);
-//		checkDoubles(1742393,200, 0);
-//		checkDoubles(1722393,200, 0);
-//		checkDoubles(1984429, 50, 0);
-//
-//			
-//		peekIntsAt(2111538-1380,300);
-//		peekIntsAt(2093742-80,24);
-//		peekIntsAt(215276-40,20);
-//		findRef(2135276);
-//		findRef(2135280);
-//		findRef(2135284);
 //		findRef(2135288);
 //		// dumpFileInfo();
-//
-		// showInts = false;
+		
+		//showInts = false;
 		showChars = false;
 		testing = false;
 		return;
@@ -1047,24 +1022,25 @@ class MNovaMetadataReader extends ByteBlockReader {
 	}
 	
 	static final String[] testFiles = {
-			// no structure?
-			/* 0 */ "test/mnova/cyclohex.mnova", // no spectrum, just a cyclohexane .xyz structure
-			// ok for structure:
-			/* 1 */ "test/mnova/3a-C.mnova", // OK one page, with ChemDraw drawing
-			/* 2 */ "test/mnova/1.mnova", // OK two pages, no structures
+			/* 0 */ "test/mnova/cyclohex.mnova", // no spectrum, just dropped in cyclohexane.xyz structure
+			/* 1 */ "test/mnova/3a-C.mnova", // from ACS OK one page, with ChemDraw drawing
+			/* 2 */ "test/mnova/1.mnova", // from ACS two pages, no structures
 			/* 3 */ "test/mnova/1-deleted.mnova", // first page param list only, next page blank
-			/* 4 */ "test/mnova/1-v14.mnova", // OK two pages
-			/* 5 */ "test/mnova/3a-C-taxol.mnova", // (v 14) OK, but looking for model
-			/* 6 */ "test/mnova/1-caff-taxol.mnova", // two structures
-			/* 7 */ "test/mnova/1-caff-taxol-rev.mnova", // two structures
-			/* 8 */ "test/mnova/1-caff-taxol-delete.mnova", // caffeine deleted in
-			/* 9 */ "test/mnova/1-taxol-drop.mnova", // caffeine deleted in page 1, taxol on page 2
-			/* 10 */ "test/mnova/1-taxol-drop-move.mnova", // caffeine deleted in page
-			/* 11 */ "test/mnova/3a-c-morphine.mnova", // morphine.mol added using file...open
-			/* 12 */ "c:\\temp\\iupac\\zip\\22232721\\metadatanmr\\nmr spectra.mnova", };
+			/* 4 */ "test/mnova/1-v14.mnova", // saved by MNova v. 14 two pages
+			/* 5 */ "test/mnova/3a-C-taxol.mnova", // saved by MNova v. 14; dropped in taxol.mol
+			/* 6 */ "test/mnova/1-caff-taxol.mnova", // saved by MNova v. 14; dropped in caffeine.mol and taxol.mol
+			/* 7 */ "test/mnova/1-caff-taxol-rev.mnova", // saved by MNova v. 14; dropped in caffeine.mol and taxol.mol in reverse order
+			/* 8 */ "test/mnova/1-caff-taxol-delete.mnova", // saved by MNova v. 14; dropped in caffeine.mol and taxol.mol, caffeine deleted in
+			/* 9 */ "test/mnova/1-taxol-drop.mnova", // saved by MNova v. 14; dropped in taxol.mol, repositioned, scaled and resized
+			/* 10 */ "test/mnova/1-taxol-drop-move.mnova", // saved by MNova v. 14; dropped in taxol.mol and moved
+			/* 11 */ "test/mnova/3a-c-morphine.mnova", // saved by MNova v. 14; morphine.mol added using file...open
+			// not at GitHub - see 
+			/* 12 */ "c:\\temp\\iupac\\zip\\22232721\\metadatanmr\\nmr spectra.mnova", // from ACS; too big for GitHub
+		};
 
 	static {
-//		testFile = testFiles[12];
+		createStructureFiles = true;
+//		testFile = testFiles[6];
 	}
 
 }

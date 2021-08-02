@@ -333,7 +333,7 @@ public class ByteBlockReader {
 	public String readSimpleString(int len) throws IOException {
 		String s = new String(setBuf(len), 0, len);
 		if (testing)
-			System.out.println("readString " + s);
+			System.out.println("readString >" + s + "<");
 		return s;
 	}
 
@@ -375,7 +375,7 @@ public class ByteBlockReader {
 		setBuf(len);
 		String s = new String(buf, 0, len, "utf16");
 		if (testing)
-			System.out.println("ReadUTF16 " + p + "(" + len + "): " + s);
+			System.out.println("ReadUTF16 " + p + "(" + len + ") >" + s + "<");
 		return s;
 	}
 
@@ -603,14 +603,16 @@ public class ByteBlockReader {
 	 */
 	public void peekInts(int n) throws IOException {
 		System.out.println("PeekInts " + n + " pos=" + readPosition() + " navail=" + readAvailable());
-		boolean l = testing;
-		boolean l1 = showInts;
-		testing = showInts = true;
+		boolean bt = testing;
+		boolean bi = showInts;
+		boolean bc = showChars;
+		testing = showInts = showChars = true;
 		markIn(n * 4);
 		readInts(n);
 		resetIn();
-		testing = l;
-		showInts = l1;
+		testing = bt;
+		showInts = bi;
+		showChars = bc;
 	}
 
 	/**

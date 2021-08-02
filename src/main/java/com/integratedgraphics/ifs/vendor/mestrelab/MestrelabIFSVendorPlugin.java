@@ -138,9 +138,11 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 				case "Instrument":
 				case "Spectrometer":
 					break;
+				case MNovaMetadataReader.PNG_FILE_DATA:
 				case MNovaMetadataReader.CDX_FILE_DATA:
-					break;
 				case MNovaMetadataReader.MOL_FILE_DATA:
+					
+					// TODO
 					break;
 				case "Temperature":
 					double d = Double.parseDouble(val);
