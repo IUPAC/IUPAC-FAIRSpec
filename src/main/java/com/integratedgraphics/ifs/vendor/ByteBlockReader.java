@@ -616,6 +616,8 @@ public class ByteBlockReader {
 	 * @throws IOException
 	 */
 	public void peekInts(int n) throws IOException {
+		if (readAvailable() == 0)
+			return;
 		System.out.println("PeekInts " + n + " pos=" + readPosition() + " navail=" + readAvailable());
 		boolean bt = testing;
 		boolean bi = showInts;

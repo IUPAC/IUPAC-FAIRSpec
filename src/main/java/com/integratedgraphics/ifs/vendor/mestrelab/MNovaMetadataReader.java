@@ -250,6 +250,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	public int mnovaVersionNumber;
 	private int nSpectra;
 	private int nStructures;
+	private int nImages;
 
 	/**
 	 * For testing only, with no extractor plugin.
@@ -289,7 +290,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 			test();
 			readFileAsStack();
 			System.out.println(
-					"MNovaReader ------- nPages=" + nPages + " nSpectra=" + nSpectra + " nStructures=" + nStructures);
+					"MNovaReader ------- nPages=" + nPages + " nSpectra=" + nSpectra + " nStructures=" + nStructures + " nImages=" + nImages);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -768,6 +769,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 
 	private void searchForStructures(long pos0, int index, long ptNext) throws IOException {
 		int nBlocks = 0;
+		// allowing for one of each per page
 		boolean haveCDX = false;
 		boolean haveMOL = false;
 		boolean havePNG = false;
@@ -790,9 +792,9 @@ class MNovaMetadataReader extends ByteBlockReader {
 					offset = (haveMOL ? -1 : findBytes(molKey, len, false, 0));
 					if (offset >= 0) {
 						haveMOL = true;
-						exportMOL(ptr, offset, nBlocks, !haveCDX);
+						exportMOL(ptr, offset, nBlocks);
 					}
-					offset = (havePNG || !(haveMOL || haveCDX) ? -1 : findBytes(pngKey, len, false, 0));
+					offset = (havePNG ? -1 : findBytes(pngKey, len, false, 0));
 					if (offset >= 0) {
 						havePNG = true;
 						exportPNG(ptr, offset, nBlocks);
@@ -818,16 +820,55 @@ class MNovaMetadataReader extends ByteBlockReader {
 //		testing = true;
 //		setByteOrder(ByteOrder.BIG_ENDIAN);
 		long pt0 = lastPosition + skip;
+		// initially I tried navigating the EMF+ records, but it turned out that those
+		// held truncated CDX files (so it appears). 
 		seekIn(pt0);
 		readCDXdata();
-		long pt1 = readPosition();
-		int len = (int) (pt1 - pt0);
+		int len = (int) (readPosition() - pt0);
 		byte[] bytes = new byte[len];
 		seekIn(pt0);
 		read(bytes, 0, len);
 		nStructures++;
 		handleFileData(nBlock, Extractor.CDX_FILE_DATA, bytes, pt0, len, null, null);
 		seekIn(lastPosition);
+	}
+
+	/**
+	 * Read through to find the end of the CDX file. 
+	 * 
+	 * Read properties and nested objects until the object pointer drops to -1. see
+	 * https://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/IntroCDX.htm
+	 * 
+	 * @throws IOException
+	 */
+	private void readCDXdata() throws IOException {
+		ByteOrder bo = byteOrder;
+		skipIn(22);
+		try {
+			setByteOrder(ByteOrder.LITTLE_ENDIAN);
+			int type;
+			int nObj = 0;
+			while ((type = readShort()) != 0 || nObj > 0) {
+				if (type == 0) {
+					// end of object
+					nObj--;
+				} else if ((type & 0x8000) == 0) {
+					// property: 2-byte id
+					int len = readShort();
+					if (len == -1) {
+						// large 4-byte length
+						len = readInt();
+					}
+					skipIn(len);
+				} else {
+					// object: 4-byte id
+					readInt();
+					nObj++;
+				}
+			}
+		} finally {
+			setByteOrder(bo);
+		}
 	}
 
 
@@ -855,38 +896,6 @@ class MNovaMetadataReader extends ByteBlockReader {
 //	} finally {
 //		setByteOrder(bo);
 //	}
-
-	private void readCDXdata() throws IOException {
-		ByteOrder bo = byteOrder;
-		skipIn(22);
-		// see https://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/IntroCDX.htm
-		try {
-			setByteOrder(ByteOrder.LITTLE_ENDIAN);
-			int type;
-			int nObj = 0;
-			while ((type = readShort()) != 0 || nObj-- > 0) {
-				if (type == 0) {
-					// end of object
-					continue;
-				}
-				if ((type & 0x8000) == 0) {
-					// property
-					int len = readShort();
-					if (len == -1) {
-						len = readInt();
-					}
-					if (len > 0)
-						skipIn(len);
-				} else {
-					// object
-					readInt(); // id
-					nObj++;
-				}
-			}
-		} finally {
-			setByteOrder(bo);
-		}
-	}
 
 //	private BlockData readEMF(long ptr, long target) throws IOException {
 //		seekIn(ptr);
@@ -933,7 +942,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 //	}
 
 	/**
-	 * found the PNG file
+	 * Found the PNG file, so export it.
 	 * 
 	 * @param lastPosition
 	 * @param skip
@@ -941,38 +950,86 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 */
 	private void exportPNG(long lastPosition, int skip, int nBlock) throws IOException {
 		seekIn(lastPosition);
-		readPointer();
-		readInt();
-		readFourUnknownInts();
-		readInt(); // 0
-		nextBlock(); // -> 501150
-		long ptr = readPointer();
-		readFourUnknownInts();
-		readFourUnknownInts(); // same
-		readDouble();
-		readDouble();
-		readByte();
-		readInts(15); // DANGER, WILL ROBINSON!
-		String ole = readLenStringSafely();
-		if (ole.equals("OLE Object")) {
-			readUTF16String(); // OLE Container
+		int w = 0, h = 0;
+		try {
+			readPointer();
+			readInt();
+			readFourUnknownInts();
+			readInt(); // 0
+			nextBlock(); // -> 501150
+			readPointer(); // EOF + 4
+			readFourUnknownInts();
+			readFourUnknownInts(); // same
 			readDouble();
 			readDouble();
-			int w = (int) Math.round(readDouble());
-			int h = (int) Math.round(readDouble());
+			readByte();
+			readInts(15); // DANGER, WILL ROBINSON!
+			readLenStringSafely(); // "OLE Object" or "Image"
+			if (peekInt() == -1) {
+				readInt();
+			} else {
+				readUTF16String(); // "OLE Container"
+			}
+			readDouble();
+			readDouble();
+			w = (int) Math.round(readDouble());
+			h = (int) Math.round(readDouble());
 			readByte(); // 1
 			readInt(); // 1
-			int len = (int) (ptr - readPosition() - 4); // last four bytes are 0 0 0 0
-			byte[] bytes = new byte[len];
-			read(bytes, 0, len);
-			handleFileData(nBlock, Extractor.PNG_FILE_DATA, bytes, readPosition() - len, len, null, "css:{width:" + w + "px;height:" + h + "px}");
-		} else {
-			System.err.println("PNG not found! " + ole);
+			peekInts(10);
+			if (peekInt() != 0x89504E47) {
+				// version 6 "Image"
+				nextSubblock(2);
+				readInt();
+				readInt(); // 1
+			}
+		} catch (Exception e) {
+			// alas, just skip
 		}
+		if (peekInt() != 0x89504E47) {
+			seekIn(lastPosition + skip);
+		}
+		long ptr = readPosition();
+		readPNGData(ptr);
+		int len = (int) (readPosition() - ptr);
+		seekIn(ptr);
+		byte[] bytes = new byte[len];
+		if (len > 0 && bytes != null) {
+			read(bytes, 0, len);
+			handleFileData(nBlock, Extractor.PNG_FILE_DATA, bytes, readPosition() - len, len, null,
+					"css:{width:" + w + "px;height:" + h + "px}");
+		}
+		nImages++;
 		seekIn(lastPosition);
 	}
 
-	private void exportMOL(long lastPosition, int skip, int nBlock, boolean incrementStructureCount) throws IOException {
+	/**
+	 * Read through the PNG file's very simple format.
+	 * 
+	 * <code>
+	 len (4 bytes)
+	 tag (4 chars)
+	 data (len bytes)
+	 CRC (4 bytes)
+	 </code>
+	 * 
+	 * @param ptr
+	 * @throws IOException
+	 */
+	private void readPNGData(long ptr) throws IOException {
+		seekIn(ptr);
+		if (readInt() != 0x89504E47)  // 0x89 P N G
+			return;
+		readInt(); // 0x0D 0x0A 0x1A 0x0A
+		int tag;
+		do {
+			int len = readInt();
+			tag = readInt();
+			skipIn(len + 4); // skip CRC
+		} while (tag != 0x49454E44); // I E N D
+	}
+
+	private void exportMOL(long lastPosition, int skip, int nBlock) throws IOException {
 		// targeting the END of the mol file here, so we need to back up to its start.
 		// note that this is NOT the mol file dropped. It is created in MNova by OpenBabel.
 		seekIn(lastPosition);
@@ -998,8 +1055,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		int len = readInt();
 		if (len < 0 || readPosition() + len > ptr + 10)
 			return;
-		if (incrementStructureCount)
-			nStructures++;
+		nStructures++;
 		byte[] bytes = new byte[len];
 		read(bytes, 0, len);
 		handleFileData(nBlock, Extractor.MOL_FILE_DATA, bytes, readPosition(), len, null, null);
@@ -1016,7 +1072,8 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * @param len
 	 * @param fname
 	 */
-	private void handleFileData(int nBlock, String type, Object fileData, long ptr, int len, String fname, String info) {
+	private void handleFileData(int nBlock, String type, byte[] fileData, long ptr, int len, String fname,
+			String info) {
 		if (plugin != null) {
 			if (info != null)
 				plugin.addParam(type + ":css", info, null, null);
@@ -1024,22 +1081,25 @@ class MNovaMetadataReader extends ByteBlockReader {
 		}
 		if (fname == null)
 			fname = "file_" + zeroFill(nTests, 2) + "_" + zeroFill(nPages, 2) + type;
-		boolean isString = (type == Extractor.MOL_FILE_DATA);
-		String s = "=====Page " + nPages + " block " + nBlock + " byte " + ptr +" " + fname + " [" + len
-				+ " bytes] " + (isString ? ">>>>>\n" + fileData + "\n<<<<<" : info != null ? info : "");
+		String s = "=====Page " + nPages + " block " + nBlock + " byte " + ptr + " " + fname + " [" + len + " bytes] "
+				+ (info != null ? info : "");
 		System.out.println(s);
 		if (createStructureFiles) {
-			File f = new File(fname);
-			try (FileOutputStream fis = new FileOutputStream(f)) {
-				if (isString) {
-					fileData = ((String) fileData).getBytes();
-				}
-				fis.write((byte[]) fileData);
-				System.out.println("File " + f.getAbsolutePath());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			writeToFile(fname, fileData);
 		}
+	}
+
+	private void writeToFile(String fname, byte[] fileData) {
+		File f = new File(fname);
+		try (FileOutputStream fis = new FileOutputStream(f)) {
+			fis.write(fileData);
+			System.out.println("File " + f.getAbsolutePath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// TODO Auto-generated method stub
+
 	}
 
 	private final static String zeros = "0000";
@@ -1147,12 +1207,14 @@ class MNovaMetadataReader extends ByteBlockReader {
 			/* 11 */ "test/mnova/3a-c-morphine.mnova", // saved by MNova v. 14; morphine.mol added using file...open
 			// not at GitHub - see 
 			/* 12 */ "c:\\temp\\iupac\\zip\\22232721\\metadatanmr\\nmr spectra.mnova", // from ACS; too big for GitHub
-			/* 13 */ "test/mnova/3aa-C.mnova", //  ChemDraw drawing failing
+			/* 13 */ "test/mnova/3aa-C.mnova", // CDX extraction OK
+			/* 14 */ "test/mnova/10.mnova", // PNG extraction OK version 6.1
+			/* 15 */ "test/mnova/Substrate_1'h.mnova", // PNG extraction failed 6.1
 		};
 
 	static {
-		createStructureFiles = true;
-		testFile = testFiles[13];
+		testFile = testFiles[12];
+		createStructureFiles = (testFile != null);
 	}
 
 }
