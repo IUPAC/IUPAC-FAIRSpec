@@ -19,7 +19,7 @@ public class IFSUVVISSpecData extends IFSSpecData {
 	public static final String IFS_TYPE_SPEC_UVVIS = "spec.uvvis";
 	
 
-	public static final String IFS_PROP_SPEC_UVVIS_EXPT_ID = "IFS.property.spec.uvvis.expt.id";
+	public static final String IFS_PROP_SPEC_UVVIS_EXPT_LABEL = "IFS.property.spec.uvvis.expt.label";
 
 	{
 		super.setProperties(new IFSProperty[] {

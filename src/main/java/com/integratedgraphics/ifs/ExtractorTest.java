@@ -205,13 +205,13 @@ public class ExtractorTest extends Extractor {
 
 		stopOnAnyFailure = true; // set false to allow continuing after an error.
 
-		int first = 7; // first test to run
+		int first = 0; // first test to run
 		int last =  12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 						// file test
 		
-//		if (first == last) {
+		if (first == last) {
 			createFindingAidJSONList = false;
-//		}
+		}
 
 		String targetDir = "./site/ifs";
 		

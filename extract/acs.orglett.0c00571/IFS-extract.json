@@ -11,8 +11,8 @@
  {"data0":"{IFS.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
  {"data":"{IFS.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
- {"path":"{data}|FID for Publication/{id=IFS.property.struc.compound.id::*}.zip|"},
- {"IFS.property.collection.object":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
+ {"path":"{data}|FID for Publication/{id=IFS.property.struc.compound.label::*}.zip|"},
+ {"IFS.property.collection.object":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.label::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
  {"IFS.property.collection.object":"{path}<id>/{IFS.representation.struc.mol.2d::<id>.mol}"},
- {"IFS.property.collection.object":"{path}{IFS.representation.spec.hrms.pdf::{IFS.property.spec.hrms.expt.id::<id>/HRMS.zip|**/*}.pdf}"}
+ {"IFS.property.collection.object":"{path}{IFS.representation.spec.hrms.pdf::{IFS.property.spec.hrms.expt.label::<id>/HRMS.zip|**/*}.pdf}"}
 ]}

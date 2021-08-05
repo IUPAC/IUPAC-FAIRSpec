@@ -52,12 +52,12 @@ public class IFSConst {
 	public static final String IFS_PROPERTY_FLAG       = "IFS.property.";
 	public static final String IFS_REPRESENTATION_FLAG = "IFS.representation.";
 
-	public static final String IFS_STRUC_ID_FLAG       = ".struc.id";
-	public static final String IFS_EXPT_ID_FLAG        = ".expt.id";
+	public static final String IFS_COMPOUND_LABEL_FLAG       = ".compound.label";
+	public static final String IFS_EXPT_LABEL_FLAG        = ".expt.label";
 	
 
-	public static boolean isID(String propName) {
-		return (propName != null && (propName.endsWith(IFS_EXPT_ID_FLAG) || propName.endsWith(IFS_STRUC_ID_FLAG)));
+	public static boolean isLabel(String propName) {
+		return (propName != null && (propName.endsWith(IFS_EXPT_LABEL_FLAG) || propName.endsWith(IFS_COMPOUND_LABEL_FLAG)));
 	}
 
 	public static boolean isRepresentation(String propName) {

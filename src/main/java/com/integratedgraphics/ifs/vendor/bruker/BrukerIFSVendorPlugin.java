@@ -42,7 +42,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 				"##$TE", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_TEMPERATURE_K, //
 				"SOLVENT", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_SOLVENT, //
 				"SF", IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL, //
-				"##$PROBHD", IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_PROBEID, //
+				"##$PROBHD", IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_PROBE_TYPE, //
 		};
 		for (int i = 0; i < keys.length;)
 			ifsMap.put(keys[i++], keys[i++]);

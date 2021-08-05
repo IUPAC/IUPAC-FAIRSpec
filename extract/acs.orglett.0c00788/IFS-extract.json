@@ -12,5 +12,5 @@
  {"data":"{IFS.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
  {"path":"{data}|"},
- {"IFS.property.collection.object":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::{IFS.property.struc.compound.id::*-*}-*.jdf}}"}
+ {"IFS.property.collection.object":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.label::{IFS.property.struc.compound.label::*-*}-*.jdf}}"}
 ]}

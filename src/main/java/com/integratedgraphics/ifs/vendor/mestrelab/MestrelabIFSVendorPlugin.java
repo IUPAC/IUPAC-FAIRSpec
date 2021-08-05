@@ -38,7 +38,7 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		String[] keys = { //
 				"Pulse Sequence", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_PULSE_PROG, //
 				"Solvent", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_SOLVENT, //
-				"Probe", IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_PROBEID, //
+				"Probe", IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_PROBE_TYPE, //
 				"Temperature", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_TEMPERATURE_K, //
 				"Experiment", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_DIM, //
 				"F1", IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_FREQ_1, //

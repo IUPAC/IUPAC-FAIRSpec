@@ -20,7 +20,7 @@ public final class IFSNMRSpecData extends IFSSpecData {
 	
 	public static final String IFS_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME = "IFS.property.spec.nmr.instr.manufacturer.name";
 	public static final String IFS_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL      = "IFS.property.spec.nmr.instr.freq.nominal";
-	public static final String IFS_PROP_SPEC_NMR_INSTR_PROBEID           = "IFS.property.spec.nmr.instr.probe.id";
+	public static final String IFS_PROP_SPEC_NMR_INSTR_PROBE_TYPE        = "IFS.property.spec.nmr.instr.probe.type";
 	public static final String IFS_PROP_SPEC_NMR_EXPT_DIM        = "IFS.property.spec.nmr.expt.dim";
 	public static final String IFS_PROP_SPEC_NMR_EXPT_FREQ_1     = "IFS.property.spec.nmr.expt.freq.1";
 	public static final String IFS_PROP_SPEC_NMR_EXPT_FREQ_2     = "IFS.property.spec.nmr.expt.freq.2";
@@ -31,7 +31,7 @@ public final class IFSNMRSpecData extends IFSSpecData {
 	public static final String IFS_PROP_SPEC_NMR_EXPT_PULSE_PROG = "IFS.property.spec.nmr.expt.pulse.prog";
 	public static final String IFS_PROP_SPEC_NMR_EXPT_SOLVENT    = "IFS.property.spec.nmr.expt.solvent";
 	public static final String IFS_PROP_SPEC_NMR_EXPT_TEMPERATURE_K= "IFS.property.spec.nmr.expt.temperature.K";
-	public static final String IFS_PROP_SPEC_NMR_EXPT_ID   = "IFS.property.spec.nmr.expt.id";
+	public static final String IFS_PROP_SPEC_NMR_EXPT_LABEL   = "IFS.property.spec.nmr.expt.label";
 	final public static String[][] nmrSolvents = {{"1,1,2,2-tetrachloroethane-d2","Cl2CDCDCl2","C([2H])(Cl)Cl)([2H])(Cl)Cl"},
 	{"acetone-d6","CD3COCD3","[2H]C([2H])([2H])C(=O)C([2H])([2H])[2H]"},
 	{"acetonitrile-d3","CD3CN","[2H]C([2H])([2H])C#N"},
@@ -54,9 +54,9 @@ public final class IFSNMRSpecData extends IFSSpecData {
 				
 				new IFSProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME),
 				new IFSProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL, IFSConst.PROPERTY_TYPE.INT, IFSConst.PROPERTY_UNIT.MHZ),
-				new IFSProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_PROBEID),
+				new IFSProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_PROBE_TYPE),
 				
-				new IFSProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_ID),
+				new IFSProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_LABEL),
 				new IFSProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_DIM, IFSConst.PROPERTY_TYPE.INT),
 				new IFSProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_PULSE_PROG),
 				new IFSProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_EXPT_SOLVENT),

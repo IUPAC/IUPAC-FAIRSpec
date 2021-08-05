@@ -16,12 +16,12 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 public final class IFSMSSpecData extends IFSSpecData {
 
 
-	public static final String IFS_PROP_SPEC_MS_EXPT_ID    = "IFS.property.spec.ms.expt.id";
+	public static final String IFS_PROP_SPEC_MS_EXPT_LABEL    = "IFS.property.spec.ms.expt.label";
 
 
 	{
 		super.setProperties(new IFSProperty[] {
-				new IFSProperty(IFSMSSpecData.IFS_PROP_SPEC_MS_EXPT_ID),
+				new IFSProperty(IFSMSSpecData.IFS_PROP_SPEC_MS_EXPT_LABEL),
 		});
 	}
 	

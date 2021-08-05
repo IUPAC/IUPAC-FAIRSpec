@@ -16,13 +16,13 @@
 
  {"path1":"{data1}|*.zip|"},  
  {"note":"using **/*.mnova* here because it is .mnova_copy for Compound 5"},
- {"IFS.property.collection.object":"{path1}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::{id=IFS.property.struc.compound.id::*}/{expt=::*}}.zip|{expt}/}"},
- {"IFS.property.collection.object":"{path1}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::{id=IFS.property.struc.compound.id::*}/**/*.mnova*}}"},
- {"IFS.property.collection.object":"{path1}{IFS.representation.struc.cdx::{id=IFS.property.struc.compound.id::*}/*.cdx}"},
+ {"IFS.property.collection.object":"{path1}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.label::{id=IFS.property.struc.compound.label::*}/{expt=::*}}.zip|{expt}/}"},
+ {"IFS.property.collection.object":"{path1}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.label::{id=IFS.property.struc.compound.label::*}/**/*.mnova*}}"},
+ {"IFS.property.collection.object":"{path1}{IFS.representation.struc.cdx::{id=IFS.property.struc.compound.label::*}/*.cdx}"},
 
  {"data2":"{IFS.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid2}}"},
 
  {"path2":"{data2}|*.zip|"},
- {"IFS.property.collection.object":"{path2}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::{id=IFS.property.struc.compound.id::*}/{expt=::*}}.zip|{expt}/}"},
- {"IFS.property.collection.object":"{path2}{IFS.representation.struc.cdx::{id=IFS.property.struc.compound.id::*}/*.cdx}"}
+ {"IFS.property.collection.object":"{path2}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.label::{id=IFS.property.struc.compound.label::*}/{expt=::*}}.zip|{expt}/}"},
+ {"IFS.property.collection.object":"{path2}{IFS.representation.struc.cdx::{id=IFS.property.struc.compound.label::*}/*.cdx}"}
 ]}

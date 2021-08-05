@@ -11,6 +11,6 @@
  {"data0":"{IFS.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
  {"data":"{IFS.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
- {"path":"{data}|primary NMR data/{id=IFS.property.struc.compound.id::*}/"},
- {"IFS.property.collection.object":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::<id>-*}/}"}
+ {"path":"{data}|primary NMR data/{id=IFS.property.struc.compound.label::*}/"},
+ {"IFS.property.collection.object":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.label::<id>-*}/}"}
 ]}

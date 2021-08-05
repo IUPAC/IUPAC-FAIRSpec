@@ -18,12 +18,12 @@ public final class IFSIRSpecData extends IFSSpecData {
 	public static final String IFS_TYPE_SPEC_IR = "spec.ir";
 	
 
-	public static final String IFS_PROP_SPEC_IR_EXPT_ID    = "IFS.property.spec.ir.expt.id";
+	public static final String IFS_PROP_SPEC_IR_EXPT_LABEL    = "IFS.property.spec.ir.expt.label";
 
 	{
 		setProperties(new IFSProperty[] {
 				// TODO
-				new IFSProperty(IFSIRSpecData.IFS_PROP_SPEC_IR_EXPT_ID),
+				new IFSProperty(IFSIRSpecData.IFS_PROP_SPEC_IR_EXPT_LABEL),
 		});
 	}
 	

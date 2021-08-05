@@ -9,14 +9,14 @@ import org.iupac.fairspec.core.IFSRepresentableObject;
 @SuppressWarnings("serial")
 public class IFSStructure extends IFSRepresentableObject<IFSStructureRepresentation> {
 
-	public static final String IFS_PROP_STRUC_COMPOUND_ID  = "IFS.property.struc.compound.id";
+	public static final String IFS_PROP_STRUC_COMPOUND_LABEL  = "IFS.property.struc.compound.label";
 	public static final String IFS_PROP_STRUC_SMILES       = "IFS.property.struc.smiles";
 	public static final String IFS_PROP_STRUC_INCHI        = "IFS.property.struc.inchi";
 	public static final String IFS_PROP_STRUC_INCHIKEY     = "IFS.property.struc.inchikey";
 
 	{
 		super.setProperties(new IFSProperty[] {
-				new IFSProperty(IFSStructure.IFS_PROP_STRUC_COMPOUND_ID),
+				new IFSProperty(IFSStructure.IFS_PROP_STRUC_COMPOUND_LABEL),
 				new IFSProperty(IFSStructure.IFS_PROP_STRUC_SMILES),
 				new IFSProperty(IFSStructure.IFS_PROP_STRUC_INCHI),
 				new IFSProperty(IFSStructure.IFS_PROP_STRUC_INCHIKEY),
@@ -30,7 +30,7 @@ public class IFSStructure extends IFSRepresentableObject<IFSStructureRepresentat
 	public IFSStructure(String path, String param, String value) throws IFSException {
 		super(param + ";" + value, ObjectType.Structure);
 		setPath(path);
-		if (param.equals(IFSStructure.IFS_PROP_STRUC_COMPOUND_ID) || IFSConst.isRepresentation(param))
+		if (param.equals(IFSStructure.IFS_PROP_STRUC_COMPOUND_LABEL) || IFSConst.isRepresentation(param))
 			name = value;
 		setPropertyValue(param, value);
 	}

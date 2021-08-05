@@ -11,7 +11,7 @@
  {"data0":"{IFS.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/jo{hash}_si_002.zip}"},
  {"data":"{IFS.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
- {"zip":"{data}|{id=IFS.property.struc.compound.id::*}.zip|"},
- {"IFS.property.collection.object":"{zip}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::*}/}"},
- {"IFS.property.collection.object":"{zip}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::*.mnova}}"}
+ {"zip":"{data}|{id=IFS.property.struc.compound.label::*}.zip|"},
+ {"IFS.property.collection.object":"{zip}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.label::*}/}"},
+ {"IFS.property.collection.object":"{zip}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.label::*.mnova}}"}
 ]}

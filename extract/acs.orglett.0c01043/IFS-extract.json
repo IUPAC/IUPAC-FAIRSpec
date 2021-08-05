@@ -12,5 +12,5 @@
  {"data":"{IFS.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
  {"path":"{data}|metadataNMR"},
- {"IFS.property.collection.object":"{path}/{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::NMR spectra.mnova}}"}
+ {"IFS.property.collection.object":"{path}/{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.label::NMR spectra.mnova}}"}
 ]}

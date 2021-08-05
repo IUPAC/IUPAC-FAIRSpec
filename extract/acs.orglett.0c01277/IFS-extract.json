@@ -11,6 +11,6 @@
  {"data0":"{IFS.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifsid}/suppl_file/ol{hash}_si_002.zip}"},
  {"data":"{IFS.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
- {"path":"alkylation orginal FID submitted/{IFS.property.spec.nmr.expt.id::{id=IFS.property.struc.compound.id::*}/*}/"}, 
+ {"path":"alkylation orginal FID submitted/{IFS.property.spec.nmr.expt.label::{id=IFS.property.struc.compound.label::*}/*}/"}, 
  {"IFS.property.collection.object":"{data}|{IFS.representation.spec.nmr.vendor.dataset::{path}}"}
 ]}

@@ -573,9 +573,9 @@ public class Extractor implements IFSExtractorI {
 //         {"data":"{IFS.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 //
 //         {"path":"{data}|FID for Publication/{id=IFS.property.struc.compound.id::*}.zip|"},
-//         {"IFS.property.collection.object":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.id::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
+//         {"IFS.property.collection.object":"{path}{IFS.representation.spec.nmr.vendor.dataset::{IFS.property.spec.nmr.expt.label::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
 //         {"IFS.property.collection.object":"{path}<id>/{IFS.representation.struc.mol.2d::<id>.mol}"},
-//         {"IFS.property.collection.object":"{path}{IFS.representation.spec.hrms.pdf::{IFS.property.spec.hrms.expt.id::<id>/HRMS.zip|**/*}.pdf}"}
+//         {"IFS.property.collection.object":"{path}{IFS.representation.spec.hrms.pdf::{IFS.property.spec.hrms.expt.label::<id>/HRMS.zip|**/*}.pdf}"}
 //        ]}
 
 		Lst<String> keys = new Lst<>();
@@ -1161,7 +1161,7 @@ public class Extractor implements IFSExtractorI {
 	 * The parser specifically looks for Matcher groups, regex (?<xxxx>...), that
 	 * have been created by the ObjectParser from an object line such as:
 	 * 
-	 * {IFS.representation.spec.nmr.vendor.dataset::{IFS.property.struc.compound.id::*-*}-{IFS.property.spec.nmr.expt.id::*}.jdf}
+	 * {IFS.representation.spec.nmr.vendor.dataset::{IFS.property.struc.compound.id::*-*}-{IFS.property.spec.nmr.expt.label::*}.jdf}
 	 *
 	 * 
 	 * 
@@ -1750,9 +1750,9 @@ public class Extractor implements IFSExtractorI {
 			//
 			// * becomes \\E.+\\Q
 			//
-			// {id=IFS.property.spec.nmr.expt.id::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
+			// {id=IFS.property.spec.nmr.expt.label::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
 			//
-			// {IFS.property.spec.nmr.expt.id::xxx} becomes
+			// {IFS.property.spec.nmr.expt.label::xxx} becomes
 			// \\E(?<IFS0nmr0param0expt>\\Qxxx\\E)\\Q
 			//
 			// <id> becomes \\k<id>
@@ -1763,15 +1763,15 @@ public class Extractor implements IFSExtractorI {
 			//
 			// so:
 			//
-			// {IFS.property.spec.nmr.expt.id::*} becomes \\E(?<IFS0nmr0param0expt>.+)\\Q
+			// {IFS.property.spec.nmr.expt.label::*} becomes \\E(?<IFS0nmr0param0expt>.+)\\Q
 			//
-			// {IFS.representation.spec.nmr.vendor.dataset::{IFS.property.struc.compound.id::*-*}-{IFS.property.spec.nmr.expt.id::*}.jdf}
+			// {IFS.representation.spec.nmr.vendor.dataset::{IFS.property.struc.compound.id::*-*}-{IFS.property.spec.nmr.expt.label::*}.jdf}
 			//
 			// becomes:
 			//
 			// ^(?<IFS0nmr0representation0vendor0dataset>(?<IFS0structure0param0compound0id>([^-](?:-[^-]+)*))\\Q-\\E(?<IFS0nmr0param0expt>.+)\\Q.jdf\\E)$
 			//
-			// {id=IFS.property.struc.compound.id::*}.zip|{IFS.representation.spec.nmr.vendor.dataset::{id}_{IFS.property.spec.nmr.expt.id::*}/}
+			// {id=IFS.property.struc.compound.id::*}.zip|{IFS.representation.spec.nmr.vendor.dataset::{id}_{IFS.property.spec.nmr.expt.label::*}/}
 			//
 			// becomes:
 			//
@@ -1802,8 +1802,8 @@ public class Extractor implements IFSExtractorI {
 
 			s = PT.rep(s, "*", REGEX_ANY_NOT_PIPE_OR_DIR);
 
-			// {id=IFS.property.spec.nmr.expt.id::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
-			// {IFS.property.spec.nmr.expt.id::xxx} becomes
+			// {id=IFS.property.spec.nmr.expt.label::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
+			// {IFS.property.spec.nmr.expt.label::xxx} becomes
 			// \\E(?<IFS0nmr0param0expt>\\Qxxx\\E)\\Q
 			// <id> becomes \\k<id>
 
