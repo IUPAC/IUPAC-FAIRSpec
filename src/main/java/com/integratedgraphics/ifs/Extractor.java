@@ -428,7 +428,7 @@ public class Extractor implements IFSExtractorI {
 
 	/**
 	 * The regex pattern uses param0, param1, etc., to indicated parameters for
-	 * different vendors. This method looks through the activeVendor list to retieve
+	 * different vendors. This method looks through the activeVendor list to retrieve
 	 * the match, avoiding throwing any regex exceptions due to missing group names.
 	 * 
 	 * (Couldn't Java have supplied a check method for group names???)
@@ -935,9 +935,9 @@ public class Extractor implements IFSExtractorI {
 	}
 
 	class AWrap {
-		
+
 		private byte[] a;
-		
+
 		AWrap(byte[] b) {
 			a = b;
 		}
@@ -947,18 +947,19 @@ public class Extractor implements IFSExtractorI {
 			AWrap b = (AWrap) o;
 			return Arrays.equals(a, b.a);
 		}
-		
+
 		@Override
 		public int hashCode() {
 			return Arrays.hashCode(a);
 		}
-	
+
 	}
+
 	private Map<AWrap, IFSStructure> htStructureRepCache;
 
 	int test = 0;
 	byte[] b0, b1;
-	
+
 	/**
 	 * Process the properties in propertyList after the IFSObject objects have een
 	 * created for all resources.
@@ -1051,7 +1052,6 @@ public class Extractor implements IFSExtractorI {
 	 * Set the type and len fields for structure and spec data
 	 */
 	private void addCachedRepresentationsToObjects() {
-
 
 		for (String localizedName : cache.keySet()) {
 			IFSRepresentableObject<?> obj = htLocalizedNameToObject.get(localizedName);
@@ -1348,7 +1348,8 @@ public class Extractor implements IFSExtractorI {
 		String parent = new File(entry.getName()).getParent();
 		int lenOffset = (parent == null ? 0 : parent.length() + 1);
 		// because Bruker directories must start with a number
-		String newDir = vendor.getRezipPrefix(dirName.substring(lenOffset, dirName.length() - 1)); // trimming trailing																			// '/'
+		String newDir = vendor.getRezipPrefix(dirName.substring(lenOffset, dirName.length() - 1)); // trimming trailing
+																									// // '/'
 		if (newDir == null) {
 			newDir = "";
 		} else {
@@ -1482,7 +1483,6 @@ public class Extractor implements IFSExtractorI {
 			if (os != null)
 				Util.getLimitedStreamBytes(zis, len, os, false, true);
 			String localizedName = localizePath(ifsPath);
-			String absolutePath = f.getAbsolutePath();
 			if (doExtract) {
 				String type = null;
 				if (doCheck || noOutput) {
@@ -1535,14 +1535,14 @@ public class Extractor implements IFSExtractorI {
 	/**
 	 * 
 	 * @param ifsPath
-	 * @param localizedName ifsPath with localized / and |
+	 * @param localizedName        ifsPath with localized / and |
 	 * @param len
-	 * @param ifsType IFS.representation....
+	 * @param ifsType              IFS.representation....
 	 * @param fileNameForMediaType
 	 * @return
 	 */
-	private IFSRepresentation addFileAndCacheRepresentation(String ifsPath, String localizedName, long len, String ifsType,
-			String fileNameForMediaType) {
+	private IFSRepresentation addFileAndCacheRepresentation(String ifsPath, String localizedName, long len,
+			String ifsType, String fileNameForMediaType) {
 		if (localizedName == null)
 			localizedName = localizePath(ifsPath);
 		if (fileNameForMediaType == null)
@@ -1590,11 +1590,11 @@ public class Extractor implements IFSExtractorI {
 	 * Cache file representation for this resource, associating it with a media type
 	 * if we can.
 	 * 
-	 * @param ifsPath   slash-based reference to object
+	 * @param ifsPath       slash-based reference to object
 	 * @param localizedName ifsPath with / and | removed.
 	 * @param len
 	 * @param type
-	 * @param subtype   a media type, typically
+	 * @param subtype       a media type, typically
 	 * 
 	 * @return
 	 */

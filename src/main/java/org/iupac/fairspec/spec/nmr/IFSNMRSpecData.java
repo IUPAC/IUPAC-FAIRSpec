@@ -48,6 +48,7 @@ public final class IFSNMRSpecData extends IFSSpecData {
 	{"benzene-d6","C6D6","C1([2H])=C([2H])C([2H])=C([2H])C([2H])=C1[2H]"}};
 
 
+
 	{
 		super.setProperties(new IFSProperty[] {
 				

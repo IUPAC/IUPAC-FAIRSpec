@@ -70,7 +70,7 @@ public class ExtractorTest extends Extractor {
 		readOnly = debugReadOnly; // for testing; when true, not output other than a log file is produced
 		debugging = false; // true for verbose listing of all files
 		createFindingAidsOnly = false; // true if extraction files already exist or you otherwise don't want not write
-		allowNoPubInfo = true;//debugReadOnly; // true to allow no internet connection and so no pub calls
+		allowNoPubInfo = debugReadOnly; // true to allow no internet connection and so no pub calls
 		skipPubInfo = debugReadOnly;
 		
 		// normally true:
@@ -81,8 +81,8 @@ public class ExtractorTest extends Extractor {
 
 		stopOnAnyFailure = true; // set false to allow continuing after an error.
 
-		int first =12; // first test to run
-		int last = 12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+		int first = 4; // first test to run
+		int last = 4; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 						// file test
 
 		String targetDir = "./site/ifs";

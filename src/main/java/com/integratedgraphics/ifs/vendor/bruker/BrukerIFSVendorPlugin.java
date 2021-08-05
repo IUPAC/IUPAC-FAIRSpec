@@ -56,7 +56,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	public BrukerIFSVendorPlugin() {
 		// files of interest; procs is just for solvent
 		// presence of acqu2s indicates a 2D experiment
-		paramRegex = "acqus$|acqu2s$|procs$";
+		paramRegex = "acqus$|acqu2s$|procs$|thumb.png$";
 		// rezip triggers for procs in a directory (1, 2, 3...) below a pdata directory,
 		// such as pdata/1/procs. We do not add the "/" before pdata, because that could
 		// be the| symbol, and that will be attached by IFSDefaultVendorPlugin in
@@ -121,7 +121,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	@Override
 	public String accept(IFSExtractorI extractor, String ifsPath, byte[] bytes) {
 		super.accept(extractor, ifsPath, bytes);
-		return (readJDX(ifsPath, bytes) ? processRepresentation(null, null) : null);
+		return (ifsPath.endsWith("thumb.png") || readJDX(ifsPath, bytes) ? processRepresentation(ifsPath, null) : null);
 	}
 
 	private boolean readJDX(String ifsPath, byte[] bytes) {
@@ -249,7 +249,8 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	@Override
 	public String processRepresentation(String ifsPath, byte[] bytes) {
-		return IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_VENDOR_DATASET;
+		return ifsPath != null && ifsPath.endsWith("thumb.png") ? IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_SPECTRUM_IMAGE
+				: IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_VENDOR_DATASET;
 	}
 
 }
