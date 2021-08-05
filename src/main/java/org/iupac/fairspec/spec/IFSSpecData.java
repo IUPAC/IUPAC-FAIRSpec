@@ -25,7 +25,7 @@ public abstract class IFSSpecData extends IFSDataObject<IFSSpecDataRepresentatio
 	
 	@Override
 	public String toString() {
-		return (name == null ? super.toString() : "[" + type + " " + index + " " + name  + " " + (size() > 0 ? get(0) : null) + "]");
+		return (name == null ? super.toString() : "[" + classType + " " + index + " " + name  + " " + (size() > 0 ? get(0) : null) + "]");
 	}
 
 	

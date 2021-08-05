@@ -104,22 +104,12 @@ public abstract class IFSDefaultVendorPlugin implements IFSVendorPluginI {
 		return null;
 	}
 
-	/**
-	 * The key method that the extractor uses to offer to the plugin both the name
-	 * and the bytes of the zip entry that is being considered for extraction.
-	 * 
-	 * @param extractor will be null if rezipping, otherwise the calling
-	 *                  IFSExtractorI
-	 * @param bytes     the decompressed contents of this file
-	 * @param entryName the zip entry name for this file
-	 * @return true if accepted (but may be ignored by the extractor)
-	 */
 	@Override
-	public boolean accept(IFSExtractorI extractor, String entryName, String zipName, byte[] bytes) {
+	public String accept(IFSExtractorI extractor, String zipOrPathName, byte[] bytes) {
 		if (extractor != null) {
 			this.extractor = extractor;
 		}
-		return false;
+		return processRepresentation(null, null);
 	}
 
 	/**
@@ -140,11 +130,11 @@ public abstract class IFSDefaultVendorPlugin implements IFSVendorPluginI {
 	@Override
 	public void startRezip(IFSExtractorI extractor) {
 		this.extractor = extractor;
-		reportName();
+		reportVendor();
 		rezipping = true;
 	}
 
-	protected void reportName() {
+	protected void reportVendor() {
 		addProperty(IFSNMRSpecData.IFS_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME, getVendorName());
 	}
 

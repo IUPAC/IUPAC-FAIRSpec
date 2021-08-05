@@ -19,7 +19,7 @@ public abstract class IFSStructureDataAssociationCollection extends IFSCollectio
 	 * @param struc
 	 * @return the found item or null
 	 */
-	public IFSStructureDataAssociation get(IFSStructure struc) {
+	public IFSStructureDataAssociation getAssociationForSingleStruc(IFSStructure struc) {
 		for (IFSStructureDataAssociation ssc : this) {
 			if (ssc.getStructureCollection().size() == 1 && ssc.getFirstStructure() == struc)
 				return ssc;
@@ -27,8 +27,8 @@ public abstract class IFSStructureDataAssociationCollection extends IFSCollectio
 		return null;
 	}
 
-	public IFSStructureDataAssociation addData(String name, IFSStructure struc, IFSDataObject<?> data) {
-		IFSStructureDataAssociation ssc = get(struc);
+	public IFSStructureDataAssociation addAssociation(String name, IFSStructure struc, IFSDataObject<?> data) {
+		IFSStructureDataAssociation ssc = getAssociationForSingleStruc(struc);
 		if (ssc == null) {
 			add(newAssociation(name, struc, data));
 		} else if (!ssc.getDataObjectCollection().contains(data)) {

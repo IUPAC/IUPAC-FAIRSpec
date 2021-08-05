@@ -4,21 +4,25 @@ import org.iupac.fairspec.api.IFSSerializableI;
 import org.iupac.fairspec.api.IFSSerializerI;
 
 /**
- * An IFSReference object allows for saving a String or other form of reference. 
- * (But for now, just a String.)
- *  
+ * An IFSReference object allows for saving a String or other form of reference.
+ * (But for now, just a String.) It is intended to represent an actual file, not
+ * a property.
+ * 
  * @author hansonr
-
+ * 
  */
 public class IFSReference implements IFSSerializableI {
 
+	/**
+	 * typically a ZIP file name
+	 */
 	private final Object origin;
+	
+	/**
+	 * path to this file
+	 */
 	private final String localPath;
 	private String localName;
-	
-	public IFSReference(Object origin) {
-		this(origin, null, null);
-	}
 	
 	public IFSReference(Object origin, String localName, String localPath) {
 		this.origin = origin;

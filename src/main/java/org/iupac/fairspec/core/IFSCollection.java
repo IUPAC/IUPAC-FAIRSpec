@@ -42,16 +42,16 @@ public abstract class IFSCollection<T extends IFSObject<?>> extends IFSObject<T>
 
 	/**
 	 * Find a representation in one of the items of a collection
-	 * @param zipName
+	 * @param ifsPath
 	 * @return
 	 */
-	public IFSRepresentation getRepresentation(String zipName) {
+	public IFSRepresentation getRepresentation(String ifsPath) {
 		if (!hasRepresentations)
 			return null;
 		for (T c : this) {
 			if (!(c instanceof IFSRepresentableObject))
 				return null;
-			IFSRepresentation r = ((IFSRepresentableObject<?>)c).getRepresentation(zipName, null, false, null, null);
+			IFSRepresentation r = ((IFSRepresentableObject<?>)c).getRepresentation(ifsPath);
 			if (r != null)
 				return r;
 		}

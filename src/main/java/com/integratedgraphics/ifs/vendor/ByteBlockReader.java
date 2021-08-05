@@ -465,7 +465,7 @@ public class ByteBlockReader {
 		return found;
 	}
 
-	public int findBytes(byte[] key, int length, boolean isAll) throws IOException {
+	public int findBytes(byte[] key, int length, boolean isAll, int nPre0) throws IOException {
 		if (length < 0)
 			length = readAvailable();
 		markIn(length);
@@ -479,14 +479,28 @@ public class ByteBlockReader {
 		for (int i = 0, n = length - keylen; i < n;) {
 			for (int j = 0, ptb0 = 0;;) {
 				byte test = b.get();
-				if (test == key[j]) {
-					if (j > 0 && test == b0 && ptb0 == 0)
-						ptb0 = j;
-				} else {
+				if (test == b0 && ptb0 == 0)
+					ptb0 = j;
+				if (test != key[j]) {
 					b.position(i = i + (ptb0 == 0 ? j + 1 : ptb0));
 					break;
 				}
 				if (++j == keylen) {
+					if (nPre0 > 0) {
+						boolean isOK = (i >= nPre0);
+						if (isOK) {
+							for (int k = 1; k <= nPre0; k++) {
+								if (b.get(i - k) != 0) {
+									isOK = false;
+									break;
+								}
+							}
+						}
+						if (!isOK) {
+							b.position(++i);
+							break;
+						}
+					}
 					if (isAll) {
 						if (found == -1)
 							found = i;

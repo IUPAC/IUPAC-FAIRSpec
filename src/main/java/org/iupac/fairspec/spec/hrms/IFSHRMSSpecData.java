@@ -17,6 +17,8 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 @SuppressWarnings("serial")
 public final class IFSHRMSSpecData extends IFSSpecData {
 
+	public static final String IFS_TYPE_SPEC_HRMS = "spec.hrms";
+
 
 	public static final String IFS_PROP_SPEC_HRMS_EXPT_ID  = "IFS.property.spec.hrms.expt.id";
 
@@ -29,7 +31,7 @@ public final class IFSHRMSSpecData extends IFSSpecData {
 	
 
 	public IFSHRMSSpecData() throws IFSException {
-		super(null, "spec.hrms");
+		super(null, IFS_TYPE_SPEC_HRMS);
 	}
 
 

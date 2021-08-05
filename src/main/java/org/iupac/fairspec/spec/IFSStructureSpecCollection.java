@@ -23,7 +23,7 @@ public class IFSStructureSpecCollection extends IFSStructureDataAssociationColle
 	 * @throws IFSException 
 	 */
 	public IFSStructureSpec addSpec(String name, IFSStructure struc, IFSSpecData spec) {
-		return (IFSStructureSpec) super.addData(name, struc, spec);
+		return (IFSStructureSpec) super.addAssociation(name, struc, spec);
 	}
 
 	@Override
@@ -34,6 +34,15 @@ public class IFSStructureSpecCollection extends IFSStructureDataAssociationColle
 			// unattainable
 			return null;
 		}
+	}
+
+	public IFSStructure findStructureForSpec(IFSSpecData spec) {
+		for (IFSStructureDataAssociation a : this) {
+			if (a.getDataObjectCollection().indexOf(spec) >= 0) {
+				return a.getStructureCollection().get(0);
+			}
+		}
+		return null;
 	}
 
 }

@@ -76,7 +76,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	private IFSSampleSpecCollection sampleSpecCollection;
 	private IFSSampleSpecAnalysisCollection sampleSpecAnalysisCollection;
 
-	private String currentObjectZipName;
+	private String currentObject;
 	private IFSStructure currentStructure;
 	private IFSSpecData currentSpecData;
 	private IFSSample currentSample;
@@ -103,10 +103,34 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		super.setMinCount(7);
 	}
 
-	public void beginAddObject(String fname) {
-		if (currentObjectZipName != null)
-			endAddObject();
-		currentObjectZipName = fname;
+	public void beginAddingObjects(String fname) {
+		if (isAddingObjects())
+			endAddingObjects();
+		currentObject = fname;
+	}
+	
+	public boolean isAddingObjects() {
+		return (currentObject != null);
+	}
+
+	public void setCurrentObject(String fname) {
+		currentObject = fname;
+	}
+	
+	public IFSStructure getCurrentStructure() {
+		return currentStructure;
+	}
+	
+	public void setCurrentStructure(IFSStructure struc) {
+		currentStructure = struc;
+	}
+
+	public IFSSpecData getCurrentSpecData() {
+		return currentSpecData;
+	}
+
+	public void setCurrentSpecData(IFSSpecData spec) {
+		currentSpecData = spec;
 	}
 
 	/**
@@ -139,21 +163,21 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	 * 
 	 * @param rootPath
 	 * @param param
-	 * @param value
+	 * @param id
 	 * @param localName
 	 * @return
 	 * @throws IFSException
 	 */
-	public IFSRepresentableObject<?> addObject(String rootPath, String param, String value, String localName)
+	public IFSRepresentableObject<?> addObject(String rootPath, String param, String id, String localName)
 			throws IFSException {
-		if (currentObjectZipName == null)
-			throw new IFSException("addObject " + param + " " + value + " called with no current object file name");
+		if (!isAddingObjects())
+			throw new IFSException("addObject " + param + " " + id + " called with no current object file name");
 
 		String type = getObjectTypeForName(param);
 
 		if (type.startsWith("spec.")) {
-			currentSpecData = getSpecDataCollection().getDataObjectFor(rootPath, localName, param, value,
-					currentObjectZipName, type, mediaTypeFromName(localName));
+			currentSpecData = getSpecDataCollection().getDataObjectFor(currentObject, rootPath, localName, param,
+					id, type, mediaTypeFromName(localName));
 			currentSpecData.setUrlIndex(currentSourceIndex);
 			return currentSpecData;
 		}
@@ -168,22 +192,22 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 			return null;
 		case ObjectType.Sample:
 			if (currentSample == null) {
-				currentSample = getSampleCollection().getSampleFor(rootPath, localName, param, value,
-						currentObjectZipName, mediaTypeFromName(localName));
+				currentSample = getSampleCollection().getSampleFor(rootPath, localName, param, id,
+						currentObject, mediaTypeFromName(localName));
 				System.out.println("creating Sample " + currentSample.getName());
 				currentSample.setUrlIndex(currentSourceIndex);
 			} else {
-				currentSample.setPropertyValue(param, value);
+				currentSample.setPropertyValue(param, id);
 			}
 			return currentSample;
 		case ObjectType.Structure:
 			if (currentStructure == null) {
-				currentStructure = getStructureCollection().getStructureFor(rootPath, localName, param, value,
-						currentObjectZipName, mediaTypeFromName(localName));
+				currentStructure = getStructureCollection().getStructureFor(rootPath, localName, param, id,
+						currentObject, mediaTypeFromName(localName));
 				System.out.println("creating Structure " + currentStructure.getName());
 				currentStructure.setUrlIndex(currentSourceIndex);
 			} else {
-				currentStructure.setPropertyValue(param, value);
+				currentStructure.setPropertyValue(param, id);
 			}
 			return currentStructure;
 		case SpecType.SampleSpecCollection:
@@ -199,7 +223,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 			// should not be generic
 		default:
 			System.err.println(
-					"IFSSpeDataFindingAid could not add " + param + " " + value + " for " + currentObjectZipName);
+					"IFSSpeDataFindingAid could not add " + param + " " + id + " for " + currentObject);
 			break;
 		}
 		return null;
@@ -282,28 +306,32 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		return sampleSpecAnalysisCollection;
 	}
 
-	public IFSObject<?> endAddObject() {
+	public IFSObject<?> endAddingObjects() {
+		if (!isAddingObjects())
+			return null;
 		try {
-			if (currentObjectZipName == null)
-				return null;
 			if (currentStructure != null && currentSpecData != null)
-				return getStructureSpecCollection().addSpec(currentObjectZipName, currentStructure, currentSpecData);
+				return getStructureSpecCollection().addSpec(currentObject, currentStructure, currentSpecData);
 			return (currentStructure != null ? currentStructure : currentSpecData);
 		} finally {
-			currentObjectZipName = null;
+			currentObject = null;
 			currentStructure = null;
 			currentSpecData = null;
 		}
 	}
 
 	public void finalizeExtraction() {
+		dumpSummary();
+	}
+
+	private void dumpSummary() {
 		if (getStructureCollection().size() == 0 && getSpecDataCollection().size() == 0)
 			System.out.println("IFSSpecDataFindingAid no structures or spectra?");
 		System.out.println("! IFSFindingAid extraction complete:\n! " + sources + "\n! " + getStructureCollection().size()
 				+ " structures " + getSpecDataCollection().size() + " specdata " + getStructureSpecCollection().size()
 				+ " structure-spec bindings");
 		for (IFSStructureDataAssociation ssc : getStructureSpecCollection()) {
-			System.out.println("Structure " + ssc.getFirstStructure().getName());
+			System.out.println("Structure " + ssc.getFirstStructure().toString());
 			for (IFSDataObject<?> sd : ssc.getDataObjectCollection()) {
 				System.out.println("\t" + sd);
 			}
@@ -378,12 +406,23 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		}
 	}
 
-	public IFSStructure getCurrentStructure() {
-		return currentStructure;
+	public IFSSpecData cloneSpec(IFSSpecData spec, String idExtension) {
+		IFSSpecData newSpec = (IFSSpecData) spec.clone();
+		newSpec.setID(spec.getID() + idExtension);
+		return newSpec;
 	}
-	
-	public IFSSpecData getCurrentSpecData() {
-		return currentSpecData;
+
+	/**
+	 * This method will return the FIRST structure associated with a spectrum
+	 * @param spec
+	 * @return
+	 */
+	public IFSStructure firstStructureForSpec(IFSSpecData spec) {
+		return getStructureSpecCollection().findStructureForSpec(spec);
+	}
+
+	public void associate(String name, IFSStructure struc, IFSSpecData spec) {
+		getStructureSpecCollection().addAssociation(name, struc, spec);
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.iupac.fairspec.common.IFSException;
+import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.common.IFSRepresentation;
 
@@ -35,16 +36,28 @@ public abstract class IFSRepresentableObject<T extends IFSRepresentation> extend
 
 	protected final Map<String, IFSRepresentation> htReps = new LinkedHashMap<>();
 
+	/**
+	 * Add a representation as long as it has not already been added.
+	 * 
+	 * @param ifsPath an origin name used to identify unique representations
+	 * @param localName a localized name without / or |
+	 * @param type
+	 * @param subtype
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public IFSRepresentation getRepresentation(String zipName, String localName, boolean createNew, String type, String subtype) {
-		String key = path + "::" + zipName;
-		IFSRepresentation rep = htReps.get(key);
-		if (rep == null && createNew) {
-			rep = newRepresentation(type, new IFSReference(zipName, localName, path), null, 0, type, subtype);
+	public IFSRepresentation addRepresentation(String ifsPath, String localName, String type, String subtype) {
+		IFSRepresentation rep = getRepresentation(ifsPath);
+		if (rep == null) {
+			rep = newRepresentation(type, new IFSReference(ifsPath, localName, path), null, 0, type, subtype);
 			add((T) rep);
-			htReps.put(key, rep);
+			htReps.put(path + "::" + ifsPath, rep);
 		}
 		return rep;
+	}
+
+	public IFSRepresentation getRepresentation(String ifsPath) {
+		return htReps.get(path + "::" + ifsPath);
 	}
 
 	/**

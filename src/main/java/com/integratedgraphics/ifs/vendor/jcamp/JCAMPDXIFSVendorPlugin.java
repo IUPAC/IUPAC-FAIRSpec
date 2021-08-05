@@ -16,11 +16,10 @@ public class JCAMPDXIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	}
 
 	@Override
-	public boolean accept(IFSExtractorI extractor, String fname, String zipName, byte[] bytes) {
-		super.accept(extractor, fname, zipName, bytes);
-		// TODO Auto-generated method stub
-		System.out.println("! TODO: accept JDX file " + fname);
-		return true;
+	public String accept(IFSExtractorI extractor, String ifsPath, byte[] bytes) {
+		super.accept(extractor, ifsPath, bytes);
+		System.out.println("! TODO: accept JDX file " + ifsPath);
+		return processRepresentation(null, null);
 	}
 
 	@Override
@@ -29,7 +28,7 @@ public class JCAMPDXIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	}
 
 	@Override
-	public String getDatasetType(String zipName) {
+	public String processRepresentation(String ifsPath, byte[] bytes) {
 		return IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_VENDOR_DATASET;
 	}
 

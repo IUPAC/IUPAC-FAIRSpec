@@ -29,6 +29,10 @@ public abstract class IFSRepresentation implements IFSSerializableI {
 		this.subtype = subtype;
 	}
 
+	public IFSRepresentation(IFSRepresentation rep) {
+		this(rep.getRef(), rep.getData(), rep.getLength(), rep.getType(), rep.getSubtype());
+	}
+
 	public String getType() {
 		return type;
 	}

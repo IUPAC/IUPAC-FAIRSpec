@@ -5,15 +5,16 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteOrder;
-import java.util.Date;
 import java.util.Stack;
 
 import org.iupac.fairspec.util.Util;
 
+import com.integratedgraphics.ifs.Extractor;
 import com.integratedgraphics.ifs.vendor.ByteBlockReader;
 
 /**
- * A rough MestReNova file reader that can deliver metadata only (including MOL, CDX, and PNG files).
+ * A rough MestReNova file reader that can deliver metadata only (including MOL,
+ * CDX, and PNG files).
  * 
  * DISCLAIMER: I have not seen any MestReNova code, so I am guessing here.
  * 
@@ -93,9 +94,10 @@ import com.integratedgraphics.ifs.vendor.ByteBlockReader;
  * Byte Order
  * 
  * All examples I have seen are for the most part big-endian byte order. There
- * are situations where the format switches to little-endian format. But this
- * seems to be minimal, and I only found it the case in association with CDX
- * file storage.
+ * are situations where the format switches to little-endian format,
+ * specifically to accommodate embedded EMF+
+ * https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-emfplus/517262f5-aaf3-4150-b456-9a93c24c3f77.
+ * This code navigates those records in association with CDX file storage.
  * 
  * Strings
  * 
@@ -235,15 +237,10 @@ class MNovaMetadataReader extends ByteBlockReader {
 
 	private final static byte[] molKey = new byte[] { 'M', ' ', ' ', 'E', 'N', 'D' };
 	
-	private final static byte[] cdxKey = new byte[] { /* (CD) IF\0 */ 0x49, 0x46, 0x00,
-			/* VjCD */ 0x56, 0x6A, 0x43, 0x44 };
+	private final static byte[] cdxKey = new byte[] { 'V', 'j', 'C', 'D' };
 
 	private final static byte[] pngKey = new byte[] { (byte) 0x89, 'P', 'N', 'G' };
 
-	public static final String CDX_FILE_DATA = "_struc.cdx";
-	public static final String MOL_FILE_DATA = "_struc.mol";
-	public static final String PNG_FILE_DATA = "_struc.png";
-	
 	private static final int minBlockLengthForStructureData = 50;
 
 	private MestrelabIFSVendorPlugin plugin;
@@ -549,7 +546,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		} else {
 			nSpectra++;
 			if (plugin != null)
-				plugin.newPage();
+				plugin.newPage(nPages);
 			readParams();
 			searchForStructures(readPosition(), index, pt);
 		}
@@ -785,17 +782,17 @@ class MNovaMetadataReader extends ByteBlockReader {
 						+ " ptNext=" + ptNext);
 				if (len > minBlockLengthForStructureData) {
 					int offset;
-					offset = (haveCDX ? -1 : findBytes(cdxKey, len, false));
+					offset = (haveCDX ? -1 : findBytes(cdxKey, len, false, 2));
 					if (offset >= 0) {
 						haveCDX = true;
 						exportCDX(ptr, offset, nBlocks);
 					}
-					offset = (haveMOL ? -1 : findBytes(molKey, len, false));
+					offset = (haveMOL ? -1 : findBytes(molKey, len, false, 0));
 					if (offset >= 0) {
 						haveMOL = true;
 						exportMOL(ptr, offset, nBlocks, !haveCDX);
 					}
-					offset = (havePNG || !(haveMOL || haveCDX) ? -1 : findBytes(pngKey, len, false));
+					offset = (havePNG || !(haveMOL || haveCDX) ? -1 : findBytes(pngKey, len, false, 0));
 					if (offset >= 0) {
 						havePNG = true;
 						exportPNG(ptr, offset, nBlocks);
@@ -808,29 +805,135 @@ class MNovaMetadataReader extends ByteBlockReader {
 	}
 
 	/**
-	 * found the C
+	 * found the CDX
+	 * 
+	 * see
+	 * https://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/IntroCDX.htm
 	 * 
 	 * @param lastPosition
 	 * @param skip
 	 * @throws IOException
 	 */
 	private void exportCDX(long lastPosition, int skip, int nBlock) throws IOException {
-		seekIn(lastPosition + skip - 6); // back past \0CD + 4 bytes
-		ByteOrder bo = byteOrder;
-		setByteOrder(ByteOrder.LITTLE_ENDIAN);
-		int len = readInt() - 7; // accounts for extra 0 0 at end
-		readInt();
-		readByte();
-		setByteOrder(bo);
+//		testing = true;
+//		setByteOrder(ByteOrder.BIG_ENDIAN);
+		long pt0 = lastPosition + skip;
+		seekIn(pt0);
+		readCDXdata();
+		long pt1 = readPosition();
+		int len = (int) (pt1 - pt0);
 		byte[] bytes = new byte[len];
+		seekIn(pt0);
 		read(bytes, 0, len);
 		nStructures++;
-		handleFileData(readPosition() - len, nBlock, CDX_FILE_DATA, bytes, len, null, null);
+		handleFileData(nBlock, Extractor.CDX_FILE_DATA, bytes, pt0, len, null, null);
 		seekIn(lastPosition);
 	}
 
+
+	// readPointer();
+//	readInt();
+//	readFourUnknownInts();
+//	readInt(); // 0
+//	nextBlock(); // header block
+//	nextBlock(); // PNG image block
+//	readPointer();
+//	readInts(4);
+//	ByteOrder bo = byteOrder;
+//	try {
+//		setByteOrder(ByteOrder.LITTLE_ENDIAN);
+//		BlockData block = readEMF(readPosition(), lastPosition + skip);
+//		if (block == null)
+//			return;
+//		long loc = block.loc + 5+0;
+//		seekIn(loc); 
+//		int len = block.len - 5; // remove CDIF\0 and last two 0 0 bytes
+//		byte[] bytes = new byte[len];
+//		read(bytes, 0, len);
+//		nStructures++;
+//		handleFileData(nBlock, Extractor.CDX_FILE_DATA, bytes, loc, len, null, null);
+//	} finally {
+//		setByteOrder(bo);
+//	}
+
+	private void readCDXdata() throws IOException {
+		ByteOrder bo = byteOrder;
+		skipIn(22);
+		// see https://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/IntroCDX.htm
+		try {
+			setByteOrder(ByteOrder.LITTLE_ENDIAN);
+			int type;
+			int nObj = 0;
+			while ((type = readShort()) != 0 || nObj-- > 0) {
+				if (type == 0) {
+					// end of object
+					continue;
+				}
+				if ((type & 0x8000) == 0) {
+					// property
+					int len = readShort();
+					if (len == -1) {
+						len = readInt();
+					}
+					if (len > 0)
+						skipIn(len);
+				} else {
+					// object
+					readInt(); // id
+					nObj++;
+				}
+			}
+		} finally {
+			setByteOrder(bo);
+		}
+	}
+
+//	private BlockData readEMF(long ptr, long target) throws IOException {
+//		seekIn(ptr);
+//		// EMR Header https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-emf/de081cd7-351f-4cc2-830b-d03fb55e89ab
+//		// EMF Comment record https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-emf/05940d07-e112-4146-ac05-88fc6a1f70b9
+//		if (readInt() != 1) 
+//			return null;
+//		int headerSize = readInt(); // 108
+//		skipIn(headerSize - 8);
+//		int type; 
+//		do {
+//			type = peekInt();
+//			BlockData b = readEMTRecord(readPosition());
+//			if (b != null) {
+//				if (b.loc > target)
+//					return null;
+//				if (b.loc + b.len > target) { 
+//					peekIntsAt(b.loc, 20);
+//					return b;
+//				}
+//			}
+//		} while (type != 0x0E);
+//		return null;
+//	}
+//
+//	@SuppressWarnings("unused")
+//	private BlockData readEMTRecord(long readPosition) throws IOException {
+//		seekIn(readPosition);
+//		int type = readInt(); // 0x46 0 0 0
+//		int size = readInt();
+//		BlockData b = null;
+//		if (type == 0x46) {// comment
+//			int dataSize = readInt();
+//			String desc = readSimpleString(4);
+//			if (desc.equals("EMF+")) {
+//				int type1 = readInt();
+//				int size1 = readInt();
+//				int dataSize1 = readInt();
+//				b = new BlockData(readPosition(), dataSize1);
+//			}
+//		}
+//		seekIn(readPosition + size);
+//		return b;
+//	}
+
 	/**
-	 * found the CDX file
+	 * found the PNG file
 	 * 
 	 * @param lastPosition
 	 * @param skip
@@ -857,13 +960,12 @@ class MNovaMetadataReader extends ByteBlockReader {
 			readDouble();
 			int w = (int) Math.round(readDouble());
 			int h = (int) Math.round(readDouble());
-			readDoubleBox(); // position
 			readByte(); // 1
 			readInt(); // 1
-			int len = (int) (ptr - readPosition());
+			int len = (int) (ptr - readPosition() - 4); // last four bytes are 0 0 0 0
 			byte[] bytes = new byte[len];
 			read(bytes, 0, len);
-			handleFileData(readPosition(), nBlock, PNG_FILE_DATA, bytes, len, null, "width:" + w + "px;height:" + h + "px");
+			handleFileData(nBlock, Extractor.PNG_FILE_DATA, bytes, readPosition() - len, len, null, "css:{width:" + w + "px;height:" + h + "px}");
 		} else {
 			System.err.println("PNG not found! " + ole);
 		}
@@ -874,6 +976,9 @@ class MNovaMetadataReader extends ByteBlockReader {
 		// targeting the END of the mol file here, so we need to back up to its start.
 		// note that this is NOT the mol file dropped. It is created in MNova by OpenBabel.
 		seekIn(lastPosition);
+		long ptr = lastPosition + skip;
+		//testing = showChars = true;
+		//peekIntsAt(lastPosition, skip/4 + 4);
 		readPointer();
 		readInt(); // 107, 109, 110, etc.
 		readFourUnknownInts();
@@ -890,10 +995,14 @@ class MNovaMetadataReader extends ByteBlockReader {
 			readByte();
 			readInts(9); // DANGER, WILL ROBINSON!
 		}
-		int len = peekInt();
+		int len = readInt();
+		if (len < 0 || readPosition() + len > ptr + 10)
+			return;
 		if (incrementStructureCount)
 			nStructures++;
-		handleFileData(readPosition() + 4, nBlock, MOL_FILE_DATA, readLenStringSafely(), len, null, null);
+		byte[] bytes = new byte[len];
+		read(bytes, 0, len);
+		handleFileData(nBlock, Extractor.MOL_FILE_DATA, bytes, readPosition(), len, null, null);
 		seekIn(lastPosition);
 	}
 
@@ -902,20 +1011,22 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * creating the file if that option is chosen and testing.
 	 * 
 	 * @param nBlock
-	 * 
 	 * @param type
 	 * @param fileData
 	 * @param len
 	 * @param fname
 	 */
-	private void handleFileData(long ptr, int nBlock, String type, Object fileData, int len, String fname, String info) {
-		if (plugin != null)
+	private void handleFileData(int nBlock, String type, Object fileData, long ptr, int len, String fname, String info) {
+		if (plugin != null) {
+			if (info != null)
+				plugin.addParam(type + ":css", info, null, null);
 			plugin.addParam(type, fileData, null, null);
+		}
 		if (fname == null)
 			fname = "file_" + zeroFill(nTests, 2) + "_" + zeroFill(nPages, 2) + type;
-		boolean isString = (type == MOL_FILE_DATA);
+		boolean isString = (type == Extractor.MOL_FILE_DATA);
 		String s = "=====Page " + nPages + " block " + nBlock + " byte " + ptr +" " + fname + " [" + len
-				+ " bytes]" + (isString ? ">>>>>\n" + fileData + "\n<<<<<" : info != null ? info : "");
+				+ " bytes] " + (isString ? ">>>>>\n" + fileData + "\n<<<<<" : info != null ? info : "");
 		System.out.println(s);
 		if (createStructureFiles) {
 			File f = new File(fname);
@@ -1036,11 +1147,12 @@ class MNovaMetadataReader extends ByteBlockReader {
 			/* 11 */ "test/mnova/3a-c-morphine.mnova", // saved by MNova v. 14; morphine.mol added using file...open
 			// not at GitHub - see 
 			/* 12 */ "c:\\temp\\iupac\\zip\\22232721\\metadatanmr\\nmr spectra.mnova", // from ACS; too big for GitHub
+			/* 13 */ "test/mnova/3aa-C.mnova", //  ChemDraw drawing failing
 		};
 
 	static {
 		createStructureFiles = true;
-//		testFile = testFiles[6];
+		testFile = testFiles[13];
 	}
 
 }

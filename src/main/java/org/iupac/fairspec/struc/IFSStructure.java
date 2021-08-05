@@ -43,7 +43,13 @@ public class IFSStructure extends IFSRepresentableObject<IFSStructureRepresentat
 	
 	@Override
 	public String toString() {
-		return (name == null ? super.toString() : "[IFSStructure " + index + " " + name + "]");
+		if (name == null)
+			return super.toString();
+		String refs = "";
+		for (int i = 0; i < size(); i++) {
+			refs += get(i).getSubtype() + ";";
+		}
+		return "[IFSStructure " + index + " " + name + " " + refs + "]";
 	}
 
 }

@@ -22,16 +22,16 @@ public abstract class IFSDataObjectCollection<T extends IFSDataObject<?>> extend
 			return false;
 		}
 		if (subtype == ObjectType.Unknown)
-			subtype = t.getType();
-		else if (t.getType() != subtype)
+			subtype = t.getObjectType();
+		else if (t.getObjectType() != subtype)
 			subtype = ObjectType.Mixed;
 		return super.add(t); // true
 	}
 	
 	private Map<String, T> map = new HashMap<>();
 
-	public T getDataObjectFor(String path, String localName, String param, String value, String zipName, String type, String mediaType)  throws IFSException {
-		String keyValue = path + "::" + zipName;
+	public T getDataObjectFor(String ifsPath, String path, String localName, String param, String value, String type, String mediaType)  throws IFSException {
+		String keyValue = path + "::" + ifsPath;
 		T sd = map.get(keyValue);
 		if (sd == null) {
  			map.put(keyValue,  sd = newIFSDataObject(path, param, value, type));
@@ -39,7 +39,7 @@ public abstract class IFSDataObjectCollection<T extends IFSDataObject<?>> extend
 		} else {
 			sd.setPropertyValue(param, value);
 		}
-		sd.getRepresentation(zipName, localName, true, param, mediaType);
+		sd.addRepresentation(ifsPath, localName, param, mediaType);
 		return sd;
 	}
 

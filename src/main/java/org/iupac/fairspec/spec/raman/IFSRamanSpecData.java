@@ -15,6 +15,8 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 @SuppressWarnings("serial")
 public final class IFSRamanSpecData extends IFSSpecData {
 
+	public static final String IFS_TYPE_SPEC_RAMAN = "spec.raman";
+	
 	public static final String IFS_PROP_SPEC_RAMAN_EXPT_ID = "IFS.property.spec.raman.expt.id";
 
 	{
@@ -24,7 +26,7 @@ public final class IFSRamanSpecData extends IFSSpecData {
 	}
 	
 	public IFSRamanSpecData() throws IFSException {
-		super(null, "spec.raman");
+		super(null, IFS_TYPE_SPEC_RAMAN);
 	}
 	
 	@Override

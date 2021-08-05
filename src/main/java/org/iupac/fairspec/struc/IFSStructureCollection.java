@@ -33,7 +33,7 @@ public class IFSStructureCollection extends IFSCollection<IFSStructure> {
 			add(sd);
 		}
 		if (IFSConst.isRepresentation(param))
-			sd.getRepresentation(zipName, localName, true, param, mediaType);
+			sd.addRepresentation(zipName, localName, param, mediaType);
 		return sd;
 	}
 

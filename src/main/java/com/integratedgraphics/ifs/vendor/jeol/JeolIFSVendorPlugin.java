@@ -21,8 +21,8 @@ public class JeolIFSVendorPlugin extends NmrMLIFSVendorPlugin {
 	}
 
 	@Override
-	public boolean accept(IFSExtractorI extractor, String fname, String zipName, byte[] bytes) {
-		super.accept(extractor, fname, zipName, bytes);
+	public String accept(IFSExtractorI extractor, String ifsPath, byte[] bytes) {
+		super.accept(extractor, ifsPath, bytes);
 		try {
 			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(bytes);
 			Acqu acq = jeol.read();
@@ -31,7 +31,7 @@ public class JeolIFSVendorPlugin extends NmrMLIFSVendorPlugin {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return true;
+		return processRepresentation(null, null);
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class JeolIFSVendorPlugin extends NmrMLIFSVendorPlugin {
 	}
 
 	@Override
-	public String getDatasetType(String zipName) {
+	public String processRepresentation(String ifsPath, byte[] bytes) {
 		return IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_VENDOR_DATASET;
 	}
 

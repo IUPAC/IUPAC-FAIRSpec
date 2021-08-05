@@ -231,7 +231,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	 */
 	private int minCount;
 
-	protected final String type;
+	protected final String classType;
 
 	protected String subtype = ObjectType.Unknown;
 
@@ -245,7 +245,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 		this.name = name;
 		if (type == null)
 			throw new IFSException("IFSObject must have a type");
-		this.type = type;
+		this.classType = type;
 		this.maxCount = maxCount;
 		this.index = indexCount++;
 		if (initialSet == null) {
@@ -344,7 +344,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 
 	@Override
 	public String getObjectType() {
-		return type;
+		return classType;
 	}
 
 	@Override
@@ -393,11 +393,8 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	@Override
 	public Object clone() {
 		IFSObject<?> c = (IFSObject<?>) super.clone();
+		c.params.clear();
 		return c;
-	}
-
-	public String getType() {
-		return type;
 	}
 
 	@Override
@@ -427,7 +424,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 
 	@Override
 	public String getSerializedType() {
-		return type;
+		return classType;
 	}
 
 	@Override

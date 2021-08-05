@@ -43,7 +43,7 @@ public abstract class NmrMLIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	}
 
 	protected void setParams(int dim, Acqu acq) {
-		reportName();
+		reportVendor();
 		report("DIM", dim);
 		double freq = acq.getTransmiterFreq();
 		report("F1", freq);

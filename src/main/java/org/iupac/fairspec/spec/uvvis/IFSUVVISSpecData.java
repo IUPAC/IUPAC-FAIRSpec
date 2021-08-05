@@ -16,6 +16,9 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 public class IFSUVVISSpecData extends IFSSpecData {
 
 
+	public static final String IFS_TYPE_SPEC_UVVIS = "spec.uvvis";
+	
+
 	public static final String IFS_PROP_SPEC_UVVIS_EXPT_ID = "IFS.property.spec.uvvis.expt.id";
 
 	{
@@ -26,13 +29,13 @@ public class IFSUVVISSpecData extends IFSSpecData {
 	}
 	
 	public IFSUVVISSpecData() throws IFSException {
-		super(null, "spec.uvvis");
+		super(null, IFS_TYPE_SPEC_UVVIS);
 	}
 
 
 	@Override
 	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len, String type, String subtype) {
-		return new IFSUVISSpecDataRepresentation(ref, obj, len, type, subtype);
+		return new IFSUVVISSpecDataRepresentation(ref, obj, len, type, subtype);
 	}
 
 

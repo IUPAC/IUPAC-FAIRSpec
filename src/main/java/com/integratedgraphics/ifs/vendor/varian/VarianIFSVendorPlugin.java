@@ -21,16 +21,17 @@ public class VarianIFSVendorPlugin extends NmrMLIFSVendorPlugin {
 	}
 
 	@Override
-	public boolean accept(IFSExtractorI extractor, String fname, String zipName, byte[] bytes) {
-		super.accept(extractor, fname, zipName, bytes);
+	public String accept(IFSExtractorI extractor, String ifsPath, byte[] bytes) {
+		super.accept(extractor, ifsPath, bytes);
 		try {
 			NmrMLVarianAcquStreamReader varian = new NmrMLVarianAcquStreamReader(new ByteArrayInputStream(bytes));
 			Acqu acq = varian.read();
 			setParams(varian.getDimension(), acq);
+			return processRepresentation(null, null);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-		return true;
 	}
 
 	@Override
@@ -39,7 +40,7 @@ public class VarianIFSVendorPlugin extends NmrMLIFSVendorPlugin {
 	}
 
 	@Override
-	public String getDatasetType(String zipName) {
+	public String processRepresentation(String ifsPath, byte[] bytes) {
 		return IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_VENDOR_DATASET;
 	}
 

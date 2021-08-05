@@ -3,7 +3,7 @@ package org.iupac.fairspec.spec.uvvis;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
-public final class IFSUVISSpecDataRepresentation extends IFSSpecDataRepresentation {
+public final class IFSUVVISSpecDataRepresentation extends IFSSpecDataRepresentation {
 
 	public final static String IFS_REP_UVVIS_VENDOR_DATASET = "IFS.representation.spec.uvvis.vendor.dataset";
 	public final static String IFS_REP_UVVIS_SPECTRUM_PDF = "IFS.representation.spec.uvvis.spectrum.pdf";
@@ -25,7 +25,7 @@ public final class IFSUVISSpecDataRepresentation extends IFSSpecDataRepresentati
 		return repNames;
 	}
 
-	public IFSUVISSpecDataRepresentation(IFSReference ref, Object data, long len, String type, String subtype) {
+	public IFSUVVISSpecDataRepresentation(IFSReference ref, Object data, long len, String type, String subtype) {
 		super(ref, data, len, type, subtype);
 	}
 

@@ -16,6 +16,8 @@ import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 @SuppressWarnings("serial")
 public final class IFSNMRSpecData extends IFSSpecData {
 
+	public static final String IFS_TYPE_SPEC_NMR = "spec.nmr";
+	
 	public static final String IFS_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME = "IFS.property.spec.nmr.instr.manufacturer.name";
 	public static final String IFS_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL      = "IFS.property.spec.nmr.instr.freq.nominal";
 	public static final String IFS_PROP_SPEC_NMR_INSTR_PROBEID           = "IFS.property.spec.nmr.instr.probe.id";
@@ -68,7 +70,7 @@ public final class IFSNMRSpecData extends IFSSpecData {
 	}
 	
 	public IFSNMRSpecData() throws IFSException {
-		super(null, "spec.nmr");
+		super(null, IFS_TYPE_SPEC_NMR);
 	}
 	
 	

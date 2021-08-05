@@ -48,7 +48,7 @@ public class ExtractorTest extends Extractor {
 			"acs.orglett.0c00788/22125318", // 2 jeol jdfs
 			"acs.orglett.0c00874/22233351", // 3 bruker dirs
 			"acs.orglett.0c00967/22111341", // 4 bruker dirs + jeol jdfs
-			"acs.orglett.0c01022/22195341", // 5 many mnovas
+			"acs.orglett.0c01022/22195341", // 5 many mnovas, cdx and png extracted
 			"acs.orglett.0c01197/22491647", // 6 many mnovas
 			"acs.orglett.0c01277/22613762", // 7 bruker dirs
 			"acs.orglett.0c01297/22612484", // 8 bruker dirs
@@ -63,14 +63,14 @@ public class ExtractorTest extends Extractor {
 	public static void main(String[] args) {
 
 		String sourceDir = "c:/temp/iupac/zip";// null or a local dir if you have already downloaded the zip files
-		boolean debugReadOnly = true;
+		boolean debugReadOnly = false;
 
 		// normally false:
 		
 		readOnly = debugReadOnly; // for testing; when true, not output other than a log file is produced
 		debugging = false; // true for verbose listing of all files
-		createFindingAidsOnly = true;//false; // true if extraction files already exist or you otherwise don't want not write
-		allowNoPubInfo = debugReadOnly; // true to allow no internet connection and so no pub calls
+		createFindingAidsOnly = false; // true if extraction files already exist or you otherwise don't want not write
+		allowNoPubInfo = true;//debugReadOnly; // true to allow no internet connection and so no pub calls
 		skipPubInfo = debugReadOnly;
 		
 		// normally true:
@@ -81,8 +81,8 @@ public class ExtractorTest extends Extractor {
 
 		stopOnAnyFailure = true; // set false to allow continuing after an error.
 
-		int first =5; // first test to run
-		int last = 5; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+		int first =6; // first test to run
+		int last = 6; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 						// file test
 
 		String targetDir = "./site/ifs";
@@ -143,12 +143,13 @@ public class ExtractorTest extends Extractor {
 
 		errorLog = "";
 		int n = 0;
+		String job = null;
 		for (int itest = (args.length == 0 ? i0 : 0); itest <= (args.length == 0 ? i1 : 0); itest++) {
 
 			// ./extract/ should be in the main Eclipse project directory.
 
 			if (args.length == 0) {
-				key = testSet[itest];
+				job = key = testSet[itest];
 				System.out.println("\n!\n! found Test " + itest + " " + key);
 				int pt = key.indexOf("/");
 				if (pt >= 0)
@@ -173,7 +174,7 @@ public class ExtractorTest extends Extractor {
 					break;
 			}
 		}
-		log("! DONE total=" + n + " failed=" + failed);
+		log("! DONE total=" + n + " failed=" + failed + " for " + job);
 		json += "\n]}\n";
 		try {
 			if (createFindingAidJSONList && !readOnly) {
@@ -186,6 +187,7 @@ public class ExtractorTest extends Extractor {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println(job);
 		System.err.println(errorLog);
 		Util.setLogging(null);
 	}

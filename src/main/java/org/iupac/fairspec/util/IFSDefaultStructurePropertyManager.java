@@ -26,7 +26,7 @@ public class IFSDefaultStructurePropertyManager implements IFSPropertyManagerI {
 	 */
 	private IFSExtractorI extractor;
 
-	private Viewer jmolViewer;
+	private static Viewer jmolViewer;
 
 	/**
 	 * A class to process structures using Jmol methods to extract and discover
@@ -48,61 +48,38 @@ public class IFSDefaultStructurePropertyManager implements IFSPropertyManagerI {
 		return true;
 	}
 
-	private Map<String, String> fileToType = new HashMap<>();
+	private static Map<String, String> fileToType = new HashMap<>();
 
 	@Override
-	public boolean accept(IFSExtractorI extractor, String fname, String zipName, byte[] bytes) {
-		fileToType.put(fname, getType(fname, bytes));
-		return true;
+	public String accept(IFSExtractorI extractor, String ifsPath, byte[] bytes) {
+		return processRepresentation(ifsPath, bytes);
+	}
+	
+	protected Viewer getJmolViewer() {
+		if (jmolViewer == null) {
+			System.out.println("IFSDefaultStructurePropertyManager initializing Jmol...");
+			jmolViewer = (Viewer) JmolViewer.allocateViewer(null, null);
+		}
+		return jmolViewer;
 	}
 
-	private String getType(String fname, byte[] bytes) {
-		String ext = fname.substring(fname.lastIndexOf('.') + 1);
-		String type = fileToType.get(fname);
+	@Override
+	public String processRepresentation(String ifsPath, byte[] bytes) {
+		String type = fileToType.get(ifsPath);
 		if (type != null)
 			return type;
-		boolean check2d = false;
-		switch (ext) {
-		case "mol":
-			type = IFSStructureRepresentation.IFS_STRUCTURE_REP_MOL;
-			check2d = true;
-			break;
-		case "sdf":
-			type = IFSStructureRepresentation.IFS_STRUCTURE_REP_SDF;
-			check2d = true;
-			break;
-		case "cdf":
-			type = IFSStructureRepresentation.IFS_STRUCTURE_REP_CDF;
-			break;
-		case "cdxml":
-			type = IFSStructureRepresentation.IFS_STRUCTURE_REP_CDXML;
-			break;
-		default:
-			type = ext.toUpperCase();
-			break;
-		}
-
-		boolean is2D = false;
+		String ext = ifsPath.substring(ifsPath.lastIndexOf('.') + 1);
+		type = getType(ext, bytes);
 		String smiles = null, inchi = null, inchiKey = null;
-
-		if (check2d) {
+		if (ext.equals("mol") || ext.equals("sdf")) {
 			try {
 				Viewer v = getJmolViewer();
 				v.loadInline(new String(bytes));
 				BS atoms = v.bsA();
-
 				smiles = v.getSmiles(atoms);
 				inchi = v.getInchi(atoms, null, null);
 				inchiKey = v.getInchi(atoms, null, "key");
-
-				// check 2D or 3D
-				Map<String, Object> info = v.getCurrentModelAuxInfo();
-				is2D = "2D".equals(info.get("dimension"));
-				if (is2D) {
-					type += ".2d";
-				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			// .getFileType(Rdr.getBufferedReader(Rdr.getBIS(bytes), null));
@@ -116,20 +93,66 @@ public class IFSDefaultStructurePropertyManager implements IFSPropertyManagerI {
 		if (inchiKey != null) {
 			IFSPropertyManagerI.addProperty(extractor, IFSStructure.IFS_PROP_STRUC_INCHIKEY, inchiKey);
 		}
+		fileToType.put(ifsPath, type);
 		return type;
 	}
 
-	protected Viewer getJmolViewer() {
-		if (jmolViewer == null) {
-			System.out.println("IFSDefaultStructurePropertyManager initializing Jmol...");
-			jmolViewer = (Viewer) JmolViewer.allocateViewer(null, null);
+	public static String getType(String ext, byte[] bytes) {
+		switch (ext) {
+		case "png":
+			return IFSStructureRepresentation.IFS_STRUCTURE_REP_PNG;
+		case "mol":
+			return (isMol2D(bytes) ? IFSStructureRepresentation.IFS_STRUCTURE_REP_MOL_2D : IFSStructureRepresentation.IFS_STRUCTURE_REP_MOL);
+		case "sdf":
+			return (isMol2D(bytes) ? IFSStructureRepresentation.IFS_STRUCTURE_REP_SDF_2D : IFSStructureRepresentation.IFS_STRUCTURE_REP_SDF);
+		case "cdx":
+			return IFSStructureRepresentation.IFS_STRUCTURE_REP_CDX;
+		case "cdxml":
+			return IFSStructureRepresentation.IFS_STRUCTURE_REP_CDXML;
+		default:
+			return ext.toUpperCase();
 		}
-		return jmolViewer;
 	}
 
-	@Override
-	public String getDatasetType(String refName) {
-		return getType(refName, null);
+	private static boolean isMol2D(byte[] bytes) {
+		int line = 0;
+		int linept = 0;
+		for (int i = 0; i < bytes.length; i++) {
+			switch (bytes[i]) {
+			case 0xD:
+				if (bytes[i + 1] == 0xA) {
+					continue;
+				}
+				//$FALL-THROUGH$
+			case 0xA:
+				if (++line == 2) {
+					// GSMACCS-II10169115362D
+					// 0.........1.........2
+					// 0123456789012345678901
+					int ptdim = linept + 20;
+					return (i > ptdim + 1 && bytes[ptdim] == '2' && bytes[ptdim+1] == 'D');
+				}
+				linept = i + 1;
+				break;
+			}
+		}
+		return false;
 	}
+	
+//	static {
+//		System.out.println(isMol2D(("https://files.rcsb.org/download/1pgb.pdb\n" + 
+//				"__Jmol-14_07301921552D 1   1.00000     0.00000     0\n" + 
+//				"Jmol version 14.29.46  2019-06-03 12:50 EXTRACT: ({215:225 394:404})\n" + 
+//				"").getBytes()));
+//		System.out.println(isMol2D(("https://files.rcsb.org/download/1pgb.pdb\n" + 
+//				"__Jmol-14_07301921553D 1   1.00000     0.00000     0\n" + 
+//				"Jmol version 14.29.46  2019-06-03 12:50 EXTRACT: ({215:225 394:404})\n" + 
+//				"").getBytes()));
+//		System.out.println(isMol2D(("https://files.rcsb.org/download/1pgb.pdb\n" + 
+//				"__Jmol-14_07301921552D").getBytes()));
+//		System.out.println(isMol2D(("https://files.rcsb.org/download/1pgb.pdb\n" + 
+//				"__Jmol-14_07301921552").getBytes()));
+//	}
 
 }
+

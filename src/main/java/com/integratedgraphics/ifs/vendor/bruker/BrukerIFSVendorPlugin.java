@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairspec.api.IFSExtractorI;
-import org.iupac.fairspec.core.IFSObject;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
 import org.iupac.fairspec.util.Util;
@@ -15,7 +14,6 @@ import org.iupac.fairspec.util.Util;
 import com.integratedgraphics.ifs.api.IFSVendorPluginI;
 import com.integratedgraphics.ifs.util.IFSDefaultVendorPlugin;
 
-import javajs.util.Rdr;
 import jspecview.source.JDXReader;
 
 public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
@@ -121,8 +119,12 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	 * 
 	 */
 	@Override
-	public boolean accept(IFSExtractorI extractor, String fname, String zipName, byte[] bytes) {
-		super.accept(extractor, fname, zipName, bytes);
+	public String accept(IFSExtractorI extractor, String ifsPath, byte[] bytes) {
+		super.accept(extractor, ifsPath, bytes);
+		return (readJDX(ifsPath, bytes) ? processRepresentation(null, null) : null);
+	}
+
+	private boolean readJDX(String ifsPath, byte[] bytes) {
 		Map<String, String> map = null;
 		try {
 			map = JDXReader.getHeaderMap(new ByteArrayInputStream(bytes), null);
@@ -132,7 +134,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 			e.printStackTrace();
 			return false;
 		}
-		if (fname.indexOf("procs") >= 0) {
+		if (ifsPath.indexOf("procs") >= 0) {
 			report("SOLVENT", getSolvent(map));
 			return true;
 		}
@@ -158,7 +160,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 			getDoubleValue(map, "##$BF4");
 		report("##$TE", getDoubleValue(map, "##$TE"));
 		processString(map, "##$PULPROG", null);
-		if (fname.endsWith("acqu2s")) {
+		if (ifsPath.endsWith("acqu2s")) {
 			report("DIM", dim = "2D");
 		}
 		report("SF", getNominalFrequency(freq1, nuc1));
@@ -228,13 +230,13 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	}
 
-	private static void test(String fname) {
+	private static void test(String ifsPath) {
 		IFSVendorPluginI.init();
-		System.out.println("====================" + fname);
+		System.out.println("====================" + ifsPath);
 		try {
-			String filename = new File(fname).getAbsolutePath();
+			String filename = new File(ifsPath).getAbsolutePath();
 			byte[] bytes = Util.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
-			new BrukerIFSVendorPlugin().accept(null, filename, null, bytes);
+			new BrukerIFSVendorPlugin().accept(null, filename, bytes);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -246,7 +248,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	}
 
 	@Override
-	public String getDatasetType(String zipName) {
+	public String processRepresentation(String ifsPath, byte[] bytes) {
 		return IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_VENDOR_DATASET;
 	}
 
