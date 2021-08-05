@@ -116,73 +116,77 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 				return;
 			}
 			oval = val = val.trim();
-			switch (key) {
-			case "Owner":
-				// skipping
-				return;
-			case Extractor.PNG_FILE_DATA + ":css":
-				pngcss = val;
-				return;
-			case "Acquisition Date":
-			case "Author":
-			case "Comment":
-			case "Experiment":
-			case "Modification Date":
-			case "Origin":
-			case "Pulse Sequence":
-			case "Site":
-			case "Solvent":
-			case "Title":
-			case "Class":
-			case "Presaturation Frequency":
-			case "Probe":
-			default:
-				oval = PT.rep(val, "\n", " ").trim();
-				break;
-			case "Data File Name":
-				isJDF = (val.endsWith(".jdf"));
-				return;
-			case "Instrument":
-			case "Spectrometer":
-				break;
-			case "Temperature":
-				double d = Double.parseDouble(val);
-				if (isJDF) {
-					// JDF temp is oC not K from MNOVA
-					d += 273.15;
+			try {
+				switch (key) {
+				case "Owner":
+					// skipping
+					return;
+				case Extractor.PNG_FILE_DATA + ":css":
+					pngcss = val;
+					return;
+				case "Acquisition Date":
+				case "Author":
+				case "Comment":
+				case "Experiment":
+				case "Modification Date":
+				case "Origin":
+				case "Pulse Sequence":
+				case "Site":
+				case "Solvent":
+				case "Title":
+				case "Class":
+				case "Presaturation Frequency":
+				case "Probe":
+				default:
+					oval = PT.rep(val, "\n", " ").trim();
+					break;
+				case "Data File Name":
+					isJDF = (val.endsWith(".jdf"));
+					return;
+				case "Instrument":
+				case "Spectrometer":
+					break;
+				case "Temperature":
+					double d = Double.parseDouble(val);
+					if (isJDF) {
+						// JDF temp is oC not K from MNOVA
+						d += 273.15;
+					}
+					oval = Double.valueOf(d);
+					break;
+				case "Nucleus":
+					key = "N1";
+					nuc1 = val;
+					if (param2 != null) {
+						params.put("N2", param2.value);
+					}
+					break;
+				case "Spectrometer Frequency":
+					key = "F1";
+					freq = Double.parseDouble(val);
+					oval = Double.valueOf(freq);
+					if (param2 != null) {
+						params.put("F2", Double.valueOf(param2.value));
+					}
+					break;
+				case "Pulse Width":
+				case "Spectral Width":
+				case "Receiver Gain":
+				case "Purity":
+				case "Relaxation Delay":
+				case "Spectrum Quality":
+				case "Lowest Frequency":
+				case "Acquisition Time":
+					oval = Double.valueOf(Double.parseDouble(val));
+					break;
+				case "Number of Scans":
+				case "Acquired Size":
+				case "Spectral Size":
+					oval = Integer.valueOf(Integer.parseInt(val));
+					break;
 				}
-				oval = Double.valueOf(d);
-				break;
-			case "Nucleus":
-				key = "N1";
-				nuc1 = val;
-				if (param2 != null) {
-					params.put("N2", param2.value);
-				}
-				break;
-			case "Spectrometer Frequency":
-				key = "F1";
-				freq = Double.parseDouble(val);
-				oval = Double.valueOf(freq);
-				if (param2 != null) {
-					params.put("F2", Double.valueOf(param2.value));
-				}
-				break;
-			case "Pulse Width":
-			case "Spectral Width":
-			case "Receiver Gain":
-			case "Purity":
-			case "Relaxation Delay":
-			case "Spectrum Quality":
-			case "Lowest Frequency":
-			case "Acquisition Time":
-				oval = Double.valueOf(Double.parseDouble(val));
-				break;
-			case "Number of Scans":
-			case "Acquired Size":
-			case "Spectral Size":
-				oval = Integer.valueOf(Integer.parseInt(val));
-				break;
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
 			}
 		}
 		if (oval != null) {
@@ -258,7 +262,8 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	}
 
 	private void close() {
-		System.out.println("MestreLabIFSVendorPlugin done " + page + " pages for " + ifsPath);
+		System.out.println("MestreLabIFSVendorPlugin done " + page + " pages for " + ifsPath 
+				+ "\n=============================================\n");
 		finalizeParams();
 		page = 0;
 	}

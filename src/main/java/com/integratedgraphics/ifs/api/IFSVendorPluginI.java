@@ -121,7 +121,7 @@ public interface IFSVendorPluginI extends IFSPropertyManagerI {
 
 	void startRezip(IFSExtractorI extractor);
 	
-	boolean doRezipInclude(String zipfileName, String entryName);
+	boolean doRezipInclude(IFSExtractorI extractor, String zipfileName, String entryName);
 
 	void endRezip();
 

@@ -83,13 +83,11 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 		if (fprt)
 			System.out.println("Header: Instrument = " + Instrument);
 		skipIn(8);// seek(24);
-		byte[] Data_Axis_Type = new byte[8];
-		read(Data_Axis_Type, 0, 8);
+		byte[] Data_Axis_Type = readBytes(8);
 		if (fprt)
 			System.out.println("Header: Data_Axis_Type = " + Data_Axis_Type[0] + ", ... ");
 
-		byte[] Data_Units = new byte[16];
-		read(Data_Units, 0, 16);
+		byte[] Data_Units = readBytes(16);
 		if (fprt)
 			System.out.println(String.format("Header: Data_Units = %d, %d, ...", Data_Units[0], Data_Units[1]));
 

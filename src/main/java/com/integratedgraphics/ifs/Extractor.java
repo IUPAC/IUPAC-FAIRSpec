@@ -340,7 +340,7 @@ public class Extractor implements IFSExtractorI {
 				findingAid.setPubInfo(pubCrossrefInfo);
 			}
 		} catch (IOException e) {
-			System.out.println("Could not access " + PubInfoExtractor.getCrossrefUrl(puburi));
+			logErr("Could not access " + PubInfoExtractor.getCrossrefUrl(puburi));
 			e.printStackTrace();
 		}
 		if (pubCrossrefInfo == null && !allowNoPubInfo) {
@@ -990,7 +990,7 @@ public class Extractor implements IFSExtractorI {
 				continue;
 			}
 			if (IFSConst.isRepresentation(key)) {
-				// from reportVendor
+				// from reportVendor -- Bruker adds this for thumb.png and pdf files.
 				String ifsPath = value.toString();
 				addRepresentation(ifsPath, key, spec);
 				continue;
@@ -1214,12 +1214,15 @@ public class Extractor implements IFSExtractorI {
 	}
 
 	protected void logErr(String msg) {
-		msg = "!! " + ifsid + " " + rootPath + " ERR: " + msg;
+		msg = "!! " 
+				+ ifsid + " " + rootPath + " ERR: " + msg;
 		log(msg);
 		errorLog += msg + "\n";
 	}
 
 	protected static String errorLog = "";
+
+	public static int testID = -1;
 
 	/**
 	 * Just a very simple logger. Messages that start with "!" are always logged;
@@ -1229,14 +1232,19 @@ public class Extractor implements IFSExtractorI {
 	 * @param msg
 	 */
 	protected static void log(String msg) {
-		if (Util.logStream != null)
+		boolean isErr = msg.startsWith("!!");
+		boolean isAlert = msg.startsWith("!");
+		if(testID >= 0)
+			msg =  "test " + testID + ": " + msg; 
+		if (Util.logStream != null) {
 			try {
 				Util.logStream.write((msg + "\n").getBytes());
 			} catch (IOException e) {
 			}
-		if (msg.startsWith("!!")) {
+		}
+		if (isErr) {
 			System.err.println(msg);
-		} else if (debugging || msg.startsWith("!")) {
+		} else if (isAlert) {
 			System.out.println(msg);
 		}
 	}
@@ -1374,7 +1382,7 @@ public class Extractor implements IFSExtractorI {
 
 			IFSPropertyManagerI mgr = null;
 			// include in zip?
-			boolean doInclude = (vendor == null || vendor.doRezipInclude(baseName, entryName));
+			boolean doInclude = (vendor == null || vendor.doRezipInclude(this, baseName, entryName));
 			// cache this one? -- could be a different vendor -- JDX inside Bruker
 			// directory, for example
 			boolean doCache = (cachePattern != null && (m = cachePattern.matcher(entryName)).find()
@@ -1625,7 +1633,7 @@ public class Extractor implements IFSExtractorI {
 	 * @param path
 	 * @return
 	 */
-	protected static String localizePath(String path) {
+	public static String localizePath(String path) {
 		boolean isDir = path.endsWith("/");
 		return path.replace('|', '_').replace('/', '_').replace('#', '_').replace(' ', '_') + (isDir ? ".zip" : "");
 	}

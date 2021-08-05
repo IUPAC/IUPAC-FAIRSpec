@@ -11,6 +11,7 @@ import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
 import org.iupac.fairspec.util.Util;
 
+import com.integratedgraphics.ifs.Extractor;
 import com.integratedgraphics.ifs.api.IFSVendorPluginI;
 import com.integratedgraphics.ifs.util.IFSDefaultVendorPlugin;
 
@@ -56,7 +57,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	public BrukerIFSVendorPlugin() {
 		// files of interest; procs is just for solvent
 		// presence of acqu2s indicates a 2D experiment
-		paramRegex = "acqus$|acqu2s$|procs$|thumb.png$";
+		paramRegex = "acqus$|acqu2s$|procs$";
 		// rezip triggers for procs in a directory (1, 2, 3...) below a pdata directory,
 		// such as pdata/1/procs. We do not add the "/" before pdata, because that could
 		// be the| symbol, and that will be attached by IFSDefaultVendorPlugin in
@@ -79,11 +80,12 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	 */
 
 	@Override
-	public boolean doRezipInclude(String baseName, String entryName) {
-		if (entryName.endsWith(".pdf"))
-			addProperty(IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_SPECTRUM_PDF, baseName + entryName);
-		else if (entryName.endsWith("thumb.png"))
-			addProperty(IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_SPECTRUM_IMAGE, baseName + entryName);
+	public boolean doRezipInclude(IFSExtractorI extractor, String baseName, String entryName) {
+		String type = (entryName.endsWith(".pdf") ? IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_SPECTRUM_PDF
+				: entryName.endsWith("thumb.png") ? IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_SPECTRUM_IMAGE
+						: null);
+		if (type != null)
+			extractor.addProperty(type, Extractor.localizePath(baseName + entryName));
 		return !entryName.endsWith(".mnova");
 	}
 
@@ -121,7 +123,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 	@Override
 	public String accept(IFSExtractorI extractor, String ifsPath, byte[] bytes) {
 		super.accept(extractor, ifsPath, bytes);
-		return (ifsPath.endsWith("thumb.png") || readJDX(ifsPath, bytes) ? processRepresentation(ifsPath, null) : null);
+		return (readJDX(ifsPath, bytes) ? processRepresentation(ifsPath, null) : null);
 	}
 
 	private boolean readJDX(String ifsPath, byte[] bytes) {
@@ -249,8 +251,7 @@ public class BrukerIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	@Override
 	public String processRepresentation(String ifsPath, byte[] bytes) {
-		return ifsPath != null && ifsPath.endsWith("thumb.png") ? IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_SPECTRUM_IMAGE
-				: IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_VENDOR_DATASET;
+		return IFSNMRSpecDataRepresentation.IFS_REP_SPEC_NMR_VENDOR_DATASET;
 	}
 
 }

@@ -323,6 +323,12 @@ public class ByteBlockReader {
 		return n;
 	}
 
+	public byte[] readBytes(long len) throws IOException {
+		int l = (int) len;
+		byte[] bytes = new byte[l];
+		read(bytes, 0, l);
+		return bytes;
+	}
 	/**
 	 * Read a simple String of known length from the input stream.
 	 * 
@@ -1093,8 +1099,7 @@ public class ByteBlockReader {
 	    public byte[] getData() throws IOException {
 	    	long pt = readPosition();
 	    	seekIn(loc);
-	    	byte[] bytes = new byte[len];
-	    	read(bytes, 0, len);
+	    	byte[] bytes = readBytes(len);
 	    	seekIn(pt);
 	    	return bytes;
 	    }

@@ -152,7 +152,7 @@ public abstract class IFSDefaultVendorPlugin implements IFSVendorPluginI {
 	 * When rezipping, include this zip entry or not.
 	 */
 	@Override
-	public boolean doRezipInclude(String zipfileName, String entryName) {
+	public boolean doRezipInclude(IFSExtractorI extractor, String zipfileName, String entryName) {
 		return true;
 	}
 

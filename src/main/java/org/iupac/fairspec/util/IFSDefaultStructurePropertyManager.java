@@ -80,6 +80,8 @@ public class IFSDefaultStructurePropertyManager implements IFSPropertyManagerI {
 				inchi = v.getInchi(atoms, null, null);
 				inchiKey = v.getInchi(atoms, null, "key");
 			} catch (Exception e) {
+				System.err.println("!! Jmol error generating " + (smiles == null ? "SMILES" : inchi == null ? "InChI" : "InChIKey"));
+				jmolViewer = null;
 				e.printStackTrace();
 			}
 			// .getFileType(Rdr.getBufferedReader(Rdr.getBIS(bytes), null));
