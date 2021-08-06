@@ -14,7 +14,7 @@ public class IFSStructureRepresentation extends IFSRepresentation {
 	public static final String IFS_STRUCTURE_REP_CDX      = "IFS.representation.struc.cdx";
 	public static final String IFS_STRUCTURE_REP_CDXML    = "IFS.representation.struc.cdxml";
 	public static final String IFS_STRUCTURE_REP_PNG      = "IFS.representation.struc.png"; 
-	public static final String IFS_STRUCTURE_REP_UNKNOWN  = "IFS.representation.struc.unkown";
+	public static final String IFS_STRUCTURE_REP_UNKNOWN  = "IFS.representation.struc.unknown";
 
 	private final static String[] repNames = new String[] {
 			IFS_STRUCTURE_REP_MOL, 
