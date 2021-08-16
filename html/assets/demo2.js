@@ -418,25 +418,45 @@ fixSmiles: function(smiles) {
 getStructureHTML: function(struc) {
 	var props = struc.properties;
 	var smiles = props["IFS.property.struc.smiles"];
-	var s = '<a href="javascript:demo.loadSelected(-1)">' + demo.aid.id + '</a> <b>' + struc.name + '</b>' 
+	var s = '<a href="javascript:demo.loadSelected(-1)">' + demo.aid.id + '</a> <b>' + struc.name + '</b> ' 
 		+ demo.alertHref("InChI", props["IFS.property.struc.inchi"]) 
 		+ demo.alertHref("InChIKey", props["IFS.property.struc.inchikey"])  
 		+ demo.alertHref("SMILES", smiles);
 	if (smiles) {
 		s += '&nbsp;&nbsp;<a target=_blank href="https://chemapps.stolaf.edu/jmol/jmol.php?model='+demo.fixSmiles(smiles)+'">3D model</a>&nbsp;&nbsp;'
 	}
+	var imageRep = null;
+	var cdxRep = null;
 	if (struc.list) {
+		
 		for (var i = 0; i < struc.list.length; i++) {
 			var rep = struc.list[i];
 			switch (rep.type) {
 			case "IFS.representation.struc.mol.2d":
 				s += demo.repHref(rep, "mol-2d","");			
 				break;
+			case "IFS.representation.struc.cdx":
+				if (cdxRep == null) {
+					s += demo.repHref(rep, "cdx", "");
+					cdxRep = rep;
+				}
+				break;
+			case "IFS.representation.struc.png":
+				if (imageRep == null) {
+					imageRep = rep;
+				}
+				break;
 			}
 		}
 	}
-	if (smiles) {
-		s += '<br><img src="https://cactus.nci.nih.gov/chemical/structure/'+demo.fixSmiles(smiles)+'/image?width=250&height=250"/>';
+	if (smiles || imageRep) {
+	  if (imageRep) {
+		var path = demo.pathTo(imageRep.ref);
+		s += '<br><img title="'+imageRep.source+'" src="'+path+'" style="width:250px"/>';
+	  }
+	  if (smiles) {
+		s += (imageRep ? "" : "<br>") + '<img title="image from SMILES" src="https://cactus.nci.nih.gov/chemical/structure/'+demo.fixSmiles(smiles)+'/image?width=250&height=250"/>';
+	  }
 	}
 	return s;
 },
