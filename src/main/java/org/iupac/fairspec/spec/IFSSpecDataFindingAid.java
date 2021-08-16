@@ -140,11 +140,13 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	 * @return
 	 * @throws IFSException
 	 */
-	public static String getObjectTypeForName(String propName) throws IFSException {
+	public static String getObjectTypeForName(String propName, boolean allowError) throws IFSException {
 		if (IFSConst.isProperty(propName))
 			propName = PT.rep(propName, IFSConst.IFS_PROPERTY_FLAG, "\0");
 		else if (IFSConst.isRepresentation(propName))
 			propName = PT.rep(propName, IFSConst.IFS_REPRESENTATION_FLAG, "\0");
+		else if (allowError)
+			return ObjectType.Unknown;
 		else
 			throw new IFSException("bad IFS identifier: " + propName);
 		if (propName.startsWith("\0struc."))
@@ -173,7 +175,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		if (!isAddingObjects())
 			throw new IFSException("addObject " + param + " " + id + " called with no current object file name");
 
-		String type = getObjectTypeForName(param);
+		String type = getObjectTypeForName(param, false);
 
 		if (type.startsWith("spec.")) {
 			currentSpecData = getSpecDataCollection().getDataObjectFor(currentObject, rootPath, localName, param,
@@ -186,7 +188,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		case SpecType.SampleSpecAnalysis:
 		case SpecType.StructureSpecAnalysisCollection:
 		case SpecType.StructureSpecAnalysis:
-			System.out.println("Analysise not implemented");
+			System.out.println("Analysis not implemented");
 			getStructureSpecAnalysisCollection();
 			// TODO
 			return null;
@@ -423,6 +425,27 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 
 	public void associate(String name, IFSStructure struc, IFSSpecData spec) {
 		getStructureSpecCollection().addAssociation(name, struc, spec);
+	}
+
+	public IFSStructure addStructureForSpec(String rootPath, IFSSpecData spec, String ifsRepType, String ifsPath, String localName)
+			throws IFSException {
+		String name = ifsPath.substring(ifsPath.lastIndexOf("/") + 1);
+		name = name.substring(name.indexOf('#') + 1);
+		int pt = name.indexOf('.');
+		if (pt >= 0)
+			name = name.substring(0, pt);
+		if (getSpecDataCollection().indexOf(spec) < 0)
+			getSpecDataCollection().addSpecData(spec);			
+		IFSStructure struc = getStructureCollection().getStructureFor(rootPath, localName, IFSStructure.IFS_PROP_STRUC_COMPOUND_LABEL, name, ifsPath, null);
+		IFSRepresentation rep = struc.addRepresentation(ifsPath, localName, ifsRepType, mediaTypeFromName(localName));
+		getStructureCollection().addStructure(struc);
+		IFSStructureSpec ss = getStructureSpecCollection().getAssociationForSingleSpec(spec);
+		if (ss == null) {
+			ss = getStructureSpecCollection().addSpec(name, struc, spec);
+		} else {
+			ss.getStructureCollection().addStructure(struc);
+		}
+		return struc;
 	}
 
 }

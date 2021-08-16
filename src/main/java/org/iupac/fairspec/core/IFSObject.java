@@ -394,6 +394,7 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 	public Object clone() {
 		IFSObject<?> c = (IFSObject<?>) super.clone();
 		c.params.clear();
+		c.index = indexCount++;
 		return c;
 	}
 

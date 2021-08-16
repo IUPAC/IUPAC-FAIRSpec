@@ -25,15 +25,15 @@ public class IFSStructureCollection extends IFSCollection<IFSStructure> {
 
 	private Map<String, IFSStructure> map = new HashMap<>();
 
-	public IFSStructure getStructureFor(String path, String localName, String param, String value, String zipName, String mediaType) throws IFSException {
+	public IFSStructure getStructureFor(String rootPath, String localName, String param, String value, String ifsPath, String mediaType) throws IFSException {
 		String keyValue = param + ";" + value;
 		IFSStructure sd = map.get(keyValue);
 		if (sd == null) {
-			map.put(keyValue,  sd = new IFSStructure(path, param, value));
+			map.put(keyValue,  sd = new IFSStructure(rootPath, param, value));
 			add(sd);
 		}
 		if (IFSConst.isRepresentation(param))
-			sd.addRepresentation(zipName, localName, param, mediaType);
+			sd.addRepresentation(ifsPath, localName, param, mediaType);
 		return sd;
 	}
 

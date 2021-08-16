@@ -43,7 +43,7 @@ public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> 
 	 * Constructor for speed.
 	 */
 	@Override
-	public IFSSpecData newIFSDataObject(String path, String param, String value, String type) throws IFSException {
+	public IFSSpecData newIFSDataObject(String rootPath, String param, String value, String type) throws IFSException {
 		try {
 			// spec.xxx --> org.iupac.fairspec.spec.xxx.IFSXXXSpecData
 			String className = IFSSpecData.class.getName();
@@ -56,7 +56,7 @@ public class IFSSpecDataCollection extends IFSDataObjectCollection<IFSSpecData> 
 			IFSSpecData sd = (IFSSpecData) c.newInstance();
 			if (sd == null)
 				throw new IFSException("Unrecognized IFSSpecData type " + type);
-			sd.setPath(path);
+			sd.setPath(rootPath);
 			sd.setPropertyValue(param, value);
 			return sd;
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException

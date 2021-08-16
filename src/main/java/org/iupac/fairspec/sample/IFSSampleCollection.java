@@ -22,11 +22,11 @@ public class IFSSampleCollection extends IFSCollection<IFSSample> {
 	
 	private Map<String, IFSSample> map = new HashMap<>();
 
-	public IFSSample getSampleFor(String path, String localName, String param, String value, String zipName, String mediaType) throws IFSException {
+	public IFSSample getSampleFor(String rootPath, String localName, String param, String value, String zipName, String mediaType) throws IFSException {
 		String keyValue = param + ";" + value;
 		IFSSample sd = map.get(keyValue);
 		if (sd == null) {
-			map.put(keyValue,  sd = new IFSSample(path, param, value));
+			map.put(keyValue,  sd = new IFSSample(rootPath, param, value));
 			add(sd);
 		}
 		if (IFSConst.isRepresentation(param))

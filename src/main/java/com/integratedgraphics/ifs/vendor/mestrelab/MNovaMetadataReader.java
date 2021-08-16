@@ -1022,7 +1022,9 @@ class MNovaMetadataReader extends ByteBlockReader {
 			tag = readInt();
 			skipIn(len + 4); // skip CRC
 		} while (tag != 0x49454E44); // I E N D
-		return readBytes(readPosition() - ptr);
+		long len = readPosition() - ptr;
+		seekIn(ptr);
+		return readBytes(len);
 	}
 
 	private void exportMOL(long lastPosition, int skip, int nBlock) throws IOException {
@@ -1263,10 +1265,11 @@ class MNovaMetadataReader extends ByteBlockReader {
 			/* 14 */ "test/mnova/10.mnova", // PNG extraction OK version 6.1
 			/* 15 */ "test/mnova/Substrate_1'h.mnova", // PNG extraction failed 6.1
 			/* 16 */ "test/mnova/Substrate_1k.mnova", // Temperature parameter failed 6.1
+			/* 17 */ "test/mnova/Products_3a.mnova", // png failed
 		};
 
 	static {
-		testFile = testFiles[16];
+		testFile = testFiles[15];
 		createStructureFiles = (testFile != null);
 	}
 

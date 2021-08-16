@@ -45,4 +45,13 @@ public class IFSStructureSpecCollection extends IFSStructureDataAssociationColle
 		return null;
 	}
 
+	public IFSStructureSpec getAssociationForSingleSpec(IFSSpecData spec) {
+		for (IFSStructureDataAssociation a : this) {
+			if (a.getDataObjectCollection().get(0) == spec) {
+				return (IFSStructureSpec) a;
+			}
+		}
+		return null;
+	}
+
 }

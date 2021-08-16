@@ -205,8 +205,11 @@ public class ExtractorTest extends Extractor {
 
 		stopOnAnyFailure = true; // set false to allow continuing after an error.
 
-		int first = 5; // first test to run
-		int last =  5; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+
+		
+		skipPubInfo = true; // true to allow no internet connection and so no pub calls
+		int first = 12; // first test to run
+		int last = 12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 						// file test
 		
 		if (first == last) {

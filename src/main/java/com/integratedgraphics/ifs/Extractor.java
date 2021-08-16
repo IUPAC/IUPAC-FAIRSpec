@@ -25,6 +25,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairspec.api.IFSExtractorI;
+import org.iupac.fairspec.api.IFSObjectI.ObjectType;
 import org.iupac.fairspec.api.IFSPropertyManagerI;
 import org.iupac.fairspec.api.IFSSerializerI;
 import org.iupac.fairspec.assoc.IFSStructureDataAssociation;
@@ -333,19 +334,23 @@ public class Extractor implements IFSExtractorI {
 		getObjectParsersForFile(ifsExtractScriptFile);
 		String puburi = null;
 		Map<String, Object> pubCrossrefInfo = null;
-		try {
-			puburi = (String) findingAid.getPropertyValue(IFSConst.IFS_PROP_COLLECTION_SOURCE_PUBLICATION_URI);
-			if (puburi != null && !skipPubInfo) {
-				pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi);
-				findingAid.setPubInfo(pubCrossrefInfo);
+		if (skipPubInfo) {
+			logErr("skipPubInfo == true; Finding aid does not contain PubInfo");
+		} else {
+			try {
+				puburi = (String) findingAid.getPropertyValue(IFSConst.IFS_PROP_COLLECTION_SOURCE_PUBLICATION_URI);
+				if (puburi != null) {
+					pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi);
+					findingAid.setPubInfo(pubCrossrefInfo);
+				}
+			} catch (IOException e) {
+				logErr("Could not access " + PubInfoExtractor.getCrossrefUrl(puburi));
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			logErr("Could not access " + PubInfoExtractor.getCrossrefUrl(puburi));
-			e.printStackTrace();
-		}
-		if (pubCrossrefInfo == null && !allowNoPubInfo) {
-			logErr("Finding aid does not contain PubInfo! No internet? cannot continue");
-			return null;
+			if (pubCrossrefInfo == null && !allowNoPubInfo) {
+				logErr("Finding aid does not contain PubInfo! No internet? cannot continue");
+				return null;
+			}
 		}
 
 		setLocalSourceDir(localSourceDir);
@@ -974,7 +979,7 @@ public class Extractor implements IFSExtractorI {
 		for (int i = 0, n = propertyList.size(); i < n; i++) {
 			Object[] a = propertyList.get(i);
 			String localizedName = (String) a[0];
-			boolean isNew = (!localizedName.equals(lastLocal));
+			boolean isNew = !localizedName.equals(lastLocal);
 			if (isNew) {
 				lastLocal = localizedName;
 			}
@@ -1013,28 +1018,34 @@ public class Extractor implements IFSExtractorI {
 				if (htStructureRepCache == null)
 					htStructureRepCache = new HashMap<>();
 				AWrap w = new AWrap(bytes);
-				IFSStructure cachedStruc = htStructureRepCache.get(w);
-				if (cachedStruc == null) {
+				struc = htStructureRepCache.get(w);
+				if (struc == null) {
 					File f = getAbsoluteFileTarget(ifsPath);
 					writeBytesToFile(bytes, f);
-					struc = findingAid.firstStructureForSpec(localSpec);
-					if (struc != null) {
-						htStructureRepCache.put(w, struc);
-						// MNova 1 page, 1 spec, 1 structure Test #5
-						addFileAndCacheRepresentation(ifsPath, null, bytes.length, ifsRepType, null);
-						linkLocalizedNameToObject(localizePath(ifsPath), ifsRepType, struc);
-						// struc.add(new IFSStructureRepresentation(rep));
-						continue;
+					String localName = localizePath(ifsPath);
+					struc = findingAid.firstStructureForSpec((IFSSpecData) spec);
+					if (struc == null) {
+						struc = findingAid.addStructureForSpec(rootPath, (IFSSpecData) spec, ifsRepType, ifsPath,
+								localName);
 					}
-					// but we will need to find these as well.
-//					struc = findingAid.addStructureForSpec(rootPath, ifsRepType, fileName, localizedName + fileName);
+					htStructureRepCache.put(w, struc);
+					// MNova 1 page, 1 spec, 1 structure Test #5
+					addFileAndCacheRepresentation(ifsPath, null, bytes.length, ifsRepType, null);
+					linkLocalizedNameToObject(localName, ifsRepType, struc);
+					// struc.add(new IFSStructureRepresentation(rep));
+					continue;
 				} else {
 					// what now?
 				}
 				continue;
 			}
-			spec.setPropertyValue(key, value);
-
+			if (IFSSpecDataFindingAid.getObjectTypeForName(key, true) == ObjectType.Structure) {
+				if (struc == null)
+					System.out.println("???");
+				struc.setPropertyValue(key, value);
+			} else {
+				spec.setPropertyValue(key, value);
+			}
 		}
 		propertyList.clear();
 		htStructureRepCache = null;

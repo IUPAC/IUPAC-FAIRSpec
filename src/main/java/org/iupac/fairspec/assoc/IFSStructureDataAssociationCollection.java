@@ -30,7 +30,7 @@ public abstract class IFSStructureDataAssociationCollection extends IFSCollectio
 	public IFSStructureDataAssociation addAssociation(String name, IFSStructure struc, IFSDataObject<?> data) {
 		IFSStructureDataAssociation ssc = getAssociationForSingleStruc(struc);
 		if (ssc == null) {
-			add(newAssociation(name, struc, data));
+			add(ssc = newAssociation(name, struc, data));
 		} else if (!ssc.getDataObjectCollection().contains(data)) {
 			ssc.getDataObjectCollection().add(data);
 		}
