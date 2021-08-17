@@ -42,7 +42,6 @@ import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 import org.iupac.fairspec.spec.IFSStructureSpec;
 import org.iupac.fairspec.spec.IFSStructureSpecCollection;
 import org.iupac.fairspec.struc.IFSStructure;
-import org.iupac.fairspec.struc.IFSStructureRepresentation;
 import org.iupac.fairspec.util.IFSDefaultJSONSerializer;
 import org.iupac.fairspec.util.IFSDefaultStructurePropertyManager;
 import org.iupac.fairspec.util.Util;
@@ -985,14 +984,18 @@ public class Extractor implements IFSExtractorI {
 			}
 			String key = (String) a[1];
 			Object value = a[2];
-			IFSRepresentableObject<?> spec;
+			boolean isStructure= (IFSSpecDataFindingAid.getObjectTypeForName(key, true) == ObjectType.Structure);
+			System.out.println(key + " " + value);
 			// link to the originating spec representation -- xxx.mnova, xxx.zip
-			spec = htLocalizedNameToObject.get(localizedName);
-			if (isNew && spec instanceof IFSSpecData)
-				localSpec = (IFSSpecData) spec;
+			IFSRepresentableObject<?> spec = htLocalizedNameToObject.get(localizedName);
 			if (spec == null) {
 				logErr("manifest not found for " + localizedName);
 				continue;
+			} else if (spec instanceof IFSStructure) {
+				struc = (IFSStructure) spec;
+				spec = null;
+			} else if (isNew && spec instanceof IFSSpecData) {
+				localSpec = (IFSSpecData) spec;
 			}
 			if (IFSConst.isRepresentation(key)) {
 				// from reportVendor -- Bruker adds this for thumb.png and pdf files.
@@ -1039,10 +1042,13 @@ public class Extractor implements IFSExtractorI {
 				}
 				continue;
 			}
-			if (IFSSpecDataFindingAid.getObjectTypeForName(key, true) == ObjectType.Structure) {
-				if (struc == null)
-					System.out.println("???");
-				struc.setPropertyValue(key, value);
+			if (isStructure) {
+				if (struc == null) {
+					logErr("No structure found for " + lastLocal + " " + key);
+					continue; // already added?
+				} else {
+					struc.setPropertyValue(key, value);
+				}
 			} else {
 				spec.setPropertyValue(key, value);
 			}
@@ -1724,8 +1730,6 @@ public class Extractor implements IFSExtractorI {
 
 		protected Map<String, String> keys;
 
-		private String sObj;
-
 		private String dataSource;
 
 		/**
@@ -1733,7 +1737,6 @@ public class Extractor implements IFSExtractorI {
 		 * @throws IFSException
 		 */
 		public ObjectParser(String sObj) throws IFSException {
-			this.sObj = sObj;
 			int[] pt = new int[1];
 			dataSource = getIFSExtractValue(sObj, IFSConst.IFS_PROP_COLLECTION_SOURCE_DATA_URI, pt);
 			if (dataSource == null)

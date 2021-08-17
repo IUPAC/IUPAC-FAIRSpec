@@ -412,7 +412,7 @@ loadStructureSpec: function(i) {
 
 fixSmiles: function(smiles) {
 // more here?
-	return smiles.replace("#","%23");
+	return smiles.replaceAll("#","%23").replaceAll("%","%25").replaceAll("Xx","Xe");
 },
 	
 getStructureHTML: function(struc) {
