@@ -67,4 +67,9 @@ public class IFSProperty implements IFSSerializableI {
 		serializer.addAttr("units", units.toString());
 		serializer.addValue(value);
 	}
+	
+	@Override
+	public String toString() {
+		return (value == null ? "" : "[IFSProp " + name + "=" + value + "]");
+	}
 }

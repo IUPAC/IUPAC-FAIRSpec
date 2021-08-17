@@ -339,12 +339,23 @@ loadSpecData: function(specData) {
 		list[i].index = i;
 	}
 	list.sort(demo.specDataSorter || demo.structureSorter);
-	var s = "";
+	var s = [];
 	var n = 0
+	var nameLast = null;
+	var nlast = 1;
 	for (var i = 0; i < list.length; i++) {
 		var spec = list[i];
 		if (spec._found !== false) {
-			s += "<option value=\"" + i + "\">" + spec.name + "</option>";
+			var name = spec.name;
+			if (name == nameLast) {
+				s.pop();
+				s.push("<option value=\"" + (i-1) + "\">" + name + "(" + nlast + ")</option>")
+				name += "(" + ++nlast + ")";
+			} else {
+				nameLast = name;
+				nlast = 1;
+			}
+			s.push("<option value=\"" + i + "\">" + name + "</option>");
 			n++;
 		}		
 	}
@@ -368,6 +379,8 @@ loadStructureSpecs: function(structureSpecs) {
 		var specs = list[i].data;
 		for (var j = 0; j < specs.length; j++) {
 			var spec = demo.aid.specData.list[specs[j]];
+			if (name.indexOf(spec.name) >= 0)
+				continue;
 			name += sep + spec.name;
 			sep = ", ";
 		}

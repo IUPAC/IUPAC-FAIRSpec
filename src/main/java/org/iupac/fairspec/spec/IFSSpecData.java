@@ -7,11 +7,10 @@ import org.iupac.fairspec.core.IFSDataObject;
 /**
  * 
  * An abstract class that can refer to multiple spectroscopy data
- * representations of a particular spectroscopic data set.
- * 
- * There is nothing special characterizing this relative to IFSDataObject other
- * than its class name; methods and properties specific to specific types of
- * spectroscopy are provided in subclasses of this class.
+ * representations of a particular spectroscopic data set. e There is nothing
+ * special characterizing this relative to IFSDataObject other than its class
+ * name; methods and properties specific to specific types of spectroscopy are
+ * provided in subclasses of this class.
  * 
  * @author hansonr
  *
@@ -22,18 +21,31 @@ public abstract class IFSSpecData extends IFSDataObject<IFSSpecDataRepresentatio
 	public IFSSpecData(String name, String type) throws IFSException {
 		super(name, type);
 	}
-	
+
 	@Override
 	public String toString() {
-		return (name == null ? super.toString() : "[" + classType + " " + index + " " + name  + " " + (size() > 0 ? get(0) : null) + "]");
+		return (name == null ? super.toString()
+				: "[" + classType + " " + index + " " + name + " " + (size() > 0 ? get(0) : null) + "]");
 	}
 
-	
 	@Override
 	protected void serializeProps(IFSSerializerI serializer) {
 		super.serializeProps(serializer);
 	}
 
+	abstract protected IFSSpecData newInstance() throws IFSException;
 
+	@Override
+	public Object clone() {
+		IFSSpecData data;
+		try {
+			data = newInstance();
+			data.add(get(0));
+			data.name = name;
+			return data;
+		} catch (IFSException e) {
+		}
+		return null;
+	}
 
 }

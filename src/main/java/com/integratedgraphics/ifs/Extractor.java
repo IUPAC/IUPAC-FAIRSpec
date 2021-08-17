@@ -76,7 +76,7 @@ import javajs.util.PT;
  */
 public class Extractor implements IFSExtractorI {
 
-	private class CacheRepresentation extends IFSRepresentation {
+	private static class CacheRepresentation extends IFSRepresentation {
 
 		public CacheRepresentation(IFSReference ifsReference, Object o, long len, String type, String subtype) {
 			super(ifsReference, o, len, type, subtype);
@@ -984,7 +984,7 @@ public class Extractor implements IFSExtractorI {
 			}
 			String key = (String) a[1];
 			Object value = a[2];
-			boolean isStructure= (IFSSpecDataFindingAid.getObjectTypeForName(key, true) == ObjectType.Structure);
+			boolean isStructure = (IFSSpecDataFindingAid.getObjectTypeForName(key, true) == ObjectType.Structure);
 			System.out.println(key + " " + value);
 			// link to the originating spec representation -- xxx.mnova, xxx.zip
 			IFSRepresentableObject<?> spec = htLocalizedNameToObject.get(localizedName);
@@ -1008,9 +1008,17 @@ public class Extractor implements IFSExtractorI {
 				IFSSpecData newSpec = findingAid.cloneSpec(localSpec, idExtension);
 				spec = newSpec;
 				struc = findingAid.firstStructureForSpec(localSpec);
-				if (struc != null)
+				if (struc != null) {
 					findingAid.associate(idExtension, struc, newSpec);
-				htLocalizedNameToObject.put(localizedName, spec);
+					log("!Structure " + struc + " found and associated with " + spec);
+				} else {
+					findingAid.getSpecDataCollection().addSpecData(newSpec);
+					log("!SpecData " + spec + " added ");
+				}
+				IFSRepresentation rep = cache.get(localizedName);
+				cache.put(localizedName + "#" + spec.getID(), rep);
+				htLocalizedNameToObject.put(localizedName, spec); // for internal use
+				htLocalizedNameToObject.put(localizedName + "#" + spec.getID(), spec);
 				continue;
 			}
 			if (key.startsWith(STRUC_FILE_DATA_KEY)) {
@@ -1022,6 +1030,7 @@ public class Extractor implements IFSExtractorI {
 					htStructureRepCache = new HashMap<>();
 				AWrap w = new AWrap(bytes);
 				struc = htStructureRepCache.get(w);
+				String name = getStructureNameFromPath(ifsPath);
 				if (struc == null) {
 					File f = getAbsoluteFileTarget(ifsPath);
 					writeBytesToFile(bytes, f);
@@ -1029,16 +1038,16 @@ public class Extractor implements IFSExtractorI {
 					struc = findingAid.firstStructureForSpec((IFSSpecData) spec);
 					if (struc == null) {
 						struc = findingAid.addStructureForSpec(rootPath, (IFSSpecData) spec, ifsRepType, ifsPath,
-								localName);
+								localName, name);
 					}
 					htStructureRepCache.put(w, struc);
 					// MNova 1 page, 1 spec, 1 structure Test #5
 					addFileAndCacheRepresentation(ifsPath, null, bytes.length, ifsRepType, null);
 					linkLocalizedNameToObject(localName, ifsRepType, struc);
-					// struc.add(new IFSStructureRepresentation(rep));
-					continue;
-				} else {
-					// what now?
+					log("!Structure " + struc + " created and associated with " + spec);
+				} else if (findingAid.getAssociation(struc, (IFSSpecData) spec) == null) {
+					findingAid.associate(name, struc, (IFSSpecData) spec);
+					log("!Structure " + struc + " found and associated with " + spec);
 				}
 				continue;
 			}
@@ -1057,6 +1066,17 @@ public class Extractor implements IFSExtractorI {
 		htStructureRepCache = null;
 	}
 
+	
+
+	public static String getStructureNameFromPath(String ifsPath) {
+		String name = ifsPath.substring(ifsPath.lastIndexOf("/") + 1);
+		name = name.substring(name.indexOf('#') + 1);
+		int pt = name.indexOf('.');
+		if (pt >= 0)
+			name = name.substring(0, pt);
+		return name;
+	}
+	
 	private void addRepresentation(String ifsPath, String key, IFSRepresentableObject<?> spec) {
 		String localizedName = localizePath(ifsPath);
 		linkLocalizedNameToObject(localizedName, null, spec);
@@ -1075,19 +1095,23 @@ public class Extractor implements IFSExtractorI {
 			if (obj == null) {
 				logErr("manifest not found for " + localizedName);
 			} else {
-				IFSRepresentation r = cache.get(localizedName);
-				String ifsPath = r.getRef().getOrigin().toString();
-				String type = r.getType();
-				String subtype = r.getSubtype();
-				IFSRepresentation r1 = obj.addRepresentation(ifsPath, localizedName, r.getType(), null);
-				if (type != null)
-					r1.setType(type);
-				if (subtype != null)
-					r1.setSubtype(subtype);
-				r1.setLength(r.getLength());
+				copyCachedRepresentation(localizedName, obj);
 			}
 
 		}
+	}
+
+	private void copyCachedRepresentation(String localizedName, IFSRepresentableObject<?> obj) {
+		IFSRepresentation r = cache.get(localizedName);		
+		String ifsPath = r.getRef().getOrigin().toString();
+		String type = r.getType();
+		String subtype = r.getSubtype();
+		IFSRepresentation r1 = obj.addRepresentation(ifsPath, localizedName, r.getType(), null);
+		if (type != null)
+			r1.setType(type);
+		if (subtype != null)
+			r1.setSubtype(subtype);
+		r1.setLength(r.getLength());
 	}
 
 	/**

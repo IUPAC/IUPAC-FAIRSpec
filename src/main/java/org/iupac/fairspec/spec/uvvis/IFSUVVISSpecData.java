@@ -4,7 +4,6 @@ import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.spec.IFSSpecData;
-import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 /**
@@ -37,6 +36,12 @@ public class IFSUVVISSpecData extends IFSSpecData {
 	protected IFSSpecDataRepresentation newRepresentation(String name, IFSReference ref, Object obj, long len, String type, String subtype) {
 		return new IFSUVVISSpecDataRepresentation(ref, obj, len, type, subtype);
 	}
+	
+	@Override
+	protected IFSSpecData newInstance() throws IFSException {
+		return new IFSUVVISSpecData();
+	}
+
 
 
 }

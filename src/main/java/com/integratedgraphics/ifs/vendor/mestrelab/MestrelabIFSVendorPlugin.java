@@ -11,8 +11,6 @@ import java.util.Map.Entry;
 import org.iupac.fairspec.api.IFSExtractorI;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecData;
 import org.iupac.fairspec.spec.nmr.IFSNMRSpecDataRepresentation;
-import org.iupac.fairspec.struc.IFSStructureRepresentation;
-import org.iupac.fairspec.util.IFSDefaultStructurePropertyManager;
 
 import com.integratedgraphics.ifs.Extractor;
 import com.integratedgraphics.ifs.util.IFSDefaultVendorPlugin;
@@ -83,8 +81,7 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	@Override
 	public String getVendorName() {
-		String origin = (String) (params == null ? null : params.get("Origin"));
-		return "Mestrelab" + (origin == null ? "" : "/" + origin);
+		return (origin == null ? "" : origin + "/") + "Mestrelab";
 	}
 
 	@Override
@@ -106,6 +103,8 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 
 	private String pngcss;
 
+	private String origin;
+
 	public void addParam(String key, Object oval, Param param1, Param param2) {
 		if (param1 != null)
 			oval = (param1.value == null || param1.value.length() == 0 ? param1.calc : param1.value);
@@ -124,12 +123,17 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 				case Extractor.PNG_FILE_DATA + ":css":
 					pngcss = val;
 					return;
+				case "Origin":
+					oval = origin = PT.rep(val, "\n", " ").trim();
+					int pt = origin.indexOf(" ");
+					if (pt >= 0)
+						origin = origin.substring(0, pt);
+					break;
 				case "Acquisition Date":
 				case "Author":
 				case "Comment":
 				case "Experiment":
 				case "Modification Date":
-				case "Origin":
 				case "Pulse Sequence":
 				case "Site":
 				case "Solvent":
@@ -215,6 +219,7 @@ public class MestrelabIFSVendorPlugin extends IFSDefaultVendorPlugin {
 		params = new LinkedHashMap<>();
 		params.put(Extractor.NEW_SPEC_KEY, "_page" + page);
 		params.put("mnovaVersion", mnovaVersion);
+		origin = null;
 		pageList.add(params);
 		System.out.println("MestrelabIFSVendor ------------ page " + page);
 		return;

@@ -176,7 +176,7 @@ import org.iupac.fairspec.common.IFSProperty;
  *            IFSCollections
  */
 @SuppressWarnings("serial")
-public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>, Cloneable, IFSSerializableI {
+public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>, IFSSerializableI {
 
 	public final static String REP_TYPE_UNKNOWN = "unknown";
 
@@ -388,14 +388,6 @@ public abstract class IFSObject<T> extends ArrayList<T> implements IFSObjectI<T>
 			throw new IndexOutOfBoundsException("operation not allowed for index < " + minCount);
 		if (index > maxCount)
 			throw new IndexOutOfBoundsException("operation not allowed for index > " + maxCount);
-	}
-
-	@Override
-	public Object clone() {
-		IFSObject<?> c = (IFSObject<?>) super.clone();
-		c.params.clear();
-		c.index = indexCount++;
-		return c;
 	}
 
 	@Override

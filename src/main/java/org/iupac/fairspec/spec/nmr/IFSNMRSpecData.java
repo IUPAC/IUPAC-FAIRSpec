@@ -5,7 +5,6 @@ import org.iupac.fairspec.common.IFSException;
 import org.iupac.fairspec.common.IFSProperty;
 import org.iupac.fairspec.common.IFSReference;
 import org.iupac.fairspec.spec.IFSSpecData;
-import org.iupac.fairspec.spec.IFSSpecDataFindingAid;
 import org.iupac.fairspec.spec.IFSSpecDataRepresentation;
 
 /**
@@ -95,6 +94,13 @@ public final class IFSNMRSpecData extends IFSSpecData {
 	@Override
 	public String toString() {
 		return super.toString();
+	}
+
+	@Override
+	protected IFSSpecData newInstance() throws IFSException {
+		IFSSpecData d = new IFSNMRSpecData();
+		d.setPropertyValue(IFS_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME, getPropertyValue(IFS_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME));
+		return d;
 	}
 
 }

@@ -411,6 +411,7 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 	public IFSSpecData cloneSpec(IFSSpecData spec, String idExtension) {
 		IFSSpecData newSpec = (IFSSpecData) spec.clone();
 		newSpec.setID(spec.getID() + idExtension);
+		getSpecDataCollection().remove(spec);
 		return newSpec;
 	}
 
@@ -427,17 +428,12 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 		getStructureSpecCollection().addAssociation(name, struc, spec);
 	}
 
-	public IFSStructure addStructureForSpec(String rootPath, IFSSpecData spec, String ifsRepType, String ifsPath, String localName)
+	public IFSStructure addStructureForSpec(String rootPath, IFSSpecData spec, String ifsRepType, String ifsPath, String localName, String name)
 			throws IFSException {
-		String name = ifsPath.substring(ifsPath.lastIndexOf("/") + 1);
-		name = name.substring(name.indexOf('#') + 1);
-		int pt = name.indexOf('.');
-		if (pt >= 0)
-			name = name.substring(0, pt);
 		if (getSpecDataCollection().indexOf(spec) < 0)
 			getSpecDataCollection().addSpecData(spec);			
 		IFSStructure struc = getStructureCollection().getStructureFor(rootPath, localName, IFSStructure.IFS_PROP_STRUC_COMPOUND_LABEL, name, ifsPath, null);
-		IFSRepresentation rep = struc.addRepresentation(ifsPath, localName, ifsRepType, mediaTypeFromName(localName));
+		struc.addRepresentation(ifsPath, localName, ifsRepType, mediaTypeFromName(localName));
 		getStructureCollection().addStructure(struc);
 		IFSStructureSpec ss = getStructureSpecCollection().getAssociationForSingleSpec(spec);
 		if (ss == null) {
@@ -446,6 +442,10 @@ public class IFSSpecDataFindingAid extends IFSFindingAid {
 			ss.getStructureCollection().addStructure(struc);
 		}
 		return struc;
+	}
+
+	public IFSStructureDataAssociation getAssociation(IFSStructure struc, IFSSpecData spec) {
+		return getStructureSpecCollection().findAssociation(struc, spec);
 	}
 
 }

@@ -36,22 +36,4 @@ public class IFSStructureSpecCollection extends IFSStructureDataAssociationColle
 		}
 	}
 
-	public IFSStructure findStructureForSpec(IFSSpecData spec) {
-		for (IFSStructureDataAssociation a : this) {
-			if (a.getDataObjectCollection().indexOf(spec) >= 0) {
-				return a.getStructureCollection().get(0);
-			}
-		}
-		return null;
-	}
-
-	public IFSStructureSpec getAssociationForSingleSpec(IFSSpecData spec) {
-		for (IFSStructureDataAssociation a : this) {
-			if (a.getDataObjectCollection().get(0) == spec) {
-				return (IFSStructureSpec) a;
-			}
-		}
-		return null;
-	}
-
 }
