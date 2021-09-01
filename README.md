@@ -13,7 +13,7 @@ The principal goal of the project is to define standardized metadata associated 
 
 <img src="https://lh3.googleusercontent.com/oPq4z8xhDHOpvEaudhotW-fl5MxeR5DKe9JUMIlcoAzRcCOyi192vago4BJ8-FrP1qUs3B-tLT-mZgFgKJF_ozw6ZCLTcS6thpix4509qNr0dFteuHdWY4vpWS6uxkTkx5KNXGYI" width="500"/>
 
-It is the IUPAC FAIRSpec Finding Aid that, when represented as JSON (in this case) or XML (leaving that for others for now), along with the extracted collection forms the basis of what we are calling "FAIR Data Management of Spectroscopic Data." 
+It is the IUPAC FAIRSpec Finding Aid that, when [represented as JSON](https://chemapps.stolaf.edu/iupac/site/ifs/acs.joc.0c00770._IFS_findingaid.json) (in this case) or XML (leaving that for others for now), along with the extracted collection forms the basis of what we are calling "FAIR Data Management of Spectroscopic Data." 
  
 If you just want to get an idea of what the "data extractor" does and not install anything yourself, see the demo at [St. Olaf College](https://chemapps.stolaf.edu/iupac/demo/demo.htm). It's still rather very crude, but it should give you an idea of what we are about. 
 
