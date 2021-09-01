@@ -4,7 +4,7 @@ last updated 2021-09-01
 
 # IUPAC-FAIRSpec
 
-Welcome to the GitHub development and demonstration project for the 
+Welcome to the [GitHub development and demonstration project](https://github.com/BobHanson/IUPAC-FAIRSpec) for the 
 [IUPAC Project 2019-031-1-024 Development of a Standard for FAIR Data Management for Spectroscopic Data](https://iupac.org/projects/project-details/?project_nr=2019-031-1-024). Our current working specification can be found as a [Google Doc](https://docs.google.com/document/d/1WYB3f04dFdVzlvf7aEwdVNwEwLpQ7YBAA00pGbc8Jp0/edit?usp=sharing). A demonstration of IUPAC FAIRSpec finding aids and their application is at https://chemapps.stolaf.edu/iupac/demo/demo.htm, with files at https://chemapps.stolaf.edu/iupac/site/ifs.
 
 This GitHub project provides a reference Java implementation of the [IUPAC FAIRSpec Standard](https://docs.google.com/document/d/1WYB3f04dFdVzlvf7aEwdVNwEwLpQ7YBAA00pGbc8Jp0/edit?usp=sharing) as a Java library as well as a reference Java implementation of an "IUPAC FAIRSpec data and metadata extractor". It is currently under intensely active development. It is *very preliminary* and, though public, is only meant for demonstration purposes. **Please do not implement these preliminary standards** as they are expected to change day by day throughout 2021. 
