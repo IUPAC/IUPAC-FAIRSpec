@@ -11,7 +11,9 @@ This GitHub project provides a reference Java implementation of the [IUPAC FAIRS
 
 The principal goal of the project is to define standardized metadata associated with complex collections of spectroscopic data in the area of chemistry -- NMR, IR, Raman, MS, etc. The specification is modular and has been worked out primarily in the area of NMR spectroscopy at this time. 
 
+<p align="center">
 <img src="https://lh3.googleusercontent.com/oPq4z8xhDHOpvEaudhotW-fl5MxeR5DKe9JUMIlcoAzRcCOyi192vago4BJ8-FrP1qUs3B-tLT-mZgFgKJF_ozw6ZCLTcS6thpix4509qNr0dFteuHdWY4vpWS6uxkTkx5KNXGYI" width="500"/>
+</p>
 
 It is the IUPAC FAIRSpec Finding Aid that, when [represented as JSON](https://chemapps.stolaf.edu/iupac/site/ifs/acs.joc.0c00770._IFS_findingaid.json) (in this case) or XML (leaving that for others for now), along with the extracted collection forms the basis of what we are calling "FAIR Data Management of Spectroscopic Data." 
  
