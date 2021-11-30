@@ -26,27 +26,27 @@ If you just want to get an idea of what the "data extractor" does and not instal
 ## Guiding Principles
 
 The five principles that underlie development of the IUPAC FAIRSpec standard are given below.
-<ul><li>**1. FAIR Management of data should be an ongoing concern.**
+<ul><li><b>1. FAIR Management of data should be an ongoing concern.</b>
 <ul><li>A.	FAIR management of data must be an explicit part of research culture.
 </li><li>B.	FAIR management of data should be of intrinsic value.
 </li><li>C.	Good data management requires distributed curation.
 </li><li>D.	Experimental work is by nature iterative.
-</li></ul></li><li>**2. Context is important.**
+</li></ul></li><li><b>2. Context is important.</b>
 <ul><li>A.	Digital objects are generally part of a collection.
 </li><li>B.	Chemical properties are related to chemical structure.
 </li><li>C.	Data relationships are diverse and develop over time.
 </li><li>D.	FAIR management of data should allow for validation.
-</li></ul></li><li>**3. FAIR management of data requires curation.**
+</li></ul></li><li><b>3. FAIR management of data requires curation.</b>
 <ul><li>A.	Data reuse relies upon practical findability.
 </li><li>B.	Data has to be organized to be accessible.
 </li><li>C.	Data interoperability requires well-designed metadata.
 </li><li>D.	Value is in the eye of the reuser.
-</li></ul></li><li>**4. Metadata must be registered and standardized.**
+</li></ul></li><li><b>4. Metadata must be registered and standardized.</b>
 <ul><li>A.	Register key metadata.
 </li><li>B.	Assign a variety of persistent identifiers.
 </li><li>C.	Enable metadata crosswalks.
 </li><li>D.	Allow for value-added benefits.
-</li></ul></li><li>**5. FAIR data management standards should be modular, extensible, and flexible.**
+</li></ul></li><li><b>5. FAIR data management standards should be modular, extensible, and flexible.</b>
 <ul><li>A.	Modularity allows specialization.
 </li><li>B.	Design to adapt to future needs.
 </li><li>C.	Respect digital diversity.
