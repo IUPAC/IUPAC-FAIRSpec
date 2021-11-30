@@ -1,13 +1,13 @@
 ![logo](https://iupac.org/wp-content/themes/iupac/dist/images/logo.png)
 
-last updated 2021-09-01
+last updated 2021-11-30
 
 # IUPAC-FAIRSpec
 
 Welcome to the [GitHub development and demonstration project](https://github.com/BobHanson/IUPAC-FAIRSpec) for the 
 [IUPAC Project 2019-031-1-024 Development of a Standard for FAIR Data Management for Spectroscopic Data](https://iupac.org/projects/project-details/?project_nr=2019-031-1-024). Our current working specification can be found as a [Google Doc](https://docs.google.com/document/d/1WYB3f04dFdVzlvf7aEwdVNwEwLpQ7YBAA00pGbc8Jp0/edit?usp=sharing). A demonstration of IUPAC FAIRSpec finding aids and their application is at https://chemapps.stolaf.edu/iupac/demo/demo.htm, with files at https://chemapps.stolaf.edu/iupac/site/ifs.
 
-This GitHub project provides a reference Java implementation of the [IUPAC FAIRSpec Standard](https://docs.google.com/document/d/1WYB3f04dFdVzlvf7aEwdVNwEwLpQ7YBAA00pGbc8Jp0/edit?usp=sharing) as a Java library as well as a reference Java implementation of an "IUPAC FAIRSpec data and metadata extractor". It is currently under intensely active development. It is *very preliminary* and, though public, is only meant for demonstration purposes. **Please do not implement these preliminary standards** as they are expected to change day by day throughout 2021. 
+This GitHub project provides public copies of all presentations and publications of the IUPAC Project, as well as a reference Java implementation of the [IUPAC FAIRSpec Standard](https://docs.google.com/document/d/1WYB3f04dFdVzlvf7aEwdVNwEwLpQ7YBAA00pGbc8Jp0/edit?usp=sharing) as a Java library as well as a reference Java implementation of an "IUPAC FAIRSpec data and metadata extractor". It is currently under intensely active development. It is *very preliminary* and, though public, is only meant for demonstration purposes. **Please do not implement these preliminary standards** as they are expected to change day by day throughout 2021. 
 
 The principal goal of the project is to define standardized metadata associated with complex collections of spectroscopic data in the area of chemistry -- NMR, IR, Raman, MS, etc. The specification is modular and has been worked out primarily in the area of NMR spectroscopy at this time. 
 
@@ -18,6 +18,37 @@ The principal goal of the project is to define standardized metadata associated 
 It is the IUPAC FAIRSpec Finding Aid that, when [represented as JSON](https://chemapps.stolaf.edu/iupac/site/ifs/acs.joc.0c00770._IFS_findingaid.json) (in this case) or XML (leaving that for others for now), along with the extracted collection forms the basis of what we are calling "FAIR Data Management of Spectroscopic Data." 
  
 If you just want to get an idea of what the "data extractor" does and not install anything yourself, see the demo at [St. Olaf College](https://chemapps.stolaf.edu/iupac/demo/demo.htm). It's still rather very crude, but it should give you an idea of what we are about. 
+
+## Guiding Principles
+
+The five principles that underlie development of the IUPAC FAIRSpec standard are given below.
+<ul><li>**1. FAIR Management of data should be an ongoing concern.**
+<ul><li>A.	FAIR management of data must be an explicit part of research culture.
+</li><li>B.	FAIR management of data should be of intrinsic value.
+</li><li>C.	Good data management requires distributed curation.
+</li><li>D.	Experimental work is by nature iterative.
+</li></ul></li><li>**2. Context is important.**
+<ul><li>A.	Digital objects are generally part of a collection.
+</li><li>B.	Chemical properties are related to chemical structure.
+</li><li>C.	Data relationships are diverse and develop over time.
+</li><li>D.	FAIR management of data should allow for validation.
+</li></ul></li><li>**3. FAIR management of data requires curation.**
+<ul><li>A.	Data reuse relies upon practical findability.
+</li><li>B.	Data has to be organized to be accessible.
+</li><li>C.	Data interoperability requires well-designed metadata.
+</li><li>D.	Value is in the eye of the reuser.
+</li></ul></li><li>**4. Metadata must be registered and standardized.**
+<ul><li>A.	Register key metadata.
+</li><li>B.	Assign a variety of persistent identifiers.
+</li><li>C.	Enable metadata crosswalks.
+</li><li>D.	Allow for value-added benefits.
+</li></ul></li><li>**5. FAIR data management standards should be modular, extensible, and flexible.**
+<ul><li>A.	Modularity allows specialization.
+</li><li>B.	Design to adapt to future needs.
+</li><li>C.	Respect digital diversity.
+</li><li>D.	All data formats should be valued.
+</li></ul></li></ul> 
+
 
 ## Reference Implementation
 
