@@ -4,15 +4,15 @@ last updated 2021-11-30
 
 # IUPAC-FAIRSpec
 
-Welcome to the [GitHub development and demonstration project](https://github.com/BobHanson/IUPAC-FAIRSpec) for the 
-[IUPAC Project 2019-031-1-024 Development of a Standard for FAIR Data Management for Spectroscopic Data](https://iupac.org/projects/project-details/?project_nr=2019-031-1-024). Our current working specification can be found as a [Google Doc](https://docs.google.com/document/d/1WYB3f04dFdVzlvf7aEwdVNwEwLpQ7YBAA00pGbc8Jp0/edit?usp=sharing). A demonstration of IUPAC FAIRSpec finding aids and their application is at https://chemapps.stolaf.edu/iupac/demo/demo.htm, with files at https://chemapps.stolaf.edu/iupac/site/ifs.
+Welcome to the GitHub project for
+[IUPAC Project 2019-031-1-024, Development of a Standard for FAIR Data Management for Spectroscopic Data](https://iupac.org/projects/project-details/?project_nr=2019-031-1-024). Our current working specification can be found at this site under [documentation/specifications](documents/specifications). A demonstration of IUPAC FAIRSpec finding aids and their application is at [https://chemapps.stolaf.edu/iupac/demo/demo.htm](https://chemapps.stolaf.edu/iupac/demo/demo.htm), with files at [https://chemapps.stolaf.edu/iupac/site/ifs](https://chemapps.stolaf.edu/iupac/site/ifs).
 
-This GitHub project provides public copies of all presentations and publications of the IUPAC Project, as well as a reference Java implementation of the [IUPAC FAIRSpec Standard](https://docs.google.com/document/d/1WYB3f04dFdVzlvf7aEwdVNwEwLpQ7YBAA00pGbc8Jp0/edit?usp=sharing) as a Java library as well as a reference Java implementation of an "IUPAC FAIRSpec data and metadata extractor". It is currently under intensely active development. It is *very preliminary* and, though public, is only meant for demonstration purposes. **Please do not implement these preliminary standards** as they are expected to change day by day throughout 2021. 
+This GitHub project provides public copies of all presentations and publications of the IUPAC Project, as well as a reference Java implementation of the Standard as a Java library as well as a reference Java implementation of an "IUPAC FAIRSpec data and metadata extractor". This GitHub project is currently under intensely active development. It is *very preliminary* and, though public, is only meant for demonstration purposes. **Please do not implement these preliminary standards** as they are expected to change day by day throughout 2021. 
 
 The principal goal of the project is to define standardized metadata associated with complex collections of spectroscopic data in the area of chemistry -- NMR, IR, Raman, MS, etc. The specification is modular and has been worked out primarily in the area of NMR spectroscopy at this time. 
 
 <p align="center">
-<img src="https://lh3.googleusercontent.com/oPq4z8xhDHOpvEaudhotW-fl5MxeR5DKe9JUMIlcoAzRcCOyi192vago4BJ8-FrP1qUs3B-tLT-mZgFgKJF_ozw6ZCLTcS6thpix4509qNr0dFteuHdWY4vpWS6uxkTkx5KNXGYI" width="500"/>
+<img src="documents/images/one-to-many.png" width="500"/>
 </p>
 
 It is the IUPAC FAIRSpec Finding Aid that, when [represented as JSON](https://chemapps.stolaf.edu/iupac/site/ifs/acs.joc.0c00770._IFS_findingaid.json) (in this case) or XML (leaving that for others for now), along with the extracted collection forms the basis of what we are calling "FAIR Data Management of Spectroscopic Data." 
