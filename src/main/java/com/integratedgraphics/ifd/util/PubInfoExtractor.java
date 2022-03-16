@@ -1,7 +1,6 @@
 package com.integratedgraphics.ifd.util;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,51 +32,57 @@ public class PubInfoExtractor {
 	}
 	
 	/**
-	 * Retrieve the crossref metadata for the published work and process it to
+	 * Retrieve the crossRef metadata for the published work and process it to
 	 * return a Map summarizing its contents. This map contains a "metadata" item
-	 * that provides the original XML if desired.
+	 * that provides the original XML if desired. 
+	 * 
+	 * If crossRef is not found, use crossCite
 	 * 
 	 * @param puburi
-	 * @param doCallCrossCite 
 	 * @return null if there is an problem getting this URL
 	 * 
 	 */
-	public static Map<String, Object> getPubInfo(String puburi, boolean doCallCrossCite) throws IOException {
+	public static Map<String, Object> getPubInfo(String puburi) throws IOException {
 		if (puburi == null)
 			return null;
-		Map<String, Object> info =  new LinkedHashMap<>(); 
-		List<Object> list = new ArrayList<>();
-		Map<String, Object> map;
+		Map<String, Object> info = new LinkedHashMap<>();
+		Map<String, Object> map = new LinkedHashMap<>();
 
-		String url = getCrossciteUrl(puburi);
-		System.out.println("PubInfoExtractor: " + url);
-		map =  new LinkedHashMap<>();
-		Map<String, Object> crossCite = null;
-		try {
-			if (doCallCrossCite)
-				crossCite = Util.getJSONURL(url);
-		} catch (Throwable t) {
-			t.printStackTrace();
-		}
-		map.put("type", "crosscite");
-		map.put("url", url);
-		if (crossCite != null)
-			map.put("info", crossCite);
-		list.add(map);
+		Map<String, Object> crossCite = null, crossRef = null;
 		
-		url = getCrossrefUrl(puburi);
-		System.out.println("PubInfoExtractor: " + url);
-		map =  new LinkedHashMap<>();
-		map.put("type", "crossref");
-		map.put("url", url);
-		Map<String, Object> crossRef = new JSJSONParser().parseMap(Util.getURLContentsAsString(url), false);
-		map.put("info", crossRef);		
-		list.add(map);
-		if (crossCite != null)
-			extractCrossCiteInfo(info, crossCite);
-		else if (crossRef != null)
-			extractCrossRefInfo(info, crossRef);
-		put(info,"sources", list);
+		String crUrl = getCrossrefUrl(puburi);
+		System.out.println("PubInfoExtractor: " + crUrl);
+		try {
+			crossRef = new JSJSONParser().parseMap(Util.getURLContentsAsString(crUrl), false);
+			if (crossRef != null) {
+				extractCrossRefInfo(info, crossRef);
+				map = new LinkedHashMap<>();
+				map.put("type", "crossref");
+				map.put("url", crUrl);
+				map.put("info", crossRef);
+			}
+		} catch (Throwable t) {
+			crossRef = null;
+			System.err.println(t);
+		}
+
+		if (crossRef == null) {
+			String ccUrl = getCrossciteUrl(puburi);
+			System.out.println("PubInfoExtractor: " + ccUrl);
+			try {
+				// on Feb 1 2022 crossCite stopped serving CrossRef metadata
+				crossCite = Util.getJSONURL(ccUrl);
+				if (crossCite != null) {
+					extractCrossCiteInfo(info, crossCite);
+					map.put("type", "crosscite");
+					map.put("url", ccUrl);
+					map.put("info", crossCite);
+				}
+			} catch (Throwable t) {
+				System.err.println(t);
+			}
+		}
+		put(info, "source", map);
 		return info;
 	}
 

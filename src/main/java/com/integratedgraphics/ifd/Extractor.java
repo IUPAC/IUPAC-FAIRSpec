@@ -334,8 +334,8 @@ public class Extractor implements IFDExtractorI {
 		String puburi = null;
 		Map<String, Object> pubCrossrefInfo = null;
 		puburi = (String) findingAid.getPropertyValue(IFDConst.IFD_PROP_COLLECTION_SOURCE_PUBLICATION_URI);
-		if (puburi != null) {
-			pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi, !skipPubInfo);
+		if (puburi != null && !skipPubInfo) {
+			pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi);
 			findingAid.setPubInfo(pubCrossrefInfo);
 			if (pubCrossrefInfo == null || pubCrossrefInfo.get("title") == null) {
 				if (skipPubInfo) {
