@@ -1,0 +1,16 @@
+{"IFD-extract-version":"0.1.0-alpha","keys":[
+ {"example":"compound directories containing  bruker files identified as '1-C' or '1-H'"},
+ {"journal":"acs.orglett"},{"hash":"0c00624"},
+ {"figshareid":"21947274"},
+ 
+ {"IFDid=IFD.property.collection.id":"{journal}.{hash}"},
+ {"IFD.property.collection.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
+ {"IFD.property.collection.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collection.data.license.name":"cc-by-nc-4.0"},
+ 
+ {"data0":"{IFD.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data":"{IFD.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
+
+ {"path":"{data}|primary NMR data/{id=IFD.property.struc.compound.label::*}/"},
+ {"IFD.property.collection.object":"{path}{IFD.representation.spec.nmr.vendor.dataset::{IFD.property.spec.nmr.expt.label::<id>-*}/}"}
+]}

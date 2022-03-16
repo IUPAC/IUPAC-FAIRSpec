@@ -1,0 +1,18 @@
+{"IFD-extract-version":"0.1.0-alpha","keys":[
+ {"example":"compound directories containing unidentified bruker files and hrms zip file containing .pdf"},
+ {"journal":"acs.orglett"},{"hash":"0c00571"},
+ {"figshareid":"21975525"},
+ 
+ {"IFDid=IFD.property.collection.id":"{journal}.{hash}"},
+ {"IFD.property.collection.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
+ {"IFD.property.collection.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collection.data.license.name":"cc-by-nc-4.0"},
+ 
+ {"data0":"{IFD.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data":"{IFD.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
+
+ {"path":"{data}|FID for Publication/{id=IFD.property.struc.compound.label::*}.zip|"},
+ {"IFD.property.collection.object":"{path}{IFD.representation.spec.nmr.vendor.dataset::{IFD.property.spec.nmr.expt.label::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
+ {"IFD.property.collection.object":"{path}<id>/{IFD.representation.struc.mol.2d::<id>.mol}"},
+ {"IFD.property.collection.object":"{path}{IFD.representation.spec.hrms.pdf::{IFD.property.spec.hrms.expt.label::<id>/HRMS.zip|**/*}.pdf}"}
+]}

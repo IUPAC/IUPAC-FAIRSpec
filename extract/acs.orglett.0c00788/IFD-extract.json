@@ -1,0 +1,16 @@
+{"IFD-extract-version":"0.1.0-alpha","keys":[
+ {"example":"JEOL files identified as '3a-Carbon'"},
+ {"journal":"acs.orglett"},{"hash":"0c00788"},
+ {"figshareid": "22125318"},
+
+ {"IFD.property.collection.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collection.data.license.name":"cc-by-nc-4.0"},
+ {"IFDid=IFD.property.collection.id":"{journal}.{hash}"},
+ {"IFD.property.collection.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
+
+ {"data0":"{IFD.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data":"{IFD.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
+
+ {"path":"{data}|"},
+ {"IFD.property.collection.object":"{path}{IFD.representation.spec.nmr.vendor.dataset::{IFD.property.spec.nmr.expt.label::{IFD.property.struc.compound.label::*-*}-*.jdf}}"}
+]}

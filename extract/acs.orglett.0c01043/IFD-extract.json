@@ -1,0 +1,16 @@
+{"IFD-extract-version":"0.1.0-alpha","keys":[
+ {"example":"compound directories containing a single mnova file"},
+ {"journal":"acs.orglett"},{"hash":"0c01043"},
+ {"figshareid":"22232721"},
+ 
+ {"IFDid=IFD.property.collection.id":"{journal}.{hash}"},
+ {"IFD.property.collection.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
+ {"IFD.property.collection.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collection.data.license.name":"cc-by-nc-4.0"},
+ 
+ {"data0":"{IFD.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data":"{IFD.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
+
+ {"path":"{data}|metadataNMR"},
+ {"IFD.property.collection.object":"{path}/{IFD.representation.spec.nmr.vendor.dataset::{IFD.property.spec.nmr.expt.label::NMR spectra.mnova}}"}
+]}
