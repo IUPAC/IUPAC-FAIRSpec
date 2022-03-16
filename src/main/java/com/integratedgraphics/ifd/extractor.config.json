@@ -1,0 +1,8 @@
+{"knownVendors" : [
+			"com.integratedgraphics.ifd.vendor.bruker.BrukerIFDVendorPlugin",
+			"com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXIFDVendorPlugin",
+			"com.integratedgraphics.ifd.vendor.jeol.JeolIFDVendorPlugin",
+			"com.integratedgraphics.ifd.vendor.mestrelab.MestrelabIFDVendorPlugin",
+			"com.integratedgraphics.ifd.vendor.varian.VarianIFDVendorPlugin"
+			]
+}
