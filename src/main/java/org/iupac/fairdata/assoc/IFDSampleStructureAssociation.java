@@ -17,12 +17,12 @@ import org.iupac.fairdata.struc.IFDStructureCollection;
  *
  */
 @SuppressWarnings("serial")
-public abstract class IFDSampleAssociation extends IFDDataObjectCollection<IFDDataObject<?>> {
+public abstract class IFDSampleStructureAssociation extends IFDDataObjectCollection<IFDDataObject<?>> {
 
 	private IFDSample sample;
 	private IFDStructureCollection structureCollection;
 
-	public IFDSampleAssociation(String name, String type, IFDSample sample) throws IFDException {
+	public IFDSampleStructureAssociation(String name, String type, IFDSample sample) throws IFDException {
 		super(name, type);
 		if (sample == null)
 			throw new IFDException("IFDSampleDataAssociation must involve a non-null IFDSample");
@@ -31,9 +31,9 @@ public abstract class IFDSampleAssociation extends IFDDataObjectCollection<IFDDa
 
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof IFDSampleAssociation))
+		if (!(o instanceof IFDSampleStructureAssociation))
 			return false;
-		IFDSampleAssociation ss = (IFDSampleAssociation) o;
+		IFDSampleStructureAssociation ss = (IFDSampleStructureAssociation) o;
 		return (sample == ss.sample 
 				&& (structureCollection == ss.structureCollection
 				|| structureCollection != null && structureCollection.equals(ss.structureCollection)));

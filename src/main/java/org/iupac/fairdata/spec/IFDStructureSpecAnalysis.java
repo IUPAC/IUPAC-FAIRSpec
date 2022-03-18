@@ -19,7 +19,7 @@ public class IFDStructureSpecAnalysis extends IFDStructureAnalysis {
 
 	public IFDStructureSpecAnalysis(String name, IFDStructureCollection structureCollection,
 			IFDDataObjectCollection<?> dataCollection) throws IFDException {
-		super(name, IFDSpecDataFindingAid.SpecType.SpecAnalysis, structureCollection, dataCollection);
+		super(name, IFDSpecDataFindingAid.SpecType.StructureSpecAnalysis, structureCollection, dataCollection);
 	}
 	
 	@Override

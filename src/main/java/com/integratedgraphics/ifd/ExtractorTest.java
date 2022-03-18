@@ -187,13 +187,17 @@ public class ExtractorTest extends Extractor {
 		
 		sourceDir = "c:/temp/iupac/zip";
 		
-		boolean debugReadOnly = false; // quick settings
+		// normally false:
+		
+		boolean debugReadOnly = false; // quick settings - no file creation
 
-		boolean dataciteUp = true;
+	    addPublicationMetadata = false; // true to place metadata into the finding aid
 		
 		// normally true:
 		
-		// this next is independent of readOnly
+	    boolean dataciteUp = true;
+
+	    // this next is independent of readOnly
 		createZippedCollection = !debugReadOnly; // false to bypass final creation of an _IFD_collection.zip file
 		createFindingAidJSONList = !debugReadOnly; // false for testing and you don't want to mess up _IFD_findingaids.json
 
@@ -202,8 +206,10 @@ public class ExtractorTest extends Extractor {
 		readOnly = debugReadOnly; // for testing; when true, not output other than a log file is produced
 		debugging = false; // true for verbose listing of all files
 		createFindingAidsOnly = true; // true if extraction files already exist or you otherwise don't want not write
+		
 		allowNoPubInfo = debugReadOnly; // true to allow no internet connection and so no pub calls
 		skipPubInfo = !dataciteUp || debugReadOnly;  // true to allow no internet connection and so no pub calls
+	
 		int first = 0; // first test to run
 		int last = 0;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 						// file test

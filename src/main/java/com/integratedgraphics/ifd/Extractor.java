@@ -87,9 +87,9 @@ public class Extractor implements IFDExtractorI {
 	static {
 		IFDVendorPluginI.init();
 	}
-	private static final String version = "0.0.1-alpha_2021_07_2";
+	private static final String version = "0.0.2-alpha_2022_03_16";
 
-	private static final String codeSource = "https://github.com/BobHanson/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/Extractor.java";
+	private static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/Extractor.java";
 
 	/**
 	 * patterns to ignore completely.
@@ -125,6 +125,11 @@ public class Extractor implements IFDExtractorI {
 	 * don't even try to read pub info -- debugging
 	 */
 	protected static boolean skipPubInfo = false;
+
+	/**
+	 * set to true add the source metadata from Crossref or DataCite
+	 */
+	protected static boolean addPublicationMetadata = false;
 
 	/**
 	 * set true to zip up the extracted collection, placing that in the target
@@ -316,6 +321,7 @@ public class Extractor implements IFDExtractorI {
 
 	public static final String STRUC_FILE_DATA_KEY = "_struc.";
 
+
 	public Extractor() {
 		clearZipCache();
 		getStructurePropertyManager();
@@ -335,7 +341,7 @@ public class Extractor implements IFDExtractorI {
 		Map<String, Object> pubCrossrefInfo = null;
 		puburi = (String) findingAid.getPropertyValue(IFDConst.IFD_PROP_COLLECTION_SOURCE_PUBLICATION_URI);
 		if (puburi != null && !skipPubInfo) {
-			pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi);
+			pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi, addPublicationMetadata);
 			findingAid.setPubInfo(pubCrossrefInfo);
 			if (pubCrossrefInfo == null || pubCrossrefInfo.get("title") == null) {
 				if (skipPubInfo) {
@@ -345,7 +351,7 @@ public class Extractor implements IFDExtractorI {
 						logErr("Finding aid does not contain PubInfo! No internet? cannot continue");
 						return null;
 					}
-					logErr("Could not access " + PubInfoExtractor.getCrossrefUrl(puburi));
+					logErr("Could not access " + PubInfoExtractor.getCrossrefMetadataUrl(puburi));
 				}
 			}
 		}

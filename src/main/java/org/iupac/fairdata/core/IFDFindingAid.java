@@ -37,9 +37,9 @@ public abstract class IFDFindingAid extends IFDCollection<IFDCollection<?>> {
 		});
 	}
 
-	protected List<Resource> sources = new ArrayList<>();
+	protected List<Resource> dataSources = new ArrayList<>();
 
-	private Map<String, Object> pubInfo;
+	private Map<String, Object> publicationInfo;
 	
 	protected int currentSourceIndex;
 
@@ -90,7 +90,7 @@ public abstract class IFDFindingAid extends IFDCollection<IFDCollection<?>> {
 	 * @return
 	 */
 	public List<Resource> getSources() {
-		return sources;
+		return dataSources;
 	}
 
 	/**
@@ -99,22 +99,22 @@ public abstract class IFDFindingAid extends IFDCollection<IFDCollection<?>> {
 	 * @return index of the source if found or added
 	 */
 	public int addSource(String ref) {
-		for (int i = sources.size(); --i >= 0;) {
-			if (sources.get(i).ref.equals(ref)) {
+		for (int i = dataSources.size(); --i >= 0;) {
+			if (dataSources.get(i).ref.equals(ref)) {
 				return i;
 			}
 		}
-		sources.add(new Resource(ref, 0));
-		return currentSourceIndex = sources.size() - 1;
+		dataSources.add(new Resource(ref, 0));
+		return currentSourceIndex = dataSources.size() - 1;
 	}
 
 	public void setCurrentURLLength(long len) {
 		if (currentSourceIndex >= 0)
-			sources.get(currentSourceIndex).len = len;
+			dataSources.get(currentSourceIndex).len = len;
 	}
 
 	public void setPubInfo(Map<String, Object> pubInfo) {
-		this.pubInfo = pubInfo;
+		this.publicationInfo = pubInfo;
 	}
 
 	
@@ -132,9 +132,9 @@ public abstract class IFDFindingAid extends IFDCollection<IFDCollection<?>> {
 			serializer.addObject("created", date.toGMTString());
 			if (creator != null)
 				serializer.addObject("createdBy", creator);
-			if (pubInfo != null)
-				serializer.addObject("pubInfo", pubInfo);
-			serializer.addObject("sources", sources);
+			if (publicationInfo != null)
+				serializer.addObject("publicationInfo", publicationInfo);
+			serializer.addObject("dataSources", dataSources);
 			serializeProps(serializer);
 			serializeList(serializer);
 		} else {

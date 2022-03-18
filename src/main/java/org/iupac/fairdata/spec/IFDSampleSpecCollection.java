@@ -1,6 +1,6 @@
 package org.iupac.fairdata.spec;
 
-import org.iupac.fairdata.assoc.IFDSampleAssociationCollection;
+import org.iupac.fairdata.assoc.IFDSampleStructureAssociationCollection;
 import org.iupac.fairdata.common.IFDException;
 
 /**
@@ -10,7 +10,7 @@ import org.iupac.fairdata.common.IFDException;
  *
  */
 @SuppressWarnings({ "serial" })
-public class IFDSampleSpecCollection extends IFDSampleAssociationCollection  {
+public class IFDSampleSpecCollection extends IFDSampleStructureAssociationCollection  {
 
 	public IFDSampleSpecCollection(String name) throws IFDException {
 		super(name, IFDSpecDataFindingAid.SpecType.SampleSpecCollection);

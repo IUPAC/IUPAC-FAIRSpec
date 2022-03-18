@@ -39,21 +39,20 @@ import javajs.util.PT;
 public class IFDSpecDataFindingAid extends IFDFindingAid {
 
 	public static interface SpecType {
-		public final static String StructureSpec = "StructureSpec";
-		public final static String StructureSpecCollection = "StructureSpecCollection";
-		public final static String StructureSpecAnalysis = "StructureSpecAnalysis";
-		public final static String StructureSpecAnalysisCollection = "StructureSpecAnalysisCollection";
+		public final static String StructureSpec                     = "org.iupac.fairdata.core.spec.IFDStructureSpec";
+	    public final static String StructureSpecCollection           = "org.iupac.fairdata.core.spec.IFDStructureSpecCollection";
+	    public final static String StructureSpecAnalysis             = "org.iupac.fairdata.core.spec.IFDStructureSpecAnalysis";
+	    public final static String StructureSpecAnalysisCollection   = "org.iupac.fairdata.core.spec.IFDStructureSpecAnalysisCollection";
 
-		public final static String SampleSpec = "SampleSpec";
-		public final static String SampleSpecCollection = "SampleSpecCollection";
-		public final static String SampleSpecAnalysis = "SampleSpecAnalysis";
-		public final static String SampleSpecAnalysisCollection = "SampleSpecAnalysisCollection";
+	    public final static String SampleSpec                        = "org.iupac.fairdata.core.spec.IFDSampleSpec";
+		public final static String SampleSpecCollection              = "org.iupac.fairdata.core.spec.IFDSampleSpecCollection";
+		public final static String SampleSpecAnalysis                = "org.iupac.fairdata.core.spec.IFDSampleSpecAnalysis";
+		public final static String SampleSpecAnalysisCollection      = "org.iupac.fairdata.core.spec.IFDSampleSpecAnalysisCollection";
 
-		public final static String SpecData = "SpecData";
-		public final static String SpecDataCollection = "SpecDataCollection";
-		public final static String SpecAnalysis = "SpecAnalysis";
-		public final static String SpecAnalysisCollection = "SpecAnalysisCollection";
-		public final static String SpecDataFindingAid = "SpecDataFindingAid";
+	    public final static String SpecAnalysisCollection            = "org.iupac.fairdata.core.spec.IFDSpecAnalysisCollection";
+		public final static String SpecData                          = "org.iupac.fairdata.core.spec.IFDSpecData";
+		public final static String SpecDataCollection                = "org.iupac.fairdata.core.spec.IFDSpecDataCollection";
+		public final static String SpecDataFindingAid                = "org.iupac.fairdata.core.spec.IFDSpecDataFindingAid";
 
 		// Predefined types include hrms, ir, ms, nmr, raman, and uvvis
 		//
@@ -330,7 +329,7 @@ public class IFDSpecDataFindingAid extends IFDFindingAid {
 	private void dumpSummary() {
 		if (getStructureCollection().size() == 0 && getSpecDataCollection().size() == 0)
 			System.out.println("IFDSpecDataFindingAid no structures or spectra?");
-		System.out.println("! IFDFindingAid extraction complete:\n! " + sources + "\n! " + getStructureCollection().size()
+		System.out.println("! IFDFindingAid extraction complete:\n! " + dataSources + "\n! " + getStructureCollection().size()
 				+ " structures " + getSpecDataCollection().size() + " specdata " + getStructureSpecCollection().size()
 				+ " structure-spec bindings");
 		for (IFDStructureDataAssociation ssc : getStructureSpecCollection()) {
