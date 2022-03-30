@@ -229,11 +229,11 @@
 ><s font="3" size="10" color="0">Spectra</s></t><t
  id="275"
  p="188.41 148.45"
- BoundingBox="188.41 139.50 344.23 151"
+ BoundingBox="188.41 139.50 387.61 151"
  Z="263"
  Warning="Chemical Interpretation is not possible for this label"
  LineHeight="auto"
-><s font="3" size="10" color="0">SampleSpectraStructure Collection</s></t><graphic
+><s font="3" size="10" color="0">ProcedureSampleSpectraStructureCollection</s></t><graphic
  id="94"
  BoundingBox="520.80 244.58 198.94 160.76"
  Z="127"
