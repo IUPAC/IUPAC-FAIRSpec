@@ -1,19 +1,12 @@
-package org.iupac.fairdata.todo;
+package org.iupac.fairdata.derived;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDAssociationCollection;
-import org.iupac.fairdata.core.IFDCollection;
-import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
-import org.iupac.fairdata.api.IFDObjectI;
-import org.iupac.fairdata.todo.IFDSampleDataAssociation;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.sample.IFDSampleCollection;
-import org.iupac.fairdata.structure.IFDStructure;
-import org.iupac.fairdata.structure.IFDStructureCollection;
 
 @SuppressWarnings({ "serial" })
 public class IFDSampleDataAssociationCollection extends IFDAssociationCollection {
@@ -27,7 +20,7 @@ public class IFDSampleDataAssociationCollection extends IFDAssociationCollection
 		super(name, "Samples", null);
 	}
 
-	public IFDSampleDataAssociation addAssociation(String name, IFDSample struc, IFDDataObject data) {
+	public IFDSampleDataAssociation addAssociation(String name, IFDSample struc, IFDDataObject data) throws IFDException {
 		IFDSampleDataAssociation ssc = (IFDSampleDataAssociation) getAssociationForSingleObj1(struc);
 		if (ssc == null) {
 			add(ssc = newAssociation(name, struc, data));
@@ -39,7 +32,7 @@ public class IFDSampleDataAssociationCollection extends IFDAssociationCollection
 		return ssc;
 	}
 
-	protected IFDSampleDataAssociation newAssociation(String name, IFDSample sample, IFDDataObject data) {
+	protected IFDSampleDataAssociation newAssociation(String name, IFDSample sample, IFDDataObject data) throws IFDException {
 			return new IFDSampleDataAssociation(name, sample, data);
 	}
 

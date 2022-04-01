@@ -46,9 +46,9 @@ public class IFDDataObjectCollection extends IFDCollection<IFDObject<?>> {
 		String keyValue = path + "::" + ifdPath;
 		IFDDataObject sd = (IFDDataObject) map.get(keyValue);
 		if (sd == null) {
-			String ifdtype = IFDConst.getProp("IFD_OBJECT_TYPE_" + type.toUpperCase());
+			String ifdtype = IFDConst.getProp("IFD_DATA_OBJECT_TYPE_" + type.toUpperCase());
 			if (ifdtype == null)
-				ifdtype = IFDConst.getProp("IFD_OBJECT_TYPE_UNKNOWN") + "." + type.toUpperCase();
+				ifdtype = IFDConst.getProp("IFD_DATA_OBJECT_TYPE_UNKNOWN") + "." + type.toUpperCase();
 			sd = new IFDDataObject(null, ifdtype);
 			sd.setPath(ifdPath);
 			sd.setPropertyValue(param, value);

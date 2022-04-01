@@ -1,9 +1,9 @@
-package org.iupac.fairdata.todo;
+package org.iupac.fairdata.derived;
 
-import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDCollection;
 
 /**
+ * just a convenience
  * 
  * @author hansonr
  *

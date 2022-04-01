@@ -1,7 +1,14 @@
-package org.iupac.fairdata.todo;
+package org.iupac.fairdata.derived;
 
 import org.iupac.fairdata.common.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentation;
+
+/**
+ * just a convenience
+ * 
+ * @author hansonr
+ *
+ */
 
 public class IFDSampleDataAnalysisRepresentation extends IFDRepresentation {
 

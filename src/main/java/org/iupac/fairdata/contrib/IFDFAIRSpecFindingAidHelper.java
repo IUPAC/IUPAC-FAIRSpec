@@ -20,11 +20,11 @@ import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.sample.IFDSampleCollection;
 import org.iupac.fairdata.structure.IFDStructure;
 import org.iupac.fairdata.structure.IFDStructureCollection;
-import org.iupac.fairdata.todo.IFDSampleDataAnalysisCollection;
-import org.iupac.fairdata.todo.IFDSampleDataAssociationCollection;
-import org.iupac.fairdata.todo.IFDStructureDataAnalysisCollection;
-import org.iupac.fairdata.todo.IFDStructureDataAssociation;
-import org.iupac.fairdata.todo.IFDStructureDataAssociationCollection;
+import org.iupac.fairdata.derived.IFDSampleDataAnalysisCollection;
+import org.iupac.fairdata.derived.IFDSampleDataAssociationCollection;
+import org.iupac.fairdata.derived.IFDStructureDataAnalysisCollection;
+import org.iupac.fairdata.derived.IFDStructureDataAssociation;
+import org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;
 
 import javajs.util.PT;
 
@@ -218,6 +218,9 @@ public class IFDFAIRSpecFindingAidHelper {
 			if (currentStructure != null && currentSpecData != null)
 				return getStructureDataCollection().addAssociation(currentObject, currentStructure, currentSpecData);
 			return (currentStructure != null ? currentStructure : currentSpecData);
+		} catch (IFDException e) {
+			// not possible
+			return null;
 		} finally {
 			currentObject = null;
 			currentStructure = null;
@@ -310,7 +313,7 @@ public class IFDFAIRSpecFindingAidHelper {
 		return (IFDStructure) getStructureDataCollection().getFirstObj1ForObj2(spec, andRemove);
 	}
 
-	public void associate(String name, IFDStructure struc, IFDDataObject spec) {
+	public void associate(String name, IFDStructure struc, IFDDataObject spec) throws IFDException {
 		getStructureDataCollection().addAssociation(name, struc, spec);
 	}
 

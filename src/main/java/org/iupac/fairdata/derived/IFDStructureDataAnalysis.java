@@ -1,15 +1,15 @@
-package org.iupac.fairdata.todo;
+package org.iupac.fairdata.derived;
 
 import org.iupac.fairdata.analysis.IFDAnalysisObject;
 import org.iupac.fairdata.api.IFDAnalysisI;
 import org.iupac.fairdata.api.IFDSerializerI;
-import org.iupac.fairdata.todo.IFDStructureDataAssociation;
+import org.iupac.fairdata.derived.IFDStructureDataAssociation;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.structure.IFDStructureCollection;
 
 /**
- * An IFDStructureDataAnalysis is a specialized IFDStructureDataAssociation that provides more
+ * An IFDStructureDataAnalysis is a specialized IFDAssociation that provides more
  * detailed metadata correlating one or more IFDStructure and one or more IFDDataObject because
  * it also maintains an IFDRepresentableObject.
  * 

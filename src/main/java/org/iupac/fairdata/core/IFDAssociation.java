@@ -10,14 +10,21 @@ import org.iupac.fairdata.common.IFDException;
  *
  */
 @SuppressWarnings("serial")
-public abstract class IFDAssociation extends IFDCollection<IFDCollection<IFDObject<?>>> {
+public  class IFDAssociation extends IFDCollection<IFDCollection<IFDObject<?>>> {
 
-	protected IFDAssociation(String name, String type, IFDCollection<IFDObject<?>> collection1, IFDCollection<IFDObject<?>> collection2) {
-		super(name, type, 2, collection1, collection2);
+	@Override
+	public Class<?>[] getObjectTypes() {
+		return types;
 	}
 
-	
-	abstract public Class<?>[] getObjectTypes();
+	protected Class<?>[] types;
+
+	protected IFDAssociation(String name, String type, IFDCollection<IFDObject<?>> collection1, IFDCollection<IFDObject<?>> collection2) throws IFDException {
+		super(name, type, 2, collection1, collection2);
+		if (collection1 == null || collection2 == null)
+			throw new IFDException("IFDAnalysis both collections must be non-null.");
+		types = new Class<?>[] { collection1.getClass(), collection2.getClass() };
+	}
 
 	/**
 	 * Check to see if this is a 1:N association for obj1
@@ -58,5 +65,6 @@ public abstract class IFDAssociation extends IFDCollection<IFDCollection<IFDObje
 	public IFDObject<?> getFirstObj2() {
 		return get(1).get(0);
 	}
+
 
 }

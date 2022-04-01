@@ -1,4 +1,4 @@
-package org.iupac.fairdata.todo;
+package org.iupac.fairdata.derived;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
@@ -42,15 +42,13 @@ public class IFDStructureDataAssociation extends IFDAssociation {
 			, IFDStructureCollection structureCollection
 			, IFDDataObjectCollection dataCollection) throws IFDException {
 		super(name, type, structureCollection, (IFDCollection<IFDObject<?>>) dataCollection);
-		if (dataCollection == null || structureCollection == null)
-			throw new IFDException("IFDSample constructure must provide IFDStructureCollection and IFDDataCollection");
 	}
 	
-	public IFDStructureDataAssociation(String name, IFDStructure structure, IFDDataObject data) {
+	public IFDStructureDataAssociation(String name, IFDStructure structure, IFDDataObject data) throws IFDException {
 		super(name, null, new IFDStructureCollection("structures", structure), new IFDDataObjectCollection("data", data));
 	}
 
-	public IFDStructureDataAssociation(String name, IFDStructureCollection structureCollection, IFDDataObjectCollection dataCollection) {
+	public IFDStructureDataAssociation(String name, IFDStructureCollection structureCollection, IFDDataObjectCollection dataCollection) throws IFDException {
 		super(name, null, structureCollection, dataCollection);		
 	}
 	

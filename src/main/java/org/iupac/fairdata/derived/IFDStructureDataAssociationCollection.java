@@ -1,6 +1,7 @@
-package org.iupac.fairdata.todo;
+package org.iupac.fairdata.derived;
 
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDAssociationCollection;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.structure.IFDStructure;
@@ -22,7 +23,7 @@ public class IFDStructureDataAssociationCollection extends IFDAssociationCollect
 		super(name, type, null);
 	}
 
-	public IFDStructureDataAssociation addAssociation(String name, IFDStructure struc, IFDDataObject data) {
+	public IFDStructureDataAssociation addAssociation(String name, IFDStructure struc, IFDDataObject data) throws IFDException {
 		IFDStructureDataAssociation ssc = (IFDStructureDataAssociation) getAssociationForSingleObj1(struc);
 		if (ssc == null) {
 			add(ssc = newAssociation(name, struc, data));
@@ -34,7 +35,7 @@ public class IFDStructureDataAssociationCollection extends IFDAssociationCollect
 		return ssc;
 	}
 
-	protected IFDStructureDataAssociation newAssociation(String name, IFDStructure struc, IFDDataObject data) {
+	protected IFDStructureDataAssociation newAssociation(String name, IFDStructure struc, IFDDataObject data) throws IFDException {
 			return new IFDStructureDataAssociation(name, struc, data);
 	}
 

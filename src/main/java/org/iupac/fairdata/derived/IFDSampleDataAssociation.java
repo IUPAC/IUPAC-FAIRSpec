@@ -1,4 +1,4 @@
-package org.iupac.fairdata.todo;
+package org.iupac.fairdata.derived;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
@@ -12,14 +12,14 @@ import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.sample.IFDSampleCollection;
 
 /**
- * A class to correlation one or more IFDSample with one or more
- * IFDDataObject. Only two array items are allowed -- one IFDSampleCollection
+ * A class to correlate one or more IFDSample with one or more
+ * IFDDataObject. Only two array items are required -- one IFDSampleCollection
  * and one IFDDataObjectCollection.
  * 
  * Each of these collections allows for one or more item, resulting in a
  * one-to-one, many-to-one, one-to-many, or many-many associations.
  * 
- * An abstract object that does not allow representations.
+ * An object that does not itself allow representations.
  * 
  * @author hansonr
  *
@@ -37,15 +37,13 @@ public class IFDSampleDataAssociation extends IFDAssociation {
 		};
 	}
 	
-	public IFDSampleDataAssociation(String name, IFDSample sample, IFDDataObject data) {
+	public IFDSampleDataAssociation(String name, IFDSample sample, IFDDataObject data) throws IFDException {
 		super(name, null, new IFDSampleCollection("samples", sample), new IFDDataObjectCollection("data", data));
 	}
 
 
 	public IFDSampleDataAssociation(String name, String type, IFDSampleCollection sampleCollection, IFDCollection<IFDObject<?>> dataCollection) throws IFDException {
 		super(name, type, sampleCollection, dataCollection);
-		if (dataCollection == null || sampleCollection == null)
-			throw new IFDException("IFDSample constructor must provide IFDSampleCollection and IFDDataCollection");
 	}
 	
 	@Override
