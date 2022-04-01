@@ -87,26 +87,26 @@ public class IFDConst {
 
 	public static final String IFD_FINDING_AID = getProp("IFD_FINDING_AID"); // root name for JSON
 
-	public static final String IFD_PROP_FINDABLE_COLLECTION = getProp("IFD_PROP_FINDABLE_COLLECTION");
-	public static final String IFD_PROP_FINDABLE_COLLECTION_ID = getProp("IFD_PROP_FINDABLE_COLLECTION_ID");
-	public static final String IFD_PROP_FINDABLE_COLLECTION_REF = getProp("IFD_PROP_FINDABLE_COLLECTION_REF");
-	public static final String IFD_PROP_FINDABLE_COLLECTION_LEN = getProp("IFD_PROP_FINDABLE_COLLECTION_LEN");
-	public static final String IFD_PROP_FINDABLE_COLLECTION_OBJECT = getProp("IFD_PROP_FINDABLE_COLLECTION_OBJECT");
-	public static final String IFD_PROP_FINDABLE_COLLECTION_SOURCE_DATA_URI = getProp(
-			"IFD_PROP_FINDABLE_COLLECTION_SOURCE_DATA_URI");
-	public static final String IFD_PROP_FINDABLE_COLLECTION_SOURCE_PUBLICATION_URI = getProp(
-			"IFD_PROP_FINDABLE_COLLECTION_SOURCE_PUBLICATION_URI");
+	public static final String IFD_PROP_FAIRDATA_COLLECTION = getProp("IFD_PROP_FAIRDATA_COLLECTION");
+	public static final String IFD_PROP_FAIRDATA_COLLECTION_ID = getProp("IFD_PROP_FAIRDATA_COLLECTION_ID");
+	public static final String IFD_PROP_FAIRDATA_COLLECTION_REF = getProp("IFD_PROP_FAIRDATA_COLLECTION_REF");
+	public static final String IFD_PROP_FAIRDATA_COLLECTION_LEN = getProp("IFD_PROP_FAIRDATA_COLLECTION_LEN");
+	public static final String IFD_PROP_FAIRDATA_COLLECTION_OBJECT = getProp("IFD_PROP_FAIRDATA_COLLECTION_OBJECT");
+	public static final String IFD_PROP_FAIRDATA_COLLECTION_SOURCE_DATA_URI = getProp(
+			"IFD_PROP_FAIRDATA_COLLECTION_SOURCE_DATA_URI");
+	public static final String IFD_PROP_FAIRDATA_COLLECTION_SOURCE_PUBLICATION_URI = getProp(
+			"IFD_PROP_FAIRDATA_COLLECTION_SOURCE_PUBLICATION_URI");
 
-	public static final String IFD_STRUCTURE_REP_MOL = getProp("IFD_STRUCTURE_REP_MOL");
-	public static final String IFD_STRUCTURE_REP_MOL_2D = getProp("IFD_STRUCTURE_REP_MOL_2D");
-	public static final String IFD_STRUCTURE_REP_MOL_3D = getProp("IFD_STRUCTURE_REP_MOL_3D");
-	public static final String IFD_STRUCTURE_REP_SDF = getProp("IFD_STRUCTURE_REP_SDF");
-	public static final String IFD_STRUCTURE_REP_SDF_2D = getProp("IFD_STRUCTURE_REP_SDF_2D");
-	public static final String IFD_STRUCTURE_REP_SDF_3D = getProp("IFD_STRUCTURE_REP_SDF_3D");
-	public static final String IFD_STRUCTURE_REP_CDX = getProp("IFD_STRUCTURE_REP_CDX");
-	public static final String IFD_STRUCTURE_REP_CDXML = getProp("IFD_STRUCTURE_REP_CDXML");
-	public static final String IFD_STRUCTURE_REP_PNG = getProp("IFD_STRUCTURE_REP_PNG");
-	public static final String IFD_STRUCTURE_REP_UNKNOWN = getProp("IFD_STRUCTURE_REP_UNKNOWN");
+	public static final String IFD_REP_STRUCTURE_MOL = getProp("IFD_REP_STRUCTURE_MOL");
+	public static final String IFD_REP_STRUCTURE_MOL_2D = getProp("IFD_REP_STRUCTURE_MOL_2D");
+	public static final String IFD_REP_STRUCTURE_MOL_3D = getProp("IFD_REP_STRUCTURE_MOL_3D");
+	public static final String IFD_REP_STRUCTURE_SDF = getProp("IFD_REP_STRUCTURE_SDF");
+	public static final String IFD_REP_STRUCTURE_SDF_2D = getProp("IFD_REP_STRUCTURE_SDF_2D");
+	public static final String IFD_REP_STRUCTURE_SDF_3D = getProp("IFD_REP_STRUCTURE_SDF_3D");
+	public static final String IFD_REP_STRUCTURE_CDX = getProp("IFD_REP_STRUCTURE_CDX");
+	public static final String IFD_REP_STRUCTURE_CDXML = getProp("IFD_REP_STRUCTURE_CDXML");
+	public static final String IFD_REP_STRUCTURE_PNG = getProp("IFD_REP_STRUCTURE_PNG");
+	public static final String IFD_REP_STRUCTURE_UNKNOWN = getProp("IFD_REP_STRUCTURE_UNKNOWN");
 
 	public enum PROPERTY_TYPE {
 		INT, FLOAT, STRING, NUCL, OBJ
@@ -118,8 +118,8 @@ public class IFDConst {
 
 	// Finding Aid properties:
 
-	public static final String IFD_PROP_FINDABLE_COLLECTION_DATA_LICENSE_NAME = "IFD.property.collection.data.license.name";
-	public static final String IFD_PROP_FINDABLE_COLLECTION_DATA_LICENSE_URI = "IFD.property.collection.data.license.uri";
+	public static final String IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_NAME = "IFD.property.collection.data.license.name";
+	public static final String IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_URI = "IFD.property.collection.data.license.uri";
 
 	// IFDExtractorI constants:
 

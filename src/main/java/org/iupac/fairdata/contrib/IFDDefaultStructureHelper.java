@@ -1,4 +1,4 @@
-package org.iupac.fairdata.helpers;
+package org.iupac.fairdata.contrib;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -104,15 +104,15 @@ public class IFDDefaultStructureHelper implements IFDPropertyManagerI {
 		// TODO -- generalize this
 		switch (ext) {
 		case "png":
-			return IFDConst.IFD_STRUCTURE_REP_PNG;
+			return IFDConst.IFD_REP_STRUCTURE_PNG;
 		case "mol":
-			return (isMol2D(bytes) ? IFDConst.IFD_STRUCTURE_REP_MOL_2D : IFDConst.IFD_STRUCTURE_REP_MOL);
+			return (isMol2D(bytes) ? IFDConst.IFD_REP_STRUCTURE_MOL_2D : IFDConst.IFD_REP_STRUCTURE_MOL);
 		case "sdf":
-			return (isMol2D(bytes) ? IFDConst.IFD_STRUCTURE_REP_SDF_2D : IFDConst.IFD_STRUCTURE_REP_SDF);
+			return (isMol2D(bytes) ? IFDConst.IFD_REP_STRUCTURE_SDF_2D : IFDConst.IFD_REP_STRUCTURE_SDF);
 		case "cdx":
-			return IFDConst.IFD_STRUCTURE_REP_CDX;
+			return IFDConst.IFD_REP_STRUCTURE_CDX;
 		case "cdxml":
-			return IFDConst.IFD_STRUCTURE_REP_CDXML;
+			return IFDConst.IFD_REP_STRUCTURE_CDXML;
 		default:
 			return ext.toUpperCase();
 		}

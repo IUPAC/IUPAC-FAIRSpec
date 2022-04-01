@@ -5,7 +5,7 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
-import org.iupac.fairdata.core.IFDFindingAid;
+import org.iupac.fairdata.core.IFDFAIRDataFindingAid;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;

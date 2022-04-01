@@ -1,4 +1,4 @@
-package org.iupac.fairdata.helpers;
+package org.iupac.fairdata.contrib;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
-import org.iupac.fairdata.core.IFDFindingAid;
+import org.iupac.fairdata.core.IFDFAIRDataFindingAid;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
@@ -44,7 +44,7 @@ import javajs.util.PT;
  */
 public class IFDFAIRSpecFindingAidHelper {
 
-	private final IFDFindingAid findingAid;
+	private final IFDFAIRDataFindingAid findingAid;
 	
 	@SuppressWarnings("rawtypes")
 	private IFDCollection[] objects = new IFDCollection[3];
@@ -78,7 +78,7 @@ public class IFDFAIRSpecFindingAidHelper {
 		findingAid = new IFDFAIRSpecFindingAid(null, IFDConst.getProp("IFD_FAIRSPEC_FINDING_AID"), creator);
 	}
 
-	public IFDFindingAid getFindingAid() {
+	public IFDFAIRDataFindingAid getFindingAid() {
 		return findingAid;
 	}
 

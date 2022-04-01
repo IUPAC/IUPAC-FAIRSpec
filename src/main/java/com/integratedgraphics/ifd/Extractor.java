@@ -31,20 +31,20 @@ import org.iupac.fairdata.todo.IFDStructureDataAssociation;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.common.IFDReference;
+import org.iupac.fairdata.contrib.IFDDefaultStructureHelper;
+import org.iupac.fairdata.contrib.IFDFAIRSpecFindingAidHelper;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
-import org.iupac.fairdata.core.IFDFindingAid;
+import org.iupac.fairdata.core.IFDFAIRDataFindingAid;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
-import org.iupac.fairdata.helpers.IFDDefaultJSONSerializer;
-import org.iupac.fairdata.helpers.IFDDefaultStructureHelper;
-import org.iupac.fairdata.helpers.IFDFAIRSpecFindingAidHelper;
 import org.iupac.fairdata.todo.IFDStructureDataAssociation;
 import org.iupac.fairdata.todo.IFDStructureDataAssociationCollection;
 import org.iupac.fairdata.structure.IFDStructure;
+import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 import org.iupac.fairdata.util.IFDUtilities;
 
 import com.integratedgraphics.ifd.api.IFDVendorPluginI;
@@ -340,7 +340,7 @@ public class Extractor implements IFDExtractorI {
 		getObjectParsersForFile(ifdExtractScriptFile);
 		String puburi = null;
 		Map<String, Object> pubCrossrefInfo = null;
-		puburi = (String) helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_FINDABLE_COLLECTION_SOURCE_PUBLICATION_URI);
+		puburi = (String) helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_SOURCE_PUBLICATION_URI);
 		if (puburi != null && !skipPubInfo) {
 			pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi, addPublicationMetadata);
 			helper.getFindingAid().setPubInfo(pubCrossrefInfo);
@@ -402,7 +402,7 @@ public class Extractor implements IFDExtractorI {
 	}
 
 	@Override
-	public IFDFindingAid getFindingAid() {
+	public IFDFAIRDataFindingAid getFindingAid() {
 		return helper.getFindingAid();
 	}
 
@@ -546,8 +546,8 @@ public class Extractor implements IFDExtractorI {
 		List<ObjectParser> objectParsers = getObjects((List<Map<String, Object>>) jsonMap.get("keys"));
 		log(objectParsers.size() + " extractor regex strings");
 
-		log("! license: " + helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_FINDABLE_COLLECTION_DATA_LICENSE_NAME) + " at "
-				+ helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_FINDABLE_COLLECTION_DATA_LICENSE_URI));
+		log("! license: " + helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_NAME) + " at "
+				+ helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_URI));
 
 		return objectParsers;
 	}
@@ -611,10 +611,10 @@ public class Extractor implements IFDExtractorI {
 					key = key.substring(pt + 1);
 				}
 				if (key.startsWith("IFD.property")) {
-					if (key.equals(IFDConst.IFD_PROP_FINDABLE_COLLECTION_ID)) {
+					if (key.equals(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_ID)) {
 						ifdid = val;
 						helper.getFindingAid().setID(val);
-					} else if (key.equals(IFDConst.IFD_PROP_FINDABLE_COLLECTION_OBJECT)) {
+					} else if (key.equals(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_OBJECT)) {
 						parsers.add(newObjectParser(val));
 						continue;
 					}
@@ -1783,10 +1783,10 @@ public class Extractor implements IFDExtractorI {
 		 */
 		public ObjectParser(String sObj) throws IFDException {
 			int[] pt = new int[1];
-			dataSource = getIFDExtractValue(sObj, IFDConst.IFD_PROP_FINDABLE_COLLECTION_SOURCE_DATA_URI, pt);
+			dataSource = getIFDExtractValue(sObj, IFDConst.IFD_PROP_FAIRDATA_COLLECTION_SOURCE_DATA_URI, pt);
 			if (dataSource == null)
 				throw new IFDException(
-						"No {" + IFDConst.IFD_PROP_FINDABLE_COLLECTION_SOURCE_DATA_URI + "::...} found in " + sObj);
+						"No {" + IFDConst.IFD_PROP_FAIRDATA_COLLECTION_SOURCE_DATA_URI + "::...} found in " + sObj);
 			sData = sObj.substring(pt[0] + 1); // skip first "|"
 			init();
 		}

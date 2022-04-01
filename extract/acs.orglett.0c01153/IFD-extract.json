@@ -4,25 +4,25 @@
  {"figshareid1":"22284726"},
  {"figshareid2":"22284729"},
  
- {"IFD.property.collection.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
- {"IFD.property.collection.data.license.name":"cc-by-nc-4.0"},
- {"IFDid=IFD.property.collection.id":"{journal}.{hash}"},
- {"IFD.property.collection.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
+ {"IFD.property.fairdata.collection.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.fairdata.collection.data.license.name":"cc-by-nc-4.0"},
+ {"IFDid=IFD.property.fairdata.collection.id":"{journal}.{hash}"},
+ {"IFD.property.fairdata.collection.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
  
- {"data01":"{IFD.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
- {"data02":"{IFD.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_003.zip}"},
+ {"data01":"{IFD.property.fairdata.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data02":"{IFD.property.fairdata.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_003.zip}"},
  
- {"data1":"{IFD.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid1}}"},
+ {"data1":"{IFD.property.fairdata.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid1}}"},
 
  {"path1":"{data1}|*.zip|"},  
  {"note":"using **/*.mnova* here because it is .mnova_copy for Compound 5"},
- {"IFD.property.collection.object":"{path1}{IFD.representation.spec.nmr.vendor.dataset::{IFD.property.spec.nmr.expt.label::{id=IFD.property.struc.compound.label::*}/{expt=::*}}.zip|{expt}/}"},
- {"IFD.property.collection.object":"{path1}{IFD.representation.spec.nmr.vendor.dataset::{IFD.property.spec.nmr.expt.label::{id=IFD.property.struc.compound.label::*}/**/*.mnova*}}"},
- {"IFD.property.collection.object":"{path1}{IFD.representation.struc.cdx::{id=IFD.property.struc.compound.label::*}/*.cdx}"},
+ {"IFD.property.fairdata.collection.object":"{path1}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}/{expt=::*}}.zip|{expt}/}"},
+ {"IFD.property.fairdata.collection.object":"{path1}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}/**/*.mnova*}}"},
+ {"IFD.property.fairdata.collection.object":"{path1}{IFD.representation.structure.cdx::{id=IFD.property.sample.label::*}/*.cdx}"},
 
- {"data2":"{IFD.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid2}}"},
+ {"data2":"{IFD.property.fairdata.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid2}}"},
 
  {"path2":"{data2}|*.zip|"},
- {"IFD.property.collection.object":"{path2}{IFD.representation.spec.nmr.vendor.dataset::{IFD.property.spec.nmr.expt.label::{id=IFD.property.struc.compound.label::*}/{expt=::*}}.zip|{expt}/}"},
- {"IFD.property.collection.object":"{path2}{IFD.representation.struc.cdx::{id=IFD.property.struc.compound.label::*}/*.cdx}"}
+ {"IFD.property.fairdata.collection.object":"{path2}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}/{expt=::*}}.zip|{expt}/}"},
+ {"IFD.property.fairdata.collection.object":"{path2}{IFD.representation.structure.cdx::{id=IFD.property.sample.label::*}/*.cdx}"}
 ]}

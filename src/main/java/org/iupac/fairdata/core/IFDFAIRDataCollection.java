@@ -10,9 +10,9 @@ import org.iupac.fairdata.todo.IFDStructureDataAnalysisCollection;
 import org.iupac.fairdata.todo.IFDStructureDataAssociationCollection;
 
 @SuppressWarnings("serial")
-public abstract class IFDFindableCollection extends IFDCollection<IFDCollection<IFDObject<?>>> {
+public abstract class IFDFAIRDataCollection extends IFDCollection<IFDCollection<IFDObject<?>>> {
 
-	protected IFDFindableCollection(String name) {
+	protected IFDFAIRDataCollection(String name) {
 		super(name, null);
 	}
 

@@ -10,7 +10,7 @@ import java.util.Map;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDResource;
-import org.iupac.fairdata.helpers.IFDDefaultJSONSerializer;
+import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 
 /**
  * The IDFFindingAid class is a master class for the organizing metadata in relation to a collection. 
@@ -23,13 +23,13 @@ import org.iupac.fairdata.helpers.IFDDefaultJSONSerializer;
  *
  */
 @SuppressWarnings("serial")
-public class IFDFindingAid extends IFDObject<IFDObject<?>> {
+public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 
 	{
 		setProperties("IFD_PROP_FINDING_AID_", null);
 	}
 
-	protected IFDFindableCollection collection;
+	protected IFDFAIRDataCollection collection;
 	
 	protected List<IFDResource> dataSources = new ArrayList<>();
 
@@ -41,7 +41,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 
 	private String creator;
 
-	public IFDFindingAid(String name, String type, String creator) {
+	public IFDFAIRDataFindingAid(String name, String type, String creator) {
 		super(name, type);
 		this.creator = creator;
 	}
@@ -168,11 +168,11 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 	/**
 	 * 
 	 * Generate the serialization and optionally save it to disk as
-	 * [rootname]_IFD_PROP_FINDABLE_COLLECTION.[ext] and optionally create an
+	 * [rootname]_IFD_PROP_FAIRDATA_COLLECTION.[ext] and optionally create an
 	 * _IFD_collection.zip in that same directory.
 	 * 
 	 * @param targetDir  or null for no output
-	 * @param rootName   a prefix root to add to the _IFD_PROP_FINDABLE_COLLECTION.json
+	 * @param rootName   a prefix root to add to the _IFD_PROP_FAIRDATA_COLLECTION.json
 	 *                   (or.xml) finding aid created
 	 * @param products   optionally, a list of directories containing the files
 	 *                   referenced by the finding aid for creating the

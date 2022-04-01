@@ -10,7 +10,7 @@ public class IFDStructureRepresentation extends IFDRepresentation {
 	private static String[] repNames;
 	
 	public static String[] getRepnames() {
-		return (repNames == null ? (repNames = IFDConst.getPropertiesAsArray("IFD_STRUCTURE_REP_", null)) : repNames);
+		return (repNames == null ? (repNames = IFDConst.getPropertiesAsArray("IFD_REP_STRUCTURE_", null)) : repNames);
 	}
 
 	/**
