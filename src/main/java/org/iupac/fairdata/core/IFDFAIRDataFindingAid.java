@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.common.IFDProperty;
 import org.iupac.fairdata.common.IFDResource;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 
@@ -26,7 +27,7 @@ import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 
 	{
-		setProperties("IFD_PROP_FINDING_AID_", null);
+		setProperties("IFD_PROP_FAIRDATA_COLLECTION_", null);
 	}
 
 	protected IFDFAIRDataCollection collection;
@@ -44,6 +45,7 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 	public IFDFAIRDataFindingAid(String name, String type, String creator) {
 		super(name, type);
 		this.creator = creator;
+		collection = new IFDFAIRDataCollection(IFDConst.IFD_FINDING_AID);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -187,5 +189,22 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 			serializer = new IFDDefaultJSONSerializer();
 		return serializer.createSerialization(this, targetDir, rootName, products);
 	}
+
+	@Override
+	public void setPropertyValue(String name, Object value) {
+		if (name.startsWith(IFDConst.IFD_FINDING_AID))
+			super.setPropertyValue(name, value);
+		else
+			collection.setPropertyValue(name, value);		
+	}
+	
+	@Override
+	public Object getPropertyValue(String name) {
+		if (name.startsWith(IFDConst.IFD_FINDING_AID))
+			return super.getPropertyValue(name);
+		return collection.getPropertyValue(name);
+	}
+
+
 
 }

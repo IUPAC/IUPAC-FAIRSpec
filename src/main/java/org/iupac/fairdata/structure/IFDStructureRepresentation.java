@@ -1,18 +1,17 @@
 package org.iupac.fairdata.structure;
 
-import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentation;
 
 public class IFDStructureRepresentation extends IFDRepresentation {
 
 
-	private static String[] repNames;
-	
-	public static String[] getRepnames() {
-		return (repNames == null ? (repNames = IFDConst.getPropertiesAsArray("IFD_REP_STRUCTURE_", null)) : repNames);
-	}
-
+//	private static String[] repNames;
+//	
+//	public static String[] getRepnames() {
+//		return (repNames == null ? (repNames = IFDConst.getPropertiesAsArray("IFD_REP_STRUCTURE_", null)) : repNames);
+//	}
+//
 	/**
 	 * 
 	 * @param ref

@@ -3,10 +3,19 @@ package org.iupac.fairdata.core;
 import org.iupac.fairdata.api.IFDSerializerI;
 
 @SuppressWarnings("serial")
-public abstract class IFDFAIRDataCollection extends IFDCollection<IFDCollection<IFDObject<?>>> {
+public class IFDFAIRDataCollection extends IFDCollection<IFDCollection<IFDObject<?>>> {
+
+	{
+		setProperties("IFD_PROP_FAIRDATA_COLLECTION_", null);
+	}
+
 
 	protected IFDFAIRDataCollection(String name) {
-		super(name, null);
+		this(name, null);
+	}
+
+	protected IFDFAIRDataCollection(String name, String type) {
+		super(name, type);
 	}
 
 	/**
@@ -38,6 +47,11 @@ public abstract class IFDFAIRDataCollection extends IFDCollection<IFDCollection<
 			serializer.addAttrInt(name + "Count", c.size());
 			serializer.addObject(name, c);
 		}
+	}
+
+	@Override
+	public Class<?>[] getObjectTypes() {
+		return new Class<?>[] { IFDCollection.class };
 	}
 
 }

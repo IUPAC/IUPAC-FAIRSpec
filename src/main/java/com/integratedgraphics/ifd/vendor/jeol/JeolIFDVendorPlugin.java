@@ -39,7 +39,7 @@ public class JeolIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 
 	@Override
 	public String processRepresentation(String ifdPath, byte[] bytes) {
-		return IFD_REP_SPEC_NMR_VENDOR_DATASET;
+		return IFD_REP_DATA_SPEC_NMR_VENDOR_DATASET;
 	}
 
 }

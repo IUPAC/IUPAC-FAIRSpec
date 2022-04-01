@@ -32,18 +32,18 @@ public class MestrelabIFDVendorPlugin extends IFDDefaultVendorPlugin {
 
 	static {
 		String[] keys = { //
-				"Pulse Sequence", getProp("IFD_PROP_SPEC_NMR_EXPT_PULSE_PROG"), //prop
-				"Solvent", getProp("IFD_PROP_SPEC_NMR_EXPT_SOLVENT"), //prop
-				"Probe", getProp("IFD_PROP_SPEC_NMR_INSTR_PROBE_TYPE"), //prop
-				"Temperature", getProp("IFD_PROP_SPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
-				"Experiment", getProp("IFD_PROP_SPEC_NMR_EXPT_DIM"), //prop
-				"F1", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_1"), //prop
-				"F2", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_2"), //prop
-				"F3", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_3"), //prop
-				"N1", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_1"), //prop
-				"N2", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_2"), //prop
-				"N3", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_3"), //prop
-				"SF", getProp("IFD_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
+				"Pulse Sequence", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_PULSE_PROG"), //prop
+				"Solvent", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_SOLVENT"), //prop
+				"Probe", getProp("IFD_PROP_DATA_SPEC_NMR_INSTR_PROBE_TYPE"), //prop
+				"Temperature", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
+				"Experiment", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_DIM"), //prop
+				"F1", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_FREQ_1"), //prop
+				"F2", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_FREQ_2"), //prop
+				"F3", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_FREQ_3"), //prop
+				"N1", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_NUCL_1"), //prop
+				"N2", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_NUCL_2"), //prop
+				"N3", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_NUCL_3"), //prop
+				"SF", getProp("IFD_PROP_DATA_SPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
 		};
 
 		for (int i = 0; i < keys.length;)
@@ -84,7 +84,7 @@ public class MestrelabIFDVendorPlugin extends IFDDefaultVendorPlugin {
 
 	@Override
 	public String processRepresentation(String ifdPath, byte[] bytes) {
-		return IFD_REP_SPEC_NMR_VENDOR_DATASET;
+		return IFD_REP_DATA_SPEC_NMR_VENDOR_DATASET;
 	}
 
 	// called from MNovaReader

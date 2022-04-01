@@ -29,7 +29,7 @@ public interface IFDPropertyManagerI {
 	 * 
 	 * @param bytes   bytes for this representation; may be null for zip files
 	 * @return the IFD type key for this digital object (e.g.
-	 *         IFDNMRSpecDataRepresentation.IFD_REP_SPEC_NMR_VENDOR_DATASET)
+	 *         IFDNMRSpecDataRepresentation.IFD_REP_DATA_SPEC_NMR_VENDOR_DATASET)
 	 */
 	String processRepresentation(String ifdPath, byte[] bytes);
 

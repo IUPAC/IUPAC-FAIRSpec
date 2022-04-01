@@ -200,14 +200,16 @@ public class IFDFAIRSpecExtractorHelper {
 			return "Unknown";
 		else
 			throw new IFDException("bad IFD identifier: " + propName);
-		if (propName.startsWith("\0struc."))
+		if (propName.startsWith("\0structure."))
 			return ClassTypes.Structure;
+		if (propName.startsWith("\0sample."))
+			return ClassTypes.Sample;
 		if (propName.startsWith("\0analysis.structuredata"))
 			return ClassTypes.StructureDataAnalysis;
 		if (propName.startsWith("\0analysis.sampledata"))
 			return ClassTypes.SampleDataAnalysis;
 		if (propName.startsWith("\0data.spec."))
-			return propName.substring(1, propName.indexOf(".", 6));
+			return propName.substring(1, propName.indexOf(".", 11));
 		return "Unknown";
 	}
 

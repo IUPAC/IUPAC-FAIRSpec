@@ -138,11 +138,11 @@ public abstract class IFDDefaultVendorPlugin implements IFDVendorPluginI {
 		return IFDConst.getProp(name);
 	}
 
-	protected final static String IFD_REP_SPEC_NMR_VENDOR_DATASET = getProp("IFD_REP_SPEC_NMR_VENDOR_DATASET");
-    final static String IFD_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME = getProp("IFD_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME");
+	protected final static String IFD_REP_DATA_SPEC_NMR_VENDOR_DATASET = getProp("IFD_REP_DATA_SPEC_NMR_VENDOR_DATASET");
+    final static String IFD_PROP_DATA_SPEC_NMR_INSTR_MANUFACTURER_NAME = getProp("IFD_PROP_DATA_SPEC_NMR_INSTR_MANUFACTURER_NAME");
 
     protected void reportVendor() {
-		addProperty(IFD_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME, getVendorName());
+		addProperty(IFD_PROP_DATA_SPEC_NMR_INSTR_MANUFACTURER_NAME, getVendorName());
 	}
 
 	/**

@@ -316,7 +316,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			return;
 		if (IFDConst.isLabel(name))
 			this.name = value.toString();
-		IFDProperty p = htProps.get(name);
+		IFDProperty p = IFDConst.getIFDProperty(htProps, name);
 		if (p == null) {
 			if (value == null)
 				params.remove(name);

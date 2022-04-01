@@ -29,18 +29,18 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 		// order here is not significant; keys without the JCAMP vendor prefix are
 		// derived, not the value itself
 		String[] keys = { //
-				"DIM", getProp("IFD_PROP_SPEC_NMR_EXPT_DIM"), //prop
-				"##$BF1", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_1"), //prop
-				"##$BF2", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_2"), //prop
-				"##$BF3", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_3"), //prop
-				"##$NUC1", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_1"), //prop
-				"##$NUC2", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_2"), //prop
-				"##$NUC3", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_3"), //prop
-				"##$PULPROG", getProp("IFD_PROP_SPEC_NMR_EXPT_PULSE_PROG"), //prop
-				"##$TE", getProp("IFD_PROP_SPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
-				"SOLVENT", getProp("IFD_PROP_SPEC_NMR_EXPT_SOLVENT"), //prop
-				"SF", getProp("IFD_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
-				"##$PROBHD", getProp("IFD_PROP_SPEC_NMR_INSTR_PROBE_TYPE"), //prop
+				"DIM", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_DIM"), //prop
+				"##$BF1", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_FREQ_1"), //prop
+				"##$BF2", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_FREQ_2"), //prop
+				"##$BF3", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_FREQ_3"), //prop
+				"##$NUC1", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_NUCL_1"), //prop
+				"##$NUC2", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_NUCL_2"), //prop
+				"##$NUC3", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_NUCL_3"), //prop
+				"##$PULPROG", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_PULSE_PROG"), //prop
+				"##$TE", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
+				"SOLVENT", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_SOLVENT"), //prop
+				"SF", getProp("IFD_PROP_DATA_SPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
+				"##$PROBHD", getProp("IFD_PROP_DATA_SPEC_NMR_INSTR_PROBE_TYPE"), //prop
 		};
 		for (int i = 0; i < keys.length;)
 			ifdMap.put(keys[i++], keys[i++]);
@@ -79,8 +79,8 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 
 	@Override
 	public boolean doRezipInclude(IFDExtractorI extractor, String baseName, String entryName) {
-		String type = (entryName.endsWith(".pdf") ? getProp("IFD_REP_SPEC_NMR_SPECTRUM_PDF")
-				: entryName.endsWith("thumb.png") ? getProp("IFD_REP_SPEC_NMR_SPECTRUM_IMAGE")
+		String type = (entryName.endsWith(".pdf") ? getProp("IFD_REP_DATA_SPEC_NMR_SPECTRUM_PDF")
+				: entryName.endsWith("thumb.png") ? getProp("IFD_REP_DATA_SPEC_NMR_SPECTRUM_IMAGE")
 						: null);
 		if (type != null)
 			extractor.addProperty(type, Extractor.localizePath(baseName + entryName));
@@ -249,7 +249,7 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 
 	@Override
 	public String processRepresentation(String ifdPath, byte[] bytes) {
-		return IFD_REP_SPEC_NMR_VENDOR_DATASET;
+		return IFD_REP_DATA_SPEC_NMR_VENDOR_DATASET;
 	}
 
 }

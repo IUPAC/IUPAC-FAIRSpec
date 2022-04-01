@@ -18,7 +18,7 @@ import org.iupac.fairdata.core.IFDRepresentation;
 public class IFDDataObject extends IFDRepresentableObject<IFDRepresentation> {
 
 	{
-		setProperties("IFD_PROP_DATA_OBJECT_", null); // currently no such values
+		setProperties("IFD_PROP_DATA_OBJECT", null); // These are loaded based on subtype
 	}
 	
 
@@ -30,6 +30,8 @@ public class IFDDataObject extends IFDRepresentableObject<IFDRepresentation> {
 
 	public IFDDataObject(String name, String type) {
 		super(name, type);		
+		if (type.startsWith("IFD."))
+		setProperties("IFD_PROP_" + type.substring(4), null); // These are loaded based on subtype
 	}
 
 	@Override

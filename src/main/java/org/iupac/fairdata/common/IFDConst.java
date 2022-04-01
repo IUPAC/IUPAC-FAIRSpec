@@ -41,13 +41,43 @@ public class IFDConst {
 	}
 
 	public static String getProp(String key) {
-		String s = props.getProperty(key);
+		String s = props.getProperty(key.toUpperCase().replace('.','_'));
 		if (s == null) {
-			System.err.println("IDFDefaultVendorPlugin Property " + key + " was not found");
+			System.err.println("IFDConst Property " + key + " was not found");
 			s = key;
 		}
-		return s;
+		return s.trim();
 	}
+
+	public static Map<String, IFDProperty> setProperties(Map<String, IFDProperty> htProps, String key, String notKey) {
+		if (htProps == null)
+			htProps = new Hashtable<String, IFDProperty>();
+		key = key.toUpperCase().replace('.', '_');
+		for (Entry<Object, Object> e : props.entrySet()) {
+			String k = (String) e.getKey();
+			if (k.startsWith(key)) {
+				// to be continued! -- need units and type
+				String val = e.getValue().toString().trim();
+				htProps.put(val, new IFDProperty(val, null, null, null));
+			}
+		}
+		return htProps;
+	}
+
+	public static IFDProperty getIFDProperty(Map<String, IFDProperty> htProps, String name) {
+		return htProps.get(name);
+	}
+
+//	public static String[] getPropertiesAsArray(String key, String notKey) {
+//		List<String> lst = new ArrayList<>();
+//		for (Object o : props.keySet()) {
+//			String k = (String) o;
+//			if (k.startsWith(key) && notKey == null || !key.startsWith(notKey)) {
+//				lst.add(k);
+//			}
+//		}
+//		return lst.toArray(new String[lst.size()]);
+//	}
 
 	public static final String IFD_VERSION = getProp("IFD_VERSION");
 
@@ -90,36 +120,12 @@ public class IFDConst {
 	// IFDExtractorI constants:
 
 	public static void main(String[] args) {
-		System.out.println(getProp("IFD_REP_SPEC_UVVIS_PEAKLIST"));
-	}
-
-	public static Map<String, IFDProperty> setProperties(Map<String, IFDProperty> htProps, String key, String notKey) {
-		if (htProps == null)
-			htProps = new Hashtable<String, IFDProperty>();
-		for (Entry<Object, Object> e : props.entrySet()) {
-			String k = (String) e.getKey();
-			if (k.startsWith(key)) {
-				// to be continued! -- need units and type
-				htProps.put(k, new IFDProperty(k, e.getValue(), null, null));
-			}
-		}
-		return htProps;
-	}
-
-	public static String[] getPropertiesAsArray(String key, String notKey) {
-		List<String> lst = new ArrayList<>();
-		for (Object o : props.keySet()) {
-			String k = (String) o;
-			if (k.startsWith(key) && notKey == null || !key.startsWith(notKey)) {
-				lst.add(k);
-			}
-		}
-		return lst.toArray(new String[lst.size()]);
+		System.out.println(getProp("IFD_REP_DATA_SPEC_UVVIS_PEAKLIST"));
 	}
 
 	public static final String IFD_REPRESENTATION_FLAG = getProp("IFD_REPRESENTATION_FLAG");
 	public static final String IFD_PROPERTY_FLAG = getProp("IFD_PROPERTY_FLAG");
-	public static final String DATA_FLAG = getProp("DATA_FLAG");
+	public static final String DATA_FLAG = getProp("IFD_DATA_FLAG");
 	public static final String IFD_PROP_SAMPLE_ID = getProp("IFD_PROP_SAMPLE_ID");
 
 	public static boolean isRepresentation(String propName) {
@@ -138,5 +144,6 @@ public class IFDConst {
 	public static boolean isFindingAid(String propName) {
 		return (propName != null && propName.startsWith(IFDFAIRSpecExtractorHelper.IFD_FINDING_AID_FLAG));
 	}
+
 
 }

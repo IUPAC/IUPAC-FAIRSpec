@@ -13,18 +13,18 @@ public abstract class NmrMLIFDVendorPlugin extends IFDDefaultVendorPlugin {
 
 	static {
 		String[] keys = { //
-				"DIM", getProp("IFD_PROP_SPEC_NMR_EXPT_DIM"), //prop
-				"F1", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_1"), //prop
-				"F2", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_2"), //prop
-				"F3", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_3"), //prop
-				"N1", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_1"), //prop
-				"N2", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_2"), //prop
-				"N3", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_3"), //prop
-				"PP", getProp("IFD_PROP_SPEC_NMR_EXPT_PULSE_PROG"), //prop
-				"SOLVENT", getProp("IFD_PROP_SPEC_NMR_EXPT_SOLVENT"), //prop
-				"SF", getProp("IFD_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
-				"PROBE", getProp("IFD_PROP_SPEC_NMR_INSTR_PROBE_TYPE"), //prop
-				"TEMPERATURE", getProp("IFD_PROP_SPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
+				"DIM", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_DIM"), //prop
+				"F1", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_FREQ_1"), //prop
+				"F2", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_FREQ_2"), //prop
+				"F3", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_FREQ_3"), //prop
+				"N1", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_NUCL_1"), //prop
+				"N2", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_NUCL_2"), //prop
+				"N3", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_NUCL_3"), //prop
+				"PP", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_PULSE_PROG"), //prop
+				"SOLVENT", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_SOLVENT"), //prop
+				"SF", getProp("IFD_PROP_DATA_SPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
+				"PROBE", getProp("IFD_PROP_DATA_SPEC_NMR_INSTR_PROBE_TYPE"), //prop
+				"TEMPERATURE", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
 		};
 
 		for (int i = 0; i < keys.length;)
