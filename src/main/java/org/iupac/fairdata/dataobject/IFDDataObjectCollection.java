@@ -31,7 +31,7 @@ public class IFDDataObjectCollection extends IFDCollection<IFDObject<?>> {
 		return (IFDDataObject) super.get(i);
 	}
 
-	public boolean add(IFDDataObject sd) {
+	public boolean addObject(IFDDataObject sd) {
 		if (contains(sd))
 			return false;
 		if (subtype == "Unknown")
@@ -42,6 +42,15 @@ public class IFDDataObjectCollection extends IFDCollection<IFDObject<?>> {
 		return true;		
 	}
 	
+	@Override
+	public boolean add(IFDObject<?> t) {
+		if (t instanceof IFDDataObject) {
+			return addObject((IFDDataObject) t);
+		}
+		System.err.println("IFDObject error: " + t);
+		return false;
+	}
+
 	public IFDDataObject getDataObjectFor(String ifdPath, String path, String localName, String param, String value, String type, String mediaType)  throws IFDException {
 		String keyValue = path + "::" + ifdPath;
 		IFDDataObject sd = (IFDDataObject) map.get(keyValue);
@@ -61,11 +70,6 @@ public class IFDDataObjectCollection extends IFDCollection<IFDObject<?>> {
 		return sd;
 	}
 
-	@Override
-	public boolean add(IFDObject<?> t) {
-		System.err.println("IFDObject error: " + t);
-		return false;
-	}
 
 	/**
 	 * Replace a data object with a cloned version that has a new ID.

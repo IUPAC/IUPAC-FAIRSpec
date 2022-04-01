@@ -77,12 +77,6 @@ public class IFDSampleDataAssociation extends IFDAssociation {
 		return (IFDDataObject) getDataObjectCollection().get(0);
 	}
 
-	@Override
-	protected void serializeList(IFDSerializerI serializer) {
-		serializer.addObject("obj1", getSampleCollection().getIndexList());
-		serializer.addObject("obj2", getDataObjectCollection().getIndexList());
-	}
-	
 	protected boolean addSample(IFDSample s) {
 		return getSampleCollection().add(s);
 	}

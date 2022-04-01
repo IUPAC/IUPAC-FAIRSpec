@@ -1,5 +1,6 @@
 package org.iupac.fairdata.core;
 
+import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
 
 /**
@@ -65,6 +66,15 @@ public  class IFDAssociation extends IFDCollection<IFDCollection<IFDObject<?>>> 
 	public IFDObject<?> getFirstObj2() {
 		return get(1).get(0);
 	}
+
+	@Override
+	protected void serializeList(IFDSerializerI serializer) {
+		serializer.addAttr("type1", getObject(0).getObjectType());
+		serializer.addAttr("type2", getObject(1).getObjectType());
+		serializer.addObject("obj1", getObject(0).getIndexList());
+		serializer.addObject("obj2", getObject(1).getIndexList());
+	}
+	
 
 
 }

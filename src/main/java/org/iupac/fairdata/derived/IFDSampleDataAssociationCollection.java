@@ -20,13 +20,13 @@ public class IFDSampleDataAssociationCollection extends IFDAssociationCollection
 		super(name, "Samples", null);
 	}
 
-	public IFDSampleDataAssociation addAssociation(String name, IFDSample struc, IFDDataObject data) throws IFDException {
-		IFDSampleDataAssociation ssc = (IFDSampleDataAssociation) getAssociationForSingleObj1(struc);
+	public IFDSampleDataAssociation addAssociation(String name, IFDSample sample, IFDDataObject data) throws IFDException {
+		IFDSampleDataAssociation ssc = (IFDSampleDataAssociation) getAssociationForSingleObj1(sample);
 		if (ssc == null) {
-			add(ssc = newAssociation(name, struc, data));
+			add(ssc = newAssociation(name, sample, data));
 		} else if (!ssc.getDataObjectCollection().contains(data)) {
-			if (struc.getName() == null)
-				struc.setPropertyValue(IFDConst.getProp("IFD_PROP_SAMPLE_LABEL"), name);
+			if (sample.getName() == null)
+				sample.setPropertyValue(IFDConst.getProp("IFD_PROP_SAMPLE_LABEL"), name);
 			ssc.getDataObjectCollection().add(data);
 		}
 		return ssc;

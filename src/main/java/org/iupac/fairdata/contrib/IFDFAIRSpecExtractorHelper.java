@@ -239,6 +239,10 @@ public class IFDFAIRSpecExtractorHelper {
 		switch (type) {
 		case ClassTypes.SampleDataAnalysisCollection:
 		case ClassTypes.SampleDataAnalysis:
+			System.out.println("Analysis not implemented");
+			getSampleDataAnalysisCollection();
+			// TODO
+			return null;
 		case ClassTypes.StructureDataAnalysisCollection:
 		case ClassTypes.StructureDataAnalysis:
 			System.out.println("Analysis not implemented");
@@ -275,6 +279,7 @@ public class IFDFAIRSpecExtractorHelper {
 		case ClassTypes.DataObject:
 		case ClassTypes.DataObjectCollection:
 		case ClassTypes.StructureCollection:
+		case ClassTypes.SampleCollection:
 			// should not be generic
 		default:
 			System.err.println(
@@ -291,13 +296,19 @@ public class IFDFAIRSpecExtractorHelper {
 		try {
 			if (currentStructure != null && currentSpecData != null)
 				return getStructureDataCollection().addAssociation(currentObject, currentStructure, currentSpecData);
-			return (currentStructure != null ? currentStructure : currentSpecData);
+			if (currentSample != null && currentSpecData != null)
+				return getSampleDataCollection().addAssociation(currentObject, currentSample, currentSpecData);
+			// how does this work?
+			return (currentStructure != null ? currentStructure
+					: currentSample != null ? currentSample
+					: currentSpecData);
 		} catch (IFDException e) {
 			// not possible
 			return null;
 		} finally {
 			currentObject = null;
 			currentStructure = null;
+			currentSample = null;
 			currentSpecData = null;
 		}
 	}

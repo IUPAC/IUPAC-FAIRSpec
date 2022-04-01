@@ -73,12 +73,6 @@ public class IFDStructureDataAssociation extends IFDAssociation {
 		return (IFDDataObject) getDataObjectCollection().get(i);
 	}
 
-	@Override
-	protected void serializeList(IFDSerializerI serializer) {
-		serializer.addObject("obj1", getStructureCollection().getIndexList());
-		serializer.addObject("obj2", getDataObjectCollection().getIndexList());
-	}
-	
 	protected boolean addStructure(IFDStructure struc) {
 		return getStructureCollection().add(struc);
 	}
