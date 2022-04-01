@@ -27,7 +27,7 @@ public class IFDReference implements IFDSerializableI {
 	public IFDReference(Object origin, String localName, String localPath) {
 		this.origin = origin;
 		if (localName != null && localName.indexOf("#")>= 0)
-			System.out.println("????" + localName);
+			System.err.println("???? IFDReference looking for why # is in the localName " + localName);
 		this.localName = localName;
 		this.localPath = localPath;
 	}
