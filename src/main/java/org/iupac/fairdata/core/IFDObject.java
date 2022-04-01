@@ -13,7 +13,8 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDProperty;
 
 /**
- * IFDObject is the base abstract superclass for all IFD Data Model metadata objects.
+ * IFDObject is the base abstract superclass for all IFD Data Model metadata
+ * objects.
  * 
  * IFDObject extends ArrayList so as to allow for storing and retrieving
  * multiple objects or representations with standard ArrayList methods.
@@ -24,6 +25,8 @@ import org.iupac.fairdata.common.IFDProperty;
  * 
  * IFDObject and its subclasses implement the IFDObjectI interface and come in
  * two flavors: IFDRepresentableObject and IFDCollection.
+ * 
+ * IFDObject will self-serialize.
  * 
  * 
  * *** IFDRepresentableObject ***
@@ -67,6 +70,19 @@ import org.iupac.fairdata.common.IFDProperty;
  * multiple distinctly different representations that characterize
  * IFDRepresentableObject classes.
  * 
+ * *** IFDAssociation ***
+ * 
+ * An IFDAssociation is an IFDCollection of IFDCollections that contains exactly
+ * two IFDCollections -- "Collection 1" and "Collection 2". These may be
+ * IFDStructure and IFDDataObject, for example. Like its superclass, an
+ * IFDAssociation has no representations, only metadata.
+ * 
+ * *** IFDAnalysis ***
+ * 
+ * An IFDAnalysis is an IFDAssociation that also has an IFDRepressntableObject
+ * that is an IFDAnalysisObject. This allows for metadata and associated data
+ * that are specific to a more detailed analsysis, not just a simple
+ * IFDAssociation.
  * 
  * *** core IFDObjectI classes ***
  * 
@@ -95,7 +111,9 @@ import org.iupac.fairdata.common.IFDProperty;
  * 
  * IFDSample corresponds to a specific physical sample that may or may not (yet)
  * have a chemical structure, spectroscopic data, or representations associated
- * with it.
+ * with it. Typically associated with one or more IFDDataObjects; alternatively
+ * associated with one or more IFDStructures, but such associations preferably
+ * be associated indirectly, via an IFDDataObject, if that is available.
  * 
  * -- IFDStructureCollection and IFDDataObjectCollection --
  * 
@@ -108,11 +126,11 @@ import org.iupac.fairdata.common.IFDProperty;
  * 
  * *** associative IFDObjectI classes ***
  *
- * The org/iupac/fairdata/assoc package includes four higher-level abstract
- * IFDObjectI classes: IFDStructureDataAssociation, IFDSampleDataAssociation,
- * and their collections. These classes associate specific structures, samples,
- * and data to each other. In addition, the IFDAnalysis-related classes and the
- * IFDFindingAid class fall into this category.
+ * The org/iupac/fairdata/derived package includes a number of more specific
+ * types of associations, including: IFDStructureDataAssociation,
+ * IFDSampleDataAssociation, IFDStructureDataAnalysis, and IFDSampleDataAnalysis, 
+ * along with their respective collections. These classes associate
+ * specific structures, samples, and data to each other. 
  * 
  * 
  * -- IFDStructureDataAssociation --
@@ -121,23 +139,23 @@ import org.iupac.fairdata.common.IFDProperty;
  * IFDDataObject instances. It provides the "connecting links" between spectra
  * and structure.
  * 
- * -- IFDSampleAssociation --
+ * -- IFDSampleDataAssociation --
  * 
  * This class correlates one IFDSample instance with one or more IFDDataObject
  * and IFDStructure instances. It provides a way of linking samples with their
  * associated molecular structure (if known) and spectra (if taken).
  * 
- * -- IFDStructureAnalysis --
+ * -- IFDStructureDataAnalysis --
  * 
- * The IFDAnalysis class is intended to represent a detailed correlation between
+ * The IFDStructureDataAnalysis class is intended to represent a detailed correlation between
  * chemical structure for a compound and its related experimental or theoretical
  * spectroscopic data. For instance, it might correlate specific atoms or groups
  * of atoms of a chemical structure with specific signals in a spectrum or other
  * sort of data object.
  *
- * -- IFDSampleAnalysis --
+ * -- IFDSampleDataAnalysis --
  * 
- * The IFDSampleAnalysis class is intended to represent a detailed correlation
+ * The IFDSampleDataAnalysis class is intended to represent a detailed correlation
  * between a specific chemical sample and its structure and spectroscopic data.
  * The details of this analysis would be designed into the subclass being
  * implemented.
@@ -171,8 +189,8 @@ import org.iupac.fairdata.common.IFDProperty;
  * @author hansonr
  *
  * @param <T> the class for items of the list - IFDRepresentations for
- *            DataObjects and Structures; relevant IFDObject types for
- *            IFDCollections
+ *        DataObjects and Structures; relevant IFDObject types for
+ *        IFDCollections
  */
 @SuppressWarnings("serial")
 public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>, IFDSerializableI {
