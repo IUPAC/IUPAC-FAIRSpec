@@ -581,9 +581,9 @@ public class Extractor implements IFDExtractorI {
 //         {"data0":"{IFD.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifdid}/suppl_file/ol{hash}_si_002.zip}"},
 //         {"data":"{IFD.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 //
-//         {"path":"{data}|FID for Publication/{id=IFD.property.struc.compound.id::*}.zip|"},
+//         {"path":"{data}|FID for Publication/{id=IFD.property.structure.compound.id::*}.zip|"},
 //         {"IFD.property.collection.object":"{path}{IFD.representation.spec.nmr.vendor.dataset::{IFD.property.spec.nmr.expt.label::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
-//         {"IFD.property.collection.object":"{path}<id>/{IFD.representation.struc.mol.2d::<id>.mol}"},
+//         {"IFD.property.collection.object":"{path}<id>/{IFD.representation.structure.mol.2d::<id>.mol}"},
 //         {"IFD.property.collection.object":"{path}{IFD.representation.spec.hrms.pdf::{IFD.property.spec.hrms.expt.label::<id>/HRMS.zip|**/*}.pdf}"}
 //        ]}
 
@@ -1223,7 +1223,7 @@ public class Extractor implements IFDExtractorI {
 	 * The parser specifically looks for Matcher groups, regex (?<xxxx>...), that
 	 * have been created by the ObjectParser from an object line such as:
 	 * 
-	 * {IFD.representation.spec.nmr.vendor.dataset::{IFD.property.struc.compound.id::*-*}-{IFD.property.spec.nmr.expt.label::*}.jdf}
+	 * {IFD.representation.spec.nmr.vendor.dataset::{IFD.property.structure.compound.id::*-*}-{IFD.property.spec.nmr.expt.label::*}.jdf}
 	 *
 	 * 
 	 * 
@@ -1824,13 +1824,13 @@ public class Extractor implements IFDExtractorI {
 			//
 			// {IFD.property.spec.nmr.expt.label::*} becomes \\E(?<IFD0nmr0param0expt>.+)\\Q
 			//
-			// {IFD.representation.spec.nmr.vendor.dataset::{IFD.property.struc.compound.id::*-*}-{IFD.property.spec.nmr.expt.label::*}.jdf}
+			// {IFD.representation.spec.nmr.vendor.dataset::{IFD.property.structure.compound.id::*-*}-{IFD.property.spec.nmr.expt.label::*}.jdf}
 			//
 			// becomes:
 			//
 			// ^(?<IFD0nmr0representation0vendor0dataset>(?<IFD0structure0param0compound0id>([^-](?:-[^-]+)*))\\Q-\\E(?<IFD0nmr0param0expt>.+)\\Q.jdf\\E)$
 			//
-			// {id=IFD.property.struc.compound.id::*}.zip|{IFD.representation.spec.nmr.vendor.dataset::{id}_{IFD.property.spec.nmr.expt.label::*}/}
+			// {id=IFD.property.structure.compound.id::*}.zip|{IFD.representation.spec.nmr.vendor.dataset::{id}_{IFD.property.spec.nmr.expt.label::*}/}
 			//
 			// becomes:
 			//
