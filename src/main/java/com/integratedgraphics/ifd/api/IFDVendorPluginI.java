@@ -26,9 +26,11 @@ import com.integratedgraphics.ifd.Extractor;
  * 
  * By accepting a data block either by reading its bytes or by recognizing a
  * file name, the plugin will be offered the opportunity to populate standard
- * IFDConst.Property fields with values. (Or, for that matter, do anything else
- * it wants, including create new files from the data, since it will have access
- * to both the IFDExtractorI and IFDVendorPluginI instances once it accepts.)
+ * property fields with values found in
+ * org.iupac.fairdata.common.fairdata.properties (Or, for that matter, do
+ * anything else it wants, including create new files from the data, since it
+ * will have access to both the IFDExtractorI and IFDVendorPluginI instances
+ * once it accepts.)
  * 
  * @author hansonr
  *
