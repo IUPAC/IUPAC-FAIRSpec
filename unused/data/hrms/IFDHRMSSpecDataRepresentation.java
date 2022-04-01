@@ -1,9 +1,9 @@
-package org.iupac.fairdata.spec.hrms;
+package org.iupac.fairdata.data.hrms;
 
 import org.iupac.fairdata.common.IFDReference;
-import org.iupac.fairdata.spec.IFDSpecDataRepresentation;
+import org.iupac.fairdata.core.IFDDataObjectRepresentation;
 
-public class IFDHRMSSpecDataRepresentation extends IFDSpecDataRepresentation {
+public class IFDHRMSSpecDataRepresentation extends IFDDataObjectRepresentation {
 
 	public final static String IFD_REP_SPEC_HRMS_VENDOR_DATASET = "IFD.representation.spec.hrms.vendor.dataset";
 	public final static String IFD_REP_SPEC_HRMS_SPECTRUM_PDF = "IFD.representation.spec.hrms.spectrum.pdf";

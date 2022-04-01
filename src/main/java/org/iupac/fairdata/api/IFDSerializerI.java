@@ -27,12 +27,12 @@ public interface IFDSerializerI {
 	/**
 	 * 
 	 * Generate the serialization and optionally save it to disk as
-	 * [rootname]_IFD_PROP_COLLECTION.[ext] and optionally create an _IFD_collection.zip
+	 * [rootname]_IFD_PROP_FINDABLE_COLLECTION.[ext] and optionally create an _IFD_collection.zip
 	 * in that same directory.
 	 * 
 	 * @param ifdFindingAid the requesting IFDFindingAid
 	 * @param targetDir or null for no output
-	 * @param rootName  a prefix root such as "acs.orglett.0c00572." to add to the _IFD_PROP_COLLECTION.json (or.xml)
+	 * @param rootName  a prefix root such as "acs.orglett.0c00572." to add to the _IFD_PROP_FINDABLE_COLLECTION.json (or.xml)
 	 *                  finding aid created
 	 * @param products  optionally, a list of directories containing the files referenced by the
 	 *                  finding aid for creating the IFD_collection.zip file

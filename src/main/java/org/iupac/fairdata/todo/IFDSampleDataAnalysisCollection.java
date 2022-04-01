@@ -1,4 +1,4 @@
-package org.iupac.fairdata.sample;
+package org.iupac.fairdata.todo;
 
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDCollection;
@@ -9,10 +9,19 @@ import org.iupac.fairdata.core.IFDCollection;
  *
  */
 @SuppressWarnings({ "serial" })
-public abstract class IFDSampleAnalysisCollection extends IFDCollection<IFDSampleAnalysis> {
+public class IFDSampleDataAnalysisCollection extends IFDCollection<IFDSampleDataAnalysis> {
 
-	public IFDSampleAnalysisCollection(String name, String type) throws IFDException {
-		super(name, (type == null ? ObjectType.SampleAnalysisCollection : type));
+	public IFDSampleDataAnalysisCollection(String name) {
+		this(name, null);
+	}
+
+	public IFDSampleDataAnalysisCollection(String name, String type) {
+		super(name, type);
+	}
+
+	@Override
+	public Class<?>[] getObjectTypes() {
+		return new Class<?>[] { IFDSampleDataAnalysis.class };
 	}
 
 }

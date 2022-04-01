@@ -1,11 +1,14 @@
-package org.iupac.fairdata.core;
+package org.iupac.fairdata.dataobject;
 
+import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.common.IFDRepresentation;
+import org.iupac.fairdata.common.IFDReference;
+import org.iupac.fairdata.core.IFDRepresentableObject;
+import org.iupac.fairdata.core.IFDRepresentation;
 
 /**
  * A generic interface indicating some sort of data. Implemented here as
- * IFDSpecData, but potentially implemented for any sort of data object.
+ * IFDDataObject, but potentially implemented for any sort of data object.
  * 
  * Allows for named representions. 
  * 
@@ -13,10 +16,35 @@ import org.iupac.fairdata.common.IFDRepresentation;
  *
  */
 @SuppressWarnings("serial")
-public abstract class IFDDataObject<T extends IFDRepresentation> extends IFDRepresentableObject<T> {
+public class IFDDataObject extends IFDRepresentableObject<IFDRepresentation> {
 
-	public IFDDataObject(String name, String type) throws IFDException {
-		super(name, type);
+	@Override
+	protected IFDDataObjectRepresentation newRepresentation(String name, IFDReference ref, Object obj, long len, String type, String subtype) {
+		return new IFDDataObjectRepresentation(ref, obj, len, type, subtype);
+
+	}	
+
+	public IFDDataObject(String name, String type) {
+		super(name, type);		
 	}
-	
+
+	@Override
+	public String toString() {
+		return (name == null ? super.toString()
+				: "[" + type + " " + index + " " + name + " " + (size() > 0 ? get(0) : null) + "]");
+	}
+
+	@Override
+	protected void serializeProps(IFDSerializerI serializer) {
+		super.serializeProps(serializer);
+	}
+
+	@Override
+	public Object clone() {
+		IFDDataObject data = new IFDDataObject(name, type);
+		for (int i = 0; i < size(); i++)
+			data.add(get(i));
+		return data;
+	}
+
 }

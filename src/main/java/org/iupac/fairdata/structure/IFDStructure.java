@@ -1,4 +1,4 @@
-package org.iupac.fairdata.struc;
+package org.iupac.fairdata.structure;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
@@ -9,28 +9,18 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 @SuppressWarnings("serial")
 public class IFDStructure extends IFDRepresentableObject<IFDStructureRepresentation> {
 
-	public static final String IFD_PROP_STRUC_COMPOUND_LABEL  = "IFD.property.struc.compound.label";
-	public static final String IFD_PROP_STRUC_SMILES       = "IFD.property.struc.smiles";
-	public static final String IFD_PROP_STRUC_INCHI        = "IFD.property.struc.inchi";
-	public static final String IFD_PROP_STRUC_INCHIKEY     = "IFD.property.struc.inchikey";
-
 	{
-		super.setProperties(new IFDProperty[] {
-				new IFDProperty(IFDStructure.IFD_PROP_STRUC_COMPOUND_LABEL),
-				new IFDProperty(IFDStructure.IFD_PROP_STRUC_SMILES),
-				new IFDProperty(IFDStructure.IFD_PROP_STRUC_INCHI),
-				new IFDProperty(IFDStructure.IFD_PROP_STRUC_INCHIKEY),
-		});
+		setProperties("IFD_PROP_STRUC", "IFD_PROP_STRUC_REP");
 	}	
-
-	public IFDStructure(String name) throws IFDException {
-		super(name, ObjectType.Structure);
+	
+	public IFDStructure(String name) {
+		super(name, null);
 	}
 	
-	public IFDStructure(String path, String param, String value) throws IFDException {
-		super(param + ";" + value, ObjectType.Structure);
+	public IFDStructure(String path, String param, String value) {
+		super(param + ";" + value, null);
 		setPath(path);
-		if (param.equals(IFDStructure.IFD_PROP_STRUC_COMPOUND_LABEL) || IFDConst.isRepresentation(param))
+		if (param.equals(IFDConst.IFD_PROP_SAMPLE_LABEL) || IFDConst.isRepresentation(param))
 			name = value;
 		setPropertyValue(param, value);
 	}

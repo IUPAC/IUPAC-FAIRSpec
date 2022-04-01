@@ -1,11 +1,9 @@
 package org.iupac.fairdata.sample;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDCollection;
+import org.iupac.fairdata.core.IFDObject;
 
 /**
  * A collection of IFDSample objects.
@@ -14,17 +12,22 @@ import org.iupac.fairdata.core.IFDCollection;
  *
  */
 @SuppressWarnings({ "serial" })
-public class IFDSampleCollection extends IFDCollection<IFDSample> {
+public class IFDSampleCollection extends IFDCollection<IFDObject<?>> {
 
-	public IFDSampleCollection(String name) throws IFDException {
-		super(name, ObjectType.SampleCollection);
+	public IFDSampleCollection(String name) {
+		super(name, null);
 	}
 	
-	private Map<String, IFDSample> map = new HashMap<>();
+	
+	public IFDSampleCollection(String name, IFDSample sample) {
+		this(name);
+		add(sample);
+	}
 
-	public IFDSample getSampleFor(String rootPath, String localName, String param, String value, String zipName, String mediaType) throws IFDException {
+	
+	public IFDSample getSampleFor(String rootPath, String localName, String param, String value, String zipName, String mediaType) {
 		String keyValue = param + ";" + value;
-		IFDSample sd = map.get(keyValue);
+		IFDSample sd = (IFDSample) map.get(keyValue);
 		if (sd == null) {
 			map.put(keyValue,  sd = new IFDSample(rootPath, param, value));
 			add(sd);
@@ -32,6 +35,11 @@ public class IFDSampleCollection extends IFDCollection<IFDSample> {
 		if (IFDConst.isRepresentation(param))
 			sd.addRepresentation(zipName, localName, param, mediaType);
 		return sd;
+	}
+
+	@Override
+	public Class<?>[] getObjectTypes() {
+		return new Class<?>[] { IFDSample.class };
 	}
 
 }

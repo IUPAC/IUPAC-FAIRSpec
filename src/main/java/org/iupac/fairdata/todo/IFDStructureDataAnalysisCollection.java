@@ -1,6 +1,5 @@
-package org.iupac.fairdata.struc;
+package org.iupac.fairdata.todo;
 
-import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDCollection;
 
 /**
@@ -9,14 +8,22 @@ import org.iupac.fairdata.core.IFDCollection;
  *
  */
 @SuppressWarnings({ "serial" })
-public abstract class IFDStructureAnalysisCollection extends IFDCollection<IFDStructureAnalysis> {
+public class IFDStructureDataAnalysisCollection extends IFDCollection<IFDStructureDataAnalysis> {
 
-	public IFDStructureAnalysisCollection(String name, String type) throws IFDException {
-		super(name, (type == null ? ObjectType.StructureAnalysisCollection : type));
+	public IFDStructureDataAnalysisCollection(String name) {
+		this(name, null);
+	}
+	public IFDStructureDataAnalysisCollection(String name, String type) {
+		super(name, type);
 	}
 
-	public void addAnalysis(IFDStructureAnalysis a) {
+	public void addAnalysis(IFDStructureDataAnalysis a) {
 		super.add(a);
+	}
+
+	@Override
+	public Class<?>[] getObjectTypes() {
+		return new Class<?>[] { IFDStructureDataAnalysis.class };
 	}
 
 

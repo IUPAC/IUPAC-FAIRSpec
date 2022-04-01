@@ -1,11 +1,11 @@
-package org.iupac.fairdata.spec.nmr;
+package org.iupac.fairdata.data.nmr;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.common.IFDProperty;
 import org.iupac.fairdata.common.IFDReference;
-import org.iupac.fairdata.spec.IFDSpecData;
-import org.iupac.fairdata.spec.IFDSpecDataRepresentation;
+import org.iupac.fairdata.core.IFDDataObject;
+import org.iupac.fairdata.core.IFDDataObjectRepresentation;
 
 /**
  *
@@ -13,7 +13,7 @@ import org.iupac.fairdata.spec.IFDSpecDataRepresentation;
  *
  */
 @SuppressWarnings("serial")
-public final class IFDNMRSpecData extends IFDSpecData {
+public final class IFDNMRSpecData extends IFDDataObject {
 
 	public static final String IFD_TYPE_SPEC_NMR = "spec.nmr";
 	
@@ -80,7 +80,7 @@ public final class IFDNMRSpecData extends IFDSpecData {
 	}
 
 	@Override
-	protected IFDSpecDataRepresentation newRepresentation(String name, IFDReference ref, Object obj, long len, String type, String subtype) {
+	protected IFDDataObjectRepresentation newRepresentation(String name, IFDReference ref, Object obj, long len, String type, String subtype) {
 		return new IFDNMRSpecDataRepresentation(ref, obj, len, type, subtype);
 
 	}	
@@ -97,8 +97,8 @@ public final class IFDNMRSpecData extends IFDSpecData {
 	}
 
 	@Override
-	protected IFDSpecData newInstance() throws IFDException {
-		IFDSpecData d = new IFDNMRSpecData();
+	protected IFDDataObject newInstance() throws IFDException {
+		IFDDataObject d = new IFDNMRSpecData();
 		d.setPropertyValue(IFD_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME, getPropertyValue(IFD_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME));
 		return d;
 	}

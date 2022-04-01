@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.iupac.fairdata.util.Util;
+import org.iupac.fairdata.util.IFDUtilities;
 import org.nmrml.parser.Acqu;
 import org.nmrml.parser.jeol.JeolParameter;
 
@@ -44,7 +44,7 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 	public NmrMLJeolAcquStreamReader(byte[] bytes) throws FileNotFoundException, IOException {
 		super(bytes);
 		if (jeolIni == null) {
-			jeolIni = Util.getJSONResource(Acqu.class, "jeol.ini.json");
+			jeolIni = IFDUtilities.getJSONResource(Acqu.class, "jeol.ini.json");
 		}
 	}
 
@@ -432,7 +432,7 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 		showChars = false;
 		try {
 			String filename = new File(fname).getAbsolutePath();
-			byte[] bytes = Util.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
+			byte[] bytes = IFDUtilities.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
 			System.out.println(bytes.length + " bytes in " + filename);
 			Acqu acq = new NmrMLJeolAcquStreamReader(bytes).read();
 			System.out.println(acq);

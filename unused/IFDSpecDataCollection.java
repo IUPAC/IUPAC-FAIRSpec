@@ -19,6 +19,11 @@ import javajs.util.PT;
 @SuppressWarnings("serial")
 public class IFDSpecDataCollection extends IFDDataObjectCollection<IFDSpecData> {
 
+	@Override
+	public Class<?>[] getObjectTypes() {
+		return new Class<?>[] { IFDSpecData.class };
+	}
+
 	private Map<String, Constructor<?>> htConstructors = new HashMap<>();
 
 	public IFDSpecDataCollection(String name, IFDSpecData data) throws IFDException {
@@ -39,16 +44,16 @@ public class IFDSpecDataCollection extends IFDDataObjectCollection<IFDSpecData> 
 		return subtype;
 	}
 	
-	public boolean remove(Object o) {
-		return super.remove(o);
-		
-	}
-
-	public IFDSpecData remove(int i) {
-		return super.remove(i);
-		
-	}
-
+//	public boolean remove(Object o) {
+//		return super.remove(o);
+//		
+//	}
+//
+//	public IFDSpecData remove(int i) {
+//		return super.remove(i);
+//		
+//	}
+//
 
 	/**
 	 * Use dynamic class loading to create a new IFDSpecData object, caching the

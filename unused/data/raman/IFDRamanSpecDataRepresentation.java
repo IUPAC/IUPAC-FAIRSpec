@@ -1,9 +1,9 @@
-package org.iupac.fairdata.spec.raman;
+package org.iupac.fairdata.data.raman;
 
 import org.iupac.fairdata.common.IFDReference;
-import org.iupac.fairdata.spec.IFDSpecDataRepresentation;
+import org.iupac.fairdata.core.IFDDataObjectRepresentation;
 
-public class IFDRamanSpecDataRepresentation extends IFDSpecDataRepresentation {
+public class IFDRamanSpecDataRepresentation extends IFDDataObjectRepresentation {
 
 
 	public final static String IFD_REP_SPEC_RAMAN_VENDOR_DATASET = "IFD.representation.spec.raman.vendor.dataset";

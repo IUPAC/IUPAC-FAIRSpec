@@ -1,9 +1,9 @@
-package org.iupac.fairdata.core;
+package org.iupac.fairdata.dataobject;
 
 import org.iupac.fairdata.common.IFDReference;
-import org.iupac.fairdata.common.IFDRepresentation;
+import org.iupac.fairdata.core.IFDRepresentation;
 
-public abstract class IFDDataObjectRepresentation extends IFDRepresentation {
+public class IFDDataObjectRepresentation extends IFDRepresentation {
 
 	public IFDDataObjectRepresentation(IFDReference ref, Object data, long len, String type, String subtype) {
 		super(ref, data, len, type, subtype);

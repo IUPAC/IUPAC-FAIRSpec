@@ -24,7 +24,7 @@ import javajs.util.JSJSONParser;
  * @author hansonr
  *
  */
-public class Util {
+public class IFDUtilities {
 
 	public static byte[] getLimitedStreamBytes(InputStream is, long n, OutputStream out, boolean andCloseInput, boolean andCloseOutput)
 			throws IOException {
@@ -103,12 +103,12 @@ public class Util {
 	public static void setLogging(String fname) {
 		try {
 			if (fname == null) {
-				if (Util.logStream != null) {
-					Util.logStream.close();
+				if (IFDUtilities.logStream != null) {
+					IFDUtilities.logStream.close();
 				}
 				return;
 			}
-			Util.logStream = new FileOutputStream(fname);
+			IFDUtilities.logStream = new FileOutputStream(fname);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -129,7 +129,7 @@ public class Util {
 
 
 	public static Map<String, Object> getJSONURL(String url) throws MalformedURLException, IOException {
-		return new JSJSONParser().parseMap(Util.getURLContentsAsString(url), false);
+		return new JSJSONParser().parseMap(IFDUtilities.getURLContentsAsString(url), false);
 	}
 
 

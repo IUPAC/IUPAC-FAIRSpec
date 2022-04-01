@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.TreeMap;
 
-import org.iupac.fairdata.util.Util;
+import org.iupac.fairdata.util.IFDUtilities;
 import org.json.simple.JSONObject;
 
 import com.integratedgraphics.ifd.Extractor;
@@ -1234,7 +1234,7 @@ fname = "c:/temp/mnova/(R,R)-mix2 (C6D6).mnova";
 			File f = new File(fname);
 			String filename = f.getAbsolutePath();
 // this is the 158-MB file
-			byte[] bytes = Util.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
+			byte[] bytes = IFDUtilities.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
 			System.out.println(bytes.length + " bytes in " + filename);
 			MNovaMetadataReader rdr = new MNovaMetadataReader(bytes);
 			if (outdir == null) {

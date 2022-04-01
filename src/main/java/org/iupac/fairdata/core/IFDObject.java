@@ -86,7 +86,7 @@ import org.iupac.fairdata.common.IFDProperty;
  * scientist would call "their data", such as a full vendor experiment dataset
  * (a Bruker NMR experiment), a PNG image of a spectrum, or a peaklist.
  * 
- * For the IUPAC FAIRSpec Project, we extend this class to IFDSpecData and its
+ * For the IUPAC FAIRSpec Project, we extend this class to IFDDataObject and its
  * subclasses (IFDNMRSpecData, IFDIRSpecData, etc.). We recognize, however, that
  * the system we are developing is not limited to spectroscopic data only, and
  * future implementations of this data model may subclass IFDDataObject in
@@ -231,21 +231,21 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 */
 	private int minCount;
 
-	protected final String classType;
+	protected final String type;
 
-	protected String subtype = ObjectType.Unknown;
+	protected String subtype = "Unknown";
 
 	@SuppressWarnings("unchecked")
-	public IFDObject(String name, String type) throws IFDException {
+	public IFDObject(String name, String type) {
 		this(name, type, Integer.MAX_VALUE);
 	}
 
 	@SuppressWarnings("unchecked")
-	public IFDObject(String name, String type, int maxCount, T... initialSet) throws IFDException {
+	public IFDObject(String name, String type, int maxCount, T... initialSet) {
 		this.name = name;
 		if (type == null)
-			throw new IFDException("IFDObject must have a type");
-		this.classType = type;
+			type = this.getClass().getName();
+		this.type = type;
 		this.maxCount = maxCount;
 		this.index = indexCount++;
 		if (initialSet == null) {
@@ -271,11 +271,10 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * Generally set only by subclasses during construction, these IFDProperty
 	 * definitions are added to the htProps list.
 	 * 
-	 * @param properties
+	 * @param key
 	 */
-	protected void setProperties(IFDProperty[] properties) {
-		for (int i = properties.length; --i >= 0;)
-			htProps.put(properties[i].getName(), properties[i]);
+	protected void setProperties(String key, String notKey) {
+		IFDConst.setProperties(htProps, key, notKey);
 	}
 
 	public Map<String, IFDProperty> getProperties() {
@@ -344,7 +343,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	@Override
 	public String getObjectType() {
-		return classType;
+		return type;
 	}
 
 	@Override
@@ -417,7 +416,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	@Override
 	public String getSerializedType() {
-		return classType;
+		return type;
 	}
 
 	@Override
@@ -429,7 +428,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	protected void serializeTop(IFDSerializerI serializer) {
 		serializer.addAttr("type", getSerializedType());
-		if (subtype != null && subtype != ObjectType.Unknown)
+		if (subtype != null && subtype != "Unknown")
 			serializer.addAttr("subtype", subtype);
 		serializer.addAttr("name", getName());
 		serializer.addAttr("id", getID());

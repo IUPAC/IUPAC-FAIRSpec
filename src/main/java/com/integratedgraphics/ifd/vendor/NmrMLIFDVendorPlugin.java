@@ -3,7 +3,6 @@ package com.integratedgraphics.ifd.vendor;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.iupac.fairdata.spec.nmr.IFDNMRSpecData;
 import org.nmrml.parser.Acqu;
 
 import com.integratedgraphics.ifd.util.IFDDefaultVendorPlugin;
@@ -14,18 +13,18 @@ public abstract class NmrMLIFDVendorPlugin extends IFDDefaultVendorPlugin {
 
 	static {
 		String[] keys = { //
-				"DIM", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_DIM, //
-				"F1", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_FREQ_1, //
-				"F2", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_FREQ_2, //
-				"F3", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_FREQ_3, //
-				"N1", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_NUCL_1, //
-				"N2", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_NUCL_2, //
-				"N3", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_NUCL_3, //
-				"PP", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_PULSE_PROG, //
-				"SOLVENT", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_SOLVENT, //
-				"SF", IFDNMRSpecData.IFD_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL, //
-				"PROBE", IFDNMRSpecData.IFD_PROP_SPEC_NMR_INSTR_PROBE_TYPE, //
-				"TEMPERATURE", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE, //
+				"DIM", getProp("IFD_PROP_SPEC_NMR_EXPT_DIM"), //prop
+				"F1", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_1"), //prop
+				"F2", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_2"), //prop
+				"F3", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_3"), //prop
+				"N1", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_1"), //prop
+				"N2", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_2"), //prop
+				"N3", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_3"), //prop
+				"PP", getProp("IFD_PROP_SPEC_NMR_EXPT_PULSE_PROG"), //prop
+				"SOLVENT", getProp("IFD_PROP_SPEC_NMR_EXPT_SOLVENT"), //prop
+				"SF", getProp("IFD_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
+				"PROBE", getProp("IFD_PROP_SPEC_NMR_INSTR_PROBE_TYPE"), //prop
+				"TEMPERATURE", getProp("IFD_PROP_SPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
 		};
 
 		for (int i = 0; i < keys.length;)

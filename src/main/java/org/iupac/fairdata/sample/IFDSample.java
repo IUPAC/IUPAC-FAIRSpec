@@ -1,10 +1,11 @@
 package org.iupac.fairdata.sample;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.common.IFDProperty;
 import org.iupac.fairdata.common.IFDReference;
-import org.iupac.fairdata.common.IFDRepresentation;
 import org.iupac.fairdata.core.IFDRepresentableObject;
+import org.iupac.fairdata.core.IFDRepresentation;
 
 /**
  * An IFDSample represents a physical sample that optionally has one or the
@@ -31,23 +32,18 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 @SuppressWarnings("serial")
 public class IFDSample extends IFDRepresentableObject<IFDSampleRepresentation> {
 
-	public static final String IFD_PROP_SAMPLE_ID = "IFD.property.sample.id";
-
 	{
-		super.setProperties(new IFDProperty[] {
-				new IFDProperty(IFDSample.IFD_PROP_SAMPLE_ID),
-				// could be MANY standard properties here
-		});
+		super.setProperties("IFD_PROP_SAMPLE_", "IFD_PROP_SAMPLE_REP_");
 	}
 	
-	public IFDSample(String name, String type) throws IFDException {
+	public IFDSample(String name, String type) {
 		super(name, type);
 	}
 
-	public IFDSample(String path, String param, String value) throws IFDException {
-		super(param + ";" + value, ObjectType.Sample);
+	public IFDSample(String path, String param, String value) {
+		super(param + ";" + value, null);
 		setPath(path);
-		if (param.equals(IFDSample.IFD_PROP_SAMPLE_ID))
+		if (param.equals(IFDConst.IFD_PROP_SAMPLE_ID))
 			name = value;
 		setPropertyValue(param, value);
 	}

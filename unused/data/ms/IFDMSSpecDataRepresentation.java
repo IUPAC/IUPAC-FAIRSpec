@@ -1,9 +1,9 @@
-package org.iupac.fairdata.spec.ms;
+package org.iupac.fairdata.data.ms;
 
 import org.iupac.fairdata.common.IFDReference;
-import org.iupac.fairdata.spec.IFDSpecDataRepresentation;
+import org.iupac.fairdata.core.IFDDataObjectRepresentation;
 
-public class IFDMSSpecDataRepresentation extends IFDSpecDataRepresentation {
+public class IFDMSSpecDataRepresentation extends IFDDataObjectRepresentation {
 
 	public final static String IFD_REP_SPEC_MS_VENDOR_DATASET = "IFD.representation.spec.ms.vendor.dataset";
 	public final static String IFD_REP_SPEC_MS_SPECTRUM_PDF = "IFD.representation.spec.ms.spectrum.pdf";

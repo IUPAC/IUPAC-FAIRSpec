@@ -7,9 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairdata.api.IFDExtractorI;
-import org.iupac.fairdata.spec.nmr.IFDNMRSpecData;
-import org.iupac.fairdata.spec.nmr.IFDNMRSpecDataRepresentation;
-import org.iupac.fairdata.util.Util;
+import org.iupac.fairdata.util.IFDUtilities;
 
 import com.integratedgraphics.ifd.Extractor;
 import com.integratedgraphics.ifd.api.IFDVendorPluginI;
@@ -31,18 +29,18 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 		// order here is not significant; keys without the JCAMP vendor prefix are
 		// derived, not the value itself
 		String[] keys = { //
-				"DIM", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_DIM, //
-				"##$BF1", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_FREQ_1, //
-				"##$BF2", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_FREQ_2, //
-				"##$BF3", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_FREQ_3, //
-				"##$NUC1", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_NUCL_1, //
-				"##$NUC2", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_NUCL_2, //
-				"##$NUC3", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_NUCL_3, //
-				"##$PULPROG", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_PULSE_PROG, //
-				"##$TE", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE, //
-				"SOLVENT", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_SOLVENT, //
-				"SF", IFDNMRSpecData.IFD_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL, //
-				"##$PROBHD", IFDNMRSpecData.IFD_PROP_SPEC_NMR_INSTR_PROBE_TYPE, //
+				"DIM", getProp("IFD_PROP_SPEC_NMR_EXPT_DIM"), //prop
+				"##$BF1", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_1"), //prop
+				"##$BF2", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_2"), //prop
+				"##$BF3", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_3"), //prop
+				"##$NUC1", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_1"), //prop
+				"##$NUC2", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_2"), //prop
+				"##$NUC3", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_3"), //prop
+				"##$PULPROG", getProp("IFD_PROP_SPEC_NMR_EXPT_PULSE_PROG"), //prop
+				"##$TE", getProp("IFD_PROP_SPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
+				"SOLVENT", getProp("IFD_PROP_SPEC_NMR_EXPT_SOLVENT"), //prop
+				"SF", getProp("IFD_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
+				"##$PROBHD", getProp("IFD_PROP_SPEC_NMR_INSTR_PROBE_TYPE"), //prop
 		};
 		for (int i = 0; i < keys.length;)
 			ifdMap.put(keys[i++], keys[i++]);
@@ -81,8 +79,8 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 
 	@Override
 	public boolean doRezipInclude(IFDExtractorI extractor, String baseName, String entryName) {
-		String type = (entryName.endsWith(".pdf") ? IFDNMRSpecDataRepresentation.IFD_REP_SPEC_NMR_SPECTRUM_PDF
-				: entryName.endsWith("thumb.png") ? IFDNMRSpecDataRepresentation.IFD_REP_SPEC_NMR_SPECTRUM_IMAGE
+		String type = (entryName.endsWith(".pdf") ? getProp("IFD_REP_SPEC_NMR_SPECTRUM_PDF")
+				: entryName.endsWith("thumb.png") ? getProp("IFD_REP_SPEC_NMR_SPECTRUM_IMAGE")
 						: null);
 		if (type != null)
 			extractor.addProperty(type, Extractor.localizePath(baseName + entryName));
@@ -237,7 +235,7 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 		System.out.println("====================" + ifdPath);
 		try {
 			String filename = new File(ifdPath).getAbsolutePath();
-			byte[] bytes = Util.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
+			byte[] bytes = IFDUtilities.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
 			new BrukerIFDVendorPlugin().accept(null, filename, bytes);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -251,7 +249,7 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 
 	@Override
 	public String processRepresentation(String ifdPath, byte[] bytes) {
-		return IFDNMRSpecDataRepresentation.IFD_REP_SPEC_NMR_VENDOR_DATASET;
+		return IFD_REP_SPEC_NMR_VENDOR_DATASET;
 	}
 
 }

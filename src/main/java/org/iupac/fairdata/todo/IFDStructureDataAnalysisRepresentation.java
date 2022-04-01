@@ -1,18 +1,11 @@
-package org.iupac.fairdata.struc;
+package org.iupac.fairdata.todo;
 
 import org.iupac.fairdata.common.IFDReference;
-import org.iupac.fairdata.common.IFDRepresentation;
+import org.iupac.fairdata.core.IFDRepresentation;
 
-public abstract class IFDStructureAnalysisRepresentation extends IFDRepresentation {
+public class IFDStructureDataAnalysisRepresentation extends IFDRepresentation {
 
-	private final static String[] repNames = new String[] {
-	};
-
-	public static String[] getRepnames() {
-		return repNames;
-	}
-
-	public IFDStructureAnalysisRepresentation(IFDReference ref, Object data, long len, String type, String subtype) {
+	public IFDStructureDataAnalysisRepresentation(IFDReference ref, Object data, long len, String type, String subtype) {
 		super(ref, data, len, type, subtype);
 	}
 

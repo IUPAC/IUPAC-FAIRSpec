@@ -1,7 +1,7 @@
 package org.iupac.fairdata.sample;
 
 import org.iupac.fairdata.common.IFDReference;
-import org.iupac.fairdata.common.IFDRepresentation;
+import org.iupac.fairdata.core.IFDRepresentation;
 
 /**
  * Some sort of representation of a Sample (image, for example?)

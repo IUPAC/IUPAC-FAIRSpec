@@ -1,12 +1,16 @@
 package com.integratedgraphics.ifd.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Map;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.iupac.fairdata.api.IFDExtractorI;
 import org.iupac.fairdata.api.IFDPropertyManagerI;
-import org.iupac.fairdata.spec.nmr.IFDNMRSpecData;
+import org.iupac.fairdata.common.IFDConst;
 
 import com.integratedgraphics.ifd.api.IFDVendorPluginI;
 
@@ -134,8 +138,15 @@ public abstract class IFDDefaultVendorPlugin implements IFDVendorPluginI {
 		rezipping = true;
 	}
 
-	protected void reportVendor() {
-		addProperty(IFDNMRSpecData.IFD_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME, getVendorName());
+	protected static String getProp(String name) {
+		return IFDConst.getProp(name);
+	}
+
+	protected final static String IFD_REP_SPEC_NMR_VENDOR_DATASET = getProp("IFD_REP_SPEC_NMR_VENDOR_DATASET");
+    final static String IFD_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME = getProp("IFD_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME");
+
+    protected void reportVendor() {
+		addProperty(IFD_PROP_SPEC_NMR_INSTR_MANUFACTURER_NAME, getVendorName());
 	}
 
 	/**
@@ -269,4 +280,5 @@ public abstract class IFDDefaultVendorPlugin implements IFDVendorPluginI {
 //		// TODO Auto-generated method stub
 //		
 //	}
+
 }

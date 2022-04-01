@@ -1,12 +1,16 @@
-package org.iupac.fairdata.assoc;
+package org.iupac.fairdata.todo;
 
 import org.iupac.fairdata.api.IFDSerializerI;
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
+import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
-import org.iupac.fairdata.core.IFDDataObject;
-import org.iupac.fairdata.core.IFDDataObjectCollection;
-import org.iupac.fairdata.struc.IFDStructure;
-import org.iupac.fairdata.struc.IFDStructureCollection;
+import org.iupac.fairdata.core.IFDFindingAid;
+import org.iupac.fairdata.core.IFDObject;
+import org.iupac.fairdata.dataobject.IFDDataObject;
+import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
+import org.iupac.fairdata.structure.IFDStructure;
+import org.iupac.fairdata.structure.IFDStructureCollection;
 
 /**
  * A class to correlation one or more IFDStructure with one or more
@@ -22,15 +26,32 @@ import org.iupac.fairdata.struc.IFDStructureCollection;
  *
  */
 @SuppressWarnings("serial")
-public abstract class IFDStructureDataAssociation extends IFDCollection<IFDCollection<?>> {
+public class IFDStructureDataAssociation extends IFDAssociation {
 	
 	private final static int ITEM_STRUC = 0;
 	private final static int ITEM_DATA = 1;
+	@Override
+	public Class<?>[] getObjectTypes() {
+		return new Class<?>[] {
+			IFDStructureCollection.class, IFDDataObjectCollection.class
+		};
+	}
 	
-	public IFDStructureDataAssociation(String name, String type, IFDStructureCollection structureCollection, IFDDataObjectCollection<?> dataCollection) throws IFDException {
-		super(name, type, 2, structureCollection, dataCollection);
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public IFDStructureDataAssociation(String name, String type
+			, IFDStructureCollection structureCollection
+			, IFDDataObjectCollection dataCollection) throws IFDException {
+		super(name, type, structureCollection, (IFDCollection<IFDObject<?>>) dataCollection);
 		if (dataCollection == null || structureCollection == null)
 			throw new IFDException("IFDSample constructure must provide IFDStructureCollection and IFDDataCollection");
+	}
+	
+	public IFDStructureDataAssociation(String name, IFDStructure structure, IFDDataObject data) {
+		super(name, null, new IFDStructureCollection("structures", structure), new IFDDataObjectCollection("data", data));
+	}
+
+	public IFDStructureDataAssociation(String name, IFDStructureCollection structureCollection, IFDDataObjectCollection dataCollection) {
+		super(name, null, structureCollection, dataCollection);		
 	}
 	
 	@Override
@@ -45,41 +66,31 @@ public abstract class IFDStructureDataAssociation extends IFDCollection<IFDColle
 		return (IFDStructureCollection) get(ITEM_STRUC);
 	}
 
-	@SuppressWarnings("unchecked")
-	public IFDDataObjectCollection<IFDDataObject<?>> getDataObjectCollection() {
-		return (IFDDataObjectCollection<IFDDataObject<?>>) get(ITEM_DATA);
+	public IFDCollection<IFDObject<?>> getDataObjectCollection() {
+		return (IFDCollection<IFDObject<?>>) get(ITEM_DATA);
 	}
 
 	public IFDStructure getStructure(int i) {
-		return getStructureCollection().get(i);
+		return (IFDStructure) getStructureCollection().get(i);
 	}
 
-	public IFDDataObject<?> getDataObject(int i) {
-		return (IFDDataObject<?>) getDataObjectCollection().get(i);
-	}
-
-	public IFDStructure getFirstStructure() {
-		return getStructureCollection().get(0);
-	}
-
-	public IFDDataObject<?> getFirstDataObject() {
-		return (IFDDataObject<?>) getDataObjectCollection().get(0);
+	public IFDDataObject getDataObject(int i) {
+		return (IFDDataObject) getDataObjectCollection().get(i);
 	}
 
 	@Override
 	protected void serializeList(IFDSerializerI serializer) {
-		serializer.addObject("struc", getStructureCollection().getIndexList());
-		serializer.addObject("data", getDataObjectCollection().getIndexList());
+		serializer.addObject("obj1", getStructureCollection().getIndexList());
+		serializer.addObject("obj2", getDataObjectCollection().getIndexList());
 	}
 	
 	protected boolean addStructure(IFDStructure struc) {
 		return getStructureCollection().add(struc);
 	}
 
-	protected boolean addDataObject(IFDDataObject<?> data) {
+	protected boolean addDataObject(IFDDataObject data) {
 		return getDataObjectCollection().add(data);
 	}
-
-
+	
 
 }

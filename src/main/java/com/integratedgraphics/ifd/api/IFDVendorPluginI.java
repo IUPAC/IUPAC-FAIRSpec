@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.iupac.fairdata.api.IFDExtractorI;
 import org.iupac.fairdata.api.IFDPropertyManagerI;
-import org.iupac.fairdata.util.Util;
+import org.iupac.fairdata.util.IFDUtilities;
 
 import com.integratedgraphics.ifd.Extractor;
 
@@ -63,7 +63,7 @@ public interface IFDVendorPluginI extends IFDPropertyManagerI {
 			return;
 		Map<String, Object> vendors = null;
 		try {
-			vendors = Util.getJSONResource(Extractor.class, "extractor.config.json");
+			vendors = IFDUtilities.getJSONResource(Extractor.class, "extractor.config.json");
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;

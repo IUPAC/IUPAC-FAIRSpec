@@ -1,4 +1,4 @@
-package org.iupac.fairdata.util;
+package org.iupac.fairdata.helpers;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +11,7 @@ import org.iupac.fairdata.api.IFDSerializableI;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDFindingAid;
+import org.iupac.fairdata.util.IFDUtilities;
 
 import javajs.util.PT;
 
@@ -152,23 +153,23 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 			return s;
 		String aidName = "_IFD_findingaid." + getFileExt();
 		if (products != null) {
-			findingAid.setPropertyValue(IFDConst.IFD_PROP_COLLECTION_REF, null);
-			findingAid.setPropertyValue(IFDConst.IFD_PROP_COLLECTION_LEN, null);
+			findingAid.setPropertyValue(IFDConst.IFD_PROP_FINDABLE_COLLECTION_REF, null);
+			findingAid.setPropertyValue(IFDConst.IFD_PROP_FINDABLE_COLLECTION_LEN, null);
 			// byte[] followed by entry name
 			products.add(0, s.getBytes());
 			products.add(1, aidName);
 			String zipName = rootName + "_IFD_collection.zip";
 			String path = targetDir + "/" + zipName;
-			long len = Util.zip(path, targetDir.toString().length() + 1, products);
-			findingAid.setPropertyValue(IFDConst.IFD_PROP_COLLECTION_REF, zipName);
-			findingAid.setPropertyValue(IFDConst.IFD_PROP_COLLECTION_LEN, len);
+			long len = IFDUtilities.zip(path, targetDir.toString().length() + 1, products);
+			findingAid.setPropertyValue(IFDConst.IFD_PROP_FINDABLE_COLLECTION_REF, zipName);
+			findingAid.setPropertyValue(IFDConst.IFD_PROP_FINDABLE_COLLECTION_LEN, len);
 			products.remove(1);
 			products.remove(0);
 			// update external finding aid
 			s = serialize(findingAid);
 		}
 		String faPath = targetDir + "/" + rootName + aidName;
-		Util.writeBytesToFile(s.getBytes(), new File(faPath));
+		IFDUtilities.writeBytesToFile(s.getBytes(), new File(faPath));
 		return s;
 	}
 

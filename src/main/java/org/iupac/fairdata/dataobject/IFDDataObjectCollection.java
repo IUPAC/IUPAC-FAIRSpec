@@ -1,40 +1,58 @@
-package org.iupac.fairdata.core;
+package org.iupac.fairdata.dataobject;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
+import org.iupac.fairdata.core.IFDCollection;
+import org.iupac.fairdata.core.IFDObject;
 
 @SuppressWarnings("serial")
-public abstract class IFDDataObjectCollection<T extends IFDDataObject<?>> extends IFDCollection<T> {
+public class IFDDataObjectCollection extends IFDCollection<IFDObject<?>> {
 
-	protected IFDDataObjectCollection(String name, String type) throws IFDException {
+	@Override
+	public Class<?>[] getObjectTypes() {
+		return new Class<?>[] { IFDDataObject.class };
+	}
+	
+	public IFDDataObjectCollection(String name, IFDDataObject data) {
+		this(name);
+		add(data);
+	}
+
+	public IFDDataObjectCollection(String name) {
+		super(name, null);
+	}
+
+	public IFDDataObjectCollection(String name, String type) {
 		super(name, type);
 	}
 	
 	@Override
-	public boolean add(T t) {
-		if (t == null) {
-			System.out.println("IFDObject error null");
+	public IFDDataObject get(int i) {
+		return (IFDDataObject) super.get(i);
+	}
+
+	public boolean add(IFDDataObject sd) {
+		if (contains(sd))
 			return false;
-		}
-		if (contains(t)) {
-			return false;
-		}
-		if (subtype == ObjectType.Unknown)
-			subtype = t.getObjectType();
-		else if (t.getObjectType() != subtype)
-			subtype = ObjectType.Mixed;
-		return super.add(t); // true
+		if (subtype == "Unknown")
+			subtype = sd.getObjectType();
+		else if (sd.getObjectType() != subtype)
+			subtype = "Mixed";
+		super.add(sd);
+		return true;		
 	}
 	
-	private Map<String, T> map = new HashMap<>();
-
-	public T getDataObjectFor(String ifdPath, String path, String localName, String param, String value, String type, String mediaType)  throws IFDException {
+	public IFDDataObject getDataObjectFor(String ifdPath, String path, String localName, String param, String value, String type, String mediaType)  throws IFDException {
 		String keyValue = path + "::" + ifdPath;
-		T sd = map.get(keyValue);
+		IFDDataObject sd = (IFDDataObject) map.get(keyValue);
 		if (sd == null) {
- 			map.put(keyValue,  sd = newIFDDataObject(path, param, value, type));
+			String ifdtype = IFDConst.getProp("IFD_OBJECT_TYPE_" + type.toUpperCase());
+			if (ifdtype == null)
+				ifdtype = IFDConst.getProp("IFD_OBJECT_TYPE_UNKNOWN") + "." + type.toUpperCase();
+			sd = new IFDDataObject(null, ifdtype);
+			sd.setPath(ifdPath);
+			sd.setPropertyValue(param, value);
+ 			map.put(keyValue, sd);
  			add(sd);
 		} else {
 			sd.setPropertyValue(param, value);
@@ -43,16 +61,25 @@ public abstract class IFDDataObjectCollection<T extends IFDDataObject<?>> extend
 		return sd;
 	}
 
+	@Override
+	public boolean add(IFDObject<?> t) {
+		System.err.println("IFDObject error: " + t);
+		return false;
+	}
+
 	/**
-	 * subclasses are responsible for delivering their own new IFDDataObject
+	 * Replace a data object with a cloned version that has a new ID.
 	 * 
-	 * @param path
-	 * @param param
-	 * @param value
-	 * @param type
+	 * @param data
+	 * @param idExtension
 	 * @return
-	 * @throws IFDException 
 	 */
-	protected abstract T newIFDDataObject(String path, String param, String value, String type) throws IFDException;
-	
+	public IFDDataObject cloneData(IFDDataObject data, String newID) {
+		IFDDataObject newData = (IFDDataObject) data.clone();
+		newData.setID(newID);
+		remove(data);
+		add(newData);
+		return newData;
+	}
+
 }

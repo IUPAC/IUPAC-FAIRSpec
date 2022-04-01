@@ -1,33 +1,16 @@
-package org.iupac.fairdata.struc;
+package org.iupac.fairdata.structure;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDReference;
-import org.iupac.fairdata.common.IFDRepresentation;
+import org.iupac.fairdata.core.IFDRepresentation;
 
 public class IFDStructureRepresentation extends IFDRepresentation {
 
-	public static final String IFD_STRUCTURE_REP_MOL      = "IFD.representation.struc.mol"; 
-	public static final String IFD_STRUCTURE_REP_MOL_2D   = "IFD.representation.struc.mol.2d"; 
-	public static final String IFD_STRUCTURE_REP_MOL_3D   = "IFD.representation.struc.mol.3d"; 
-	public static final String IFD_STRUCTURE_REP_SDF      = "IFD.representation.struc.sdf";
-	public static final String IFD_STRUCTURE_REP_SDF_2D   = "IFD.representation.struc.sdf.2d";
-	public static final String IFD_STRUCTURE_REP_SDF_3D   = "IFD.representation.struc.sdf.3d";
-	public static final String IFD_STRUCTURE_REP_CDX      = "IFD.representation.struc.cdx";
-	public static final String IFD_STRUCTURE_REP_CDXML    = "IFD.representation.struc.cdxml";
-	public static final String IFD_STRUCTURE_REP_PNG      = "IFD.representation.struc.png"; 
-	public static final String IFD_STRUCTURE_REP_UNKNOWN  = "IFD.representation.struc.unknown";
 
-	private final static String[] repNames = new String[] {
-			IFD_STRUCTURE_REP_MOL, 
-			IFD_STRUCTURE_REP_MOL_2D, 
-			IFD_STRUCTURE_REP_MOL_3D, 
-			IFD_STRUCTURE_REP_SDF,
-			IFD_STRUCTURE_REP_CDX,
-			IFD_STRUCTURE_REP_CDXML,
-			IFD_STRUCTURE_REP_UNKNOWN
-	};
-
+	private static String[] repNames;
+	
 	public static String[] getRepnames() {
-		return repNames;
+		return (repNames == null ? (repNames = IFDConst.getPropertiesAsArray("IFD_STRUCTURE_REP_", null)) : repNames);
 	}
 
 	/**

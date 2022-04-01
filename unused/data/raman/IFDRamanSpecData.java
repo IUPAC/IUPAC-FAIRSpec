@@ -1,10 +1,10 @@
-package org.iupac.fairdata.spec.raman;
+package org.iupac.fairdata.data.raman;
 
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.common.IFDProperty;
 import org.iupac.fairdata.common.IFDReference;
-import org.iupac.fairdata.spec.IFDSpecData;
-import org.iupac.fairdata.spec.IFDSpecDataRepresentation;
+import org.iupac.fairdata.core.IFDDataObject;
+import org.iupac.fairdata.core.IFDDataObjectRepresentation;
 
 /**
  *
@@ -12,7 +12,7 @@ import org.iupac.fairdata.spec.IFDSpecDataRepresentation;
  *
  */
 @SuppressWarnings("serial")
-public final class IFDRamanSpecData extends IFDSpecData {
+public final class IFDRamanSpecData extends IFDDataObject {
 
 	public static final String IFD_TYPE_SPEC_RAMAN = "spec.raman";
 	
@@ -29,13 +29,13 @@ public final class IFDRamanSpecData extends IFDSpecData {
 	}
 	
 	@Override
-	protected IFDSpecDataRepresentation newRepresentation(String name, IFDReference ref, Object obj, long len, String type, String subtype) {
+	protected IFDDataObjectRepresentation newRepresentation(String name, IFDReference ref, Object obj, long len, String type, String subtype) {
 		return new IFDRamanSpecDataRepresentation(ref, obj, len, type, subtype);
 
 	}	
 
 	@Override
-	protected IFDSpecData newInstance() throws IFDException {
+	protected IFDDataObject newInstance() throws IFDException {
 		return new IFDRamanSpecData();
 	}
 

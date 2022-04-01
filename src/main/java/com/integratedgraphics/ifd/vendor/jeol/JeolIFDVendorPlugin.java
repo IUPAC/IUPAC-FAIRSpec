@@ -4,7 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import org.iupac.fairdata.api.IFDExtractorI;
-import org.iupac.fairdata.spec.nmr.IFDNMRSpecDataRepresentation;
 import org.nmrml.parser.Acqu;
 
 import com.integratedgraphics.ifd.vendor.NmrMLIFDVendorPlugin;
@@ -41,7 +40,7 @@ public class JeolIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 
 	@Override
 	public String processRepresentation(String ifdPath, byte[] bytes) {
-		return IFDNMRSpecDataRepresentation.IFD_REP_SPEC_NMR_VENDOR_DATASET;
+		return IFD_REP_SPEC_NMR_VENDOR_DATASET;
 	}
 
 }

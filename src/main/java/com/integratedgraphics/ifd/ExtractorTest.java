@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.util.Util;
+import org.iupac.fairdata.util.IFDUtilities;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
@@ -86,7 +86,7 @@ public class ExtractorTest extends Extractor {
 
 		String json = "";
 
-		Util.setLogging(targetDir + "/extractor.log");
+		IFDUtilities.setLogging(targetDir + "/extractor.log");
 
 		errorLog = "";
 		int n = 0;
@@ -126,7 +126,7 @@ public class ExtractorTest extends Extractor {
 		try {
 			if (createFindingAidJSONList && !readOnly) {
 				File f = new File(targetDir + "/_IFD_findingaids.json");
-				Util.writeBytesToFile(json.getBytes(), f);
+				IFDUtilities.writeBytesToFile(json.getBytes(), f);
 				System.out.println("File " + f.getAbsolutePath() + " created \n" + json);
 			} else {
 				System.out.println("_IFD_findingaids.json was not created for\n" + json);
@@ -136,7 +136,7 @@ public class ExtractorTest extends Extractor {
 		}
 		System.out.println(job);
 		System.err.println(errorLog);
-		Util.setLogging(null);
+		IFDUtilities.setLogging(null);
 	}
 
 	/**

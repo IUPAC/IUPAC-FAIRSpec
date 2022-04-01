@@ -1,68 +1,44 @@
-package org.iupac.fairdata.sample;
+package org.iupac.fairdata.todo;
 
+import org.iupac.fairdata.analysis.IFDAnalysisObject;
+import org.iupac.fairdata.api.IFDAnalysisI;
 import org.iupac.fairdata.api.IFDSerializerI;
+import org.iupac.fairdata.todo.IFDSampleDataAssociation;
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.core.IFDDataObjectCollection;
+import org.iupac.fairdata.common.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
+import org.iupac.fairdata.core.IFDRepresentation;
+import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
+import org.iupac.fairdata.sample.IFDSampleCollection;
 
 /**
- * An IFDAnalysis is a specialized IFDStructureDataAssociation that provides
- * more detailed metadata correlating one or more IFDStructure and one or more
- * IFDDataObject.
+ * An IFDSampleDataAssociation specifcally for sample-data (not structure-data) analysis. 
  * 
- * Q: Should IFDAnalysis be representable? If so, then it should not connect
+ * See IFDAnalysis for details.
  * 
- * Typically, only one structure will be involved, but the class allows for any
- * number of structures (such as in the case of a chemical mixture).
- * 
- * There can be as many spectra as are relevant to an analysis. For example, the
- * analysis can be just one structure and a 1H NMR spectrum. Or it can be a
- * compound along with its associated 1H, 13C, DEPT, HSQC, and HMBC spectra.
- * 
- * Unlike its superclass, IFDAnalysis is expected to describe in detail the
- * correlation between structure and spectra -- using specific structure
- * representations that map atom numbers to spectral signals or sets of signals.
- * 
+ * Just a placeholder
  * 
  * @author hansonr
  *
  */
 @SuppressWarnings("serial")
-public abstract class IFDSampleAnalysis extends IFDRepresentableObject<IFDSampleAnalysisRepresentation>{
-
-	private IFDSampleCollection sampleCollection;
-	private IFDDataObjectCollection<?> dataCollection;
-
-	public IFDSampleAnalysis(String name, String type, IFDSampleCollection sampleCollection,
-			IFDDataObjectCollection<?> dataCollection) throws IFDException {
-		super(name, (type == null ? ObjectType.SampleAnalysis : type));
-		this.sampleCollection = sampleCollection;
-		this.dataCollection = dataCollection;
-		if (sampleCollection == null || dataCollection == null)
-			throw new IFDException("IFDSampleAnalysis sampleCollection and dataCollection must be non-null.");
-	}
-
-	public IFDSampleCollection getSampleCollection() {
-		return sampleCollection;
-	}
-
-	public void setSampleCollection(IFDSampleCollection sampleCollection) {
-		this.sampleCollection = sampleCollection;
-	}
-
-	public IFDDataObjectCollection<?> getDataCollection() {
-		return dataCollection;
-	}
-
-	public void setDataCollection(IFDDataObjectCollection<?> dataCollection) {
-		this.dataCollection = dataCollection;
-	}
+public class IFDSampleDataAnalysis extends IFDSampleDataAssociation implements IFDAnalysisI {
 	
+	IFDAnalysisObject analysis; // TODO
+	
+	public IFDSampleDataAnalysis(String name, String type, IFDSampleCollection sampleCollection,
+			IFDDataObjectCollection dataCollection) throws IFDException {
+		super(name, type, sampleCollection, dataCollection);
+		if (sampleCollection == null || dataCollection == null)
+			throw new IFDException("IFDDAnalysis sampleCollection and dataCollection must be non-null.");
+	}
+
 	@Override
 	protected void serializeList(IFDSerializerI serializer) {
-		serializer.addObject("samples", sampleCollection.getIndexList());
-		serializer.addObject("data", dataCollection.getIndexList());
+		super.serializeList(serializer);
+		if (analysis != null)
+			analysis.serialize(serializer);
 	}
 	
-
 }

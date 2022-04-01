@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.iupac.fairdata.api.IFDExtractorI;
-import org.iupac.fairdata.spec.nmr.IFDNMRSpecData;
-import org.iupac.fairdata.spec.nmr.IFDNMRSpecDataRepresentation;
 
 import com.integratedgraphics.ifd.Extractor;
 import com.integratedgraphics.ifd.util.IFDDefaultVendorPlugin;
@@ -34,18 +32,18 @@ public class MestrelabIFDVendorPlugin extends IFDDefaultVendorPlugin {
 
 	static {
 		String[] keys = { //
-				"Pulse Sequence", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_PULSE_PROG, //
-				"Solvent", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_SOLVENT, //
-				"Probe", IFDNMRSpecData.IFD_PROP_SPEC_NMR_INSTR_PROBE_TYPE, //
-				"Temperature", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE, //
-				"Experiment", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_DIM, //
-				"F1", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_FREQ_1, //
-				"F2", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_FREQ_2, //
-				"F3", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_FREQ_3, //
-				"N1", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_NUCL_1, //
-				"N2", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_NUCL_2, //
-				"N3", IFDNMRSpecData.IFD_PROP_SPEC_NMR_EXPT_NUCL_3, //
-				"SF", IFDNMRSpecData.IFD_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL, //
+				"Pulse Sequence", getProp("IFD_PROP_SPEC_NMR_EXPT_PULSE_PROG"), //prop
+				"Solvent", getProp("IFD_PROP_SPEC_NMR_EXPT_SOLVENT"), //prop
+				"Probe", getProp("IFD_PROP_SPEC_NMR_INSTR_PROBE_TYPE"), //prop
+				"Temperature", getProp("IFD_PROP_SPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
+				"Experiment", getProp("IFD_PROP_SPEC_NMR_EXPT_DIM"), //prop
+				"F1", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_1"), //prop
+				"F2", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_2"), //prop
+				"F3", getProp("IFD_PROP_SPEC_NMR_EXPT_FREQ_3"), //prop
+				"N1", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_1"), //prop
+				"N2", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_2"), //prop
+				"N3", getProp("IFD_PROP_SPEC_NMR_EXPT_NUCL_3"), //prop
+				"SF", getProp("IFD_PROP_SPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
 		};
 
 		for (int i = 0; i < keys.length;)
@@ -86,7 +84,7 @@ public class MestrelabIFDVendorPlugin extends IFDDefaultVendorPlugin {
 
 	@Override
 	public String processRepresentation(String ifdPath, byte[] bytes) {
-		return IFDNMRSpecDataRepresentation.IFD_REP_SPEC_NMR_VENDOR_DATASET;
+		return IFD_REP_SPEC_NMR_VENDOR_DATASET;
 	}
 
 	// called from MNovaReader

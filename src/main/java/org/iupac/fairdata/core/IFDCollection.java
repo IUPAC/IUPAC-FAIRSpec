@@ -1,23 +1,26 @@
 package org.iupac.fairdata.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.common.IFDRepresentation;
+import java.util.Map;
 
 @SuppressWarnings("serial")
 public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T> {
 
-	protected IFDCollection(String name, String type) throws IFDException {
+	protected IFDCollection(String name, String type) {
 		super(name, type);
 	}
 
 	@SafeVarargs
-	public IFDCollection(String name, String type, int n, T... initialSet) throws IFDException {
+	public IFDCollection(String name, String type, int n, T... initialSet) {
 		super(name, type, n, initialSet);
 	}
 
+	abstract public Class<?>[] getObjectTypes();
+	
+	
+	
 	public List<Integer> getIndexList() {
 		List<Integer> list = new ArrayList<>();
 		for (T c : this) {
@@ -57,5 +60,35 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 		}
 		return null;
 	}
+	
+	protected Map<String, T> map = new HashMap<>();
+
+	public T getPath(String path) {
+		return map.get(path);
+	}
+	
+	/**
+	 * Add the object, checking to see that the indicated path has not been
+	 * registered and that the object is not already present.
+	 * 
+	 * @param path
+	 * @param sd
+	 * @return sd or null if not added
+	 */
+	public T addWithPath(String path, T sd) {
+		if (path != null && map.get(path) != null) {
+			return null;
+		}
+		return (add(sd) ? sd : null);
+	}
+	
+	public void replaceObject(T data, T newData) {
+		remove(data);
+		add(newData);
+	}
+
+
+
+
 
 }

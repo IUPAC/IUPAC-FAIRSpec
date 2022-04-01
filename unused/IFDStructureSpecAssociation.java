@@ -2,6 +2,7 @@ package org.iupac.fairdata.spec;
 
 import org.iupac.fairdata.assoc.IFDStructureDataAssociation;
 import org.iupac.fairdata.common.IFDException;
+import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.struc.IFDStructure;
 import org.iupac.fairdata.struc.IFDStructureCollection;
 
@@ -23,45 +24,31 @@ import org.iupac.fairdata.struc.IFDStructureCollection;
  *
  */
 @SuppressWarnings("serial")
-public class IFDStructureSpec extends IFDStructureDataAssociation {
+public class IFDStructureDataAssociation extends IFDStructureDataAssociation {
 	
-	public IFDStructureSpec(String name, IFDStructure structure, IFDSpecData data) throws IFDException {
-		super(name, IFDSpecDataFindingAid.SpecType.StructureSpec, new IFDStructureCollection("structures", structure), new IFDSpecDataCollection("specData", data));
+	@Override
+	public Class<?>[] getObjectTypes() {
+		return new Class<?>[] { IFDSpecData.class };
 	}
 
-	public IFDStructureSpec(String name, IFDStructureCollection structureCollection, IFDSpecDataCollection specDataCollection) throws IFDException {
-		super(name, IFDSpecDataFindingAid.SpecType.StructureSpec, structureCollection, specDataCollection);
+	public IFDStructureDataAssociation(String name, IFDStructure structure, IFDSpecData data) throws IFDException {
+		super(name, IFDSpecDataFindingAid.SpecType.StructureData, new IFDStructureCollection("structures", structure), new IFDSpecDataCollection("specData", data));
+	}
+
+	public IFDStructureDataAssociation(String name, IFDStructureCollection structureCollection, IFDSpecDataCollection specDataCollection) throws IFDException {
+		super(name, IFDSpecDataFindingAid.SpecType.StructureData, structureCollection, specDataCollection);		
 	}
 	
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof IFDStructureSpec))
+		if (!(o instanceof IFDStructureDataAssociation))
 			return false;
-		IFDStructureSpec ss = (IFDStructureSpec) o;
+		IFDStructureDataAssociation ss = (IFDStructureDataAssociation) o;
 		return (ss.get(0).equals(get(0)) && ss.get(1).equals(get(1)));
 	}
 
-	public IFDSpecDataCollection getSpecDataCollection() {
-		return (IFDSpecDataCollection) get(1);
-	}
-
-	@Override
-	public IFDStructure getStructure(int i) {
-		return getStructureCollection().get(i);
-	}
-
-	public IFDSpecData getSpecData(int i) {
-		return getSpecDataCollection().get(i);
-	}
-
-	@Override
-	public IFDStructure getFirstStructure() {
-		return getStructureCollection().get(0);
-	}
-
-	@Override
-	public IFDSpecData getFirstDataObject() {
-		return getSpecDataCollection().get(0);
+	public IFDSpecDataCollection getSpecDataCollection() {	
+		return (IFDSpecDataCollection) (IFDCollection<?>) get(1);
 	}
 
 

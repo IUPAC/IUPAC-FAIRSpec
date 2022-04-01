@@ -1,11 +1,11 @@
-package org.iupac.fairdata.sample;
+package org.iupac.fairdata.todo;
 
 import org.iupac.fairdata.common.IFDReference;
-import org.iupac.fairdata.common.IFDRepresentation;
+import org.iupac.fairdata.core.IFDRepresentation;
 
-public abstract class IFDSampleAnalysisRepresentation extends IFDRepresentation {
+public class IFDSampleDataAnalysisRepresentation extends IFDRepresentation {
 
-	public IFDSampleAnalysisRepresentation(IFDReference ref, Object data, long len, String type, String subtype) {
+	public IFDSampleDataAnalysisRepresentation(IFDReference ref, Object data, long len, String type, String subtype) {
 		super(ref, data, len, type, subtype);
 	}
 

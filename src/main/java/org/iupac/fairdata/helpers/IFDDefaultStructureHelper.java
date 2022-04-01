@@ -1,12 +1,13 @@
-package org.iupac.fairdata.util;
+package org.iupac.fairdata.helpers;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairdata.api.IFDExtractorI;
 import org.iupac.fairdata.api.IFDPropertyManagerI;
-import org.iupac.fairdata.struc.IFDStructure;
-import org.iupac.fairdata.struc.IFDStructureRepresentation;
+import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.structure.IFDStructure;
+import org.iupac.fairdata.structure.IFDStructureRepresentation;
 import org.jmol.api.JmolViewer;
 import org.jmol.viewer.Viewer;
 
@@ -19,7 +20,7 @@ import javajs.util.BS;
  * @author hansonr
  *
  */
-public class IFDDefaultStructurePropertyManager implements IFDPropertyManagerI {
+public class IFDDefaultStructureHelper implements IFDPropertyManagerI {
 
 	/**
 	 * the associated extractor
@@ -34,7 +35,7 @@ public class IFDDefaultStructurePropertyManager implements IFDPropertyManagerI {
 	 * 
 	 */
 
-	public IFDDefaultStructurePropertyManager(IFDExtractorI extractor) {
+	public IFDDefaultStructureHelper(IFDExtractorI extractor) {
 		this.extractor = extractor;
 	}
 
@@ -87,30 +88,31 @@ public class IFDDefaultStructurePropertyManager implements IFDPropertyManagerI {
 			// .getFileType(Rdr.getBufferedReader(Rdr.getBIS(bytes), null));
 		}
 		if (smiles != null) {
-			IFDPropertyManagerI.addProperty(extractor, IFDStructure.IFD_PROP_STRUC_SMILES, smiles);
+			IFDPropertyManagerI.addProperty(extractor, IFDConst.getProp("IFD_PROP_STRUC_SMILES"), smiles);
 		}
 		if (inchi != null) {
-			IFDPropertyManagerI.addProperty(extractor, IFDStructure.IFD_PROP_STRUC_INCHI, inchi);
+			IFDPropertyManagerI.addProperty(extractor, IFDConst.getProp("IFD_PROP_STRUC_INCHI"), inchi);
 		}
 		if (inchiKey != null) {
-			IFDPropertyManagerI.addProperty(extractor, IFDStructure.IFD_PROP_STRUC_INCHIKEY, inchiKey);
+			IFDPropertyManagerI.addProperty(extractor, IFDConst.getProp("IFD_PROP_STRUC_INCHIKEY"), inchiKey);
 		}
 		fileToType.put(ifdPath, type);
 		return type;
 	}
 
 	public static String getType(String ext, byte[] bytes) {
+		// TODO -- generalize this
 		switch (ext) {
 		case "png":
-			return IFDStructureRepresentation.IFD_STRUCTURE_REP_PNG;
+			return IFDConst.IFD_STRUCTURE_REP_PNG;
 		case "mol":
-			return (isMol2D(bytes) ? IFDStructureRepresentation.IFD_STRUCTURE_REP_MOL_2D : IFDStructureRepresentation.IFD_STRUCTURE_REP_MOL);
+			return (isMol2D(bytes) ? IFDConst.IFD_STRUCTURE_REP_MOL_2D : IFDConst.IFD_STRUCTURE_REP_MOL);
 		case "sdf":
-			return (isMol2D(bytes) ? IFDStructureRepresentation.IFD_STRUCTURE_REP_SDF_2D : IFDStructureRepresentation.IFD_STRUCTURE_REP_SDF);
+			return (isMol2D(bytes) ? IFDConst.IFD_STRUCTURE_REP_SDF_2D : IFDConst.IFD_STRUCTURE_REP_SDF);
 		case "cdx":
-			return IFDStructureRepresentation.IFD_STRUCTURE_REP_CDX;
+			return IFDConst.IFD_STRUCTURE_REP_CDX;
 		case "cdxml":
-			return IFDStructureRepresentation.IFD_STRUCTURE_REP_CDXML;
+			return IFDConst.IFD_STRUCTURE_REP_CDXML;
 		default:
 			return ext.toUpperCase();
 		}

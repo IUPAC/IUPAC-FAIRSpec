@@ -4,9 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.common.IFDProperty;
 import org.iupac.fairdata.common.IFDReference;
-import org.iupac.fairdata.common.IFDRepresentation;
 
 /**
  * A class implementing IFDRepresentableObject is expected to have one or more
@@ -30,7 +28,7 @@ import org.iupac.fairdata.common.IFDRepresentation;
 @SuppressWarnings("serial")
 public abstract class IFDRepresentableObject<T extends IFDRepresentation> extends IFDObject<T> {
 
-	public IFDRepresentableObject(String name, String type) throws IFDException {
+	public IFDRepresentableObject(String name, String type) {
 		super(name, type);
 	}
 

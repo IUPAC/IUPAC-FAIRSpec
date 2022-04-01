@@ -7,122 +7,142 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.iupac.fairdata.api.IFDSerializableI;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.common.IFDProperty;
-import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
+import org.iupac.fairdata.common.IFDResource;
+import org.iupac.fairdata.helpers.IFDDefaultJSONSerializer;
 
 /**
- * The master class for a full collection, as from a publication or thesis or whatever.
- * This class ultimately extends ArrayList, so all of the methods of that class are allowed, 
+ * The IDFFindingAid class is a master class for the organizing metadata in relation to a collection. 
+ * It is not a collection itself, and it has no representations, though as an IFDObject, it can 
+ * be serialized. This class ultimately extends ArrayList, so all of the methods of
+ * that standard Java class are allowed (add, put, replace, etc.)
  * 
  * 
  * @author hansonr
  *
  */
 @SuppressWarnings("serial")
-public abstract class IFDFindingAid extends IFDCollection<IFDCollection<?>> {
-	
-	
+public class IFDFindingAid extends IFDObject<IFDObject<?>> {
+
 	{
-		super.setProperties(new IFDProperty[] {
-				new IFDProperty(IFDConst.IFD_PROP_COLLECTION_ID),
-				new IFDProperty(IFDConst.IFD_PROP_COLLECTION_REF),
-				new IFDProperty(IFDConst.IFD_PROP_COLLECTION_LEN),
-				new IFDProperty(IFDConst.IFD_PROP_COLLECTION_SOURCE_PUBLICATION_URI),
-				new IFDProperty(IFDConst.IFD_PROP_COLLECTION_DATA_LICENSE_NAME),
-				new IFDProperty(IFDConst.IFD_PROP_COLLECTION_DATA_LICENSE_URI),
-		});
+		setProperties("IFD_PROP_FINDING_AID_", null);
 	}
 
-	protected List<Resource> dataSources = new ArrayList<>();
+	protected IFDFindableCollection collection;
+	
+	protected List<IFDResource> dataSources = new ArrayList<>();
+
+	protected int currentSourceIndex = -1;
 
 	private Map<String, Object> publicationInfo;
-	
-	protected int currentSourceIndex;
 
 	private Date date = new Date();
 
 	private String creator;
 
-	/**
-	 * A simple reference/length holder.
-	 * 
-	 * @author hansonr
-	 *
-	 */
-	public static class Resource implements IFDSerializableI {
-		private String ref;
-		private long len;
-
-		Resource(String ref, long length) {
-			this.ref = ref;
-			this.len = length;
-		}
-
-		@Override
-		public void serialize(IFDSerializerI serializer) {
-			if (ref != null)
-				serializer.addAttr("ref", ref);
-			if (len > 0)
-				serializer.addAttrInt("len", len);
-		}
-
-		@Override
-		public String getSerializedType() {
-			return "resource";
-		}
-		
-		@Override
-		public String toString() {
-			return "[Resource " + ref + " len " + len + "]";
-		}
-	}
-	public IFDFindingAid(String name, String type, String creator) throws IFDException {
+	public IFDFindingAid(String name, String type, String creator) {
 		super(name, type);
 		this.creator = creator;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void addCollection(IFDCollection c) {
+		collection.add(c);
+	}
+
+	public String getCreator() {
+		return creator;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
+	
 	/**
 	 * Get the list of sources
+	 * 
 	 * @return
 	 */
-	public List<Resource> getSources() {
+	public List<IFDResource> getSources() {
 		return dataSources;
 	}
+	
+	
 
 	/**
 	 * Add a source or return the index of a source if already present
+	 * 
 	 * @param ref the reference for this source
 	 * @return index of the source if found or added
 	 */
-	public int addSource(String ref) {
+	public IFDResource addOrReturnSource(String ref) {
+		IFDResource r;
 		for (int i = dataSources.size(); --i >= 0;) {
-			if (dataSources.get(i).ref.equals(ref)) {
-				return i;
+			r = dataSources.get(i);
+			if (r.getRef().equals(ref)) {
+				return r;
 			}
 		}
-		dataSources.add(new Resource(ref, 0));
-		return currentSourceIndex = dataSources.size() - 1;
+		r = new IFDResource(ref, 0);
+		currentSourceIndex = dataSources.size();
+		dataSources.add(r);
+		return r;
 	}
 
-	public void setCurrentURLLength(long len) {
+	/**
+	 * Set the current source to the indicated index.
+	 * 
+	 * @param index
+	 * @return the indicated resource
+	 * @throws ArrayIndexOutOfBoundsException
+	 */
+	public IFDResource setCurrentSourceIndex(int index) {
+		if (index < 0 || index >= dataSources.size())
+			throw new ArrayIndexOutOfBoundsException();
+		currentSourceIndex = index;
+		return dataSources.get(index);
+	}
+	
+	public int getCurrentSourceIndex() {
+		return currentSourceIndex;
+	}
+	
+	/**
+	 * Set the byte length of the current source.
+	 * 
+	 * @param len
+	 */
+	public void setCurrentSourceLength(long len) {
+		if (currentSourceIndex < 0)
+			throw new ArrayIndexOutOfBoundsException();
 		if (currentSourceIndex >= 0)
-			dataSources.get(currentSourceIndex).len = len;
+			dataSources.get(currentSourceIndex).setLength(len);
 	}
 
 	public void setPubInfo(Map<String, Object> pubInfo) {
 		this.publicationInfo = pubInfo;
 	}
 
-	
 	public Date getDate() {
 		return date;
 	}
-	
+
 	private boolean serializing;
+
+	public void finalizeCollections(IFDSerializerI serializer) {
+		collection.finalizeCollections(serializer);
+	}
+
+	public List<IFDResource> getDataSources() {
+		return dataSources;
+	}
+
+	@Override
+	protected void serializeList(IFDSerializerI serializer) {
+		collection.finalizeCollections(serializer);
+	}
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -130,8 +150,8 @@ public abstract class IFDFindingAid extends IFDCollection<IFDCollection<?>> {
 		if (serializing) {
 			serializeTop(serializer);
 			serializer.addObject("created", date.toGMTString());
-			if (creator != null)
-				serializer.addObject("createdBy", creator);
+			if (getCreator() != null)
+				serializer.addObject("createdBy", getCreator());
 			if (publicationInfo != null)
 				serializer.addObject("publicationInfo", publicationInfo);
 			serializer.addObject("dataSources", dataSources);
@@ -140,29 +160,32 @@ public abstract class IFDFindingAid extends IFDCollection<IFDCollection<?>> {
 		} else {
 			// addObject will call this method after wrapping
 			serializing = true;
-			serializer.addObject(IFDConst.IFD_FINDINGAID, this);
+			serializer.addObject(IFDConst.IFD_FINDING_AID, this);
 			serializing = false;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * Generate the serialization and optionally save it to disk as
-	 * [rootname]_IFD_PROP_COLLECTION.[ext] and optionally create an _IFD_collection.zip
-	 * in that same directory.
+	 * [rootname]_IFD_PROP_FINDABLE_COLLECTION.[ext] and optionally create an
+	 * _IFD_collection.zip in that same directory.
 	 * 
-	 * @param targetDir or null for no output
-	 * @param rootName  a prefix root to add to the _IFD_PROP_COLLECTION.json (or.xml)
-	 *                  finding aid created
-	 * @param products  optionally, a list of directories containing the files referenced by the
-	 *                  finding aid for creating the IFD_collection.zip file
+	 * @param targetDir  or null for no output
+	 * @param rootName   a prefix root to add to the _IFD_PROP_FINDABLE_COLLECTION.json
+	 *                   (or.xml) finding aid created
+	 * @param products   optionally, a list of directories containing the files
+	 *                   referenced by the finding aid for creating the
+	 *                   IFD_collection.zip file
 	 * @param serializer optionally, a non-default IFDSerializerI (XML, JSON, etc.)
 	 * @return the serialization as a String
 	 * @throws IOException
 	 */
-	public String createSerialization(File targetDir, String rootName, List<Object> products, IFDSerializerI serializer) throws IOException {
+	public String createSerialization(File targetDir, String rootName, List<Object> products, IFDSerializerI serializer)
+			throws IOException {
 		if (serializer == null)
 			serializer = new IFDDefaultJSONSerializer();
 		return serializer.createSerialization(this, targetDir, rootName, products);
 	}
+
 }

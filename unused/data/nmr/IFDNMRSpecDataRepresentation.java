@@ -1,9 +1,9 @@
-package org.iupac.fairdata.spec.nmr;
+package org.iupac.fairdata.data.nmr;
 
 import org.iupac.fairdata.common.IFDReference;
-import org.iupac.fairdata.spec.IFDSpecDataRepresentation;
+import org.iupac.fairdata.core.IFDDataObjectRepresentation;
 
-public class IFDNMRSpecDataRepresentation extends IFDSpecDataRepresentation {
+public class IFDNMRSpecDataRepresentation extends IFDDataObjectRepresentation {
 
 	public final static String IFD_REP_SPEC_NMR_VENDOR_DATASET       = "IFD.representation.spec.nmr.vendor.dataset";
 	public final static String IFD_REP_SPEC_NMR_SPECTRUM_PDF         = "IFD.representation.spec.nmr.spectrum.pdf";

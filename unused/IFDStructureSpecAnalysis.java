@@ -1,10 +1,10 @@
 package org.iupac.fairdata.spec;
 
+import org.iupac.fairdata.analysis.IFDStructureDataAnalysis;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.common.IFDReference;
 import org.iupac.fairdata.common.IFDRepresentation;
 import org.iupac.fairdata.core.IFDDataObjectCollection;
-import org.iupac.fairdata.struc.IFDStructureAnalysis;
 import org.iupac.fairdata.struc.IFDStructureCollection;
 
 /**
@@ -15,17 +15,17 @@ import org.iupac.fairdata.struc.IFDStructureCollection;
  *
  */
 @SuppressWarnings("serial")
-public class IFDStructureSpecAnalysis extends IFDStructureAnalysis {
+public class IFDStructureDataAnalysis extends IFDStructureDataAnalysis {
 
-	public IFDStructureSpecAnalysis(String name, IFDStructureCollection structureCollection,
+	public IFDStructureDataAnalysis(String name, IFDStructureCollection structureCollection,
 			IFDDataObjectCollection<?> dataCollection) throws IFDException {
-		super(name, IFDSpecDataFindingAid.SpecType.StructureSpecAnalysis, structureCollection, dataCollection);
+		super(name, IFDSpecDataFindingAid.SpecType.StructureDataAnalysis, structureCollection, dataCollection);
 	}
 	
 	@Override
 	protected IFDRepresentation newRepresentation(String objectName, IFDReference ifdReference, Object object, long len,
 			String type, String subtype) {
-		return new IFDStructureSpecAnalysisRepresentation(ifdReference, object, len, type, subtype);
+		return new IFDStructureDataAnalysisRepresentation(ifdReference, object, len, type, subtype);
 	}
 
 	
