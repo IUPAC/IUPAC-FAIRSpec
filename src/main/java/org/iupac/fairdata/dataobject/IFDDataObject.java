@@ -18,6 +18,11 @@ import org.iupac.fairdata.core.IFDRepresentation;
 @SuppressWarnings("serial")
 public class IFDDataObject extends IFDRepresentableObject<IFDRepresentation> {
 
+	{
+		setProperties("IFD_PROP_DATA_OBJECT_", null); // currently no such values
+	}
+	
+
 	@Override
 	protected IFDDataObjectRepresentation newRepresentation(String name, IFDReference ref, Object obj, long len, String type, String subtype) {
 		return new IFDDataObjectRepresentation(ref, obj, len, type, subtype);

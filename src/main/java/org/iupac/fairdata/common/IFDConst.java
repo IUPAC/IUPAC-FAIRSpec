@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import org.iupac.fairdata.contrib.IFDFAIRSpecExtractorHelper;
+
 /**
  * Constants relating to properties and extraction.
  * 
@@ -19,35 +21,7 @@ import java.util.Properties;
  */
 public class IFDConst {
 
-	public interface ClassTypes {
-
-		public final static String FindingAid = "org.iupac.fairdata.core.IFDFindingAid";
-
-		public final static String Sample = "org.iupac.fairdata.sample.IFDSample";
-		public final static String SampleCollection = "org.iupac.fairdata.sample.IFDSampleCollection";
-
-		public final static String Structure = "org.iupac.fairdata.structure.IFDStructure";
-		public final static String StructureCollection = "org.iupac.fairdata.structure.IFDStructureCollection";
-
-		public final static String DataObject = "org.iupac.fairdata.dataobject.IFDDataObject";
-		public final static String DataObjectCollection = "org.iupac.fairdata.dataobject.IFDDataObjectCollection";
-
-		public final static String SampleDataAssociation = "org.iupac.fairdata.helpers.IFDSampleDataAssociation";
-		public final static String SampleDataAssociationCollection = "org.iupac.fairdata.helpers.IFDSampleDataAssociationCollection";
-
-		public final static String StructureDataAssociation = "org.iupac.fairdata.helpers.IFDStructureDataAssociation";
-		public final static String StructureDataAssociationCollection = "org.iupac.fairdata.helpers.IFDStructureDataAssociationCollection";
-
-		public final static String SampleDataAnalysis = "org.iupac.fairdata.helpers.IFDSampleDataAnalysis";
-		public final static String SampleDataAnalysisCollection = "org.iupac.fairdata.helpers.IFDSampleDataAnalysisCollection";
-
-		public final static String StructureDataAnalysis = "org.iupac.fairdata.helpers.IFDStructureDataAnalysis";
-		public final static String StructureDataAnalysisCollection = "org.iupac.fairdata.helpers.IFDStructureDataAnalysisCollection";
-
-	}
-
 	private static Properties props;
-	private static Map<String, String> propertyMap;
 
 	static {
 		try {
@@ -79,13 +53,10 @@ public class IFDConst {
 
 	public static final String IFD_PROP_SAMPLE_LABEL = getProp("IFD_PROP_SAMPLE_LABEL");
 
-	public static final String IFD_FINDING_AID_FLAG = getProp("IFD_FINDING_AID_FLAG");
-	public static final String IFD_PROPERTY_FLAG = getProp("IFD_PROPERTY_FLAG");
-	public static final String IFD_REPRESENTATION_FLAG = getProp("IFD_REPRESENTATION_FLAG");
-	public static final String IFD_COMPOUND_LABEL_FLAG = getProp("IFD_COMPOUND_LABEL_FLAG");
-	public static final String IFD_EXPT_LABEL_FLAG = getProp("IFD_EXPT_LABEL_FLAG");
-
 	public static final String IFD_FINDING_AID = getProp("IFD_FINDING_AID"); // root name for JSON
+
+	public static final String IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_NAME = getProp("IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_NAME");
+	public static final String IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_URI = getProp("IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_URI");
 
 	public static final String IFD_PROP_FAIRDATA_COLLECTION = getProp("IFD_PROP_FAIRDATA_COLLECTION");
 	public static final String IFD_PROP_FAIRDATA_COLLECTION_ID = getProp("IFD_PROP_FAIRDATA_COLLECTION_ID");
@@ -116,45 +87,7 @@ public class IFDConst {
 		NONE, HZ, MHZ, CELCIUS, KELVIN
 	};
 
-	// Finding Aid properties:
-
-	public static final String IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_NAME = "IFD.property.collection.data.license.name";
-	public static final String IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_URI = "IFD.property.collection.data.license.uri";
-
 	// IFDExtractorI constants:
-
-	/**
-	 * regex for files that are absolutely worthless
-	 */
-	public static final String junkFilePattern = "(MACOSX)|(desktop\\.ini)|(\\.DS_Store)";
-
-	/**
-	 * the files we want extracted -- just PDF and PNG here; all others are taken
-	 * care of by individual IFDVendorPluginI classes
-	 */
-	public static final String defaultCachePattern = "" + "(?<img>\\.pdf$|\\.png$)"
-//			+ "|(?<text>\\.log$|\\.out$|\\.txt$)"// maybe put these into JSON only? 
-	;
-
-	public static boolean isLabel(String propName) {
-		return (propName != null
-				&& (propName.endsWith(IFD_EXPT_LABEL_FLAG) || propName.endsWith(IFD_COMPOUND_LABEL_FLAG)));
-	}
-
-	public static boolean isRepresentation(String propName) {
-		return (propName != null && propName.startsWith(IFD_REPRESENTATION_FLAG));
-	}
-
-	public static boolean isProperty(String propName) {
-		return (propName != null && propName.startsWith(IFD_PROPERTY_FLAG));
-	}
-
-	public static boolean isFindingAid(String propName) {
-		return (propName != null && propName.startsWith(IFD_FINDING_AID_FLAG));
-	}
-
-	public static final String DATA_FLAG = getProp("DATA_FLAG");
-	public static final String IFD_PROP_SAMPLE_ID = getProp("IFD_PROP_SAMPLE_ID");
 
 	public static void main(String[] args) {
 		System.out.println(getProp("IFD_REP_SPEC_UVVIS_PEAKLIST"));
@@ -183,4 +116,27 @@ public class IFDConst {
 		}
 		return lst.toArray(new String[lst.size()]);
 	}
+
+	public static final String IFD_REPRESENTATION_FLAG = getProp("IFD_REPRESENTATION_FLAG");
+	public static final String IFD_PROPERTY_FLAG = getProp("IFD_PROPERTY_FLAG");
+	public static final String DATA_FLAG = getProp("DATA_FLAG");
+	public static final String IFD_PROP_SAMPLE_ID = getProp("IFD_PROP_SAMPLE_ID");
+
+	public static boolean isRepresentation(String propName) {
+		return (propName != null && propName.startsWith(IFDConst.IFD_REPRESENTATION_FLAG));
+	}
+
+	public static boolean isProperty(String propName) {
+		return (propName != null && propName.startsWith(IFDConst.IFD_PROPERTY_FLAG));
+	}
+
+	public static boolean isLabel(String propName) {
+		return (propName != null
+				&& (propName.endsWith(IFDFAIRSpecExtractorHelper.IFD_EXPT_LABEL_FLAG) || propName.endsWith(IFDFAIRSpecExtractorHelper.IFD_COMPOUND_LABEL_FLAG)));
+	}
+
+	public static boolean isFindingAid(String propName) {
+		return (propName != null && propName.startsWith(IFDFAIRSpecExtractorHelper.IFD_FINDING_AID_FLAG));
+	}
+
 }

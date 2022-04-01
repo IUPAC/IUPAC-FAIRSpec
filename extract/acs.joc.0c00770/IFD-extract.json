@@ -1,4 +1,4 @@
-{"IFD-extract-version":"0.1.0-alpha","keys":[
+{"IFD-extract-version":"0.2.0-alpha","keys":[
  {"example":"compound zip files containing bruker and mnova files identified as'1_13C' and '1_mnova'"},
  {"journal":"acs.joc"},{"hash":"0c00770"},
  {"figshareid":"22567817"},

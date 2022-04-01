@@ -10,7 +10,6 @@ import org.iupac.fairdata.api.IFDObjectI;
 import org.iupac.fairdata.api.IFDSerializableI;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.common.IFDProperty;
 
 /**

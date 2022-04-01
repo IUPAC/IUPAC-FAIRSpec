@@ -12,7 +12,12 @@ import org.iupac.fairdata.core.IFDRepresentation;
  * @author hansonr
  *
  */
+@SuppressWarnings("serial")
 public class IFDAnalysisObject extends IFDRepresentableObject<IFDAnalysisRepresentation> {
+
+	{
+		setProperties("IFD_PROP_ANALYSIS_OBJECT_", null);
+	}
 
 	public IFDAnalysisObject(String name, String type) {
 		super(name, type);

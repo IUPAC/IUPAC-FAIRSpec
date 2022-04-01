@@ -1,8 +1,6 @@
 package org.iupac.fairdata.sample;
 
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.common.IFDProperty;
 import org.iupac.fairdata.common.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
@@ -33,7 +31,7 @@ import org.iupac.fairdata.core.IFDRepresentation;
 public class IFDSample extends IFDRepresentableObject<IFDSampleRepresentation> {
 
 	{
-		super.setProperties("IFD_PROP_SAMPLE_", "IFD_PROP_SAMPLE_REP_");
+		setProperties("IFD_PROP_SAMPLE_", null);
 	}
 	
 	public IFDSample(String name, String type) {

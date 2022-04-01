@@ -1,8 +1,6 @@
 package org.iupac.fairdata.structure;
 
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.common.IFDProperty;
 import org.iupac.fairdata.common.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 
@@ -10,7 +8,7 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 public class IFDStructure extends IFDRepresentableObject<IFDStructureRepresentation> {
 
 	{
-		setProperties("IFD_PROP_STRUC", "IFD_PROP_STRUC_REP");
+		setProperties("IFD_PROP_STRUC", null);
 	}	
 	
 	public IFDStructure(String name) {

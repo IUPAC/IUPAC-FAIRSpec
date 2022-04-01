@@ -27,12 +27,11 @@ import java.util.zip.ZipOutputStream;
 import org.iupac.fairdata.api.IFDExtractorI;
 import org.iupac.fairdata.api.IFDPropertyManagerI;
 import org.iupac.fairdata.api.IFDSerializerI;
-import org.iupac.fairdata.derived.IFDStructureDataAssociation;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.common.IFDReference;
 import org.iupac.fairdata.contrib.IFDDefaultStructureHelper;
-import org.iupac.fairdata.contrib.IFDFAIRSpecFindingAidHelper;
+import org.iupac.fairdata.contrib.IFDFAIRSpecExtractorHelper;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDFAIRDataFindingAid;
@@ -40,7 +39,6 @@ import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.dataobject.IFDDataObject;
-import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.derived.IFDStructureDataAssociation;
 import org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;
 import org.iupac.fairdata.structure.IFDStructure;
@@ -88,14 +86,14 @@ public class Extractor implements IFDExtractorI {
 	static {
 		IFDVendorPluginI.init();
 	}
-	private static final String version = "0.0.2-alpha_2022_03_16";
+	private static final String version = "0.0.2-alpha_2022_04_01";
 
 	private static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/Extractor.java";
 
 	/**
 	 * patterns to ignore completely.
 	 */
-	private final static Pattern junkPattern = Pattern.compile(IFDConst.junkFilePattern);
+	private final static Pattern junkPattern = Pattern.compile(IFDFAIRSpecExtractorHelper.junkFilePattern);
 
 	public final static int EXTRACT_MODE_CHECK_ONLY = 1;
 	public final static int EXTRACT_MODE_CREATE_CACHE = 2;
@@ -143,7 +141,7 @@ public class Extractor implements IFDExtractorI {
 	/**
 	 * the finding aid - only one per instance
 	 */
-	protected IFDFAIRSpecFindingAidHelper helper;
+	protected IFDFAIRSpecExtractorHelper helper;
 
 	/**
 	 * the IFD-extract.json script
@@ -414,7 +412,7 @@ public class Extractor implements IFDExtractorI {
 	 */
 	public void setCachePattern(String sp) {
 		if (sp == null)
-			sp = IFDConst.defaultCachePattern + "|" + structurePropertyManager.getParamRegex();
+			sp = IFDFAIRSpecExtractorHelper.defaultCachePattern + "|" + structurePropertyManager.getParamRegex();
 		String s = "";
 		for (int i = 0; i < IFDVendorPluginI.activeVendors.size(); i++) {
 			String cp = IFDVendorPluginI.activeVendors.get(i).vcache;
@@ -552,8 +550,8 @@ public class Extractor implements IFDExtractorI {
 		return objectParsers;
 	}
 
-	private IFDFAIRSpecFindingAidHelper newExtractionHelper() throws IFDException {
-		return new IFDFAIRSpecFindingAidHelper(codeSource + " " + version);
+	private IFDFAIRSpecExtractorHelper newExtractionHelper() throws IFDException {
+		return new IFDFAIRSpecExtractorHelper(codeSource + " " + version);
 		
 	}
 
@@ -635,7 +633,7 @@ public class Extractor implements IFDExtractorI {
 	 * Find and extract all objects of interest from a ZIP file.
 	 * 
 	 */
-	public IFDFAIRSpecFindingAidHelper extractObjects(File targetDir) throws IFDException, IOException {
+	public IFDFAIRSpecExtractorHelper extractObjects(File targetDir) throws IFDException, IOException {
 		if (haveExtracted)
 			throw new IFDException("Only one extraction per instance of Extractor is allowed (for now).");
 		haveExtracted = true;
@@ -988,7 +986,7 @@ public class Extractor implements IFDExtractorI {
 			}
 			String key = (String) a[1];
 			Object value = a[2];
-			boolean isStructure = (IFDFAIRSpecFindingAidHelper.getObjectTypeForName(key, true) == IFDConst.ClassTypes.Structure);
+			boolean isStructure = (IFDFAIRSpecExtractorHelper.getObjectTypeForName(key, true) == IFDFAIRSpecExtractorHelper.ClassTypes.Structure);
 			System.out.println(key + " " + value);
 			// link to the originating spec representation -- xxx.mnova, xxx.zip
 			IFDRepresentableObject<?> spec = htLocalizedNameToObject.get(localizedName);
@@ -1618,7 +1616,7 @@ public class Extractor implements IFDExtractorI {
 		if (fileNameForMediaType == null)
 			fileNameForMediaType = localizedName;
 		addFileToFileLists(localizedName, LOG_OUTPUT, len);
-		String subtype = IFDFAIRSpecFindingAidHelper.mediaTypeFromName(fileNameForMediaType);
+		String subtype = IFDDefaultStructureHelper.mediaTypeFromName(fileNameForMediaType);
 		return cacheFileRepresentation(ifdPath, localizedName, len, ifdType, subtype);
 	}
 
@@ -1671,7 +1669,7 @@ public class Extractor implements IFDExtractorI {
 	private IFDRepresentation cacheFileRepresentation(String ifdPath, String localizedName, long len, String type,
 			String subtype) {
 		if (subtype == null)
-			subtype = IFDFAIRSpecFindingAidHelper.mediaTypeFromName(localizedName);
+			subtype = IFDDefaultStructureHelper.mediaTypeFromName(localizedName);
 		CacheRepresentation rep = new CacheRepresentation(new IFDReference(ifdPath, localizedName, rootPath), null, len,
 				type, subtype);
 		cache.put(localizedName, rep);

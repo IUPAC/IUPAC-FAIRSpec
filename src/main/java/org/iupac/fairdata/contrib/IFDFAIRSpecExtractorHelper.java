@@ -31,10 +31,18 @@ import javajs.util.PT;
 /**
  * 
  * This class is tailored to the task of creating an IUPAC FAIRData Collection
- * and its associated IUPAC FAIRData Finding Aid.
+ * and its associated IUPAC FAIRData Finding Aid from zipped data aggregations,
+ * particularly from supporting information packages.
  * 
- * It is currently under development and should NOT be considered to be a
- * an IUPAC standard.
+ * It is not a fully automated system -- the starting point is an "IUPAC
+ * FAIRSpec Data and Metadata Extraction Template" (see the extract/ folder)
+ * 
+ * This class is best instantiated by third-party extractors. 
+ * (see com.integratedgraphics.ifd.Extractor and ExtractorTest)
+ * 
+ * 
+ * It is currently under development and should NOT be considered to be a an
+ * IUPAC standard.
  * 
  * 
  * 
@@ -42,10 +50,64 @@ import javajs.util.PT;
  * @author hansonr
  *
  */
-public class IFDFAIRSpecFindingAidHelper {
+public class IFDFAIRSpecExtractorHelper {
 
 	private final IFDFAIRDataFindingAid findingAid;
+
+
+	public interface ClassTypes {
+
+		// right now these are (unfortunately) saved as literals, because they are
+		// used in switch cases.
+		
+		public final static String Sample = "org.iupac.fairdata.sample.IFDSample";
+		public final static String SampleCollection = "org.iupac.fairdata.sample.IFDSampleCollection";
+
+		public final static String Structure = "org.iupac.fairdata.structure.IFDStructure";
+		public final static String StructureCollection = "org.iupac.fairdata.structure.IFDStructureCollection";
+
+		public final static String DataObject = "org.iupac.fairdata.dataobject.IFDDataObject";
+		public final static String DataObjectCollection = "org.iupac.fairdata.dataobject.IFDDataObjectCollection";
+
+		public final static String SampleDataAssociation = "org.iupac.fairdata.derived.IFDSampleDataAssociation";
+		public final static String SampleDataAssociationCollection = "org.iupac.fairdata.derived.IFDSampleDataAssociationCollection";
+
+		public final static String StructureDataAssociation = "org.iupac.fairdata.derived.IFDStructureDataAssociation";
+		public final static String StructureDataAssociationCollection = "org.iupac.fairdata.derived.IFDStructureDataAssociationCollection";
+
+		public final static String SampleDataAnalysis = "org.iupac.fairdata.derived.IFDSampleDataAnalysis";
+		public final static String SampleDataAnalysisCollection = "org.iupac.fairdata.derived.IFDSampleDataAnalysisCollection";
+
+		public final static String StructureDataAnalysis = "org.iupac.fairdata.derived.IFDStructureDataAnalysis";
+		public final static String StructureDataAnalysisCollection = "org.iupac.fairdata.derived.IFDStructureDataAnalysisCollection";
+
+	}
+
+	/**
+	 * regex for files that are absolutely worthless
+	 */
+	public static final String junkFilePattern = "(MACOSX)|(desktop\\.ini)|(\\.DS_Store)";
+
+	/**
+	 * the files we want extracted -- just PDF and PNG here; all others are taken
+	 * care of by individual IFDVendorPluginI classes
+	 */
+	public static final String defaultCachePattern = "" + "(?<img>\\.pdf$|\\.png$)"
+//			+ "|(?<text>\\.log$|\\.out$|\\.txt$)"// maybe put these into JSON only? 
+	;
+
+	public static final String IFD_FAIRSPEC_FINDING_AID = IFDConst.getProp("IFD_FAIRSPEC_FINDING_AID");
 	
+	public static final String IFD_FINDING_AID_FLAG = IFDConst.getProp("IFD_FINDING_AID_FLAG");
+	public static final String IFD_COMPOUND_LABEL_FLAG = IFDConst.getProp("IFD_COMPOUND_LABEL_FLAG");
+	public static final String IFD_EXPT_LABEL_FLAG = IFDConst.getProp("IFD_EXPT_LABEL_FLAG");
+
+
+	/**
+	 * temporary holding arrays separating objects from associations
+	 * so that they can be added later to the finding aid in a desired order.
+	 * 
+	 */
 	@SuppressWarnings("rawtypes")
 	private IFDCollection[] objects = new IFDCollection[3];
 	@SuppressWarnings("rawtypes")
@@ -69,19 +131,29 @@ public class IFDFAIRSpecFindingAidHelper {
 	private IFDSampleDataAnalysisCollection sampleDataAnalysisCollection;
 
 
+	/**
+	 * current state of extraction
+	 * 
+	 */
 	private String currentObject;
 	private IFDStructure currentStructure;
 	private IFDDataObject currentSpecData;
 	private IFDSample currentSample;
 
-	public IFDFAIRSpecFindingAidHelper(String creator) {
-		findingAid = new IFDFAIRSpecFindingAid(null, IFDConst.getProp("IFD_FAIRSPEC_FINDING_AID"), creator);
+	
+	public IFDFAIRSpecExtractorHelper(String creator) {
+		findingAid = new IFDFAIRSpecFindingAid(null, IFD_FAIRSPEC_FINDING_AID, creator);
 	}
 
 	public IFDFAIRDataFindingAid getFindingAid() {
 		return findingAid;
 	}
 
+	/**
+	 * start processing the next "line" (zip file entry path)
+	 * 
+	 * @param fname
+	 */
 	public void beginAddingObjects(String fname) {
 		if (isAddingObjects())
 			endAddingObjects();
@@ -129,12 +201,12 @@ public class IFDFAIRSpecFindingAidHelper {
 		else
 			throw new IFDException("bad IFD identifier: " + propName);
 		if (propName.startsWith("\0struc."))
-			return IFDConst.ClassTypes.Structure;
-		if (propName.startsWith("\0analysis.structure.spec."))
-			return IFDConst.ClassTypes.StructureDataAnalysis;
-		if (propName.startsWith("\0analysis.sample.spec."))
-			return IFDConst.ClassTypes.SampleDataAnalysis;
-		if (propName.startsWith("\0spec."))
+			return ClassTypes.Structure;
+		if (propName.startsWith("\0analysis.structuredata"))
+			return ClassTypes.StructureDataAnalysis;
+		if (propName.startsWith("\0analysis.sampledata"))
+			return ClassTypes.SampleDataAnalysis;
+		if (propName.startsWith("\0data.spec."))
 			return propName.substring(1, propName.indexOf(".", 6));
 		return "Unknown";
 	}
@@ -158,49 +230,49 @@ public class IFDFAIRSpecFindingAidHelper {
 
 		if (type.startsWith(IFDConst.DATA_FLAG)) {
 			currentSpecData = getDataObjectCollection().getDataObjectFor(currentObject, rootPath, localName, param,
-					id, type, mediaTypeFromName(localName));
+					id, type, IFDDefaultStructureHelper.mediaTypeFromName(localName));
 			currentSpecData.setUrlIndex(findingAid.getCurrentSourceIndex());
 			return currentSpecData;
 		}
 		switch (type) {
-		case IFDConst.ClassTypes.SampleDataAnalysisCollection:
-		case IFDConst.ClassTypes.SampleDataAnalysis:
-		case IFDConst.ClassTypes.StructureDataAnalysisCollection:
-		case IFDConst.ClassTypes.StructureDataAnalysis:
+		case ClassTypes.SampleDataAnalysisCollection:
+		case ClassTypes.SampleDataAnalysis:
+		case ClassTypes.StructureDataAnalysisCollection:
+		case ClassTypes.StructureDataAnalysis:
 			System.out.println("Analysis not implemented");
 			getStructureDataAnalysisCollection();
 			// TODO
 			return null;
-		case IFDConst.ClassTypes.Sample:
+		case ClassTypes.Sample:
 			if (currentSample == null) {
 				currentSample = getSampleCollection().getSampleFor(rootPath, localName, param, id,
-						currentObject, mediaTypeFromName(localName));
+						currentObject, IFDDefaultStructureHelper.mediaTypeFromName(localName));
 				System.out.println("creating Sample " + currentSample.getName());
 				currentSample.setUrlIndex(findingAid.getCurrentSourceIndex());
 			} else {
 				currentSample.setPropertyValue(param, id);
 			}
 			return currentSample;
-		case IFDConst.ClassTypes.Structure:
+		case ClassTypes.Structure:
 			if (currentStructure == null) {
 				currentStructure = getStructureCollection().getStructureFor(rootPath, localName, param, id,
-						currentObject, mediaTypeFromName(localName));
+						currentObject, IFDDefaultStructureHelper.mediaTypeFromName(localName));
 				System.out.println("creating Structure " + currentStructure.getName());
 				currentStructure.setUrlIndex(findingAid.getCurrentSourceIndex());
 			} else {
 				currentStructure.setPropertyValue(param, id);
 			}
 			return currentStructure;
-		case IFDConst.ClassTypes.SampleDataAssociationCollection:
+		case ClassTypes.SampleDataAssociationCollection:
 			getSampleDataCollection();
 			break;
-		case IFDConst.ClassTypes.StructureDataAssociationCollection:
+		case ClassTypes.StructureDataAssociationCollection:
 			// valid data information? maybe
 			getStructureDataCollection();
 			break;
-		case IFDConst.ClassTypes.DataObject:
-		case IFDConst.ClassTypes.DataObjectCollection:
-		case IFDConst.ClassTypes.StructureCollection:
+		case ClassTypes.DataObject:
+		case ClassTypes.DataObjectCollection:
+		case ClassTypes.StructureCollection:
 			// should not be generic
 		default:
 			System.err.println(
@@ -251,23 +323,6 @@ public class IFDFAIRSpecFindingAidHelper {
 				System.out.println("\t" + sd);
 			}
 		}
-	}
-
-	public static String mediaTypeFromName(String fname) {
-		int pt = Math.max(fname.lastIndexOf('/'), fname.lastIndexOf('.'));
-		return (fname.endsWith(".zip") ? "application/zip"
-				: fname.endsWith(".png") ? "image/png"
-				: fname.endsWith(".cdx") ? "chemical/x-cdx (ChemDraw CDX)"
-				: fname.endsWith(".cdxml") ? "chemical/x-cdxml (ChemDraw XML)"
-					// see https://en.wikipedia.org/wiki/Chemical_file_format
-				: fname.endsWith(".mol") ? "chemical/x-mdl-molfile"
-				: fname.endsWith(".sdf") ? "chemical/x-mdl-sdfile"
-				: fname.endsWith(".txt") || fname.endsWith(".log") || fname.endsWith(".out") ? "text/plain"
-				: fname.endsWith(".inchi") ? "chemical/x-inchi"
-				: fname.endsWith(".smiles") || fname.endsWith(".smi") ? "chemical/x-daylight-smiles"
-				: fname.endsWith(".pdf") ? "application/pdf" : fname.endsWith(".jpf") ? "application/octet-stream (JEOL)"
-				: fname.endsWith(".mnova") ? "application/octet-stream (mnova)"
-				: pt >= 0 ? "?" + fname.substring(pt) : "?");
 	}
 
 	/**
@@ -322,7 +377,7 @@ public class IFDFAIRSpecFindingAidHelper {
 		if (getDataObjectCollection().indexOf(spec) < 0)
 			getDataObjectCollection().add(spec);			
 		IFDStructure struc = getStructureCollection().getStructureFor(rootPath, localName, IFDConst.IFD_PROP_SAMPLE_LABEL, name, ifdPath, null);
-		struc.addRepresentation(ifdPath, localName, ifdRepType, mediaTypeFromName(localName));
+		struc.addRepresentation(ifdPath, localName, ifdRepType, IFDDefaultStructureHelper.mediaTypeFromName(localName));
 		getStructureCollection().add(struc);
 		IFDStructureDataAssociation ss = (IFDStructureDataAssociation) getStructureDataCollection().getAssociationForSingleObj2(spec);
 		if (ss == null) {
