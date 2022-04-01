@@ -13,7 +13,7 @@ import org.iupac.fairdata.common.IFDResource;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 
 /**
- * The IDFFindingAid class is a master class for the organizing metadata in relation to a collection. 
+ * The IFDFAIRDataFindingAid class is a master class for the organizing metadata in relation to a collection. 
  * It is not a collection itself, and it has no representations, though as an IFDObject, it can 
  * be serialized. This class ultimately extends ArrayList, so all of the methods of
  * that standard Java class are allowed (add, put, replace, etc.)

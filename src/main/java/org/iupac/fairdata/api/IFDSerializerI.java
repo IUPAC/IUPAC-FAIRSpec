@@ -30,7 +30,7 @@ public interface IFDSerializerI {
 	 * [rootname]_IFD_PROP_FAIRDATA_COLLECTION.[ext] and optionally create an _IFD_collection.zip
 	 * in that same directory.
 	 * 
-	 * @param ifdFindingAid the requesting IFDFindingAid
+	 * @param ifdFindingAid the requesting IFDFAIRDataFindingAid
 	 * @param targetDir or null for no output
 	 * @param rootName  a prefix root such as "acs.orglett.0c00572." to add to the _IFD_PROP_FAIRDATA_COLLECTION.json (or.xml)
 	 *                  finding aid created

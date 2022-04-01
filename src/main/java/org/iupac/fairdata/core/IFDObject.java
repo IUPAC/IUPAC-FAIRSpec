@@ -128,9 +128,9 @@ import org.iupac.fairdata.common.IFDProperty;
  *
  * The org/iupac/fairdata/derived package includes a number of more specific
  * types of associations, including: IFDStructureDataAssociation,
- * IFDSampleDataAssociation, IFDStructureDataAnalysis, and IFDSampleDataAnalysis, 
- * along with their respective collections. These classes associate
- * specific structures, samples, and data to each other. 
+ * IFDSampleDataAssociation, IFDStructureDataAnalysis, and
+ * IFDSampleDataAnalysis, along with their respective collections. These classes
+ * associate specific structures, samples, and data to each other.
  * 
  * 
  * -- IFDStructureDataAssociation --
@@ -147,23 +147,31 @@ import org.iupac.fairdata.common.IFDProperty;
  * 
  * -- IFDStructureDataAnalysis --
  * 
- * The IFDStructureDataAnalysis class is intended to represent a detailed correlation between
- * chemical structure for a compound and its related experimental or theoretical
- * spectroscopic data. For instance, it might correlate specific atoms or groups
- * of atoms of a chemical structure with specific signals in a spectrum or other
- * sort of data object.
+ * The IFDStructureDataAnalysis class is intended to represent a detailed
+ * correlation between chemical structure for a compound and its related
+ * experimental or theoretical spectroscopic data. For instance, it might
+ * correlate specific atoms or groups of atoms of a chemical structure with
+ * specific signals in a spectrum or other sort of data object.
  *
  * -- IFDSampleDataAnalysis --
  * 
- * The IFDSampleDataAnalysis class is intended to represent a detailed correlation
- * between a specific chemical sample and its structure and spectroscopic data.
- * The details of this analysis would be designed into the subclass being
- * implemented.
+ * The IFDSampleDataAnalysis class is intended to represent a detailed
+ * correlation between a specific chemical sample and its structure and
+ * spectroscopic data. The details of this analysis would be designed into the
+ * subclass being implemented.
  *
- * -- IFDFindingAid --
+ * -- IFDFAIRDataFindingAid --
  *
- * In general, an overall collection will contain a "master" collection metadata
- * object, the IFDFindingAid. The IFDFindingAid is a special "collection of
+ * In general, an overall IFDFAIRDataCollection contain a "master" metadata
+ * Object, the object, the IFDFAIRDataFindingAid.
+ * 
+ * The IFDFAIRDataFindingAid class is a master class for the organizing metadata
+ * in relation to a collection. It is not a collection itself, and it has no
+ * representations, though as an IFDObject, it can be serialized. This class
+ * ultimately extends ArrayList, so all of the methods of that standard Java
+ * class are allowed (add, put, replace, etc.)
+ * 
+ * The IFDFAIRDataFindingAid references the IFDFAIRDataCollection "collection of
  * collections," providing:
  * 
  * 1) metadata relating to the entire collection. For example, a publication or
@@ -177,13 +185,13 @@ import org.iupac.fairdata.common.IFDProperty;
  * 3) pointers to finding aids for subcollections, each of which which may be a
  * pointer to one or more additional finding aids.
  * 
- * It is the IFDFindingAid that ultimately distinguishes the IUPAC FAIRSpec data
- * model from other models. It should contain all the information that forms the
- * basis of what the user sees. It should reveal information about the
- * collection that allows users to quickly determine whether data in this
- * collection are relevant to their interests or not. The IFDFindingAid could be
- * static -- a Digital Item within a repository collection -- or dynamically
- * created in response to a query.
+ * It is the IFDFAIRDataFindingAid that ultimately distinguishes the IUPAC
+ * FAIRSpec data model from other models. It should contain all the information
+ * that forms the basis of what the user sees. It should reveal information
+ * about the collection that allows users to quickly determine whether data in
+ * this collection are relevant to their interests or not. The
+ * IFDFAIRDataFindingAid could be static -- a Digital Item within a repository
+ * collection -- or dynamically created in response to a query.
  * 
  * 
  * @author hansonr
@@ -205,7 +213,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected int index;
 
 	/**
-	 * index of source URL in the IFDFindingAid URLs list; must be set nonnegative
+	 * index of source URL in the IFDFAIRDataFindingAid URLs list; must be set nonnegative
 	 * to register
 	 */
 	private int sourceIndex = -1;

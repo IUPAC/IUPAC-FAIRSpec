@@ -314,7 +314,7 @@ public class IFDFAIRSpecExtractorHelper {
 	private void dumpSummary() {
 		if (getStructureCollection().size() == 0 && getDataObjectCollection().size() == 0)
 			System.out.println("IFDSpecDataFindingAid no structures or spectra?");
-		System.out.println("! IFDFindingAid extraction complete:\n! " + getFindingAid().getDataSources() + "\n! " + getStructureCollection().size()
+		System.out.println("! IFDFAIRDataFindingAid extraction complete:\n! " + getFindingAid().getDataSources() + "\n! " + getStructureCollection().size()
 				+ " structures " + getDataObjectCollection().size() + " specdata " + getStructureDataCollection().size()
 				+ " structure-spec bindings");
 		for (IFDAssociation ssc : getStructureDataCollection()) {

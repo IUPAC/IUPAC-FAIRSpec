@@ -12,7 +12,7 @@ package org.iupac.fairdata.api;
  */
 public interface IFDObjectI<T> {
 	
-		// IFDCollection, IFDDataObject, IFDDataObjectCollection, and IFDFindingAid
+		// IFDCollection, IFDDataObject, IFDDataObjectCollection, and IFDFAIRDataFindingAid
 		// are all abstract and so do not express their own ObjectType
 
 	String getName();
