@@ -1,15 +1,8 @@
 package org.iupac.fairdata.derived;
 
 import org.iupac.fairdata.analysis.IFDAnalysisObject;
-import org.iupac.fairdata.api.IFDAnalysisI;
-import org.iupac.fairdata.api.IFDSerializerI;
-import org.iupac.fairdata.derived.IFDSampleDataAssociation;
-import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.common.IFDReference;
 import org.iupac.fairdata.core.IFDAnalysis;
-import org.iupac.fairdata.core.IFDRepresentableObject;
-import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.sample.IFDSampleCollection;
 

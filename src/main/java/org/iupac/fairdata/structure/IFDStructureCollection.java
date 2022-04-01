@@ -1,13 +1,8 @@
 package org.iupac.fairdata.structure;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDObject;
-import org.iupac.fairdata.dataobject.IFDDataObject;
 
 @SuppressWarnings("serial")
 public class IFDStructureCollection extends IFDCollection<IFDObject<?>> {

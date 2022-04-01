@@ -1,13 +1,6 @@
 package org.iupac.fairdata.core;
 
 import org.iupac.fairdata.api.IFDSerializerI;
-import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
-import org.iupac.fairdata.sample.IFDSampleCollection;
-import org.iupac.fairdata.structure.IFDStructureCollection;
-import org.iupac.fairdata.derived.IFDSampleDataAnalysisCollection;
-import org.iupac.fairdata.derived.IFDSampleDataAssociationCollection;
-import org.iupac.fairdata.derived.IFDStructureDataAnalysisCollection;
-import org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;
 
 @SuppressWarnings("serial")
 public abstract class IFDFAIRDataCollection extends IFDCollection<IFDCollection<IFDObject<?>>> {

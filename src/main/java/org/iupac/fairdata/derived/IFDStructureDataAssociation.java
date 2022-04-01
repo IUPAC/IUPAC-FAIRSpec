@@ -1,11 +1,9 @@
 package org.iupac.fairdata.derived;
 
 import org.iupac.fairdata.api.IFDSerializerI;
-import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
-import org.iupac.fairdata.core.IFDFAIRDataFindingAid;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
@@ -37,7 +35,6 @@ public class IFDStructureDataAssociation extends IFDAssociation {
 		};
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public IFDStructureDataAssociation(String name, String type
 			, IFDStructureCollection structureCollection
 			, IFDDataObjectCollection dataCollection) throws IFDException {

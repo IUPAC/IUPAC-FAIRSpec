@@ -1,7 +1,6 @@
 package org.iupac.fairdata.sample;
 
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDObject;
 

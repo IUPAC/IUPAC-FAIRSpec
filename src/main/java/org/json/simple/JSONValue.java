@@ -117,6 +117,7 @@ public class JSONValue {
      * @param value
      * @param writer
      */
+	@SuppressWarnings("rawtypes")
 	public static void writeJSONString(Object value, Writer out) throws IOException {
 		if(value == null){
 			out.write("null");

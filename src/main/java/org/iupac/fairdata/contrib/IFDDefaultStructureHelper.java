@@ -6,8 +6,6 @@ import java.util.Map;
 import org.iupac.fairdata.api.IFDExtractorI;
 import org.iupac.fairdata.api.IFDPropertyManagerI;
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.structure.IFDStructure;
-import org.iupac.fairdata.structure.IFDStructureRepresentation;
 import org.jmol.api.JmolViewer;
 import org.jmol.viewer.Viewer;
 

@@ -1,7 +1,5 @@
 package org.iupac.fairdata.core;
 
-import org.iupac.fairdata.common.IFDException;
-
 /**
  * An abstract class to handle generic collections of N:N associations. 
  * For example, Structure-Data associations

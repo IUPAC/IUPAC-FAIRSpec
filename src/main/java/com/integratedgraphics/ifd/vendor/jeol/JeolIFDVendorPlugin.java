@@ -1,6 +1,5 @@
 package com.integratedgraphics.ifd.vendor.jeol;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import org.iupac.fairdata.api.IFDExtractorI;

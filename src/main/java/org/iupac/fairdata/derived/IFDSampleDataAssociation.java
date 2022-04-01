@@ -1,7 +1,6 @@
 package org.iupac.fairdata.derived;
 
 import org.iupac.fairdata.api.IFDSerializerI;
-import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;

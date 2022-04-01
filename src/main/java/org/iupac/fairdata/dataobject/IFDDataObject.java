@@ -1,7 +1,6 @@
 package org.iupac.fairdata.dataobject;
 
 import org.iupac.fairdata.api.IFDSerializerI;
-import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.common.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
