@@ -52,10 +52,13 @@ import javajs.util.Lst;
 import javajs.util.PT;
 
 /**
- * Copyright 2021 Integrated Graphics and Robert M. Hanson
+ * Copyright 2021/2022 Integrated Graphics and Robert M. Hanson
  * 
- * A class to handle the extraction of objects from a "raw" dataset following
- * the sequence:
+ * A class to handle the extraction of objects from a "raw" dataset
+ * by processing the full paths within a ZIP file as directed by 
+ * an extraction template (from the extract/ folder for the test)
+ * 
+ * following the sequence:
  * 
  * initialize(ifdExtractScriptFile)`
  * 
@@ -67,7 +70,30 @@ import javajs.util.PT;
  * 
  * extractObjects(targetDir);
  * 
- * see ExtractorTest and IFDConst for these values
+ * Features:
+ * 
+ * 
+ * ... uses template-directed processing of full file paths
+ * 
+ * ... metadata property information is from org.iupac.common.fairspec.properties
+ * 
+ * ... creates IFDFAIRSpecFindingAid objects ready for serialization
+ * 
+ * ... serializes using org.iupac.util.IFDDefaultJSONSerializer
+ * 
+ * ... zip files are processed recursively
+ * 
+ * ... zip files other than Bruker directories are unpacked
+ * 
+ * ... "broken" Bruker directories (those without a simple integer root path)
+ * are corrected.
+ * 
+ * ... binary MNova files are scanned for metadata, PNG, and MOL files (only, not spectra)
+ * 
+ * ... MNova metadata references page number in file using #page=
+ * 
+ *  
+ * See ExtractorTest and IFDFAIRSpecExtractorHelper for more information.
  * 
  * @author hansonr
  *
