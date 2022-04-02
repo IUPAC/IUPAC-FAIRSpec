@@ -4,7 +4,7 @@ last updated 2021-12-17 (BH)
 
 # IUPAC-FAIRSpec
 
-Welcome to the GitHub project for
+Welcome to the GitHub project for 
 [IUPAC Project 2019-031-1-024, Development of a Standard for FAIR Data Management for Spectroscopic Data](https://iupac.org/projects/project-details/?project_nr=2019-031-1-024). 
 
 Our most recent progress report (DEC 2021) can be found in [documents/reports](https://github.com/IUPAC/IUPAC-FAIRSpec/tree/main/documents/reports)
