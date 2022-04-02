@@ -8,6 +8,8 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T> {
 
+	abstract public Class<?>[] getObjectTypes();
+	
 	protected IFDCollection(String name, String type) {
 		super(name, type);
 	}
@@ -17,10 +19,6 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 		super(name, type, n, initialSet);
 	}
 
-	abstract public Class<?>[] getObjectTypes();
-	
-	
-	
 	public List<Integer> getIndexList() {
 		List<Integer> list = new ArrayList<>();
 		for (T c : this) {

@@ -7,6 +7,16 @@ import java.util.TreeMap;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 
+/**
+ * A class representing an overall "collection of collections" IUPAC FAIRData
+ * Collection, which is associated with an IUPAC FAIRData Finding Aid.
+ * 
+ * It maintains the key properties associated with a finding aid.
+ * 
+ * 
+ * @author hansonr
+ *
+ */
 @SuppressWarnings("serial")
 public class IFDFAIRDataCollection extends IFDCollection<IFDCollection<IFDObject<?>>> {
 
@@ -15,11 +25,11 @@ public class IFDFAIRDataCollection extends IFDCollection<IFDCollection<IFDObject
 	}
 
 
-	protected IFDFAIRDataCollection(String name) {
+	public IFDFAIRDataCollection(String name) {
 		this(name, null);
 	}
 
-	protected IFDFAIRDataCollection(String name, String type) {
+	public IFDFAIRDataCollection(String name, String type) {
 		super(name, type);
 	}
 

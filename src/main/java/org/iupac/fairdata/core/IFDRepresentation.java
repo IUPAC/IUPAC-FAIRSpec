@@ -73,8 +73,7 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 
 	@Override
 	public void serialize(IFDSerializerI serializer) {
-		if (type != null && !type.equals("unknown"))
-			serializer.addAttr("type", type);
+		serializer.addAttr("type", type == null ? "unknown" : type);
 		if (subtype != null)
 			serializer.addAttr("subtype", subtype);
 		serializer.addAttrInt("len", (int) len);

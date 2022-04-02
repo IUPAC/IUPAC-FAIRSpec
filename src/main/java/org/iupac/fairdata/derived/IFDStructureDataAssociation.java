@@ -18,7 +18,7 @@ import org.iupac.fairdata.structure.IFDStructureCollection;
  * Each of these collections allows for one or more item, resulting in a
  * one-to-one, many-to-one, one-to-many, or many-many associations.
  * 
- * An abstract object that does not allow representations.
+ * This class does not allow representations.
  * 
  * @author hansonr
  *

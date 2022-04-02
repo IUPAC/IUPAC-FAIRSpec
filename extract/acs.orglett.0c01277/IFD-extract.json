@@ -12,5 +12,5 @@
  {"data":"{IFD.property.fairdata.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
  {"path":"alkylation orginal FID submitted/{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}/*}/"}, 
- {"IFD.property.fairdata.collection.object":"{data}|{IFD.representation.data.spec.nmr.vendor.dataset::{path}}"}
+ {"IFD.extractor.object":"{data}|{IFD.representation.data.spec.nmr.vendor.dataset::{path}}"}
 ]}

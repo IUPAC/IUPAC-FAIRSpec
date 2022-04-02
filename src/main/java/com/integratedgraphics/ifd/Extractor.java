@@ -619,6 +619,10 @@ public class Extractor implements IFDExtractorI {
 		for (int i = 0; i < pathway.size(); i++) {
 			Map<String, Object> def = pathway.get(i);
 			for (Entry<String, Object> e : def.entrySet()) {
+
+				//{"IFDid=IFD.property.fairdata.collection.id":"{journal}.{hash}"},
+				 //..-----------------key---------------------...------val-------.
+				
 				String key = e.getKey();
 				String val = (String) e.getValue();
 				if (val.indexOf("{") >= 0) {
@@ -636,13 +640,17 @@ public class Extractor implements IFDExtractorI {
 					keyDef = key.substring(0, pt);
 					key = key.substring(pt + 1);
 				}
+				 //{"IFDid=IFD.property.fairdata.collection.id":"{journal}.{hash}"},
+				 //..keydef.------------------key-------------
+
+				if (key.equals(IFDConst.IFD_EXTRACTOR_OBJECT)) {
+					parsers.add(newObjectParser(val));
+					continue;
+				}
 				if (key.startsWith("IFD.property")) {
 					if (key.equals(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_ID)) {
 						ifdid = val;
 						helper.getFindingAid().setID(val);
-					} else if (key.equals(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_OBJECT)) {
-						parsers.add(newObjectParser(val));
-						continue;
 					}
 					helper.getFindingAid().setPropertyValue(key, val);
 					if (keyDef == null)

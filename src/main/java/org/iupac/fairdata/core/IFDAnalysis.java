@@ -1,7 +1,8 @@
 package org.iupac.fairdata.core;
 
-import org.iupac.fairdata.analysis.IFDAnalysisObject;
+import org.iupac.fairdata.analysis.IFDAnalysisObjectCollection;
 import org.iupac.fairdata.api.IFDAnalysisI;
+import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
 
 /**
@@ -15,13 +16,23 @@ import org.iupac.fairdata.common.IFDException;
 @SuppressWarnings("serial")
 public class IFDAnalysis extends IFDAssociation implements IFDAnalysisI {
 	
-	IFDAnalysisObject analysis;
+	protected IFDAnalysisObjectCollection aoCollection;
 	
-	public IFDAnalysis(String name, String type, IFDCollection<IFDObject<?>> collection1, IFDCollection<IFDObject<?>> collection2, IFDAnalysisObject analysis) throws IFDException {
+	public IFDAnalysis(String name, String type, IFDCollection<IFDObject<?>> collection1,
+			IFDCollection<IFDObject<?>> collection2, IFDAnalysisObjectCollection aoCollection) throws IFDException {
 		super(name, type, collection1, collection2);
-		if (analysis == null)
-			analysis = new IFDAnalysisObject(null, null);
-		types = new Class<?>[] { collection1.getClass(), collection2.getClass(), analysis.getClass() };
+		if (aoCollection == null)
+			aoCollection = new IFDAnalysisObjectCollection(null);
+		types = new Class<?>[] { collection1.getClass(), collection2.getClass(), aoCollection.getClass() };
 	}
+	
+	@Override
+	protected void serializeList(IFDSerializerI serializer) {
+		super.serializeList(serializer);
+		serializer.addObject("obj3", aoCollection.getIndexList());
+		serializer.addObject("type3", aoCollection.getObjectType());
+	}
+	
+
 	
 }

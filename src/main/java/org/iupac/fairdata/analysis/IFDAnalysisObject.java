@@ -23,6 +23,13 @@ public class IFDAnalysisObject extends IFDRepresentableObject<IFDAnalysisReprese
 		super(name, type);
 	}
 
+	public IFDAnalysisObject(String path, String param, String value) {
+		super(param + ";" + value, null);
+		setPath(path);
+		setPropertyValue(param, value);
+	}
+
+
 	@Override
 	protected IFDRepresentation newRepresentation(String objectName, IFDReference ifdReference, Object object, long len,
 			String type, String subtype) {

@@ -12,5 +12,5 @@
  {"data":"{IFD.property.fairdata.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
  {"path":"{data}|primary NMR data/{id=IFD.property.sample.label::*}/"},
- {"IFD.property.fairdata.collection.object":"{path}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::<id>-*}/}"}
+ {"IFD.extractor.object":"{path}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::<id>-*}/}"}
 ]}

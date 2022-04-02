@@ -12,5 +12,5 @@
  {"data":"{IFD.property.fairdata.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
  {"path":"{data}|"},
- {"IFD.property.fairdata.collection.object":"{path}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{IFD.property.sample.label::*-*}-*.jdf}}"}
+ {"IFD.extractor.object":"{path}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{IFD.property.sample.label::*-*}-*.jdf}}"}
 ]}

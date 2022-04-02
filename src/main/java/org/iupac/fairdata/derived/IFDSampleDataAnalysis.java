@@ -1,6 +1,6 @@
 package org.iupac.fairdata.derived;
 
-import org.iupac.fairdata.analysis.IFDAnalysisObject;
+import org.iupac.fairdata.analysis.IFDAnalysisObjectCollection;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDAnalysis;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
@@ -20,8 +20,8 @@ import org.iupac.fairdata.sample.IFDSampleCollection;
 public class IFDSampleDataAnalysis extends IFDAnalysis {
 	
 	public IFDSampleDataAnalysis(String name, String type, IFDSampleCollection sampleCollection,
-			IFDDataObjectCollection dataCollection, IFDAnalysisObject analysis) throws IFDException {
-		super(name, type, sampleCollection, dataCollection, analysis);
+			IFDDataObjectCollection dataCollection, IFDAnalysisObjectCollection aoCollection) throws IFDException {
+		super(name, type, sampleCollection, dataCollection, aoCollection);
 	}
 
 }

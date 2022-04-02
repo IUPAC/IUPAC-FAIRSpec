@@ -1,8 +1,7 @@
 package org.iupac.fairdata.api;
 
 /**
- * The IFDObectI is the public interface for the IFDObject. Note that IFDObject extends
- * ArrayList, so all the methods of ArrayList are also inherited.
+ * The IFDObectI is the public interface for the IFDObject. 
  * 
  * See IFDObject for a detailed explanation of IFD objects.
  * 
@@ -12,9 +11,6 @@ package org.iupac.fairdata.api;
  */
 public interface IFDObjectI<T> {
 	
-		// IFDCollection, IFDDataObject, IFDDataObjectCollection, and IFDFAIRDataFindingAid
-		// are all abstract and so do not express their own ObjectType
-
 	String getName();
 
 	T getObject(int index);

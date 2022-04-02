@@ -10,15 +10,16 @@ import java.util.TreeMap;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.common.IFDProperty;
 import org.iupac.fairdata.common.IFDResource;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 
 /**
- * The IFDFAIRDataFindingAid class is a master class for the organizing metadata in relation to a collection. 
- * It is not a collection itself, and it has no representations, though as an IFDObject, it can 
- * be serialized. This class ultimately extends ArrayList, so all of the methods of
- * that standard Java class are allowed (add, put, replace, etc.)
+ * The IFDFAIRDataFindingAid class is a master class for the organizing metadata
+ * in relation to a collection. It is not a collection itself, though it
+ * maintains an IFDFAIRDataCollection, and it has no representations, though as
+ * an IFDObject, it can be serialized. This class ultimately extends ArrayList,
+ * so all of the methods of that standard Java class are allowed (add, get,
+ * delete, replace, etc.)
  * 
  * 
  * @author hansonr
@@ -28,7 +29,7 @@ import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 
 	{
-		setProperties("IFD_PROP_FAIRDATA_COLLECTION_", null);
+		setProperties("IFD_PROP_FAIRDATA__", null);
 	}
 
 	protected IFDFAIRDataCollection collection;
@@ -49,6 +50,10 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 		collection = new IFDFAIRDataCollection(IFDConst.IFD_FINDING_AID);
 	}
 
+	public IFDFAIRDataCollection getCollection() {
+		return collection;
+	}
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addCollection(IFDCollection c) {
 		collection.add(c);
@@ -152,7 +157,7 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 	public void serialize(IFDSerializerI serializer) {
 		if (serializing) {
 			serializeTop(serializer);
-			serializer.addObject("ifd.version", IFDConst.getVersion());
+			serializer.addObject("version", IFDConst.getVersion());
 			serializer.addObject("created", date.toGMTString());
 			if (getCreator() != null)
 				serializer.addObject("createdBy", getCreator());

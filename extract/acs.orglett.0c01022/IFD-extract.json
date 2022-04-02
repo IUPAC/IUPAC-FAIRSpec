@@ -12,6 +12,6 @@
  {"data":"{IFD.property.fairdata.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
  
  {"path":"{data}|NMR DATA"},
- {"IFD.property.fairdata.collection.object":"{path}/*/{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}-*.mnova}}"},
- {"IFD.property.fairdata.collection.object":"{path}/*/{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}.mnova}}"}
+ {"IFD.extractor.object":"{path}/*/{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}-*.mnova}}"},
+ {"IFD.extractor.object":"{path}/*/{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}.mnova}}"}
 ]}

@@ -4,7 +4,7 @@ import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
 
 /**
- * An abstract class to handle generic N:N associations. 
+ * An class to handle generic N:N associations. 
  * For example, Structure-Data associations
  * 
  * @author hansonr

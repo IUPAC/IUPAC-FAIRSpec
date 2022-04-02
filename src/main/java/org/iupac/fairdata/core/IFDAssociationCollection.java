@@ -1,14 +1,19 @@
 package org.iupac.fairdata.core;
 
 /**
- * An abstract class to handle generic collections of N:N associations. 
+ * An class to handle generic collections of N:N associations. 
  * For example, Structure-Data associations
  * 
  * @author hansonr
  *
  */
 @SuppressWarnings("serial")
-public abstract class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
+public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
+
+	@Override
+	public Class<?>[] getObjectTypes() {
+		return new Class<?>[] { IFDAssociation.class };
+	}
 
 	protected IFDAssociationCollection(String name, String type, IFDAssociation[] objects) {
 		super(name, type, 2, objects);
