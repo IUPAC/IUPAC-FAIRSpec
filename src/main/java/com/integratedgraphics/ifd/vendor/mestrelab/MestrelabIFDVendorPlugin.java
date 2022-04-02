@@ -37,6 +37,7 @@ public class MestrelabIFDVendorPlugin extends IFDDefaultVendorPlugin {
 				"Probe", getProp("IFD_PROP_DATA_SPEC_NMR_INSTR_PROBE_TYPE"), //prop
 				"Temperature", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
 				"Experiment", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_DIM"), //prop
+				"Title", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_TITLE"), //prop
 				"F1", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_FREQ_1"), //prop
 				"F2", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_FREQ_2"), //prop
 				"F3", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_FREQ_3"), //prop

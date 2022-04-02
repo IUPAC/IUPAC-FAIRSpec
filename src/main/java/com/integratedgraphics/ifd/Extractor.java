@@ -39,7 +39,6 @@ import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.dataobject.IFDDataObject;
-import org.iupac.fairdata.derived.IFDStructureDataAssociation;
 import org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;
 import org.iupac.fairdata.structure.IFDStructure;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
@@ -86,7 +85,7 @@ public class Extractor implements IFDExtractorI {
 	static {
 		IFDVendorPluginI.init();
 	}
-	private static final String version = "0.0.2-alpha_2022_04_01";
+	private static final String version = "0.0.2-alpha+2002.04.02";
 
 	private static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/Extractor.java";
 
@@ -341,7 +340,6 @@ public class Extractor implements IFDExtractorI {
 		puburi = (String) helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_SOURCE_PUBLICATION_URI);
 		if (puburi != null && !skipPubInfo) {
 			pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi, addPublicationMetadata);
-			helper.getFindingAid().setPubInfo(pubCrossrefInfo);
 			if (pubCrossrefInfo == null || pubCrossrefInfo.get("title") == null) {
 				if (skipPubInfo) {
 					logErr("skipPubInfo == true; Finding aid does not contain PubInfo");
@@ -352,6 +350,10 @@ public class Extractor implements IFDExtractorI {
 					}
 					logErr("Could not access " + PubInfoExtractor.getCrossrefMetadataUrl(puburi));
 				}
+			} else {
+				List<Map<String, Object>> list = new ArrayList<>();
+				list.add(pubCrossrefInfo);
+				helper.getFindingAid().setPubInfo(list);
 			}
 		}
 		setLocalSourceDir(localSourceDir);
@@ -363,7 +365,7 @@ public class Extractor implements IFDExtractorI {
 
 		extractObjects(targetDir);
 
-		System.out.println("Extractor serializing...");
+		System.out.println("Extractor.extractAndCreateFindingAid serializing...");
 		return helper.createSerialization((noOutput && !createFindingAidsOnly ? null : targetDir),
 				findingAidFileNameRoot, createZippedCollection ? products : null, getSerializer());
 	}
@@ -846,9 +848,9 @@ public class Extractor implements IFDExtractorI {
 		for (String ifdPath : zipFiles.keySet()) {
 			IFDObject<?> obj = addIFDObjectsForName(parser, ifdPath);
 			if (obj != null) {
-				System.out.println(ifdPath);
+				System.out.println("Extractor.parseZip " + ifdPath);
 				ifdObjectCount++;
-				if (obj instanceof IFDDataObject || obj instanceof IFDStructureDataAssociation)
+				if (obj instanceof IFDDataObject || obj instanceof IFDAssociation)
 					haveData = true;
 			}
 		}
@@ -987,7 +989,7 @@ public class Extractor implements IFDExtractorI {
 			String key = (String) a[1];
 			Object value = a[2];
 			boolean isStructure = (IFDFAIRSpecExtractorHelper.getObjectTypeForName(key, true) == IFDFAIRSpecExtractorHelper.ClassTypes.Structure);
-			System.out.println(key + " " + value);
+			System.out.println("Extractor.updateObjectProperties " + key + " " + value);
 			// link to the originating spec representation -- xxx.mnova, xxx.zip
 			IFDRepresentableObject<?> spec = htLocalizedNameToObject.get(localizedName);
 			if (spec == null) {
@@ -1302,11 +1304,15 @@ public class Extractor implements IFDExtractorI {
 			} catch (IOException e) {
 			}
 		}
+		System.out.flush();
+		System.err.flush();
 		if (isErr) {
 			System.err.println(msg);
 		} else if (isAlert) {
 			System.out.println(msg);
 		}
+		System.out.flush();
+		System.err.flush();
 	}
 
 	/**
@@ -1486,7 +1492,7 @@ public class Extractor implements IFDExtractorI {
 		len = (noOutput ? ((ByteArrayOutputStream) fos).size() : outFile.length());
 		IFDRepresentation r = helper.getSpecDataRepresentation(ifdPath);
 		if (r == null) {
-			System.out.println("! r not found for " + ifdPath);
+			System.out.println("!Extractor.processRezipEntry rep not found for " + ifdPath);
 			// could be just structure at this point
 		} else {
 			r.setLength(len);
@@ -1537,7 +1543,7 @@ public class Extractor implements IFDExtractorI {
 			boolean doCheck = (v != null);
 			boolean doExtract = (!doCheck || v.doExtract(ifdPath));
 
-			System.out.println("! caching " + ifdPath);
+			System.out.println("!Extractor.processZipEntry caching " + ifdPath);
 //			1. we don't have params 
 //		      - generic file, just save it.  doExtract and not doCheck
 //			2. we have params and there is extraction

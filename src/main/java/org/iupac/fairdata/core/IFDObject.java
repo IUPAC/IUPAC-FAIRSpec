@@ -474,7 +474,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			serializer.addObject("properties", map);
 		}
 		if (getParams().size() > 0)
-			serializer.addObject("params", getParams());
+			serializer.addObject("parameters", getParams());
 	}
 
 	protected void serializeList(IFDSerializerI serializer) {

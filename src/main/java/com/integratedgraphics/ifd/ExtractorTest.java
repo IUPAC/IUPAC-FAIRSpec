@@ -3,6 +3,7 @@ package com.integratedgraphics.ifd;
 import java.io.File;
 import java.io.IOException;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.util.IFDUtilities;
 
@@ -40,20 +41,25 @@ public class ExtractorTest extends Extractor {
 	public ExtractorTest(String key, File ifdExtractScriptFile, File targetDir, String localSourceDir)
 			throws IOException, IFDException {
 
+		log("!ExtractorTest\n ifdExtractScriptFIle= " + ifdExtractScriptFile
+				+ "\n localSourceDir = " + localSourceDir
+				+ "\n targetDir = " + targetDir.getAbsolutePath()
+				);
+
+		
 		String findingAidFileName = (key == null ? "" : key + ".");
 
 		if (super.extractAndCreateFindingAid(ifdExtractScriptFile, localSourceDir, targetDir, findingAidFileName) == null && !allowNoPubInfo) {
 			throw new IFDException("Test failed");
 		}
 
-		System.out.println("extracted " + manifestCount + " files (" + extractedByteCount + " bytes)" + "; ignored "
+		log("!ExtractorTest extracted " + manifestCount + " files (" + extractedByteCount + " bytes)" + "; ignored "
 				+ ignoredCount + " files (" + ignoredByteCount + " bytes)");
 	}
 
 	private static void runExtractionTests(int first, int last, String targetDir, String sourceDir, String[] args) {
 		int i0 = first;
 		int i1 = last;
-
 		int failed = 0;
 
 //		String s = "test/ok/1c.nmr";
@@ -65,7 +71,7 @@ public class ExtractorTest extends Extractor {
 
 //		
 		String key = null;
-		String script;
+		String fname;
 		switch (args.length) {
 		default:
 		case 3:
@@ -75,13 +81,13 @@ public class ExtractorTest extends Extractor {
 			targetDir = args[1];
 			//$FALL-THROUGH$
 		case 1:
-			script = args[0];
+			fname = args[0];
 			break;
 		case 0:
-			script = null;
+			fname = null;
 		}
 
-		System.out.println("output to " + new File(targetDir).getAbsolutePath());
+		System.out.println("ExtractorTest.runExtractionTests output to " + new File(targetDir).getAbsolutePath());
 		new File(targetDir).mkdirs();
 
 		String json = "";
@@ -97,11 +103,11 @@ public class ExtractorTest extends Extractor {
 
 			if (args.length == 0) {
 				job = key = testSet[itest];
-				System.out.println("\n!\n! found Test " + itest + " " + key);
+				log("!ExtractorTest.runExtractionTests found Test " + itest + " " + job);
 				int pt = key.indexOf("/");
 				if (pt >= 0)
 					key = key.substring(0, pt);
-				script = "./extract/" + key + "/IFD-extract.json";
+				fname = "./extract/" + key + "/IFD-extract.json";
 			}
 			if (json.length() == 0) {
 				json = "{\"findingaids\":[\n";
@@ -109,32 +115,52 @@ public class ExtractorTest extends Extractor {
 				json += ",\n";
 			}
 			n++;
+			json += "\"" + key + "\"";
+			long t0 = System.currentTimeMillis();
 			try {
-				new ExtractorTest(key, new File(script), new File(targetDir), sourceDir);
-				json += "\"" + key + "\"";
-				System.out.println("ok " + key);
+				File ifdExtractScriptFile = new File(fname);
+				File targetPath = new File(targetDir);
+				String sourcePath = new File(sourceDir).getAbsolutePath();
+				new ExtractorTest(key, ifdExtractScriptFile, targetPath, sourcePath);
+				System.out.println("ExtractorTest.runExtractionTests ok " + key);
 			} catch (Exception e) {
 				failed++;
-				System.err.println("Exception " + e + " for test " + itest);
+				System.err.println("ExtractorTest.runExtractionTests Exception " + e + " for test " + itest);
 				e.printStackTrace();
 				if (stopOnAnyFailure)
 					break;
 			}
+			log("!!ExtractorTest.runExtractionTests job " + job 
+					+ " time/sec=" + (System.currentTimeMillis() - t0)/1000.0);
+
 		}
-		log("! DONE total=" + n + " failed=" + failed + " for " + job);
+		log("!! DONE total=" + n + " failed=" + failed);
 		json += "\n]}\n";
 		try {
 			if (createFindingAidJSONList && !readOnly) {
 				File f = new File(targetDir + "/_IFD_findingaids.json");
 				IFDUtilities.writeBytesToFile(json.getBytes(), f);
-				System.out.println("File " + f.getAbsolutePath() + " created \n" + json);
+				System.out.println("ExtractorTest.runExtractionTests File " + f.getAbsolutePath() + " created \n" + json);
 			} else {
-				System.out.println("_IFD_findingaids.json was not created for\n" + json);
+				System.out.println("ExtractorTest.runExtractionTests _IFD_findingaids.json was not created for\n" + json);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(job);
+		System.out.println("");
+		String flags = "\n first = " + first + " last = " + last //
+				+ "\n stopOnAnyFailure = " + stopOnAnyFailure //
+				+ "\n debugging = " + debugging //
+				+ " readOnly = " + readOnly  //
+				+ " debugReadOnly = " + debugReadOnly //
+				+ "\n allowNoPubInfo = " + allowNoPubInfo //
+				+ " skipPubInfo = " + skipPubInfo //
+				+ "\n sourceDir = " + sourceDir //
+				+ " targetDir = " + targetDir //
+				+ "\n createZippedCollection = " + createZippedCollection //
+				+ " createFindingAidJSONList = " + createFindingAidJSONList//
+				+ "\n IFD version "+ IFDConst.IFD_VERSION + "\n";
+		log("!ExtractorTest.runExtractionTests flags " + flags);
 		System.err.println(errorLog);
 		IFDUtilities.setLogging(null);
 	}
@@ -180,6 +206,7 @@ public class ExtractorTest extends Extractor {
 	 * the zip files
 	 */
 	private static String sourceDir;
+	private static boolean debugReadOnly;
 
 	public static void main(String[] args) {
 
@@ -189,7 +216,7 @@ public class ExtractorTest extends Extractor {
 		
 		// normally false:
 		
-		boolean debugReadOnly = false; // quick settings - no file creation
+		debugReadOnly = false; // quick settings - no file creation
 
 	    addPublicationMetadata = false; // true to place metadata into the finding aid
 		
@@ -205,13 +232,13 @@ public class ExtractorTest extends Extractor {
 		
 		readOnly = debugReadOnly; // for testing; when true, not output other than a log file is produced
 		debugging = false; // true for verbose listing of all files
-		createFindingAidsOnly = true; // true if extraction files already exist or you otherwise don't want not write
+		createFindingAidsOnly = false; // true if extraction files already exist or you otherwise don't want not write
 		
 		allowNoPubInfo = debugReadOnly; // true to allow no internet connection and so no pub calls
 		skipPubInfo = !dataciteUp || debugReadOnly;  // true to allow no internet connection and so no pub calls
 	
-		int first = 0; // first test to run
-		int last = 0;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+		int first = 1; // first test to run
+		int last = 1;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 						// file test
 		
 		if (first == last) {

@@ -39,6 +39,7 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 				"##$PULPROG", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_PULSE_PROG"), //prop
 				"##$TE", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
 				"SOLVENT", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_SOLVENT"), //prop
+				"TITLE", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_TITLE"), //prop
 				"SF", getProp("IFD_PROP_DATA_SPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
 				"##$PROBHD", getProp("IFD_PROP_DATA_SPEC_NMR_INSTR_PROBE_TYPE"), //prop
 		};
@@ -55,7 +56,7 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 	public BrukerIFDVendorPlugin() {
 		// files of interest; procs is just for solvent
 		// presence of acqu2s indicates a 2D experiment
-		paramRegex = "acqus$|acqu2s$|procs$";
+		paramRegex = "acqus$|acqu2s$|procs$|title$";
 		// rezip triggers for procs in a directory (1, 2, 3...) below a pdata directory,
 		// such as pdata/1/procs. We do not add the "/" before pdata, because that could
 		// be the| symbol, and that will be attached by IFDDefaultVendorPlugin in
@@ -125,6 +126,10 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 	}
 
 	private boolean readJDX(String ifdPath, byte[] bytes) {
+		if (ifdPath.indexOf("title") >= 0) {
+			report("TITLE", new String(bytes));
+			return true;
+		}
 		Map<String, String> map = null;
 		try {
 			map = JDXReader.getHeaderMap(new ByteArrayInputStream(bytes), null);

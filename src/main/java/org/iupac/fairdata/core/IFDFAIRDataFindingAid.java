@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
@@ -36,11 +37,11 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 
 	protected int currentSourceIndex = -1;
 
-	private Map<String, Object> publicationInfo;
+	protected Date date = new Date();
 
-	private Date date = new Date();
+	protected String creator;
 
-	private String creator;
+	private List<Map<String, Object>> publicationInfo;
 
 	public IFDFAIRDataFindingAid(String name, String type, String creator) {
 		super(name, type);
@@ -123,8 +124,8 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 			dataSources.get(currentSourceIndex).setLength(len);
 	}
 
-	public void setPubInfo(Map<String, Object> pubInfo) {
-		this.publicationInfo = pubInfo;
+	public void setPubInfo(List<Map<String, Object>> pubInfo) {
+		publicationInfo = pubInfo;
 	}
 
 	public Date getDate() {
@@ -151,9 +152,11 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 	public void serialize(IFDSerializerI serializer) {
 		if (serializing) {
 			serializeTop(serializer);
+			serializer.addObject("ifd.version", IFDConst.getVersion());
 			serializer.addObject("created", date.toGMTString());
 			if (getCreator() != null)
 				serializer.addObject("createdBy", getCreator());
+			serializer.addObject("statistics", getStatistics(new TreeMap<>()));
 			if (publicationInfo != null)
 				serializer.addObject("publicationInfo", publicationInfo);
 			serializer.addObject("dataSources", dataSources);
@@ -205,6 +208,13 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 		return collection.getPropertyValue(name);
 	}
 
+	protected Map<String, Object> getStatistics(Map<String, Object> map) {
+		map.put("publicationInfo", Integer.valueOf(publicationInfo == null ? 0 : publicationInfo.size()));
+		map.put("dataSources", Integer.valueOf(dataSources.size()));
+		collection.getStatistics(map);
+		return map;
+	}
+	
 
 
 }

@@ -239,13 +239,13 @@ public class IFDFAIRSpecExtractorHelper {
 		switch (type) {
 		case ClassTypes.SampleDataAnalysisCollection:
 		case ClassTypes.SampleDataAnalysis:
-			System.out.println("Analysis not implemented");
+			System.out.println("IFDFAIRSpecExtractionHelper.addObject Analysis not implemented");
 			getSampleDataAnalysisCollection();
 			// TODO
 			return null;
 		case ClassTypes.StructureDataAnalysisCollection:
 		case ClassTypes.StructureDataAnalysis:
-			System.out.println("Analysis not implemented");
+			System.out.println("IFDFAIRSpecExtractionHelper.addObject Analysis not implemented");
 			getStructureDataAnalysisCollection();
 			// TODO
 			return null;
@@ -253,7 +253,7 @@ public class IFDFAIRSpecExtractorHelper {
 			if (currentSample == null) {
 				currentSample = getSampleCollection().getSampleFor(rootPath, localName, param, id,
 						currentObject, IFDDefaultStructureHelper.mediaTypeFromName(localName));
-				System.out.println("creating Sample " + currentSample.getName());
+				System.out.println("IFDFAIRSpecExtractionHelper.addObject creating Sample " + currentSample.getName());
 				currentSample.setUrlIndex(findingAid.getCurrentSourceIndex());
 			} else {
 				currentSample.setPropertyValue(param, id);
@@ -263,7 +263,7 @@ public class IFDFAIRSpecExtractorHelper {
 			if (currentStructure == null) {
 				currentStructure = getStructureCollection().getStructureFor(rootPath, localName, param, id,
 						currentObject, IFDDefaultStructureHelper.mediaTypeFromName(localName));
-				System.out.println("creating Structure " + currentStructure.getName());
+				System.out.println("IFDFAIRSpecExtractionHelper.addObject creating Structure " + currentStructure.getName());
 				currentStructure.setUrlIndex(findingAid.getCurrentSourceIndex());
 			} else {
 				currentStructure.setPropertyValue(param, id);
@@ -326,16 +326,28 @@ public class IFDFAIRSpecExtractorHelper {
 
 	private void dumpSummary() {
 		if (getStructureCollection().size() == 0 && getDataObjectCollection().size() == 0)
-			System.out.println("IFDSpecDataFindingAid no structures or spectra?");
-		System.out.println("! IFDFAIRDataFindingAid extraction complete:\n! " + getFindingAid().getDataSources() + "\n! " + getStructureCollection().size()
-				+ " structures " + getDataObjectCollection().size() + " specdata " + getStructureDataCollection().size()
-				+ " structure-spec bindings");
+			System.out.println("IFDFAIRSpecExtractionHelper.dumpSummary no structures or spectra?");
 		for (IFDAssociation ssc : getStructureDataCollection()) {
 			System.out.println("Structure " + ssc.getFirstObj1().toString());
 			for (IFDObject<?> sd : ssc.get(1)) {
 				System.out.println("\t" + sd);
 			}
 		}
+		for (IFDAssociation ssc : getSampleDataCollection()) {
+			System.out.println("Sample " + ssc.getFirstObj1().toString());
+			for (IFDObject<?> sd : ssc.get(1)) {
+				System.out.println("\t" + sd);
+			}
+		}
+		System.out.println("!IFDFAIRSpecExtractionHelper.dumpSummary extraction complete:\n! " 
+				+ getFindingAid().getDataSources() + "\n! " 
+					+ getSampleCollection().size() + " samples " 
+					+ getStructureCollection().size() + " structures " 
+				    + getDataObjectCollection().size() + " specdata " 
+					+ getStructureDataCollection().size() + " structure-data associations "
+					+ getSampleDataCollection().size() + " sample-data associations"
+					);
+		System.out.println("!IFDFAIRSpecExtractionHelper.dumpSummary version " + IFDConst.getProp("IFD_VERSION"));
 	}
 
 	/**
@@ -360,7 +372,7 @@ public class IFDFAIRSpecExtractorHelper {
 			if (dataCollection.size() == 0) {
 				lstRemove.add(assoc);
 				IFDStructure st = (IFDStructure) assoc.getFirstObj1();
-				System.out.println("removing structure " + st.getName());
+				System.out.println("IFDFAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure " + st.getName());
 				getStructureCollection().remove(st);
 				n++;
 			}

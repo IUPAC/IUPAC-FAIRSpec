@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -109,10 +107,28 @@ public class IFDConst {
 	public static final String IFD_REP_STRUCTURE_PNG = getProp("IFD_REP_STRUCTURE_PNG");
 	public static final String IFD_REP_STRUCTURE_UNKNOWN = getProp("IFD_REP_STRUCTURE_UNKNOWN");
 
+	public static String getVersion() {
+		return "IFD " + IFD_VERSION;
+	}
+
+
+
+	/**
+	 * not implemented
+	 * 
+	 * @author hansonr
+	 *
+	 */
 	public enum PROPERTY_TYPE {
 		INT, FLOAT, STRING, NUCL, OBJ
 	};
 
+	/**
+	 * not implemented
+	 * 
+	 * @author hansonr
+	 *
+	 */
 	public enum PROPERTY_UNIT {
 		NONE, HZ, MHZ, CELCIUS, KELVIN
 	};
@@ -144,6 +160,5 @@ public class IFDConst {
 	public static boolean isFindingAid(String propName) {
 		return (propName != null && propName.startsWith(IFDFAIRSpecExtractorHelper.IFD_FINDING_AID_FLAG));
 	}
-
 
 }

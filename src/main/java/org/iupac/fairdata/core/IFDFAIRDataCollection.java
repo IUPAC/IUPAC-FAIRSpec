@@ -1,5 +1,10 @@
 package org.iupac.fairdata.core;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 import org.iupac.fairdata.api.IFDSerializerI;
 
 @SuppressWarnings("serial")
@@ -52,6 +57,21 @@ public class IFDFAIRDataCollection extends IFDCollection<IFDCollection<IFDObject
 	@Override
 	public Class<?>[] getObjectTypes() {
 		return new Class<?>[] { IFDCollection.class };
+	}
+
+	public void getStatistics(Map<String, Object> map) {
+		List<Map<String, Object>> lst = new ArrayList<>();
+		for (int i = 0; i < size(); i++) {
+			IFDCollection<?> c = get(i);
+			if (c.size() == 0)
+				continue;
+			Map<String, Object> m = new TreeMap<>();
+			m.put("collectionName", c.getName());
+			m.put("collectionType", c.getClass().getName());
+			m.put("collectionSize",  c.size());
+			lst.add(m);
+		}
+		map.put("collections", lst);
 	}
 
 }
