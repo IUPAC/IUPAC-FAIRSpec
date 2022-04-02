@@ -49,7 +49,6 @@ public class IFDFAIRDataCollection extends IFDCollection<IFDCollection<IFDObject
 			for (int i = c.size(); --i >= 0;)
 				((IFDObject<?>) c.get(i)).setIndex(i);
 		} else {
-			serializer.addAttrInt(name + "Count", c.size());
 			serializer.addObject(name, c);
 		}
 	}

@@ -237,8 +237,8 @@ public class ExtractorTest extends Extractor {
 		allowNoPubInfo = debugReadOnly; // true to allow no internet connection and so no pub calls
 		skipPubInfo = !dataciteUp || debugReadOnly;  // true to allow no internet connection and so no pub calls
 	
-		int first = 1; // first test to run
-		int last = 1;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+		int first = 0; // first test to run
+		int last = 12;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 						// file test
 		
 		if (first == last) {

@@ -368,13 +368,13 @@ public class Extractor implements IFDExtractorI {
 			pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi, addPublicationMetadata);
 			if (pubCrossrefInfo == null || pubCrossrefInfo.get("title") == null) {
 				if (skipPubInfo) {
-					logErr("skipPubInfo == true; Finding aid does not contain PubInfo");
+					logWarn("skipPubInfo == true; Finding aid does not contain PubInfo", "extractAndCreateFindingAid");
 				} else {
 					if (!allowNoPubInfo) {
-						logErr("Finding aid does not contain PubInfo! No internet? cannot continue");
+						logErr("Finding aid does not contain PubInfo! No internet? cannot continue", "extractAndCreateFindingAid");
 						return null;
 					}
-					logErr("Could not access " + PubInfoExtractor.getCrossrefMetadataUrl(puburi));
+					logWarn("Could not access " + PubInfoExtractor.getCrossrefMetadataUrl(puburi), "extractAndCreateFindingAid");
 				}
 			} else {
 				List<Map<String, Object>> list = new ArrayList<>();
@@ -1019,7 +1019,7 @@ public class Extractor implements IFDExtractorI {
 			// link to the originating spec representation -- xxx.mnova, xxx.zip
 			IFDRepresentableObject<?> spec = htLocalizedNameToObject.get(localizedName);
 			if (spec == null) {
-				logErr("manifest not found for " + localizedName);
+				logErr("manifest not found for " + localizedName, "addCachedRepresentation");
 				continue;
 			} else if (spec instanceof IFDStructure) {
 				struc = (IFDStructure) spec;
@@ -1084,7 +1084,7 @@ public class Extractor implements IFDExtractorI {
 			}
 			if (isStructure) {
 				if (struc == null) {
-					logErr("No structure found for " + lastLocal + " " + key);
+					logErr("No structure found for " + lastLocal + " " + key, "updateObjectProperies");
 					continue; // already added?
 				} else {
 					struc.setPropertyValue(key, value);
@@ -1136,7 +1136,7 @@ public class Extractor implements IFDExtractorI {
 		for (String ckey : cache.keySet()) {
 			IFDRepresentableObject<?> obj = htLocalizedNameToObject.get(ckey);
 			if (obj == null) {
-				logErr("manifest not found for " + ckey);
+				logErr("manifest not found for " + ckey, "addCachedRepresentations");
 			} else {
 				copyCachedRepresentation(ckey, obj);
 			}
@@ -1173,7 +1173,7 @@ public class Extractor implements IFDExtractorI {
 		if (!isOpen) {
 			if (createFindingAidsOnly || readOnly) {
 				if (lstIgnored.size() > 0) {
-					logErr("ignored " + lstIgnored.size() + " files");
+					logWarn("ignored " + lstIgnored.size() + " files", "saveCollectionManifests");
 				}
 			} else {
 				writeBytesToFile(extractScript.getBytes(), getAbsoluteFileTarget("_IFD_extract.json"));
@@ -1301,8 +1301,15 @@ public class Extractor implements IFDExtractorI {
 		}
 	}
 
-	protected void logErr(String msg) {
-		msg = "!! " 
+	protected void logWarn(String msg, String method) {
+		msg = "!! Extractor." + method + " "  
+				+ ifdid + " " + rootPath + " WARN: " + msg;
+		log(msg);
+		errorLog += msg + "\n";
+	}
+
+	protected void logErr(String msg, String method) {
+		msg = "!! Extractor." + method + " "  
 				+ ifdid + " " + rootPath + " ERR: " + msg;
 		log(msg);
 		errorLog += msg + "\n";
@@ -1434,7 +1441,7 @@ public class Extractor implements IFDExtractorI {
 			String localizedName = localizePath(ifdPath);
 			if (!entry.isDirectory() && !lstIgnored.contains(ifdPath) && !lstManifest.contains(localizedName)) {
 				addFileToFileLists(ifdPath, LOG_IGNORED, entry.getSize());
-				logErr("ignoring " + ifdPath);
+				logWarn("ignoring " + ifdPath, "processRezipEntry");
 			}
 			return null;
 		}
