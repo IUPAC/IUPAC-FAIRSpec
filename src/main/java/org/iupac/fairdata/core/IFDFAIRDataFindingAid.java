@@ -181,7 +181,7 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 				serializer.addObject("publicationInfo", publicationInfo);
 			serializer.addObject("dataSources", dataSources);
 			serializeProps(serializer);
-			serializeList(serializer);
+			serializer.addObject("collection", collection);
 		} else {
 			// addObject will call this method after wrapping
 			serializing = true;
