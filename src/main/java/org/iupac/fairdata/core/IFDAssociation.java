@@ -1,17 +1,25 @@
 package org.iupac.fairdata.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
 
 /**
- * An class to handle generic N:N associations. 
- * For example, Structure-Data associations
+ * An class to handle generic N:N associations (for example, Structure-Data
+ * associations). Objects of the collection must be representable, as they are
+ * going to be referenced by collection type and index only.
+ *
+ * The collection size is fixed to the number of collections passed to it in its
+ * constructor.
+ * 
  * 
  * @author hansonr
  *
  */
 @SuppressWarnings("serial")
-public  class IFDAssociation extends IFDCollection<IFDCollection<IFDObject<?>>> {
+public  class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>> {
 
 	@Override
 	public Class<?>[] getObjectTypes() {
@@ -20,11 +28,14 @@ public  class IFDAssociation extends IFDCollection<IFDCollection<IFDObject<?>>> 
 
 	protected Class<?>[] types;
 
-	protected IFDAssociation(String name, String type, IFDCollection<IFDObject<?>> collection1, IFDCollection<IFDObject<?>> collection2) throws IFDException {
-		super(name, type, 2, collection1, collection2);
-		if (collection1 == null || collection2 == null)
-			throw new IFDException("IFDAnalysis both collections must be non-null.");
-		types = new Class<?>[] { collection1.getClass(), collection2.getClass() };
+	protected IFDAssociation(String name, String type, IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>[] collections) throws IFDException {
+		super(name, type, collections);
+		types = new Class<?>[collections.length];
+		for (int i = 0; i < collections.length; i++) {
+			if (collections[i] == null)
+				throw new IFDException("IFDAssociation collections must be non-null.");
+			types[i] = collections[i].getClass();
+		}
 	}
 
 	/**
@@ -33,9 +44,9 @@ public  class IFDAssociation extends IFDCollection<IFDCollection<IFDObject<?>>> 
 	 * @param obj1
 	 * @return true if 1:N association for obj1
 	 */
-	public boolean associates1ToN(IFDObject<?> obj1) {
-		IFDCollection<IFDObject<?>> c1;
-		return (size() == 2 && (c1 = get(0)).size() == 1 && c1.get(0) == obj1);
+	public boolean associates1ToN(IFDRepresentableObject<? extends IFDRepresentation> obj1) {
+		IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c1;
+		return (size() >= 2 && (c1 = get(0)).size() == 1 && c1.get(0) == obj1);
 	}
 
 	/**
@@ -45,7 +56,7 @@ public  class IFDAssociation extends IFDCollection<IFDCollection<IFDObject<?>>> 
 	 * @return true if an association is found.
 	 */
 	public boolean associates(IFDObject<?> obj1, IFDObject<?> obj2) {
-		return (get(1).indexOf(obj2) >= 0 && get(0).indexOf(obj1) >= 0);
+		return (size() >= 2 && get(1).indexOf(obj2) >= 0 && get(0).indexOf(obj1) >= 0);
 	}
 
 	/**
@@ -67,14 +78,27 @@ public  class IFDAssociation extends IFDCollection<IFDCollection<IFDObject<?>>> 
 		return get(1).get(0);
 	}
 
+	/**
+	 * Get the first object of an indexed collection
+	 * @param collectionIndex
+	 * @return
+	 * @throws IFDException if index is out of bounds
+	 */
+	public IFDObject<?> getFirstObj(int collectionIndex) throws IFDException {
+		if (collectionIndex < 0 || collectionIndex >= size())
+			throw new IFDException("IFDAssociation collectionIndex must be in the range 0 to " + (size() - 1));			
+		return get(collectionIndex).get(0);
+	}
+
 	@Override
-	protected void serializeList(IFDSerializerI serializer) {
-		serializer.addAttr("type1", getObject(0).getObjectType());
-		serializer.addAttr("type2", getObject(1).getObjectType());
-		serializer.addObject("obj1", getObject(0).getIndexList());
-		serializer.addObject("obj2", getObject(1).getIndexList());
+	public void serialize(IFDSerializerI serializer) {
+		// this class should serialize as a raw list of lists, without {....}
+		List<List<Integer>> list = new ArrayList<>();
+		for (int i = 0; i < size(); i++) {
+			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = getObject(i);
+			list.add(c.getIndexList());
+		}
+		serializer.addValue(list);
 	}
 	
-
-
 }

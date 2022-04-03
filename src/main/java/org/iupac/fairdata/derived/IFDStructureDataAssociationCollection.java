@@ -14,13 +14,12 @@ public class IFDStructureDataAssociationCollection extends IFDAssociationCollect
 		return new Class<?>[] { IFDStructureDataAssociation.class };
 	}
 	
-
-	public IFDStructureDataAssociationCollection(String name) {
-		super(name, "Structures", null);
+	public IFDStructureDataAssociationCollection(String name, String type) {
+		super(name, type);
 	}
 
-	public IFDStructureDataAssociationCollection(String name, String type) {
-		super(name, type, null);
+	public IFDStructureDataAssociationCollection(String name) {
+		this(name, null);
 	}
 
 	public IFDStructureDataAssociation addAssociation(String name, IFDStructure struc, IFDDataObject data) throws IFDException {

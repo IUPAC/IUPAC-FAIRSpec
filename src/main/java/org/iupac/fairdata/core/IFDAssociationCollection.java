@@ -1,5 +1,10 @@
 package org.iupac.fairdata.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.iupac.fairdata.api.IFDSerializerI;
+
 /**
  * An class to handle generic collections of N:N associations. 
  * For example, Structure-Data associations
@@ -15,8 +20,8 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 		return new Class<?>[] { IFDAssociation.class };
 	}
 
-	protected IFDAssociationCollection(String name, String type, IFDAssociation[] objects) {
-		super(name, type, 2, objects);
+	protected IFDAssociationCollection(String name, String type) {
+		super(name, type);
 	}
 	
 	/**
@@ -28,7 +33,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 	 * @param obj1
 	 * @return the found association or null
 	 */
-	public IFDAssociation getAssociationForSingleObj1(IFDObject<?> obj1) {
+	public IFDAssociation getAssociationForSingleObj1(IFDRepresentableObject<? extends IFDRepresentation> obj1) {
 		
 		for (IFDAssociation a : this) {
 			if (a.associates1ToN(obj1))
@@ -44,9 +49,10 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 	 * @param andRemove
 	 * @return obj1
 	 */
-	public IFDObject<?> getFirstObj1ForObj2(IFDObject<?> obj2, boolean andRemove) {
+	public IFDRepresentableObject<? extends IFDRepresentation> 
+	getFirstObj1ForObj2(IFDRepresentableObject<? extends IFDRepresentation> obj2, boolean andRemove) {
 		for (IFDAssociation a : this) {
-			IFDCollection<IFDObject<?>> c = a.get(1);
+			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = a.get(1);
 			int i = c.indexOf(obj2);
 			if (i >= 0) {
 				if (andRemove)
@@ -72,6 +78,18 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 				return a;
 		}
 		return null;
+	}
+
+	
+	@Override
+	protected void serializeTop(IFDSerializerI serializer) {
+		super.serializeTop(serializer);
+		Class<?>[] types = get(0).getObjectTypes();
+		List<String> list = new ArrayList<>(); 
+		for (int i = 0; i < types.length; i++) {
+			list.add(types[i].getName());
+		}
+		serializer.addObject("types", list);
 	}
 
 

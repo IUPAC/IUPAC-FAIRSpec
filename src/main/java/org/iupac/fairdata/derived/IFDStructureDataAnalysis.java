@@ -1,8 +1,10 @@
 package org.iupac.fairdata.derived;
 
 import org.iupac.fairdata.analysis.IFDAnalysisObjectCollection;
+import org.iupac.fairdata.api.IFDAnalysisI;
 import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.core.IFDAnalysis;
+import org.iupac.fairdata.core.IFDAssociation;
+import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.structure.IFDStructureCollection;
 
@@ -28,10 +30,10 @@ import org.iupac.fairdata.structure.IFDStructureCollection;
  * For example, an NMReDATA file would be the IFDAnalysisRepresentation of the
  * IFDAnalysisObject passed to this class's constructor. Since that file also
  * contains the structure, it would also be the IFDStructureRepresentation of
- * the IDFStructure found in the IDFStrutureCollection passed.
+ * the IFDStructure found in the IFDStrutureCollection passed.
  * 
  * An nmrML file that contains structure, spectrum, and analysis could serve as
- * the IDFRepresentation for all three of these objects.
+ * the IFDRepresentation for all three of these objects.
  * 
  * Note that there may need to be a pointer here to a specific representation of
  * a structure. This is because different representations may have different
@@ -52,11 +54,12 @@ import org.iupac.fairdata.structure.IFDStructureCollection;
  *
  */
 @SuppressWarnings("serial")
-public class IFDStructureDataAnalysis extends IFDAnalysis {
+public class IFDStructureDataAnalysis extends IFDAssociation implements IFDAnalysisI {
 
+	@SuppressWarnings("unchecked")
 	public IFDStructureDataAnalysis(String name, String type, IFDStructureCollection sampleCollection,
 			IFDDataObjectCollection dataCollection, IFDAnalysisObjectCollection aoCollection) throws IFDException {
-		super(name, null, sampleCollection, dataCollection, aoCollection);
+		super(name, null, new IFDCollection[] { sampleCollection, dataCollection, aoCollection});
 	}
 
 }

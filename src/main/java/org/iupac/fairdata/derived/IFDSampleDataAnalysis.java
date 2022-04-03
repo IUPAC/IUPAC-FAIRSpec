@@ -1,8 +1,10 @@
 package org.iupac.fairdata.derived;
 
 import org.iupac.fairdata.analysis.IFDAnalysisObjectCollection;
+import org.iupac.fairdata.api.IFDAnalysisI;
 import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.core.IFDAnalysis;
+import org.iupac.fairdata.core.IFDAssociation;
+import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.sample.IFDSampleCollection;
 
@@ -17,11 +19,12 @@ import org.iupac.fairdata.sample.IFDSampleCollection;
  *
  */
 @SuppressWarnings("serial")
-public class IFDSampleDataAnalysis extends IFDAnalysis {
+public class IFDSampleDataAnalysis  extends IFDAssociation implements IFDAnalysisI {
 	
+	@SuppressWarnings("unchecked")
 	public IFDSampleDataAnalysis(String name, String type, IFDSampleCollection sampleCollection,
 			IFDDataObjectCollection dataCollection, IFDAnalysisObjectCollection aoCollection) throws IFDException {
-		super(name, type, sampleCollection, dataCollection, aoCollection);
+		super(name, type, new IFDCollection[] { sampleCollection, dataCollection, aoCollection });
 	}
 
 }

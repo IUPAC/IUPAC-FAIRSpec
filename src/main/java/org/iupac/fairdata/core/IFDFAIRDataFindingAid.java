@@ -139,8 +139,8 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 
 	private boolean serializing;
 
-	public void finalizeCollections(IFDSerializerI serializer) {
-		collection.finalizeCollections(serializer);
+	public void finalizeCollections() {
+		collection.finalizeCollections();
 	}
 
 	public List<IFDResource> getDataSources() {
@@ -148,8 +148,23 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 	}
 
 	@Override
+	public void setPropertyValue(String name, Object value) {
+		if (name.startsWith(IFDConst.IFD_FINDING_AID))
+			super.setPropertyValue(name, value);
+		else
+			collection.setPropertyValue(name, value);		
+	}
+	
+	@Override
+	public Object getPropertyValue(String name) {
+		if (name.startsWith(IFDConst.IFD_FINDING_AID))
+			return super.getPropertyValue(name);
+		return collection.getPropertyValue(name);
+	}
+
+	@Override
 	protected void serializeList(IFDSerializerI serializer) {
-		collection.finalizeCollections(serializer);
+		collection.serialize(serializer);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -196,21 +211,6 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 		if (serializer == null)
 			serializer = new IFDDefaultJSONSerializer();
 		return serializer.createSerialization(this, targetDir, rootName, products);
-	}
-
-	@Override
-	public void setPropertyValue(String name, Object value) {
-		if (name.startsWith(IFDConst.IFD_FINDING_AID))
-			super.setPropertyValue(name, value);
-		else
-			collection.setPropertyValue(name, value);		
-	}
-	
-	@Override
-	public Object getPropertyValue(String name) {
-		if (name.startsWith(IFDConst.IFD_FINDING_AID))
-			return super.getPropertyValue(name);
-		return collection.getPropertyValue(name);
 	}
 
 	protected Map<String, Object> getStatistics(Map<String, Object> map) {

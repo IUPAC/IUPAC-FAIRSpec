@@ -24,7 +24,6 @@ public class IFDFAIRDataCollection extends IFDCollection<IFDCollection<IFDObject
 		setProperties("IFD_PROP_FAIRDATA_COLLECTION_", null);
 	}
 
-
 	public IFDFAIRDataCollection(String name) {
 		this(name, null);
 	}
@@ -34,32 +33,31 @@ public class IFDFAIRDataCollection extends IFDCollection<IFDCollection<IFDObject
 	}
 
 	/**
+	 * Set all indices for non-associations
 	 * 
-	 * @param serializer
 	 */
-	protected void finalizeCollections(IFDSerializerI serializer) {
-		for (int i = 0; i < size(); i++) {
-			IFDCollection<IFDObject<?>> c = get(i);
-			finalizeCollection(serializer, c.getName(), c);
-		}
-	}
-
-	/**
-	 * Reset all indices and optionally serialize this collection.
-	 * 
-	 * @param serializer
-	 * @param name
-	 * @param c
-	 */
-	private void finalizeCollection(IFDSerializerI serializer, String name, IFDCollection<?> c) {
-		if (c == null || c.size() == 0)
-			return;
-		if (serializer == null) {
-			// normalize indices
+	protected void finalizeCollections() {
+		for (int ic = 0; ic < size(); ic++) {
+			IFDCollection<IFDObject<?>> c = get(ic);
+			if (c == null || c.size() == 0 || c.get(0) instanceof IFDAssociation)
+				continue;
 			for (int i = c.size(); --i >= 0;)
 				((IFDObject<?>) c.get(i)).setIndex(i);
-		} else {
-			serializer.addObject(name, c);
+		}
+	}
+	
+	@Override
+	public void serialize(IFDSerializerI serializer) {
+		// serialize the associations last
+		for (int pass = 0; pass < 2; pass++) {
+			for (int i = 0; i < size(); i++) {
+				IFDCollection<IFDObject<?>> c = get(i);
+				if (c == null || c.size() == 0)
+					continue;
+				if ((c.get(0) instanceof IFDAssociation) == (pass == 1)) {
+					serializer.addObject(c.getName(), c);
+				}
+			}
 		}
 	}
 
@@ -77,7 +75,7 @@ public class IFDFAIRDataCollection extends IFDCollection<IFDCollection<IFDObject
 			Map<String, Object> m = new TreeMap<>();
 			m.put("collectionName", c.getName());
 			m.put("collectionType", c.getClass().getName());
-			m.put("collectionSize",  c.size());
+			m.put("collectionSize", c.size());
 			lst.add(m);
 		}
 		map.put("collections", lst);

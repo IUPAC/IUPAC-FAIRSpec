@@ -2,10 +2,11 @@ package org.iupac.fairdata.structure;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDCollection;
-import org.iupac.fairdata.core.IFDObject;
+import org.iupac.fairdata.core.IFDRepresentableObject;
+import org.iupac.fairdata.core.IFDRepresentation;
 
 @SuppressWarnings("serial")
-public class IFDStructureCollection extends IFDCollection<IFDObject<?>> {
+public class IFDStructureCollection extends IFDCollection<IFDStructure> {
 
 	
 	@Override
@@ -29,6 +30,7 @@ public class IFDStructureCollection extends IFDCollection<IFDObject<?>> {
 		return (IFDStructure) super.get(i);
 	}
 	
+	@Override
 	public boolean add(IFDStructure t) {
 		if (contains(t)) {
 			return false;
@@ -36,15 +38,9 @@ public class IFDStructureCollection extends IFDCollection<IFDObject<?>> {
 		return super.add(t);
 	}
 
-	@Override
-	public boolean add(IFDObject<?> t) {
-		System.out.println("IFDStructure error: " + t);
-		return false;
-	}
-	
 	public IFDStructure getStructureFor(String rootPath, String localName, String param, String value, String ifdPath, String mediaType) {
 		String keyValue = param + ";" + value;
-		IFDStructure sd = (IFDStructure) map.get(keyValue);
+		IFDStructure sd = (IFDStructure) (IFDRepresentableObject<? extends IFDRepresentation>) map.get(keyValue);
 		if (sd == null) {
 			map.put(keyValue,  sd = new IFDStructure(rootPath, param, value));
 			add(sd);

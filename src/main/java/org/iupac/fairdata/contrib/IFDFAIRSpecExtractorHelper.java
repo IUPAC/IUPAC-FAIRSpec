@@ -16,15 +16,15 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
-import org.iupac.fairdata.sample.IFDSample;
-import org.iupac.fairdata.sample.IFDSampleCollection;
-import org.iupac.fairdata.structure.IFDStructure;
-import org.iupac.fairdata.structure.IFDStructureCollection;
 import org.iupac.fairdata.derived.IFDSampleDataAnalysisCollection;
 import org.iupac.fairdata.derived.IFDSampleDataAssociationCollection;
 import org.iupac.fairdata.derived.IFDStructureDataAnalysisCollection;
 import org.iupac.fairdata.derived.IFDStructureDataAssociation;
 import org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;
+import org.iupac.fairdata.sample.IFDSample;
+import org.iupac.fairdata.sample.IFDSampleCollection;
+import org.iupac.fairdata.structure.IFDStructure;
+import org.iupac.fairdata.structure.IFDStructureCollection;
 
 import javajs.util.PT;
 
@@ -320,7 +320,7 @@ public class IFDFAIRSpecExtractorHelper {
 		for (int i = 0; i < associations.length; i++)
 			if (associations[i] != null)
 				findingAid.addCollection(associations[i]);
-		findingAid.finalizeCollections(null);
+		findingAid.finalizeCollections();
 		dumpSummary();
 	}
 
@@ -362,8 +362,8 @@ public class IFDFAIRSpecExtractorHelper {
 		int n = 0;
 		for (IFDAssociation assoc : specData) {
 			List<IFDDataObject> empty = new ArrayList<>();
-			IFDCollection<IFDObject<?>> dataCollection = assoc.getObject(1);
-			for (IFDObject<?> d : dataCollection) {
+			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> dataCollection = assoc.getObject(1);
+			for (IFDRepresentableObject<? extends IFDRepresentation> d : dataCollection) {
 				if (d.size() == 0)
 					empty.add((IFDDataObject) d);
 			}
@@ -389,7 +389,7 @@ public class IFDFAIRSpecExtractorHelper {
 	 * @param andRemove
 	 * @return
 	 */
-	public IFDStructure getFirstStructureForSpec(IFDRepresentableObject<?> spec, boolean andRemove) {
+	public IFDStructure getFirstStructureForSpec(IFDDataObject spec, boolean andRemove) {
 		return (IFDStructure) getStructureDataCollection().getFirstObj1ForObj2(spec, andRemove);
 	}
 

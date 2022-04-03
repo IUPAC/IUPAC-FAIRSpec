@@ -1,10 +1,8 @@
 package org.iupac.fairdata.derived;
 
-import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
-import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.structure.IFDStructure;
@@ -35,20 +33,21 @@ public class IFDStructureDataAssociation extends IFDAssociation {
 		};
 	}
 	
-	public IFDStructureDataAssociation(String name, String type
-			, IFDStructureCollection structureCollection
-			, IFDDataObjectCollection dataCollection) throws IFDException {
-		super(name, type, structureCollection, (IFDCollection<IFDObject<?>>) dataCollection);
+	public IFDStructureDataAssociation(String name, IFDStructureCollection structureCollection, IFDDataObjectCollection dataCollection) throws IFDException {
+		this(name, null, structureCollection, dataCollection);		
 	}
 	
+	@SuppressWarnings("unchecked")
+	public IFDStructureDataAssociation(String name, String type, IFDStructureCollection structureCollection,
+			IFDDataObjectCollection dataCollection) throws IFDException {
+		super(name, type, new IFDCollection[] { structureCollection, dataCollection });
+	}
+	
+	@SuppressWarnings("unchecked")
 	public IFDStructureDataAssociation(String name, IFDStructure structure, IFDDataObject data) throws IFDException {
-		super(name, null, new IFDStructureCollection("structures", structure), new IFDDataObjectCollection("data", data));
+		super(name, null, new IFDCollection[] { new IFDStructureCollection("structures", structure), new IFDDataObjectCollection("data", data) });
 	}
 
-	public IFDStructureDataAssociation(String name, IFDStructureCollection structureCollection, IFDDataObjectCollection dataCollection) throws IFDException {
-		super(name, null, structureCollection, dataCollection);		
-	}
-	
 	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof IFDStructureDataAssociation))
@@ -58,11 +57,12 @@ public class IFDStructureDataAssociation extends IFDAssociation {
 	}
 
 	public IFDStructureCollection getStructureCollection() {
-		return (IFDStructureCollection) get(ITEM_STRUC);
+		// coerce IFDStructureCollection. I do not know why this does not work directly
+		return (IFDStructureCollection) (Object) get(ITEM_STRUC);
 	}
 
-	public IFDCollection<IFDObject<?>> getDataObjectCollection() {
-		return (IFDCollection<IFDObject<?>>) get(ITEM_DATA);
+	public IFDDataObjectCollection getDataObjectCollection() {
+		return (IFDDataObjectCollection) (Object) get(ITEM_DATA);
 	}
 
 	public IFDStructure getStructure(int i) {

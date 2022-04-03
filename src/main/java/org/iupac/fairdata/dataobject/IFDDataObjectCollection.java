@@ -3,10 +3,10 @@ package org.iupac.fairdata.dataobject;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDCollection;
-import org.iupac.fairdata.core.IFDObject;
+import org.iupac.fairdata.core.IFDRepresentableObject;
 
 @SuppressWarnings("serial")
-public class IFDDataObjectCollection extends IFDCollection<IFDObject<?>> {
+public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObject<IFDDataObjectRepresentation>> {
 
 	@Override
 	public Class<?>[] getObjectTypes() {
@@ -26,11 +26,6 @@ public class IFDDataObjectCollection extends IFDCollection<IFDObject<?>> {
 		super(name, type);
 	}
 	
-	@Override
-	public IFDDataObject get(int i) {
-		return (IFDDataObject) super.get(i);
-	}
-
 	public boolean addObject(IFDDataObject sd) {
 		if (contains(sd))
 			return false;
@@ -43,7 +38,7 @@ public class IFDDataObjectCollection extends IFDCollection<IFDObject<?>> {
 	}
 	
 	@Override
-	public boolean add(IFDObject<?> t) {
+	public boolean add(IFDRepresentableObject<IFDDataObjectRepresentation> t) {
 		if (t instanceof IFDDataObject) {
 			return addObject((IFDDataObject) t);
 		}

@@ -2,7 +2,7 @@ package org.iupac.fairdata.sample;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDCollection;
-import org.iupac.fairdata.core.IFDObject;
+import org.iupac.fairdata.core.IFDRepresentableObject;
 
 /**
  * A collection of IFDSample objects.
@@ -11,7 +11,7 @@ import org.iupac.fairdata.core.IFDObject;
  *
  */
 @SuppressWarnings({ "serial" })
-public class IFDSampleCollection extends IFDCollection<IFDObject<?>> {
+public class IFDSampleCollection extends IFDCollection<IFDRepresentableObject<IFDSampleRepresentation>> {
 
 	public IFDSampleCollection(String name) {
 		super(name, null);

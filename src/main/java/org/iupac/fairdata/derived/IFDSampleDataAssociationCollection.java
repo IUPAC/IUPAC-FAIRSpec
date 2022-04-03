@@ -16,8 +16,12 @@ public class IFDSampleDataAssociationCollection extends IFDAssociationCollection
 		return new Class<?>[] { IFDSampleCollection.class, IFDDataObjectCollection.class };
 	}
 
+	public IFDSampleDataAssociationCollection(String name, String type) {
+		super(name, type);
+	}
+
 	public IFDSampleDataAssociationCollection(String name) {
-		super(name, "Samples", null);
+		this(name, null);
 	}
 
 	public IFDSampleDataAssociation addAssociation(String name, IFDSample sample, IFDDataObject data) throws IFDException {

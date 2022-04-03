@@ -1,10 +1,8 @@
 package org.iupac.fairdata.derived;
 
-import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
-import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.sample.IFDSample;
@@ -18,7 +16,7 @@ import org.iupac.fairdata.sample.IFDSampleCollection;
  * Each of these collections allows for one or more item, resulting in a
  * one-to-one, many-to-one, one-to-many, or many-many associations.
  * 
- * An object that does not itself allow representations.
+ * This object is not representable itself.
  * 
  * @author hansonr
  *
@@ -36,13 +34,15 @@ public class IFDSampleDataAssociation extends IFDAssociation {
 		};
 	}
 	
+	@SuppressWarnings("unchecked")
 	public IFDSampleDataAssociation(String name, IFDSample sample, IFDDataObject data) throws IFDException {
-		super(name, null, new IFDSampleCollection("samples", sample), new IFDDataObjectCollection("data", data));
+		super(name, null, new IFDCollection[] { new IFDSampleCollection("samples", sample), new IFDDataObjectCollection("data", data) });
 	}
 
 
-	public IFDSampleDataAssociation(String name, String type, IFDSampleCollection sampleCollection, IFDCollection<IFDObject<?>> dataCollection) throws IFDException {
-		super(name, type, sampleCollection, dataCollection);
+	@SuppressWarnings("unchecked")
+	public IFDSampleDataAssociation(String name, String type, IFDSampleCollection sampleCollection, IFDDataObjectCollection dataCollection) throws IFDException {
+		super(name, type, new IFDCollection[] { sampleCollection, dataCollection });
 	}
 	
 	@Override
@@ -54,11 +54,13 @@ public class IFDSampleDataAssociation extends IFDAssociation {
 	}
 
 	public IFDSampleCollection getSampleCollection() {
-		return (IFDSampleCollection) get(ITEM_SAMPLE);
+		// for whatever reason, we have to coerce this 
+		return (IFDSampleCollection) (Object) get(ITEM_SAMPLE);
 	}
 
-	public IFDCollection<IFDObject<?>> getDataObjectCollection() {
-		return (IFDCollection<IFDObject<?>>) get(ITEM_DATA);
+	public IFDDataObjectCollection getDataObjectCollection() {
+		// for whatever reason, we have to coerce this 
+		return (IFDDataObjectCollection) (Object) get(ITEM_DATA);
 	}
 
 	public IFDSample getSample(int i) {

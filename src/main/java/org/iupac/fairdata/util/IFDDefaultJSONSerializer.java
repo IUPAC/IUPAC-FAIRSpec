@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import org.iupac.fairdata.api.IFDSerializableI;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDFAIRDataFindingAid;
 
 import javajs.util.PT;
@@ -61,9 +62,14 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 
 	@Override
 	public String serialize(IFDSerializableI obj) {
-		openObject();
-		obj.serialize(this);
-		return closeObject();
+		if (obj instanceof IFDAssociation) {
+		  obj.serialize(this);
+		  return "";
+		} else {
+			openObject();
+			obj.serialize(this);
+			return closeObject();			
+		}
 	}
 
 	@Override
@@ -102,8 +108,11 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 			thisObj.append("[");
 			for (int i = 0, n = list.size(); i < n; i++) {
 				thisObj.append(sep);
-				addValue(list.get(i), false);
-				sep = ",\n";
+				Object v = list.get(i);
+				addValue(v, false);
+				if (sep == "") {
+					sep = (v instanceof Number ? "," : ",\n");
+				}
 			}
 			thisObj.append("]");
 			return;

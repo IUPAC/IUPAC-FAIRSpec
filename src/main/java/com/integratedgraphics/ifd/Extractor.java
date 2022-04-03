@@ -754,9 +754,9 @@ public class Extractor implements IFDExtractorI {
 		boolean isFound = false;
 		int n = 0;
 		for (IFDAssociation assoc : ssc) {
-			IFDCollection<IFDObject<?>> c = assoc.get(1);
+			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = assoc.get(1);
 			List<IFDDataObject> found = new ArrayList<>();
-			for (IFDObject<?> spec : c) {
+			for (IFDRepresentableObject<? extends IFDRepresentation> spec : c) {
 				if (bs.get(spec.getIndex())) {
 					found.add((IFDDataObject) spec);
 					log("! removing duplicate spec reference " + spec.getName() + " for "
@@ -1025,7 +1025,7 @@ public class Extractor implements IFDExtractorI {
 			boolean isStructure = (IFDFAIRSpecExtractorHelper.getObjectTypeForName(key, true) == IFDFAIRSpecExtractorHelper.ClassTypes.Structure);
 			System.out.println("Extractor.updateObjectProperties " + key + " " + value);
 			// link to the originating spec representation -- xxx.mnova, xxx.zip
-			IFDRepresentableObject<?> spec = htLocalizedNameToObject.get(localizedName);
+			IFDRepresentableObject<? extends IFDRepresentation> spec = htLocalizedNameToObject.get(localizedName);
 			if (spec == null) {
 				logErr("manifest not found for " + localizedName, "addCachedRepresentation");
 				continue;
@@ -1074,7 +1074,7 @@ public class Extractor implements IFDExtractorI {
 					File f = getAbsoluteFileTarget(ifdPath);
 					writeBytesToFile(bytes, f);
 					String localName = localizePath(ifdPath);
-					struc = helper.getFirstStructureForSpec(spec, false);
+					struc = helper.getFirstStructureForSpec((IFDDataObject) spec, false);
 					if (struc == null) {
 						struc = helper.addStructureForSpec(rootPath, (IFDDataObject) spec, ifdRepType, ifdPath,
 								localName, name);

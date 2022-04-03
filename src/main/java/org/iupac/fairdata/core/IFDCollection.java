@@ -15,8 +15,8 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 	}
 
 	@SafeVarargs
-	public IFDCollection(String name, String type, int n, T... initialSet) {
-		super(name, type, n, initialSet);
+	public IFDCollection(String name, String type, T... initialSet) {
+		super(name, type, initialSet.length, initialSet);
 	}
 
 	public List<Integer> getIndexList() {
@@ -51,7 +51,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 			return null;
 		for (T c : this) {
 			if (!(c instanceof IFDRepresentableObject))
-				return null;
+				continue;
 			IFDRepresentation r = ((IFDRepresentableObject<?>)c).getRepresentation(ifdPath);
 			if (r != null)
 				return r;

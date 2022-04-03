@@ -77,6 +77,8 @@ public class IFDConst {
 //		return lst.toArray(new String[lst.size()]);
 //	}
 
+	// see org.iupac.fairdata.common.fairspec.properties
+	
 	public static final String IFD_VERSION = getProp("IFD_VERSION");
 
 	public static final String IFD_PROP_SAMPLE_LABEL = getProp("IFD_PROP_SAMPLE_LABEL");

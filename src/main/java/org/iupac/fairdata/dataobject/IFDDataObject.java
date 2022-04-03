@@ -3,7 +3,6 @@ package org.iupac.fairdata.dataobject;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
-import org.iupac.fairdata.core.IFDRepresentation;
 
 /**
  * A generic interface indicating some sort of data. Implemented here as
@@ -15,7 +14,7 @@ import org.iupac.fairdata.core.IFDRepresentation;
  *
  */
 @SuppressWarnings("serial")
-public class IFDDataObject extends IFDRepresentableObject<IFDRepresentation> {
+public class IFDDataObject extends IFDRepresentableObject<IFDDataObjectRepresentation> {
 
 	{
 		setProperties("IFD_PROP_DATA_OBJECT", null); // These are loaded based on subtype
