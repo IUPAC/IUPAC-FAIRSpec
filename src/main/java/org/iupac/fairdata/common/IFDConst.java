@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.Properties;
 
 import org.iupac.fairdata.contrib.IFDFAIRSpecExtractorHelper;
+import org.iupac.fairdata.core.IFDProperty;
 
 /**
  * Constants relating to properties and extraction.

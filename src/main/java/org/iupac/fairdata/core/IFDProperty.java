@@ -1,7 +1,8 @@
-package org.iupac.fairdata.common;
+package org.iupac.fairdata.core;
 
 import org.iupac.fairdata.api.IFDSerializableI;
 import org.iupac.fairdata.api.IFDSerializerI;
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDConst.PROPERTY_TYPE;
 import org.iupac.fairdata.common.IFDConst.PROPERTY_UNIT;
 
