@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.common.IFDReference;
 
 /**
  * A class implementing IFDRepresentableObject is expected to have one or more

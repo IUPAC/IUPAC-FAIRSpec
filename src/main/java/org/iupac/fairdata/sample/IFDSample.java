@@ -1,7 +1,7 @@
 package org.iupac.fairdata.sample;
 
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.common.IFDReference;
+import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 

@@ -10,7 +10,6 @@ import java.util.TreeMap;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.common.IFDResource;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 
 /**

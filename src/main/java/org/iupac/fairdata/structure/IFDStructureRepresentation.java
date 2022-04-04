@@ -1,6 +1,6 @@
 package org.iupac.fairdata.structure;
 
-import org.iupac.fairdata.common.IFDReference;
+import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentation;
 
 public class IFDStructureRepresentation extends IFDRepresentation {

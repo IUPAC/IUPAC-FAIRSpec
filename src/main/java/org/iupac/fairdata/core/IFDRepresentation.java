@@ -2,7 +2,6 @@ package org.iupac.fairdata.core;
 
 import org.iupac.fairdata.api.IFDSerializableI;
 import org.iupac.fairdata.api.IFDSerializerI;
-import org.iupac.fairdata.common.IFDReference;
 
 /**
  * Metadata referencing a representation (an actual digital object), optionally

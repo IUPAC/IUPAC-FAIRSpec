@@ -1,4 +1,4 @@
-package org.iupac.fairdata.common;
+package org.iupac.fairdata.core;
 
 import org.iupac.fairdata.api.IFDSerializableI;
 import org.iupac.fairdata.api.IFDSerializerI;

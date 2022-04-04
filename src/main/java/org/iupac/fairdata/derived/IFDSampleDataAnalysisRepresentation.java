@@ -1,7 +1,7 @@
 package org.iupac.fairdata.derived;
 
 import org.iupac.fairdata.analysis.IFDAnalysisObjectRepresentation;
-import org.iupac.fairdata.common.IFDReference;
+import org.iupac.fairdata.core.IFDReference;
 
 /**
  * just a convenience
