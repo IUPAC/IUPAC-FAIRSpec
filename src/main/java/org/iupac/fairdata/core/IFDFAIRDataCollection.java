@@ -73,9 +73,9 @@ public class IFDFAIRDataCollection extends IFDCollection<IFDCollection<IFDObject
 			if (c.size() == 0)
 				continue;
 			Map<String, Object> m = new TreeMap<>();
-			m.put("collectionName", c.getName());
-			m.put("collectionType", c.getClass().getName());
-			m.put("collectionSize", c.size());
+			m.put("name", c.getName());
+			m.put("type", c.getClass().getName());
+			m.put("size", c.size());
 			lst.add(m);
 		}
 		map.put("collections", lst);
