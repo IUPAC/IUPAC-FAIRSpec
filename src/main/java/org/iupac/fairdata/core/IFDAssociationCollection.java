@@ -83,13 +83,46 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 	
 	@Override
 	protected void serializeTop(IFDSerializerI serializer) {
+				
 		super.serializeTop(serializer);
-		Class<?>[] types = get(0).getObjectTypes();
-		List<String> list = new ArrayList<>(); 
-		for (int i = 0; i < types.length; i++) {
-			list.add(types[i].getName());
+		IFDAssociation firstAssociation = get(0);
+		int arity = firstAssociation.size();
+		List<String> list = new ArrayList<>();
+		// TODO should ensure these are all the same parent and that no null entries exist.
+		for (int i = 0; i < arity; i++) {
+			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = firstAssociation.get(i);
+			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> cp = (c == null || c.size() == 0 ? null : c.get(0).getParentCollection());
+			if (cp == null) {
+			  throw new NullPointerException("IFDAssociation null or 0-length association");
+			}
+			list.add(cp.getName());
 		}
-		serializer.addObject("types", list);
+		serializer.addObject("collections", list);
+//		list.clear();
+//		Class<?>[] types = firstAssociation.getObjectTypes();
+//		for (int i = 0; i < arity; i++) {
+//			list.add(types[i].getName());
+//		}
+//		serializer.addObject("collectionTypes", list);
+	}
+
+	public void removeOrphanedAssociations() {
+		out: for (int ia = size(); --ia >= 0;) {
+			IFDAssociation a = get(ia);
+			int arity = a.size();
+			for (int i = 0; i < arity; i++) {
+				IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = a.get(i);
+				for (int j = c.size(); --j >= 0;) {
+					if (c.get(j).getParentCollection() == null) {
+						c.remove(j);
+					}
+				}
+				if (c.size() == 0) {
+					remove(ia);
+					continue out;
+				}
+			}
+		}
 	}
 
 

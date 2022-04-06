@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.iupac.fairdata.common.IFDException;
+
 @SuppressWarnings("serial")
 public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T> {
 
@@ -15,7 +17,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 	}
 
 	@SafeVarargs
-	public IFDCollection(String name, String type, T... initialSet) {
+	public IFDCollection(String name, String type, T... initialSet) throws IFDException {
 		super(name, type, initialSet.length, initialSet);
 	}
 
@@ -38,6 +40,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 			return false;
 		if (!hasRepresentations && (t instanceof IFDRepresentableObject))
 			hasRepresentations = true;
+		//System.out.println("IFDCollection " + this + " adding " + t);
 		return super.add(t);
 	}
 
@@ -83,6 +86,15 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 	public void replaceObject(T data, T newData) {
 		remove(data);
 		add(newData);
+	}
+
+	public T getObjectByName(String name) {
+		for (int i = size(); --i >= 0;) {
+			T o = get(i);
+			if (name.equals(o.getName())) 
+				return o;
+		}
+		return null;
 	}
 
 

@@ -1,6 +1,6 @@
-package org.iupac.fairdata.api;
+package org.iupac.fairdata.contrib;
 
-public interface IFDPropertyManagerI {
+public interface PropertyManagerI {
 
 	String getParamRegex();
 
@@ -16,7 +16,7 @@ public interface IFDPropertyManagerI {
 	 * @param bytes     the decompressed contents of this file, for checking and further processing; may be null in some applications
 	 * @return true if accepted (but may be ignored by the extractor)
 	 */
-	String accept(IFDExtractorI extractor, String ifdPath, byte[] bytes);
+	String accept(ExtractorI extractor, String ifdPath, byte[] bytes);
 
 	/**
 	 * Process a representation (zip file or directory, mol file, etc.), possibly
@@ -33,10 +33,10 @@ public interface IFDPropertyManagerI {
 	 */
 	String processRepresentation(String ifdPath, byte[] bytes);
 
-	static void addProperty(IFDExtractorI extractor, String key, Object val) {
+	static void addProperty(ExtractorI extractor, String key, Object val) {
 		if (val == null)
 			return;
-		System.out.println(key + " = " + val);
+		//System.out.println("IFDPropertyManager " + key + " = " + val);
 		if (extractor != null)
 			extractor.addProperty(key, val);
 	}

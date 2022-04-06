@@ -234,7 +234,7 @@ public class ExtractorTest extends Extractor {
 		debugging = false; // true for verbose listing of all files
 		createFindingAidsOnly = false; // true if extraction files already exist or you otherwise don't want not write
 		
-		allowNoPubInfo = debugReadOnly; // true to allow no internet connection and so no pub calls
+		allowNoPubInfo = true;//debugReadOnly; // true to allow no internet connection and so no pub calls
 		skipPubInfo = !dataciteUp || debugReadOnly;  // true to allow no internet connection and so no pub calls
 	
 		int first = 0; // first test to run

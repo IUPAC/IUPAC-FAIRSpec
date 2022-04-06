@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.iupac.fairdata.core.IFDFAIRDataFindingAid;
+import org.iupac.fairdata.core.IFDFindingAid;
 
 public interface IFDSerializerI {
 
@@ -27,12 +27,12 @@ public interface IFDSerializerI {
 	/**
 	 * 
 	 * Generate the serialization and optionally save it to disk as
-	 * [rootname]_IFD_PROP_FAIRDATA_COLLECTION.[ext] and optionally create an _IFD_collection.zip
+	 * [rootname]_IFD_PROP_COLLECTIONSET.[ext] and optionally create an _IFD_collection.zip
 	 * in that same directory.
 	 * 
-	 * @param ifdFindingAid the requesting IFDFAIRDataFindingAid
+	 * @param ifdFindingAid the requesting IFDFindingAid
 	 * @param targetDir or null for no output
-	 * @param rootName  a prefix root such as "acs.orglett.0c00572." to add to the _IFD_PROP_FAIRDATA_COLLECTION.json (or.xml)
+	 * @param rootName  a prefix root such as "acs.orglett.0c00572." to add to the _IFD_PROP_COLLECTIONSET.json (or.xml)
 	 *                  finding aid created
 	 * @param products  optionally, a list of directories containing the files referenced by the
 	 *                  finding aid for creating the IFD_collection.zip file
@@ -40,5 +40,5 @@ public interface IFDSerializerI {
 	 * @return the serialization as a String
 	 * @throws IOException
 	 */
-	String createSerialization(IFDFAIRDataFindingAid ifdFindingAid, File targetDir, String rootName, List<Object> products) throws IOException;
+	String createSerialization(IFDFindingAid ifdFindingAid, File targetDir, String rootName, List<Object> products) throws IOException;
 }

@@ -10,6 +10,7 @@ import org.iupac.fairdata.api.IFDObjectI;
 import org.iupac.fairdata.api.IFDSerializableI;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.common.IFDException;
 
 /**
  * IFDObject is the base abstract superclass for all IFD Data Model metadata
@@ -152,25 +153,16 @@ import org.iupac.fairdata.common.IFDConst;
  * correlate specific atoms or groups of atoms of a chemical structure with
  * specific signals in a spectrum or other sort of data object.
  *
- * -- IFDSampleDataAnalysis --
- * 
- * The IFDSampleDataAnalysis class is intended to represent a detailed
- * correlation between a specific chemical sample and its structure and
- * spectroscopic data. The details of this analysis would be designed into the
- * subclass being implemented.
  *
- * -- IFDFAIRDataFindingAid --
+ * -- IFDFindingAid --
  *
- * In general, an overall IFDFAIRDataCollection contain a "master" metadata
- * Object, the object, the IFDFAIRDataFindingAid.
- * 
- * The IFDFAIRDataFindingAid class is a master class for the organizing metadata
+ * The IFDFindingAid class is a master class for the organizing metadata
  * in relation to a collection. It is not a collection itself, and it has no
  * representations, though as an IFDObject, it can be serialized. This class
  * ultimately extends ArrayList, so all of the methods of that standard Java
  * class are allowed (add, put, replace, etc.)
  * 
- * The IFDFAIRDataFindingAid references the IFDFAIRDataCollection "collection of
+ * The IFDFindingAid references the IFDCollectionSet "collection of
  * collections," providing:
  * 
  * 1) metadata relating to the entire collection. For example, a publication or
@@ -181,15 +173,12 @@ import org.iupac.fairdata.common.IFDConst;
  * 31P) and spectrometer nominal frequency (300 MHz, 800 MHz) or type of IR
  * analysis (such as ATR).
  * 
- * 3) pointers to finding aids for subcollections, each of which which may be a
- * pointer to one or more additional finding aids.
- * 
- * It is the IFDFAIRDataFindingAid that ultimately distinguishes the IUPAC
+ * It is the IFDFindingAid that ultimately distinguishes the IUPAC
  * FAIRSpec data model from other models. It should contain all the information
  * that forms the basis of what the user sees. It should reveal information
  * about the collection that allows users to quickly determine whether data in
  * this collection are relevant to their interests or not. The
- * IFDFAIRDataFindingAid could be static -- a Digital Item within a repository
+ * IFDFindingAid could be static -- a Digital Item within a repository
  * collection -- or dynamically created in response to a query.
  * 
  * 
@@ -212,10 +201,10 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected int index;
 
 	/**
-	 * index of source URL in the IFDFAIRDataFindingAid URLs list; must be set nonnegative
+	 * index of source URL in the IFDFindingAid URLs list; must be set nonnegative
 	 * to register
 	 */
-	private int sourceIndex = -1;
+	private IFDResource resource;
 
 	/**
 	 * an arbitrary name given to provide some sort of context
@@ -248,37 +237,53 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	/**
 	 * the maximum number of items allowed in this list; may be 0
 	 */
-	private final int maxCount;
+	private int maxCount;
 	/**
 	 * the minimum number of items allowed in this list, set by initializing it with
 	 * a set of "fixed" items
 	 */
 	private int minCount;
 
-	protected final String type;
+	protected String type;
 
 	protected String subtype = "Unknown";
 
-	@SuppressWarnings("unchecked")
 	public IFDObject(String name, String type) {
-		this(name, type, Integer.MAX_VALUE);
+		set(name, type, Integer.MAX_VALUE);
 	}
 
+	/**
+	 * Set with an initial set, for an association. No element of the initial set
+	 * can be null.
+	 * 
+	 * @param name
+	 * @param type
+	 * @param maxCount
+	 * @param initialSet
+	 * @throws IFDException if any element of a non-null initialSet is null
+	 */
 	@SuppressWarnings("unchecked")
-	public IFDObject(String name, String type, int maxCount, T... initialSet) {
+	public IFDObject(String name, String type, int maxCount, T... initialSet) throws IFDException {
+		set(name, type, maxCount);
+		if (initialSet == null) {
+			minCount = 0;
+		} else {
+			minCount = initialSet.length;
+			for (int i = 0; i < minCount; i++) {
+				if (initialSet[i] == null)
+					throw new IFDException("IFDObject initial set cannot be null");
+				super.add(initialSet[i]);
+			}
+		}
+	}
+
+	private void set(String name, String type, int maxCount) {
 		this.name = name;
 		if (type == null)
 			type = this.getClass().getName();
 		this.type = type;
 		this.maxCount = maxCount;
 		this.index = indexCount++;
-		if (initialSet == null) {
-			minCount = 0;
-		} else {
-			minCount = initialSet.length;
-			for (int i = 0; i < minCount; i++)
-				super.add(initialSet[i]);
-		}
 	}
 
 	/**
@@ -313,7 +318,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		// check for .representation., which is not stored in the object.
 		if (IFDConst.isRepresentation(name))
 			return;
-		if (IFDConst.isLabel(name))
+		if (IFDConst.isLabel(name, true))
 			this.name = value.toString();
 		IFDProperty p = IFDConst.getIFDProperty(htProps, name);
 		if (p == null) {
@@ -339,12 +344,12 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return index;
 	}
 
-	public void setUrlIndex(int urlIndex) {
-		this.sourceIndex = urlIndex;
+	public void setResource(IFDResource resource) {
+		this.resource = resource;
 	}
 
-	public int getUrlIndex() {
-		return sourceIndex;
+	public IFDResource getResource() {
+		return resource;
 	}
 
 	public String getID() {
@@ -423,6 +428,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	}
 
 	public void setPath(String path) {
+		if (path.indexOf("products") >= 0)
+			System.out.println("IFDObject test");
 		this.path = path;
 	}
 
@@ -459,9 +466,9 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	}
 
 	protected void serializeProps(IFDSerializerI serializer) {
-		if (sourceIndex >= 0)
-			serializer.addAttrInt("sourceIndex", sourceIndex);
-		serializer.addAttr("path", getPath());
+		if (resource != null)
+			serializer.addAttrInt("resource", resource.getIndex());
+//ONLY FOR REPRESENTATIONS		serializer.addAttr("path", getPath());
 		if (haveProperties()) {
 			// general serialization does not write out units
 			Map<String, Object> map = new TreeMap<>();
@@ -478,11 +485,11 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	protected void serializeList(IFDSerializerI serializer) {
 		if (size() > 0) {
-			serializer.addAttrInt("listCount", size());
+//			serializer.addAttrInt("elementCount", size());
 			List<T> list = new ArrayList<T>();
 			for (int i = 0, n = size(); i < n; i++)
 				list.add(get(i));
-			serializer.addObject("list", list);
+			serializer.addObject("elements", list);
 		}
 	}
 

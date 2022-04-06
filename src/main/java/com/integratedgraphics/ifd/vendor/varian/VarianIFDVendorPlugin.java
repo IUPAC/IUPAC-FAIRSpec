@@ -2,7 +2,7 @@ package com.integratedgraphics.ifd.vendor.varian;
 
 import java.io.ByteArrayInputStream;
 
-import org.iupac.fairdata.api.IFDExtractorI;
+import org.iupac.fairdata.contrib.ExtractorI;
 import org.nmrml.parser.Acqu;
 
 import com.integratedgraphics.ifd.vendor.NmrMLIFDVendorPlugin;
@@ -20,7 +20,7 @@ public class VarianIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 	}
 
 	@Override
-	public String accept(IFDExtractorI extractor, String ifdPath, byte[] bytes) {
+	public String accept(ExtractorI extractor, String ifdPath, byte[] bytes) {
 		super.accept(extractor, ifdPath, bytes);
 		try {
 			NmrMLVarianAcquStreamReader varian = new NmrMLVarianAcquStreamReader(new ByteArrayInputStream(bytes));

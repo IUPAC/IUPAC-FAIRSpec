@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.iupac.fairdata.api.IFDExtractorI;
+import org.iupac.fairdata.contrib.ExtractorI;
 
 import com.integratedgraphics.ifd.Extractor;
-import com.integratedgraphics.ifd.util.IFDDefaultVendorPlugin;
+import com.integratedgraphics.ifd.util.DefaultVendorPlugin;
 import com.integratedgraphics.ifd.vendor.mestrelab.MNovaMetadataReader.Param;
 
 import javajs.util.PT;
 
-public class MestrelabIFDVendorPlugin extends IFDDefaultVendorPlugin {
+public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 
 	static {
 		register(com.integratedgraphics.ifd.vendor.mestrelab.MestrelabIFDVendorPlugin.class);
@@ -56,7 +56,7 @@ public class MestrelabIFDVendorPlugin extends IFDDefaultVendorPlugin {
 	}
 
 	@Override
-	public String accept(IFDExtractorI extractor, String ifdPath, byte[] bytes) {
+	public String accept(ExtractorI extractor, String ifdPath, byte[] bytes) {
 		super.accept(extractor, ifdPath, bytes);
 		MNovaMetadataReader reader;
 		try {

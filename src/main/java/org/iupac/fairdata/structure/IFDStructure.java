@@ -1,6 +1,5 @@
 package org.iupac.fairdata.structure;
 
-import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 
@@ -18,8 +17,6 @@ public class IFDStructure extends IFDRepresentableObject<IFDStructureRepresentat
 	public IFDStructure(String path, String param, String value) {
 		super(param + ";" + value, null);
 		setPath(path);
-		if (param.equals(IFDConst.IFD_PROP_SAMPLE_LABEL) || IFDConst.isRepresentation(param))
-			name = value;
 		setPropertyValue(param, value);
 	}
 

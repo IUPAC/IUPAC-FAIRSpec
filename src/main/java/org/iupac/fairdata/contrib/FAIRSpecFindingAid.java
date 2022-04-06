@@ -1,6 +1,6 @@
 package org.iupac.fairdata.contrib;
 
-import org.iupac.fairdata.core.IFDFAIRDataFindingAid;
+import org.iupac.fairdata.core.IFDFindingAid;
 
 /**
  * A class used by IFDFAIRSpecHelper to identify this as an IUPAC FAIRData
@@ -10,9 +10,9 @@ import org.iupac.fairdata.core.IFDFAIRDataFindingAid;
  *
  */
 @SuppressWarnings("serial")
-public class IFDFAIRSpecFindingAid extends IFDFAIRDataFindingAid {
+public class FAIRSpecFindingAid extends IFDFindingAid {
 
-	public IFDFAIRSpecFindingAid(String name, String type, String creator) {
+	public FAIRSpecFindingAid(String name, String type, String creator) {
 		super(name, type, creator);
 	}
 

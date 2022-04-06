@@ -9,11 +9,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-import org.iupac.fairdata.contrib.IFDFAIRSpecExtractorHelper;
 import org.iupac.fairdata.core.IFDProperty;
 
 /**
- * Constants relating to properties and extraction.
+ * Constants relating to properties
  * 
  * @author hansonr
  *
@@ -86,18 +85,18 @@ public class IFDConst {
 
 	public static final String IFD_FINDING_AID = getProp("IFD_FINDING_AID"); // root name for JSON
 
-	public static final String IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_NAME = getProp("IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_NAME");
-	public static final String IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_URI = getProp("IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_URI");
+	public static final String IFD_PROP_COLLECTIONSET_DATA_LICENSE_NAME = getProp("IFD_PROP_COLLECTIONSET_DATA_LICENSE_NAME");
+	public static final String IFD_PROP_COLLECTIONSET_DATA_LICENSE_URI = getProp("IFD_PROP_COLLECTIONSET_DATA_LICENSE_URI");
 
-	public static final String IFD_PROP_FAIRDATA_COLLECTION = getProp("IFD_PROP_FAIRDATA_COLLECTION");
-	public static final String IFD_PROP_FAIRDATA_COLLECTION_ID = getProp("IFD_PROP_FAIRDATA_COLLECTION_ID");
-	public static final String IFD_PROP_FAIRDATA_COLLECTION_REF = getProp("IFD_PROP_FAIRDATA_COLLECTION_REF");
-	public static final String IFD_PROP_FAIRDATA_COLLECTION_LEN = getProp("IFD_PROP_FAIRDATA_COLLECTION_LEN");
+	public static final String IFD_PROP_COLLECTIONSET = getProp("IFD_PROP_COLLECTIONSET");
+	public static final String IFD_PROP_COLLECTIONSET_ID = getProp("IFD_PROP_COLLECTIONSET_ID");
+	public static final String IFD_PROP_COLLECTIONSET_REF = getProp("IFD_PROP_COLLECTIONSET_REF");
+	public static final String IFD_PROP_COLLECTIONSET_LEN = getProp("IFD_PROP_COLLECTIONSET_LEN");
 	public static final String IFD_EXTRACTOR_OBJECT = getProp("IFD_EXTRACTOR_OBJECT");
-	public static final String IFD_PROP_FAIRDATA_COLLECTION_SOURCE_DATA_URI = getProp(
-			"IFD_PROP_FAIRDATA_COLLECTION_SOURCE_DATA_URI");
-	public static final String IFD_PROP_FAIRDATA_COLLECTION_SOURCE_PUBLICATION_URI = getProp(
-			"IFD_PROP_FAIRDATA_COLLECTION_SOURCE_PUBLICATION_URI");
+	public static final String IFD_PROP_COLLECTIONSET_SOURCE_DATA_URI = getProp(
+			"IFD_PROP_COLLECTIONSET_SOURCE_DATA_URI");
+	public static final String IFD_PROP_COLLECTIONSET_SOURCE_PUBLICATION_URI = getProp(
+			"IFD_PROP_COLLECTIONSET_SOURCE_PUBLICATION_URI");
 
 	public static final String IFD_REP_STRUCTURE_MOL = getProp("IFD_REP_STRUCTURE_MOL");
 	public static final String IFD_REP_STRUCTURE_MOL_2D = getProp("IFD_REP_STRUCTURE_MOL_2D");
@@ -155,13 +154,13 @@ public class IFDConst {
 		return (propName != null && propName.startsWith(IFDConst.IFD_PROPERTY_FLAG));
 	}
 
-	public static boolean isLabel(String propName) {
+	public static boolean isLabel(String propName, boolean includeExpt) {
 		return (propName != null
-				&& (propName.endsWith(IFDFAIRSpecExtractorHelper.IFD_EXPT_LABEL_FLAG) || propName.endsWith(IFDFAIRSpecExtractorHelper.IFD_COMPOUND_LABEL_FLAG)));
+				&& (includeExpt && propName.endsWith(IFDConst.IFD_EXPT_LABEL_FLAG) || propName.endsWith(IFDConst.IFD_COMPOUND_LABEL_FLAG)));
 	}
 
-	public static boolean isFindingAid(String propName) {
-		return (propName != null && propName.startsWith(IFDFAIRSpecExtractorHelper.IFD_FINDING_AID_FLAG));
-	}
+	public static final String IFD_EXPT_LABEL_FLAG = getProp("IFD_EXPT_LABEL_FLAG");
+
+	public static final String IFD_COMPOUND_LABEL_FLAG = getProp("IFD_COMPOUND_LABEL_FLAG");
 
 }

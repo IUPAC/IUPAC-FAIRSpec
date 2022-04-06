@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import org.iupac.fairdata.util.IFDUtilities;
 import org.nmrml.parser.Acqu;
 
-import com.integratedgraphics.ifd.util.IFDDefaultVendorPlugin;
+import com.integratedgraphics.ifd.util.DefaultVendorPlugin;
 import com.integratedgraphics.ifd.vendor.jeol.NmrMLJeolAcquStreamReader;
 import com.integratedgraphics.ifd.vendor.varian.NmrMLVarianAcquStreamReader;
 
@@ -55,9 +55,9 @@ public class NmrMLConverterTest {
 		double freq = acq.getTransmiterFreq();
 		report("F1", freq);
 		String nuc = acq.getObservedNucleus();
-		nuc = IFDDefaultVendorPlugin.fixNucleus(nuc);
+		nuc = DefaultVendorPlugin.fixNucleus(nuc);
 		report("N1", nuc);
-		int nominalFreq = IFDDefaultVendorPlugin.getNominalFrequency(freq, nuc);
+		int nominalFreq = DefaultVendorPlugin.getNominalFrequency(freq, nuc);
 		report("SF", nominalFreq);
 		String solvent = acq.getSolvent();
 		report("SOLVENT", solvent);

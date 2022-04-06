@@ -27,16 +27,17 @@ public class IFDDataObject extends IFDRepresentableObject<IFDDataObjectRepresent
 
 	}	
 
-	public IFDDataObject(String name, String type) {
-		super(name, type);		
+	public IFDDataObject(String rootPath, String name, String type) {
+		super(name, type);
+		setPath(rootPath);
 		if (type.startsWith("IFD."))
-		setProperties("IFD_PROP_" + type.substring(4), null); // These are loaded based on subtype
+			setProperties("IFD_PROP_" + type.substring(4), null); // These are loaded based on subtype
 	}
 
 	@Override
 	public String toString() {
 		return (name == null ? super.toString()
-				: "[" + type + " " + index + " " + name + " " + (size() > 0 ? get(0) : null) + "]");
+				: "[" + type + " " + (parentCollection != null) + " " + index + " id=" + id + " " + name + " " + (size() > 0 ? get(0) : null) + "]");
 	}
 
 	@Override
@@ -46,7 +47,7 @@ public class IFDDataObject extends IFDRepresentableObject<IFDDataObjectRepresent
 
 	@Override
 	public Object clone() {
-		IFDDataObject data = new IFDDataObject(name, type);
+		IFDDataObject data = new IFDDataObject(path, name, type);
 		for (int i = 0; i < size(); i++)
 			data.add(get(i));
 		return data;

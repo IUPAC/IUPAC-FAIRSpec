@@ -41,4 +41,5 @@ public class IFDSampleCollection extends IFDCollection<IFDRepresentableObject<IF
 		return new Class<?>[] { IFDSample.class };
 	}
 
+
 }

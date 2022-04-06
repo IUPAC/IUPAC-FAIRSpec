@@ -11,50 +11,62 @@ import org.iupac.fairdata.api.IFDSerializerI;
  * A class representing an overall "collection of collections" IUPAC FAIRData
  * Collection, which is associated with an IUPAC FAIRData Finding Aid.
  * 
- * It maintains the key properties associated with a finding aid.
+ * This class also maintains some of the key properties associated of a finding aid.
  * 
  * 
  * @author hansonr
  *
  */
 @SuppressWarnings("serial")
-public class IFDFAIRDataCollection extends IFDCollection<IFDCollection<IFDObject<?>>> {
+public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>> {
 
 	{
-		setProperties("IFD_PROP_FAIRDATA_COLLECTION_", null);
+		setProperties("IFD_PROP_COLLECTIONSET_", null);
 	}
 
-	public IFDFAIRDataCollection(String name) {
+	public IFDCollectionSet(String name) {
 		this(name, null);
 	}
 
-	public IFDFAIRDataCollection(String name, String type) {
+	public IFDCollectionSet(String name, String type) {
 		super(name, type);
 	}
 
 	/**
-	 * Set all indices for non-associations
+	 * Set all indices for IDFRepresentableObject collections to be sequential, and
+	 * and set each object's collectionSet field to the top-level collection containing it
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	protected void finalizeCollections() {
 		for (int ic = 0; ic < size(); ic++) {
-			IFDCollection<IFDObject<?>> c = get(ic);
-			if (c == null || c.size() == 0 || c.get(0) instanceof IFDAssociation)
+			IFDCollection<?> c = get(ic);
+			if (c == null || c.size() == 0)
 				continue;
-			for (int i = c.size(); --i >= 0;)
-				((IFDObject<?>) c.get(i)).setIndex(i);
+			if (c instanceof IFDAssociationCollection) {
+					((IFDAssociationCollection) c).removeOrphanedAssociations();
+			} else {
+				for (int i = c.size(); --i >= 0;) {
+					IFDRepresentableObject<?> o = (IFDRepresentableObject<?>) c.get(i);
+					o.setIndex(i);
+					// coerced to collection of IFDRepresentableObject
+					o.setParentCollection(
+							(IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>) (Object) c);
+				}
+			}
 		}
 	}
 	
 	@Override
 	public void serialize(IFDSerializerI serializer) {
-		// serialize the associations last
+		// two passes so that we serialize the associations last
 		for (int pass = 0; pass < 2; pass++) {
 			for (int i = 0; i < size(); i++) {
 				IFDCollection<IFDObject<?>> c = get(i);
-				if (c == null || c.size() == 0)
+				if (c == null)
 					continue;
-				if ((c.get(0) instanceof IFDAssociation) == (pass == 1)) {
+				if ((c.size() > 0 && c.get(0) instanceof IFDAssociation) == (pass == 1)) {
+					if (pass == 1 || c.size() > 0)
 					serializer.addObject(c.getName(), c);
 				}
 			}
@@ -75,7 +87,7 @@ public class IFDFAIRDataCollection extends IFDCollection<IFDCollection<IFDObject
 			Map<String, Object> m = new TreeMap<>();
 			m.put("name", c.getName());
 			m.put("type", c.getClass().getName());
-			m.put("size", c.size());
+			m.put("count", c.size());
 			lst.add(m);
 		}
 		map.put("collections", lst);

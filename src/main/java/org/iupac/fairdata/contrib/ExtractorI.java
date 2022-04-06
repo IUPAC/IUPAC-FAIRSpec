@@ -1,6 +1,6 @@
-package org.iupac.fairdata.api;
+package org.iupac.fairdata.contrib;
 
-import org.iupac.fairdata.core.IFDFAIRDataFindingAid;
+import org.iupac.fairdata.core.IFDFindingAid;
 
 /**
  * An interface for extractors
@@ -8,11 +8,11 @@ import org.iupac.fairdata.core.IFDFAIRDataFindingAid;
  * @author hansonr
  *
  */
-public interface IFDExtractorI {
+public interface ExtractorI {
 
 	void addProperty(String param, Object val);
 
-	IFDFAIRDataFindingAid getFindingAid();
+	IFDFindingAid getFindingAid();
 
 //	void registerFileVendor(String fname, IFDVendorPluginI ifdVendorPluginI);
 

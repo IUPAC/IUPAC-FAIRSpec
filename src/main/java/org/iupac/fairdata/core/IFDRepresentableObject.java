@@ -34,6 +34,12 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 	protected final Map<String, IFDRepresentation> htReps = new LinkedHashMap<>();
 
 	/**
+	 * A reference to the highest level in the collection 
+	 * as defined by the finding aid.
+	 */
+	protected IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> parentCollection;
+
+	/**
 	 * Add a representation as long as it has not already been added.
 	 * 
 	 * @param ifdPath an origin name used to identify unique representations
@@ -79,6 +85,21 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 				remove(i);
 				break;
 			}
+	}
+
+
+	/**
+	 * When it comes time for an association, we want to know what top-level collection
+	 * is that contains this object.
+	 * 
+	 * @param c
+	 */
+	public void setParentCollection(IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c) {
+		parentCollection= c;		
+	}
+	
+	public IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> getParentCollection() {
+		return parentCollection;
 	}
 
 }

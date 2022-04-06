@@ -39,7 +39,7 @@ public class IFDStructureCollection extends IFDCollection<IFDStructure> {
 	}
 
 	public IFDStructure getStructureFor(String rootPath, String localName, String param, String value, String ifdPath, String mediaType) {
-		String keyValue = param + ";" + value;
+		String keyValue = param + ";" + ifdPath;//value;
 		IFDStructure sd = (IFDStructure) (IFDRepresentableObject<? extends IFDRepresentation>) map.get(keyValue);
 		if (sd == null) {
 			map.put(keyValue,  sd = new IFDStructure(rootPath, param, value));

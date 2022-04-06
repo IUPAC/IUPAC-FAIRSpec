@@ -1,10 +1,10 @@
 package com.integratedgraphics.ifd.vendor.jcamp;
 
-import org.iupac.fairdata.api.IFDExtractorI;
+import org.iupac.fairdata.contrib.ExtractorI;
 
-import com.integratedgraphics.ifd.util.IFDDefaultVendorPlugin;
+import com.integratedgraphics.ifd.util.DefaultVendorPlugin;
 
-public class JCAMPDXIFDVendorPlugin extends IFDDefaultVendorPlugin {
+public class JCAMPDXIFDVendorPlugin extends DefaultVendorPlugin {
 
 	static {
 		register(com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXIFDVendorPlugin.class);
@@ -15,7 +15,7 @@ public class JCAMPDXIFDVendorPlugin extends IFDDefaultVendorPlugin {
 	}
 
 	@Override
-	public String accept(IFDExtractorI extractor, String ifdPath, byte[] bytes) {
+	public String accept(ExtractorI extractor, String ifdPath, byte[] bytes) {
 		super.accept(extractor, ifdPath, bytes);
 		System.out.println("! TODO: accept JDX file " + ifdPath);
 		return processRepresentation(null, null);

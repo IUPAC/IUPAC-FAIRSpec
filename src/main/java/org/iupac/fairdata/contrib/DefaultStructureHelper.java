@@ -3,8 +3,6 @@ package org.iupac.fairdata.contrib;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.iupac.fairdata.api.IFDExtractorI;
-import org.iupac.fairdata.api.IFDPropertyManagerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.jmol.api.JmolViewer;
 import org.jmol.viewer.Viewer;
@@ -18,12 +16,12 @@ import javajs.util.BS;
  * @author hansonr
  *
  */
-public class IFDDefaultStructureHelper implements IFDPropertyManagerI {
+public class DefaultStructureHelper implements PropertyManagerI {
 
 	/**
 	 * the associated extractor
 	 */
-	private IFDExtractorI extractor;
+	private ExtractorI extractor;
 
 	private static Viewer jmolViewer;
 
@@ -33,7 +31,7 @@ public class IFDDefaultStructureHelper implements IFDPropertyManagerI {
 	 * 
 	 */
 
-	public IFDDefaultStructureHelper(IFDExtractorI extractor) {
+	public DefaultStructureHelper(ExtractorI extractor) {
 		this.extractor = extractor;
 	}
 
@@ -50,7 +48,7 @@ public class IFDDefaultStructureHelper implements IFDPropertyManagerI {
 	private static Map<String, String> fileToType = new HashMap<>();
 
 	@Override
-	public String accept(IFDExtractorI extractor, String ifdPath, byte[] bytes) {
+	public String accept(ExtractorI extractor, String ifdPath, byte[] bytes) {
 		return processRepresentation(ifdPath, bytes);
 	}
 	
@@ -86,13 +84,13 @@ public class IFDDefaultStructureHelper implements IFDPropertyManagerI {
 			// .getFileType(Rdr.getBufferedReader(Rdr.getBIS(bytes), null));
 		}
 		if (smiles != null) {
-			IFDPropertyManagerI.addProperty(extractor, IFDConst.getProp("IFD_PROP_STRUC_SMILES"), smiles);
+			PropertyManagerI.addProperty(extractor, IFDConst.getProp("IFD_PROP_STRUC_SMILES"), smiles);
 		}
 		if (inchi != null) {
-			IFDPropertyManagerI.addProperty(extractor, IFDConst.getProp("IFD_PROP_STRUC_INCHI"), inchi);
+			PropertyManagerI.addProperty(extractor, IFDConst.getProp("IFD_PROP_STRUC_INCHI"), inchi);
 		}
 		if (inchiKey != null) {
-			IFDPropertyManagerI.addProperty(extractor, IFDConst.getProp("IFD_PROP_STRUC_INCHIKEY"), inchiKey);
+			PropertyManagerI.addProperty(extractor, IFDConst.getProp("IFD_PROP_STRUC_INCHIKEY"), inchiKey);
 		}
 		fileToType.put(ifdPath, type);
 		return type;

@@ -13,9 +13,9 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 
 /**
- * The IFDFAIRDataFindingAid class is a master class for the organizing metadata
+ * The IFDFindingAid class is a master class for the organizing metadata
  * in relation to a collection. It is not a collection itself, though it
- * maintains an IFDFAIRDataCollection, and it has no representations, though as
+ * maintains an IFDCollectionSet, and it has no representations, though as
  * an IFDObject, it can be serialized. This class ultimately extends ArrayList,
  * so all of the methods of that standard Java class are allowed (add, get,
  * delete, replace, etc.)
@@ -25,17 +25,15 @@ import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
  *
  */
 @SuppressWarnings("serial")
-public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
+public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 
 	{
 		setProperties("IFD_PROP_FAIRDATA__", null);
 	}
 
-	protected IFDFAIRDataCollection collection;
+	protected IFDCollectionSet collectionSet;
 	
-	protected List<IFDResource> dataSources = new ArrayList<>();
-
-	protected int currentSourceIndex = -1;
+	protected List<IFDResource> resources = new ArrayList<>();
 
 	protected Date date = new Date();
 
@@ -43,19 +41,20 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 
 	private List<Map<String, Object>> publicationInfo;
 
-	public IFDFAIRDataFindingAid(String name, String type, String creator) {
+	public IFDFindingAid(String name, String type, String creator) {
 		super(name, type);
 		this.creator = creator;
-		collection = new IFDFAIRDataCollection(IFDConst.IFD_FINDING_AID);
+		collectionSet = new IFDCollectionSet(IFDConst.IFD_FINDING_AID);
+		add(collectionSet);
 	}
 
-	public IFDFAIRDataCollection getCollection() {
-		return collection;
+	public IFDCollectionSet getCollectionSet() {
+		return collectionSet;
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void addCollection(IFDCollection c) {
-		collection.add(c);
+		collectionSet.add(c);
 	}
 
 	public String getCreator() {
@@ -73,59 +72,28 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 	 * @return
 	 */
 	public List<IFDResource> getSources() {
-		return dataSources;
+		return resources;
 	}
 	
 	
 
 	/**
-	 * Add a source or return the index of a source if already present
+	 * Add or find a resource based on its reference.
 	 * 
-	 * @param ref the reference for this source
-	 * @return index of the source if found or added
+	 * @param ref the reference for this resource
+	 * @return index of the resource found or added
 	 */
-	public IFDResource addOrReturnSource(String ref) {
+	public IFDResource addOrSetResource(String ref) {
 		IFDResource r;
-		for (int i = dataSources.size(); --i >= 0;) {
-			r = dataSources.get(i);
+		for (int i = resources.size(); --i >= 0;) {
+			r = resources.get(i);
 			if (r.getRef().equals(ref)) {
 				return r;
 			}
 		}
-		r = new IFDResource(ref, 0);
-		currentSourceIndex = dataSources.size();
-		dataSources.add(r);
+		r = new IFDResource(ref, resources.size(), 0);
+		resources.add(r);
 		return r;
-	}
-
-	/**
-	 * Set the current source to the indicated index.
-	 * 
-	 * @param index
-	 * @return the indicated resource
-	 * @throws ArrayIndexOutOfBoundsException
-	 */
-	public IFDResource setCurrentSourceIndex(int index) {
-		if (index < 0 || index >= dataSources.size())
-			throw new ArrayIndexOutOfBoundsException();
-		currentSourceIndex = index;
-		return dataSources.get(index);
-	}
-	
-	public int getCurrentSourceIndex() {
-		return currentSourceIndex;
-	}
-	
-	/**
-	 * Set the byte length of the current source.
-	 * 
-	 * @param len
-	 */
-	public void setCurrentSourceLength(long len) {
-		if (currentSourceIndex < 0)
-			throw new ArrayIndexOutOfBoundsException();
-		if (currentSourceIndex >= 0)
-			dataSources.get(currentSourceIndex).setLength(len);
 	}
 
 	public void setPubInfo(List<Map<String, Object>> pubInfo) {
@@ -138,12 +106,12 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 
 	private boolean serializing;
 
-	public void finalizeCollections() {
-		collection.finalizeCollections();
+	public void finalizeCollectionSet() {
+		collectionSet.finalizeCollections();
 	}
 
-	public List<IFDResource> getDataSources() {
-		return dataSources;
+	public List<IFDResource> getResources() {
+		return resources;
 	}
 
 	@Override
@@ -151,19 +119,19 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 		if (name.startsWith(IFDConst.IFD_FINDING_AID))
 			super.setPropertyValue(name, value);
 		else
-			collection.setPropertyValue(name, value);		
+			collectionSet.setPropertyValue(name, value);		
 	}
 	
 	@Override
 	public Object getPropertyValue(String name) {
 		if (name.startsWith(IFDConst.IFD_FINDING_AID))
 			return super.getPropertyValue(name);
-		return collection.getPropertyValue(name);
+		return collectionSet.getPropertyValue(name);
 	}
 
 	@Override
 	protected void serializeList(IFDSerializerI serializer) {
-		collection.serialize(serializer);
+		collectionSet.serialize(serializer);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -177,10 +145,10 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 				serializer.addObject("createdBy", getCreator());
 			serializer.addObject("statistics", getStatistics(new TreeMap<>()));
 			if (publicationInfo != null)
-				serializer.addObject("publicationInfo", publicationInfo);
-			serializer.addObject("dataSources", dataSources);
+				serializer.addObject("publications", publicationInfo);
+			serializer.addObject("resources", resources);
 			serializeProps(serializer);
-			serializer.addObject("collection", collection);
+			serializer.addObject("collection", collectionSet);
 		} else {
 			// addObject will call this method after wrapping
 			serializing = true;
@@ -192,11 +160,11 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 	/**
 	 * 
 	 * Generate the serialization and optionally save it to disk as
-	 * [rootname]_IFD_PROP_FAIRDATA_COLLECTION.[ext] and optionally create an
+	 * [rootname]_IFD_PROP_COLLECTIONSET.[ext] and optionally create an
 	 * _IFD_collection.zip in that same directory.
 	 * 
 	 * @param targetDir  or null for no output
-	 * @param rootName   a prefix root to add to the _IFD_PROP_FAIRDATA_COLLECTION.json
+	 * @param rootName   a prefix root to add to the _IFD_PROP_COLLECTIONSET.json
 	 *                   (or.xml) finding aid created
 	 * @param products   optionally, a list of directories containing the files
 	 *                   referenced by the finding aid for creating the
@@ -214,8 +182,8 @@ public class IFDFAIRDataFindingAid extends IFDObject<IFDObject<?>> {
 
 	protected Map<String, Object> getStatistics(Map<String, Object> map) {
 		map.put("publicationInfo", Integer.valueOf(publicationInfo == null ? 0 : publicationInfo.size()));
-		map.put("dataSources", Integer.valueOf(dataSources.size()));
-		collection.getStatistics(map);
+		map.put("resources", Integer.valueOf(resources.size()));
+		collectionSet.getStatistics(map);
 		return map;
 	}
 	

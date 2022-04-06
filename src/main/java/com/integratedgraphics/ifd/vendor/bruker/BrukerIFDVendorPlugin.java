@@ -6,16 +6,16 @@ import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.iupac.fairdata.api.IFDExtractorI;
+import org.iupac.fairdata.contrib.ExtractorI;
 import org.iupac.fairdata.util.IFDUtilities;
 
 import com.integratedgraphics.ifd.Extractor;
-import com.integratedgraphics.ifd.api.IFDVendorPluginI;
-import com.integratedgraphics.ifd.util.IFDDefaultVendorPlugin;
+import com.integratedgraphics.ifd.api.VendorPluginI;
+import com.integratedgraphics.ifd.util.DefaultVendorPlugin;
 
 import jspecview.source.JDXReader;
 
-public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
+public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 
 	static {
 		register(com.integratedgraphics.ifd.vendor.bruker.BrukerIFDVendorPlugin.class);
@@ -79,7 +79,7 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 	 */
 
 	@Override
-	public boolean doRezipInclude(IFDExtractorI extractor, String baseName, String entryName) {
+	public boolean doRezipInclude(ExtractorI extractor, String baseName, String entryName) {
 		String type = (entryName.endsWith(".pdf") ? getProp("IFD_REP_DATA_SPEC_NMR_SPECTRUM_PDF")
 				: entryName.endsWith("thumb.png") ? getProp("IFD_REP_DATA_SPEC_NMR_SPECTRUM_IMAGE")
 						: null);
@@ -94,7 +94,7 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 	}
 
 	@Override
-	public void startRezip(IFDExtractorI extractor) {
+	public void startRezip(ExtractorI extractor) {
 		// we will need dim for setting 1D
 		super.startRezip(extractor);
 		dim = null;
@@ -120,7 +120,7 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 	 * 
 	 */
 	@Override
-	public String accept(IFDExtractorI extractor, String ifdPath, byte[] bytes) {
+	public String accept(ExtractorI extractor, String ifdPath, byte[] bytes) {
 		super.accept(extractor, ifdPath, bytes);
 		return (readJDX(ifdPath, bytes) ? processRepresentation(ifdPath, null) : null);
 	}
@@ -146,6 +146,7 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 		// no need to close a ByteArrayInputStream
 		int ndim = 0;
 		String nuc1;
+		// some of this can be decoupling, though. 
 		if ((nuc1 = processString(map, "##$NUC1", "off")) != null)
 			ndim++;
 		if ((processString(map, "##$NUC2", "off")) != null)
@@ -167,6 +168,8 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 		processString(map, "##$PULPROG", null);
 		if (ifdPath.endsWith("acqu2s")) {
 			report("DIM", dim = "2D");
+		} else if (ifdPath.endsWith("acqus")) {
+			report("DIM", dim = "1D");
 		}
 		report("SF", getNominalFrequency(freq1, nuc1));
 		processString(map, "##$PROBHD", null);
@@ -236,7 +239,7 @@ public class BrukerIFDVendorPlugin extends IFDDefaultVendorPlugin {
 	}
 
 	private static void test(String ifdPath) {
-		IFDVendorPluginI.init();
+		VendorPluginI.init();
 		System.out.println("====================" + ifdPath);
 		try {
 			String filename = new File(ifdPath).getAbsolutePath();

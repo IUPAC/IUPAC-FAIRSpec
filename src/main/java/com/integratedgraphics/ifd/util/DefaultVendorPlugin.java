@@ -4,11 +4,11 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.iupac.fairdata.api.IFDExtractorI;
-import org.iupac.fairdata.api.IFDPropertyManagerI;
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.contrib.ExtractorI;
+import org.iupac.fairdata.contrib.PropertyManagerI;
 
-import com.integratedgraphics.ifd.api.IFDVendorPluginI;
+import com.integratedgraphics.ifd.api.VendorPluginI;
 
 import jspecview.source.JDXDataObject;
 
@@ -18,21 +18,21 @@ import jspecview.source.JDXDataObject;
  * @author hansonr
  *
  */
-public abstract class IFDDefaultVendorPlugin implements IFDVendorPluginI {
+public abstract class DefaultVendorPlugin implements VendorPluginI {
 
 	/*
 	 * note that as coded, ONLY ONE vendor can use this. 
 	 */
 	private static final String rezipPathHeader = "^(?<path#>.+(?:/|\\|)(?<dir#>[^/]+)(?:/|\\|))";
 
-	protected static void register(Class<? extends IFDDefaultVendorPlugin> c) {
-		IFDVendorPluginI.registerIFDVendorPlugin(c);
+	protected static void register(Class<? extends DefaultVendorPlugin> c) {
+		VendorPluginI.registerIFDVendorPlugin(c);
 	}
 
 	/**
 	 * the extractor calling this plugin, set in startRezipping() or accept()
 	 */
-	protected IFDExtractorI extractor;
+	protected ExtractorI extractor;
 
 	/**
 	 * the regex expression for what entry names are of interest; for example,
@@ -105,7 +105,7 @@ public abstract class IFDDefaultVendorPlugin implements IFDVendorPluginI {
 	}
 
 	@Override
-	public String accept(IFDExtractorI extractor, String zipOrPathName, byte[] bytes) {
+	public String accept(ExtractorI extractor, String zipOrPathName, byte[] bytes) {
 		if (extractor != null) {
 			this.extractor = extractor;
 		}
@@ -128,7 +128,7 @@ public abstract class IFDDefaultVendorPlugin implements IFDVendorPluginI {
 	 * endRezip(). Also register the extractor.
 	 */
 	@Override
-	public void startRezip(IFDExtractorI extractor) {
+	public void startRezip(ExtractorI extractor) {
 		this.extractor = extractor;
 		reportVendor();
 		rezipping = true;
@@ -159,7 +159,7 @@ public abstract class IFDDefaultVendorPlugin implements IFDVendorPluginI {
 	 * When rezipping, include this zip entry or not.
 	 */
 	@Override
-	public boolean doRezipInclude(IFDExtractorI extractor, String zipfileName, String entryName) {
+	public boolean doRezipInclude(ExtractorI extractor, String zipfileName, String entryName) {
 		return true;
 	}
 
@@ -174,7 +174,7 @@ public abstract class IFDDefaultVendorPlugin implements IFDVendorPluginI {
 			if (Double.isNaN((Double)val))
 				return;
 		}
-		IFDPropertyManagerI.addProperty(extractor, key, val);
+		PropertyManagerI.addProperty(extractor, key, val);
 	}
 
 	/**

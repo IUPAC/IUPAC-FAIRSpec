@@ -24,27 +24,28 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import org.iupac.fairdata.api.IFDExtractorI;
-import org.iupac.fairdata.api.IFDPropertyManagerI;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.contrib.IFDDefaultStructureHelper;
-import org.iupac.fairdata.contrib.IFDFAIRSpecExtractorHelper;
+import org.iupac.fairdata.contrib.DefaultStructureHelper;
+import org.iupac.fairdata.contrib.ExtractorI;
+import org.iupac.fairdata.contrib.FAIRSpecExtractorHelper;
+import org.iupac.fairdata.contrib.PropertyManagerI;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
-import org.iupac.fairdata.core.IFDFAIRDataFindingAid;
+import org.iupac.fairdata.core.IFDFindingAid;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;
+import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.structure.IFDStructure;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 import org.iupac.fairdata.util.IFDUtilities;
 
-import com.integratedgraphics.ifd.api.IFDVendorPluginI;
+import com.integratedgraphics.ifd.api.VendorPluginI;
 import com.integratedgraphics.ifd.util.PubInfoExtractor;
 
 import javajs.util.JSJSONParser;
@@ -98,7 +99,7 @@ import javajs.util.PT;
  * @author hansonr
  *
  */
-public class Extractor implements IFDExtractorI {
+public class Extractor implements ExtractorI {
 
 	private static class CacheRepresentation extends IFDRepresentation {
 
@@ -109,16 +110,16 @@ public class Extractor implements IFDExtractorI {
 	}
 
 	static {
-		IFDVendorPluginI.init();
+		VendorPluginI.init();
 	}
-	private static final String version = "0.0.2-alpha+2002.04.02";
+	private static final String version = "0.0.2-alpha+2002.04.05";
 
 	private static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/Extractor.java";
 
 	/**
 	 * patterns to ignore completely.
 	 */
-	private final static Pattern junkPattern = Pattern.compile(IFDFAIRSpecExtractorHelper.junkFilePattern);
+	private final static Pattern junkPattern = Pattern.compile(FAIRSpecExtractorHelper.junkFilePattern);
 
 	public final static int EXTRACT_MODE_CHECK_ONLY = 1;
 	public final static int EXTRACT_MODE_CREATE_CACHE = 2;
@@ -166,7 +167,7 @@ public class Extractor implements IFDExtractorI {
 	/**
 	 * the finding aid - only one per instance
 	 */
-	protected IFDFAIRSpecExtractorHelper helper;
+	protected FAIRSpecExtractorHelper helper;
 
 	/**
 	 * the IFD-extract.json script
@@ -236,7 +237,7 @@ public class Extractor implements IFDExtractorI {
 	/**
 	 * vendor association with this rezipping
 	 */
-	private IFDVendorPluginI currentRezipVendor;
+	private VendorPluginI currentRezipVendor;
 
 	/**
 	 * last path to this rezip top-level resource
@@ -324,7 +325,7 @@ public class Extractor implements IFDExtractorI {
 	 * the structure property manager for this extractor
 	 * 
 	 */
-	private IFDPropertyManagerI structurePropertyManager;
+	private PropertyManagerI structurePropertyManager;
 
 	/**
 	 * produce no output other than a log file
@@ -363,7 +364,7 @@ public class Extractor implements IFDExtractorI {
 		getObjectParsersForFile(ifdExtractScriptFile);
 		String puburi = null;
 		Map<String, Object> pubCrossrefInfo = null;
-		puburi = (String) helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_SOURCE_PUBLICATION_URI);
+		puburi = (String) helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_COLLECTIONSET_SOURCE_PUBLICATION_URI);
 		if (puburi != null && !skipPubInfo) {
 			pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi, addPublicationMetadata);
 			if (pubCrossrefInfo == null || pubCrossrefInfo.get("title") == null) {
@@ -428,7 +429,7 @@ public class Extractor implements IFDExtractorI {
 	}
 
 	@Override
-	public IFDFAIRDataFindingAid getFindingAid() {
+	public IFDFindingAid getFindingAid() {
 		return helper.getFindingAid();
 	}
 
@@ -440,10 +441,10 @@ public class Extractor implements IFDExtractorI {
 	 */
 	public void setCachePattern(String sp) {
 		if (sp == null)
-			sp = IFDFAIRSpecExtractorHelper.defaultCachePattern + "|" + structurePropertyManager.getParamRegex();
+			sp = FAIRSpecExtractorHelper.defaultCachePattern + "|" + structurePropertyManager.getParamRegex();
 		String s = "";
-		for (int i = 0; i < IFDVendorPluginI.activeVendors.size(); i++) {
-			String cp = IFDVendorPluginI.activeVendors.get(i).vcache;
+		for (int i = 0; i < VendorPluginI.activeVendors.size(); i++) {
+			String cp = VendorPluginI.activeVendors.get(i).vcache;
 			if (cp != null) {
 				bsPropertyVendors.set(i);
 				s += "|" + cp;
@@ -470,13 +471,13 @@ public class Extractor implements IFDExtractorI {
 	 * @param m
 	 * @return
 	 */
-	private IFDPropertyManagerI getPropertyManager(Matcher m) {
+	private PropertyManagerI getPropertyManager(Matcher m) {
 		if (m.group("struc") != null)
 			return structurePropertyManager;
 		for (int i = bsPropertyVendors.nextSetBit(0); i >= 0; i = bsPropertyVendors.nextSetBit(i + 1)) {
 			String ret = m.group("param" + i);
 			if (ret != null && ret.length() > 0) {
-				return IFDVendorPluginI.activeVendors.get(i).vendor;
+				return VendorPluginI.activeVendors.get(i).vendor;
 			}
 		}
 		return null;
@@ -491,8 +492,8 @@ public class Extractor implements IFDExtractorI {
 	public void setRezipCachePattern(String procs, String toExclude) {
 		String s = "";
 
-		for (int i = 0; i < IFDVendorPluginI.activeVendors.size(); i++) {
-			String cp = IFDVendorPluginI.activeVendors.get(i).vrezip;
+		for (int i = 0; i < VendorPluginI.activeVendors.size(); i++) {
+			String cp = VendorPluginI.activeVendors.get(i).vrezip;
 			if (cp != null) {
 				bsRezipVendors.set(i);
 				s = s + "|" + cp;
@@ -515,9 +516,9 @@ public class Extractor implements IFDExtractorI {
 	 * 
 	 * @return
 	 */
-	protected IFDPropertyManagerI getStructurePropertyManager() {
+	protected PropertyManagerI getStructurePropertyManager() {
 		return (structurePropertyManager == null
-				? (structurePropertyManager = new IFDDefaultStructureHelper(this))
+				? (structurePropertyManager = new DefaultStructureHelper(this))
 				: structurePropertyManager);
 	}
 
@@ -572,14 +573,14 @@ public class Extractor implements IFDExtractorI {
 		List<ObjectParser> objectParsers = getObjects((List<Map<String, Object>>) jsonMap.get("keys"));
 		log(objectParsers.size() + " extractor regex strings");
 
-		log("! license: " + helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_NAME) + " at "
-				+ helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_DATA_LICENSE_URI));
+		log("! license: " + helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_COLLECTIONSET_DATA_LICENSE_NAME) + " at "
+				+ helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_COLLECTIONSET_DATA_LICENSE_URI));
 
 		return objectParsers;
 	}
 
-	private IFDFAIRSpecExtractorHelper newExtractionHelper() throws IFDException {
-		return new IFDFAIRSpecExtractorHelper(codeSource + " " + version);
+	private FAIRSpecExtractorHelper newExtractionHelper() throws IFDException {
+		return new FAIRSpecExtractorHelper(codeSource + " " + version);
 		
 	}
 
@@ -648,7 +649,7 @@ public class Extractor implements IFDExtractorI {
 					continue;
 				}
 				if (key.startsWith("IFD.property")) {
-					if (key.equals(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_ID)) {
+					if (key.equals(IFDConst.IFD_PROP_COLLECTIONSET_ID)) {
 						ifdid = val;
 						helper.getFindingAid().setID(val);
 					}
@@ -669,7 +670,7 @@ public class Extractor implements IFDExtractorI {
 	 * Find and extract all objects of interest from a ZIP file.
 	 * 
 	 */
-	public IFDFAIRSpecExtractorHelper extractObjects(File targetDir) throws IFDException, IOException {
+	public FAIRSpecExtractorHelper extractObjects(File targetDir) throws IFDException, IOException {
 		if (haveExtracted)
 			throw new IFDException("Only one extraction per instance of Extractor is allowed (for now).");
 		haveExtracted = true;
@@ -705,7 +706,7 @@ public class Extractor implements IFDExtractorI {
 			ObjectParser parser = objectParsers.get(i);
 			dataSource = parser.dataSource;
 			if (!dataSource.equals(lastURL)) {
-				helper.getFindingAid().addOrReturnSource(dataSource);
+				helper.addOrSetSource(dataSource);
 				lastURL = dataSource;
 			}
 			// localize the URL if we are using a local copy of a remote resource.
@@ -725,7 +726,7 @@ public class Extractor implements IFDExtractorI {
 			// 2.2
 			log("! PHASE 2.2 rezip haveData=" + haveData);
 			if (haveData)
-				rezipFilesAndExtractProperties();
+				rezipFilesAndExtractProperties(parser);
 
 			log("found " + ifdObjectCount + " IFD objects");
 
@@ -873,8 +874,8 @@ public class Extractor implements IFDExtractorI {
 				len = tempFile.length();
 				stream = new FileInputStream(tempFile);
 			}
-			helper.getFindingAid().setCurrentSourceLength(len);
-			zipFiles = readZipContentsIteratively(stream, new LinkedHashMap<String, ZipEntry>(), "", false);
+			helper.setCurrentResourceByteLength(len);
+			zipFiles = readZipContentsIteratively(parser, stream, new LinkedHashMap<String, ZipEntry>(), "", false);
 			IFDZipContents.put(key, zipFiles);
 		}
 		// next, we process those names
@@ -906,6 +907,7 @@ public class Extractor implements IFDExtractorI {
 	/**
 	 * Process all entries in a zip file, looking for files to extract and
 	 * directories to rezip.
+	 * @param parser 
 	 * 
 	 * @param is
 	 * @param fileNames
@@ -914,7 +916,7 @@ public class Extractor implements IFDExtractorI {
 	 * @return
 	 * @throws IOException
 	 */
-	protected Map<String, ZipEntry> readZipContentsIteratively(InputStream is, Map<String, ZipEntry> fileNames,
+	protected Map<String, ZipEntry> readZipContentsIteratively(ObjectParser parser, InputStream is, Map<String, ZipEntry> fileNames,
 			String basePath, boolean doRezip) throws IOException {
 		if (debugging && basePath.length() > 0)
 			log("! opening " + basePath);
@@ -948,11 +950,11 @@ public class Extractor implements IFDExtractorI {
 				fileNames.put(ifdPath, zipEntry); // Java has no use for the ZipEntry, but JavaScript can read it.
 			}
 			if (ifdPath.endsWith(".zip")) {
-				readZipContentsIteratively(zis, fileNames, ifdPath + "|", doRezip);
+				readZipContentsIteratively(parser, zis, fileNames, ifdPath + "|", doRezip);
 			} else if (doRezip) {
-				nextEntry = processRezipEntry(basePath, ifdPath, zis, zipEntry);
+				nextEntry = processRezipEntry(parser, basePath, ifdPath, zis, zipEntry);
 			} else {
-				processZipEntry(ifdPath, zis, zipEntry);
+				processZipEntry(parser, ifdPath, zis, zipEntry);
 			}
 		}
 		if (isTopLevel)
@@ -968,11 +970,11 @@ public class Extractor implements IFDExtractorI {
 	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
-	private void rezipFilesAndExtractProperties() throws MalformedURLException, IOException {
+	private void rezipFilesAndExtractProperties(ObjectParser parser) throws MalformedURLException, IOException {
 		if (rezipCache != null && rezipCache.size() > 0) {
 			lastRezipPath = null;
 			getNextRezipName();
-			readZipContentsIteratively(new URL(localizedURL).openStream(), null, "", true);
+			readZipContentsIteratively(parser, new URL(localizedURL).openStream(), null, "", true);
 		}
 	}
 
@@ -1003,7 +1005,7 @@ public class Extractor implements IFDExtractorI {
 	byte[] b0, b1;
 
 	/**
-	 * Process the properties in propertyList after the IFDObject objects have een
+	 * Process the properties in propertyList after the IFDObject objects have been
 	 * created for all resources.
 	 * 
 	 * @throws IFDException
@@ -1013,17 +1015,29 @@ public class Extractor implements IFDExtractorI {
 		String lastLocal = null;
 		IFDDataObject localSpec = null;
 		IFDStructure struc = null;
+		IFDSample sample = null;
 		for (int i = 0, n = propertyList.size(); i < n; i++) {
 			Object[] a = propertyList.get(i);
+			if (a == null) {
+				sample = null;
+				continue;
+			}
+			String key = (String) a[1];
+			Object value = a[2];
+			String type = FAIRSpecExtractorHelper.getObjectTypeForName(key, true);
+			boolean isSample = (type == FAIRSpecExtractorHelper.ClassTypes.Sample);
+			//System.out.println("Extractor.updateObjectProperties " + isStructure + " " + isSample + " " + key + " " + value);
+			if (isSample) {
+				sample = helper.getSampleByName((String) value);
+				continue;
+			}
 			String localizedName = (String) a[0];
 			boolean isNew = !localizedName.equals(lastLocal);
 			if (isNew) {
 				lastLocal = localizedName;
 			}
-			String key = (String) a[1];
-			Object value = a[2];
-			boolean isStructure = (IFDFAIRSpecExtractorHelper.getObjectTypeForName(key, true) == IFDFAIRSpecExtractorHelper.ClassTypes.Structure);
-			System.out.println("Extractor.updateObjectProperties " + key + " " + value);
+			boolean isStructure = (type == FAIRSpecExtractorHelper.ClassTypes.Structure);
+			//System.out.println("?????" + localizedName);
 			// link to the originating spec representation -- xxx.mnova, xxx.zip
 			IFDRepresentableObject<? extends IFDRepresentation> spec = htLocalizedNameToObject.get(localizedName);
 			if (spec == null) {
@@ -1031,6 +1045,9 @@ public class Extractor implements IFDExtractorI {
 				continue;
 			} else if (spec instanceof IFDStructure) {
 				struc = (IFDStructure) spec;
+				spec = null;
+			} else if (spec instanceof IFDSample) {
+				sample = (IFDSample) spec;
 				spec = null;
 			} else if (isNew && spec instanceof IFDDataObject) {
 				localSpec = (IFDDataObject) spec;
@@ -1047,10 +1064,17 @@ public class Extractor implements IFDExtractorI {
 				IFDDataObject newSpec = helper.getDataObjectCollection().cloneData(localSpec, localSpec.getID() + idExtension);
 				spec = newSpec;
 				struc = helper.getFirstStructureForSpec(localSpec, true);
+				if (sample == null)
+					sample = helper.getFirstSampleForSpec(localSpec, true);
 				if (struc != null) {					
-					helper.associate(idExtension, struc, newSpec);
+					helper.associateStructureSpec(idExtension, struc, newSpec);
 					log("!Structure " + struc + " found and associated with " + spec);
-				} else {
+				}
+				if (sample != null) {					
+					helper.associateSampleSpec(idExtension, sample, newSpec);
+					log("!Structure " + struc + " found and associated with " + spec);
+				}
+				if (struc == null && sample == null) {
 					log("!SpecData " + spec + " added ");
 				}
 				IFDRepresentation rep = cache.get(localizedName);
@@ -1064,7 +1088,8 @@ public class Extractor implements IFDExtractorI {
 				Object[] oval = (Object[]) value;
 				byte[] bytes = (byte[]) oval[0];
 				String ifdPath = (String) oval[1];
-				String ifdRepType = IFDDefaultStructureHelper.getType(key.substring(key.length() - 3), bytes);
+				String ifdRepType = DefaultStructureHelper.getType(key.substring(key.length() - 3), bytes);
+				// use the byte[] for the structure as a unique identifier.
 				if (htStructureRepCache == null)
 					htStructureRepCache = new HashMap<>();
 				AWrap w = new AWrap(bytes);
@@ -1080,12 +1105,15 @@ public class Extractor implements IFDExtractorI {
 								localName, name);
 					}
 					htStructureRepCache.put(w, struc);
+					if (sample != null)
+						helper.associateSampleStructure(localName, sample, struc);
+						
 					// MNova 1 page, 1 spec, 1 structure Test #5
 					addFileAndCacheRepresentation(ifdPath, null, bytes.length, ifdRepType, null);
 					linkLocalizedNameToObject(localName, ifdRepType, struc);
 					log("!Structure " + struc + " created and associated with " + spec);
-				} else if (helper.getAssociation(struc, (IFDDataObject) spec) == null) {
-					helper.associate(name, struc, (IFDDataObject) spec);
+				} else if (helper.getStructureAssociation(struc, (IFDDataObject) spec) == null) {
+					helper.associateStructureSpec(name, struc, (IFDDataObject) spec);
 					log("!Structure " + struc + " found and associated with " + spec);
 				}
 				continue;
@@ -1097,6 +1125,7 @@ public class Extractor implements IFDExtractorI {
 				} else {
 					struc.setPropertyValue(key, value);
 				}
+			} else if (isSample){ 
 			} else {
 				spec.setPropertyValue(key, value);
 			}
@@ -1434,6 +1463,7 @@ public class Extractor implements IFDExtractorI {
 	 * Note that the rezipping process takes two passes, because the first pass has
 	 * most likely already passed by one or more files associated with this
 	 * rezipping project.
+	 * @param parser 
 	 * 
 	 * 
 	 * @param baseName
@@ -1443,7 +1473,7 @@ public class Extractor implements IFDExtractorI {
 	 * @return next (unrelated) entry
 	 * @throws IOException
 	 */
-	private ZipEntry processRezipEntry(String baseName, String ifdPath, ZipInputStream zis, ZipEntry entry)
+	private ZipEntry processRezipEntry(ObjectParser parser, String baseName, String ifdPath, ZipInputStream zis, ZipEntry entry)
 			throws IOException {
 		if (!ifdPath.equals(currentRezipPath)) {
 			String localizedName = localizePath(ifdPath);
@@ -1453,7 +1483,7 @@ public class Extractor implements IFDExtractorI {
 			}
 			return null;
 		}
-		IFDVendorPluginI vendor = currentRezipVendor;
+		VendorPluginI vendor = currentRezipVendor;
 		String dirName = entry.getName();
 		log("! rezipping " + ifdPath + " for " + entry + " " + new File(entry.getName()).getName());
 		File outFile = getAbsoluteFileTarget(ifdPath + ".zip");
@@ -1487,7 +1517,7 @@ public class Extractor implements IFDExtractorI {
 			if (entry.isDirectory())
 				continue;
 
-			IFDPropertyManagerI mgr = null;
+			PropertyManagerI mgr = null;
 			// include in zip?
 			boolean doInclude = (vendor == null || vendor.doRezipInclude(this, baseName, entryName));
 			// cache this one? -- could be a different vendor -- JDX inside Bruker
@@ -1555,7 +1585,7 @@ public class Extractor implements IFDExtractorI {
 			currentRezipRepresentation = null;
 		} else {
 			currentRezipPath = (String) (currentRezipRepresentation = rezipCache.remove(0)).getRef().getOrigin();
-			currentRezipVendor = (IFDVendorPluginI) currentRezipRepresentation.getData();
+			currentRezipVendor = (VendorPluginI) currentRezipRepresentation.getData();
 		}
 	}
 
@@ -1570,17 +1600,17 @@ public class Extractor implements IFDExtractorI {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	protected void processZipEntry(String ifdPath, InputStream zis, ZipEntry zipEntry)
+	protected void processZipEntry(ObjectParser parser, String ifdPath, InputStream zis, ZipEntry zipEntry)
 			throws FileNotFoundException, IOException {
 		long len = zipEntry.getSize();
-		Matcher m;
+		Matcher m, mp;
 
 		// check for files that should be pulled out - these might be JDX files, for
 		// example.
 		// "param" appears if a vendor has flagged these files for parameter extraction.
 
 		if (cachePattern != null && (m = cachePattern.matcher(ifdPath)).find()) {
-			IFDPropertyManagerI v = getPropertyManager(m);
+			PropertyManagerI v = getPropertyManager(m);
 			boolean doCheck = (v != null);
 			boolean doExtract = (!doCheck || v.doExtract(ifdPath));
 
@@ -1604,6 +1634,18 @@ public class Extractor implements IFDExtractorI {
 					byte[] bytes = ((ByteArrayOutputStream) os).toByteArray();
 					len = bytes.length;
 					if (doCheck) {
+						mp = parser.p.matcher(ifdPath);
+						if (mp.find()) {
+							propertyList.add(null);
+							for (String key : parser.keys.keySet()) {
+								String param = parser.keys.get(key);
+								if (IFDConst.isLabel(param, false)) {
+									String id = mp.group(key);
+									propertyList.add(new Object[] { localizedName, param, id });
+								}
+							}
+						}
+
 						// set this.localizedName for parameters
 						// preserve this.localizedName, as we might be in a rezip.
 						// as, for example, a JDX file within a Bruker dataset
@@ -1613,6 +1655,7 @@ public class Extractor implements IFDExtractorI {
 						// indicating "this" here notifies the vendor plugin that
 						// this is a one-shot file, not a collection.
 						type = v.accept(this, ifdPath, bytes);
+						propertyList.add(null);
 						this.localizedName = oldLocal;
 					}
 				} else {
@@ -1632,7 +1675,7 @@ public class Extractor implements IFDExtractorI {
 
 			// e.g. exptno/./pdata/procs
 
-			IFDVendorPluginI v = getVendorForRezip(m);
+			VendorPluginI v = getVendorForRezip(m);
 			ifdPath = m.group("path" + v.getIndex());
 			if (ifdPath.equals(lastRezipPath)) {
 				log("duplicate path " + ifdPath);
@@ -1663,7 +1706,7 @@ public class Extractor implements IFDExtractorI {
 		if (fileNameForMediaType == null)
 			fileNameForMediaType = localizedName;
 		addFileToFileLists(localizedName, LOG_OUTPUT, len);
-		String subtype = IFDDefaultStructureHelper.mediaTypeFromName(fileNameForMediaType);
+		String subtype = DefaultStructureHelper.mediaTypeFromName(fileNameForMediaType);
 		return cacheFileRepresentation(ifdPath, localizedName, len, ifdType, subtype);
 	}
 
@@ -1675,11 +1718,11 @@ public class Extractor implements IFDExtractorI {
 	 * @param m
 	 * @return
 	 */
-	private IFDVendorPluginI getVendorForRezip(Matcher m) {
+	private VendorPluginI getVendorForRezip(Matcher m) {
 		for (int i = bsRezipVendors.nextSetBit(0); i >= 0; i = bsRezipVendors.nextSetBit(i + 1)) {
 			String ret = m.group("rezip" + i);
 			if (ret != null && ret.length() > 0) {
-				return IFDVendorPluginI.activeVendors.get(i).vendor;
+				return VendorPluginI.activeVendors.get(i).vendor;
 			}
 		}
 		return null;
@@ -1716,7 +1759,7 @@ public class Extractor implements IFDExtractorI {
 	private IFDRepresentation cacheFileRepresentation(String ifdPath, String localizedName, long len, String type,
 			String subtype) {
 		if (subtype == null)
-			subtype = IFDDefaultStructureHelper.mediaTypeFromName(localizedName);
+			subtype = DefaultStructureHelper.mediaTypeFromName(localizedName);
 		CacheRepresentation rep = new CacheRepresentation(new IFDReference(ifdPath, localizedName, rootPath), null, len,
 				type, subtype);
 		cache.put(localizedName, rep);
@@ -1828,10 +1871,10 @@ public class Extractor implements IFDExtractorI {
 		 */
 		public ObjectParser(String sObj) throws IFDException {
 			int[] pt = new int[1];
-			dataSource = getIFDExtractValue(sObj, IFDConst.IFD_PROP_FAIRDATA_COLLECTION_SOURCE_DATA_URI, pt);
+			dataSource = getIFDExtractValue(sObj, IFDConst.IFD_PROP_COLLECTIONSET_SOURCE_DATA_URI, pt);
 			if (dataSource == null)
 				throw new IFDException(
-						"No {" + IFDConst.IFD_PROP_FAIRDATA_COLLECTION_SOURCE_DATA_URI + "::...} found in " + sObj);
+						"No {" + IFDConst.IFD_PROP_COLLECTIONSET_SOURCE_DATA_URI + "::...} found in " + sObj);
 			sData = sObj.substring(pt[0] + 1); // skip first "|"
 			init();
 		}

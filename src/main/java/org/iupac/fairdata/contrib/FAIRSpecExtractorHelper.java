@@ -10,14 +10,18 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
-import org.iupac.fairdata.core.IFDFAIRDataFindingAid;
+import org.iupac.fairdata.core.IFDCollectionSet;
+import org.iupac.fairdata.core.IFDFindingAid;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
+import org.iupac.fairdata.core.IFDResource;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
-import org.iupac.fairdata.derived.IFDSampleDataAnalysisCollection;
+import org.iupac.fairdata.derived.IFDSampleDataAssociation;
 import org.iupac.fairdata.derived.IFDSampleDataAssociationCollection;
+import org.iupac.fairdata.derived.IFDSampleStructureAssociation;
+import org.iupac.fairdata.derived.IFDSampleStructureAssociationCollection;
 import org.iupac.fairdata.derived.IFDStructureDataAnalysisCollection;
 import org.iupac.fairdata.derived.IFDStructureDataAssociation;
 import org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;
@@ -50,9 +54,9 @@ import javajs.util.PT;
  * @author hansonr
  *
  */
-public class IFDFAIRSpecExtractorHelper {
+public class FAIRSpecExtractorHelper {
 
-	private final IFDFAIRDataFindingAid findingAid;
+	private final IFDFindingAid findingAid;
 
 
 	public interface ClassTypes {
@@ -95,14 +99,7 @@ public class IFDFAIRSpecExtractorHelper {
 	public static final String defaultCachePattern = "" + "(?<img>\\.pdf$|\\.png$)"
 //			+ "|(?<text>\\.log$|\\.out$|\\.txt$)"// maybe put these into JSON only? 
 	;
-
-	public static final String IFD_FAIRSPEC_FINDING_AID = IFDConst.getProp("IFD_FAIRSPEC_FINDING_AID");
 	
-	public static final String IFD_FINDING_AID_FLAG = IFDConst.getProp("IFD_FINDING_AID_FLAG");
-	public static final String IFD_COMPOUND_LABEL_FLAG = IFDConst.getProp("IFD_COMPOUND_LABEL_FLAG");
-	public static final String IFD_EXPT_LABEL_FLAG = IFDConst.getProp("IFD_EXPT_LABEL_FLAG");
-
-
 	/**
 	 * temporary holding arrays separating objects from associations
 	 * so that they can be added later to the finding aid in a desired order.
@@ -111,16 +108,17 @@ public class IFDFAIRSpecExtractorHelper {
 	@SuppressWarnings("rawtypes")
 	private IFDCollection[] objects = new IFDCollection[3];
 	@SuppressWarnings("rawtypes")
-	private IFDCollection[] associations = new IFDCollection[4];
+	private IFDCollection[] associations = new IFDCollection[5];
 
 	public final static int SAMPLE_COLLECTION    = 0;
 	public final static int STRUCTURE_COLLECTION = 1;
 	public final static int DATA_COLLECTION      = 2;
 
-	public final static int SAMPLE_DATA_COLLECTION             = 0;
-	public final static int STRUCTURE_DATA_COLLECTION          = 1;
-	public final static int SAMPLE_DATA_ANALYSIS_COLLECTION    = 2;
-	public final static int STRUCTURE_DATA_ANALYSIS_COLLECTION = 3;
+	public final static int SAMPLE_STRUCTURE_COLLECTION        = 0;
+	public final static int SAMPLE_DATA_COLLECTION             = 1;
+	public final static int STRUCTURE_DATA_COLLECTION          = 2;
+	public final static int SAMPLE_DATA_ANALYSIS_COLLECTION    = 3;
+	public final static int STRUCTURE_DATA_ANALYSIS_COLLECTION = 4;
 
 	private IFDStructureCollection structureCollection;
 	private IFDDataObjectCollection specDataCollection;
@@ -128,7 +126,7 @@ public class IFDFAIRSpecExtractorHelper {
 	private IFDStructureDataAnalysisCollection structureDataAnalysisCollection;
 	private IFDSampleCollection sampleCollection;
 	private IFDSampleDataAssociationCollection sampleDataCollection;
-	private IFDSampleDataAnalysisCollection sampleDataAnalysisCollection;
+	private IFDSampleStructureAssociationCollection sampleStructureCollection;
 
 
 	/**
@@ -139,13 +137,14 @@ public class IFDFAIRSpecExtractorHelper {
 	private IFDStructure currentStructure;
 	private IFDDataObject currentSpecData;
 	private IFDSample currentSample;
+	private IFDResource currentResource;
 
 	
-	public IFDFAIRSpecExtractorHelper(String creator) {
-		findingAid = new IFDFAIRSpecFindingAid(null, IFD_FAIRSPEC_FINDING_AID, creator);
+	public FAIRSpecExtractorHelper(String creator) {
+		findingAid = new FAIRSpecFindingAid(null, null, creator);
 	}
 
-	public IFDFAIRDataFindingAid getFindingAid() {
+	public IFDFindingAid getFindingAid() {
 		return findingAid;
 	}
 
@@ -231,18 +230,18 @@ public class IFDFAIRSpecExtractorHelper {
 		String type = getObjectTypeForName(param, false);
 
 		if (type.startsWith(IFDConst.DATA_FLAG)) {
-			currentSpecData = getDataObjectCollection().getDataObjectFor(currentObject, rootPath, localName, param,
-					id, type, IFDDefaultStructureHelper.mediaTypeFromName(localName));
-			currentSpecData.setUrlIndex(findingAid.getCurrentSourceIndex());
+			currentSpecData = getDataObjectCollection().getDataObjectFor(rootPath, currentObject, rootPath, localName, param, id,
+					type, DefaultStructureHelper.mediaTypeFromName(localName));
+			currentSpecData.setResource(currentResource);
 			return currentSpecData;
 		}
 		switch (type) {
-		case ClassTypes.SampleDataAnalysisCollection:
-		case ClassTypes.SampleDataAnalysis:
-			System.out.println("IFDFAIRSpecExtractionHelper.addObject Analysis not implemented");
-			getSampleDataAnalysisCollection();
-			// TODO
-			return null;
+//		case ClassTypes.SampleDataAnalysisCollection:
+//		case ClassTypes.SampleDataAnalysis:
+//			System.out.println("IFDFAIRSpecExtractionHelper.addObject Analysis not implemented");
+//			getSampleDataAnalysisCollection();
+//			// TODO
+//			return null;
 		case ClassTypes.StructureDataAnalysisCollection:
 		case ClassTypes.StructureDataAnalysis:
 			System.out.println("IFDFAIRSpecExtractionHelper.addObject Analysis not implemented");
@@ -251,10 +250,10 @@ public class IFDFAIRSpecExtractorHelper {
 			return null;
 		case ClassTypes.Sample:
 			if (currentSample == null) {
-				currentSample = getSampleCollection().getSampleFor(rootPath, localName, param, id,
-						currentObject, IFDDefaultStructureHelper.mediaTypeFromName(localName));
+				currentSample = getSampleCollection().getSampleFor(rootPath, localName, param, id, currentObject,
+						DefaultStructureHelper.mediaTypeFromName(localName));
 				System.out.println("IFDFAIRSpecExtractionHelper.addObject creating Sample " + currentSample.getName());
-				currentSample.setUrlIndex(findingAid.getCurrentSourceIndex());
+				currentSample.setResource(currentResource);
 			} else {
 				currentSample.setPropertyValue(param, id);
 			}
@@ -262,9 +261,10 @@ public class IFDFAIRSpecExtractorHelper {
 		case ClassTypes.Structure:
 			if (currentStructure == null) {
 				currentStructure = getStructureCollection().getStructureFor(rootPath, localName, param, id,
-						currentObject, IFDDefaultStructureHelper.mediaTypeFromName(localName));
-				System.out.println("IFDFAIRSpecExtractionHelper.addObject creating Structure " + currentStructure.getName());
-				currentStructure.setUrlIndex(findingAid.getCurrentSourceIndex());
+						currentObject, DefaultStructureHelper.mediaTypeFromName(localName));
+				System.out.println(
+						"IFDFAIRSpecExtractionHelper.addObject creating Structure " + currentStructure.getName());
+				currentStructure.setResource(currentResource);
 			} else {
 				currentStructure.setPropertyValue(param, id);
 			}
@@ -282,8 +282,7 @@ public class IFDFAIRSpecExtractorHelper {
 		case ClassTypes.SampleCollection:
 			// should not be generic
 		default:
-			System.err.println(
-					"IFDSpeDataFindingAid could not add " + param + " " + id + " for " + currentObject);
+			System.err.println("IFDSpeDataFindingAid could not add " + param + " " + id + " for " + currentObject);
 			break;
 		}
 		return null;
@@ -320,33 +319,26 @@ public class IFDFAIRSpecExtractorHelper {
 		for (int i = 0; i < associations.length; i++)
 			if (associations[i] != null)
 				findingAid.addCollection(associations[i]);
-		findingAid.finalizeCollections();
+		findingAid.finalizeCollectionSet();
 		dumpSummary();
 	}
 
 	private void dumpSummary() {
-		if (getStructureCollection().size() == 0 && getDataObjectCollection().size() == 0)
-			System.out.println("IFDFAIRSpecExtractionHelper.dumpSummary no structures or spectra?");
-		for (IFDAssociation ssc : getStructureDataCollection()) {
-			System.out.println("Structure " + ssc.getFirstObj1().toString());
-			for (IFDObject<?> sd : ssc.get(1)) {
+		IFDCollectionSet cs = findingAid.getCollectionSet();
+		int n = 0;
+		String s = "";
+		for (int i = 0; i < cs.size(); i++) {
+			IFDCollection<IFDObject<?>> c = cs.get(i);
+			for (Object sd : c) {
 				System.out.println("\t" + sd);
+				n++;
 			}
+			s += " " + c.size() + " " + c.getName() + "\n";
 		}
-		for (IFDAssociation ssc : getSampleDataCollection()) {
-			System.out.println("Sample " + ssc.getFirstObj1().toString());
-			for (IFDObject<?> sd : ssc.get(1)) {
-				System.out.println("\t" + sd);
-			}
-		}
+		if (n == 0)
+			System.out.println("IFDFAIRSpecExtractionHelper.dumpSummary no objects?");
 		System.out.println("!IFDFAIRSpecExtractionHelper.dumpSummary extraction complete:\n! " 
-				+ getFindingAid().getDataSources() + "\n! " 
-					+ getSampleCollection().size() + " samples " 
-					+ getStructureCollection().size() + " structures " 
-				    + getDataObjectCollection().size() + " specdata " 
-					+ getStructureDataCollection().size() + " structure-data associations "
-					+ getSampleDataCollection().size() + " sample-data associations"
-					);
+				+ getFindingAid().getResources() + "\n!\n"+ s);
 		System.out.println("!IFDFAIRSpecExtractionHelper.dumpSummary version " + IFDConst.getProp("IFD_VERSION"));
 	}
 
@@ -358,9 +350,9 @@ public class IFDFAIRSpecExtractorHelper {
 	 */
 	public int removeStructuresWithNoAssociations() {
 		List<IFDAssociation> lstRemove = new ArrayList<>();
-		IFDStructureDataAssociationCollection specData = getStructureDataCollection();
+		IFDStructureDataAssociationCollection strucData = getStructureDataCollection();
 		int n = 0;
-		for (IFDAssociation assoc : specData) {
+		for (IFDAssociation assoc : strucData) {
 			List<IFDDataObject> empty = new ArrayList<>();
 			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> dataCollection = assoc.getObject(1);
 			for (IFDRepresentableObject<? extends IFDRepresentation> d : dataCollection) {
@@ -378,7 +370,7 @@ public class IFDFAIRSpecExtractorHelper {
 			}
 		}
 		n += lstRemove.size();
-		specData.removeAll(lstRemove);
+		strucData.removeAll(lstRemove);
 		return n;
 	}
 
@@ -393,8 +385,23 @@ public class IFDFAIRSpecExtractorHelper {
 		return (IFDStructure) getStructureDataCollection().getFirstObj1ForObj2(spec, andRemove);
 	}
 
-	public void associate(String name, IFDStructure struc, IFDDataObject spec) throws IFDException {
+	/**
+	 * This method will return the FIRST sample associated with a spectrum
+	 * and optionally remove it if found
+	 * @param spec
+	 * @param andRemove
+	 * @return
+	 */
+	public IFDSample getFirstSampleForSpec(IFDDataObject spec, boolean andRemove) {
+		return (IFDSample) getSampleDataCollection().getFirstObj1ForObj2(spec, andRemove);
+	}
+
+	public void associateStructureSpec(String name, IFDStructure struc, IFDDataObject spec) throws IFDException {
 		getStructureDataCollection().addAssociation(name, struc, spec);
+	}
+
+	public void associateSampleSpec(String name, IFDSample sample, IFDDataObject spec) throws IFDException {
+		getSampleDataCollection().addAssociation(name, sample, spec);
 	}
 
 	public IFDStructure addStructureForSpec(String rootPath, IFDDataObject spec, String ifdRepType, String ifdPath, String localName, String name)
@@ -402,7 +409,7 @@ public class IFDFAIRSpecExtractorHelper {
 		if (getDataObjectCollection().indexOf(spec) < 0)
 			getDataObjectCollection().add(spec);			
 		IFDStructure struc = getStructureCollection().getStructureFor(rootPath, localName, IFDConst.IFD_PROP_SAMPLE_LABEL, name, ifdPath, null);
-		struc.addRepresentation(ifdPath, localName, ifdRepType, IFDDefaultStructureHelper.mediaTypeFromName(localName));
+		struc.addRepresentation(ifdPath, localName, ifdRepType, DefaultStructureHelper.mediaTypeFromName(localName));
 		getStructureCollection().add(struc);
 		IFDStructureDataAssociation ss = (IFDStructureDataAssociation) getStructureDataCollection().getAssociationForSingleObj2(spec);
 		if (ss == null) {
@@ -413,8 +420,12 @@ public class IFDFAIRSpecExtractorHelper {
 		return struc;
 	}
 
-	public IFDStructureDataAssociation getAssociation(IFDStructure struc, IFDDataObject spec) {
+	public IFDStructureDataAssociation getStructureAssociation(IFDStructure struc, IFDDataObject spec) {
 		return (IFDStructureDataAssociation) getStructureDataCollection().findAssociation(struc, spec);
+	}
+	
+	public IFDSampleDataAssociation getSampleAssociation(IFDSample struc, IFDDataObject spec) {
+		return (IFDSampleDataAssociation) getSampleDataCollection().findAssociation(struc, spec);
 	}
 	
 	public IFDRepresentation getSpecDataRepresentation(String zipName) {
@@ -437,14 +448,21 @@ public class IFDFAIRSpecExtractorHelper {
 
 	public IFDDataObjectCollection getDataObjectCollection() {
 		if (specDataCollection == null) {
-			objects[DATA_COLLECTION] = specDataCollection = new IFDDataObjectCollection("dataObjects");
+			objects[DATA_COLLECTION] = specDataCollection = new IFDDataObjectCollection("spectra");
 		}
 		return specDataCollection;
 	}
 	
+	public IFDSampleStructureAssociationCollection getSampleStructureCollection() {
+		if (sampleStructureCollection == null) {
+			associations[SAMPLE_STRUCTURE_COLLECTION] = sampleStructureCollection = new IFDSampleStructureAssociationCollection("sample-structure-associations");
+		}
+		return sampleStructureCollection;
+	}
+
 	public IFDSampleDataAssociationCollection getSampleDataCollection() {
 		if (sampleDataCollection == null) {
-			associations[SAMPLE_DATA_COLLECTION] = sampleDataCollection = new IFDSampleDataAssociationCollection("sampleDataAssociations");
+			associations[SAMPLE_DATA_COLLECTION] = sampleDataCollection = new IFDSampleDataAssociationCollection("sample-spectra-associations");
 		}
 		return sampleDataCollection;
 	}
@@ -452,28 +470,44 @@ public class IFDFAIRSpecExtractorHelper {
 	public IFDStructureDataAssociationCollection getStructureDataCollection() {
 		if (structureDataCollection == null) {
 			associations[STRUCTURE_DATA_COLLECTION] =
-					structureDataCollection = new IFDStructureDataAssociationCollection("structureDataAssociations");
+					structureDataCollection = new IFDStructureDataAssociationCollection("structure-spectra-associations");
 		}
 		return structureDataCollection;
 	}
-
-	public IFDSampleDataAnalysisCollection getSampleDataAnalysisCollection() {
-		if (sampleDataAnalysisCollection == null)
-			associations[SAMPLE_DATA_ANALYSIS_COLLECTION] =
-					sampleDataAnalysisCollection = new IFDSampleDataAnalysisCollection("sampleDataAnalyses");
-		return sampleDataAnalysisCollection;
-	}
+//
+//	public IFDSampleDataAnalysisCollection getSampleDataAnalysisCollection() {
+//		if (sampleDataAnalysisCollection == null)
+//			associations[SAMPLE_DATA_ANALYSIS_COLLECTION] =
+//					sampleDataAnalysisCollection = new IFDSampleDataAnalysisCollection("sampleDataAnalyses");
+//		return sampleDataAnalysisCollection;
+//	}
 
 	public IFDStructureDataAnalysisCollection getStructureDataAnalysisCollection() {
 		if (structureDataAnalysisCollection == null)
 			associations[STRUCTURE_DATA_ANALYSIS_COLLECTION] =
-					structureDataAnalysisCollection = new IFDStructureDataAnalysisCollection("structureDataAnalyses");
+					structureDataAnalysisCollection = new IFDStructureDataAnalysisCollection("structure-spectra-analyses");
 		return structureDataAnalysisCollection;
 	}
 
 	public String createSerialization(File targetFile, String findingAidFileNameRoot, List<Object> products,
 			IFDSerializerI serializer) throws IOException {
 		return findingAid.createSerialization(targetFile, findingAidFileNameRoot, products, serializer);
+	}
+
+	public IFDResource addOrSetSource(String dataSource) {
+	  return currentResource = getFindingAid().addOrSetResource(dataSource);
+	}
+
+	public void setCurrentResourceByteLength(long len) {
+		currentResource.setLength(len);
+	}
+
+	public IFDSample getSampleByName(String name) {
+		return (IFDSample) getSampleCollection().getObjectByName(name);
+	}
+
+	public IFDSampleStructureAssociation associateSampleStructure(String localName, IFDSample sample, IFDStructure struc) throws IFDException {
+		return getSampleStructureCollection().addAssociation(null, sample, struc);
 	}
 
 }

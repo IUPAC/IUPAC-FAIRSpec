@@ -1,13 +1,18 @@
 package org.iupac.fairdata.derived;
 
-import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDAssociationCollection;
-import org.iupac.fairdata.structure.IFDStructure;
-import org.iupac.fairdata.structure.IFDStructureCollection;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.sample.IFDSampleCollection;
+import org.iupac.fairdata.structure.IFDStructure;
+import org.iupac.fairdata.structure.IFDStructureCollection;
 
+/**
+ * Just one IFDSample collection and one IFDDataObject collection.
+ * 
+ * @author hansonr
+ *
+ */
 @SuppressWarnings({ "serial" })
 public class IFDSampleStructureAssociationCollection extends IFDAssociationCollection {
 
@@ -29,8 +34,6 @@ public class IFDSampleStructureAssociationCollection extends IFDAssociationColle
 		if (ssc == null) {
 			add(ssc = newAssociation(name, sample, structure));
 		} else if (!ssc.getStructureCollection().contains(structure)) {
-			if (sample.getName() == null)
-				sample.setPropertyValue(IFDConst.getProp("IFD_PROP_SAMPLE_LABEL"), name);
 			ssc.getStructureCollection().add(structure);
 		}
 		return ssc;

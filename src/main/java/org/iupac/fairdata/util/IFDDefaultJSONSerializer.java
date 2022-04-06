@@ -11,7 +11,7 @@ import org.iupac.fairdata.api.IFDSerializableI;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDAssociation;
-import org.iupac.fairdata.core.IFDFAIRDataFindingAid;
+import org.iupac.fairdata.core.IFDFindingAid;
 
 import javajs.util.PT;
 
@@ -154,23 +154,23 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 	}
 
 	@Override
-	public String createSerialization(IFDFAIRDataFindingAid findingAid, File targetDir, String rootName, List<Object> products) throws IOException {
+	public String createSerialization(IFDFindingAid findingAid, File targetDir, String rootName, List<Object> products) throws IOException {
 		// subclasses should be able to use this directly with no changes.
 		String s = serialize(findingAid);
 		if (targetDir == null)
 			return s;
 		String aidName = "_IFD_findingaid." + getFileExt();
 		if (products != null) {
-			findingAid.setPropertyValue(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_REF, null);
-			findingAid.setPropertyValue(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_LEN, null);
+			findingAid.setPropertyValue(IFDConst.IFD_PROP_COLLECTIONSET_REF, null);
+			findingAid.setPropertyValue(IFDConst.IFD_PROP_COLLECTIONSET_LEN, null);
 			// byte[] followed by entry name
 			products.add(0, s.getBytes());
 			products.add(1, aidName);
 			String zipName = rootName + "_IFD_collection.zip";
 			String path = targetDir + "/" + zipName;
 			long len = IFDUtilities.zip(path, targetDir.toString().length() + 1, products);
-			findingAid.setPropertyValue(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_REF, zipName);
-			findingAid.setPropertyValue(IFDConst.IFD_PROP_FAIRDATA_COLLECTION_LEN, len);
+			findingAid.setPropertyValue(IFDConst.IFD_PROP_COLLECTIONSET_REF, zipName);
+			findingAid.setPropertyValue(IFDConst.IFD_PROP_COLLECTIONSET_LEN, len);
 			products.remove(1);
 			products.remove(0);
 			// update external finding aid

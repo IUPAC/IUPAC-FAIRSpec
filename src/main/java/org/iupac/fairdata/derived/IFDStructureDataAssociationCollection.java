@@ -1,6 +1,5 @@
 package org.iupac.fairdata.derived;
 
-import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDAssociationCollection;
 import org.iupac.fairdata.dataobject.IFDDataObject;
@@ -27,8 +26,6 @@ public class IFDStructureDataAssociationCollection extends IFDAssociationCollect
 		if (ssc == null) {
 			add(ssc = newAssociation(name, struc, data));
 		} else if (!ssc.getDataObjectCollection().contains(data)) {
-			if (struc.getName() == null)
-				struc.setPropertyValue(IFDConst.IFD_PROP_SAMPLE_LABEL, name);
 			ssc.getDataObjectCollection().add(data);
 		}
 		return ssc;

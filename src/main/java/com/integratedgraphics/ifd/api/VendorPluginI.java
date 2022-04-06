@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.iupac.fairdata.api.IFDExtractorI;
-import org.iupac.fairdata.api.IFDPropertyManagerI;
+import org.iupac.fairdata.contrib.ExtractorI;
+import org.iupac.fairdata.contrib.PropertyManagerI;
 import org.iupac.fairdata.util.IFDUtilities;
 
 import com.integratedgraphics.ifd.Extractor;
@@ -35,20 +35,20 @@ import com.integratedgraphics.ifd.Extractor;
  * @author hansonr
  *
  */
-public interface IFDVendorPluginI extends IFDPropertyManagerI {
+public interface VendorPluginI extends PropertyManagerI {
 
-	public static List<IFDVendorPluginI> vendorPlugins = new ArrayList<>();
+	public static List<VendorPluginI> vendorPlugins = new ArrayList<>();
 
 	public final static List<VendorInfo> activeVendors = new ArrayList<VendorInfo>();
 
 	public static class VendorInfo {
 		
-		final public IFDVendorPluginI vendor;
+		final public VendorPluginI vendor;
 		final public int index;
 		final public String vrezip;
 		final public String vcache;
 
-		private VendorInfo(IFDVendorPluginI vendor, int index) {
+		private VendorInfo(VendorPluginI vendor, int index) {
 			this.vendor = vendor;
 			this.index = index;
 			vendor.setIndex(index);
@@ -74,9 +74,9 @@ public interface IFDVendorPluginI extends IFDPropertyManagerI {
 		List<Object> knownVendors = (List<Object>) vendors.get("knownVendors");
 		for (int i = 0, n = knownVendors.size(); i < n; i++) {
 			String sv = (String) knownVendors.get(i);
-			IFDVendorPluginI v;
+			VendorPluginI v;
 			try {
-				v = (IFDVendorPluginI) Class.forName(sv).getDeclaredConstructor().newInstance();
+				v = (VendorPluginI) Class.forName(sv).getDeclaredConstructor().newInstance();
 				if (v.isEnabled()) {
 					addVendor(v);
 				}
@@ -92,7 +92,7 @@ public interface IFDVendorPluginI extends IFDPropertyManagerI {
 	 * 
 	 * @param v
 	 */
-	public static void addVendor(IFDVendorPluginI v) {
+	public static void addVendor(VendorPluginI v) {
 		activeVendors.add(new VendorInfo(v, activeVendors.size()));
 		System.out.println("! IFDVendorPluginI vendorPlugin " + v.getClass().getName() + " active");
 	}
@@ -102,9 +102,9 @@ public interface IFDVendorPluginI extends IFDPropertyManagerI {
 	 * 
 	 * @param plugin
 	 */
-	static void registerIFDVendorPlugin(Class<? extends IFDVendorPluginI> plugin) {
+	static void registerIFDVendorPlugin(Class<? extends VendorPluginI> plugin) {
 		try {
-			IFDVendorPluginI v = plugin.getDeclaredConstructor().newInstance();
+			VendorPluginI v = plugin.getDeclaredConstructor().newInstance();
 			vendorPlugins.add(v);
 			System.out.println("! IFDVendorPluginI vendorPlugin " + plugin + " registered");
 		} catch (Exception e) {
@@ -121,9 +121,9 @@ public interface IFDVendorPluginI extends IFDPropertyManagerI {
 
 	String getRezipPrefix(String dirname);
 
-	void startRezip(IFDExtractorI extractor);
+	void startRezip(ExtractorI extractor);
 	
-	boolean doRezipInclude(IFDExtractorI extractor, String zipfileName, String entryName);
+	boolean doRezipInclude(ExtractorI extractor, String zipfileName, String entryName);
 
 	void endRezip();
 
