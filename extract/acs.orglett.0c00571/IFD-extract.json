@@ -1,18 +1,18 @@
-{"IFD-extract-version":"0.2.0-alpha","keys":[
+{"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
  {"example":"compound directories containing unidentified bruker files and hrms zip file containing .pdf"},
  {"journal":"acs.orglett"},{"hash":"0c00571"},
  {"figshareid":"21975525"},
  
- {"IFDid=IFD.property.fairdata.collection.id":"{journal}.{hash}"},
- {"IFD.property.fairdata.collection.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
- {"IFD.property.fairdata.collection.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
- {"IFD.property.fairdata.collection.data.license.name":"cc-by-nc-4.0"},
+ {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
+ {"IFD.property.collectionset.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
+ {"IFD.property.collectionset.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.data.license.name":"cc-by-nc-4.0"},
  
- {"data0":"{IFD.property.fairdata.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
- {"data":"{IFD.property.fairdata.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
+ {"data0":"{IFD.property.collectionset.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data":"{IFD.property.collectionset.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
  {"path":"{data}|FID for Publication/{id=IFD.property.sample.label::*}.zip|"},
- {"IFD.extractor.object":"{path}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
- {"IFD.extractor.object":"{path}<id>/{IFD.representation.structure.mol.2d::<id>.mol}"},
- {"IFD.extractor.object":"{path}{IFD.representation.data.spec.hrms.pdf::{IFD.property.data.spec.hrms.expt.label::<id>/HRMS.zip|**/*}.pdf}"}
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
+ {"FAIRSpec.extractor.object":"{path}<id>/{IFD.representation.structure.mol.2d::<id>.mol}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.data.spec.hrms.pdf::{IFD.property.data.spec.hrms.expt.label::<id>/HRMS.zip|**/*}.pdf}"}
 ]}

@@ -248,6 +248,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	protected String subtype = "Unknown";
 
+	private Class<?> extendedType;
+
 	public IFDObject(String name, String type) {
 		set(name, type, Integer.MAX_VALUE);
 	}
@@ -265,6 +267,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	@SuppressWarnings("unchecked")
 	public IFDObject(String name, String type, int maxCount, T... initialSet) throws IFDException {
 		set(name, type, maxCount);
+		if (type != null)
+			System.out.println("IFDObject type not null");
 		if (initialSet == null) {
 			minCount = 0;
 		} else {
@@ -318,7 +322,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		// check for .representation., which is not stored in the object.
 		if (IFDConst.isRepresentation(name))
 			return;
-		if (IFDConst.isLabel(name, true))
+		if (IFDConst.isLabel(name))
 			this.name = value.toString();
 		IFDProperty p = IFDConst.getIFDProperty(htProps, name);
 		if (p == null) {
@@ -450,6 +454,20 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return type;
 	}
 
+	public Class<?> getCoreType() {
+		if (extendedType == null) {
+		  Class<?> t = getClass();
+		  Class<?> supert;
+		  
+		  while (!t.getName().startsWith("org.iupac.fairdata.core") 
+				  &&(supert = t.getSuperclass()) != Object.class) {
+			  t = supert;
+		  }
+		  extendedType = t;
+		}
+		return extendedType;
+	}
+
 	@Override
 	public void serialize(IFDSerializerI serializer) {
 		serializeTop(serializer);
@@ -459,6 +477,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	protected void serializeTop(IFDSerializerI serializer) {
 		serializer.addAttr("type", getSerializedType());
+		if (getCoreType() != getClass())
+		  serializer.addAttr("typeExtends", extendedType.getName());
 		if (subtype != null && subtype != "Unknown")
 			serializer.addAttr("subtype", subtype);
 		serializer.addAttr("name", getName());

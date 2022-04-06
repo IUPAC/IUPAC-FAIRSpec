@@ -1,17 +1,17 @@
-{"IFD-extract-version":"0.2.0-alpha","keys":[
+{"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
  {"example":"compound directories containing unidentified mnova files"},
  {"journal":"acs.orglett"},{"hash":"0c01197"},
  {"figshareid":"22491647"},
 
- {"IFD.property.fairdata.collection.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
- {"IFD.property.fairdata.collection.data.license.name":"cc-by-nc-4.0"},
- {"IFDid=IFD.property.fairdata.collection.id":"{journal}.{hash}"},
- {"IFD.property.fairdata.collection.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
+ {"IFD.property.collectionset.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.data.license.name":"cc-by-nc-4.0"},
+ {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
+ {"IFD.property.collectionset.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
 
- {"data0":"{IFD.property.fairdata.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
- {"data":"{IFD.property.fairdata.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
+ {"data0":"{IFD.property.collectionset.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data":"{IFD.property.collectionset.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
  {"path":"{data}|"},
- {"IFD.extractor.object":"{path}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::products/{id=IFD.property.sample.label::*}.mnova}}"},
- {"IFD.extractor.object":"{path}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::Substrate/{id=IFD.property.sample.label::*}.mnova}}"}
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::products/{id=IFD.property.sample.label::*}.mnova}}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::Substrate/{id=IFD.property.sample.label::*}.mnova}}"}
 ]}

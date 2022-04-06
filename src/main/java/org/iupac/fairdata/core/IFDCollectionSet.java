@@ -86,7 +86,11 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 				continue;
 			Map<String, Object> m = new TreeMap<>();
 			m.put("name", c.getName());
-			m.put("type", c.getClass().getName());
+			String ctype = c.getClass().getName();
+			String stype = c.getCoreType().getName();
+			m.put("type", ctype);
+			if (!stype.equals(ctype))
+				m.put("typeExtends", stype);
 			m.put("count", c.size());
 			lst.add(m);
 		}

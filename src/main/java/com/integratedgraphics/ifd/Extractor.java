@@ -30,6 +30,7 @@ import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.DefaultStructureHelper;
 import org.iupac.fairdata.contrib.ExtractorI;
 import org.iupac.fairdata.contrib.FAIRSpecExtractorHelper;
+import org.iupac.fairdata.contrib.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.PropertyManagerI;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
@@ -110,6 +111,7 @@ public class Extractor implements ExtractorI {
 	}
 
 	static {
+		FAIRSpecFindingAid.loadProperties();
 		VendorPluginI.init();
 	}
 	private static final String version = "0.0.2-alpha+2002.04.05";
@@ -380,7 +382,7 @@ public class Extractor implements ExtractorI {
 			} else {
 				List<Map<String, Object>> list = new ArrayList<>();
 				list.add(pubCrossrefInfo);
-				helper.getFindingAid().setPubInfo(list);
+				helper.getFindingAid().setCitations(list);
 			}
 		}
 		setLocalSourceDir(localSourceDir);
@@ -568,7 +570,7 @@ public class Extractor implements ExtractorI {
 		Map<String, Object> jsonMap = (Map<String, Object>) new JSJSONParser().parse(script, false);
 		if (debugging)
 			log(jsonMap.toString());
-		extractVersion = (String) jsonMap.get("IFD-extract-version");
+		extractVersion = (String) jsonMap.get(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACT_VERSION);
 		log(extractVersion);
 		List<ObjectParser> objectParsers = getObjects((List<Map<String, Object>>) jsonMap.get("keys"));
 		log(objectParsers.size() + " extractor regex strings");
@@ -644,11 +646,11 @@ public class Extractor implements ExtractorI {
 				 //{"IFDid=IFD.property.fairdata.collection.id":"{journal}.{hash}"},
 				 //..keydef.------------------key-------------
 
-				if (key.equals(IFDConst.IFD_EXTRACTOR_OBJECT)) {
+				if (key.equals(FAIRSpecExtractorHelper.IFD_EXTRACTOR_OBJECT)) {
 					parsers.add(newObjectParser(val));
 					continue;
 				}
-				if (key.startsWith("IFD.property")) {
+				if (key.startsWith(IFDConst.IFD_PROPERTY_FLAG)) {
 					if (key.equals(IFDConst.IFD_PROP_COLLECTIONSET_ID)) {
 						ifdid = val;
 						helper.getFindingAid().setID(val);
@@ -901,7 +903,7 @@ public class Extractor implements ExtractorI {
 	 * @throws IFDException
 	 */
 	protected ObjectParser newObjectParser(String sObj) throws IFDException {
-		return new ObjectParser(sObj);
+		return new ObjectParser(this, sObj);
 	}
 
 	/**
@@ -1242,13 +1244,13 @@ public class Extractor implements ExtractorI {
 
 		StringBuffer sb = new StringBuffer();
 		sb.append("{" + "\"IFD.fairdata.version\":\"" + IFDConst.IFD_VERSION + "\",\n");
-		sb.append("\"IFD.extractor.version\":\"" + version + "\",\n")
-				.append("\"IFD.extractor.code\":\"" + codeSource + "\",\n")
-				.append("\"IFD.extractor.list.type\":\"" + type + "\",\n")
-				.append("\"IFD.extractor.scirpt\":\"_IFD_extract.json\",\n")
-				.append("\"IFD.extractor.source\":\"" + dataSource + "\",\n")
-				.append("\"IFD.extractor.creation.date\":\"" + helper.getFindingAid().getDate().toGMTString() + "\",\n")
-				.append("\"IFD.extractor.count\":" + lst.size() + ",\n").append("\"IFD.extractor.list\":\n" + "[\n");
+		sb.append("\"FAIRSpec.extractor.version\":\"" + version + "\",\n")
+				.append("\"FAIRSpec.extractor.code\":\"" + codeSource + "\",\n")
+				.append("\"FAIRSpec.extractor.list.type\":\"" + type + "\",\n")
+				.append("\"FAIRSpec.extractor.scirpt\":\"_IFD_extract.json\",\n")
+				.append("\"FAIRSpec.extractor.source\":\"" + dataSource + "\",\n")
+				.append("\"FAIRSpec.extractor.creation.date\":\"" + helper.getFindingAid().getDate().toGMTString() + "\",\n")
+				.append("\"FAIRSpec.extractor.count\":" + lst.size() + ",\n").append("\"FAIRSpec.extractor.list\":\n" + "[\n");
 		String sep = "";
 		if (type.equals("manifest")) {
 			// list the zip files first
@@ -1363,7 +1365,12 @@ public class Extractor implements ExtractorI {
 	 * 
 	 * @param msg
 	 */
-	protected static void log(String msg) {
+	@Override
+	public void log(String msg) {
+		logStatic(msg);
+	}
+
+	protected static void logStatic(String msg) {
 		boolean isErr = msg.startsWith("!!");
 		boolean isAlert = msg.startsWith("!");
 		if(testID >= 0)
@@ -1490,16 +1497,18 @@ public class Extractor implements ExtractorI {
 		final String localizedName = localizePath(ifdPath);
 		OutputStream fos = (noOutput ? new ByteArrayOutputStream() : new FileOutputStream(outFile));
 		ZipOutputStream zos = new ZipOutputStream(fos);
+		
 		String parent = new File(entry.getName()).getParent();
 		int lenOffset = (parent == null ? 0 : parent.length() + 1);
 		// because Bruker directories must start with a number
-		String newDir = vendor.getRezipPrefix(dirName.substring(lenOffset, dirName.length() - 1)); // trimming trailing
+		String newDir = vendor.getRezipPrefix(dirName.substring(lenOffset, dirName.length() - 1)); 
 																									// // '/'
 		if (newDir == null) {
 			newDir = "";
 		} else {
 			newDir = newDir + "/";
 			lenOffset = dirName.length();
+			logWarn("correcting Bruker directory name for " + localizedName + "|" + dirName, "processRezipEntry");
 		}
 		Matcher m = null;
 		this.localizedName = localizedName;
@@ -1639,7 +1648,7 @@ public class Extractor implements ExtractorI {
 							propertyList.add(null);
 							for (String key : parser.keys.keySet()) {
 								String param = parser.keys.get(key);
-								if (IFDConst.isLabel(param, false)) {
+								if (param.equals(IFDConst.IFD_PROP_SAMPLE_LABEL)) {
 									String id = mp.group(key);
 									propertyList.add(new Object[] { localizedName, param, id });
 								}
@@ -1864,12 +1873,14 @@ public class Extractor implements ExtractorI {
 		protected Map<String, String> keys;
 
 		private String dataSource;
+		private Extractor extractor;
 
 		/**
 		 * @param sObj
 		 * @throws IFDException
 		 */
-		public ObjectParser(String sObj) throws IFDException {
+		public ObjectParser(Extractor extractor, String sObj) throws IFDException {
+			this.extractor = extractor;
 			int[] pt = new int[1];
 			dataSource = getIFDExtractValue(sObj, IFDConst.IFD_PROP_COLLECTIONSET_SOURCE_DATA_URI, pt);
 			if (dataSource == null)
@@ -1968,7 +1979,7 @@ public class Extractor implements ExtractorI {
 
 			s = PT.rep(s, REGEX_EMPTY_QUOTE, "");
 
-			log("! pattern: " + s);
+			extractor.log("! Extractor.ObjectParser pattern: " + s);
 			p = Pattern.compile(s);
 		}
 

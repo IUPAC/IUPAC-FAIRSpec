@@ -49,6 +49,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 
 	@Override
 	public String accept(ExtractorI extractor, String ifdPath, byte[] bytes) {
+		this.extractor = extractor;
 		return processRepresentation(ifdPath, bytes);
 	}
 	
@@ -75,9 +76,13 @@ public class DefaultStructureHelper implements PropertyManagerI {
 				BS atoms = v.bsA();
 				smiles = v.getSmiles(atoms);
 				inchi = v.getInchi(atoms, null, null);
-				inchiKey = v.getInchi(atoms, null, "key");
+				if (inchi == null) {
+				  	extractor.log("!! InChI could not be created for " + ifdPath);
+				} else {
+					inchiKey = v.getInchi(atoms, null, "key");
+				}
 			} catch (Exception e) {
-				System.err.println("!! Jmol error generating " + (smiles == null ? "SMILES" : inchi == null ? "InChI" : "InChIKey"));
+				extractor.log("!! Jmol error generating " + (smiles == null ? "SMILES" : inchi == null ? "InChI" : "InChIKey"));
 				jmolViewer = null;
 				e.printStackTrace();
 			}

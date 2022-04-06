@@ -36,7 +36,7 @@ import com.integratedgraphics.ifd.Extractor;
  *
  */
 public interface VendorPluginI extends PropertyManagerI {
-
+	
 	public static List<VendorPluginI> vendorPlugins = new ArrayList<>();
 
 	public final static List<VendorInfo> activeVendors = new ArrayList<VendorInfo>();

@@ -1,28 +1,28 @@
-{"IFD-extract-version":"0.2.0-alpha","keys":[
+{"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
  {"example":"two supporting information zip files; compound zip files containing a single compound directory containing identified bruker zip files and CDX files"},
  {"journal":"acs.orglett"},{"hash":"0c01153"},
  {"figshareid1":"22284726"},
  {"figshareid2":"22284729"},
  
- {"IFD.property.fairdata.collection.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
- {"IFD.property.fairdata.collection.data.license.name":"cc-by-nc-4.0"},
- {"IFDid=IFD.property.fairdata.collection.id":"{journal}.{hash}"},
- {"IFD.property.fairdata.collection.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
+ {"IFD.property.collectionset.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.data.license.name":"cc-by-nc-4.0"},
+ {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
+ {"IFD.property.collectionset.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
  
- {"data01":"{IFD.property.fairdata.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
- {"data02":"{IFD.property.fairdata.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_003.zip}"},
+ {"data01":"{IFD.property.collectionset.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data02":"{IFD.property.collectionset.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_003.zip}"},
  
- {"data1":"{IFD.property.fairdata.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid1}}"},
+ {"data1":"{IFD.property.collectionset.source.data.uri::https://ndownloader.figshare.com/files/{figshareid1}}"},
 
  {"path1":"{data1}|*.zip|"},  
  {"note":"using **/*.mnova* here because it is .mnova_copy for Compound 5"},
- {"IFD.extractor.object":"{path1}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}/{expt=::*}}.zip|{expt}/}"},
- {"IFD.extractor.object":"{path1}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}/**/*.mnova*}}"},
- {"IFD.extractor.object":"{path1}{IFD.representation.structure.cdx::{id=IFD.property.sample.label::*}/*.cdx}"},
+ {"FAIRSpec.extractor.object":"{path1}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}/{expt=::*}}.zip|{expt}/}"},
+ {"FAIRSpec.extractor.object":"{path1}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}/**/*.mnova*}}"},
+ {"FAIRSpec.extractor.object":"{path1}{IFD.representation.structure.cdx::{id=IFD.property.sample.label::*}/*.cdx}"},
 
- {"data2":"{IFD.property.fairdata.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid2}}"},
+ {"data2":"{IFD.property.collectionset.source.data.uri::https://ndownloader.figshare.com/files/{figshareid2}}"},
 
  {"path2":"{data2}|*.zip|"},
- {"IFD.extractor.object":"{path2}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}/{expt=::*}}.zip|{expt}/}"},
- {"IFD.extractor.object":"{path2}{IFD.representation.structure.cdx::{id=IFD.property.sample.label::*}/*.cdx}"}
+ {"FAIRSpec.extractor.object":"{path2}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}/{expt=::*}}.zip|{expt}/}"},
+ {"FAIRSpec.extractor.object":"{path2}{IFD.representation.structure.cdx::{id=IFD.property.sample.label::*}/*.cdx}"}
 ]}

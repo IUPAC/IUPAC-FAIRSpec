@@ -1,17 +1,17 @@
-{"IFD-extract-version":"0.2.0-alpha","keys":[
+{"FAIRSpec.extract.version":"0.0.2-alpha+2202.04.06","keys":[
  {"example":"compound zip files containing bruker and mnova files identified as'1_13C' and '1_mnova'"},
  {"journal":"acs.joc"},{"hash":"0c00770"},
  {"figshareid":"22567817"},
  
- {"IFD.property.fairdata.collection.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
- {"IFD.property.fairdata.collection.data.license.name":"cc-by-nc-4.0"},
- {"IFDid=IFD.property.fairdata.collection.id":"{journal}.{hash}"},
- {"IFD.property.fairdata.collection.source.publication.uri":"https://doi.org/10.1021/{IFDid}"}, 
+ {"IFD.property.collectionset.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.data.license.name":"cc-by-nc-4.0"},
+ {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
+ {"IFD.property.collectionset.source.publication.uri":"https://doi.org/10.1021/{IFDid}"}, 
  
- {"data0":"{IFD.property.fairdata.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/jo{hash}_si_002.zip}"},
- {"data":"{IFD.property.fairdata.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
+ {"data0":"{IFD.property.collectionset.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/jo{hash}_si_002.zip}"},
+ {"data":"{IFD.property.collectionset.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
  {"zip":"{data}|{id=IFD.property.sample.label::*}.zip|"},
- {"IFD.extractor.object":"{zip}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::*}/}"},
- {"IFD.extractor.object":"{zip}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::*.mnova}}"}
+ {"FAIRSpec.extractor.object":"{zip}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::*}/}"},
+ {"FAIRSpec.extractor.object":"{zip}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::*.mnova}}"}
 ]}

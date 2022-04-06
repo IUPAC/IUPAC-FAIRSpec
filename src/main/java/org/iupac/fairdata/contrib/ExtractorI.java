@@ -14,6 +14,8 @@ public interface ExtractorI {
 
 	IFDFindingAid getFindingAid();
 
+	void log(String string);
+
 //	void registerFileVendor(String fname, IFDVendorPluginI ifdVendorPluginI);
 
 }

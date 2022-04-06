@@ -22,20 +22,9 @@ public class IFDConst {
 	private static Properties props;
 
 	static {
-		try {
-			File f = new File(IFDConst.class.getName().replace('.', '/'));
-			String s = f.getParent().replace('\\', '/') + "/fairspec.properties";
-			URL u = IFDConst.class.getClassLoader().getResource(s);
-			System.out.println(u.getFile());
-			props = new Properties();
-			InputStream is = u.openStream();
-			props.load(is);
-			System.out.println("IFDConst: " + props.size() + " properties");
-			is.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(0);
-		}
+		File f = new File(IFDConst.class.getName().replace('.', '/'));
+		String propertyFile = f.getParent().replace('\\', '/') + "/ifd.properties";
+		addProperties(propertyFile);
 	}
 
 	public static String getProp(String key) {
@@ -45,6 +34,22 @@ public class IFDConst {
 			s = key;
 		}
 		return s.trim();
+	}
+
+	public static void addProperties(String propertyFile) {
+		try {			
+			URL u = IFDConst.class.getClassLoader().getResource(propertyFile);
+			System.out.println(u.getFile());
+			if (props == null)
+				props = new Properties();
+			InputStream is = u.openStream();
+			props.load(is);
+			System.out.println("IFDConst: " + props.size() + " properties");
+			is.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(0);
+		}
 	}
 
 	public static Map<String, IFDProperty> setProperties(Map<String, IFDProperty> htProps, String key, String notKey) {
@@ -92,7 +97,6 @@ public class IFDConst {
 	public static final String IFD_PROP_COLLECTIONSET_ID = getProp("IFD_PROP_COLLECTIONSET_ID");
 	public static final String IFD_PROP_COLLECTIONSET_REF = getProp("IFD_PROP_COLLECTIONSET_REF");
 	public static final String IFD_PROP_COLLECTIONSET_LEN = getProp("IFD_PROP_COLLECTIONSET_LEN");
-	public static final String IFD_EXTRACTOR_OBJECT = getProp("IFD_EXTRACTOR_OBJECT");
 	public static final String IFD_PROP_COLLECTIONSET_SOURCE_DATA_URI = getProp(
 			"IFD_PROP_COLLECTIONSET_SOURCE_DATA_URI");
 	public static final String IFD_PROP_COLLECTIONSET_SOURCE_PUBLICATION_URI = getProp(
@@ -137,10 +141,7 @@ public class IFDConst {
 
 	// IFDExtractorI constants:
 
-	public static void main(String[] args) {
-		System.out.println(getProp("IFD_REP_DATA_SPEC_UVVIS_PEAKLIST"));
-	}
-
+	public static final String IFD_LABEL_FLAG = getProp("IFD_LABEL_FLAG");
 	public static final String IFD_REPRESENTATION_FLAG = getProp("IFD_REPRESENTATION_FLAG");
 	public static final String IFD_PROPERTY_FLAG = getProp("IFD_PROPERTY_FLAG");
 	public static final String DATA_FLAG = getProp("IFD_DATA_FLAG");
@@ -154,13 +155,7 @@ public class IFDConst {
 		return (propName != null && propName.startsWith(IFDConst.IFD_PROPERTY_FLAG));
 	}
 
-	public static boolean isLabel(String propName, boolean includeExpt) {
-		return (propName != null
-				&& (includeExpt && propName.endsWith(IFDConst.IFD_EXPT_LABEL_FLAG) || propName.endsWith(IFDConst.IFD_COMPOUND_LABEL_FLAG)));
+	public static boolean isLabel(String propName) {
+		return (propName != null && propName.endsWith(IFD_LABEL_FLAG));
 	}
-
-	public static final String IFD_EXPT_LABEL_FLAG = getProp("IFD_EXPT_LABEL_FLAG");
-
-	public static final String IFD_COMPOUND_LABEL_FLAG = getProp("IFD_COMPOUND_LABEL_FLAG");
-
 }

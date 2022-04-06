@@ -1,10 +1,19 @@
 package org.iupac.fairdata.contrib;
 
+import java.io.File;
+import java.util.List;
+import java.util.Map;
+
+import org.iupac.fairdata.api.IFDSerializerI;
+import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDFindingAid;
 
 /**
  * A class used by IFDFAIRSpecHelper to identify this as an IUPAC FAIRData
  * Finding Aid that is specialized for spectroscopic data.
+ * 
+ * This finding aid adds citations and the type for the IFDFindingAid.
  * 
  * @author hansonr
  *
@@ -12,8 +21,48 @@ import org.iupac.fairdata.core.IFDFindingAid;
 @SuppressWarnings("serial")
 public class FAIRSpecFindingAid extends IFDFindingAid {
 
-	public FAIRSpecFindingAid(String name, String type, String creator) {
-		super(name, type, creator);
+	static boolean propertiesLoaded;
+	
+	public static void loadProperties() {
+		if (!propertiesLoaded) {
+			File f = new File(FAIRSpecFindingAid.class.getName().replace('.', '/'));
+			String propertyFile = f.getParent().replace('\\', '/') + "/fairspec.properties";
+			IFDConst.addProperties(propertyFile);
+			propertiesLoaded = true;
+		}
 	}
+
+	static {
+		loadProperties();
+	}
+	
+	public FAIRSpecFindingAid(String name, String type, String creator) throws IFDException {
+		super(name, type, creator, new FAIRSpecCollection());
+	}
+
+	@Override
+	public String getVersion() {
+		return super.getVersion() + ";FAIRSpec " + IFDConst.getProp("FAIRSPEC_VERSION") ;
+	}
+	
+	protected List<Map<String, Object>> citations;
+
+	public void setCitations(List<Map<String, Object>> citationMap) {
+		citations = citationMap;
+	}
+
+	@Override
+	protected void addCitations(IFDSerializerI serializer) {
+		if (citations != null)
+			serializer.addObject("citations", citations);
+	}
+
+	@Override
+	protected Map<String, Object> getStatistics(Map<String, Object> map) {
+		if (citations != null && citations.size() > 0)
+			map.put("citations", Integer.valueOf(citations.size()));
+		return super.getStatistics(map);
+	}
+
 
 }

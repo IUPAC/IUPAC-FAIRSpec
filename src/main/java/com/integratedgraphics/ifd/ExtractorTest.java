@@ -65,7 +65,7 @@ public class ExtractorTest extends Extractor {
 //		String s = "test/ok/1c.nmr";
 //		Pattern p = Pattern.compile("^\\Qtest/ok/\\E(.+)\\Q.nmr\\E");
 //		Matcher m = p.matcher(s);
-//		System.out.println(m.find());
+//		logStatic(m.find());
 //		String v = m.group(1);
 //		
 
@@ -87,7 +87,7 @@ public class ExtractorTest extends Extractor {
 			fname = null;
 		}
 
-		System.out.println("ExtractorTest.runExtractionTests output to " + new File(targetDir).getAbsolutePath());
+		logStatic("ExtractorTest.runExtractionTests output to " + new File(targetDir).getAbsolutePath());
 		new File(targetDir).mkdirs();
 
 		String json = "";
@@ -103,7 +103,7 @@ public class ExtractorTest extends Extractor {
 
 			if (args.length == 0) {
 				job = key = testSet[itest];
-				log("!ExtractorTest.runExtractionTests found Test " + itest + " " + job);
+				logStatic("ExtractorTest.runExtractionTests found Test " + itest + " " + job);
 				int pt = key.indexOf("/");
 				if (pt >= 0)
 					key = key.substring(0, pt);
@@ -122,7 +122,7 @@ public class ExtractorTest extends Extractor {
 				File targetPath = new File(targetDir);
 				String sourcePath = new File(sourceDir).getAbsolutePath();
 				new ExtractorTest(key, ifdExtractScriptFile, targetPath, sourcePath);
-				System.out.println("ExtractorTest.runExtractionTests ok " + key);
+				logStatic("ExtractorTest.runExtractionTests ok " + key);
 			} catch (Exception e) {
 				failed++;
 				System.err.println("ExtractorTest.runExtractionTests Exception " + e + " for test " + itest);
@@ -130,24 +130,24 @@ public class ExtractorTest extends Extractor {
 				if (stopOnAnyFailure)
 					break;
 			}
-			log("!!ExtractorTest.runExtractionTests job " + job 
+			logStatic("!!ExtractorTest.runExtractionTests job " + job 
 					+ " time/sec=" + (System.currentTimeMillis() - t0)/1000.0);
 
 		}
-		log("!! DONE total=" + n + " failed=" + failed);
+		logStatic("!! DONE total=" + n + " failed=" + failed);
 		json += "\n]}\n";
 		try {
 			if (createFindingAidJSONList && !readOnly) {
 				File f = new File(targetDir + "/_IFD_findingaids.json");
 				IFDUtilities.writeBytesToFile(json.getBytes(), f);
-				System.out.println("ExtractorTest.runExtractionTests File " + f.getAbsolutePath() + " created \n" + json);
+				logStatic("ExtractorTest.runExtractionTests File " + f.getAbsolutePath() + " created \n" + json);
 			} else {
-				System.out.println("ExtractorTest.runExtractionTests _IFD_findingaids.json was not created for\n" + json);
+				logStatic("ExtractorTest.runExtractionTests _IFD_findingaids.json was not created for\n" + json);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("");
+		logStatic("");
 		String flags = "\n first = " + first + " last = " + last //
 				+ "\n stopOnAnyFailure = " + stopOnAnyFailure //
 				+ "\n debugging = " + debugging //
@@ -160,8 +160,9 @@ public class ExtractorTest extends Extractor {
 				+ "\n createZippedCollection = " + createZippedCollection //
 				+ " createFindingAidJSONList = " + createFindingAidJSONList//
 				+ "\n IFD version "+ IFDConst.IFD_VERSION + "\n";
-		log("!ExtractorTest.runExtractionTests flags " + flags);
+		logStatic("!ExtractorTest.runExtractionTests flags " + flags);
 		System.err.println(errorLog);
+		logStatic("!ExtractorText done");
 		IFDUtilities.setLogging(null);
 	}
 
@@ -234,11 +235,11 @@ public class ExtractorTest extends Extractor {
 		debugging = false; // true for verbose listing of all files
 		createFindingAidsOnly = false; // true if extraction files already exist or you otherwise don't want not write
 		
-		allowNoPubInfo = true;//debugReadOnly; // true to allow no internet connection and so no pub calls
+		allowNoPubInfo = debugReadOnly; // true to allow no internet connection and so no pub calls
 		skipPubInfo = !dataciteUp || debugReadOnly;  // true to allow no internet connection and so no pub calls
 	
 		int first = 0; // first test to run
-		int last = 0;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+		int last = 6;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 						// file test
 		
 		if (first == last) {

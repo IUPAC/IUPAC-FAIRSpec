@@ -10,6 +10,7 @@ import java.util.TreeMap;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 
 /**
@@ -39,13 +40,12 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 
 	protected String creator;
 
-	private List<Map<String, Object>> publicationInfo;
+	protected boolean serializing;
 
-	public IFDFindingAid(String name, String type, String creator) {
-		super(name, type);
+	public IFDFindingAid(String name, String type, String creator, IFDCollectionSet collection) throws IFDException {
+		super(name, type, 1, (collection == null ? new IFDCollectionSet(null) : collection));
 		this.creator = creator;
-		collectionSet = new IFDCollectionSet(IFDConst.IFD_FINDING_AID);
-		add(collectionSet);
+		collectionSet = (IFDCollectionSet) get(0);
 	}
 
 	public IFDCollectionSet getCollectionSet() {
@@ -96,15 +96,9 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 		return r;
 	}
 
-	public void setPubInfo(List<Map<String, Object>> pubInfo) {
-		publicationInfo = pubInfo;
-	}
-
 	public Date getDate() {
 		return date;
 	}
-
-	private boolean serializing;
 
 	public void finalizeCollectionSet() {
 		collectionSet.finalizeCollections();
@@ -139,13 +133,12 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 	public void serialize(IFDSerializerI serializer) {
 		if (serializing) {
 			serializeTop(serializer);
-			serializer.addObject("version", IFDConst.getVersion());
+			serializer.addObject("version", getVersion());
 			serializer.addObject("created", date.toGMTString());
 			if (getCreator() != null)
 				serializer.addObject("createdBy", getCreator());
 			serializer.addObject("statistics", getStatistics(new TreeMap<>()));
-			if (publicationInfo != null)
-				serializer.addObject("publications", publicationInfo);
+			addCitations(serializer);
 			serializer.addObject("resources", resources);
 			serializeProps(serializer);
 			serializer.addObject("collection", collectionSet);
@@ -155,6 +148,14 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 			serializer.addObject(IFDConst.IFD_FINDING_AID, this);
 			serializing = false;
 		}
+	}
+
+	protected void addCitations(IFDSerializerI serializer) {
+		// for subclasses
+	}
+
+	public String getVersion() {
+		return IFDConst.getVersion();
 	}
 
 	/**
@@ -181,7 +182,6 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 	}
 
 	protected Map<String, Object> getStatistics(Map<String, Object> map) {
-		map.put("publicationInfo", Integer.valueOf(publicationInfo == null ? 0 : publicationInfo.size()));
 		map.put("resources", Integer.valueOf(resources.size()));
 		collectionSet.getStatistics(map);
 		return map;
