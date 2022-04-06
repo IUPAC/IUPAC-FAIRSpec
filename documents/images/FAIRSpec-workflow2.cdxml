@@ -5,7 +5,7 @@
  Name="FAIRSpec-workflow2.cdxml"
  BoundingBox="2.10 57.25 605.88 259.44"
  WindowPosition="0 0"
- WindowSize="0 429457408"
+ WindowSize="-1288503296 429457408"
  WindowIsZoomed="yes"
  FractionalWidths="yes"
  InterpretChemically="yes"
@@ -83,7 +83,7 @@
 </colortable><fonttable>
 <font id="3" charset="iso-8859-1" name="Arial"/>
 </fonttable><page
- id="106"
+ id="114"
  BoundingBox="0 0 1224 719.75"
  HeaderPosition="36"
  FooterPosition="36"
@@ -150,11 +150,11 @@
 ><s font="3" size="10" color="0">IFD Collection</s></t><t
  id="26"
  p="140 123.75"
- BoundingBox="140 114.80 202.32 126.30"
+ BoundingBox="140 114.80 207.89 126.30"
  Z="47"
  Warning="Chemical Interpretation is not possible for this label"
  LineHeight="auto"
-><s font="3" size="10" color="0">standarization</s></t><t
+><s font="3" size="10" color="0">standardization</s></t><t
  id="34"
  p="298.25 238.10"
  BoundingBox="238.71 229.15 357.79 252.15"
@@ -195,8 +195,8 @@
  MajorAxisEnd3D="124.22 110.32 0"
  MinorAxisEnd3D="63.46 125.11 0"
 /><graphic
- id="98"
- SupersededBy="107"
+ id="107"
+ SupersededBy="115"
  BoundingBox="222.50 111.25 128.50 111.25"
  Z="34"
  GraphicType="Line"
@@ -214,8 +214,8 @@
  MajorAxisEnd3D="356.72 93.82 0"
  MinorAxisEnd3D="295.96 108.61 0"
 /><graphic
- id="99"
- SupersededBy="108"
+ id="108"
+ SupersededBy="116"
  BoundingBox="467.50 92.50 373.50 92.50"
  Z="38"
  GraphicType="Line"
@@ -255,8 +255,8 @@
  MajorAxisEnd3D="367.50 107.45 0"
  MinorAxisEnd3D="295.97 157.12 0"
 /><graphic
- id="100"
- SupersededBy="109"
+ id="109"
+ SupersededBy="117"
  BoundingBox="292.55 217.40 292.55 168.90"
  Z="46"
  GraphicType="Line"
@@ -285,16 +285,16 @@
  MajorAxisEnd3D="602.42 156.82 0"
  MinorAxisEnd3D="541.66 171.61 0"
 /><graphic
- id="101"
- SupersededBy="110"
+ id="110"
+ SupersededBy="118"
  BoundingBox="537.60 136.85 537.60 113.40"
  Z="52"
  GraphicType="Line"
  ArrowType="FullHead"
  HeadSize="1500"
 /><graphic
- id="102"
- SupersededBy="111"
+ id="111"
+ SupersededBy="119"
  BoundingBox="467.50 240.70 373.50 240.70"
  Z="53"
  GraphicType="Line"
@@ -312,15 +312,15 @@
  MajorAxisEnd3D="602.42 241.72 0"
  MinorAxisEnd3D="541.66 256.51 0"
 /><graphic
- id="103"
- SupersededBy="112"
+ id="112"
+ SupersededBy="120"
  BoundingBox="537.60 211.25 537.60 187.80"
  Z="56"
  GraphicType="Line"
  ArrowType="FullHead"
  HeadSize="1500"
 /><arrow
- id="107"
+ id="115"
  BoundingBox="128.50 108.69 222.50 113.51"
  Z="34"
  FillType="None"
@@ -335,7 +335,7 @@
  MajorAxisEnd3D="384.62 166.88 0"
  MinorAxisEnd3D="290.63 260.87 0"
 /><arrow
- id="108"
+ id="116"
  BoundingBox="373.50 89.94 467.50 94.76"
  Z="38"
  FillType="None"
@@ -350,7 +350,7 @@
  MajorAxisEnd3D="629.62 148.12 0"
  MinorAxisEnd3D="535.63 242.12 0"
 /><arrow
- id="109"
+ id="117"
  BoundingBox="289.99 168.90 294.81 217.40"
  Z="46"
  FillType="None"
@@ -365,7 +365,7 @@
  MajorAxisEnd3D="263.85 301.06 0"
  MinorAxisEnd3D="215.35 252.56 0"
 /><arrow
- id="110"
+ id="118"
  BoundingBox="535.04 113.40 539.86 136.85"
  Z="52"
  FillType="None"
@@ -380,7 +380,7 @@
  MajorAxisEnd3D="830.30 215 0"
  MinorAxisEnd3D="806.85 238.45 0"
 /><arrow
- id="111"
+ id="119"
  BoundingBox="373.50 238.14 467.50 242.96"
  Z="53"
  FillType="None"
@@ -395,7 +395,7 @@
  MajorAxisEnd3D="629.62 296.32 0"
  MinorAxisEnd3D="535.63 390.32 0"
 /><arrow
- id="112"
+ id="120"
  BoundingBox="535.04 187.80 539.86 211.25"
  Z="56"
  FillType="None"

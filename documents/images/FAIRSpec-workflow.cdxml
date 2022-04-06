@@ -5,7 +5,7 @@
  Name="FAIRSpec-workflow.cdxml"
  BoundingBox="2.10 57.25 606.78 160.12"
  WindowPosition="0 0"
- WindowSize="0 429457408"
+ WindowSize="-1288503296 429457408"
  WindowIsZoomed="yes"
  FractionalWidths="yes"
  InterpretChemically="yes"
@@ -83,7 +83,7 @@
 </colortable><fonttable>
 <font id="3" charset="iso-8859-1" name="Arial"/>
 </fonttable><page
- id="52"
+ id="58"
  BoundingBox="0 0 1224 719.75"
  HeaderPosition="36"
  FooterPosition="36"
@@ -132,15 +132,15 @@
 ><s font="3" size="10" color="0">digital representations</s></t><t
  id="20"
  p="541 90"
- BoundingBox="491.78 81.05 590.22 104.05"
+ BoundingBox="497.88 81.05 584.12 104.05"
  Z="34"
  Warning="Chemical Interpretation is not possible for this label"
  CaptionJustification="Center"
  Justification="Center"
  LineHeight="auto"
- LineStarts="21 27"
-><s font="3" size="10" color="0">FAIRSpec Finding Aid
-(JSON)</s></t><t
+ LineStarts="16 34"
+><s font="3" size="10" color="0">IUPAC FAIRData 
+Finding Aid (JSON)</s></t><t
  id="21"
  p="265 72.25"
  BoundingBox="265 63.30 327.86 74.80"
@@ -150,11 +150,11 @@
 ><s font="3" size="10" color="0">IFD Collection</s></t><t
  id="26"
  p="140 123.75"
- BoundingBox="140 114.80 202.32 126.30"
+ BoundingBox="140 114.80 207.89 126.30"
  Z="38"
  Warning="Chemical Interpretation is not possible for this label"
  LineHeight="auto"
-><s font="3" size="10" color="0">standarization</s></t><t
+><s font="3" size="10" color="0">standardization</s></t><t
  id="33"
  p="399 127.75"
  BoundingBox="399 118.80 444.59 130.30"
@@ -164,14 +164,14 @@
 ><s font="3" size="10" color="0">packaging</s></t><t
  id="34"
  p="539.75 132.50"
- BoundingBox="480.21 123.55 599.29 146.55"
+ BoundingBox="476.32 123.55 603.18 146.55"
  Z="41"
  Warning="Chemical Interpretation is not possible for this label"
  CaptionJustification="Center"
  Justification="Center"
  LineHeight="auto"
- LineStarts="26 50"
-><s font="3" size="10" color="0"> FAIRSpec Data Collection
+ LineStarts="27 51"
+><s font="3" size="10" color="0"> IUPAC FAIRData Collection
  (ZIP file or directory)</s></t><graphic
  id="4"
  BoundingBox="124.22 125.11 2.70 95.53"
@@ -184,8 +184,8 @@
  MajorAxisEnd3D="124.22 110.32 0"
  MinorAxisEnd3D="63.46 125.11 0"
 /><graphic
- id="48"
- SupersededBy="53"
+ id="53"
+ SupersededBy="59"
  BoundingBox="222.50 111.25 128.50 111.25"
  Z="25"
  GraphicType="Line"
@@ -203,8 +203,8 @@
  MajorAxisEnd3D="356.72 93.82 0"
  MinorAxisEnd3D="295.96 108.61 0"
 /><graphic
- id="49"
- SupersededBy="54"
+ id="54"
+ SupersededBy="60"
  BoundingBox="467.50 92.50 373.50 92.50"
  Z="29"
  GraphicType="Line"
@@ -244,8 +244,8 @@
  MajorAxisEnd3D="367.50 107.45 0"
  MinorAxisEnd3D="295.97 157.12 0"
 /><graphic
- id="50"
- SupersededBy="55"
+ id="55"
+ SupersededBy="61"
  BoundingBox="467.50 132.75 373.50 132.75"
  Z="37"
  GraphicType="Line"
@@ -263,7 +263,7 @@
  MajorAxisEnd3D="603.85 134.57 0"
  MinorAxisEnd3D="541.03 149.36 0"
 /><arrow
- id="53"
+ id="59"
  BoundingBox="128.50 108.69 222.50 113.51"
  Z="25"
  FillType="None"
@@ -278,7 +278,7 @@
  MajorAxisEnd3D="384.62 166.88 0"
  MinorAxisEnd3D="290.63 260.87 0"
 /><arrow
- id="54"
+ id="60"
  BoundingBox="373.50 89.94 467.50 94.76"
  Z="29"
  FillType="None"
@@ -293,7 +293,7 @@
  MajorAxisEnd3D="629.62 148.12 0"
  MinorAxisEnd3D="535.63 242.12 0"
 /><arrow
- id="55"
+ id="61"
  BoundingBox="373.50 130.19 467.50 135.01"
  Z="37"
  FillType="None"
