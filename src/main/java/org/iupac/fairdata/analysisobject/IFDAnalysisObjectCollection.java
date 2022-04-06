@@ -1,4 +1,4 @@
-package org.iupac.fairdata.analysis;
+package org.iupac.fairdata.analysisobject;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDCollection;
