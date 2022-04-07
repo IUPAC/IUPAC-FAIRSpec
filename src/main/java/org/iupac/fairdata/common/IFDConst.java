@@ -60,8 +60,11 @@ public class IFDConst {
 			String k = (String) e.getKey();
 			if (k.startsWith(key)) {
 				// to be continued! -- need units and type
-				String val = e.getValue().toString().trim();
-				htProps.put(val, new IFDProperty(val, null, null, null));
+				String val = e.getValue().toString();
+				int pt = val.indexOf(";");
+				if (pt > 0)
+					val = val.substring(0, pt);
+				htProps.put(val, new IFDProperty(val.trim(), null, null, null));
 			}
 		}
 		return htProps;

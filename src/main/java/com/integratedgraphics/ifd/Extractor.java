@@ -116,7 +116,7 @@ public class Extractor implements ExtractorI {
 		FAIRSpecFindingAid.loadProperties();
 		VendorPluginI.init();
 	}
-	private static final String version = "0.0.2-alpha+2002.04.05";
+	private static final String version = "0.0.2-alpha+2002.04.06";
 
 	private static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/Extractor.java";
 
