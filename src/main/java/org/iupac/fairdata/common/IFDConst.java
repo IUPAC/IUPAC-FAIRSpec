@@ -144,8 +144,10 @@ public class IFDConst {
 	public static final String IFD_LABEL_FLAG = getProp("IFD_LABEL_FLAG");
 	public static final String IFD_REPRESENTATION_FLAG = getProp("IFD_REPRESENTATION_FLAG");
 	public static final String IFD_PROPERTY_FLAG = getProp("IFD_PROPERTY_FLAG");
-	public static final String DATA_FLAG = getProp("IFD_DATA_FLAG");
-	public static final String IFD_PROP_SAMPLE_ID = getProp("IFD_PROP_SAMPLE_ID");
+	public static final String IFD_SAMPLE_FLAG = getProp("IFD_SAMPLE_FLAG");
+	public static final String IFD_STRUCTURE_FLAG = getProp("IFD_STRUCTURE_FLAG");
+	public static final String IFD_DATA_FLAG = getProp("IFD_DATA_FLAG");
+	public static final String IFD_ANALYSIS_FLAG = getProp("IFD_ANALYSIS_FLAG");
 
 	public static boolean isRepresentation(String propName) {
 		return (propName != null && propName.startsWith(IFDConst.IFD_REPRESENTATION_FLAG));
@@ -158,4 +160,29 @@ public class IFDConst {
 	public static boolean isLabel(String propName) {
 		return (propName != null && propName.endsWith(IFD_LABEL_FLAG));
 	}
+
+	public static boolean checkPropOrRep(String key, String type) {
+		if (key == null || type == null)
+			return false;
+		String prefix = (isProperty(key) ? IFD_PROPERTY_FLAG : isRepresentation(key) ? IFD_REPRESENTATION_FLAG : null);
+		return (prefix != null && key.indexOf(type) == prefix.length() - 1);
+	}
+	
+	public static boolean isSample(String key) {
+		return checkPropOrRep(key, IFD_SAMPLE_FLAG);
+	}
+
+	public static boolean isStructure(String key) {
+		return checkPropOrRep(key, IFD_STRUCTURE_FLAG);
+	}
+	
+	public static boolean isDataObject(String key) {
+		return checkPropOrRep(key, IFD_DATA_FLAG);
+	}
+	
+	public static boolean isAnalysisObject(String key) {
+		return checkPropOrRep(key, IFD_ANALYSIS_FLAG);
+	}
+	
+
 }

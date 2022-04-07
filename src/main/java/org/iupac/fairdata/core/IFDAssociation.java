@@ -28,8 +28,9 @@ public  class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentabl
 
 	protected Class<?>[] types;
 
-	protected IFDAssociation(String name, String type, IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>[] collections) throws IFDException {
-		super(name, type, collections);
+	@SafeVarargs
+	protected IFDAssociation(String type, IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>... collections) throws IFDException {
+		super(null, type, collections);
 		types = new Class<?>[collections.length];
 		for (int i = 0; i < collections.length; i++) {
 			if (collections[i] == null)

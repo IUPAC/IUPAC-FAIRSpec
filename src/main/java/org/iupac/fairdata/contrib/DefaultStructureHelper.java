@@ -89,13 +89,13 @@ public class DefaultStructureHelper implements PropertyManagerI {
 			// .getFileType(Rdr.getBufferedReader(Rdr.getBIS(bytes), null));
 		}
 		if (smiles != null) {
-			PropertyManagerI.addProperty(extractor, IFDConst.getProp("IFD_PROP_STRUC_SMILES"), smiles);
+			PropertyManagerI.addPropertyOrRepresentation(extractor, IFDConst.getProp("IFD_REP_STRUCTURE_SMILES"), smiles, true, "chemical/x-smiles");
 		}
 		if (inchi != null) {
-			PropertyManagerI.addProperty(extractor, IFDConst.getProp("IFD_PROP_STRUC_INCHI"), inchi);
+			PropertyManagerI.addPropertyOrRepresentation(extractor, IFDConst.getProp("IFD_REP_STRUCTURE_INCHI"), inchi, true, "chemical/x-inchi");
 		}
 		if (inchiKey != null) {
-			PropertyManagerI.addProperty(extractor, IFDConst.getProp("IFD_PROP_STRUC_INCHIKEY"), inchiKey);
+			PropertyManagerI.addPropertyOrRepresentation(extractor, IFDConst.getProp("IFD_PROP_STRUCTURE_INCHIKEY"), inchiKey, true, "chemical/x-inchikey");
 		}
 		fileToType.put(ifdPath, type);
 		return type;
@@ -105,6 +105,9 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		int pt = Math.max(fname.lastIndexOf('/'), fname.lastIndexOf('.'));
 		return (fname.endsWith(".zip") ? "application/zip"
 				: fname.endsWith(".png") ? "image/png"
+				: fname.endsWith(".inchi") ? "chemical/x-inchi"
+				: fname.endsWith(".smiles") ? "chemical/x-smiles"
+				: fname.endsWith(".smi") ? "chemical/x-smiles"
 				: fname.endsWith(".cdx") ? "chemical/x-cdx (ChemDraw CDX)"
 				: fname.endsWith(".cdxml") ? "chemical/x-cdxml (ChemDraw XML)"
 					// see https://en.wikipedia.org/wiki/Chemical_file_format

@@ -14,22 +14,24 @@ import org.iupac.fairdata.api.IFDSerializerI;
 public class IFDReference implements IFDSerializableI {
 
 	/**
-	 * typically a ZIP file name
+	 * Origin object; typically a ZIP file name; toString() will be used for serialization
 	 */
 	private final Object origin;
 	
 	/**
-	 * path to this file
+	 * root path to this file
 	 */
 	private final String localPath;
+	
+	/**
+	 * name of this file
+	 */
 	private String localName;
 	
-	public IFDReference(Object origin, String localName, String localPath) {
+	public IFDReference(Object origin, String localPath, String localName) {
 		this.origin = origin;
-		this.localName = localName;
-		if (localPath == null)
-			System.out.println("IFDRef localpath null");
 		this.localPath = localPath;
+		this.localName = localName;
 	}
 
 	public Object getOrigin() {
@@ -54,9 +56,9 @@ public class IFDReference implements IFDSerializableI {
 		if (origin != null)
 			serializer.addAttr("origin", origin.toString());
 		if (localName != null) {
-			serializer.addAttr("localPath", localPath);
+			serializer.addAttr("path", localPath + "/" + localName);
 			// TODO: Could add #page=" to origin; localPath is null?
-			serializer.addAttr("localName", localName);
+//			serializer.addAttr("localName", localName);
 		}
 	}
 

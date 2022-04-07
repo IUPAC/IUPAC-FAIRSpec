@@ -217,11 +217,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected String id;
 
 	/**
-	 * an arbitrary path to provide some sort of context
-	 */
-	protected String path;
-
-	/**
 	 * known properties of this class, fully identified in terms of data type and
 	 * units
 	 * 
@@ -427,16 +422,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return "[" + getClass().getSimpleName() + " " + index + " " + " size=" + size() + "]";
 	}
 
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		if (path.indexOf("products") >= 0)
-			System.out.println("IFDObject test");
-		this.path = path;
-	}
-
 	/**
 	 * 
 	 * @return true if any property value is not null
@@ -472,7 +457,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	public void serialize(IFDSerializerI serializer) {
 		serializeTop(serializer);
 		serializeProps(serializer);
-		serializeList(serializer);
+		serializeList(serializer, null);
 	}
 
 	protected void serializeTop(IFDSerializerI serializer) {
@@ -503,13 +488,13 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			serializer.addObject("parameters", getParams());
 	}
 
-	protected void serializeList(IFDSerializerI serializer) {
+	protected void serializeList(IFDSerializerI serializer, String key) {
 		if (size() > 0) {
 //			serializer.addAttrInt("elementCount", size());
 			List<T> list = new ArrayList<T>();
 			for (int i = 0, n = size(); i < n; i++)
 				list.add(get(i));
-			serializer.addObject("elements", list);
+			serializer.addObject(key == null ? "elements" : key, list);
 		}
 	}
 

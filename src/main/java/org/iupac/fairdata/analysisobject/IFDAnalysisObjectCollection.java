@@ -32,7 +32,7 @@ public class IFDAnalysisObjectCollection extends IFDCollection<IFDRepresentableO
 			add(ao);
 		}
 		if (IFDConst.isRepresentation(param))
-			ao.addRepresentation(zipName, localName, param, mediaType);
+			ao.findOrAddRepresentation(zipName, localName, null, param, mediaType);
 		return ao;
 	}
 

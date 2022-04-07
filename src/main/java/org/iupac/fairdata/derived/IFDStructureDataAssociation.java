@@ -26,34 +26,15 @@ public class IFDStructureDataAssociation extends IFDAssociation {
 	
 	private final static int ITEM_STRUC = 0;
 	private final static int ITEM_DATA = 1;
-	@Override
-	public Class<?>[] getObjectTypes() {
-		return new Class<?>[] {
-			IFDStructureCollection.class, IFDDataObjectCollection.class
-		};
-	}
 	
-	public IFDStructureDataAssociation(String name, IFDStructureCollection structureCollection, IFDDataObjectCollection dataCollection) throws IFDException {
-		this(name, null, structureCollection, dataCollection);		
+	@SuppressWarnings("unchecked")
+	public IFDStructureDataAssociation(IFDStructureCollection structureCollection, IFDDataObjectCollection dataCollection) throws IFDException {
+		super(null, new IFDCollection[] { structureCollection, dataCollection });		
 	}
 	
 	@SuppressWarnings("unchecked")
-	public IFDStructureDataAssociation(String name, String type, IFDStructureCollection structureCollection,
-			IFDDataObjectCollection dataCollection) throws IFDException {
-		super(name, type, new IFDCollection[] { structureCollection, dataCollection });
-	}
-	
-	@SuppressWarnings("unchecked")
-	public IFDStructureDataAssociation(String name, IFDStructure structure, IFDDataObject data) throws IFDException {
-		super(name, null, new IFDCollection[] { new IFDStructureCollection("structures", structure), new IFDDataObjectCollection("data", data) });
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof IFDStructureDataAssociation))
-			return false;
-		IFDStructureDataAssociation ss = (IFDStructureDataAssociation) o;
-		return (ss.get(ITEM_STRUC).equals(get(ITEM_STRUC)) && ss.get(ITEM_DATA).equals(get(ITEM_DATA)));
+	public IFDStructureDataAssociation(IFDStructure structure, IFDDataObject data) throws IFDException {
+		super(null, new IFDCollection[] { new IFDStructureCollection(null, structure), new IFDDataObjectCollection(null, data) });
 	}
 
 	public IFDStructureCollection getStructureCollection() {
@@ -81,5 +62,13 @@ public class IFDStructureDataAssociation extends IFDAssociation {
 		return getDataObjectCollection().add(data);
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof IFDStructureDataAssociation))
+			return false;
+		IFDStructureDataAssociation ss = (IFDStructureDataAssociation) o;
+		return (ss.get(ITEM_STRUC).equals(get(ITEM_STRUC)) && ss.get(ITEM_DATA).equals(get(ITEM_DATA)));
+	}
+
 
 }

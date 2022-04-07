@@ -31,8 +31,8 @@ public class IFDAnalysisObject extends IFDRepresentableObject<IFDAnalysisObjectR
 
 
 	@Override
-	protected IFDRepresentation newRepresentation(String objectName, IFDReference ifdReference, Object object, long len,
-			String type, String subtype) {
+	protected IFDRepresentation newRepresentation(IFDReference ifdReference, Object object, long len, String type,
+			String subtype) {
 		// TODO Auto-generated method stub
 		return null;
 	}

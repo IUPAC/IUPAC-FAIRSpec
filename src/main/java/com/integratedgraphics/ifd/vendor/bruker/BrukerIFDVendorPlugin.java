@@ -84,7 +84,7 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 				: entryName.endsWith("thumb.png") ? getProp("IFD_REP_DATA_SPEC_NMR_SPECTRUM_IMAGE")
 						: null);
 		if (type != null)
-			extractor.addProperty(type, Extractor.localizePath(baseName + entryName));
+			extractor.addPropertyOrRepresentation(type, Extractor.localizePath(baseName + entryName), false, null);
 		return !entryName.endsWith(".mnova");
 	}
 

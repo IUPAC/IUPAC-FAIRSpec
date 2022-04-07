@@ -56,9 +56,9 @@ import org.iupac.fairdata.structure.IFDStructureCollection;
 public class IFDStructureDataAnalysis extends IFDAssociation implements IFDAnalysisI {
 
 	@SuppressWarnings("unchecked")
-	public IFDStructureDataAnalysis(String name, String type, IFDStructureCollection sampleCollection,
-			IFDDataObjectCollection dataCollection, IFDAnalysisObjectCollection aoCollection) throws IFDException {
-		super(name, null, new IFDCollection[] { sampleCollection, dataCollection, aoCollection});
+	public IFDStructureDataAnalysis(String type, IFDStructureCollection sampleCollection, IFDDataObjectCollection dataCollection,
+			IFDAnalysisObjectCollection aoCollection) throws IFDException {
+		super(type, new IFDCollection[] { sampleCollection, dataCollection, aoCollection});
 	}
 
 }

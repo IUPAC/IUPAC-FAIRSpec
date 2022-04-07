@@ -46,8 +46,8 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 		return false;
 	}
 
-	public IFDDataObject getDataObjectFor(String rootPath, String ifdPath, String path, String localName, String param, String value, String type, String mediaType)  throws IFDException {
-		String keyValue = path + "::" + ifdPath;
+	public IFDDataObject getDataObjectFor(String rootPath, String originPath, String path, String localName, String param, String value, String type, String mediaType)  throws IFDException {
+		String keyValue = path + "::" + originPath;
 		IFDDataObject sd = (IFDDataObject) map.get(keyValue);
 		if (sd == null) {
 			String ifdtype = IFDConst.getProp("IFD_DATA_OBJECT_TYPE_" + type);
@@ -60,7 +60,7 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 		} else {
 			sd.setPropertyValue(param, value);
 		}
-		sd.addRepresentation(ifdPath, localName, param, mediaType);
+		sd.findOrAddRepresentation(originPath, localName, null, param, mediaType);
 		return sd;
 	}
 

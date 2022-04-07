@@ -35,6 +35,12 @@ import org.iupac.fairdata.util.IFDUtilities;
  */
 public class ExtractorTest extends Extractor {
 
+	
+	static int first = 11; // first test to run
+	static int last = 11;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+					// file test
+	
+
 	private static boolean createFindingAidJSONList;
 	private static boolean stopOnAnyFailure;
 
@@ -238,10 +244,6 @@ public class ExtractorTest extends Extractor {
 		allowNoPubInfo = debugReadOnly; // true to allow no internet connection and so no pub calls
 		skipPubInfo = !dataciteUp || debugReadOnly;  // true to allow no internet connection and so no pub calls
 	
-		int first = 0; // first test to run
-		int last = 6;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
-						// file test
-		
 		if (first == last) {
 			createFindingAidJSONList = false;
 		}

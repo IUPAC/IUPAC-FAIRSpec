@@ -30,7 +30,7 @@ import org.iupac.fairdata.sample.IFDSampleCollection;
 public class IFDSampleStructureAssociation extends IFDAssociation {
 	
 	private final static int ITEM_SAMPLE = 0;
-	private final static int ITEM_DATA = 1;
+	private final static int ITEM_STRUCTURE = 1;
 	
 	@Override
 	public Class<?>[] getObjectTypes() {
@@ -40,24 +40,16 @@ public class IFDSampleStructureAssociation extends IFDAssociation {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public IFDSampleStructureAssociation(String name, IFDSample sample, IFDStructure data) throws IFDException {
-		super(name, null, new IFDCollection[] { new IFDSampleCollection("samples", sample), new IFDStructureCollection("data", data) });
+	public IFDSampleStructureAssociation(String type, IFDSample sample, IFDStructure data) throws IFDException {
+		super(type, new IFDCollection[] { new IFDSampleCollection(null, sample), new IFDStructureCollection(null, data) });
 	}
 
 
 	@SuppressWarnings("unchecked")
-	public IFDSampleStructureAssociation(String name, String type, IFDSampleCollection sampleCollection, IFDStructureCollection dataCollection) throws IFDException {
-		super(name, type, new IFDCollection[] { sampleCollection, dataCollection });
+	public IFDSampleStructureAssociation(String type, IFDSampleCollection sampleCollection, IFDStructureCollection dataCollection) throws IFDException {
+		super(type, new IFDCollection[] { sampleCollection, dataCollection });
 	}
 	
-	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof IFDSampleStructureAssociation))
-			return false;
-		IFDSampleStructureAssociation ss = (IFDSampleStructureAssociation) o;
-		return (ss.get(ITEM_SAMPLE).equals(get(ITEM_SAMPLE)) && ss.get(ITEM_DATA).equals(get(ITEM_DATA)));
-	}
-
 	public IFDSampleCollection getSampleCollection() {
 		// for whatever reason, we have to coerce this 
 		return (IFDSampleCollection) (Object) get(ITEM_SAMPLE);
@@ -65,23 +57,7 @@ public class IFDSampleStructureAssociation extends IFDAssociation {
 
 	public IFDStructureCollection getStructureCollection() {
 		// for whatever reason, we have to coerce this 
-		return (IFDStructureCollection) (Object) get(ITEM_DATA);
-	}
-
-	public IFDSample getSample(int i) {
-		return (IFDSample) getSampleCollection().get(i);
-	}
-
-	public IFDStructure getStructure(int i) {
-		return (IFDStructure) getStructureCollection().get(i);
-	}
-
-	public IFDSample getFirstSample() {
-		return (IFDSample) getSampleCollection().get(0);
-	}
-
-	public IFDStructure getFirstStructure() {
-		return (IFDStructure) getStructureCollection().get(0);
+		return (IFDStructureCollection) (Object) get(ITEM_STRUCTURE);
 	}
 
 	protected boolean addSample(IFDSample s) {
@@ -92,6 +68,29 @@ public class IFDSampleStructureAssociation extends IFDAssociation {
 		return getStructureCollection().add(data);
 	}
 
+	public IFDSample getFirstSample() {
+		return (IFDSample) getSampleCollection().get(0);
+	}
+
+	public IFDStructure getFirstStructure() {
+		return (IFDStructure) getStructureCollection().get(0);
+	}
+
+	public IFDSample getSample(int i) {
+		return (IFDSample) getSampleCollection().get(i);
+	}
+
+	public IFDStructure getStructure(int i) {
+		return (IFDStructure) getStructureCollection().get(i);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof IFDSampleStructureAssociation))
+			return false;
+		IFDSampleStructureAssociation ss = (IFDSampleStructureAssociation) o;
+		return (ss.get(ITEM_SAMPLE).equals(get(ITEM_SAMPLE)) && ss.get(ITEM_STRUCTURE).equals(get(ITEM_STRUCTURE)));
+	}
 
 
 }

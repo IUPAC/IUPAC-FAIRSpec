@@ -3,6 +3,7 @@ package org.iupac.fairdata.core;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
 
 /**
@@ -27,11 +28,28 @@ import org.iupac.fairdata.common.IFDException;
 @SuppressWarnings("serial")
 public abstract class IFDRepresentableObject<T extends IFDRepresentation> extends IFDObject<T> {
 
+	/**
+	 * the root path to this object for its IFDReference
+	 */
+	protected String rootPath;
+
+	/**
+	 * a map of unique paths to specific representations used to ensure that all
+	 * representations are to unique objects
+	 */
+	protected final Map<String, IFDRepresentation> map = new LinkedHashMap<>();
+
 	public IFDRepresentableObject(String name, String type) {
 		super(name, type);
 	}
 
-	protected final Map<String, IFDRepresentation> htReps = new LinkedHashMap<>();
+	public String getPath() {
+		return rootPath;
+	}
+
+	public void setPath(String path) {
+		this.rootPath = path;
+	}
 
 	/**
 	 * A reference to the highest level in the collection 
@@ -39,45 +57,48 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 	 */
 	protected IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> parentCollection;
 
+	
 	/**
 	 * Add a representation as long as it has not already been added.
 	 * 
-	 * @param ifdPath an origin name used to identify unique representations
+	 * @param originPath an origin name used to identify unique representations
 	 * @param localName a localized name without / or |
+	 * @param data TODO
 	 * @param type
 	 * @param subtype
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public IFDRepresentation addRepresentation(String ifdPath, String localName, String type, String subtype) {
-		IFDRepresentation rep = getRepresentation(ifdPath);
+	public IFDRepresentation findOrAddRepresentation(String originPath, String localName, Object data, String type, String subtype) {
+		boolean isInline = (localName == null);
+		String key = (!isInline ? originPath : data instanceof byte[] ? new String((byte[]) data) : data.toString());
+		IFDRepresentation rep = getRepresentation(key);
 		if (rep == null) {
-			rep = newRepresentation(type, new IFDReference(ifdPath, localName, path), null, 0, type, subtype);
+			rep = newRepresentation((isInline ? null : new IFDReference(originPath, rootPath, localName)), data, 0, type, subtype);
 			add((T) rep);
-			htReps.put(path + "::" + ifdPath, rep);
+			map.put(rootPath + "::" + key, rep);
 		}
 		return rep;
 	}
 
-	public IFDRepresentation getRepresentation(String ifdPath) {
-		return htReps.get(path + "::" + ifdPath);
+	public IFDRepresentation getRepresentation(String key) {
+		return map.get(rootPath + "::" + key);
 	}
 
 	/**
 	 * Optional allowance for creating a new representation of this object type.
 	 * This method should return null if it cannot process this request.
-	 * 
-	 * @param objectName
-	 * @param ifdReference
-	 * @param object
+	 * @param ifdReference null here indicates an inline object
+	 * @param object 
 	 * @param len
 	 * @param type TODO
 	 * @param subtype TODO
+	 * 
 	 * @return
 	 * @throws IFDException
 	 */
-	abstract protected IFDRepresentation newRepresentation(String objectName, IFDReference ifdReference, Object object,
-			long len, String type, String subtype);
+	abstract protected IFDRepresentation newRepresentation(IFDReference ifdReference, Object object, long len,
+			String type, String subtype);
 
 	public void removeRepresentationFor(String localName) {
 		for (int i = size(); --i >= 0;)
@@ -86,7 +107,6 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 				break;
 			}
 	}
-
 
 	/**
 	 * When it comes time for an association, we want to know what top-level collection
@@ -100,6 +120,11 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 	
 	public IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> getParentCollection() {
 		return parentCollection;
+	}
+
+	@Override
+	protected void serializeList(IFDSerializerI serializer, String key) {
+		super.serializeList(serializer, "representations");
 	}
 
 }

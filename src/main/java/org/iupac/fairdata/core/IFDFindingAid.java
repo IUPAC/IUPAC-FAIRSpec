@@ -124,7 +124,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 	}
 
 	@Override
-	protected void serializeList(IFDSerializerI serializer) {
+	protected void serializeList(IFDSerializerI serializer, String key) {
 		collectionSet.serialize(serializer);
 	}
 
@@ -141,7 +141,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 			addCitations(serializer);
 			serializer.addObject("resources", resources);
 			serializeProps(serializer);
-			serializer.addObject("collection", collectionSet);
+			serializer.addObject("collections", collectionSet);
 		} else {
 			// addObject will call this method after wrapping
 			serializing = true;

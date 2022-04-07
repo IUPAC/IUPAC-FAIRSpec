@@ -25,7 +25,9 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 		this.type = type;
 		this.ref = ref;
 		this.data = data;
-		this.len = len;
+		this.len = (ref != null || len != 0 ? len
+				: data instanceof String ? ((String) data).length()
+						: data instanceof byte[] ? ((byte[]) data).length : 0);
 		this.subtype = subtype;
 	}
 
@@ -76,7 +78,8 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 		if (subtype != null && !subtype.equals(type))
 			serializer.addAttr("subtype", subtype);
 		serializer.addAttrInt("len", (int) len);
-		serializer.addObject("ref", ref);
+		if (ref != null)
+			serializer.addObject("ref", ref);
 		if (data != null)
 			serializer.addObject("data", data);
 	}

@@ -46,7 +46,7 @@ public class IFDStructureCollection extends IFDCollection<IFDStructure> {
 			add(sd);
 		}
 		if (IFDConst.isRepresentation(param))
-			sd.addRepresentation(ifdPath, localName, param, mediaType);
+			sd.findOrAddRepresentation(ifdPath, localName, null, param, mediaType);
 		return (IFDStructure) sd;
 	}
 

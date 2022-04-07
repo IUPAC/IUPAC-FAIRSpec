@@ -10,11 +10,11 @@ import org.iupac.fairdata.core.IFDFindingAid;
  */
 public interface ExtractorI {
 
-	void addProperty(String param, Object val);
-
 	IFDFindingAid getFindingAid();
 
 	void log(String string);
+
+	void addPropertyOrRepresentation(String key, Object val, boolean isInLine, String mediaType);
 
 //	void registerFileVendor(String fname, IFDVendorPluginI ifdVendorPluginI);
 

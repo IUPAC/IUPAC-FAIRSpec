@@ -174,7 +174,10 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 			if (Double.isNaN((Double)val))
 				return;
 		}
-		PropertyManagerI.addProperty(extractor, key, val);
+		// TODO ?
+		boolean isInline = false;
+		String mediaType = null;
+		PropertyManagerI.addPropertyOrRepresentation(extractor, key, val, isInline, mediaType);
 	}
 
 	/**

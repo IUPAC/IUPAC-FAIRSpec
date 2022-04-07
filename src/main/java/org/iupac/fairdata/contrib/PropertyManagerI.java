@@ -33,13 +33,11 @@ public interface PropertyManagerI {
 	 */
 	String processRepresentation(String ifdPath, byte[] bytes);
 
-	static void addProperty(ExtractorI extractor, String key, Object val) {
+	static void addPropertyOrRepresentation(ExtractorI extractor, String key, Object val, boolean isInline, String mediaType) {
 		if (val == null)
 			return;
-		//System.out.println("IFDPropertyManager " + key + " = " + val);
 		if (extractor != null)
-			extractor.addProperty(key, val);
+			extractor.addPropertyOrRepresentation(key, val, isInline, mediaType);
 	}
-
 
 }

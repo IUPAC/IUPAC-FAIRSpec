@@ -30,6 +30,7 @@ import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.DefaultStructureHelper;
 import org.iupac.fairdata.contrib.ExtractorI;
 import org.iupac.fairdata.contrib.FAIRSpecExtractorHelper;
+import org.iupac.fairdata.contrib.FAIRSpecExtractorHelperI;
 import org.iupac.fairdata.contrib.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.PropertyManagerI;
 import org.iupac.fairdata.core.IFDAssociation;
@@ -40,6 +41,7 @@ import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.dataobject.IFDDataObject;
+import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
 import org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.structure.IFDStructure;
@@ -169,7 +171,7 @@ public class Extractor implements ExtractorI {
 	/**
 	 * the finding aid - only one per instance
 	 */
-	protected FAIRSpecExtractorHelper helper;
+	protected FAIRSpecExtractorHelperI helper;
 
 	/**
 	 * the IFD-extract.json script
@@ -285,13 +287,13 @@ public class Extractor implements ExtractorI {
 	 * a list of properties that vendors have indicated need addition, keyed by the
 	 * zip path for the resource
 	 */
-	private List<Object[]> propertyList;
+	private List<Object[]> deferredPropertyList;
 
 	/**
 	 * the URL to the original source of this data, as indicated in IFD-extract.json
 	 * as
 	 */
-	private String dataSource;
+	private String resource;
 
 	/**
 	 * bitset of activeVendors that are set for rezipping -- probably 1
@@ -340,13 +342,13 @@ public class Extractor implements ExtractorI {
 
 	private String ifdid;
 
+	public static final String STRUC_FILE_DATA_KEY = "_struc.";
+
 	public static final String CDX_FILE_DATA = "_struc.cdx";
 
 	public static final String MOL_FILE_DATA = "_struc.mol";
 
 	public static final String PNG_FILE_DATA = "_struc.png";
-
-	public static final String STRUC_FILE_DATA_KEY = "_struc.";
 
 
 	public Extractor() {
@@ -417,12 +419,14 @@ public class Extractor implements ExtractorI {
 	///////// Vendor-related methods /////////
 
 	/**
-	 * Cache the property change created by an IFDVendorPluginI class. This method
-	 * is callback from IFDVendorPluginI classes only.
+	 * Cache the property change created by an IFDVendorPluginI class or returned
+	 * from the DefaultStructureHelper. This method is callback from
+	 * IFDVendorPluginI classes or DefaultStructureHelper.processRepresentation(...)
+	 * only.
 	 */
 	@Override
-	public void addProperty(String key, Object val) {
-		propertyList.add(new Object[] { localizedName, key, val });
+	public void addPropertyOrRepresentation(String key, Object val, boolean isInLine, String mediaType) {
+		deferredPropertyList.add(new Object[] { localizedName, key, val, Boolean.valueOf(isInLine), mediaType });
 		if (key.startsWith(STRUC_FILE_DATA_KEY)) {
 			Object[] oval = (Object[]) val;
 			// this will add InChI, SMILES, and InChIKey if a MOL or SDF file
@@ -672,7 +676,7 @@ public class Extractor implements ExtractorI {
 	 * Find and extract all objects of interest from a ZIP file.
 	 * 
 	 */
-	public FAIRSpecExtractorHelper extractObjects(File targetDir) throws IFDException, IOException {
+	public FAIRSpecExtractorHelperI extractObjects(File targetDir) throws IFDException, IOException {
 		if (haveExtracted)
 			throw new IFDException("Only one extraction per instance of Extractor is allowed (for now).");
 		haveExtracted = true;
@@ -701,19 +705,19 @@ public class Extractor implements ExtractorI {
 
 		// Note that some files have multiple objects.
 		// These may come from multiple sources, or they may be from the same source.
-		propertyList = new ArrayList<>();
+		deferredPropertyList = new ArrayList<>();
 
 		for (int i = 0; i < objectParsers.size(); i++) {
 
 			ObjectParser parser = objectParsers.get(i);
-			dataSource = parser.dataSource;
-			if (!dataSource.equals(lastURL)) {
-				helper.addOrSetSource(dataSource);
-				lastURL = dataSource;
+			resource = parser.dataSource;
+			if (!resource.equals(lastURL)) {
+				helper.addOrSetSource(resource);
+				lastURL = resource;
 			}
 			// localize the URL if we are using a local copy of a remote resource.
 
-			localizedURL = localizeURL(dataSource);
+			localizedURL = localizeURL(resource);
 			if (debugging)
 				log("opening " + localizedURL);
 			lastRootPath = initializeCollection(lastRootPath);
@@ -788,7 +792,7 @@ public class Extractor implements ExtractorI {
 	 */
 	private void removeUnmanifestedRepresentations() {
 		boolean isRemoved = false;
-		for (IFDObject<?> spec : helper.getDataObjectCollection()) {
+		for (IFDRepresentableObject<IFDDataObjectRepresentation> spec : helper.getDataObjectCollection()) {
 			List<IFDRepresentation> lstRepRemoved = new ArrayList<>();
 			for (Object o : spec) {
 				IFDRepresentation rep = (IFDRepresentation) o;
@@ -882,10 +886,10 @@ public class Extractor implements ExtractorI {
 		}
 		// next, we process those names
 
-		for (String ifdPath : zipFiles.keySet()) {
-			IFDObject<?> obj = addIFDObjectsForName(parser, ifdPath);
+		for (String originPath : zipFiles.keySet()) {
+			IFDObject<?> obj = addIFDObjectsForName(parser, originPath);
 			if (obj != null) {
-				System.out.println("Extractor.parseZip " + ifdPath);
+				System.out.println("Extractor.parseZip " + originPath);
 				ifdObjectCount++;
 				if (obj instanceof IFDDataObject || obj instanceof IFDAssociation)
 					haveData = true;
@@ -1018,14 +1022,16 @@ public class Extractor implements ExtractorI {
 		IFDDataObject localSpec = null;
 		IFDStructure struc = null;
 		IFDSample sample = null;
-		for (int i = 0, n = propertyList.size(); i < n; i++) {
-			Object[] a = propertyList.get(i);
+		for (int i = 0, n = deferredPropertyList.size(); i < n; i++) {
+			Object[] a = deferredPropertyList.get(i);
 			if (a == null) {
 				sample = null;
 				continue;
 			}
 			String key = (String) a[1];
 			Object value = a[2];
+			boolean isInline = (a[3] == Boolean.TRUE);
+			String mediaType = (String) a[4];
 			String type = FAIRSpecExtractorHelper.getObjectTypeForName(key, true);
 			boolean isSample = (type == FAIRSpecExtractorHelper.ClassTypes.Sample);
 			//System.out.println("Extractor.updateObjectProperties " + isStructure + " " + isSample + " " + key + " " + value);
@@ -1056,8 +1062,9 @@ public class Extractor implements ExtractorI {
 			}
 			if (IFDConst.isRepresentation(key)) {
 				// from reportVendor -- Bruker adds this for thumb.png and pdf files.
-				String ifdPath = value.toString();
-				addRepresentation(ifdPath, key, spec);
+				String ifdPath = (isInline ? null : value.toString());
+				Object data = (isInline ? value : null);
+				addRepresentation(ifdPath, key, IFDConst.isStructure(key) ? struc : spec, data, mediaType);
 				continue;
 			}
 			if (key.equals(NEW_SPEC_KEY)) {
@@ -1069,11 +1076,11 @@ public class Extractor implements ExtractorI {
 				if (sample == null)
 					sample = helper.getFirstSampleForSpec(localSpec, true);
 				if (struc != null) {					
-					helper.associateStructureSpec(idExtension, struc, newSpec);
+					helper.associateStructureSpec(struc, newSpec);
 					log("!Structure " + struc + " found and associated with " + spec);
 				}
 				if (sample != null) {					
-					helper.associateSampleSpec(idExtension, sample, newSpec);
+					helper.associateSampleSpec(sample, newSpec);
 					log("!Structure " + struc + " found and associated with " + spec);
 				}
 				if (struc == null && sample == null) {
@@ -1108,14 +1115,14 @@ public class Extractor implements ExtractorI {
 					}
 					htStructureRepCache.put(w, struc);
 					if (sample != null)
-						helper.associateSampleStructure(localName, sample, struc);
+						helper.associateSampleStructure(sample, struc);
 						
 					// MNova 1 page, 1 spec, 1 structure Test #5
 					addFileAndCacheRepresentation(ifdPath, null, bytes.length, ifdRepType, null);
 					linkLocalizedNameToObject(localName, ifdRepType, struc);
 					log("!Structure " + struc + " created and associated with " + spec);
 				} else if (helper.getStructureAssociation(struc, (IFDDataObject) spec) == null) {
-					helper.associateStructureSpec(name, struc, (IFDDataObject) spec);
+					helper.associateStructureSpec(struc, (IFDDataObject) spec);
 					log("!Structure " + struc + " found and associated with " + spec);
 				}
 				continue;
@@ -1132,7 +1139,7 @@ public class Extractor implements ExtractorI {
 				spec.setPropertyValue(key, value);
 			}
 		}
-		propertyList.clear();
+		deferredPropertyList.clear();
 		htStructureRepCache = null;
 	}
 
@@ -1147,12 +1154,13 @@ public class Extractor implements ExtractorI {
 		return name;
 	}
 	
-	private void addRepresentation(String ifdPath, String key, IFDRepresentableObject<?> spec) {
-		String localizedName = localizePath(ifdPath);
-		linkLocalizedNameToObject(localizedName, null, spec);
-		setLocalFileLength(spec.addRepresentation(ifdPath, localizedName, key, key));
-//		IFDRepresentation rep = 
-//		rep.setSubtype(key);
+	private void addRepresentation(String originPath, String key, IFDRepresentableObject<?> obj, Object value, String mediaType) {
+		boolean isInline = (originPath == null);
+		String localizedName = (isInline ? null : localizePath(originPath));
+		linkLocalizedNameToObject(localizedName, null, obj);
+		IFDRepresentation r = obj.findOrAddRepresentation(originPath, localizedName, value, key, mediaType);
+		if (!isInline)
+			setLocalFileLength(r);
 	}
 
 
@@ -1192,7 +1200,7 @@ public class Extractor implements ExtractorI {
 		int pt = ckey.indexOf('\0');
 		if (pt > 0)
 			ckey = ckey.substring(0, pt);
-		IFDRepresentation r1 = obj.addRepresentation(ifdPath, ckey, r.getType(), null);
+		IFDRepresentation r1 = obj.findOrAddRepresentation(ifdPath, ckey, null, r.getType(), null);
 		if (type != null)
 			r1.setType(type);
 		if (subtype != null)
@@ -1248,7 +1256,7 @@ public class Extractor implements ExtractorI {
 				.append("\"FAIRSpec.extractor.code\":\"" + codeSource + "\",\n")
 				.append("\"FAIRSpec.extractor.list.type\":\"" + type + "\",\n")
 				.append("\"FAIRSpec.extractor.scirpt\":\"_IFD_extract.json\",\n")
-				.append("\"FAIRSpec.extractor.source\":\"" + dataSource + "\",\n")
+				.append("\"FAIRSpec.extractor.source\":\"" + resource + "\",\n")
 				.append("\"FAIRSpec.extractor.creation.date\":\"" + helper.getFindingAid().getDate().toGMTString() + "\",\n")
 				.append("\"FAIRSpec.extractor.count\":" + lst.size() + ",\n").append("\"FAIRSpec.extractor.list\":\n" + "[\n");
 		String sep = "";
@@ -1293,19 +1301,19 @@ public class Extractor implements ExtractorI {
 	 * 
 	 * 
 	 * @param parser
-	 * @param ifdPath
+	 * @param originPath
 	 * @return one of IFDStructureSpec, IFDDataObject, IFDStructure, in that order,
 	 *         depending upon availability
 	 * 
 	 * @throws IFDException
 	 */
-	private IFDObject<?> addIFDObjectsForName(ObjectParser parser, String ifdPath) throws IFDException {
-		Matcher m = parser.p.matcher(ifdPath);
+	private IFDObject<?> addIFDObjectsForName(ObjectParser parser, String originPath) throws IFDException {
+		Matcher m = parser.p.matcher(originPath);
 		if (!m.find())
 			return null;
-		helper.beginAddingObjects(ifdPath);
+		helper.beginAddingObjects(originPath);
 		if (debugging)
-			log("adding IFDObjects for " + ifdPath);
+			log("adding IFDObjects for " + originPath);
 
 		// If an IFDDataObject object is added, then it will also be added to
 		// htManifestNameToSpecData
@@ -1314,7 +1322,7 @@ public class Extractor implements ExtractorI {
 			String param = parser.keys.get(key);
 			if (param.length() > 0) {
 				String id = m.group(key);
-				final String localizedName = localizePath(ifdPath);
+				final String localizedName = localizePath(originPath);
 				IFDRepresentableObject<?> obj = helper.addObject(rootPath, param, id, localizedName);				
 				linkLocalizedNameToObject(localizedName, param, obj);
 				if (debugging)
@@ -1335,7 +1343,7 @@ public class Extractor implements ExtractorI {
 	 * @param obj
 	 */
 	private void linkLocalizedNameToObject(String localizedName, String type, IFDRepresentableObject<?> obj) {
-		if (type == null || IFDConst.isRepresentation(type)) {
+		if (localizedName != null && (type == null || IFDConst.isRepresentation(type))) {
 			htLocalizedNameToObject.put(localizedName, obj);
 		}
 	}
@@ -1645,12 +1653,12 @@ public class Extractor implements ExtractorI {
 					if (doCheck) {
 						mp = parser.p.matcher(ifdPath);
 						if (mp.find()) {
-							propertyList.add(null);
+							deferredPropertyList.add(null);
 							for (String key : parser.keys.keySet()) {
 								String param = parser.keys.get(key);
 								if (param.equals(IFDConst.IFD_PROP_SAMPLE_LABEL)) {
 									String id = mp.group(key);
-									propertyList.add(new Object[] { localizedName, param, id });
+									deferredPropertyList.add(new Object[] { localizedName, param, id, null, null });
 								}
 							}
 						}
@@ -1664,7 +1672,7 @@ public class Extractor implements ExtractorI {
 						// indicating "this" here notifies the vendor plugin that
 						// this is a one-shot file, not a collection.
 						type = v.accept(this, ifdPath, bytes);
-						propertyList.add(null);
+						deferredPropertyList.add(null);
 						this.localizedName = oldLocal;
 					}
 				} else {
@@ -1691,7 +1699,7 @@ public class Extractor implements ExtractorI {
 			} else {
 				lastRezipPath = ifdPath;
 				IFDRepresentation ref = new CacheRepresentation(
-						new IFDReference(ifdPath, localizePath(ifdPath), rootPath), v, len, null, "application/zip");
+						new IFDReference(ifdPath, rootPath, localizePath(ifdPath)), v, len, null, "application/zip");
 				rezipCache.add(ref);
 				log("rezip pattern found " + ifdPath);
 			}
@@ -1769,7 +1777,7 @@ public class Extractor implements ExtractorI {
 			String subtype) {
 		if (subtype == null)
 			subtype = DefaultStructureHelper.mediaTypeFromName(localizedName);
-		CacheRepresentation rep = new CacheRepresentation(new IFDReference(ifdPath, localizedName, rootPath), null, len,
+		CacheRepresentation rep = new CacheRepresentation(new IFDReference(ifdPath, rootPath, localizedName), null, len,
 				type, subtype);
 		cache.put(localizedName, rep);
 		return rep;

@@ -7,7 +7,7 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 public class IFDStructure extends IFDRepresentableObject<IFDStructureRepresentation> {
 
 	{
-		setProperties("IFD_PROP_STRUC", null);
+		setProperties("IFD_PROP_STRUCTURE", null);
 	}	
 	
 	public IFDStructure(String name) {
@@ -21,9 +21,8 @@ public class IFDStructure extends IFDRepresentableObject<IFDStructureRepresentat
 	}
 
 	@Override
-	protected IFDStructureRepresentation newRepresentation(String name, IFDReference ref, Object obj, long len, String type, String subtype) {
-		return new IFDStructureRepresentation(ref, obj, len, name, null);
-
+	protected IFDStructureRepresentation newRepresentation(IFDReference ref, Object obj, long len, String type, String subtype) {
+		return new IFDStructureRepresentation(ref, obj, len, type, subtype);
 	}
 	
 	@Override

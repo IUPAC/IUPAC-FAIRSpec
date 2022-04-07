@@ -53,7 +53,7 @@ import javajs.util.PT;
  * @author hansonr
  *
  */
-public class FAIRSpecExtractorHelper {
+public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 
 
 	static {
@@ -134,9 +134,9 @@ public class FAIRSpecExtractorHelper {
 	 * current state of extraction
 	 * 
 	 */
-	protected String currentObject;
+	protected String currentOriginPath;
 	protected IFDStructure currentStructure;
-	protected IFDDataObject currentSpecData;
+	protected IFDDataObject currentDataObject;
 	protected IFDSample currentSample;
 	protected IFDResource currentResource;
 
@@ -163,6 +163,7 @@ public class FAIRSpecExtractorHelper {
 		findingAid = fa;
 	}
 
+	@Override
 	public FAIRSpecFindingAid getFindingAid() {
 		return findingAid;
 	}
@@ -170,22 +171,19 @@ public class FAIRSpecExtractorHelper {
 	/**
 	 * start processing the next "line" (zip file entry path)
 	 * 
-	 * @param fname
+	 * @param originPath
 	 */
-	public void beginAddingObjects(String fname) {
+	@Override
+	public void beginAddingObjects(String originPath) {
 		if (isAddingObjects())
 			endAddingObjects();
-		currentObject = fname;
+		currentOriginPath = originPath;
 	}
 	
 	public boolean isAddingObjects() {
-		return (currentObject != null);
+		return (currentOriginPath != null);
 	}
 
-	public void setCurrentObject(String fname) {
-		currentObject = fname;
-	}
-	
 	public IFDStructure getCurrentStructure() {
 		return currentStructure;
 	}
@@ -195,11 +193,11 @@ public class FAIRSpecExtractorHelper {
 	}
 
 	public IFDDataObject getCurrentSpecData() {
-		return currentSpecData;
+		return currentDataObject;
 	}
 
 	public void setCurrentSpecData(IFDDataObject spec) {
-		currentSpecData = spec;
+		currentDataObject = spec;
 	}
 
 	/**
@@ -241,6 +239,7 @@ public class FAIRSpecExtractorHelper {
 	 * @return
 	 * @throws IFDException
 	 */
+	@Override
 	public IFDRepresentableObject<?> addObject(String rootPath, String param, String id, String localName)
 			throws IFDException {
 		if (!isAddingObjects())
@@ -249,10 +248,10 @@ public class FAIRSpecExtractorHelper {
 		String type = getObjectTypeForName(param, false);
 
 		if (type.startsWith(FAIRSPEC_DATA_SPEC_FLAG)) {
-			currentSpecData = getDataObjectCollection().getDataObjectFor(rootPath, currentObject, rootPath, localName, param, id,
+			currentDataObject = getDataObjectCollection().getDataObjectFor(rootPath, currentOriginPath, rootPath, localName, param, id,
 					type, DefaultStructureHelper.mediaTypeFromName(localName));
-			currentSpecData.setResource(currentResource);
-			return currentSpecData;
+			currentDataObject.setResource(currentResource);
+			return currentDataObject;
 		}
 		switch (type) {
 //		case ClassTypes.SampleDataAnalysisCollection:
@@ -269,7 +268,7 @@ public class FAIRSpecExtractorHelper {
 			return null;
 		case ClassTypes.Sample:
 			if (currentSample == null) {
-				currentSample = getSampleCollection().getSampleFor(rootPath, localName, param, id, currentObject,
+				currentSample = getSampleCollection().getSampleFor(rootPath, localName, param, id, currentOriginPath,
 						DefaultStructureHelper.mediaTypeFromName(localName));
 				System.out.println("IFDFAIRSpecExtractionHelper.addObject creating Sample " + currentSample.getName());
 				currentSample.setResource(currentResource);
@@ -280,7 +279,7 @@ public class FAIRSpecExtractorHelper {
 		case ClassTypes.Structure:
 			if (currentStructure == null) {
 				currentStructure = getStructureCollection().getStructureFor(rootPath, localName, param, id,
-						currentObject, DefaultStructureHelper.mediaTypeFromName(localName));
+						currentOriginPath, DefaultStructureHelper.mediaTypeFromName(localName));
 				System.out.println(
 						"IFDFAIRSpecExtractionHelper.addObject creating Structure " + currentStructure.getName());
 				currentStructure.setResource(currentResource);
@@ -301,33 +300,34 @@ public class FAIRSpecExtractorHelper {
 		case ClassTypes.SampleCollection:
 			// should not be generic
 		default:
-			System.err.println("FAIRSpecFindingAidHelper could not add " + param + " " + id + " for " + currentObject);
+			System.err.println("FAIRSpecFindingAidHelper could not add " + param + " " + id + " for " + currentOriginPath);
 			break;
 		}
 		return null;
 	}
 
 	
+	@Override
 	public IFDObject<?> endAddingObjects() {
 		if (!isAddingObjects())
 			return null;
 		try {
-			if (currentStructure != null && currentSpecData != null)
-				return getStructureDataCollection().addAssociation(currentObject, currentStructure, currentSpecData);
-			if (currentSample != null && currentSpecData != null)
-				return getSampleDataCollection().addAssociation(currentObject, currentSample, currentSpecData);
+			if (currentStructure != null && currentDataObject != null)
+				return getStructureDataCollection().addAssociation(currentStructure, currentDataObject);
+			if (currentSample != null && currentDataObject != null)
+				return getSampleDataCollection().addAssociation(currentSample, currentDataObject);
 			// how does this work?
 			return (currentStructure != null ? currentStructure
 					: currentSample != null ? currentSample
-					: currentSpecData);
+					: currentDataObject);
 		} catch (IFDException e) {
 			// not possible
 			return null;
 		} finally {
-			currentObject = null;
+			currentOriginPath = null;
 			currentStructure = null;
 			currentSample = null;
-			currentSpecData = null;
+			currentDataObject = null;
 		}
 	}
 
@@ -337,6 +337,7 @@ public class FAIRSpecExtractorHelper {
 	 * 
 	 * @return
 	 */
+	@Override
 	public int removeStructuresWithNoAssociations() {
 		List<IFDAssociation> lstRemove = new ArrayList<>();
 		IFDStructureDataAssociationCollection strucData = getStructureDataCollection();
@@ -370,6 +371,7 @@ public class FAIRSpecExtractorHelper {
 	 * @param andRemove
 	 * @return
 	 */
+	@Override
 	public IFDStructure getFirstStructureForSpec(IFDDataObject spec, boolean andRemove) {
 		return (IFDStructure) getStructureDataCollection().getFirstObj1ForObj2(spec, andRemove);
 	}
@@ -381,34 +383,39 @@ public class FAIRSpecExtractorHelper {
 	 * @param andRemove
 	 * @return
 	 */
+	@Override
 	public IFDSample getFirstSampleForSpec(IFDDataObject spec, boolean andRemove) {
 		return (IFDSample) getSampleDataCollection().getFirstObj1ForObj2(spec, andRemove);
 	}
 
-	public void associateStructureSpec(String name, IFDStructure struc, IFDDataObject spec) throws IFDException {
-		getStructureDataCollection().addAssociation(name, struc, spec);
+	@Override
+	public IFDStructureDataAssociation associateStructureSpec(IFDStructure struc, IFDDataObject spec) throws IFDException {
+		return getStructureDataCollection().addAssociation(struc, spec);
 	}
 
-	public void associateSampleSpec(String name, IFDSample sample, IFDDataObject spec) throws IFDException {
-		getSampleDataCollection().addAssociation(name, sample, spec);
+	@Override
+	public IFDSampleDataAssociation associateSampleSpec(IFDSample sample, IFDDataObject spec) throws IFDException {
+		return (IFDSampleDataAssociation) getSampleDataCollection().addAssociation(sample, spec);
 	}
 
+	@Override
 	public IFDStructure addStructureForSpec(String rootPath, IFDDataObject spec, String ifdRepType, String ifdPath, String localName, String name)
 			throws IFDException {
 		if (getDataObjectCollection().indexOf(spec) < 0)
 			getDataObjectCollection().add(spec);			
 		IFDStructure struc = getStructureCollection().getStructureFor(rootPath, localName, IFDConst.IFD_PROP_SAMPLE_LABEL, name, ifdPath, null);
-		struc.addRepresentation(ifdPath, localName, ifdRepType, DefaultStructureHelper.mediaTypeFromName(localName));
+		struc.findOrAddRepresentation(ifdPath, localName, null, ifdRepType, DefaultStructureHelper.mediaTypeFromName(localName));
 		getStructureCollection().add(struc);
 		IFDStructureDataAssociation ss = (IFDStructureDataAssociation) getStructureDataCollection().getAssociationForSingleObj2(spec);
 		if (ss == null) {
-			ss = getStructureDataCollection().addAssociation(name, struc, spec);
+			ss = getStructureDataCollection().addAssociation(struc, spec);
 		} else {
 			ss.getStructureCollection().add(struc);
 		}
 		return struc;
 	}
 
+	@Override
 	public IFDStructureDataAssociation getStructureAssociation(IFDStructure struc, IFDDataObject spec) {
 		return (IFDStructureDataAssociation) getStructureDataCollection().findAssociation(struc, spec);
 	}
@@ -417,6 +424,7 @@ public class FAIRSpecExtractorHelper {
 		return (IFDSampleDataAssociation) getSampleDataCollection().findAssociation(struc, spec);
 	}
 	
+	@Override
 	public IFDRepresentation getSpecDataRepresentation(String zipName) {
 		return (specDataCollection == null ? null : specDataCollection.getRepresentation(zipName));
 	}
@@ -435,6 +443,7 @@ public class FAIRSpecExtractorHelper {
 		return structureCollection;
 	}
 
+	@Override
 	public IFDDataObjectCollection getDataObjectCollection() {
 		if (specDataCollection == null) {
 			objects[DATA_COLLECTION] = specDataCollection = new IFDDataObjectCollection("spectra");
@@ -456,6 +465,7 @@ public class FAIRSpecExtractorHelper {
 		return sampleDataCollection;
 	}
 
+	@Override
 	public IFDStructureDataAssociationCollection getStructureDataCollection() {
 		if (structureDataCollection == null) {
 			associations[STRUCTURE_DATA_COLLECTION] =
@@ -478,27 +488,33 @@ public class FAIRSpecExtractorHelper {
 		return structureDataAnalysisCollection;
 	}
 
+	@Override
 	public String createSerialization(File targetFile, String findingAidFileNameRoot, List<Object> products,
 			IFDSerializerI serializer) throws IOException {
 		return findingAid.createSerialization(targetFile, findingAidFileNameRoot, products, serializer);
 	}
 
+	@Override
 	public IFDResource addOrSetSource(String dataSource) {
 	  return currentResource = getFindingAid().addOrSetResource(dataSource);
 	}
 
+	@Override
 	public void setCurrentResourceByteLength(long len) {
 		currentResource.setLength(len);
 	}
 
+	@Override
 	public IFDSample getSampleByName(String name) {
 		return (IFDSample) getSampleCollection().getObjectByName(name);
 	}
 
-	public IFDSampleStructureAssociation associateSampleStructure(String localName, IFDSample sample, IFDStructure struc) throws IFDException {
-		return getSampleStructureCollection().addAssociation(null, sample, struc);
+	@Override
+	public IFDSampleStructureAssociation associateSampleStructure(IFDSample sample, IFDStructure struc) throws IFDException {
+		return getSampleStructureCollection().addAssociation(sample, struc);
 	}
 
+	@Override
 	public void finalizeExtraction() {
 		for (int i = 0; i < objects.length; i++)
 			if (objects[i] != null)

@@ -32,7 +32,7 @@ public class IFDSampleCollection extends IFDCollection<IFDRepresentableObject<IF
 			add(sd);
 		}
 		if (IFDConst.isRepresentation(param))
-			sd.addRepresentation(zipName, localName, param, mediaType);
+			sd.findOrAddRepresentation(zipName, localName, null, param, mediaType);
 		return sd;
 	}
 

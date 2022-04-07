@@ -21,18 +21,18 @@ public class IFDStructureDataAssociationCollection extends IFDAssociationCollect
 		this(name, null);
 	}
 
-	public IFDStructureDataAssociation addAssociation(String name, IFDStructure struc, IFDDataObject data) throws IFDException {
+	public IFDStructureDataAssociation addAssociation(IFDStructure struc, IFDDataObject data) throws IFDException {
 		IFDStructureDataAssociation ssc = (IFDStructureDataAssociation) getAssociationForSingleObj1(struc);
 		if (ssc == null) {
-			add(ssc = newAssociation(name, struc, data));
+			add(ssc = newAssociation(struc, data));
 		} else if (!ssc.getDataObjectCollection().contains(data)) {
 			ssc.getDataObjectCollection().add(data);
 		}
 		return ssc;
 	}
 
-	protected IFDStructureDataAssociation newAssociation(String name, IFDStructure struc, IFDDataObject data) throws IFDException {
-			return new IFDStructureDataAssociation(name, struc, data);
+	protected IFDStructureDataAssociation newAssociation(IFDStructure struc, IFDDataObject data) throws IFDException {
+			return new IFDStructureDataAssociation(struc, data);
 	}
 
 }

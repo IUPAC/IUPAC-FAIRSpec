@@ -22,7 +22,7 @@ public class IFDDataObject extends IFDRepresentableObject<IFDDataObjectRepresent
 	
 
 	@Override
-	protected IFDDataObjectRepresentation newRepresentation(String name, IFDReference ref, Object obj, long len, String type, String subtype) {
+	protected IFDDataObjectRepresentation newRepresentation(IFDReference ref, Object obj, long len, String type, String subtype) {
 		return new IFDDataObjectRepresentation(ref, obj, len, type, subtype);
 
 	}	
@@ -47,7 +47,7 @@ public class IFDDataObject extends IFDRepresentableObject<IFDDataObjectRepresent
 
 	@Override
 	public Object clone() {
-		IFDDataObject data = new IFDDataObject(path, name, type);
+		IFDDataObject data = new IFDDataObject(rootPath, name, type);
 		for (int i = 0; i < size(); i++)
 			data.add(get(i));
 		return data;

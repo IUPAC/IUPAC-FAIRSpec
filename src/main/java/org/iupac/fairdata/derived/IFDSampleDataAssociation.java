@@ -35,14 +35,14 @@ public class IFDSampleDataAssociation extends IFDAssociation {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public IFDSampleDataAssociation(String name, IFDSample sample, IFDDataObject data) throws IFDException {
-		super(name, null, new IFDCollection[] { new IFDSampleCollection("samples", sample), new IFDDataObjectCollection("data", data) });
+	public IFDSampleDataAssociation(String type, IFDSample sample, IFDDataObject data) throws IFDException {
+		super(null, new IFDCollection[] { new IFDSampleCollection(null, sample), new IFDDataObjectCollection(null, data) });
 	}
 
 
 	@SuppressWarnings("unchecked")
-	public IFDSampleDataAssociation(String name, String type, IFDSampleCollection sampleCollection, IFDDataObjectCollection dataCollection) throws IFDException {
-		super(name, type, new IFDCollection[] { sampleCollection, dataCollection });
+	public IFDSampleDataAssociation(String type, IFDSampleCollection sampleCollection, IFDDataObjectCollection dataCollection) throws IFDException {
+		super(type, new IFDCollection[] { sampleCollection, dataCollection });
 	}
 	
 	@Override

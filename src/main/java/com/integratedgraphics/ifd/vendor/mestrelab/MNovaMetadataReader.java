@@ -386,8 +386,8 @@ class MNovaMetadataReader extends ByteBlockReader {
 		rewindIn();
 		seekIn(27); // skip header
 		Stack<BlockData> objects = getObjectStack();
-		System.out.println(objects.size() + " objects");
-		 testStack(objects);
+		//System.out.println(objects.size() + " objects");
+		 //testStack(objects);
 		long pt = readPosition();
 		// last block is version
 		BlockData verObject = objects.pop();
@@ -624,7 +624,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		nextBlock(); // 189 -> 39337 bytes in 1.mnova; 197 in v14
 		nextBlock(); // 5957 -> 45298 bytes in 1.mnova; 7107 in v14
 		Stack<BlockData> stack = getObjectStack();
-		 testStack(stack);
+		 //testStack(stack);
 
 		// third from last data block is the parameter block
 		BlockData params = stack.get(stack.size() - 3);

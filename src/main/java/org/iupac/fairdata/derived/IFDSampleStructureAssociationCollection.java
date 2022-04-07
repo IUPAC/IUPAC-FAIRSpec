@@ -29,18 +29,18 @@ public class IFDSampleStructureAssociationCollection extends IFDAssociationColle
 		this(name, null);
 	}
 
-	public IFDSampleStructureAssociation addAssociation(String name, IFDSample sample, IFDStructure structure) throws IFDException {
+	public IFDSampleStructureAssociation addAssociation(IFDSample sample, IFDStructure structure) throws IFDException {
 		IFDSampleStructureAssociation ssc = (IFDSampleStructureAssociation) getAssociationForSingleObj1(sample);
 		if (ssc == null) {
-			add(ssc = newAssociation(name, sample, structure));
+			add(ssc = newAssociation(sample, structure));
 		} else if (!ssc.getStructureCollection().contains(structure)) {
 			ssc.getStructureCollection().add(structure);
 		}
 		return ssc;
 	}
 
-	protected IFDSampleStructureAssociation newAssociation(String name, IFDSample sample, IFDStructure structure) throws IFDException {
-			return new IFDSampleStructureAssociation(name, sample, structure);
+	protected IFDSampleStructureAssociation newAssociation(IFDSample sample, IFDStructure structure) throws IFDException {
+			return new IFDSampleStructureAssociation(null, sample, structure);
 	}
 
 }
