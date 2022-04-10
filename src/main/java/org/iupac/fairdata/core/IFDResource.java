@@ -35,6 +35,7 @@ public class IFDResource implements IFDSerializableI {
 
 	@Override
 	public void serialize(IFDSerializerI serializer) {
+		IFDObject.serializeClass(serializer, getClass(), null);
 		if (getRef() != null)
 			serializer.addAttr("ref", ref);
 		if (getLength() > 0)

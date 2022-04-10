@@ -1,4 +1,4 @@
-package org.iupac.fairdata.contrib;
+package org.iupac.fairdata.contrib.fairspec;
 
 import java.io.File;
 import java.util.List;
@@ -58,10 +58,10 @@ public class FAIRSpecFindingAid extends IFDFindingAid {
 	}
 
 	@Override
-	protected Map<String, Object> getStatistics(Map<String, Object> map) {
+	protected Map<String, Object> getContentsMap(Map<String, Object> map) {
 		if (citations != null && citations.size() > 0)
-			map.put("citations", Integer.valueOf(citations.size()));
-		return super.getStatistics(map);
+			map.put("citationCount", Integer.valueOf(citations.size()));
+		return super.getContentsMap(map);
 	}
 
 

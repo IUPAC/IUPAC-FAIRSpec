@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 import org.iupac.fairdata.api.IFDSerializableI;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDFindingAid;
 
 import javajs.util.PT;
@@ -63,14 +62,9 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 
 	@Override
 	public String serialize(IFDSerializableI obj) {
-		if (obj instanceof IFDAssociation) {
-		  obj.serialize(this);
-		  return "";
-		} else {
-			openObject();
-			obj.serialize(this);
-			return closeObject();			
-		}
+		openObject();
+		obj.serialize(this);
+		return closeObject();
 	}
 
 	@Override
@@ -92,16 +86,21 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 	@Override
 	public void addObject(String key, Object o) {
 		thisObj.appendKey(key);
-		addValue(o, false);
+		addValue(o, false, true);
 	}
 
 	@Override
 	public void addValue(Object val) {
-		addValue(val, true);
+		addValue(val, true, true);
 	}
 	
-	private void addValue(Object val, boolean addKey) {
-		if (val instanceof IFDSerializableI) {
+	@Override
+	public void addList(String key, List<?> list) {
+		thisObj.appendKey(key);
+		addValue(list, false, false);		
+	}
+	private void addValue(Object val, boolean addKey, boolean allowSerializable) {
+		if (allowSerializable && val instanceof IFDSerializableI) {
 			val = serialize((IFDSerializableI) val);
 		} else if (val instanceof List<?>) {
 			List<?> list = (List<?>) val;
@@ -110,7 +109,7 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 			for (int i = 0, n = list.size(); i < n; i++) {
 				thisObj.append(sep);
 				Object v = list.get(i);
-				addValue(v, false);
+				addValue(v, false, true);
 				if (sep == "") {
 					sep = (v instanceof Number ? "," : ",\n");
 				}
@@ -125,7 +124,7 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 				thisObj.append(sep);
 				thisObj.append(PT.esc(e.getKey().toString()));
 				thisObj.append(":");
-				addValue(e.getValue(), false);
+				addValue(e.getValue(), false, true);
 				sep = ",\n";
 			}
 			thisObj.append("}");
@@ -287,5 +286,6 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 		    return bytes;
 		  }  
 	}
+
 
 }

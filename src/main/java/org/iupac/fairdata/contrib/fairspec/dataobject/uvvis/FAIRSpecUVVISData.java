@@ -1,10 +1,8 @@
-package org.iupac.fairdata.data.uvvis;
+package org.iupac.fairdata.contrib.fairspec.dataobject.uvvis;
 
-import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.common.IFDProperty;
-import org.iupac.fairdata.common.IFDReference;
-import org.iupac.fairdata.core.IFDDataObject;
-import org.iupac.fairdata.core.IFDDataObjectRepresentation;
+import org.iupac.fairdata.contrib.fairspec.dataobject.FAIRSpecDataObject;
+import org.iupac.fairdata.core.IFDReference;
+import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
 
 /**
  *
@@ -12,36 +10,11 @@ import org.iupac.fairdata.core.IFDDataObjectRepresentation;
  *
  */
 @SuppressWarnings("serial")
-public class IFDUVVISSpecData extends IFDDataObject {
-
-
-	public static final String IFD_TYPE_SPEC_UVVIS = "spec.uvvis";
-	
-
-	public static final String IFD_PROP_SPEC_UVVIS_EXPT_LABEL = "IFD.property.spec.uvvis.expt.label";
-
-	{
-		super.setProperties(new IFDProperty[] {
-				// TODO
-//				new IFDProperty("IFD.spec.uvvis.dimension", IFDConst.PROPERTY_TYPE.INT, IFDConst.UNITS.NONE),
-		});
-	}
-	
-	public IFDUVVISSpecData() throws IFDException {
-		super(null, IFD_TYPE_SPEC_UVVIS);
-	}
-
+public class FAIRSpecUVVISData extends FAIRSpecDataObject {
 
 	@Override
-	protected IFDDataObjectRepresentation newRepresentation(String name, IFDReference ref, Object obj, long len, String type, String subtype) {
-		return new IFDUVVISSpecDataRepresentation(ref, obj, len, type, subtype);
+	protected IFDDataObjectRepresentation newRepresentation(IFDReference ref, Object obj, long len, String type, String subtype) {
+		return new FAIRSpecUVVISDataRepresentation(ref, obj, len, type, subtype);
 	}
 	
-	@Override
-	protected IFDDataObject newInstance() throws IFDException {
-		return new IFDUVVISSpecData();
-	}
-
-
-
 }

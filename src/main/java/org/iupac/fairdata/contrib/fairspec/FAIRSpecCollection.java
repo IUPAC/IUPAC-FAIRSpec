@@ -1,4 +1,4 @@
-package org.iupac.fairdata.contrib;
+package org.iupac.fairdata.contrib.fairspec;
 
 import org.iupac.fairdata.core.IFDCollectionSet;
 

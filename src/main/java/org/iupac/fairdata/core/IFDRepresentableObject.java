@@ -29,9 +29,33 @@ import org.iupac.fairdata.common.IFDException;
 public abstract class IFDRepresentableObject<T extends IFDRepresentation> extends IFDObject<T> {
 
 	/**
+	 * Optional allowance for creating a new representation of this object type.
+	 * This method should return null if it cannot process this request.
+	 * @param ifdReference null here indicates an inline object
+	 * @param object 
+	 * @param len
+	 * @param type TODO
+	 * @param subtype TODO
+	 * 
+	 * @return
+	 * @throws IFDException
+	 */
+	abstract protected IFDRepresentation newRepresentation(IFDReference ifdReference, Object object, long len,
+			String type, String subtype);
+
+
+	protected String objectType = "Unknown";
+
+	/**
 	 * the root path to this object for its IFDReference
 	 */
 	protected String rootPath;
+
+	/**
+	 * index of source URL in the IFDFindingAid URLs list; must be set nonnegative
+	 * to register
+	 */
+	private IFDResource resource;
 
 	/**
 	 * a map of unique paths to specific representations used to ensure that all
@@ -48,7 +72,7 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 	}
 
 	public void setPath(String path) {
-		this.rootPath = path;
+		rootPath = path;
 	}
 
 	/**
@@ -65,18 +89,20 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 	 * @param localName a localized name without / or |
 	 * @param data TODO
 	 * @param type
-	 * @param subtype
+	 * @param mediaType
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public IFDRepresentation findOrAddRepresentation(String originPath, String localName, Object data, String type, String subtype) {
+	public IFDRepresentation findOrAddRepresentation(String originPath, String localName, Object data, String type, String mediaType) {
 		boolean isInline = (localName == null);
-		String key = (!isInline ? originPath : data instanceof byte[] ? new String((byte[]) data) : data.toString());
+		String key = (!isInline ? localName : data instanceof byte[] ? new String((byte[]) data) : data.toString());
 		IFDRepresentation rep = getRepresentation(key);
 		if (rep == null) {
-			rep = newRepresentation((isInline ? null : new IFDReference(originPath, rootPath, localName)), data, 0, type, subtype);
+			rep = newRepresentation((isInline ? null : new IFDReference(originPath, rootPath, localName)), data, 0, type, mediaType);
 			add((T) rep);
 			map.put(rootPath + "::" + key, rep);
+			if (!isInline)
+				map.put(rootPath + "::" + originPath, rep);
 		}
 		return rep;
 	}
@@ -85,20 +111,6 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 		return map.get(rootPath + "::" + key);
 	}
 
-	/**
-	 * Optional allowance for creating a new representation of this object type.
-	 * This method should return null if it cannot process this request.
-	 * @param ifdReference null here indicates an inline object
-	 * @param object 
-	 * @param len
-	 * @param type TODO
-	 * @param subtype TODO
-	 * 
-	 * @return
-	 * @throws IFDException
-	 */
-	abstract protected IFDRepresentation newRepresentation(IFDReference ifdReference, Object object, long len,
-			String type, String subtype);
 
 	public void removeRepresentationFor(String localName) {
 		for (int i = size(); --i >= 0;)
@@ -121,10 +133,42 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 	public IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> getParentCollection() {
 		return parentCollection;
 	}
+	
+	public String getObjectType() {
+		return objectType;
+	}
+
+	public void setResource(IFDResource resource) {
+		this.resource = resource;
+	}
+
+	public IFDResource getResource() {
+		return resource;
+	}
+
+	
+	@Override
+	protected void serializeTop(IFDSerializerI serializer) {
+		super.serializeTop(serializer);
+		if (objectType != null && objectType != "Unknown")
+			serializer.addAttr("objectType", objectType);
+	}
 
 	@Override
-	protected void serializeList(IFDSerializerI serializer, String key) {
-		super.serializeList(serializer, "representations");
+	protected void serializeProps(IFDSerializerI serializer) {
+		if (resource != null)
+			serializer.addAttrInt("resource", resource.getIndex());
+		super.serializeProps(serializer);
 	}
+
+	@Override
+	protected void serializeList(IFDSerializerI serializer) {
+		if (size() > 0) {
+			serializer.addList("representations", this);
+		}
+	}
+	
+
+
 
 }

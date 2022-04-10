@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.TreeMap;
 
+import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 import org.iupac.fairdata.util.IFDUtilities;
-import org.json.simple.JSONObject;
 
 import com.integratedgraphics.ifd.Extractor;
 import com.integratedgraphics.ifd.vendor.ByteBlockReader;
@@ -1240,7 +1240,7 @@ fname = "c:/temp/mnova/(R,R)-mix2 (C6D6).mnova";
 			if (outdir == null) {
 				outdir = new File("t").getAbsoluteFile().getParentFile().getAbsolutePath() + "/";
 			} else {
-				outdir = outdir.replace('\\','/');
+//				outdir = outdir.replace('\\', '/');
 				if (!outdir.endsWith("/")) {
 					if (outdir.length() == 0) {
 						outdir = f.getAbsoluteFile().getParentFile().getAbsolutePath() + "/";
@@ -1255,7 +1255,9 @@ fname = "c:/temp/mnova/(R,R)-mix2 (C6D6).mnova";
 			if (rdr.reportData != null) {
 				Map<String, Object> data = new HashMap<>();
 				data.put("MNova.metadata", rdr.reportData);
-				rdr.writeToFile("json", new JSONObject(data).toString().getBytes());
+				IFDDefaultJSONSerializer serializer = new IFDDefaultJSONSerializer();
+				serializer.addValue(data);
+				rdr.writeToFile("json", serializer.toString().getBytes());
 			}
 			return true;
 		} catch (IOException e) {

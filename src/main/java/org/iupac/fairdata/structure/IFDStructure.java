@@ -31,7 +31,7 @@ public class IFDStructure extends IFDRepresentableObject<IFDStructureRepresentat
 			return super.toString();
 		String refs = "";
 		for (int i = 0; i < size(); i++) {
-			refs += get(i).getSubtype() + ";";
+			refs += get(i).getMediaType() + ";";
 		}
 		return "[IFDStructure " + index + " " + name + " " + refs + "]";
 	}

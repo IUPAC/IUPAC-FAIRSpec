@@ -3,8 +3,8 @@
  {"journal":"acs.orglett"},{"hash":"0c00755"},
  {"figshareid":"22150197"},
 
- {"IFD.property.collectionset.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
- {"IFD.property.collectionset.data.license.name":"cc-by-nc-4.0"},
+ {"IFD.property.collectionset.source.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.source.data.license.name":"cc-by-nc-4.0"},
  {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
  {"IFD.property.collectionset.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
  
@@ -12,6 +12,6 @@
  {"data":"{IFD.property.collectionset.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
  
  {"path":"{data}|NMR/"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}/*}/*/}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}/*}/*/*/}"}
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{IFD.property.dataobject.fairspec.nmr.expt.label::{id=IFD.property.sample.label::*}/*}/*/}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{IFD.property.dataobject.fairspec.nmr.expt.label::{id=IFD.property.sample.label::*}/*}/*/*/}"}
 ]}

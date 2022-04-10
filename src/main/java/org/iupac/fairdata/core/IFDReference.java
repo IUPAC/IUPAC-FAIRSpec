@@ -53,6 +53,7 @@ public class IFDReference implements IFDSerializableI {
 
 	@Override
 	public void serialize(IFDSerializerI serializer) {
+		IFDObject.serializeClass(serializer, getClass(), null);
 		if (origin != null)
 			serializer.addAttr("origin", origin.toString());
 		if (localName != null) {

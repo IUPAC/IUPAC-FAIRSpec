@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.iupac.fairdata.contrib.ExtractorI;
-import org.iupac.fairdata.contrib.PropertyManagerI;
+import org.iupac.fairdata.extract.ExtractorI;
+import org.iupac.fairdata.extract.PropertyManagerI;
 import org.iupac.fairdata.util.IFDUtilities;
 
 import com.integratedgraphics.ifd.Extractor;

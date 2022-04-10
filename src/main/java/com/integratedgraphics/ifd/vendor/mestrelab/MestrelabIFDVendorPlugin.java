@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.iupac.fairdata.contrib.ExtractorI;
+import org.iupac.fairdata.extract.ExtractorI;
 
 import com.integratedgraphics.ifd.Extractor;
 import com.integratedgraphics.ifd.util.DefaultVendorPlugin;
@@ -32,19 +32,19 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 
 	static {
 		String[] keys = { //
-				"Pulse Sequence", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_PULSE_PROG"), //prop
-				"Solvent", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_SOLVENT"), //prop
-				"Probe", getProp("IFD_PROP_DATA_SPEC_NMR_INSTR_PROBE_TYPE"), //prop
-				"Temperature", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
-				"Experiment", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_DIM"), //prop
-				"Title", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_TITLE"), //prop
-				"F1", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_FREQ_1"), //prop
-				"F2", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_FREQ_2"), //prop
-				"F3", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_FREQ_3"), //prop
-				"N1", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_NUCL_1"), //prop
-				"N2", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_NUCL_2"), //prop
-				"N3", getProp("IFD_PROP_DATA_SPEC_NMR_EXPT_NUCL_3"), //prop
-				"SF", getProp("IFD_PROP_DATA_SPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
+				"Pulse Sequence", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_PULSE_PROG"), //prop
+				"Solvent", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_SOLVENT"), //prop
+				"Probe", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_INSTR_PROBE_TYPE"), //prop
+				"Temperature", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
+				"Experiment", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_DIM"), //prop
+				"Title", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_TITLE"), //prop
+				"F1", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_1"), //prop
+				"F2", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_2"), //prop
+				"F3", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_3"), //prop
+				"N1", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_1"), //prop
+				"N2", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_2"), //prop
+				"N3", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_3"), //prop
+				"SF", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
 		};
 
 		for (int i = 0; i < keys.length;)
@@ -85,7 +85,7 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 
 	@Override
 	public String processRepresentation(String ifdPath, byte[] bytes) {
-		return IFD_REP_DATA_SPEC_NMR_VENDOR_DATASET;
+		return IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET;
 	}
 
 	// called from MNovaReader
@@ -216,7 +216,7 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 		this.page = page;
 		finalizeParams();
 		params = new LinkedHashMap<>();
-		params.put(Extractor.NEW_SPEC_KEY, "_page=" + page);
+		params.put(Extractor.NEW_FAIRSPEC_KEY, "_page=" + page);
 		params.put("mnovaVersion", mnovaVersion);
 		origin = null;
 		pageList.add(params);
@@ -249,7 +249,7 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 		for (Entry<String, Object> p : params.entrySet()) {
 			String key = p.getKey();
 			if (key.startsWith("_") ? key.startsWith(Extractor.STRUC_FILE_DATA_KEY)
-					: sendNewPage || !key.equals(Extractor.NEW_SPEC_KEY))
+					: sendNewPage || !key.equals(Extractor.NEW_FAIRSPEC_KEY))
 				report(key, p.getValue());
 		}
 	}

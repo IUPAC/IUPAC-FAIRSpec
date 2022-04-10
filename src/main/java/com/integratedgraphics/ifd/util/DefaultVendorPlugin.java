@@ -5,8 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.contrib.ExtractorI;
-import org.iupac.fairdata.contrib.PropertyManagerI;
+import org.iupac.fairdata.extract.ExtractorI;
 
 import com.integratedgraphics.ifd.api.VendorPluginI;
 
@@ -138,11 +137,11 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 		return IFDConst.getProp(name);
 	}
 
-	protected final static String IFD_REP_DATA_SPEC_NMR_VENDOR_DATASET = getProp("IFD_REP_DATA_SPEC_NMR_VENDOR_DATASET");
-    final static String IFD_PROP_DATA_SPEC_NMR_INSTR_MANUFACTURER_NAME = getProp("IFD_PROP_DATA_SPEC_NMR_INSTR_MANUFACTURER_NAME");
+	protected final static String IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET");
+    final static String IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_INSTR_MANUFACTURER_NAME = getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_INSTR_MANUFACTURER_NAME");
 
     protected void reportVendor() {
-		addProperty(IFD_PROP_DATA_SPEC_NMR_INSTR_MANUFACTURER_NAME, getVendorName());
+		addProperty(IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_INSTR_MANUFACTURER_NAME, getVendorName());
 	}
 
 	/**
@@ -167,17 +166,15 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	 * Pass back the standardized key/val pair to the IFDExtractorI class.
 	 * 
 	 * @param key
-	 * @param val
+	 * @param val a String or Double
 	 */
 	public void addProperty(String key, Object val) {
 		if (val instanceof Double) {
 			if (Double.isNaN((Double)val))
 				return;
 		}
-		// TODO ?
-		boolean isInline = false;
-		String mediaType = null;
-		PropertyManagerI.addPropertyOrRepresentation(extractor, key, val, isInline, mediaType);
+		if (val != null && extractor != null)
+			extractor.addProperty(key, val);
 	}
 
 	/**

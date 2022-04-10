@@ -1,6 +1,6 @@
 package com.integratedgraphics.ifd.vendor.jcamp;
 
-import org.iupac.fairdata.contrib.ExtractorI;
+import org.iupac.fairdata.extract.ExtractorI;
 
 import com.integratedgraphics.ifd.util.DefaultVendorPlugin;
 
@@ -28,7 +28,7 @@ public class JCAMPDXIFDVendorPlugin extends DefaultVendorPlugin {
 
 	@Override
 	public String processRepresentation(String ifdPath, byte[] bytes) {
-		return IFD_REP_DATA_SPEC_NMR_VENDOR_DATASET;
+		return IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET;
 	}
 
 }

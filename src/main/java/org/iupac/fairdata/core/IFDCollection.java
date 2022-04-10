@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
 
 @SuppressWarnings("serial")
@@ -12,6 +13,8 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 
 	abstract public Class<?>[] getObjectTypes();
 	
+	protected String itemsName = "items";
+
 	protected IFDCollection(String name, String type) {
 		super(name, type);
 	}
@@ -36,7 +39,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 	 */
 	@Override
 	public boolean add(T t) {
-		if (t != null && contains(t))
+		if (t == null || contains(t))
 			return false;
 		if (!hasRepresentations && (t instanceof IFDRepresentableObject))
 			hasRepresentations = true;
@@ -46,16 +49,16 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 
 	/**
 	 * Find a representation in one of the items of a collection
-	 * @param ifdPath
+	 * @param originPath
 	 * @return
 	 */
-	public IFDRepresentation getRepresentation(String ifdPath) {
+	public IFDRepresentation getRepresentation(String originPath) {
 		if (!hasRepresentations)
 			return null;
 		for (T c : this) {
 			if (!(c instanceof IFDRepresentableObject))
 				continue;
-			IFDRepresentation r = ((IFDRepresentableObject<?>)c).getRepresentation(ifdPath);
+			IFDRepresentation r = ((IFDRepresentableObject<?>)c).getRepresentation(originPath);
 			if (r != null)
 				return r;
 		}
@@ -96,8 +99,13 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 		}
 		return null;
 	}
-
-
+	
+	@Override
+	protected void serializeList(IFDSerializerI serializer) {
+		if (size() > 0) {
+			serializer.addList("items", this);
+		}
+	}
 
 
 

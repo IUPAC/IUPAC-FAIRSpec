@@ -4,8 +4,8 @@
  {"figshareid1":"22284726"},
  {"figshareid2":"22284729"},
  
- {"IFD.property.collectionset.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
- {"IFD.property.collectionset.data.license.name":"cc-by-nc-4.0"},
+ {"IFD.property.collectionset.source.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.source.data.license.name":"cc-by-nc-4.0"},
  {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
  {"IFD.property.collectionset.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
  
@@ -16,13 +16,13 @@
 
  {"path1":"{data1}|*.zip|"},  
  {"note":"using **/*.mnova* here because it is .mnova_copy for Compound 5"},
- {"FAIRSpec.extractor.object":"{path1}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}/{expt=::*}}.zip|{expt}/}"},
- {"FAIRSpec.extractor.object":"{path1}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}/**/*.mnova*}}"},
+ {"FAIRSpec.extractor.object":"{path1}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{IFD.property.dataobject.fairspec.nmr.expt.label::{id=IFD.property.sample.label::*}/{expt=::*}}.zip|{expt}/}"},
+ {"FAIRSpec.extractor.object":"{path1}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{IFD.property.dataobject.fairspec.nmr.expt.label::{id=IFD.property.sample.label::*}/**/*.mnova*}}"},
  {"FAIRSpec.extractor.object":"{path1}{IFD.representation.structure.cdx::{id=IFD.property.sample.label::*}/*.cdx}"},
 
  {"data2":"{IFD.property.collectionset.source.data.uri::https://ndownloader.figshare.com/files/{figshareid2}}"},
 
  {"path2":"{data2}|*.zip|"},
- {"FAIRSpec.extractor.object":"{path2}{IFD.representation.data.spec.nmr.vendor.dataset::{IFD.property.data.spec.nmr.expt.label::{id=IFD.property.sample.label::*}/{expt=::*}}.zip|{expt}/}"},
+ {"FAIRSpec.extractor.object":"{path2}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{IFD.property.dataobject.fairspec.nmr.expt.label::{id=IFD.property.sample.label::*}/{expt=::*}}.zip|{expt}/}"},
  {"FAIRSpec.extractor.object":"{path2}{IFD.representation.structure.cdx::{id=IFD.property.sample.label::*}/*.cdx}"}
 ]}

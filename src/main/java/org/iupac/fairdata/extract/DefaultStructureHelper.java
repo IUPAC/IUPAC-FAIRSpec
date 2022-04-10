@@ -1,4 +1,4 @@
-package org.iupac.fairdata.contrib;
+package org.iupac.fairdata.extract;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -89,13 +89,13 @@ public class DefaultStructureHelper implements PropertyManagerI {
 			// .getFileType(Rdr.getBufferedReader(Rdr.getBIS(bytes), null));
 		}
 		if (smiles != null) {
-			PropertyManagerI.addPropertyOrRepresentation(extractor, IFDConst.getProp("IFD_REP_STRUCTURE_SMILES"), smiles, true, "chemical/x-smiles");
+			extractor.addPropertyOrRepresentation(IFDConst.getProp("IFD_REP_STRUCTURE_SMILES"), smiles, true, "chemical/x-smiles");
 		}
 		if (inchi != null) {
-			PropertyManagerI.addPropertyOrRepresentation(extractor, IFDConst.getProp("IFD_REP_STRUCTURE_INCHI"), inchi, true, "chemical/x-inchi");
+				extractor.addPropertyOrRepresentation(IFDConst.getProp("IFD_REP_STRUCTURE_INCHI"), inchi, true, "chemical/x-inchi");
 		}
 		if (inchiKey != null) {
-			PropertyManagerI.addPropertyOrRepresentation(extractor, IFDConst.getProp("IFD_PROP_STRUCTURE_INCHIKEY"), inchiKey, true, "chemical/x-inchikey");
+				extractor.addPropertyOrRepresentation(IFDConst.getProp("IFD_PROP_STRUCTURE_INCHIKEY"), inchiKey, true, "chemical/x-inchikey");
 		}
 		fileToType.put(ifdPath, type);
 		return type;
@@ -104,6 +104,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 	public static String mediaTypeFromName(String fname) {
 		int pt = Math.max(fname.lastIndexOf('/'), fname.lastIndexOf('.'));
 		return (fname.endsWith(".zip") ? "application/zip"
+				: fname.endsWith(".pdf") ? "application/pdf" 
 				: fname.endsWith(".png") ? "image/png"
 				: fname.endsWith(".inchi") ? "chemical/x-inchi"
 				: fname.endsWith(".smiles") ? "chemical/x-smiles"
@@ -116,8 +117,8 @@ public class DefaultStructureHelper implements PropertyManagerI {
 				: fname.endsWith(".txt") || fname.endsWith(".log") || fname.endsWith(".out") ? "text/plain"
 				: fname.endsWith(".inchi") ? "chemical/x-inchi"
 				: fname.endsWith(".smiles") || fname.endsWith(".smi") ? "chemical/x-daylight-smiles"
-				: fname.endsWith(".pdf") ? "application/pdf" : fname.endsWith(".jpf") ? "application/octet-stream (JEOL)"
-				: fname.endsWith(".mnova") ? "application/octet-stream (mnova)"
+				: fname.endsWith(".jpf") ? "application/octet-stream (JEOL)"
+				: fname.endsWith(".mnova") ? "application/octet-stream (MNOVA)"
 				: pt >= 0 ? "?" + fname.substring(pt) : "?");
 	}
 

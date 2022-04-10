@@ -1,4 +1,4 @@
-package org.iupac.fairdata.contrib;
+package org.iupac.fairdata.contrib.fairspec;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +8,7 @@ import java.util.List;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
+import org.iupac.fairdata.contrib.fairspec.dataobject.FAIRSpecDataObject;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDCollectionSet;
@@ -24,6 +25,7 @@ import org.iupac.fairdata.derived.IFDSampleStructureAssociationCollection;
 import org.iupac.fairdata.derived.IFDStructureDataAnalysisCollection;
 import org.iupac.fairdata.derived.IFDStructureDataAssociation;
 import org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;
+import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.sample.IFDSampleCollection;
 import org.iupac.fairdata.structure.IFDStructure;
@@ -75,8 +77,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		public final static String Structure = "org.iupac.fairdata.structure.IFDStructure";
 		public final static String StructureCollection = "org.iupac.fairdata.structure.IFDStructureCollection";
 
-		public final static String DataObject = "org.iupac.fairdata.dataobject.IFDDataObject";
-		public final static String DataObjectCollection = "org.iupac.fairdata.dataobject.IFDDataObjectCollection";
+		public final static String DataObject = "org.iupac.fairdata.contrib.fairspec.dataobjectobject.IFDDataObject";
+		public final static String DataObjectCollection = "org.iupac.fairdata.contrib.fairspec.dataobjectobject.IFDDataObjectCollection";
 
 		public final static String SampleDataAssociation = "org.iupac.fairdata.derived.IFDSampleDataAssociation";
 		public final static String SampleDataAssociationCollection = "org.iupac.fairdata.derived.IFDSampleDataAssociationCollection";
@@ -116,7 +118,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public final static int STRUCTURE_DATA_ANALYSIS_COLLECTION = 4;
 
 	public static final String FAIRSPEC_EXTRACT_VERSION = IFDConst.getProp("FAIRSPEC_EXTRACT_VERSION");
-	public static final String FAIRSPEC_DATA_SPEC_FLAG = IFDConst.getProp("FAIRSPEC_DATA_FLAG");
+	public static final String DATAOBJECT_FAIRSPEC_FLAG = IFDConst.getProp("FAIRSPEC_DATAOBJECT_FLAG");
 
 	protected final FAIRSpecFindingAid findingAid;
 
@@ -224,8 +226,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			return ClassTypes.StructureDataAnalysis;
 		if (propName.startsWith("\0analysis.sampledata"))
 			return ClassTypes.SampleDataAnalysis;
-		if (propName.startsWith("\0data.spec."))
-			return propName.substring(1, propName.indexOf(".", 11));
+		if (propName.startsWith("\0dataobject.fairspec."))
+			return propName.substring(1, propName.indexOf(".", 21));
 		return "Unknown";
 	}
 
@@ -247,9 +249,18 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 
 		String type = getObjectTypeForName(param, false);
 
-		if (type.startsWith(FAIRSPEC_DATA_SPEC_FLAG)) {
-			currentDataObject = getDataObjectCollection().getDataObjectFor(rootPath, currentOriginPath, rootPath, localName, param, id,
-					type, DefaultStructureHelper.mediaTypeFromName(localName));
+		if (type.startsWith(DATAOBJECT_FAIRSPEC_FLAG)) {
+			currentDataObject = getDataObjectCollection().findObject(rootPath, currentOriginPath);
+			if (currentDataObject == null) {
+				currentDataObject = FAIRSpecDataObject.createFAIRSpecObject(rootPath, type);
+				getDataObjectCollection().addObject(rootPath, currentOriginPath, currentDataObject);
+				if (currentDataObject == null)
+					throw new IFDException("IFDDataObject.addRepresentation object not found for path=" + rootPath
+							+ " and originPath=" + currentOriginPath);
+			}
+			currentDataObject.setPropertyValue(param, id);
+			currentDataObject.findOrAddRepresentation(currentOriginPath, localName, null, param,
+					DefaultStructureHelper.mediaTypeFromName(localName));
 			currentDataObject.setResource(currentResource);
 			return currentDataObject;
 		}
@@ -300,7 +311,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		case ClassTypes.SampleCollection:
 			// should not be generic
 		default:
-			System.err.println("FAIRSpecFindingAidHelper could not add " + param + " " + id + " for " + currentOriginPath);
+			System.err.println(
+					"FAIRSpecFindingAidHelper could not add " + param + " " + id + " for " + currentOriginPath);
 			break;
 		}
 		return null;

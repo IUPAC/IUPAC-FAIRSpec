@@ -124,7 +124,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 	}
 
 	@Override
-	protected void serializeList(IFDSerializerI serializer, String key) {
+	protected void serializeList(IFDSerializerI serializer) {
 		collectionSet.serialize(serializer);
 	}
 
@@ -137,7 +137,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 			serializer.addObject("created", date.toGMTString());
 			if (getCreator() != null)
 				serializer.addObject("createdBy", getCreator());
-			serializer.addObject("statistics", getStatistics(new TreeMap<>()));
+			serializer.addObject("contents", getContentsMap(new TreeMap<>()));
 			addCitations(serializer);
 			serializer.addObject("resources", resources);
 			serializeProps(serializer);
@@ -181,9 +181,9 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 		return serializer.createSerialization(this, targetDir, rootName, products);
 	}
 
-	protected Map<String, Object> getStatistics(Map<String, Object> map) {
-		map.put("resources", Integer.valueOf(resources.size()));
-		collectionSet.getStatistics(map);
+	protected Map<String, Object> getContentsMap(Map<String, Object> map) {
+		map.put("resourceCount", Integer.valueOf(resources.size()));
+		collectionSet.getContents(map);
 		return map;
 	}
 	

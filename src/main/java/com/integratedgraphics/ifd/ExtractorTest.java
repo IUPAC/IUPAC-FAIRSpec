@@ -36,8 +36,8 @@ import org.iupac.fairdata.util.IFDUtilities;
 public class ExtractorTest extends Extractor {
 
 	
-	static int first = 11; // first test to run
-	static int last = 11;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+	static int first = 0; // first test to run
+	static int last = 12;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 					// file test
 	
 
@@ -241,7 +241,7 @@ public class ExtractorTest extends Extractor {
 		debugging = false; // true for verbose listing of all files
 		createFindingAidsOnly = false; // true if extraction files already exist or you otherwise don't want not write
 		
-		allowNoPubInfo = debugReadOnly; // true to allow no internet connection and so no pub calls
+		allowNoPubInfo = true;// debugReadOnly; // true to allow no internet connection and so no pub calls
 		skipPubInfo = !dataciteUp || debugReadOnly;  // true to allow no internet connection and so no pub calls
 	
 		if (first == last) {

@@ -1,7 +1,5 @@
 package org.iupac.fairdata.dataobject;
 
-import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 
@@ -26,45 +24,17 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 		super(name, type);
 	}
 	
-	public boolean addObject(IFDDataObject sd) {
-		if (contains(sd))
-			return false;
-		if (subtype == "Unknown")
-			subtype = sd.getObjectType();
-		else if (sd.getObjectType() != subtype)
-			subtype = "Mixed";
-		super.add(sd);
-		return true;		
-	}
-	
-	@Override
-	public boolean add(IFDRepresentableObject<IFDDataObjectRepresentation> t) {
-		if (t instanceof IFDDataObject) {
-			return addObject((IFDDataObject) t);
-		}
-		System.err.println("IFDObject error: " + t);
-		return false;
-	}
-
-	public IFDDataObject getDataObjectFor(String rootPath, String originPath, String path, String localName, String param, String value, String type, String mediaType)  throws IFDException {
+	public IFDDataObject findObject(String path, String originPath) {
 		String keyValue = path + "::" + originPath;
-		IFDDataObject sd = (IFDDataObject) map.get(keyValue);
-		if (sd == null) {
-			String ifdtype = IFDConst.getProp("IFD_DATA_OBJECT_TYPE_" + type);
-			if (ifdtype == null)
-				ifdtype = IFDConst.getProp("IFD_DATA_OBJECT_TYPE.UNKNOWN") + "." + type.toUpperCase();
-			sd = new IFDDataObject(rootPath, null, ifdtype);
-			sd.setPropertyValue(param, value);
- 			map.put(keyValue, sd);
- 			add(sd);
-		} else {
-			sd.setPropertyValue(param, value);
-		}
-		sd.findOrAddRepresentation(originPath, localName, null, param, mediaType);
-		return sd;
+		return (IFDDataObject) map.get(keyValue);
 	}
 
-
+	public void addObject(String rootPath, String originPath, IFDDataObject sd) {
+		String keyValue = rootPath + "::" + originPath;
+		map.put(keyValue, sd);
+		add(sd);
+	} 
+	
 	/**
 	 * Replace a data object with a cloned version that has a new ID.
 	 * 

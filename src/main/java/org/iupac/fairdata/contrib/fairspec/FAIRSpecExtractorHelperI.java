@@ -1,4 +1,4 @@
-package org.iupac.fairdata.contrib;
+package org.iupac.fairdata.contrib.fairspec;
 
 import java.io.File;
 import java.io.IOException;

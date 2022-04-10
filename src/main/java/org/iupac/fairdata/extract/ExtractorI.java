@@ -1,4 +1,4 @@
-package org.iupac.fairdata.contrib;
+package org.iupac.fairdata.extract;
 
 import org.iupac.fairdata.core.IFDFindingAid;
 
@@ -15,6 +15,8 @@ public interface ExtractorI {
 	void log(String string);
 
 	void addPropertyOrRepresentation(String key, Object val, boolean isInLine, String mediaType);
+
+	void addProperty(String key, Object val);
 
 //	void registerFileVendor(String fname, IFDVendorPluginI ifdVendorPluginI);
 

@@ -92,14 +92,14 @@ public  class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentabl
 	}
 
 	@Override
-	public void serialize(IFDSerializerI serializer) {
+	public void serializeList(IFDSerializerI serializer) {
 		// this class should serialize as a raw list of lists, without {....}
 		List<List<Integer>> list = new ArrayList<>();
 		for (int i = 0; i < size(); i++) {
 			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = getObject(i);
 			list.add(c.getIndexList());
 		}
-		serializer.addValue(list);
+		serializer.addList("items", list);
 	}
 	
 }

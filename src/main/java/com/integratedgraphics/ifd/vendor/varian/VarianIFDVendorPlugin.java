@@ -2,7 +2,7 @@ package com.integratedgraphics.ifd.vendor.varian;
 
 import java.io.ByteArrayInputStream;
 
-import org.iupac.fairdata.contrib.ExtractorI;
+import org.iupac.fairdata.extract.ExtractorI;
 import org.nmrml.parser.Acqu;
 
 import com.integratedgraphics.ifd.vendor.NmrMLIFDVendorPlugin;
@@ -40,7 +40,7 @@ public class VarianIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 
 	@Override
 	public String processRepresentation(String ifdPath, byte[] bytes) {
-		return IFD_REP_DATA_SPEC_NMR_VENDOR_DATASET;
+		return IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET;
 	}
 
 

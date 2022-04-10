@@ -1,7 +1,7 @@
 package org.iupac.fairdata.core;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -156,8 +156,8 @@ import org.iupac.fairdata.common.IFDException;
  *
  * -- IFDFindingAid --
  *
- * The IFDFindingAid class is a master class for the organizing metadata
- * in relation to a collection. It is not a collection itself, and it has no
+ * The IFDFindingAid class is a master class for the organizing metadata in
+ * relation to a collection. It is not a collection itself, and it has no
  * representations, though as an IFDObject, it can be serialized. This class
  * ultimately extends ArrayList, so all of the methods of that standard Java
  * class are allowed (add, put, replace, etc.)
@@ -173,13 +173,13 @@ import org.iupac.fairdata.common.IFDException;
  * 31P) and spectrometer nominal frequency (300 MHz, 800 MHz) or type of IR
  * analysis (such as ATR).
  * 
- * It is the IFDFindingAid that ultimately distinguishes the IUPAC
- * FAIRSpec data model from other models. It should contain all the information
- * that forms the basis of what the user sees. It should reveal information
- * about the collection that allows users to quickly determine whether data in
- * this collection are relevant to their interests or not. The
- * IFDFindingAid could be static -- a Digital Item within a repository
- * collection -- or dynamically created in response to a query.
+ * It is the IFDFindingAid that ultimately distinguishes the IUPAC FAIRSpec data
+ * model from other models. It should contain all the information that forms the
+ * basis of what the user sees. It should reveal information about the
+ * collection that allows users to quickly determine whether data in this
+ * collection are relevant to their interests or not. The IFDFindingAid could be
+ * static -- a Digital Item within a repository collection -- or dynamically
+ * created in response to a query.
  * 
  * 
  * @author hansonr
@@ -191,7 +191,7 @@ import org.iupac.fairdata.common.IFDException;
 @SuppressWarnings("serial")
 public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>, IFDSerializableI {
 
-	public final static String REP_TYPE_UNKNOWN = "unknown";
+	abstract void serializeList(IFDSerializerI serializer);
 
 	protected static int indexCount;
 
@@ -199,12 +199,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * a unique identifier for debugging
 	 */
 	protected int index;
-
-	/**
-	 * index of source URL in the IFDFindingAid URLs list; must be set nonnegative
-	 * to register
-	 */
-	private IFDResource resource;
 
 	/**
 	 * an arbitrary name given to provide some sort of context
@@ -239,11 +233,10 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 */
 	private int minCount;
 
+	/**
+	 * serialized
+	 */
 	protected String type;
-
-	protected String subtype = "Unknown";
-
-	private Class<?> extendedType;
 
 	public IFDObject(String name, String type) {
 		set(name, type, Integer.MAX_VALUE);
@@ -343,14 +336,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return index;
 	}
 
-	public void setResource(IFDResource resource) {
-		this.resource = resource;
-	}
-
-	public IFDResource getResource() {
-		return resource;
-	}
-
 	public String getID() {
 		return (id == null ? "" + index : id);
 	}
@@ -367,11 +352,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	@Override
 	public T getObject(int index) {
 		return get(index);
-	}
-
-	@Override
-	public String getObjectType() {
-		return type;
 	}
 
 	@Override
@@ -439,41 +419,54 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return type;
 	}
 
-	public Class<?> getCoreType() {
-		if (extendedType == null) {
-		  Class<?> t = getClass();
-		  Class<?> supert;
-		  
-		  while (!t.getName().startsWith("org.iupac.fairdata.core") 
-				  &&(supert = t.getSuperclass()) != Object.class) {
-			  t = supert;
-		  }
-		  extendedType = t;
-		}
-		return extendedType;
-	}
-
 	@Override
 	public void serialize(IFDSerializerI serializer) {
 		serializeTop(serializer);
 		serializeProps(serializer);
-		serializeList(serializer, null);
+		serializeList(serializer);
 	}
 
 	protected void serializeTop(IFDSerializerI serializer) {
-		serializer.addAttr("type", getSerializedType());
-		if (getCoreType() != getClass())
-		  serializer.addAttr("typeExtends", extendedType.getName());
-		if (subtype != null && subtype != "Unknown")
-			serializer.addAttr("subtype", subtype);
+		serializeClass(serializer, getClass(), type);
 		serializer.addAttr("name", getName());
-		serializer.addAttr("id", getID());
+// debugging only		serializer.addAttr("id", getID());
+	}
+
+	static void serializeClass(IFDSerializerI serializer, Class<?> c, String stype) {
+		serializer.addAttr("type", stype == null ? c.getName() : stype);
+		if (serializeExtended(c).length() > 0)
+			serializer.addAttr("typeExtends", serializeExtended(c));
+	}
+
+	public static void addTypes(Class<?> c, Map<String, Object> m) {
+		String ctype = c.getName();
+		m.put("type", ctype);
+		String stype = serializeExtended(c);
+		if (!stype.equals(ctype))
+			m.put("typeExtends", stype);
+	}
+
+	private static Map<String, String> htExtendedTypes = new Hashtable<>();
+
+	private static String serializeExtended(Class<?> t) {
+		String name = t.getName();
+		String et = htExtendedTypes.get(name);
+		String n = name;
+		if (et == null) {
+			et = "";
+			String sep = "";
+			while ((t = t.getSuperclass()) != Object.class && (n = t.getName()).indexOf("IFDObject") < 0) {
+				et += sep + n;
+				sep = ";";
+				if (n.startsWith("org.iupac.fairdata.core"))
+					break;
+			}
+			htExtendedTypes.put(name, et);
+		}
+		return et;
 	}
 
 	protected void serializeProps(IFDSerializerI serializer) {
-		if (resource != null)
-			serializer.addAttrInt("resource", resource.getIndex());
-//ONLY FOR REPRESENTATIONS		serializer.addAttr("path", getPath());
 		if (haveProperties()) {
 			// general serialization does not write out units
 			Map<String, Object> map = new TreeMap<>();
@@ -488,16 +481,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			serializer.addObject("parameters", getParams());
 	}
 
-	protected void serializeList(IFDSerializerI serializer, String key) {
-		if (size() > 0) {
-//			serializer.addAttrInt("elementCount", size());
-			List<T> list = new ArrayList<T>();
-			for (int i = 0, n = size(); i < n; i++)
-				list.add(get(i));
-			serializer.addObject(key == null ? "elements" : key, list);
-		}
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		return (o == this);
@@ -506,4 +489,5 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 //		IFDObject<?> c = (IFDObject<?>) o;
 //		return name.equals(c.getName());
 	}
+
 }

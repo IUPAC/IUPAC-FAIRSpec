@@ -17,6 +17,4 @@ public interface IFDObjectI<T> {
 
 	int getObjectCount();
 
-	String getObjectType();
-
 }

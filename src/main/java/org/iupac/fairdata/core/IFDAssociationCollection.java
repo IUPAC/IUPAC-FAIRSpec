@@ -98,12 +98,6 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 			list.add(cp.getName());
 		}
 		serializer.addObject("collections", list);
-//		list.clear();
-//		Class<?>[] types = firstAssociation.getObjectTypes();
-//		for (int i = 0; i < arity; i++) {
-//			list.add(types[i].getName());
-//		}
-//		serializer.addObject("collectionTypes", list);
 	}
 
 	public void removeOrphanedAssociations() {

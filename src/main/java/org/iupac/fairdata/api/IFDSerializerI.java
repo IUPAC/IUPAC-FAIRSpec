@@ -41,4 +41,6 @@ public interface IFDSerializerI {
 	 * @throws IOException
 	 */
 	String createSerialization(IFDFindingAid ifdFindingAid, File targetDir, String rootName, List<Object> products) throws IOException;
+
+	void addList(String key, List<?> value);
 }

@@ -15,32 +15,32 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 	/**
 	 * The type of this data -- to be specified...
 	 */
-	private String type;
+	private String ifdType;
 	private final IFDReference ref;
 	private final Object data;
 	private long len;
-	private String subtype;
+	private String mediaType;
 	
 	public IFDRepresentation(IFDReference ref, Object data, long len, String type, String subtype) {
-		this.type = type;
+		this.ifdType = type;
 		this.ref = ref;
 		this.data = data;
 		this.len = (ref != null || len != 0 ? len
 				: data instanceof String ? ((String) data).length()
 						: data instanceof byte[] ? ((byte[]) data).length : 0);
-		this.subtype = subtype;
+		this.mediaType = subtype;
 	}
 
 	public IFDRepresentation(IFDRepresentation rep) {
-		this(rep.getRef(), rep.getData(), rep.getLength(), rep.getType(), rep.getSubtype());
+		this(rep.getRef(), rep.getData(), rep.getLength(), rep.getType(), rep.getMediaType());
 	}
 
 	public String getType() {
-		return type;
+		return ifdType;
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		this.ifdType = type;
 	}
 
 	public IFDReference getRef() {
@@ -59,24 +59,30 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 	}
 
 
-	public String getSubtype() {
-		return subtype;
+	public String getMediaType() {
+		return mediaType;
 	}
 
-	public void setSubtype(String subtype) {
-		this.subtype = subtype;
+	public void setMediaType(String mediaType) {
+		this.mediaType = mediaType;
 	}
 
 	@Override
 	public String toString() {
-		return "[IFDRepresentation type=" + type + " ref=" + ref + "]";
+		return "[IFDRepresentation type=" + ifdType + " ref=" + ref + "]";
+	}
+
+	@Override
+	public String getSerializedType() {
+		return ifdType;
 	}
 
 	@Override
 	public void serialize(IFDSerializerI serializer) {
-		serializer.addAttr("type", type == null ? "unknown" : type);
-		if (subtype != null && !subtype.equals(type))
-			serializer.addAttr("subtype", subtype);
+		IFDObject.serializeClass(serializer, getClass(), null);
+		serializer.addAttr("ifdType", ifdType == null ? "unknown" : ifdType);
+		if (mediaType != null && !mediaType.equals(ifdType))
+			serializer.addAttr("mediaType", mediaType);
 		serializer.addAttrInt("len", (int) len);
 		if (ref != null)
 			serializer.addObject("ref", ref);
@@ -84,9 +90,5 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 			serializer.addObject("data", data);
 	}
 
-	@Override
-	public String getSerializedType() {
-		return type;
-	}
 
 }

@@ -78,7 +78,7 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 		return new Class<?>[] { IFDCollection.class };
 	}
 
-	public void getStatistics(Map<String, Object> map) {
+	public void getContents(Map<String, Object> map) {
 		List<Map<String, Object>> lst = new ArrayList<>();
 		for (int i = 0; i < size(); i++) {
 			IFDCollection<?> c = get(i);
@@ -86,14 +86,10 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 				continue;
 			Map<String, Object> m = new TreeMap<>();
 			m.put("name", c.getName());
-			String ctype = c.getClass().getName();
-			String stype = c.getCoreType().getName();
-			m.put("type", ctype);
-			if (!stype.equals(ctype))
-				m.put("typeExtends", stype);
+			IFDObject.addTypes(c.getClass(), m);
 			m.put("count", c.size());
 			lst.add(m);
-		}
+		}		
 		map.put("collections", lst);
 	}
 

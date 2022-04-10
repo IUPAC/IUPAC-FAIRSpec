@@ -1,19 +1,45 @@
-package org.iupac.fairdata.contrib;
+package org.iupac.fairdata.extract;
 
+/**
+ * An interface that allows passing of key information between an extractor and 
+ * a structure helper or vender plugin.
+ * 
+ * Implemented by structure helpers and vender plugins.
+ * 
+ * @author hansonr
+ *
+ */
 public interface PropertyManagerI {
 
+	/**
+	 * The regular expression that this vender plugin or structure helper uses to 
+	 * identify digital objects that it wants to inspect. 
+	 * 
+	 * @return
+	 */
 	String getParamRegex();
 
+	/**
+	 * Start the extraction process on a specified digital item.
+	 * 
+	 * @param entryName
+	 * @return
+	 */
 	boolean doExtract(String entryName);
 
 	/**
-	 * The key method that an extractor uses to offer to the plugin both the name
-	 * and the bytes of the zip entry that is being considered for extraction.
+	 * The key method that an extractor calls uses to offer to the
+	 * plugin both the name and the bytes of the zip entry that is being considered
+	 * for extraction from directories or zip collections. 
+	 * 
+	 * 
 	 * 
 	 * @param extractor will be null if rezipping, otherwise the calling
 	 *                  IFDExtractorI
-	 * @param ifdPath the output path, either for a ZipOutputStream or a FileOutputStream
-	 * @param bytes     the decompressed contents of this file, for checking and further processing; may be null in some applications
+	 * @param ifdPath   the output path, either for a ZipOutputStream or a
+	 *                  FileOutputStream
+	 * @param bytes     the decompressed contents of this file, for checking and
+	 *                  further processing; may be null in some applications
 	 * @return true if accepted (but may be ignored by the extractor)
 	 */
 	String accept(ExtractorI extractor, String ifdPath, byte[] bytes);
@@ -29,15 +55,19 @@ public interface PropertyManagerI {
 	 * 
 	 * @param bytes   bytes for this representation; may be null for zip files
 	 * @return the IFD type key for this digital object (e.g.
-	 *         IFDNMRSpecDataRepresentation.IFD_REP_DATA_SPEC_NMR_VENDOR_DATASET)
+	 *         IFDNMRSpecDataRepresentation.IFD_REP_DATAOBJECT_SPEC_NMR_VENDOR_DATASET)
 	 */
 	String processRepresentation(String ifdPath, byte[] bytes);
 
+	/**
+	 * 
+	 * @param extractor
+	 * @param key
+	 * @param val
+	 * @param isInline
+	 * @param mediaType
+	 */
 	static void addPropertyOrRepresentation(ExtractorI extractor, String key, Object val, boolean isInline, String mediaType) {
-		if (val == null)
-			return;
-		if (extractor != null)
-			extractor.addPropertyOrRepresentation(key, val, isInline, mediaType);
 	}
 
 }
