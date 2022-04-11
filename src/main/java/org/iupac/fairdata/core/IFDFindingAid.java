@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.TreeMap;
 
 import org.iupac.fairdata.api.IFDSerializerI;
@@ -47,6 +48,10 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 	 * ISO-8601
 	 */
 	private static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+	
+	static {
+		df.setTimeZone(TimeZone.getTimeZone("UTC"));
+	}
 	
 	public IFDFindingAid(String label, String type, String creator, IFDCollectionSet collection) throws IFDException {
 		super(label, type, 1, (collection == null ? new IFDCollectionSet(null) : collection));
