@@ -24,12 +24,12 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 		setProperties("IFD_PROP_COLLECTIONSET_", null);
 	}
 
-	public IFDCollectionSet(String name) {
-		this(name, null);
+	public IFDCollectionSet(String label) {
+		this(label, null);
 	}
 
-	public IFDCollectionSet(String name, String type) {
-		super(name, type);
+	public IFDCollectionSet(String label, String type) {
+		super(label, type);
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 					continue;
 				if ((c.size() > 0 && c.get(0) instanceof IFDAssociation) == (pass == 1)) {
 					if (pass == 1 || c.size() > 0)
-					serializer.addObject(c.getName(), c);
+					serializer.addObject(c.getLabel(), c);
 				}
 			}
 		}
@@ -85,7 +85,7 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 			if (c.size() == 0)
 				continue;
 			Map<String, Object> m = new TreeMap<>();
-			m.put("name", c.getName());
+			m.put("label", c.getLabel());
 			IFDObject.addTypes(c.getClass(), m);
 			m.put("count", c.size());
 			lst.add(m);

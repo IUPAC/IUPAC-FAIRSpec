@@ -19,8 +19,8 @@ import org.iupac.fairdata.common.IFDException;
  * IFDObject extends ArrayList so as to allow for storing and retrieving
  * multiple objects or representations with standard ArrayList methods.
  * 
- * An IFDObject can be initialized with just an arbitrary name or with a name
- * and a maximum count, or with a name, a maximum count, and an "immutable"
+ * An IFDObject can be initialized with just an arbitrary label or with a label
+ * and a maximum count, or with a label, a maximum count, and an "immutable"
  * starting set that are not allowed to be set or removed or changed.
  * 
  * IFDObject and its subclasses implement the IFDObjectI interface and come in
@@ -201,9 +201,9 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected int index;
 
 	/**
-	 * an arbitrary name given to provide some sort of context
+	 * an arbitrary label given to provide some sort of context
 	 */
-	protected String name;
+	protected String label;
 
 	/**
 	 * an arbitrary identifier to provide some sort of context
@@ -238,23 +238,23 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 */
 	protected String type;
 
-	public IFDObject(String name, String type) {
-		set(name, type, Integer.MAX_VALUE);
+	public IFDObject(String label, String type) {
+		set(label, type, Integer.MAX_VALUE);
 	}
 
 	/**
 	 * Set with an initial set, for an association. No element of the initial set
 	 * can be null.
 	 * 
-	 * @param name
+	 * @param label
 	 * @param type
 	 * @param maxCount
 	 * @param initialSet
 	 * @throws IFDException if any element of a non-null initialSet is null
 	 */
 	@SuppressWarnings("unchecked")
-	public IFDObject(String name, String type, int maxCount, T... initialSet) throws IFDException {
-		set(name, type, maxCount);
+	public IFDObject(String label, String type, int maxCount, T... initialSet) throws IFDException {
+		set(label, type, maxCount);
 		if (type != null)
 			System.out.println("IFDObject type not null");
 		if (initialSet == null) {
@@ -269,8 +269,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		}
 	}
 
-	private void set(String name, String type, int maxCount) {
-		this.name = name;
+	private void set(String label, String type, int maxCount) {
+		this.label = label;
 		if (type == null)
 			type = this.getClass().getName();
 		this.type = type;
@@ -306,26 +306,26 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return params;
 	}
 
-	public void setPropertyValue(String name, Object value) {
+	public void setPropertyValue(String label, Object value) {
 		// check for .representation., which is not stored in the object.
-		if (IFDConst.isRepresentation(name))
+		if (IFDConst.isRepresentation(label))
 			return;
-		if (IFDConst.isLabel(name))
-			this.name = value.toString();
-		IFDProperty p = IFDConst.getIFDProperty(htProps, name);
+		if (IFDConst.isLabel(label))
+			this.label = value.toString();
+		IFDProperty p = IFDConst.getIFDProperty(htProps, label);
 		if (p == null) {
 			if (value == null)
-				params.remove(name);
+				params.remove(label);
 			else
-				params.put(name, value);
+				params.put(label, value);
 			return;
 		}
-		htProps.put(name, p.getClone(value));
+		htProps.put(label, p.getClone(value));
 	}
 
-	public Object getPropertyValue(String name) {
-		IFDProperty p = htProps.get(name);
-		return (p == null ? params.get(name) : p.getValue());
+	public Object getPropertyValue(String label) {
+		IFDProperty p = htProps.get(label);
+		return (p == null ? params.get(label) : p.getValue());
 	}
 
 	public void setIndex(int i) {
@@ -345,8 +345,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	}
 
 	@Override
-	public String getName() {
-		return name;
+	public String getLabel() {
+		return label;
 	}
 
 	@Override
@@ -428,7 +428,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	protected void serializeTop(IFDSerializerI serializer) {
 		serializeClass(serializer, getClass(), type);
-		serializer.addAttr("name", getName());
+		serializer.addAttr("label", getLabel());
 		serializer.addAttr("id", getID());
 	}
 
@@ -449,9 +449,9 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	private static Map<String, String> htExtendedTypes = new Hashtable<>();
 
 	private static String serializeExtended(Class<?> t) {
-		String name = t.getName();
-		String et = htExtendedTypes.get(name);
-		String n = name;
+		String label = t.getName();
+		String et = htExtendedTypes.get(label);
+		String n = label;
 		if (et == null) {
 			et = "";
 			String sep = "";
@@ -461,7 +461,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 				if (n.startsWith("org.iupac.fairdata.core"))
 					break;
 			}
-			htExtendedTypes.put(name, et);
+			htExtendedTypes.put(label, et);
 		}
 		return et;
 	}
@@ -487,7 +487,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 //		if (!super.equals(o))
 //			return false;
 //		IFDObject<?> c = (IFDObject<?>) o;
-//		return name.equals(c.getName());
+//		return label.equals(c.getName());
 	}
 
 }

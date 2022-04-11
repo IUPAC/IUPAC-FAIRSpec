@@ -20,8 +20,8 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 		return new Class<?>[] { IFDAssociation.class };
 	}
 
-	protected IFDAssociationCollection(String name, String type) {
-		super(name, type);
+	protected IFDAssociationCollection(String label, String type) {
+		super(label, type);
 	}
 	
 	/**
@@ -95,7 +95,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 			if (cp == null) {
 			  throw new NullPointerException("IFDAssociation null or 0-length association");
 			}
-			list.add(cp.getName());
+			list.add(cp.getLabel());
 		}
 		serializer.addObject("collections", list);
 	}

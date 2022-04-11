@@ -13,15 +13,13 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 
 	abstract public Class<?>[] getObjectTypes();
 	
-	protected String itemsName = "items";
-
-	protected IFDCollection(String name, String type) {
-		super(name, type);
+	protected IFDCollection(String label, String type) {
+		super(label, type);
 	}
 
 	@SafeVarargs
-	public IFDCollection(String name, String type, T... initialSet) throws IFDException {
-		super(name, type, initialSet.length, initialSet);
+	public IFDCollection(String label, String type, T... initialSet) throws IFDException {
+		super(label, type, initialSet.length, initialSet);
 	}
 
 	public List<Integer> getIndexList() {
@@ -91,10 +89,10 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 		add(newData);
 	}
 
-	public T getObjectByName(String name) {
+	public T getObjectByName(String label) {
 		for (int i = size(); --i >= 0;) {
 			T o = get(i);
-			if (name.equals(o.getName())) 
+			if (label.equals(o.getLabel())) 
 				return o;
 		}
 		return null;

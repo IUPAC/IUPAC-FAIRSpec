@@ -36,8 +36,8 @@ import org.iupac.fairdata.util.IFDUtilities;
 public class ExtractorTest extends Extractor {
 
 	
-	static int first = 0; // first test to run
-	static int last = 12;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+	static int first = 2; // first test to run
+	static int last = 0;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 					// file test
 	
 
@@ -65,7 +65,7 @@ public class ExtractorTest extends Extractor {
 
 	private static void runExtractionTests(int first, int last, String targetDir, String sourceDir, String[] args) {
 		int i0 = first;
-		int i1 = last;
+		int i1 = Math.max(first, last);
 		int failed = 0;
 
 //		String s = "test/ok/1c.nmr";

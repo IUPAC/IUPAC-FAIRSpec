@@ -63,8 +63,8 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 	 */
 	protected final Map<String, IFDRepresentation> map = new LinkedHashMap<>();
 
-	public IFDRepresentableObject(String name, String type) {
-		super(name, type);
+	public IFDRepresentableObject(String label, String type) {
+		super(label, type);
 	}
 
 	public String getPath() {
@@ -85,8 +85,8 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 	/**
 	 * Add a representation as long as it has not already been added.
 	 * 
-	 * @param originPath an origin name used to identify unique representations
-	 * @param localName a localized name without / or |
+	 * @param originPath an origin label used to identify unique representations
+	 * @param localName a localized label without / or |
 	 * @param data TODO
 	 * @param type
 	 * @param mediaType

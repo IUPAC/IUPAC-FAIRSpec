@@ -281,7 +281,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			if (currentSample == null) {
 				currentSample = getSampleCollection().getSampleFor(rootPath, localName, param, id, currentOriginPath,
 						DefaultStructureHelper.mediaTypeFromName(localName));
-				System.out.println("IFDFAIRSpecExtractionHelper.addObject creating Sample " + currentSample.getName());
+				System.out.println("IFDFAIRSpecExtractionHelper.addObject creating Sample " + currentSample.getLabel());
 				currentSample.setResource(currentResource);
 			} else {
 				currentSample.setPropertyValue(param, id);
@@ -292,7 +292,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 				currentStructure = getStructureCollection().getStructureFor(rootPath, localName, param, id,
 						currentOriginPath, DefaultStructureHelper.mediaTypeFromName(localName));
 				System.out.println(
-						"IFDFAIRSpecExtractionHelper.addObject creating Structure " + currentStructure.getName());
+						"IFDFAIRSpecExtractionHelper.addObject creating Structure " + currentStructure.getLabel());
 				currentStructure.setResource(currentResource);
 			} else {
 				currentStructure.setPropertyValue(param, id);
@@ -366,7 +366,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			if (dataCollection.size() == 0) {
 				lstRemove.add(assoc);
 				IFDStructure st = (IFDStructure) assoc.getFirstObj1();
-				System.err.println("IFDFAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure " + st.getName());
+				System.err.println("IFDFAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure " + st.getLabel());
 				getStructureCollection().remove(st);
 				n++;
 			}
@@ -548,7 +548,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 				System.out.println("\t" + sd);
 				n++;
 			}
-			s += "## " + c.size() + " " + c.getName() + "\n";
+			s += "## " + c.size() + " " + c.getLabel() + "\n";
 		}
 		if (n == 0)
 			System.out.println("IFDFAIRSpecExtractionHelper.dumpSummary no objects?");

@@ -27,13 +27,13 @@ public class IFDStructure extends IFDRepresentableObject<IFDStructureRepresentat
 	
 	@Override
 	public String toString() {
-		if (name == null)
+		if (label == null)
 			return super.toString();
 		String refs = "";
 		for (int i = 0; i < size(); i++) {
 			refs += get(i).getMediaType() + ";";
 		}
-		return "[IFDStructure " + index + " " + name + " " + refs + "]";
+		return "[IFDStructure " + index + " " + label + " " + refs + "]";
 	}
 
 }

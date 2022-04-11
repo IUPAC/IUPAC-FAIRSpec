@@ -756,8 +756,8 @@ public class Extractor implements ExtractorI {
 			for (IFDRepresentableObject<? extends IFDRepresentation> spec : c) {
 				if (bs.get(spec.getIndex())) {
 					found.add((IFDDataObject) spec);
-					log("! removing duplicate spec reference " + spec.getName() + " for "
-							+ assoc.getFirstObj1().getName());
+					log("! removing duplicate spec reference " + spec.getLabel() + " for "
+							+ assoc.getFirstObj1().getLabel());
 					isFound = true;
 				} else {
 					bs.set(spec.getIndex());

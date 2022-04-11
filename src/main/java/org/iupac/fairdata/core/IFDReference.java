@@ -14,7 +14,7 @@ import org.iupac.fairdata.api.IFDSerializerI;
 public class IFDReference implements IFDSerializableI {
 
 	/**
-	 * Origin object; typically a ZIP file name; toString() will be used for serialization
+	 * Origin object; typically a ZIP file label; toString() will be used for serialization
 	 */
 	private final Object origin;
 	
@@ -24,7 +24,7 @@ public class IFDReference implements IFDSerializableI {
 	private final String localPath;
 	
 	/**
-	 * name of this file
+	 * label of this file
 	 */
 	private String localName;
 	

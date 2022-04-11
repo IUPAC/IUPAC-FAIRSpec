@@ -29,7 +29,7 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 		try {
 			o = getClass().newInstance();
 			o.setPath(rootPath);
-			o.name = name;		
+			o.label = label;		
 			o.type = type;
 		} catch (Exception e) {
 			// ignore
@@ -41,8 +41,8 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 
 	@Override
 	public String toString() {
-		return (name == null ? super.toString()
-				: "[" + type + " " + (parentCollection != null) + " " + index + " id=" + id + " " + name + " " + (size() > 0 ? get(0) : null) + "]");
+		return (label == null ? super.toString()
+				: "[" + type + " " + (parentCollection != null) + " " + index + " id=" + id + " " + label + " " + (size() > 0 ? get(0) : null) + "]");
 	}
 
 }

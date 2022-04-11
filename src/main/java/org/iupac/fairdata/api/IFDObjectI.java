@@ -11,7 +11,7 @@ package org.iupac.fairdata.api;
  */
 public interface IFDObjectI<T> {
 	
-	String getName();
+	String getLabel();
 
 	T getObject(int index);
 

@@ -42,8 +42,8 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 
 	protected boolean serializing;
 
-	public IFDFindingAid(String name, String type, String creator, IFDCollectionSet collection) throws IFDException {
-		super(name, type, 1, (collection == null ? new IFDCollectionSet(null) : collection));
+	public IFDFindingAid(String label, String type, String creator, IFDCollectionSet collection) throws IFDException {
+		super(label, type, 1, (collection == null ? new IFDCollectionSet(null) : collection));
 		this.creator = creator;
 		collectionSet = (IFDCollectionSet) get(0);
 	}
@@ -109,18 +109,18 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 	}
 
 	@Override
-	public void setPropertyValue(String name, Object value) {
-		if (name.startsWith(IFDConst.IFD_FINDING_AID))
-			super.setPropertyValue(name, value);
+	public void setPropertyValue(String label, Object value) {
+		if (label.startsWith(IFDConst.IFD_FINDING_AID))
+			super.setPropertyValue(label, value);
 		else
-			collectionSet.setPropertyValue(name, value);		
+			collectionSet.setPropertyValue(label, value);		
 	}
 	
 	@Override
-	public Object getPropertyValue(String name) {
-		if (name.startsWith(IFDConst.IFD_FINDING_AID))
-			return super.getPropertyValue(name);
-		return collectionSet.getPropertyValue(name);
+	public Object getPropertyValue(String label) {
+		if (label.startsWith(IFDConst.IFD_FINDING_AID))
+			return super.getPropertyValue(label);
+		return collectionSet.getPropertyValue(label);
 	}
 
 	@Override
