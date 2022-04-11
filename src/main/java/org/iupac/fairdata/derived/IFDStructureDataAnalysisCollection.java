@@ -10,22 +10,15 @@ import org.iupac.fairdata.core.IFDCollection;
 @SuppressWarnings({ "serial" })
 public class IFDStructureDataAnalysisCollection extends IFDCollection<IFDStructureDataAnalysis> {
 
-	public IFDStructureDataAnalysisCollection(String name) {
-		this(name, null);
+	public IFDStructureDataAnalysisCollection(String label) {
+		this(label, null);
 	}
-	public IFDStructureDataAnalysisCollection(String name, String type) {
-		super(name, type);
+	public IFDStructureDataAnalysisCollection(String label, String type) {
+		super(label, type);
 	}
 
 	public void addAnalysis(IFDStructureDataAnalysis a) {
 		super.add(a);
 	}
-
-	@Override
-	public Class<?>[] getObjectTypes() {
-		return new Class<?>[] { IFDStructureDataAnalysis.class };
-	}
-
-
 
 }

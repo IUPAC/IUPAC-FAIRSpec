@@ -19,23 +19,14 @@ import org.iupac.fairdata.common.IFDException;
  *
  */
 @SuppressWarnings("serial")
-public  class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>> {
-
-	@Override
-	public Class<?>[] getObjectTypes() {
-		return types;
-	}
-
-	protected Class<?>[] types;
+public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>> {
 
 	@SafeVarargs
 	protected IFDAssociation(String type, IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>... collections) throws IFDException {
 		super(null, type, collections);
-		types = new Class<?>[collections.length];
 		for (int i = 0; i < collections.length; i++) {
 			if (collections[i] == null)
 				throw new IFDException("IFDAssociation collections must be non-null.");
-			types[i] = collections[i].getClass();
 		}
 	}
 

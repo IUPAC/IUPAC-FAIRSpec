@@ -32,12 +32,12 @@ public class IFDSample extends IFDRepresentableObject<IFDSampleRepresentation> {
 		setProperties("IFD_PROP_SAMPLE_", null);
 	}
 
-	public IFDSample(String name, String type) {
-		super(name, type);
+	public IFDSample(String label, String type) {
+		super(label, type);
 	}
 
 	public IFDSample(String path, String param, String value) {
-		// name here is just for debugging
+		// label here is just for debugging
 		super(param + ";" + value, null);
 		setPath(path);
 		setPropertyValue(param, value);

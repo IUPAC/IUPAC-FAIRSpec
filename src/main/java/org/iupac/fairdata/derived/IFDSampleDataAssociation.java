@@ -27,13 +27,6 @@ public class IFDSampleDataAssociation extends IFDAssociation {
 	private final static int ITEM_SAMPLE = 0;
 	private final static int ITEM_DATA = 1;
 	
-	@Override
-	public Class<?>[] getObjectTypes() {
-		return new Class<?>[] {
-			IFDSampleCollection.class, IFDDataObjectCollection.class
-		};
-	}
-	
 	@SuppressWarnings("unchecked")
 	public IFDSampleDataAssociation(String type, IFDSample sample, IFDDataObject data) throws IFDException {
 		super(null, new IFDCollection[] { new IFDSampleCollection(null, sample), new IFDDataObjectCollection(null, data) });

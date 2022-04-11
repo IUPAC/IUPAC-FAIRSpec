@@ -8,17 +8,12 @@ import org.iupac.fairdata.structure.IFDStructure;
 @SuppressWarnings({ "serial" })
 public class IFDStructureDataAssociationCollection extends IFDAssociationCollection {
 
-	@Override
-	public Class<?>[] getObjectTypes() {
-		return new Class<?>[] { IFDStructureDataAssociation.class };
-	}
-	
-	public IFDStructureDataAssociationCollection(String name, String type) {
-		super(name, type);
+	public IFDStructureDataAssociationCollection(String label, String type) {
+		super(label, type);
 	}
 
-	public IFDStructureDataAssociationCollection(String name) {
-		this(name, null);
+	public IFDStructureDataAssociationCollection(String label) {
+		this(label, null);
 	}
 
 	public IFDStructureDataAssociation addAssociation(IFDStructure struc, IFDDataObject data) throws IFDException {

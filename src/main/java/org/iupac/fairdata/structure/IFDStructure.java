@@ -10,8 +10,8 @@ public class IFDStructure extends IFDRepresentableObject<IFDStructureRepresentat
 		setProperties("IFD_PROP_STRUCTURE", null);
 	}	
 	
-	public IFDStructure(String name) {
-		super(name, null);
+	public IFDStructure(String label) {
+		super(label, null);
 	}
 	
 	public IFDStructure(String path, String param, String value) {

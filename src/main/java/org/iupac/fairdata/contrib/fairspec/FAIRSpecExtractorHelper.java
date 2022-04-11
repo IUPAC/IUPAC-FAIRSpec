@@ -517,8 +517,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	}
 
 	@Override
-	public IFDSample getSampleByName(String name) {
-		return (IFDSample) getSampleCollection().getObjectByName(name);
+	public IFDSample getSampleByName(String label) {
+		return (IFDSample) getSampleCollection().getObjectByLabel(label);
 	}
 
 	@Override

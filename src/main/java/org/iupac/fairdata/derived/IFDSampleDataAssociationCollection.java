@@ -3,24 +3,17 @@ package org.iupac.fairdata.derived;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDAssociationCollection;
 import org.iupac.fairdata.dataobject.IFDDataObject;
-import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.sample.IFDSample;
-import org.iupac.fairdata.sample.IFDSampleCollection;
 
 @SuppressWarnings({ "serial" })
 public class IFDSampleDataAssociationCollection extends IFDAssociationCollection {
 
-	@Override
-	public Class<?>[] getObjectTypes() {
-		return new Class<?>[] { IFDSampleCollection.class, IFDDataObjectCollection.class };
+	public IFDSampleDataAssociationCollection(String label, String type) {
+		super(label, type);
 	}
 
-	public IFDSampleDataAssociationCollection(String name, String type) {
-		super(name, type);
-	}
-
-	public IFDSampleDataAssociationCollection(String name) {
-		this(name, null);
+	public IFDSampleDataAssociationCollection(String label) {
+		this(label, null);
 	}
 
 	public IFDSampleDataAssociation addAssociation(IFDSample sample, IFDDataObject data) throws IFDException {
@@ -33,7 +26,7 @@ public class IFDSampleDataAssociationCollection extends IFDAssociationCollection
 		return ssc;
 	}
 
-	protected IFDSampleDataAssociation newAssociation(String name, IFDSample sample, IFDDataObject data) throws IFDException {
+	protected IFDSampleDataAssociation newAssociation(String label, IFDSample sample, IFDDataObject data) throws IFDException {
 			return new IFDSampleDataAssociation(null, sample, data);
 	}
 

@@ -73,11 +73,6 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 		}
 	}
 
-	@Override
-	public Class<?>[] getObjectTypes() {
-		return new Class<?>[] { IFDCollection.class };
-	}
-
 	public void getContents(Map<String, Object> map) {
 		List<Map<String, Object>> lst = new ArrayList<>();
 		for (int i = 0; i < size(); i++) {

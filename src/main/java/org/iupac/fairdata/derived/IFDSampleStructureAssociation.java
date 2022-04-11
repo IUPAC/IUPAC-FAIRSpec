@@ -32,13 +32,6 @@ public class IFDSampleStructureAssociation extends IFDAssociation {
 	private final static int ITEM_SAMPLE = 0;
 	private final static int ITEM_STRUCTURE = 1;
 	
-	@Override
-	public Class<?>[] getObjectTypes() {
-		return new Class<?>[] {
-			IFDSampleCollection.class, IFDStructureCollection.class
-		};
-	}
-	
 	@SuppressWarnings("unchecked")
 	public IFDSampleStructureAssociation(String type, IFDSample sample, IFDStructure data) throws IFDException {
 		super(type, new IFDCollection[] { new IFDSampleCollection(null, sample), new IFDStructureCollection(null, data) });

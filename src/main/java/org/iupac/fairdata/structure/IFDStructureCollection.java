@@ -8,20 +8,12 @@ import org.iupac.fairdata.core.IFDRepresentation;
 @SuppressWarnings("serial")
 public class IFDStructureCollection extends IFDCollection<IFDStructure> {
 
-	
-	@Override
-	public Class<?>[] getObjectTypes() {
-		// TODO Auto-generated method stub
-		return new Class<?>[] { IFDStructure.class };
+	public IFDStructureCollection(String label) {
+		super(label, null);
 	}
 	
-
-	public IFDStructureCollection(String name) {
-		super(name, null);
-	}
-	
-	public IFDStructureCollection(String name, IFDStructure structure) {
-		this(name);
+	public IFDStructureCollection(String label, IFDStructure structure) {
+		this(label);
 		add(structure);
 	}
 
@@ -39,7 +31,7 @@ public class IFDStructureCollection extends IFDCollection<IFDStructure> {
 	}
 
 	public IFDStructure getStructureFor(String rootPath, String localName, String param, String value, String ifdPath, String mediaType) {
-		String keyValue = param + ";" + ifdPath;//value;
+		String keyValue = param + ";" + ifdPath;
 		IFDStructure sd = (IFDStructure) (IFDRepresentableObject<? extends IFDRepresentation>) map.get(keyValue);
 		if (sd == null) {
 			map.put(keyValue,  sd = new IFDStructure(rootPath, param, value));

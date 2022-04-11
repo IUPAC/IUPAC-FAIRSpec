@@ -270,6 +270,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	}
 
 	private void set(String label, String type, int maxCount) {
+		if (label != null)
+			System.out.println("??");
 		this.label = label;
 		if (type == null)
 			type = this.getClass().getName();

@@ -13,18 +13,19 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 @SuppressWarnings({ "serial" })
 public class IFDAnalysisObjectCollection extends IFDCollection<IFDRepresentableObject<IFDAnalysisObjectRepresentation>> {
 
-	public IFDAnalysisObjectCollection(String name) {
-		super(name, null);
+	public IFDAnalysisObjectCollection(String label) {
+		super(label, null);
 	}
 	
 	
-	public IFDAnalysisObjectCollection(String name, IFDAnalysisObject ao) {
-		this(name);
+	public IFDAnalysisObjectCollection(String label, IFDAnalysisObject ao) {
+		this(label);
 		add(ao);
 	}
 
 	
 	public IFDAnalysisObject getAnalysisFor(String rootPath, String localName, String param, String value, String zipName, String mediaType) {
+		// UNTESTED
 		String keyValue = param + ";" + value;
 		IFDAnalysisObject ao = (IFDAnalysisObject) map.get(keyValue);
 		if (ao == null) {
@@ -34,11 +35,6 @@ public class IFDAnalysisObjectCollection extends IFDCollection<IFDRepresentableO
 		if (IFDConst.isRepresentation(param))
 			ao.findOrAddRepresentation(zipName, localName, null, param, mediaType);
 		return ao;
-	}
-
-	@Override
-	public Class<?>[] getObjectTypes() {
-		return new Class<?>[] { IFDAnalysisObject.class };
 	}
 
 }

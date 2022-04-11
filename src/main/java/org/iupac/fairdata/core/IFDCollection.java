@@ -11,8 +11,6 @@ import org.iupac.fairdata.common.IFDException;
 @SuppressWarnings("serial")
 public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T> {
 
-	abstract public Class<?>[] getObjectTypes();
-	
 	protected IFDCollection(String label, String type) {
 		super(label, type);
 	}
@@ -89,7 +87,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 		add(newData);
 	}
 
-	public T getObjectByName(String label) {
+	public T getObjectByLabel(String label) {
 		for (int i = size(); --i >= 0;) {
 			T o = get(i);
 			if (label.equals(o.getLabel())) 

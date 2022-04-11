@@ -15,11 +15,6 @@ import org.iupac.fairdata.api.IFDSerializerI;
 @SuppressWarnings("serial")
 public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 
-	@Override
-	public Class<?>[] getObjectTypes() {
-		return new Class<?>[] { IFDAssociation.class };
-	}
-
 	protected IFDAssociationCollection(String label, String type) {
 		super(label, type);
 	}

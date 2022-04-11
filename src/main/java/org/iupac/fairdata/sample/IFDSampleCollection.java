@@ -13,13 +13,13 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 @SuppressWarnings({ "serial" })
 public class IFDSampleCollection extends IFDCollection<IFDRepresentableObject<IFDSampleRepresentation>> {
 
-	public IFDSampleCollection(String name) {
-		super(name, null);
+	public IFDSampleCollection(String label) {
+		super(label, null);
 	}
 	
 	
-	public IFDSampleCollection(String name, IFDSample sample) {
-		this(name);
+	public IFDSampleCollection(String label, IFDSample sample) {
+		this(label);
 		add(sample);
 	}
 
@@ -35,11 +35,5 @@ public class IFDSampleCollection extends IFDCollection<IFDRepresentableObject<IF
 			sd.findOrAddRepresentation(zipName, localName, null, param, mediaType);
 		return sd;
 	}
-
-	@Override
-	public Class<?>[] getObjectTypes() {
-		return new Class<?>[] { IFDSample.class };
-	}
-
 
 }

@@ -19,8 +19,8 @@ public class IFDAnalysisObject extends IFDRepresentableObject<IFDAnalysisObjectR
 		setProperties("IFD_PROP_ANALYSIS_OBJECT_", null);
 	}
 
-	public IFDAnalysisObject(String name, String type) {
-		super(name, type);
+	public IFDAnalysisObject(String label, String type) {
+		super(label, type);
 	}
 
 	public IFDAnalysisObject(String path, String param, String value) {
