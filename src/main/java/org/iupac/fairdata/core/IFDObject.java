@@ -337,7 +337,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	}
 
 	public String getID() {
-		return (id == null ? "" + index : id);
+		return id;//(id == null ? "" + index : id);
 	}
 
 	public void setID(String id) {
@@ -429,7 +429,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected void serializeTop(IFDSerializerI serializer) {
 		serializeClass(serializer, getClass(), type);
 		serializer.addAttr("name", getName());
-// debugging only		serializer.addAttr("id", getID());
+		serializer.addAttr("id", getID());
 	}
 
 	static void serializeClass(IFDSerializerI serializer, Class<?> c, String stype) {
