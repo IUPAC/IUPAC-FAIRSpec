@@ -2,6 +2,7 @@ package org.iupac.fairdata.core;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,6 +43,11 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 
 	protected boolean serializing;
 
+	/**
+	 * ISO-8601
+	 */
+	private static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+	
 	public IFDFindingAid(String label, String type, String creator, IFDCollectionSet collection) throws IFDException {
 		super(label, type, 1, (collection == null ? new IFDCollectionSet(null) : collection));
 		this.creator = creator;
@@ -128,13 +134,12 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 		collectionSet.serialize(serializer);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void serialize(IFDSerializerI serializer) {
 		if (serializing) {
 			serializeTop(serializer);
 			serializer.addObject("version", getVersion());
-			serializer.addObject("created", date.toGMTString());
+			serializer.addObject("created", df.format(date));
 			if (getCreator() != null)
 				serializer.addObject("createdBy", getCreator());
 			serializer.addObject("contents", getContentsMap(new TreeMap<>()));
