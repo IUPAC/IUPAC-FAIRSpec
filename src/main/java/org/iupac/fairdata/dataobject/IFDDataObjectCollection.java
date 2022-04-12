@@ -6,8 +6,8 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 @SuppressWarnings("serial")
 public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObject<IFDDataObjectRepresentation>> {
 
-	public IFDDataObjectCollection(String label, IFDDataObject data) {
-		this(label);
+	public IFDDataObjectCollection(IFDDataObject data) {
+		this();
 		add(data);
 	}
 
@@ -17,6 +17,10 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 
 	public IFDDataObjectCollection(String label, String type) {
 		super(label, type);
+	}
+	
+	public IFDDataObjectCollection() {
+		super(null, null);
 	}
 	
 	public IFDDataObject findObject(String path, String originPath) {

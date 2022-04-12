@@ -154,6 +154,9 @@ public class ExtractorTest extends Extractor {
 			e.printStackTrace();
 		}
 		logStatic("");
+		System.out.flush();
+		System.err.println(errorLog);
+		System.err.flush();
 		String flags = "\n first = " + first + " last = " + last //
 				+ "\n stopOnAnyFailure = " + stopOnAnyFailure //
 				+ "\n debugging = " + debugging //
@@ -166,8 +169,8 @@ public class ExtractorTest extends Extractor {
 				+ "\n createZippedCollection = " + createZippedCollection //
 				+ " createFindingAidJSONList = " + createFindingAidJSONList//
 				+ "\n IFD version "+ IFDConst.IFD_VERSION + "\n";
+		System.err.flush();
 		logStatic("!ExtractorTest.runExtractionTests flags " + flags);
-		System.err.println(errorLog);
 		logStatic("!ExtractorText done");
 		IFDUtilities.setLogging(null);
 	}

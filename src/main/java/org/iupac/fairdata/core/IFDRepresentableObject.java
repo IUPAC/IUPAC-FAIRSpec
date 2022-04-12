@@ -156,9 +156,9 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 
 	@Override
 	protected void serializeProps(IFDSerializerI serializer) {
-		if (resource != null)
-			serializer.addAttrInt("resource", resource.getIndex());
 		super.serializeProps(serializer);
+		if (resource != null)
+			serializer.addAttr("resourceID", resource.getID());
 	}
 
 	@Override

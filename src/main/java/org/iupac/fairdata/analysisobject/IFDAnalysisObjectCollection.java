@@ -13,13 +13,13 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 @SuppressWarnings({ "serial" })
 public class IFDAnalysisObjectCollection extends IFDCollection<IFDRepresentableObject<IFDAnalysisObjectRepresentation>> {
 
-	public IFDAnalysisObjectCollection(String label) {
-		super(label, null);
+	public IFDAnalysisObjectCollection() {
+		super(null, null);
 	}
 	
 	
-	public IFDAnalysisObjectCollection(String label, IFDAnalysisObject ao) {
-		this(label);
+	public IFDAnalysisObjectCollection(IFDAnalysisObject ao) {
+		this();
 		add(ao);
 	}
 

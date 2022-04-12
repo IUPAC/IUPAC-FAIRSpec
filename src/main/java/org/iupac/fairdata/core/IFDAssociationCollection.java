@@ -78,7 +78,8 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 	
 	@Override
 	protected void serializeTop(IFDSerializerI serializer) {
-				
+		if (size() == 0)
+			return;
 		super.serializeTop(serializer);
 		IFDAssociation firstAssociation = get(0);
 		int arity = firstAssociation.size();
@@ -90,7 +91,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 			if (cp == null) {
 			  throw new NullPointerException("IFDAssociation null or 0-length association");
 			}
-			list.add(cp.getLabel());
+			list.add(cp.getID());
 		}
 		serializer.addObject("collections", list);
 	}

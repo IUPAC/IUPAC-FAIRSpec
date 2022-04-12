@@ -34,7 +34,7 @@ public class IFDStructureDataAssociation extends IFDAssociation {
 	
 	@SuppressWarnings("unchecked")
 	public IFDStructureDataAssociation(IFDStructure structure, IFDDataObject data) throws IFDException {
-		super(null, new IFDCollection[] { new IFDStructureCollection(null, structure), new IFDDataObjectCollection(null, data) });
+		super(null, new IFDCollection[] { new IFDStructureCollection(structure), new IFDDataObjectCollection(data) });
 	}
 
 	public IFDStructureCollection getStructureCollection() {

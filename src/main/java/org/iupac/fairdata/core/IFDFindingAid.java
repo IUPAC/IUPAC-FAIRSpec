@@ -59,6 +59,10 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 		collectionSet = (IFDCollectionSet) get(0);
 	}
 
+	public void setCollectionSet(IFDCollectionSet set) {
+		set(0, collectionSet = set);
+	}
+	
 	public IFDCollectionSet getCollectionSet() {
 		return collectionSet;
 	}
@@ -102,7 +106,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 				return r;
 			}
 		}
-		r = new IFDResource(ref, resources.size(), 0);
+		r = new IFDResource(ref, "" + (resources.size() + 1), 0);
 		resources.add(r);
 		return r;
 	}
@@ -136,6 +140,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 
 	@Override
 	protected void serializeList(IFDSerializerI serializer) {
+		serializer.serialize(collectionSet);
 		collectionSet.serialize(serializer);
 	}
 
@@ -151,7 +156,8 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 			addCitations(serializer);
 			serializer.addObject("resources", resources);
 			serializeProps(serializer);
-			serializer.addObject("collections", collectionSet);
+			if (collectionSet != null)
+				serializer.addObject("collectionSet", collectionSet);
 		} else {
 			// addObject will call this method after wrapping
 			serializing = true;

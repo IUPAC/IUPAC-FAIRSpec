@@ -58,34 +58,32 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 	}
 	
 	@Override
-	public void serialize(IFDSerializerI serializer) {
-		// two passes so that we serialize the associations last
-		for (int pass = 0; pass < 2; pass++) {
-			for (int i = 0; i < size(); i++) {
-				IFDCollection<IFDObject<?>> c = get(i);
-				if (c == null)
-					continue;
-				if ((c.size() > 0 && c.get(0) instanceof IFDAssociation) == (pass == 1)) {
-					if (pass == 1 || c.size() > 0)
-					serializer.addObject(c.getLabel(), c);
-				}
-			}
+	public void serializeList(IFDSerializerI serializer) {
+		List<IFDCollection<?>> list = new ArrayList<>();
+		for (int i = 0; i < size(); i++) {
+			IFDCollection<?> c = get(i);
+			if (c == null || c.size() == 0)
+				continue;
+			list.add(c);
 		}
+		if (list.size() > 0)
+			serializer.addList("items", list);
 	}
 
 	public void getContents(Map<String, Object> map) {
-		List<Map<String, Object>> lst = new ArrayList<>();
+		List<Map<String, Object>> list = new ArrayList<>();
 		for (int i = 0; i < size(); i++) {
 			IFDCollection<?> c = get(i);
 			if (c.size() == 0)
 				continue;
 			Map<String, Object> m = new TreeMap<>();
-			m.put("label", c.getLabel());
+			m.put("id", c.getID());
 			IFDObject.addTypes(c.getClass(), m);
 			m.put("count", c.size());
-			lst.add(m);
+			list.add(m);
 		}		
-		map.put("collections", lst);
+		if (list.size() > 0)
+			map.put("collections", list);
 	}
 
 }

@@ -238,6 +238,11 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 */
 	protected String type;
 
+	/**
+	 * flag to allow collections to identify their items using "itemType"
+	 */
+	private boolean doSerializeType = true;
+
 	public IFDObject(String label, String type) {
 		set(label, type, Integer.MAX_VALUE);
 	}
@@ -427,15 +432,18 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	}
 
 	protected void serializeTop(IFDSerializerI serializer) {
-		serializeClass(serializer, getClass(), type);
+		if (doSerializeType)
+			serializeClass(serializer, getClass(), null);
 		serializer.addAttr("label", getLabel());
 		serializer.addAttr("id", getID());
 	}
 
 	static void serializeClass(IFDSerializerI serializer, Class<?> c, String stype) {
-		serializer.addAttr("type", stype == null ? c.getName() : stype);
+		if (stype == null)
+			stype = "type";
+		serializer.addAttr(stype, c.getName());
 		if (serializeExtended(c).length() > 0)
-			serializer.addAttr("typeExtends", serializeExtended(c));
+			serializer.addAttr(stype + "Extends", serializeExtended(c));
 	}
 
 	public static void addTypes(Class<?> c, Map<String, Object> m) {
@@ -488,6 +496,10 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 //			return false;
 //		IFDObject<?> c = (IFDObject<?>) o;
 //		return label.equals(c.getName());
+	}
+
+	public void setSerializeType(boolean doSerializeType) {
+		this.doSerializeType = doSerializeType;
 	}
 
 }

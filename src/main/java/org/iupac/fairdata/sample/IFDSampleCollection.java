@@ -13,13 +13,13 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 @SuppressWarnings({ "serial" })
 public class IFDSampleCollection extends IFDCollection<IFDRepresentableObject<IFDSampleRepresentation>> {
 
-	public IFDSampleCollection(String label) {
-		super(label, null);
+	public IFDSampleCollection() {
+		super(null, null);
 	}
 	
 	
-	public IFDSampleCollection(String label, IFDSample sample) {
-		this(label);
+	public IFDSampleCollection(IFDSample sample) {
+		this();
 		add(sample);
 	}
 

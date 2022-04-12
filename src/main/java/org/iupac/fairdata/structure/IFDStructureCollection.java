@@ -8,12 +8,12 @@ import org.iupac.fairdata.core.IFDRepresentation;
 @SuppressWarnings("serial")
 public class IFDStructureCollection extends IFDCollection<IFDStructure> {
 
-	public IFDStructureCollection(String label) {
-		super(label, null);
+	public IFDStructureCollection() {
+		super(null, null);
 	}
 	
-	public IFDStructureCollection(String label, IFDStructure structure) {
-		this(label);
+	public IFDStructureCollection(IFDStructure structure) {
+		this();
 		add(structure);
 	}
 

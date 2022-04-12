@@ -14,12 +14,8 @@ import org.iupac.fairdata.structure.IFDStructure;
 @SuppressWarnings({ "serial" })
 public class IFDSampleStructureAssociationCollection extends IFDAssociationCollection {
 
-	public IFDSampleStructureAssociationCollection(String label, String type) {
-		super(label, type);
-	}
-
-	public IFDSampleStructureAssociationCollection(String label) {
-		this(label, null);
+	public IFDSampleStructureAssociationCollection() {
+		super(null, null);
 	}
 
 	public IFDSampleStructureAssociation addAssociation(IFDSample sample, IFDStructure structure) throws IFDException {

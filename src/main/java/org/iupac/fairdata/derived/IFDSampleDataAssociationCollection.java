@@ -8,12 +8,8 @@ import org.iupac.fairdata.sample.IFDSample;
 @SuppressWarnings({ "serial" })
 public class IFDSampleDataAssociationCollection extends IFDAssociationCollection {
 
-	public IFDSampleDataAssociationCollection(String label, String type) {
-		super(label, type);
-	}
-
-	public IFDSampleDataAssociationCollection(String label) {
-		this(label, null);
+	public IFDSampleDataAssociationCollection() {
+		super(null, null);
 	}
 
 	public IFDSampleDataAssociation addAssociation(IFDSample sample, IFDDataObject data) throws IFDException {

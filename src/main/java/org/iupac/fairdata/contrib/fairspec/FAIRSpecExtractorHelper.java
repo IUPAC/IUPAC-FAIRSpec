@@ -443,14 +443,16 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 
 	public IFDSampleCollection getSampleCollection() {
 		if (sampleCollection == null) {
-			objects[SAMPLE_COLLECTION] = sampleCollection = new IFDSampleCollection("samples");
+			objects[SAMPLE_COLLECTION] = sampleCollection = new IFDSampleCollection();
+			sampleCollection.setID("samples");
 		}
 		return sampleCollection;
 	}
 
 	public IFDStructureCollection getStructureCollection() {
 		if (structureCollection == null) {
-			objects[STRUCTURE_COLLECTION] = structureCollection = new IFDStructureCollection("structures");
+			objects[STRUCTURE_COLLECTION] = structureCollection = new IFDStructureCollection();
+			structureCollection.setID("structures");
 		}
 		return structureCollection;
 	}
@@ -458,21 +460,24 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	@Override
 	public IFDDataObjectCollection getDataObjectCollection() {
 		if (specDataCollection == null) {
-			objects[DATA_COLLECTION] = specDataCollection = new IFDDataObjectCollection("spectra");
+			objects[DATA_COLLECTION] = specDataCollection = new IFDDataObjectCollection();
+			specDataCollection.setID("spectra");
 		}
 		return specDataCollection;
 	}
 	
 	public IFDSampleStructureAssociationCollection getSampleStructureCollection() {
 		if (sampleStructureCollection == null) {
-			associations[SAMPLE_STRUCTURE_COLLECTION] = sampleStructureCollection = new IFDSampleStructureAssociationCollection("sample-structure-associations");
+			associations[SAMPLE_STRUCTURE_COLLECTION] = sampleStructureCollection = new IFDSampleStructureAssociationCollection();
+			sampleStructureCollection.setID("sample-structure-associations");
 		}
 		return sampleStructureCollection;
 	}
 
 	public IFDSampleDataAssociationCollection getSampleDataCollection() {
 		if (sampleDataCollection == null) {
-			associations[SAMPLE_DATA_COLLECTION] = sampleDataCollection = new IFDSampleDataAssociationCollection("sample-spectra-associations");
+			associations[SAMPLE_DATA_COLLECTION] = sampleDataCollection = new IFDSampleDataAssociationCollection();
+			sampleDataCollection.setID("sample-spectra-associations");
 		}
 		return sampleDataCollection;
 	}
@@ -481,7 +486,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public IFDStructureDataAssociationCollection getStructureDataCollection() {
 		if (structureDataCollection == null) {
 			associations[STRUCTURE_DATA_COLLECTION] =
-					structureDataCollection = new IFDStructureDataAssociationCollection("structure-spectra-associations");
+					structureDataCollection = new IFDStructureDataAssociationCollection();
+			structureDataCollection.setID("structure-spectra-associations");
 		}
 		return structureDataCollection;
 	}
@@ -496,7 +502,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public IFDStructureDataAnalysisCollection getStructureDataAnalysisCollection() {
 		if (structureDataAnalysisCollection == null)
 			associations[STRUCTURE_DATA_ANALYSIS_COLLECTION] =
-					structureDataAnalysisCollection = new IFDStructureDataAnalysisCollection("structure-spectra-analyses");
+					structureDataAnalysisCollection = new IFDStructureDataAnalysisCollection();
+		structureDataAnalysisCollection.setID("structure-spectra-analyses");
 		return structureDataAnalysisCollection;
 	}
 

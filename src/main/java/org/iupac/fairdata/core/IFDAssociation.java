@@ -84,6 +84,8 @@ public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentable
 
 	@Override
 	public void serializeList(IFDSerializerI serializer) {
+		if (size() == 0)
+			return;
 		// this class should serialize as a raw list of lists, without {....}
 		List<List<Integer>> list = new ArrayList<>();
 		for (int i = 0; i < size(); i++) {

@@ -21,16 +21,16 @@ public class IFDReference implements IFDSerializableI {
 	/**
 	 * root path to this file
 	 */
-	private final String localPath;
+	private final String localRoot;
 	
 	/**
 	 * label of this file
 	 */
 	private String localName;
 	
-	public IFDReference(Object origin, String localPath, String localName) {
+	public IFDReference(Object origin, String localRoot, String localName) {
 		this.origin = origin;
-		this.localPath = localPath;
+		this.localRoot = localRoot;
 		this.localName = localName;
 	}
 
@@ -38,8 +38,12 @@ public class IFDReference implements IFDSerializableI {
 		return origin;
 	}
 
+	public String getLocalRoot() {
+		return localRoot;
+	}
+	
 	public String getLocalPath() {
-		return localPath;
+		return (localRoot == null ? "" : localRoot + "/") + localName;
 	}
 	
 	public String getLocalName() {
@@ -48,16 +52,16 @@ public class IFDReference implements IFDSerializableI {
 
 	@Override
 	public String toString() {
-		return "[IFDReference " + (localPath == null ? "" : localPath + "::") + origin + " :as::" + localName + "]";
+		return "[IFDReference " + (localRoot == null ? "" : localRoot + "::") + origin + " :as::" + localName + "]";
 	}
 
 	@Override
 	public void serialize(IFDSerializerI serializer) {
 		IFDObject.serializeClass(serializer, getClass(), null);
 		if (origin != null)
-			serializer.addAttr("origin", origin.toString());
+			serializer.addAttr("originPath", origin.toString());
 		if (localName != null) {
-			serializer.addAttr("path", localPath + "/" + localName);
+			serializer.addAttr("path", getLocalPath());
 			// TODO: Could add #page=" to origin; localPath is null?
 //			serializer.addAttr("localName", localName);
 		}

@@ -29,7 +29,7 @@ public class IFDSampleDataAssociation extends IFDAssociation {
 	
 	@SuppressWarnings("unchecked")
 	public IFDSampleDataAssociation(String type, IFDSample sample, IFDDataObject data) throws IFDException {
-		super(null, new IFDCollection[] { new IFDSampleCollection(null, sample), new IFDDataObjectCollection(null, data) });
+		super(null, new IFDCollection[] { new IFDSampleCollection(sample), new IFDDataObjectCollection(data) });
 	}
 
 

@@ -21,15 +21,16 @@ public class IFDResource implements IFDSerializableI {
 	 * 
 	 */
 	private long len;
-	
-	/**
-	 * the IFDFindingAid index of this resource
-	 */
-	private int index = -1;
 
-	public IFDResource(String ref, int index, long length) {
+	static int idcount = 0;
+	/**
+	 * the IFDFindingAid id of this resource
+	 */
+	private String id = null;
+
+	public IFDResource(String ref, String id, long length) {
 		this.ref = ref;
-		this.index = index;
+		this.id = (id == null ? "" + (++idcount) : id);
 		this.len = length;
 	}
 
@@ -40,8 +41,7 @@ public class IFDResource implements IFDSerializableI {
 			serializer.addAttr("ref", ref);
 		if (getLength() > 0)
 			serializer.addAttrInt("len", len);
-		if (index >= 0)
-			serializer.addAttrInt("index", index);
+		serializer.addAttr("id", id);
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class IFDResource implements IFDSerializableI {
 
 	@Override
 	public String toString() {
-		return "[Resource " + index + ": " + ref + " len " + len + "]";
+		return "[Resource " + id + ": " + ref + " len " + len + "]";
 	}
 
 	public long getLength() {
@@ -70,12 +70,12 @@ public class IFDResource implements IFDSerializableI {
 		this.ref = ref;
 	}
 
-	public int getIndex() {
-		return index;
+	public String getID() {
+		return id;
 	}
 	
-	public void setIndex(int index) {
-		this.index = index;
+	public void setID(String id) {
+		this.id = id;
 	}
 
 }

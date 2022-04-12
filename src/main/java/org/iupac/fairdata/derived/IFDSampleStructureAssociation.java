@@ -34,7 +34,7 @@ public class IFDSampleStructureAssociation extends IFDAssociation {
 	
 	@SuppressWarnings("unchecked")
 	public IFDSampleStructureAssociation(String type, IFDSample sample, IFDStructure data) throws IFDException {
-		super(type, new IFDCollection[] { new IFDSampleCollection(null, sample), new IFDStructureCollection(null, data) });
+		super(type, new IFDCollection[] { new IFDSampleCollection(sample), new IFDStructureCollection(data) });
 	}
 
 

@@ -62,6 +62,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 	}
 	
 	protected Map<String, T> map = new HashMap<>();
+	private boolean haveCommonClass;
 
 	public T getPath(String path) {
 		return map.get(path);
@@ -95,11 +96,39 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 		}
 		return null;
 	}
-	
+
+	@Override
+	protected void serializeTop(IFDSerializerI serializer) {
+		haveCommonClass = false;
+		super.serializeTop(serializer);
+		Class<?> commonClass = null;
+		for (int i = size(); --i >= 0;) {
+			Class<?> c = get(i).getClass();
+			if (commonClass == null)
+				commonClass = c;
+			if (c != commonClass) {
+				commonClass = null;
+				break;
+			}
+		}
+		if (commonClass != null) {
+			haveCommonClass = true;
+			serializeClass(serializer, commonClass, "itemType");
+			for (int i = size(); --i >= 0;) {
+				get(i).setSerializeType(false);
+			}
+		}
+	}
+
 	@Override
 	protected void serializeList(IFDSerializerI serializer) {
 		if (size() > 0) {
 			serializer.addList("items", this);
+		}
+		if (haveCommonClass) {
+		for (int i = size(); --i >= 0;) {
+			get(i).setSerializeType(true);
+		}
 		}
 	}
 
