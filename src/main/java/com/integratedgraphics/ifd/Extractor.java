@@ -1096,7 +1096,7 @@ public class Extractor implements ExtractorI {
 			if (key.equals(NEW_FAIRSPEC_KEY)) {
 				// _page=10
 				String idExtension = (String) value;
-				IFDDataObject newSpec = helper.getDataObjectCollection().cloneData(localSpec, localSpec.getID() + idExtension);
+				IFDDataObject newSpec = helper.getDataObjectCollection().cloneData(localSpec, localSpec.getLabel() + idExtension);
 				spec = newSpec;
 				struc = helper.getFirstStructureForSpec(localSpec, true);
 				if (sample == null)
