@@ -64,9 +64,19 @@ public class IFDConst {
 				int pt = val.indexOf(";");
 				if (pt > 0)
 					val = val.substring(0, pt);
-				htProps.put(val, new IFDProperty(val.trim(), null, null, null));
+				val = val.trim();
+				if (k.endsWith("_FLAG")) {
+					htProps.put(val + IFD_ID_FLAG, new IFDProperty(val + IFD_ID_FLAG));
+					htProps.put(val + IFD_LABEL_FLAG, new IFDProperty(val + IFD_LABEL_FLAG));
+					htProps.put(val + IFD_NOTE_FLAG, new IFDProperty(val + IFD_NOTE_FLAG));
+					htProps.put(val + IFD_DESCRIPTION_FLAG, new IFDProperty(val + IFD_DESCRIPTION_FLAG));
+					
+				} else {
+					htProps.put(val, new IFDProperty(val, null, null, null));
+				}
 			}
 		}
+		htProps.put(IFD_PROPERTY_NOTE, new IFDProperty(IFD_PROPERTY_NOTE));
 		return htProps;
 	}
 
@@ -88,8 +98,6 @@ public class IFDConst {
 	// see org.iupac.fairdata.common.fairspec.properties
 	
 	public static final String IFD_VERSION = getProp("IFD_VERSION");
-
-	public static final String IFD_PROP_SAMPLE_LABEL = getProp("IFD_PROP_SAMPLE_LABEL");
 
 	public static final String IFD_FINDING_AID = getProp("IFD_FINDING_AID"); // root name for JSON
 
@@ -144,13 +152,21 @@ public class IFDConst {
 
 	// IFDExtractorI constants:
 
-	public static final String IFD_LABEL_FLAG = getProp("IFD_LABEL_FLAG");
-	public static final String IFD_REPRESENTATION_FLAG = getProp("IFD_REPRESENTATION_FLAG");
 	public static final String IFD_PROPERTY_FLAG = getProp("IFD_PROPERTY_FLAG");
+	public static final String IFD_REPRESENTATION_FLAG = getProp("IFD_REPRESENTATION_FLAG");
+
+	public static final String IFD_LABEL_FLAG = getProp("IFD_LABEL_FLAG").substring(1);
+	public static final String IFD_ID_FLAG = getProp("IFD_ID_FLAG").substring(1);
+	public static final String IFD_NOTE_FLAG = getProp("IFD_NOTE_FLAG").substring(1);
+	public static final String IFD_DESCRIPTION_FLAG = getProp("IFD_DESCRIPTION_FLAG").substring(1);
+
 	public static final String IFD_SAMPLE_FLAG = getProp("IFD_SAMPLE_FLAG");
 	public static final String IFD_STRUCTURE_FLAG = getProp("IFD_STRUCTURE_FLAG");
-	public static final String IFD_DATA_FLAG = getProp("IFD_DATA_FLAG");
-	public static final String IFD_ANALYSIS_FLAG = getProp("IFD_ANALYSIS_FLAG");
+	public static final String IFD_DATAOBJECT_FLAG = getProp("IFD_DATAOBJECT_FLAG");
+	public static final String IFD_ANALYSISOBJECT_FLAG = getProp("IFD_ANALYSISOBJECT_FLAG");
+
+	public static final String IFD_PROPERTY_NOTE = concat(IFD_PROPERTY_FLAG, IFD_NOTE_FLAG);
+
 
 	public static boolean isRepresentation(String propName) {
 		return (propName != null && propName.startsWith(IFDConst.IFD_REPRESENTATION_FLAG));
@@ -162,6 +178,10 @@ public class IFDConst {
 
 	public static boolean isLabel(String propName) {
 		return (propName != null && propName.endsWith(IFD_LABEL_FLAG));
+	}
+
+	public static boolean isID(String propName) {
+		return (propName != null && propName.endsWith(IFD_ID_FLAG));
 	}
 
 	public static boolean checkPropOrRep(String key, String type) {
@@ -180,12 +200,25 @@ public class IFDConst {
 	}
 	
 	public static boolean isDataObject(String key) {
-		return checkPropOrRep(key, IFD_DATA_FLAG);
+		return checkPropOrRep(key, IFD_DATAOBJECT_FLAG);
 	}
 	
 	public static boolean isAnalysisObject(String key) {
-		return checkPropOrRep(key, IFD_ANALYSIS_FLAG);
+		return checkPropOrRep(key, IFD_ANALYSISOBJECT_FLAG);
 	}
-	
+
+	/**
+	 * 
+	 * @param components
+	 * @return
+	 */
+	public static String concat(String... components) {
+		String s = "";
+		for (int i = 0; i < components.length; i++) {
+			s += components[i];			
+		}
+		s = s.replaceAll("\\.+", ".");
+		return s;		
+	}
 
 }

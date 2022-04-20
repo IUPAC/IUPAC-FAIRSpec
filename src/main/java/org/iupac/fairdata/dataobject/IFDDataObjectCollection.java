@@ -43,7 +43,8 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 	 */
 	public IFDDataObject cloneData(IFDDataObject data, String newID) {
 		IFDDataObject newData = (IFDDataObject) data.clone();
-		newData.setID(newID);
+		if (newID != null)
+			newData.setID(newID);
 		remove(data);
 		add(newData);
 		return newData;

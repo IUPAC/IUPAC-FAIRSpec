@@ -116,7 +116,7 @@ public class Extractor implements ExtractorI {
 		FAIRSpecFindingAid.loadProperties();
 		VendorPluginI.init();
 	}
-	private static final String version = "0.0.2-alpha+2002.04.10";
+	private static final String version = "0.0.2-alpha+2002.04.19";
 
 	private static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/Extractor.java";
 
@@ -355,7 +355,6 @@ public class Extractor implements ExtractorI {
 	public static final String MOL_FILE_DATA = "_struc.mol";
 
 	public static final String PNG_FILE_DATA = "_struc.png";
-
 
 	public Extractor() {
 		clearZipCache();
@@ -607,7 +606,7 @@ public class Extractor implements ExtractorI {
 //         {"path":"{data}|FID for Publication/{id=IFD.property.structure.compound.id::*}.zip|"},
 //         {"IFD.property.collection.object":"{path}{IFD.representation.spec.nmr.vendor.dataset::{IFD.property.spec.nmr.expt.label::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
 //         {"IFD.property.collection.object":"{path}<id>/{IFD.representation.structure.mol.2d::<id>.mol}"},
-//         {"IFD.property.collection.object":"{path}{IFD.representation.spec.hrms.pdf::{IFD.property.spec.hrms.expt.label::<id>/HRMS.zip|**/*}.pdf}"}
+//         {"IFD.property.collection.object":"{path}{IFD.representation.spec.hrms.spectrum.document::{IFD.property.spec.hrms.expt.label::<id>/HRMS.zip|**/*}.pdf}"}
 //        ]}
 
 		Lst<String> keys = new Lst<>();
@@ -1017,6 +1016,10 @@ public class Extractor implements ExtractorI {
 	 */
 	@Override
 	public void addPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType) {
+		if (key == null) {
+			deferredPropertyList.add(null);
+			return;
+		}
 		deferredPropertyList.add(new Object[] { originPath, localizedName, key, val, Boolean.valueOf(isInline), mediaType });
 		if (key.startsWith(STRUC_FILE_DATA_KEY)) {
 			byte[] bytes = (byte[]) ((Object[]) val)[0];
@@ -1046,8 +1049,6 @@ public class Extractor implements ExtractorI {
 				sample = null;
 				continue;
 			}
-			if (a.length < 6)
-				System.out.println("????");
 			String originPath = (String) a[0];
 			String localizedName = (String) a[1];
 			String key = (String) a[2];
@@ -1096,7 +1097,7 @@ public class Extractor implements ExtractorI {
 			if (key.equals(NEW_FAIRSPEC_KEY)) {
 				// _page=10
 				String idExtension = (String) value;
-				IFDDataObject newSpec = helper.getDataObjectCollection().cloneData(localSpec, localSpec.getLabel() + idExtension);
+				IFDDataObject newSpec = helper.getDataObjectCollection().cloneData(localSpec, null);
 				spec = newSpec;
 				struc = helper.getFirstStructureForSpec(localSpec, true);
 				if (sample == null)
@@ -1113,7 +1114,7 @@ public class Extractor implements ExtractorI {
 					log("!SpecData " + spec + " added ");
 				}
 				IFDRepresentation rep = cache.get(localizedName);
-				String ckey = localizedName + idExtension.replace('_', '#') + "\0" + localSpec.getID();
+				String ckey = localizedName + idExtension.replace('_', '#') + "\0" + idExtension;
 				cache.put(ckey, rep);
 				htLocalizedNameToObject.put(localizedName, spec); // for internal use
 				htLocalizedNameToObject.put(ckey, spec);
@@ -1527,17 +1528,19 @@ public class Extractor implements ExtractorI {
 		int lenOffset = (parent == null ? 0 : parent.length() + 1);
 		// because Bruker directories must start with a number
 		String newDir = vendor.getRezipPrefix(dirName.substring(lenOffset, dirName.length() - 1)); 
-																									// // '/'
+		Matcher m = null;
+		this.originPath = originPath;
+		this.localizedName = localizedName;
 		if (newDir == null) {
 			newDir = "";
 		} else {
 			newDir = newDir + "/";
 			lenOffset = dirName.length();
-			logWarn("correcting Bruker directory name for " + localizedName + "|" + dirName, "processRezipEntry");
+			
+			String msg = "correcting Bruker directory name to " + localizedName + "|" + newDir;
+			addProperty(IFDConst.IFD_PROPERTY_NOTE, msg);
+			logWarn(msg, "processRezipEntry");
 		}
-		Matcher m = null;
-		this.originPath = originPath;
-		this.localizedName = localizedName;
 		vendor.startRezip(this);
 		long len = 0;
 		while ((entry = zis.getNextEntry()) != null) {
@@ -1673,12 +1676,15 @@ public class Extractor implements ExtractorI {
 					if (doCheck) {
 						mp = parser.p.matcher(originPath);
 						if (mp.find()) {
-							deferredPropertyList.add(null);
+							addProperty(null, null);
 							for (String key : parser.keys.keySet()) {
 								String param = parser.keys.get(key);
-								if (param.equals(IFDConst.IFD_PROP_SAMPLE_LABEL)) {
+								if (param.equals(FAIRSpecExtractorHelper.IFD_PROP_SAMPLE_LABEL)) {
 									String id = mp.group(key);
+					System.out.println("Extractor test 1 " + this.originPath.equals(originPath) + " " + this.localizedName.equals(localizedName));
+									// check if original path is same as 
 									deferredPropertyList.add(new Object[] { originPath, localizedName, param, id, null, null });
+									addProperty(param, id);
 								}
 							}
 						}

@@ -14,5 +14,5 @@
  {"path":"{data}|FID for Publication/{id=IFD.property.sample.label::*}.zip|"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{IFD.property.dataobject.fairspec.nmr.expt.label::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
  {"FAIRSpec.extractor.object":"{path}<id>/{IFD.representation.structure.mol.2d::<id>.mol}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.hrms.pdf::{IFD.property.dataobject.fairspec.hrms.expt.label::<id>/HRMS.zip|**/*}.pdf}"}
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.hrms.document::{IFD.property.dataobject.fairspec.hrms.expt.label::<id>/HRMS.zip|**/*}.pdf}"}
 ]}

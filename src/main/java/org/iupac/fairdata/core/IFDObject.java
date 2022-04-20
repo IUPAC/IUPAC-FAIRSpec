@@ -315,8 +315,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		// check for .representation., which is not stored in the object.
 		if (IFDConst.isRepresentation(label))
 			return;
-		if (IFDConst.isLabel(label))
-			this.label = value.toString();
+		checkSpecialProperties(label, value);
 		IFDProperty p = IFDConst.getIFDProperty(htProps, label);
 		if (p == null) {
 			if (value == null)
@@ -326,6 +325,15 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			return;
 		}
 		htProps.put(label, p.getClone(value));
+	}
+
+	private void checkSpecialProperties(String label, Object value) {
+		if (IFDConst.isLabel(label)) {
+			this.label = value.toString();
+		}
+		else 
+		if (IFDConst.isID(label))
+			id = value.toString();
 	}
 
 	public Object getPropertyValue(String label) {

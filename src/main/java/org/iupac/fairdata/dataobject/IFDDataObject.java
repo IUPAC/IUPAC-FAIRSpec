@@ -14,11 +14,6 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 @SuppressWarnings("serial")
 public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObjectRepresentation> {
 
-	{
-		setProperties("IFD_PROP_DATAOBJECT", null); // These are loaded based on subtype
-	}
-	
-
 	public IFDDataObject() {
 		super(null, null);
 	}
@@ -31,6 +26,7 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 			o.setPath(rootPath);
 			o.label = label;		
 			o.type = type;
+			o.htProps.putAll(htProps);
 		} catch (Exception e) {
 			// ignore
 		}

@@ -23,18 +23,4 @@ public class IFDAnalysisObjectCollection extends IFDCollection<IFDRepresentableO
 		add(ao);
 	}
 
-	
-	public IFDAnalysisObject getAnalysisFor(String rootPath, String localName, String param, String value, String zipName, String mediaType) {
-		// UNTESTED
-		String keyValue = param + ";" + value;
-		IFDAnalysisObject ao = (IFDAnalysisObject) map.get(keyValue);
-		if (ao == null) {
-			map.put(keyValue,  ao = new IFDAnalysisObject(rootPath, param, value));
-			add(ao);
-		}
-		if (IFDConst.isRepresentation(param))
-			ao.findOrAddRepresentation(zipName, localName, null, param, mediaType);
-		return ao;
-	}
-
 }

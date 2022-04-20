@@ -3,7 +3,7 @@ package org.iupac.fairdata.analysisobject;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentation;
 
-public class IFDAnalysisObjectRepresentation extends IFDRepresentation {
+abstract public class IFDAnalysisObjectRepresentation extends IFDRepresentation {
 
 	private final static String[] repNames = new String[] {
 	};

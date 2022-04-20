@@ -80,7 +80,7 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 
 	@Override
 	public boolean doRezipInclude(ExtractorI extractor, String baseName, String entryName) {
-		String type = (entryName.endsWith(".pdf") ? getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_SPECTRUM_PDF")
+		String type = (entryName.endsWith(".pdf") ? getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_SPECTRUM_DOCUMENT")
 				: entryName.endsWith("thumb.png") ? getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_SPECTRUM_IMAGE")
 						: null);
 		if (type != null)

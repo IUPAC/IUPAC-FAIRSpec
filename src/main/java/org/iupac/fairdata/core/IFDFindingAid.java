@@ -31,7 +31,7 @@ import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 
 	{
-		setProperties("IFD_PROP_FAIRDATA__", null);
+		setProperties("IFD_PROP_FINDINGAID_", null);
 	}
 
 	protected IFDCollectionSet collectionSet;

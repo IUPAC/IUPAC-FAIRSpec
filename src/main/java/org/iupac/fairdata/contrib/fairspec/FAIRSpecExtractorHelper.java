@@ -120,6 +120,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public static final String FAIRSPEC_EXTRACT_VERSION = IFDConst.getProp("FAIRSPEC_EXTRACT_VERSION");
 	public static final String DATAOBJECT_FAIRSPEC_FLAG = IFDConst.getProp("FAIRSPEC_DATAOBJECT_FLAG");
 
+	public static final String IFD_PROP_SAMPLE_LABEL = IFDConst.IFD_SAMPLE_FLAG + IFDConst.IFD_LABEL_FLAG.substring(1);
+
 	protected final FAIRSpecFindingAid findingAid;
 
 
@@ -415,7 +417,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			throws IFDException {
 		if (getDataObjectCollection().indexOf(spec) < 0)
 			getDataObjectCollection().add(spec);			
-		IFDStructure struc = getStructureCollection().getStructureFor(rootPath, localName, IFDConst.IFD_PROP_SAMPLE_LABEL, name, ifdPath, null);
+		IFDStructure struc = getStructureCollection().getStructureFor(rootPath, localName, IFD_PROP_SAMPLE_LABEL, name, ifdPath, null);
 		struc.findOrAddRepresentation(ifdPath, localName, null, ifdRepType, DefaultStructureHelper.mediaTypeFromName(localName));
 		getStructureCollection().add(struc);
 		IFDStructureDataAssociation ss = (IFDStructureDataAssociation) getStructureDataCollection().getAssociationForSingleObj2(spec);
