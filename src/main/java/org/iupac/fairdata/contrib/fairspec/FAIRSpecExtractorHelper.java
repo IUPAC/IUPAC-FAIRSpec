@@ -25,15 +25,11 @@ import org.iupac.fairdata.derived.IFDSampleStructureAssociationCollection;
 import org.iupac.fairdata.derived.IFDStructureDataAnalysisCollection;
 import org.iupac.fairdata.derived.IFDStructureDataAssociation;
 import org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;
-import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.sample.IFDSampleCollection;
 import org.iupac.fairdata.structure.IFDStructure;
 import org.iupac.fairdata.structure.IFDStructureCollection;
-import org.iupac.fairdata.structure.IFDStructureRepresentation;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
-
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 /**
  * 

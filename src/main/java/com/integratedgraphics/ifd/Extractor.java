@@ -53,7 +53,6 @@ import com.integratedgraphics.ifd.util.PubInfoExtractor;
 
 import javajs.util.JSJSONParser;
 import javajs.util.Lst;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 /**
  * Copyright 2021/2022 Integrated Graphics and Robert M. Hanson
