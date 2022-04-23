@@ -30,6 +30,7 @@ import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDFindingAid;
@@ -46,14 +47,13 @@ import org.iupac.fairdata.extract.PropertyManagerI;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.structure.IFDStructure;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
-import org.iupac.fairdata.util.IFDUtilities;
 
 import com.integratedgraphics.ifd.api.VendorPluginI;
 import com.integratedgraphics.ifd.util.PubInfoExtractor;
 
 import javajs.util.JSJSONParser;
 import javajs.util.Lst;
-import javajs.util.PT;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 /**
  * Copyright 2021/2022 Integrated Graphics and Robert M. Hanson
@@ -116,7 +116,7 @@ public class Extractor implements ExtractorI {
 		FAIRSpecFindingAid.loadProperties();
 		VendorPluginI.init();
 	}
-	private static final String version = "0.0.2-alpha+2002.04.19";
+	private static final String version = "0.0.2-alpha+2002.04.23";
 
 	private static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/Extractor.java";
 
@@ -356,6 +356,8 @@ public class Extractor implements ExtractorI {
 
 	public static final String PNG_FILE_DATA = "_struc.png";
 
+	private static final String IFD_PROPERTY_DATAOBECT_NOTE = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_DATAOBJECT_FLAG, IFDConst.IFD_NOTE_FLAG);
+
 	public Extractor() {
 		clearZipCache();
 		getStructurePropertyManager();
@@ -373,7 +375,7 @@ public class Extractor implements ExtractorI {
 		getObjectParsersForFile(ifdExtractScriptFile);
 		String puburi = null;
 		Map<String, Object> pubCrossrefInfo = null;
-		puburi = (String) helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_COLLECTIONSET_SOURCE_PUBLICATION_URI);
+		puburi = (String) helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI);
 		if (puburi != null && !skipPubInfo) {
 			pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi, addPublicationMetadata);
 			if (pubCrossrefInfo == null || pubCrossrefInfo.get("title") == null) {
@@ -539,7 +541,7 @@ public class Extractor implements ExtractorI {
 	 * @throws IFDException
 	 */
 	public List<ObjectParser> getObjectsForStream(InputStream is) throws IOException, IFDException {
-		extractScript = new String(IFDUtilities.getLimitedStreamBytes(is, -1, null, true, true));
+		extractScript = new String(FAIRSpecUtilities.getLimitedStreamBytes(is, -1, null, true, true));
 		objectParsers = parseScript(extractScript);
 		return objectParsers;
 	}
@@ -568,8 +570,8 @@ public class Extractor implements ExtractorI {
 		List<ObjectParser> objectParsers = getObjects((List<Map<String, Object>>) jsonMap.get("keys"));
 		log(objectParsers.size() + " extractor regex strings");
 
-		log("! license: " + helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_COLLECTIONSET_SOURCE_DATA_LICENSE_NAME) + " at "
-				+ helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROP_COLLECTIONSET_SOURCE_DATA_LICENSE_URI));
+		log("! license: " + helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_NAME) + " at "
+				+ helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_URI));
 
 		return objectParsers;
 	}
@@ -590,24 +592,24 @@ public class Extractor implements ExtractorI {
 
 		// input:
 
-//		{"IFD-extract-version":"0.1.0-alpha","keys":[
-//         {"example":"compound directories containing unidentified bruker files and hrms zip file containing .pdf"},
-//         {"journal":"acs.orglett"},{"hash":"0c00571"},
-//         {"figshareid":"21975525"},
-//         
-//         {"ifdid=IFD.property.collection.id":"{journal}.{hash}"},
-//         {"IFD.property.collection.source.publication.uri":"https://doi.org/10.1021/{ifdid}"},
-//         {"IFD.property.collection.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
-//         {"IFD.property.collection.data.license.name":"cc-by-nc-4.0"},
-//         
-//         {"data0":"{IFD.property.collection.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{ifdid}/suppl_file/ol{hash}_si_002.zip}"},
-//         {"data":"{IFD.property.collection.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
-//
-//         {"path":"{data}|FID for Publication/{id=IFD.property.structure.compound.id::*}.zip|"},
-//         {"IFD.property.collection.object":"{path}{IFD.representation.spec.nmr.vendor.dataset::{IFD.property.spec.nmr.expt.label::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
-//         {"IFD.property.collection.object":"{path}<id>/{IFD.representation.structure.mol.2d::<id>.mol}"},
-//         {"IFD.property.collection.object":"{path}{IFD.representation.spec.hrms.spectrum.document::{IFD.property.spec.hrms.expt.label::<id>/HRMS.zip|**/*}.pdf}"}
-//        ]}
+		//	  {"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
+		//      {"example":"compound directories containing unidentified bruker files and hrms zip file containing .pdf"},
+		//      {"journal":"acs.orglett"},{"hash":"0c00571"},
+		//      {"figshareid":"21975525"},
+		//      
+		//      {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
+		//      {"IFD.property.collectionset.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
+		//      {"IFD.property.collectionset.source.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+		//      {"IFD.property.collectionset.source.data.license.name":"cc-by-nc-4.0"},
+		//      
+		//      {"data0":"{IFD.property.collectionset.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
+		//      {"data":"{IFD.property.collectionset.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
+		//
+		//      {"path":"{data}|FID for Publication/{id=IFD.property.sample.label::*}.zip|"},
+		//      {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{IFD.property.label::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
+		//      {"FAIRSpec.extractor.object":"{path}<id>/{IFD.representation.structure.mol.2d::<id>.mol}"},
+		//      {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.hrms.document::{IFD.property.label::<id>/HRMS.zip|**/*}.pdf}"}
+		//     ]}
 
 		Lst<String> keys = new Lst<>();
 		Lst<String> values = new Lst<>();
@@ -616,13 +618,13 @@ public class Extractor implements ExtractorI {
 			Map<String, Object> def = pathway.get(i);
 			for (Entry<String, Object> e : def.entrySet()) {
 
-				//{"IFDid=IFD.property.fairdata.collection.id":"{journal}.{hash}"},
-				 //..-----------------key---------------------...------val-------.
+				//{"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
+				//..-----------------key---------------...------val-------.
 				
 				String key = e.getKey();
 				String val = (String) e.getValue();
 				if (val.indexOf("{") >= 0) {
-					String s = PT.replaceStrings(val, keys, values);
+					String s = FAIRSpecUtilities.replaceStrings(val, keys, values);
 					if (!s.equals(val)) {
 						if (debugging)
 							log(val + "\n" + s + "\n");
@@ -636,15 +638,15 @@ public class Extractor implements ExtractorI {
 					keyDef = key.substring(0, pt);
 					key = key.substring(pt + 1);
 				}
-				 //{"IFDid=IFD.property.fairdata.collection.id":"{journal}.{hash}"},
-				 //..keydef.------------------key-------------
+				//{"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
+				//..keydef=-----------------key--------
 
 				if (key.equals(FAIRSpecExtractorHelper.IFD_EXTRACTOR_OBJECT)) {
 					parsers.add(newObjectParser(val));
 					continue;
 				}
 				if (key.startsWith(IFDConst.IFD_PROPERTY_FLAG)) {
-					if (key.equals(IFDConst.IFD_PROP_COLLECTIONSET_ID)) {
+					if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_ID)) {
 						ifdid = val;
 						helper.getFindingAid().setID(val);
 					}
@@ -864,7 +866,7 @@ public class Extractor implements ExtractorI {
 				File tempFile = File.createTempFile("extract", ".zip");
 				localizedURL = "file:///" + tempFile.getAbsolutePath();
 				log("! saving " + url + " as " + tempFile);
-				IFDUtilities.getLimitedStreamBytes(url.openStream(), -1, new FileOutputStream(tempFile), true, true);
+				FAIRSpecUtilities.getLimitedStreamBytes(url.openStream(), -1, new FileOutputStream(tempFile), true, true);
 				log("! saved " + tempFile.length() + " bytes");
 				len = tempFile.length();
 				stream = new FileInputStream(tempFile);
@@ -1086,6 +1088,7 @@ public class Extractor implements ExtractorI {
 				String mediaType = (String) a[5];
 				String keyPath = (isInline ? null : value.toString());
 				Object data = (isInline ? value : null);
+				// note --- not allowing for AnalysisObject or Sample here
 				IFDRepresentableObject<?> obj = (IFDConst.isStructure(key) ? struc : spec);
 				linkLocalizedNameToObject(keyPath, null, obj);
 				IFDRepresentation r = obj.findOrAddRepresentation(originPath, keyPath, data, key, mediaType);
@@ -1314,7 +1317,7 @@ public class Extractor implements ExtractorI {
 	 * The parser specifically looks for Matcher groups, regex (?<xxxx>...), that
 	 * have been created by the ObjectParser from an object line such as:
 	 * 
-	 * {IFD.representation.spec.nmr.vendor.dataset::{IFD.property.structure.compound.id::*-*}-{IFD.property.spec.nmr.expt.label::*}.jdf}
+	 * {IFD.representation.spec.nmr.vendor.dataset::{IFD.property.sample.label::*-*}-{IFD.property.dataobject.label::*}.jdf}
 	 *
 	 * 
 	 * 
@@ -1401,9 +1404,9 @@ public class Extractor implements ExtractorI {
 		boolean isAlert = msg.startsWith("!");
 		if(testID >= 0)
 			msg =  "test " + testID + ": " + msg; 
-		if (IFDUtilities.logStream != null) {
+		if (FAIRSpecUtilities.logStream != null) {
 			try {
-				IFDUtilities.logStream.write((msg + "\n").getBytes());
+				FAIRSpecUtilities.logStream.write((msg + "\n").getBytes());
 			} catch (IOException e) {
 			}
 		}
@@ -1538,7 +1541,7 @@ public class Extractor implements ExtractorI {
 			lenOffset = dirName.length();
 			
 			String msg = "correcting Bruker directory name to " + localizedName + "|" + newDir;
-			addProperty(IFDConst.IFD_PROPERTY_NOTE, msg);
+			addProperty(IFD_PROPERTY_DATAOBECT_NOTE, msg);
 			logWarn(msg, "processRezipEntry");
 		}
 		vendor.startRezip(this);
@@ -1579,7 +1582,7 @@ public class Extractor implements ExtractorI {
 				String outName = newDir + entryName.substring(lenOffset);
 				if (doInclude)
 					zos.putNextEntry(new ZipEntry(outName));
-				IFDUtilities.getLimitedStreamBytes(zis, len, os, false, false);
+				FAIRSpecUtilities.getLimitedStreamBytes(zis, len, os, false, false);
 				if (doCheck) {
 					byte[] bytes = ((ByteArrayOutputStream) os).toByteArray();
 					if (doInclude)
@@ -1666,7 +1669,7 @@ public class Extractor implements ExtractorI {
 			OutputStream os = (!doExtract ? null
 					: doCheck || noOutput ? new ByteArrayOutputStream() : new FileOutputStream(f));
 			if (os != null)
-				IFDUtilities.getLimitedStreamBytes(zis, len, os, false, true);
+				FAIRSpecUtilities.getLimitedStreamBytes(zis, len, os, false, true);
 			String localizedName = localizePath(originPath);
 			if (doExtract) {
 				String type = null;
@@ -1679,12 +1682,11 @@ public class Extractor implements ExtractorI {
 							addProperty(null, null);
 							for (String key : parser.keys.keySet()) {
 								String param = parser.keys.get(key);
-								if (param.equals(FAIRSpecExtractorHelper.IFD_PROP_SAMPLE_LABEL)) {
-									String id = mp.group(key);
-					System.out.println("Extractor test 1 " + this.originPath.equals(originPath) + " " + this.localizedName.equals(localizedName));
-									// check if original path is same as 
-									deferredPropertyList.add(new Object[] { originPath, localizedName, param, id, null, null });
-									addProperty(param, id);
+								if (param.equals(FAIRSpecExtractorHelper.IFD_PROPERTY_SAMPLE_LABEL)) {
+									String label = mp.group(key);
+									this.originPath = originPath;
+									this.localizedName = localizedName;
+									addProperty(param, label);
 								}
 							}
 						}
@@ -1752,7 +1754,7 @@ public class Extractor implements ExtractorI {
 		if (fileNameForMediaType == null)
 			fileNameForMediaType = localizedName;
 		addFileToFileLists(localizedName, LOG_OUTPUT, len);
-		String subtype = DefaultStructureHelper.mediaTypeFromName(fileNameForMediaType);
+		String subtype = FAIRSpecUtilities.mediaTypeFromFileName(fileNameForMediaType);
 		return cacheFileRepresentation(ifdPath, localizedName, len, ifdType, subtype);
 	}
 
@@ -1805,7 +1807,7 @@ public class Extractor implements ExtractorI {
 	private IFDRepresentation cacheFileRepresentation(String ifdPath, String localizedName, long len, String type,
 			String subtype) {
 		if (subtype == null)
-			subtype = DefaultStructureHelper.mediaTypeFromName(localizedName);
+			subtype = FAIRSpecUtilities.mediaTypeFromFileName(localizedName);
 		CacheRepresentation rep = new CacheRepresentation(new IFDReference(ifdPath, rootPath, localizedName), null, len,
 				type, subtype);
 		cache.put(localizedName, rep);
@@ -1858,7 +1860,7 @@ public class Extractor implements ExtractorI {
 
 	private void writeBytesToFile(byte[] bytes, File f) throws IOException {
 		if (!noOutput)
-			IFDUtilities.writeBytesToFile(bytes, f);
+			FAIRSpecUtilities.writeBytesToFile(bytes, f);
 	}
 
 	/**
@@ -1919,10 +1921,10 @@ public class Extractor implements ExtractorI {
 		public ObjectParser(Extractor extractor, String sObj) throws IFDException {
 			this.extractor = extractor;
 			int[] pt = new int[1];
-			dataSource = getIFDExtractValue(sObj, IFDConst.IFD_PROP_COLLECTIONSET_SOURCE_DATA_URI, pt);
+			dataSource = getIFDExtractValue(sObj, IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI, pt);
 			if (dataSource == null)
 				throw new IFDException(
-						"No {" + IFDConst.IFD_PROP_COLLECTIONSET_SOURCE_DATA_URI + "::...} found in " + sObj);
+						"No {" + IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI + "::...} found in " + sObj);
 			sData = sObj.substring(pt[0] + 1); // skip first "|"
 			init();
 		}
@@ -1945,9 +1947,9 @@ public class Extractor implements ExtractorI {
 			//
 			// * becomes \\E.+\\Q
 			//
-			// {id=IFD.property.spec.nmr.expt.label::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
+			// {id=IFD.property.dataobject.label::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
 			//
-			// {IFD.property.spec.nmr.expt.label::xxx} becomes
+			// {IFD.property.dataobject.label::xxx} becomes
 			// \\E(?<IFD0nmr0param0expt>\\Qxxx\\E)\\Q
 			//
 			// <id> becomes \\k<id>
@@ -1958,15 +1960,15 @@ public class Extractor implements ExtractorI {
 			//
 			// so:
 			//
-			// {IFD.property.spec.nmr.expt.label::*} becomes \\E(?<IFD0nmr0param0expt>.+)\\Q
+			// {IFD.property.dataobject.label::*} becomes \\E(?<IFD0nmr0param0expt>.+)\\Q
 			//
-			// {IFD.representation.spec.nmr.vendor.dataset::{IFD.property.structure.compound.id::*-*}-{IFD.property.spec.nmr.expt.label::*}.jdf}
+			// {IFD.representation.spec.nmr.vendor.dataset::{IFD.property.sample.label::*-*}-{IFD.property.dataobject.label::*}.jdf}
 			//
 			// becomes:
 			//
 			// ^(?<IFD0nmr0representation0vendor0dataset>(?<IFD0structure0param0compound0id>([^-](?:-[^-]+)*))\\Q-\\E(?<IFD0nmr0param0expt>.+)\\Q.jdf\\E)$
 			//
-			// {id=IFD.property.structure.compound.id::*}.zip|{IFD.representation.spec.nmr.vendor.dataset::{id}_{IFD.property.spec.nmr.expt.label::*}/}
+			// {id=IFD.property.sample.label::*}.zip|{IFD.representation.spec.nmr.vendor.dataset::{id}_{IFD.property.dataobject.label::*}/}
 			//
 			// becomes:
 			//
@@ -1980,7 +1982,7 @@ public class Extractor implements ExtractorI {
 
 			// **/ becomes \\E(?:[^/]+/)*\\Q
 
-			s = PT.rep(s, "**/", TEMP_ANY_DIRECTORIES);
+			s = FAIRSpecUtilities.rep(s, "**/", TEMP_ANY_DIRECTORIES);
 
 			Matcher m;
 			// *-* becomes \\E([^-]+(?:-[^-]+)*)\\Q and matches a-b-c
@@ -1989,16 +1991,16 @@ public class Extractor implements ExtractorI {
 					pStarDotStar = Pattern.compile("\\*(.)\\*");
 				while ((m = pStarDotStar.matcher(s)).find()) {
 					String schar = m.group(1);
-					s = PT.rep(s, "*" + schar + "*",
+					s = FAIRSpecUtilities.rep(s, "*" + schar + "*",
 							TEMP_ANY_SEP_ANY_GROUPS.replace(TEMP_ANY_SEP_ANY_CHAR, schar.charAt(0)));
 				}
 			}
 			// * becomes \\E.+\\Q
 
-			s = PT.rep(s, "*", REGEX_ANY_NOT_PIPE_OR_DIR);
+			s = FAIRSpecUtilities.rep(s, "*", REGEX_ANY_NOT_PIPE_OR_DIR);
 
-			// {id=IFD.property.spec.nmr.expt.label::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
-			// {IFD.property.spec.nmr.expt.label::xxx} becomes
+			// {id=IFD.property.dataobject.label::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
+			// {IFD.property.dataobject.label::xxx} becomes
 			// \\E(?<IFD0nmr0param0expt>\\Qxxx\\E)\\Q
 			// <id> becomes \\k<id>
 
@@ -2014,7 +2016,7 @@ public class Extractor implements ExtractorI {
 
 			// \\Q\\E in result is removed
 
-			s = PT.rep(s, REGEX_EMPTY_QUOTE, "");
+			s = FAIRSpecUtilities.rep(s, REGEX_EMPTY_QUOTE, "");
 
 			extractor.log("! Extractor.ObjectParser pattern: " + s);
 			p = Pattern.compile(s);
@@ -2052,17 +2054,17 @@ public class Extractor implements ExtractorI {
 				keys.put(key, param);
 				String bk = "{" + key + "}";
 				if (s.indexOf(bk) >= 0) {
-					s = PT.rep(s, bk, "<" + key + ">");
+					s = FAIRSpecUtilities.rep(s, bk, "<" + key + ">");
 				}
 				// escape < and > here
-				s = PT.rep(s, pv,
+				s = FAIRSpecUtilities.rep(s, pv,
 						(replaceK ? TEMP_KEYVAL_IN + key + TEMP_KEYVAL_OUT : REGEX_KEYDEF_START + key + REGEX_KV_END)
 								+ val + REGEX_END_PARENS);
 			}
 			if (isFull && (s.indexOf("<") >= 0 || s.indexOf(TEMP_KEYVAL_IN_CHAR) >= 0)) {
 				// now fix k< references and revert \3 \4
-				s = PT.rep(s, "<", REGEX_KEYVAL_START);
-				s = PT.rep(s, ">", REGEX_KV_END).replace(TEMP_KEYVAL_IN_CHAR, '<').replace(TEMP_KEYVAL_OUT_CHAR, '>');
+				s = FAIRSpecUtilities.rep(s, "<", REGEX_KEYVAL_START);
+				s = FAIRSpecUtilities.rep(s, ">", REGEX_KV_END).replace(TEMP_KEYVAL_IN_CHAR, '<').replace(TEMP_KEYVAL_OUT_CHAR, '>');
 			}
 			return s;
 		}

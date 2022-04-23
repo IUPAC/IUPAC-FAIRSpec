@@ -13,6 +13,13 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 @SuppressWarnings({ "serial" })
 public class IFDAnalysisObjectCollection extends IFDCollection<IFDRepresentableObject<IFDAnalysisObjectRepresentation>> {
 
+	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_ANALYSISOBJECT_FLAG);
+	
+	@Override
+	protected String getPropertyPrefix() {
+		return propertyPrefix;
+	}
+
 	public IFDAnalysisObjectCollection() {
 		super(null, null);
 	}

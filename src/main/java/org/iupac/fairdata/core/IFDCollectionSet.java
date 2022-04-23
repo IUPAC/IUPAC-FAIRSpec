@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import org.iupac.fairdata.api.IFDSerializerI;
+import org.iupac.fairdata.common.IFDConst;
 
 /**
  * A class representing an overall "collection of collections" IUPAC FAIRData
@@ -20,8 +21,11 @@ import org.iupac.fairdata.api.IFDSerializerI;
 @SuppressWarnings("serial")
 public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>> {
 
-	{
-		setProperties("IFD_PROP_COLLECTIONSET_", null);
+	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_COLLECTIONSET_FLAG);
+	
+	@Override
+	protected String getPropertyPrefix() {
+		return propertyPrefix;
 	}
 
 	public IFDCollectionSet(String label) {
@@ -30,6 +34,7 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 
 	public IFDCollectionSet(String label, String type) {
 		super(label, type);
+		setProperties(propertyPrefix, null);
 	}
 
 	/**
@@ -78,7 +83,7 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 				continue;
 			Map<String, Object> m = new TreeMap<>();
 			m.put("id", c.getID());
-			IFDObject.addTypes(c.getClass(), m);
+			getTypeAndExtends(c.getClass(), m);
 			m.put("count", c.size());
 			list.add(m);
 		}		

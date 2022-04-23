@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.util.IFDUtilities;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
@@ -37,7 +37,7 @@ public class ExtractorTest extends Extractor {
 
 	
 	static int first = 0; // first test to run
-	static int last = 0;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+	static int last = 12;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 					// file test
 	
 
@@ -53,7 +53,7 @@ public class ExtractorTest extends Extractor {
 				);
 
 		
-		String findingAidFileName = (key == null ? "" : key + ".");
+		String findingAidFileName = (key == null ? "" : key);
 
 		if (super.extractAndCreateFindingAid(ifdExtractScriptFile, localSourceDir, targetDir, findingAidFileName) == null && !allowNoPubInfo) {
 			throw new IFDException("Test failed");
@@ -98,7 +98,7 @@ public class ExtractorTest extends Extractor {
 
 		String json = "";
 
-		IFDUtilities.setLogging(targetDir + "/extractor.log");
+		FAIRSpecUtilities.setLogging(targetDir + "/extractor.log");
 
 		errorLog = "";
 		int n = 0;
@@ -145,7 +145,7 @@ public class ExtractorTest extends Extractor {
 		try {
 			if (createFindingAidJSONList && !readOnly) {
 				File f = new File(targetDir + "/_IFD_findingaids.json");
-				IFDUtilities.writeBytesToFile(json.getBytes(), f);
+				FAIRSpecUtilities.writeBytesToFile(json.getBytes(), f);
 				logStatic("ExtractorTest.runExtractionTests File " + f.getAbsolutePath() + " created \n" + json);
 			} else {
 				logStatic("ExtractorTest.runExtractionTests _IFD_findingaids.json was not created for\n" + json);
@@ -172,7 +172,7 @@ public class ExtractorTest extends Extractor {
 		System.err.flush();
 		logStatic("!ExtractorTest.runExtractionTests flags " + flags);
 		logStatic("!ExtractorText done");
-		IFDUtilities.setLogging(null);
+		FAIRSpecUtilities.setLogging(null);
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package org.iupac.fairdata.dataobject;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 
 /**
@@ -14,9 +15,17 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 @SuppressWarnings("serial")
 public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObjectRepresentation> {
 
+	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_DATAOBJECT_FLAG);
+	
+	@Override
+	protected String getPropertyPrefix() {
+		return propertyPrefix;
+	}
+	
 	public IFDDataObject() {
 		super(null, null);
 	}
+	
 
 	@Override
 	public Object clone() {

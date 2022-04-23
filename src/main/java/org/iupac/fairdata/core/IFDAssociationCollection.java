@@ -89,7 +89,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = firstAssociation.get(i);
 			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> cp = (c == null || c.size() == 0 ? null : c.get(0).getParentCollection());
 			if (cp == null) {
-			  throw new NullPointerException("IFDAssociation null or 0-length association");
+			  throw new NullPointerException("IFDAssociationCollection null or 0-length association");
 			}
 			list.add(cp.getID());
 		}

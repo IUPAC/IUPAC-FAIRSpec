@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.extract.ExtractorI;
 import org.iupac.fairdata.extract.PropertyManagerI;
-import org.iupac.fairdata.util.IFDUtilities;
 
 import com.integratedgraphics.ifd.Extractor;
 
@@ -65,7 +65,7 @@ public interface VendorPluginI extends PropertyManagerI {
 			return;
 		Map<String, Object> vendors = null;
 		try {
-			vendors = IFDUtilities.getJSONResource(Extractor.class, "extractor.config.json");
+			vendors = FAIRSpecUtilities.getJSONResource(Extractor.class, "extractor.config.json");
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;

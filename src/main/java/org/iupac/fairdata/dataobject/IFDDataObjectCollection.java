@@ -23,17 +23,6 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 		super(null, null);
 	}
 	
-	public IFDDataObject findObject(String path, String originPath) {
-		String keyValue = path + "::" + originPath;
-		return (IFDDataObject) map.get(keyValue);
-	}
-
-	public void addObject(String rootPath, String originPath, IFDDataObject sd) {
-		String keyValue = rootPath + "::" + originPath;
-		map.put(keyValue, sd);
-		add(sd);
-	} 
-	
 	/**
 	 * Replace a data object with a cloned version that has a new ID.
 	 * 

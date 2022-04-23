@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -65,18 +66,11 @@ public class IFDConst {
 				if (pt > 0)
 					val = val.substring(0, pt);
 				val = val.trim();
-				if (k.endsWith("_FLAG")) {
-					htProps.put(val + IFD_ID_FLAG, new IFDProperty(val + IFD_ID_FLAG));
-					htProps.put(val + IFD_LABEL_FLAG, new IFDProperty(val + IFD_LABEL_FLAG));
-					htProps.put(val + IFD_NOTE_FLAG, new IFDProperty(val + IFD_NOTE_FLAG));
-					htProps.put(val + IFD_DESCRIPTION_FLAG, new IFDProperty(val + IFD_DESCRIPTION_FLAG));
-					
-				} else {
+				if (!k.endsWith("_FLAG")) {
 					htProps.put(val, new IFDProperty(val, null, null, null));
 				}
 			}
 		}
-		htProps.put(IFD_PROPERTY_NOTE, new IFDProperty(IFD_PROPERTY_NOTE));
 		return htProps;
 	}
 
@@ -99,19 +93,38 @@ public class IFDConst {
 	
 	public static final String IFD_VERSION = getProp("IFD_VERSION");
 
-	public static final String IFD_FINDING_AID = getProp("IFD_FINDING_AID"); // root name for JSON
+	// IFDExtractorI constants:
 
-	public static final String IFD_PROP_COLLECTIONSET_SOURCE_DATA_LICENSE_NAME = getProp("IFD_PROP_COLLECTIONSET_SOURCE_DATA_LICENSE_NAME");
-	public static final String IFD_PROP_COLLECTIONSET_SOURCE_DATA_LICENSE_URI = getProp("IFD_PROP_COLLECTIONSET_SOURCE_DATA_LICENSE_URI");
+	public static final String IFD_PROPERTY_FLAG = getProp("IFD_PROPERTY_FLAG");
+	public static final String IFD_REPRESENTATION_FLAG = getProp("IFD_REPRESENTATION_FLAG");
 
-	public static final String IFD_PROP_COLLECTIONSET = getProp("IFD_PROP_COLLECTIONSET");
-	public static final String IFD_PROP_COLLECTIONSET_ID = getProp("IFD_PROP_COLLECTIONSET_ID");
-	public static final String IFD_PROP_COLLECTIONSET_REF = getProp("IFD_PROP_COLLECTIONSET_REF");
-	public static final String IFD_PROP_COLLECTIONSET_LEN = getProp("IFD_PROP_COLLECTIONSET_LEN");
-	public static final String IFD_PROP_COLLECTIONSET_SOURCE_DATA_URI = getProp(
-			"IFD_PROP_COLLECTIONSET_SOURCE_DATA_URI");
-	public static final String IFD_PROP_COLLECTIONSET_SOURCE_PUBLICATION_URI = getProp(
-			"IFD_PROP_COLLECTIONSET_SOURCE_PUBLICATION_URI");
+	public static final String IFD_FINDINGAID_FLAG = getProp("IFD_FINDINGAID_FLAG");
+	public static final String IFD_COLLECTIONSET_FLAG = getProp("IFD_COLLECTIONSET_FLAG");
+	public static final String IFD_COLLECTION_FLAG = getProp("IFD_COLLECTION_FLAG");
+	public static final String IFD_ASSOCIATION_FLAG = getProp("IFD_ASSOCIATION_FLAG");
+
+	public static final String IFD_SAMPLE_FLAG = getProp("IFD_SAMPLE_FLAG");
+	public static final String IFD_STRUCTURE_FLAG = getProp("IFD_STRUCTURE_FLAG");
+	public static final String IFD_DATAOBJECT_FLAG = getProp("IFD_DATAOBJECT_FLAG");
+	public static final String IFD_ANALYSISOBJECT_FLAG = getProp("IFD_ANALYSISOBJECT_FLAG");
+
+	public static final String IFD_LABEL_FLAG = getProp("IFD_LABEL_FLAG");
+	public static final String IFD_ID_FLAG = getProp("IFD_ID_FLAG");
+	public static final String IFD_NOTE_FLAG = getProp("IFD_NOTE_FLAG");
+	public static final String IFD_DESCRIPTION_FLAG = getProp("IFD_DESCRIPTION_FLAG");
+
+	public static final String IFD_FINDINGAID = getProp("IFD_FINDINGAID"); 
+
+	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_NAME = getProp("IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_NAME");
+	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_URI = getProp("IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_URI");
+
+	public static final String IFD_PROPERTY_COLLECTIONSET_ID = concat(IFD_PROPERTY_FLAG, IFD_COLLECTIONSET_FLAG, IFD_ID_FLAG);
+	public static final String IFD_PROPERTY_COLLECTIONSET_REF = getProp("IFD_PROPERTY_COLLECTIONSET_REF");
+	public static final String IFD_PROPERTY_COLLECTIONSET_LEN = getProp("IFD_PROPERTY_COLLECTIONSET_LEN");
+	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI = getProp(
+			"IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI");
+	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI = getProp(
+			"IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI");
 
 	public static final String IFD_REP_STRUCTURE_MOL = getProp("IFD_REP_STRUCTURE_MOL");
 	public static final String IFD_REP_STRUCTURE_MOL_2D = getProp("IFD_REP_STRUCTURE_MOL_2D");
@@ -149,24 +162,6 @@ public class IFDConst {
 	public enum PROPERTY_UNIT {
 		NONE, HZ, MHZ, CELCIUS, KELVIN
 	};
-
-	// IFDExtractorI constants:
-
-	public static final String IFD_PROPERTY_FLAG = getProp("IFD_PROPERTY_FLAG");
-	public static final String IFD_REPRESENTATION_FLAG = getProp("IFD_REPRESENTATION_FLAG");
-
-	public static final String IFD_LABEL_FLAG = getProp("IFD_LABEL_FLAG").substring(1);
-	public static final String IFD_ID_FLAG = getProp("IFD_ID_FLAG").substring(1);
-	public static final String IFD_NOTE_FLAG = getProp("IFD_NOTE_FLAG").substring(1);
-	public static final String IFD_DESCRIPTION_FLAG = getProp("IFD_DESCRIPTION_FLAG").substring(1);
-
-	public static final String IFD_SAMPLE_FLAG = getProp("IFD_SAMPLE_FLAG");
-	public static final String IFD_STRUCTURE_FLAG = getProp("IFD_STRUCTURE_FLAG");
-	public static final String IFD_DATAOBJECT_FLAG = getProp("IFD_DATAOBJECT_FLAG");
-	public static final String IFD_ANALYSISOBJECT_FLAG = getProp("IFD_ANALYSISOBJECT_FLAG");
-
-	public static final String IFD_PROPERTY_NOTE = concat(IFD_PROPERTY_FLAG, IFD_NOTE_FLAG);
-
 
 	public static boolean isRepresentation(String propName) {
 		return (propName != null && propName.startsWith(IFDConst.IFD_REPRESENTATION_FLAG));
@@ -218,7 +213,28 @@ public class IFDConst {
 			s += components[i];			
 		}
 		s = s.replaceAll("\\.+", ".");
+		if (s.endsWith("."))
+			s = s.substring(0, s.length() - 1);
 		return s;		
+	}
+
+	
+	private static Map<String, String> htMediaTypes;
+	
+	public static String getMediaTypesForExtension(String ext) {
+		if (htMediaTypes == null) {
+			htMediaTypes = new HashMap<String, String>();
+			String key = "IFD_MEDIATYPE_";
+			for (Entry<Object, Object> e : props.entrySet()) {
+				String k = (String) e.getKey();
+				if (k.startsWith(key)) {
+					String val = e.getValue().toString();
+					val = val.trim();
+					htMediaTypes.put(k, val);
+				}
+			}
+		}
+		return htMediaTypes.get("IFD_MEDIATYPE_" + ext.toUpperCase());
 	}
 
 }

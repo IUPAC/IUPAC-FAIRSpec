@@ -1,7 +1,5 @@
 package org.iupac.fairdata.core;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +11,6 @@ import java.util.TreeMap;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 
 /**
  * The IFDFindingAid class is a master class for the organizing metadata
@@ -30,8 +27,11 @@ import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 @SuppressWarnings("serial")
 public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 
-	{
-		setProperties("IFD_PROP_FINDINGAID_", null);
+	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_FINDINGAID_FLAG);
+	
+	@Override
+	protected String getPropertyPrefix() {
+		return propertyPrefix;
 	}
 
 	protected IFDCollectionSet collectionSet;
@@ -125,7 +125,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 
 	@Override
 	public void setPropertyValue(String label, Object value) {
-		if (label.startsWith(IFDConst.IFD_FINDING_AID))
+		if (label.startsWith(IFDConst.IFD_FINDINGAID_FLAG))
 			super.setPropertyValue(label, value);
 		else
 			collectionSet.setPropertyValue(label, value);		
@@ -133,7 +133,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 	
 	@Override
 	public Object getPropertyValue(String label) {
-		if (label.startsWith(IFDConst.IFD_FINDING_AID))
+		if (label.startsWith(IFDConst.IFD_FINDINGAID_FLAG))
 			return super.getPropertyValue(label);
 		return collectionSet.getPropertyValue(label);
 	}
@@ -161,7 +161,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 		} else {
 			// addObject will call this method after wrapping
 			serializing = true;
-			serializer.addObject(IFDConst.IFD_FINDING_AID, this);
+			serializer.addObject(IFDConst.IFD_FINDINGAID, this);
 			serializing = false;
 		}
 	}
@@ -172,29 +172,6 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 
 	public String getVersion() {
 		return IFDConst.getVersion();
-	}
-
-	/**
-	 * 
-	 * Generate the serialization and optionally save it to disk as
-	 * [rootname]_IFD_PROP_COLLECTIONSET.[ext] and optionally create an
-	 * _IFD_collection.zip in that same directory.
-	 * 
-	 * @param targetDir  or null for no output
-	 * @param rootName   a prefix root to add to the _IFD_PROP_COLLECTIONSET.json
-	 *                   (or.xml) finding aid created
-	 * @param products   optionally, a list of directories containing the files
-	 *                   referenced by the finding aid for creating the
-	 *                   IFD_collection.zip file
-	 * @param serializer optionally, a non-default IFDSerializerI (XML, JSON, etc.)
-	 * @return the serialization as a String
-	 * @throws IOException
-	 */
-	public String createSerialization(File targetDir, String rootName, List<Object> products, IFDSerializerI serializer)
-			throws IOException {
-		if (serializer == null)
-			serializer = new IFDDefaultJSONSerializer();
-		return serializer.createSerialization(this, targetDir, rootName, products);
 	}
 
 	protected Map<String, Object> getContentsMap(Map<String, Object> map) {

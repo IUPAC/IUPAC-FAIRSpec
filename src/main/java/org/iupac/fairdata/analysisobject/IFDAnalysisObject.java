@@ -1,5 +1,6 @@
 package org.iupac.fairdata.analysisobject;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
@@ -15,8 +16,11 @@ import org.iupac.fairdata.core.IFDRepresentation;
 @SuppressWarnings("serial")
 public abstract class IFDAnalysisObject extends IFDRepresentableObject<IFDAnalysisObjectRepresentation> {
 
-	{
-		setProperties("IFD_PROP_ANALYSIS_OBJECT_", null);
+	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_ANALYSISOBJECT_FLAG);
+	
+	@Override
+	protected String getPropertyPrefix() {
+		return propertyPrefix;
 	}
 
 	public IFDAnalysisObject(String label, String type) {

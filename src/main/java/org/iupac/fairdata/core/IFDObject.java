@@ -206,9 +206,19 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected String label;
 
 	/**
-	 * an arbitrary identifier to provide some sort of context
+	 * a unique identifier to provide some sort of context
 	 */
 	protected String id;
+
+	/**
+	 * an arbitrary description to provide some sort of context
+	 */
+	protected String description;
+
+	/**
+	 * a production note to provide some sort of context
+	 */
+	protected String note;
 
 	/**
 	 * known properties of this class, fully identified in terms of data type and
@@ -311,34 +321,50 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return params;
 	}
 
-	public void setPropertyValue(String label, Object value) {
+	public void setPropertyValue(String key, Object value) {
 		// check for .representation., which is not stored in the object.
-		if (IFDConst.isRepresentation(label))
+		if (IFDConst.isRepresentation(key) || checkSpecialProperties(key, value)) {
 			return;
-		checkSpecialProperties(label, value);
-		IFDProperty p = IFDConst.getIFDProperty(htProps, label);
+		}
+		IFDProperty p = IFDConst.getIFDProperty(htProps, key);
 		if (p == null) {
+			if (key.indexOf(".property.") >= 0)
+				System.out.println(">>>>????");
 			if (value == null)
-				params.remove(label);
+				params.remove(key);
 			else
-				params.put(label, value);
+				params.put(key, value);
 			return;
 		}
-		htProps.put(label, p.getClone(value));
+		htProps.put(key, p.getClone(value));
 	}
 
-	private void checkSpecialProperties(String label, Object value) {
-		if (IFDConst.isLabel(label)) {
-			this.label = value.toString();
-		}
-		else 
-		if (IFDConst.isID(label))
+	abstract protected String getPropertyPrefix();
+
+	private boolean checkSpecialProperties(String key, Object value) {
+		String myPropertyPrefix = getPropertyPrefix();
+		if (key.equals(myPropertyPrefix + IFDConst.IFD_LABEL_FLAG)) {
+			label = value.toString();
+			return true;
+		} 
+		if (key.equals(myPropertyPrefix + IFDConst.IFD_ID_FLAG)) {
 			id = value.toString();
+			return true;
+		}
+		if (key.equals(myPropertyPrefix + IFDConst.IFD_DESCRIPTION_FLAG)) {
+			description = value.toString();
+			return true;
+		}
+		if (key.equals(myPropertyPrefix + IFDConst.IFD_NOTE_FLAG)) {
+			note = value.toString();
+			return true;
+		}
+		return false;
 	}
 
-	public Object getPropertyValue(String label) {
-		IFDProperty p = htProps.get(label);
-		return (p == null ? params.get(label) : p.getValue());
+	public Object getPropertyValue(String key) {
+		IFDProperty p = htProps.get(key);
+		return (p == null ? params.get(key) : p.getValue());
 	}
 
 	public void setIndex(int i) {
@@ -349,10 +375,12 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return index;
 	}
 
+	@Override
 	public String getID() {
 		return id;//(id == null ? "" + index : id);
 	}
 
+	@Override
 	public void setID(String id) {
 		this.id = id;
 	}
@@ -361,6 +389,32 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	public String getLabel() {
 		return label;
 	}
+
+	@Override
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	@Override
+	public String getNote() {
+		return note;
+	}
+
+	@Override
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+	@Override
+	public String getDescription() {
+		return description;
+	}
+
+	@Override
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 
 	@Override
 	public T getObject(int index) {
@@ -410,12 +464,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			throw new IndexOutOfBoundsException("operation not allowed for index > " + maxCount);
 	}
 
-	@Override
-	public String toString() {
-		return "[" + getClass().getSimpleName() + " " + index + " " + " size=" + size() + "]";
-	}
-
 	/**
+	 * Check if have properties and at least one is not null.
 	 * 
 	 * @return true if any property value is not null
 	 */
@@ -425,6 +475,10 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 				return true;
 		}
 		return false;
+	}
+
+	public void setSerializeType(boolean doSerializeType) {
+		this.doSerializeType = doSerializeType;
 	}
 
 	@Override
@@ -442,28 +496,56 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected void serializeTop(IFDSerializerI serializer) {
 		if (doSerializeType)
 			serializeClass(serializer, getClass(), null);
-		serializer.addAttr("label", getLabel());
 		serializer.addAttr("id", getID());
+		serializer.addAttr("label", getLabel());
+		serializer.addAttr("note", getNote());
+		serializer.addAttr("description", getDescription());
 	}
 
+	/**
+	 * Add "type" and "typeExtends" fields
+	 * 
+	 * @param serializer
+	 * @param c the class 
+	 * @param stype null or "type" or "itemType"
+	 */
 	static void serializeClass(IFDSerializerI serializer, Class<?> c, String stype) {
 		if (stype == null)
 			stype = "type";
-		serializer.addAttr(stype, c.getName());
-		if (serializeExtended(c).length() > 0)
-			serializer.addAttr(stype + "Extends", serializeExtended(c));
+		Map<String, Object> m = getTypeAndExtends(c, null);
+		serializer.addAttr(stype, (String) m.get("type"));
+		String ext = (String) m.get("typeExtends");
+		if (ext != null)
+			serializer.addAttr(stype + "Extends", ext);
 	}
 
-	public static void addTypes(Class<?> c, Map<String, Object> m) {
+	/**
+	 * add "type" and "typeExtends" to a map
+	 * @param c
+	 * @param m
+	 * @return
+	 */
+	public static Map<String, Object> getTypeAndExtends(Class<?> c, Map<String, Object> m) {
+		if (m == null)
+			m = new TreeMap<String, Object>();
 		String ctype = c.getName();
 		m.put("type", ctype);
-		String stype = serializeExtended(c);
-		if (!stype.equals(ctype))
-			m.put("typeExtends", stype);
+		String strtype = serializeExtended(c);
+		if (strtype.length() > 0 && !strtype.equals(ctype))
+			m.put("typeExtends", strtype);
+		return m;
 	}
 
+	/**
+	 * a map of known class type names
+	 */
 	private static Map<String, String> htExtendedTypes = new Hashtable<>();
 
+	/**
+	 * Create the 
+	 * @param t
+	 * @return
+	 */
 	private static String serializeExtended(Class<?> t) {
 		String label = t.getName();
 		String et = htExtendedTypes.get(label);
@@ -500,14 +582,11 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	@Override
 	public boolean equals(Object o) {
 		return (o == this);
-//		if (!super.equals(o))
-//			return false;
-//		IFDObject<?> c = (IFDObject<?>) o;
-//		return label.equals(c.getName());
 	}
 
-	public void setSerializeType(boolean doSerializeType) {
-		this.doSerializeType = doSerializeType;
+	@Override
+	public String toString() {
+		return "[" + getClass().getSimpleName() + " " + index + " " + " size=" + size() + "]";
 	}
 
 }

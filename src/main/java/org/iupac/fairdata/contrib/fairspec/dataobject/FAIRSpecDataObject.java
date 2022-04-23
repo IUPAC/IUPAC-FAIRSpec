@@ -16,16 +16,15 @@ public abstract class FAIRSpecDataObject extends IFDDataObject {
 		super();
 	}
 	
-	public static FAIRSpecDataObject createFAIRSpecObject(String rootPath, String key) {
+	public static FAIRSpecDataObject createFAIRSpecObject(String key) {
 		String type = key.substring(key.lastIndexOf(".") + 1);
 		String className = FAIRSpecDataObject.class.getName();
 		className = className.substring(0, className.lastIndexOf(".") + 1) + type + ".FAIRSpec" + type.toUpperCase()
 				+ "Data";
 		try {
 			FAIRSpecDataObject o = (FAIRSpecDataObject) Class.forName(className).newInstance();
-			o.setPath(rootPath);
 			// properties are loaded based on subtype
-			o.setProperties("IFD_PROP_" + key, null); 
+			o.setProperties("IFD_PROPERTY" + key, null); 
 			return o;
 		} catch (Exception e) {
 			e.printStackTrace();

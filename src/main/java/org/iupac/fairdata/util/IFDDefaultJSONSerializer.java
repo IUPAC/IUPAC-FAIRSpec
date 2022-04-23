@@ -1,7 +1,5 @@
 package org.iupac.fairdata.util;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,10 +7,8 @@ import java.util.Map.Entry;
 
 import org.iupac.fairdata.api.IFDSerializableI;
 import org.iupac.fairdata.api.IFDSerializerI;
-import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.core.IFDFindingAid;
 
-import javajs.util.PT;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import javajs.util.SB;
 
 /**
@@ -44,7 +40,7 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 		}
 
 		public void append(String key, String val) {
-			appendKey(key).append(PT.esc(val));
+			appendKey(key).append(FAIRSpecUtilities.esc(val));
 		}
 		
 		public void appendNoEsc(String key, String val) {
@@ -54,7 +50,7 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 		public StringBuffer appendKey(String key) {
 			if (sb.length() > 1)
 				sb.append(",\n");
-			sb.append(PT.esc(key)).append(":");
+			sb.append(FAIRSpecUtilities.esc(key)).append(":");
 			return sb;
 		}
 
@@ -122,7 +118,7 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 			String sep = "";
 			for (Entry<?, ?> e : map.entrySet()) {
 				thisObj.append(sep);
-				thisObj.append(PT.esc(e.getKey().toString()));
+				thisObj.append(FAIRSpecUtilities.esc(e.getKey().toString()));
 				thisObj.append(":");
 				addValue(e.getValue(), false, true);
 				sep = ",\n";
@@ -130,9 +126,9 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 			thisObj.append("}");
 			return;
 		} else if (val instanceof String) {
-			val = PT.esc((String) val);
+			val = FAIRSpecUtilities.esc((String) val);
 		} else if (val instanceof byte[]) {
-			val = PT.esc(";base64," + Base64.getBase64((byte[]) val));
+			val = FAIRSpecUtilities.esc(";base64," + Base64.getBase64((byte[]) val));
 		}
 		if (addKey) {
 			thisObj.appendNoEsc("value", val.toString());
@@ -155,34 +151,6 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 		return "json";
 	}
 
-	@Override
-	public String createSerialization(IFDFindingAid findingAid, File targetDir, String rootName, List<Object> products) throws IOException {
-		// subclasses should be able to use this directly with no changes.
-		String s = serialize(findingAid);
-		if (targetDir == null)
-			return s;
-		String aidName = "_IFD_findingaid." + getFileExt();
-		if (products != null) {
-			findingAid.setPropertyValue(IFDConst.IFD_PROP_COLLECTIONSET_REF, null);
-			findingAid.setPropertyValue(IFDConst.IFD_PROP_COLLECTIONSET_LEN, null);
-			// byte[] followed by entry name
-			products.add(0, s.getBytes());
-			products.add(1, aidName);
-			String zipName = rootName + "_IFD_collection.zip";
-			String path = targetDir + "/" + zipName;
-			long len = IFDUtilities.zip(path, targetDir.toString().length() + 1, products);
-			findingAid.setPropertyValue(IFDConst.IFD_PROP_COLLECTIONSET_REF, zipName);
-			findingAid.setPropertyValue(IFDConst.IFD_PROP_COLLECTIONSET_LEN, len);
-			products.remove(1);
-			products.remove(0);
-			// update external finding aid
-			s = serialize(findingAid);
-		}
-		String faPath = targetDir + "/" + rootName + aidName;
-		IFDUtilities.writeBytesToFile(s.getBytes(), new File(faPath));
-		return s;
-	}
-	
 	static class Base64 {
 
 		  //                              0         1         2         3         4         5         6

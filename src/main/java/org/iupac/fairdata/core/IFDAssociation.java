@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.iupac.fairdata.api.IFDSerializerI;
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 
 /**
@@ -20,6 +21,13 @@ import org.iupac.fairdata.common.IFDException;
  */
 @SuppressWarnings("serial")
 public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>> {
+
+	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_ASSOCIATION_FLAG); 
+	
+	@Override
+	protected String getPropertyPrefix() {
+		return propertyPrefix;
+	}
 
 	@SafeVarargs
 	protected IFDAssociation(String type, IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>... collections) throws IFDException {

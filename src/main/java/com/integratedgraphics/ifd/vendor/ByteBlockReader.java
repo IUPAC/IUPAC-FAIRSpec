@@ -12,7 +12,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Stack;
 
-import org.iupac.fairdata.util.IFDUtilities;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 /**
  * A reader that can process blocks that contain an initial byte length followed
@@ -70,7 +70,7 @@ public class ByteBlockReader {
 	private long mark;
 
 	public ByteBlockReader(InputStream in) throws IOException {
-		this(IFDUtilities.getLimitedStreamBytes(in, -1, null, true, true));
+		this(FAIRSpecUtilities.getLimitedStreamBytes(in, -1, null, true, true));
 	}
 
 	public ByteBlockReader(byte[] bytes) {

@@ -1,5 +1,6 @@
 package org.iupac.fairdata.sample;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
@@ -28,19 +29,16 @@ import org.iupac.fairdata.core.IFDRepresentation;
 @SuppressWarnings("serial")
 public class IFDSample extends IFDRepresentableObject<IFDSampleRepresentation> {
 
-	{
-		setProperties("IFD_PROP_SAMPLE_", null);
+	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_SAMPLE_FLAG);
+	
+	@Override
+	protected String getPropertyPrefix() {
+		return propertyPrefix;
 	}
 
-	public IFDSample(String label, String type) {
-		super(label, type);
-	}
-
-	public IFDSample(String path, String param, String value) {
-		// label here is just for debugging
-		super(param + ";" + value, null);
-		setPath(path);
-		setPropertyValue(param, value);
+	public IFDSample() {
+		super(null, null);
+		setProperties(propertyPrefix, null);
 	}
 
 	@Override

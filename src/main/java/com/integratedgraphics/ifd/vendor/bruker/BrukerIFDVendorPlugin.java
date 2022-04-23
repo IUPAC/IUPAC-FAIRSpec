@@ -6,8 +6,8 @@ import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.extract.ExtractorI;
-import org.iupac.fairdata.util.IFDUtilities;
 
 import com.integratedgraphics.ifd.Extractor;
 import com.integratedgraphics.ifd.api.VendorPluginI;
@@ -29,19 +29,19 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 		// order here is not significant; keys without the JCAMP vendor prefix are
 		// derived, not the value itself
 		String[] keys = { //
-				"DIM", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_DIM"), //prop
-				"##$BF1", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_1"), //prop
-				"##$BF2", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_2"), //prop
-				"##$BF3", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_3"), //prop
-				"##$NUC1", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_1"), //prop
-				"##$NUC2", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_2"), //prop
-				"##$NUC3", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_3"), //prop
-				"##$PULPROG", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_PULSE_PROG"), //prop
-				"##$TE", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
-				"SOLVENT", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_SOLVENT"), //prop
-				"TITLE", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_TITLE"), //prop
-				"SF", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
-				"##$PROBHD", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_INSTR_PROBE_TYPE"), //prop
+				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_DIM"), //prop
+				"##$BF1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_1"), //prop
+				"##$BF2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_2"), //prop
+				"##$BF3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_3"), //prop
+				"##$NUC1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_1"), //prop
+				"##$NUC2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_2"), //prop
+				"##$NUC3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_3"), //prop
+				"##$PULPROG", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_PULSE_PROG"), //prop
+				"##$TE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
+				"SOLVENT", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_SOLVENT"), //prop
+				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TITLE"), //prop
+				"SF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
+				"##$PROBHD", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_PROBE_TYPE"), //prop
 		};
 		for (int i = 0; i < keys.length;)
 			ifdMap.put(keys[i++], keys[i++]);
@@ -243,7 +243,7 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 		System.out.println("====================" + ifdPath);
 		try {
 			String filename = new File(ifdPath).getAbsolutePath();
-			byte[] bytes = IFDUtilities.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
+			byte[] bytes = FAIRSpecUtilities.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
 			new BrukerIFDVendorPlugin().accept(null, filename, bytes);
 		} catch (Exception e) {
 			e.printStackTrace();

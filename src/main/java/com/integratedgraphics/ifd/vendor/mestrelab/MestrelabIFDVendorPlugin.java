@@ -14,7 +14,7 @@ import com.integratedgraphics.ifd.Extractor;
 import com.integratedgraphics.ifd.util.DefaultVendorPlugin;
 import com.integratedgraphics.ifd.vendor.mestrelab.MNovaMetadataReader.Param;
 
-import javajs.util.PT;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 
@@ -32,19 +32,19 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 
 	static {
 		String[] keys = { //
-				"Pulse Sequence", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_PULSE_PROG"), //prop
-				"Solvent", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_SOLVENT"), //prop
-				"Probe", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_INSTR_PROBE_TYPE"), //prop
-				"Temperature", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
-				"Experiment", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_DIM"), //prop
-				"Title", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_TITLE"), //prop
-				"F1", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_1"), //prop
-				"F2", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_2"), //prop
-				"F3", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_3"), //prop
-				"N1", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_1"), //prop
-				"N2", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_2"), //prop
-				"N3", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_3"), //prop
-				"SF", getProp("IFD_PROP_DATAOBJECT_FAIRSPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
+				"Pulse Sequence", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_PULSE_PROG"), //prop
+				"Solvent", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_SOLVENT"), //prop
+				"Probe", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_PROBE_TYPE"), //prop
+				"Temperature", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
+				"Experiment", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_DIM"), //prop
+				"Title", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TITLE"), //prop
+				"F1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_1"), //prop
+				"F2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_2"), //prop
+				"F3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_3"), //prop
+				"N1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_1"), //prop
+				"N2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_2"), //prop
+				"N3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_3"), //prop
+				"SF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
 		};
 
 		for (int i = 0; i < keys.length;)
@@ -123,7 +123,7 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 					pngcss = val;
 					return;
 				case "Origin":
-					oval = origin = PT.rep(val, "\n", " ").trim();
+					oval = origin = FAIRSpecUtilities.rep(val, "\n", " ").trim();
 					int pt = origin.indexOf(" ");
 					if (pt >= 0)
 						origin = origin.substring(0, pt);
@@ -141,7 +141,7 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 				case "Presaturation Frequency":
 				case "Probe":
 				default:
-					oval = PT.rep(val, "\n", " ").trim();
+					oval = FAIRSpecUtilities.rep(val, "\n", " ").trim();
 					break;
 				case "Data File Name":
 					isJDF = (val.endsWith(".jdf"));

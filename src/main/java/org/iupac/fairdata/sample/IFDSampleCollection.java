@@ -22,17 +22,21 @@ public class IFDSampleCollection extends IFDCollection<IFDRepresentableObject<IF
 		this();
 		add(sample);
 	}
-
 	
-	public IFDSample getSampleFor(String rootPath, String localName, String param, String value, String zipName, String mediaType) {
+	public IFDSample getOrCreateSampleFor(String rootPath, String localName, String param, String value, String zipName,
+			String mediaType) {
 		String keyValue = param + ";" + value;
 		IFDSample sd = (IFDSample) map.get(keyValue);
 		if (sd == null) {
-			map.put(keyValue,  sd = new IFDSample(rootPath, param, value));
+			map.put(keyValue, sd = new IFDSample());
 			add(sd);
+			sd.setPath(rootPath);
 		}
-		if (IFDConst.isRepresentation(param))
-			sd.findOrAddRepresentation(zipName, localName, null, param, mediaType);
+		if (IFDConst.isRepresentation(param)) {
+			sd.findOrAddRepresentation(zipName, localName, null, param, mediaType);			
+		} else {
+			sd.setPropertyValue(param, value);			
+		}
 		return sd;
 	}
 

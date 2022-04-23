@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.iupac.fairdata.util.IFDUtilities;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 import javajs.util.JSJSONParser;
 
@@ -59,7 +59,7 @@ public class PubInfoExtractor {
 		String crUrl = getCrossrefMetadataUrl(puburi);
 		System.out.println("PubInfoExtractor: " + crUrl);
 		try {
-			crossRef = new JSJSONParser().parseMap(IFDUtilities.getURLContentsAsString(crUrl), false);
+			crossRef = new JSJSONParser().parseMap(FAIRSpecUtilities.getURLContentsAsString(crUrl), false);
 			if (crossRef != null) {
 				extractCrossRefInfo(info, crossRef);
 				map = new LinkedHashMap<>();
@@ -78,7 +78,7 @@ public class PubInfoExtractor {
 			System.out.println("PubInfoExtractor: " + dcUrl);
 			try {
 				// on Feb 1 2022 crossCite stopped serving CrossRef metadata
-				dataCite = IFDUtilities.getJSONURL(dcUrl);
+				dataCite = FAIRSpecUtilities.getJSONURL(dcUrl);
 				if (dataCite != null) {
 					extractCrossCiteInfo(info, dataCite);
 					map = new LinkedHashMap<>();

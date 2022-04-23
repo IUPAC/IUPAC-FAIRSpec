@@ -1,25 +1,25 @@
 package org.iupac.fairdata.structure;
 
+import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 
 @SuppressWarnings("serial")
 public class IFDStructure extends IFDRepresentableObject<IFDStructureRepresentation> {
 
-	{
-		setProperties("IFD_PROP_STRUCTURE", null);
-	}	
+	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_STRUCTURE_FLAG);
 	
-	public IFDStructure(String label) {
-		super(label, null);
-	}
-	
-	public IFDStructure(String path, String param, String value) {
-		super(param + ";" + value, null);
-		setPath(path);
-		setPropertyValue(param, value);
+	@Override
+	protected String getPropertyPrefix() {
+		return propertyPrefix;
 	}
 
+	public IFDStructure() {
+		super(null, null);
+		setProperties(propertyPrefix, null);
+	}
+	
 	@Override
 	protected IFDStructureRepresentation newRepresentation(IFDReference ref, Object obj, long len, String type, String subtype) {
 		return new IFDStructureRepresentation(ref, obj, len, type, subtype);
@@ -35,5 +35,4 @@ public class IFDStructure extends IFDRepresentableObject<IFDStructureRepresentat
 		}
 		return "[IFDStructure " + index + " " + label + " " + refs + "]";
 	}
-
 }

@@ -6,10 +6,18 @@ import java.util.List;
 import java.util.Map;
 
 import org.iupac.fairdata.api.IFDSerializerI;
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 
 @SuppressWarnings("serial")
 public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T> {
+
+	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_COLLECTION_FLAG);
+	
+	@Override
+	protected String getPropertyPrefix() {
+		return propertyPrefix;
+	}
 
 	protected IFDCollection(String label, String type) {
 		super(label, type);
@@ -39,7 +47,6 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 			return false;
 		if (!hasRepresentations && (t instanceof IFDRepresentableObject))
 			hasRepresentations = true;
-		//System.out.println("IFDCollection " + this + " adding " + t);
 		return super.add(t);
 	}
 
@@ -126,9 +133,9 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 			serializer.addList("items", this);
 		}
 		if (haveCommonClass) {
-		for (int i = size(); --i >= 0;) {
-			get(i).setSerializeType(true);
-		}
+			for (int i = size(); --i >= 0;) {
+				get(i).setSerializeType(true);
+			}
 		}
 	}
 

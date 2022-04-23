@@ -95,31 +95,10 @@ public class DefaultStructureHelper implements PropertyManagerI {
 				extractor.addPropertyOrRepresentation(IFDConst.getProp("IFD_REP_STRUCTURE_INCHI"), inchi, true, "chemical/x-inchi");
 		}
 		if (inchiKey != null) {
-				extractor.addPropertyOrRepresentation(IFDConst.getProp("IFD_PROP_STRUCTURE_INCHIKEY"), inchiKey, true, "chemical/x-inchikey");
+				extractor.addPropertyOrRepresentation(IFDConst.getProp("IFD_PROPERTY_STRUCTURE_INCHIKEY"), inchiKey, true, "chemical/x-inchikey");
 		}
 		fileToType.put(ifdPath, type);
 		return type;
-	}
-
-	public static String mediaTypeFromName(String fname) {
-		int pt = Math.max(fname.lastIndexOf('/'), fname.lastIndexOf('.'));
-		return (fname.endsWith(".zip") ? "application/zip"
-				: fname.endsWith(".pdf") ? "application/pdf" 
-				: fname.endsWith(".png") ? "image/png"
-				: fname.endsWith(".inchi") ? "chemical/x-inchi"
-				: fname.endsWith(".smiles") ? "chemical/x-smiles"
-				: fname.endsWith(".smi") ? "chemical/x-smiles"
-				: fname.endsWith(".cdx") ? "chemical/x-cdx (ChemDraw CDX)"
-				: fname.endsWith(".cdxml") ? "chemical/x-cdxml (ChemDraw XML)"
-					// see https://en.wikipedia.org/wiki/Chemical_file_format
-				: fname.endsWith(".mol") ? "chemical/x-mdl-molfile"
-				: fname.endsWith(".sdf") ? "chemical/x-mdl-sdfile"
-				: fname.endsWith(".txt") || fname.endsWith(".log") || fname.endsWith(".out") ? "text/plain"
-				: fname.endsWith(".inchi") ? "chemical/x-inchi"
-				: fname.endsWith(".smiles") || fname.endsWith(".smi") ? "chemical/x-daylight-smiles"
-				: fname.endsWith(".jpf") ? "application/octet-stream (JEOL)"
-				: fname.endsWith(".mnova") ? "application/octet-stream (MNOVA)"
-				: pt >= 0 ? "?" + fname.substring(pt) : "?");
 	}
 
 	public static String getType(String ext, byte[] bytes) {
