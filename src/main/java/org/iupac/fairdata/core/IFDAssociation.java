@@ -95,12 +95,25 @@ public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentable
 		if (size() == 0)
 			return;
 		// this class should serialize as a raw list of lists, without {....}
+		List<List<Integer>> list = getMyIndexList();
+		serializer.addList("items", list);
+	}
+
+	private List<List<Integer>> getMyIndexList() {
 		List<List<Integer>> list = new ArrayList<>();
 		for (int i = 0; i < size(); i++) {
 			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = getObject(i);
 			list.add(c.getIndexList());
 		}
-		serializer.addList("items", list);
+		return list;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return super.toString().replace(']', ' ') + getMyIndexList() + " ]";
+	}
+
+
 	
 }
