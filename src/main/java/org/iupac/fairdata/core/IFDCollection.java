@@ -87,6 +87,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 		if (path != null && map.get(path) != null) {
 			return null;
 		}
+		map.put(path,  sd);
 		return (add(sd) ? sd : null);
 	}
 	
