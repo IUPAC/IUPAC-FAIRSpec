@@ -4,8 +4,7 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 
 /**
- * A generic interface indicating some sort of data. Implemented here as
- * IFDDataObject, but potentially implemented for any sort of data object.
+ * A generic class indicating some sort of data. 
  * 
  * Allows for multiple named representations. 
  * 

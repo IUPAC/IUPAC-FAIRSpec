@@ -586,7 +586,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	@Override
 	public String toString() {
-		return "[" + getClass().getSimpleName() + " " + index + " " + " size=" + size() + "]";
+		return "[" + getClass().getSimpleName() + " " + index + " label=" + label + " size=" + size() + "]";
 	}
 
 }

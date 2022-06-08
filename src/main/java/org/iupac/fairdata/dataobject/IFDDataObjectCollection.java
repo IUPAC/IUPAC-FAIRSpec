@@ -11,10 +11,6 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 		add(data);
 	}
 
-	public IFDDataObjectCollection(String label) {
-		super(label, null);
-	}
-
 	public IFDDataObjectCollection(String label, String type) {
 		super(label, type);
 	}
