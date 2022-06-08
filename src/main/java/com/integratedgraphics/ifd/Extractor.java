@@ -750,6 +750,7 @@ public class Extractor implements ExtractorI {
 		IFDStructureDataAssociationCollection ssc = helper.getStructureDataCollection();
 		boolean isFound = false;
 		int n = 0;
+// wondering where these duplicates come from.
 		for (IFDAssociation assoc : ssc) {
 			IFDDataObjectCollection c = ((IFDStructureDataAssociation) assoc).getDataObjectCollection();
 			List<Object> found = new ArrayList<>();

@@ -51,7 +51,7 @@ public interface FAIRSpecExtractorHelperI {
 
 	IFDObject<?> endAddingObjects();
 
-	void finalizeExtraction();
+	String finalizeExtraction();
 
 	IFDDataObjectCollection getDataObjectCollection();
 
