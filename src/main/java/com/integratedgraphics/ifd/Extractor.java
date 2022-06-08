@@ -32,14 +32,15 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDAssociation;
-import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDFindingAid;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.dataobject.IFDDataObject;
+import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
+import org.iupac.fairdata.derived.IFDStructureDataAssociation;
 import org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.extract.ExtractorI;
@@ -115,7 +116,7 @@ public class Extractor implements ExtractorI {
 		FAIRSpecFindingAid.loadProperties();
 		VendorPluginI.init();
 	}
-	private static final String version = "0.0.2-alpha+2002.04.23";
+	private static final String version = "0.0.2-alpha+2002.05.02";
 
 	private static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/Extractor.java";
 
@@ -666,7 +667,7 @@ public class Extractor implements ExtractorI {
 	 * Find and extract all objects of interest from a ZIP file.
 	 * 
 	 */
-	public FAIRSpecExtractorHelperI extractObjects(File targetDir) throws IFDException, IOException {
+	public void extractObjects(File targetDir) throws IFDException, IOException {
 		if (haveExtracted)
 			throw new IFDException("Only one extraction per instance of Extractor is allowed (for now).");
 		haveExtracted = true;
@@ -713,7 +714,7 @@ public class Extractor implements ExtractorI {
 			lastRootPath = initializeCollection(lastRootPath);
 
 			// At this point we now have all spectra ready to be associated with
-			// struc!tures.
+			// structures and samples.
 
 			// 2.1
 			log("! PHASE 2.1 \n" + localizedURL + "\n" + parser.sData);
@@ -741,8 +742,7 @@ public class Extractor implements ExtractorI {
 
 		saveCollectionManifests(false);
 
-		helper.finalizeExtraction();
-		return helper;
+		log(helper.finalizeExtraction());
 	}
 
 	private void removeDuplicateSpecData() {
@@ -751,13 +751,13 @@ public class Extractor implements ExtractorI {
 		boolean isFound = false;
 		int n = 0;
 		for (IFDAssociation assoc : ssc) {
-			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = assoc.get(1);
-			List<IFDDataObject> found = new ArrayList<>();
+			IFDDataObjectCollection c = ((IFDStructureDataAssociation) assoc).getDataObjectCollection();
+			List<Object> found = new ArrayList<>();
 			for (IFDRepresentableObject<? extends IFDRepresentation> spec : c) {
 				if (bs.get(spec.getIndex())) {
 					found.add((IFDDataObject) spec);
-					log("! removing duplicate spec reference " + spec.getLabel() + " for "
-							+ assoc.getFirstObj1().getLabel());
+					log("! found duplicate spec reference " + spec.getLabel() + " for "
+							+ assoc.getFirstObj1());
 					isFound = true;
 				} else {
 					bs.set(spec.getIndex());
@@ -765,7 +765,9 @@ public class Extractor implements ExtractorI {
 			}
 			n += found.size();
 			if (found.size() > 0) {
-				c.removeAll(found);
+				System.out.println("Extractor found dupl specs: " + found.size());
+				// BH not removing these for now.
+				//c.removeAll(found);
 			}
 		}
 		if (isFound) {
@@ -1686,7 +1688,7 @@ public class Extractor implements ExtractorI {
 									this.originPath = originPath;
 									this.localizedName = localizedName;
 									addProperty(param, label);
-								}
+ 								}
 							}
 						}
 

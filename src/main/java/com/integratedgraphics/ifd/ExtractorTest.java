@@ -36,7 +36,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 public class ExtractorTest extends Extractor {
 
 	
-	static int first = 0; // first test to run
+	static int first =0; // first test to run
 	static int last = 12;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 					// file test
 	
