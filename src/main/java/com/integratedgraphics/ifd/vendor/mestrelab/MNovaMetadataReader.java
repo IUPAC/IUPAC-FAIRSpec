@@ -906,7 +906,9 @@ class MNovaMetadataReader extends ByteBlockReader {
 		} finally {
 			setByteOrder(bo);
 		}
-		return readBytes(readPosition() - ptr);
+		long len = readPosition() - ptr;
+		seekIn(ptr);
+		return readBytes(len);
 	}
 
 // EMT+ attempt -- but this finds the WRONG CDX file! -- one that has a CDIF\0 header and does not seem to be complete

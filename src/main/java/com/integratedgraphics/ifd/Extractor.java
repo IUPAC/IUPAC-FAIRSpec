@@ -104,6 +104,10 @@ import javajs.util.Lst;
  */
 public class Extractor implements ExtractorI {
 
+	private static final String version = "0.0.2-alpha+2022.06.09";
+	
+	// 2022.06.09 MNovaMetadataReader CDX export fails due to buffer pointer error.
+
 	private static class CacheRepresentation extends IFDRepresentation {
 
 		public CacheRepresentation(IFDReference ifdReference, Object o, long len, String type, String subtype) {
@@ -116,7 +120,6 @@ public class Extractor implements ExtractorI {
 		FAIRSpecFindingAid.loadProperties();
 		VendorPluginI.init();
 	}
-	private static final String version = "0.0.2-alpha+2002.05.02";
 
 	private static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/Extractor.java";
 
