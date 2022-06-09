@@ -47,9 +47,9 @@ import com.integratedgraphics.ifd.vendor.ByteBlockReader;
  * 
  * Block data can -- and usually do -- contain more data blocks themselves.
  * 
- * A 32-bit reference of 109 points to an address 109+4 bytes past the reference
+ * A 32-bit reference of 109 points is to an address 109+4 bytes past the reference
  * itself. In other words, the reference value 109 does not include the the four
- * bits of the reference itself. These references are to the buffer position
+ * bytes of the reference itself. These references are to the buffer position
  * *after* the data pointed to. So, for example, if the block read looks like
  * this:
  * 
@@ -96,7 +96,7 @@ import com.integratedgraphics.ifd.vendor.ByteBlockReader;
  * example, nextBlock() reads a four-byte address and creates a ByteBuffer field
  * comprising the bytes from the current address (after reading that 4-byte
  * reference) to the address pointed to by the reference. This ByteBuffer can
- * then be to read data from that particular block of bytes using super.get...
+ * then be used to read data from that particular block of bytes using super.get...
  * methods.
  * 
  * Byte Order
@@ -111,12 +111,11 @@ import com.integratedgraphics.ifd.vendor.ByteBlockReader;
  * 
  * Strings are stored preceded by their length encoded as a 32-bit integer. They
  * may be straight ASCII character strings or UTF-16. There is no way I know of
- * to be sure which it will be. I had I had to look at the binary data and
+ * to be sure which it will be. I had to look at the binary data and
  * decide each time whether the string was UTF-16 ([0x00] a [0x00] c [0x00] q
  * [0x00] u [0x00] s) or not.
  * 
  * CDX, PNG, and MOL exports
- * 
  * 
  * CDX and PNG export works by scanning the post-parameter blocks for their
  * respective headers. Both have very simple file record layout, so once the
