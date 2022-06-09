@@ -193,7 +193,7 @@ public class ExtractorTest extends Extractor {
 			// these next four are very large (> 100 MB) and take some time to process if
 			// not using a local sourceDir
 			"acs.orglett.0c00755/22150197", // 9 MANY bruker dirs
-			"acs.orglett.0c01153/22284726,22284729", // 10 two remote locations; bruker dirs
+			"acs.orglett.0c01153/22284726,22284729", // 10 two remote locations; bruker dirs + cdx
 			"acs.orglett.0c00571/21975525", // 11 180+MB 3212 files; zips of bruker zips and HRMS
 			"acs.orglett.0c01043/22232721", // 12 single 158-MB mnova -- IGNORING!
 	};
