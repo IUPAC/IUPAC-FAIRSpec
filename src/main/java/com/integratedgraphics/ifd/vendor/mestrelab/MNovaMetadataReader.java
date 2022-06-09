@@ -1211,7 +1211,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 
 	private static String testFile;
 	private static int defaultTest = 2;
-	private static int nTests;
+	private static int nTests = -1;
 
 	public static void main(String[] args) {
 		int pt = 0;
@@ -1309,6 +1309,9 @@ fname = "c:/temp/mnova/(R,R)-mix2 (C6D6).mnova";
 
 	static void testAll(String outdir) {
 
+		testFile = testFiles[15];
+		createStructureFiles = (testFile != null);
+
 		boolean ok = true;
 		for (int i = 0; i < testFiles.length; i++) {
 			nTests = i + 1;
@@ -1346,10 +1349,5 @@ fname = "c:/temp/mnova/(R,R)-mix2 (C6D6).mnova";
 			/* 16 */ "test/mnova/Substrate_1k.mnova", // Temperature parameter failed 6.1
 			/* 17 */ "test/mnova/Products_3a.mnova", // png failed
 		};
-
-	static {
-		testFile = testFiles[15];
-		createStructureFiles = (testFile != null);
-	}
 
 }
