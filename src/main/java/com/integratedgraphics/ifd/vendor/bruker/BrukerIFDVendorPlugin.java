@@ -38,6 +38,7 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 				"##$NUC3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_3"), //prop
 				"##$PULPROG", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_PULSE_PROG"), //prop
 				"##$TE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
+				"##$SOLVENT", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_SOLVENT"), //prop
 				"SOLVENT", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_SOLVENT"), //prop
 				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TITLE"), //prop
 				"SF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
@@ -173,6 +174,9 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 		}
 		report("SF", getNominalFrequency(freq1, nuc1));
 		processString(map, "##$PROBHD", null);
+		processString(map, "##$SOLVENT", null);
+		
+		
 		if (extractor != null)
 			this.extractor = null;
 		return true;
@@ -200,8 +204,9 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 	 */
 	private String processString(Map<String, String> map, String key, String ignore) {
 		String val = getBrukerString(map, key);
-		if (val != null && !val.equals(ignore))
-			report(key, val);
+		if (val == null || val.equals(ignore))
+			return null;
+		report(key, val);
 		return val;
 	}
 

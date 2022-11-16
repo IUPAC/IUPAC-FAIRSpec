@@ -328,8 +328,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		}
 		IFDProperty p = IFDConst.getIFDProperty(htProps, key);
 		if (p == null) {
-			if (key.indexOf(".property.") >= 0)
-				System.out.println(">>>>????");
 			if (value == null)
 				params.remove(key);
 			else

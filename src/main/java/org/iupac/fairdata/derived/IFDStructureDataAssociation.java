@@ -1,5 +1,6 @@
 package org.iupac.fairdata.derived;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
@@ -26,6 +27,18 @@ public class IFDStructureDataAssociation extends IFDAssociation {
 	
 	private final static int ITEM_STRUC = 0;
 	private final static int ITEM_DATA = 1;
+	
+	private final static String sdaPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_STRUCTUREDATA_ASSOCIATION_FLAG);
+
+	@Override
+	protected String getPropertyPrefix() {
+		return sdaPrefix;
+	}
+
+	@SuppressWarnings("unchecked")
+	public IFDStructureDataAssociation() throws IFDException {
+		super(null, new IFDCollection[] { new IFDStructureCollection(), new IFDDataObjectCollection() });		
+	}
 	
 	@SuppressWarnings("unchecked")
 	public IFDStructureDataAssociation(IFDStructureCollection structureCollection, IFDDataObjectCollection dataCollection) throws IFDException {
@@ -54,11 +67,11 @@ public class IFDStructureDataAssociation extends IFDAssociation {
 		return (IFDDataObject) getDataObjectCollection().get(i);
 	}
 
-	protected boolean addStructure(IFDStructure struc) {
+	public boolean addStructure(IFDStructure struc) {
 		return getStructureCollection().add(struc);
 	}
 
-	protected boolean addDataObject(IFDDataObject data) {
+	public boolean addDataObject(IFDDataObject data) {
 		return getDataObjectCollection().add(data);
 	}
 	

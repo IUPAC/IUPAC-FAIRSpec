@@ -18,9 +18,7 @@ import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairdata.common.IFDConst;
 
-import javajs.util.JSJSONParser;
-import javajs.util.Lst;
-import javajs.util.SB;
+import org.iupac.fairdata.util.JSJSONParser;
 
 /**
  * A class to contain various generally useful utility methods in association
@@ -150,9 +148,10 @@ public class FAIRSpecUtilities {
 				byte[] bytes = (byte[]) o;
 				String name = (String) products.get(++i);
 				zipAddEntry(zos, name, new ByteArrayInputStream(bytes), bytes.length);
+			} else {
+				File f = new File(o.toString());
+				copyFiles(zos, f, new File(fileName).getParentFile(), prefixLength);
 			}
-			File f = new File(o.toString());
-			copyFiles(zos, f, new File(fileName).getParentFile(), prefixLength);
 		}
 		zos.close();
 		return new File(fileName).length();
@@ -244,10 +243,10 @@ public class FAIRSpecUtilities {
 				int pt = -1;
 				char ch = escapable.charAt(i++);
 				char ch2 = escapable.charAt(i++);
-				SB sb = new SB();
+				StringBuffer sb = new StringBuffer();
 				int pt0 = 0;
 				while ((pt = str.indexOf(ch, pt + 1)) >= 0) {
-					sb.append(str.substring(pt0, pt)).appendC('\\').appendC(ch2);
+					sb.append(str.substring(pt0, pt)).append('\\').append(ch2);
 					pt0 = pt + 1;
 				}
 				sb.append(str.substring(pt0, str.length()));
@@ -284,7 +283,7 @@ public class FAIRSpecUtilities {
 		return str;
 	}
 
-	public static String replaceStrings(String s, Lst<String> list, Lst<String> newList) {
+	public static String replaceStrings(String s, List<String> list, List<String> newList) {
 		int n = list.size();
 		for (int i = 0; i < n; i++) {
 			String name = list.get(i);

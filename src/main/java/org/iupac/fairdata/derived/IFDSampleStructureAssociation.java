@@ -1,5 +1,6 @@
 package org.iupac.fairdata.derived;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
@@ -32,6 +33,13 @@ public class IFDSampleStructureAssociation extends IFDAssociation {
 	private final static int ITEM_SAMPLE = 0;
 	private final static int ITEM_STRUCTURE = 1;
 	
+	private final static String ssaPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_SAMPLESTRUCTURE_ASSOCIATION_FLAG);
+
+	@Override
+	protected String getPropertyPrefix() {
+		return ssaPrefix;
+	}
+
 	@SuppressWarnings("unchecked")
 	public IFDSampleStructureAssociation(String type, IFDSample sample, IFDStructure data) throws IFDException {
 		super(type, new IFDCollection[] { new IFDSampleCollection(sample), new IFDStructureCollection(data) });

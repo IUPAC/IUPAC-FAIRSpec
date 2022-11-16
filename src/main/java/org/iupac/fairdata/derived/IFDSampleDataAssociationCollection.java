@@ -2,6 +2,7 @@ package org.iupac.fairdata.derived;
 
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDAssociationCollection;
+import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.sample.IFDSample;
 
@@ -24,6 +25,11 @@ public class IFDSampleDataAssociationCollection extends IFDAssociationCollection
 
 	protected IFDSampleDataAssociation newAssociation(String label, IFDSample sample, IFDDataObject data) throws IFDException {
 			return new IFDSampleDataAssociation(null, sample, data);
+	}
+
+	public IFDObject<?> addAssociation(IFDSampleDataAssociation a) {
+		add(a);
+		return a;
 	}
 
 }

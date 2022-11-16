@@ -1,12 +1,5 @@
 package com.integratedgraphics.ifd;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
  * 
@@ -35,171 +28,25 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
  */
 public class ExtractorTest extends Extractor {
 
-	
-	static int first =0; // first test to run
-	static int last = 12;//12; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
-					// file test
-	
-
-	private static boolean createFindingAidJSONList;
-	private static boolean stopOnAnyFailure;
-
-	public ExtractorTest(String key, File ifdExtractScriptFile, File targetDir, String localSourceDir)
-			throws IOException, IFDException {
-
-		log("!ExtractorTest\n ifdExtractScriptFIle= " + ifdExtractScriptFile
-				+ "\n localSourceDir = " + localSourceDir
-				+ "\n targetDir = " + targetDir.getAbsolutePath()
-				);
-
-		
-		String findingAidFileName = (key == null ? "" : key);
-
-		if (super.extractAndCreateFindingAid(ifdExtractScriptFile, localSourceDir, targetDir, findingAidFileName) == null && !allowNoPubInfo) {
-			throw new IFDException("Test failed");
-		}
-
-		log("!ExtractorTest extracted " + manifestCount + " files (" + extractedByteCount + " bytes)" + "; ignored "
-				+ ignoredCount + " files (" + ignoredByteCount + " bytes)");
-	}
-
-	private static void runExtractionTests(int first, int last, String targetDir, String sourceDir, String[] args) {
-		int i0 = first;
-		int i1 = Math.max(first, last);
-		int failed = 0;
-
-//		String s = "test/ok/1c.nmr";
-//		Pattern p = Pattern.compile("^\\Qtest/ok/\\E(.+)\\Q.nmr\\E");
-//		Matcher m = p.matcher(s);
-//		logStatic(m.find());
-//		String v = m.group(1);
-//		
-
-//		
-		String key = null;
-		String fname;
-		switch (args.length) {
-		default:
-		case 3:
-			sourceDir = args[2];
-			//$FALL-THROUGH$
-		case 2:
-			targetDir = args[1];
-			//$FALL-THROUGH$
-		case 1:
-			fname = args[0];
-			break;
-		case 0:
-			fname = null;
-		}
-
-		logStatic("ExtractorTest.runExtractionTests output to " + new File(targetDir).getAbsolutePath());
-		new File(targetDir).mkdirs();
-
-		String json = "";
-
-		FAIRSpecUtilities.setLogging(targetDir + "/extractor.log");
-
-		errorLog = "";
-		int n = 0;
-		String job = null;
-		for (int itest = (args.length == 0 ? i0 : 0); itest <= (args.length == 0 ? i1 : 0); itest++) {
-			testID = itest;
-			// ./extract/ should be in the main Eclipse project directory.
-
-			if (args.length == 0) {
-				job = key = testSet[itest];
-				logStatic("ExtractorTest.runExtractionTests found Test " + itest + " " + job);
-				int pt = key.indexOf("/");
-				if (pt >= 0)
-					key = key.substring(0, pt);
-				fname = "./extract/" + key + "/IFD-extract.json";
-			}
-			if (json.length() == 0) {
-				json = "{\"findingaids\":[\n";
-			} else {
-				json += ",\n";
-			}
-			n++;
-			json += "\"" + key + "\"";
-			long t0 = System.currentTimeMillis();
-			try {
-				File ifdExtractScriptFile = new File(fname);
-				File targetPath = new File(targetDir);
-				String sourcePath = new File(sourceDir).getAbsolutePath();
-				new ExtractorTest(key, ifdExtractScriptFile, targetPath, sourcePath);
-				logStatic("ExtractorTest.runExtractionTests ok " + key);
-			} catch (Exception e) {
-				failed++;
-				System.err.println("ExtractorTest.runExtractionTests Exception " + e + " for test " + itest);
-				e.printStackTrace();
-				if (stopOnAnyFailure)
-					break;
-			}
-			logStatic("!!ExtractorTest.runExtractionTests job " + job 
-					+ " time/sec=" + (System.currentTimeMillis() - t0)/1000.0);
-
-		}
-		logStatic("!! DONE total=" + n + " failed=" + failed);
-		json += "\n]}\n";
-		try {
-			if (createFindingAidJSONList && !readOnly) {
-				File f = new File(targetDir + "/_IFD_findingaids.json");
-				FAIRSpecUtilities.writeBytesToFile(json.getBytes(), f);
-				logStatic("ExtractorTest.runExtractionTests File " + f.getAbsolutePath() + " created \n" + json);
-			} else {
-				logStatic("ExtractorTest.runExtractionTests _IFD_findingaids.json was not created for\n" + json);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		logStatic("");
-		System.out.flush();
-		System.err.println(errorLog);
-		System.err.flush();
-		String flags = "\n first = " + first + " last = " + last //
-				+ "\n stopOnAnyFailure = " + stopOnAnyFailure //
-				+ "\n debugging = " + debugging //
-				+ " readOnly = " + readOnly  //
-				+ " debugReadOnly = " + debugReadOnly //
-				+ "\n allowNoPubInfo = " + allowNoPubInfo //
-				+ " skipPubInfo = " + skipPubInfo //
-				+ "\n sourceDir = " + sourceDir //
-				+ " targetDir = " + targetDir //
-				+ "\n createZippedCollection = " + createZippedCollection //
-				+ " createFindingAidJSONList = " + createFindingAidJSONList//
-				+ "\n IFD version "+ IFDConst.IFD_VERSION + "\n";
-		System.err.flush();
-		logStatic("!ExtractorTest.runExtractionTests flags " + flags);
-		logStatic("!ExtractorText done");
-		FAIRSpecUtilities.setLogging(null);
-	}
-
 	/**
-	 * ACS/FigShare codes /21947274
 	 * 
-	 * for example: https://ndownloader.figshare.com/files/21947274
+	 * @param args
+	 * @param sourceZip
+	 * @param targetDir
+	 * @return
 	 */
-	private final static String[] testSet = { 
-			"acs.joc.0c00770/22567817", // 0 727 files; zips of bruker dirs + mnovas
-			"acs.orglett.0c00624/21947274", // 1 1143 files; MANY bruker dirs
-			"acs.orglett.0c00788/22125318", // 2 jeol jdfs
-			"acs.orglett.0c00874/22233351", // 3 bruker dirs
-			"acs.orglett.0c00967/22111341", // 4 bruker dirs + jeol jdfs
-			"acs.orglett.0c01022/22195341", // 5 many mnovas, cdx and png extracted
-			"acs.orglett.0c01197/22491647", // 6 many mnovas
-			"acs.orglett.0c01277/22613762", // 7 bruker dirs
-			"acs.orglett.0c01297/22612484", // 8 bruker dirs
-			// these next four are very large (> 100 MB) and take some time to process if
-			// not using a local sourceDir
-			"acs.orglett.0c00755/22150197", // 9 MANY bruker dirs
-			"acs.orglett.0c01153/22284726,22284729", // 10 two remote locations; bruker dirs + cdx
-			"acs.orglett.0c00571/21975525", // 11 180+MB 3212 files; zips of bruker zips and HRMS
-			"acs.orglett.0c01043/22232721", // 12 single 158-MB mnova -- IGNORING!
-	};
+	private static String[] setSourceTargetArgs(String[] args, String sourceZip, String targetDir) {
+		String[] a = new String[3];
+		if (args.length > 0)
+			a[0] = args[0];
+		if (args.length < 2 || args[1] == null)
+			a[1] = sourceZip;
+		if (args.length < 3 || args[2] == null)
+			a[2] = targetDir;
+		return a;
+	}
 
-	// BH note: 
-	//
+
 	//FigShare searching:
 	//import requests as rq
 	//from pprint import pprint as pp
@@ -211,52 +58,67 @@ public class ExtractorTest extends Extractor {
 	//results = r.json()
 	//pp(results)
 
-	/**
-	 * null to download from FigShare; a local dir if you have already downloaded
-	 * the zip files
-	 */
-	private static String sourceDir;
-	private static boolean debugReadOnly;
+	private static void runTests(String[] args) {
+		//runACSTest(args);
+		runUCLTest(args);
+	}
+
+	private static void runUCLTest(String[] args) {
+		String[] testSet = new String[] { "./extract/ImperialCollege/IFD-extract.json" };
+		
+		String sourceZip = "c:/temp/henry/test.zip";		
+		String targetDir = "c:/temp/henry/ifd";
+
+		//debugging = true;
+		//readOnly = true;
+		
+		args = setSourceTargetArgs(args, sourceZip, targetDir);
+		runExtraction(args, testSet, -1, -1);		
+	}
+
+	private static void runACSTest(String[] args) {
+
+		/**
+		 * ACS/FigShare codes /21947274
+		 * 
+		 * for example: https://ndownloader.figshare.com/files/21947274
+		 */
+		String[] testSet = { 
+				"22567817#./extract/acs.joc.0c00770/IFD-extract.json", // 0 727 files; zips of bruker dirs + mnovas
+				"21947274#./extract/acs.orglett.0c00624/IFD-extract.json", // 1 1143 files; MANY bruker dirs
+				"22125318#./extract/acs.orglett.0c00788/IFD-extract.json", // 2 jeol jdfs
+				"22233351#./extract/acs.orglett.0c00874/IFD-extract.json", // 3 bruker dirs
+				"22111341#./extract/acs.orglett.0c00967/IFD-extract.json", // 4 bruker dirs + jeol jdfs
+				"22195341#./extract/acs.orglett.0c01022/IFD-extract.json", // 5 many mnovas, cdx and png extracted
+				"22491647#./extract/acs.orglett.0c01197/IFD-extract.json", // 6 many mnovas
+				"22613762#./extract/acs.orglett.0c01277/IFD-extract.json", // 7 bruker dirs
+				"22612484#./extract/acs.orglett.0c01297/IFD-extract.json", // 8 bruker dirs
+				// these next four are very large (> 100 MB) and take some time to process if
+				// not using a local sourceDir
+				"22150197#./extract/acs.orglett.0c00755/IFD-extract.json", // 9 MANY bruker dirs
+				"22284726,22284729#./extract/acs.orglett.0c01153/IFD-extract.json", // 10 two remote locations; bruker dirs + cdx
+				"21975525#./extract/acs.orglett.0c00571/IFD-extract.json", // 11 180+MB 3212 files; zips of bruker zips and HRMS
+				"22232721#./extract/acs.orglett.0c01043/IFD-extract.json", // 12 single 158-MB mnova -- IGNORING!
+		};
+
+		int first = 0; // first test to run
+		int last = 0; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+						// file test
+		
+		/**
+		 * null to download from FigShare; a local dir if you have already downloaded
+		 * the zip files
+		 */
+		String sourceZip = "c:/temp/iupac/zip";		
+		String targetDir = "c:/temp/iupac/ifd";//./site/ifd";
+		
+		args = setSourceTargetArgs(args, sourceZip, targetDir);		
+		runExtraction(args, testSet, first, last);
+	}
 
 	public static void main(String[] args) {
-
-		// TODO -- add command line interface and GUI.
-		
-		sourceDir = "c:/temp/iupac/zip";
-		
-		// normally false:
-		
-		debugReadOnly = false; // quick settings - no file creation
-
-	    addPublicationMetadata = false; // true to place metadata into the finding aid
-		
-		// normally true:
-		
-	    boolean dataciteUp = true;
-
-	    // this next is independent of readOnly
-		createZippedCollection = !debugReadOnly; // false to bypass final creation of an _IFD_collection.zip file
-		createFindingAidJSONList = !debugReadOnly; // false for testing and you don't want to mess up _IFD_findingaids.json
-
-		stopOnAnyFailure = true; // set false to allow continuing after an error.
-		
-		readOnly = debugReadOnly; // for testing; when true, not output other than a log file is produced
-		debugging = false; // true for verbose listing of all files
-		createFindingAidsOnly = false; // true if extraction files already exist or you otherwise don't want not write
-		
-		allowNoPubInfo = true;// debugReadOnly; // true to allow no internet connection and so no pub calls
-		skipPubInfo = !dataciteUp || debugReadOnly;  // true to allow no internet connection and so no pub calls
-	
-		if (first == last) {
-			createFindingAidJSONList = false;
-		}
-
-		String targetDir = "./site/ifd";
-		
-		if (targetDir != null)
-			new File(targetDir).mkdir(); // letting this fail ungracefully
-		
-		runExtractionTests(first, last, targetDir, sourceDir, args);
+		setDefaultRunParams();
+		runTests(args);
 	}
 
 }

@@ -140,6 +140,16 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 		}
 	}
 
+	public T getObjectByID(String value) {
+		System.out.println("IFDC " + this + " " + size());
+		for (int i = size(); --i >= 0;) {
+			T v = get(i);
+			if (value.equals(v.getID()))
+					return v;
+		}
+		return null;
+	}
+
 
 
 }

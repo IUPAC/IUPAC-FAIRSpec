@@ -47,7 +47,7 @@ public interface FAIRSpecExtractorHelperI {
 	void beginAddingObjects(String ifdPath);
 
 	String createSerialization(File targetFile, String findingAidFileNameRoot, List<Object> products,
-			IFDSerializerI serializer) throws IOException;
+			IFDSerializerI serializer, long[] t) throws IOException;
 
 	IFDObject<?> endAddingObjects();
 

@@ -9,7 +9,7 @@ import org.iupac.fairdata.api.IFDSerializableI;
 import org.iupac.fairdata.api.IFDSerializerI;
 
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-import javajs.util.SB;
+import org.iupac.fairdata.core.IFDObject;
 
 /**
  * Just a simple JSON serializer. You can write your own, if you wish.
@@ -133,8 +133,6 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 		if (addKey) {
 			thisObj.appendNoEsc("value", val.toString());
 		} else {
-			if (val != null && val.toString().indexOf('\0') >= 0)
-				System.out.println("???");
 			thisObj.append(val == null ? null : val.toString());
 		}
 	}
@@ -185,7 +183,7 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 		//  }
 
 		  public static byte[] getBytes64(byte[] bytes) {
-		    return getBase64(bytes).toBytes(0, -1);
+		    return getBase64(bytes).getBytes();
 		  }
 
 		  /**
@@ -193,11 +191,11 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 		   * @param bytes
 		   * @return BASE64-encoded string, without ";base64,"
 		   */
-		  public static SB getBase64(byte[] bytes) {
+		  public static String getBase64(byte[] bytes) {
 		    long nBytes = bytes.length;
-		    SB sout = new SB();
+		    StringBuffer sout = new StringBuffer();
 		    if (nBytes == 0)
-		      return sout;
+		      return sout.toString();
 		    for (int i = 0, nPad = 0; i < nBytes && nPad == 0;) {
 		      if (i % 75 == 0 && i != 0)
 		        sout.append("\r\n");
@@ -206,12 +204,12 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 		          | ((nPad == 2 ? 0 : bytes[i++] << 8) & 0x00FF00)
 		          | ((nPad >= 1 ? 0 : (int) bytes[i++]) & 0x0000FF);
 		      //System.out.println(Integer.toHexString(outbytes));
-		      sout.appendC(base64.charAt((outbytes >> 18) & 0x3F));
-		      sout.appendC(base64.charAt((outbytes >> 12) & 0x3F));
-		      sout.appendC(nPad == 2 ? '=' : base64.charAt((outbytes >> 6) & 0x3F));
-		      sout.appendC(nPad >= 1 ? '=' : base64.charAt(outbytes & 0x3F));
+		      sout.append(base64.charAt((outbytes >> 18) & 0x3F));
+		      sout.append(base64.charAt((outbytes >> 12) & 0x3F));
+		      sout.append(nPad == 2 ? '=' : base64.charAt((outbytes >> 6) & 0x3F));
+		      sout.append(nPad >= 1 ? '=' : base64.charAt(outbytes & 0x3F));
 		    }
-		    return sout;
+		    return sout.toString();
 		  }
 
 		  //Note: Just a simple decoder here. Nothing fancy at all

@@ -22,7 +22,7 @@ import org.iupac.fairdata.common.IFDException;
 @SuppressWarnings("serial")
 public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>> {
 
-	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_ASSOCIATION_FLAG); 
+	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_ASSOCIATION_FLAG); 
 	
 	@Override
 	protected String getPropertyPrefix() {

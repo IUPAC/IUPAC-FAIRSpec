@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairdata.common.IFDConst;
+
 import org.jmol.api.JmolViewer;
 import org.jmol.viewer.Viewer;
-
 import javajs.util.BS;
 
 /**
@@ -23,7 +23,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 	 */
 	private ExtractorI extractor;
 
-	private static Viewer jmolViewer;
+	private Viewer jmolViewer;
 
 	/**
 	 * A class to process structures using Jmol methods to extract and discover
@@ -37,7 +37,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 
 	@Override
 	public String getParamRegex() {
-		return "(?<struc>(?<mol>\\.mol$|\\.sdf$)|(?<cdx>\\.cdx$|\\.cdxml$))";
+		return "(?<struc>(?<mol>\\.mol$|\\.sdf$)|(?<cdx>\\.cdx$|\\.cdxml$)|(?<cif>\\.cif$))";
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		return true;
 	}
 
-	private static Map<String, String> fileToType = new HashMap<>();
+	private Map<String, String> fileToType = new HashMap<>();
 
 	@Override
 	public String accept(ExtractorI extractor, String ifdPath, byte[] bytes) {
@@ -114,6 +114,8 @@ public class DefaultStructureHelper implements PropertyManagerI {
 			return IFDConst.IFD_REP_STRUCTURE_CDX;
 		case "cdxml":
 			return IFDConst.IFD_REP_STRUCTURE_CDXML;
+		case "cif":
+			return IFDConst.IFD_REP_STRUCTURE_CIF;
 		default:
 			return ext.toUpperCase();
 		}

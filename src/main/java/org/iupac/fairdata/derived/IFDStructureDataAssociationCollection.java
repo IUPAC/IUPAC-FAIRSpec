@@ -21,6 +21,12 @@ public class IFDStructureDataAssociationCollection extends IFDAssociationCollect
 		}
 		return ssc;
 	}
+	
+	public IFDStructureDataAssociation addAssociation(IFDStructureDataAssociation a) throws IFDException {
+		add(a);
+		return a;
+	}
+	
 
 	protected IFDStructureDataAssociation newAssociation(IFDStructure struc, IFDDataObject data) throws IFDException {
 			return new IFDStructureDataAssociation(struc, data);

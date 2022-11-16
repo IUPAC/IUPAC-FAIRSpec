@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
-import javajs.util.JSJSONParser;
+import org.iupac.fairdata.util.JSJSONParser;
 
 public class PubInfoExtractor {
 
