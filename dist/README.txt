@@ -16,4 +16,4 @@ where
 -debugreadonly (readonly, no publicationmetadata)
 -addPublicationMetadata (only for post-publication-related collections)
 -datacitedown (only for post-publication-related collections)
--requirepubinfo (throw an error is datacite cannot be reached; post-publication-related collections only)
+-requirepubinfo (throw an error if datacite cannot be reached; post-publication-related collections only)
