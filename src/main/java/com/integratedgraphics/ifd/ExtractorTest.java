@@ -31,16 +31,16 @@ public class ExtractorTest extends Extractor {
 	/**
 	 * 
 	 * @param args
-	 * @param sourceZip
+	 * @param sourceArchive
 	 * @param targetDir
 	 * @return
 	 */
-	private static String[] setSourceTargetArgs(String[] args, String sourceZip, String targetDir) {
+	private static String[] setSourceTargetArgs(String[] args, String sourceArchive, String targetDir) {
 		String[] a = new String[3];
 		if (args.length > 0)
 			a[0] = args[0];
 		if (args.length < 2 || args[1] == null)
-			a[1] = sourceZip;
+			a[1] = sourceArchive;
 		if (args.length < 3 || args[2] == null)
 			a[2] = targetDir;
 		return a;
@@ -66,13 +66,14 @@ public class ExtractorTest extends Extractor {
 	private static void runUCLTest(String[] args) {
 		String[] testSet = new String[] { "./extract/ImperialCollege/IFD-extract.json" };
 		
-		String sourceZip = "c:/temp/henry/test.zip";		
+//		String sourceArchive = "c:/temp/henry/test.zip";		
+		String sourceArchive = "c:/temp/henry/archive.tar.gz";		
 		String targetDir = "c:/temp/henry/ifd";
 
 		//debugging = true;
 		//readOnly = true;
 		
-		args = setSourceTargetArgs(args, sourceZip, targetDir);
+		args = setSourceTargetArgs(args, sourceArchive, targetDir);
 		runExtraction(args, testSet, -1, -1);		
 	}
 
@@ -109,10 +110,10 @@ public class ExtractorTest extends Extractor {
 		 * null to download from FigShare; a local dir if you have already downloaded
 		 * the zip files
 		 */
-		String sourceZip = "c:/temp/iupac/zip";		
+		String sourceArchive = "c:/temp/iupac/zip";		
 		String targetDir = "c:/temp/iupac/ifd";//./site/ifd";
 		
-		args = setSourceTargetArgs(args, sourceZip, targetDir);		
+		args = setSourceTargetArgs(args, sourceArchive, targetDir);		
 		runExtraction(args, testSet, first, last);
 	}
 

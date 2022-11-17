@@ -29,6 +29,7 @@
 	  <target name="libjars" id="libjars">
 	    <mkdir dir="${appjars.dir}"/>
 	    <unjar dest="${appjars.dir}" src="${lib.dir}/Jmol.jar"/>
+		<unjar dest="${appjars.dir}" src="${lib.dir}/commons-compress-1.22.jar"/>
 	  </target>
 
 	  	

@@ -23,6 +23,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
@@ -48,6 +50,7 @@ import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.structure.IFDStructure;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 import org.iupac.fairdata.util.JSJSONParser;
+import org.iupac.fairdata.util.ZipUtil;
 
 import com.integratedgraphics.ifd.api.VendorPluginI;
 import com.integratedgraphics.ifd.util.PubInfoExtractor;
@@ -103,7 +106,48 @@ import com.integratedgraphics.ifd.util.PubInfoExtractor;
  */
 public class Extractor implements ExtractorI {
 
-	private static final String version = "0.0.3-alpha+2022.11.14";
+	public static class ArchiveInputStream extends InputStream {
+		private ZipInputStream zis;
+		private TarArchiveInputStream tis;
+		private InputStream is;
+
+		ArchiveInputStream(InputStream is) throws IOException {
+			if (ZipUtil.isGzipS(is))
+				this.is = tis = ZipUtil.newTarInputStream(is);
+			else
+				this.is = zis = new ZipInputStream(is);
+		}
+
+		public ArchiveEntry getNextEntry() throws IOException {
+			if (tis != null) {
+				TarArchiveEntry te = tis.getNextTarEntry();
+				return (te == null ? null : new ArchiveEntry(te));
+			}
+			ZipEntry ze = zis.getNextEntry();
+			return (ze == null ? null : new ArchiveEntry(ze));
+		}
+
+		@Override
+		public void close() throws IOException {
+			is.close();
+		}
+
+		public InputStream getStream() {
+			return is;
+		}
+
+		@Override
+		public int read() throws IOException {
+			return is.read();
+		}
+		
+	    @Override
+		public int read(byte b[], int off, int len) throws IOException {
+	    	return is.read(b, off, len);
+	    }
+
+	}
+	private static final String version = "0.0.3-alpha+2022.11.16";
 
 	// 2022.11.14 version 0.0.3 "compound identifier" as organizing association
 	// 2022.06.09 MNovaMetadataReader CDX export fails due to buffer pointer error.
@@ -205,8 +249,39 @@ public class Extractor implements ExtractorI {
 	 * {object} value.
 	 * 
 	 */
-	protected static Map<String, Map<String, ZipEntry>> IFDZipContents = new LinkedHashMap<>();
+	protected static Map<String, Map<String, ArchiveEntry>> IFDZipContents = new LinkedHashMap<>();
 
+	static class ArchiveEntry {
+
+		private String name;
+		private long size;
+		
+		public ArchiveEntry(ZipEntry ze) {
+			name = ze.getName();
+			size = ze.getSize();
+		}
+	
+		public ArchiveEntry(TarArchiveEntry te) {
+			name = te.getName();
+			size = te.getSize();
+		}
+
+		public ArchiveEntry(String name) {
+			this.name = name;
+		}
+
+		public boolean isDirectory() {
+			return name.endsWith("/");
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public long getSize() {
+			return size;
+		}
+	}
 	/**
 	 * an optional local source directory to use instead of the one indicated in
 	 * IFD-extract.json
@@ -239,11 +314,6 @@ public class Extractor implements ExtractorI {
 	 * working local name, without the rootPath, as found in _IFD_manifest.json
 	 */
 	private String localizedName;
-
-	/**
-	 * working local name, without the rootPath, as found in _IFD_manifest.json
-	 */
-	private String localRezipPath;
 
 	/**
 	 * working origin path while checking zip files
@@ -387,17 +457,17 @@ public class Extractor implements ExtractorI {
 		noOutput = (createFindingAidsOnly || readOnly);
 	}
 
-	public Extractor(String key, File ifdExtractScriptFile, File targetDir, String localSourceZip)
+	public Extractor(String key, File ifdExtractScriptFile, File targetDir, String localsourceArchive)
 			throws IOException, IFDException {
 		this();
 		log("!Extractor\n ifdExtractScriptFIle= " + ifdExtractScriptFile
-				+ "\n localSourceZip = " + localSourceZip
+				+ "\n localsourceArchive = " + localsourceArchive
 				+ "\n targetDir = " + targetDir.getAbsolutePath()
 				);
 
 		String findingAidFileName = (key == null ? "" : key);
 
-		if (extractAndCreateFindingAid(ifdExtractScriptFile, localSourceZip, targetDir, findingAidFileName) == null && !allowNoPubInfo) {
+		if (extractAndCreateFindingAid(ifdExtractScriptFile, localsourceArchive, targetDir, findingAidFileName) == null && !allowNoPubInfo) {
 			throw new IFDException("Extractor failed");
 		}
 
@@ -409,7 +479,7 @@ public class Extractor implements ExtractorI {
 	/**
 	 * @return the FindingAid as a string
 	 */
-	public final String extractAndCreateFindingAid(File ifdExtractScriptFile, String localSourceDir, File targetDir,
+	public final String extractAndCreateFindingAid(File ifdExtractScriptFile, String localArchive, File targetDir,
 			String findingAidFileNameRoot) throws IOException, IFDException {
 
 		// first create objects, a List<String>
@@ -439,7 +509,7 @@ public class Extractor implements ExtractorI {
 				helper.getFindingAid().setCitations(list);
 			}
 		}
-		setLocalSourceDir(localSourceDir);
+		setLocalSourceDir(localArchive);
 		// options here to set cache and rezip options -- debugging only!
 		setCachePattern(null);
 		setRezipCachePattern(null, null);
@@ -920,8 +990,10 @@ public class Extractor implements ExtractorI {
 
 		// remove ".zip" if present in the overall name
 
-		if (rootPath.endsWith(".zip"))
-			rootPath = rootPath.substring(0, rootPath.indexOf(".zip"));
+		if (rootPath.endsWith(".zip") || rootPath.endsWith(".tgz"))
+			rootPath = rootPath.substring(0, rootPath.length() - 4);
+		else if (rootPath.endsWith(".tar.gz"))
+			rootPath = rootPath.substring(0, rootPath.length() - 7);
 
 		new File(targetDir + "/" + rootPath).mkdir();
 
@@ -952,7 +1024,7 @@ public class Extractor implements ExtractorI {
 
 		// first build the file list
 		String key = localizedURL;
-		Map<String, ZipEntry> zipFiles = IFDZipContents.get(key);
+		Map<String, ArchiveEntry> zipFiles = IFDZipContents.get(key);
 		if (zipFiles == null) {
 			// Scan URL zip stream for files.
 			log("! retrieving " + localizedURL);
@@ -974,7 +1046,7 @@ public class Extractor implements ExtractorI {
 				stream = new FileInputStream(tempFile);
 			}
 			helper.setCurrentResourceByteLength(len);
-			zipFiles = readZipContentsIteratively(parser, stream, "", false, new LinkedHashMap<String, ZipEntry>());
+			zipFiles = readZipContentsIteratively(parser, stream, "", false, new LinkedHashMap<String, ArchiveEntry>());
 			IFDZipContents.put(key, zipFiles);
 		}
 		// next, we process those names
@@ -1023,19 +1095,19 @@ public class Extractor implements ExtractorI {
 	 * @return
 	 * @throws IOException
 	 */
-	protected Map<String, ZipEntry> readZipContentsIteratively(ObjectParser parser, InputStream is,
-			String baseOriginPath, boolean doRezip, Map<String, ZipEntry> retFileNames) throws IOException {
+	protected Map<String, ArchiveEntry> readZipContentsIteratively(ObjectParser parser, InputStream is,
+			String baseOriginPath, boolean doRezip, Map<String, ArchiveEntry> retFileNames) throws IOException {
 		if (debugging && baseOriginPath.length() > 0)
 			log("! opening " + baseOriginPath);
 		boolean isTopLevel = (baseOriginPath.length() == 0);
-		ZipInputStream zis = new ZipInputStream(is);
-		ZipEntry zipEntry = null;
-		ZipEntry nextEntry = null;
+		ArchiveInputStream cis = new ArchiveInputStream(is);
+		ArchiveEntry zipEntry = null;
+		ArchiveEntry nextEntry = null;
 		int n = 0;
 		int phase = (doRezip ? 2 : 1);
 		boolean first = true;
 		int pt;
-		while ((zipEntry = (nextEntry == null ? zis.getNextEntry() : nextEntry)) != null) {
+		while ((zipEntry = (nextEntry == null ? cis.getNextEntry() : nextEntry)) != null) {
 			n++;
 			nextEntry = null;
 			String name = zipEntry.getName();
@@ -1044,7 +1116,7 @@ public class Extractor implements ExtractorI {
 				first = false;
 				if (!isDir && (pt = name.lastIndexOf('/')) >= 0 && !isDir) {
 					// ARGH! Implicit top directory
-					nextEntry = new ZipEntry(name.substring(0, pt + 1));
+					nextEntry = new ArchiveEntry(name.substring(0, pt + 1));
 					continue;
 				}
 			}
@@ -1066,18 +1138,18 @@ public class Extractor implements ExtractorI {
 				log("reading zip entry: " + n + " " + originPath);
 
 			if (retFileNames != null) {
-				retFileNames.put(originPath, zipEntry); // Java has no use for the ZipEntry, but JavaScript can read it.
+				retFileNames.put(originPath, zipEntry); // Java has no use for the CompressedEntry, but JavaScript can read it.
 			}
 			if (originPath.endsWith(".zip")) {
-				readZipContentsIteratively(parser, zis, originPath + "|", doRezip, retFileNames);
+				readZipContentsIteratively(parser, cis, originPath + "|", doRezip, retFileNames);
 			} else if (doRezip) {
-				nextEntry = processRezipEntry(parser, baseOriginPath, originPath, zis, zipEntry);
+				nextEntry = processRezipEntry(parser, baseOriginPath, originPath, cis, zipEntry);
 			} else {
-				processZipEntry(parser, originPath, zis, zipEntry);
+				processCompressedEntry(parser, originPath, cis, zipEntry);
 			}
 		}
 		if (isTopLevel)
-			zis.close();
+			cis.close();
 		return retFileNames;
 	}
 
@@ -1628,7 +1700,7 @@ public class Extractor implements ExtractorI {
 	/**
 	 * Process an entry for rezipping, jumping to the next unrelated entry.
 	 * 
-	 * When a ZipEntry is a directory and has been identified as a SpecData object,
+	 * When a CompressedEntry is a directory and has been identified as a SpecData object,
 	 * we need to catalog and rezip that file.
 	 * 
 	 * Create a new zip file that reconfigures the file directory to contain what we
@@ -1648,8 +1720,8 @@ public class Extractor implements ExtractorI {
 	 * @return next (unrelated) entry
 	 * @throws IOException
 	 */
-	private ZipEntry processRezipEntry(ObjectParser parser, String baseName, String originPath, ZipInputStream zis,
-			ZipEntry entry) throws IOException {
+	private ArchiveEntry processRezipEntry(ObjectParser parser, String baseName, String originPath, ArchiveInputStream cis,
+			ArchiveEntry entry) throws IOException {
 		if (!originPath.equals(currentRezipPath)) {
 			String localizedName = localizePath(originPath);
 			if (!entry.isDirectory() && !lstIgnored.contains(originPath) && !lstManifest.contains(localizedName)) {
@@ -1717,11 +1789,8 @@ public class Extractor implements ExtractorI {
 
 		vendor.startRezip(this);
 		long len = 0;
-		boolean first = true;
-		int pt;
-//		ZipEntry nextEntry = null;
-		while ((entry = zis.getNextEntry()) != null) {
-	//		nextEntry = null;
+//		CompressedEntry nextEntry = null;
+		while ((entry = cis.getNextEntry()) != null) {
 			entryName = entry.getName();
 			boolean isDir = entry.isDirectory();
 			if (junkPattern.matcher(entryName).find()) {
@@ -1757,7 +1826,7 @@ public class Extractor implements ExtractorI {
 				String outName = newDir + entryName.substring(lenOffset);
 				if (doInclude)
 					zos.putNextEntry(new ZipEntry(outName));
-				FAIRSpecUtilities.getLimitedStreamBytes(zis, len, os, false, false);
+				FAIRSpecUtilities.getLimitedStreamBytes(cis.getStream(), len, os, false, false);
 				if (doCheck) {
 					byte[] bytes = ((ByteArrayOutputStream) os).toByteArray();
 					if (doInclude)
@@ -1822,12 +1891,12 @@ public class Extractor implements ExtractorI {
 	 * zip file in a second pass.
 	 * 
 	 * @param originPath path to this entry including | and / but not rootPath
-	 * @param zis
+	 * @param cis
 	 * @param zipEntry
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	protected void processZipEntry(ObjectParser parser, String originPath, InputStream zis, ZipEntry zipEntry)
+	protected void processCompressedEntry(ObjectParser parser, String originPath, InputStream cis, ArchiveEntry zipEntry)
 			throws FileNotFoundException, IOException {
 		long len = zipEntry.getSize();
 		Matcher m, mp;
@@ -1841,7 +1910,7 @@ public class Extractor implements ExtractorI {
 			boolean doCheck = (v != null);
 			boolean doExtract = (!doCheck || v.doExtract(originPath));
 
-			System.out.println("!Extractor.processZipEntry caching " + originPath);
+			System.out.println("!Extractor.processCompressedEntry caching " + originPath);
 			
 //			1. we don't have params 
 //		      - generic file, just save it.  doExtract and not doCheck
@@ -1854,7 +1923,7 @@ public class Extractor implements ExtractorI {
 			OutputStream os = (!doExtract ? null
 					: doCheck || noOutput ? new ByteArrayOutputStream() : new FileOutputStream(f));
 			if (os != null)
-				FAIRSpecUtilities.getLimitedStreamBytes(zis, len, os, false, true);
+				FAIRSpecUtilities.getLimitedStreamBytes(cis, len, os, false, true);
 			String localizedName = localizePath(originPath);
 			if (doExtract) {
 				String type = null;
@@ -2356,18 +2425,19 @@ public class Extractor implements ExtractorI {
 		int i1 = Math.max(0, Math.max(first, last));
 		int failed = 0;
 
-		String sourceZip = null;
+		String sourceArchive = null;
 		String targetDir = null;
 		String ifdExtractJSONFilename;
 		switch (args.length) {
 		default:
 		case 4:
 			processFlags(args);
+			//$FALL-THROUGH$
 		case 3:
 			targetDir = args[2];
 			//$FALL-THROUGH$
 		case 2:
-			sourceZip = args[1];
+			sourceArchive = args[1];
 			//$FALL-THROUGH$
 		case 1:
 			ifdExtractJSONFilename = args[0];
@@ -2377,7 +2447,7 @@ public class Extractor implements ExtractorI {
 		}
 		if (ifdExtractJSONFilename == null && testSet == null)
 			throw new NullPointerException("No IFD-extract.json or test set?");
-		if (sourceZip == null)
+		if (sourceArchive == null)
 			throw new NullPointerException("No source zip file??");
 		if (targetDir == null)
 			throw new NullPointerException("No targetDir");
@@ -2424,7 +2494,7 @@ public class Extractor implements ExtractorI {
 			try {
 				File ifdExtractScriptFile = new File(ifdExtractJSONFilename);
 				File targetPath = new File(targetDir);
-				String sourcePath = new File(sourceZip).getAbsolutePath();
+				String sourcePath = new File(sourceArchive).getAbsolutePath();
 				new Extractor(thisIFDExtractName, ifdExtractScriptFile, targetPath, sourcePath);
 				logStatic("Extractor.runExtraction ok " + thisIFDExtractName);
 			} catch (Exception e) {
@@ -2462,10 +2532,10 @@ public class Extractor implements ExtractorI {
 				+ " debugReadOnly = " + debugReadOnly //
 				+ "\n requireNoPubInfo = " + !allowNoPubInfo //
 				+ " skipPubInfo = " + skipPubInfo //
-				+ "\n sourceDir = " + sourceZip //
+				+ "\n sourceArchive = " + sourceArchive //
 				+ " targetDir = " + targetDir //
 				+ "\n createZippedCollection = " + createZippedCollection //
-				+ " createFindingAidJSONList = " + createFindingAidJSONList//
+				+ " createFindingAidJSONList = " + createFindingAidJSONList //
 				+ "\n IFD version " + IFDConst.IFD_VERSION + "\n";
 		System.err.flush();
 		logStatic("!Extractor.runExtraction flags " + flags);
@@ -2548,12 +2618,12 @@ public class Extractor implements ExtractorI {
 	}
 
 	private static String getCommandLineHelp() {
-		return "\nformat: java -jar IFDExtractor.jar [IFD-extract.json] [sourceZip] [targetDir] [flags]\n"
+		return "\nformat: java -jar IFDExtractor.jar [IFD-extract.json] [sourceArchive] [targetDir] [flags]\n"
 				+ "\n"
 				+ "\nwhere "
 				+ "\n"
 				+ "\n[IFD-extract.json] is the IFD extraction template for this collection"
-				+ "\n[sourceZip] is the source ZIP file"
+				+ "\n[sourceArchive] is the source .zip, .tar.gz, or .tgz file"
 				+ "\n[targetDir] is the target directory for the collection (which you are responsible to empty first)"
 				+ "\n"
 				+ "\n"

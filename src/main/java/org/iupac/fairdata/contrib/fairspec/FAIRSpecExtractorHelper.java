@@ -663,7 +663,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			// byte[] followed by entry name
 			products.add(0, s.getBytes());
 			products.add(1, aidName);
-			String zipName = (rootName == "" ? "" : rootName + ".") + "IFD" + IFDConst.IFD_COLLECTION_FLAG + "zip";
+			String zipName = "IFD" + IFDConst.IFD_COLLECTION_FLAG + "zip";
 			String path = targetDir + "/" + zipName;
 			// this step is the time-consuming part.
 			System.out.println("FAIRSpecExtractorHelper creating " + path);
@@ -680,7 +680,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			t[2] = System.currentTimeMillis() - t[2];
 		}
 		String faPath = targetDir.toString().replace('\\', '/') + "/" 
-		+ (rootName == "" ? "" : rootName + ".") + aidName;
+		+ aidName;
 		FAIRSpecUtilities.writeBytesToFile(s.getBytes(), new File(faPath));
 		return s;
 	}
