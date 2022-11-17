@@ -12,6 +12,8 @@ public interface IFDSerializerI {
 
 	void addAttrInt(String key, long ival);
 
+	void addAttrBoolean(String key, boolean value);
+
 	void addValue(Object val);
 
 	void addObject(String string, Object oval);
@@ -21,4 +23,5 @@ public interface IFDSerializerI {
 	String getFileExt();
 
 	void addList(String key, List<?> value);
+
 }

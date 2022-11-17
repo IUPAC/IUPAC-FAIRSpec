@@ -80,6 +80,11 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 	}
 
 	@Override
+	public void addAttrBoolean(String key, boolean val) {
+		thisObj.appendNoEsc(key, "" + val);		
+	}
+
+	@Override
 	public void addObject(String key, Object o) {
 		thisObj.appendKey(key);
 		addValue(o, false, true);

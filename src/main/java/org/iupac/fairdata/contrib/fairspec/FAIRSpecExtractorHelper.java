@@ -64,6 +64,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public static final String IFD_EXTRACTOR_OBJECT = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OBJECT");
 	public static final String IFD_EXTRACTOR_ASSIGN = IFDConst.getProp("FAIRSPEC_EXTRACTOR_ASSIGN");
 	public static final String IFD_EXTRACTOR_IGNORE = IFDConst.getProp("FAIRSPEC_EXTRACTOR_IGNORE");
+	public static final String IFD_EXTRACTOR_FLAG = IFDConst.getProp("FAIRSPEC_EXTRACTOR_FLAG");
+	public static final String IFD_EXTRACTOR_FLAG_ASSOCIATION_BYID = IFDConst.getProp("FAIRSPEC_EXTRACTOR_FLAG_ASSOCIATION_BYID");
 
 
 	public interface ClassTypes {
@@ -125,7 +127,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 
 	private static final String IFD_PROPERTY_STRUCTURE_LABEL = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_STRUCTURE_FLAG, IFDConst.IFD_LABEL_FLAG);
 	public static final String IFD_PROPERTY_STRUCTURE_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_STRUCTURE_FLAG, IFDConst.IFD_ID_FLAG);
-
+	
 	protected final FAIRSpecFindingAid findingAid;
 
 	protected IFDStructureCollection structureCollection;
@@ -136,6 +138,12 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	protected IFDSampleDataAssociationCollection sampleDataCollection;
 	protected IFDSampleStructureAssociationCollection sampleStructureCollection;
 
+	protected boolean associationsById;
+	
+	@Override
+	public void setAssociationsById(boolean tf) {
+		associationsById = tf;
+	}
 
 	/**
 	 * current state of extraction
@@ -335,8 +343,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			if (currentAssociation == null) {
 				getStructureDataCollection().add(currentAssociation = new IFDStructureDataAssociation());
 				currentAssociation.setPropertyValue(param, value);
-				System.out
-						.println("addObject currentAssociation=" + param + "..." + value + "..." + currentAssociation);
+//				System.out
+//						.println("addObject currentAssociation=" + param + "..." + value + "..." + currentAssociation);
 			}
 			return null;
 		case ClassTypes.SampleDataAssociation:
@@ -590,7 +598,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	
 	public IFDSampleStructureAssociationCollection getSampleStructureCollection() {
 		if (sampleStructureCollection == null) {
-			collections[SAMPLE_STRUCTURE_COLLECTION] = sampleStructureCollection = new IFDSampleStructureAssociationCollection();
+			collections[SAMPLE_STRUCTURE_COLLECTION] = sampleStructureCollection = new IFDSampleStructureAssociationCollection(associationsById);
 			sampleStructureCollection.setID("sample-structure associations");
 		}
 		return sampleStructureCollection;
@@ -598,7 +606,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 
 	public IFDSampleDataAssociationCollection getSampleDataCollection() {
 		if (sampleDataCollection == null) {
-			collections[SAMPLE_DATA_COLLECTION] = sampleDataCollection = new IFDSampleDataAssociationCollection();
+			collections[SAMPLE_DATA_COLLECTION] = sampleDataCollection = new IFDSampleDataAssociationCollection(associationsById);
 			sampleDataCollection.setID("sample-spectra associations");
 		}
 		return sampleDataCollection;
@@ -608,7 +616,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public IFDStructureDataAssociationCollection getStructureDataCollection() {
 		if (structureDataCollection == null) {
 			collections[STRUCTURE_DATA_COLLECTION] =
-					structureDataCollection = new IFDStructureDataAssociationCollection();
+					structureDataCollection = new IFDStructureDataAssociationCollection(associationsById);
 			structureDataCollection.setID("structure-spectra associations");
 		}
 		return structureDataCollection;
@@ -624,7 +632,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public IFDStructureDataAnalysisCollection getStructureDataAnalysisCollection() {
 		if (structureDataAnalysisCollection == null)
 			collections[STRUCTURE_DATA_ANALYSIS_COLLECTION] =
-					structureDataAnalysisCollection = new IFDStructureDataAnalysisCollection();
+					structureDataAnalysisCollection = new IFDStructureDataAnalysisCollection(associationsById);
 		structureDataAnalysisCollection.setID("structure-spectra-analyses");
 		return structureDataAnalysisCollection;
 	}
@@ -657,6 +665,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		if (targetDir == null)
 			return s;
 		String aidName = "IFD" + IFDConst.IFD_FINDINGAID_FLAG + serializer.getFileExt();
+		String faPath = targetDir.toString().replace('\\', '/') + "/" + aidName;
+		FAIRSpecUtilities.writeBytesToFile(s.getBytes(), new File(faPath));
 		if (products != null) {
 			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_REF, null);
 			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_LEN, null);
@@ -669,19 +679,17 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			System.out.println("FAIRSpecExtractorHelper creating " + path);
 			t[1] = System.currentTimeMillis();
 			long len = FAIRSpecUtilities.zip(path, targetDir.toString().length() + 1, products);
-			t[1] = System.currentTimeMillis() - t[1];
-			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_REF, zipName);
-			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_LEN, len);
 			products.remove(1);
 			products.remove(0);
-			// update external finding aid
+			t[1] = System.currentTimeMillis() - t[1];
+			// update external finding aid with length of data and reference
 			t[2] = System.currentTimeMillis();
+			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_REF, zipName);
+			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_LEN, len);
 			s = serializer.serialize(findingAid).toString();
 			t[2] = System.currentTimeMillis() - t[2];
+			FAIRSpecUtilities.writeBytesToFile(s.getBytes(), new File(faPath));
 		}
-		String faPath = targetDir.toString().replace('\\', '/') + "/" 
-		+ aidName;
-		FAIRSpecUtilities.writeBytesToFile(s.getBytes(), new File(faPath));
 		return s;
 	}
 	

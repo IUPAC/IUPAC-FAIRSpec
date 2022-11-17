@@ -10,12 +10,16 @@ import org.iupac.fairdata.core.IFDCollection;
 @SuppressWarnings({ "serial" })
 public class IFDStructureDataAnalysisCollection extends IFDCollection<IFDStructureDataAnalysis> {
 
-	public IFDStructureDataAnalysisCollection() {
+	private boolean byID;
+
+	public IFDStructureDataAnalysisCollection(boolean byID) {
 		super(null, null);
+		this.byID = byID;
 	}
 
 	public void addAnalysis(IFDStructureDataAnalysis a) {
 		super.add(a);
+		a.setByID(byID);
 	}
 
 }

@@ -440,6 +440,10 @@ public class Extractor implements ExtractorI {
 
 	private String ifdid;
 
+	/**
+	 * create associations using ID rather than index numbers
+	 */
+
 	public static final String STRUC_FILE_DATA_KEY = "_struc.";
 
 	public static final String CDX_FILE_DATA = "_struc.cdx";
@@ -787,6 +791,10 @@ public class Extractor implements ExtractorI {
 					ignore += "(" + val + ")|";
 					continue;
 				}
+				if (key.startsWith(FAIRSpecExtractorHelper.IFD_EXTRACTOR_FLAG)) {
+					setExtractorFlag(key, val);
+					continue;
+				}
 				if (key.startsWith(IFDConst.IFD_PROPERTY_FLAG)) {
 					if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_ID)) {
 						ifdid = val;
@@ -802,6 +810,11 @@ public class Extractor implements ExtractorI {
 		}
 		junkPattern = Pattern.compile(ignore + FAIRSpecExtractorHelper.junkFilePattern);
 		return parsers;
+	}
+
+	private void setExtractorFlag(String key, String val) {
+		if (key.equals(FAIRSpecExtractorHelper.IFD_EXTRACTOR_FLAG_ASSOCIATION_BYID))
+			helper.setAssociationsById(val.equalsIgnoreCase("true"));
 	}
 
 	///////// PHASE 2: Parsing the ZIP file and extracting objects from it ////////

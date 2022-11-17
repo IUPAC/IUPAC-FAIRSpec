@@ -64,11 +64,11 @@ public class ExtractorTest extends Extractor {
 	}
 
 	private static void runUCLTest(String[] args) {
-		String[] testSet = new String[] { "./extract/ImperialCollege/IFD-extract.json" };
+		String[] testSet = new String[] { "c:/temp/henry/v6/IFD-extract.json" };
 		
 //		String sourceArchive = "c:/temp/henry/test.zip";		
-		String sourceArchive = "c:/temp/henry/archive.tar.gz";		
-		String targetDir = "c:/temp/henry/ifd";
+		String sourceArchive = "c:/temp/henry/v6/archive.tar.gz";		
+		String targetDir = "c:/temp/henry/v6/ifd";
 
 		//debugging = true;
 		//readOnly = true;

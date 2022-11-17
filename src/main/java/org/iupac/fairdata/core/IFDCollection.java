@@ -28,6 +28,14 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 		super(label, type, initialSet.length, initialSet);
 	}
 
+	public List<String> getIDList() {
+		List<String> list = new ArrayList<>();
+		for (T c : this) {
+			list.add(c.getID());
+		}
+		return list;
+	}
+
 	public List<Integer> getIndexList() {
 		List<Integer> list = new ArrayList<>();
 		for (T c : this) {
@@ -141,7 +149,6 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 	}
 
 	public T getObjectByID(String value) {
-		System.out.println("IFDC " + this + " " + size());
 		for (int i = size(); --i >= 0;) {
 			T v = get(i);
 			if (value.equals(v.getID()))
@@ -149,7 +156,5 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 		}
 		return null;
 	}
-
-
 
 }

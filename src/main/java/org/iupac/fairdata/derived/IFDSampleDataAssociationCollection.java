@@ -9,18 +9,19 @@ import org.iupac.fairdata.sample.IFDSample;
 @SuppressWarnings({ "serial" })
 public class IFDSampleDataAssociationCollection extends IFDAssociationCollection {
 
-	public IFDSampleDataAssociationCollection() {
-		super(null, null);
+	public IFDSampleDataAssociationCollection(boolean byID) {
+		super(null, null, byID);
 	}
 
 	public IFDSampleDataAssociation addAssociation(IFDSample sample, IFDDataObject data) throws IFDException {
-		IFDSampleDataAssociation ssc = (IFDSampleDataAssociation) getAssociationForSingleObj1(sample);
-		if (ssc == null) {
-			add(ssc = newAssociation(null, sample, data));
-		} else if (!ssc.getDataObjectCollection().contains(data)) {
-			ssc.getDataObjectCollection().add(data);
+		IFDSampleDataAssociation sda = (IFDSampleDataAssociation) getAssociationForSingleObj1(sample);
+		if (sda == null) {
+			add(sda = newAssociation(null, sample, data));
+		} else if (!sda.getDataObjectCollection().contains(data)) {
+			sda.getDataObjectCollection().add(data);
 		}
-		return ssc;
+		sda.setByID(byID);
+		return sda;
 	}
 
 	protected IFDSampleDataAssociation newAssociation(String label, IFDSample sample, IFDDataObject data) throws IFDException {
@@ -29,6 +30,7 @@ public class IFDSampleDataAssociationCollection extends IFDAssociationCollection
 
 	public IFDObject<?> addAssociation(IFDSampleDataAssociation a) {
 		add(a);
+		a.setByID(byID);
 		return a;
 	}
 

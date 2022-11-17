@@ -14,18 +14,19 @@ import org.iupac.fairdata.structure.IFDStructure;
 @SuppressWarnings({ "serial" })
 public class IFDSampleStructureAssociationCollection extends IFDAssociationCollection {
 
-	public IFDSampleStructureAssociationCollection() {
-		super(null, null);
+	public IFDSampleStructureAssociationCollection(boolean byID) {
+		super(null, null, byID);
 	}
 
 	public IFDSampleStructureAssociation addAssociation(IFDSample sample, IFDStructure structure) throws IFDException {
-		IFDSampleStructureAssociation ssc = (IFDSampleStructureAssociation) getAssociationForSingleObj1(sample);
-		if (ssc == null) {
-			add(ssc = newAssociation(sample, structure));
-		} else if (!ssc.getStructureCollection().contains(structure)) {
-			ssc.getStructureCollection().add(structure);
+		IFDSampleStructureAssociation ssa = (IFDSampleStructureAssociation) getAssociationForSingleObj1(sample);
+		if (ssa == null) {
+			add(ssa = newAssociation(sample, structure));
+		} else if (!ssa.getStructureCollection().contains(structure)) {
+			ssa.getStructureCollection().add(structure);
 		}
-		return ssc;
+		ssa.setByID(byID);
+		return ssa;
 	}
 
 	protected IFDSampleStructureAssociation newAssociation(IFDSample sample, IFDStructure structure) throws IFDException {

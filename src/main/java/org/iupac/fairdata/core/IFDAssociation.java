@@ -22,13 +22,18 @@ import org.iupac.fairdata.common.IFDException;
 @SuppressWarnings("serial")
 public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>> {
 
-	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_ASSOCIATION_FLAG); 
+	protected boolean byID;
 	
-	@Override
-	protected String getPropertyPrefix() {
-		return propertyPrefix;
+	/**
+	 * From IFDAssociationCollection to pass on this information
+	 * 
+	 * @param b
+	 */
+	public void setByID(boolean b) {
+		byID = b;
 	}
 
+		
 	@SafeVarargs
 	protected IFDAssociation(String type, IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>... collections) throws IFDException {
 		super(null, type, collections);
@@ -95,10 +100,18 @@ public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentable
 		if (size() == 0)
 			return;
 		// this class should serialize as a raw list of lists, without {....}
-		List<List<Integer>> list = getMyIndexList();
-		serializer.addList("items", list);
+		serializer.addList("items", (byID ? getMyIDList() : getMyIndexList()));
 	}
 
+	private List<List<String>> getMyIDList() {
+		List<List<String>> list = new ArrayList<>();
+		for (int i = 0; i < size(); i++) {
+			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = getObject(i);
+			list.add(c.getIDList());
+		}
+		return list;
+	}
+	
 	private List<List<Integer>> getMyIndexList() {
 		List<List<Integer>> list = new ArrayList<>();
 		for (int i = 0; i < size(); i++) {

@@ -73,4 +73,6 @@ public interface FAIRSpecExtractorHelperI {
 
 	void setCurrentResourceByteLength(long len);
 
+	void setAssociationsById(boolean equalsIgnoreCase);
+
 }
