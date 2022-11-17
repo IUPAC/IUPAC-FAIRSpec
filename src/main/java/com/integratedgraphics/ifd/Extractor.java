@@ -106,6 +106,12 @@ import com.integratedgraphics.ifd.util.PubInfoExtractor;
  */
 public class Extractor implements ExtractorI {
 
+	private static final String version = "0.0.3-alpha+2022.11.17";
+
+	// 2022.11.17 version 0.0.3 allows associations "byID"
+	// 2022.11.14 version 0.0.3 "compound identifier" as organizing association
+	// 2022.06.09 MNovaMetadataReader CDX export fails due to buffer pointer error.
+	
 	public static class ArchiveInputStream extends InputStream {
 		private ZipInputStream zis;
 		private TarArchiveInputStream tis;
@@ -147,10 +153,6 @@ public class Extractor implements ExtractorI {
 	    }
 
 	}
-	private static final String version = "0.0.3-alpha+2022.11.16";
-
-	// 2022.11.14 version 0.0.3 "compound identifier" as organizing association
-	// 2022.06.09 MNovaMetadataReader CDX export fails due to buffer pointer error.
 
 	private static class CacheRepresentation extends IFDRepresentation {
 
