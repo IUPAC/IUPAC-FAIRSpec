@@ -1,10 +1,10 @@
-format: java -jar IFDExtractor.jar [IFD-extract.json] [sourceZip] [targetDir] [flags]
+format: java -jar IFDExtractor.jar [IFD-extract.json] [sourceArchive] [targetDir] [flags]
 
 
 where
 
 [IFD-extract.json] is the IFD extraction template for this collection
-[sourceZip] is the source ZIP file
+[sourceArchive] is the source .zip, .tar.gz, or .tgz file
 [targetDir] is the target directory for the collection (which you are responsible to empty first)
 
 [flags] are one or more of:
@@ -16,4 +16,4 @@ where
 -debugreadonly (readonly, no publicationmetadata)
 -addPublicationMetadata (only for post-publication-related collections)
 -datacitedown (only for post-publication-related collections)
--requirepubinfo (throw an error if datacite cannot be reached; post-publication-related collections only)
+-requirepubinfo (throw an error is datacite cannot be reached; post-publication-related collections only)
