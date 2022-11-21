@@ -1,6 +1,7 @@
 package org.iupac.fairdata.dataobject;
 
 import org.iupac.fairdata.core.IFDCollection;
+import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 
 @SuppressWarnings("serial")
@@ -29,8 +30,9 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 	public IFDDataObject cloneData(IFDDataObject data, String newID) {
 		IFDDataObject newData = (IFDDataObject) data.clone();
 		if (newID != null)
-			newData.setID(newID);
-		remove(data);
+			newData.setID((data.getID() == null ? "" : data.getID()) + newID);
+		data.invalidate();
+//		remove(data);
 		add(newData);
 		return newData;
 	}

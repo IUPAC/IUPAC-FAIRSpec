@@ -84,8 +84,10 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 		String type = (entryName.endsWith(".pdf") ? getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_SPECTRUM_DOCUMENT")
 				: entryName.endsWith("thumb.png") ? getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_SPECTRUM_IMAGE")
 						: null);
-		if (type != null)
-			extractor.addPropertyOrRepresentation(type, Extractor.localizePath(baseName + entryName), false, null);
+		if (type != null) {
+			String localPath = Extractor.localizePath(baseName + entryName);
+			extractor.addPropertyOrRepresentation(type, localPath, false, null);
+		}
 		return !entryName.endsWith(".mnova");
 	}
 

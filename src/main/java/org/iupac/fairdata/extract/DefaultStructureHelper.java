@@ -77,7 +77,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 				smiles = v.getSmiles(atoms);
 				inchi = v.getInchi(atoms, null, null);
 				if (inchi == null) {
-				  	extractor.log("!! InChI could not be created for " + ifdPath);
+				  	extractor.log("! DefaultStructureHelper WARNING: InChI could not be created for " + ifdPath);
 				} else {
 					inchiKey = v.getInchi(atoms, null, "key");
 				}

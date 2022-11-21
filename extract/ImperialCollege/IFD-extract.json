@@ -17,37 +17,56 @@
  
  {"##":"use identifier strings rather than array-index numbers in the finding aid's structure-data association collection"},
  {"FAIRSpec.extractor.flag.association.byid":"true"},
+ {"#FAIRSpec.extractor.flags" : "nozip"},
 
 
  {"##":"for all files"},
  
  {"##":"trigger a new association if the id changes"},
  {"assoc":"{compound=IFD.property.association.structuredata.id::*}"},
- {"##":"FAIRSpec.extractor.assign __ {IFD.property.association.structuredata.label::Compound <compound>}"},
+
+ {"##":"not implemented...FAIRSpec.extractor.assign __ {IFD.property.association.structuredata.label::Compound <compound>}"},
 
  {"##":"add structure objects for top-level files or files within a structures/[id]/ directory or a CIF file"},
- {"##":"ignoring lower-level cdxml","FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cdxml::{assoc}/{IFD.property.structure.id::<compound>}.cdxml}"},
+ {"#<ignoring lower-level cdxml>#FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cdxml::{assoc}/{IFD.property.structure.id::<compound>}.cdxml}"},
+
+
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cml::{assoc}/**/{IFD.property.structure.id::<compound>}.cml}"},
+
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cdxml::{assoc}/**/{IFD.property.structure.id::<compound>}.cdxml}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.png::{assoc}/{IFD.property.structure.id::<compound>}.png}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.mol.2d::{assoc}/{IFD.property.structure.id::<compound>}.mol}"}, 
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.mol.2d::{assoc}/{IFD.property.structure.id::<compound>}-v3.mol}"}, 
  {"##":"Lots of case issues with cif data!"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cif::{assoc}/{IFD.property.structure.id::<compound>}-X-Ray/*.cif}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cif::{assoc}/{IFD.property.structure.id::<compound>}-X-ray/*.cif}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cif::{assoc}/{IFD.property.structure.id::<compound>}-x-Ray/*.cif}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cif::{assoc}/{IFD.property.structure.id::<compound>}-x-ray/*.cif}"},
- 
+
 
  {"##":"TODO structures/ directory option FAIRSpec.extractor.object_:_{path}{IFD.representation.structure.cdxml::{assoc}/structures/{IFD.property.structure.id::*}/*.cdxml}"},
 
- 
+
+
+
  {"##":"add data objects and their representations for lower-level files"},
+
+
  
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/*/**/{IFD.property.dataobject.label::{IFD.property.dataobject.id::*}.mnova}}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/*/**/{IFD.property.dataobject.label::{IFD.property.dataobject.id::*}.jdx}}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/**/{IFD.property.dataobject.label::{IFD.property.dataobject.id::*}.zip}}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/*/**/{IFD.property.dataobject.label::{IFD.property.dataobject.id::*}.pdf}}"},
+ {"##":"Computional"},
+
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.comp.input::{assoc}/**/{IFD.property.dataobject.id::<compound>}.gjf}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.comp.output::{assoc}/**/{IFD.property.dataobject.id::<compound>}.fchk}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.comp.output::{assoc}/**/{IFD.property.dataobject.id::<compound>}.log}"},
+
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.ir.document::{assoc}/{IFD.property.dataobject.id::*-IR}/*.pdf}"},
  
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.ir.vendor.dataset::{assoc}/**/{IFD.property.dataobject.id::*-IR}/*}"},
+ 
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/*/**/{IFD.property.dataobject.id::*}.mnova}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/*/**/{IFD.property.dataobject.id::*}.jdx}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/**/{IFD.property.dataobject.id::*}.zip}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/*/{IFD.property.dataobject.id::*}.pdf}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/*/*/{IFD.property.dataobject.id::*}.pdf}"},
  
  {"##":"next"} 
 ]}

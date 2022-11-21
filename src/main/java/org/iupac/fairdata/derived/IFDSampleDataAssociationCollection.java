@@ -34,4 +34,11 @@ public class IFDSampleDataAssociationCollection extends IFDAssociationCollection
 		return a;
 	}
 
+	
+	@Override
+	protected String getDefaultName(int i) {
+		return (i == 0 ? "samples" : "data");
+	}
+
+
 }

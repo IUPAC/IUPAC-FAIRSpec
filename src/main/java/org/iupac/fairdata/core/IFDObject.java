@@ -200,6 +200,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 */
 	protected int index;
 
+	protected boolean isValid = true;
+	
 	/**
 	 * an arbitrary label given to provide some sort of context
 	 */
@@ -562,6 +564,14 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return et;
 	}
 
+	public void invalidate() {
+		isValid = false;
+	}
+	
+	public boolean isValid() {
+		return isValid;
+	}
+
 	protected void serializeProps(IFDSerializerI serializer) {
 		if (haveProperties()) {
 			// general serialization does not write out units
@@ -584,7 +594,10 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	@Override
 	public String toString() {
-		return "[" + getClass().getSimpleName() + " " + index + " label=" + label + " size=" + size() + "]";
+		return "[" + getClass().getSimpleName() + " " + index 
+				+ " id=" + id 
+				+ " label=" + label 
+				+ " size=" + size() + "]";
 	}
-
+	
 }

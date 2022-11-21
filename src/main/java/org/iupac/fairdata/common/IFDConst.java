@@ -61,11 +61,7 @@ public class IFDConst {
 			String k = (String) e.getKey();
 			if (k.startsWith(key)) {
 				// to be continued! -- need units and type
-				String val = e.getValue().toString();
-				int pt = val.indexOf(";");
-				if (pt > 0)
-					val = val.substring(0, pt);
-				val = val.trim();
+				String val = trimValue(e.getValue().toString());
 				if (!k.endsWith("_FLAG")) {
 					htProps.put(val, new IFDProperty(val, null, null, null));
 				}
@@ -240,12 +236,22 @@ public class IFDConst {
 				String k = (String) e.getKey();
 				if (k.startsWith(key)) {
 					String val = e.getValue().toString();
-					val = val.trim();
+					val = trimValue(val);
 					htMediaTypes.put(k, val);
 				}
 			}
 		}
 		return htMediaTypes.get("IFD_MEDIATYPE_" + ext.toUpperCase());
+	}
+
+	private static String trimValue(String val) {
+		int pt = val.indexOf("#");
+		if (pt >= 0)
+			val = val.substring(0, pt);
+		pt = val.indexOf(";");
+		if (pt > 0)
+			val = val.substring(0, pt);
+		return val.trim();
 	}
 
 }

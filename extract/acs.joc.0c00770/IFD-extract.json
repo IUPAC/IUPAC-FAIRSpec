@@ -11,8 +11,12 @@
  {"data0":"{IFD.property.collectionset.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/jo{hash}_si_002.zip}"},
  {"data":"{IFD.property.collectionset.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
- {"zip":"{data}|{id=IFD.property.sample.label::*}.zip|"},
+ {"##":"use identifier strings rather than array-index numbers in the finding aid's structure-data association collection"},
+ {"FAIRSpec.extractor.flag.association.byid":"true"},
+
+ {"zip":"{data}|{id=IFD.property.association.structuredata.id::*}.zip|"},
  {"##":"the mnova check must come before the generic zip directory / check, because *.mnova is in the vendor list for Mestrec, and some Bruker files have mnova files within them"},
- {"FAIRSpec.extractor.object":"{zip}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{IFD.property.dataobject.label::*.mnova}}"},
- {"FAIRSpec.extractor.object":"{zip}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{IFD.property.dataobject.label::*}/}"}
+ {"FAIRSpec.extractor.object":"{zip}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{IFD.property.dataobject.id::*.mnova}}"},
+ {"FAIRSpec.extractor.object":"{zip}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{IFD.property.dataobject.id::*}/}"}
+
 ]}

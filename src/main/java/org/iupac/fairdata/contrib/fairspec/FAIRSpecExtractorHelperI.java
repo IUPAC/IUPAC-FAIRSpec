@@ -75,4 +75,8 @@ public interface FAIRSpecExtractorHelperI {
 
 	void setAssociationsById(boolean equalsIgnoreCase);
 
+	IFDDataObject cloneData(IFDDataObject localSpec, String idExtension);
+
+	void removeInvalidData();
+
 }

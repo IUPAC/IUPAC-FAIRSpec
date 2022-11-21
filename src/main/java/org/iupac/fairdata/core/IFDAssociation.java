@@ -76,11 +76,11 @@ public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentable
 	}
 
 	public IFDObject<?> getFirstObj1() {
-		return get(0).get(0);
+		return (get(0).size() > 0 ? get(0).get(0) : null);
 	}
 
 	public IFDObject<?> getFirstObj2() {
-		return get(1).get(0);
+		return (get(1).size() > 0 ? get(1).get(0) : null);
 	}
 
 	/**

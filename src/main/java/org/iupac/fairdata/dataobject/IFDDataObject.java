@@ -15,7 +15,7 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObjectRepresentation> {
 
 	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_DATAOBJECT_FLAG);
-	
+
 	@Override
 	protected String getPropertyPrefix() {
 		return propertyPrefix;
@@ -46,7 +46,7 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 	@Override
 	public String toString() {
 		return (label == null ? super.toString()
-				: "[" + type + " " + (parentCollection != null) + " " + index + " id=" + id + " " + label + " " + (size() > 0 ? get(0) : null) + "]");
+				: "[" + type + " " + (parentCollection != null) + " " + index + " id=" + id + " label=" + label + " rep[0]=" + (size() > 0 ? get(0) : null) + "]");
 	}
 
 }

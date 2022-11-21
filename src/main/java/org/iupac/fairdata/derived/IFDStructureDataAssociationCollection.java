@@ -34,4 +34,10 @@ public class IFDStructureDataAssociationCollection extends IFDAssociationCollect
 			return new IFDStructureDataAssociation(struc, data);
 	}
 
+	
+	@Override
+	protected String getDefaultName(int i) {
+		return (i == 0 ? "structures" : "data");
+	}
+	
 }

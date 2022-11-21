@@ -35,14 +35,16 @@ public class ExtractorTest extends Extractor {
 	 * @param targetDir
 	 * @return
 	 */
-	private static String[] setSourceTargetArgs(String[] args, String sourceArchive, String targetDir) {
-		String[] a = new String[3];
+	private static String[] setSourceTargetArgs(String[] args, String sourceArchive, String targetDir, String flags) {
+		String[] a = new String[4];
 		if (args.length > 0)
 			a[0] = args[0];
 		if (args.length < 2 || args[1] == null)
 			a[1] = sourceArchive;
 		if (args.length < 3 || args[2] == null)
 			a[2] = targetDir;
+		if (args.length < 4 || args[3] == null)
+			a[3] = flags;
 		return a;
 	}
 
@@ -73,7 +75,7 @@ public class ExtractorTest extends Extractor {
 		//debugging = true;
 		//readOnly = true;
 		
-		args = setSourceTargetArgs(args, sourceArchive, targetDir);
+		args = setSourceTargetArgs(args, sourceArchive, targetDir, null);
 		runExtraction(args, testSet, -1, -1);		
 	}
 
@@ -113,7 +115,7 @@ public class ExtractorTest extends Extractor {
 		String sourceArchive = "c:/temp/iupac/zip";		
 		String targetDir = "c:/temp/iupac/ifd";//./site/ifd";
 		
-		args = setSourceTargetArgs(args, sourceArchive, targetDir);		
+		args = setSourceTargetArgs(args, sourceArchive, targetDir, "-datacitedown");		
 		runExtraction(args, testSet, first, last);
 	}
 

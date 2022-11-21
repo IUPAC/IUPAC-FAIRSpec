@@ -53,6 +53,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 	 * @param andRemove
 	 * @return obj1
 	 */
+	@SuppressWarnings("unchecked")
 	public IFDRepresentableObject<? extends IFDRepresentation> 
 	getFirstObj1ForObj2(IFDRepresentableObject<? extends IFDRepresentation> obj2, boolean andRemove) {
 		for (IFDAssociation a : this) {
@@ -61,7 +62,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 			if (i >= 0) {
 				if (andRemove)
 					c.remove(i);
-				return a.get(0).get(0);
+				return (IFDRepresentableObject<? extends IFDRepresentation>) a.getFirstObj1();
 			}
 		}
 		return null;
@@ -93,23 +94,43 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 		IFDAssociation firstAssociation = get(0);
 		int arity = firstAssociation.size();
 		List<String> list = new ArrayList<>();
-		// TODO should ensure these are all the same parent and that no null entries exist.
+		// TODO should ensure these are all the same parent and that no null entries
+		// exist.
 		for (int i = 0; i < arity; i++) {
 			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = firstAssociation.get(i);
-			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> cp = (c == null || c.size() == 0 ? null : c.get(0).getParentCollection());
-			if (cp == null) {
-			  throw new NullPointerException("IFDAssociationCollection null or 0-length association");
+			if (c.size() == 0) {
+				String name = null;
+				for (int n = size(); --n >= 0;) {
+					c = get(n).get(i);					
+					String id = (c.isEmpty() ? null : c.get(0).getParentCollection().getID());
+					if (id != null) {
+						name = id;
+						break;
+					}
+				}
+				list.add(name == null ? getDefaultName(i) : name);
+			} else {
+				IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> cp = (c == null ? null
+						: c.get(0).getParentCollection());
+				if (cp == null) {
+					throw new NullPointerException("IFDAssociationCollection null or 0-length association");
+				}
+				list.add(cp.getID());
 			}
-			list.add(cp.getID());
 		}
 		serializer.addAttrBoolean("byID", byID);
 		serializer.addObject("collections", list);
+	}
+
+	protected String getDefaultName(int i) {
+		return null;
 	}
 
 	public void removeOrphanedAssociations() {
 		out: for (int ia = size(); --ia >= 0;) {
 			IFDAssociation a = get(ia);
 			int arity = a.size();
+			int nEmpty = 0;
 			for (int i = 0; i < arity; i++) {
 				IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = a.get(i);
 				for (int j = c.size(); --j >= 0;) {
@@ -118,10 +139,11 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 					}
 				}
 				if (c.size() == 0) {
-					remove(ia);
-					continue out;
+					nEmpty++;
 				}
 			}
+			if (nEmpty == arity)
+				remove(ia);
 		}
 	}
 

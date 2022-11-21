@@ -157,4 +157,12 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 		return null;
 	}
 
+	public void removeInvalidData() {
+		for (int i = size(); --i >=0;) {
+			IFDObject<?> o = get(i);
+			if (!o.isValid())
+				remove(i);
+		}
+	}
+
 }

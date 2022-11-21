@@ -12,7 +12,11 @@ import org.iupac.fairdata.structure.IFDStructureCollection;
 /**
  * A class to correlation one or more IFDStructure with one or more
  * IFDDataObject. Only two array items are allowed -- one IFDStructureCollection
- * and one IFDDataObjectCollection.
+ * and one IFDDataObjectCollection. 
+ * 
+ * The structures array may be empty, in which
+ * case the association is being made just among spectra based on compound associations
+ * because (perhaps) there are no structures in the collection.
  * 
  * Each of these collections allows for one or more item, resulting in a
  * one-to-one, many-to-one, one-to-many, or many-many associations.
