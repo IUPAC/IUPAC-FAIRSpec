@@ -18,6 +18,8 @@ import javajs.util.BS;
  */
 public class DefaultStructureHelper implements PropertyManagerI {
 
+	private static final String defaultStructureFilePattern = IFDConst.getProp("IFD_DEFAULT_STRUCTURE_FILE_PATTERN");;
+
 	/**
 	 * the associated extractor
 	 */
@@ -37,7 +39,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 
 	@Override
 	public String getParamRegex() {
-		return "(?<struc>(?<mol>\\.mol$|\\.sdf$)|(?<cdx>\\.cdx$|\\.cdxml$)|(?<cif>\\.cif$))";
+		return defaultStructureFilePattern;
 	}
 
 	@Override
@@ -69,7 +71,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		String ext = ifdPath.substring(ifdPath.lastIndexOf('.') + 1);
 		type = getType(ext, bytes);
 		String smiles = null, inchi = null, inchiKey = null;
-		if (ext.equals("mol") || ext.equals("sdf")) {
+		if (ext.equals("mol") || ext.equals("sdf") || ext.equals("cml")) {
 			try {
 				Viewer v = getJmolViewer();
 				v.loadInline(new String(bytes));
@@ -101,6 +103,13 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		return type;
 	}
 
+	/**
+	 * These would need updating for structures. 
+	 * 
+	 * @param ext
+	 * @param bytes
+	 * @return
+	 */
 	public static String getType(String ext, byte[] bytes) {
 		// TODO -- generalize this
 		switch (ext) {
@@ -116,6 +125,8 @@ public class DefaultStructureHelper implements PropertyManagerI {
 			return IFDConst.IFD_REP_STRUCTURE_CDXML;
 		case "cif":
 			return IFDConst.IFD_REP_STRUCTURE_CIF;
+		case "cml":
+			return IFDConst.IFD_REP_STRUCTURE_CML;
 		default:
 			return ext.toUpperCase();
 		}

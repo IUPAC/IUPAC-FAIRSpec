@@ -64,6 +64,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	// these values are in fairspec.properties
 	public static final String IFD_EXTRACTOR_OBJECT = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OBJECT");
 	public static final String IFD_EXTRACTOR_ASSIGN = IFDConst.getProp("FAIRSPEC_EXTRACTOR_ASSIGN");
+	public static final String IFD_EXTRACTOR_REJECT = IFDConst.getProp("FAIRSPEC_EXTRACTOR_REJECT");
 	public static final String IFD_EXTRACTOR_IGNORE = IFDConst.getProp("FAIRSPEC_EXTRACTOR_IGNORE");
 	public static final String IFD_EXTRACTOR_FLAG = IFDConst.getProp("FAIRSPEC_EXTRACTOR_FLAG");
 	public static final String IFD_EXTRACTOR_FLAGS = IFDConst.getProp("FAIRSPEC_EXTRACTOR_FLAGS");
@@ -101,7 +102,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	/**
 	 * regex for files that are absolutely worthless
 	 */
-	public static final String junkFilePattern = "(/\\.)|(desktop\\.ini)";
+	public static final String junkFilePattern = IFDConst.getProp("FAIRSPEC_EXTRACTOR_REJECT_PATTERN");
 
 	/**
 	 * the files we want extracted -- just PDF and PNG here; all others are taken
@@ -269,8 +270,9 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	 * @throws IFDException
 	 */
 	@Override
-	public IFDRepresentableObject<?> addObject(String rootPath, String param, String value, String localName)
+	public IFDRepresentableObject<?> addObject(String rootPath, String param, String value, String localName, long len)
 			throws IFDException {
+
 		if (!isAddingObjects())
 			throw new IFDException("addObject " + param + " " + value + " called with no current object file name");
 
@@ -286,15 +288,15 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			}
 			if (currentDataObject == null) {
 				currentDataObject = (IFDDataObject) addNewObject(getDataObjectCollection(), type, rootPath, param,
-						value, localName, currentOriginPath);
+						value, localName, currentOriginPath, len, true);
+			} else {
+				checkAddRepOrSetParam(currentDataObject, param, value, localName, len);
 			}
 			if (currentDataProps != null) {
 				for (String[] s : currentDataProps) {
 					currentDataObject.setPropertyValue(s[0], s[1]);
 				}
 			}
-			;
-
 			if (currentAssociation != null && currentAssociation instanceof IFDStructureDataAssociation) {
 				((IFDStructureDataAssociation) currentAssociation).getDataObjectCollection().add(currentDataObject);
 			}
@@ -303,7 +305,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		switch (type) {
 		case ClassTypes.Sample:
 			currentSample = (IFDSample) addNewObject(getSampleCollection(), type, rootPath, param, value, localName,
-					null);
+					null, len, true);
 			if (currentAssociation != null && currentAssociation instanceof IFDSampleDataAssociation) {
 				((IFDSampleDataAssociation) currentAssociation).getSampleCollection().add(currentSample);
 			}
@@ -311,7 +313,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		case ClassTypes.Structure:
 			if (currentStructure == null)
 				currentStructure = (IFDStructure) addNewObject(getStructureCollection(), type, rootPath, param, value,
-						localName, null);
+						localName, null, len, true);
 			else
 				currentStructure.setPropertyValue(param, value);
 			if (currentAssociation != null && currentAssociation instanceof IFDStructureDataAssociation) {
@@ -320,10 +322,15 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			return currentStructure;
 		case ClassTypes.DataObject:
 			if (currentDataObject == null) {
+				if (IFDConst.isID(param) && this.associationsById) {
+					currentDataObject = (IFDDataObject) addNewObject(getDataObjectCollection(), type, rootPath, param,
+							value, localName, currentOriginPath, len, false);
+					if (currentDataObject != null)
+						return currentDataObject;
+				}
 				if (currentDataProps == null) {
 					currentDataProps = new ArrayList<>();
 				}
-				;
 				currentDataProps.add(new String[] { param, value });
 //				System.err.println(
 //						"FAIRSpecFindingAidHelper.addObject data object property found before data object initialized "
@@ -374,7 +381,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	}
 
 	private IFDRepresentableObject<? extends IFDRepresentation> addNewObject(IFDCollection<?> c, String type,
-			String rootPath, String param, String value, String localName, String originPath) throws IFDException {
+			String rootPath, String param, String value, String localName, String originPath, long len, boolean forceNew) throws IFDException {
 		String key;
 		boolean isID = IFDConst.isID(param);
 		if (isID) {
@@ -402,6 +409,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 				? c.getObjectByID(key)
 				: c.getPath(key));
 		if (o == null) {
+			if (!forceNew)
+				return null;
 			switch (type) {
 			case ClassTypes.Sample:
 				o = new IFDSample();
@@ -425,13 +434,18 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			throw new IFDException("FAIRSpecExtractorHelper.addNewObject object not found for path=" + rootPath
 					+ " and originPath=" + currentOriginPath);
 		o.setResource(currentResource);
+		checkAddRepOrSetParam(o, param, value, localName, len);
+		return o;
+	}
+
+	private void checkAddRepOrSetParam(IFDRepresentableObject<? extends IFDRepresentation> o, String param,
+			String value, String localName, long len) {
 		if (IFDConst.isRepresentation(param)) {
 			o.findOrAddRepresentation(currentOriginPath, localName, null, param,
-					FAIRSpecUtilities.mediaTypeFromFileName(localName));
+					FAIRSpecUtilities.mediaTypeFromFileName(localName)).setLength(len);
 		} else {
 			o.setPropertyValue(param, value);
 		}
-		return o;
 	}
 
 	@Override
@@ -550,7 +564,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		if (getDataObjectCollection().indexOf(spec) < 0)
 			getDataObjectCollection().add(spec);
 		IFDStructure struc = (IFDStructure) addNewObject(getStructureCollection(), ClassTypes.Structure, rootPath,
-				IFD_PROPERTY_STRUCTURE_LABEL, name, localName, null);
+				IFD_PROPERTY_STRUCTURE_LABEL, name, localName, null, 0, true);
 		struc.findOrAddRepresentation(originPath, localName, null, ifdRepType,
 				FAIRSpecUtilities.mediaTypeFromFileName(localName));
 		getStructureCollection().add(struc);
@@ -685,7 +699,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			products.add(1, aidName);
 			String zipName = "IFD" + IFDConst.IFD_COLLECTION_FLAG + "zip";
 			String path = targetDir + "/" + zipName;
-			// this step is the time-consuming part.
+			// creating the zip file is the time-consuming part.
 			System.out.println("FAIRSpecExtractorHelper creating " + path);
 			t[1] = System.currentTimeMillis();
 			long len = FAIRSpecUtilities.zip(path, targetDir.toString().length() + 1, products);

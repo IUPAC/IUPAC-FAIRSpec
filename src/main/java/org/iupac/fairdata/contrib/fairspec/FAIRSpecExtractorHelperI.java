@@ -27,7 +27,7 @@ import org.iupac.fairdata.structure.IFDStructure;
  */
 public interface FAIRSpecExtractorHelperI {
 
-	IFDRepresentableObject<?> addObject(String rootPath, String param, String id, String localizedName)
+	IFDRepresentableObject<?> addObject(String rootPath, String param, String id, String localizedName, long len)
 			throws IFDException;
 
 	IFDResource addOrSetSource(String resource);

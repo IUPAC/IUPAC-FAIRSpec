@@ -30,8 +30,9 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 
 	public List<String> getIDList() {
 		List<String> list = new ArrayList<>();
-		for (T c : this) {
-			list.add(c.getID());
+		for (T o : this) {
+			String id = o.getID();
+			list.add(id == null ? "" + o.getIndex() : id);
 		}
 		return list;
 	}

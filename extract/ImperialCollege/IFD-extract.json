@@ -20,7 +20,7 @@
  {"#FAIRSpec.extractor.flags" : "nozip"},
 
 
- {"##":"for all files"},
+ {"##":"for each ZipEntry...."},
  
  {"##":"trigger a new association if the id changes"},
  {"assoc":"{compound=IFD.property.association.structuredata.id::*}"},
@@ -30,43 +30,40 @@
  {"##":"add structure objects for top-level files or files within a structures/[id]/ directory or a CIF file"},
  {"#<ignoring lower-level cdxml>#FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cdxml::{assoc}/{IFD.property.structure.id::<compound>}.cdxml}"},
 
-
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cml::{assoc}/**/{IFD.property.structure.id::<compound>}.cml}"},
-
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cdxml::{assoc}/**/{IFD.property.structure.id::<compound>}.cdxml}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.png::{assoc}/{IFD.property.structure.id::<compound>}.png}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.mol.2d::{assoc}/{IFD.property.structure.id::<compound>}.mol}"}, 
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.mol.2d::{assoc}/{IFD.property.structure.id::<compound>}-v3.mol}"}, 
+
  {"##":"Lots of case issues with cif data!"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cif::{assoc}/{IFD.property.structure.id::<compound>}-X-Ray/*.cif}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cif::{assoc}/{IFD.property.structure.id::<compound>}-X-ray/*.cif}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cif::{assoc}/{IFD.property.structure.id::<compound>}-x-Ray/*.cif}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cif::{assoc}/{IFD.property.structure.id::<compound>}-x-ray/*.cif}"},
 
-
  {"##":"TODO structures/ directory option FAIRSpec.extractor.object_:_{path}{IFD.representation.structure.cdxml::{assoc}/structures/{IFD.property.structure.id::*}/*.cdxml}"},
-
-
-
 
  {"##":"add data objects and their representations for lower-level files"},
 
-
- 
  {"##":"Computional"},
 
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.comp.input::{assoc}/**/{IFD.property.dataobject.id::<compound>}.gjf}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.comp.output::{assoc}/**/{IFD.property.dataobject.id::<compound>}.fchk}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.comp.output::{assoc}/**/{IFD.property.dataobject.id::<compound>}.log}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cml::{assoc}/{IFD.property.structure.id::<compound>-comp/*}/*.cml}"},
+
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.comp.input::{assoc}/{IFD.property.dataobject.id::<compound>-comp/*}/*.gjf}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.comp.output::{assoc}/{IFD.property.dataobject.id::<compound>-comp/*}/*.fchk}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.comp.output::{assoc}/{IFD.property.dataobject.id::<compound>-comp/*}/*.log}"},
+
+ {"##":"IR"},
 
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.ir.document::{assoc}/{IFD.property.dataobject.id::*-IR}/*.pdf}"},
  
+ {"##":"NMR"},
  
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/*/**/{IFD.property.dataobject.id::*}.mnova}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/*/**/{IFD.property.dataobject.id::*}.jdx}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/**/{IFD.property.dataobject.id::*}.mnova}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/**/{IFD.property.dataobject.id::*}.jdx}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/**/{IFD.property.dataobject.id::*}.zip}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/*/{IFD.property.dataobject.id::*}.pdf}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/*/*/{IFD.property.dataobject.id::*}.pdf}"},
  
- {"##":"next"} 
+ {"##":"...next"} 
 ]}

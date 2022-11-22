@@ -132,6 +132,7 @@ public class IFDConst {
 	public static final String IFD_REP_STRUCTURE_CDX = getProp("IFD_REP_STRUCTURE_CDX");
 	public static final String IFD_REP_STRUCTURE_CDXML = getProp("IFD_REP_STRUCTURE_CDXML");
 	public static final String IFD_REP_STRUCTURE_CIF = getProp("IFD_REP_STRUCTURE_CIF");
+	public static final String IFD_REP_STRUCTURE_CML = getProp("IFD_REP_STRUCTURE_CML");
 	public static final String IFD_REP_STRUCTURE_PNG = getProp("IFD_REP_STRUCTURE_PNG");
 	public static final String IFD_REP_STRUCTURE_UNKNOWN = getProp("IFD_REP_STRUCTURE_UNKNOWN");
 

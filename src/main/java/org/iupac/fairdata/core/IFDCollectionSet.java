@@ -53,6 +53,13 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 			} else {
 				for (int i = c.size(); --i >= 0;) {
 					IFDRepresentableObject<?> o = (IFDRepresentableObject<?>) c.get(i);
+					if (o.size() == 0) {
+						c.remove(i);
+						o.invalidate();
+					}
+				}
+				for (int i = c.size(); --i >= 0;) {
+					IFDRepresentableObject<?> o = (IFDRepresentableObject<?>) c.get(i);
 					o.setIndex(i);
 					// coerced to collection of IFDRepresentableObject
 					o.setParentCollection(

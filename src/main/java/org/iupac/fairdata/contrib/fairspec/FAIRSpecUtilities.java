@@ -103,12 +103,12 @@ public class FAIRSpecUtilities {
 	public static void setLogging(String fname) {
 		try {
 			if (fname == null) {
-				if (FAIRSpecUtilities.logStream != null) {
-					FAIRSpecUtilities.logStream.close();
+				if (logStream != null) {
+					logStream.close();
 				}
 				return;
 			}
-			FAIRSpecUtilities.logStream = new FileOutputStream(fname);
+			logStream = new FileOutputStream(fname);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -126,7 +126,7 @@ public class FAIRSpecUtilities {
 	}
 
 	public static Map<String, Object> getJSONURL(String url) throws MalformedURLException, IOException {
-		return new JSJSONParser().parseMap(FAIRSpecUtilities.getURLContentsAsString(url), false);
+		return new JSJSONParser().parseMap(getURLContentsAsString(url), false);
 	}
 
 	/**

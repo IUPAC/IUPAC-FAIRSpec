@@ -272,8 +272,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	@SuppressWarnings("unchecked")
 	public IFDObject(String label, String type, int maxCount, T... initialSet) throws IFDException {
 		set(label, type, maxCount);
-		if (type != null)
-			System.out.println("IFDObject type not null");
 		if (initialSet == null) {
 			minCount = 0;
 		} else {
