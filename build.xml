@@ -19,6 +19,12 @@
   <property name="appjars.dir" value="build/appjars" />
   <property name="classes.dir" value="build/classes" />
 
+  <!-- see below for unjar references -->
+  <property name="jmol.jar" value="JmolD-14.32.81.jar" />
+  <property name="commons-io.jar" value="commons-io-2.11.0.jar" />
+  <property name="commons-compress.jar" value="commons-compress-1.22.jar" />
+	
+
 	  <path id="project.class.path">
 	    <fileset dir="${lib.dir}">
 	      <include name="*.jar" />
@@ -28,8 +34,9 @@
 
 	  <target name="libjars" id="libjars">
 	    <mkdir dir="${appjars.dir}"/>
-	    <unjar dest="${appjars.dir}" src="${lib.dir}/Jmol.jar"/>
-		<unjar dest="${appjars.dir}" src="${lib.dir}/commons-compress-1.22.jar"/>
+	    <unjar dest="${appjars.dir}" src="${lib.dir}/${jmol.jar}"/>
+		<unjar dest="${appjars.dir}" src="${lib.dir}/${commons-compress.jar}"/>
+		<unjar dest="${appjars.dir}" src="${lib.dir}/${commons-io.jar}"/>
 	  </target>
 
 	  	
