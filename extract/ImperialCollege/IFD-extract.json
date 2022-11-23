@@ -59,7 +59,7 @@
  
  {"##":"NMR"},
  
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/**/{IFD.property.dataobject.id::*}.mnova}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/**/{IFD.property.dataobject.id::*.mnova}}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/**/{IFD.property.dataobject.id::*}.jdx}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/**/{IFD.property.dataobject.id::*}.zip}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/*/{IFD.property.dataobject.id::*}.pdf}"},
