@@ -11,9 +11,11 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairdata.common.IFDConst;
@@ -292,6 +294,65 @@ public class FAIRSpecUtilities {
 				s = rep(s, name, newName);
 		}
 		return s;
+	}
+
+	public static class XLSXSheetReader {
+
+		public Map<String, String> getCellData(InputStream is, String sheetName) throws IOException {
+			ZipInputStream zis = null;
+			Map<String, String> cellData = null;
+			try {
+				zis = new ZipInputStream(is);
+				String sheetXML = null;
+				String sharedXML = null;
+				ZipEntry entry;
+				while ((entry = zis.getNextEntry()) != null && sheetXML == null && sharedXML == null) {
+					String name = entry.getName();
+					if (name.endsWith(sheetName)) {
+						sheetXML = new String(FAIRSpecUtilities.getLimitedStreamBytes(zis, entry.getSize(), null, false, true), "UTF-8");
+					} else if (name.endsWith("sharedStrings.xml")) {
+						sharedXML = new String(FAIRSpecUtilities.getLimitedStreamBytes(zis, entry.getSize(), null, false, true), "UTF-8");
+					}
+				}
+				if (sheetXML == null)
+					throw new IOException("XMLSheetReader - no sheet named " + sheetName + " found");
+				cellData = processData(sheetXML, sharedXML);
+		
+			} finally {
+				if (zis != null)
+					zis.close();
+			}
+			return cellData;
+		}
+
+		private Map<String, String> processData(String sheetXML, String sharedXML) {
+			Map<String, String> cellData = new HashMap<String, String>();
+			String[] sharedStrings = null;
+			if (sharedXML != null) {
+				String[] tokens = sharedXML.split("\\<si\\>\\<t\\>");
+				sharedStrings = new String[tokens.length - 1];
+				for (int i = 1; i < tokens.length; i++) {
+					sharedStrings[i - 1] = tokens[i].substring(0, tokens[i].indexOf("</t>"));
+				}
+			}
+
+			// ArrayList<ArrayList<String>> cells = new ArrayList<ArrayList<String>>();
+			String[] tokens = sheetXML.split("\\<c r");
+			for (int i = 1; i < tokens.length; i++) {
+				String cell = tokens[i].substring(0, tokens[i].indexOf("</c>"));
+				boolean isShared = (cell.indexOf("t=\"s\"") >= 0);
+				String cr = cell.substring(2, cell.indexOf('"', 3));
+				String val = cell.substring(cell.indexOf("<v>") + 3);
+				val = val.substring(0, val.indexOf("</v>"));
+				if (isShared) {
+					val = sharedStrings[Integer.parseInt(val)];
+				}
+				// nonbreaking spaces can be here
+				val = FAIRSpecUtilities.rep(val, "\uC2A0", " ").trim();
+				cellData.put(cr, val);
+			}
+			return cellData;
+		}
 	}
 
 }
