@@ -53,6 +53,7 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 	 * think)
 	 */
 	private String dim;
+	private String probeHead;
 
 	public BrukerIFDVendorPlugin() {
 		// files of interest; procs is just for solvent
@@ -136,7 +137,8 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 		Map<String, String> map = null;
 		try {
 			map = JDXReader.getHeaderMap(new ByteArrayInputStream(bytes), null);
-			// System.out.println(map.toString().replace(',', '\n'));
+//			if (ifdPath.indexOf("hsqc") >= 0)
+//				System.out.println(ifdPath +"\n" + map.toString().replace(',', '\n') + "\n" + ifdPath);
 		} catch (Exception e) {
 			// invalid format
 			e.printStackTrace();
@@ -171,16 +173,17 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 		processString(map, "##$PULPROG", null);
 		if (ifdPath.endsWith("acqu2s")) {
 			report("DIM", dim = "2D");
-		} else if (ifdPath.endsWith("acqus")) {
+		} else if (ifdPath.endsWith("acqus") && dim == null) {
 			report("DIM", dim = "1D");
 		}
 		report("SF", getNominalFrequency(freq1, nuc1));
-		processString(map, "##$PROBHD", null);
+		if (probeHead == null)
+			probeHead = processString(map, "##$PROBHD", null);
 		processString(map, "##$SOLVENT", null);
 		
 		
-		if (extractor != null)
-			this.extractor = null;
+//		if (extractor != null)
+//			this.extractor = null;
 		return true;
 	}
 

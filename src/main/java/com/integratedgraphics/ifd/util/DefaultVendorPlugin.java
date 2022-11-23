@@ -169,12 +169,15 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	 * @param val a String or Double
 	 */
 	public void addProperty(String key, Object val) {
+		if (val == null || extractor == null)
+			return;
 		if (val instanceof Double) {
 			if (Double.isNaN((Double)val))
 				return;
+		} else if (val instanceof String) {
+			val = ((String) val).trim();
 		}
-		if (val != null && extractor != null)
-			extractor.addProperty(key, val);
+		extractor.addProperty(key, val);
 	}
 
 	/**

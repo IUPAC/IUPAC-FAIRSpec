@@ -108,13 +108,16 @@ import com.integratedgraphics.ifd.util.PubInfoExtractor;
  */
 public class Extractor implements ExtractorI {
 
-	private static final String version = "0.0.3-alpha+2022.11.21";
+	private static final String version = "0.0.3-alpha+2022.11.23";
 
 	// TODO: test rootpath and file lists for case with two root paths -- does it make sense that that manifests are cleared?
-	// TODO: ignored files should still be put in collection; just rejected files should be tossed
+
+	// TODO: incorporate spreadsheet metadata
+	// TODO: update GitHub README.md
 	
+	// 2022.11.23 version 0.0.3 fixes missing properties in NMR; upgrades to double-precision Jmol-SwingJS
 	// 2022.11.21 version 0.0.3 fixes minor details; ICL.v6, ACS.0, ACS.5 working
-	//                          adds command-line arguments
+	//                          adds command-line arguments, distinguishes REJECTED and IGNORED
 	// 2022.11.17 version 0.0.3 allows associations "byID"
 	// 2022.11.14 version 0.0.3 "compound identifier" as organizing association
 	// 2022.06.09 MNovaMetadataReader CDX export fails due to buffer pointer error.
@@ -1423,6 +1426,7 @@ public class Extractor implements ExtractorI {
 
 	@Override
 	public void addProperty(String key, Object val) {
+		log(this.localizedName + " addProperty " + key + "=" + val);
 		addPropertyOrRepresentation(key, val, false, null);
 	}
 
