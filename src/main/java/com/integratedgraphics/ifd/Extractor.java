@@ -2574,7 +2574,7 @@ public class Extractor implements ExtractorI {
 					key = param.substring(0, pt);
 					param = param.substring(pt + 1);
 				} else {
-					key = param.replace('.', '0');
+					key = param.replace('.', '0').replace('_', '1');
 				}
 				keys.put(key, param);
 				String bk = "{" + key + "}";

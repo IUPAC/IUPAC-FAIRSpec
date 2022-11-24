@@ -2,6 +2,7 @@ package org.iupac.fairdata.core;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -201,6 +202,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected int index;
 
 	protected boolean isValid = true;
+	protected boolean hasProperty = false;
 	
 	/**
 	 * an arbitrary label given to provide some sort of context
@@ -233,7 +235,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * generic properties that could be anything but are not in the list of known
 	 * properties
 	 */
-	protected Map<String, Object> params = new TreeMap<>();
+	protected List<IFDParameter> params = new ArrayList<>();
 
 	/**
 	 * the maximum number of items allowed in this list; may be 0
@@ -317,7 +319,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return htProps;
 	}
 
-	public Map<String, Object> getParams() {
+	public final List<IFDParameter> getParams() {
 		return params;
 	}
 
@@ -329,15 +331,20 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		IFDProperty p = IFDConst.getIFDProperty(htProps, key);
 		if (p == null) {
 			if (value == null)
-				params.remove(key);
+				IFDParameter.remove(params, key);
 			else
-				params.put(key, value);
+				IFDParameter.add(params, key, value);
 			return;
 		}
+		hasProperty = true;
 		htProps.put(key, p.getClone(value));
 	}
 
 	abstract protected String getPropertyPrefix();
+
+	protected String getPropertyPrefixForSerialization() {
+		return getPropertyPrefix();
+	}
 
 	private boolean checkSpecialProperties(String key, Object value) {
 		String myPropertyPrefix = getPropertyPrefix();
@@ -362,7 +369,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	public Object getPropertyValue(String key) {
 		IFDProperty p = htProps.get(key);
-		return (p == null ? params.get(key) : p.getValue());
+		return (p ==  null ? null : p.getValue());
 	}
 
 	public void setIndex(int i) {
@@ -468,11 +475,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * @return true if any property value is not null
 	 */
 	public boolean haveProperties() {
-		for (IFDProperty p : htProps.values()) {
-			if (p.getValue() != null)
-				return true;
-		}
-		return false;
+		return hasProperty;
 	}
 
 	public void setSerializeType(boolean doSerializeType) {
@@ -498,6 +501,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		serializer.addAttr("label", getLabel());
 		serializer.addAttr("note", getNote());
 		serializer.addAttr("description", getDescription());
+		if (hasProperty)
+			serializer.addAttr("propertyPrefix", getPropertyPrefixForSerialization());
 	}
 
 	/**
@@ -511,7 +516,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		if (stype == null)
 			stype = "type";
 		Map<String, Object> m = getTypeAndExtends(c, null);
-		serializer.addAttr(stype, (String) m.get("type"));
+		serializer.addAttr(stype.equals("type") ? "ifdType" : stype, (String) m.get("type"));
 		String ext = (String) m.get("typeExtends");
 		if (ext != null)
 			serializer.addAttr(stype + "Extends", ext);
@@ -574,15 +579,30 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		if (haveProperties()) {
 			// general serialization does not write out units
 			Map<String, Object> map = new TreeMap<>();
+			String propPrefix = getPropertyPrefixForSerialization() + '.';
+			int prefixLength = propPrefix.length();
 			for (Entry<String, IFDProperty> e : htProps.entrySet()) {
 				Object val = e.getValue().getValue();
-				if (val != null)
-					map.put(e.getKey(), val);
+				if (val != null) {
+					String key = e.getKey();
+					if (key.startsWith(propPrefix))
+						key = key.substring(prefixLength);
+					map.put(key, val);
+				}
 			}
 			serializer.addObject("properties", map);
 		}
-		if (getParams().size() > 0)
-			serializer.addObject("parameters", getParams());
+		if (params.size() > 0) {
+			Map<String, Object> map = new TreeMap<>();
+			for (IFDParameter p : params) {
+				Object val = p.getValue();
+				if (val != null) {
+					String key = p.getName();
+					map.put(key, val);
+				}
+			}
+			serializer.addObject("parameters", map);
+		}
 	}
 
 	@Override

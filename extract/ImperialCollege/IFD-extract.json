@@ -1,15 +1,15 @@
-{"FAIRSpec.extract.version":"0.0.3-alpha+2202.11.17","keys":[
+{"FAIRSpec.extract.version":"0.0.3-alpha+2202.11.24","keys":[
  {"example":"aggregation v6 provided by Thomas Mies, Imperial College London; curated by Henry Rzepa"},
 
- {"IFD.property.collectionset.source.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
- {"IFD.property.collectionset.source.data.license.name":"cc-by-nc-4.0"},
- {"IFD.property.collectionset.source.repository.uri":"https://data.hpc.imperial.ac.uk/resolve/?doi=10386&access="}, 
+ {"IFD.property.collectionset.source_data_license_uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.source_data_license_name":"cc-by-nc-4.0"},
+ {"IFD.property.collectionset.source_repository_uri":"https://data.hpc.imperial.ac.uk/resolve/?doi=10386&access="}, 
  
  {"##":"todo -- allow for remote API, not just remote file (as in FigShare)"},
- {"remote-data":"{IFD.property.collectionset.source.data.uri::https://data.hpc.imperial.ac.uk/resolve/?doi=10386&access="},
+ {"remote-data":"{IFD.property.collectionset.source_data_uri::https://data.hpc.imperial.ac.uk/resolve/?doi=10386&access="},
 
  {"##":"will be overridden in ExtractorTest"},
- {"data":"{IFD.property.collectionset.source.data.uri::}"},
+ {"data":"{IFD.property.collectionset.source_data_uri::}"},
  {"path":"{data}|"},
  
  {"##":"ignore for now"},
@@ -32,8 +32,8 @@
 
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cdxml::{assoc}/**/{IFD.property.structure.id::<compound>}.cdxml}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.png::{assoc}/{IFD.property.structure.id::<compound>}.png}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.mol.2d::{assoc}/{IFD.property.structure.id::<compound>}.mol}"}, 
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.mol.2d::{assoc}/{IFD.property.structure.id::<compound>}-v3.mol}"}, 
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.mol_2d::{assoc}/{IFD.property.structure.id::<compound>}.mol}"}, 
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.mol_2d::{assoc}/{IFD.property.structure.id::<compound>}-v3.mol}"}, 
 
  {"##":"Lots of case issues with cif data!"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cif::{assoc}/{IFD.property.structure.id::<compound>}-X-Ray/*.cif}"},
@@ -59,11 +59,11 @@
  
  {"##":"NMR"},
  
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/**/{IFD.property.dataobject.id::*.mnova}}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/**/{IFD.property.dataobject.id::*}.jdx}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/**/{IFD.property.dataobject.id::*}.zip}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/*/{IFD.property.dataobject.id::*}.pdf}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{assoc}/*/*/{IFD.property.dataobject.id::*}.pdf}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.ventor_dataset::{assoc}/**/{IFD.property.dataobject.id::*.mnova}}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.ventor_dataset::{assoc}/**/{IFD.property.dataobject.id::*}.jdx}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.ventor_dataset::{assoc}/**/{IFD.property.dataobject.id::*}.zip}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.ventor_dataset::{assoc}/*/{IFD.property.dataobject.id::*}.pdf}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.ventor_dataset::{assoc}/*/*/{IFD.property.dataobject.id::*}.pdf}"},
  
  {"##":"...next"} 
 ]}

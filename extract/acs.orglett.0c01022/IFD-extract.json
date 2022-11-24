@@ -4,17 +4,17 @@
  {"figshareid":"22195341"},
 
  {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
- {"IFD.property.collectionset.source.publication.uri":"https://doi.org/10.1021/{IFDid}"},
- {"IFD.property.collectionset.source.data.license.uri":"https://creativecommons.org/licenses/by-nc/4.0"},
- {"IFD.property.collectionset.source.data.license.name":"cc-by-nc-4.0"},
+ {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"},
+ {"IFD.property.collectionset.source_data_license_uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.source_data_license_name":"cc-by-nc-4.0"},
  
  {"FAIRSpec.extractor.flags":"byid"},
   
- {"data0":"{IFD.property.collectionset.source.data.uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
- {"data":"{IFD.property.collectionset.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
+ {"data0":"{IFD.property.collectionset.source_data_uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
+ {"data":"{IFD.property.collectionset.source_data_uri::https://ndownloader.figshare.com/files/{figshareid}}"},
  
  {"path":"{data}|NMR DATA"},
  
- {"FAIRSpec.extractor.object":"{path}/{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{IFD.property.dataobject.id::{compound=IFD.property.association.structuredata.id::*/{IFD.property.structure.id::*}}-*}.mnova}"},
- {"FAIRSpec.extractor.object":"{path}/{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{IFD.property.dataobject.id::{compound=IFD.property.association.structuredata.id::*/{IFD.property.structure.id::*+*}}}.mnova}"}
+ {"FAIRSpec.extractor.object":"{path}/{IFD.representation.dataobject.fairspec.nmr.ventor_dataset::{IFD.property.dataobject.id::{compound=IFD.property.association.structuredata.id::*/{IFD.property.structure.id::*}}-*}.mnova}"},
+ {"FAIRSpec.extractor.object":"{path}/{IFD.representation.dataobject.fairspec.nmr.ventor_dataset::{IFD.property.dataobject.id::{compound=IFD.property.association.structuredata.id::*/{IFD.property.structure.id::*+*}}}.mnova}"}
 ]}

@@ -37,7 +37,7 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 				"Probe", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_PROBE_TYPE"), //prop
 				"Temperature", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
 				"Experiment", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_DIM"), //prop
-				"Title", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TITLE"), //prop
+				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TITLE"), //prop
 				"F1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_1"), //prop
 				"F2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_2"), //prop
 				"F3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_3"), //prop
@@ -108,12 +108,14 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 		if (param1 != null)
 			oval = (param1.value == null || param1.value.length() == 0 ? param1.calc : param1.value);
 		String key0 = key;
+		String propName = null;
 		if (oval instanceof String) {
 			String val = (String) oval;
 			if (oval == null || val.length() == 0 || val.charAt(0) == '=') {
 				return;
 			}
 			oval = val = val.trim();
+			
 			try {
 				switch (key) {
 				case "Owner":
@@ -128,9 +130,11 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 					if (pt >= 0)
 						origin = origin.substring(0, pt);
 					break;
+				case "Comment":
+					propName = "TITLE";
+					//$FALL-THROUGH$
 				case "Acquisition Date":
 				case "Author":
-				case "Comment":
 				case "Experiment":
 				case "Modification Date":
 				case "Pulse Sequence":
@@ -204,6 +208,8 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 				oval = new Object[] { oval, ifdPath + "#page" + page + ".mol", null };
 				break;
 			}
+			if (propName != null)
+				params.put(ifdMap.get(propName), oval);
 			params.put(key, oval);
 			System.out.println("----------- page " + page + " " + key + " = " + oval + " was " + key0 + " " + param1
 					+ (param2 == null ? "" : "/ " + param2));
