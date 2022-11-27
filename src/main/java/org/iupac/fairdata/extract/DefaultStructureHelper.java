@@ -91,13 +91,13 @@ public class DefaultStructureHelper implements PropertyManagerI {
 			// .getFileType(Rdr.getBufferedReader(Rdr.getBIS(bytes), null));
 		}
 		if (smiles != null) {
-			extractor.addPropertyOrRepresentation(IFDConst.getProp("IFD_REP_STRUCTURE_SMILES"), smiles, true, "chemical/x-smiles");
+			extractor.addDeferredPropertyOrRepresentation(IFDConst.getProp("IFD_REP_STRUCTURE_SMILES"), smiles, true, "chemical/x-smiles");
 		}
 		if (inchi != null) {
-				extractor.addPropertyOrRepresentation(IFDConst.getProp("IFD_REP_STRUCTURE_INCHI"), inchi, true, "chemical/x-inchi");
+				extractor.addDeferredPropertyOrRepresentation(IFDConst.getProp("IFD_REP_STRUCTURE_INCHI"), inchi, true, "chemical/x-inchi");
 		}
 		if (inchiKey != null) {
-				extractor.addPropertyOrRepresentation(IFDConst.getProp("IFD_PROPERTY_STRUCTURE_INCHIKEY"), inchiKey, true, "chemical/x-inchikey");
+				extractor.addDeferredPropertyOrRepresentation(IFDConst.getProp("IFD_PROPERTY_STRUCTURE_INCHIKEY"), inchiKey, true, "chemical/x-inchikey");
 		}
 		fileToType.put(ifdPath, type);
 		return type;

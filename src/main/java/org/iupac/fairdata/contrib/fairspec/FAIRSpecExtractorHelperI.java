@@ -7,7 +7,6 @@ import java.util.List;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDObject;
-import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.core.IFDResource;
 import org.iupac.fairdata.dataobject.IFDDataObject;
@@ -27,7 +26,7 @@ import org.iupac.fairdata.structure.IFDStructure;
  */
 public interface FAIRSpecExtractorHelperI {
 
-	IFDRepresentableObject<?> addObject(String rootPath, String param, String id, String localizedName, long len)
+	IFDObject<?> addObject(String rootPath, String param, String id, String localizedName, long len)
 			throws IFDException;
 
 	IFDResource addOrSetSource(String resource);

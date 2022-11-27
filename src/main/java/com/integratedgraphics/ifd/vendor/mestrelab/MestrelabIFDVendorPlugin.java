@@ -115,7 +115,7 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 				return;
 			}
 			oval = val = val.trim();
-			
+
 			try {
 				switch (key) {
 				case "Owner":
@@ -168,6 +168,7 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 						params.put("N2", param2.value);
 					}
 					break;
+				case "Purity":
 				case "Spectrometer Frequency":
 					key = "F1";
 					freq = Double.parseDouble(val);
@@ -176,12 +177,15 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 						params.put("F2", Double.valueOf(param2.value));
 					}
 					break;
+				case "Spectrum Quality":
+					double q = Double.parseDouble(val);
+					if (q != 0)
+						oval = Double.valueOf(q);
+					break;
 				case "Pulse Width":
 				case "Spectral Width":
 				case "Receiver Gain":
-				case "Purity":
 				case "Relaxation Delay":
-				case "Spectrum Quality":
 				case "Lowest Frequency":
 				case "Acquisition Time":
 					oval = Double.valueOf(Double.parseDouble(val));
@@ -196,24 +200,24 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 				e.printStackTrace();
 			}
 		}
-		if (oval != null) {
-			switch (key) {
-			case Extractor.PNG_FILE_DATA:
-				oval = new Object[] { oval, ifdPath + "#page" + page + ".png", pngcss };
-				break;
-			case Extractor.CDX_FILE_DATA:
-				oval = new Object[] { oval, ifdPath + "#page" + page + ".cdx", null };
-				break;
-			case Extractor.MOL_FILE_DATA:
-				oval = new Object[] { oval, ifdPath + "#page" + page + ".mol", null };
-				break;
-			}
-			if (propName != null)
-				params.put(ifdMap.get(propName), oval);
-			params.put(key, oval);
-			System.out.println("----------- page " + page + " " + key + " = " + oval + " was " + key0 + " " + param1
-					+ (param2 == null ? "" : "/ " + param2));
+		if (oval == null)
+			return;
+		switch (key) {
+		case Extractor.PNG_FILE_DATA:
+			oval = new Object[] { oval, ifdPath + "#page" + page + ".png", pngcss };
+			break;
+		case Extractor.CDX_FILE_DATA:
+			oval = new Object[] { oval, ifdPath + "#page" + page + ".cdx", null };
+			break;
+		case Extractor.MOL_FILE_DATA:
+			oval = new Object[] { oval, ifdPath + "#page" + page + ".mol", null };
+			break;
 		}
+		if (propName != null)
+			params.put(ifdMap.get(propName), oval);
+		params.put(key, oval);
+		System.out.println("----------- page " + page + " " + key + " = " + oval + " was " + key0 + " " + param1
+				+ (param2 == null ? "" : "/ " + param2));
 	}
 
 	List<Map<String, Object>> pageList;

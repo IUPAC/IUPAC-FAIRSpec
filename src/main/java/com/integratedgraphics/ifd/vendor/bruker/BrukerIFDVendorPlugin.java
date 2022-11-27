@@ -87,7 +87,7 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 						: null);
 		if (type != null) {
 			String localPath = Extractor.localizePath(baseName + entryName);
-			extractor.addPropertyOrRepresentation(type, localPath, false, null);
+			extractor.addDeferredPropertyOrRepresentation(type, localPath, false, null);
 		}
 		return !entryName.endsWith(".mnova");
 	}

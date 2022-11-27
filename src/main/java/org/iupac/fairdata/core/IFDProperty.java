@@ -60,12 +60,14 @@ public class IFDProperty implements IFDSerializableI {
 
 	@Override
 	public void serialize(IFDSerializerI serializer) {
-		if (value == null)
-			return;
-		serializer.addAttr("name", name);
-		serializer.addAttr("type", dataType.toString());
-		serializer.addAttr("units", units.toString());
-		serializer.addValue(value);
+		// NOTE: This method is not used, as IFDObject
+		// creates a TreeMap instead.  
+//		if (value == null || value == "")
+//			return;
+//		serializer.addAttr("name", name);
+//		serializer.addAttr("type", dataType.toString());
+//		serializer.addAttr("units", units.toString());
+//		serializer.addValue(value);
 	}
 	
 	@Override

@@ -192,8 +192,6 @@ import org.iupac.fairdata.common.IFDException;
 @SuppressWarnings("serial")
 public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>, IFDSerializableI {
 
-	abstract void serializeList(IFDSerializerI serializer);
-
 	protected static int indexCount;
 
 	/**
@@ -328,16 +326,31 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		if (IFDConst.isRepresentation(key) || checkSpecialProperties(key, value)) {
 			return;
 		}
+		// check for a known property
 		IFDProperty p = IFDConst.getIFDProperty(htProps, key);
-		if (p == null) {
-			if (value == null)
-				IFDParameter.remove(params, key);
-			else
-				IFDParameter.add(params, key, value);
+		if (p != null) {
+			hasProperty = true;
+			htProps.put(key, p.getClone(value));
 			return;
 		}
-		hasProperty = true;
-		htProps.put(key, p.getClone(value));
+		// add/remove parameter
+		key = fixParameterKey(key);
+		if (value == null)
+			IFDParameter.remove(params, key);
+		else
+			IFDParameter.add(params, key, value);
+	}
+
+	/**
+	 * Replace all non-word (i.e. [A-Za-z_0-9]) characters with underscore
+	 * after trimming.
+	 * 
+	 * @param key
+	 * @return
+	 */
+	private String fixParameterKey(String key) {
+		key = key.trim().replaceAll("\\W","_");
+		return key;
 	}
 
 	abstract protected String getPropertyPrefix();
@@ -505,22 +518,36 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			serializer.addAttr("propertyPrefix", getPropertyPrefixForSerialization());
 	}
 
-	/**
-	 * Add "type" and "typeExtends" fields
-	 * 
-	 * @param serializer
-	 * @param c the class 
-	 * @param stype null or "type" or "itemType"
-	 */
-	static void serializeClass(IFDSerializerI serializer, Class<?> c, String stype) {
-		if (stype == null)
-			stype = "type";
-		Map<String, Object> m = getTypeAndExtends(c, null);
-		serializer.addAttr(stype.equals("type") ? "ifdType" : stype, (String) m.get("type"));
-		String ext = (String) m.get("typeExtends");
-		if (ext != null)
-			serializer.addAttr(stype + "Extends", ext);
+	protected void serializeProps(IFDSerializerI serializer) {
+		if (haveProperties()) {
+			// general serialization does not write out units
+			Map<String, Object> map = new TreeMap<>();
+			String propPrefix = getPropertyPrefixForSerialization() + '.';
+			int prefixLength = propPrefix.length();
+			for (Entry<String, IFDProperty> e : htProps.entrySet()) {
+				Object val = e.getValue().getValue();
+				if (val != null) {
+					String key = e.getKey();
+					if (key.startsWith(propPrefix))
+						key = key.substring(prefixLength);
+					map.put(key, val);
+				}
+			}
+			serializer.addObject("properties", map);
+		}
+		if (params.size() > 0) {
+			Map<String, Object> map = new TreeMap<>();
+			for (IFDParameter p : params) {
+				Object val = p.getValue();
+				if (val != null && val != "") {
+					map.put(p.getName(), val);
+				}
+			}
+			serializer.addObject("parameters", map);
+		}
 	}
+
+	abstract void serializeList(IFDSerializerI serializer);
 
 	/**
 	 * add "type" and "typeExtends" to a map
@@ -537,6 +564,23 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		if (strtype.length() > 0 && !strtype.equals(ctype))
 			m.put("typeExtends", strtype);
 		return m;
+	}
+
+	/**
+	 * Add "type" and "typeExtends" fields
+	 * 
+	 * @param serializer
+	 * @param c the class 
+	 * @param stype null or "type" or "itemType"
+	 */
+	static void serializeClass(IFDSerializerI serializer, Class<?> c, String stype) {
+		if (stype == null)
+			stype = "ifdType";
+		Map<String, Object> m = getTypeAndExtends(c, null);
+		serializer.addAttr(stype, (String) m.get("type"));
+		String ext = (String) m.get("typeExtends");
+		if (ext != null)
+			serializer.addAttr(stype + "Extends", ext);
 	}
 
 	/**
@@ -573,36 +617,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	
 	public boolean isValid() {
 		return isValid;
-	}
-
-	protected void serializeProps(IFDSerializerI serializer) {
-		if (haveProperties()) {
-			// general serialization does not write out units
-			Map<String, Object> map = new TreeMap<>();
-			String propPrefix = getPropertyPrefixForSerialization() + '.';
-			int prefixLength = propPrefix.length();
-			for (Entry<String, IFDProperty> e : htProps.entrySet()) {
-				Object val = e.getValue().getValue();
-				if (val != null) {
-					String key = e.getKey();
-					if (key.startsWith(propPrefix))
-						key = key.substring(prefixLength);
-					map.put(key, val);
-				}
-			}
-			serializer.addObject("properties", map);
-		}
-		if (params.size() > 0) {
-			Map<String, Object> map = new TreeMap<>();
-			for (IFDParameter p : params) {
-				Object val = p.getValue();
-				if (val != null) {
-					String key = p.getName();
-					map.put(key, val);
-				}
-			}
-			serializer.addObject("parameters", map);
-		}
 	}
 
 	@Override

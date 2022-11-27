@@ -7,6 +7,8 @@ import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 
+import javajs.util.PT;
+
 /**
  * An class to handle generic N:N associations (for example, Structure-Data
  * associations). Objects of the collection must be representable, as they are
@@ -20,10 +22,12 @@ import org.iupac.fairdata.common.IFDException;
  *
  */
 @SuppressWarnings("serial")
-public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>> {
+public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>> implements Comparable<IFDAssociation> {
 
 	protected boolean byID;
-	
+
+	int intID = -1;
+
 	/**
 	 * From IFDAssociationCollection to pass on this information
 	 * 
@@ -31,15 +35,41 @@ public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentable
 	 */
 	public void setByID(boolean b) {
 		byID = b;
+		checkIntID();
 	}
 
 		
+	private void checkIntID() {
+		if (byID && id != null && intID < 0) {
+			intID = 0;
+			for (int i = 0, n = id.length(); i < n; i++) {
+				char c = id.charAt(i);
+				if (c >= '0' && c <= '9') {
+					intID = intID * 10 + ((int) (c - '0'));
+				} else {
+					intID = 0;
+					break;
+				}
+			}
+		}
+	}
+
+
 	@SafeVarargs
 	protected IFDAssociation(String type, IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>... collections) throws IFDException {
 		super(null, type, collections);
 		for (int i = 0; i < collections.length; i++) {
 			if (collections[i] == null)
 				throw new IFDException("IFDAssociation collections must be non-null.");
+		}
+	}
+
+	@Override
+	public void setID(String id) {
+		super.setID(id);
+		if (byID) {
+			intID = -1;
+			checkIntID();
 		}
 	}
 
@@ -125,6 +155,15 @@ public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentable
 	@Override
 	public String toString() {
 		return super.toString().replace(']', ' ') + getMyIndexList() + " ]";
+	}
+
+	@Override
+	public int compareTo(IFDAssociation o) {
+		if (!byID)
+			return Integer.compare(index, o.index);
+		if (intID > 0 && o.intID > 0)
+				return Integer.compare(intID, o.intID);
+		return id.compareTo(o.getID());
 	}
 
 

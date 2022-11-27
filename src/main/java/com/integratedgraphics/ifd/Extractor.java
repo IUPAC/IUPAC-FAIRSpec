@@ -34,6 +34,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities.SpreadsheetReader;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDFindingAid;
 import org.iupac.fairdata.core.IFDObject;
@@ -66,7 +67,7 @@ import com.integratedgraphics.ifd.util.PubInfoExtractor;
  * 
  * following the sequence:
  * 
- * initialize(ifdExtractScriptFile)`
+ * initialize(ifdExtractScriptFile)
  * 
  * setLocalSourceDir(sourceDir)
  * 
@@ -108,13 +109,13 @@ import com.integratedgraphics.ifd.util.PubInfoExtractor;
  */
 public class Extractor implements ExtractorI {
 
-	private static final String version = "0.0.3-alpha+2022.11.23";
+	private static final String version = "0.0.4-alpha+2022.11.27";
 
 	// TODO: test rootpath and file lists for case with two root paths -- does it make sense that that manifests are cleared?
 
-	// TODO: incorporate spreadsheet metadata
 	// TODO: update GitHub README.md
 	
+	// 2022.11.27 version 0.0.4 adds parameters from a Metadata file as XLSX or ODS
 	// 2022.11.23 version 0.0.3 fixes missing properties in NMR; upgrades to double-precision Jmol-SwingJS
 	// 2022.11.21 version 0.0.3 fixes minor details; ICL.v6, ACS.0, ACS.5 working
 	//                          adds command-line arguments, distinguishes REJECTED and IGNORED
@@ -575,11 +576,11 @@ public class Extractor implements ExtractorI {
 
 	private int errors;
 
-	private boolean isAssociationByID;
-
 	private File currentZipFile;
 
-	private InputStream currentZipStream;
+	private Map<String, Map<String, Object>> htMetadata;
+
+	private File extractscriptFile;
 
 
 	public int getErrorCount() {
@@ -633,7 +634,7 @@ public class Extractor implements ExtractorI {
 			String findingAidFileNameRoot) throws IOException, IFDException {
 
 		// first create objects, a List<String>
-
+		this.extractscriptFile = ifdExtractScriptFile;
 		getObjectParsersForFile(ifdExtractScriptFile);
 		String puburi = null;
 		Map<String, Object> pubCrossrefInfo = null;
@@ -867,6 +868,7 @@ public class Extractor implements ExtractorI {
 	 *         lines of the file
 	 * @throws IFDException
 	 */
+	@SuppressWarnings("unchecked")
 	protected List<ObjectParser> getObjectParsers(List<Map<String, Object>> pathway) throws IFDException {
 
 		// input:
@@ -906,7 +908,8 @@ public class Extractor implements ExtractorI {
 				String key = e.getKey();
 				if (key.startsWith("#"))
 					continue;
-				String val = (String) e.getValue();
+				Object o = e.getValue();
+				String val = o.toString();
 				if (val.indexOf("{") >= 0) {
 					String s = FAIRSpecUtilities.replaceStrings(val, keys, values);
 					if (!s.equals(val)) {
@@ -924,6 +927,19 @@ public class Extractor implements ExtractorI {
 				}
 				// {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
 				// ..keydef=-----------------key--------
+
+				if (key.equals("METADATA")) {
+					if (o instanceof Map) {
+					processMetadataElement(o);
+					} else if (o instanceof List) {
+						for (Object m: (List<Object>) o) {
+							processMetadataElement(m);
+						}
+					} else {
+						logWarn("extractor template METADATA element is not a map or array", "Extractor.getObjectParsers");						
+					}
+					continue;
+				}
 
 				if (key.equals(FAIRSpecExtractorHelper.IFD_EXTRACTOR_OBJECT)) {
 					parsers.add(newObjectParser(val));
@@ -955,6 +971,8 @@ public class Extractor implements ExtractorI {
 					if (keyDef == null)
 						continue;
 				}
+
+				// custom definition
 				keys.add("{" + (keyDef == null ? key : keyDef) + "}");
 				values.add(val);
 			}
@@ -965,9 +983,26 @@ public class Extractor implements ExtractorI {
 		return parsers;
 	}
 
+	private void processMetadataElement(Object m) throws IFDException {
+		@SuppressWarnings("unchecked")
+		Map<String, Object> map = (Map<String, Object>) m;
+		String key = (String) map.get("FOR");
+		if (key == null) {
+			throw new IFDException("extractor template METADATA element does not contain 'FOR' key in " + m);
+		}
+		if (!map.containsKey("METADATA_FILE")) {
+			throw new IFDException("extractor template METADATA_FILE was not found for " + m);
+		}
+		if (htMetadata == null)
+			htMetadata = new HashMap<String, Map<String, Object>>();
+		htMetadata.put(key, map);
+		if (key.startsWith("IFD."))
+			loadMetadata(key, map);
+	}
+
 	private void setExtractorFlag(String key, String val) {
 		if (key.equals(FAIRSpecExtractorHelper.IFD_EXTRACTOR_FLAG_ASSOCIATION_BYID))
-			helper.setAssociationsById(isAssociationByID = val.equalsIgnoreCase("true"));
+			helper.setAssociationsById(val.equalsIgnoreCase("true"));
 		else
 			checkFlags(val);
 	}
@@ -1427,7 +1462,7 @@ public class Extractor implements ExtractorI {
 	@Override
 	public void addProperty(String key, Object val) {
 		log(this.localizedName + " addProperty " + key + "=" + val);
-		addPropertyOrRepresentation(key, val, false, null);
+		addDeferredPropertyOrRepresentation(key, val, false, null);
 	}
 
 	/**
@@ -1448,7 +1483,7 @@ public class Extractor implements ExtractorI {
 	 * @param mediaType a media type for a representation, or null
 	 */
 	@Override
-	public void addPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType) {
+	public void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType) {
 		if (key == null) {
 			deferredPropertyList.add(null);
 			return;
@@ -1529,8 +1564,9 @@ public class Extractor implements ExtractorI {
 
 				continue;
 			}
+			// properties only
 			if (key.equals(NEW_FAIRSPEC_KEY)) {
-				// _page=10
+				// e.g. extracted _page=10
 				String idExtension = (String) value;
 				IFDDataObject newSpec = helper.cloneData(localSpec, idExtension);
 				spec = newSpec;
@@ -1556,6 +1592,7 @@ public class Extractor implements ExtractorI {
 				continue;
 			}
 			if (key.startsWith(STRUC_FILE_DATA_KEY)) {
+				// e.g. extracted xxxx/xxx#page1.mol
 				Object[] oval = (Object[]) value;
 				byte[] bytes = (byte[]) oval[0];
 				String oPath = (String) oval[1];
@@ -1565,18 +1602,11 @@ public class Extractor implements ExtractorI {
 					htStructureRepCache = new HashMap<>();
 				AWrap w = new AWrap(bytes);
 				struc = htStructureRepCache.get(w);
-				// xxxx/xxx#page1.mol
 				String name = getStructureNameFromPath(oPath);
 				if (struc == null) {
 					File f = getAbsoluteFileTarget(oPath);
 					writeBytesToFile(bytes, f);
 					String localName = localizePath(oPath);
-//					if (oPath.indexOf("#page") >= 0) {
-//						// remove extension for mnova pages
-//						int pt = oPath.lastIndexOf(".");
-//						if (pt >= 0)
-//							oPath = oPath.substring(0, pt);
-//					}
 					struc = helper.getFirstStructureForSpec((IFDDataObject) spec, false);
 					if (struc == null) {
 						struc = helper.addStructureForSpec(rootPath, (IFDDataObject) spec, ifdRepType, oPath, localName,
@@ -1604,6 +1634,7 @@ public class Extractor implements ExtractorI {
 					struc.setPropertyValue(key, value);
 				}
 			} else if (isSample) {
+				// TODO? 
 			} else {
 				// System.out.println("EX " + key + " " + value + " " + spec);
 				spec.setPropertyValue(key, value);
@@ -1867,7 +1898,8 @@ public class Extractor implements ExtractorI {
 	 * 
 	 * @throws IFDException
 	 */
-	private IFDObject<?> addIFDObjectsForName(ObjectParser parser, String originPath, String localizedName, long len) throws IFDException {
+	private IFDObject<?> addIFDObjectsForName(ObjectParser parser, String originPath, String localizedName, long len)
+			throws IFDException {
 		Matcher m = parser.p.matcher(originPath);
 		if (!m.find())
 			return null;
@@ -1891,18 +1923,78 @@ public class Extractor implements ExtractorI {
 			String param = parser.keys.get(key);
 			if (param.length() > 0) {
 				String id = m.group(key);
-				
 				log("!found " + param + " " + id);
-				
-				
-				IFDRepresentableObject<?> obj = helper.addObject(rootPath, param, id, localizedName, len);
-				if (obj != null)
-					linkLocalizedNameToObject(localizedName, param, obj);
+				IFDObject<?> obj = helper.addObject(rootPath, param, id, localizedName, len);
+				if (obj instanceof IFDRepresentableObject)
+					linkLocalizedNameToObject(localizedName, param, (IFDRepresentableObject<?>) obj);
 				if (debugging)
 					log("!found " + param + " " + id);
 			}
 		}
 		return helper.endAddingObjects();
+	}
+	
+
+	void setMetadataTarget(String key, String param) {
+		// TODO Auto-generated method stub extractor.checkForMetadata
+		Map<String, Object> pm = htMetadata.remove(key);
+		if (pm == null)
+			return;
+		// switch key to object id key
+		log("!Extractor METADATA FOR " + key + " set to " + param);
+		htMetadata.put(param, pm);
+		loadMetadata(param, pm);
+	}
+
+	@Override
+	public void setNewObjectMetadata(IFDObject<?> o, String param) {
+		if (htMetadata != null) {
+			String id = o.getID();
+			Map<String, Object> map;
+			if (id == null || (map = htMetadata.get(param)) == null)
+				return;
+			if (SpreadsheetReader.hasDataKey(map) || loadMetadata(id, map)) {
+				List<Object[]> metadata = SpreadsheetReader.getRowDataForIndex(map, id);
+				if (metadata != null) {
+					log("!Extractor adding " + metadata.size() + " metadata items for " + param + "=" + id);
+					FAIRSpecExtractorHelper.addProperties(o, metadata);
+				}
+			}
+		}
+	}
+	
+	private boolean loadMetadata(String param, Map<String, Object> map) {
+		String err = null;
+		String fname = null, indexKey = null;
+		try {
+			fname = (String) map.get("METADATA_FILE");
+			indexKey = (String) map.get("METADATA_KEY");
+			// ./Manifest.xls#Sheet1
+			int pt = fname.indexOf("#");
+			String sheetRef = null;
+			File metadataFile = null;
+			if (pt >= 0) {
+				sheetRef = fname.substring(pt + 1);
+				fname = fname.substring(0, pt);
+			}
+			if (fname.startsWith("./"))
+				fname = extractscriptFile.getParent().toString() + fname.substring(1);
+			metadataFile = new File(fname);
+			Object data = SpreadsheetReader.getCellData(new FileInputStream(metadataFile),
+					sheetRef, "", true);
+			int icol = SpreadsheetReader.setMapData(map, data, indexKey);
+			if (icol < 1) {
+				logWarn("METADATA file " + fname + " did not have a column titled " + indexKey, "loadMetadata");
+			}
+		} catch (Exception e) {
+			err = e.getMessage();
+		} finally {
+			if (err != null)
+				logWarn(err, "loadMetadata");
+		}
+		if (!map.containsKey("DATA"))
+			map.put("DATA",  null);
+		return true;
 	}
 
 	/**
@@ -2573,6 +2665,9 @@ public class Extractor implements ExtractorI {
 				if (pt > 0) {
 					key = param.substring(0, pt);
 					param = param.substring(pt + 1);
+					if (extractor.htMetadata != null && extractor.htMetadata.containsKey(key)) {
+						extractor.setMetadataTarget(key, param);
+					}
 				} else {
 					key = param.replace('.', '0').replace('_', '1');
 				}

@@ -43,7 +43,8 @@ public class IFDParameter implements IFDSerializableI, Comparable<IFDParameter> 
 	 * @return
 	 */
 	public Object getValue() {
-		return values == null ? value : values;
+		return values == null ? value : 
+			values;
 	}
 
 	/**
@@ -60,19 +61,30 @@ public class IFDParameter implements IFDSerializableI, Comparable<IFDParameter> 
 		return "IFDParameter";
 	}
 
-	@Override
-	public void serialize(IFDSerializerI serializer) {
-		if (value == null)
-			return;
-		serializer.addAttr("name", name);
-		serializer.addValue(values == null ? value : values);
-	}
-	
-	@Override
-	public String toString() {
-		return (value == null ? "" : "[IFDParam " + name + "=" + value + "]");
-	}
 
+
+	
+	public static void add(List<IFDParameter> params, String name, Object value) {
+		if (value == null || name == null)
+			return;
+		IFDParameter p = null;
+		for (int i = params.size(); --i >= 0;) {
+			p = params.get(i);
+			if (p.name.equals(name))  {
+				if (p.values != null ? p.values.contains(value)
+						: p.value.equals(value))
+					continue;
+				if (p.values == null) {
+					p.values = new ArrayList<Object>();
+					p.values.add(p.value);
+					p.value = null;
+				}
+				p.values.add(value);
+				return;
+			}
+		}
+		params.add(new IFDParameter(name, value));
+	}
 
 	public static void remove(List<IFDParameter> params, String name) {
 		if (name == null)
@@ -121,26 +133,6 @@ public class IFDParameter implements IFDSerializableI, Comparable<IFDParameter> 
 		}
 		return false;
 	}
-	
-	public static void add(List<IFDParameter> params, String name, Object value) {
-		if (value == null || name == null)
-			return;
-		IFDParameter p = null;
-		for (int i = params.size(); --i >= 0;) {
-			p = params.get(i);
-			if (p.name.equals(name))  {
-				if (p.values != null ? p.values.contains(value)
-						: p.value.equals(value))
-					continue;
-				if (p.values == null)
-					p.values = new ArrayList<Object>();
-				p.values.add(value);
-				p.value = null;
-				return;
-			}
-		}
-		params.add(new IFDParameter(name, value));
-	}
 
 
 	@Override
@@ -148,19 +140,34 @@ public class IFDParameter implements IFDSerializableI, Comparable<IFDParameter> 
 		return (name.compareTo(o.getName()));
 	}
 
-	public static class ParamComparator implements Comparator<IFDParameter> {
-		@Override
-		public int compare(IFDParameter p1, IFDParameter p2) {
-			return p1.name.compareTo(p2.name);
-		}
-	}
+//	public static class ParamComparator implements Comparator<IFDParameter> {
+//		@Override
+//		public int compare(IFDParameter p1, IFDParameter p2) {
+//			return p1.name.compareTo(p2.name);
+//		}
+//	}
+//
+//	private static ParamComparator sorter;
+//	
+//	public static void sort(List<IFDParameter> params) {
+//		if (sorter == null)
+//			sorter = new ParamComparator();
+//		params.sort(sorter);
+//	}
 
-	private static ParamComparator sorter;
+	@Override
+	public void serialize(IFDSerializerI serializer) {
+		// NOTE: THIS METHOD IS NOT USED; IFDParameter 
+		// does not use "name" as an attribute.
+		// instead, it creates a TreeMap as for IFDProperty
+//		if ((value == null || value == "") && values == null)
+//			return;
+//		serializer.addAttr("name", name);
+//		serializer.addValue(values == null ? value : values);
+	}
 	
-	public static void sort(List<IFDParameter> params) {
-		if (sorter == null)
-			sorter = new ParamComparator();
-		params.sort(sorter);
+	@Override
+	public String toString() {
+		return (getValue() == null ? "" : "[IFDParam " + name + "=" + value + "]");
 	}
-
 }

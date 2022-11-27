@@ -1,6 +1,7 @@
 package org.iupac.fairdata.core;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.iupac.fairdata.api.IFDSerializerI;
@@ -122,6 +123,16 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 		serializer.addObject("collections", list);
 	}
 
+	@Override
+	protected void serializeList(IFDSerializerI serializer) {
+		if (size() == 0)
+			return;
+		if (byID) {
+			Collections.sort(this);
+		}
+		super.serializeList(serializer);
+	}
+		
 	protected String getDefaultName(int i) {
 		return null;
 	}

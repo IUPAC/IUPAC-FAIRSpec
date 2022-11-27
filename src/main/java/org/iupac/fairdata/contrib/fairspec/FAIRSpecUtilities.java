@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -20,7 +21,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairdata.common.IFDConst;
-
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities.SpreadsheetReader;
 import org.iupac.fairdata.util.JSJSONParser;
 
 import javajs.util.PT;
@@ -300,32 +301,54 @@ public class FAIRSpecUtilities {
 	}
 
 	/**
-	 * This class accepts an input stream 
+	 * This class accepts an input stream for an XLSX or ODS file and creates an Object[][] array of the cell data. 
+	 * 
+	 * String data are stripped of all XML tags. 
+	 * 
+	 * Currently, data as String is returned. It is not clear how to generally make this generate decimal data. 
+	 * 
 	 * @author hansonr
 	 *
 	 */
-	public static class XLSXSheetReader {
+	public static class SpreadsheetReader {
 
-		public Map<Integer, String> getCellData(InputStream is, String sheetName, boolean closeStream) throws IOException {
+		/**
+		 * Get cell data for 
+		 * @param is
+		 * @param sheetName
+		 * @param emptyValue default value for "empty" cell, typically empty string or null
+		 * @param closeStream
+		 * @return
+		 * @throws IOException
+		 */
+		public static Object[][] getCellData(InputStream is, String sheetName, String emptyValue, boolean closeStream) throws IOException {
 			ZipInputStream zis = null;
-			Map<Integer, String> cellData = null;
+			Map<Integer, String> sparseData = null;
+			int[] retMaxRC = new int[2];
 			try {
 				zis = new ZipInputStream(is);
-				String sheetXML = null;
-				String sharedXML = null;
+				String xlsSheetXML = null;
+				String xlsSharedXML = null;
+				String odsXML = null;
+				String xlsSheetName = sheetName;
+				if (xlsSheetName == null)
+					xlsSheetName = "sheet1";
+				xlsSheetName += ".xml";
 				ZipEntry entry;
-				while ((entry = zis.getNextEntry()) != null && (sheetXML == null || sharedXML == null)) {
+				while ((entry = zis.getNextEntry()) != null && (xlsSheetXML == null || xlsSharedXML == null)) {
 					String name = entry.getName();
-					if (name.endsWith(sheetName)) {
-						sheetXML = new String(FAIRSpecUtilities.getLimitedStreamBytes(zis, entry.getSize(), null, false, true), "UTF-8");
+					if (name.equals("content.xml")) {
+						odsXML = new String(FAIRSpecUtilities.getLimitedStreamBytes(zis, entry.getSize(), null, false, true), "UTF-8");
+						break;
+					} else if (name.endsWith(xlsSheetName)) {
+						xlsSheetXML = new String(FAIRSpecUtilities.getLimitedStreamBytes(zis, entry.getSize(), null, false, true), "UTF-8");
 					} else if (name.endsWith("sharedStrings.xml")) {
-						sharedXML = new String(FAIRSpecUtilities.getLimitedStreamBytes(zis, entry.getSize(), null, false, true), "UTF-8");
+						xlsSharedXML = new String(FAIRSpecUtilities.getLimitedStreamBytes(zis, entry.getSize(), null, false, true), "UTF-8");
 					}
 				}
-				if (sheetXML == null)
-					throw new IOException("XMLSheetReader - no sheet named " + sheetName + " found");
-				cellData = processData(sheetXML, sharedXML);
-		
+				if (xlsSheetXML == null && odsXML == null)
+					throw new IOException("SheetReader - no sheet named " + sheetName + " found");
+				sparseData = (odsXML != null ? processODSData(odsXML, sheetName, retMaxRC) : processXLSXData(xlsSheetXML, xlsSharedXML, retMaxRC));
 			} catch (Exception e) {
 			  e.printStackTrace();	
 			}
@@ -333,11 +356,68 @@ public class FAIRSpecUtilities {
 				if (zis != null && closeStream)
 					zis.close();
 			}
-			return cellData;
+			return sparseDataToObjectArray(sparseData, retMaxRC[0], retMaxRC[1], emptyValue);
 		}
 
-		private Map<Integer, String> processData(String sheetXML, String sharedXML) {
-			Map<Integer, String> cellData = new LinkedHashMap<>();
+		/**
+		 * Convert sparse Map data to Object[][] array. Empty cells (null or "") are 
+		 * converted to the specified value.
+		 * 
+		 * @param rrrc	ccData
+		 * @param nRows
+		 * @param nCols
+		 * @param emptyValue
+		 * @return
+		 */
+		private static Object[][] sparseDataToObjectArray(Map<Integer, String> rrrcccData, int nRows, int nCols,
+				String emptyValue) {
+			Object[][] cells = new Object[nRows][nCols];
+			for (int r = 0; r < nRows; r++)
+				for (int c = 0; c < nCols; c++) {
+					Object val = rrrcccData.get(encodeRC(r + 1, c + 1));
+					if (val == null || "".equals(val))
+						val = emptyValue;
+					cells[r][c] = val;
+				}
+			return cells;
+		}
+
+		private static Map<Integer, String> processODSData(String odsXML, String sheetName, int[] retMaxRC) {
+			if (sheetName == null)
+				sheetName = "Sheet 1";
+			sheetName = sheetName.replace(' ', '_');
+			Map<Integer, String> sparseData = new LinkedHashMap<>();
+			String[] sheets = PT.split(odsXML, "<table:table ");
+			for (int i = 1; i < sheets.length; i++) {
+				String xml = sheets[i];
+				if (!sheetName.equals(PT.getQuotedAttribute(xml, "table:name")))
+					continue;
+				String[] rows = PT.split(xml, "<table:table-row ");
+				retMaxRC[0] = rows.length;
+				for (int r = 1; r < rows.length; r++) {
+					int ncolEmpty = 0;
+					String[] cols = PT.split(rows[r], "<table:table-cell ");
+					if (cols.length > retMaxRC[1])
+						retMaxRC[1] = cols.length;
+					for (int c = 1, pc = 1; c < cols.length; c++, pc++) {
+						xml = cols[c];
+						String s = PT.getQuotedAttribute(xml, "table:number-columns-repeated");
+						if (s != null) {
+							ncolEmpty = Integer.parseInt(s);
+							continue;
+						}
+						xml = xml.substring(xml.indexOf(">") + 1);
+						pc += ncolEmpty;
+						ncolEmpty = 0;
+						sparseData.put(Integer.valueOf(encodeRC(r, pc)), stripXMLStyles(xml));
+					}
+				}
+				break;
+			}
+			return sparseData;
+		}
+
+		private static Map<Integer, String> processXLSXData(String sheetXML, String sharedXML, int[] retMaxRC) {
 			String[] sharedStrings = null;
 			if (sharedXML != null) {
 				String[] tokens = sharedXML.split("\\<si\\>\\<t\\>");
@@ -347,14 +427,21 @@ public class FAIRSpecUtilities {
 				}
 			}
 			// ArrayList<ArrayList<String>> cells = new ArrayList<ArrayList<String>>();
+			Map<Integer, String> sparseData = new LinkedHashMap<>();
 			String[] tokens = sheetXML.split("\\<c r");
 			for (int i = 1; i < tokens.length; i++) {
 				String val = "";
 				int pt = tokens[i].indexOf("</c>");
 				String cell = tokens[i].substring(0, pt < 0 ? tokens[i].indexOf("/>") : pt);
 				String cr = cell.substring(2, cell.indexOf('"', 3));
-				int rowCol = getRowCol(cr);				
+				int rowCol = getRRRCCC(cr);
 				if (pt >= 0) {
+					int r = rcToRow(rowCol);
+					int c = rcToCol(rowCol);
+					if (r > retMaxRC[0])
+						retMaxRC[0] = r;
+					if (c > retMaxRC[1])
+						retMaxRC[1] = c;
 					boolean isShared = (cell.indexOf("t=\"s\"") >= 0);
 					pt = cell.indexOf("<v>");
 					val = cell.substring(pt + 3);
@@ -362,38 +449,147 @@ public class FAIRSpecUtilities {
 					if (isShared) {
 						val = sharedStrings[Integer.parseInt(val)];
 					}
+					// TODO what about formatting?
 					// nonbreaking spaces can be here
-					val = FAIRSpecUtilities.rep(val, "\uC2A0", " ").trim();
+					val = stripXMLStyles(val);
 				}
-				cellData.put(Integer.valueOf(rowCol), val);
+				if (val.length() > 0)
+					sparseData.put(Integer.valueOf(rowCol), val);
 			}
-			return cellData;
+			return sparseData;
 		}
 
-		private int getRowCol(String cr) {
+		/**
+		 * get rid of all font, color, and other extraneous values
+		 * such as non-breaking spaces, then trim
+		 * @param xml
+		 * @return
+		 */
+		private static String stripXMLStyles(String xml) {
+			if (xml.length() == 0)
+				return null;
+			String[] a = PT.split(xml, ">");
+			StringBuffer sb = new StringBuffer(a[0]);
+			for (int i = 1; i < a.length; i++) {
+				sb.append(a[i].substring(0, a[i].indexOf("<")));
+			}
+			// remove non-breaking spaces and trim
+			return sb.toString().replace('\u00A0', ' ').trim();
+		}
+
+		private static int encodeRC(int r, int c) {
+			return r * 1000 + c;
+		}
+
+		public static int rcToRow(int rc) {
+			return rc / 1000;
+		}
+
+		public static int rcToCol(int rc) {
+			return rc % 1000;
+		}
+
+		public static int getRRRCCC(String cr) {
 			int r = 0;
 			int c = 0;
 			for (int i = 0, n = cr.length(); i < n; i++) {
 				char ch = cr.charAt(i);
 				if (ch >= 'A') {
-					c = c * 26 + ((int) ch) - 64;
+ 					c = c * 26 + ((int) ch) - 64;
 				} else {
 					r = r * 10 + ((int) ch) - 48;
 				}
 			}
-			return r * 1000 + c;
+			return encodeRC(r, c);
 		}
+		
+		public static boolean hasDataKey(Map<String, Object> map) {
+			return map.containsKey("DATA");
+		}
+
+		/**
+		 * Finds the column with the first row value equal to indexKey and then adds
+		 * that data to the map with key "DATA" and also adds the column number
+		 * (1-based) as the value for key "INDEX_COL". Returns the column number.
+		 * 
+		 * @param map
+		 * @param data     Object[][] data presumably from
+		 * @param indexKey
+		 * @return the column number for this indexKey
+		 * @throws ClassCastException
+		 */
+		public static int setMapData(Map<String, Object> map, Object data, String indexKey)
+				throws ClassCastException {
+			int icol = 1;
+			if (!(data instanceof Object[][]))
+				throw new ClassCastException("Data must be Object[][]");
+			Object[] row0 = ((Object[][]) data)[0];
+			for (int c = 0; c < row0.length; c++) {
+				if (indexKey == null || row0[c].equals(indexKey)) {
+					icol = c + 1;
+					break;
+				}
+			}
+			map.put("INDEX_COL", Integer.valueOf(icol));
+			map.put("DATA", data);
+			return icol;
+		}
+
+		public static List<Object[]> getRowDataForIndex(Map<String, Object> map, String index) {
+			Object[][] cellData = (Object[][]) map.get("DATA");
+			int icol = ((Integer) map.get("INDEX_COL")).intValue() - 1;
+			return getRowData(cellData, icol, index);
+		}
+
+		private static List<Object[]> getRowData(Object[][] cellData, int icol, String index) {
+			int ncol = 0;
+			if (cellData == null || icol < 0 || icol >= (ncol = cellData[0].length))
+				return null;
+			List<Object[]> data = new ArrayList<Object[]>();
+			Object[] headerRow = cellData[0];
+			for (int r = 1; r < cellData.length; r++) {
+				Object[] rowData = cellData[r];
+				if (index.equals(rowData[icol])) {
+					for (int i = 0; i < ncol; i++) {
+						if (i != icol && rowData[i] != null)
+							data.add(new Object[] { headerRow[i], rowData[i] });
+					}
+					// don't break here, as there may be more than one row with a given index;
+					// break;
+				}
+			}
+			return data.size() == 0 ? null : data;
+		}
+
+		public static void dumpData(Object[][] data) {
+			StringBuffer sb = new StringBuffer();
+			for (int r = 0; r < data.length; r++) {
+				Object[] row = data[r];
+				for (int c = 0; c < row.length; c++) {
+					sb.append(row[c]).append('\t');
+				}
+				sb.append("\n");
+			}
+			System.out.println(sb.toString());
+		}
+
+		public static void test() {
+			try {
+				FileInputStream fis = new FileInputStream(new File("c:/temp/manifest.xlsx"));
+				Object[][] data = SpreadsheetReader.getCellData(fis, "sheet1", "", true);
+				SpreadsheetReader.dumpData(data);
+				List<Object[]> list = getRowData(data, 0, "15");
+				System.out.println(list.size());
+			} catch (IOException e) {
+				e.printStackTrace();
+			} 
+		}
+
 	}
 	
 	
 	public static void main(String[] args) {
-		try {
-			FileInputStream fis = new FileInputStream(new File("c:/temp/manifest.xlsx"));
-			Map<Integer, String> data = new XLSXSheetReader().getCellData(fis, "sheet1.xml", true);
-			System.out.println(PT.toJSON(null, data));
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
+		SpreadsheetReader.test();
 	}
 
 
