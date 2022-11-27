@@ -1,14 +1,16 @@
 {"FAIRSpec.extract.version":"0.0.4-alpha+2202.11.27","keys":[
  {"example":"aggregation v6 provided by Thomas Mies, Imperial College London; curated by Henry Rzepa"},
-
+ {"FAIRSpec.extractor.properties":[
+	{"name":"$$ACCESSCODE$$", "source":"./private.properties"}
+ ]},
  {"IFD.property.collectionset.source_data_license_uri":"https://creativecommons.org/licenses/by-nc/4.0"},
  {"IFD.property.collectionset.source_data_license_name":"cc-by-nc-4.0"},
- {"IFD.property.collectionset.source_repository_uri":"https://data.hpc.imperial.ac.uk/resolve/?doi=10386&access="}, 
+ {"IFD.property.collectionset.source_repository_uri":"https://data.hpc.imperial.ac.uk/resolve/?doi=10386&access={$$ACCESSCODE$$}"}, 
  
  {"##":"todo -- allow for remote API, not just remote file (as in FigShare)"},
- {"remote-data":"{IFD.property.collectionset.source_data_uri::https://data.hpc.imperial.ac.uk/resolve/?doi=10386&access="},
+ {"remote-data":"{IFD.property.collectionset.source_data_uri::https://data.hpc.imperial.ac.uk/resolve/?doi=11652&file=10&access={$$ACCESSCODE$$}"},
 
- {"##":"will be overridden in ExtractorTest, and it does not actually exist"},
+ {"##":"local path will be overridden in ExtractorTest, and it does not actually exist"},
  {"data":"{IFD.property.collectionset.source_data_uri::}"},
  {"path":"{data}|"},
  
@@ -43,10 +45,7 @@
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.mol_2d::{assoc}/{IFD.property.structure.id::<compound>}-v3.mol}"}, 
 
  {"##":"Lots of case issues with cif data!"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cif::{assoc}/{IFD.property.structure.id::<compound>}-X-Ray/*.cif}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cif::{assoc}/{IFD.property.structure.id::<compound>}-X-ray/*.cif}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cif::{assoc}/{IFD.property.structure.id::<compound>}-x-Ray/*.cif}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cif::{assoc}/{IFD.property.structure.id::<compound>}-x-ray/*.cif}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.cif::{assoc}/{IFD.property.structure.id::<compound>}-{regex::(?i)}X-Ray{regex::(?-i)}/*.cif}"},
 
  {"##":"TODO structures/ directory option FAIRSpec.extractor.object_:_{path}{IFD.representation.structure.cdxml::{assoc}/structures/{IFD.property.structure.id::*}/*.cdxml}"},
 
@@ -74,3 +73,4 @@
  
  {"##":"...next"} 
 ]}
+ 
