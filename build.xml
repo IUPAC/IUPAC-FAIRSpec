@@ -20,7 +20,7 @@
   <property name="classes.dir" value="build/classes" />
 
   <!-- see below for unjar references -->
-  <property name="jmol.jar" value="JmolD-14.32.81.jar" />
+  <property name="jmol.jar" value="JmolD-14.32.82.jar" />
   <property name="commons-io.jar" value="commons-io-2.11.0.jar" />
   <property name="commons-compress.jar" value="commons-compress-1.22.jar" />
 	
