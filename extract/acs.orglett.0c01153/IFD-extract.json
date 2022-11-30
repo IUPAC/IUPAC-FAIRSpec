@@ -16,13 +16,13 @@
 
  {"path1":"{data1}|*.zip|"},  
  {"##":"using **/*.mnova* here because it is .mnova_copy for Compound 5"},
- {"FAIRSpec.extractor.object":"{path1}{IFD.representation.dataobject.fairspec.nmr.ventor_dataset::{IFD.property.dataobject.label::{id=IFD.property.sample.label::*}/**/*.mnova*}}"},
- {"FAIRSpec.extractor.object":"{path1}{IFD.representation.dataobject.fairspec.nmr.ventor_dataset::{IFD.property.dataobject.label::{id=IFD.property.sample.label::*}/{expt=::*}}.zip|{expt}/}"},
+ {"FAIRSpec.extractor.object":"{path1}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.label::{id=IFD.property.sample.label::*}/**/*.mnova*}}"},
+ {"FAIRSpec.extractor.object":"{path1}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.label::{id=IFD.property.sample.label::*}/{expt=::*}}.zip|{expt}/}"},
  {"FAIRSpec.extractor.object":"{path1}{IFD.representation.structure.cdx::{id=IFD.property.sample.label::*}/*.cdx}"},
 
  {"data2":"{IFD.property.collectionset.source_data_uri::https://ndownloader.figshare.com/files/{figshareid2}}"},
 
  {"path2":"{data2}|*.zip|"},
- {"FAIRSpec.extractor.object":"{path2}{IFD.representation.dataobject.fairspec.nmr.ventor_dataset::{IFD.property.dataobject.label::{id=IFD.property.sample.label::*}/{expt=::*}}.zip|{expt}/}"},
+ {"FAIRSpec.extractor.object":"{path2}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.label::{id=IFD.property.sample.label::*}/{expt=::*}}.zip|{expt}/}"},
  {"FAIRSpec.extractor.object":"{path2}{IFD.representation.structure.cdx::{id=IFD.property.sample.label::*}/*.cdx}"}
 ]}

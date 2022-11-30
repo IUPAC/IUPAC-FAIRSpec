@@ -271,6 +271,11 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 		return JDXDataObject.getNominalSpecFreq(nuc, freq);
 	}
 
+	@Override
+	public void checkExtract(ExtractorI extractor, String baseName, String entryName) {
+		// can be overridden, as by Bruker
+	}
+
 //	/**
 //	 * First pass for a plugin may not have established a finding aid struc and spec
 //	 */

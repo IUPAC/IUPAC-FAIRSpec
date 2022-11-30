@@ -15,6 +15,6 @@
  
  {"path":"{data}|NMR DATA"},
  
- {"FAIRSpec.extractor.object":"{path}/{IFD.representation.dataobject.fairspec.nmr.ventor_dataset::{IFD.property.dataobject.id::{compound=IFD.property.association.structuredata.id::*/{IFD.property.structure.id::*}}-*}.mnova}"},
- {"FAIRSpec.extractor.object":"{path}/{IFD.representation.dataobject.fairspec.nmr.ventor_dataset::{IFD.property.dataobject.id::{compound=IFD.property.association.structuredata.id::*/{IFD.property.structure.id::*+*}}}.mnova}"}
+ {"FAIRSpec.extractor.object":"{path}/{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{compound=IFD.property.association.structuredata.id::*/{IFD.property.structure.id::*}}-*}.mnova}"},
+ {"FAIRSpec.extractor.object":"{path}/{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{compound=IFD.property.association.structuredata.id::*/{IFD.property.structure.id::*+*}}}.mnova}"}
 ]}

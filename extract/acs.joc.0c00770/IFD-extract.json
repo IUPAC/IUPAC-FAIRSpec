@@ -16,7 +16,7 @@
 
  {"zip":"{data}|{id=IFD.property.association.structuredata.id::*}.zip|"},
  {"##":"the mnova check must come before the generic zip directory / check, because *.mnova is in the vendor list for Mestrec, and some Bruker files have mnova files within them"},
- {"FAIRSpec.extractor.object":"{zip}{IFD.representation.dataobject.fairspec.nmr.ventor_dataset::{IFD.property.dataobject.id::*.mnova}}"},
- {"FAIRSpec.extractor.object":"{zip}{IFD.representation.dataobject.fairspec.nmr.ventor_dataset::{IFD.property.dataobject.id::*}/}"}
+ {"FAIRSpec.extractor.object":"{zip}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*.mnova}}"},
+ {"FAIRSpec.extractor.object":"{zip}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*}/}"}
 
 ]}

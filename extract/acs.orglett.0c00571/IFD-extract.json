@@ -12,7 +12,7 @@
  {"data":"{IFD.property.collectionset.source_data_uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
  {"path":"{data}|FID for Publication/{id=IFD.property.sample.label::*}.zip|"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.ventor_dataset::{IFD.property.dataobject.label::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.label::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
  {"FAIRSpec.extractor.object":"{path}<id>/{IFD.representation.structure.mol_2d::<id>.mol}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.hrms.document::{IFD.property.dataobject.label::<id>/HRMS.zip|**/*}.pdf}"}
 ]}

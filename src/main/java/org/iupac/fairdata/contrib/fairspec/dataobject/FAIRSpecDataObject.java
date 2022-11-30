@@ -31,7 +31,6 @@ public abstract class FAIRSpecDataObject extends IFDDataObject {
 		String className = FAIRSpecDataObject.class.getName();
 		className = className.substring(0, className.lastIndexOf(".") + 1) + type + ".FAIRSpec" + ucType
 				+ "Data";
-
 		try {			
 			FAIRSpecDataObject o = (FAIRSpecDataObject) Class.forName(className).newInstance();
 			// properties are loaded based on subtype
