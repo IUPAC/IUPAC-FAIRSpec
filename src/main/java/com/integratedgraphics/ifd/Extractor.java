@@ -1552,9 +1552,6 @@ public class Extractor implements ExtractorI {
 			if (param.length() > 0) {
 				String id = m.group(key);
 				log("!found " + param + " " + id);
-				if (originPath.indexOf("xray") >=0)
-					System.out.println("Ex ???? param ");
-
 				IFDObject<?> obj = helper.addObject(rootPath, param, id, localizedName, len);
 				if (obj instanceof IFDRepresentableObject) {
 					linkLocalizedNameToObject(localizedName, param, (IFDRepresentableObject<?>) obj);					
@@ -2210,6 +2207,11 @@ public class Extractor implements ExtractorI {
 			
 			// include in zip?
 			this.originPath = entryPath;
+			String type = vendor.getExtractType(this, baseName, entryName);
+			if (type != null) {
+				addDeferredPropertyOrRepresentation(type, localizePath(baseName + entryName), false, null);
+			}
+
 			boolean doInclude = (vendor == null || vendor.doRezipInclude(this, baseName, entryName));
 			// cache this one? -- could be a different vendor -- JDX inside Bruker
 			// directory, for example
@@ -2365,8 +2367,6 @@ public class Extractor implements ExtractorI {
 				lastLocal = localizedName;
 			}
 			// link to the originating spec representation -- xxx.mnova, xxx.zip
-			if (localizedName.indexOf("cif") >= 0)
-				System.out.println("phase3Process ??? cif");
 			IFDRepresentableObject<? extends IFDRepresentation> spec = htLocalizedNameToObject.get(localizedName);
 			if (spec == null) {
 				// TODO: should this be added to the IGNORED list?
@@ -2504,8 +2504,6 @@ public class Extractor implements ExtractorI {
 		String ifdPath = r.getRef().getOrigin().toString();
 		String type = r.getType();
 		// type will be null for pdf, for example
-		if (type != null && type.indexOf("cif") >= 0)
-			System.out.println("Extractor xray cif??? " + ifdPath + " " + type);
 		String subtype = r.getMediaType();
 		// suffix is just unique internal ID
 		int pt = ckey.indexOf('\0');
@@ -3059,18 +3057,13 @@ public class Extractor implements ExtractorI {
 		flags = flags.toLowerCase();
 		if (flags.indexOf("-") < 0)
 			flags = "-" + flags.replaceAll("\\;", "-;") + ";";
-		if (flags.indexOf("-debugreadonly;") >= 0) {
-			debugReadOnly = true;
-		}
-		if (flags.indexOf("-readonly;") >= 0) {
-			readOnly = true;
-		}
+
 		if (flags.indexOf("-addpublicationmetadata;") >= 0) {
 			addPublicationMetadata = true;
 		}
 
-		if (flags.indexOf("-nostoponfailure;") >= 0) {
-			stopOnAnyFailure = false;
+		if (flags.indexOf("-byid;") >= 0) {
+			setExtractorFlag(FAIRSpecExtractorHelper.IFD_EXTRACTOR_FLAG_ASSOCIATION_BYID, "true");
 		}
 
 		if (flags.indexOf("-datacitedown;") >= 0) {
@@ -3080,6 +3073,11 @@ public class Extractor implements ExtractorI {
 		if (flags.indexOf("-debugging;") >= 0) {
 			debugging = true;
 		}
+
+		if (flags.indexOf("-debugreadonly;") >= 0) {
+			debugReadOnly = true;
+		}
+
 		if (flags.indexOf("-noclean;") >= 0) {
 			cleanCollectionDir = false;
 		}
@@ -3088,29 +3086,30 @@ public class Extractor implements ExtractorI {
 			includeIgnoredFiles = false;
 		}
 
-		if (flags.indexOf("-nozip;") >= 0) {
-			createZippedCollection = false;
-		}
-
-		if (flags.indexOf("-requirepubinfo;") >= 0) {
-			allowNoPubInfo = false;
-		}
-
 		if (flags.indexOf("-nopubinfo;") >= 0) {
 			skipPubInfo = true;
 		}
 
+		if (flags.indexOf("-nostoponfailure;") >= 0) {
+			stopOnAnyFailure = false;
+		}
+
 		if (flags.indexOf("-nozip;") >= 0) {
 			createZippedCollection = false;
 		}
 
-		int pt = flags.indexOf("-structurepattern="); 
-		if (pt >= 0) {
-			userStructureFilePattern = flags.substring(flags.indexOf("=", pt) + 1, flags.indexOf(";", pt));
+		if (flags.indexOf("-readonly;") >= 0) {
+			readOnly = true;
 		}
-		if (flags.indexOf("-byid;") >= 0) {
-			setExtractorFlag(FAIRSpecExtractorHelper.IFD_EXTRACTOR_FLAG_ASSOCIATION_BYID, "true");
+		if (flags.indexOf("-requirepubinfo;") >= 0) {
+			allowNoPubInfo = false;
 		}
+
+// not working 
+//		int pt = flags.indexOf("-structurepattern="); 
+//		if (pt >= 0) {
+//			userStructureFilePattern = flags.substring(flags.indexOf("=", pt) + 1, flags.indexOf(";", pt));
+//		}
 	}
 
 	private static String getCommandLineHelp() {

@@ -81,14 +81,10 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 	 */
 
 	@Override
-	public void checkExtract(ExtractorI extractor, String baseName, String entryName) {
-		String type = (entryName.endsWith(".pdf") ? getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_SPECTRUM_DOCUMENT")
+	public String getExtractType(ExtractorI extractor, String baseName, String entryName) {
+		return (entryName.endsWith(".pdf") ? getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_SPECTRUM_DOCUMENT")
 				: entryName.endsWith("thumb.png") ? getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_SPECTRUM_IMAGE")
 						: null);
-		if (type != null) {
-			String localPath = Extractor.localizePath(baseName + entryName);
-			extractor.addDeferredPropertyOrRepresentation(type, localPath, false, null);
-		}
 	}
 
 	@Override

@@ -272,8 +272,8 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	}
 
 	@Override
-	public void checkExtract(ExtractorI extractor, String baseName, String entryName) {
-		// can be overridden, as by Bruker
+	public String getExtractType(ExtractorI extractor, String baseName, String entryName) {
+		return null;
 	}
 
 //	/**
