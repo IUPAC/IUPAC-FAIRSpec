@@ -374,7 +374,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			return true;
 		}
 		if (key.equals(myPropertyPrefix + IFDConst.IFD_NOTE_FLAG)) {
-			note = value.toString();
+			addNote(value.toString());
 			return true;
 		}
 		return false;
@@ -423,6 +423,13 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		this.note = note;
 	}
 
+	protected void addNote(String note) {
+		if (this.note == null)
+			this.note = note;
+		else 
+			this.note += ";\n" + note;
+	}
+	
 	@Override
 	public String getDescription() {
 		return description;

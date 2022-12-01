@@ -1854,6 +1854,8 @@ public class Extractor implements ExtractorI {
 			deferredPropertyList.add(null);
 			return;
 		}
+		if (originPath == null)
+			System.out.println("???");
 		deferredPropertyList
 				.add(new Object[] { originPath, localizedName, key, val, Boolean.valueOf(isInline), mediaType });
 		if (key.startsWith(STRUC_FILE_DATA_KEY)) {
@@ -2174,7 +2176,7 @@ public class Extractor implements ExtractorI {
 		String basePath = baseName.substring(0, baseName.length() - 1);
 		if (newDir == null) {
 			newDir = "";
-			originPath = basePath;
+			this.originPath = originPath = basePath;
 			localizedName = localizePath(originPath);
 		} else {
 			newDir += "/";
@@ -2182,13 +2184,13 @@ public class Extractor implements ExtractorI {
 			if (lenOffset > 0) {
 				htZipRenamed.put(localizePath(basePath), localizedName);
 			}
+			this.originPath = originPath;
 			if (this.localizedName == null)
 				this.localizedName = localizedName;
 			String msg = "Extractor correcting Bruker directory name to " + localizedName + "|" + newDir;
 			addProperty(IFD_PROPERTY_DATAOBECT_NOTE, msg);
 			logWarn(msg, "processEntryphase2b");
 		}
-		this.originPath = originPath;
 		this.localizedName = localizedName;
 
 		File outFile = getAbsoluteFileTarget(originPath + (originPath.endsWith(".zip") ? "" : ".zip"));
@@ -2496,7 +2498,7 @@ public class Extractor implements ExtractorI {
 			String originPath = (String) a[0];
 			// originPath will be null for a directory being rezipped
 			if (originPath != null && phase2OriginPath != null) {
-				if (!originPath.equals(phase2OriginPath))
+				if (!originPath.startsWith(phase2OriginPath))
 					continue;
 				deferredPropertyList.remove(i--);
 				n--;
