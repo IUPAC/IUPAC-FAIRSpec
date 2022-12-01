@@ -100,6 +100,7 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 		if (rep == null) {
 			rep = newRepresentation((isInline ? null : new IFDReference(originPath, rootPath, localName)), data, 0, type, mediaType);
 			add((T) rep);
+			// System.out.println("IFDRep added " + this);
 			map.put(rootPath + "::" + key, rep);
 			if (!isInline)
 				map.put(rootPath + "::" + originPath, rep);

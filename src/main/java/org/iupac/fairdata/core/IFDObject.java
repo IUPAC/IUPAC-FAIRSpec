@@ -629,7 +629,9 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return "[" + getClass().getSimpleName() + " " + index 
 				+ " id=" + id 
 				+ " label=" + label 
-				+ " size=" + size() + "]";
+				+ " size=" + size() 
+				+ " isValid=" + isValid
+				+ "]";
 	}
 	
 }

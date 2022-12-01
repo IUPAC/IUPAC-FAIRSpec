@@ -30,6 +30,11 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 
 	private String ifdPath;
 
+	/**
+	 * each page maintains its own set of data to pass back to the extractor
+	 */
+	private List<Map<String, Object>> pageList;
+
 	static {
 		String[] keys = { //
 				"Pulse Sequence", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_PULSE_PROG"), //prop
@@ -66,9 +71,28 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 			reader = new MNovaMetadataReader(this, bytes);
 			this.ifdPath = ifdPath;
 
-			// extractor.registerFileVendor(zipName, this);
-			if (reader.process()) {
-				addParams();
+			// extract structure files (CDX, CDXML, and MOL) and spectral metadata
+
+			boolean haveMetadata = reader.process();
+			if (page > 0 && haveMetadata) {
+				// After processing the full file, we need to
+				// send all the metadata for each spectrum page.
+				finalizeParams();
+				int nPages = pageList.size();
+				boolean sendNewPage = (nPages > 1);
+				for (int i = 0; i < nPages; i++) {
+					Map<String, Object> params = pageList.get(i);
+					reportVendor(); // really? Before start of pages? 
+					for (Entry<String, Object> p : params.entrySet()) {
+						String key = p.getKey();
+						boolean isNewPage = key.equals(Extractor.NEW_PAGE_KEY);
+						boolean isSpecialKey = key.startsWith("_");
+						// the only special key we send 
+						if (isSpecialKey ? key.startsWith(Extractor.STRUC_FILE_DATA_KEY)
+								: sendNewPage || !isNewPage)
+							report(key, p.getValue());
+					}
+				}
 				close();
 				return processRepresentation(null, null);
 			}
@@ -104,7 +128,15 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 
 	private String origin;
 
-	public void addParam(String key, Object oval, Param param1, Param param2) {
+	/**
+	 * Handle the parameters coming from the reader. 
+	 * 
+	 * @param key
+	 * @param oval
+	 * @param param1
+	 * @param param2
+	 */
+	void addParam(String key, Object oval, Param param1, Param param2) {
 		if (param1 != null)
 			oval = (param1.value == null || param1.value.length() == 0 ? param1.calc : param1.value);
 		String key0 = key;
@@ -220,13 +252,20 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 				+ (param2 == null ? "" : "/ " + param2));
 	}
 
-	List<Map<String, Object>> pageList;
-
+	
+	/**
+	 * Each page in the document that has a spectum reports here
+	 * that a page has started and that we need to track structures
+	 * and metadata for a new (potential) association.
+	 *  
+	 * @param page
+	 */
 	void newPage(int page) {
 		this.page = page;
 		finalizeParams();
+		// the reader will be filling in params
 		params = new LinkedHashMap<>();
-		params.put(Extractor.NEW_FAIRSPEC_KEY, "_page=" + page);
+		params.put(Extractor.NEW_PAGE_KEY, "_page=" + page);
 		params.put("mnovaVersion", mnovaVersion);
 		origin = null;
 		pageList.add(params);
@@ -239,30 +278,6 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 	}
 
 	// private
-
-	/**
-	 * 
-	 */
-	private void addParams() {
-		int nPages = pageList.size();
-		if (nPages == 0)
-			return;
-		finalizeParams();
-		boolean sendNewPage = (nPages > 1);
-		for (int i = 0; i < nPages; i++) {
-			processSpec(pageList.get(i), sendNewPage);
-		}
-	}
-
-	private void processSpec(Map<String, Object> params, boolean sendNewPage) {
-		reportVendor();
-		for (Entry<String, Object> p : params.entrySet()) {
-			String key = p.getKey();
-			if (key.startsWith("_") ? key.startsWith(Extractor.STRUC_FILE_DATA_KEY)
-					: sendNewPage || !key.equals(Extractor.NEW_FAIRSPEC_KEY))
-				report(key, p.getValue());
-		}
-	}
 
 	/**
 	 * Report the found property back to the IFDExtractorI class.

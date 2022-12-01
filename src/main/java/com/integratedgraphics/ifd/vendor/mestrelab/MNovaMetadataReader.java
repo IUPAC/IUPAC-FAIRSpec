@@ -1110,19 +1110,20 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * @param type
 	 * @param fileData
 	 * @param len
-	 * @param fname
+	 * @param fname currently null in all cases (CDX, MOL, PNG)
+	 * @param cssInfo
 	 */
 	private void handleFileData(int nBlock, String type, byte[] fileData, long ptr, int len, String fname,
-			String info) {
+			String cssInfo) {
 		if (plugin != null) {
-			if (info != null)
-				plugin.addParam(type + ":css", info, null, null);
+			if (cssInfo != null)
+				plugin.addParam(type + ":css", cssInfo, null, null);
 			plugin.addParam(type, fileData, null, null);
 		}
 		if (fname == null)
 			fname = "file_" + zeroFill(nTests, 2) + "_" + zeroFill(nPages, 2) + type;
 		String s = "=====Page " + nPages + " block " + nBlock + " byte " + ptr + " " + fname + " [" + len + " bytes] "
-				+ (info != null ? info : "");
+				+ (cssInfo != null ? cssInfo : "");
 		System.out.println(s);
 		if (createStructureFiles) {
 			writeToFile(fname, fileData);

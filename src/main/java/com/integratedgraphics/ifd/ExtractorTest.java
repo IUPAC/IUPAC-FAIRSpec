@@ -88,10 +88,10 @@ public class ExtractorTest extends Extractor {
 //		int last = 0; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 //						// file test
 		//runACSTest(args, first, last);
-		//runACSTest(args, 0);
+		runACSTest(args, 0);
 		//runACSTest(args, 5);
 		//runACSTest(args, 0, 11);
-		runUCLTest(args);
+		//runUCLTest(args);
 		//runUCLTest56(args);
 	}
 

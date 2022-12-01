@@ -109,13 +109,14 @@ import com.integratedgraphics.ifd.util.PubInfoExtractor;
  */
 public class Extractor implements ExtractorI {
 
-	private static final String version = "0.0.4-alpha+2022.11.29";
-
 	// TODO: test rootpath and file lists for case with two root paths -- does it
 	// make sense that that manifests are cleared?
 
 	// TODO: update GitHub README.md
 
+	private static final String version = "0.0.4-alpha+2022.12.01";
+
+	// 2022.12.01 version 0.0.4 fixes multi-page MNova with compound association (ACS 22567817#./extract/acs.joc.0c00770)
 	// 2022.11.29 version 0.0.4 allows for a representation to be both a structure and a data object
 	// 2022.11.27 version 0.0.4 adds parameters from a Metadata file as XLSX or ODS
 	// 2022.11.23 version 0.0.3 fixes missing properties in NMR; upgrades to
@@ -651,7 +652,7 @@ public class Extractor implements ExtractorI {
 	 * and it presumes there are no such associations. 
 	 * 
 	 */
-	public static final String NEW_FAIRSPEC_KEY = "*NEW_FAIRSPEC*";
+	public static final String NEW_PAGE_KEY = "*NEW_PAGE*";
 
 	protected final static Pattern objectDefPattern = Pattern.compile("\\{([^:]+)::([^}]+)\\}");
 	protected final static Pattern pStarDotStar = Pattern.compile("\\*([^|/])\\*");
@@ -747,7 +748,7 @@ public class Extractor implements ExtractorI {
 	 */
 	protected String rootPath;
 
-	protected List<Object> products = new ArrayList<>();
+	protected List<Object> rootPaths = new ArrayList<>();
 	/**
 	 * working local name, without the rootPath, as found in _IFD_manifest.json
 	 */
@@ -1388,11 +1389,17 @@ public class Extractor implements ExtractorI {
 				log("opening " + localizedTopLevelZipURL);
 
 			// Phase 2a
-
-			lastRootPath = phase2aInitializeCollection(lastRootPath);
-
+			
 			// The file path points to a digital item in the aggregation that
 			// potentially could be a digital object in the IUPAC FAIRData Collection.
+
+			// -- StructureHelper identifies structures by file extensions (see ifd.properties), 
+			//    adding deferred properties such as InChI, InChIKey, and SMILES
+			// -- Vendor plug-ins such as Bruker "claim" zip files or directories based on contained files, such as "acqu" 
+			// -- Vendor plub-ins such as MestreNova extract structure byte[] representations and metadata associated with spectra
+			//    along with paging information, which allows for new associations.
+
+			lastRootPath = phase2aInitializeCollection(lastRootPath);
 
 			// Parse the file path for association, structure, sample, and dataObject.
 			// This phase produces the deferredPropertyList, which is processed after
@@ -1441,7 +1448,7 @@ public class Extractor implements ExtractorI {
 		if (!rootPath.equals(lastRootPath)) {
 			if (lastRootPath != null) {
 				// close last collection logs
-				phase3WriteCollectionManifests(false);
+				writeRootManifests();
 			}
 			File rootDir = new File(targetDir + "/" + rootPath);
 			rootDir.mkdir();
@@ -1450,8 +1457,8 @@ public class Extractor implements ExtractorI {
 			}
 			// open a new log
 			this.rootPath = lastRootPath = rootPath;
-			products.add(targetDir + "/" + rootPath);
-			phase3WriteCollectionManifests(true);
+			rootPaths.add(targetDir + "/" + rootPath);
+			clearRootFileLists();
 		}
 
 		return lastRootPath;
@@ -1485,7 +1492,6 @@ public class Extractor implements ExtractorI {
 			IFDZipContents.put(key, zipFiles);
 		}
 		// next, we process those names
-
 		for (Entry<String, ArchiveEntry> e : zipFiles.entrySet()) {
 			String originPath = e.getKey();
 			String localizedName = localizePath(originPath);
@@ -1522,9 +1528,10 @@ public class Extractor implements ExtractorI {
 	 *         depending upon availability
 	 * 
 	 * @throws IFDException
+	 * @throws IOException 
 	 */
 	private IFDObject<?> phase2aAddIFDObjectsForName(ObjectParser parser, String originPath, String localizedName, long len)
-			throws IFDException {
+			throws IFDException, IOException {
 
 	Matcher m = parser.p.matcher(originPath);
 		if (!m.find())
@@ -1555,6 +1562,8 @@ public class Extractor implements ExtractorI {
 				IFDObject<?> obj = helper.addObject(rootPath, param, id, localizedName, len);
 				if (obj instanceof IFDRepresentableObject) {
 					linkLocalizedNameToObject(localizedName, param, (IFDRepresentableObject<?>) obj);					
+				} else if (obj instanceof IFDStructureDataAssociation) {
+					processDeferredObjectProperties(originPath, (IFDStructureDataAssociation) obj);
 				}
 				if (debugging)
 					log("!found " + param + " " + id);
@@ -1848,10 +1857,12 @@ public class Extractor implements ExtractorI {
 		deferredPropertyList
 				.add(new Object[] { originPath, localizedName, key, val, Boolean.valueOf(isInline), mediaType });
 		if (key.startsWith(STRUC_FILE_DATA_KEY)) {
-			// Mestrelab vendor plug-in has found a MOL or SDF file.
-			// this will add (by coming right back here) InChI, SMILES, and InChIKey
+			// Mestrelab vendor plug-in has found a MOL or SDF file in Phase 2a. 
+			// val is Object[] {byte[] bytes, String name}
+			// Pass data to structure property manager in order
+			// to add (by coming right back here) InChI, SMILES, and InChIKey.
 			byte[] bytes = (byte[]) ((Object[]) val)[0];
-			String name = (String) ((Object[]) val)[1];
+			String name = (String) ((Object[]) val)[1]; // must not be null
 			getStructurePropertyManager().processRepresentation(name, bytes);
 		}
 	}
@@ -2296,7 +2307,7 @@ public class Extractor implements ExtractorI {
 		// Vendors may produce new objects that need association or properties of those
 		// objects. This happens in Phase 2a
 
-		phase3ProcessDeferredObjectProperties();
+		processDeferredObjectProperties(null, null);
 
 		// update object type and len records
 
@@ -2310,7 +2321,7 @@ public class Extractor implements ExtractorI {
 		
 		// write the files and create the finding aid serialization
 		
-		phase3WriteCollectionManifests(false);
+		writeRootManifests();
 		phase3FinalizeExtraction();
 		return phase3SerializeFindingAid(findingAidFileNameRoot);
 	}
@@ -2323,157 +2334,11 @@ public class Extractor implements ExtractorI {
 		log("!Extractor.extractAndCreateFindingAid serializing...");
 		IFDSerializerI ser = getSerializer();
 		long[] times = new long[3];
-		String s = helper.createSerialization((noOutput && !createFindingAidsOnly ? null : targetDir),
-				findingAidFileNameRoot, createZippedCollection ? products : null, ser, times);
-		log("!Extractor serialization done " + times[0] + " " + times[1] + " " + times[2] + " ms " + s.length()
+		String serializedFindingAid = helper.createSerialization((noOutput && !createFindingAidsOnly ? null : targetDir),
+				findingAidFileNameRoot, createZippedCollection ? rootPaths : null, ser, times);
+		log("!Extractor serialization done " + times[0] + " " + times[1] + " " + times[2] + " ms " + serializedFindingAid.length()
 				+ " bytes");
-		return s;
-	}
-
-	/**
-	 * Process the properties in deferredPropertyList after the IFDObject objects
-	 * have been created for all resources. This includes writing extracted
-	 * representations to files.
-	 * 
-	 * @throws IFDException
-	 * @throws IOException
-	 */
-	protected void phase3ProcessDeferredObjectProperties() throws IFDException, IOException {
-		String lastLocal = null;
-		IFDDataObject localSpec = null;
-		IFDStructure struc = null;
-		IFDSample sample = null;
-		for (int i = 0, n = deferredPropertyList.size(); i < n; i++) {
-			Object[] a = deferredPropertyList.get(i);
-			if (a == null) {
-				sample = null;
-				continue;
-			}
-			String originPath = (String) a[0];
-			String localizedName = (String) a[1];
-			String key = (String) a[2];
-			boolean isRep = IFDConst.isRepresentation(key);
-			Object value = a[3];
-			boolean isInline = (a[4] == Boolean.TRUE);
-			String type = FAIRSpecExtractorHelper.getObjectTypeForPropertyOrRepresentationKey(key, true);
-			boolean isSample = (type == FAIRSpecExtractorHelper.ClassTypes.Sample);
-			boolean isStructure = (type == FAIRSpecExtractorHelper.ClassTypes.Structure);
-			if (isSample) {
-				sample = helper.getSampleByName((String) value);
-				continue;
-			}
-			boolean isNew = !localizedName.equals(lastLocal);
-			if (isNew) {
-				lastLocal = localizedName;
-			}
-			// link to the originating spec representation -- xxx.mnova, xxx.zip
-			IFDRepresentableObject<? extends IFDRepresentation> spec = htLocalizedNameToObject.get(localizedName);
-			if (spec == null) {
-				// TODO: should this be added to the IGNORED list?
-				logDigitalItem(localizedName, "processDeferredObjectProperties");
-				continue;
-			} else if (spec instanceof IFDStructure) {
-				struc = (IFDStructure) spec;
-				spec = null;
-			} else if (spec instanceof IFDSample) {
-				sample = (IFDSample) spec;
-				spec = null;
-			} else if (isNew && spec instanceof IFDDataObject) {
-				localSpec = (IFDDataObject) spec;
-			}
-			if (isRep) {
-				// from reportVendor-- Bruker adds this for thumb.png and pdf files.
-				// from
-				String mediaType = (String) a[5];
-				String keyPath = (isInline ? null : value.toString());
-				Object data = (isInline ? value : null);
-				// note --- not allowing for AnalysisObject or Sample here
-				IFDRepresentableObject<?> obj = (IFDConst.isStructure(key) ? struc : spec);
-				linkLocalizedNameToObject(keyPath, null, obj);
-				IFDRepresentation r = obj.findOrAddRepresentation(originPath, keyPath, data, key, mediaType);
-				if (!isInline)
-					setLocalFileLength(r);
-
-				continue;
-			}
-			// properties only
-			if (key.equals(NEW_FAIRSPEC_KEY)) {
-				// e.g. extracted _page=10
-				String idExtension = (String) value;
-				IFDDataObject newSpec = helper.cloneData(localSpec, idExtension);
-				spec = newSpec;
-				struc = helper.getFirstStructureForSpec(localSpec, true);
-				if (sample == null)
-					sample = helper.getFirstSampleForSpec(localSpec, true);
-				if (struc != null) {
-					helper.associateStructureSpec(struc, newSpec);
-					log("!Structure " + struc + " found and associated with " + spec);
-				}
-				if (sample != null) {
-					helper.associateSampleSpec(sample, newSpec);
-					log("!Structure " + struc + " found and associated with " + spec);
-				}
-				if (struc == null && sample == null) {
-					log("!SpecData " + spec + " added ");
-				}
-				IFDRepresentation rep = vendorCache.get(localizedName);
-				String ckey = localizedName + idExtension.replace('_', '#') + "\0" + idExtension;
-				vendorCache.put(ckey, rep);
-				htLocalizedNameToObject.put(localizedName, spec); // for internal use
-				htLocalizedNameToObject.put(ckey, spec);
-				continue;
-			}
-			if (key.startsWith(STRUC_FILE_DATA_KEY)) {
-				// e.g. extracted xxxx/xxx#page1.mol
-				Object[] oval = (Object[]) value;
-				byte[] bytes = (byte[]) oval[0];
-				String oPath = (String) oval[1];
-				String ifdRepType = DefaultStructureHelper.getType(key.substring(key.length() - 3), bytes);
-				// use the byte[] for the structure as a unique identifier.
-				if (htStructureRepCache == null)
-					htStructureRepCache = new HashMap<>();
-				AWrap w = new AWrap(bytes);
-				struc = htStructureRepCache.get(w);
-				String name = getStructureNameFromPath(oPath);
-				if (struc == null) {
-					File f = getAbsoluteFileTarget(oPath);
-					writeBytesToFile(bytes, f);
-					String localName = localizePath(oPath);
-					struc = helper.getFirstStructureForSpec((IFDDataObject) spec, false);
-					if (struc == null) {
-						struc = helper.addStructureForSpec(rootPath, (IFDDataObject) spec, ifdRepType, oPath, localName,
-								name);
-					}
-					htStructureRepCache.put(w, struc);
-					if (sample != null)
-						helper.associateSampleStructure(sample, struc);
-
-					// MNova 1 page, 1 spec, 1 structure Test #5
-					addFileAndCacheRepresentation(oPath, null, bytes.length, ifdRepType, null, null);
-					linkLocalizedNameToObject(localName, ifdRepType, struc);
-					log("!Structure " + struc + " created and associated with " + spec);
-				} else if (helper.getStructureAssociation(struc, (IFDDataObject) spec) == null) {
-					helper.associateStructureSpec(struc, (IFDDataObject) spec);
-					log("!Structure " + struc + " found and associated with " + spec);
-				}
-				continue;
-			}
-			if (isStructure) {
-				if (struc == null) {
-					logErr("No structure found for " + lastLocal + " " + key, "updateObjectProperies");
-					continue; // already added?
-				} else {
-					struc.setPropertyValue(key, value);
-				}
-			} else if (isSample) {
-				// TODO?
-			} else {
-				// System.out.println("EX " + key + " " + value + " " + spec);
-				spec.setPropertyValue(key, value);
-			}
-		}
-		deferredPropertyList.clear();
-		htStructureRepCache = null;
+		return serializedFindingAid;
 	}
 
 	/**
@@ -2605,37 +2470,206 @@ public class Extractor implements ExtractorI {
 		log(helper.finalizeExtraction());
 	}
 
+	/// generally used
+
+	/**
+	 * Process the properties in deferredPropertyList after the IFDObject objects
+	 * have been created for all resources. This includes writing extracted
+	 * representations to files.
+	 * 
+	 * @throws IFDException
+	 * @throws IOException
+	 */
+	protected void processDeferredObjectProperties(String phase2OriginPath, IFDStructureDataAssociation assoc)
+			throws IFDException, IOException {
+		String lastLocal = null;
+		IFDDataObject localSpec = null;
+		IFDStructure struc = null;
+		IFDSample sample = null;
+		boolean cloning = false;
+		for (int i = 0, n = deferredPropertyList.size(); i < n; i++) {
+			Object[] a = deferredPropertyList.get(i);
+			if (a == null) {
+				sample = null;
+				continue;
+			}
+			String originPath = (String) a[0];
+			// originPath will be null for a directory being rezipped
+			if (originPath != null && phase2OriginPath != null) {
+				if (!originPath.equals(phase2OriginPath))
+					continue;
+				deferredPropertyList.remove(i--);
+				n--;
+			}
+			String localizedName = (String) a[1];
+			String key = (String) a[2];
+			boolean isRep = IFDConst.isRepresentation(key);
+			Object value = a[3];
+			boolean isInline = (a[4] == Boolean.TRUE);
+			String type = FAIRSpecExtractorHelper.getObjectTypeForPropertyOrRepresentationKey(key, true);
+			boolean isSample = (type == FAIRSpecExtractorHelper.ClassTypes.Sample);
+			boolean isStructure = (type == FAIRSpecExtractorHelper.ClassTypes.Structure);
+			if (isSample) {
+				sample = helper.getSampleByName((String) value);
+				continue;
+			}
+			boolean isNew = !localizedName.equals(lastLocal);
+			if (isNew) {
+				lastLocal = localizedName;
+			}
+			// link to the originating spec representation -- xxx.mnova, xxx.zip
+			IFDRepresentableObject<? extends IFDRepresentation> spec = htLocalizedNameToObject.get(localizedName);
+			if (spec == null) {
+				// TODO: should this be added to the IGNORED list?
+				logDigitalItem(localizedName, "processDeferredObjectProperties");
+				continue;
+			} else if (spec instanceof IFDStructure) {
+				struc = (IFDStructure) spec;
+				spec = null;
+			} else if (spec instanceof IFDSample) {
+				sample = (IFDSample) spec;
+				spec = null;
+			} else if (isNew && spec instanceof IFDDataObject) {
+				localSpec = (IFDDataObject) spec;
+			}
+			if (isRep) {
+				// from reportVendor-- Bruker adds this for thumb.png and pdf files.
+				String mediaType = (String) a[5];
+				String keyPath = (isInline ? null : value.toString());
+				Object data = (isInline ? value : null);
+				// note --- not allowing for AnalysisObject or Sample here
+				IFDRepresentableObject<?> obj = (IFDConst.isStructure(key) ? struc : spec);
+				linkLocalizedNameToObject(keyPath, null, obj);
+				IFDRepresentation r = obj.findOrAddRepresentation(originPath, keyPath, data, key, mediaType);
+				if (!isInline)
+					setLocalFileLength(r);
+
+				continue;
+			}
+			// properties only
+			if (key.equals(NEW_PAGE_KEY)) {
+				// e.g. extracted _page=10
+				cloning = true;
+				String idExtension = (String) value;
+				IFDDataObject newSpec = helper.cloneData(localSpec, idExtension);
+				localSpec.invalidate();
+				spec = newSpec;
+				struc = helper.getFirstStructureForSpec(localSpec, assoc == null);
+				if (sample == null)
+					sample = helper.getFirstSampleForSpec(localSpec, assoc == null);
+				if (assoc == null) {
+					if (struc != null) {
+						helper.associateStructureSpec(struc, newSpec);
+						log("!Structure " + struc + " found and associated with " + spec);
+					}
+					if (sample != null) {
+						helper.associateSampleSpec(sample, newSpec);
+						log("!Structure " + struc + " found and associated with " + spec);
+					}
+				} else {
+					// we have an association already in Phase 2, and now we need to
+					// update that.
+					newSpec.clear();
+					assoc.addDataObject(newSpec);
+				}
+				if (struc == null && sample == null) {
+					log("!SpecData " + spec + " added ");
+				}
+				htLocalizedNameToObject.put(localizedName, spec); // for internal use
+				IFDRepresentation rep = vendorCache.get(localizedName);
+				String ckey = localizedName + idExtension.replace('_', '#') + "\0" + idExtension;
+				vendorCache.put(ckey, rep);
+				htLocalizedNameToObject.put(ckey, spec);
+				continue;
+			}
+			if (key.startsWith(STRUC_FILE_DATA_KEY)) {
+				// e.g. extracted xxxx/xxx#page1.mol
+				Object[] oval = (Object[]) value;
+				byte[] bytes = (byte[]) oval[0];
+				String oPath = (String) oval[1];
+				String ifdRepType = DefaultStructureHelper.getType(key.substring(key.lastIndexOf(".") + 1), bytes);
+				// use the byte[] for the structure as a unique identifier.
+				if (htStructureRepCache == null)
+					htStructureRepCache = new HashMap<>();
+				AWrap w = new AWrap(bytes);
+				struc = htStructureRepCache.get(w);
+				String name = getStructureNameFromPath(oPath);
+				if (struc == null) {
+					File f = getAbsoluteFileTarget(oPath);
+					writeBytesToFile(bytes, f);
+					String localName = localizePath(oPath);
+					struc = helper.getFirstStructureForSpec((IFDDataObject) spec, false);
+					if (struc == null) {
+						struc = helper.addStructureForSpec(rootPath, (IFDDataObject) spec, ifdRepType, oPath, localName,
+								name);
+					}
+					htStructureRepCache.put(w, struc);
+					if (sample != null)
+						helper.associateSampleStructure(sample, struc);
+
+					// MNova 1 page, 1 spec, 1 structure Test #5
+					addFileAndCacheRepresentation(oPath, null, bytes.length, ifdRepType, null, null);
+					linkLocalizedNameToObject(localName, ifdRepType, struc);
+					log("!Structure " + struc + " created and associated with " + spec);
+				} else if (helper.getStructureAssociation(struc, (IFDDataObject) spec) == null) {
+					helper.associateStructureSpec(struc, (IFDDataObject) spec);
+					log("!Structure " + struc + " found and associated with " + spec);
+				}
+				continue;
+			}
+			if (isStructure) {
+				if (struc == null) {
+					logErr("No structure found for " + lastLocal + " " + key, "updateObjectProperies");
+					continue; // already added?
+				} else {
+					struc.setPropertyValue(key, value);
+				}
+			} else if (isSample) {
+				// TODO?
+			} else {
+				// System.out.println("EX " + key + " " + value + " " + spec);
+				spec.setPropertyValue(key, value);
+			}
+		}
+		if (assoc == null) {
+			deferredPropertyList.clear();
+			htStructureRepCache = null;
+		} else if (cloning) {
+			vendorCache.remove(lastLocal);
+		}
+	}
+
 	/**
 	 * Write the _IFD_manifest.json, _IFD_ignored.json and _IFD_extract.json files.
 	 * 
+	 * Note that manifest and ignored will be in the archive folder(s) comprising the collection.
 	 * 
 	 * @param isOpen if true, starting -- just clear the lists; if false, write the
 	 *               files
 	 * @throws IOException
 	 */
-	protected void phase3WriteCollectionManifests(boolean isOpen) throws IOException {
-		if (!isOpen) {
-			if (createFindingAidsOnly || readOnly) {
-				if (lstIgnored.size() > 0) {
-					logWarn("ignored " + lstIgnored.size() + " files", "saveCollectionManifests");
-				}
-				if (lstRejected.size() > 0) {
-					logWarn("rejected " + lstRejected.size() + " files", "saveCollectionManifests");
-				}
-			} else {
-				writeBytesToFile(extractScript.getBytes(), getAbsoluteFileTarget("_IFD_extract.json"));
-				outputListJSON(lstManifest, getAbsoluteFileTarget("_IFD_manifest.json"));
-				outputListJSON(lstIgnored, getAbsoluteFileTarget("_IFD_ignored.json"));
-				outputListJSON(lstRejected, new File(targetDir + "/_IFD_rejected.json"));
+	protected void writeRootManifests() throws IOException {
+		if (createFindingAidsOnly || readOnly) {
+			if (lstIgnored.size() > 0) {
+				logWarn("ignored " + lstIgnored.size() + " files", "writeRootManifests");
 			}
+			if (lstRejected.size() > 0) {
+				logWarn("rejected " + lstRejected.size() + " files", "writeRootManifests");
+			}
+		} else {
+			writeBytesToFile(extractScript.getBytes(), getAbsoluteFileTarget("_IFD_extract.json"));
+			outputListJSON(lstManifest, getAbsoluteFileTarget("_IFD_manifest.json"));
+			outputListJSON(lstIgnored, getAbsoluteFileTarget("_IFD_ignored.json"));
+			outputListJSON(lstRejected, new File(targetDir + "/_IFD_rejected.json"));
 		}
-		lstManifest.clear();
-		lstIgnored.clear();
-		// no, because it is in the top path lstRejected.clear();
+		clearRootFileLists();
 	}
 
-	/// generally used
-	
+	protected void clearRootFileLists() {
+		lstManifest.clear();
+		lstIgnored.clear();
+	}
+
 	/**
 	 * Link a representation with the given local name and type to an object such as
 	 * a spectrum or structure. Later in the process, this representation will be

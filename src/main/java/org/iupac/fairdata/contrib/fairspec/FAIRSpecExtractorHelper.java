@@ -270,7 +270,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	 * @throws IFDException
 	 */
 	@Override
-	public IFDRepresentableObject<?> addObject(String rootPath, String param, String value, String localName, long len)
+	public IFDObject<?> addObject(String rootPath, String param, String value, String localName, long len)
 			throws IFDException {
 
 		if (!isAddingObjects())
@@ -360,7 +360,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 //				System.out
 //						.println("addObject currentAssociation=" + param + "..." + value + "..." + currentAssociation);
 			}
-			return null;
+			return currentAssociation;
 		case ClassTypes.SampleDataAssociation:
 			currentAssociation = getSampleDataCollection().getObjectByID(value);
 			if (currentAssociation == null) {
@@ -687,7 +687,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	 * @param rootName   a prefix root to add to the
 	 *                   _IFD_PROPERTY_COLLECTIONSET.json (or.xml) finding aid
 	 *                   created
-	 * @param products   optionally, a list of directories containing the files
+	 * @param rootPaths   optionally, a list of directories containing the files
 	 *                   referenced by the finding aid for creating the
 	 *                   IFD_collection.zip file
 	 * @param serializer optionally, a non-default IFDSerializerI (XML, JSON, etc.)
@@ -695,43 +695,50 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	 * @throws IOException
 	 */
 	@Override
-	public String createSerialization(File targetDir, String rootName, List<Object> products, IFDSerializerI serializer,
+	public String createSerialization(File targetDir, String rootName, List<Object> rootPaths, IFDSerializerI serializer,
 			long[] t) throws IOException {
 		if (serializer == null)
 			serializer = new IFDDefaultJSONSerializer();
 		// subclasses should be able to use this directly with no changes.
 		t[0] = System.currentTimeMillis();
-		String s = serializer.serialize(findingAid).toString();
+		String serializedFindingAid = serializer.serialize(findingAid).toString();
 		t[0] = System.currentTimeMillis() - t[0];
 		if (targetDir == null)
-			return s;
+			return serializedFindingAid;
 		String aidName = "IFD" + IFDConst.IFD_FINDINGAID_FLAG + serializer.getFileExt();
 		String faPath = targetDir.toString().replace('\\', '/') + "/" + aidName;
-		FAIRSpecUtilities.writeBytesToFile(s.getBytes(), new File(faPath));
-		if (products != null) {
+		FAIRSpecUtilities.writeBytesToFile(serializedFindingAid.getBytes(), new File(faPath));
+		if (rootPaths != null) {
+
+			// zip up the collection and re-create finding aid with updated information
+			
 			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_REF, null);
 			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_LEN, null);
-			// byte[] followed by entry name
-			products.add(0, s.getBytes());
-			products.add(1, aidName);
 			String zipName = "IFD" + IFDConst.IFD_COLLECTION_FLAG + "zip";
 			String path = targetDir + "/" + zipName;
+			
 			// creating the zip file is the time-consuming part.
+			
 			System.out.println("FAIRSpecExtractorHelper creating " + path);
 			t[1] = System.currentTimeMillis();
-			long len = FAIRSpecUtilities.zip(path, targetDir.toString().length() + 1, products);
-			products.remove(1);
-			products.remove(0);
+			
+			// byte[] followed by entry name signals that we already have the bytes; don't open a FileInputStream
+			
+			rootPaths.add(0, serializedFindingAid.getBytes());
+			rootPaths.add(1, aidName);
+			long len = FAIRSpecUtilities.zip(path, targetDir.toString().length() + 1, rootPaths);
 			t[1] = System.currentTimeMillis() - t[1];
+
 			// update external finding aid with length of data and reference
+			
 			t[2] = System.currentTimeMillis();
 			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_REF, zipName);
 			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_LEN, len);
-			s = serializer.serialize(findingAid).toString();
+			serializedFindingAid = serializer.serialize(findingAid).toString();
 			t[2] = System.currentTimeMillis() - t[2];
-			FAIRSpecUtilities.writeBytesToFile(s.getBytes(), new File(faPath));
+			FAIRSpecUtilities.writeBytesToFile(serializedFindingAid.getBytes(), new File(faPath));
 		}
-		return s;
+		return serializedFindingAid;
 	}
 
 	@Override
