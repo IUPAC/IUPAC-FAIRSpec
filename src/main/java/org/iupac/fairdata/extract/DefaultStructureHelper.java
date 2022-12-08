@@ -74,7 +74,8 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		if (ext.equals("mol") || ext.equals("sdf") || ext.equals("cml")) {
 			try {
 				Viewer v = getJmolViewer();
-				v.loadInline(new String(bytes));
+				String s = "set allowembeddedscripts false;load DATA \"model\"\n" + new String(bytes) + "\nend \"model\" 0 FILTER 'noHydrogen'";
+				v.scriptWait(s);
 				BS atoms = v.bsA();
 				smiles = v.getSmiles(atoms);
 				inchi = v.getInchi(atoms, null, null);
