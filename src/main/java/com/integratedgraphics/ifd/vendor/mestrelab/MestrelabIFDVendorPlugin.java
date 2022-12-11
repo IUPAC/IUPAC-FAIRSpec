@@ -41,7 +41,7 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 				"Pulse Sequence", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_PULSE_PROG"), //prop
 				"Solvent", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_SOLVENT"), //prop
 				"Probe", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_PROBE_TYPE"), //prop
-				"Temperature", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TEMPERATURE_ABSOLUTE"), //prop
+				"Temperature", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_ABSOLUTE_TEMPERATURE"), //prop
 				"Experiment", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_DIM"), //prop
 				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TITLE"), //prop
 				"F1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_1"), //prop
@@ -50,7 +50,7 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 				"N1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_1"), //prop
 				"N2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_2"), //prop
 				"N3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_3"), //prop
-				"SF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_FREQ_NOMINAL"), //prop
+				"SF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_NOMINAL_FREQ"), //prop
 		};
 
 		for (int i = 0; i < keys.length;)

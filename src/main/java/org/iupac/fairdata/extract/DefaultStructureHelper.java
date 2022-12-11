@@ -72,11 +72,20 @@ public class DefaultStructureHelper implements PropertyManagerI {
 
 	public static final String CDX_FILE_DATA = "_struc.cdx";
 
+	
 	/**
 	 * create associations using ID rather than index numbers
 	 */
 	
 	public static final String STRUC_FILE_DATA_KEY = "_struc.";
+
+	private static final String SMILES = IFDConst.getProp("IFD_REP_STRUCTURE_SMILES");
+	private static final String STANDARD_INCHI = IFDConst.getProp("IFD_REP_STRUCTURE_STANDARD_INCHI");
+	private static final String FIXEDH_INCHI = IFDConst.getProp("IFD_REP_STRUCTURE_FIXEDH_INCHI");
+	private static final String INCHIKEY = IFDConst.getProp("IFD_PROPERTY_STRUCTURE_INCHIKEY");
+	private static final String MOLECULAR_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE_MOLECULAR_FORMULA");
+	private static final String EMPIRICAL_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE_EMPIRICAL_FORMULA");
+	private static final String CELL_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE_CELL_FORMULA");
 
 	@Override
 	public String processRepresentation(String ifdPath, byte[] bytes) {
@@ -85,32 +94,50 @@ public class DefaultStructureHelper implements PropertyManagerI {
 			return type;
 		String ext = ifdPath.substring(ifdPath.lastIndexOf('.') + 1);
 		type = getType(ext, bytes);
-		String smiles = null, inchi = null, inchiKey = null;
+		String smiles = null, standardInchi = null, fixedhInchi = null, inchiKey = null, molecularFormula = null,
+				cellFormula = null, empiricalFormula = null;
 		boolean isCIF = ext.equals("cif");
+		boolean isCDXML = !isCIF && ext.equals("cdxml");
 		String note = null;
-		if (isCIF || ext.equals("mol") || ext.equals("sdf") || ext.equals("cml") || ext.equals("cdxml")) {
+		if (isCIF || isCDXML || ext.equals("mol") || ext.equals("sdf") || ext.equals("cml")) {
 			try {
 				Viewer v = getJmolViewer();
 				note = "generated from " + ifdPath + " by Jmol " + jmolVersion;
-				String s = "set allowembeddedscripts false;load DATA \"model\"\n" + new String(bytes)
-						+ "\nend \"model\" 0 FILTER 'noHydrogen'";
+				String data = new String(bytes);
+				String s = "set allowembeddedscripts false;load DATA \"model\"\n" + data
+						+ "\nend \"model\" 1 FILTER 'no3D;noHydrogen'";
 				v.scriptWait(s);
 				if (isCIF) {
-					bytes = v.getImageAsBytes("png", 500, 500, -1, new String[1]);
+					if (v.getCurrentModelAuxInfo().containsKey("hasBonds")) {
+						molecularFormula = v.evaluateExpression("{visible && configuration=1}.find('MF')").toString();
+						bytes = v.getImageAsBytes("png", 500, 500, -1, new String[1]);
+					}
+					s = "load DATA \"model\"\n" + data + "\nend \"model\" 1 packed";
+					v.scriptWait(s);
+					cellFormula = v.evaluateExpression("{visible && configuration=1}.find('CELLFORMULA')").toString();
+					empiricalFormula = v.evaluateExpression("{visible && configuration=1}.find('CELLFORMULA', true)")
+							.toString();
 				} else {
 					bytes = null;
 					BS atoms = v.bsA();
 					smiles = v.getSmiles(atoms);
-					inchi = v.getInchi(atoms, null, null);
-					if (inchi == null) {
+					standardInchi = v.getInchi(atoms, null, null);
+					if (standardInchi == null) {
 						extractor.log("! DefaultStructureHelper WARNING: InChI could not be created for " + ifdPath);
 					} else {
+						fixedhInchi = v.getInchi(atoms, null, "fixedh");
 						inchiKey = v.getInchi(atoms, null, "key");
 					}
+					molecularFormula = v.evaluateExpression("{visible && configuration=1}.find('MF')").toString();
+					empiricalFormula = v.evaluateExpression("{visible && configuration=1}.find('MF', true)")
+							.toString();
 				}
+				boolean is3D = "3D".equals(v.getCurrentModelAuxInfo().get("dimension"));
+				if (bytes == null && is3D)
+					bytes = v.getImageAsBytes("png", 500, 500, -1, new String[1]);
 			} catch (Exception e) {
 				extractor.log("!! Jmol error generating "
-						+ (smiles == null ? "SMILES" : inchi == null ? "InChI" : "InChIKey"));
+						+ (smiles == null ? "SMILES" : standardInchi == null ? "InChI" : "InChIKey"));
 				jmolViewer = null;
 				e.printStackTrace();
 			}
@@ -119,20 +146,30 @@ public class DefaultStructureHelper implements PropertyManagerI {
 			bytes = null;
 		}
 		if (bytes != null) {
-			extractor.addDeferredPropertyOrRepresentation(IFDConst.IFD_REP_STRUCTURE_PNG, new Object[] { bytes, ifdPath + ".png" }, false,
-					"image/png", note);
+			extractor.addDeferredPropertyOrRepresentation(IFDConst.IFD_REP_STRUCTURE_PNG,
+					new Object[] { bytes, ifdPath + ".png" }, false, "image/png", note);
 		}
 		if (smiles != null) {
-			extractor.addDeferredPropertyOrRepresentation(IFDConst.getProp("IFD_REP_STRUCTURE_SMILES"), smiles, true,
-					"chemical/x-smiles", note);
+			extractor.addDeferredPropertyOrRepresentation(SMILES, smiles, true, "chemical/x-smiles", note);
 		}
-		if (inchi != null) {
-			extractor.addDeferredPropertyOrRepresentation(IFDConst.getProp("IFD_REP_STRUCTURE_INCHI"), inchi, true,
-					"chemical/x-inchi", note);
+		if (standardInchi != null) {
+			extractor.addDeferredPropertyOrRepresentation(STANDARD_INCHI, standardInchi, true, "chemical/x-inchi",
+					note);
+		}
+		if (fixedhInchi != null) {
+			extractor.addDeferredPropertyOrRepresentation(FIXEDH_INCHI, fixedhInchi, true, "chemical/x-inchi", note);
+		}
+		if (molecularFormula != null) {
+			extractor.addDeferredPropertyOrRepresentation(MOLECULAR_FORMULA, molecularFormula, true, null, note);
+		}
+		if (empiricalFormula != null) {
+			extractor.addDeferredPropertyOrRepresentation(EMPIRICAL_FORMULA, empiricalFormula, true, null, note);
+		}
+		if (cellFormula != null) {
+			extractor.addDeferredPropertyOrRepresentation(CELL_FORMULA, cellFormula, true, null, note);
 		}
 		if (inchiKey != null) {
-			extractor.addDeferredPropertyOrRepresentation(IFDConst.getProp("IFD_PROPERTY_STRUCTURE_INCHIKEY"), inchiKey,
-					true, "chemical/x-inchikey", null);
+			extractor.addDeferredPropertyOrRepresentation(INCHIKEY, inchiKey, true, "chemical/x-inchikey", null);
 		}
 		fileToType.put(ifdPath, type);
 		return type;
