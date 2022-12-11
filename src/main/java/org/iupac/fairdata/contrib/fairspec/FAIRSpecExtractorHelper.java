@@ -204,6 +204,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		return (currentOriginPath != null);
 	}
 
+	@Override
 	public IFDStructure getCurrentStructure() {
 		return currentStructure;
 	}
@@ -719,6 +720,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			
 			// creating the zip file is the time-consuming part.
 			
+			FAIRSpecUtilities.refreshLog();
 			System.out.println("FAIRSpecExtractorHelper creating " + path);
 			t[1] = System.currentTimeMillis();
 			

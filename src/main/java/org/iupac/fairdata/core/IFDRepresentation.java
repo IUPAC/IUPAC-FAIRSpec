@@ -21,6 +21,7 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 	private long len;
 	private String mediaType;
 	private int test;
+	private String note;
 	
 	private static int staticTest;
 	
@@ -99,6 +100,15 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 			serializer.addObject("ref", ref);
 		if (data != null)
 			serializer.addObject("data", data);
+		if (note != null)
+			serializer.addObject("note", note);
+	}
+
+	public void setNote(String note) {
+		if (this.note == null)
+			this.note = note;
+		else
+			this.note += ";\n" + note;		
 	}
 
 

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.extract.ExtractorI;
 
 import com.integratedgraphics.ifd.Extractor;
@@ -88,7 +89,7 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 						boolean isNewPage = key.equals(Extractor.NEW_PAGE_KEY);
 						boolean isSpecialKey = key.startsWith("_");
 						// the only special key we send 
-						if (isSpecialKey ? key.startsWith(Extractor.STRUC_FILE_DATA_KEY)
+						if (isSpecialKey ? key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)
 								: sendNewPage || !isNewPage)
 							report(key, p.getValue());
 					}
@@ -153,7 +154,7 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 				case "Owner":
 					// skipping
 					return;
-				case Extractor.PNG_FILE_DATA + ":css":
+				case DefaultStructureHelper.PNG_FILE_DATA + ":css":
 					pngcss = val;
 					return;
 				case "Origin":
@@ -235,13 +236,13 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 		if (oval == null)
 			return;
 		switch (key) {
-		case Extractor.PNG_FILE_DATA:
+		case DefaultStructureHelper.PNG_FILE_DATA:
 			oval = new Object[] { oval, ifdPath + "#page" + page + ".png", pngcss };
 			break;
-		case Extractor.CDX_FILE_DATA:
+		case DefaultStructureHelper.CDX_FILE_DATA:
 			oval = new Object[] { oval, ifdPath + "#page" + page + ".cdx", null };
 			break;
-		case Extractor.MOL_FILE_DATA:
+		case DefaultStructureHelper.MOL_FILE_DATA:
 			oval = new Object[] { oval, ifdPath + "#page" + page + ".mol", null };
 			break;
 		}

@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairdata.common.IFDConst;
-
 import org.jmol.api.JmolViewer;
 import org.jmol.viewer.Viewer;
+
 import javajs.util.BS;
 
 /**
@@ -59,9 +59,24 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		if (jmolViewer == null) {
 			System.out.println("IFDDefaultStructurePropertyManager initializing Jmol...");
 			jmolViewer = (Viewer) JmolViewer.allocateViewer(null, null);
+			jmolVersion = JmolViewer.getJmolVersionNoDate();
 		}
 		return jmolViewer;
 	}
+
+	String jmolVersion = null;
+
+	public static final String PNG_FILE_DATA = "_struc.png";
+
+	public static final String MOL_FILE_DATA = "_struc.mol";
+
+	public static final String CDX_FILE_DATA = "_struc.cdx";
+
+	/**
+	 * create associations using ID rather than index numbers
+	 */
+	
+	public static final String STRUC_FILE_DATA_KEY = "_struc.";
 
 	@Override
 	public String processRepresentation(String ifdPath, byte[] bytes) {
@@ -71,34 +86,53 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		String ext = ifdPath.substring(ifdPath.lastIndexOf('.') + 1);
 		type = getType(ext, bytes);
 		String smiles = null, inchi = null, inchiKey = null;
-		if (ext.equals("mol") || ext.equals("sdf") || ext.equals("cml")) {
+		boolean isCIF = ext.equals("cif");
+		String note = null;
+		if (isCIF || ext.equals("mol") || ext.equals("sdf") || ext.equals("cml") || ext.equals("cdxml")) {
 			try {
 				Viewer v = getJmolViewer();
-				String s = "set allowembeddedscripts false;load DATA \"model\"\n" + new String(bytes) + "\nend \"model\" 0 FILTER 'noHydrogen'";
+				note = "generated from " + ifdPath + " by Jmol " + jmolVersion;
+				String s = "set allowembeddedscripts false;load DATA \"model\"\n" + new String(bytes)
+						+ "\nend \"model\" 0 FILTER 'noHydrogen'";
 				v.scriptWait(s);
-				BS atoms = v.bsA();
-				smiles = v.getSmiles(atoms);
-				inchi = v.getInchi(atoms, null, null);
-				if (inchi == null) {
-				  	extractor.log("! DefaultStructureHelper WARNING: InChI could not be created for " + ifdPath);
+				if (isCIF) {
+					bytes = v.getImageAsBytes("png", 500, 500, -1, new String[1]);
 				} else {
-					inchiKey = v.getInchi(atoms, null, "key");
+					bytes = null;
+					BS atoms = v.bsA();
+					smiles = v.getSmiles(atoms);
+					inchi = v.getInchi(atoms, null, null);
+					if (inchi == null) {
+						extractor.log("! DefaultStructureHelper WARNING: InChI could not be created for " + ifdPath);
+					} else {
+						inchiKey = v.getInchi(atoms, null, "key");
+					}
 				}
 			} catch (Exception e) {
-				extractor.log("!! Jmol error generating " + (smiles == null ? "SMILES" : inchi == null ? "InChI" : "InChIKey"));
+				extractor.log("!! Jmol error generating "
+						+ (smiles == null ? "SMILES" : inchi == null ? "InChI" : "InChIKey"));
 				jmolViewer = null;
 				e.printStackTrace();
 			}
 			// .getFileType(Rdr.getBufferedReader(Rdr.getBIS(bytes), null));
+		} else {
+			bytes = null;
+		}
+		if (bytes != null) {
+			extractor.addDeferredPropertyOrRepresentation(IFDConst.IFD_REP_STRUCTURE_PNG, new Object[] { bytes, ifdPath + ".png" }, false,
+					"image/png", note);
 		}
 		if (smiles != null) {
-			extractor.addDeferredPropertyOrRepresentation(IFDConst.getProp("IFD_REP_STRUCTURE_SMILES"), smiles, true, "chemical/x-smiles");
+			extractor.addDeferredPropertyOrRepresentation(IFDConst.getProp("IFD_REP_STRUCTURE_SMILES"), smiles, true,
+					"chemical/x-smiles", note);
 		}
 		if (inchi != null) {
-				extractor.addDeferredPropertyOrRepresentation(IFDConst.getProp("IFD_REP_STRUCTURE_INCHI"), inchi, true, "chemical/x-inchi");
+			extractor.addDeferredPropertyOrRepresentation(IFDConst.getProp("IFD_REP_STRUCTURE_INCHI"), inchi, true,
+					"chemical/x-inchi", note);
 		}
 		if (inchiKey != null) {
-				extractor.addDeferredPropertyOrRepresentation(IFDConst.getProp("IFD_PROPERTY_STRUCTURE_INCHIKEY"), inchiKey, true, "chemical/x-inchikey");
+			extractor.addDeferredPropertyOrRepresentation(IFDConst.getProp("IFD_PROPERTY_STRUCTURE_INCHIKEY"), inchiKey,
+					true, "chemical/x-inchikey", null);
 		}
 		fileToType.put(ifdPath, type);
 		return type;

@@ -12,7 +12,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +20,6 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities.SpreadsheetReader;
 import org.iupac.fairdata.util.JSJSONParser;
 
 import javajs.util.PT;
@@ -35,6 +33,8 @@ import javajs.util.PT;
  *
  */
 public class FAIRSpecUtilities {
+
+	private static String logFile;
 
 	public static byte[] getLimitedStreamBytes(InputStream is, long n, OutputStream out, boolean andCloseInput,
 			boolean andCloseOutput) throws IOException {
@@ -107,14 +107,22 @@ public class FAIRSpecUtilities {
 	}
 
 	public static void setLogging(String fname) {
+		setLogging(fname, false);
+	}
+	public static void setLogging(String fname, boolean refresh) {
 		try {
-			if (fname == null) {
+			if (fname == null || refresh) {
 				if (logStream != null) {
 					logStream.close();
+					logStream = null;
 				}
-				return;
+				if (!refresh)
+					return;
+				
 			}
-			logStream = new FileOutputStream(fname);
+			if (!refresh)
+				logFile = fname;
+			logStream = new FileOutputStream(logFile, refresh);				
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -590,6 +598,11 @@ public class FAIRSpecUtilities {
 	
 	public static void main(String[] args) {
 		SpreadsheetReader.test();
+	}
+
+	public static void refreshLog() {
+		if (logStream != null)
+			setLogging(null, true);
 	}
 
 

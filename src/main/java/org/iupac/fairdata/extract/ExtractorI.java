@@ -29,7 +29,7 @@ public interface ExtractorI {
 	 */
 	void log(String string);
 
-	void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInLine, String mediaType);
+	void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInLine, String mediaType, String note);
 
 	void addProperty(String key, Object val);
 

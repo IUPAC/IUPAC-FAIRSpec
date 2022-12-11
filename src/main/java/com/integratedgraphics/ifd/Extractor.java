@@ -51,6 +51,7 @@ import org.iupac.fairdata.extract.ExtractorI;
 import org.iupac.fairdata.extract.PropertyManagerI;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.structure.IFDStructure;
+import org.iupac.fairdata.structure.IFDStructureRepresentation;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 import org.iupac.fairdata.util.JSJSONParser;
 import org.iupac.fairdata.util.ZipUtil;
@@ -114,8 +115,9 @@ public class Extractor implements ExtractorI {
 
 	// TODO: update GitHub README.md
 
-	private static final String version = "0.0.4-alpha+2022.12.01";
+	private static final String version = "0.0.4-alpha+2022.12.10";
 
+	// 2022.12.10 version 0.0.4 adds CDXML reading by Jmol and conversion of CIF to PNG along with Jmol 15.2.82 fixes for V3000 and XmlChemDrawReader
 	// 2022.12.01 version 0.0.4 fixes multi-page MNova with compound association (ACS 22567817#./extract/acs.joc.0c00770)
 	// 2022.11.29 version 0.0.4 allows for a representation to be both a structure and a data object
 	// 2022.11.27 version 0.0.4 adds parameters from a Metadata file as XLSX or ODS
@@ -912,18 +914,6 @@ public class Extractor implements ExtractorI {
 		return errors;
 	}
 
-	/**
-	 * create associations using ID rather than index numbers
-	 */
-
-	public static final String STRUC_FILE_DATA_KEY = "_struc.";
-
-	public static final String CDX_FILE_DATA = "_struc.cdx";
-
-	public static final String MOL_FILE_DATA = "_struc.mol";
-
-	public static final String PNG_FILE_DATA = "_struc.png";
-
 	private static final String IFD_PROPERTY_DATAOBECT_NOTE = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			IFDConst.IFD_DATAOBJECT_FLAG, IFDConst.IFD_NOTE_FLAG);
 
@@ -961,13 +951,14 @@ public class Extractor implements ExtractorI {
 		// set up the extraction
 		
 		processPhase1(ifdExtractScriptFile, localArchive);
+		FAIRSpecUtilities.refreshLog();
 
 		// now actually do the extraction.
 
 		processPhase2(targetDir);
+		FAIRSpecUtilities.refreshLog();
 
 		// finish up all processing
-		
 		return processPhase3(findingAidFileNameRoot);
 	}
 
@@ -1828,7 +1819,7 @@ public class Extractor implements ExtractorI {
 	@Override
 	public void addProperty(String key, Object val) {
 		log(this.localizedName + " addProperty " + key + "=" + val);
-		addDeferredPropertyOrRepresentation(key, val, false, null);
+		addDeferredPropertyOrRepresentation(key, val, false, null, null);
 	}
 
 	/**
@@ -1849,16 +1840,14 @@ public class Extractor implements ExtractorI {
 	 * @param mediaType a media type for a representation, or null
 	 */
 	@Override
-	public void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType) {
+	public void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType, String note) {
 		if (key == null) {
 			deferredPropertyList.add(null);
 			return;
 		}
-		if (originPath == null)
-			System.out.println("???");
 		deferredPropertyList
-				.add(new Object[] { originPath, localizedName, key, val, Boolean.valueOf(isInline), mediaType });
-		if (key.startsWith(STRUC_FILE_DATA_KEY)) {
+				.add(new Object[] { originPath, localizedName, key, val, Boolean.valueOf(isInline), mediaType, note });
+		if (key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
 			// Mestrelab vendor plug-in has found a MOL or SDF file in Phase 2a. 
 			// val is Object[] {byte[] bytes, String name}
 			// Pass data to structure property manager in order
@@ -1998,6 +1987,9 @@ public class Extractor implements ExtractorI {
 	}
 
 	protected void logToSys(String msg) {
+		if (logging() && msg == "!!") {
+			FAIRSpecUtilities.refreshLog();
+		}
 		boolean toSysErr = msg.startsWith("!!") || msg.startsWith("! ");
 		boolean toSysOut = toSysErr || msg.startsWith("!");
 		if (testID >= 0)
@@ -2222,7 +2214,7 @@ public class Extractor implements ExtractorI {
 			this.originPath = entryPath;
 			String type = vendor.getExtractType(this, baseName, entryName);
 			if (type != null) {
-				addDeferredPropertyOrRepresentation(type, localizePath(baseName + entryName), false, null);
+				addDeferredPropertyOrRepresentation(type, localizePath(baseName + entryName), false, null, null);
 			}
 
 			boolean doInclude = (vendor == null || vendor.doRezipInclude(this, baseName, entryName));
@@ -2537,15 +2529,30 @@ public class Extractor implements ExtractorI {
 			if (isRep) {
 				// from reportVendor-- Bruker adds this for thumb.png and pdf files.
 				String mediaType = (String) a[5];
+				String note = (String) a[6];
+				if (value instanceof Object[]) {
+					// from DefaultStructureHelper - a PNG version of a CIF file, for example.
+					Object[] oval = (Object[]) value;
+					byte[] bytes = (byte[]) oval[0];
+					String oPath = (String) oval[1];
+					File f = getAbsoluteFileTarget(oPath);
+					writeBytesToFile(bytes, f);
+					String localName = localizePath(oPath);
+					if (assoc != null) {
+						struc = helper.getCurrentStructure();
+					}
+					value = localName;
+				}
 				String keyPath = (isInline ? null : value.toString());
 				Object data = (isInline ? value : null);
 				// note --- not allowing for AnalysisObject or Sample here
 				IFDRepresentableObject<?> obj = (IFDConst.isStructure(key) ? struc : spec);
 				linkLocalizedNameToObject(keyPath, null, obj);
 				IFDRepresentation r = obj.findOrAddRepresentation(originPath, keyPath, data, key, mediaType);
+				if (note != null)
+					r.setNote(note);
 				if (!isInline)
 					setLocalFileLength(r);
-
 				continue;
 			}
 			// properties only
@@ -2584,16 +2591,16 @@ public class Extractor implements ExtractorI {
 				htLocalizedNameToObject.put(ckey, spec);
 				continue;
 			}
-			if (key.startsWith(STRUC_FILE_DATA_KEY)) {
+			if (key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
 				// e.g. extracted xxxx/xxx#page1.mol
 				Object[] oval = (Object[]) value;
 				byte[] bytes = (byte[]) oval[0];
 				String oPath = (String) oval[1];
 				String ifdRepType = DefaultStructureHelper.getType(key.substring(key.lastIndexOf(".") + 1), bytes);
 				// use the byte[] for the structure as a unique identifier.
+				AWrap w = new AWrap(bytes);
 				if (htStructureRepCache == null)
 					htStructureRepCache = new HashMap<>();
-				AWrap w = new AWrap(bytes);
 				struc = htStructureRepCache.get(w);
 				String name = getStructureNameFromPath(oPath);
 				if (struc == null) {

@@ -58,7 +58,7 @@ public interface FAIRSpecExtractorHelperI {
 
 	IFDSample getFirstSampleForSpec(IFDDataObject localSpec, boolean b);
 
-	IFDStructure getFirstStructureForSpec(IFDDataObject localSpec, boolean b);
+	IFDStructure getFirstStructureForSpec(IFDDataObject localSpec, boolean andRemove);
 
 	IFDSample getSampleByName(String value);
 
@@ -77,5 +77,7 @@ public interface FAIRSpecExtractorHelperI {
 	IFDDataObject cloneData(IFDDataObject localSpec, String idExtension);
 
 	void removeInvalidData();
+
+	IFDStructure getCurrentStructure();
 
 }

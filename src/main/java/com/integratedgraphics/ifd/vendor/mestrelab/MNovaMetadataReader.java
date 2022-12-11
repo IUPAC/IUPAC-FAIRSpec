@@ -13,9 +13,9 @@ import java.util.Stack;
 import java.util.TreeMap;
 
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 
-import com.integratedgraphics.ifd.Extractor;
 import com.integratedgraphics.ifd.vendor.ByteBlockReader;
 
 /**
@@ -857,7 +857,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		int len = (bytes == null ? 0 : bytes.length);
 		if (len > 0) {
 		nCDX++;
-		handleFileData(nBlock, Extractor.CDX_FILE_DATA, bytes, pt0, len, null, null);
+		handleFileData(nBlock, DefaultStructureHelper.CDX_FILE_DATA, bytes, pt0, len, null, null);
 		}
 		seekIn(lastPosition);
 	}
@@ -1033,7 +1033,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		int len = (bytes == null ? 0 : bytes.length);
 		if (len > 0) {
 			nPNG++;
-			handleFileData(nBlock, Extractor.PNG_FILE_DATA, bytes, readPosition() - len, len, null,
+			handleFileData(nBlock, DefaultStructureHelper.PNG_FILE_DATA, bytes, readPosition() - len, len, null,
 					"css:{width:" + w + "px;height:" + h + "px}");
 		}
 		seekIn(lastPosition);
@@ -1097,7 +1097,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		if (len > 0 && readPosition() + len < ptr + 10) {
 			nMOL++;
 			byte[] bytes = readBytes(len);
-			handleFileData(nBlock, Extractor.MOL_FILE_DATA, bytes, readPosition(), len, null, null);
+			handleFileData(nBlock, DefaultStructureHelper.MOL_FILE_DATA, bytes, readPosition(), len, null, null);
 		}
 		seekIn(lastPosition);
 	}
