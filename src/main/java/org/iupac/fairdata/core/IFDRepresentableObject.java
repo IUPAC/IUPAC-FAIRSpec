@@ -168,8 +168,6 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 			serializer.addList("representations", this);
 		}
 	}
-	
-
 
 
 }

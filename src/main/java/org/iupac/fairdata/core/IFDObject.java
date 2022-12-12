@@ -321,17 +321,28 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return params;
 	}
 
-	public void setPropertyValue(String key, Object value) {
+	/**
+	 * Set a property value or add/remove a parameter
+	 * 
+	 * @param key
+	 * @param value
+	 * @return IFDProperty if one is set
+	 */
+	public IFDProperty setPropertyValue(String key, Object value) {
 		// check for .representation., which is not stored in the object.
 		if (IFDConst.isRepresentation(key) || checkSpecialProperties(key, value)) {
-			return;
+			return null;
 		}
 		// check for a known property
 		IFDProperty p = IFDConst.getIFDProperty(htProps, key);
 		if (p != null) {
 			hasProperty = true;
-			htProps.put(key, p.getClone(value));
-			return;
+			if (value == null) {
+				htProps.remove(key);
+				return null;
+			}
+			htProps.put(key, p = p.getClone(value));
+			return p;
 		}
 		// add/remove parameter
 		key = fixParameterKey(key);
@@ -339,7 +350,31 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			IFDParameter.remove(params, key);
 		else
 			IFDParameter.add(params, key, value);
+		return null;
 	}
+
+	/**
+	 * Set a property and set its source, so that if it is changed we can 
+	 * identify the original source.
+	 * 
+	 * @param key
+	 * @param value
+	 * @param source
+	 */
+	public void setPropertyValue(String key, Object value, String source) {
+		IFDProperty p = setPropertyValue(key, value);
+		if (p != null && value != null)
+			p.setSource(source);
+	}
+	
+	
+	public String getPropertySource(String key) {
+		IFDProperty p = htProps.get(key);
+		return (p == null ? null : p.getSource());
+	}
+	
+
+
 
 	/**
 	 * Replace all non-word (i.e. [A-Za-z_0-9]) characters with underscore
@@ -640,5 +675,5 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 				+ " isValid=" + isValid
 				+ "]";
 	}
-	
+
 }

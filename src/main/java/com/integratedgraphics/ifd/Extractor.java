@@ -51,7 +51,6 @@ import org.iupac.fairdata.extract.ExtractorI;
 import org.iupac.fairdata.extract.PropertyManagerI;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.structure.IFDStructure;
-import org.iupac.fairdata.structure.IFDStructureRepresentation;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 import org.iupac.fairdata.util.JSJSONParser;
 import org.iupac.fairdata.util.ZipUtil;
@@ -884,7 +883,7 @@ public class Extractor implements ExtractorI {
 
 	private boolean haveExtracted;
 
-	private String ifdid;
+	private String ifdid = "";
 
 	private Map<AWrap, IFDStructure> htStructureRepCache;
 
@@ -916,6 +915,11 @@ public class Extractor implements ExtractorI {
 
 	private static final String IFD_PROPERTY_DATAOBECT_NOTE = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			IFDConst.IFD_DATAOBJECT_FLAG, IFDConst.IFD_NOTE_FLAG);
+
+	/**
+	 * value to substitute for null from vendors
+	 */
+	public static final Object NULL = "\1";
 
 	public Extractor() {
 		setDefaultRunParams();
@@ -1554,7 +1558,7 @@ public class Extractor implements ExtractorI {
 				if (obj instanceof IFDRepresentableObject) {
 					linkLocalizedNameToObject(localizedName, param, (IFDRepresentableObject<?>) obj);					
 				} else if (obj instanceof IFDStructureDataAssociation) {
-					processDeferredObjectProperties(originPath, (IFDStructureDataAssociation) obj);
+					//processDeferredObjectProperties(originPath, (IFDStructureDataAssociation) obj);
 				}
 				if (debugging)
 					log("!found " + param + " " + id);
@@ -2485,15 +2489,9 @@ public class Extractor implements ExtractorI {
 			Object[] a = deferredPropertyList.get(i);
 			if (a == null) {
 				sample = null;
-				continue;
-			}
-			String originPath = (String) a[0];
-			// originPath will be null for a directory being rezipped
-			if (originPath != null && phase2OriginPath != null) {
-				if (!originPath.startsWith(phase2OriginPath))
-					continue;
 				deferredPropertyList.remove(i--);
 				n--;
+				continue;
 			}
 			String localizedName = (String) a[1];
 			String key = (String) a[2];
@@ -2626,18 +2624,19 @@ public class Extractor implements ExtractorI {
 				}
 				continue;
 			}
+			// just a property
 			if (isStructure) {
 				if (struc == null) {
-					logErr("No structure found for " + lastLocal + " " + key, "updateObjectProperies");
+					logErr("No structure found for " + lastLocal + " " + key, "processDeferredObjectProperies");
 					continue; // already added?
 				} else {
-					struc.setPropertyValue(key, value);
+					setPropertyIfNotAlreadySet(struc, key, value, originPath);
 				}
 			} else if (isSample) {
 				// TODO?
 			} else {
 				// System.out.println("EX " + key + " " + value + " " + spec);
-				spec.setPropertyValue(key, value);
+				setPropertyIfNotAlreadySet(spec, key, value, originPath);
 			}
 		}
 		if (assoc == null) {
@@ -2646,6 +2645,24 @@ public class Extractor implements ExtractorI {
 		} else if (cloning) {
 			vendorCache.remove(lastLocal);
 		}
+	}
+
+	private void setPropertyIfNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath) {
+		boolean isNull = (value == NULL);
+		if (!isNull && IFDConst.isProperty(key)) {
+			// not a parameter and not forcing NULL
+			Object v = obj.getPropertyValue(key);
+			if (value.equals(v))
+				return;
+			if (v != null) {
+				String source = obj.getPropertySource(key);
+				logWarn(originPath + " property " + key + " can't set value '" + value
+						+ "', as it is already set to '" + v + "' from " + source, "setPropertyIfNotAlreadySet");
+				return;
+			}
+		}
+		// setting a value to null removes it.
+		obj.setPropertyValue(key, (isNull ? null : value), originPath);
 	}
 
 	/**
@@ -3040,6 +3057,7 @@ public class Extractor implements ExtractorI {
 			System.out.flush();
 			System.err.println(extractor.errorLog);
 			System.err.flush();
+			System.out.flush();
 			extractor.logToSys("!Extractor.runExtraction flags " + flags);
 			extractor.logToSys("!Extractor " + (failed == 0 ? "done" : "failed") + " total=" + n + " failed=" + failed
 					+ " errors=" + nErrors + " warnings=" + nWarnings);

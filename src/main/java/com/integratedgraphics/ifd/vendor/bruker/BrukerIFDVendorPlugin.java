@@ -53,12 +53,15 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 	 * think)
 	 */
 	private String dim;
+	
+	private String nuc1;
+	
 	private String probeHead;
 
 	public BrukerIFDVendorPlugin() {
 		// files of interest; procs is just for solvent
 		// presence of acqu2s indicates a 2D experiment
-		paramRegex = "acqus$|acqu2s$|procs$|title$";
+		paramRegex = "procs$|acqu2s$|acqus$|title$";
 		// rezip triggers for procs in a directory (1, 2, 3...) below a pdata directory,
 		// such as pdata/1/procs. We do not add the "/" before pdata, because that could
 		// be the| symbol, and that will be attached by IFDDefaultVendorPlugin in
@@ -102,6 +105,7 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 		// we will need dim for setting 1D
 		super.startRezip(extractor);
 		dim = null;
+		nuc1 = null;
 	}
 
 	@Override
@@ -112,9 +116,10 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 		// experiment.
 		if (dim == null) {
 			report("DIM", "1D");
-			report("##$NUC2", null);
+			report("##$NUC2", Extractor.NULL);
 		}
 		dim = null;
+		nuc1 = null;
 		super.endRezip();
 	}
 
@@ -145,21 +150,26 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 			return false;
 		}
 		if (ifdPath.indexOf("procs") >= 0) {
-			report("SOLVENT", getSolvent(map));
+			// solvent in procs overrides solvent in acqu or acqus
+			Object solvent = getSolvent(map);
+			if (solvent != null) {
+				report("SOLVENT", Extractor.NULL); // this will clear the
+				report("SOLVENT", solvent);
+			}
 			return true;
 		}
 		// no need to close a ByteArrayInputStream
 		int ndim = 0;
-		String nuc1;
-		// some of this can be decoupling, though. 
-		if ((nuc1 = processString(map, "##$NUC1", "off")) != null)
-			ndim++;
+		// some of this can be decoupling, though.
+		String n1 = getBrukerString(map, "##$NUC1");
+		if ((nuc1 == null ? (nuc1 = processString(map, "##$NUC1", "off")) : nuc1) != null)
+			ndim = 1;
 		if ((processString(map, "##$NUC2", "off")) != null)
-			ndim++;
+			ndim = 2;
 		if (processString(map, "##$NUC3", "off") != null)
-			ndim++;
+			ndim = 3;
 		if (processString(map, "##$NUC4", "off") != null)
-			ndim++;
+			ndim = 4;
 		if (ndim == 0)
 			return false;
 		double freq1 = getDoubleValue(map, "##$BF1");
@@ -176,14 +186,10 @@ public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
 		} else if (ifdPath.endsWith("acqus") && dim == null) {
 			report("DIM", dim = "1D");
 		}
-		report("SF", getNominalFrequency(freq1, nuc1));
+		report("SF", getNominalFrequency(freq1, n1));
 		if (probeHead == null)
 			probeHead = processString(map, "##$PROBHD", null);
 		processString(map, "##$SOLVENT", null);
-		
-		
-//		if (extractor != null)
-//			this.extractor = null;
 		return true;
 	}
 

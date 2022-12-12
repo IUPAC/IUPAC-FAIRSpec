@@ -124,11 +124,10 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 	}
 
 	@Override
-	public void setPropertyValue(String label, Object value) {
+	public IFDProperty setPropertyValue(String label, Object value) {
 		if (label.startsWith(IFDConst.IFD_FINDINGAID_FLAG))
-			super.setPropertyValue(label, value);
-		else
-			collectionSet.setPropertyValue(label, value);		
+			return super.setPropertyValue(label, value);
+		return collectionSet.setPropertyValue(label, value);
 	}
 	
 	@Override

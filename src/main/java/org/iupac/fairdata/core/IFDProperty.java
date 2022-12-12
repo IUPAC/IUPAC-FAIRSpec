@@ -12,6 +12,7 @@ public class IFDProperty implements IFDSerializableI {
 	private final PROPERTY_UNIT units;
 	
 	private Object value;
+	private String source;
 
 	public IFDProperty(String name, Object value, PROPERTY_TYPE dataType, PROPERTY_UNIT units) {
 		this.name = name;
@@ -73,5 +74,13 @@ public class IFDProperty implements IFDSerializableI {
 	@Override
 	public String toString() {
 		return (value == null ? "" : "[IFDProp " + name + "=" + value + "]");
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+	
+	public String getSource() {
+		return source;
 	}
 }
