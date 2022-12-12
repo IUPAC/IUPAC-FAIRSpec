@@ -34,6 +34,9 @@
 
 	  <target name="libjars" id="libjars">
 	    <mkdir dir="${appjars.dir}"/>
+	  	<delete includeemptydirs="true">
+		      <fileset dir="${appjars.dir}" includes="**/*"/>
+		</delete>
 	    <unjar dest="${appjars.dir}" src="${lib.dir}/${jmol.jar}"/>
 		<unjar dest="${appjars.dir}" src="${lib.dir}/${commons-compress.jar}"/>
 		<unjar dest="${appjars.dir}" src="${lib.dir}/${commons-io.jar}"/>
@@ -42,6 +45,9 @@
 	  	
 	    <target id="classes" name="classes">
 	      <mkdir dir="${classes.dir}"/>
+		  	<delete includeemptydirs="true">
+			      <fileset dir="${classes.dir}" includes="**/*"/>
+			</delete>
 	      <javac srcdir="src" destdir="${classes.dir}" encoding="UTF8"
 	             debug="${debug}" deprecation="${deprecation}"
 	             optimize="${optimization}" source="1.8" target="1.8">
@@ -74,6 +80,11 @@
 	    </jar>
 	  	<echo>build/IFDExtractor.jar created (unsigned)</echo>
 	  	<copy file="build/IFDExtractor.jar" tofile="dist/IFDExtractor.jar" />
+	  	<delete includeemptydirs="true">
+		      <fileset dir="${classes.dir}" includes="**/*"/>
+		      <fileset dir="${appjars.dir}" includes="**/*"/>
+		</delete>
+
 	  </target>
 
   <target name="main" id="main" depends="jar"/>

@@ -128,9 +128,8 @@ public class DefaultStructureHelper implements PropertyManagerI {
 						fixedhInchi = v.getInchi(atoms, null, "fixedh");
 						inchiKey = v.getInchi(atoms, null, "key");
 					}
-					molecularFormula = v.evaluateExpression("{visible && configuration=1}.find('MF')").toString();
-					empiricalFormula = v.evaluateExpression("{visible && configuration=1}.find('MF', true)")
-							.toString();
+					// using SMILES here to get implicit H count
+					molecularFormula = v.evaluateExpression("{1.1 && configuration=1}.find('SMILES','MF')").toString();
 				}
 				boolean is3D = "3D".equals(v.getCurrentModelAuxInfo().get("dimension"));
 				if (bytes == null && is3D)

@@ -2489,10 +2489,9 @@ public class Extractor implements ExtractorI {
 			Object[] a = deferredPropertyList.get(i);
 			if (a == null) {
 				sample = null;
-				deferredPropertyList.remove(i--);
-				n--;
 				continue;
 			}
+			String originPath = (String) a[0];
 			String localizedName = (String) a[1];
 			String key = (String) a[2];
 			boolean isRep = IFDConst.isRepresentation(key);
@@ -2649,6 +2648,8 @@ public class Extractor implements ExtractorI {
 
 	private void setPropertyIfNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath) {
 		boolean isNull = (value == NULL);
+		if (isNull)
+			System.out.println("??");
 		if (!isNull && IFDConst.isProperty(key)) {
 			// not a parameter and not forcing NULL
 			Object v = obj.getPropertyValue(key);
