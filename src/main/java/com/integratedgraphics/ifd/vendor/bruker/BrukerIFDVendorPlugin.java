@@ -11,11 +11,11 @@ import org.iupac.fairdata.extract.ExtractorI;
 
 import com.integratedgraphics.ifd.Extractor;
 import com.integratedgraphics.ifd.api.VendorPluginI;
-import com.integratedgraphics.ifd.util.DefaultVendorPlugin;
+import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
 
 import jspecview.source.JDXReader;
 
-public class BrukerIFDVendorPlugin extends DefaultVendorPlugin {
+public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 
 	static {
 		register(com.integratedgraphics.ifd.vendor.bruker.BrukerIFDVendorPlugin.class);

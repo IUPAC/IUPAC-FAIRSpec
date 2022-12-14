@@ -105,6 +105,14 @@ public class IFDConst {
 	public static final String IFD_DATAOBJECT_FLAG = getProp("IFD_DATAOBJECT_FLAG");
 	public static final String IFD_ANALYSISOBJECT_FLAG = getProp("IFD_ANALYSISOBJECT_FLAG");
 
+	public static String getObjectTypeFlag(String key) {
+		return (isStructure(key) ? IFD_STRUCTURE_FLAG
+				: isSample(key) ? IFD_SAMPLE_FLAG
+						: isDataObject(key) ? IFD_DATAOBJECT_FLAG
+								: isAnalysisObject(key) ? IFD_ANALYSISOBJECT_FLAG : null);
+	}
+
+
 	public static final String IFD_LABEL_FLAG = getProp("IFD_LABEL_FLAG");
 	public static final String IFD_ID_FLAG = getProp("IFD_ID_FLAG");
 	public static final String IFD_NOTE_FLAG = getProp("IFD_NOTE_FLAG");

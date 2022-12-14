@@ -24,6 +24,12 @@ public abstract class FAIRSpecDataObject extends IFDDataObject {
 	}
 
 	private String serializerPropertyPrefix;
+	private String objectType;
+	
+	@Override
+	public String getObjectType() {
+		return objectType;
+	}
 	
 	public static FAIRSpecDataObject createFAIRSpecObject(String key) {
 		String type = key.substring(key.lastIndexOf(".") + 1);
@@ -31,11 +37,11 @@ public abstract class FAIRSpecDataObject extends IFDDataObject {
 		String className = FAIRSpecDataObject.class.getName();
 		className = className.substring(0, className.lastIndexOf(".") + 1) + type + ".FAIRSpec" + ucType
 				+ "Data";
-		try {			
+		try {
 			FAIRSpecDataObject o = (FAIRSpecDataObject) Class.forName(className).newInstance();
 			// properties are loaded based on subtype
-			o.serializerPropertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, 
-					IFDConst.getProp("FAIRSPEC_DATAOBJECT_FAIRSPEC_" + ucType + "_FLAG"));
+			o.objectType = IFDConst.getProp("DATAOBJECT_FAIRSPEC_" + ucType + "_FLAG");
+			o.serializerPropertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, o.objectType);
 			o.setProperties("IFD_PROPERTY" + key, null); 
 			return o;
 		} catch (Exception e) {

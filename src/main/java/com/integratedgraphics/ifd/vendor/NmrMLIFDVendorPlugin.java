@@ -5,9 +5,7 @@ import java.util.Map;
 
 import org.nmrml.parser.Acqu;
 
-import com.integratedgraphics.ifd.util.DefaultVendorPlugin;
-
-public abstract class NmrMLIFDVendorPlugin extends DefaultVendorPlugin {
+public abstract class NmrMLIFDVendorPlugin extends NMRVendorPlugin {
 
 	private static Map<String, String> ifdMap = new HashMap<>();
 

@@ -44,8 +44,6 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 			String type, String subtype);
 
 
-	protected String objectType = "Unknown";
-
 	/**
 	 * the root path to this object for its IFDReference
 	 */
@@ -135,9 +133,7 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 		return parentCollection;
 	}
 	
-	public String getObjectType() {
-		return objectType;
-	}
+	abstract public String getObjectType();
 
 	public void setResource(IFDResource resource) {
 		this.resource = resource;
@@ -151,8 +147,8 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 	@Override
 	protected void serializeTop(IFDSerializerI serializer) {
 		super.serializeTop(serializer);
-		if (objectType != null && objectType != "Unknown")
-			serializer.addAttr("objectType", objectType);
+//		if (objectType != null && objectType != "Unknown")
+//			serializer.addAttr("objectType", objectType);
 	}
 
 	@Override

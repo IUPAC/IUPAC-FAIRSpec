@@ -8,16 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.extract.ExtractorI;
 
 import com.integratedgraphics.ifd.Extractor;
-import com.integratedgraphics.ifd.util.DefaultVendorPlugin;
+import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
 import com.integratedgraphics.ifd.vendor.mestrelab.MNovaMetadataReader.Param;
 
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-
-public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
+public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 
 	static {
 		register(com.integratedgraphics.ifd.vendor.mestrelab.MestrelabIFDVendorPlugin.class);
@@ -267,7 +266,6 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 		// the reader will be filling in params
 		params = new LinkedHashMap<>();
 		params.put(Extractor.NEW_PAGE_KEY, "_page=" + page);
-		params.put("mnovaVersion", mnovaVersion);
 		origin = null;
 		pageList.add(params);
 		System.out.println("MestrelabIFDVendor ------------ page " + page);
@@ -303,6 +301,7 @@ public class MestrelabIFDVendorPlugin extends DefaultVendorPlugin {
 			double f = getNominalFrequency(freq, nuc1);
 			System.out.println("nom freq " + f + " for " + nuc1 + " " + nuc2 + " " + freq);
 			params.put("SF", f);
+			params.put("mnovaVersion", mnovaVersion);
 		}
 		params = null;
 		isJDF = false;

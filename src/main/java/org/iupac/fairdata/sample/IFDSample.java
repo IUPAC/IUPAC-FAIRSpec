@@ -36,6 +36,11 @@ public class IFDSample extends IFDRepresentableObject<IFDSampleRepresentation> {
 		return propertyPrefix;
 	}
 
+	@Override
+	public String getObjectType() {
+		return IFDConst.IFD_SAMPLE_FLAG;
+	}
+	
 	public IFDSample() {
 		super(null, null);
 		setProperties(propertyPrefix, null);

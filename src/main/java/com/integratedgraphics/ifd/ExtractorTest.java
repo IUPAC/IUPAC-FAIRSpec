@@ -119,7 +119,7 @@ public class ExtractorTest extends Extractor {
 		String dir = "c:/temp/henry/v7/";
 
 		String[] testSet = new String[] { dir + "IFD-extract.json" };
-		String sourceArchive = dir + "archive.tar.gz";		
+		String sourceArchive = null;//dir + "archive.tar.gz";		
 		String targetDir = dir + "ifd";
 
 		//debugging = true;

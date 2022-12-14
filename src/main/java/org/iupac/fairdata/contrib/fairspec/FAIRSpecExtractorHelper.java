@@ -122,7 +122,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public final static int STRUCTURE_DATA_ANALYSIS_COLLECTION = 4;
 
 	public static final String FAIRSPEC_EXTRACT_VERSION = IFDConst.getProp("FAIRSPEC_EXTRACT_VERSION");
-	public static final String FAIRSPEC_DATAOBJECT_FLAG = IFDConst.getProp("FAIRSPEC_DATAOBJECT_FLAG");
+	public static final String DATAOBJECT_FAIRSPEC_FLAG = IFDConst.getProp("DATAOBJECT_FAIRSPEC_FLAG");
 
 	public static final String IFD_PROPERTY_SAMPLE_LABEL = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			IFDConst.IFD_SAMPLE_FLAG, IFDConst.IFD_LABEL_FLAG);
@@ -266,19 +266,19 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	 * @param rootPath
 	 * @param param
 	 * @param value
-	 * @param localName
+	 * @param localizedName
 	 * @return
 	 * @throws IFDException
 	 */
 	@Override
-	public IFDObject<?> addObject(String rootPath, String param, String value, String localName, long len)
+	public IFDObject<?> addObject(String rootPath, String param, String value, String localizedName, long len)
 			throws IFDException {
-
+		
 		if (!isAddingObjects())
 			throw new IFDException("addObject " + param + " " + value + " called with no current object file name");
 
 		String type = getObjectTypeForPropertyOrRepresentationKey(param, false);
-		if (type.startsWith(FAIRSPEC_DATAOBJECT_FLAG)) {
+		if (type.startsWith(DATAOBJECT_FAIRSPEC_FLAG)) {
 			if (currentDataObject == null && currentDataProps != null) {
 				for (Object[] s : currentDataProps) {
 					if (IFDConst.isID((String) s[0])) {
@@ -290,9 +290,9 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			boolean isNew = (currentDataObject == null);
 			if (currentDataObject == null) {
 				currentDataObject = (IFDDataObject) checkAddNewObject(getDataObjectCollection(), type, rootPath, param,
-						value, localName, currentOriginPath, len, true);
+						value, localizedName, currentOriginPath, len, true);
 			} else {
-				checkAddRepOrSetParam(currentDataObject, param, value, localName, len);
+				checkAddRepOrSetParam(currentDataObject, param, value, localizedName, len);
 			}
 			if (currentDataProps != null) {
 				addProperties((IFDObject<?>) currentDataObject, currentDataProps);
@@ -307,7 +307,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		switch (type) {
 		case ClassTypes.Sample:
 			currentSample = (IFDSample) checkAddNewObject(getSampleCollection(), type, rootPath, param, value,
-					localName, null, len, true);
+					localizedName, null, len, true);
 			if (currentAssociation != null && currentAssociation instanceof IFDSampleDataAssociation) {
 				((IFDSampleDataAssociation) currentAssociation).getSampleCollection().add(currentSample);
 			}
@@ -315,9 +315,9 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		case ClassTypes.Structure:
 			if (currentStructure == null) {
 				currentStructure = (IFDStructure) checkAddNewObject(getStructureCollection(), type, rootPath, param,
-						value, localName, null, len, true);
+						value, localizedName, null, len, true);
 			} else {
-				checkAddRepOrSetParam(currentStructure, param, value, localName, len);
+				checkAddRepOrSetParam(currentStructure, param, value, localizedName, len);
 			}
 //			else
 //				currentStructure.setPropertyValue(param, value);
@@ -329,7 +329,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			if (currentDataObject == null) {
 				if (IFDConst.isID(param) && this.associationsById) {
 					currentDataObject = (IFDDataObject) checkAddNewObject(getDataObjectCollection(), type, rootPath,
-							param, value, localName, currentOriginPath, len, false);
+							param, value, localizedName, currentOriginPath, len, false);
 					if (currentDataObject != null)
 						return currentDataObject;
 				}
@@ -341,7 +341,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 //						"FAIRSpecFindingAidHelper.addObject data object property found before data object initialized "
 //								+ param + " " + value + " for " + currentOriginPath);
 			} else {
-				checkAddRepOrSetParam(currentDataObject, param, value, localName, len);
+				checkAddRepOrSetParam(currentDataObject, param, value, localizedName, len);
 			}
 			if (currentAssociation != null) {
 				if (currentAssociation instanceof IFDStructureDataAssociation)

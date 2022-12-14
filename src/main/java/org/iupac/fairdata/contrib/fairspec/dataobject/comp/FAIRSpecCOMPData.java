@@ -2,7 +2,6 @@ package org.iupac.fairdata.contrib.fairspec.dataobject.comp;
 
 import org.iupac.fairdata.contrib.fairspec.dataobject.FAIRSpecDataObject;
 import org.iupac.fairdata.core.IFDReference;
-import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
 
 /**

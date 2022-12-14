@@ -29,6 +29,8 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 		VendorPluginI.registerIFDVendorPlugin(c);
 	}
 
+    abstract protected void reportVendor();
+
 	/**
 	 * the extractor calling this plugin, set in startRezipping() or accept()
 	 */
@@ -136,13 +138,6 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 
 	protected static String getProp(String name) {
 		return IFDConst.getProp(name);
-	}
-
-	protected final static String IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET");
-    final static String IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_MANUFACTURER_NAME = getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_MANUFACTURER_NAME");
-
-    protected void reportVendor() {
-		addProperty(IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_MANUFACTURER_NAME, getVendorName());
 	}
 
 	/**

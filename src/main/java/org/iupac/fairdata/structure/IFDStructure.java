@@ -14,6 +14,11 @@ public class IFDStructure extends IFDRepresentableObject<IFDStructureRepresentat
 		return propertyPrefix;
 	}
 
+	@Override
+	public String getObjectType() {
+		return IFDConst.IFD_STRUCTURE_FLAG;
+	}
+	
 	public IFDStructure() {
 		super(null, null);
 		setProperties(propertyPrefix, null);

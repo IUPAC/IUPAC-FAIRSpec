@@ -115,8 +115,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 					s = "load DATA \"model\"\n" + data + "\nend \"model\" 1 packed";
 					v.scriptWait(s);
 					cellFormula = v.evaluateExpression("{visible && configuration=1}.find('CELLFORMULA')").toString();
-					empiricalFormula = v.evaluateExpression("{visible && configuration=1}.find('CELLFORMULA', true)")
-							.toString();
+					empiricalFormula = v.evaluateExpression("{visible && configuration=1}.find('CELLFORMULA', true)").toString();
 				} else {
 					bytes = null;
 					BS atoms = v.bsA();
