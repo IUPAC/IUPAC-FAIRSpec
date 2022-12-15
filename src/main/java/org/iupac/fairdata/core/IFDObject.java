@@ -337,10 +337,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		IFDProperty p = IFDConst.getIFDProperty(htProps, key);
 		if (p != null) {
 			hasProperty = true;
-			if (value == null) {
-				htProps.remove(key);
-				return null;
-			}
 			htProps.put(key, p = p.getClone(value));
 			return p;
 		}
@@ -394,6 +390,14 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return getPropertyPrefix();
 	}
 
+	/**
+	 * label, id, description, and note are special values that will not be included
+	 * with the general properties map
+	 * 
+	 * @param key
+	 * @param value
+	 * @return
+	 */
 	private boolean checkSpecialProperties(String key, Object value) {
 		String myPropertyPrefix = getPropertyPrefix();
 		if (key.equals(myPropertyPrefix + IFDConst.IFD_LABEL_FLAG)) {

@@ -83,4 +83,9 @@ public class IFDProperty implements IFDSerializableI {
 	public String getSource() {
 		return source;
 	}
+
+	public void setValue(Object val) {
+		value = val;
+		source = null;
+	}
 }
