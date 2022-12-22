@@ -7,16 +7,33 @@
  {"IFD.property.collectionset.source_data_license_name":"cc-by-nc-4.0"},
  {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
  {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"}, 
- 
- {"data0":"{IFD.property.collectionset.source_data_uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/jo{hash}_si_002.zip}"},
- {"data":"{IFD.property.collectionset.source_data_uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
- {"##":"use identifier strings rather than array-index numbers in the finding aid's structure-data association collection"},
+ "use identifier strings rather than array-index numbers in the finding aid's structure-data association collection",
+
  {"FAIRSpec.extractor.flag.association.byid":"true"},
+ 
 
- {"zip":"{data}|{id=IFD.property.association.structuredata.id::*}.zip|"},
- {"##":"the mnova check must come before the generic zip directory / check, because *.mnova is in the vendor list for Mestrec, and some Bruker files have mnova files within them"},
- {"FAIRSpec.extractor.object":"{zip}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*.mnova}}"},
- {"FAIRSpec.extractor.object":"{zip}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*}/}"}
 
+ "source is figshare, but could be pub.acs.org and can be overridden by command line arguments",
+
+ {"#IFD.property.collectionset.source_data_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/jo{hash}_si_002.zip"},
+ {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
+
+
+ {"assoc":"{id=IFD.property.association.structuredata.id::*}.zip|"},
+
+ "the mnova check must come before the generic zip directory / check, because *.mnova is in the vendor list for Mestrec, and some Bruker files have mnova files within them",
+
+ {"FAIRSpec.extractor.object":"{assoc}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*}/}"},
+ {"FAIRSpec.extractor.object":"{assoc}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*.mnova}}"},
+
+ "reading the structures from a local directory aggregation",
+
+ {"IFD.property.collectionset.source_data_uri":"./struc/"},
+
+ {"assoc":"{id=IFD.property.association.structuredata.id::*}/"},
+ 
+ {"FAIRSpec.extractor.object":"{assoc}{IFD.representation.structure.cdxml::{IFD.property.structure.id::*}.cdxml}"},
+
+ "end"
 ]}

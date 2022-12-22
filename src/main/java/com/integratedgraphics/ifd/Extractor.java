@@ -200,15 +200,14 @@ public class Extractor implements ExtractorI {
 		 * @param sObj
 		 * @throws IFDException
 		 */
-		public ObjectParser(Extractor extractor, String sObj) throws IFDException {
+		public ObjectParser(Extractor extractor, String source, String sObj) throws IFDException {
 			this.extractor = extractor;
 			this.index = parserCount++;
-			int[] pt = new int[1];
-			dataSource = getIFDExtractValue(sObj, IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI, pt);
+			dataSource = source;
 			if (dataSource == null)
 				throw new IFDException(
-						"No {" + IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI + "::...} found in " + sObj);
-			sData = sObj.substring(pt[0] + 1); // skip first "|"
+						IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI + " was not set before " + sObj);
+			sData = sObj.substring(sObj.charAt(0) == '|' ? 1 : 0); 
 			init();
 		}
 
@@ -325,16 +324,17 @@ public class Extractor implements ExtractorI {
 		 * @throws IFDException
 		 */
 		protected String compileIFDDefs(String s, boolean isFull, boolean replaceK) throws IFDException {
+			int pt0, pt;
 			while (s.indexOf("::") >= 0) {
 				Matcher m = objectDefPattern.matcher(s);
 				if (!m.find())
-					return s;
+					break;
 				String param = m.group(1);
 				String val = m.group(2);
 				String pv = "{" + param + "::" + val + "}";
 				if (val.indexOf("::") >= 0)
 					val = compileIFDDefs(val, false, replaceK);
-				int pt = param.indexOf("=");
+				pt = param.indexOf("=");
 				if (pt == 0)
 					throw new IFDException("bad {def=key::val} expression: " + param + "::" + val);
 				if (keys == null)
@@ -355,6 +355,7 @@ public class Extractor implements ExtractorI {
 					s = FAIRSpecUtilities.rep(s, bk, "<" + key + ">");
 				}
 				// escape < and > here
+				
 				s = FAIRSpecUtilities.rep(s, pv,
 						(replaceK ? TEMP_KEYVAL_IN + key + TEMP_KEYVAL_OUT : REGEX_KEYDEF_START + key + REGEX_KV_END)
 								+ val + REGEX_END_PARENS);
@@ -1365,6 +1366,7 @@ public class Extractor implements ExtractorI {
 		List<ObjectParser> parsers = new ArrayList<>();
 		String ignore = "";
 		String reject = "";
+		String source = null;
 		for (int i = 0; i < pathway.size(); i++) {
 			Object p = pathway.get(i);
 			if (p instanceof String) {
@@ -1414,9 +1416,13 @@ public class Extractor implements ExtractorI {
 					}
 					continue;
 				}
+				if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI)) {
+					source = val;
+					continue;
+				}
 
 				if (key.equals(FAIRSpecExtractorHelper.IFD_EXTRACTOR_OBJECT)) {
-					parsers.add(newObjectParser(val));
+					parsers.add(newObjectParser(source, val));
 					continue;
 				}
 				if (key.equals(FAIRSpecExtractorHelper.IFD_EXTRACTOR_ASSIGN)) {
@@ -1447,8 +1453,8 @@ public class Extractor implements ExtractorI {
 				}
 
 				// custom definition
-				keys.add("{" + (keyDef == null ? key : keyDef) + "}");
-				values.add(val);
+				keys.add(0, "{" + (keyDef == null ? key : keyDef) + "}");
+				values.add(0, val);
 			}
 		}
 		lstRejected.setAcceptPattern(reject + FAIRSpecExtractorHelper.junkFilePattern);
@@ -1774,12 +1780,13 @@ public class Extractor implements ExtractorI {
 	 * Get a new ObjectParser for this data. Note that this method may be overridden
 	 * if desired.
 	 * 
-	 * @param sData
+	 * @param source
+	 * @param sObj
 	 * @return
 	 * @throws IFDException
 	 */
-	protected ObjectParser newObjectParser(String sObj) throws IFDException {
-		return new ObjectParser(this, sObj);
+	protected ObjectParser newObjectParser(String source, String sObj) throws IFDException {
+		return new ObjectParser(this, source, sObj);
 	}
 
 	/**
@@ -2228,7 +2235,7 @@ public class Extractor implements ExtractorI {
 	 * @throws IFDException
 	 */
 	protected String localizeURL(String sUrl) throws IFDException {
-		if (sourceDir != null) {
+		if (sourceDir != null && !sUrl.startsWith("./")) {
 			int pt = sUrl.lastIndexOf("/");
 			if (pt >= 0) {
 				sUrl = sourceDir + sUrl.substring(pt);
@@ -2237,6 +2244,7 @@ public class Extractor implements ExtractorI {
 			}
 		}
 		sUrl = toAbsolutePath(sUrl);
+		
 		if (sUrl.indexOf("//") < 0)
 			sUrl = "file:/" + sUrl;		
 		return sUrl;
@@ -2689,6 +2697,10 @@ public class Extractor implements ExtractorI {
 			}
 			String originPath = (String) a[0];
 			String localizedName = (String) a[1];
+			
+			if (localizedName.indexOf("cdxml") >= 0)
+				System.out.println("???");
+			
 			String key = (String) a[2];
 			boolean isRep = IFDConst.isRepresentation(key);
 			Object value = a[3];
@@ -3193,9 +3205,7 @@ public class Extractor implements ExtractorI {
 				extractor.logToSys("Extractor.runExtraction " + itest + " " + job);
 				int pt = thisIFDExtractName.indexOf("#");
 				if (pt >= 0) {
-					ifdExtractJSONFilename = thisIFDExtractName.substring(pt + 1);
-					// sourceArchive = sourceArchivePath + "/" + thisIFDExtractName.substring(0, pt)
-					// + ".zip";
+					ifdExtractJSONFilename = thisIFDExtractName.substring(0, pt);
 				} else
 					ifdExtractJSONFilename = thisIFDExtractName;
 			}
@@ -3233,8 +3243,8 @@ public class Extractor implements ExtractorI {
 //			}
 
 			try {
-				File ifdExtractScriptFile = new File(ifdExtractJSONFilename);
-				File targetPath = new File(targetDir);
+				File ifdExtractScriptFile = new File(ifdExtractJSONFilename).getAbsoluteFile();
+				File targetPath = new File(targetDir).getAbsoluteFile();
 				String sourcePath = (sourceArchive == null ? null : new File(sourceArchive).getAbsolutePath());
 				extractor.run(thisIFDExtractName, ifdExtractScriptFile, targetPath, sourcePath);
 				extractor.logToSys("Extractor.runExtraction ok " + thisIFDExtractName);

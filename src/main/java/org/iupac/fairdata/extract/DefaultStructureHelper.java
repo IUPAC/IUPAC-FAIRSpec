@@ -129,6 +129,12 @@ public class DefaultStructureHelper implements PropertyManagerI {
 					}
 					// using SMILES here to get implicit H count
 					molecularFormula = v.evaluateExpression("{1.1 && configuration=1}.find('SMILES','MF')").toString();
+					if (isCDXML) {
+						String mol2d = (String) v.evaluateExpression("write('MOL')");
+						if (mol2d != null && mol2d.indexOf("2D") >= 0)
+							extractor.addDeferredPropertyOrRepresentation(IFDConst.IFD_REP_STRUCTURE_MOL_2D,
+								new Object[] { mol2d.getBytes(), ifdPath + ".mol" }, false, "chemical/x-mdl-molfile", note);
+					}
 				}
 				boolean is3D = "3D".equals(v.getCurrentModelAuxInfo().get("dimension"));
 				if (bytes == null && is3D)
