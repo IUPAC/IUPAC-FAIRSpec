@@ -88,7 +88,7 @@ public class ExtractorTest extends Extractor {
 //		int last = 0; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 //						// file test
 		//runACSTest(args, first, last);
-		runACSTest(args, 1);
+		runACSTest(args, 0);
 		//runACSTest(args, 5);
 		//runACSTest(args, 0, 11);
 		//runUCLTest(args);
@@ -122,8 +122,8 @@ public class ExtractorTest extends Extractor {
 		 */
 		String sourceArchive = "c:/temp/iupac/zip";
 		String targetDir = "c:/temp/iupac/ifd";//./site/ifd";
-		
-		args = setSourceTargetArgs(args, sourceArchive, targetDir, "-datacitedown;");		
+		String options = null; // "-datacitedown"
+		args = setSourceTargetArgs(args, sourceArchive, targetDir, options);		
 		runExtraction(args, acsTestSet, first, last);
 	}
 

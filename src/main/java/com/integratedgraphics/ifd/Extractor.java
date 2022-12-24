@@ -3125,24 +3125,31 @@ public class Extractor implements ExtractorI {
 			extractor.logToSys("Extractor.runExtraction output to " + new File(targetDir).getAbsolutePath());
 			String job = null;
 			// ./extract/ should be in the main Eclipse project directory.
-			String thisIFDExtractName = null;
+			String extractInfo = null;
 			if (ifdExtractJSONFilename == null) {
-				job = thisIFDExtractName = testSet[itest];
+
+//				"./extract/acs.joc.0c00770/IFD-extract.json#22567817",  // 0 727 files; zips of bruker dirs + mnovas
+
+				job = extractInfo = testSet[itest];
 				extractor.logToSys("Extractor.runExtraction " + itest + " " + job);
-				int pt = thisIFDExtractName.indexOf("#");
+				int pt = extractInfo.indexOf("#");
 				if (pt >= 0) {
-					ifdExtractJSONFilename = thisIFDExtractName.substring(0, pt);
-				} else
-					ifdExtractJSONFilename = thisIFDExtractName;
+					ifdExtractJSONFilename = extractInfo.substring(0, pt);
+				} else {
+					ifdExtractJSONFilename = extractInfo;
+				}
+				String targetSubDirectory = new File(ifdExtractJSONFilename).getParentFile().getName();
+				if (targetSubDirectory.length() > 0)
+					targetDir += "/" + targetSubDirectory;
 			}
 			n++;
-			if (thisIFDExtractName != null) {
+			if (extractInfo != null) {
 				if (json == null) {
 					json = "{\"findingaids\":[\n";
 				} else {
 					json += ",\n";
 				}
-				json += "\"" + thisIFDExtractName + "\"";
+				json += "\"" + extractInfo + "\"";
 			}
 			long t0 = System.currentTimeMillis();
 
@@ -3155,7 +3162,7 @@ public class Extractor implements ExtractorI {
 					+ "\n debugging = " + extractor.debugging //
 					+ " readOnly = " + extractor.readOnly //
 					+ " debugReadOnly = " + extractor.debugReadOnly //
-					+ "\n requireNoPubInfo = " + !extractor.allowNoPubInfo //
+					+ "\n allowNoPubInfo = " + !extractor.allowNoPubInfo //
 					+ " skipPubInfo = " + extractor.skipPubInfo //
 					+ "\n sourceArchive = " + sourceArchive //
 					+ " targetDir = " + targetDir //
@@ -3172,8 +3179,8 @@ public class Extractor implements ExtractorI {
 				File ifdExtractScriptFile = new File(ifdExtractJSONFilename).getAbsoluteFile();
 				File targetPath = new File(targetDir).getAbsoluteFile();
 				String sourcePath = (sourceArchive == null ? null : new File(sourceArchive).getAbsolutePath());
-				extractor.run(thisIFDExtractName, ifdExtractScriptFile, targetPath, sourcePath);
-				extractor.logToSys("Extractor.runExtraction ok " + thisIFDExtractName);
+				extractor.run(extractInfo, ifdExtractScriptFile, targetPath, sourcePath);
+				extractor.logToSys("Extractor.runExtraction ok " + extractInfo);
 			} catch (Exception e) {
 				failed++;
 				extractor.logErr("Exception " + e + " " + itest, "runExtraction");
@@ -3207,7 +3214,8 @@ public class Extractor implements ExtractorI {
 			}
 			if (warnings.length() > 0)
 				try {
-					FAIRSpecUtilities.writeBytesToFile((warnings + nWarnings + " warnings\n").getBytes(), new File(targetDir + "/_IFD_warnings.txt"));
+					FAIRSpecUtilities.writeBytesToFile((warnings + nWarnings + " warnings\n").getBytes(),
+							new File(targetDir + "/_IFD_warnings.txt"));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
