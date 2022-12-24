@@ -91,6 +91,7 @@ public class IFDConst {
 
 	// IFDExtractorI constants:
 
+	public static final String IFD_FLAG = getProp("IFD_FLAG");
 	public static final String IFD_PROPERTY_FLAG = getProp("IFD_PROPERTY_FLAG");
 	public static final String IFD_REPRESENTATION_FLAG = getProp("IFD_REPRESENTATION_FLAG");
 	public static final String IFD_OBJECT_FLAG = getProp("IFD_OBJECT_FLAG");

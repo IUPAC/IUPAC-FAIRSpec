@@ -109,6 +109,7 @@ public class FAIRSpecUtilities {
 	public static void setLogging(String fname) {
 		setLogging(fname, false);
 	}
+
 	public static void setLogging(String fname, boolean refresh) {
 		try {
 			if (fname == null || refresh) {
@@ -118,11 +119,11 @@ public class FAIRSpecUtilities {
 				}
 				if (!refresh)
 					return;
-				
+
 			}
 			if (!refresh)
 				logFile = fname;
-			logStream = new FileOutputStream(logFile, refresh);				
+			logStream = new FileOutputStream(logFile, refresh);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -158,7 +159,12 @@ public class FAIRSpecUtilities {
 		ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(fileName));
 		for (int i = 0; i < products.size(); i++) {
 			Object o = products.get(i);
-			if (o instanceof byte[]) {
+			if (o instanceof File) {
+				File f = (File) o;
+				String name = f.getName();
+				if (f.exists())
+					zipAddEntry(zos, name, new FileInputStream(f), f.length());
+			} else if (o instanceof byte[]) {
 				byte[] bytes = (byte[]) o;
 				String name = (String) products.get(++i);
 				zipAddEntry(zos, name, new ByteArrayInputStream(bytes), bytes.length);
@@ -309,11 +315,13 @@ public class FAIRSpecUtilities {
 	}
 
 	/**
-	 * This class accepts an input stream for an XLSX or ODS file and creates an Object[][] array of the cell data. 
+	 * This class accepts an input stream for an XLSX or ODS file and creates an
+	 * Object[][] array of the cell data.
 	 * 
-	 * String data are stripped of all XML tags. 
+	 * String data are stripped of all XML tags.
 	 * 
-	 * Currently, data as String is returned. It is not clear how to generally make this generate decimal data. 
+	 * Currently, data as String is returned. It is not clear how to generally make
+	 * this generate decimal data.
 	 * 
 	 * @author hansonr
 	 *
@@ -321,15 +329,18 @@ public class FAIRSpecUtilities {
 	public static class SpreadsheetReader {
 
 		/**
-		 * Get cell data for 
+		 * Get cell data for
+		 * 
 		 * @param is
 		 * @param sheetName
-		 * @param emptyValue default value for "empty" cell, typically empty string or null
+		 * @param emptyValue  default value for "empty" cell, typically empty string or
+		 *                    null
 		 * @param closeStream
 		 * @return
 		 * @throws IOException
 		 */
-		public static Object[][] getCellData(InputStream is, String sheetName, String emptyValue, boolean closeStream) throws IOException {
+		public static Object[][] getCellData(InputStream is, String sheetName, String emptyValue, boolean closeStream)
+				throws IOException {
 			ZipInputStream zis = null;
 			Map<Integer, String> sparseData = null;
 			int[] retMaxRC = new int[2];
@@ -346,21 +357,27 @@ public class FAIRSpecUtilities {
 				while ((entry = zis.getNextEntry()) != null && (xlsSheetXML == null || xlsSharedXML == null)) {
 					String name = entry.getName();
 					if (name.equals("content.xml")) {
-						odsXML = new String(FAIRSpecUtilities.getLimitedStreamBytes(zis, entry.getSize(), null, false, true), "UTF-8");
+						odsXML = new String(
+								FAIRSpecUtilities.getLimitedStreamBytes(zis, entry.getSize(), null, false, true),
+								"UTF-8");
 						break;
 					} else if (name.endsWith(xlsSheetName)) {
-						xlsSheetXML = new String(FAIRSpecUtilities.getLimitedStreamBytes(zis, entry.getSize(), null, false, true), "UTF-8");
+						xlsSheetXML = new String(
+								FAIRSpecUtilities.getLimitedStreamBytes(zis, entry.getSize(), null, false, true),
+								"UTF-8");
 					} else if (name.endsWith("sharedStrings.xml")) {
-						xlsSharedXML = new String(FAIRSpecUtilities.getLimitedStreamBytes(zis, entry.getSize(), null, false, true), "UTF-8");
+						xlsSharedXML = new String(
+								FAIRSpecUtilities.getLimitedStreamBytes(zis, entry.getSize(), null, false, true),
+								"UTF-8");
 					}
 				}
 				if (xlsSheetXML == null && odsXML == null)
 					throw new IOException("SheetReader - no sheet named " + sheetName + " found");
-				sparseData = (odsXML != null ? processODSData(odsXML, sheetName, retMaxRC) : processXLSXData(xlsSheetXML, xlsSharedXML, retMaxRC));
+				sparseData = (odsXML != null ? processODSData(odsXML, sheetName, retMaxRC)
+						: processXLSXData(xlsSheetXML, xlsSharedXML, retMaxRC));
 			} catch (Exception e) {
-			  e.printStackTrace();	
-			}
-				finally {
+				e.printStackTrace();
+			} finally {
 				if (zis != null && closeStream)
 					zis.close();
 			}
@@ -368,10 +385,10 @@ public class FAIRSpecUtilities {
 		}
 
 		/**
-		 * Convert sparse Map data to Object[][] array. Empty cells (null or "") are 
+		 * Convert sparse Map data to Object[][] array. Empty cells (null or "") are
 		 * converted to the specified value.
 		 * 
-		 * @param rrrc	ccData
+		 * @param rrrc       ccData
 		 * @param nRows
 		 * @param nCols
 		 * @param emptyValue
@@ -468,8 +485,9 @@ public class FAIRSpecUtilities {
 		}
 
 		/**
-		 * get rid of all font, color, and other extraneous values
-		 * such as non-breaking spaces, then trim
+		 * get rid of all font, color, and other extraneous values such as non-breaking
+		 * spaces, then trim
+		 * 
 		 * @param xml
 		 * @return
 		 */
@@ -503,14 +521,14 @@ public class FAIRSpecUtilities {
 			for (int i = 0, n = cr.length(); i < n; i++) {
 				char ch = cr.charAt(i);
 				if (ch >= 'A') {
- 					c = c * 26 + ((int) ch) - 64;
+					c = c * 26 + ((int) ch) - 64;
 				} else {
 					r = r * 10 + ((int) ch) - 48;
 				}
 			}
 			return encodeRC(r, c);
 		}
-		
+
 		public static boolean hasDataKey(Map<String, Object> map) {
 			return map.containsKey("DATA");
 		}
@@ -526,8 +544,7 @@ public class FAIRSpecUtilities {
 		 * @return the column number for this indexKey
 		 * @throws ClassCastException
 		 */
-		public static int setMapData(Map<String, Object> map, Object data, String indexKey)
-				throws ClassCastException {
+		public static int setMapData(Map<String, Object> map, Object data, String indexKey) throws ClassCastException {
 			int icol = 1;
 			if (!(data instanceof Object[][]))
 				throw new ClassCastException("Data must be Object[][]");
@@ -590,12 +607,11 @@ public class FAIRSpecUtilities {
 				System.out.println(list.size());
 			} catch (IOException e) {
 				e.printStackTrace();
-			} 
+			}
 		}
 
 	}
-	
-	
+
 	public static void main(String[] args) {
 		SpreadsheetReader.test();
 	}
@@ -604,6 +620,5 @@ public class FAIRSpecUtilities {
 		if (logStream != null)
 			setLogging(null, true);
 	}
-
 
 }

@@ -1,7 +1,10 @@
 package org.iupac.fairdata.dataobject;
 
+import java.util.Map;
+
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDObject;
+import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 
 @SuppressWarnings("serial")
@@ -28,11 +31,13 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 	 * @return
 	 */
 	public IFDDataObject cloneData(IFDDataObject data, String newID) {
-		IFDDataObject newData = (IFDDataObject) data.clone();
+		IFDDataObject newData = data.clone();
 		if (newID != null)
 			newData.setID((data.getID() == null ? "" : data.getID()) + newID);
-		data.invalidate();
-//		remove(data);
+		data.setValid(false);
+		newData.setValid(true);
+		Map<String, IFDProperty> props = newData.getProperties();
+		System.out.println(newID + " DO??? " + data.getProperties().size() + " " + props.size());
 		add(newData);
 		return newData;
 	}

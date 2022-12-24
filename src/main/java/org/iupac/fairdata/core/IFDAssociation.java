@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.iupac.fairdata.api.IFDSerializerI;
-import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
-
-import javajs.util.PT;
 
 /**
  * An class to handle generic N:N associations (for example, Structure-Data
@@ -159,7 +156,7 @@ public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentable
 
 	@Override
 	public int compareTo(IFDAssociation o) {
-		if (!byID)
+		if (!byID || id == null || o.id == null)
 			return Integer.compare(index, o.index);
 		if (intID > 0 && o.intID > 0)
 				return Integer.compare(intID, o.intID);

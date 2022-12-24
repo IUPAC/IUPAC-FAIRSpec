@@ -275,6 +275,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	private Object outdir;
 	ArrayList<TreeMap<String, Object>> reportData;
 	private TreeMap<String, Object> pageData;
+	private int nPagesTotal;
 
 	/**
 	 * For testing only, with no extractor plugin.
@@ -396,7 +397,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		seekIn(pt);
 		nextBlock(); // 16 "block 2"
 		nextBlock(); // items? history? "block 3"
-		int nPages = readPages(readPosition());
+		readPages(readPosition());
 		// just to see if we have read this cleanly:
 		try {
 			while (readAvailable() > 0) {
@@ -405,7 +406,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		} catch (Exception e) {
 			logError(e);
 		}
-		System.out.println(nPages + " pages processed, version=" + mnovaVersion);
+		System.out.println(nPagesTotal + " pages processed, version=" + mnovaVersion);
 	}
 
 //	/**
@@ -536,7 +537,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 //		}
 //	}
 
-	private int readPages(long pt) throws IOException {
+	private void readPages(long pt) throws IOException {
 		seekIn(pt);
 		if (testing)
 			System.out.println("--- readPages " + readPosition()); // 38628 - 39077
@@ -544,15 +545,14 @@ class MNovaMetadataReader extends ByteBlockReader {
 		readPageInsets();
 		readInt();
 		readPointer(); // to EOF or next block
-		int nPages = readInt();
+		nPagesTotal = readInt();
 		readPointer(); // also to EOF
 		nSpectra = 0;
-		for (int i = 0; i < nPages; i++) {
+		for (int i = 0; i < nPagesTotal; i++) {
 			readPage(readPosition(), i);
 		}
 		if (testing)
-			System.out.println("--- " + nPages + " pages read");
-		return nPages;
+			System.out.println("--- " + nPagesTotal + " pages read");
 	}
 
 	private void readPageInsets() throws IOException {
@@ -580,7 +580,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		} else {
 			nSpectra++;
 			if (plugin != null)
-				plugin.newPage(nPages);
+				plugin.newPage(nPagesTotal > 1 ? nPages : 0);
 			report("page", null, null, null);
 			readParams();
 			searchForExports(readPosition(), index, ptNext);
@@ -787,11 +787,13 @@ class MNovaMetadataReader extends ByteBlockReader {
 			reportData = new ArrayList<TreeMap<String, Object>>();
 		if (key.equals("page")) {
 			reportData.add(pageData = new TreeMap<>());
-			pageData.put("#page", Integer.valueOf(nPages));
+			if (nPagesTotal > 1)
+				pageData.put("#page", Integer.valueOf(nPages));
 		} else {
 			if (pageData == null) {
 				reportData.add(pageData = new TreeMap<>());
-				pageData.put("#page", Integer.valueOf(nPages));
+				if (nPagesTotal > 1)
+					pageData.put("#page", Integer.valueOf(nPages));
 			}
 			pageData.put(key, param1 == null ? val : param1.toMap());
 			if (param2 != null)

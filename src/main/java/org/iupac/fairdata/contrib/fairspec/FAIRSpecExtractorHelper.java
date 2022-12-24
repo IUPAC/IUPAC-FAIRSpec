@@ -3,7 +3,9 @@ package org.iupac.fairdata.contrib.fairspec;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
@@ -61,14 +63,15 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	}
 
 	// these values are in fairspec.properties
-	public static final String IFD_EXTRACTOR_OBJECT = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OBJECT");
-	public static final String IFD_EXTRACTOR_ASSIGN = IFDConst.getProp("FAIRSPEC_EXTRACTOR_ASSIGN");
-	public static final String IFD_EXTRACTOR_REJECT = IFDConst.getProp("FAIRSPEC_EXTRACTOR_REJECT");
-	public static final String IFD_EXTRACTOR_IGNORE = IFDConst.getProp("FAIRSPEC_EXTRACTOR_IGNORE");
-	public static final String IFD_EXTRACTOR_FLAG = IFDConst.getProp("FAIRSPEC_EXTRACTOR_FLAG");
-	public static final String IFD_EXTRACTOR_FLAGS = IFDConst.getProp("FAIRSPEC_EXTRACTOR_FLAGS");
-	public static final String IFD_EXTRACTOR_FLAG_ASSOCIATION_BYID = IFDConst
-			.getProp("FAIRSPEC_EXTRACTOR_FLAG_ASSOCIATION_BYID");
+	public static final String FAIRSPEC_EXTRACTOR_FLAG = IFDConst.getProp("FAIRSPEC_EXTRACTOR_FLAG");
+	public static final String FAIRSPEC_EXTRACTOR_OBJECT = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OBJECT");
+	public static final String FAIRSPEC_EXTRACTOR_ASSIGN = IFDConst.getProp("FAIRSPEC_EXTRACTOR_ASSIGN");
+	public static final String FAIRSPEC_EXTRACTOR_REJECT = IFDConst.getProp("FAIRSPEC_EXTRACTOR_REJECT");
+	public static final String FAIRSPEC_EXTRACTOR_IGNORE = IFDConst.getProp("FAIRSPEC_EXTRACTOR_IGNORE");
+	public static final String FAIRSPEC_EXTRACTOR_OPTION_FLAG = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OPTION_FLAG");
+	public static final String FAIRSPEC_EXTRACTOR_OPTIONS = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OPTIONS");
+	public static final String FAIRSPEC_EXTRACTOR_OPTION_ASSOCIATION_BYID = IFDConst
+			.getProp("FAIRSPEC_EXTRACTOR_OPTION_ASSOCIATION_BYID");
 
 	public interface ClassTypes {
 
@@ -87,15 +90,114 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		public final static String SampleDataAssociation = "org.iupac.fairdata.derived.IFDSampleDataAssociation";
 		public final static String SampleDataAssociationCollection = "org.iupac.fairdata.derived.IFDSampleDataAssociationCollection";
 
-		public final static String StructureDataAssociation = "org.iupac.fairdata.derived.IFDStructureDataAssociation";
-		public final static String StructureDataAssociationCollection = "org.iupac.fairdata.derived.IFDStructureDataAssociationCollection";
-
+//		public final static String StructureDataAssociation = "org.iupac.fairdata.derived.IFDStructureDataAssociation";
+//		public final static String StructureDataAssociationCollection = "org.iupac.fairdata.derived.IFDStructureDataAssociationCollection";
+//
 		public final static String SampleDataAnalysis = "org.iupac.fairdata.derived.IFDSampleDataAnalysis";
 		public final static String SampleDataAnalysisCollection = "org.iupac.fairdata.derived.IFDSampleDataAnalysisCollection";
 
 		public final static String StructureDataAnalysis = "org.iupac.fairdata.derived.IFDStructureDataAnalysis";
 		public final static String StructureDataAnalysisCollection = "org.iupac.fairdata.derived.IFDStructureDataAnalysisCollection";
 
+		public final static String Compound = "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompound";
+		public final static String CompoundCollection = "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection";
+		
+	}
+
+	/**
+	 * A static class that holds a list allows minimal access to an ArrayList and
+	 * can report if it will accept or not accept a file based on its name. It can be serialized as a JSON object.
+	 * 
+	 * @author hansonr
+	 *
+	 */
+	public static class FileList {
+		private String rootPath;
+		private final String name;
+		private final List<String> files = new ArrayList<>();
+		private Pattern acceptPattern;
+		private long byteCount;
+	
+		public FileList(String rootPath, String name) {
+			this.name = name;
+			this.rootPath = rootPath;
+		}
+	
+		public int size() {
+			return files.size();
+		}
+	
+		public String serialize(StringBuffer sb) {
+			String[] list = files.toArray(new String[files.size()]);
+			Arrays.sort(list);
+			boolean returnString = (sb == null);
+			if (returnString)
+				sb = new StringBuffer();
+			String sep = "";
+			for (int i = 0; i < list.length; i++) {
+				String fname = list[i];
+				sb.append((sep + "\"" + rootPath + "/" + fname + "\""));
+				sep = ",\n";
+			}
+			sb.append("\n");
+			return (returnString ? sb.toString() : null);
+		}
+	
+		public boolean contains(String fileName) {
+			return files.contains(fileName);
+		}
+	
+		public void add(String fileName, long len) {
+			files.add(fileName);
+			byteCount += len;
+		}
+	
+		public void remove(String localizedName, long len) {
+			files.remove(localizedName);
+			byteCount -= len;
+		}
+		
+		public long getByteCount() {
+			return byteCount;
+		}
+	
+		public boolean accept(String fileName) {
+			return (acceptPattern != null && acceptPattern.matcher(fileName).find());
+		}
+	
+		public void setAcceptPattern(String pattern) {
+			acceptPattern = Pattern.compile(pattern);
+		}
+	
+		public String getName() {
+			return name;
+		}
+	
+		public static int getListCount(List<FileList> lists, String name) {
+			int n = 0;
+			for (int i = lists.size(); --i >= 0;) {
+				FileList list = lists.get(i);
+				if (list.getName().equals(name))
+					n += list.size();
+			}
+			return n;
+		}
+	
+		public static long getByteCount(List<FileList> lists, String name) {
+		    long n = 0;
+			for (int i = lists.size(); --i >= 0;) {
+				FileList list = lists.get(i);
+				if (list.getName().equals(name))
+					n += list.getByteCount();
+			}
+			return n;
+		}
+	
+		@Override
+		public String toString() {
+			return serialize(null);
+		}
+	
 	}
 
 	/**
@@ -140,12 +242,15 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 
 	protected IFDStructureCollection structureCollection;
 	protected IFDDataObjectCollection dataObjectCollection;
-	protected IFDStructureDataAssociationCollection structureDataCollection;
+	protected FAIRSpecCompoundCollection compoundCollection;
 	protected IFDStructureDataAnalysisCollection structureDataAnalysisCollection;
 	protected IFDSampleCollection sampleCollection;
 	protected IFDSampleDataAssociationCollection sampleDataCollection;
 	protected IFDSampleStructureAssociationCollection sampleStructureCollection;
 
+	/**
+	 * Set associations to be listed by ID, not by index.
+	 */
 	protected boolean associationsById;
 
 	@Override
@@ -243,8 +348,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			return ClassTypes.Structure;
 		if (key.startsWith("\0sample."))
 			return ClassTypes.Sample;
-		if (key.startsWith("\0association.structuredata"))
-			return ClassTypes.StructureDataAssociation;
+		if (key.startsWith("\0fairspec.compound."))
+			return ClassTypes.Compound;
 		if (key.startsWith("\0association.sampledata"))
 			return ClassTypes.SampleDataAssociation;
 		if (key.startsWith("\0analysis.structuredata"))
@@ -282,14 +387,14 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			if (currentDataObject == null && currentDataProps != null) {
 				for (Object[] s : currentDataProps) {
 					if (IFDConst.isID((String) s[0])) {
-						currentDataObject = (IFDDataObject) getDataObjectCollection().getObjectByID((String) s[1]);
+						currentDataObject = (IFDDataObject) getSpecCollection().getObjectByID((String) s[1]);
 						break;
 					}
 				}
 			}
 			boolean isNew = (currentDataObject == null);
 			if (currentDataObject == null) {
-				currentDataObject = (IFDDataObject) checkAddNewObject(getDataObjectCollection(), type, rootPath, param,
+				currentDataObject = (IFDDataObject) checkAddNewObject(getSpecCollection(), type, rootPath, param,
 						value, localizedName, currentOriginPath, len, true);
 			} else {
 				checkAddRepOrSetParam(currentDataObject, param, value, localizedName, len);
@@ -299,7 +404,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			}
 			if (isNew)
 				extractor.setNewObjectMetadata(currentDataObject, IFD_PROPERTY_DATAOBJECT_ID);
-			if (currentAssociation != null && currentAssociation instanceof IFDStructureDataAssociation) {
+			if (currentAssociation != null && currentAssociation instanceof FAIRSpecCompound) {
 				((IFDStructureDataAssociation) currentAssociation).getDataObjectCollection().add(currentDataObject);
 			}
 			return currentDataObject;
@@ -328,7 +433,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		case ClassTypes.DataObject:
 			if (currentDataObject == null) {
 				if (IFDConst.isID(param) && this.associationsById) {
-					currentDataObject = (IFDDataObject) checkAddNewObject(getDataObjectCollection(), type, rootPath,
+					currentDataObject = (IFDDataObject) checkAddNewObject(getSpecCollection(), type, rootPath,
 							param, value, localizedName, currentOriginPath, len, false);
 					if (currentDataObject != null)
 						return currentDataObject;
@@ -344,20 +449,20 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 				checkAddRepOrSetParam(currentDataObject, param, value, localizedName, len);
 			}
 			if (currentAssociation != null) {
-				if (currentAssociation instanceof IFDStructureDataAssociation)
-					((IFDStructureDataAssociation) currentAssociation).getDataObjectCollection().add(currentDataObject);
+				if (currentAssociation instanceof FAIRSpecCompound)
+					((FAIRSpecCompound) currentAssociation).getDataObjectCollection().add(currentDataObject);
 				else if (currentAssociation instanceof IFDSampleDataAssociation)
 					((IFDSampleDataAssociation) currentAssociation).getDataObjectCollection().add(currentDataObject);
 			}
 			return currentDataObject;
-		case ClassTypes.StructureDataAssociation:
-			currentAssociation = getStructureDataCollection().getObjectByID(value);
+		case ClassTypes.Compound:
+			currentAssociation = getCompoundCollection().getObjectByID(value);
 			if (currentAssociation == null) {
-				currentAssociation = new IFDStructureDataAssociation();
+				currentAssociation = new FAIRSpecCompound();
 				currentAssociation.setPropertyValue(param, value);
 				if (IFDConst.isID(param))
 					extractor.setNewObjectMetadata(currentAssociation, param);
-				getStructureDataCollection().add(currentAssociation);
+				getCompoundCollection().add(currentAssociation);
 //				System.out
 //						.println("addObject currentAssociation=" + param + "..." + value + "..." + currentAssociation);
 			}
@@ -365,12 +470,12 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		case ClassTypes.SampleDataAssociation:
 			currentAssociation = getSampleDataCollection().getObjectByID(value);
 			if (currentAssociation == null) {
-				getSampleDataCollection().add(currentAssociation = new IFDSampleDataAssociation());
+				getSampleDataCollection().add(currentAssociation = new FAIRSpecCompound());
 				currentAssociation.setPropertyValue(param, value);
 			}
 			return null;
 		case ClassTypes.SampleDataAssociationCollection:
-		case ClassTypes.StructureDataAssociationCollection:
+		case ClassTypes.CompoundCollection:
 		case ClassTypes.StructureDataAnalysisCollection:
 		case ClassTypes.StructureDataAnalysis:
 			System.out.println("FAIRSpecExtractionHelper.addObject " + type + " not implemented");
@@ -404,7 +509,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		} else {
 			switch (type) {
 			case ClassTypes.SampleDataAssociation:
-			case ClassTypes.StructureDataAssociation:
+			case ClassTypes.Compound:
 				currentAssociation.setPropertyValue(param, value);
 				return null;
 			case ClassTypes.Sample:
@@ -486,7 +591,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 				return currentAssociation;
 			}
 			if (currentStructure != null && currentDataObject != null) {
-				return getStructureDataCollection().addAssociation(currentStructure, currentDataObject);
+				return getCompoundCollection().addAssociation(currentStructure, currentDataObject);
 			}
 			if (currentSample != null && currentDataObject != null)
 				return getSampleDataCollection().addAssociation(currentSample, currentDataObject);
@@ -514,7 +619,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	@Override
 	public int removeStructuresWithNoAssociations() {
 		List<IFDAssociation> lstRemove = new ArrayList<>();
-		IFDStructureDataAssociationCollection strucData = getStructureDataCollection();
+		IFDStructureDataAssociationCollection strucData = getCompoundCollection();
 		int n = 0;
 		for (IFDAssociation assoc : strucData) {
 			List<IFDDataObject> empty = new ArrayList<>();
@@ -549,7 +654,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	 */
 	@Override
 	public IFDStructure getFirstStructureForSpec(IFDDataObject spec, boolean andRemove) {
-		return (IFDStructure) getStructureDataCollection().getFirstObj1ForObj2(spec, andRemove);
+		return (IFDStructure) getCompoundCollection().getFirstObj1ForObj2(spec, andRemove);
 	}
 
 	/**
@@ -566,9 +671,9 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	}
 
 	@Override
-	public IFDStructureDataAssociation associateStructureSpec(IFDStructure struc, IFDDataObject spec)
+	public FAIRSpecCompound createCompound(IFDStructure struc, IFDDataObject spec)
 			throws IFDException {
-		return getStructureDataCollection().addAssociation(struc, spec);
+		return (FAIRSpecCompound) getCompoundCollection().addAssociation(struc, spec);
 	}
 
 	@Override
@@ -579,17 +684,17 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	@Override
 	public IFDStructure addStructureForSpec(String rootPath, IFDDataObject spec, String ifdRepType, String originPath,
 			String localName, String name) throws IFDException {
-		if (getDataObjectCollection().indexOf(spec) < 0)
-			getDataObjectCollection().add(spec);
+		if (getSpecCollection().indexOf(spec) < 0)
+			getSpecCollection().add(spec);
 		IFDStructure struc = (IFDStructure) checkAddNewObject(getStructureCollection(), ClassTypes.Structure, rootPath,
 				IFD_PROPERTY_STRUCTURE_LABEL, name, localName, null, 0, true);
 		struc.findOrAddRepresentation(originPath, localName, null, ifdRepType,
 				FAIRSpecUtilities.mediaTypeFromFileName(localName));
 		getStructureCollection().add(struc);
-		IFDStructureDataAssociation ss = (IFDStructureDataAssociation) getStructureDataCollection()
+		IFDStructureDataAssociation ss = (IFDStructureDataAssociation) getCompoundCollection()
 				.getAssociationForSingleObj2(spec);
 		if (ss == null) {
-			ss = getStructureDataCollection().addAssociation(struc, spec);
+			ss = getCompoundCollection().addAssociation(struc, spec);
 		} else {
 			ss.getStructureCollection().add(struc);
 		}
@@ -597,8 +702,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	}
 
 	@Override
-	public IFDStructureDataAssociation getStructureAssociation(IFDStructure struc, IFDDataObject spec) {
-		return (IFDStructureDataAssociation) getStructureDataCollection().findAssociation(struc, spec);
+	public FAIRSpecCompound findCompound(IFDStructure struc, IFDDataObject spec) {
+		return (FAIRSpecCompound) getCompoundCollection().findAssociation(struc, spec);
 	}
 
 	public IFDSampleDataAssociation getSampleAssociation(IFDSample struc, IFDDataObject spec) {
@@ -627,7 +732,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	}
 
 	@Override
-	public IFDDataObjectCollection getDataObjectCollection() {
+	public IFDDataObjectCollection getSpecCollection() {
 		if (dataObjectCollection == null) {
 			objects[DATA_COLLECTION] = dataObjectCollection = new IFDDataObjectCollection();
 			dataObjectCollection.setID("spectra");
@@ -654,13 +759,13 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	}
 
 	@Override
-	public IFDStructureDataAssociationCollection getStructureDataCollection() {
-		if (structureDataCollection == null) {
-			collections[STRUCTURE_DATA_COLLECTION] = structureDataCollection = new IFDStructureDataAssociationCollection(
+	public FAIRSpecCompoundCollection getCompoundCollection() {
+		if (compoundCollection == null) {
+			collections[STRUCTURE_DATA_COLLECTION] = compoundCollection = new FAIRSpecCompoundCollection(
 					associationsById);
-			structureDataCollection.setID("structure-spectra associations");
+			compoundCollection.setID("compounds");
 		}
-		return structureDataCollection;
+		return compoundCollection;
 	}
 //
 //	public IFDSampleDataAnalysisCollection getSampleDataAnalysisCollection() {
@@ -688,15 +793,16 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	 * @param rootName   a prefix root to add to the
 	 *                   _IFD_PROPERTY_COLLECTIONSET.json (or.xml) finding aid
 	 *                   created
-	 * @param rootPaths   optionally, a list of directories containing the files
+	 * @param products   optionally, a list of directories containing the files
 	 *                   referenced by the finding aid for creating the
 	 *                   IFD_collection.zip file
 	 * @param serializer optionally, a non-default IFDSerializerI (XML, JSON, etc.)
 	 * @return the serialization as a String
 	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public String createSerialization(File targetDir, String rootName, List<Object> rootPaths, IFDSerializerI serializer,
+	public String createSerialization(File targetDir, String rootName, ArrayList<Object> products, IFDSerializerI serializer,
 			long[] t) throws IOException {
 		if (serializer == null)
 			serializer = new IFDDefaultJSONSerializer();
@@ -704,13 +810,15 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		t[0] = System.currentTimeMillis();
 		String serializedFindingAid = serializer.serialize(findingAid).toString();
 		t[0] = System.currentTimeMillis() - t[0];
+		
 		if (targetDir == null)
 			return serializedFindingAid;
+		
 		String aidName = "IFD" + IFDConst.IFD_FINDINGAID_FLAG + serializer.getFileExt();
 		String faPath = targetDir.toString().replace('\\', '/') + "/" + aidName;
 		FAIRSpecUtilities.writeBytesToFile(serializedFindingAid.getBytes(), new File(faPath));
-		if (rootPaths != null) {
-
+		if (products != null) {
+			products = (ArrayList<Object>) products.clone();
 			// zip up the collection and re-create finding aid with updated information
 			
 			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_REF, null);
@@ -726,9 +834,10 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			
 			// byte[] followed by entry name signals that we already have the bytes; don't open a FileInputStream
 			
-			rootPaths.add(0, serializedFindingAid.getBytes());
-			rootPaths.add(1, aidName);
-			long len = FAIRSpecUtilities.zip(path, targetDir.toString().length() + 1, rootPaths);
+			
+			products.add(0, serializedFindingAid.getBytes());
+			products.add(1, aidName);
+			long len = FAIRSpecUtilities.zip(path, targetDir.toString().length() + 1, products);
 			t[1] = System.currentTimeMillis() - t[1];
 
 			// update external finding aid with length of data and reference
@@ -803,9 +912,9 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public IFDDataObject cloneData(IFDDataObject localSpec, String idExtension) {
 		// this will invalidate localSpec -- 1.mnova, for example.
 		// TODO clean out invalidated data
-		IFDDataObject data = getDataObjectCollection().cloneData(localSpec, idExtension);
-		if (structureDataCollection != null) {
-			for (IFDAssociation a : structureDataCollection) {
+		IFDDataObject data = getSpecCollection().cloneData(localSpec, idExtension);
+		if (compoundCollection != null) {
+			for (IFDAssociation a : compoundCollection) {
 				IFDStructureDataAssociation assoc = (IFDStructureDataAssociation) a;
 				if (assoc.getDataObjectCollection().contains(localSpec))
 					assoc.getDataObjectCollection().add(data);
@@ -826,8 +935,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		if (dataObjectCollection == null)
 			return;
 		dataObjectCollection.removeInvalidData();
-		if (structureDataCollection != null) {
-			for (IFDAssociation a : structureDataCollection) {
+		if (compoundCollection != null) {
+			for (IFDAssociation a : compoundCollection) {
 				IFDStructureDataAssociation assoc = (IFDStructureDataAssociation) a;
 				for (int i = assoc.size(); --i >= 0;) {
 					assoc.getDataObjectCollection().removeInvalidData();
@@ -848,6 +957,48 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 							+ " has no associated sample representation");
 			}
 		}
+	}
+
+
+	/**
+	 * Get standardized JSON for the _IFD_* files.
+	 * 
+	 * @param name  "manifest", "rejected", "ignored"
+	 * @param fileTarget
+	 * @param rootLists 
+	 * @param ret number of items
+	 * @throws IOException
+	 */
+	@SuppressWarnings("deprecation")
+	@Override
+	public String getListJSON(String name, List<FileList> rootLists, String resourceList, String scriptFileName, int[] ret) throws IOException {
+		int n = ret[0] = FileList.getListCount(rootLists, name);
+		// Date d = new Date();
+		// all of a sudden, on 2021.06.13 at 1 PM
+		// file:/C:/Program%20Files/Java/jdk1.8.0_251/jre/lib/sunrsasign.jar cannot be
+		// found when
+		// converting d.toString() due to a check in Date.toString for daylight savings
+		// time!
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("{\"" + IFDConst.IFD_FLAG + "version\":\"" + IFDConst.IFD_VERSION + "\",\n");
+		sb.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "version\":\"" + extractor.getVersion() + "\",\n")
+				.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "code\":\"" + extractor.getCodeSource() + "\",\n")
+				.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "creation_date\":\"" + getFindingAid().getDate().toGMTString() + "\",\n");
+		sb.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "script\":\"" + scriptFileName+"\",\n");
+		sb.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "sources\":\"" + resourceList + "\",\n");
+		sb.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "list_type\":\"" + name + "\",\n")
+				.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "list_fileCount\":" + n + ",\n")
+				.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "list_byteCount\":" + FileList.getByteCount(rootLists, name) + ",\n")
+				.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "list\":\n");
+		sb.append("[\n");
+		for (int i = 0; i < rootLists.size(); i++) {
+			if (rootLists.get(i).getName().equals(name))
+				rootLists.get(i).serialize(sb);
+		}
+		sb.append("]\n");
+		sb.append("}\n");
+		return sb.toString();
 	}
 
 }

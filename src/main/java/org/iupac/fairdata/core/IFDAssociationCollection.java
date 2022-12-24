@@ -138,7 +138,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 	}
 
 	public void removeOrphanedAssociations() {
-		out: for (int ia = size(); --ia >= 0;) {
+		for (int ia = size(); --ia >= 0;) {
 			IFDAssociation a = get(ia);
 			int arity = a.size();
 			int nEmpty = 0;

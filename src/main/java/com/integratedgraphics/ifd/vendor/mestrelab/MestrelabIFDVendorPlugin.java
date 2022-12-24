@@ -24,6 +24,29 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 
 	private static Map<String, String> ifdMap = new HashMap<>();
 
+	// called from MNovaReader
+
+	private String mnovaVersion;
+
+	private class Globals {
+		
+		private String pngcss;
+		private boolean isJDF;
+		private String nuc1;
+		private double freq;
+		private String origin;
+
+		private String setOrigin(String val) {
+			origin = FAIRSpecUtilities.rep(val, "\n", " ").trim();
+			int pt = origin.indexOf(" ");
+			if (pt >= 0)
+				origin = origin.substring(0, pt);
+			return origin;
+		}
+	}
+	
+	private Globals pageGlobals = new Globals();
+	
 	private Map<String, Object> params;
 
 	private int page = 0;
@@ -104,7 +127,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 
 	@Override
 	public String getVendorName() {
-		return (origin == null ? "" : origin + "/") + "Mestrelab";
+		return (pageGlobals.origin == null ? "" : pageGlobals.origin + "/") + "Mestrelab";
 	}
 
 	@Override
@@ -112,21 +135,6 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 		return IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET;
 	}
 
-	// called from MNovaReader
-
-	private boolean isJDF;
-
-	private String nuc1;
-
-	private String nuc2;
-
-	private double freq;
-
-	private String mnovaVersion;
-
-	private String pngcss;
-
-	private String origin;
 
 	/**
 	 * Handle the parameters coming from the reader. 
@@ -154,13 +162,10 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 					// skipping
 					return;
 				case DefaultStructureHelper.PNG_FILE_DATA + ":css":
-					pngcss = val;
+					pageGlobals.pngcss = val;
 					return;
 				case "Origin":
-					oval = origin = FAIRSpecUtilities.rep(val, "\n", " ").trim();
-					int pt = origin.indexOf(" ");
-					if (pt >= 0)
-						origin = origin.substring(0, pt);
+					oval = pageGlobals.setOrigin(val);
 					break;
 				case "Comment":
 					propName = "TITLE";
@@ -180,14 +185,14 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 					oval = FAIRSpecUtilities.rep(val, "\n", " ").trim();
 					break;
 				case "Data File Name":
-					isJDF = (val.endsWith(".jdf"));
+					pageGlobals.isJDF = (val.endsWith(".jdf"));
 					return;
 				case "Instrument":
 				case "Spectrometer":
 					break;
 				case "Temperature":
 					double d = Double.parseDouble(val);
-					if (isJDF) {
+					if (pageGlobals.isJDF) {
 						// JDF temp is oC not K from MNOVA
 						d += 273.15;
 					}
@@ -195,7 +200,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 					break;
 				case "Nucleus":
 					key = "N1";
-					nuc1 = val;
+					pageGlobals.nuc1 = val;
 					if (param2 != null) {
 						params.put("N2", param2.value);
 					}
@@ -203,8 +208,8 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 				case "Purity":
 				case "Spectrometer Frequency":
 					key = "F1";
-					freq = Double.parseDouble(val);
-					oval = Double.valueOf(freq);
+					pageGlobals.freq = Double.parseDouble(val);
+					oval = Double.valueOf(pageGlobals.freq);
 					if (param2 != null) {
 						params.put("F2", Double.valueOf(param2.value));
 					}
@@ -236,7 +241,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 			return;
 		switch (key) {
 		case DefaultStructureHelper.PNG_FILE_DATA:
-			oval = new Object[] { oval, ifdPath + "#page" + page + ".png", pngcss };
+			oval = new Object[] { oval, ifdPath + "#page" + page + ".png", pageGlobals.pngcss };
 			break;
 		case DefaultStructureHelper.CDX_FILE_DATA:
 			oval = new Object[] { oval, ifdPath + "#page" + page + ".cdx", null };
@@ -266,10 +271,9 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 		// the reader will be filling in params
 		params = new LinkedHashMap<>();
 		params.put(Extractor.NEW_PAGE_KEY, "_page=" + page);
-		origin = null;
+		pageGlobals = new Globals();
 		pageList.add(params);
 		System.out.println("MestrelabIFDVendor ------------ page " + page);
-		return;
 	}
 
 	int getPage() {
@@ -297,17 +301,12 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	private void finalizeParams() {
-		if (params != null && freq != 0) {
-			double f = getNominalFrequency(freq, nuc1);
-			System.out.println("nom freq " + f + " for " + nuc1 + " " + nuc2 + " " + freq);
-			params.put("SF", f);
+		if (params != null && pageGlobals.freq != 0) {
+			int f = getNominalFrequency(pageGlobals.freq, pageGlobals.nuc1);
+			params.put("SF", Double.valueOf(f));
 			params.put("mnovaVersion", mnovaVersion);
 		}
 		params = null;
-		isJDF = false;
-		freq = 0;
-		nuc1 = nuc2 = null;
-		mnovaVersion = null;
 	}
 
 	void setVersion(String mnovaVersion) {

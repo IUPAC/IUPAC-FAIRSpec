@@ -35,6 +35,10 @@ public interface ExtractorI {
 
 	void setNewObjectMetadata(IFDObject<?> o, String param);
 
+	String getVersion();
+
+	String getCodeSource();
+
 
 //	void registerFileVendor(String fname, IFDVendorPluginI ifdVendorPluginI);
 

@@ -1,0 +1,84 @@
+{"FAIRSpec.extract.version":"0.0.4-alpha+2202.11.28","keys":[
+ {"example":"aggregation v7 provided by Thomas Mies, Imperial College London; curated by Henry Rzepa"},
+
+ {"IFD.property.collectionset.source_data_license_uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.source_data_license_name":"cc-by-nc-4.0"},
+ {"IFD.property.collectionset.source_repository_uri":"https://data.hpc.imperial.ac.uk/resolve/?doi=10386&access={$$ACCESSCODE$$}"}, 
+ 
+
+ "----todo -- allow for remote API, not just remote file (as in FigShare)",
+
+ {"#IFD.property.collectionset.source_data_uri": "https://data.hpc.imperial.ac.uk/resolve/?doi=11652&file=10&access={$$ACCESSCODE$$}"},
+
+ "----local path will be overridden in ExtractorTest, and it does not actually exist",
+ 
+ {"IFD.property.collectionset.source_data_uri":"./Archive.tar.gz}"},
+ 
+ "----reject for now all of the MNova 'master-documents' ",
+
+ {"FAIRSpec.extractor.reject": "document"},
+
+
+ "----reject for now all of the MOL files as unnecessary -- idea is to have Jmol create these as needed",
+
+ {"FAIRSpec.extractor.reject": ".mol"},
+
+
+ {"##":"use identifier strings rather than array-index numbers in the finding aid's structure-data association collection"},
+ {"FAIRSpec.extractor.option.association.byid":"true"},
+ {"FAIRSpec.extractor.options" : ""},
+
+ "----METADATA is a special key that allows generation of IFDParameter metadata for any defined object",
+
+ {"METADATA":[
+	{"FOR":"compound","METADATA_FILE":"./Manifest.xlsx","METADATA_KEY":"TM compound number"}
+ ]},
+
+ 
+ "--parsing instructions--",
+ 
+ "----trigger a new association if the id changes",
+
+ {"cmpd":"{compound=IFD.property.fairspec.compound.id::*}"},
+
+ "----ignoring lower-level cdxml here",
+ {"#FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.cdxml::/{IFD.property.structure.id::<compound>}.cdxml}"},
+
+ "----structures",
+
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.cdxml::/**/{IFD.property.structure.id::*}.cdxml}"},
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.mol::/{IFD.property.structure.id::*}.mol}"}, 
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.png::/{IFD.property.structure.id::*}.png}"},
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.cif::/**/{IFD.property.structure.id::*.cif}}"},
+
+
+ "----computations as data objects (and structure from CML)",
+
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.cml::/{IFD.property.structure.id::<compound>-comp/*}/*.cml}"},
+
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.comp.input::/{IFD.property.dataobject.id::<compound>-comp/*/*}.gjf}"},
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.comp.output::/{IFD.property.dataobject.id::<compound>-comp/*/*}.fchk}"},
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.comp.output::/{IFD.property.dataobject.id::<compound>-comp/*/*}.log}"},
+
+ "----IR",
+
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.ir.document::/{IFD.property.dataobject.id::*-IR}/*.pdf}"},
+ 
+ "----NMR",
+ 
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::/**/{IFD.property.dataobject.id::*.mnova}}"},
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::/**/{IFD.property.dataobject.id::*}.jdx}"},
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::/**/{IFD.property.dataobject.id::*}.zip}"},
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::/*/{IFD.property.dataobject.id::*}.pdf}"},
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::/*/*/{IFD.property.dataobject.id::*}.pdf}"},
+
+ "----xray",
+ "-------Lots of case issues with cif names - using regex 'case insensitive' enclosure",
+
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.xray.cif::/**/{IFD.property.dataobject.id::*.cif}}"},
+
+
+ 
+ "--end--" 
+
+]}

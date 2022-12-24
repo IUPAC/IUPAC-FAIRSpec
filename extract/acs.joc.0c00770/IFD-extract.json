@@ -10,7 +10,7 @@
 
  "use identifier strings rather than array-index numbers in the finding aid's structure-data association collection",
 
- {"FAIRSpec.extractor.flag.association.byid":"true"},
+ {"FAIRSpec.extractor.option.association.byid":"true"},
  
 
 
@@ -20,20 +20,20 @@
  {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
 
 
- {"assoc":"{id=IFD.property.association.structuredata.id::*}.zip|"},
+ {"cmpd":"{id=IFD.property.fairspec.compound.id::*}.zip|"},
 
  "the mnova check must come before the generic zip directory / check, because *.mnova is in the vendor list for Mestrec, and some Bruker files have mnova files within them",
 
- {"FAIRSpec.extractor.object":"{assoc}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*}/}"},
- {"FAIRSpec.extractor.object":"{assoc}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*.mnova}}"},
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*}/}"},
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*.mnova}}"},
 
  "reading the structures from a local directory aggregation",
 
  {"IFD.property.collectionset.source_data_uri":"./struc/"},
 
- {"assoc":"{id=IFD.property.association.structuredata.id::*}/"},
+ {"cmpd":"{id=IFD.property.fairspec.compound.id::*}/"},
  
- {"FAIRSpec.extractor.object":"{assoc}{IFD.representation.structure.cdxml::{IFD.property.structure.id::*}.cdxml}"},
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.cdxml::{IFD.property.structure.id::*}.cdxml}"},
 
  "end"
 ]}

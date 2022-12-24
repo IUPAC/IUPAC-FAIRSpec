@@ -27,19 +27,14 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 	
 
 	@Override
-	public Object clone() {
+	public IFDDataObject clone() {
 		IFDDataObject o = null;
 		try {
-			o = getClass().newInstance();
-			o.setPath(rootPath);
-			o.label = label;		
-			o.type = type;
-			o.htProps.putAll(htProps);
+			o = (IFDDataObject) super.clone();//getClass().newInstance();
+			o.index = indexCount++;
 		} catch (Exception e) {
 			// ignore
 		}
-		for (int i = 0; i < size(); i++)
-			o.add(get(i));
 		return o;
 	}
 

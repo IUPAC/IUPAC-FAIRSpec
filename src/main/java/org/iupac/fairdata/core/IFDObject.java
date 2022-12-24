@@ -12,6 +12,7 @@ import org.iupac.fairdata.api.IFDSerializableI;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
+import org.iupac.fairdata.core.IFDObject.PropertyMap;
 
 /**
  * IFDObject is the base abstract superclass for all IFD Data Model metadata
@@ -192,6 +193,31 @@ import org.iupac.fairdata.common.IFDException;
 @SuppressWarnings("serial")
 public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>, IFDSerializableI {
 
+	public class PropertyMap extends TreeMap<String, IFDProperty> {
+
+		@Override
+		public IFDProperty get(Object key) {
+			return super.get(key);
+		}
+
+		@Override
+		public IFDProperty put(String key, IFDProperty value) {
+			return super.put(key, value);
+		}
+
+		@Override
+		public IFDProperty remove(Object key) {
+			return null;
+		}
+
+		@Override
+		public void clear() {
+			for (String key: keySet()) {
+				put(key, get(key).getClone(null));
+			}
+		}
+
+	}
 	protected static int indexCount;
 
 	/**
@@ -227,7 +253,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * units
 	 * 
 	 */
-	protected final Map<String, IFDProperty> htProps = new TreeMap<>();
+	protected Map<String, IFDProperty> htProps = new PropertyMap();
 
 	/**
 	 * generic properties that could be anything but are not in the list of known
@@ -434,7 +460,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	@Override
 	public String getID() {
-		return id;//(id == null ? "" + index : id);
+		return id;
 	}
 
 	@Override
@@ -657,8 +683,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return et;
 	}
 
-	public void invalidate() {
-		isValid = false;
+	public void setValid(boolean tf) {
+		isValid = tf;
 	}
 	
 	public boolean isValid() {
@@ -670,6 +696,17 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return (o == this);
 	}
 
+	@Override
+	public IFDObject<T> clone() {
+		@SuppressWarnings("unchecked")
+		IFDObject<T> o = (IFDObject<T>) super.clone();
+		params = new ArrayList<>();
+		System.out.println(o.htProps == htProps);
+		o.htProps = new PropertyMap();
+		o.htProps.putAll(htProps);
+		o.htProps.clear();
+		return o;
+	}
 	@Override
 	public String toString() {
 		return "[" + getClass().getSimpleName() + " " + index 

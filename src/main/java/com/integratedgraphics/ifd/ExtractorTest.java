@@ -88,30 +88,14 @@ public class ExtractorTest extends Extractor {
 //		int last = 0; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 //						// file test
 		//runACSTest(args, first, last);
-		runACSTest(args, 0);
+		runACSTest(args, 1);
 		//runACSTest(args, 5);
 		//runACSTest(args, 0, 11);
 		//runUCLTest(args);
-		//runUCLTest56(args);
 	}
 
 	private static void runACSTest(String[] args, int i) {
 		runACSTest(args, i, i);
-	}
-
-
-	private static void runUCLTest56(String[] args) {
-		String[] testSet = new String[] { "c:/temp/henry/v6/IFD-extract.json" };
-		
-//		String sourceArchive = "c:/temp/henry/test.zip";		
-		String sourceArchive = "c:/temp/henry/v6/56.zip";		
-		String targetDir = "c:/temp/henry/v6/ifd";
-
-		//debugging = true;
-		//readOnly = true;
-		
-		args = setSourceTargetArgs(args, sourceArchive, targetDir, null);
-		runExtraction(args, testSet, -1, -1);		
 	}
 
 	private static void runUCLTest(String[] args) {
