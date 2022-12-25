@@ -140,7 +140,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 	@Override
 	protected void serializeList(IFDSerializerI serializer) {
 		if (size() > 0) {
-			serializer.addList("items", this);
+			serializer.addCollection("items", this, serializer.isByID());
 		}
 		if (haveCommonClass) {
 			for (int i = size(); --i >= 0;) {

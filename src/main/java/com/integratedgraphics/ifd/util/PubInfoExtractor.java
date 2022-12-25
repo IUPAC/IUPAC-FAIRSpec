@@ -107,6 +107,9 @@ public class PubInfoExtractor {
 		info.clear();
 		Map<String, Object> message = getMap(json, "message");
 		String title = (String) getValue(message, "title", null);
+		if (title != null && title.startsWith("[") && title.endsWith("]")) {
+			title = title.substring(1, title.length() - 1);
+		}
 		put(info,"title", title);
 		String doi = (String) getObject(message, "published-print", "DOI");
 		List<Object> author = getList(message, "author");

@@ -66,21 +66,23 @@ public class ExtractorTest extends Extractor {
 	 * for example: https://ndownloader.figshare.com/files/21947274
 	 */
 	private static String[] acsTestSet = { 
-			"./extract/acs.joc.0c00770/IFD-extract.json#22567817",  // 0 727 files; zips of bruker dirs + mnovas
-			"./extract/acs.orglett.0c00624/IFD-extract.json#21947274",  // 1 1143 files; MANY bruker dirs
-			"./extract/acs.orglett.0c00788/IFD-extract.json#22125318",  // 2 jeol jdfs
-			"./extract/acs.orglett.0c00874/IFD-extract.json#22233351",  // 3 bruker dirs
-			"./extract/acs.orglett.0c00967/IFD-extract.json#22111341",  // 4 bruker dirs + jeol jdfs
-			"./extract/acs.orglett.0c01022/IFD-extract.json#22195341",  // 5 many mnovas
-			"./extract/acs.orglett.0c01197/IFD-extract.json#22491647",  // 6 many mnovas
-			"./extract/acs.orglett.0c01277/IFD-extract.json#22613762",  // 7 bruker dirs
-			"./extract/acs.orglett.0c01297/IFD-extract.json#22612484",  // 8 bruker dirs
-			// these next four are very large (> 100 MB) and take some time to process if
-			// not using a local sourceDir
-			"./extract/acs.orglett.0c00755/IFD-extract.json#22150197",  // 9 MANY bruker dirs
-			"./extract/acs.orglett.0c01153/IFD-extract.json#22284726,22284720",  // 10 two remote locations; bruker dirs + cdx
-			"./extract/acs.orglett.0c00571/IFD-extract.json#21975525",  // 11 180+MB 3212 files; zips of bruker zips and HRMS
-			"./extract/acs.orglett.0c01043/IFD-extract.json#22232721",  // 12 single 158-MB mnova -- IGNORING!
+		// initial # ignored --  very large (> 100 MB) sets, 
+		// which take some time to process if
+		// not using a local sourceDir
+
+		"./extract/acs.joc.0c00770/IFD-extract.json#22567817",       // 0 -- struc/ added; 727 files; zips of bruker dirs + mnovas
+		"#./extract/acs.orglett.0c00571/IFD-extract.json#21975525",  // 1 -- LARGE 180+MB 3212 files; zips of bruker zips and HRMS
+		"./extract/acs.orglett.0c00624/IFD-extract.json#21947274",   // 2 -- struc/ added; 1143 files; MANY bruker dirs
+		"#./extract/acs.orglett.0c00755/IFD-extract.json#22150197",  // 3 -- LARGE MANY bruker dirs
+		"./extract/acs.orglett.0c00788/IFD-extract.json#22125318",   // 4 -- jeol jdfs
+		"./extract/acs.orglett.0c00874/IFD-extract.json#22233351",   // 5 -- bruker dirs
+		"./extract/acs.orglett.0c00967/IFD-extract.json#22111341",   // 6 -- bruker dirs + jeol jdfs
+		"./extract/acs.orglett.0c01022/IFD-extract.json#22195341",   // 7 -- many mnovas
+		"#./extract/acs.orglett.0c01043/IFD-extract.json#22232721",  // 8 -- LARGE single 158-MB mnova -- IGNORING!
+		"#./extract/acs.orglett.0c01153/IFD-extract.json#22284726,22284720",  // 9 -- LARGE two remote locations; bruker dirs + cdx
+		"./extract/acs.orglett.0c01197/IFD-extract.json#22491647",  // 10 -- many mnovas
+		"./extract/acs.orglett.0c01277/IFD-extract.json#22613762",  // 11 -- bruker dirs
+		"./extract/acs.orglett.0c01297/IFD-extract.json#22612484",  // 12 --  bruker dirs
 	};
 
 	private static void runTests(String[] args) {

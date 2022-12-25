@@ -8,10 +8,10 @@
  {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
  {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"},
  
- {"data0":"{IFD.property.collectionset.source_data_uri::https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip}"},
- {"data":"{IFD.property.collectionset.source_data_uri::https://ndownloader.figshare.com/files/{figshareid}}"},
+ {"#IFD.property.collectionset.source_data_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip"},
+ {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
  
- {"path":"{data}|NMR/"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.label::{id=IFD.property.sample.label::*}/*}/*/}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.label::{id=IFD.property.sample.label::*}/*}/*/*/}"}
+ {"path":"NMR/"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{id=IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}/*}/*/}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{id=IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}/*}/*/*/}"}
 ]}

@@ -1,10 +1,7 @@
 package org.iupac.fairdata.contrib.fairspec;
 
 import java.io.File;
-import java.util.List;
-import java.util.Map;
 
-import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDFindingAid;
@@ -45,24 +42,5 @@ public class FAIRSpecFindingAid extends IFDFindingAid {
 		return super.getVersion() + ";FAIRSpec " + IFDConst.getProp("FAIRSPEC_VERSION") ;
 	}
 	
-	protected List<Map<String, Object>> citations;
-
-	public void setCitations(List<Map<String, Object>> citationMap) {
-		citations = citationMap;
-	}
-
-	@Override
-	protected void addCitations(IFDSerializerI serializer) {
-		if (citations != null)
-			serializer.addObject("citations", citations);
-	}
-
-	@Override
-	protected Map<String, Object> getContentsMap(Map<String, Object> map) {
-		if (citations != null && citations.size() > 0)
-			map.put("citationCount", Integer.valueOf(citations.size()));
-		return super.getContentsMap(map);
-	}
-
 
 }

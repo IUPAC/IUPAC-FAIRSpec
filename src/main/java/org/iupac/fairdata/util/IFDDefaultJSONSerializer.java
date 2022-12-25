@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 
 import org.iupac.fairdata.api.IFDSerializableI;
 import org.iupac.fairdata.api.IFDSerializerI;
-
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDObject;
 
 /**
@@ -19,8 +19,26 @@ import org.iupac.fairdata.core.IFDObject;
  */
 public class IFDDefaultJSONSerializer implements IFDSerializerI {
 
+	public IFDDefaultJSONSerializer(boolean byID) {
+		this.byID = byID;
+	} 
+	
+	private boolean byID;
+	
+	@Override
+	public void setByID(boolean tf) {
+		byID = tf;
+	}
+
+	@Override
+	public boolean isByID() {
+		return byID;
+	}
+
+	
 	private Obj thisObj;
 	private List<Obj> stack = new ArrayList<>();
+	
 	
 	protected class Obj {
 		
@@ -96,10 +114,32 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 	}
 	
 	@Override
+	public void addCollection(String key, IFDCollection<? extends IFDObject<?>> list, boolean byID) {
+		if (!byID) {
+			addList(key, list);
+			return;
+		}
+		thisObj.appendKey(key);
+		String sep = "";
+		thisObj.append("{");
+		for (int i = 0, n = list.size(); i < n; i++) {
+			thisObj.append(sep);
+			IFDObject<?> e = list.get(i);
+			key = e.getID();
+			thisObj.append(FAIRSpecUtilities.esc(key));
+			thisObj.append(":");
+			addValue(e, false, true);
+			sep = ",\n";
+		}
+		thisObj.append("}");
+	}
+
+	@Override
 	public void addList(String key, List<?> list) {
 		thisObj.appendKey(key);
 		addValue(list, false, false);		
 	}
+	
 	private void addValue(Object val, boolean addKey, boolean allowSerializable) {
 		if (allowSerializable && val instanceof IFDSerializableI) {
 			val = serialize((IFDSerializableI) val);
@@ -257,6 +297,5 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 		    return bytes;
 		  }  
 	}
-
 
 }

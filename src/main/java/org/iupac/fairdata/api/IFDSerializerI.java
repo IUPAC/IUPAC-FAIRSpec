@@ -2,26 +2,36 @@ package org.iupac.fairdata.api;
 
 import java.util.List;
 
-public interface IFDSerializerI {
+import org.iupac.fairdata.core.IFDCollection;
+import org.iupac.fairdata.core.IFDObject;
 
-	String serialize(IFDSerializableI obj);
-	
-	void openObject();
+public interface IFDSerializerI {
 
 	void addAttr(String key, String val);
 
-	void addAttrInt(String key, long ival);
-
 	void addAttrBoolean(String key, boolean value);
 
-	void addValue(Object val);
+	void addAttrInt(String key, long ival);
 
-	void addObject(String string, Object oval);
+	void addCollection(String key, IFDCollection<? extends IFDObject<?>> collection, boolean byID);
+
+	void addList(String key, List<?> value);
+
+	void addObject(String key, Object oval);
+
+	void addValue(Object val);
 
 	String closeObject();
 
 	String getFileExt();
 
-	void addList(String key, List<?> value);
+	boolean isByID();
+
+	void openObject();
+	
+	String serialize(IFDSerializableI obj);
+
+	void setByID(boolean tf);
+
 
 }

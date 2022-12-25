@@ -12,6 +12,6 @@
  {"data":"{IFD.property.collectionset.source_data_uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 
  {"path":"{data}|"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.label::products/{id=IFD.property.sample.label::*}.mnova}}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.label::Substrate/{id=IFD.property.sample.label::*}.mnova}}"}
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.label::products/{id=IFD.property.structure.id::*}.mnova}}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.label::Substrate/{id=IFD.property.structure.id::*}.mnova}}"}
 ]}

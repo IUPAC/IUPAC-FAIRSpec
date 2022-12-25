@@ -11,7 +11,7 @@
  {"#IFD.property.collectionset.source_data_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip|"},
  {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
 
- {"FAIRSpec.extractor.option.association.byid":"true"},
+ {"IFD.property.collectionset.byid":true},
  
  {"path":"FID for Publication/{id=IFD.property.fairspec.compound.id::*}.zip|"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.label::<id>/{xpt=::*}}.zip|{xpt}/*/}"},

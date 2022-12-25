@@ -99,8 +99,9 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 			rep = newRepresentation((isInline ? null : new IFDReference(originPath, rootPath, localName)), data, 0, type, mediaType);
 			add((T) rep);
 			map.put(rootPath + "::" + key, rep);
-			if (!isInline)
-				map.put(rootPath + "::" + originPath, rep);
+			if (!isInline) // Q: What is this for?
+				System.out.println("IDFRO ???" + originPath + " " + localName);
+			//	map.put(rootPath + "::" + originPath, rep);
 		}
 		return rep;
 	}

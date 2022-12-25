@@ -70,16 +70,23 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 	}
 	
 	@Override
+	public void serializeTop(IFDSerializerI serializer) {
+		super.serializeTop(serializer);
+		if (serializer.isByID())
+			serializer.addAttrBoolean("byid", true);
+	}
+
+	@Override
 	public void serializeList(IFDSerializerI serializer) {
-		List<IFDCollection<?>> list = new ArrayList<>();
+		IFDCollectionSet list = new IFDCollectionSet(null);
 		for (int i = 0; i < size(); i++) {
-			IFDCollection<?> c = get(i);
+			IFDCollection<IFDObject<?>> c = get(i);
 			if (c == null || c.size() == 0)
 				continue;
 			list.add(c);
 		}
 		if (list.size() > 0)
-			serializer.addList("items", list);
+			serializer.addCollection("items", list, serializer.isByID());
 	}
 
 	public void getContents(Map<String, Object> map) {

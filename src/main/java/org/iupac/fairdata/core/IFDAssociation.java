@@ -1,7 +1,9 @@
 package org.iupac.fairdata.core;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
@@ -24,6 +26,8 @@ public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentable
 	protected boolean byID;
 
 	int intID = -1;
+
+	private List<String> typeList;
 
 	/**
 	 * From IFDAssociationCollection to pass on this information
@@ -122,19 +126,20 @@ public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentable
 		return get(collectionIndex).get(0);
 	}
 
-	@Override
-	public void serializeList(IFDSerializerI serializer) {
-		if (size() == 0)
-			return;
-		// this class should serialize as a raw list of lists, without {....}
-		serializer.addList("items", (byID ? getMyIDList() : getMyIndexList()));
+	/**
+	 * Set the type list ["structures", "spectra"] for serialization if byID.
+	 * 
+	 * @param list
+	 */
+	public void setTypeList(List<String> list) {
+		typeList = list;
 	}
 
-	private List<List<String>> getMyIDList() {
-		List<List<String>> list = new ArrayList<>();
+	private Map<String, List<String>> getMyIDList() {
+		Map<String, List<String>> list = new LinkedHashMap<>();
 		for (int i = 0; i < size(); i++) {
 			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = getObject(i);
-			list.add(c.getIDList());
+			list.put(typeList.get(i), c.getIDList());
 		}
 		return list;
 	}
@@ -148,12 +153,6 @@ public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentable
 		return list;
 	}
 	
-	
-	@Override
-	public String toString() {
-		return super.toString().replace(']', ' ') + getMyIndexList() + " ]";
-	}
-
 	@Override
 	public int compareTo(IFDAssociation o) {
 		if (!byID || id == null || o.id == null)
@@ -163,6 +162,16 @@ public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentable
 		return id.compareTo(o.getID());
 	}
 
-
+	@Override
+	public void serializeList(IFDSerializerI serializer) {
+		// this class should serialize as a raw list of lists, without {....}
+		if (size() > 0)
+			serializer.addObject("items", byID ? getMyIDList() : getMyIndexList());
+	}
 	
+	@Override
+	public String toString() {
+		return super.toString().replace(']', ' ') + getMyIndexList() + " ]";
+	}
+
 }

@@ -25,7 +25,7 @@
 
 
  {"##":"use identifier strings rather than array-index numbers in the finding aid's structure-data association collection"},
- {"FAIRSpec.extractor.option.association.byid":"true"},
+ {"IFD.property.collectionset.byid":true},
  {"FAIRSpec.extractor.options" : ""},
 
  "----METADATA is a special key that allows generation of IFDParameter metadata for any defined object",

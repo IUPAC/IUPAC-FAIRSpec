@@ -36,6 +36,8 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 
 	protected IFDCollectionSet collectionSet;
 	
+	protected List<Map<String, Object>> related;
+
 	protected List<IFDResource> resources = new ArrayList<>();
 
 	protected Date date = new Date();
@@ -111,16 +113,16 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 		return r;
 	}
 
+	public List<IFDResource> getResources() {
+		return resources;
+	}
+
 	public Date getDate() {
 		return date;
 	}
 
 	public void finalizeCollectionSet() {
 		collectionSet.finalizeCollections();
-	}
-
-	public List<IFDResource> getResources() {
-		return resources;
 	}
 
 	@Override
@@ -135,6 +137,22 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 		if (label.startsWith(IFDConst.IFD_FINDINGAID_FLAG))
 			return super.getPropertyValue(label);
 		return collectionSet.getPropertyValue(label);
+	}
+
+	public String getVersion() {
+		return IFDConst.getVersion();
+	}
+
+	protected Map<String, Object> getContentsMap(Map<String, Object> map) {
+		if (related != null && related.size() > 0)
+			map.put("relatedCount", Integer.valueOf(related.size()));
+		map.put("resourceCount", Integer.valueOf(resources.size()));
+		collectionSet.getContents(map);
+		return map;
+	}
+	
+	public void setRelatedTo(List<Map<String, Object>> citationMap) {
+		related = citationMap;
 	}
 
 	@Override
@@ -152,7 +170,8 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 			if (getCreator() != null)
 				serializer.addObject("createdBy", getCreator());
 			serializer.addObject("contents", getContentsMap(new TreeMap<>()));
-			addCitations(serializer);
+			if (related != null)
+				serializer.addObject("isRelatedTo", related);
 			serializer.addObject("resources", resources);
 			serializeProps(serializer);
 			if (collectionSet != null)
@@ -164,21 +183,5 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 			serializing = false;
 		}
 	}
-
-	protected void addCitations(IFDSerializerI serializer) {
-		// for subclasses
-	}
-
-	public String getVersion() {
-		return IFDConst.getVersion();
-	}
-
-	protected Map<String, Object> getContentsMap(Map<String, Object> map) {
-		map.put("resourceCount", Integer.valueOf(resources.size()));
-		collectionSet.getContents(map);
-		return map;
-	}
-	
-
 
 }

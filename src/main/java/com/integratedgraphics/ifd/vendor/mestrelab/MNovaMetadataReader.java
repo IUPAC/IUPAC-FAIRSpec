@@ -1259,7 +1259,7 @@ fname = "c:/temp/mnova/(R,R)-mix2 (C6D6).mnova";
 			if (rdr.reportData != null) {
 				Map<String, Object> data = new HashMap<>();
 				data.put("MNova.metadata", rdr.reportData);
-				IFDDefaultJSONSerializer serializer = new IFDDefaultJSONSerializer();
+				IFDDefaultJSONSerializer serializer = new IFDDefaultJSONSerializer(false);
 				serializer.addValue(data);
 				rdr.writeToFile("json", serializer.toString().getBytes());
 			}

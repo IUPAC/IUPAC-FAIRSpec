@@ -75,7 +75,7 @@ public interface FAIRSpecExtractorHelperI {
 
 	int removeStructuresWithNoAssociations();
 
-	void setAssociationsById(boolean equalsIgnoreCase);
+	void setById(boolean tf);
 
 	void setCurrentResourceByteLength(long len);
 

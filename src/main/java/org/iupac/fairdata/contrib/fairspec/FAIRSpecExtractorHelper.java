@@ -70,8 +70,6 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public static final String FAIRSPEC_EXTRACTOR_IGNORE = IFDConst.getProp("FAIRSPEC_EXTRACTOR_IGNORE");
 	public static final String FAIRSPEC_EXTRACTOR_OPTION_FLAG = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OPTION_FLAG");
 	public static final String FAIRSPEC_EXTRACTOR_OPTIONS = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OPTIONS");
-	public static final String FAIRSPEC_EXTRACTOR_OPTION_ASSOCIATION_BYID = IFDConst
-			.getProp("FAIRSPEC_EXTRACTOR_OPTION_ASSOCIATION_BYID");
 
 	public interface ClassTypes {
 
@@ -251,11 +249,11 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	/**
 	 * Set associations to be listed by ID, not by index.
 	 */
-	protected boolean associationsById;
+	protected boolean byId;
 
 	@Override
-	public void setAssociationsById(boolean tf) {
-		associationsById = tf;
+	public void setById(boolean tf) {
+		byId = tf;
 	}
 
 	/**
@@ -432,7 +430,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			return currentStructure;
 		case ClassTypes.DataObject:
 			if (currentDataObject == null) {
-				if (IFDConst.isID(param) && this.associationsById) {
+				if (IFDConst.isID(param) && this.byId) {
 					currentDataObject = (IFDDataObject) checkAddNewObject(getSpecCollection(), type, rootPath,
 							param, value, localizedName, currentOriginPath, len, false);
 					if (currentDataObject != null)
@@ -743,7 +741,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public IFDSampleStructureAssociationCollection getSampleStructureCollection() {
 		if (sampleStructureCollection == null) {
 			collections[SAMPLE_STRUCTURE_COLLECTION] = sampleStructureCollection = new IFDSampleStructureAssociationCollection(
-					associationsById);
+					byId);
 			sampleStructureCollection.setID("sample-structure associations");
 		}
 		return sampleStructureCollection;
@@ -752,7 +750,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public IFDSampleDataAssociationCollection getSampleDataCollection() {
 		if (sampleDataCollection == null) {
 			collections[SAMPLE_DATA_COLLECTION] = sampleDataCollection = new IFDSampleDataAssociationCollection(
-					associationsById);
+					byId);
 			sampleDataCollection.setID("sample-spectra associations");
 		}
 		return sampleDataCollection;
@@ -762,7 +760,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public FAIRSpecCompoundCollection getCompoundCollection() {
 		if (compoundCollection == null) {
 			collections[STRUCTURE_DATA_COLLECTION] = compoundCollection = new FAIRSpecCompoundCollection(
-					associationsById);
+					byId);
 			compoundCollection.setID("compounds");
 		}
 		return compoundCollection;
@@ -778,7 +776,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public IFDStructureDataAnalysisCollection getStructureDataAnalysisCollection() {
 		if (structureDataAnalysisCollection == null)
 			collections[STRUCTURE_DATA_ANALYSIS_COLLECTION] = structureDataAnalysisCollection = new IFDStructureDataAnalysisCollection(
-					associationsById);
+					byId);
 		structureDataAnalysisCollection.setID("structure-spectra-analyses");
 		return structureDataAnalysisCollection;
 	}
@@ -805,7 +803,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public String createSerialization(File targetDir, String rootName, ArrayList<Object> products, IFDSerializerI serializer,
 			long[] t) throws IOException {
 		if (serializer == null)
-			serializer = new IFDDefaultJSONSerializer();
+			serializer = new IFDDefaultJSONSerializer(byId);
 		// subclasses should be able to use this directly with no changes.
 		t[0] = System.currentTimeMillis();
 		String serializedFindingAid = serializer.serialize(findingAid).toString();

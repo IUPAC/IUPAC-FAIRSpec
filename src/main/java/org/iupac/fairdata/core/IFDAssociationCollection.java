@@ -8,7 +8,9 @@ import org.iupac.fairdata.api.IFDSerializerI;
 
 /**
  * An class to handle generic collections of N:N associations. 
- * For example, Structure-Data associations
+ * For example, Structure-Data associations.
+ * 
+ * Serialization and construction can be
  * 
  * @author hansonr
  *
@@ -86,6 +88,31 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 		return null;
 	}
 
+	protected String getDefaultName(int i) {
+		return null;
+	}
+
+	public void removeOrphanedAssociations() {
+		for (int ia = size(); --ia >= 0;) {
+			IFDAssociation a = get(ia);
+			int arity = a.size();
+			int nEmpty = 0;
+			for (int i = 0; i < arity; i++) {
+				IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = a.get(i);
+				for (int j = c.size(); --j >= 0;) {
+					if (c.get(j).getParentCollection() == null) {
+						c.remove(j);
+					}
+				}
+				if (c.size() == 0) {
+					nEmpty++;
+				}
+			}
+			if (nEmpty == arity)
+				remove(ia);
+		}
+	}
+
 	
 	@Override
 	protected void serializeTop(IFDSerializerI serializer) {
@@ -119,8 +146,12 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 				list.add(cp.getID());
 			}
 		}
-		serializer.addAttrBoolean("byID", byID);
-		serializer.addObject("collections", list);
+		if (byID) {
+			for (int i = size(); --i >= 0;)
+				get(i).setTypeList(list);
+		} else {
+			serializer.addObject("collections", list);
+		}
 	}
 
 	@Override
@@ -132,32 +163,5 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 		}
 		super.serializeList(serializer);
 	}
-		
-	protected String getDefaultName(int i) {
-		return null;
-	}
-
-	public void removeOrphanedAssociations() {
-		for (int ia = size(); --ia >= 0;) {
-			IFDAssociation a = get(ia);
-			int arity = a.size();
-			int nEmpty = 0;
-			for (int i = 0; i < arity; i++) {
-				IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = a.get(i);
-				for (int j = c.size(); --j >= 0;) {
-					if (c.get(j).getParentCollection() == null) {
-						c.remove(j);
-					}
-				}
-				if (c.size() == 0) {
-					nEmpty++;
-				}
-			}
-			if (nEmpty == arity)
-				remove(ia);
-		}
-	}
-
-
 	
 }

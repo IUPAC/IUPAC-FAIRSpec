@@ -990,6 +990,8 @@ public class Extractor implements ExtractorI {
 
 	private String ignore;
 
+	private boolean isByID;
+
 	public int getErrorCount() {
 		return errors;
 	}
@@ -1071,7 +1073,7 @@ public class Extractor implements ExtractorI {
 			} else {
 				List<Map<String, Object>> list = new ArrayList<>();
 				list.add(pubCrossrefInfo);
-				helper.getFindingAid().setCitations(list);
+				helper.getFindingAid().setRelatedTo(list);
 			}
 		}
 		phase1SetLocalSourceDir(localArchive);
@@ -1088,7 +1090,7 @@ public class Extractor implements ExtractorI {
 	 * @return a serializer
 	 */
 	protected IFDSerializerI getSerializer() {
-		return new IFDDefaultJSONSerializer();
+		return new IFDDefaultJSONSerializer(isByID);
 	}
 
 	public void phase1SetLocalSourceDir(String sourceDir) {
@@ -1319,7 +1321,20 @@ public class Extractor implements ExtractorI {
 				String key = e.getKey();
 				if (key.startsWith("#"))
 					continue;
-				Object o = e.getValue();
+				Object o = e.getValue();					
+				if (key.equals("METADATA")) {
+					if (o instanceof Map) {
+						phase1ProcessMetadataElement(o);
+					} else if (o instanceof List) {
+						for (Object m : (List<Object>) o) {
+							phase1ProcessMetadataElement(m);
+						}
+					} else {
+						logWarn("extractor template METADATA element is not a map or array",
+								"Extractor.getObjectParsers");
+					}
+					continue;
+				}
 				String val = o.toString();
 				if (val.indexOf("{") >= 0) {
 					String s = FAIRSpecUtilities.replaceStrings(val, keys, values);
@@ -1340,19 +1355,6 @@ public class Extractor implements ExtractorI {
 				// {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
 				// ..keydef=-----------------key--------
 
-				if (key.equals("METADATA")) {
-					if (o instanceof Map) {
-						phase1ProcessMetadataElement(o);
-					} else if (o instanceof List) {
-						for (Object m : (List<Object>) o) {
-							phase1ProcessMetadataElement(m);
-						}
-					} else {
-						logWarn("extractor template METADATA element is not a map or array",
-								"Extractor.getObjectParsers");
-					}
-					continue;
-				}
 				if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI)) {
 					source = val;
 					continue;
@@ -1383,6 +1385,10 @@ public class Extractor implements ExtractorI {
 					if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_ID)) {
 						ifdid = val;
 						helper.getFindingAid().setID(val);
+					}
+					if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID)) {
+						setExtractorOption(key, val);
+						continue;
 					}
 					helper.getFindingAid().setPropertyValue(key, val);
 					if (keyDef == null)
@@ -1417,10 +1423,12 @@ public class Extractor implements ExtractorI {
 	}
 
 	protected void setExtractorOption(String key, String val) {
-		if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_OPTION_ASSOCIATION_BYID))
-			helper.setAssociationsById(val.equalsIgnoreCase("true"));
-		else
+		if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID)) {
+			isByID = val.equalsIgnoreCase("true");
+			helper.setById(isByID);
+	    } else {
 			checkFlags(val);
+		}
 	}
 
 	///////// PHASE 2: Parsing the ZIP file and extracting objects from it ////////
@@ -1662,7 +1670,7 @@ public class Extractor implements ExtractorI {
 	protected IFDObject<?> phase2aAddIFDObjectsForName(ObjectParser parser, String originPath, String localizedName, long len)
 			throws IFDException, IOException {
 
-	Matcher m = parser.p.matcher(originPath);
+		Matcher m = parser.p.matcher(originPath);
 		if (!m.find())
 			return null;
 		
@@ -1967,48 +1975,6 @@ public class Extractor implements ExtractorI {
 			}
 		}
 
-	}
-
-	@Override
-	public void addProperty(String key, Object val) {
-		log(this.localizedName + " addProperty " + key + "=" + val);
-		addDeferredPropertyOrRepresentation(key, val, false, null, null);
-	}
-
-	/**
-	 * Cache the property or representation created by an IFDVendorPluginI class or
-	 * returned from the DefaultStructureHelper for later processing. This method is
-	 * a callback from IFDVendorPluginI classes or
-	 * DefaultStructureHelper.processRepresentation(...) only.
-	 * 
-	 * @param key       representation or property key; the key "_struc" is used by
-	 *                  a vendor plugin to pass back both a file name and a byte
-	 *                  array to create a new digital object extracted from the
-	 *                  original object, for example, from an MNova object
-	 *                  extraction
-	 * @param val       either a String value or an Object[] with elements byte[]
-	 *                  and String name
-	 * @param isInline  representation data is being provided as inline-data, to be
-	 *                  saved only in the finding aid (InChI, SMILES, InChIKey)
-	 * @param mediaType a media type for a representation, or null
-	 */
-	@Override
-	public void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType, String note) {
-		if (key == null) {
-			deferredPropertyList.add(null);
-			return;
-		}
-		deferredPropertyList
-				.add(new Object[] { originPath, localizedName, key, val, Boolean.valueOf(isInline), mediaType, note });
-		if (key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
-			// Mestrelab vendor plug-in has found a MOL or SDF file in Phase 2a. 
-			// val is Object[] {byte[] bytes, String name}
-			// Pass data to structure property manager in order
-			// to add (by coming right back here) InChI, SMILES, and InChIKey.
-			byte[] bytes = (byte[]) ((Object[]) val)[0];
-			String name = (String) ((Object[]) val)[1]; // must not be null
-			getStructurePropertyManager().processRepresentation(name, bytes);
-		}
 	}
 
 	/**
@@ -2482,17 +2448,18 @@ public class Extractor implements ExtractorI {
 		String ifdPath = r.getRef().getOrigin().toString();
 		String type = r.getType();
 		// type will be null for pdf, for example
-		String subtype = r.getMediaType();
+		String mediatype = r.getMediaType();
 		// suffix is just unique internal ID
 		int pt = ckey.indexOf('\0');
 		if (pt > 0)
 			ckey = ckey.substring(0, pt);
 		IFDRepresentation r1 = obj.findOrAddRepresentation(ifdPath, ckey, null, type, null);
-		if (type != null)
+		if (type != null && r1.getType() == null)
 			r1.setType(type);
-		if (subtype != null)
-			r1.setMediaType(subtype);
-		r1.setLength(r.getLength());
+		if (mediatype != null && r1.getMediaType() == null)
+			r1.setMediaType(mediatype);
+		if (r1.getLength() == 0)
+			r1.setLength(r.getLength());
 	}
 
 	/**
@@ -2585,6 +2552,48 @@ public class Extractor implements ExtractorI {
 
 	/// generally used
 
+	@Override
+	public void addProperty(String key, Object val) {
+		log(this.localizedName + " addProperty " + key + "=" + val);
+		addDeferredPropertyOrRepresentation(key, val, false, null, null);
+	}
+
+	/**
+	 * Cache the property or representation created by an IFDVendorPluginI class or
+	 * returned from the DefaultStructureHelper for later processing. This method is
+	 * a callback from IFDVendorPluginI classes or
+	 * DefaultStructureHelper.processRepresentation(...) only.
+	 * 
+	 * @param key       representation or property key; the key "_struc" is used by
+	 *                  a vendor plugin to pass back both a file name and a byte
+	 *                  array to create a new digital object extracted from the
+	 *                  original object, for example, from an MNova object
+	 *                  extraction
+	 * @param val       either a String value or an Object[] with elements byte[]
+	 *                  and String name
+	 * @param isInline  representation data is being provided as inline-data, to be
+	 *                  saved only in the finding aid (InChI, SMILES, InChIKey)
+	 * @param mediaType a media type for a representation, or null
+	 */
+	@Override
+	public void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType, String note) {
+		if (key == null) {
+			deferredPropertyList.add(null);
+			return;
+		}
+		deferredPropertyList
+				.add(new Object[] { originPath, localizedName, key, val, Boolean.valueOf(isInline), mediaType, note });
+		if (key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
+			// Mestrelab vendor plug-in has found a MOL or SDF file in Phase 2a. 
+			// val is Object[] {byte[] bytes, String name}
+			// Pass data to structure property manager in order
+			// to add (by coming right back here) InChI, SMILES, and InChIKey.
+			byte[] bytes = (byte[]) ((Object[]) val)[0];
+			String name = (String) ((Object[]) val)[1]; // must not be null
+			getStructurePropertyManager().processRepresentation(name, bytes);
+		}
+	}
+
 	/**
 	 * Process the properties in deferredPropertyList after the IFDObject objects
 	 * have been created for all resources. This includes writing extracted
@@ -2609,6 +2618,8 @@ public class Extractor implements ExtractorI {
 			String originPath = (String) a[0];
 			String localizedName = (String) a[1];			
 			String key = (String) a[2];
+			if (key.indexOf("mol") >= 0)
+				System.out.println("???");
 			boolean isRep = IFDConst.isRepresentation(key);
 			Object value = a[3];
 			boolean isInline = (a[4] == Boolean.TRUE);
@@ -3133,7 +3144,10 @@ public class Extractor implements ExtractorI {
 				job = extractInfo = testSet[itest];
 				extractor.logToSys("Extractor.runExtraction " + itest + " " + job);
 				int pt = extractInfo.indexOf("#");
-				if (pt >= 0) {
+				if (pt == 0) {
+					System.out.println("Ignoring " + extractInfo);
+					continue;
+				} else if (pt > 0) {
 					ifdExtractJSONFilename = extractInfo.substring(0, pt);
 				} else {
 					ifdExtractJSONFilename = extractInfo;
@@ -3292,7 +3306,7 @@ public class Extractor implements ExtractorI {
 		}
 
 		if (flags.indexOf("-byid;") >= 0) {
-			setExtractorOption(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_OPTION_ASSOCIATION_BYID, "true");
+			setExtractorOption(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID, "true");
 		}
 
 		if (flags.indexOf("-datacitedown;") >= 0) {
