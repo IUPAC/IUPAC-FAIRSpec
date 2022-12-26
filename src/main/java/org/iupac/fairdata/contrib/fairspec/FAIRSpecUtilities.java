@@ -22,8 +22,6 @@ import java.util.zip.ZipOutputStream;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.util.JSJSONParser;
 
-import javajs.util.PT;
-
 /**
  * A class to contain various generally useful utility methods in association
  * with the extraction of data and metadata, and serialization of FAIRSpec
@@ -412,21 +410,21 @@ public class FAIRSpecUtilities {
 				sheetName = "Sheet 1";
 			sheetName = sheetName.replace(' ', '_');
 			Map<Integer, String> sparseData = new LinkedHashMap<>();
-			String[] sheets = PT.split(odsXML, "<table:table ");
+			String[] sheets = split(odsXML, "<table:table ");
 			for (int i = 1; i < sheets.length; i++) {
 				String xml = sheets[i];
-				if (!sheetName.equals(PT.getQuotedAttribute(xml, "table:name")))
+				if (!sheetName.equals(getQuotedAttribute(xml, "table:name")))
 					continue;
-				String[] rows = PT.split(xml, "<table:table-row ");
+				String[] rows = split(xml, "<table:table-row ");
 				retMaxRC[0] = rows.length;
 				for (int r = 1; r < rows.length; r++) {
 					int ncolEmpty = 0;
-					String[] cols = PT.split(rows[r], "<table:table-cell ");
+					String[] cols = split(rows[r], "<table:table-cell ");
 					if (cols.length > retMaxRC[1])
 						retMaxRC[1] = cols.length;
 					for (int c = 1, pc = 1; c < cols.length; c++, pc++) {
 						xml = cols[c];
-						String s = PT.getQuotedAttribute(xml, "table:number-columns-repeated");
+						String s = getQuotedAttribute(xml, "table:number-columns-repeated");
 						if (s != null) {
 							ncolEmpty = Integer.parseInt(s);
 							continue;
@@ -494,7 +492,7 @@ public class FAIRSpecUtilities {
 		private static String stripXMLStyles(String xml) {
 			if (xml.length() == 0)
 				return null;
-			String[] a = PT.split(xml, ">");
+			String[] a = split(xml, ">");
 			StringBuffer sb = new StringBuffer(a[0]);
 			for (int i = 1; i < a.length; i++) {
 				sb.append(a[i].substring(0, a[i].indexOf("<")));
@@ -621,4 +619,59 @@ public class FAIRSpecUtilities {
 			setLogging(null, true);
 	}
 
+	  /**
+	   * 
+	   *  proper splitting, even for Java 1.3 -- if the text ends in the run,
+	   *  no new line is appended.
+	   * 
+	   * @param text
+	   * @param run
+	   * @return  String array
+	   */
+	  public static String[] split(String text, String run) {
+	    if (text.length() == 0)
+	      return new String[0];
+	    int n = 1;
+	    int i = text.indexOf(run);
+	    String[] lines;
+	    int runLen = run.length();
+	    if (i < 0 || runLen == 0) {
+	      lines = new String[1];
+	      lines[0] = text;
+	      return lines;
+	    }
+	    int len = text.length() - runLen;
+	    for (; i >= 0 && i < len; n++)
+	      i = text.indexOf(run, i + runLen);
+	    lines = new String[n];
+	    i = 0;
+	    int ipt = 0;
+	    int pt = 0;
+	    for (; (ipt = text.indexOf(run, i)) >= 0 && pt + 1 < n;) {
+	      lines[pt++] = text.substring(i, ipt);
+	      i = ipt + runLen;
+	    }
+	    if (text.indexOf(run, len) != len)
+	      len += runLen;
+	    lines[pt] = text.substring(i, len);
+	    return lines;
+	  }
+
+	  public static String getQuotedAttribute(String info, String name) {
+		    int i = info.indexOf(name + "=\"");
+		    if (i < 0)
+		    	return null;
+		    i += name.length() + 2;
+		    int pt = i + 1;
+		    int len = info.length();
+		    while (++i < len && info.charAt(i) != '"')
+		      if (info.charAt(i) == '\\')
+		        i++;
+		    return info.substring(pt, i);
+		  }
+
+	  static {
+	  System.out.println(getQuotedAttribute("<test aref=\"test\">", "aref"));
+	  }
+	  
 }
