@@ -3,6 +3,8 @@ package org.iupac.fairdata.core;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -172,7 +174,16 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 			serializer.addObject("contents", getContentsMap(new TreeMap<>()));
 			if (related != null)
 				serializer.addObject("isRelatedTo", related);
-			serializer.addObject("resources", resources);
+			Object o = resources;
+			if (serializer.isByID()) {
+				Map<String, IFDResource> map = new LinkedHashMap<>();
+				for (int i = 0; i < resources.size(); i++) {
+					IFDResource r = resources.get(i);
+					map.put(r.getID(), r);
+				}
+				o = map;				
+			}
+			serializer.addObject("resources", o);
 			serializeProps(serializer);
 			if (collectionSet != null)
 				serializer.addObject("collectionSet", collectionSet);

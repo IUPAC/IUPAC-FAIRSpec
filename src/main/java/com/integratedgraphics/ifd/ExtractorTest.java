@@ -71,7 +71,7 @@ public class ExtractorTest extends Extractor {
 		// not using a local sourceDir
 
 		"./extract/acs.joc.0c00770/IFD-extract.json#22567817",       // 0 -- struc/ added; 727 files; zips of bruker dirs + mnovas
-		"#./extract/acs.orglett.0c00571/IFD-extract.json#21975525",  // 1 -- LARGE 180+MB 3212 files; zips of bruker zips and HRMS
+		"./extract/acs.orglett.0c00571/IFD-extract.json#21975525",  // 1 -- LARGE 180+MB 3212 files; zips of bruker zips and HRMS
 		"./extract/acs.orglett.0c00624/IFD-extract.json#21947274",   // 2 -- struc/ added; 1143 files; MANY bruker dirs
 		"#./extract/acs.orglett.0c00755/IFD-extract.json#22150197",  // 3 -- LARGE MANY bruker dirs
 		"./extract/acs.orglett.0c00788/IFD-extract.json#22125318",   // 4 -- jeol jdfs
@@ -90,10 +90,23 @@ public class ExtractorTest extends Extractor {
 //		int last = 0; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 //						// file test
 		//runACSTest(args, first, last);
-		runACSTest(args, 0);
+		runACSTest(args, 1);
 		//runACSTest(args, 5);
 		//runACSTest(args, 0, 11);
 		//runUCLTest(args);
+		//runTest(args, "./extract/test/8f.zip");
+	}
+
+	private static void runTest(String[] args, String sourceArchive) {
+
+		String[] testSet = new String[] { "./extract/test/IFD-extract.json" };
+		String targetDir = "c:/temp/iupac/ifd/test";
+
+		//debugging = true;
+		//readOnly = true;
+		
+		args = setSourceTargetArgs(args, sourceArchive, targetDir, null);
+		runExtraction(args, testSet, -1, -1);		
 	}
 
 	private static void runACSTest(String[] args, int i) {

@@ -3,8 +3,8 @@ package org.iupac.fairdata.contrib.fairspec;
 import org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;
 
 /**
- * A class that identifies this as an IFDStructureDataAssociation 
- * specifically of type type FAIRSpecCompound.
+ * A class that identifies this as an IFDStructureDataAssociationCollection 
+ * specifically with elements of type FAIRSpecCompoundAssociation.
  * 
  * @author hansonr
  *

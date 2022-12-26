@@ -40,9 +40,9 @@ public interface FAIRSpecExtractorHelperI {
 
 	void beginAddingObjects(String ifdPath);
 
-	IFDDataObject cloneData(IFDDataObject localSpec, String idExtension);
+	IFDDataObject cloneData(IFDDataObject localSpec, String idExtension, boolean andReplace);
 
-	FAIRSpecCompound createCompound(IFDStructure struc, IFDDataObject newSpec) throws IFDException;
+	FAIRSpecCompoundAssociation createCompound(IFDStructure struc, IFDDataObject newSpec) throws IFDException;
 
 	String createSerialization(File targetFile, String findingAidFileNameRoot, ArrayList<Object> products,
 			IFDSerializerI serializer, long[] t) throws IOException;
@@ -51,7 +51,7 @@ public interface FAIRSpecExtractorHelperI {
 
 	String finalizeExtraction();
 
-	FAIRSpecCompound findCompound(IFDStructure struc, IFDDataObject spec);
+	FAIRSpecCompoundAssociation findCompound(IFDStructure struc, IFDDataObject spec);
 
 	FAIRSpecCompoundCollection getCompoundCollection();
 

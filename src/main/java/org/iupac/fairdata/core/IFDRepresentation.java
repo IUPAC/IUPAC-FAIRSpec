@@ -111,5 +111,4 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 			this.note += ";\n" + note;		
 	}
 
-
 }

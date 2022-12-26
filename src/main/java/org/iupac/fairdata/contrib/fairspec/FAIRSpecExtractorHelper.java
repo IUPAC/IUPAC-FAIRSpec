@@ -376,7 +376,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	@Override
 	public IFDObject<?> addObject(String rootPath, String param, String value, String localizedName, long len)
 			throws IFDException {
-		
+
 		if (!isAddingObjects())
 			throw new IFDException("addObject " + param + " " + value + " called with no current object file name");
 
@@ -392,8 +392,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			}
 			boolean isNew = (currentDataObject == null);
 			if (currentDataObject == null) {
-				currentDataObject = (IFDDataObject) checkAddNewObject(getSpecCollection(), type, rootPath, param,
-						value, localizedName, currentOriginPath, len, true);
+				currentDataObject = (IFDDataObject) checkAddNewObject(getSpecCollection(), type, rootPath, param, value,
+						localizedName, currentOriginPath, len, true);
 			} else {
 				checkAddRepOrSetParam(currentDataObject, param, value, localizedName, len);
 			}
@@ -402,7 +402,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			}
 			if (isNew)
 				extractor.setNewObjectMetadata(currentDataObject, IFD_PROPERTY_DATAOBJECT_ID);
-			if (currentAssociation != null && currentAssociation instanceof FAIRSpecCompound) {
+			if (currentAssociation != null && currentAssociation instanceof FAIRSpecCompoundAssociation) {
 				((IFDStructureDataAssociation) currentAssociation).getDataObjectCollection().add(currentDataObject);
 			}
 			return currentDataObject;
@@ -431,8 +431,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		case ClassTypes.DataObject:
 			if (currentDataObject == null) {
 				if (IFDConst.isID(param) && this.byId) {
-					currentDataObject = (IFDDataObject) checkAddNewObject(getSpecCollection(), type, rootPath,
-							param, value, localizedName, currentOriginPath, len, false);
+					currentDataObject = (IFDDataObject) checkAddNewObject(getSpecCollection(), type, rootPath, param,
+							value, localizedName, currentOriginPath, len, false);
 					if (currentDataObject != null)
 						return currentDataObject;
 				}
@@ -447,28 +447,27 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 				checkAddRepOrSetParam(currentDataObject, param, value, localizedName, len);
 			}
 			if (currentAssociation != null) {
-				if (currentAssociation instanceof FAIRSpecCompound)
-					((FAIRSpecCompound) currentAssociation).getDataObjectCollection().add(currentDataObject);
+				if (currentAssociation instanceof FAIRSpecCompoundAssociation)
+					((FAIRSpecCompoundAssociation) currentAssociation).getDataObjectCollection().add(currentDataObject);
 				else if (currentAssociation instanceof IFDSampleDataAssociation)
 					((IFDSampleDataAssociation) currentAssociation).getDataObjectCollection().add(currentDataObject);
 			}
 			return currentDataObject;
 		case ClassTypes.Compound:
 			currentAssociation = getCompoundCollection().getObjectByID(value);
-			if (currentAssociation == null) {
-				currentAssociation = new FAIRSpecCompound();
-				currentAssociation.setPropertyValue(param, value);
-				if (IFDConst.isID(param))
-					extractor.setNewObjectMetadata(currentAssociation, param);
-				getCompoundCollection().add(currentAssociation);
+			if (currentAssociation == null)
+				currentAssociation = new FAIRSpecCompoundAssociation();
+			currentAssociation.setPropertyValue(param, value);
+			if (IFDConst.isID(param))
+				extractor.setNewObjectMetadata(currentAssociation, param);
+			getCompoundCollection().add(currentAssociation);
 //				System.out
 //						.println("addObject currentAssociation=" + param + "..." + value + "..." + currentAssociation);
-			}
 			return currentAssociation;
 		case ClassTypes.SampleDataAssociation:
 			currentAssociation = getSampleDataCollection().getObjectByID(value);
 			if (currentAssociation == null) {
-				getSampleDataCollection().add(currentAssociation = new FAIRSpecCompound());
+				getSampleDataCollection().add(currentAssociation = new FAIRSpecCompoundAssociation());
 				currentAssociation.setPropertyValue(param, value);
 			}
 			return null;
@@ -669,9 +668,9 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	}
 
 	@Override
-	public FAIRSpecCompound createCompound(IFDStructure struc, IFDDataObject spec)
+	public FAIRSpecCompoundAssociation createCompound(IFDStructure struc, IFDDataObject spec)
 			throws IFDException {
-		return (FAIRSpecCompound) getCompoundCollection().addAssociation(struc, spec);
+		return (FAIRSpecCompoundAssociation) getCompoundCollection().addAssociation(struc, spec);
 	}
 
 	@Override
@@ -700,8 +699,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	}
 
 	@Override
-	public FAIRSpecCompound findCompound(IFDStructure struc, IFDDataObject spec) {
-		return (FAIRSpecCompound) getCompoundCollection().findAssociation(struc, spec);
+	public FAIRSpecCompoundAssociation findCompound(IFDStructure struc, IFDDataObject spec) {
+		return (FAIRSpecCompoundAssociation) getCompoundCollection().findAssociation(struc, spec);
 	}
 
 	public IFDSampleDataAssociation getSampleAssociation(IFDSample struc, IFDDataObject spec) {
@@ -907,10 +906,10 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	 * structureDataCollection or sampleDataCollection
 	 */
 	@Override
-	public IFDDataObject cloneData(IFDDataObject localSpec, String idExtension) {
+	public IFDDataObject cloneData(IFDDataObject localSpec, String idExtension, boolean andReplace) {
 		// this will invalidate localSpec -- 1.mnova, for example.
 		// TODO clean out invalidated data
-		IFDDataObject data = getSpecCollection().cloneData(localSpec, idExtension);
+		IFDDataObject data = getSpecCollection().cloneData(localSpec, idExtension, andReplace);
 		if (compoundCollection != null) {
 			for (IFDAssociation a : compoundCollection) {
 				IFDStructureDataAssociation assoc = (IFDStructureDataAssociation) a;
@@ -939,9 +938,12 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 				for (int i = assoc.size(); --i >= 0;) {
 					assoc.getDataObjectCollection().removeInvalidData();
 				}
-				if (assoc.getFirstObj1() == null)
-					extractor.log("! FAIRSpecExtractorHelper association " + assoc.getID()
-							+ " has no associated structure representation");
+				if (assoc.getFirstObj1() == null) {
+					IFDObject<?> o = assoc.getFirstObj2();
+					extractor.log("! FAIRSpecExtractorHelper association id=" + assoc.getID()
+							+ " spec=" + (o == null ? "" : o.getID())
+							+ " has no associated structure representation ");
+				}
 			}
 		}
 		if (sampleDataCollection != null) {

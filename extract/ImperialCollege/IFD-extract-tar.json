@@ -39,7 +39,7 @@
  
  "----trigger a new association if the id changes",
 
- {"cmpd":"{compound=IFD.property.fairspec.compound.id::*}"},
+ {"cmpd":"{compound=IFD.property.fairspec.compound.association.id::*}"},
 
  "----ignoring lower-level cdxml here",
  {"#FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.cdxml::/{IFD.property.structure.id::<compound>}.cdxml}"},
