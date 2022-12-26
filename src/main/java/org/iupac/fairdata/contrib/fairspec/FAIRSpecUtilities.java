@@ -662,7 +662,7 @@ public class FAIRSpecUtilities {
 		    if (i < 0)
 		    	return null;
 		    i += name.length() + 2;
-		    int pt = i + 1;
+		    int pt = i;
 		    int len = info.length();
 		    while (++i < len && info.charAt(i) != '"')
 		      if (info.charAt(i) == '\\')
