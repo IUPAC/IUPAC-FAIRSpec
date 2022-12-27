@@ -89,12 +89,15 @@ public class IFDConst {
 	
 	public static final String IFD_VERSION = getProp("IFD_VERSION");
 
-	// IFDExtractorI constants:
+	// IFD constants:
 
 	public static final String IFD_FLAG = getProp("IFD_FLAG");
 	public static final String IFD_PROPERTY_FLAG = getProp("IFD_PROPERTY_FLAG");
 	public static final String IFD_REPRESENTATION_FLAG = getProp("IFD_REPRESENTATION_FLAG");
 	public static final String IFD_OBJECT_FLAG = getProp("IFD_OBJECT_FLAG");
+
+	public static final int propertyPrefixLength = IFD_PROPERTY_FLAG.length();
+
 
 	public static final String IFD_FINDINGAID_FLAG = getProp("IFD_FINDINGAID_FLAG");
 	public static final String IFD_COLLECTIONSET_FLAG = getProp("IFD_COLLECTIONSET_FLAG");
@@ -103,6 +106,7 @@ public class IFDConst {
 
 	public static final String IFD_SAMPLE_FLAG = getProp("IFD_SAMPLE_FLAG");
 	public static final String IFD_STRUCTURE_FLAG = getProp("IFD_STRUCTURE_FLAG");
+	public static final String IFD_COMPOUND_FLAG = getProp("IFD_COMPOUND_FLAG");
 	public static final String IFD_DATAOBJECT_FLAG = getProp("IFD_DATAOBJECT_FLAG");
 	public static final String IFD_ANALYSISOBJECT_FLAG = getProp("IFD_ANALYSISOBJECT_FLAG");
 
@@ -147,11 +151,11 @@ public class IFDConst {
 	public static final String IFD_REP_STRUCTURE_PNG = getProp("IFD_REP_STRUCTURE_PNG");
 	public static final String IFD_REP_STRUCTURE_UNKNOWN = getProp("IFD_REP_STRUCTURE_UNKNOWN");
 
+	public static final String IFD_COMPOUNDDATA_ASSOCIATION_FLAG = getProp("IFD_COMPOUNDDATA_ASSOCIATION_FLAG");
 	public static final String IFD_STRUCTUREDATA_ASSOCIATION_FLAG = getProp("IFD_STRUCTUREDATA_ASSOCIATION_FLAG");
 	public static final String IFD_SAMPLEDATA_ASSOCIATION_FLAG = getProp("IFD_SAMPLEDATA_ASSOCIATION_FLAG");
 	public static final String IFD_SAMPLESTRUCTURE_ASSOCIATION_FLAG = getProp("IFD_SAMPLESTRUCTURE_ASSOCIATION_FLAG");
 
-	
 	public static String getVersion() {
 		return "IFD " + IFD_VERSION;
 	}

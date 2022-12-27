@@ -39,9 +39,12 @@ public class IFDStructureDataAssociation extends IFDAssociation {
 		return sdaPrefix;
 	}
 
-	@SuppressWarnings("unchecked")
+	protected IFDStructureDataAssociation(IFDCollection[] collection) throws IFDException {
+		super(null, collection);		
+	}
+
 	public IFDStructureDataAssociation() throws IFDException {
-		super(null, new IFDCollection[] { new IFDStructureCollection(), new IFDDataObjectCollection() });		
+		this(new IFDCollection[] { new IFDStructureCollection(), new IFDDataObjectCollection() });		
 	}
 	
 	@SuppressWarnings("unchecked")

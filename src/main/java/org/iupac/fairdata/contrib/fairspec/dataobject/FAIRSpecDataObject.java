@@ -27,7 +27,7 @@ public abstract class FAIRSpecDataObject extends IFDDataObject {
 	private String objectType;
 	
 	@Override
-	public String getObjectType() {
+	public String getObjectFlag() {
 		return objectType;
 	}
 	

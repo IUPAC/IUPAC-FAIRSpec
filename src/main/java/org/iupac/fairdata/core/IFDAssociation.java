@@ -21,7 +21,7 @@ import org.iupac.fairdata.common.IFDException;
  *
  */
 @SuppressWarnings("serial")
-public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>> implements Comparable<IFDAssociation> {
+public class IFDAssociation extends IFDCollection<IFDCollection<? extends IFDObject<?>>> implements Comparable<IFDAssociation> {
 
 	protected boolean byID;
 
@@ -57,7 +57,7 @@ public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentable
 
 
 	@SafeVarargs
-	protected IFDAssociation(String type, IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>... collections) throws IFDException {
+	protected IFDAssociation(String type, IFDCollection<IFDObject<?>>... collections) throws IFDException {
 		super(null, type, collections);
 		for (int i = 0; i < collections.length; i++) {
 			if (collections[i] == null)
@@ -80,8 +80,8 @@ public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentable
 	 * @param obj1
 	 * @return true if 1:N association for obj1
 	 */
-	public boolean associates1ToN(IFDRepresentableObject<? extends IFDRepresentation> obj1) {
-		IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c1;
+	public boolean associates1ToN(IFDCollection<? extends IFDObject<?>> obj1) {
+		IFDCollection<? extends IFDObject<?>> c1;
 		return (size() >= 2 && (c1 = get(0)).size() == 1 && c1.get(0) == obj1);
 	}
 
@@ -138,7 +138,7 @@ public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentable
 	private Map<String, List<String>> getMyIDList() {
 		Map<String, List<String>> list = new LinkedHashMap<>();
 		for (int i = 0; i < size(); i++) {
-			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = getObject(i);
+			IFDCollection<? extends IFDObject<?>> c = getObject(i);
 			list.put(typeList.get(i), c.getIDList());
 		}
 		return list;
@@ -147,7 +147,7 @@ public class IFDAssociation extends IFDCollection<IFDCollection<IFDRepresentable
 	private List<List<Integer>> getMyIndexList() {
 		List<List<Integer>> list = new ArrayList<>();
 		for (int i = 0; i < size(); i++) {
-			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = getObject(i);
+			IFDCollection<? extends IFDObject<?>> c = getObject(i);
 			list.add(c.getIndexList());
 		}
 		return list;

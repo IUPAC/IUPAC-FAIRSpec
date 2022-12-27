@@ -226,7 +226,37 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	protected boolean isValid = true;
 	protected boolean hasProperty = false;
+
+	/**
+	 * 
+	 * @return
+	 */
+	 public String getObjectFlag() {
+		return getPropertyPrefix().substring(IFDConst.propertyPrefixLength - 1);
+	};
+
 	
+	/**
+	 * A reference to the highest level in the collection 
+	 * as defined by the finding aid.
+	 */
+	protected IFDCollection<?> parentCollection;
+
+	/**
+	 * When it comes time for an association, we want to know what top-level collection
+	 * is that contains this object.
+	 * 
+	 * @param c
+	 */
+	public void setParentCollection(IFDCollection<? extends IFDObject<?>> c) {
+		parentCollection= c;		
+	}
+	
+	public IFDCollection<? extends IFDObject<?>> getParentCollection() {
+		return parentCollection;
+	}
+	
+
 	/**
 	 * an arbitrary label given to provide some sort of context
 	 */

@@ -620,7 +620,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		int n = 0;
 		for (IFDAssociation assoc : strucData) {
 			List<IFDDataObject> empty = new ArrayList<>();
-			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> dataCollection = assoc.getObject(1);
+			@SuppressWarnings("unchecked")
+			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> dataCollection = (IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>) assoc.getObject(1);
 			for (IFDRepresentableObject<? extends IFDRepresentation> d : dataCollection) {
 				if (d.size() == 0)
 					empty.add((IFDDataObject) d);

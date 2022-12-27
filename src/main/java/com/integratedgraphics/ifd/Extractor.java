@@ -119,8 +119,9 @@ public class Extractor implements ExtractorI {
 
 	// TODO: update GitHub README.md
 
-	protected static final String version = "0.0.4-alpha+2022.12.23";
+	protected static final String version = "0.0.5-alpha+2022.12.27";
 
+	// 2022.12.27 version 0.0.5 introduces FAIRSpecCompoundAssociation
 	// 2022.12.23 version 0.0.4 fixes from ACS testing, Bruker directories with multiple numbered subdirectories adds "-<n>" to the id
 	// 2022.12.14 version 0.0.4 allows for local directory parsing (no zip or tar.gz)
 	// 2022.12.13 verison 0.0.4 adds "EXIT" and comment-only "..." for IFD-extract.json
@@ -1557,7 +1558,7 @@ public class Extractor implements ExtractorI {
 		// Vendors may produce new objects that need association or properties of those
 		// objects. This happens in Phase 2a
 
-		processDeferredObjectProperties(null, null);
+		processDeferredObjectProperties(null);
 
 		// Phase 2c
 		log("!Phase 2c check for ignored files");
@@ -2669,8 +2670,9 @@ public class Extractor implements ExtractorI {
 	 * @throws IFDException
 	 * @throws IOException
 	 */
-	protected void processDeferredObjectProperties(String phase2OriginPath, FAIRSpecCompoundAssociation assoc)
+	protected void processDeferredObjectProperties(String phase2OriginPath)
 			throws IFDException, IOException {
+		FAIRSpecCompoundAssociation assoc = null;
 		String lastLocal = null;
 		IFDDataObject localSpec = null;
 		IFDStructure struc = null;
@@ -2945,7 +2947,7 @@ public class Extractor implements ExtractorI {
 	 */
 	protected void linkLocalizedNameToObject(String localizedName, String type, IFDRepresentableObject<?> obj) throws IOException {
 		if (localizedName != null && (type == null || IFDConst.isRepresentation(type))) {
-			String pre = obj.getObjectType();
+			String pre = obj.getObjectFlag();
 			htLocalizedNameToObject.put(localizedName, obj);
 			htLocalizedNameToObject.put(pre + localizedName, obj);
 			String renamed = htZipRenamed.get(localizedName);

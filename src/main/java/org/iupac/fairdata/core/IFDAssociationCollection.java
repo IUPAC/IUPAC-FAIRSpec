@@ -34,10 +34,11 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 	 * @param obj1
 	 * @return the found association or null
 	 */
-	public IFDAssociation getAssociationForSingleObj1(IFDRepresentableObject<? extends IFDRepresentation> obj1) {
-		
+	public IFDAssociation getAssociationForSingleObj1(IFDObject<?> obj1) {
+
+		IFDCollection<? extends IFDObject<?>> o = (IFDCollection<? extends IFDObject<?>>) obj1;
 		for (IFDAssociation a : this) {
-			if (a.associates1ToN(obj1))
+			if (a.associates1ToN(o))
 				return a;
 		}
 		return null;
@@ -57,15 +58,14 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 	 * @return obj1
 	 */
 	@SuppressWarnings("unchecked")
-	public IFDRepresentableObject<? extends IFDRepresentation> 
-	getFirstObj1ForObj2(IFDRepresentableObject<? extends IFDRepresentation> obj2, boolean andRemove) {
+	public IFDObject<?> getFirstObj1ForObj2(IFDObject<?> obj2, boolean andRemove) {
 		for (IFDAssociation a : this) {
-			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = a.get(1);
+			IFDCollection<? extends IFDObject<?>> c = a.get(1);
 			int i = c.indexOf(obj2);
 			if (i >= 0) {
 				if (andRemove)
 					c.remove(i);
-				return (IFDRepresentableObject<? extends IFDRepresentation>) a.getFirstObj1();
+				return a.getFirstObj1();
 			}
 		}
 		return null;
@@ -98,7 +98,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 			int arity = a.size();
 			int nEmpty = 0;
 			for (int i = 0; i < arity; i++) {
-				IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = a.get(i);
+				IFDCollection<? extends IFDObject<?>> c = a.get(i);
 				for (int j = c.size(); --j >= 0;) {
 					if (c.get(j).getParentCollection() == null) {
 						c.remove(j);
@@ -125,7 +125,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 		// TODO should ensure these are all the same parent and that no null entries
 		// exist.
 		for (int i = 0; i < arity; i++) {
-			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> c = firstAssociation.get(i);
+			IFDCollection<? extends IFDObject> c = firstAssociation.get(i);
 			if (c.size() == 0) {
 				String name = null;
 				for (int n = size(); --n >= 0;) {
@@ -138,7 +138,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 				}
 				list.add(name == null ? getDefaultName(i) : name);
 			} else {
-				IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> cp = (c == null ? null
+				IFDCollection<?> cp = (c == null ? null
 						: c.get(0).getParentCollection());
 				if (cp == null) {
 					throw new NullPointerException("IFDAssociationCollection null or 0-length association");
