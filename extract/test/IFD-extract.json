@@ -6,8 +6,8 @@
  
  {"IFD.property.collectionset.byid":true},
 
- {"FAIRSpec.extractor.object":"{IFD.property.fairspec..compound.id::{IFD.compound.id::*}}/{IFD.representation.structure.mol::**/{IFD.property.structure.id::*}.mol}"},
+ {"FAIRSpec.extractor.object":"{IFD.property.fairspec.compound.association.id::{IFD.property.fairspec.compound.id::*}}/{IFD.representation.structure.mol::**/{IFD.property.structure.id::*}.mol}"},
  
- {"FAIRSpec.extractor.object":"{IFD.property.fairspec..compound.id::*}/{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*}.zip}"}
+ {"FAIRSpec.extractor.object":"{IFD.property.fairspec.compound.association.id::*}/{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*}.zip}"}
 
 ]}

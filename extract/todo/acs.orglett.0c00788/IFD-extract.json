@@ -14,5 +14,5 @@
  {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
 
  {"path":""},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec..compound.id::{IFD.property.structure.id::*-*}}-*.jdf}}"}
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*-*}}-*.jdf}}"}
 ]}

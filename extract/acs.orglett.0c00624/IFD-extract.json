@@ -13,12 +13,12 @@
 
  {"IFD.property.collectionset.byid":true},
 
- {"path":"primary NMR data/{id=IFD.property.fairspec..compound.id::*}/"},
+ {"path":"primary NMR data/{id=IFD.property.fairspec.compound.id::*}/"},
 
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::<id>-*}/}"},
   
  {"IFD.property.collectionset.source_data_uri":"./struc/"},
 
- {"FAIRSpec.extractor.object":"{IFD.representation.structure.cdxml::{IFD.property.fairspec..compound.id::{IFD.property.structure.id::*}}.cdxml}"}
+ {"FAIRSpec.extractor.object":"{IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}.cdxml}"}
  
 ]}
