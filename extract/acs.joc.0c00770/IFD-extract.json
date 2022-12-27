@@ -18,7 +18,7 @@
  {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
 
 
- {"cmpd":"{id=IFD.property.fairspec.compound.association.id::*}.zip|"},
+ {"cmpd":"{id=IFD.property.fairspec..compound.id::*}.zip|"},
 
  "the mnova check must come before the generic zip directory / check, because *.mnova is in the vendor list for Mestrec, and some Bruker files have mnova files within them",
 
@@ -29,7 +29,7 @@
 
  {"IFD.property.collectionset.source_data_uri":"./struc/"},
 
- {"cmpd":"{id=IFD.property.fairspec.compound.association.id::*}/"},
+ {"cmpd":"{id=IFD.property.fairspec..compound.id::*}/"},
  
  {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.cdxml::{IFD.property.structure.id::*}.cdxml}"},
 

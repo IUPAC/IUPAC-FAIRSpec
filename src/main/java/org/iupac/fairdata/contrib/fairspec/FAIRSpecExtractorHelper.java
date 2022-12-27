@@ -224,13 +224,9 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public static final String FAIRSPEC_EXTRACT_VERSION = IFDConst.getProp("FAIRSPEC_EXTRACT_VERSION");
 	public static final String DATAOBJECT_FAIRSPEC_FLAG = IFDConst.getProp("DATAOBJECT_FAIRSPEC_FLAG");
 
-	public static final String IFD_PROPERTY_SAMPLE_LABEL = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
-			IFDConst.IFD_SAMPLE_FLAG, IFDConst.IFD_LABEL_FLAG);
-	public static final String IFD_PROPERTY_SAMPLE_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
-			IFDConst.IFD_SAMPLE_FLAG, IFDConst.IFD_ID_FLAG);
-
 	private static final String IFD_PROPERTY_STRUCTURE_LABEL = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			IFDConst.IFD_STRUCTURE_FLAG, IFDConst.IFD_LABEL_FLAG);
+
 	public static final String IFD_PROPERTY_STRUCTURE_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			IFDConst.IFD_STRUCTURE_FLAG, IFDConst.IFD_ID_FLAG);
 	public static final String IFD_PROPERTY_DATAOBJECT_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,

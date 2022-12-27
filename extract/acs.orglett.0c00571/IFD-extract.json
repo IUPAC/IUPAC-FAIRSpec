@@ -13,7 +13,7 @@
 
  {"IFD.property.collectionset.byid":true},
  
- {"path":"FID for Publication/{id=IFD.property.fairspec.compound.association.id::*}.zip|"},
+ {"path":"FID for Publication/{id=IFD.property.fairspec..compound.id::*}.zip|"},
  
  {"FAIRSpec.extractor.object":"{path}**/{IFD.representation.structure.mol_2d::{IFD.property.structure.id::*}.mol}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::<id>/*}.zip}"},
