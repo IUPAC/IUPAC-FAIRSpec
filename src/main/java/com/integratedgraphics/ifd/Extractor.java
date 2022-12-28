@@ -3326,17 +3326,9 @@ public class Extractor implements ExtractorI {
 
 			extractor.processFlags(args);
 			new File(targetDir).mkdirs();
-			flags = "\n first = " + first + " last = " + last //
-					+ "\n stopOnAnyFailure = " + extractor.stopOnAnyFailure //
-					+ "\n debugging = " + extractor.debugging //
-					+ " readOnly = " + extractor.readOnly //
-					+ " debugReadOnly = " + extractor.debugReadOnly //
-					+ "\n allowNoPubInfo = " + !extractor.allowNoPubInfo //
-					+ " skipPubInfo = " + extractor.skipPubInfo //
-					+ "\n sourceArchive = " + sourceArchive //
-					+ " targetDir = " + targetDir //
-					+ "\n createZippedCollection = " + extractor.createZippedCollection //
-					+ " createFindingAidJSONList = " + createFindingAidJSONList //
+			flags = "\n first = " + first + " last = " + last + "\n"//
+					+ extractor.dumpFlags()
+					+ "\n createFindingAidJSONList = " + createFindingAidJSONList //
 					+ "\n IFD version " + IFDConst.IFD_VERSION + "\n";
 			// false for testing and you don't want to mess up _IFD_findingaids.json
 			createFindingAidJSONList = !extractor.debugReadOnly && (first != last || first < 0);
@@ -3539,5 +3531,20 @@ public class Extractor implements ExtractorI {
 				+ "\n-readonly (just create a log file)" //
 				+ "\n-requirePubInfo (throw an error is datacite cannot be reached; post-publication-related collections only)";
 	}
+
+	private String dumpFlags() {
+		String s =  " stopOnAnyFailure = " + stopOnAnyFailure //
+		+ "\n debugging = " + debugging //
+		+ "\n readOnly = " + readOnly //
+		+ "\n debugReadOnly = " + debugReadOnly //
+		+ "\n allowNoPubInfo = " + !allowNoPubInfo //
+		+ "\n skipPubInfo = " + skipPubInfo //
+		+ "\n skipPubInfo = " + skipPubInfo //
+		+ "\n sourceArchive = " + localSourceDir //
+		+ "\n targetDir = " + targetDir //
+		+ "\n createZippedCollection = " + createZippedCollection; //
+		return s;
+	}
+
 
 }
