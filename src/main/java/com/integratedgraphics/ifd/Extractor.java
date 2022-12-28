@@ -862,7 +862,7 @@ public class Extractor implements ExtractorI {
 	 * an optional local source directory to use instead of the one indicated in
 	 * IFD-extract.json
 	 */
-	protected String sourceDir;
+	protected String localSourceDir;
 
 	/**
 	 * a required target directory
@@ -1152,8 +1152,8 @@ public class Extractor implements ExtractorI {
 
 	public void phase1SetLocalSourceDir(String sourceDir) {
 		if (sourceDir != null && sourceDir.indexOf("://") < 0)
-			sourceDir = "file:///" + sourceDir;
-		this.sourceDir = sourceDir;
+			sourceDir = "file:///" + sourceDir.replace('\\', '/');
+		this.localSourceDir = sourceDir;
 	}
 
 	///////// ExtractorI methods /////////
@@ -1511,8 +1511,8 @@ public class Extractor implements ExtractorI {
 		log("=====");
 
 		if (logging()) {
-			if (sourceDir != null)
-				log("extractObjects from " + sourceDir);
+			if (localSourceDir != null)
+				log("extractObjects from " + localSourceDir);
 			log("extractObjects to " + targetDir.getAbsolutePath());
 		}
 
@@ -2189,12 +2189,14 @@ public class Extractor implements ExtractorI {
 	 * @throws IFDException
 	 */
 	protected String localizeURL(String sUrl) throws IFDException {
-		if (sourceDir != null && sourceDir.endsWith(".zip")) {
-			sUrl = sourceDir;
-		} else if (sourceDir != null && !sUrl.startsWith("./")) {
+		if (localSourceDir != null && localSourceDir.endsWith(".zip")) {
+			sUrl = localSourceDir;
+		} else if (localSourceDir != null && localSourceDir.endsWith("/*")) {
+			sUrl = localSourceDir.substring(0, localSourceDir.length() - 1);
+		} else if (localSourceDir != null && !sUrl.startsWith("./")) {
 			int pt = sUrl.lastIndexOf("/");
 			if (pt >= 0) {
-				sUrl = sourceDir + sUrl.substring(pt);
+				sUrl = localSourceDir + sUrl.substring(pt);
 				if (!sUrl.endsWith(".zip") && !sUrl.endsWith("/"))
 					sUrl += ".zip";
 			}
@@ -2371,7 +2373,6 @@ public class Extractor implements ExtractorI {
 				this.localizedName = localizedName;
 			if (isMultiple) {
 				addDeferredPropertyOrRepresentation(NEW_PAGE_KEY, new Object[] {"_" + nRezip, currentRezipRepresentation.getRezipOrigin(), localizedName }, false, null, null);
-				System.out.println("OHOH");
 			}
 		} else {
 			newDir += "/";

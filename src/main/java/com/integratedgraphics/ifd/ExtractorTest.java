@@ -94,12 +94,13 @@ public class ExtractorTest extends Extractor {
 		runACSTest(args, 3);
 		//runACSTest(args, 0, 11);
 		//runUCLTest(args);
-		//runTest(args, "./extract/test/8f.zip");
+		//runTest(args, "./extract/test/IFD-extract.json", "./extract/test/8f.zip");
+		//runTest(args, "./extract/test/IFD-extract2.json", "./extract/test/acs3/*");
 	}
 
-	private static void runTest(String[] args, String sourceArchive) {
+	private static void runTest(String[] args, String script, String sourceArchive) {
 
-		String[] testSet = new String[] { "./extract/test/IFD-extract.json" };
+		String[] testSet = new String[] { script };
 		String targetDir = "c:/temp/iupac/ifd/test";
 
 		//debugging = true;

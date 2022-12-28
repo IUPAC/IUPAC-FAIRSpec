@@ -460,7 +460,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			return true;
 		} 
 		if (key.equals(myPropertyPrefix + IFDConst.IFD_ID_FLAG)) {
-			id = value.toString();
+			setID(value.toString());
 			return true;
 		}
 		if (key.equals(myPropertyPrefix + IFDConst.IFD_DESCRIPTION_FLAG)) {
