@@ -2790,7 +2790,6 @@ public class Extractor implements ExtractorI {
 					byte[] bytes = (byte[]) oval[0];
 					String oPath = (String) oval[1];
 					String localName = localizePath(oPath);
-					File f = getAbsoluteFileTarget(oPath);
 					writeOriginToCollection(oPath, bytes, 0);
 					addFileToFileLists(localName, LOG_OUTPUT, bytes.length, null);
 					if (assoc != null) {
