@@ -80,7 +80,7 @@ public class IFDAssociation extends IFDCollection<IFDCollection<? extends IFDObj
 	 * @param obj1
 	 * @return true if 1:N association for obj1
 	 */
-	public boolean associates1ToN(IFDCollection<? extends IFDObject<?>> obj1) {
+	public boolean associates1ToN(IFDObject<?> obj1) {
 		IFDCollection<? extends IFDObject<?>> c1;
 		return (size() >= 2 && (c1 = get(0)).size() == 1 && c1.get(0) == obj1);
 	}

@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.iupac.fairdata.api.IFDSerializerI;
@@ -113,6 +115,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		private String rootPath;
 		private final String name;
 		private final List<String> files = new ArrayList<>();
+		private List<Long> lengths = new ArrayList<>();
 		private Pattern acceptPattern;
 		private long byteCount;
 	
@@ -126,6 +129,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		}
 	
 		public String serialize(StringBuffer sb) {
+			lengths = null;
 			String[] list = files.toArray(new String[files.size()]);
 			Arrays.sort(list);
 			boolean returnString = (sb == null);
@@ -147,6 +151,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	
 		public void add(String fileName, long len) {
 			files.add(fileName);
+			lengths.add(Long.valueOf(len));
 			byteCount += len;
 		}
 	
@@ -194,6 +199,11 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		@Override
 		public String toString() {
 			return serialize(null);
+		}
+
+		public long getLength(String fileName) {
+			int i = files.indexOf(fileName);
+			return (i < 0 || lengths == null ? 0 : lengths.get(i).longValue());
 		}
 	
 	}
@@ -705,8 +715,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	}
 
 	@Override
-	public IFDRepresentation getSpecDataRepresentation(String zipName) {
-		return (dataObjectCollection == null ? null : dataObjectCollection.getRepresentation(zipName));
+	public IFDRepresentation getSpecDataRepresentation(String localizeName) {
+		return (dataObjectCollection == null ? null : dataObjectCollection.getRepresentation(localizeName));
 	}
 
 	public IFDSampleCollection getSampleCollection() {
@@ -935,7 +945,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 				for (int i = assoc.size(); --i >= 0;) {
 					assoc.getDataObjectCollection().removeInvalidData();
 				}
-				if (assoc.getFirstObj1() == null) {
+				IFDStructure struc = (IFDStructure) assoc.getFirstObj1(); 
+				if (struc == null || struc.size() == 0) {
 					IFDObject<?> o = assoc.getFirstObj2();
 					extractor.log("! FAIRSpecExtractorHelper association id=" + assoc.getID()
 							+ " spec=" + (o == null ? "" : o.getID())

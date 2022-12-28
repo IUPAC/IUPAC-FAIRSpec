@@ -61,16 +61,16 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 
 	/**
 	 * Find a representation in one of the items of a collection
-	 * @param originPath
+	 * @param localizedPath
 	 * @return
 	 */
-	public IFDRepresentation getRepresentation(String originPath) {
+	public IFDRepresentation getRepresentation(String localizedPath) {
 		if (!hasRepresentations)
 			return null;
 		for (T c : this) {
 			if (!(c instanceof IFDRepresentableObject))
 				continue;
-			IFDRepresentation r = ((IFDRepresentableObject<?>)c).getRepresentation(originPath);
+			IFDRepresentation r = ((IFDRepresentableObject<?>)c).getRepresentation(localizedPath);
 			if (r != null)
 				return r;
 		}

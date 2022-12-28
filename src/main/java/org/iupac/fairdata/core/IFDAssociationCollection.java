@@ -36,9 +36,8 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 	 */
 	public IFDAssociation getAssociationForSingleObj1(IFDObject<?> obj1) {
 
-		IFDCollection<? extends IFDObject<?>> o = (IFDCollection<? extends IFDObject<?>>) obj1;
 		for (IFDAssociation a : this) {
-			if (a.associates1ToN(o))
+			if (a.associates1ToN(obj1))
 				return a;
 		}
 		return null;

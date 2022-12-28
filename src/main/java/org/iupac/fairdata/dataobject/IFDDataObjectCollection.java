@@ -36,8 +36,7 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 		if (andReplace)
 			data.setValid(false);
 		newData.setValid(true);
-		Map<String, IFDProperty> props = newData.getProperties();
-		System.out.println(newID + " DOC??? " + data.getProperties().size() + " " + props.size());
+		newData.getProperties();
 		add(newData);
 		return newData;
 	}

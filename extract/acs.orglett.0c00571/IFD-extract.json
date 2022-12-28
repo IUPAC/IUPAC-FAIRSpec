@@ -17,5 +17,6 @@
  
  {"FAIRSpec.extractor.object":"{path}**/{IFD.representation.structure.mol_2d::{IFD.property.structure.id::*}.mol}"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::<id>/*}.zip}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.hrms.document::{IFD.property.dataobject.id::<id>/HRMS.zip|**/*}.pdf}"}
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.hrms.document::{IFD.property.dataobject.id::<id>/HRMS}.zip|**/*.pdf}"}
+ 
 ]}

@@ -106,7 +106,6 @@ public class IFDConst {
 
 	public static final String IFD_SAMPLE_FLAG = getProp("IFD_SAMPLE_FLAG");
 	public static final String IFD_STRUCTURE_FLAG = getProp("IFD_STRUCTURE_FLAG");
-	public static final String IFD_COMPOUND_FLAG = getProp("IFD_COMPOUND_FLAG");
 	public static final String IFD_DATAOBJECT_FLAG = getProp("IFD_DATAOBJECT_FLAG");
 	public static final String IFD_ANALYSISOBJECT_FLAG = getProp("IFD_ANALYSISOBJECT_FLAG");
 
@@ -151,7 +150,6 @@ public class IFDConst {
 	public static final String IFD_REP_STRUCTURE_PNG = getProp("IFD_REP_STRUCTURE_PNG");
 	public static final String IFD_REP_STRUCTURE_UNKNOWN = getProp("IFD_REP_STRUCTURE_UNKNOWN");
 
-	public static final String IFD_COMPOUNDDATA_ASSOCIATION_FLAG = getProp("IFD_COMPOUNDDATA_ASSOCIATION_FLAG");
 	public static final String IFD_STRUCTUREDATA_ASSOCIATION_FLAG = getProp("IFD_STRUCTUREDATA_ASSOCIATION_FLAG");
 	public static final String IFD_SAMPLEDATA_ASSOCIATION_FLAG = getProp("IFD_SAMPLEDATA_ASSOCIATION_FLAG");
 	public static final String IFD_SAMPLESTRUCTURE_ASSOCIATION_FLAG = getProp("IFD_SAMPLESTRUCTURE_ASSOCIATION_FLAG");

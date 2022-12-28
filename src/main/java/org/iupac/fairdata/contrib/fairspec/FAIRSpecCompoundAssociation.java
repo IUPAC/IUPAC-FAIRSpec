@@ -29,13 +29,13 @@ import org.iupac.fairdata.derived.IFDStructureDataAssociation;
  * of properties or parameters that express the relationship of the related
  * structures.
  * 
- * In addition, a single IFDCompound can express a mixture of constitutionally
+ * In addition, a single IFDCompoundAssociation can express a mixture of constitutionally
  * unrelated chemical compounds that are associated with a set of spectra.
  * "Compounds 3a and 3b". In this case, the structures would have different
  * properties or representations that clearly identify them as distinctly
  * different chemical compounds.
  * 
- * It might be possible to have add a property to FAIRSpecCompound that would be
+ * It might be possible to have add a property to FAIRSpecCompoundAssociation that would be
  * a mInChi to allow a more fine-grained description of the assocated chemical
  * compounds.
  * 
