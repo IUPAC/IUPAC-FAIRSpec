@@ -26,10 +26,10 @@ public abstract class FAIRSpecDataObject extends IFDDataObject {
 	private String serializerPropertyPrefix;
 	private String objectType;
 	
-	@Override
-	public String getObjectFlag() {
-		return objectType;
-	}
+//	@Override
+//	public String getObjectFlag() {
+//		return objectType;
+//	}
 	
 	public static FAIRSpecDataObject createFAIRSpecObject(String key) {
 		String type = key.substring(key.lastIndexOf(".") + 1);

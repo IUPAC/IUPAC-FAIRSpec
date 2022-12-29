@@ -118,10 +118,13 @@ public class Extractor implements ExtractorI {
 	// make sense that that manifests are cleared?
 
 	// TODO: update GitHub README.md
+	
+	
 
-	protected static final String version = "0.0.5-alpha+2022.12.28";
+	protected static final String version = "0.0.5-alpha+2022.12.29";
 
-	// 2022.12.27 ACS 0-2 working
+	// 2022.12.29 version 0.0.5 ACS 0-4 with structures; fixing *-* Regex for ACS#4 acs.orglett.0c00788
+	// 2022.12.27 version 0.0.5 ACS 0-2 working
 	// 2022.12.27 version 0.0.5 introduces FAIRSpecCompoundAssociation
 	// 2022.12.23 version 0.0.4 fixes from ACS testing, Bruker directories with multiple numbered subdirectories adds "-<n>" to the id
 	// 2022.12.14 version 0.0.4 allows for local directory parsing (no zip or tar.gz)
@@ -166,19 +169,33 @@ public class Extractor implements ExtractorI {
 		protected static final char TEMP_KEYVAL_OUT_CHAR = '\4'; // --> >
 		protected static final char TEMP_ANY_SEP_ANY_CHAR = '\5'; // see below
 		protected static final char TEMP_ANY_SEP_ANY_CHAR2 = '\6'; // see below
+		protected static final char TEMP_OMIT = '\7'; //  \\ removed
 
 		protected static final String TEMP_KEYVAL_IN = REGEX_UNQUOTE + "(?" + TEMP_KEYVAL_IN_CHAR;
 
 		protected static final String TEMP_KEYVAL_OUT = TEMP_KEYVAL_OUT_CHAR + REGEX_QUOTE;
 
 		/**
+		 * multiple separations by char. 
 		 * for example *-*.zip -->
 		 */
-		protected static final String TEMP_ANY_SEP_ANY_GROUPS = REGEX_UNQUOTE + "(" + "[^\5]+(?:\6[^\5]+)"
-				+ TEMP_STAR_CHAR + ")" + REGEX_QUOTE;
+		protected static final String TEMP_ANY_SEP_ANY_GROUPS = REGEX_UNQUOTE + "(" + "[^|/\5]+(?:\6[^|/\5]+)"
+				//+ TEMP_STAR_CHAR
+				+ "+"
+				+ ")"
+				+ REGEX_QUOTE;
 
-		protected static final String TEMP_ANY_DIRECTORIES = REGEX_UNQUOTE + "(?:[^/]+/)" + TEMP_STAR_CHAR + REGEX_QUOTE;
+		/**
+		 * 		// /**\/ --> "/\E(?:[^|/]+/)*\Q"  [ backslash after two asterisks only for this comment ] 
+		 *
+		 * one or more directories; 
+		 * 
+		 * test/**\/*.zip  matches test/xxx.zip or test/bbb/aaa/xxx.zip
+		 */
+		protected static final String TEMP_ANY_DIRECTORIES = REGEX_UNQUOTE + "(?:[^|/]+/)" + TEMP_STAR_CHAR + REGEX_QUOTE;
 
+		protected static final char LITERAL = '\\';
+		
 		protected static int parserCount;
 		
 		protected final int index;
@@ -238,7 +255,7 @@ public class Extractor implements ExtractorI {
 			//
 			// **/ becomes \\E(?:[^/]+/)*)\\Q
 			//
-			// *-* becomes \\E([^-]+(?:-[^-]+)*)\\Q and matches a-b-c
+			// *-* becomes \\E([^-]+(?:-[^-]+)+)\\Q and matches a-b-c 
 			//
 			// * becomes \\E.+\\Q
 			//
@@ -279,15 +296,17 @@ public class Extractor implements ExtractorI {
 
 			s = FAIRSpecUtilities.rep(s, "**/", TEMP_ANY_DIRECTORIES);
 
+			s = s.replace(LITERAL, TEMP_OMIT);
 			Matcher m;
 			// *-* becomes \\E([^-]+(?:-[^-]+)*)\\Q and matches a-b-c
 			if (s.indexOf("*") != s.lastIndexOf("*")) {
 				while ((m = pStarDotStar.matcher(s)).find()) {
 					String schar = m.group(1);
+					char c = schar.charAt(0);
 					s = FAIRSpecUtilities.rep(s, "*" + schar + "*",
 							TEMP_ANY_SEP_ANY_GROUPS
-									.replaceAll("" + TEMP_ANY_SEP_ANY_CHAR2, "\\\\Q" + schar.charAt(0) + "\\\\E")
-									.replace(TEMP_ANY_SEP_ANY_CHAR, schar.charAt(0)));
+									.replaceAll("" + TEMP_ANY_SEP_ANY_CHAR2, "\\\\Q" + c + "\\\\E")
+									.replace(TEMP_ANY_SEP_ANY_CHAR, c));
 				}
 			}
 			// * becomes \\E.+\\Q
@@ -312,6 +331,8 @@ public class Extractor implements ExtractorI {
 			// \\Q\\E in result is removed
 
 			s = FAIRSpecUtilities.rep(s, REGEX_EMPTY_QUOTE, "");
+
+			s = FAIRSpecUtilities.rep(s, "" + TEMP_OMIT, "");
 
 			extractor.log("!Extractor.ObjectParser pattern: " + s);
 			p = Pattern.compile(s);
@@ -1738,8 +1759,6 @@ public class Extractor implements ExtractorI {
 		Matcher m = parser.p.matcher(originPath);
 		if (!m.find())
 			return null;
-		
-			
 		helper.beginAddingObjects(originPath);
 		if (debugging)
 			log("adding IFDObjects for " + originPath);
@@ -1757,6 +1776,13 @@ public class Extractor implements ExtractorI {
 			if (param.length() > 0) {
 				String id = m.group(key);
 				log("!found " + param + " " + id);
+				
+				if (IFDConst.isDataObject(param)) {
+					String s = IFDConst.IFD_DATAOBJECT_FLAG + localizedName;
+					if (htLocalizedNameToObject.get(s) != null)
+						continue;
+				}
+				
 				IFDObject<?> obj = helper.addObject(extractorSource.rootPath, param, id, localizedName, len);
 				if (obj instanceof IFDRepresentableObject) {
 					linkLocalizedNameToObject(localizedName, param, (IFDRepresentableObject<?>) obj);
@@ -3008,6 +3034,7 @@ public class Extractor implements ExtractorI {
 	protected void linkLocalizedNameToObject(String localizedName, String type, IFDRepresentableObject<?> obj) throws IOException {
 		if (localizedName != null && (type == null || IFDConst.isRepresentation(type))) {
 			String pre = obj.getObjectFlag();
+
 			htLocalizedNameToObject.put(localizedName, obj);
 			htLocalizedNameToObject.put(pre + localizedName, obj);
 			String renamed = htZipRenamed.get(localizedName);

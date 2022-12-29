@@ -944,7 +944,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 					assoc.getDataObjectCollection().removeInvalidData();
 				}
 				IFDStructure struc = (IFDStructure) assoc.getFirstObj1(); 
-				if (struc == null || struc.size() == 0) {
+				if (assoc.get(1).size() > 0 && (struc == null || struc.size() == 0)) {
 					IFDObject<?> o = assoc.getFirstObj2();
 					extractor.log("! FAIRSpecExtractorHelper association id=" + assoc.getID()
 							+ " spec=" + (o == null ? "" : o.getID())

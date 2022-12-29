@@ -38,6 +38,12 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 		return o;
 	}
 
+	 @Override
+	public String getObjectFlag() {
+		 // generic -- not specific FAIRSpec types
+		return IFDConst.IFD_DATAOBJECT_FLAG;
+	};
+
 	@Override
 	public String toString() {
 		return (label == null ? super.toString()
