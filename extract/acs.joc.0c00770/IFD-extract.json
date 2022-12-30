@@ -1,5 +1,5 @@
 {"FAIRSpec.extract.version":"0.0.2-alpha+2202.11.24","keys":[
- {"example":"compound zip files containing bruker and mnova files identified as'1_13C' and '1_mnova'"},
+ {"example":"compound zip files containing bruker and no-structure mnova files'"},
  {"journal":"acs.joc"},{"hash":"0c00770"},
  {"figshareid":"22567817"},
  

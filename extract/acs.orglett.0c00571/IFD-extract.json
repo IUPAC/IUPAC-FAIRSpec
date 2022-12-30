@@ -1,5 +1,5 @@
 {"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
- {"example":"compound directories containing unidentified bruker files and hrms zip file containing .pdf"},
+ {"example":"compound directories containing bruker files, 2D mol files (iminium triflate salts), and hrms zip file containing .pdf"},
  {"journal":"acs.orglett"},{"hash":"0c00571"},
  {"figshareid":"21975525"},
  

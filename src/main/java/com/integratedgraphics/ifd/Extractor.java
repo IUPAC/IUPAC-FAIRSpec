@@ -170,7 +170,7 @@ public class Extractor implements ExtractorI {
 		protected static final char TEMP_KEYVAL_OUT_CHAR = '\4'; // --> >
 		protected static final char TEMP_ANY_SEP_ANY_CHAR = '\5'; // see below
 		protected static final char TEMP_ANY_SEP_ANY_CHAR2 = '\6'; // see below
-		protected static final char TEMP_OMIT = '\7'; //  \\ removed
+		protected static final char TEMP_IGNORE = '\7'; //  \\ removed
 
 		protected static final String TEMP_KEYVAL_IN = REGEX_UNQUOTE + "(?" + TEMP_KEYVAL_IN_CHAR;
 
@@ -195,7 +195,7 @@ public class Extractor implements ExtractorI {
 		 */
 		protected static final String TEMP_ANY_DIRECTORIES = REGEX_UNQUOTE + "(?:[^|/]+/)" + TEMP_STAR_CHAR + REGEX_QUOTE;
 
-		protected static final char LITERAL = '\\';
+		protected static final char BACK_SLASH_IGNORED = '\\';
 		
 		protected static int parserCount;
 		
@@ -293,11 +293,14 @@ public class Extractor implements ExtractorI {
 
 			String s = protectRegex(null);
 
+			// \ is ignored and removed at the end
+			// it should only be used to break up something like *\-* to be literally a single *-*, not "any number of "-"
+			s = s.replace(BACK_SLASH_IGNORED, TEMP_IGNORE);
+
 			// **/ becomes \\E(?:[^/]+/)*\\Q
 
 			s = FAIRSpecUtilities.rep(s, "**/", TEMP_ANY_DIRECTORIES);
 
-			s = s.replace(LITERAL, TEMP_OMIT);
 			Matcher m;
 			// *-* becomes \\E([^-]+(?:-[^-]+)*)\\Q and matches a-b-c
 			if (s.indexOf("*") != s.lastIndexOf("*")) {
@@ -333,7 +336,7 @@ public class Extractor implements ExtractorI {
 
 			s = FAIRSpecUtilities.rep(s, REGEX_EMPTY_QUOTE, "");
 
-			s = FAIRSpecUtilities.rep(s, "" + TEMP_OMIT, "");
+			s = FAIRSpecUtilities.rep(s, "" + TEMP_IGNORE, "");
 
 			extractor.log("!Extractor.ObjectParser pattern: " + s);
 			p = Pattern.compile(s);
@@ -456,12 +459,9 @@ public class Extractor implements ExtractorI {
 			if (parser.dataSource != extractorSource) {
 				try {
 					extractorSource = phase2InitializeSource(parser.dataSource);
-					if (extractorSource == null)
-						parser = null;
 				} catch (IFDException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					parser = null;
 				}
 			}
 			return parser;
@@ -1089,7 +1089,7 @@ public class Extractor implements ExtractorI {
 	 */
 	public static final Object NULL = "\1";
 
-	private static final String DEFAULT_STRUCTURE_SITE = "./site/";
+	private static final String DEFAULT_STRUCTURE_URI = "./struc/";
 
 	public Extractor() {
 		setConfiguration();
@@ -1149,6 +1149,16 @@ public class Extractor implements ExtractorI {
 		// first create objects, a List<String>
 		this.extractscriptFile = ifdExtractScriptFile;
 		phase1GetObjectParsersForFile(ifdExtractScriptFile);
+		if (!phase1ProcessPubURI())
+			return false;
+		phase1SetLocalSourceDir(localArchive);
+		// options here to set cache and rezip options -- debugging only!
+		phase1SetCachePattern(userStructureFilePattern);
+		rezipCachePattern = phase1SetRezipCachePattern(null, null);
+		return true;
+	}
+
+	private boolean phase1ProcessPubURI() throws IOException {
 		String puburi = null;
 		Map<String, Object> pubCrossrefInfo = null;
 		puburi = (String) helper.getFindingAid()
@@ -1173,10 +1183,6 @@ public class Extractor implements ExtractorI {
 				helper.getFindingAid().setRelatedTo(list);
 			}
 		}
-		phase1SetLocalSourceDir(localArchive);
-		// options here to set cache and rezip options -- debugging only!
-		phase1SetCachePattern(userStructureFilePattern);
-		rezipCachePattern = phase1SetRezipCachePattern(null, null);
 		return true;
 	}
 
@@ -1468,7 +1474,8 @@ public class Extractor implements ExtractorI {
 
 				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_OBJECT)) {
 					if (source == null) {
-						if (lastSourceVal == null || !lastSourceVal.equals(DEFAULT_STRUCTURE_SITE))
+						if (DEFAULT_STRUCTURE_URI.equals(lastSourceVal))
+							continue;
 						throw new IFDException(
 								IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI + " was not set before " + val);
 					}
@@ -1524,7 +1531,7 @@ public class Extractor implements ExtractorI {
 		File zipFile = new File(val.substring(6));
 		if (zipFile.exists())
 			return true;
-		logWarn("local source directory does not exist (ignored): " + zipFile.getAbsolutePath(), "phase1CheckSource");
+		logWarn("local source directory does not exist (ignored): " + zipFile, "phase1CheckSource");
 		return false;
 	}
 
@@ -1703,7 +1710,7 @@ public class Extractor implements ExtractorI {
 		return contents;
 	}
 
-	private ExtractorSource phase2InitializeSource(ExtractorSource source) throws IFDException, IOException {
+	protected ExtractorSource phase2InitializeSource(ExtractorSource source) throws IFDException, IOException {
 		// localize the URL if we are using a local copy of a remote resource.
 
 		localizedTopLevelZipURL = localizeURL(source.source);
@@ -1806,8 +1813,9 @@ public class Extractor implements ExtractorI {
 			throws IFDException, IOException {
 
 		Matcher m = parser.p.matcher(originPath);
-		if (!m.find())
+		if (!m.find()) {
 			return null;
+		}
 		helper.beginAddingObjects(originPath);
 		if (debugging)
 			log("adding IFDObjects for " + originPath);
@@ -2194,17 +2202,20 @@ public class Extractor implements ExtractorI {
 	}
 
 	protected void logNote(String msg, String method) {
-		msg = "!NOTE: Extractor." + method + " " + ifdid + " " + extractorSource.rootPath + " " + msg;
+		msg = "!NOTE: " + msg + " -- Extractor." + method 
+				+ " " + ifdid + " " + (extractorSource == null ? "" : extractorSource.rootPath);
 		log(msg);
 	}
 
 	protected void logWarn(String msg, String method) {
-		msg = "! WARNING: " + msg + " -- Extractor." + method + " " + ifdid + " " + extractorSource.rootPath;
+		msg = "! WARNING: " + msg + " -- Extractor." + method 
+				+ " " + ifdid + " " + (extractorSource == null ? "" : extractorSource.rootPath);
 		log(msg);
 	}
 
 	protected void logErr(String msg, String method) {
-		msg = "!! ERROR: " + msg + " -- Extractor." + method + " " + ifdid + " " + extractorSource.rootPath;
+		msg = "!! ERROR: " + msg + " -- Extractor." + method 
+				+ " " + ifdid + " " + (extractorSource == null ? "" : extractorSource.rootPath);
 		log(msg);
 	}
 
@@ -2930,7 +2941,6 @@ public class Extractor implements ExtractorI {
 					assoc = helper.findCompound(null, localSpec);
 				IFDDataObject newSpec;
 				if (localSpec == null) {
-					System.out.println("?????");
 					newSpec = (IFDDataObject) spec;
 				} else {
 					 newSpec = helper.cloneData(localSpec, idExtension, true);
