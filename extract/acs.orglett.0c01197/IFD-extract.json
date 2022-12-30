@@ -1,0 +1,17 @@
+{"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
+ {"example":"'products' and 'Substrate' directories containing identified mnova files containing structures as PNG images"},
+ {"journal":"acs.orglett"},{"hash":"0c01197"},
+ {"figshareid":"22491647"},
+
+ {"IFD.property.collectionset.source_data_license_uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.source_data_license_name":"cc-by-nc-4.0"},
+ {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
+ {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"},
+
+ {"#IFD.property.collectionset.source_data_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip"},
+ {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
+
+ {"path":"*/"},
+ 
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}}.mnova}"}
+]}

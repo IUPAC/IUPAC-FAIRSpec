@@ -2841,8 +2841,7 @@ public class Extractor implements ExtractorI {
 	 * @throws IFDException
 	 * @throws IOException
 	 */
-	protected void processDeferredObjectProperties(String phase2OriginPath)
-			throws IFDException, IOException {
+	protected void processDeferredObjectProperties(String phase2OriginPath) throws IFDException, IOException {
 		FAIRSpecCompoundAssociation assoc = null;
 		String lastLocal = null;
 		IFDDataObject localSpec = null;
@@ -2921,11 +2920,11 @@ public class Extractor implements ExtractorI {
 					setLocalFileLength(r);
 				continue;
 			}
-			
+
 			// properties only
 			if (cloning) {
- 				String newLocalName = null;
- 				boolean clearNew;
+				String newLocalName = null;
+				boolean clearNew;
 				if (value instanceof String) {
 					clearNew = false;
 					if (originObject == null) {
@@ -2937,7 +2936,7 @@ public class Extractor implements ExtractorI {
 				} else {
 					clearNew = true;
 					// e.g. Bruker created a new object from multiple <n>/ directories
-					a = (Object[]) value;					
+					a = (Object[]) value;
 					value = (String) a[0];
 					localSpec = (IFDDataObject) a[1];
 					newLocalName = (String) a[2];
@@ -2945,11 +2944,12 @@ public class Extractor implements ExtractorI {
 				String idExtension = (String) value;
 				if (assoc == null)
 					assoc = helper.findCompound(null, localSpec);
+				System.out.println("cloning for association " + assoc);
 				IFDDataObject newSpec;
 				if (localSpec == null) {
 					newSpec = (IFDDataObject) spec;
 				} else {
-					 newSpec = helper.cloneData(localSpec, idExtension, true);
+					newSpec = helper.cloneData(localSpec, idExtension, true);
 				}
 				spec = localSpec = newSpec;
 				struc = helper.getFirstStructureForSpec(localSpec, assoc == null);
@@ -2972,7 +2972,7 @@ public class Extractor implements ExtractorI {
 					assoc.addDataObject(newSpec);
 				}
 				if (struc == null && sample == null) {
-					log("!SpecData " + spec + " added ");
+					log("!SpecData " + spec + " added " + (assoc == null ? "" : "to " + assoc));
 				}
 				if (newLocalName != null)
 					localizedName = newLocalName;
@@ -3004,18 +3004,32 @@ public class Extractor implements ExtractorI {
 					if (struc == null) {
 						struc = helper.addStructureForSpec(extractorSource.rootPath, (IFDDataObject) spec, ifdRepType,
 								oPath, localName, name);
+						
 					}
 					htStructureRepCache.put(w, struc);
-					if (sample != null)
+					if (sample == null) {
+						assoc = helper.findCompound(struc, (IFDDataObject) spec);
+					} else {
 						helper.associateSampleStructure(sample, struc);
-
+					}
 					// MNova 1 page, 1 spec, 1 structure Test #5
 					addFileAndCacheRepresentation(oPath, null, bytes.length, ifdRepType, null, null);
 					linkLocalizedNameToObject(localName, ifdRepType, struc);
 					log("!Structure " + struc + " created and associated with " + spec);
-				} else if (helper.findCompound(struc, (IFDDataObject) spec) == null) {
-					helper.createCompound(struc, (IFDDataObject) spec);
-					log("!Structure " + struc + " found and associated with " + spec);
+				} else {
+					assoc = helper.findCompound(struc, (IFDDataObject) spec);
+					if (assoc == null) {
+						assoc = helper.createCompound(struc, (IFDDataObject) spec);
+						log("!Structure " + struc + " found and associated with " + spec);
+					}
+				} 
+				if (struc.getID() == null) {
+					String id = assoc.getID();
+					if (id != null && spec != null) {
+						id = spec.getID();
+						assoc.setID(id);
+					}
+					struc.setID(id);
 				}
 				continue;
 			}
