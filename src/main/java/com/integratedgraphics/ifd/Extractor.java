@@ -1814,6 +1814,7 @@ public class Extractor implements ExtractorI {
 
 		Matcher m = parser.p.matcher(originPath);
 		if (!m.find()) {
+			
 			return null;
 		}
 		helper.beginAddingObjects(originPath);
@@ -2044,6 +2045,8 @@ public class Extractor implements ExtractorI {
 		
 		
 		if (vendorCachePattern != null && (m = vendorCachePattern.matcher(originPath)).find()) {
+			
+			
 			PropertyManagerI v = getPropertyManager(m);
 			boolean doCheck = (v != null);
 			boolean doExtract = (!doCheck || v.doExtract(originPath));
@@ -2143,8 +2146,8 @@ public class Extractor implements ExtractorI {
 					 }
 				}
 				rezipCache.add(ref);
-				if (logging())
-					log("rezip pattern found " + originPath);
+				if (true || logging())
+					log("!rezip pattern found " + originPath + " " + ref);
 			}
 		}
 
@@ -2451,8 +2454,10 @@ public class Extractor implements ExtractorI {
 			}
 
 			obj = getObjectFromLocalizedName(localizePath(name), IFDConst.IFD_DATAOBJECT_FLAG);
-			if (obj == null)
+			if (obj == null) {
+				obj = getObjectFromLocalizedName(localizePath(name), IFDConst.IFD_DATAOBJECT_FLAG);
 				throw new IFDException("phase2cRezipEntry could not find object for " + lNameForObj);
+			}
 		}
 		String basePath = baseName + parent;
 		if (newDir == null) {
@@ -2486,7 +2491,7 @@ public class Extractor implements ExtractorI {
 					htZipRenamed.put(localizePath(basePath), localizedName);
 				}
 			} else {
-				oPath += ".zip";
+//				oPath += ".zip";
 			}
 			if (this.localizedName == null)
 				this.localizedName = localizedName;
@@ -2496,6 +2501,7 @@ public class Extractor implements ExtractorI {
 			log("!" + msg);
 		}
 		localizedName = localizePath(oPath);
+		htLocalizedNameToObject.put(localizedName, obj);
 		this.localizedName = localizedName;
 		File outFile = getAbsoluteFileTarget(oPath);
 		log("!Extractor Phase 2c rezipping " + baseName + entry + " as " + outFile);
@@ -3405,6 +3411,7 @@ public class Extractor implements ExtractorI {
 		boolean createFindingAidJSONList = false;
 		Extractor extractor = null;
 		String flags = null;
+		String targetDir0 = targetDir;
 		for (int itest = i0; itest <= i1; itest++) {
 			extractor = new Extractor();
 			extractor.logToSys("Extractor.runExtraction output to " + new File(targetDir).getAbsolutePath());
@@ -3419,6 +3426,7 @@ public class Extractor implements ExtractorI {
 				extractor.logToSys("Extractor.runExtraction " + itest + " " + job);
 				int pt = extractInfo.indexOf("#");
 				if (pt == 0) {
+					ifdExtractJSONFilename = null;
 					System.out.println("Ignoring " + extractInfo);
 					continue;
 				} else if (pt > 0) {
@@ -3428,7 +3436,7 @@ public class Extractor implements ExtractorI {
 				}
 				String targetSubDirectory = new File(ifdExtractJSONFilename).getParentFile().getName();
 				if (targetSubDirectory.length() > 0)
-					targetDir += "/" + targetSubDirectory;
+					targetDir = targetDir0 + "/" + targetSubDirectory;
 			}
 			n++;
 			if (extractInfo != null) {
@@ -3468,11 +3476,20 @@ public class Extractor implements ExtractorI {
 				if (extractor.stopOnAnyFailure)
 					break;
 			}
-			warnings += extractor.strWarnings;
 			nWarnings += extractor.warnings;
 			nErrors += extractor.errors;
 			extractor.logToSys(
 					"!Extractor.runExtraction job " + job + " time/sec=" + (System.currentTimeMillis() - t0) / 1000.0);
+			ifdExtractJSONFilename = null;
+			if (extractor.warnings > 0) {
+				warnings += "=========" + extractor.warnings + " warnings for " + targetDir + "\n" + extractor.strWarnings;
+				try {
+					FAIRSpecUtilities.writeBytesToFile((warnings).getBytes(),
+							new File(targetDir0 + "/_IFD_warnings.txt"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 
 		}
 		json += "\n]}\n";
@@ -3480,7 +3497,7 @@ public class Extractor implements ExtractorI {
 			if (failed == 0) {
 				try {
 					if (createFindingAidJSONList && !extractor.readOnly && json != null) {
-						File f = new File(targetDir + "/_IFD_findingaids.json");
+						File f = new File(targetDir0 + "/_IFD_findingaids.json");
 						FAIRSpecUtilities.writeBytesToFile(json.getBytes(), f);
 						extractor
 								.logToSys("Extractor.runExtraction File " + f.getAbsolutePath() + " created \n" + json);
@@ -3492,13 +3509,14 @@ public class Extractor implements ExtractorI {
 					e.printStackTrace();
 				}
 			}
-			if (warnings.length() > 0)
+			if (nWarnings > 0) {
 				try {
 					FAIRSpecUtilities.writeBytesToFile((warnings + nWarnings + " warnings\n").getBytes(),
-							new File(targetDir + "/_IFD_warnings.txt"));
+							new File(targetDir0 + "/_IFD_warnings.txt"));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+			}
 			extractor.logToSys("");
 			System.err.flush();
 			System.out.flush();

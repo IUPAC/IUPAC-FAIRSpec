@@ -79,7 +79,7 @@ public class ExtractorTest extends Extractor {
 /*6*/		"./extract/acs.orglett.0c00967/IFD-extract.json#22111341",   // 6 -- bruker dirs + jeol jdfs
 /*7*/		"./extract/acs.orglett.0c01022/IFD-extract.json#22195341",   // 7 -- many mnovas
 /*8*/		"./extract/acs.orglett.0c01043/IFD-extract.json#22232721",  // 8 -- LARGE single 158-MB mnova -- IGNORING!
-/*9*/		"#./extract/acs.orglett.0c01153/IFD-extract.json#22284726,22284720",  // 9 -- LARGE two remote locations; bruker dirs + cdx
+/*9*/		"./extract/acs.orglett.0c01153/IFD-extract.json#22284726,22284720",  // 9 -- LARGE two remote locations; bruker dirs + cdx
 /*10*/		"./extract/acs.orglett.0c01197/IFD-extract.json#22491647",  // 10 -- many mnovas
 /*11*/		"./extract/acs.orglett.0c01277/IFD-extract.json#22613762",  // 11 -- bruker dirs
 /*12*/		"./extract/acs.orglett.0c01297/IFD-extract.json#22612484",  // 12 --  bruker dirs
@@ -90,8 +90,8 @@ public class ExtractorTest extends Extractor {
 //		int last = 0; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 //						// file test
 		//runACSTest(args, first, last);
-		//runACSTest(args, 0,5);
-		runACSTest(args, 8);
+		runACSTest(args, 0,9);
+		//runACSTest(args, 9);
 		//runACSTest(args, 0, 11);
 		//runUCLTest(args);
 		//runTest(args, "./extract/test/IFD-extract.json", "./extract/test/8f.zip");
