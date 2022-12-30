@@ -1610,11 +1610,12 @@ public class Extractor implements ExtractorI {
 
 		log("!Phase 2d check for ignored files");
 
-		for (ExtractorSource s: htResources.values()) {
-			phase2InitializeSource(s);
-			phase2ReadZipContentsIteratively(getTopZipStream(), "", PHASE_2D, null);
+		iter = new ParserIterator();
+		while (iter.hasNext()) {
+			ObjectParser parser = iter.next();
+			if (parser.hasData)
+				phase2ReadZipContentsIteratively(getTopZipStream(), "", PHASE_2D, null);
 		}
-
 	}
 
 	protected Map<String, Map<String, ArchiveEntry>>  phase2aInitializeZipData() throws IOException, IFDException {

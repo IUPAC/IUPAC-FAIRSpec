@@ -91,7 +91,7 @@ public class ExtractorTest extends Extractor {
 //						// file test
 		//runACSTest(args, first, last);
 		//runACSTest(args, 0,5);
-		runACSTest(args, 5);
+		runACSTest(args, 6);
 		//runACSTest(args, 0, 11);
 		//runUCLTest(args);
 		//runTest(args, "./extract/test/IFD-extract.json", "./extract/test/8f.zip");
