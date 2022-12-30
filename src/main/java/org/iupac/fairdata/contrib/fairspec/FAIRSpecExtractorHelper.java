@@ -395,7 +395,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 				}
 			}
 			boolean isNew = (currentDataObject == null);
-			if (currentDataObject == null) {
+			if (isNew) {
 				currentDataObject = (IFDDataObject) checkAddNewObject(getSpecCollection(), type, rootPath, param, value,
 						localizedName, currentOriginPath, len, true);
 			} else {

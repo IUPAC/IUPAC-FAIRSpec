@@ -16,9 +16,9 @@ public class JCAMPDXIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	@Override
-	public String accept(ExtractorI extractor, String ifdPath, byte[] bytes) {
-		super.accept(extractor, ifdPath, bytes);
-		System.out.println("! JCAMPDX Plugin TODO: accept JDX file " + ifdPath);
+	public String accept(ExtractorI extractor, String originPath, byte[] bytes) {
+		super.accept(extractor, originPath, bytes);
+		System.out.println("! JCAMPDX Plugin TODO: accept JDX file " + originPath);
 		return processRepresentation(null, null);
 	}
 
@@ -28,7 +28,7 @@ public class JCAMPDXIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	@Override
-	public String processRepresentation(String ifdPath, byte[] bytes) {
+	public String processRepresentation(String originPath, byte[] bytes) {
 		return IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET;
 	}
 

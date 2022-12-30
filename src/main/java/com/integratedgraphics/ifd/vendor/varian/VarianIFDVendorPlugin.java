@@ -20,8 +20,8 @@ public class VarianIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 	}
 
 	@Override
-	public String accept(ExtractorI extractor, String ifdPath, byte[] bytes) {
-		super.accept(extractor, ifdPath, bytes);
+	public String accept(ExtractorI extractor, String originPath, byte[] bytes) {
+		super.accept(extractor, originPath, bytes);
 		try {
 			NmrMLVarianAcquStreamReader varian = new NmrMLVarianAcquStreamReader(new ByteArrayInputStream(bytes));
 			Acqu acq = varian.read();
@@ -39,7 +39,7 @@ public class VarianIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 	}
 
 	@Override
-	public String processRepresentation(String ifdPath, byte[] bytes) {
+	public String processRepresentation(String originPath, byte[] bytes) {
 		return IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET;
 	}
 

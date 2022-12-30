@@ -107,7 +107,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	}
 
 	@Override
-	public String accept(ExtractorI extractor, String zipOrPathName, byte[] bytes) {
+	public String accept(ExtractorI extractor, String originPath, byte[] bytes) {
 		if (extractor != null) {
 			this.extractor = extractor;
 		}

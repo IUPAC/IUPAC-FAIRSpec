@@ -35,6 +35,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 		private String nuc1;
 		private double freq;
 		private String origin;
+		public int dim = 1;
 
 		private String setOrigin(String val) {
 			origin = FAIRSpecUtilities.rep(val, "\n", " ").trim();
@@ -51,7 +52,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 
 	private int page = 0;
 
-	private String ifdPath;
+	private String originPath;
 
 	/**
 	 * each page maintains its own set of data to pass back to the extractor
@@ -64,7 +65,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 				"Solvent", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_SOLVENT"), //prop
 				"Probe", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_PROBE_TYPE"), //prop
 				"Temperature", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_ABSOLUTE_TEMPERATURE"), //prop
-				"Experiment", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_DIM"), //prop
+				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_DIM"), //prop
 				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TITLE"), //prop
 				"F1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_1"), //prop
 				"F2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_2"), //prop
@@ -84,15 +85,15 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	@Override
-	public String accept(ExtractorI extractor, String ifdPath, byte[] bytes) {
-		super.accept(extractor, ifdPath, bytes);
+	public String accept(ExtractorI extractor, String originPath, byte[] bytes) {
+		super.accept(extractor, originPath, bytes);
 		MNovaMetadataReader reader;
 		try {
 			page = 0;
 			params = null;
 			pageList = new ArrayList<>();
 			reader = new MNovaMetadataReader(this, bytes);
-			this.ifdPath = ifdPath;
+			this.originPath = originPath;
 
 			// extract structure files (CDX, CDXML, and MOL) and spectral metadata
 
@@ -131,7 +132,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	@Override
-	public String processRepresentation(String ifdPath, byte[] bytes) {
+	public String processRepresentation(String originPath, byte[] bytes) {
 		return IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET;
 	}
 
@@ -172,15 +173,15 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 					//$FALL-THROUGH$
 				case "Acquisition Date":
 				case "Author":
+				case "Class":
 				case "Experiment":
+				case "Presaturation Frequency":
+				case "Probe":
 				case "Modification Date":
 				case "Pulse Sequence":
 				case "Site":
 				case "Solvent":
 				case "Title":
-				case "Class":
-				case "Presaturation Frequency":
-				case "Probe":
 				default:
 					oval = FAIRSpecUtilities.rep(val, "\n", " ").trim();
 					break;
@@ -227,9 +228,13 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 				case "Acquisition Time":
 					oval = Double.valueOf(Double.parseDouble(val));
 					break;
+				case "Spectral Size":
+					oval = Integer.valueOf(Integer.parseInt(val));
+					if (param2 != null)
+						pageGlobals.dim = 2;
+					break;
 				case "Number of Scans":
 				case "Acquired Size":
-				case "Spectral Size":
 					oval = Integer.valueOf(Integer.parseInt(val));
 					break;
 				}
@@ -241,13 +246,13 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 			return;
 		switch (key) {
 		case DefaultStructureHelper.PNG_FILE_DATA:
-			oval = new Object[] { oval, ifdPath + "#page" + page + ".png", pageGlobals.pngcss };
+			oval = new Object[] { oval, originPath + "#page" + page + ".png", pageGlobals.pngcss };
 			break;
 		case DefaultStructureHelper.CDX_FILE_DATA:
-			oval = new Object[] { oval, ifdPath + "#page" + page + ".cdx", null };
+			oval = new Object[] { oval, originPath + "#page" + page + ".cdx", null };
 			break;
 		case DefaultStructureHelper.MOL_FILE_DATA:
-			oval = new Object[] { oval, ifdPath + "#page" + page + ".mol", null };
+			oval = new Object[] { oval, originPath + "#page" + page + ".mol", null };
 			break;
 		}
 		if (propName != null)
@@ -294,7 +299,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	private void close() {
-		System.out.println("MestreLabIFDVendorPlugin done " + page + " pages for " + ifdPath 
+		System.out.println("MestreLabIFDVendorPlugin done " + page + " pages for " + originPath 
 				+ "\n=============================================\n");
 		finalizeParams();
 		page = 0;
@@ -304,8 +309,9 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 		if (params != null && pageGlobals.freq != 0) {
 			int f = getNominalFrequency(pageGlobals.freq, pageGlobals.nuc1);
 			params.put("SF", Double.valueOf(f));
+			params.put("DIM", Integer.valueOf(pageGlobals.dim) + "D");
 			params.put("mnovaVersion", mnovaVersion);
-		}
+		} 
 		params = null;
 	}
 

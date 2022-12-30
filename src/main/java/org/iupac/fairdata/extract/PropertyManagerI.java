@@ -36,13 +36,13 @@ public interface PropertyManagerI {
 	 * 
 	 * @param extractor will be null if rezipping, otherwise the calling
 	 *                  IFDExtractorI
-	 * @param ifdPath   the output path, either for a ZipOutputStream or a
+	 * @param originPath   the output path, either for a ZipOutputStream or a
 	 *                  FileOutputStream
 	 * @param bytes     the decompressed contents of this file, for checking and
 	 *                  further processing; may be null in some applications
 	 * @return true if accepted (but may be ignored by the extractor)
 	 */
-	String accept(ExtractorI extractor, String ifdPath, byte[] bytes);
+	String accept(ExtractorI extractor, String originPath, byte[] bytes);
 
 	/**
 	 * Process a representation (zip file or directory, mol file, etc.), possibly

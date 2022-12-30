@@ -50,9 +50,9 @@ public class DefaultStructureHelper implements PropertyManagerI {
 	private Map<String, String> fileToType = new HashMap<>();
 
 	@Override
-	public String accept(ExtractorI extractor, String ifdPath, byte[] bytes) {
+	public String accept(ExtractorI extractor, String originPath, byte[] bytes) {
 		this.extractor = extractor;
-		return processRepresentation(ifdPath, bytes);
+		return processRepresentation(originPath, bytes);
 	}
 	
 	protected Viewer getJmolViewer() {
@@ -88,11 +88,11 @@ public class DefaultStructureHelper implements PropertyManagerI {
 	private static final String CELL_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE_CELL_FORMULA");
 
 	@Override
-	public String processRepresentation(String ifdPath, byte[] bytes) {
-		String type = fileToType.get(ifdPath);
+	public String processRepresentation(String originPath, byte[] bytes) {
+		String type = fileToType.get(originPath);
 		if (type != null)
 			return type;
-		String ext = ifdPath.substring(ifdPath.lastIndexOf('.') + 1);
+		String ext = originPath.substring(originPath.lastIndexOf('.') + 1);
 		type = getType(ext, bytes);
 		String smiles = null, standardInchi = null, fixedhInchi = null, inchiKey = null, molecularFormula = null,
 				cellFormula = null, empiricalFormula = null;
@@ -102,7 +102,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		if (isCIF || isCDXML || ext.equals("mol") || ext.equals("sdf") || ext.equals("cml")) {
 			try {
 				Viewer v = getJmolViewer();
-				note = "generated from " + ifdPath + " by Jmol " + jmolVersion;
+				note = "generated from " + originPath + " by Jmol " + jmolVersion;
 				String data = new String(bytes);
 				String s = "set allowembeddedscripts false;load DATA \"model\"\n" + data
 						+ "\nend \"model\" 1 FILTER 'no3D;noHydrogen'";
@@ -122,7 +122,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 					smiles = v.getSmiles(atoms);
 					standardInchi = v.getInchi(atoms, null, null);
 					if (standardInchi == null) {
-						extractor.log("! DefaultStructureHelper WARNING: InChI could not be created for " + ifdPath);
+						extractor.log("! DefaultStructureHelper WARNING: InChI could not be created for " + originPath);
 					} else {
 						fixedhInchi = v.getInchi(atoms, null, "fixedh");
 						inchiKey = v.getInchi(atoms, null, "key");
@@ -133,7 +133,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 						String mol2d = (String) v.evaluateExpression("write('MOL')");
 						if (mol2d != null && mol2d.indexOf("2D") >= 0)
 							extractor.addDeferredPropertyOrRepresentation(IFDConst.IFD_REP_STRUCTURE_MOL_2D,
-								new Object[] { mol2d.getBytes(), ifdPath + ".mol" }, false, "chemical/x-mdl-molfile", note);
+								new Object[] { mol2d.getBytes(), originPath + ".mol" }, false, "chemical/x-mdl-molfile", note);
 					}
 				}
 				boolean is3D = "3D".equals(v.getCurrentModelAuxInfo().get("dimension"));
@@ -151,7 +151,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		}
 		if (bytes != null) {
 			extractor.addDeferredPropertyOrRepresentation(IFDConst.IFD_REP_STRUCTURE_PNG,
-					new Object[] { bytes, ifdPath + ".png" }, false, "image/png", note);
+					new Object[] { bytes, originPath + ".png" }, false, "image/png", note);
 		}
 		if (smiles != null) {
 			extractor.addDeferredPropertyOrRepresentation(SMILES, smiles, true, "chemical/x-smiles", note);
@@ -175,7 +175,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		if (inchiKey != null) {
 			extractor.addDeferredPropertyOrRepresentation(INCHIKEY, inchiKey, true, "chemical/x-inchikey", null);
 		}
-		fileToType.put(ifdPath, type);
+		fileToType.put(originPath, type);
 		return type;
 	}
 

@@ -11,8 +11,6 @@
  {"#IFD.property.collectionset.source_data_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip|"},
  {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
 
- {"IFD.property.collectionset.byid":true},
- 
  {"path":"FID for Publication/{id=IFD.property.fairspec.compound.id::*}.zip|"},
  
  {"FAIRSpec.extractor.object":"{path}**/{IFD.representation.structure.mol_2d::{IFD.property.structure.id::*}.mol}"},

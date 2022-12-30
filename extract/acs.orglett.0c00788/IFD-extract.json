@@ -8,8 +8,6 @@
  {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
  {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"},
 
- {"IFD.property.collectionset.byid":true},
-
  {"#IFD.property.collectionset.source_data_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip"},
  {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
 
@@ -22,11 +20,6 @@
 	"3a-Proton-DSMSO.jdf",
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}-*-*.jdf}}"},
 	"3a-Carbon.jdf", "3a-NOE.jdf",
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}-*.jdf}}"},
-
- {"IFD.property.collectionset.source_data_uri":"./struc/"},
-
- {"FAIRSpec.extractor.object":"{IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}.cdxml}"},
- {"FAIRSpec.extractor.object":"{IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::*}/{IFD.property.structure.id::*}.cdxml}"}
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}-*.jdf}}"}
 
 ]}

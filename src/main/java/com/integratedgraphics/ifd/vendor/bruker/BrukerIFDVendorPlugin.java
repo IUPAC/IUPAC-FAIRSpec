@@ -129,27 +129,27 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	 * 
 	 */
 	@Override
-	public String accept(ExtractorI extractor, String ifdPath, byte[] bytes) {
-		super.accept(extractor, ifdPath, bytes);
-		return (readJDX(ifdPath, bytes) ? processRepresentation(ifdPath, null) : null);
+	public String accept(ExtractorI extractor, String originPath, byte[] bytes) {
+		super.accept(extractor, originPath, bytes);
+		return (readJDX(originPath, bytes) ? processRepresentation(originPath, null) : null);
 	}
 
-	private boolean readJDX(String ifdPath, byte[] bytes) {
-		if (ifdPath.indexOf("title") >= 0) {
+	private boolean readJDX(String originPath, byte[] bytes) {
+		if (originPath.indexOf("title") >= 0) {
 			report("TITLE", new String(bytes));
 			return true;
 		}
 		Map<String, String> map = null;
 		try {
 			map = JDXReader.getHeaderMap(new ByteArrayInputStream(bytes), null);
-//			if (ifdPath.indexOf("hsqc") >= 0)
-//				System.out.println(ifdPath +"\n" + map.toString().replace(',', '\n') + "\n" + ifdPath);
+//			if (originPath.indexOf("hsqc") >= 0)
+//				System.out.println(originPath +"\n" + map.toString().replace(',', '\n') + "\n" + originPath);
 		} catch (Exception e) {
 			// invalid format
 			e.printStackTrace();
 			return false;
 		}
-		if (ifdPath.indexOf("procs") >= 0) {
+		if (originPath.indexOf("procs") >= 0) {
 			// solvent in procs overrides solvent in acqu or acqus
 			Object solvent = getSolvent(map);
 			if (solvent != null) {
@@ -181,9 +181,9 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			getDoubleValue(map, "##$BF4");
 		report("##$TE", getDoubleValue(map, "##$TE"));
 		processString(map, "##$PULPROG", null);
-		if (ifdPath.endsWith("acqu2s")) {
+		if (originPath.endsWith("acqu2s")) {
 			report("DIM", dim = "2D");
-		} else if (ifdPath.endsWith("acqus") && dim == null) {
+		} else if (originPath.endsWith("acqus") && dim == null) {
 			report("DIM", dim = "1D");
 		}
 		report("SF", getNominalFrequency(freq1, n1));
@@ -254,11 +254,11 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 
 	}
 
-	private static void test(String ifdPath) {
+	private static void test(String originPath) {
 		VendorPluginI.init();
-		System.out.println("====================" + ifdPath);
+		System.out.println("====================" + originPath);
 		try {
-			String filename = new File(ifdPath).getAbsolutePath();
+			String filename = new File(originPath).getAbsolutePath();
 			byte[] bytes = FAIRSpecUtilities.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
 			new BrukerIFDVendorPlugin().accept(null, filename, bytes);
 		} catch (Exception e) {
@@ -272,7 +272,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	@Override
-	public String processRepresentation(String ifdPath, byte[] bytes) {
+	public String processRepresentation(String originPath, byte[] bytes) {
 		return IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET;
 	}
 

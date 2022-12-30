@@ -8,10 +8,6 @@
  {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
  {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"}, 
 
- "use identifier strings rather than array-index numbers in the finding aid's structure-data association collection",
-
- {"IFD.property.collectionset.byid":true},
-
  "source is figshare, but could be pub.acs.org and can be overridden by command line arguments",
 
  {"#IFD.property.collectionset.source_data_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/jo{hash}_si_002.zip"},
@@ -23,15 +19,6 @@
  "the mnova check must come before the generic zip directory / check, because *.mnova is in the vendor list for Mestrec, and some Bruker files have mnova files within them",
 
  {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*.mnova}}"},
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*}/}"},
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*}/}"}
 
- "reading the structures from a local directory aggregation",
-
- {"IFD.property.collectionset.source_data_uri":"./struc/"},
-
- {"cmpd":"{id=IFD.property.fairspec.compound.id::*}/"},
- 
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.cdxml::{IFD.property.structure.id::*}.cdxml}"},
-
- "end"
 ]}

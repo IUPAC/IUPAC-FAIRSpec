@@ -1,7 +1,7 @@
 {"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
- {"example":"compound directories containing unidentified bruker files"},
- {"journal":"acs.orglett"},{"hash":"0c00874"},
- {"figshareid":"22233351"},
+ {"example":"compound directories containing identified mnova files - acs test 5"},
+ {"journal":"acs.orglett"},{"hash":"0c01022"},
+ {"figshareid":"22195341"},
 
  {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
  {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"},
@@ -11,9 +11,9 @@
  {"#IFD.property.collectionset.source_data_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip"},
  {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
  
- {"path":"NMR FID files/"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}/cd*}/}"},
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}}/}"}
+ {"path":"NMR DATA/*/"},
  
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}-*}.mnova}"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*+*}}.mnova}"}
  
 ]}
