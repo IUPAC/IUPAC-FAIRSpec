@@ -17,7 +17,7 @@ public class IFDStructureDataAssociationCollection extends IFDAssociationCollect
 		if (sda == null) {
 			add(sda = newAssociation(struc, data));
 		} else if (!sda.getDataObjectCollection().contains(data)) {
-			sda.getDataObjectCollection().add(data);
+			sda.addDataObject(data);
 		}
 		sda.setByID(byID);
 		return sda;

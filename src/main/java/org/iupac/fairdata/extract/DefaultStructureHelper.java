@@ -72,6 +72,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 
 	public static final String CDX_FILE_DATA = "_struc.cdx";
 
+	public static final String CDXML_FILE_DATA = "_struc.cdxml";
 	
 	/**
 	 * create associations using ID rather than index numbers

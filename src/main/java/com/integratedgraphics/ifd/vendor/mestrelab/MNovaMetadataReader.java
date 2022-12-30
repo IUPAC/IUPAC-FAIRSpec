@@ -262,6 +262,8 @@ class MNovaMetadataReader extends ByteBlockReader {
 	
 	private final static byte[] cdxKey = new byte[] { 'V', 'j', 'C', 'D' };
 
+	private final static byte[] cdxmlKey = new byte[] { '<', 'C', 'D', 'X', 'M', 'L' }; // untested
+
 	private final static byte[] pngKey = new byte[] { (byte) 0x89, 'P', 'N', 'G' };
 
 	private static final int minBlockLengthForStructureData = 50;
@@ -818,6 +820,11 @@ class MNovaMetadataReader extends ByteBlockReader {
 						+ " ptNext=" + ptNext);
 				if (len > minBlockLengthForStructureData) {
 					int offset;
+					offset = (haveCDX ? -1 : findBytes(cdxmlKey, len, false, 112));
+					if (offset >= 0) {
+						haveCDX = true;
+						exportCDXML(ptr, offset, nBlocks);
+					}
 					offset = (haveCDX ? -1 : findBytes(cdxKey, len, false, 2));
 					if (offset >= 0) {
 						haveCDX = true;
@@ -841,6 +848,60 @@ class MNovaMetadataReader extends ByteBlockReader {
 	}
 
 	/**
+	 * untested
+	 * 
+	 * @param lastPosition
+	 * @param skip
+	 * @param nBlock
+	 * @throws IOException
+	 */
+	private void exportCDXML(long lastPosition, int skip, int nBlock) throws IOException {
+		long pt0 = lastPosition + skip;
+		seekIn(pt0);
+		byte[] bytes = readCDXMLdata(pt0);
+		int len = (bytes == null ? 0 : bytes.length);
+		if (len > 0) {
+			nCDX++;
+			handleFileData(nBlock, DefaultStructureHelper.CDXML_FILE_DATA, bytes, pt0, len, null, null);
+		}
+		seekIn(lastPosition);
+	}
+
+
+	/**
+	 * Read through to find the end of the CDX file.
+	 * 
+	 * Read properties and nested objects until the object pointer drops to -1. see
+	 * https://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/IntroCDX.htm
+	 * @param ptr 
+	 * 
+	 * @return
+	 * 
+	 * @throws IOException
+	 */
+	private byte[] readCDXMLdata(long ptr) throws IOException {
+		seekIn(ptr);
+		StringBuffer sb = new StringBuffer();
+		byte[] buf = new byte[1000];
+		try {
+			int n0 = 0, n, pt = -1, ntotal = 0;
+			while ((pt = sb.indexOf("</CDXML", n0)) < 0 && (n = read(buf, 0, 1000)) > 0 && ntotal < 100000) {
+				sb.append(new String(buf, 0, n));
+				n0 = Math.max(0, ntotal - 7);
+				ntotal += n;
+			}
+			if (pt < 0)
+				return null;
+			sb.setLength(pt);
+		} catch (Exception e) {
+			logError(e);
+			return null;
+		}
+		seekIn(ptr);
+		return ((sb + "</CDXML>").getBytes());
+	}
+
+	/**
 	 * found the CDX
 	 * 
 	 * see
@@ -853,13 +914,13 @@ class MNovaMetadataReader extends ByteBlockReader {
 	private void exportCDX(long lastPosition, int skip, int nBlock) throws IOException {
 		long pt0 = lastPosition + skip;
 		// initially I tried navigating the EMF+ records, but it turned out that those
-		// held truncated CDX files (so it appears). 
+		// held truncated CDX files (so it appears).
 		seekIn(pt0);
 		byte[] bytes = readCDXdata(pt0);
 		int len = (bytes == null ? 0 : bytes.length);
 		if (len > 0) {
-		nCDX++;
-		handleFileData(nBlock, DefaultStructureHelper.CDX_FILE_DATA, bytes, pt0, len, null, null);
+			nCDX++;
+			handleFileData(nBlock, DefaultStructureHelper.CDX_FILE_DATA, bytes, pt0, len, null, null);
 		}
 		seekIn(lastPosition);
 	}

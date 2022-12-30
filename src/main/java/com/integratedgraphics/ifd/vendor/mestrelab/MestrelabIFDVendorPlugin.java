@@ -251,6 +251,9 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 		case DefaultStructureHelper.CDX_FILE_DATA:
 			oval = new Object[] { oval, originPath + "#page" + page + ".cdx", null };
 			break;
+		case DefaultStructureHelper.CDXML_FILE_DATA:
+			oval = new Object[] { oval, originPath + "#page" + page + ".cdxml", null };
+			break;
 		case DefaultStructureHelper.MOL_FILE_DATA:
 			oval = new Object[] { oval, originPath + "#page" + page + ".mol", null };
 			break;
