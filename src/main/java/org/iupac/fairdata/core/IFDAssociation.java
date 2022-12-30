@@ -86,13 +86,17 @@ public class IFDAssociation extends IFDCollection<IFDCollection<? extends IFDObj
 	}
 
 	/**
-	 * Check to see if this is an association between obj1 and obj2
+	 * Check to see if this is an association between obj1 and obj2. 
+	 * One of the other of the objects can be null, but not both.
+	 * If an object is null, the check is only for the other object.
 	 * @param obj1
 	 * @param obj2
 	 * @return true if an association is found.
 	 */
 	public boolean associates(IFDObject<?> obj1, IFDObject<?> obj2) {
-		return (size() >= 2 && get(1).indexOf(obj2) >= 0 && get(0).indexOf(obj1) >= 0);
+		return ((obj1 != null || obj2 != null) && size() >= 2 
+				&& (obj2 == null || get(1).indexOf(obj2) >= 0) 
+				&& (obj1 == null || get(0).indexOf(obj1) >= 0));
 	}
 
 	/**

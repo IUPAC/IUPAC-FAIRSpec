@@ -1859,7 +1859,6 @@ public class Extractor implements ExtractorI {
 		ArchiveEntry zipEntry = null;
 		ArchiveEntry nextEntry = null;
 		ArchiveEntry nextRealEntry = null;
-		int nRezip = 0;
 		int n = 0;
 		boolean first = (phase != PHASE_2D);
 		int pt;
@@ -1925,7 +1924,7 @@ public class Extractor implements ExtractorI {
 			} else if (phase == PHASE_2C) {
 					// rezipping
 					if (oPath.equals(currentRezipPath)) {
-						nextEntry = phase2cRezipEntry(baseOriginPath, oPath, ais, zipEntry, currentRezipVendor, ++nRezip);
+						nextEntry = phase2cRezipEntry(baseOriginPath, oPath, ais, zipEntry, currentRezipVendor);
 						phase2cGetNextRezipName();
 						continue;
 					}
@@ -2066,7 +2065,7 @@ public class Extractor implements ExtractorI {
 				// if this is a zip file, the data object will have been set to xxx.zip
 				// but we need this to be 
 				String basePath = (baseOriginPath.endsWith("|") ? baseOriginPath.substring(0, baseOriginPath.length() - 1)
-						: new File(originPath).getParent());					
+						: new File(originPath).getParent() + "/");			
 				if (basePath == null)
 					basePath = originPath;
 				ref.setRezipOrigin(basePath);
@@ -2329,13 +2328,12 @@ public class Extractor implements ExtractorI {
 	 * @param oPath
 	 * @param zis
 	 * @param entry
-	 * @param nRezip
 	 * @return next (unrelated) entry
 	 * @throws IOException
 	 * @throws IFDException 
 	 */
 	protected ArchiveEntry phase2cRezipEntry(String baseName, String oPath, ArchiveInputStream ais, ArchiveEntry entry,
-			VendorPluginI vendor, int nRezip) throws IOException, IFDException {
+			VendorPluginI vendor) throws IOException, IFDException {
 
 		// originPath points to the directory containing pdata
 
@@ -2373,11 +2371,20 @@ public class Extractor implements ExtractorI {
 		// at this point, there is no object??
 		// 8f/HBMC.zip|HMBC/250/ will be under HMBC.zip
 		IFDRepresentableObject<?> obj = getObjectFromLocalizedName(lNameForObj, IFDConst.IFD_DATAOBJECT_FLAG);
-		if (obj == null && baseName.endsWith("|"))
-			obj = getObjectFromLocalizedName(localizePath(baseName.substring(0, baseName.length()-1)), IFDConst.IFD_DATAOBJECT_FLAG);
+		if (obj == null) {
+			String name;
+			if (baseName.endsWith("|")) {
+				// was a zip file
+				name = baseName.substring(0, baseName.length()-1);
+			} else {
+				// was a directory
+				name = parent + "/";
+			}
+			
+			obj = getObjectFromLocalizedName(localizePath(name), IFDConst.IFD_DATAOBJECT_FLAG);
 		if (obj == null)
 			throw new IFDException("phase2cRezipEntry could not find object for " + lNameForObj);
-		
+		}		
 		String basePath = baseName + parent;
 		if (newDir == null) {
 			newDir = "";
@@ -2398,7 +2405,7 @@ public class Extractor implements ExtractorI {
 			if (this.localizedName == null)
 				this.localizedName = localizedName;
 			if (isMultiple) {
-				addDeferredPropertyOrRepresentation(NEW_PAGE_KEY, new Object[] {"_" + nRezip, currentRezipRepresentation.getRezipOrigin(), localizedName }, false, null, null);
+				addDeferredPropertyOrRepresentation(NEW_PAGE_KEY, new Object[] {"_" + thisDir, obj, localizedName }, false, null, null);
 			}
 		} else {
 			newDir += "/";
@@ -2769,6 +2776,7 @@ public class Extractor implements ExtractorI {
 				sample = null;
 				continue;
 			}
+			assoc = null;
 			String originPath = (String) a[0];
 			String localizedName = (String) a[1];
 			String key = (String) a[2];
@@ -2843,16 +2851,19 @@ public class Extractor implements ExtractorI {
 				if (!(value instanceof String)) {
 					a = (Object[]) value;					
 					value = (String) a[0];
-					String baseName = (String) a[1];
+					localSpec = (IFDDataObject) a[1];
 					newLocalName = (String) a[2];
-					localSpec = (IFDDataObject) getObjectFromLocalizedName(localizePath(baseName), propType);
 				}
 				String idExtension = (String) value;
 				if (assoc == null)
-					assoc = helper.findCompound(struc, localSpec);
-				if (localSpec == null)
+					assoc = helper.findCompound(null, localSpec);
+				IFDDataObject newSpec;
+				if (localSpec == null) {
 					System.out.println("?????");
-				IFDDataObject newSpec = helper.cloneData(localSpec, idExtension, true);
+					newSpec = (IFDDataObject) spec;
+				} else {
+					 newSpec = helper.cloneData(localSpec, idExtension, true);
+				}
 				spec = newSpec;
 				struc = helper.getFirstStructureForSpec(localSpec, assoc == null);
 				if (sample == null)

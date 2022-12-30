@@ -1,7 +1,6 @@
 package org.iupac.fairdata.core;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -731,7 +730,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		@SuppressWarnings("unchecked")
 		IFDObject<T> o = (IFDObject<T>) super.clone();
 		params = new ArrayList<>();
-		System.out.println(o.htProps == htProps);
 		o.htProps = new PropertyMap();
 		o.htProps.putAll(htProps);
 		o.htProps.clear();

@@ -486,11 +486,9 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		case ClassTypes.SampleCollection:
 			// should not be generic
 		default:
-			System.err.println("FAIRSpecFindingAidHelper.addObject raw collection -- could not add " + param + " "
-					+ value + " for " + currentOriginPath);
-			break;
+			throw new IFDException("FAIRSpecFindingAidHelper.addObject raw collection -- could not add " + param + " "
+					+ value + " for " + currentOriginPath + " type " + type);
 		}
-		return null;
 	}
 
 	public static void addProperties(IFDObject<?> o, List<Object[]> props) {
@@ -636,7 +634,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 				lstRemove.add(assoc);
 				IFDStructure st = (IFDStructure) assoc.getFirstObj1();
 				extractor.log("! FAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure "
-						+ st.getLabel());
+						+ st.getID());
 				getStructureCollection().remove(st);
 				n++;
 			}

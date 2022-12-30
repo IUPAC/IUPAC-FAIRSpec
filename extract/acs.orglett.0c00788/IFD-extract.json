@@ -13,7 +13,7 @@
  {"#IFD.property.collectionset.source_data_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip"},
  {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
 
- {"path":""},
+ {"path":"|"},
 
  	"3a-reduced-*-...-*.jdf", "where compound id is 3a-reduced ",
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*-reduced}-*.jdf}}"},
