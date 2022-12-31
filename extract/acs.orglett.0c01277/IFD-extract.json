@@ -1,5 +1,7 @@
 {"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
- {"example":"compound directories containing unidentified bruker files"},
+ {"example":"compound directories containing numbered bruker files"},
+ "note: ambiguous, inverted stereochemistry for dehydrocholic acid derivative 3ay corrected (BH)",
+ "note: ambiguous, inverted stereochemistry for 3-keto-4-etiocholenic acid derivative 5ah corrected (BH)",
  {"journal":"acs.orglett"},{"hash":"0c01277"},
  {"figshareid":"22613762"},
  
