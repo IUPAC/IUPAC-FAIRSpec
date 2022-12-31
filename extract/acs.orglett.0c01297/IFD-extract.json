@@ -1,5 +1,6 @@
 {"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
  {"example":"compound directories containing identified bruker directories"},
+ "note: article has wrong structure for amide 28",
  {"journal":"acs.orglett"},{"hash":"0c01297"},
  {"figshareid":"22612484"},
 
