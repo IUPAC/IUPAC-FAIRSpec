@@ -21,9 +21,9 @@
 
  {"FAIRSpec.extractor.options" : ""},
 
- "----METADATA is a special key that allows generation of IFDParameter metadata for any defined object",
+ "----FAIRSpec.extractor.metadata is a special key that allows generation of IFDParameter metadata for any defined object",
 
- {"METADATA":[
+ {"FAIRSpec.extractor.metadata":[
 	{"FOR":"compound","METADATA_FILE":"./Manifest.xlsx","METADATA_KEY":"TM compound number"}
  ]},
 

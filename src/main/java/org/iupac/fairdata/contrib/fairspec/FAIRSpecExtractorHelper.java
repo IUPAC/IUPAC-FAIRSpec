@@ -65,11 +65,14 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	// these values are in fairspec.properties
 	public static final String FAIRSPEC_EXTRACTOR_FLAG = IFDConst.getProp("FAIRSPEC_EXTRACTOR_FLAG");
 	public static final String FAIRSPEC_EXTRACTOR_OBJECT = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OBJECT");
-	public static final String FAIRSPEC_EXTRACTOR_ASSIGN = IFDConst.getProp("FAIRSPEC_EXTRACTOR_ASSIGN");
+	public static final String FAIRSPEC_EXTRACTOR_REPLACEMENTS = IFDConst.getProp("FAIRSPEC_EXTRACTOR_REPLACEMENTS");
 	public static final String FAIRSPEC_EXTRACTOR_REJECT = IFDConst.getProp("FAIRSPEC_EXTRACTOR_REJECT");
 	public static final String FAIRSPEC_EXTRACTOR_IGNORE = IFDConst.getProp("FAIRSPEC_EXTRACTOR_IGNORE");
 	public static final String FAIRSPEC_EXTRACTOR_OPTION_FLAG = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OPTION_FLAG");
 	public static final String FAIRSPEC_EXTRACTOR_OPTIONS = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OPTIONS");
+
+	public static final Object FAIRSPEC_EXTRACTOR_METADATA = IFDConst.getProp("FAIRSPEC_EXTRACTOR_METADATA");
+	public static final Object EXIT = "EXIT";
 
 	public interface ClassTypes {
 
@@ -136,7 +139,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			String sep = "";
 			for (int i = 0; i < list.length; i++) {
 				String fname = list[i];
-				sb.append((sep + "\"" + rootPath + "/" + fname + "\""));
+				sb.append((sep + "\"" 
+				+ (rootPath == null ? "" : rootPath + "/") + fname + "\""));
 				sep = ",\n";
 			}
 			sb.append("\n");
@@ -149,6 +153,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	
 		public void add(String fileName, long len) {
 			files.add(fileName);
+			if (len < 0)
+				len = 0;
 			lengths.add(Long.valueOf(len));
 			byteCount += len;
 		}
@@ -633,9 +639,11 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			if (dataCollection.size() == 0) {
 				lstRemove.add(assoc);
 				IFDStructure st = (IFDStructure) assoc.getFirstObj1();
-				extractor.log("! FAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure "
+				if (st != null) {
+					extractor.log("! FAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure "
 						+ st.getID());
-				getStructureCollection().remove(st);
+					getStructureCollection().remove(st);
+				}
 				n++;
 			}
 		}

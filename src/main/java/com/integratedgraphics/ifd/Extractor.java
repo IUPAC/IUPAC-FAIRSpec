@@ -217,6 +217,7 @@ public class Extractor implements ExtractorI {
 		protected Extractor extractor;
 		protected List<String[]> assignments;
 		public boolean hasData;
+		public List<Object> replacements;
 
 		/**
 		 * @param sObj
@@ -436,6 +437,21 @@ public class Extractor implements ExtractorI {
 		@Override
 		public String toString() {
 			return "[ObjectParser " + this.sData + "]";
+		}
+
+		public Matcher match(String origin) throws IFDException {
+			if (replacements != null) {
+				try {
+				for (int i = replacements.size(); --i >= 0;) {
+					@SuppressWarnings("unchecked")
+					List<Object> sub = (List<Object>) replacements.get(i);
+					origin = FAIRSpecUtilities.rep(origin, (String) sub.get(0), (String) sub.get(1));
+				}
+				} catch (Exception e) {
+					throw new IFDException("Error in subsitution for sub: " + e);
+				}
+			}
+			return p.matcher(origin);
 		}
 
 	}
@@ -799,11 +815,12 @@ public class Extractor implements ExtractorI {
 		VendorPluginI.init();
 	}
 
+	/**
+	 * This 
+	 */
+	protected final static String SUBST = "=>";
+	
 	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/Extractor.java";
-
-	public final static int EXTRACT_MODE_CHECK_ONLY = 1;
-	public final static int EXTRACT_MODE_CREATE_CACHE = 2;
-	public final static int EXTRACT_MODE_REPACKAGE_ZIP = 4;
 
 	protected static final int LOG_REJECTED = 0;
 	protected static final int LOG_IGNORED = 1;
@@ -1073,7 +1090,7 @@ public class Extractor implements ExtractorI {
 	 */
 	protected boolean allowMultipleObjectsForRepresentations = true;
 
-	private String ignore;
+	private String ignoreRegex;
 
 	private boolean isByID;
 
@@ -1379,7 +1396,7 @@ public class Extractor implements ExtractorI {
 	 * @throws IFDException
 	 */
 	@SuppressWarnings("unchecked")
-	protected List<ObjectParser> phase1GetObjectParsers(List<Object> pathway) throws IFDException {
+	protected List<ObjectParser> phase1GetObjectParsers(List<Object> jsonArray) throws IFDException {
 
 		// input:
 
@@ -1410,15 +1427,26 @@ public class Extractor implements ExtractorI {
 		String rejected = "";
 		ExtractorSource source = null;
 		String lastSourceVal = null;
-		for (int i = 0; i < pathway.size(); i++) {
-			Object p = pathway.get(i);
-			if (p instanceof String) {
-				if (p.equals("EXIT"))
+		List<Object> replacements = null;
+		
+		for (int i = 0; i < jsonArray.size(); i++) {
+			Object o = jsonArray.get(i);
+
+			// all aspects here are case-sensitive
+			
+			// simple strings are ignored, except for "EXIT" 
+			
+			if (o instanceof String) {
+				if (o.equals(FAIRSpecExtractorHelper.EXIT))
 					break;
+				// ignore all other strings
 				continue;
 			}
-			Map<String, Object> def = (Map<String, Object>) p;
-			for (Entry<String, Object> e : def.entrySet()) {
+			
+			
+			Map<String, Object> directives = (Map<String, Object>) o;
+			
+			for (Entry<String, Object> e : directives.entrySet()) {
 
 				// {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
 				// ..-----------------key---------------...------val-------.
@@ -1426,8 +1454,11 @@ public class Extractor implements ExtractorI {
 				String key = e.getKey();
 				if (key.startsWith("#"))
 					continue;
-				Object o = e.getValue();					
-				if (key.equals("METADATA")) {
+				o = e.getValue();					
+				
+				// non-String values
+				
+				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_METADATA)) {
 					if (o instanceof Map) {
 						phase1ProcessMetadataElement(o);
 					} else if (o instanceof List) {
@@ -1440,6 +1471,14 @@ public class Extractor implements ExtractorI {
 					}
 					continue;
 				}
+
+				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_REPLACEMENTS)) {
+					replacements = (List<Object>) o;
+					continue;
+				}
+
+				// String values
+				
 				String val = o.toString();
 				if (val.indexOf("{") >= 0) {
 					String s = FAIRSpecUtilities.replaceStrings(val, keys, values);
@@ -1479,11 +1518,9 @@ public class Extractor implements ExtractorI {
 						throw new IFDException(
 								IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI + " was not set before " + val);
 					}
-					parsers.add(newObjectParser(source, val));
-					continue;
-				}
-				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_ASSIGN)) {
-					parsers.get(parsers.size() - 1).addAssignment(val);
+					ObjectParser parser = newObjectParser(source, val);
+					parser.replacements = replacements;
+					parsers.add(parser);
 					continue;
 				}
 				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_REJECT)) {
@@ -1520,7 +1557,7 @@ public class Extractor implements ExtractorI {
 		}
 		
 		lstRejected.setAcceptPattern(rejected + FAIRSpecExtractorHelper.junkFilePattern);
-		this.ignore = (ignored.length() > 0 ? ignored.substring(1) : null);
+		ignoreRegex = (ignored.length() > 0 ? ignored.substring(1) : null);
 		return parsers;
 	}
 
@@ -1735,7 +1772,7 @@ public class Extractor implements ExtractorI {
 		rootDir.mkdir();
 		// open a new log
 		source.rootPath = rootPath;
-		source.setLists(rootPath, ignore);
+		source.setLists(rootPath, ignoreRegex);
 		lstManifest = source.lstManifest;
 		lstIgnored = source.lstIgnored;
 		helper.addOrSetSource(source.source);
@@ -1812,9 +1849,8 @@ public class Extractor implements ExtractorI {
 	protected IFDObject<?> phase2bAddIFDObjectsForName(ObjectParser parser, String originPath, String localizedName, long len)
 			throws IFDException, IOException {
 
-		Matcher m = parser.p.matcher(originPath);
+		Matcher m = parser.match(originPath);
 		if (!m.find()) {
-			
 			return null;
 		}
 		helper.beginAddingObjects(originPath);
@@ -1900,7 +1936,6 @@ public class Extractor implements ExtractorI {
 	 * extraction.
 	 * 
 	 * 
-	 * @param parser
 	 * @param is
 	 * @param baseOriginPath              a path ending in "zip|"
 	 * @param phase
@@ -2036,6 +2071,7 @@ public class Extractor implements ExtractorI {
 			throws FileNotFoundException, IOException {
 		long len = zipEntry.getSize();
 		Matcher m;
+		
 		// Matcher mp;
 
 		// check for files that should be pulled out - these might be JDX files, for
@@ -2146,8 +2182,7 @@ public class Extractor implements ExtractorI {
 					 }
 				}
 				rezipCache.add(ref);
-				if (true || logging())
-					log("!rezip pattern found " + originPath + " " + ref);
+				log("!rezip pattern found " + originPath + " " + ref);
 			}
 		}
 
@@ -2393,9 +2428,6 @@ public class Extractor implements ExtractorI {
 	 * most likely already passed by one or more files associated with this
 	 * rezipping project.
 	 * 
-	 * @param parser
-	 * 
-	 * 
 	 * @param baseName xxxx.zip|
 	 * @param oPath
 	 * @param zis
@@ -2579,7 +2611,6 @@ public class Extractor implements ExtractorI {
 		IFDRepresentation r = helper.getSpecDataRepresentation(localizedName);
 		if (r == null) {
 			// probably the case, as this renamed representation has not been added yet.
-//			System.out.println("EX rezip r == null??? " + localizedName);
 		} else {
 			r.setLength(len);
 		}
