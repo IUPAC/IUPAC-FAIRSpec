@@ -18,11 +18,6 @@
 		[" update",""]
 		]},
 			
- {"FAIRSpec.extractor.object":"{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::*/{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}}/}"},
- 
- "be sure to clear the replacements, as there will be ./struc/ after this",
- 
- {"FAIRSpec.extractor.replacements":null}
-			
+ {"FAIRSpec.extractor.object":"{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::*/{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}}/}"}
  
 ]}

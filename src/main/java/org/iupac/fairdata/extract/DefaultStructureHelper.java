@@ -1,10 +1,12 @@
 package org.iupac.fairdata.extract;
 
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.jmol.api.JmolViewer;
+import org.jmol.util.DefaultLogger;
 import org.jmol.viewer.Viewer;
 
 import javajs.util.BS;
@@ -60,6 +62,17 @@ public class DefaultStructureHelper implements PropertyManagerI {
 			System.out.println("IFDDefaultStructurePropertyManager initializing Jmol...");
 			jmolViewer = (Viewer) JmolViewer.allocateViewer(null, null);
 			jmolVersion = JmolViewer.getJmolVersionNoDate();
+			// copy Jmol output to extractor.log
+			org.jmol.util.Logger.setLogger(new DefaultLogger() {
+				
+				  protected String log(PrintStream out, int level, String txt, Throwable e) {
+					  txt = super.log(out, level, txt, e);
+					  if (txt != null)
+						  extractor.log("!Jmol " + txt.trim());
+					  return null;
+				  }
+				
+			});
 		}
 		return jmolViewer;
 	}
@@ -122,14 +135,15 @@ public class DefaultStructureHelper implements PropertyManagerI {
 					BS atoms = v.bsA();
 					smiles = v.getSmiles(atoms);
 					standardInchi = v.getInchi(atoms, null, null);
+					molecularFormula = v.evaluateExpression("{1.1 && configuration=1}.find('SMILES','MF')").toString();
 					if (standardInchi == null) {
-						extractor.log("! DefaultStructureHelper WARNING: InChI could not be created for " + originPath);
+						extractor.log("! DefaultStructureHelper WARNING: InChI could not be created for " + originPath 
+								+ " MF=" + molecularFormula + " SMILES=" + smiles);
 					} else {
 						fixedhInchi = v.getInchi(atoms, null, "fixedh");
 						inchiKey = v.getInchi(atoms, null, "key");
 					}
 					// using SMILES here to get implicit H count
-					molecularFormula = v.evaluateExpression("{1.1 && configuration=1}.find('SMILES','MF')").toString();
 					if (isCDXML) {
 						String mol2d = (String) v.evaluateExpression("write('MOL')");
 						if (mol2d != null && mol2d.indexOf("2D") >= 0)

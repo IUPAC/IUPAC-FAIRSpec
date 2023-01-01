@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.extract.ExtractorI;
@@ -74,6 +75,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 				"N2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_2"), //prop
 				"N3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_3"), //prop
 				"SF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_NOMINAL_FREQ"), //prop
+				"TIMESTAMP", IFDConst.IFD_PROPERTY_DATAOBJECT_TIMESTAMP, //prop
 		};
 
 		for (int i = 0; i < keys.length;)
@@ -168,10 +170,14 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 				case "Origin":
 					oval = pageGlobals.setOrigin(val);
 					break;
+				case "Acquisition Date":
+					// timestamp
+					propName = "TIMESTAMP";
+					oval = FAIRSpecUtilities.rep(val, "\n", " ").trim();
+					break;
 				case "Comment":
 					propName = "TITLE";
 					//$FALL-THROUGH$
-				case "Acquisition Date":
 				case "Author":
 				case "Class":
 				case "Experiment":

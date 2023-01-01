@@ -268,6 +268,12 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected String id;
 
 	/**
+	 * an identifyable time stamp 
+	 * 
+	 */
+	private String timestamp;
+
+	/**
 	 * an arbitrary description to provide some sort of context
 	 */
 	protected String description;
@@ -469,6 +475,10 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		}
 		if (key.equals(myPropertyPrefix + IFDConst.IFD_NOTE_FLAG)) {
 			addNote(value.toString());
+			return true;
+		}
+		if (key.equals(myPropertyPrefix + IFDConst.IFD_TIMESTAMP_FLAG)) {
+			timestamp = value.toString();
 			return true;
 		}
 		return false;

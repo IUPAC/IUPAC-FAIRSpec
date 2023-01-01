@@ -118,6 +118,7 @@ public class IFDConst {
 	public static final String IFD_LABEL_FLAG = getProp("IFD_LABEL_FLAG");
 	public static final String IFD_ID_FLAG = getProp("IFD_ID_FLAG");
 	public static final String IFD_NOTE_FLAG = getProp("IFD_NOTE_FLAG");
+	public static final String IFD_TIMESTAMP_FLAG = getProp("IFD_TIMESTAMP_FLAG");
 	public static final String IFD_DESCRIPTION_FLAG = getProp("IFD_DESCRIPTION_FLAG");
 
 	public static final String IFD_FINDINGAID = getProp("IFD_FINDINGAID");
@@ -157,6 +158,10 @@ public class IFDConst {
 
 	public static final String IFD_PROPERTY_DATAOBECT_NOTE = concat(IFDConst.IFD_PROPERTY_FLAG, IFD_DATAOBJECT_FLAG,
 			IFD_NOTE_FLAG);
+
+	public static final String IFD_PROPERTY_DATAOBJECT_TIMESTAMP = concat(IFDConst.IFD_PROPERTY_FLAG, IFD_DATAOBJECT_FLAG,
+			IFD_TIMESTAMP_FLAG);	
+	
 
 	public static String getVersion() {
 		return "IFD " + IFD_VERSION;

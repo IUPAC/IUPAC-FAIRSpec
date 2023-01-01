@@ -121,12 +121,13 @@ public class Extractor implements ExtractorI {
 	
 	
 
-	protected static final String version = "0.0.5-alpha+2022.12.30";
+	protected static final String version = "0.0.4-alpha+2022.12.30";
 
-	// 2022.12.30 version 0.0.5 ACS 0-7 with structures; fixing rezip issue of Bruker files placed in _IFD.ignored.json
-	// 2022.12.29 version 0.0.5 ACS 0-4 with structures; fixing *-* Regex for ACS#4 acs.orglett.0c00788
-	// 2022.12.27 version 0.0.5 ACS 0-2 working
-	// 2022.12.27 version 0.0.5 introduces FAIRSpecCompoundAssociation
+	// 2023.01.01 version 0.0.4 accepts structures automatically from ./structures/ and ./structures.zip
+	// 2022.12.30 version 0.0.4 ACS 0-7 with structures; fixing rezip issue of Bruker files placed in _IFD.ignored.json
+	// 2022.12.29 version 0.0.4 ACS 0-4 with structures; fixing *-* Regex for ACS#4 acs.orglett.0c00788
+	// 2022.12.27 version 0.0.4 ACS 0-2 working
+	// 2022.12.27 version 0.0.4 introduces FAIRSpecCompoundAssociation
 	// 2022.12.23 version 0.0.4 fixes from ACS testing, Bruker directories with multiple numbered subdirectories adds "-<n>" to the id
 	// 2022.12.14 version 0.0.4 allows for local directory parsing (no zip or tar.gz)
 	// 2022.12.13 verison 0.0.4 adds "EXIT" and comment-only "..." for IFD-extract.json
@@ -848,7 +849,8 @@ public class Extractor implements ExtractorI {
 	 */
 	public static final Object NULL = "\1";
 
-	protected static final String DEFAULT_STRUCTURE_URI = "./struc/";
+	protected static final String DEFAULT_STRUCTURE_DIR_URI = "./structures/";
+	protected static final String DEFAULT_STRUCTURE_ZIP_URI = "./structures.zip";
 
 
 	Map<String, Object> config = null;
@@ -1439,26 +1441,25 @@ public class Extractor implements ExtractorI {
 		String ignored = "";
 		String rejected = "";
 		ExtractorSource source = null;
-		String lastSourceVal = null;
+		boolean isDefaultStructurePath = false;
 		List<Object> replacements = null;
-		
+
 		for (int i = 0; i < jsonArray.size(); i++) {
 			Object o = jsonArray.get(i);
 
 			// all aspects here are case-sensitive
-			
-			// simple strings are ignored, except for "EXIT" 
-			
+
+			// simple strings are ignored, except for "EXIT"
+
 			if (o instanceof String) {
 				if (o.equals(FAIRSpecExtractorHelper.EXIT))
 					break;
 				// ignore all other strings
 				continue;
 			}
-			
-			
+
 			Map<String, Object> directives = (Map<String, Object>) o;
-			
+
 			for (Entry<String, Object> e : directives.entrySet()) {
 
 				// {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
@@ -1467,10 +1468,10 @@ public class Extractor implements ExtractorI {
 				String key = e.getKey();
 				if (key.startsWith("#"))
 					continue;
-				o = e.getValue();					
-				
+				o = e.getValue();
+
 				// non-String values
-				
+
 				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_METADATA)) {
 					if (o instanceof Map) {
 						phase1ProcessMetadataElement(o);
@@ -1491,7 +1492,7 @@ public class Extractor implements ExtractorI {
 				}
 
 				// String values
-				
+
 				String val = o.toString();
 				if (val.indexOf("{") >= 0) {
 					String s = FAIRSpecUtilities.replaceStrings(val, keys, values);
@@ -1513,9 +1514,10 @@ public class Extractor implements ExtractorI {
 				// ..keydef=-----------------key--------
 
 				if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI)) {
-					lastSourceVal = val;
 					if (!phase1CheckSource(val)) {
 						source = null;
+						isDefaultStructurePath = (DEFAULT_STRUCTURE_DIR_URI.equals(val)
+								|| DEFAULT_STRUCTURE_ZIP_URI.equals(val));
 						continue;
 					}
 					source = htResources.get(val);
@@ -1526,7 +1528,7 @@ public class Extractor implements ExtractorI {
 
 				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_OBJECT)) {
 					if (source == null) {
-						if (DEFAULT_STRUCTURE_URI.equals(lastSourceVal))
+						if (isDefaultStructurePath)
 							continue;
 						throw new IFDException(
 								IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI + " was not set before " + val);
@@ -1568,7 +1570,7 @@ public class Extractor implements ExtractorI {
 				values.add(0, val);
 			}
 		}
-		
+
 		lstRejected.setAcceptPattern(rejected + FAIRSpecExtractorHelper.junkFilePattern);
 		ignoreRegex = (ignored.length() > 0 ? ignored.substring(1) : null);
 		return parsers;
@@ -2651,7 +2653,7 @@ public class Extractor implements ExtractorI {
 
 		// update object type and len records
 
-		phase3AddCachedRepresentationsToObjects();
+		phase3UpdateCachedRepresentations();
 
 		// clean up the collection
 
@@ -2690,12 +2692,12 @@ public class Extractor implements ExtractorI {
 	/**
 	 * Set the type and len fields for structure and spec data
 	 */
-	protected void phase3AddCachedRepresentationsToObjects() {
+	protected void phase3UpdateCachedRepresentations() {
 
 		for (String ckey : vendorCache.keySet()) {
+			IFDRepresentation r = vendorCache.get(ckey);
 			IFDRepresentableObject<?> obj = htLocalizedNameToObject.get(ckey);
 			if (obj == null) {
-				IFDRepresentation r = vendorCache.get(ckey);
 				String path = r.getRef().getOrigin().toString();
 				logDigitalItem(ckey, "addCachedRepresentationsToObjects");
 				try {
@@ -2703,30 +2705,23 @@ public class Extractor implements ExtractorI {
 				} catch (IOException e) {
 					// not possible
 				}
-			} else {
-				phase3CopyCachedRepresentation(ckey, obj);
+				continue;
 			}
-
+			String originPath = r.getRef().getOrigin().toString();
+			String type = r.getType();
+			// type will be null for pdf, for example
+			String mediatype = r.getMediaType();
+			// suffix is just unique internal ID for the cache
+			int pt = ckey.indexOf('\0');
+			String localName = (pt > 0 ? ckey.substring(0, pt) : ckey);
+			IFDRepresentation r1 = obj.findOrAddRepresentation(originPath, localName, null, type, null);
+			if (type != null && r1.getType() == null)
+				r1.setType(type);
+			if (mediatype != null && r1.getMediaType() == null)
+				r1.setMediaType(mediatype);
+			if (r1.getLength() == 0)
+				r1.setLength(r.getLength());
 		}
-	}
-
-	protected void phase3CopyCachedRepresentation(String ckey, IFDRepresentableObject<?> obj) {
-		IFDRepresentation r = vendorCache.get(ckey);
-		String originPath = r.getRef().getOrigin().toString();
-		String type = r.getType();
-		// type will be null for pdf, for example
-		String mediatype = r.getMediaType();
-		// suffix is just unique internal ID
-		int pt = ckey.indexOf('\0');
-		if (pt > 0)
-			ckey = ckey.substring(0, pt);
-		IFDRepresentation r1 = obj.findOrAddRepresentation(originPath, ckey, null, type, null);
-		if (type != null && r1.getType() == null)
-			r1.setType(type);
-		if (mediatype != null && r1.getMediaType() == null)
-			r1.setMediaType(mediatype);
-		if (r1.getLength() == 0)
-			r1.setLength(r.getLength());
 	}
 
 	/**
@@ -2960,6 +2955,8 @@ public class Extractor implements ExtractorI {
 				boolean clearNew;
 				if (value instanceof String) {
 					clearNew = false;
+					// not allowing an MNova structure to carry to next page?
+					struc = null; 
 					if (originObject == null) {
 						originObject = localSpec;
 					} else {
@@ -3058,7 +3055,7 @@ public class Extractor implements ExtractorI {
 				} 
 				if (struc.getID() == null) {
 					String id = assoc.getID();
-					if (id != null && spec != null) {
+					if (id == null && spec != null) {
 						id = spec.getID();
 						assoc.setID(id);
 					}
