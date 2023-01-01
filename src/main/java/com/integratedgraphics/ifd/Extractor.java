@@ -150,7 +150,7 @@ public class Extractor implements ExtractorI {
 	 *
 	 */
 
-	public static class ObjectParser {
+	protected static class ObjectParser {
 
 		protected static final String REGEX_QUOTE = "\\Q";
 		protected static final String REGEX_UNQUOTE = "\\E";
@@ -201,7 +201,7 @@ public class Extractor implements ExtractorI {
 		
 		protected final int index;
 
-		public int getIndex() {
+		protected int getIndex() {
 			return index;
 		}
 		
@@ -216,14 +216,14 @@ public class Extractor implements ExtractorI {
 		protected ExtractorSource dataSource;
 		protected Extractor extractor;
 		protected List<String[]> assignments;
-		public boolean hasData;
-		public List<Object> replacements;
+		protected boolean hasData;
+		protected List<Object> replacements;
 
 		/**
 		 * @param sObj
 		 * @throws IFDException
 		 */
-		public ObjectParser(Extractor extractor, ExtractorSource resource, String sObj) throws IFDException {
+		protected ObjectParser(Extractor extractor, ExtractorSource resource, String sObj) throws IFDException {
 			this.extractor = extractor;
 			this.index = parserCount++;
 			dataSource = resource;
@@ -231,7 +231,7 @@ public class Extractor implements ExtractorI {
 			init();
 		}
 
-		public void addAssignment(String val) throws IFDException {
+		protected void addAssignment(String val) throws IFDException {
 			if (assignments == null)
 				assignments = new ArrayList<>();
 			int pt = val.indexOf("::") - 1;
@@ -439,7 +439,7 @@ public class Extractor implements ExtractorI {
 			return "[ObjectParser " + this.sData + "]";
 		}
 
-		public Matcher match(String origin) throws IFDException {
+		protected Matcher match(String origin) throws IFDException {
 			if (replacements != null) {
 				try {
 				for (int i = replacements.size(); --i >= 0;) {
@@ -495,34 +495,34 @@ public class Extractor implements ExtractorI {
 		protected String name;
 		protected long size;
 
-		public ArchiveEntry(String name, long size) {
+		protected ArchiveEntry(String name, long size) {
 			this.name = name;
 			this.size = size;
 		}
 
-		public ArchiveEntry(ZipEntry ze) {
+		protected ArchiveEntry(ZipEntry ze) {
 			name = ze.getName();
 			size = ze.getSize();
 		}
 
-		public ArchiveEntry(TarArchiveEntry te) {
+		protected ArchiveEntry(TarArchiveEntry te) {
 			name = te.getName();
 			size = te.getSize();
 		}
 
-		public ArchiveEntry(String name) {
+		protected ArchiveEntry(String name) {
 			this.name = name;
 		}
 
-		public boolean isDirectory() {
+		protected boolean isDirectory() {
 			return name.endsWith("/");
 		}
 
-		public String getName() {
+		protected String getName() {
 			return name;
 		}
 
-		public long getSize() {
+		protected long getSize() {
 			return size;
 		}
 
@@ -546,11 +546,11 @@ public class Extractor implements ExtractorI {
 			size = (isDir ? 0 : file.length());
 		}
 
-		public BufferedInputStream getInputStream() throws FileNotFoundException {
+		protected BufferedInputStream getInputStream() throws FileNotFoundException {
 			return (bis != null ? bis: isDir ? null : (bis = new BufferedInputStream(new FileInputStream(file))));
 		}
 		
-		public void close() {
+		protected void close() {
 			if (bis != null) {
 				try {
 					bis.close();
@@ -645,7 +645,7 @@ public class Extractor implements ExtractorI {
 			iter = null;
 		}
 		
-		public ArchiveEntry getNextEntry() throws FileNotFoundException {
+		protected ArchiveEntry getNextEntry() throws FileNotFoundException {
 			closeEntry();
 			if (!iter.hasNext())
 				return null;
@@ -654,7 +654,7 @@ public class Extractor implements ExtractorI {
 			return entry = new DirectoryEntry(name, f);
 		}
 		
-		public void closeEntry() {
+		protected void closeEntry() {
 			if (entry != null) {
 				entry.close();
 				entry = null;
@@ -689,7 +689,7 @@ public class Extractor implements ExtractorI {
 			}
 		}
 		
-		public ArchiveEntry getNextEntry() throws IOException {
+		protected ArchiveEntry getNextEntry() throws IOException {
 			if (tis != null) {
 				TarArchiveEntry te = tis.getNextTarEntry();
 				return (te == null ? null : new ArchiveEntry(te));
@@ -709,7 +709,7 @@ public class Extractor implements ExtractorI {
 				is.close();
 		}
 
-		public InputStream getStream() {
+		protected InputStream getStream() {
 			return is;
 		}
 
@@ -733,26 +733,26 @@ public class Extractor implements ExtractorI {
 	 */
 	protected static class CacheRepresentation extends IFDRepresentation {
 
-		public String rezipOrigin;
-		private boolean isMultiple;
+		protected String rezipOrigin;
+		protected boolean isMultiple;
 
-		public CacheRepresentation(IFDReference ifdReference, Object o, long len, String type, String subtype) {
+		protected CacheRepresentation(IFDReference ifdReference, Object o, long len, String type, String subtype) {
 			super(ifdReference, o, len, type, subtype);
 		}
 
-		public void setRezipOrigin(String path) {
+		protected void setRezipOrigin(String path) {
 			rezipOrigin = path;
 		}
 
-		public Object getRezipOrigin() {
+		protected Object getRezipOrigin() {
 			return rezipOrigin;
 		}
 
-		public void setIsMultiple() {
+		protected void setIsMultiple() {
 			isMultiple = true;
 		}
 		
-		public boolean isMultiple() {
+		protected boolean isMultiple() {
 			return isMultiple;
 		}
 
@@ -794,7 +794,7 @@ public class Extractor implements ExtractorI {
 		String source;
 		FileList lstManifest;
 		FileList lstIgnored;
-		public String rootPath;
+		protected String rootPath;
 		
 		ExtractorSource(String source) {
 			this.source = source;
@@ -842,6 +842,14 @@ public class Extractor implements ExtractorI {
 
 	protected final static Pattern objectDefPattern = Pattern.compile("\\{([^:]+)::([^}]+)\\}");
 	protected final static Pattern pStarDotStar = Pattern.compile("\\*([^|/])\\*");
+
+	/**
+	 * value to substitute for null from vendors
+	 */
+	public static final Object NULL = "\1";
+
+	protected static final String DEFAULT_STRUCTURE_URI = "./struc/";
+
 
 	Map<String, Object> config = null;
 
@@ -1090,23 +1098,17 @@ public class Extractor implements ExtractorI {
 	 */
 	protected boolean allowMultipleObjectsForRepresentations = true;
 
-	private String ignoreRegex;
+	protected String ignoreRegex;
 
-	private boolean isByID;
+	protected boolean isByID;
+
+	protected List<FileList> rootLists; 
+	protected String resourceList;
+
 
 	public int getErrorCount() {
 		return errors;
 	}
-
-	protected static final String IFD_PROPERTY_DATAOBECT_NOTE = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
-			IFDConst.IFD_DATAOBJECT_FLAG, IFDConst.IFD_NOTE_FLAG);
-
-	/**
-	 * value to substitute for null from vendors
-	 */
-	public static final Object NULL = "\1";
-
-	private static final String DEFAULT_STRUCTURE_URI = "./struc/";
 
 	public Extractor() {
 		setConfiguration();
@@ -1114,7 +1116,7 @@ public class Extractor implements ExtractorI {
 		getStructurePropertyManager();
 	}
 
-	private void setConfiguration() {
+	protected void setConfiguration() {
 		try {
 			config = FAIRSpecUtilities.getJSONResource(Extractor.class, "extractor.config.json");
 		} catch (IOException e) {
@@ -1175,7 +1177,18 @@ public class Extractor implements ExtractorI {
 		return true;
 	}
 
-	private boolean phase1ProcessPubURI() throws IOException {
+	protected void phase1SetMetadataTarget(String key, String param) {
+		// TODO Auto-generated method stub extractor.checkForMetadata
+		Map<String, Object> pm = htMetadata.remove(key);
+		if (pm == null)
+			return;
+		// switch key to object id key
+		log("!Extractor METADATA FOR " + key + " set to " + param);
+		htMetadata.put(param, pm);
+		loadMetadata(param, pm);
+	}
+
+	protected boolean phase1ProcessPubURI() throws IOException {
 		String puburi = null;
 		Map<String, Object> pubCrossrefInfo = null;
 		puburi = (String) helper.getFindingAid()
@@ -1212,7 +1225,7 @@ public class Extractor implements ExtractorI {
 		return new IFDDefaultJSONSerializer(isByID);
 	}
 
-	public void phase1SetLocalSourceDir(String sourceDir) {
+	protected void phase1SetLocalSourceDir(String sourceDir) {
 		if (sourceDir != null && sourceDir.indexOf("://") < 0)
 			sourceDir = "file:///" + sourceDir.replace('\\', '/');
 		this.localSourceDir = sourceDir;
@@ -1247,7 +1260,7 @@ public class Extractor implements ExtractorI {
 	 * This includes structure representations handled by DefaultStructureHelper.
 	 * 
 	 */
-	public void phase1SetCachePattern(String sp) {
+	protected void phase1SetCachePattern(String sp) {
 		if (sp == null) {
 			sp = FAIRSpecExtractorHelper.defaultCachePattern + "|" + structurePropertyManager.getParamRegex();
 		} else if (sp.length() == 0) {
@@ -1303,7 +1316,7 @@ public class Extractor implements ExtractorI {
 	 * @param toExclude
 	 * @return the rezip pattern
 	 */
-	public Pattern phase1SetRezipCachePattern(String procs, String toExclude) {
+	protected Pattern phase1SetRezipCachePattern(String procs, String toExclude) {
 		String s = "";
 		for (int i = 0; i < VendorPluginI.activeVendors.size(); i++) {
 			String cp = VendorPluginI.activeVendors.get(i).vrezip;
@@ -1324,7 +1337,7 @@ public class Extractor implements ExtractorI {
 	 * @throws IOException
 	 * @throws IFDException
 	 */
-	public List<ObjectParser> phase1GetObjectParsersForFile(File ifdExtractScript) throws IOException, IFDException {
+	protected List<ObjectParser> phase1GetObjectParsersForFile(File ifdExtractScript) throws IOException, IFDException {
 		log("!Extracting " + ifdExtractScript.getAbsolutePath());
 		return phase1GetObjectsForStream(ifdExtractScript.toURI().toURL().openStream());
 	}
@@ -1337,7 +1350,7 @@ public class Extractor implements ExtractorI {
 	 * @throws IOException
 	 * @throws IFDException
 	 */
-	public List<ObjectParser> phase1GetObjectsForStream(InputStream is) throws IOException, IFDException {
+	protected List<ObjectParser> phase1GetObjectsForStream(InputStream is) throws IOException, IFDException {
 		extractScript = new String(FAIRSpecUtilities.getLimitedStreamBytes(is, -1, null, true, true));
 		objectParsers = phase1ParseScript(extractScript);
 		return objectParsers;
@@ -1561,7 +1574,7 @@ public class Extractor implements ExtractorI {
 		return parsers;
 	}
 
-	private boolean phase1CheckSource(String val) throws IFDException {
+	protected boolean phase1CheckSource(String val) throws IFDException {
 		val = localizeURL(val);
 		if (!val.startsWith("file:/"))
 			return true;
@@ -1604,7 +1617,7 @@ public class Extractor implements ExtractorI {
 	 * Find and extract all objects of interest from a ZIP file.
 	 * 
 	 */
-	public void processPhase2(File targetDir) throws IFDException, IOException {
+	protected void processPhase2(File targetDir) throws IFDException, IOException {
 		if (haveExtracted)
 			throw new IFDException("Only one extraction per instance of Extractor is allowed (for now).");
 		haveExtracted = true;
@@ -1691,9 +1704,9 @@ public class Extractor implements ExtractorI {
 		}
 
 		// Vendors may produce new objects that need association or properties of those
-		// objects. This happens in Phase 2b
+		// objects. This happens in Phases 2a, 2b, and 2c
 
-		processDeferredObjectProperties(null);
+		phase2cProcessDeferredObjectProperties(null);
 
 		// Phase 2d
 
@@ -2038,7 +2051,7 @@ public class Extractor implements ExtractorI {
 		return originToEntryMap;
 	}
 
-	private void phase2dCheckOrReject(ArchiveInputStream ais, String oPath, long len) throws IOException {
+	protected void phase2dCheckOrReject(ArchiveInputStream ais, String oPath, long len) throws IOException {
 		String localizedName = localizePath(oPath);
 		Object obj = htLocalizedNameToObject.get(localizedName);
 		if (obj == null) {
@@ -2196,7 +2209,7 @@ public class Extractor implements ExtractorI {
 	 * @param originPath
 	 * @return
 	 */
-	public static String getStructureNameFromPath(String originPath) {
+	protected static String getStructureNameFromPath(String originPath) {
 		String name = originPath.substring(originPath.lastIndexOf("/") + 1);
 		name = name.substring(name.indexOf('#') + 1);
 		int pt = name.indexOf('.');
@@ -2226,17 +2239,6 @@ public class Extractor implements ExtractorI {
 	 */
 	protected void logDigitalItem(String localPath, String method) {
 		logWarn("digital item ignored, as it does not fit any template pattern: " + localPath, method);
-	}
-
-	void phase1SetMetadataTarget(String key, String param) {
-		// TODO Auto-generated method stub extractor.checkForMetadata
-		Map<String, Object> pm = htMetadata.remove(key);
-		if (pm == null)
-			return;
-		// switch key to object id key
-		log("!Extractor METADATA FOR " + key + " set to " + param);
-		htMetadata.put(param, pm);
-		loadMetadata(param, pm);
 	}
 
 	protected void logNote(String msg, String method) {
@@ -2529,7 +2531,7 @@ public class Extractor implements ExtractorI {
 				this.localizedName = localizedName;
 			String msg = "Extractor correcting " + vendor.getVendorName() + " directory name to " + localizedName + "|"
 					+ newDir;
-			addProperty(IFD_PROPERTY_DATAOBECT_NOTE, msg);
+			addProperty(IFDConst.IFD_PROPERTY_DATAOBECT_NOTE, msg);
 			log("!" + msg);
 		}
 		localizedName = localizePath(oPath);
@@ -2872,7 +2874,7 @@ public class Extractor implements ExtractorI {
 	 * @throws IFDException
 	 * @throws IOException
 	 */
-	protected void processDeferredObjectProperties(String phase2OriginPath) throws IFDException, IOException {
+	protected void phase2cProcessDeferredObjectProperties(String phase2OriginPath) throws IFDException, IOException {
 		FAIRSpecCompoundAssociation assoc = null;
 		String lastLocal = null;
 		IFDDataObject localSpec = null;
@@ -3155,9 +3157,6 @@ public class Extractor implements ExtractorI {
 		}
 	}
 	
-	private List<FileList> rootLists; 
-	private String resourceList;
-
 	protected void outputListJSON(String name, File file) throws IOException {
 		int[] ret = new int[1];
 		String json = helper.getListJSON(name, rootLists, resourceList, extractscriptFile.getName(), ret);
@@ -3308,7 +3307,7 @@ public class Extractor implements ExtractorI {
 	 * @param path
 	 * @return
 	 */
-	public static String localizePath(String path) {
+	protected static String localizePath(String path) {
 		path = path.replace('\\', '/');
 		boolean isDir = path.endsWith("/");
 		if (isDir)
@@ -3714,7 +3713,7 @@ public class Extractor implements ExtractorI {
 				+ "\n-requirePubInfo (throw an error is datacite cannot be reached; post-publication-related collections only)";
 	}
 
-	private String dumpFlags() {
+	protected String dumpFlags() {
 		String s =  " stopOnAnyFailure = " + stopOnAnyFailure //
 		+ "\n debugging = " + debugging //
 		+ "\n readOnly = " + readOnly //
