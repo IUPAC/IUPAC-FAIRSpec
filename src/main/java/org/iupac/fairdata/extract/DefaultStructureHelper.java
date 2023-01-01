@@ -129,26 +129,34 @@ public class DefaultStructureHelper implements PropertyManagerI {
 					s = "load DATA \"model\"\n" + data + "\nend \"model\" 1 packed";
 					v.scriptWait(s);
 					cellFormula = v.evaluateExpression("{visible && configuration=1}.find('CELLFORMULA')").toString();
-					empiricalFormula = v.evaluateExpression("{visible && configuration=1}.find('CELLFORMULA', true)").toString();
+					empiricalFormula = v.evaluateExpression("{visible && configuration=1}.find('CELLFORMULA', true)")
+							.toString();
 				} else {
 					bytes = null;
 					BS atoms = v.bsA();
 					smiles = v.getSmiles(atoms);
-					standardInchi = v.getInchi(atoms, null, null);
 					molecularFormula = v.evaluateExpression("{1.1 && configuration=1}.find('SMILES','MF')").toString();
-					if (standardInchi == null) {
-						extractor.log("! DefaultStructureHelper WARNING: InChI could not be created for " + originPath 
-								+ " MF=" + molecularFormula + " SMILES=" + smiles);
+					if (smiles == null || smiles.indexOf("Xx") >= 0) {
+						extractor.log("! DefaultStructureHelper WARNING: SMILES could not be created for " + originPath
+								+ " MF=" + molecularFormula);
+						smiles = null;
 					} else {
-						fixedhInchi = v.getInchi(atoms, null, "fixedh");
-						inchiKey = v.getInchi(atoms, null, "key");
+						standardInchi = v.getInchi(atoms, null, null);
+						if (standardInchi == null) {
+							extractor.log("! DefaultStructureHelper WARNING: InChI could not be created for "
+									+ originPath + " MF=" + molecularFormula + " SMILES=" + smiles);
+						} else {
+							fixedhInchi = v.getInchi(atoms, null, "fixedh");
+							inchiKey = v.getInchi(atoms, null, "key");
+						}
 					}
 					// using SMILES here to get implicit H count
 					if (isCDXML) {
 						String mol2d = (String) v.evaluateExpression("write('MOL')");
 						if (mol2d != null && mol2d.indexOf("2D") >= 0)
 							extractor.addDeferredPropertyOrRepresentation(IFDConst.IFD_REP_STRUCTURE_MOL_2D,
-								new Object[] { mol2d.getBytes(), originPath + ".mol" }, false, "chemical/x-mdl-molfile", note);
+									new Object[] { mol2d.getBytes(), originPath + ".mol" }, false,
+									"chemical/x-mdl-molfile", note);
 					}
 				}
 				boolean is3D = "3D".equals(v.getCurrentModelAuxInfo().get("dimension"));
