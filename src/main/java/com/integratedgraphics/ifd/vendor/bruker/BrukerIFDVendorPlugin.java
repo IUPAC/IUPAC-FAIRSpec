@@ -48,17 +48,30 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			ifdMap.put(keys[i++], keys[i++]);
 	}
 
-	/**
-	 * 1D, 2D, ...; this value cannot be determined directly from parameters (I
-	 * think)
-	 */
-	private String dim;
-	
-	private String nuc1;
-	
-	private String probeHead;
+	private class Globals {
+		
+		/**
+		 * 1D, 2D, ...; this value cannot be determined directly from parameters (I
+		 * think)
+		 */
+		String dim;
+		String nuc1;
+		String probeHead;
+		String solvent;
 
+		public void clear() {
+			dim = null;
+			nuc1 = null;
+			probeHead = null;
+		}
+
+
+	}	
+	
+	private Globals spec;
+	
 	public BrukerIFDVendorPlugin() {
+		spec = new Globals();
 		// files of interest; procs is just for solvent
 		// presence of acqu2s indicates a 2D experiment
 		paramRegex = "procs$|acqu2s$|acqus$|title$";
@@ -104,8 +117,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	public void startRezip(ExtractorI extractor) {
 		// we will need dim for setting 1D
 		super.startRezip(extractor);
-		dim = null;
-		nuc1 = null;
+		spec = new Globals();
 	}
 
 	@Override
@@ -114,12 +126,11 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		// NUC2 will be set already, but that might just involve decoupling, which we
 		// don't generally indicate. So here we remove the NUC2 property if this is a 1D
 		// experiment.
-		if (dim == null) {
+		if (spec.dim == null) {
 			report("DIM", "1D");
 			report("##$NUC2", Extractor.NULL);
 		}
-		dim = null;
-		nuc1 = null;
+		spec.clear();
 		super.endRezip();
 	}
 
@@ -153,6 +164,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			// solvent in procs overrides solvent in acqu or acqus
 			Object solvent = getSolvent(map);
 			if (solvent != null) {
+				spec.solvent = (String) solvent;
 				report("SOLVENT", Extractor.NULL); // this will clear the
 				report("SOLVENT", solvent);
 			}
@@ -162,7 +174,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		int ndim = 0;
 		// some of this can be decoupling, though.
 		String n1 = getBrukerString(map, "##$NUC1");
-		if ((nuc1 == null ? (nuc1 = processString(map, "##$NUC1", "off")) : nuc1) != null)
+		if ((spec.nuc1 == null ? (spec.nuc1 = processString(map, "##$NUC1", "off")) : spec.nuc1) != null)
 			ndim = 1;
 		if ((processString(map, "##$NUC2", "off")) != null)
 			ndim = 2;
@@ -182,13 +194,18 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		report("##$TE", getDoubleValue(map, "##$TE"));
 		processString(map, "##$PULPROG", null);
 		if (originPath.endsWith("acqu2s")) {
-			report("DIM", dim = "2D");
-		} else if (originPath.endsWith("acqus") && dim == null) {
-			report("DIM", dim = "1D");
+			report("DIM", spec.dim = "2D");
+		} else if (originPath.endsWith("acqus") && spec.dim == null) {
+			report("DIM", spec.dim = "1D");
 		}
 		report("SF", getNominalFrequency(freq1, n1));
-		if (probeHead == null)
-			probeHead = processString(map, "##$PROBHD", null);
+		if (spec.probeHead == null)
+			spec.probeHead = processString(map, "##$PROBHD", null);
+		if (originPath.indexOf("acqus") >= 0) {
+			// procs must have been processed already
+			if (spec.solvent != null)
+				return true;
+		}
 		processString(map, "##$SOLVENT", null);
 		return true;
 	}
