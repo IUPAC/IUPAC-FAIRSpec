@@ -419,9 +419,11 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * @param source
 	 */
 	public void setPropertyValue(String key, Object value, String source) {
+		if (key.indexOf("solvent") >= 0)
+			System.out.println("IFDO ???? solvent " + this);
 		IFDProperty p = setPropertyValue(key, value);
-		if (p != null && value != null)
-			p.setSource(source);
+		if (p != null)
+			p.setSource(value == null ? null : source);
 	}
 	
 	

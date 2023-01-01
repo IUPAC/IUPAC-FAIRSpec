@@ -16,12 +16,12 @@
  
  "----reject for now all of the MNova 'master-documents' ",
 
- {"FAIRSpec.extractor.reject": "document"},
+ {"FAIRSpec.extractor.reject": ["document"]},
 
 
  "----reject for now all of the MOL files as unnecessary -- idea is to have Jmol create these as needed",
 
- {"FAIRSpec.extractor.reject": ".mol"},
+ {"FAIRSpec.extractor.reject": [".mol"]},
 
 
  {"FAIRSpec.extractor.options" : ""},

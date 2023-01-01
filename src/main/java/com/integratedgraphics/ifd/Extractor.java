@@ -1019,7 +1019,7 @@ public class Extractor implements ExtractorI {
 	 * properties or representations from them in Phase 2b that will need to be
 	 * processed in Phase 2c.
 	 */
-	protected Map<String, IFDRepresentation> vendorCache;
+	protected Map<String, CacheRepresentation> vendorCache;
 
 	/**
 	 * a list of properties that vendors have indicated need addition, keyed by the
@@ -1285,7 +1285,7 @@ public class Extractor implements ExtractorI {
 			s = sp;
 		}
 		vendorCachePattern = Pattern.compile("(?<ext>" + s + ")");
-		vendorCache = new LinkedHashMap<String, IFDRepresentation>();
+		vendorCache = new LinkedHashMap<String, CacheRepresentation>();
 	}
 
 	/**
@@ -1438,8 +1438,8 @@ public class Extractor implements ExtractorI {
 		List<String> keys = new ArrayList<>();
 		List<String> values = new ArrayList<>();
 		List<ObjectParser> parsers = new ArrayList<>();
-		String ignored = "";
-		String rejected = "";
+		List<Object> ignored = new ArrayList<>();
+		List<Object> rejected = new ArrayList<>();
 		ExtractorSource source = null;
 		boolean isDefaultStructurePath = false;
 		List<Object> replacements = null;
@@ -1491,6 +1491,23 @@ public class Extractor implements ExtractorI {
 					continue;
 				}
 
+				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_REJECT)) {
+					if (o instanceof String) {
+						rejected.add(o);
+					} else {
+						rejected.addAll((List<Object>) o);
+					}
+					continue;
+				}
+
+				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_IGNORE)) {
+					if (o instanceof String) {
+						ignored.add(o);
+					} else {
+						ignored.addAll((List<Object>) o);
+					}
+					continue;
+				}
 				// String values
 
 				String val = o.toString();
@@ -1538,14 +1555,6 @@ public class Extractor implements ExtractorI {
 					parsers.add(parser);
 					continue;
 				}
-				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_REJECT)) {
-					rejected += "(" + val + ")|";
-					continue;
-				}
-				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_IGNORE)) {
-					ignored += "|(" + val + ")";
-					continue;
-				}
 				if (key.startsWith(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_OPTION_FLAG)
 						|| key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_OPTIONS)) {
 					setExtractorOption(key, val);
@@ -1571,8 +1580,22 @@ public class Extractor implements ExtractorI {
 			}
 		}
 
-		lstRejected.setAcceptPattern(rejected + FAIRSpecExtractorHelper.junkFilePattern);
-		ignoreRegex = (ignored.length() > 0 ? ignored.substring(1) : null);
+		String s = "";
+		if (rejected.size() > 0) {
+			for (int i = 0; i < rejected.size(); i++) {
+				s += "(" + rejected.get(i) + ")|";
+			}
+		}
+		lstRejected.setAcceptPattern(s + FAIRSpecExtractorHelper.junkFilePattern);
+		if (ignored.size() > 0) {
+			s = "";
+			for (int i = 0; i < ignored.size(); i++) {
+				s += "|(" + ignored.get(i);
+			}
+			ignoreRegex = s.substring(1);
+		} else {
+			ignoreRegex = null;
+		}
 		return parsers;
 	}
 
@@ -2239,8 +2262,8 @@ public class Extractor implements ExtractorI {
 	 * @param localPath
 	 * @param method
 	 */
-	protected void logDigitalItem(String localPath, String method) {
-		logWarn("digital item ignored, as it does not fit any template pattern: " + localPath, method);
+	protected void logDigitalItem(String originPath, String localPath, String method) {
+		logWarn("digital item ignored, as it does not fit any template pattern: " + originPath, method);
 	}
 
 	protected void logNote(String msg, String method) {
@@ -2695,11 +2718,11 @@ public class Extractor implements ExtractorI {
 	protected void phase3UpdateCachedRepresentations() {
 
 		for (String ckey : vendorCache.keySet()) {
-			IFDRepresentation r = vendorCache.get(ckey);
+			CacheRepresentation r = vendorCache.get(ckey);
 			IFDRepresentableObject<?> obj = htLocalizedNameToObject.get(ckey);
 			if (obj == null) {
 				String path = r.getRef().getOrigin().toString();
-				logDigitalItem(ckey, "addCachedRepresentationsToObjects");
+				logDigitalItem(path, ckey, "addCachedRepresentationsToObjects");
 				try {
 					addFileToFileLists(path, LOG_IGNORED, r.getLength(), null);
 				} catch (IOException e) {
@@ -2821,7 +2844,8 @@ public class Extractor implements ExtractorI {
 
 	@Override
 	public void addProperty(String key, Object val) {
-		log(this.localizedName + " addProperty " + key + "=" + val);
+		if (val != NULL)
+			log(this.localizedName + " addProperty " + key + "=" + val);
 		addDeferredPropertyOrRepresentation(key, val, false, null, null);
 	}
 
@@ -2910,7 +2934,7 @@ public class Extractor implements ExtractorI {
 
 			if (spec == null && !cloning) {
 				// TODO: should this be added to the IGNORED list?
-				logDigitalItem(localizedName, "processDeferredObjectProperties");
+				logDigitalItem(originPath, localizedName, "processDeferredObjectProperties");
 				continue;
 			}
 			if (spec instanceof IFDStructure) {
@@ -3007,7 +3031,7 @@ public class Extractor implements ExtractorI {
 				if (newLocalName != null)
 					localizedName = newLocalName;
 				htLocalizedNameToObject.put(localizedName, spec); // for internal use
-				IFDRepresentation rep = vendorCache.get(localizedName);
+				CacheRepresentation rep = vendorCache.get(localizedName);
 				if (newLocalName != localizedName) {
 					String ckey = localizedName + idExtension.replace('_', '#') + "\0" + idExtension;
 					vendorCache.put(ckey, rep);
@@ -3093,16 +3117,20 @@ public class Extractor implements ExtractorI {
 	}
 
 	protected void setPropertyIfNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath) {
+		if (obj.getID().indexOf("S8") >= 0) {
+			System.out.println("EX ?????");
+			System.out.println("EX prop " + key + " " + value);
+		}
 		boolean isNull = (value == NULL);
-		if (!isNull && IFDConst.isProperty(key)) {
+		if (IFDConst.isProperty(key)) {
 			// not a parameter and not forcing NULL
 			Object v = obj.getPropertyValue(key);
 			if (value.equals(v))
 				return;
 			if (v != null) {
 				String source = obj.getPropertySource(key);
-				logWarn(originPath + " property " + key + " can't set value '" + value
-						+ "', as it is already set to '" + v + "' from " + source, "setPropertyIfNotAlreadySet");
+				logWarn(originPath + " property " + key + " can't set value '" + value + "', as it is already set to '"
+						+ v + "' from " + source, "setPropertyIfNotAlreadySet");
 				return;
 			}
 		}
