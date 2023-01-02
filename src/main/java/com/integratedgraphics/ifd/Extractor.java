@@ -1535,6 +1535,11 @@ public class Extractor implements ExtractorI {
 						source = null;
 						isDefaultStructurePath = (DEFAULT_STRUCTURE_DIR_URI.equals(val)
 								|| DEFAULT_STRUCTURE_ZIP_URI.equals(val));
+						String msg = "local source directory does not exist (ignored): " + val;
+						if (isDefaultStructurePath)
+							logNote(msg, "phase1CheckSource");
+						else
+							logWarn(msg, "phase1CheckSource");
 						continue;
 					}
 					source = htResources.get(val);
@@ -1601,13 +1606,7 @@ public class Extractor implements ExtractorI {
 
 	protected boolean phase1CheckSource(String val) throws IFDException {
 		val = localizeURL(val);
-		if (!val.startsWith("file:/"))
-			return true;
-		File zipFile = new File(val.substring(6));
-		if (zipFile.exists())
-			return true;
-		logWarn("local source directory does not exist (ignored): " + zipFile, "phase1CheckSource");
-		return false;
+		return (!val.startsWith("file:/") || new File(val.substring(6)).exists());
 	}
 
 	protected void phase1ProcessMetadataElement(Object m) throws IFDException {
