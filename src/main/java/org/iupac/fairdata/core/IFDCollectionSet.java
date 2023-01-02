@@ -73,7 +73,7 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 	public void serializeTop(IFDSerializerI serializer) {
 		super.serializeTop(serializer);
 		if (serializer.isByID())
-			serializer.addAttrBoolean("byid", true);
+			serializer.addAttrBoolean("byID", true);
 	}
 
 	@Override
