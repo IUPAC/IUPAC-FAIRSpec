@@ -3160,7 +3160,7 @@ public class Extractor implements ExtractorI {
 			Object v = obj.getPropertyValue(key);
 			if (value.equals(v))
 				return;
-			if (v != null) {
+			if (v != null && !isNull) {
 				String source = obj.getPropertySource(key);
 				logWarn(originPath + " property " + key + " can't set value '" + value + "', as it is already set to '"
 						+ v + "' from " + source, "setPropertyIfNotAlreadySet");
