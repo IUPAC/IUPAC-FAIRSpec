@@ -16,34 +16,47 @@ public class IFDReference implements IFDSerializableI {
 	/**
 	 * Origin object; typically a ZIP file label; toString() will be used for serialization
 	 */
-	private final Object origin;
+	private final Object originPath;
 	
 	/**
 	 * root path to this file
 	 */
-	private final String localRoot;
-	
+	private final String rootPath;
+
+	/**
+	 * source URL in the IFDFindingAid URLs list; must be set nonnegative
+	 * to register
+	 */
+	private String resourceID;
+
 	/**
 	 * label of this file
 	 */
 	private String localName;
 	
-	public IFDReference(Object origin, String localRoot, String localName) {
-		this.origin = origin;
-		this.localRoot = localRoot;
+	public IFDReference(String resourceID, Object originPath, String localRoot, String localName) {
+		if (!resourceID.equals("1") && originPath != null && originPath.toString().indexOf("png") >= 0)
+			System.out.println("IFDRef ??? ");
+		this.originPath = originPath;
+		this.rootPath = localRoot;
 		this.localName = localName;
+		this.resourceID = resourceID;
 	}
 
-	public Object getOrigin() {
-		return origin;
+	public Object getOriginPath() {
+		return originPath;
 	}
 
-	public String getLocalRoot() {
-		return localRoot;
+	public String getResourceID() {
+		return resourceID;
+	}
+
+	public String getRootPath() {
+		return rootPath;
 	}
 	
 	public String getLocalPath() {
-		return (localRoot == null ? "" : localRoot + "/") + localName;
+		return (rootPath == null ? "" : rootPath + "/") + localName;
 	}
 	
 	public String getLocalName() {
@@ -52,18 +65,20 @@ public class IFDReference implements IFDSerializableI {
 
 	@Override
 	public String toString() {
-		return "[IFDReference " + (localRoot == null ? "" : localRoot + "::") + origin + " :as::" + localName + "]";
+		return "[IFDReference " + (rootPath == null ? "" : rootPath + "::") + originPath + " :as::" + localName + "]";
 	}
 
 	@Override
 	public void serialize(IFDSerializerI serializer) {
 		IFDObject.serializeClass(serializer, getClass(), null);
-		if (origin != null)
-			serializer.addAttr("originPath", origin.toString());
+		if (resourceID != null) {
+			serializer.addAttr("resourceID", resourceID);
+		}
+		if (originPath != null)
+			serializer.addAttr("originPath", originPath.toString());
 		if (localName != null) {
 			serializer.addAttr("path", getLocalPath());
 			// TODO: Could add #page=" to origin; localPath is null?
-//			serializer.addAttr("localName", localName);
 		}
 	}
 
@@ -71,6 +86,5 @@ public class IFDReference implements IFDSerializableI {
 	public String getSerializedType() {
 		return "IFDReference";
 	}
-
 
 }

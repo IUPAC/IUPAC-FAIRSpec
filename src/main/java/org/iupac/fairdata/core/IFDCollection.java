@@ -64,13 +64,13 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 	 * @param localizedPath
 	 * @return
 	 */
-	public IFDRepresentation getRepresentation(String localizedPath) {
+	public IFDRepresentation getRepresentation(String resourceID, String localizedPath) {
 		if (!hasRepresentations)
 			return null;
 		for (T c : this) {
 			if (!(c instanceof IFDRepresentableObject))
 				continue;
-			IFDRepresentation r = ((IFDRepresentableObject<?>)c).getRepresentation(localizedPath);
+			IFDRepresentation r = ((IFDRepresentableObject<?>)c).getRepresentation(resourceID, localizedPath);
 			if (r != null)
 				return r;
 		}
@@ -153,7 +153,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 				}
 			}
 			
-			serializer.addCollection("items", this, byid);
+			serializer.addCollection(byid ? "itemsByID" : "items", this, byid);
 		}
 		if (haveCommonClass) {
 			for (int i = size(); --i >= 0;) {

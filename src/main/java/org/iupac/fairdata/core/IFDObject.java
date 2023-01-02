@@ -419,8 +419,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * @param source
 	 */
 	public void setPropertyValue(String key, Object value, String source) {
-		if (key.indexOf("solvent") >= 0)
-			System.out.println("IFDO ???? solvent " + this);
 		IFDProperty p = setPropertyValue(key, value);
 		if (p != null)
 			p.setSource(value == null ? null : source);
@@ -464,7 +462,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	private boolean checkSpecialProperties(String key, Object value) {
 		String myPropertyPrefix = getPropertyPrefix();
 		if (key.equals(myPropertyPrefix + IFDConst.IFD_LABEL_FLAG)) {
-			label = value.toString();
+			setLabel(value.toString());
 			return true;
 		} 
 		if (key.equals(myPropertyPrefix + IFDConst.IFD_ID_FLAG)) {
@@ -472,7 +470,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			return true;
 		}
 		if (key.equals(myPropertyPrefix + IFDConst.IFD_DESCRIPTION_FLAG)) {
-			description = value.toString();
+			setDescription(value.toString());
 			return true;
 		}
 		if (key.equals(myPropertyPrefix + IFDConst.IFD_NOTE_FLAG)) {
@@ -480,7 +478,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			return true;
 		}
 		if (key.equals(myPropertyPrefix + IFDConst.IFD_TIMESTAMP_FLAG)) {
-			timestamp = value.toString();
+			setTimestamp(value.toString());
 			return true;
 		}
 		return false;
@@ -536,6 +534,16 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			this.note += ";\n" + note;
 	}
 	
+	@Override
+	public String getTimestamp() {
+		return timestamp;
+	}
+
+	@Override
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
+
 	@Override
 	public String getDescription() {
 		return description;
@@ -627,6 +635,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		serializer.addAttr("label", getLabel());
 		serializer.addAttr("note", getNote());
 		serializer.addAttr("description", getDescription());
+		serializer.addAttr("timestamp", getTimestamp());
 		if (hasProperty)
 			serializer.addAttr("propertyPrefix", getPropertyPrefixForSerialization());
 	}
@@ -750,8 +759,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	@Override
 	public String toString() {
 		return "[" + getClass().getSimpleName() + " " + index 
-				+ " id=" + id 
-				+ " label=" + label 
+				+ " id=" + getID()
+				+ (label == null ? "" : " label=" + getLabel()) 
 				+ " size=" + size() 
 				+ " isValid=" + isValid
 				+ "]";

@@ -45,17 +45,6 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 
 
 	/**
-	 * the root path to this object for its IFDReference
-	 */
-	protected String rootPath;
-
-	/**
-	 * index of source URL in the IFDFindingAid URLs list; must be set nonnegative
-	 * to register
-	 */
-	private IFDResource resource;
-
-	/**
 	 * a map of unique paths to specific representations used to ensure that all
 	 * representations are to unique objects
 	 */
@@ -63,14 +52,6 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 
 	public IFDRepresentableObject(String label, String type) {
 		super(label, type);
-	}
-
-	public String getPath() {
-		return rootPath;
-	}
-
-	public void setPath(String path) {
-		rootPath = path;
 	}
 
 	/**
@@ -84,14 +65,14 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public IFDRepresentation findOrAddRepresentation(String originPath, String localName, Object data, String type, String mediaType) {
+	public IFDRepresentation findOrAddRepresentation(String resourceID,	String originPath, String rootPath, String localName, Object data, String type, String mediaType) {
 		boolean isInline = (localName == null);
 		String key = (!isInline ? localName : data instanceof byte[] ? new String((byte[]) data) : data.toString());
-		IFDRepresentation rep = getRepresentation(key);
+		IFDRepresentation rep = getRepresentation(resourceID, key);
 		if (rep == null) {
-			rep = newRepresentation((isInline ? null : new IFDReference(originPath, rootPath, localName)), data, 0, type, mediaType);
+			rep = newRepresentation((isInline ? null : new IFDReference(resourceID, originPath, rootPath, localName)), data, 0, type, mediaType);
 			add((T) rep);
-			map.put(rootPath + "::" + key, rep);
+			map.put(resourceID + "::" + key, rep);
 //			if (!isInline) // Q: What is this for? -- was CIF issue
 //				System.out.println("IFDRepObj??? rootPath addition? Messes up two objects with the same origin ???" + originPath + " " + localName);
 			//	map.put(rootPath + "::" + originPath, rep);
@@ -99,8 +80,8 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 		return rep;
 	}
 
-	public IFDRepresentation getRepresentation(String key) {
-		IFDRepresentation r = map.get(rootPath + "::" + key);
+	public IFDRepresentation getRepresentation(String resourceID, String key) {
+		IFDRepresentation r = map.get(resourceID + "::" + key);
 //		System.out.println(this.index + " getRep " + key + " " + r);	
 		return r;
 	}
@@ -114,15 +95,6 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 			}
 	}
 
-	public void setResource(IFDResource resource) {
-		this.resource = resource;
-	}
-
-	public IFDResource getResource() {
-		return resource;
-	}
-
-	
 	@Override
 	protected void serializeTop(IFDSerializerI serializer) {
 		super.serializeTop(serializer);
@@ -133,8 +105,8 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 	@Override
 	protected void serializeProps(IFDSerializerI serializer) {
 		super.serializeProps(serializer);
-		if (resource != null)
-			serializer.addAttr("resourceID", resource.getID());
+//		if (resource != null)
+//			serializer.addAttr("resourceID", resource.getID());
 	}
 
 	@Override

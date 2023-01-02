@@ -11,25 +11,29 @@ package org.iupac.fairdata.api;
  */
 public interface IFDObjectI<T> {
 	
-	String getLabel();
-	
-	void setLabel(String label);
+	String getDescription();
 	
 	String getID();
 	
-	void setID(String id);
+	String getLabel();
 	
 	String getNote();
 	
-	void setNote(String note);
+	T getObject(int index);
 	
-	String getDescription();
+	int getObjectCount();
+	
+	String getTimestamp();
 	
 	void setDescription(String description);
 	
 
-	T getObject(int index);
+	void setID(String id);
 
-	int getObjectCount();
+	void setLabel(String label);
+
+	void setNote(String note);
+
+	void setTimestamp(String timestamp);
 
 }

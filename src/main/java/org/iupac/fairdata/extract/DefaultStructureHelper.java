@@ -62,14 +62,15 @@ public class DefaultStructureHelper implements PropertyManagerI {
 			System.out.println("IFDDefaultStructurePropertyManager initializing Jmol...");
 			jmolViewer = (Viewer) JmolViewer.allocateViewer(null, null);
 			jmolVersion = JmolViewer.getJmolVersionNoDate();
-			// copy Jmol output to extractor.log
+			// route Jmol logging to extractor.log
 			org.jmol.util.Logger.setLogger(new DefaultLogger() {
 				
-				  protected String log(PrintStream out, int level, String txt, Throwable e) {
-					  txt = super.log(out, level, txt, e);
+				  @Override
+				protected String log(PrintStream out, int level, String txt, Throwable e) {
+//					  txt = super.log(null, level, txt, e);
 					  if (txt != null)
 						  extractor.log("!Jmol " + txt.trim());
-					  return null;
+					  return txt;
 				  }
 				
 			});

@@ -86,7 +86,7 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 			list.add(c);
 		}
 		if (list.size() > 0)
-			serializer.addCollection("items", list, serializer.isByID());
+			serializer.addCollection((serializer.isByID() ? "itemsByID" : "items"), list, serializer.isByID());
 	}
 
 	public void getContents(Map<String, Object> map) {

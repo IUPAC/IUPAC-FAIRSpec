@@ -540,18 +540,15 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			switch (type) {
 			case ClassTypes.Sample:
 				o = new IFDSample();
-				o.setPath(rootPath);
 				o = ((IFDSampleCollection) c).addWithPath(key, (IFDSample) o);
 				break;
 			case ClassTypes.Structure:
 				o = new IFDStructure();
-				o.setPath(rootPath);
 				o = ((IFDStructureCollection) c).addWithPath(key, (IFDStructure) o);
 				break;
 			case ClassTypes.DataObject:
 			default:
 				o = FAIRSpecDataObject.createFAIRSpecObject(type);
-				o.setPath(rootPath);
 				o = ((IFDDataObjectCollection) c).addWithPath(key, (IFDDataObject) o);
 				break;
 			}
@@ -559,7 +556,6 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 				throw new IFDException("FAIRSpecExtractorHelper.addNewObject object not found for path=" + rootPath
 						+ " and originPath=" + currentOriginPath);
 		}
-		o.setResource(currentResource);
 		checkAddRepOrSetParam(o, param, value, localName, len);
 		if (isNew && isID)
 			extractor.setNewObjectMetadata(o, param);
@@ -569,7 +565,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	private void checkAddRepOrSetParam(IFDRepresentableObject<? extends IFDRepresentation> o, String param,
 			String value, String localName, long len) {
 		if (IFDConst.isRepresentation(param)) {
-			o.findOrAddRepresentation(currentOriginPath, localName, null, param,
+			o.findOrAddRepresentation(currentResource.getID(), currentOriginPath, currentResource.getRootPath(), localName, null, param,
 					FAIRSpecUtilities.mediaTypeFromFileName(localName)).setLength(len);
 		} else {
 			o.setPropertyValue(param, value);
@@ -696,7 +692,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			getSpecCollection().add(spec);
 		IFDStructure struc = (IFDStructure) checkAddNewObject(getStructureCollection(), ClassTypes.Structure, rootPath,
 				IFD_PROPERTY_STRUCTURE_LABEL, name, localName, null, 0, true);
-		struc.findOrAddRepresentation(originPath, localName, null, ifdRepType,
+		struc.findOrAddRepresentation(currentResource.getID(), rootPath, originPath, localName, null, ifdRepType,
 				FAIRSpecUtilities.mediaTypeFromFileName(localName));
 		getStructureCollection().add(struc);
 		IFDStructureDataAssociation ss = (IFDStructureDataAssociation) getCompoundCollection()
@@ -720,7 +716,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 
 	@Override
 	public IFDRepresentation getSpecDataRepresentation(String localizeName) {
-		return (dataObjectCollection == null ? null : dataObjectCollection.getRepresentation(localizeName));
+		return (dataObjectCollection == null ? null : dataObjectCollection.getRepresentation(currentResource.getID(), localizeName));
 	}
 
 	public IFDSampleCollection getSampleCollection() {
@@ -861,10 +857,15 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	}
 
 	@Override
-	public IFDResource addOrSetSource(String dataSource) {
-		return currentResource = getFindingAid().addOrSetResource(dataSource);
+	public IFDResource addOrSetSource(String dataSource, String rootPath) {
+		return (currentResource = getFindingAid().addOrSetResource(dataSource, rootPath));
 	}
 
+	@Override
+	public IFDResource getCurrentSource() {
+		return currentResource;
+	}
+	
 	@Override
 	public void setCurrentResourceByteLength(long len) {
 		currentResource.setLength(len);

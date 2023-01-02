@@ -28,12 +28,19 @@ public class IFDResource implements IFDSerializableI {
 	 */
 	private String id = null;
 
-	public IFDResource(String ref, String id, long length) {
+	private final String rootPath;
+
+	public IFDResource(String ref, String rootPath, String id, long length) {
 		this.ref = ref;
 		this.id = (id == null ? "" + (++idcount) : id);
 		this.len = length;
+		this.rootPath = rootPath;
 	}
 
+	public String getRootPath() {
+		return rootPath;
+	}
+	
 	@Override
 	public void serialize(IFDSerializerI serializer) {
 		IFDObject.serializeClass(serializer, getClass(), null);

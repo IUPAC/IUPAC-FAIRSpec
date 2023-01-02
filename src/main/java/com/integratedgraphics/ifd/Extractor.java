@@ -214,7 +214,7 @@ public class Extractor implements ExtractorI {
 
 		protected Map<String, String> keys;
 
-		protected ExtractorSource dataSource;
+		protected ExtractorResource dataSource;
 		protected Extractor extractor;
 		protected List<String[]> assignments;
 		protected boolean hasData;
@@ -224,7 +224,7 @@ public class Extractor implements ExtractorI {
 		 * @param sObj
 		 * @throws IFDException
 		 */
-		protected ObjectParser(Extractor extractor, ExtractorSource resource, String sObj) throws IFDException {
+		protected ObjectParser(Extractor extractor, ExtractorResource resource, String sObj) throws IFDException {
 			this.extractor = extractor;
 			this.index = parserCount++;
 			dataSource = resource;
@@ -463,7 +463,7 @@ public class Extractor implements ExtractorI {
 		int i;
 		
 		ParserIterator() {
-			extractorSource = null;
+			extractorResource = null;
 		}
 		@Override
 		public boolean hasNext() {
@@ -473,9 +473,9 @@ public class Extractor implements ExtractorI {
 		@Override
 		public ObjectParser next() {
 			ObjectParser parser = objectParsers.get(i++);
-			if (parser.dataSource != extractorSource) {
+			if (parser.dataSource != extractorResource) {
 				try {
-					extractorSource = phase2InitializeSource(parser.dataSource);
+					phase2InitializeResource(parser.dataSource, true);
 				} catch (IFDException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -791,13 +791,14 @@ public class Extractor implements ExtractorI {
 
 	}
 
-	protected static class ExtractorSource {
+	protected static class ExtractorResource {
 		String source;
 		FileList lstManifest;
 		FileList lstIgnored;
 		protected String rootPath;
+		public String ifdResource;
 		
-		ExtractorSource(String source) {
+		ExtractorResource(String source) {
 			this.source = source;
 		}
 		
@@ -808,6 +809,11 @@ public class Extractor implements ExtractorI {
 			lstIgnored = new FileList(rootPath, "ignored");
 			if (ignore != null)
 				lstIgnored.accept(ignore);
+		}
+		
+		@Override
+		public String toString() {
+			return "[ExtractorSource " + source + "]";
 		}
 	}
 
@@ -840,6 +846,11 @@ public class Extractor implements ExtractorI {
 	 * 
 	 */
 	public static final String NEW_PAGE_KEY = "*NEW_PAGE*";
+	
+	/**
+	 * a key for the deferredObjectList that indicates we have a new resource setting
+	 */
+	public static final String NEW_RESOURCE_KEY = "*NEW_RESOURCE*";
 
 	protected final static Pattern objectDefPattern = Pattern.compile("\\{([^:]+)::([^}]+)\\}");
 	protected final static Pattern pStarDotStar = Pattern.compile("\\*([^|/])\\*");
@@ -1032,7 +1043,7 @@ public class Extractor implements ExtractorI {
 	 * the URL to the original source of this data, as indicated in IFD-extract.json
 	 * as
 	 */
-	protected ExtractorSource extractorSource;
+	protected ExtractorResource extractorResource;
 
 	/**
 	 * bitset of activeVendors that are set for rezipping -- probably 1
@@ -1092,7 +1103,7 @@ public class Extractor implements ExtractorI {
 
 	protected String userStructureFilePattern;
 
-	protected Map<String, ExtractorSource> htResources = new HashMap<>();
+	protected Map<String, ExtractorResource> htResources = new HashMap<>();
 
 	/**
 	 * Slows this down a bit, but allows, for example, a CIF file to 
@@ -1103,6 +1114,8 @@ public class Extractor implements ExtractorI {
 	protected String ignoreRegex;
 
 	protected boolean isByID;
+	
+	protected boolean isByIDSet;
 
 	protected List<FileList> rootLists; 
 	protected String resourceList;
@@ -1440,7 +1453,7 @@ public class Extractor implements ExtractorI {
 		List<ObjectParser> parsers = new ArrayList<>();
 		List<Object> ignored = new ArrayList<>();
 		List<Object> rejected = new ArrayList<>();
-		ExtractorSource source = null;
+		ExtractorResource source = null;
 		boolean isDefaultStructurePath = false;
 		List<Object> replacements = null;
 
@@ -1544,7 +1557,7 @@ public class Extractor implements ExtractorI {
 					}
 					source = htResources.get(val);
 					if (source == null)
-						htResources.put(val, source = new ExtractorSource(val));
+						htResources.put(val, source = new ExtractorResource(val));
 					continue;
 				}
 
@@ -1626,9 +1639,23 @@ public class Extractor implements ExtractorI {
 			loadMetadata(key, map);
 	}
 
+	/**
+	 * Set options from command-line, IFD-extract.json, and extractor.config.json.
+	 * 
+	 * Note that setting isByID is only allowed once. Thus:
+	 * 
+	 * - extractor.config.json overrides built-in defaults
+	 * - IFD-extract.json overrides extractor.config.json
+	 * 
+	 * - command line overrides IFD-extract.json 
+	 * 
+	 * @param key
+	 * @param val
+	 */
 	protected void setExtractorOption(String key, String val) {
-		if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID)) {
+		if (!isByIDSet && key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID)) {
 			isByID = val.equalsIgnoreCase("true");
+			isByIDSet = true;
 			helper.setById(isByID);
 	    } else {
 			checkFlags(val);
@@ -1752,15 +1779,15 @@ public class Extractor implements ExtractorI {
 		
 		ParserIterator iter = new ParserIterator();
 		while (iter.hasNext()) {
-			ExtractorSource currentSource = extractorSource; 
+			ExtractorResource currentSource = extractorResource; 
 			iter.next();
-			if (extractorSource != currentSource) {
-				currentSource = extractorSource;
+			if (extractorResource != currentSource) {
+				currentSource = extractorResource;
 				if (cleanCollectionDir) {
-					log("!cleaning directory " + extractorSource.rootPath);
-					FileUtils.cleanDirectory(new File(targetDir + "/" + extractorSource.rootPath));
+					log("!cleaning directory " + extractorResource.rootPath);
+					FileUtils.cleanDirectory(new File(targetDir + "/" + extractorResource.rootPath));
 				}				
-				String source = targetDir + "/" + extractorSource.rootPath;
+				String source = targetDir + "/" + extractorResource.rootPath;
 				if (!rootPaths.contains(source))
 					rootPaths.add(source);
 				// first build the file list
@@ -1784,36 +1811,43 @@ public class Extractor implements ExtractorI {
 		return contents;
 	}
 
-	protected ExtractorSource phase2InitializeSource(ExtractorSource source) throws IFDException, IOException {
+	protected void phase2InitializeResource(ExtractorResource resource, boolean isInit)
+			throws IFDException, IOException {
 		// localize the URL if we are using a local copy of a remote resource.
 
-		localizedTopLevelZipURL = localizeURL(source.source);
-		
+		localizedTopLevelZipURL = localizeURL(resource.source);
+
 		// remove ".zip" if present in the overall name
 
-		String zipPath = localizedTopLevelZipURL.substring(localizedTopLevelZipURL.lastIndexOf(":") + 1);
-		
+		String zipPath = localizedTopLevelZipURL.substring(resource.source.lastIndexOf(":") + 1);
+
 		File zipFile = new File(zipPath);
-		
-		if (debugging)
-			log("opening " + localizedTopLevelZipURL);
 
+		if (isInit) {
 
-		String rootPath = zipFile.getName();
-		if (rootPath.endsWith(".zip") || rootPath.endsWith(".tgz"))
-			rootPath = rootPath.substring(0, rootPath.length() - 4);
-		else if (rootPath.endsWith(".tar.gz"))
-			rootPath = rootPath.substring(0, rootPath.length() - 7);
+			if (debugging)
+				log("opening " + localizedTopLevelZipURL);
 
-		File rootDir = new File(targetDir + "/" + rootPath);
-		rootDir.mkdir();
-		// open a new log
-		source.rootPath = rootPath;
-		source.setLists(rootPath, ignoreRegex);
-		lstManifest = source.lstManifest;
-		lstIgnored = source.lstIgnored;
-		helper.addOrSetSource(source.source);
-		return source;
+			String rootPath = zipFile.getName();
+			if (rootPath.endsWith(".zip") || rootPath.endsWith(".tgz"))
+				rootPath = rootPath.substring(0, rootPath.length() - 4);
+			else if (rootPath.endsWith(".tar.gz"))
+				rootPath = rootPath.substring(0, rootPath.length() - 7);
+
+			File rootDir = new File(targetDir + "/" + rootPath);
+			rootDir.mkdir();
+			// open a new log
+			resource.rootPath = rootPath;
+			resource.setLists(rootPath, ignoreRegex);
+
+		}
+		lstManifest = resource.lstManifest;
+		lstIgnored = resource.lstIgnored;
+		if (helper.getCurrentSource() != helper.addOrSetSource(resource.source, resource.rootPath)) {
+			if (isInit)
+				addDeferredPropertyOrRepresentation(NEW_RESOURCE_KEY, resource, false, null, null);
+		}
+		extractorResource = resource;
 	}
 
 	protected void setupTargetDir() {
@@ -1914,7 +1948,7 @@ public class Extractor implements ExtractorI {
 						continue;
 				}
 				
-				IFDObject<?> obj = helper.addObject(extractorSource.rootPath, param, id, localizedName, len);
+				IFDObject<?> obj = helper.addObject(extractorResource.rootPath, param, id, localizedName, len);
 				if (obj instanceof IFDRepresentableObject) {
 					linkLocalizedNameToObject(localizedName, param, (IFDRepresentableObject<?>) obj);
 					if (obj instanceof IFDDataObject)
@@ -1963,7 +1997,7 @@ public class Extractor implements ExtractorI {
 	 * @return
 	 * @throws IFDException
 	 */
-	protected ObjectParser newObjectParser(ExtractorSource source, String sObj) throws IFDException {
+	protected ObjectParser newObjectParser(ExtractorResource source, String sObj) throws IFDException {
 		return new ObjectParser(this, source, sObj);
 	}
 
@@ -2202,7 +2236,7 @@ public class Extractor implements ExtractorI {
 			} else {
 				lastRezipPath = originPath;
 				String localPath = localizePath(originPath);
-				CacheRepresentation ref = new CacheRepresentation(new IFDReference(originPath, extractorSource.rootPath, localPath), v,
+				CacheRepresentation ref = new CacheRepresentation(new IFDReference(helper.getCurrentSource().getID(), originPath, extractorResource.rootPath, localPath), v,
 						len, null, "application/zip");
 				// if this is a zip file, the data object will have been set to xxx.zip
 				// but we need this to be 
@@ -2267,19 +2301,19 @@ public class Extractor implements ExtractorI {
 
 	protected void logNote(String msg, String method) {
 		msg = "!NOTE: " + msg + " -- Extractor." + method 
-				+ " " + ifdid + " " + (extractorSource == null ? "" : extractorSource.rootPath);
+				+ " " + ifdid + " " + (extractorResource == null ? "" : extractorResource.rootPath);
 		log(msg);
 	}
 
 	protected void logWarn(String msg, String method) {
 		msg = "! WARNING: " + msg + " -- Extractor." + method 
-				+ " " + ifdid + " " + (extractorSource == null ? "" : extractorSource.rootPath);
+				+ " " + ifdid + " " + (extractorResource == null ? "" : extractorResource.rootPath);
 		log(msg);
 	}
 
 	protected void logErr(String msg, String method) {
 		msg = "!! ERROR: " + msg + " -- Extractor." + method 
-				+ " " + ifdid + " " + (extractorSource == null ? "" : extractorSource.rootPath);
+				+ " " + ifdid + " " + (extractorResource == null ? "" : extractorResource.rootPath);
 		log(msg);
 	}
 
@@ -2435,7 +2469,7 @@ public class Extractor implements ExtractorI {
 			currentRezipPath = null;
 			currentRezipRepresentation = null;
 		} else {
-			currentRezipPath = (String) (currentRezipRepresentation = rezipCache.remove(0)).getRef().getOrigin();
+			currentRezipPath = (String) (currentRezipRepresentation = rezipCache.remove(0)).getRef().getOriginPath();
 			currentRezipVendor = (VendorPluginI) currentRezipRepresentation.getData();
 		}
 	}
@@ -2720,7 +2754,7 @@ public class Extractor implements ExtractorI {
 			CacheRepresentation r = vendorCache.get(ckey);
 			IFDRepresentableObject<?> obj = htLocalizedNameToObject.get(ckey);
 			if (obj == null) {
-				String path = r.getRef().getOrigin().toString();
+				String path = r.getRef().getOriginPath().toString();
 				logDigitalItem(path, ckey, "addCachedRepresentationsToObjects");
 				try {
 					addFileToFileLists(path, LOG_IGNORED, r.getLength(), null);
@@ -2729,14 +2763,14 @@ public class Extractor implements ExtractorI {
 				}
 				continue;
 			}
-			String originPath = r.getRef().getOrigin().toString();
+			String originPath = r.getRef().getOriginPath().toString();
 			String type = r.getType();
 			// type will be null for pdf, for example
 			String mediatype = r.getMediaType();
 			// suffix is just unique internal ID for the cache
 			int pt = ckey.indexOf('\0');
 			String localName = (pt > 0 ? ckey.substring(0, pt) : ckey);
-			IFDRepresentation r1 = obj.findOrAddRepresentation(originPath, localName, null, type, null);
+			IFDRepresentation r1 = obj.findOrAddRepresentation(r.getRef().getResourceID(), originPath, r.getRef().getRootPath(), localName, null, type, null);
 			if (type != null && r1.getType() == null)
 				r1.setType(type);
 			if (mediatype != null && r1.getMediaType() == null)
@@ -2911,10 +2945,14 @@ public class Extractor implements ExtractorI {
 			String originPath = (String) a[0];
 			String localizedName = (String) a[1];
 			String key = (String) a[2];
-			cloning = key.equals(NEW_PAGE_KEY);
-			boolean isRep = IFDConst.isRepresentation(key);
 			Object value = a[3];
 			boolean isInline = (a[4] == Boolean.TRUE);
+			if (key == NEW_RESOURCE_KEY) {
+				phase2InitializeResource((ExtractorResource) value, false);
+				continue;
+			}
+			cloning = key.equals(NEW_PAGE_KEY);
+			boolean isRep = IFDConst.isRepresentation(key);
 			String type = FAIRSpecExtractorHelper.getObjectTypeForPropertyOrRepresentationKey(key, true);
 			boolean isSample = (type == FAIRSpecExtractorHelper.ClassTypes.Sample);
 			boolean isStructure = (type == FAIRSpecExtractorHelper.ClassTypes.Structure);
@@ -2964,7 +3002,7 @@ public class Extractor implements ExtractorI {
 				// note --- not allowing for AnalysisObject or Sample here
 				IFDRepresentableObject<?> obj = (IFDConst.isStructure(key) ? struc : spec);
 				linkLocalizedNameToObject(keyPath, null, obj);
-				IFDRepresentation r = obj.findOrAddRepresentation(originPath, keyPath, data, key, mediaType);
+				IFDRepresentation r = obj.findOrAddRepresentation(helper.getCurrentSource().getID(), originPath, extractorResource.rootPath, keyPath, data, key, mediaType);
 				if (note != null)
 					r.setNote(note);
 				if (!isInline)
@@ -3055,7 +3093,7 @@ public class Extractor implements ExtractorI {
 					String localName = localizePath(oPath);
 					struc = helper.getFirstStructureForSpec((IFDDataObject) spec, false);
 					if (struc == null) {
-						struc = helper.addStructureForSpec(extractorSource.rootPath, (IFDDataObject) spec, ifdRepType,
+						struc = helper.addStructureForSpec(extractorResource.rootPath, (IFDDataObject) spec, ifdRepType,
 								oPath, localName, name);
 						
 					}
@@ -3116,10 +3154,6 @@ public class Extractor implements ExtractorI {
 	}
 
 	protected void setPropertyIfNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath) {
-		if (obj.getID().indexOf("S8") >= 0) {
-			System.out.println("EX ?????");
-			System.out.println("EX prop " + key + " " + value);
-		}
 		boolean isNull = (value == NULL);
 		if (IFDConst.isProperty(key)) {
 			// not a parameter and not forcing NULL
@@ -3153,7 +3187,7 @@ public class Extractor implements ExtractorI {
 	protected void writeRootManifests() throws IOException {
 		resourceList = "";
 		rootLists = new ArrayList<>(); 
-		for (ExtractorSource r: htResources.values()) {
+		for (ExtractorResource r: htResources.values()) {
 			resourceList += ";" + r.source;
 			rootLists.add(r.lstManifest);
 			rootLists.add(r.lstIgnored);
@@ -3307,7 +3341,7 @@ public class Extractor implements ExtractorI {
 				mediaType = FAIRSpecUtilities.mediaTypeFromFileName(localizedName);
 		}
 		addFileToFileLists(localizedName, LOG_OUTPUT, len, null);
-		CacheRepresentation rep = new CacheRepresentation(new IFDReference(originPath, extractorSource.rootPath, localizedName), null, len,
+		CacheRepresentation rep = new CacheRepresentation(new IFDReference(helper.getCurrentSource().getID(), originPath, extractorResource.rootPath, localizedName), null, len,
 				ifdType, mediaType);
 		vendorCache.put(localizedName, rep);
 		return rep;
@@ -3321,7 +3355,7 @@ public class Extractor implements ExtractorI {
 	 * @return
 	 */
 	protected File getAbsoluteFileTarget(String originPath) {
-		return new File(targetDir + "/" + extractorSource.rootPath + "/" + localizePath(originPath));
+		return new File(targetDir + "/" + extractorResource.rootPath + "/" + localizePath(originPath));
 	}
 
 	/**

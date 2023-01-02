@@ -102,7 +102,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 	 * @param ref the reference for this resource
 	 * @return index of the resource found or added
 	 */
-	public IFDResource addOrSetResource(String ref) {
+	public IFDResource addOrSetResource(String ref, String rootPath) {
 		IFDResource r;
 		for (int i = resources.size(); --i >= 0;) {
 			r = resources.get(i);
@@ -110,7 +110,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 				return r;
 			}
 		}
-		r = new IFDResource(ref, "" + (resources.size() + 1), 0);
+		r = new IFDResource(ref, rootPath, "" + (resources.size() + 1), 0);
 		resources.add(r);
 		return r;
 	}

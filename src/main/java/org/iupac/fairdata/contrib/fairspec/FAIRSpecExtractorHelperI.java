@@ -29,7 +29,9 @@ public interface FAIRSpecExtractorHelperI {
 	IFDObject<?> addObject(String rootPath, String param, String id, String localizedName, long len)
 			throws IFDException;
 
-	IFDResource addOrSetSource(String resource);
+	IFDResource addOrSetSource(String source, String rootPath);
+
+	IFDResource getCurrentSource();
 
 	IFDStructure addStructureForSpec(String rootPath, IFDDataObject spec, String ifdRepType, String ifdPath,
 			String localName, String name) throws IFDException;
@@ -78,5 +80,4 @@ public interface FAIRSpecExtractorHelperI {
 	void setById(boolean tf);
 
 	void setCurrentResourceByteLength(long len);
-
 }

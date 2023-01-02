@@ -267,7 +267,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 		if (propName != null)
 			params.put(ifdMap.get(propName), oval);
 		params.put(key, oval);
-		System.out.println("----------- page " + page + " " + key + " = " + oval + " was " + key0 + " " + param1
+		System.out.println("----------- MNova page " + page + " " + key + " = " + oval + " was " + key0 + " " + param1
 				+ (param2 == null ? "" : "/ " + param2));
 	}
 

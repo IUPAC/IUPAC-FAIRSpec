@@ -29,7 +29,6 @@ public abstract class IFDAnalysisObject extends IFDRepresentableObject<IFDAnalys
 
 	public IFDAnalysisObject(String path, String param, String value) {
 		super(param + ";" + value, null);
-		setPath(path);
 		setPropertyValue(param, value);
 	}
 

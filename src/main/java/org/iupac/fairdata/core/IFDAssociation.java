@@ -169,8 +169,13 @@ public class IFDAssociation extends IFDCollection<IFDCollection<? extends IFDObj
 	@Override
 	public void serializeList(IFDSerializerI serializer) {
 		// this class should serialize as a raw list of lists, without {....}
-		if (size() > 0)
-			serializer.addObject("items", byID ? getMyIDList() : getMyIndexList());
+		if (size() == 0)
+			return;
+		if (byID) {
+			serializer.addObject("itemsByID", getMyIDList());
+		} else {
+			serializer.addObject("items", getMyIndexList());			
+		}
 	}
 	
 	@Override
