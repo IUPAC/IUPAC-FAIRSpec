@@ -4,8 +4,8 @@
 
 package org.nmrml.parser;
 
-import java.nio.ByteOrder;
 import java.math.BigInteger;
+import java.nio.ByteOrder;
 
 
 /**
@@ -46,7 +46,7 @@ public class Acqu {
     private String instrumentName;               //instrum       instrument name
     private String solvent;                      //solvent       solvent
     private String probehead;                    //probehead     probehead
-    private String dataFormat;                   //              Data Format
+    //private String dataFormat;                   //              Data Format
     private String software;                     //title         software contained in title
     private String softVersion;                  //title         software version contained in title
     private String origin;                       //origin        origin
@@ -60,6 +60,7 @@ public class Acqu {
     private long dataLength;                     //Data_Lenght   JEOL only: Data length into the JDF file from data start  (in octets)
 
     private Spectrometer spectrometer;
+	private String creationTime;
 
     public enum Spectrometer {BRUKER, VARIAN, JEOL}
 
@@ -364,7 +365,8 @@ public class Acqu {
             this.type=type;
         }
 
-        private double getType(){return type;};
+        @SuppressWarnings("unused")
+		private double getType(){return type;};
     }
 
     public enum FidData {
@@ -379,7 +381,8 @@ public class Acqu {
             this.type=type;
         }
 
-        private double getType(){return type;};
+        @SuppressWarnings("unused")
+		private double getType(){return type;};
     }
 
     public double getSpectralFrequency() {
@@ -393,4 +396,15 @@ public class Acqu {
     public Spectrometer getSpectrometer() {
         return spectrometer;
     }
+
+    
+	public void setCreationTime(String dateTime) {
+		creationTime = dateTime;
+	}
+
+	public String getCreationTime() {
+		return creationTime;
+	}
+
+	
 }

@@ -23,6 +23,7 @@ public abstract class NmrMLIFDVendorPlugin extends NMRVendorPlugin {
 				"SF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_NOMINAL_FREQ"), //prop
 				"PROBE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_PROBE_TYPE"), //prop
 				"TEMPERATURE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_ABSOLUTE_TEMPERATURE"), //prop
+				"TIMESTAMP", getProp("IFD_PROPERTY_DATAOBJECT_TIMESTAMP")
 		};
 
 		for (int i = 0; i < keys.length;)
@@ -51,6 +52,9 @@ public abstract class NmrMLIFDVendorPlugin extends NMRVendorPlugin {
 		report("TEMPERATURE", acq.getTemperature());
 		report("PP", acq.getPulseProgram());
 		report("PROBE", acq.getProbehead());
+		String s = acq.getCreationTime();;
+		if (s != null)
+			report("TIMESTAMP", s);
 	}
 
 }

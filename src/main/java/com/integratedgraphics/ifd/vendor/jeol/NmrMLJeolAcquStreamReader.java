@@ -24,12 +24,16 @@ import com.integratedgraphics.ifd.vendor.ByteBlockReader;
 
 /**
  * Reader for Jeol JDF file
+ * 
+ * see also https://github.com/cheminfo/jeolconverter/blob/master/src/parseJEOL.js
  *
  * @author Daniel Jacob
  *
  *         Date: 18/09/2017
  *
  *         adapted by Bob Hanson 2021.06.28
+ *         
+ *         
  * 
  */
 public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
@@ -95,17 +99,24 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 		if (fprt)
 			System.out.println("Header: Title = " + title);
 
-		skipIn(4);// seek(176);
+		skipIn(4);// seek(176); // dataAxisRanged
 		int Data_Points = readInt();
 		if (fprt)
 			System.out.println("Header: Data_Points = " + Data_Points);
-
 		skipIn(28);// seek(208);
 		int Data_Offset_Start = readInt();
 		if (fprt)
 			System.out.println("Header: Data_Offset_Start = " + Data_Offset_Start);
 
-		skipIn(196);// seek(408);
+		skipIn(188);// seek(400);
+		
+		acquisition.setCreationTime(toDateTime(readInt()));
+		//String revisionTime = toDateTime(
+		readInt()
+		//)
+		;
+		
+		// seek(408);
 		String Node_Name = readSimpleString(16);
 		if (fprt)
 			System.out.println("Header: Node_Name = " + Node_Name);
@@ -366,6 +377,28 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 		close();
 
 		return acquisition;
+	}
+
+	private String toDateTime(int cdt) {
+		int year, month, day;
+
+		year = 1990 + (cdt >> 25);
+		month = ((cdt & 0x1FFFFFF)>> 21);
+		day = ((cdt & 0x1FFFFF) >> 16);
+		 
+		// fraction of day to number of seconds
+		int seconds = (int)((cdt & 0xFFFF)/65536f*86400);
+		
+		int hour = seconds / 3600;
+		int min = (seconds - hour * 3600) / 60;
+		int sec = (seconds - hour * 3600 - min * 60);
+ 
+		return year
+				+ (month < 10 ? "-0" : "-") + month //
+				+ (day < 10 ? "-0" : "-") + day     //
+				+ "T" + (hour < 10 ? "0" : "")      //
+				+ (min < 10 ? ":0" : ":") + min     //
+				+ (sec < 10 ? ":0" : ":") + sec;		  
 	}
 
 	private JeolParameter readParam() throws IOException {
