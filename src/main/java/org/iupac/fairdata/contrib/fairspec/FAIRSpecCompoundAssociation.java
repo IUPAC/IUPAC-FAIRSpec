@@ -49,7 +49,7 @@ public class FAIRSpecCompoundAssociation extends IFDStructureDataAssociation {
 	private final static String cmpdPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.getProp("FAIRSPEC_COMPOUND_FLAG"));
 
 	@Override
-	protected String getPropertyPrefix() {
+	protected String getIFDPropertyPrefix() {
 		return cmpdPrefix;
 	}
 

@@ -24,7 +24,7 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_COLLECTIONSET_FLAG);
 	
 	@Override
-	protected String getPropertyPrefix() {
+	protected String getIFDPropertyPrefix() {
 		return propertyPrefix;
 	}
 

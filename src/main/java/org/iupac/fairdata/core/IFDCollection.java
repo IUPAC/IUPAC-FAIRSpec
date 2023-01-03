@@ -15,7 +15,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_COLLECTION_FLAG);
 	
 	@Override
-	protected String getPropertyPrefix() {
+	protected String getIFDPropertyPrefix() {
 		return propertyPrefix;
 	}
 

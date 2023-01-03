@@ -232,7 +232,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * @return
 	 */
 	 public String getObjectFlag() {
-		return getPropertyPrefix().substring(IFDConst.propertyPrefixLength - 1);
+		return getIFDPropertyPrefix().substring(IFDConst.propertyPrefixLength - 1);
 	};
 
 	
@@ -445,10 +445,10 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return key;
 	}
 
-	abstract protected String getPropertyPrefix();
+	abstract protected String getIFDPropertyPrefix();
 
 	protected String getPropertyPrefixForSerialization() {
-		return getPropertyPrefix();
+		return getIFDPropertyPrefix();
 	}
 
 	/**
@@ -460,7 +460,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * @return
 	 */
 	private boolean checkSpecialProperties(String key, Object value) {
-		String myPropertyPrefix = getPropertyPrefix();
+		String myPropertyPrefix = getIFDPropertyPrefix();
 		if (key.equals(myPropertyPrefix + IFDConst.IFD_LABEL_FLAG)) {
 			setLabel(value.toString());
 			return true;

@@ -10,7 +10,7 @@ public class IFDStructure extends IFDRepresentableObject<IFDStructureRepresentat
 	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_STRUCTURE_FLAG);
 	
 	@Override
-	protected String getPropertyPrefix() {
+	protected String getIFDPropertyPrefix() {
 		return propertyPrefix;
 	}
 

@@ -32,7 +32,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_FINDINGAID_FLAG);
 	
 	@Override
-	protected String getPropertyPrefix() {
+	protected String getIFDPropertyPrefix() {
 		return propertyPrefix;
 	}
 

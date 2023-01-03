@@ -16,7 +16,7 @@ public class IFDAnalysisObjectCollection extends IFDCollection<IFDRepresentableO
 	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_ANALYSISOBJECT_FLAG);
 	
 	@Override
-	protected String getPropertyPrefix() {
+	protected String getIFDPropertyPrefix() {
 		return propertyPrefix;
 	}
 

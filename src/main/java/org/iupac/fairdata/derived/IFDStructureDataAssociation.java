@@ -35,7 +35,7 @@ public class IFDStructureDataAssociation extends IFDAssociation {
 	private final static String sdaPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_STRUCTUREDATA_ASSOCIATION_FLAG);
 
 	@Override
-	protected String getPropertyPrefix() {
+	protected String getIFDPropertyPrefix() {
 		return sdaPrefix;
 	}
 

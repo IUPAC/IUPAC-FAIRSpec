@@ -1181,11 +1181,11 @@ public class Extractor implements ExtractorI {
 
 	protected boolean processPhase1(File ifdExtractScriptFile, String localArchive) throws IOException, IFDException {
 		// first create objects, a List<String>
+		phase1SetLocalSourceDir(localArchive);
 		this.extractscriptFile = ifdExtractScriptFile;
 		phase1GetObjectParsersForFile(ifdExtractScriptFile);
 		if (!phase1ProcessPubURI())
 			return false;
-		phase1SetLocalSourceDir(localArchive);
 		// options here to set cache and rezip options -- debugging only!
 		phase1SetCachePattern(userStructureFilePattern);
 		rezipCachePattern = phase1SetRezipCachePattern(null, null);
@@ -1947,7 +1947,6 @@ public class Extractor implements ExtractorI {
 					if (htLocalizedNameToObject.get(s) != null)
 						continue;
 				}
-				
 				IFDObject<?> obj = helper.addObject(extractorResource.rootPath, param, id, localizedName, len);
 				if (obj instanceof IFDRepresentableObject) {
 					linkLocalizedNameToObject(localizedName, param, (IFDRepresentableObject<?>) obj);
@@ -2211,6 +2210,9 @@ public class Extractor implements ExtractorI {
 						deferredPropertyList.add(null);
 						this.localizedName = oldLocal;
 						this.originPath = oldOriginPath;
+						if (type == null) {
+							logWarn("Failed to read " + originPath + " (ignored)", v.getClass().getName());
+						}
 					}
 				}
 				addFileAndCacheRepresentation(originPath, localizedName, len, type, ext, null);
@@ -3016,8 +3018,8 @@ public class Extractor implements ExtractorI {
 				boolean clearNew;
 				if (value instanceof String) {
 					clearNew = false;
-					// not allowing an MNova structure to carry to next page?
-					struc = null; 
+					// clear structure for not allowing an MNova structure to carry to next page?
+//					struc = null; 
 					if (originObject == null) {
 						originObject = localSpec;
 					} else {
@@ -3514,7 +3516,7 @@ public class Extractor implements ExtractorI {
 		Extractor extractor = null;
 		String flags = null;
 		String targetDir0 = targetDir;
-		for (int itest = i0; itest <= i1; itest++) {
+		for (int i = i0; i <= i1; i++) {
 			extractor = new Extractor();
 			extractor.logToSys("Extractor.runExtraction output to " + new File(targetDir).getAbsolutePath());
 			String job = null;
@@ -3524,8 +3526,8 @@ public class Extractor implements ExtractorI {
 
 //				"./extract/acs.joc.0c00770/IFD-extract.json#22567817",  // 0 727 files; zips of bruker dirs + mnovas
 
-				job = extractInfo = testSet[itest];
-				extractor.logToSys("Extractor.runExtraction " + itest + " " + job);
+				job = extractInfo = testSet[i];
+				extractor.logToSys("Extractor.runExtraction " + i + " " + job);
 				int pt = extractInfo.indexOf("#");
 				if (pt == 0) {
 					ifdExtractJSONFilename = null;
@@ -3551,7 +3553,7 @@ public class Extractor implements ExtractorI {
 			}
 			long t0 = System.currentTimeMillis();
 
-			extractor.testID = itest;
+			extractor.testID = i;
 
 			extractor.processFlags(args);
 			new File(targetDir).mkdirs();
@@ -3573,7 +3575,7 @@ public class Extractor implements ExtractorI {
 				extractor.logToSys("Extractor.runExtraction ok " + extractInfo);
 			} catch (Exception e) {
 				failed++;
-				extractor.logErr("Exception " + e + " " + itest, "runExtraction");
+				extractor.logErr("Exception " + e + " " + i, "runExtraction");
 				e.printStackTrace();
 				if (extractor.stopOnAnyFailure)
 					break;
@@ -3584,7 +3586,7 @@ public class Extractor implements ExtractorI {
 					"!Extractor.runExtraction job " + job + " time/sec=" + (System.currentTimeMillis() - t0) / 1000.0);
 			ifdExtractJSONFilename = null;
 			if (extractor.warnings > 0) {
-				warnings += "=========" + extractor.warnings + " warnings for " + targetDir + "\n" + extractor.strWarnings;
+				warnings += "======== " + i + ": " + extractor.warnings + " warnings for " + targetDir + "\n" + extractor.strWarnings;
 				try {
 					FAIRSpecUtilities.writeBytesToFile((warnings).getBytes(),
 							new File(targetDir0 + "/_IFD_warnings.txt"));

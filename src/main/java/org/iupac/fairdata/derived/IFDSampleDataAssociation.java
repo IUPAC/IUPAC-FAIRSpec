@@ -31,7 +31,7 @@ public class IFDSampleDataAssociation extends IFDAssociation {
 	private final static String sdaPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_SAMPLEDATA_ASSOCIATION_FLAG);
 
 	@Override
-	protected String getPropertyPrefix() {
+	protected String getIFDPropertyPrefix() {
 		return sdaPrefix;
 	}
 
