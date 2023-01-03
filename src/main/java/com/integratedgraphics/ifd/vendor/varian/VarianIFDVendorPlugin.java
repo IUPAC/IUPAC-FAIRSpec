@@ -3,9 +3,8 @@ package com.integratedgraphics.ifd.vendor.varian;
 import java.io.ByteArrayInputStream;
 
 import org.iupac.fairdata.extract.ExtractorI;
-import org.nmrml.parser.Acqu;
 
-import com.integratedgraphics.ifd.vendor.NmrMLIFDVendorPlugin;
+import com.integratedgraphics.ifd.vendor.nmrml.NmrMLIFDVendorPlugin;
 
 
 public class VarianIFDVendorPlugin extends NmrMLIFDVendorPlugin {
@@ -24,8 +23,7 @@ public class VarianIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 		super.accept(extractor, originPath, bytes);
 		try {
 			NmrMLVarianAcquStreamReader varian = new NmrMLVarianAcquStreamReader(new ByteArrayInputStream(bytes));
-			Acqu acq = varian.read();
-			setParams(varian.getDimension(), acq);
+			setParams(varian, varian.read());
 			return processRepresentation(null, null);
 		} catch (Exception e) {
 			e.printStackTrace();

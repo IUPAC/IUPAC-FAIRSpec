@@ -3,6 +3,7 @@ package com.integratedgraphics.ifd.vendor.bruker;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +44,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TITLE"), //prop
 				"SF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_NOMINAL_FREQ"), //prop
 				"##$PROBHD", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_PROBE_TYPE"), //prop
+				"TIMESTAMP", getProp("IFD_PROPERTY_DATAOBJECT_TIMESTAMP")
 		};
 		for (int i = 0; i < keys.length;)
 			ifdMap.put(keys[i++], keys[i++]);
@@ -74,7 +76,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		spec = new Globals();
 		// files of interest; procs is just for solvent
 		// presence of acqu2s indicates a 2D experiment
-		paramRegex = "procs$|acqu2s$|acqus$|title$";
+		paramRegex = "procs$|acqu2s$|acqus$|title$|audita.txt$";
 		// rezip triggers for procs in a directory (1, 2, 3...) below a pdata directory,
 		// such as pdata/1/procs. We do not add the "/" before pdata, because that could
 		// be the| symbol, and that will be attached by IFDDefaultVendorPlugin in
@@ -170,6 +172,40 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			}
 			return true;
 		}
+
+		if (originPath.indexOf("audita.txt") >= 0) {
+			String timestamp = map.get("##AUDITTRAIL");
+			if (timestamp != null) {
+				String[] data = timestamp.split("<");
+				try {
+					if (data.length > 1) {
+						timestamp = data[1];
+						timestamp = timestamp.substring(0, data[1].indexOf(">")).trim();
+						int pt = Math.max(timestamp.indexOf("+"), timestamp.lastIndexOf("-"));
+						String off = "";
+						if (pt > 10) {
+							off = "00000" + timestamp.substring(pt + 1);
+							int len = off.length();
+							off = timestamp.substring(pt, pt + 1) + off.substring(len - 4, len - 2) + ":"
+									+ off.substring(len - 2);
+						}
+						timestamp = timestamp.substring(0, 10) + "T" + timestamp.substring(11, 19) + off;
+						ZonedDateTime d = ZonedDateTime.parse(timestamp);
+						addProperty(ifdMap.get("TIMESTAMP"), d.toString());
+					}
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+			}
+			return true;
+		}
+
+		if (originPath.indexOf("acqus") >= 0) {
+			// procs must have been processed already
+			if (spec.solvent == null)
+				processString(map, "##$SOLVENT", null);
+		}
+
 		// no need to close a ByteArrayInputStream
 		int ndim = 0;
 		// some of this can be decoupling, though.
@@ -201,12 +237,6 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		report("SF", getNominalFrequency(freq1, n1));
 		if (spec.probeHead == null)
 			spec.probeHead = processString(map, "##$PROBHD", null);
-		if (originPath.indexOf("acqus") >= 0) {
-			// procs must have been processed already
-			if (spec.solvent != null)
-				return true;
-		}
-		processString(map, "##$SOLVENT", null);
 		return true;
 	}
 

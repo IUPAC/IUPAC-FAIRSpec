@@ -1321,8 +1321,9 @@ fname = "c:/temp/mnova/(R,R)-mix2 (C6D6).mnova";
 				Map<String, Object> data = new HashMap<>();
 				data.put("MNova.metadata", rdr.reportData);
 				IFDDefaultJSONSerializer serializer = new IFDDefaultJSONSerializer(false);
+				serializer.openObject();
 				serializer.addValue(data);
-				rdr.writeToFile("json", serializer.toString().getBytes());
+				rdr.writeToFile("json", serializer.closeObject().getBytes());
 			}
 			return true;
 		} catch (IOException e) {
@@ -1344,9 +1345,9 @@ fname = "c:/temp/mnova/(R,R)-mix2 (C6D6).mnova";
 	private void test() throws IOException {
 		rewindIn();
 
-		testing = true;
-		showInts = true;
-		showChars = true;
+		//testing = true;
+		showInts = false;
+		showChars = false;
 
 //		peekIntsAt(2135288-80, 20);
 //		findRef(1984530);

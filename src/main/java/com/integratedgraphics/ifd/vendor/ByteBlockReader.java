@@ -16,8 +16,10 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 /**
  * A reader that can process blocks that contain an initial byte length followed
- * by a series of bytes. It allows for reading the bytes with a variable byte order, 
- * creating smaller ByteBuffers to handle chunks of the byte array.
+ * by a series of bytes. It allows for reading the bytes with a variable byte
+ * order, creating smaller ByteBuffers to handle chunks of the byte array.
+ * 
+ * Extended for MNova and Jeol
  * 
  * @author hansonr
  *
@@ -340,7 +342,7 @@ public class ByteBlockReader {
 		String s = new String(setBuf(len), 0, len);
 		if (testing)
 			System.out.println("readString >" + s + "<");
-		return s;
+		return s.trim();
 	}
 
 	/**

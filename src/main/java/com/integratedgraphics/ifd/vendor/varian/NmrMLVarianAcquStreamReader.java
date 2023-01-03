@@ -14,6 +14,8 @@ import java.util.regex.Pattern;
 
 import org.nmrml.parser.Acqu;
 
+import com.integratedgraphics.ifd.vendor.nmrml.NmrMLHeader;
+
 /**
  * Reader for Varian's propar files
  *
@@ -23,7 +25,7 @@ import org.nmrml.parser.Acqu;
  * Time: 15:00
  *
  */
-public class NmrMLVarianAcquStreamReader {
+public class NmrMLVarianAcquStreamReader implements NmrMLHeader {
 
     private BufferedReader inputAcqReader;
 
@@ -239,5 +241,23 @@ public class NmrMLVarianAcquStreamReader {
         inputAcqReader.close();
         return acquisition;
     }
+
+	@Override
+	public String getComment() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getCreationTime() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

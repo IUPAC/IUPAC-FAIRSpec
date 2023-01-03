@@ -1,9 +1,12 @@
-package com.integratedgraphics.ifd.vendor;
+package com.integratedgraphics.ifd.vendor.nmrml;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.nmrml.parser.Acqu;
+
+import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
 
 public abstract class NmrMLIFDVendorPlugin extends NMRVendorPlugin {
 
@@ -23,7 +26,8 @@ public abstract class NmrMLIFDVendorPlugin extends NMRVendorPlugin {
 				"SF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_NOMINAL_FREQ"), //prop
 				"PROBE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_PROBE_TYPE"), //prop
 				"TEMPERATURE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_ABSOLUTE_TEMPERATURE"), //prop
-				"TIMESTAMP", getProp("IFD_PROPERTY_DATAOBJECT_TIMESTAMP")
+				"TIMESTAMP", IFDConst.IFD_PROPERTY_DATAOBJECT_TIMESTAMP,
+				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TITLE"), //prop
 		};
 
 		for (int i = 0; i < keys.length;)
@@ -40,9 +44,9 @@ public abstract class NmrMLIFDVendorPlugin extends NMRVendorPlugin {
 		addProperty(ifdMap.get(key), val);
 	}
 
-	protected void setParams(int dim, Acqu acq) {
+	protected void setParams(NmrMLHeader header, Acqu acq) {
 		reportVendor();
-		report("DIM", dim);
+		report("DIM", header.getDimension() + "D");
 		double freq = acq.getTransmiterFreq();
 		report("F1", freq);
  		String nuc = fixNucleus(acq.getObservedNucleus());
@@ -52,9 +56,10 @@ public abstract class NmrMLIFDVendorPlugin extends NMRVendorPlugin {
 		report("TEMPERATURE", acq.getTemperature());
 		report("PP", acq.getPulseProgram());
 		report("PROBE", acq.getProbehead());
-		String s = acq.getCreationTime();;
-		if (s != null)
-			report("TIMESTAMP", s);
+		report("TIMESTAMP", header.getCreationTime());
+		addProperty("Comment", header.getComment());
+		addProperty("Title", header.getTitle());
+		report("TITLE", header.getTitle());
 	}
 
 }

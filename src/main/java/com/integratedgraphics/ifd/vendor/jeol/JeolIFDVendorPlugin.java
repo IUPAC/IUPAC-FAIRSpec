@@ -3,9 +3,8 @@ package com.integratedgraphics.ifd.vendor.jeol;
 import java.io.IOException;
 
 import org.iupac.fairdata.extract.ExtractorI;
-import org.nmrml.parser.Acqu;
 
-import com.integratedgraphics.ifd.vendor.NmrMLIFDVendorPlugin;
+import com.integratedgraphics.ifd.vendor.nmrml.NmrMLIFDVendorPlugin;
 
 public class JeolIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 
@@ -23,8 +22,8 @@ public class JeolIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 		super.accept(extractor, originPath, bytes);
 		try {
 			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(bytes);
-			Acqu acq = jeol.read();
-			setParams(jeol.getDimension(), acq);
+			System.out.println("JEOL " + originPath);
+			setParams(jeol, jeol.read());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

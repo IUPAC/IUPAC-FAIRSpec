@@ -21,6 +21,7 @@ import org.nmrml.parser.Acqu;
 import org.nmrml.parser.jeol.JeolParameter;
 
 import com.integratedgraphics.ifd.vendor.ByteBlockReader;
+import com.integratedgraphics.ifd.vendor.nmrml.NmrMLHeader;
 
 /**
  * Reader for Jeol JDF file
@@ -36,11 +37,12 @@ import com.integratedgraphics.ifd.vendor.ByteBlockReader;
  *         
  * 
  */
-public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
+public class NmrMLJeolAcquStreamReader extends ByteBlockReader implements NmrMLHeader {
 
 	private static Map<String, Object> jeolIni;
 
 	public int data_Dimension_Number;
+	private String creationTime;
 	public String title;
 	public String comment;
 	public double base_Freq;
@@ -110,7 +112,9 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 
 		skipIn(188);// seek(400);
 		
-		acquisition.setCreationTime(toDateTime(readInt()));
+		creationTime = toDateTime(readInt());
+		if (fprt)
+			System.out.println("Header: Creation_Time = " + creationTime);
 		//String revisionTime = toDateTime(
 		readInt()
 		//)
@@ -379,26 +383,59 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 		return acquisition;
 	}
 
-	private String toDateTime(int cdt) {
+	/**
+	 * Convert 4-byte date/time to approximate date and time in ISO-8601 format.
+	 * This appears to be within +/-1 sec of what JEOL's Jason program shows. The
+	 * relationship is incommensurate; their algorithm must be ever so slightly
+	 * different.
+	 * 
+	 * @param cdt
+	 * @return
+	 */
+	private static String toDateTime(int cdt) {
 		int year, month, day;
 
+		//bits: yyyy yyym mmmd dddd tttt tttt tttt tttt
+		//......1098 7654 3210 9876 5432 1098 7654 3210
+		
 		year = 1990 + (cdt >> 25);
-		month = ((cdt & 0x1FFFFFF)>> 21);
-		day = ((cdt & 0x1FFFFF) >> 16);
+		month = ((cdt >> 21) & 0xF);
+		day = ((cdt >> 16) & 0x1F);
 		 
-		// fraction of day to number of seconds
-		int seconds = (int)((cdt & 0xFFFF)/65536f*86400);
+		// stored number is fraction of day in quanta of 86400/65535 sec.
+		// this will be at most 1 sec. off from what JEOL Jason reports.
+		
+		cdt = cdt & 0xffff;
+		
+
+		int seconds = (int)(cdt/65535.0*86399.99);
 		
 		int hour = seconds / 3600;
 		int min = (seconds - hour * 3600) / 60;
 		int sec = (seconds - hour * 3600 - min * 60);
  
-		return year
-				+ (month < 10 ? "-0" : "-") + month //
-				+ (day < 10 ? "-0" : "-") + day     //
-				+ "T" + (hour < 10 ? "0" : "")      //
-				+ (min < 10 ? ":0" : ":") + min     //
-				+ (sec < 10 ? ":0" : ":") + sec;		  
+		String iso8601 = year
+				+ (month < 10 ? "-0" : "-") + month   //
+				+ (day < 10 ? "-0" : "-") + day       //
+				+ "T" + (hour < 10 ? "0" : "") + hour //
+				+ (min < 10 ? ":0" : ":") + min       //
+				+ (sec < 10 ? ":0" : ":") + sec;
+
+		System.out.println("JEOLDT " + cdt + " " + iso8601);
+		return iso8601;
+	}
+	
+	static {
+//		System.out.println(toDateTime(0xFFFF));
+//		System.out.println(toDateTime(0x6000));
+//		System.out.println(toDateTime(0x5000));
+//		System.out.println(toDateTime(0x4000));
+//		System.out.println(toDateTime(0x3000));
+//		System.out.println(toDateTime(0x2000));
+//		System.out.println(toDateTime(0x1000));
+//		System.out.println(toDateTime(0x0));
+//		
+//		
 	}
 
 	private JeolParameter readParam() throws IOException {
@@ -453,6 +490,7 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 		return (String) ((List<Object>) jeolIni.get(section)).get(item);
 	}
 
+	@Override
 	public int getDimension() {
 		return data_Dimension_Number;
 	}
@@ -474,4 +512,25 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader {
 		}
 
 	}
+	
+	public String getCreationTime(String creationTime) {
+		return creationTime;
+	}
+
+	@Override
+	public String getComment() {
+		return comment;
+	}
+
+	@Override
+	public String getTitle() {
+		return title;
+	}
+
+	@Override
+	public String getCreationTime() {
+		return creationTime;
+	}
+
+
 }
