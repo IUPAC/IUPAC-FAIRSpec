@@ -123,6 +123,7 @@ public class Extractor implements ExtractorI {
 
 	protected static final String version = "0.0.4-alpha+2022.12.30";
 
+	// 2023.01.07 version 0.0.4 adds CDX reading by Jmol 
 	// 2023.01.01 version 0.0.4 accepts structures automatically from ./structures/ and ./structures.zip
 	// 2022.12.30 version 0.0.4 ACS 0-7 with structures; fixing rezip issue of Bruker files placed in _IFD.ignored.json
 	// 2022.12.29 version 0.0.4 ACS 0-4 with structures; fixing *-* Regex for ACS#4 acs.orglett.0c00788

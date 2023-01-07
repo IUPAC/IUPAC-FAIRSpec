@@ -15,9 +15,13 @@
 	 {"IFD.property.collectionset.source_data_uri":"./structures/"},
 	 {"FAIRSpec.extractor.object":"{IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}.cdxml}"},
 	 {"FAIRSpec.extractor.object":"{IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::*}/{IFD.property.structure.id::*}.cdxml}"},
+	 {"FAIRSpec.extractor.object":"{IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}.cdx}"},
+	 {"FAIRSpec.extractor.object":"{IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::*}/{IFD.property.structure.id::*}.cdx}"},
 	 {"IFD.property.collectionset.source_data_uri":"./structures.zip"},
 	 {"FAIRSpec.extractor.object":"{IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}.cdxml}"},
-	 {"FAIRSpec.extractor.object":"{IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::*}/{IFD.property.structure.id::*}.cdxml}"}
-	]			
+	 {"FAIRSpec.extractor.object":"{IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::*}/{IFD.property.structure.id::*}.cdxml}"},
+	 {"FAIRSpec.extractor.object":"{IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}.cdx}"},
+	 {"FAIRSpec.extractor.object":"{IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::*}/{IFD.property.structure.id::*}.cdx}"}
+    ]			
 
 }

@@ -113,8 +113,9 @@ public class DefaultStructureHelper implements PropertyManagerI {
 				cellFormula = null, empiricalFormula = null;
 		boolean isCIF = ext.equals("cif");
 		boolean isCDXML = !isCIF && ext.equals("cdxml");
+		boolean isCDX = !isCIF && !isCIF && ext.equals("cdxml");
 		String note = null;
-		if (isCIF || isCDXML || ext.equals("mol") || ext.equals("sdf") || ext.equals("cml")) {
+		if (isCIF || isCDX ||isCDXML || ext.equals("mol") || ext.equals("sdf") || ext.equals("cml")) {
 			try {
 				Viewer v = getJmolViewer();
 				note = "generated from " + originPath + " by Jmol " + jmolVersion;
@@ -151,8 +152,14 @@ public class DefaultStructureHelper implements PropertyManagerI {
 							inchiKey = v.getInchi(atoms, null, "key");
 						}
 					}
+					
+					if (isCDX) {
+						System.out.println("???" + originPath + " " + smiles);
+					}
+
 					// using SMILES here to get implicit H count
-					if (isCDXML) {
+					if (isCDXML || isCDX) {
+						// issue here is that these may be quite unviewable.
 						String mol2d = (String) v.evaluateExpression("write('MOL')");
 						if (mol2d != null && mol2d.indexOf("2D") >= 0)
 							extractor.addDeferredPropertyOrRepresentation(IFDConst.IFD_REP_STRUCTURE_MOL_2D,
