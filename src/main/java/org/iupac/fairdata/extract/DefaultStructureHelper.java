@@ -153,9 +153,9 @@ public class DefaultStructureHelper implements PropertyManagerI {
 						}
 					}
 					
-					if (isCDX) {
-						System.out.println("???" + originPath + " " + smiles);
-					}
+//					if (isCDX) {
+//						System.out.println("???" + originPath + " " + smiles);
+//					}
 
 					// using SMILES here to get implicit H count
 					if (isCDXML || isCDX) {

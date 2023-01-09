@@ -258,9 +258,22 @@ public class ByteBlockReader {
 		setBuf(4);
 		int i = buffer.getInt();
 		if (testing && showInts) {
-			dump("Int", i, 4, toHex(i), (showChars ? new String(getBuf(), 0, 4) : ""));
+			dump("Int", i, 4, toHex(i), (showChars ? showString(getBuf(), 0, 4) : ""));
 		}
 		return i;
+	}
+
+	private String showString(byte[] buf, int pt, int len) {
+		String st = new String(buf, pt, len);
+		String s = "";
+		for (int i = 0; i < st.length(); i++) {
+			int c = st.codePointAt(i);
+			if (c >= 32 && c <= 125)
+				s += st.substring(i, i + 1);
+			else
+				s += " <"+Integer.toHexString(c)+"> ";
+		}
+		return s;
 	}
 
 	/**
@@ -1098,6 +1111,10 @@ public class ByteBlockReader {
 	    	seekIn(loc);
 	    }
 	    
+	    public void skip() throws IOException {
+	    	seekIn(loc + len);
+	    }
+	    
 	    public byte[] getData() throws IOException {
 	    	long pt = readPosition();
 	    	seekIn(loc);
@@ -1147,7 +1164,7 @@ public class ByteBlockReader {
 		long ptr = readPosition();
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < len; i++)
-			sb.append(readInt()).append('\n');
+			sb.append(Integer.toHexString(readInt())).append('\n');
 		File f = new File(fname);
 		try(FileOutputStream fis = new FileOutputStream(f)) {
 			byte[] bytes = sb.toString().getBytes();

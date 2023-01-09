@@ -393,7 +393,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		long pt = readPosition();
 		// last block is version
 		BlockData verObject = objects.pop();
-		seekIn(verObject.loc);
+		verObject.seek();
 		readVersion();
 		// at pages
 		seekIn(pt);
@@ -575,19 +575,62 @@ class MNovaMetadataReader extends ByteBlockReader {
 		nPages++;
 		System.out.println("reading page " + (index + 1) + " pos=" + readPosition());
 		readPageHeader();
-		long ptNext = readToParameters(readPosition());
-		if (ptNext < 0) {
-			// parameters where not found
-			ptNext = -ptNext;
-		} else {
-			nSpectra++;
-			if (plugin != null)
-				plugin.newPage(nPagesTotal > 1 ? nPages : 0);
-			report("page", null, null, null);
-			readParams();
-			searchForExports(readPosition(), index, ptNext);
+		long ptNext = readPointer(); // to next page
+		String header = readPageTextHeader(readPosition(), ptNext);
+		if (header != null) {
+			System.out.println("page header = " + header);
+			if (readToParameters(readPosition())) {
+				nSpectra++;
+				if (plugin != null)
+					plugin.newPage(nPagesTotal > 1 ? nPages : 0);
+				report("page", null, null, null);
+				if (header != null && header.length() > 0)
+					reportParam("Page_Header", new Param(header), null);
+				readParams();
+				searchForExports(readPosition(), index, ptNext);
+			}
 		}
 		seekIn(ptNext);
+	}
+
+	private String readPageTextHeader(long pt0, long pt) throws IOException {
+		seekIn(pt0);
+		readPageHeader2(); // 40
+		readPageInsets(); // 32
+		readFourUnknownInts();
+		readInt(); // 0
+		readPointer(); // to next page
+		readInt(); // 1 count of what? (in cyclehex.mnova? 2 sometimes 3? 4 in taxol?
+		readPointer(); // to next page
+		if (readPosition() == pt)
+			return null; // nothing on this page
+		readInt(); // 0
+		readPointer(); // to ? 394266 in 1.mnova
+		readInt(); // usually 109; can be 107, 110; id? type?  Not a pointer
+		if (peekInt() == 0) {
+			// no spectrum
+			return null;
+		}
+		readFourUnknownInts();
+		readInt(); // 0 in 1.mnova
+		// skipping our way through to parameters -- ad hoc
+		nextBlock(); // to 38964
+		nextBlock(); // 172 to 39140 
+		readPointer(); // -> 394266 
+		nextBlock(); // 189 -> 39337 bytes in 1.mnova; 197 in v14
+		// now get the page header
+		Stack<BlockData> s = getObjectStack();
+		long pt1 = readPosition();
+		//testStack(s);
+		s.get(s.size() - 1).seek(); // page header
+		Stack<BlockData> s1 = getObjectStack();
+		//testStack(s1);
+		//BlockData d2 = 
+		s1.get(s1.size() - 8).seek();
+		String header = readUTF16String();
+		seekIn(pt1);
+		//old: nextBlock(); // 5957 -> 45298 bytes in 1.mnova; 7107 in v14  includes header
+		return (header == null || header.startsWith("{") ? "" : header);
 	}
 
 	/**
@@ -597,43 +640,15 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * 
 	 * @throws IOException
 	 */
-	private long readToParameters(long pt0) throws IOException {
+	private boolean readToParameters(long pt0) throws IOException {
 		seekIn(pt0);
-		long pt = readPointer(); // to next page
-		readPageHeader2(); // 40
-		readPageInsets(); // 32
-		readFourUnknownInts();
-		readInt(); // 0
-		readPointer(); // to next page
-		readInt(); // 1 count of what? (in cyclehex.mnova? 2 sometimes 3? 4 in taxol?
-		readPointer(); // to next page
-		if (readPosition() == pt)
-			return -pt; // nothing on this page
-		readInt(); // 0
-		readPointer(); // to ? 394266 in 1.mnova
-		readInt(); // usually 109; can be 107, 110; id? type?  Not a pointer
-		if (peekInt() == 0) {
-			// no spectrum
-			return -pt;
-		}
-		readFourUnknownInts();
-		readInt(); // 0 in 1.mnova
-		// skipping our way through to parameters -- ad hoc
-		nextBlock(); // to 38964
-		nextBlock(); // 172 to 39140 
-		readPointer(); // -> 394266 
-		nextBlock(); // 189 -> 39337 bytes in 1.mnova; 197 in v14
-		nextBlock(); // 5957 -> 45298 bytes in 1.mnova; 7107 in v14
 		Stack<BlockData> stack = getObjectStack();
-		 //testStack(stack);
-
+		//testStack(stack);
 		// third from last data block is the parameter block
 		BlockData params = stack.get(stack.size() - 3);
 		params.seek();
 		readPointer();
-		if (readInt() != 0)
-			return -pt; // no parameters    // 0
-		return pt; // 46403
+		return (readInt() == 0);
 	}
 
 	/**
@@ -695,6 +710,10 @@ class MNovaMetadataReader extends ByteBlockReader {
 		String calc;
 		String value;
 
+		Param(String value) {
+			this.value = value;
+		}
+		
 		/**
 		 * Read the parameter data.
 		 * 
@@ -777,6 +796,11 @@ class MNovaMetadataReader extends ByteBlockReader {
 		Param param2 = (count == 2 ? new Param(readPosition(), 2) : null);
 		readByte(); // EF, e.g. -- identifier?
 		String key = readUTF16String();
+		reportParam(key, param1, param2);
+	}
+
+	private void reportParam(String key, Param param1, Param param2) {
+		key = "MNova_" + key;
 		if (plugin != null)
 			plugin.addParam(key, null, param1, param2);
 		else
@@ -1261,11 +1285,17 @@ class MNovaMetadataReader extends ByteBlockReader {
 			long pt = readPosition();
 			System.out.println("\n======Page " + (i + 1) + " starts at " + pt);
 			readPageHeader();
-			long ptNext = readToParameters(pt);
-			System.out.println(" params at " + readPosition());
-			readParams();
-			System.out.println("\n======Page " + (i + 1) + " parameters end at " + readPosition());
-			searchForExports(readPosition(), i, ptNext);
+			long ptNext = readPointer(); // to next page
+			String header = readPageTextHeader(readPosition(), ptNext);
+			if (header != null) {
+				System.out.println("page header = " + header);
+				if (readToParameters(readPosition())) {
+					System.out.println(" params at " + readPosition());
+					readParams();
+					System.out.println("\n======Page " + (i + 1) + " parameters end at " + readPosition());
+					searchForExports(readPosition(), i, ptNext);
+				}
+			}
 			seekIn(ptNext);
 		}
 		System.out.println("\n===Pages end at " + readPosition() + " available=" + readAvailable());
@@ -1343,11 +1373,15 @@ fname = "c:/temp/mnova/(R,R)-mix2 (C6D6).mnova";
 	 * @throws IOException
 	 */
 	private void test() throws IOException {
+		
+//		extractInts(686811, 3600>>2, "c:/temp/thead");
+		
+		
 		rewindIn();
 
-		//testing = true;
+		testing = true;
 		showInts = false;
-		showChars = false;
+		showChars = true;
 
 //		peekIntsAt(2135288-80, 20);
 //		findRef(1984530);
@@ -1357,7 +1391,7 @@ fname = "c:/temp/mnova/(R,R)-mix2 (C6D6).mnova";
 //		findRef(2135288);
 //		// dumpFileInfo();
 		
-		//showInts = false;
+		showInts = false;
 		showChars = false;
 		testing = false;
 		return;
