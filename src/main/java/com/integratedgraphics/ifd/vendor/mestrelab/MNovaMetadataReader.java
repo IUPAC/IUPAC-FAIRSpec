@@ -582,7 +582,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 			if (readToParameters(readPosition())) {
 				nSpectra++;
 				if (plugin != null)
-					plugin.newPage(nPagesTotal > 1 ? nPages : 0);
+					plugin.newPage(nPagesTotal > 1 ? nPages : 1);
 				report("page", null, null, null);
 				if (header != null && header.length() > 0)
 					reportParam("Page_Header", new Param(header), null);
@@ -800,7 +800,6 @@ class MNovaMetadataReader extends ByteBlockReader {
 	}
 
 	private void reportParam(String key, Param param1, Param param2) {
-		key = "MNova_" + key;
 		if (plugin != null)
 			plugin.addParam(key, null, param1, param2);
 		else
@@ -1318,8 +1317,6 @@ class MNovaMetadataReader extends ByteBlockReader {
 		} else {
 			String fname = (args.length != pt ? args[pt] : testFile != null ? testFile : testFiles[defaultTest]);
 			
-fname = "c:/temp/mnova/(R,R)-mix2 (C6D6).mnova";			
-			
 			runFileTest(fname, outdir);
 		}
 	}
@@ -1407,7 +1404,7 @@ fname = "c:/temp/mnova/(R,R)-mix2 (C6D6).mnova";
 
 	static void testAll(String outdir) {
 
-		testFile = testFiles[15];
+		testFile = testFiles[18];
 		createStructureFiles = (testFile != null);
 
 		boolean ok = true;
@@ -1446,6 +1443,7 @@ fname = "c:/temp/mnova/(R,R)-mix2 (C6D6).mnova";
 			/* 15 */ "test/mnova/Substrate_1'h.mnova", // PNG extraction failed 6.1
 			/* 16 */ "test/mnova/Substrate_1k.mnova", // Temperature parameter failed 6.1
 			/* 17 */ "test/mnova/Products_3a.mnova", // png failed
+			/* 18 */ "test/mnova/5-H.mnova", // failed
 		};
 
 }

@@ -304,6 +304,8 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	 */
 	protected void report(String key, Object val) {
 		String k = ifdMap.get(key);
+		// TODO? but not all keys are like this key = "MNova_" + key;
+
 		addProperty(k == null ? key : k, val);
 	}
 

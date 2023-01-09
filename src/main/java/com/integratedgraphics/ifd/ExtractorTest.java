@@ -90,7 +90,8 @@ public class ExtractorTest extends Extractor {
 //		int last = 0; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 //						// file test
 		//runACSTest(args, first, last);
-		runACSTest(args, 0,12);//4);
+		runACSTest(args, 0, 12);
+//		runACSTest(args, 7);
 		//runUCLTest(args);
 		//runTest(args, "./extract/test/IFD-extract.json", "./extract/test/8f.zip");
 		//runTest(args, "./extract/test/IFD-extract2.json", "./extract/test/acs3/*");
@@ -113,6 +114,20 @@ public class ExtractorTest extends Extractor {
 		runACSTest(args, i, i);
 	}
 
+	private static void runACSTest(String[] args, int first, int last) {
+
+
+		/**
+		 * null to download from FigShare; a local dir if you have already downloaded
+		 * the zip files
+		 */
+		String sourceArchive = "c:/temp/iupac/zip";
+		String targetDir = "c:/temp/iupac/ifd";//./site/ifd";
+		String options = null; // "-datacitedown"
+		args = setSourceTargetArgs(args, sourceArchive, targetDir, options);		
+		runExtraction(args, acsTestSet, first, last);
+	}
+
 	private static void runUCLTest(String[] args) {
 		
 		String dir = "c:/temp/henry/v7/";
@@ -126,20 +141,6 @@ public class ExtractorTest extends Extractor {
 		
 		args = setSourceTargetArgs(args, sourceArchive, targetDir, null);
 		runExtraction(args, testSet, -1, -1);		
-	}
-
-	private static void runACSTest(String[] args, int first, int last) {
-
-
-		/**
-		 * null to download from FigShare; a local dir if you have already downloaded
-		 * the zip files
-		 */
-		String sourceArchive = "c:/temp/iupac/zip";
-		String targetDir = "c:/temp/iupac/ifd";//./site/ifd";
-		String options = null; // "-datacitedown"
-		args = setSourceTargetArgs(args, sourceArchive, targetDir, options);		
-		runExtraction(args, acsTestSet, first, last);
 	}
 
 	public static void main(String[] args) {
