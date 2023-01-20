@@ -1,0 +1,15 @@
+FindingAids={"findingaids":[
+"./extract/acs.joc.0c00770/IFD-extract.json#22567817",
+"./extract/acs.orglett.0c00571/IFD-extract.json#21975525",
+"./extract/acs.orglett.0c00624/IFD-extract.json#21947274",
+"./extract/acs.orglett.0c00755/IFD-extract.json#22150197",
+"./extract/acs.orglett.0c00788/IFD-extract.json#22125318",
+"./extract/acs.orglett.0c00874/IFD-extract.json#22233351",
+"./extract/acs.orglett.0c00967/IFD-extract.json#22111341",
+"./extract/acs.orglett.0c01022/IFD-extract.json#22195341",
+"./extract/acs.orglett.0c01043/IFD-extract.json#22232721",
+"./extract/acs.orglett.0c01153/IFD-extract.json#22284726,22284720",
+"./extract/acs.orglett.0c01197/IFD-extract.json#22491647",
+"./extract/acs.orglett.0c01277/IFD-extract.json#22613762",
+"./extract/acs.orglett.0c01297/IFD-extract.json#22612484"
+]}
