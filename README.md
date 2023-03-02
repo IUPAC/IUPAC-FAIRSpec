@@ -11,7 +11,7 @@ This is a an active project aiming for at least a preliminary recommendation in 
 
 Our current working specification can be found at this site under [documentation/specifications](documents/specifications). 
 
-A demonstration of IUPAC FAIRSpec finding aids and their application is at [https://chemapps.stolaf.edu/iupac/demo/demo.htm](https://chemapps.stolaf.edu/iupac/demo/demo.htm), with files at [https://chemapps.stolaf.edu/iupac/site/ifs](https://chemapps.stolaf.edu/iupac/site/ifs).
+A demonstration of IUPAC FAIRSpec finding aids and their application is at [https://chemapps.stolaf.edu/iupac/site/ifd4/site/demo.htm](https://chemapps.stolaf.edu/iupac/site/ifd4/site/demo.htm), with files at [https://chemapps.stolaf.edu/iupac/site/ifd4](https://chemapps.stolaf.edu/iupac/site/ifd4).
 
 This GitHub project provides public copies of all presentations and publications of the IUPAC Project, as well as a reference Java implementation of the Standard as a Java library as well as a reference Java implementation of an "IUPAC FAIRSpec data and metadata extractor". This GitHub project is currently under intensely active development. It is *very preliminary* and, though public, is only meant for demonstration purposes. **Please do not implement these preliminary standards** as they are expected to change day by day throughout 2021. 
 
@@ -21,9 +21,9 @@ The principal goal of the project is to define standardized metadata associated 
 <img src="documents/images/one-to-many.png" width="500"/>
 </p>
 
-It is the IUPAC FAIRSpec Finding Aid that, when [represented as JSON](https://chemapps.stolaf.edu/iupac/site/ifs/acs.joc.0c00770._IFS_findingaid.json) (in this case) or XML (leaving that for others for now), along with the extracted collection forms the basis of what we are calling "FAIR Data Management of Spectroscopic Data." 
+It is the IUPAC FAIRSpec Finding Aid that, when [represented as JSON](https://chemapps.stolaf.edu/iupac/site/ifd4/acs.joc.0c00770/IFD.findingaid.json) (in this case) or XML (leaving that for others for now), along with the extracted collection forms the basis of what we are calling "FAIR Data Management of Spectroscopic Data." 
  
-If you just want to get an idea of what the "data extractor" does and not install anything yourself, see the demo at [St. Olaf College](https://chemapps.stolaf.edu/iupac/demo/demo.htm). It's still rather very crude, but it should give you an idea of what we are about. 
+If you just want to get an idea of what the "data extractor" does and not install anything yourself, see the demo at [St. Olaf College](https://chemapps.stolaf.edu/iupac/site/ifd4/site/demo.htm). It's still rather very crude, but it should give you an idea of what we are about. 
 
 ## Guiding Principles
 
