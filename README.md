@@ -62,9 +62,9 @@ The code here is an Eclipse Java project. If you want to clone it, feel free. Ch
 
 The reference implementation consists of two main parts -- a Java library of mostly abstract classes that define the basics of the IUPAC FAIRSpec schema, and an imiplemenation of a "data and metadata extractor" that can produce IUPAC FAIRSpec Collections and their associated IUPAC FAIRSpec Finding Aids in JSON format.
 
-The basic demo (src/com/integratedgraphics/ifs/ExtractorTest.java) takes a monolithic ZIP file (30-200MB) provided by authors as supporting information for manuscripts accepted by the Journal of Organic Chemistry and Organic Letters and extracts [Digital Objects](https://www.rd-alliance.org/system/files/DFT%20Core%20Terms-and%20model-v1-6.pdf) from it into a Digital Collection. As it does this, it creates in internal Java data model in the form of a an ISFSpecDataFindingAid. When it is done, it serializes this finding aid and writes it to a file. 
+The basic working code (https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/ExtractorTest.java) takes a monolithic ZIP file (30-200MB) provided by authors as supporting information for manuscripts accepted by the Journal of Organic Chemistry and Organic Letters and extracts [Digital Objects](https://www.rd-alliance.org/system/files/DFT%20Core%20Terms-and%20model-v1-6.pdf) from it into a Digital Collection. As it does this, it creates in internal Java data model in the form of a an ISFSpecDataFindingAid. When it is done, it serializes this finding aid and writes it to a file. 
 
-The Java test class is src/main/java/com/integratedgraphics/ifs/ExtractorTest.java. The extractor test reads one or more "extraction scripts" from /extract/ subdirectories and uses those to parse a Figshare zip file that was deposited by the American Chemical Society as part of their [FAIR Data initiative](https://pubs.acs.org/doi/10.1021/acs.orglett.0c00383). 
+The Java test class is https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/ExtractorTest.java. The extractor test reads one or more "extraction scripts" from /extract/ subdirectories and uses those to parse a Figshare zip file that was deposited by the American Chemical Society as part of their [FAIR Data initiative](https://pubs.acs.org/doi/10.1021/acs.orglett.0c00383). 
 
 As it parses the extraction script, it:
 
@@ -86,5 +86,9 @@ Before you run the test, take a look at then test's main() method and adjust the
         
 There are several other flags that can be set. The demo is not set up for batch command-line operation, and it is not built as a JAR file. It is simply an Eclipse Java project right now.
 
-After you run the test, the /save/ifs directory will be populated, and the /html/demo.htm file should work. Since this HTML file is going to open files on your local machine, be sure to have your browser [set up for local file reading](http://wiki.jmol.org/index.php/Troubleshooting/Local_Files).
+After you run the test, the /site/ifd directory will be populated, and the /html/demo.htm file should work. Since this HTML file is going to open files on your local machine, be sure to have your browser [set up for local file reading](http://wiki.jmol.org/index.php/Troubleshooting/Local_Files).
     
+If this doesn't work, before you get frustrated, talk with us. 
+
+Bob Hanson 
+hansonr@stolaf.edu
