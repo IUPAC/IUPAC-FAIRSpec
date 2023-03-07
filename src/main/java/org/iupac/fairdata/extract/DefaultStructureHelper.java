@@ -136,7 +136,10 @@ public class DefaultStructureHelper implements PropertyManagerI {
 				} else {
 					bytes = null;
 					BS atoms = v.bsA();
-					smiles = v.getSmiles(atoms);
+					// We use noaromatic here because we want a 
+					// target SMILES, not a substructure smiles. 
+					// Targets with aromatic atoms must match aromatic atoms exactly
+					smiles = v.getSmilesOpt(atoms, 0, 0, 0, "/noaromatic/");
 					molecularFormula = v.evaluateExpression("{1.1 && configuration=1}.find('SMILES','MF')").toString();
 					if (smiles == null || smiles.indexOf("Xx") >= 0) {
 						extractor.log("! DefaultStructureHelper WARNING: SMILES could not be created for " + originPath

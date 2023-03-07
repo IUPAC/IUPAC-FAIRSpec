@@ -1,6 +1,8 @@
 package org.iupac.fairdata.contrib.fairspec.dataobject;
 
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.core.IFDReference;
+import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 
 /**
@@ -11,7 +13,14 @@ import org.iupac.fairdata.dataobject.IFDDataObject;
  *
  */
 @SuppressWarnings("serial")
-public abstract class FAIRSpecDataObject extends IFDDataObject {
+public class FAIRSpecDataObject extends IFDDataObject {
+
+	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_DATAOBJECT_FLAG, "fairspec");
+			
+			
+	protected String getIFDPropertyPrefix() {
+		return (serializerPropertyPrefix == null ? propertyPrefix : serializerPropertyPrefix);
+	}
 
 	@Override
 	protected String getPropertyPrefixForSerialization() {
@@ -21,6 +30,7 @@ public abstract class FAIRSpecDataObject extends IFDDataObject {
 
 	public FAIRSpecDataObject() {
 		super();
+		setProperties(propertyPrefix, null);
 	}
 
 	private String serializerPropertyPrefix;
@@ -42,12 +52,20 @@ public abstract class FAIRSpecDataObject extends IFDDataObject {
 			// properties are loaded based on subtype
 			o.objectType = IFDConst.getProp("DATAOBJECT_FAIRSPEC_" + ucType + "_FLAG");
 			o.serializerPropertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, o.objectType);
-			o.setProperties("IFD_PROPERTY" + key, null); 
+			o.setProperties(IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG + key), null);
 			return o;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+
+	@Override
+	protected IFDRepresentation newRepresentation(IFDReference ifdReference, Object object, long len, String type,
+			String subtype) {
+		// not applicable to this pseudo-abstract object with private constructor
+		throw new NullPointerException("FAIRSpecDataObject cannot be instantialized directly");
 	}
 
 }

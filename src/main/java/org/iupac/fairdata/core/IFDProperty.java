@@ -50,6 +50,10 @@ public class IFDProperty implements IFDSerializableI {
 		return value;
 	}
 
+	public IFDProperty getInherited(String newName) {
+		return new IFDProperty(newName, null, dataType, units);
+	}
+	
 	public IFDProperty getClone(Object value) {
 		return new IFDProperty(name, value, dataType, units);
 	}

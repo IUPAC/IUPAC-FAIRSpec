@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -53,13 +56,48 @@ public class IFDConst {
 		}
 	}
 
-	public static Map<String, IFDProperty> setProperties(Map<String, IFDProperty> htProps, String key, String notKey) {
+	/**
+	 * Add all relevant keys to a property key/value map that will be used for
+	 * storing IFDProperty objects relating to specific types of digital objects.
+	 * 
+	 * @param htProps        the Map to contain key/value pairs from reading
+	 *                       property files such as IFD.properties; null to create a
+	 *                       new map
+	 * @param propertyPrefix The prefix to look for, such as IFD.property.structure;
+	 *                       this will be made uppercase, and periods will be
+	 *                       changed to underscore -- IFD_PROPERTY_STRUCTURE.... for
+	 *                       look-up into the property files.
+	 * @param notKey         no longer implemented
+	 * @return the map with updated String keys and new IFDProperty object values
+	 */
+	public static Map<String, IFDProperty> setProperties(Map<String, IFDProperty> htProps, String propertyPrefix,
+			String notKey) {
 		if (htProps == null)
 			htProps = new Hashtable<String, IFDProperty>();
-		key = key.toUpperCase().replace('.', '_');
+		else {
+			// rename all inherited properties to this subclass name
+			System.out.println(htProps);
+			Iterator<Entry<String, IFDProperty>> iter = htProps.entrySet().iterator();
+			List<String> removed = new ArrayList<>();
+			while (iter.hasNext()) {
+				Entry<String, IFDProperty> e = iter.next();
+				String key = e.getKey();
+				if (!key.startsWith(propertyPrefix)) {
+					removed.add(key);
+					key = propertyPrefix + key.substring(key.lastIndexOf("."));
+					IFDProperty p = e.getValue().getInherited(key);
+					iter.remove();
+					htProps.put(key, p);
+				}
+			}
+			for (String key : removed) {
+				htProps.remove(key);
+			}
+		}
+		propertyPrefix = propertyPrefix.toUpperCase().replace('.', '_');
 		for (Entry<Object, Object> e : props.entrySet()) {
 			String k = (String) e.getKey();
-			if (k.startsWith(key)) {
+			if (k.startsWith(propertyPrefix)) {
 				// to be continued! -- need units and type
 				String val = trimValue(e.getValue().toString());
 				if (!k.endsWith("_FLAG")) {
@@ -156,11 +194,9 @@ public class IFDConst {
 	public static final String IFD_SAMPLEDATA_ASSOCIATION_FLAG = getProp("IFD_SAMPLEDATA_ASSOCIATION_FLAG");
 	public static final String IFD_SAMPLESTRUCTURE_ASSOCIATION_FLAG = getProp("IFD_SAMPLESTRUCTURE_ASSOCIATION_FLAG");
 
-	public static final String IFD_PROPERTY_DATAOBECT_NOTE = concat(IFDConst.IFD_PROPERTY_FLAG, IFD_DATAOBJECT_FLAG,
-			IFD_NOTE_FLAG);
-
-	public static final String IFD_PROPERTY_DATAOBJECT_TIMESTAMP = concat(IFDConst.IFD_PROPERTY_FLAG, IFD_DATAOBJECT_FLAG,
-			IFD_TIMESTAMP_FLAG);	
+	public static final String IFD_PROPERTY_DATAOBJECT_FLAG = concat(IFDConst.IFD_PROPERTY_FLAG, IFD_DATAOBJECT_FLAG);
+	public static final String IFD_PROPERTY_DATAOBJECT_NOTE = concat(IFD_PROPERTY_DATAOBJECT_FLAG, IFD_NOTE_FLAG);
+	public static final String IFD_PROPERTY_DATAOBJECT_TIMESTAMP = concat(IFD_PROPERTY_DATAOBJECT_FLAG, IFD_TIMESTAMP_FLAG);	
 	
 
 	public static String getVersion() {

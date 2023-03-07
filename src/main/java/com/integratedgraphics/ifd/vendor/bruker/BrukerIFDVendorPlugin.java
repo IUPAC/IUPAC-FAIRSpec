@@ -30,7 +30,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		// order here is not significant; keys without the JCAMP vendor prefix are
 		// derived, not the value itself
 		String[] keys = { //
-				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_DIM"), //prop
+				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_DIMENSION"), //prop
 				"##$BF1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_1"), //prop
 				"##$BF2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_2"), //prop
 				"##$BF3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_3"), //prop
@@ -44,7 +44,8 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TITLE"), //prop
 				"SF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_NOMINAL_FREQ"), //prop
 				"##$PROBHD", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_PROBE_TYPE"), //prop
-				"TIMESTAMP", getProp("IFD_PROPERTY_DATAOBJECT_TIMESTAMP")
+				"TIMESTAMP", getProp("IFD_PROPERTY_DATAOBJECT_TIMESTAMP"), // prop
+				"PROC_TIMESTAMP", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_PROC_TIMESTAMP"), // prop
 		};
 		for (int i = 0; i < keys.length;)
 			ifdMap.put(keys[i++], keys[i++]);
@@ -76,7 +77,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		spec = new Globals();
 		// files of interest; procs is just for solvent
 		// presence of acqu2s indicates a 2D experiment
-		paramRegex = "procs$|acqu2s$|acqus$|title$|audita.txt$";
+		paramRegex = "procs$|acqu2s$|acqus$|title$|audita.txt$|auditp.txt$";
 		// rezip triggers for procs in a directory (1, 2, 3...) below a pdata directory,
 		// such as pdata/1/procs. We do not add the "/" before pdata, because that could
 		// be the| symbol, and that will be attached by IFDDefaultVendorPlugin in
@@ -172,11 +173,13 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			}
 			return true;
 		}
-
-		if (originPath.indexOf("audita.txt") >= 0) {
+		boolean isProc = false;
+		if (originPath.indexOf("audita.txt") >= 0  || (isProc = originPath.indexOf("auditp.txt") >= 0)) {
 			String timestamp = map.get("##AUDITTRAIL");
 			if (timestamp != null) {
-				String[] data = timestamp.split("<");
+				String[] data = timestamp.split("\\(");
+				if (data.length > 1)
+					data = data[data.length - 1].split("<");
 				try {
 					if (data.length > 1) {
 						timestamp = data[1];
@@ -191,7 +194,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 						}
 						timestamp = timestamp.substring(0, 10) + "T" + timestamp.substring(11, 19) + off;
 						ZonedDateTime d = ZonedDateTime.parse(timestamp);
-						addProperty(ifdMap.get("TIMESTAMP"), d.toString());
+						addProperty(ifdMap.get(isProc ? "PROC_TIMESTAMP" : "TIMESTAMP"), d.toString());
 					}
 				} catch (Exception e) {
 					System.out.println(e);

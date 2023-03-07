@@ -2593,7 +2593,7 @@ public class Extractor implements ExtractorI {
 				this.localizedName = localizedName;
 			String msg = "Extractor correcting " + vendor.getVendorName() + " directory name to " + localizedName + "|"
 					+ newDir;
-			addProperty(IFDConst.IFD_PROPERTY_DATAOBECT_NOTE, msg);
+			addProperty(IFDConst.IFD_PROPERTY_DATAOBJECT_NOTE, msg);
 			log("!" + msg);
 		}
 		localizedName = localizePath(oPath);

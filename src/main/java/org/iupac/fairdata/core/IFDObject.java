@@ -368,10 +368,17 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * Generally set only by subclasses during construction, these IFDProperty
 	 * definitions are added to the htProps list.
 	 * 
-	 * @param key
+	 * The source of properties is one of the property files such as IFD.properties
+	 * or FAIRSpec.properties.
+	 * 
+	 * @param propertyPrefix The prefix to look for, such as IFD.property.structure;
+	 *                       this will be made uppercase, and periods will be
+	 *                       changed to underscore -- IFD_PROPERTY_STRUCTURE....
+	 *                       for look-up into the property files.
+	 * @param notKey no longer used
 	 */
-	protected void setProperties(String key, String notKey) {
-		IFDConst.setProperties(htProps, key, notKey);
+	protected void setProperties(String propertyPrefix, String notKey) {
+		IFDConst.setProperties(htProps, propertyPrefix, notKey);
 	}
 
 	public Map<String, IFDProperty> getProperties() {

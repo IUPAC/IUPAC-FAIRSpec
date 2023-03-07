@@ -111,7 +111,7 @@ public class PubInfoExtractor {
 			title = title.substring(1, title.length() - 1);
 		}
 		put(info,"title", title);
-		String doi = (String) getObject(message, "published-print", "DOI");
+		String doi = (String) getObject(message, "DOI");
 		List<Object> author = getList(message, "author");
 		String s = "";
 		if (author != null)
@@ -119,11 +119,15 @@ public class PubInfoExtractor {
 			Map<String, Object> au = (Map<String, Object>) author.get(i);
 			String name = getValue(au, "given", "") + " " + getValue(au, "family", "");
 			s += ", " + name;
+			String orcid = getValue(au, "ORCID", null);
+			if (orcid != null)
+				s += " (" + orcid.replace("http:", "https:") + ")";
 		}
 		if (s.length() > 0) {
 			put(info,"authors", s.substring(2));
 		}
-		put(info,"doi", doi);
+		put(info,"pid", doi);
+		put(info,"pidLink", "https://doi.org/" + doi);
 		put(info,"url", ((Map<String, Object>) getList(message, "link").get(0)).get("URL"));
 	}
 

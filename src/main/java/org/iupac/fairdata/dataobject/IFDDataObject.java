@@ -1,6 +1,7 @@
 package org.iupac.fairdata.dataobject;
 
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 
 /**
@@ -23,6 +24,7 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 	
 	public IFDDataObject() {
 		super(null, null);
+		setProperties(propertyPrefix, null);
 	}
 	
 
@@ -40,9 +42,18 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 
 	 @Override
 	public String getObjectFlag() {
-		 // generic -- not specific FAIRSpec types
 		return IFDConst.IFD_DATAOBJECT_FLAG;
 	};
+	
+	@Override
+	public IFDProperty setPropertyValue(String key, Object value) {
+		String prefix = getIFDPropertyPrefix();
+		if (key.startsWith(IFDConst.IFD_PROPERTY_DATAOBJECT_FLAG) && !key.startsWith(prefix)) {
+			key = prefix + key.substring(key.lastIndexOf("."));
+		}
+		return super.setPropertyValue(key, value);			
+	}
+
 
 	@Override
 	public String toString() {

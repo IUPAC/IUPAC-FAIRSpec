@@ -38,7 +38,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 
 	protected IFDCollectionSet collectionSet;
 	
-	protected List<Map<String, Object>> related;
+	protected List<Map<String, Object>> relatedItems;
 
 	protected List<IFDResource> resources = new ArrayList<>();
 
@@ -146,15 +146,15 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 	}
 
 	protected Map<String, Object> getContentsMap(Map<String, Object> map) {
-		if (related != null && related.size() > 0)
-			map.put("relatedCount", Integer.valueOf(related.size()));
+		if (relatedItems != null && relatedItems.size() > 0)
+			map.put("relatedCount", Integer.valueOf(relatedItems.size()));
 		map.put("resourceCount", Integer.valueOf(resources.size()));
 		collectionSet.getContents(map);
 		return map;
 	}
 	
 	public void setRelatedTo(List<Map<String, Object>> citationMap) {
-		related = citationMap;
+		relatedItems = citationMap;
 	}
 
 	@Override
@@ -172,8 +172,8 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 			if (getCreator() != null)
 				serializer.addObject("createdBy", getCreator());
 			serializer.addObject("contents", getContentsMap(new TreeMap<>()));
-			if (related != null)
-				serializer.addObject("isRelatedTo", related);
+			if (relatedItems != null)
+				serializer.addObject("relatedItems", relatedItems);
 			Object o = resources;
 			if (serializer.isByID()) {
 				Map<String, IFDResource> map = new LinkedHashMap<>();
