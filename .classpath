@@ -8,6 +8,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/commons-compress-1.22.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.11.0.jar"/>
-	<classpathentry kind="lib" path="lib/JmolDataD-16.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/JmolDataD-16.1.26.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
