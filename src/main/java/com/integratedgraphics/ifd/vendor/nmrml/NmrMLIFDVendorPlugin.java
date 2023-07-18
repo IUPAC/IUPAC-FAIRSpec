@@ -14,7 +14,7 @@ public abstract class NmrMLIFDVendorPlugin extends NMRVendorPlugin {
 
 	static {
 		String[] keys = { //
-				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_DIM"), //prop
+				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_DIMENSION"), //prop
 				"F1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_1"), //prop
 				"F2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_2"), //prop
 				"F3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_3"), //prop

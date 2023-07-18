@@ -119,7 +119,7 @@ var loadAidPanels = function(aid) {
 
 var loadTop = function(aid) {
 	var s = (aLoading ? " <a href=\"javascript:IFD.select('"  + aid.id +"','compounds')\">" + aid.id + "</a>": aid.id); 
-	s = "<h3>" + shortType(aid.ifdType) + s + " </h3>";
+	s = "<h3>" + shortType(aid.ifdType) + " for " + s + " </h3>";
 	s += "<table>";
 	s += IFD.loadPubInfo(aid);
 	s += IFD.loadResources(aid);

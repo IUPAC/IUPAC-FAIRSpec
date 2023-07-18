@@ -66,7 +66,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 				"Solvent", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_SOLVENT"), //prop
 				"Probe", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_PROBE_TYPE"), //prop
 				"Temperature", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_ABSOLUTE_TEMPERATURE"), //prop
-				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_DIM"), //prop
+				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_DIMENSION"), //prop
 				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_TITLE"), //prop
 				"F1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_1"), //prop
 				"F2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_FREQ_2"), //prop
@@ -87,8 +87,8 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	@Override
-	public String accept(ExtractorI extractor, String originPath, byte[] bytes) {
-		super.accept(extractor, originPath, bytes);
+	public String accept(ExtractorI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
+		super.accept(extractor, originPath, bytes, isEmbedded);
 		MNovaMetadataReader reader;
 		try {
 			page = 0;

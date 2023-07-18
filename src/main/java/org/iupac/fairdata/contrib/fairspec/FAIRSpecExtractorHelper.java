@@ -125,17 +125,12 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			this.rootPath = rootPath;
 		}
 	
-		public int size() {
-			return files.size();
-		}
-	
-		public String serialize(StringBuffer sb) {
-			lengths = null;
-			String[] list = files.toArray(new String[files.size()]);
-			Arrays.sort(list);
+		public static String toJSON(StringBuffer sb, String[] list, String rootPath, boolean withBrackets) {
 			boolean returnString = (sb == null);
 			if (returnString)
 				sb = new StringBuffer();
+			if (withBrackets)
+				sb.append("[");
 			String sep = "";
 			for (int i = 0; i < list.length; i++) {
 				String fname = list[i];
@@ -144,7 +139,25 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 				sep = ",\n";
 			}
 			sb.append("\n");
+			if (withBrackets)
+				sb.append("]");
 			return (returnString ? sb.toString() : null);
+		}
+
+		public int size() {
+			return files.size();
+		}
+
+		/**
+		 * Sort and concatentate the list. Do not add opening and closing [ ] 
+		 * @param sb
+		 * @return String if sb == null, or null is sb != null
+		 */
+		public String serialize(StringBuffer sb) {
+			lengths = null;
+			String[] list = files.toArray(new String[files.size()]);
+			Arrays.sort(list);
+			return toJSON(sb, list, rootPath, false);
 		}
 	
 		public boolean contains(String fileName) {
@@ -238,8 +251,11 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public static final String FAIRSPEC_EXTRACT_VERSION = IFDConst.getProp("FAIRSPEC_EXTRACT_VERSION");
 	public static final String DATAOBJECT_FAIRSPEC_FLAG = IFDConst.getProp("DATAOBJECT_FAIRSPEC_FLAG");
 
+	public static final String DATAOBJECT_ORIGINATING_SAMPLE_ID = IFDConst.getProp(IFDConst.IFD_PROPERTY_DATAOBJECT_ORIGINATING_SAMPLE_ID);
 	private static final String IFD_PROPERTY_STRUCTURE_LABEL = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			IFDConst.IFD_STRUCTURE_FLAG, IFDConst.IFD_LABEL_FLAG);
+	private static final String IFD_PROPERTY_SAMPLE_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
+			IFDConst.IFD_SAMPLE_FLAG, IFDConst.IFD_ID_FLAG);
 
 	public static final String IFD_PROPERTY_STRUCTURE_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			IFDConst.IFD_STRUCTURE_FLAG, IFDConst.IFD_ID_FLAG);
@@ -690,6 +706,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			String localName, String name) throws IFDException {
 		if (getSpecCollection().indexOf(spec) < 0)
 			getSpecCollection().add(spec);
+		if (name == null)
+			name = "Structure_" + ++lastStructureName;			
 		IFDStructure struc = (IFDStructure) checkAddNewObject(getStructureCollection(), ClassTypes.Structure, rootPath,
 				IFD_PROPERTY_STRUCTURE_LABEL, name, localName, null, 0, true);
 		struc.findOrAddRepresentation(currentResource.getID(), rootPath, originPath, localName, null, ifdRepType,
@@ -703,6 +721,26 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			ss.getStructureCollection().add(struc);
 		}
 		return struc;
+	}
+
+	private int lastStructureName;
+	private int lastSampleName;
+
+	@Override
+	public IFDSample addSpecOriginatingSampleRef(String rootPath, IFDDataObject spec, String id) throws IFDException {
+			if (getSpecCollection().indexOf(spec) < 0)
+				getSpecCollection().add(spec);
+			IFDSample sample = (IFDSample) checkAddNewObject(getSampleCollection(), ClassTypes.Sample, rootPath,
+					IFD_PROPERTY_SAMPLE_ID, id, null, null, 0, true);
+			getSampleCollection().add(sample);
+			IFDSampleDataAssociation ss = (IFDSampleDataAssociation) getSampleDataCollection()
+					.getAssociationForSingleObj1(sample);
+			if (ss == null) {
+				ss = getSampleDataCollection().addAssociation(sample, spec);
+			} else {
+				ss.getDataObjectCollection().add(spec);
+			}
+			return sample;
 	}
 
 	@Override
@@ -931,7 +969,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		}
 		if (sampleDataCollection != null) {
 			for (IFDAssociation a : sampleDataCollection) {
-				IFDStructureDataAssociation assoc = (IFDStructureDataAssociation) a;
+				IFDSampleDataAssociation assoc = (IFDSampleDataAssociation) a;
 				if (assoc.getDataObjectCollection().contains(localSpec))
 					assoc.getDataObjectCollection().add(data);
 			}
@@ -984,7 +1022,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	 */
 	@SuppressWarnings("deprecation")
 	@Override
-	public String getListJSON(String name, List<FileList> rootLists, String resourceList, String scriptFileName, int[] ret) throws IOException {
+	public String getFileListJSON(String name, List<FileList> rootLists, String resourceList, String scriptFileName, int[] ret) throws IOException {
 		int n = ret[0] = FileList.getListCount(rootLists, name);
 		// Date d = new Date();
 		// all of a sudden, on 2021.06.13 at 1 PM
@@ -999,15 +1037,22 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 				.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "code\":\"" + extractor.getCodeSource() + "\",\n")
 				.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "creation_date\":\"" + getFindingAid().getDate().toGMTString() + "\",\n");
 		sb.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "script\":\"" + scriptFileName+"\",\n");
-		sb.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "sources\":\"" + resourceList + "\",\n");
+		sb.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "sources\":\n");
+		FileList.toJSON(sb, resourceList.split(";"), null, true); 
+		sb.append(",\n");
 		sb.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "list_type\":\"" + name + "\",\n")
 				.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "list_fileCount\":" + n + ",\n")
 				.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "list_byteCount\":" + FileList.getByteCount(rootLists, name) + ",\n")
 				.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "list\":\n");
 		sb.append("[\n");
+		String sep = "";
 		for (int i = 0; i < rootLists.size(); i++) {
-			if (rootLists.get(i).getName().equals(name))
-				rootLists.get(i).serialize(sb);
+			FileList list = rootLists.get(i);
+			if (list.getName().equals(name) && list.size() > 0) {
+				sb.append(sep);
+				list.serialize(sb);
+				sep = ",";
+			}
 		}
 		sb.append("]\n");
 		sb.append("}\n");

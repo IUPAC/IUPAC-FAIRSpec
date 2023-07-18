@@ -131,7 +131,7 @@ public interface VendorPluginI extends PropertyManagerI {
 	
 	void setIndex(int index);
 
-	String getExtractType(ExtractorI extractor, String baseName, String entryName);
+	Object[] getExtractTypeInfo(ExtractorI extractor, String baseName, String entryName);
 
 //	void processVendorFile(String zipName);
 

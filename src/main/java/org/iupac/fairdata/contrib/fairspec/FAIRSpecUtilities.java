@@ -21,6 +21,7 @@ import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.util.JSJSONParser;
+import org.iupac.fairdata.util.ZipUtil;
 
 /**
  * A class to contain various generally useful utility methods in association
@@ -670,4 +671,34 @@ public class FAIRSpecUtilities {
 		return info.substring(pt, i);
 	}
 
+	private static byte[] IFDTAG = {'#','#', '$', 'I', 'F', 'D' };
+	
+	/**
+	 * This will probably change. Bob knows this isn't a valid jdx format
+	 * 
+	 * @param originPath
+	 * @param bytes
+	 * @return
+	 */
+	public static boolean isIFDParameterFile(String originPath, byte[] bytes) {
+		if (bytes.length < 6)
+			return false;
+		for (int i = 0; i < 6; i++)
+			if (bytes[i] != IFDTAG[i])
+				return false;
+		return true;
+	}
+
+	public static List<String[]> getIFDPropertyMap(String data) {
+		String[] lines = data.split("\n");
+		List<String[]> list = new ArrayList<>();
+		for (int i = 0; i < lines.length; i++) {
+			String s = lines[i];
+			int pt;
+			if (s.startsWith("##$IFD") && (pt = s.indexOf("=")) > 0)
+				list.add(new String[] {s.substring(3, pt).trim(), s.substring(pt + 1).trim() });
+		}
+		return list;
+	}
+	
 }

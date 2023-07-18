@@ -65,6 +65,10 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	 */
 	private int index;
 
+	protected DefaultVendorPlugin() {
+		paramRegex = "IFD_METADATA$";
+	}
+	
 	@Override
 	public void setIndex(int index) {
 		this.index = index;
@@ -107,7 +111,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	}
 
 	@Override
-	public String accept(ExtractorI extractor, String originPath, byte[] bytes) {
+	public String accept(ExtractorI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
 		if (extractor != null) {
 			this.extractor = extractor;
 		}
@@ -267,8 +271,15 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 		return JDXDataObject.getNominalSpecFreq(nuc, freq);
 	}
 
+	/**
+	 * check a file by name if it is something that 
+	 * the Extractor should copy out of a directory
+	 * before it is zipped up.
+	 * 
+	 * @return Object[] { ifdtype, (add bytes inline ? Boolean.TRUE : add bytes inline only ? Boolean.FALSE : null (just copy the file) }
+	 */
 	@Override
-	public String getExtractType(ExtractorI extractor, String baseName, String entryName) {
+	public Object[] getExtractTypeInfo(ExtractorI extractor, String baseName, String entryName) {
 		return null;
 	}
 

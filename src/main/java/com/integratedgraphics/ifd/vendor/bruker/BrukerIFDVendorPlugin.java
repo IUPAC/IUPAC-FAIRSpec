@@ -74,10 +74,11 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	private Globals spec;
 	
 	public BrukerIFDVendorPlugin() {
+		super();
 		spec = new Globals();
 		// files of interest; procs is just for solvent
 		// presence of acqu2s indicates a 2D experiment
-		paramRegex = "procs$|acqu2s$|acqus$|title$|audita.txt$|auditp.txt$";
+		paramRegex += "|procs$|acqu2s$|acqus$|title$|audita.txt$|auditp.txt$";
 		// rezip triggers for procs in a directory (1, 2, 3...) below a pdata directory,
 		// such as pdata/1/procs. We do not add the "/" before pdata, because that could
 		// be the| symbol, and that will be attached by IFDDefaultVendorPlugin in
@@ -99,11 +100,17 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	 * left in the Bruker dataset.
 	 */
 
+	private static String IMAGE = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_SPECTRUM_IMAGE");
+	private static String PDF = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_SPECTRUM_DOCUMENT");
+
 	@Override
-	public String getExtractType(ExtractorI extractor, String baseName, String entryName) {
-		return (entryName.endsWith(".pdf") ? getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_SPECTRUM_DOCUMENT")
-				: entryName.endsWith("thumb.png") ? getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_SPECTRUM_IMAGE")
-						: null);
+	public Object[] getExtractTypeInfo(ExtractorI extractor, String baseName, String entryName) {
+		boolean isImage = entryName.endsWith("thumb.png"); 
+		return new Object[] { (entryName.endsWith(".pdf") ? PDF
+				: isImage ? 
+						IMAGE 
+						: null)
+				, (isImage ? Boolean.TRUE : null) };
 	}
 
 	@Override
@@ -143,8 +150,8 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	 * 
 	 */
 	@Override
-	public String accept(ExtractorI extractor, String originPath, byte[] bytes) {
-		super.accept(extractor, originPath, bytes);
+	public String accept(ExtractorI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
+		super.accept(extractor, originPath, bytes, isEmbedded);
 		return (readJDX(originPath, bytes) ? processRepresentation(originPath, null) : null);
 	}
 
@@ -153,11 +160,13 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			report("TITLE", new String(bytes));
 			return true;
 		}
+		if (originPath.indexOf("IFD_METADATA") >= 0) {
+			addIFDMetadata(new String(bytes));
+			return true;
+		}
 		Map<String, String> map = null;
 		try {
 			map = JDXReader.getHeaderMap(new ByteArrayInputStream(bytes), null);
-//			if (originPath.indexOf("hsqc") >= 0)
-//				System.out.println(originPath +"\n" + map.toString().replace(',', '\n') + "\n" + originPath);
 		} catch (Exception e) {
 			// invalid format
 			e.printStackTrace();
@@ -310,7 +319,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		try {
 			String filename = new File(originPath).getAbsolutePath();
 			byte[] bytes = FAIRSpecUtilities.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
-			new BrukerIFDVendorPlugin().accept(null, filename, bytes);
+			new BrukerIFDVendorPlugin().accept(null, filename, bytes, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

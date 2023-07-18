@@ -2143,22 +2143,18 @@ public class Extractor implements ExtractorI {
 			throws FileNotFoundException, IOException {
 		long len = zipEntry.getSize();
 		Matcher m;
-		
+
 		// Matcher mp;
 
 		// check for files that should be pulled out - these might be JDX files, for
 		// example.
 		// "param" appears if a vendor has flagged these files for parameter extraction.
 
-		
-		
 		if (vendorCachePattern != null && (m = vendorCachePattern.matcher(originPath)).find()) {
-			
-			
+
 			PropertyManagerI v = getPropertyManager(m);
 			boolean doCheck = (v != null);
 			boolean doExtract = (!doCheck || v.doExtract(originPath));
-			
 
 //			1. we don't have params 
 //		      - generic file, just save it.  doExtract and not doCheck
@@ -2208,12 +2204,22 @@ public class Extractor implements ExtractorI {
 						this.localizedName = localizedName;
 						// indicating "this" here notifies the vendor plug-in that
 						// this is a one-shot file, not a collection.
-						type = v.accept(this, originPath, bytes);
-						deferredPropertyList.add(null);
-						this.localizedName = oldLocal;
-						this.originPath = oldOriginPath;
-						if (type == null) {
-							logWarn("Failed to read " + originPath + " (ignored)", v.getClass().getName());
+						type = v.accept(this, originPath, bytes, true);
+						if (type == IFDConst.IFD_PROPERTY_FLAG) {
+							List<String[]> props = FAIRSpecUtilities.getIFDPropertyMap(new String(bytes));
+							for (int i = 0, n = props.size(); i < n; i++) {
+								String[] p = props.get(i);
+								addDeferredPropertyOrRepresentation(p[0].substring(3), p[1], false, null, null);
+							}
+						} else {
+							deferredPropertyList.add(null);
+							this.localizedName = oldLocal;
+							this.originPath = oldOriginPath;
+							if (type == null) {
+								logWarn("Failed to read " + originPath + " (ignored)", v.getClass().getName());
+							} else if (IFDConst.isStructure(type)) {
+								return;
+							}
 						}
 					}
 				}
@@ -2227,7 +2233,6 @@ public class Extractor implements ExtractorI {
 		// file and just an FID but no pdata/ directory. But for now we want to see that
 		// processed data.
 
-
 		if (rezipCachePattern != null && (m = rezipCachePattern.matcher(originPath)).find()) {
 
 			// e.g. exptno/./pdata/procs
@@ -2240,21 +2245,22 @@ public class Extractor implements ExtractorI {
 			} else {
 				lastRezipPath = originPath;
 				String localPath = localizePath(originPath);
-				CacheRepresentation ref = new CacheRepresentation(new IFDReference(helper.getCurrentSource().getID(), originPath, extractorResource.rootPath, localPath), v,
-						len, null, "application/zip");
+				CacheRepresentation ref = new CacheRepresentation(new IFDReference(helper.getCurrentSource().getID(),
+						originPath, extractorResource.rootPath, localPath), v, len, null, "application/zip");
 				// if this is a zip file, the data object will have been set to xxx.zip
-				// but we need this to be 
-				String basePath = (baseOriginPath.endsWith("|") ? baseOriginPath.substring(0, baseOriginPath.length() - 1)
-						: new File(originPath).getParent() + "/");			
+				// but we need this to be
+				String basePath = (baseOriginPath.endsWith("|")
+						? baseOriginPath.substring(0, baseOriginPath.length() - 1)
+						: new File(originPath).getParent() + "/");
 				if (basePath == null)
 					basePath = originPath;
 				ref.setRezipOrigin(basePath);
 				if (rezipCache.size() > 0) {
-					 CacheRepresentation r = rezipCache.get(rezipCache.size() - 1);
-					 if (r.getRezipOrigin().equals(basePath)) {
-						 ref.setIsMultiple();
-						 r.setIsMultiple();						 
-					 }
+					CacheRepresentation r = rezipCache.get(rezipCache.size() - 1);
+					if (r.getRezipOrigin().equals(basePath)) {
+						ref.setIsMultiple();
+						r.setIsMultiple();
+					}
 				}
 				rezipCache.add(ref);
 				log("!rezip pattern found " + originPath + " " + ref);
@@ -2626,13 +2632,15 @@ public class Extractor implements ExtractorI {
 			String localName = localizePath(baseName + entryName);
 			// prevent this file from being placed on the ignored list
 			htLocalizedNameToObject.put(localName, obj);
-
-			String type = vendor.getExtractType(this, baseName, entryName);
-			if (type != null) {
-				// extract this file into the collection
-				addDeferredPropertyOrRepresentation(type, localName, false, null, null);
+			boolean isInlineBytes = false;
+			boolean isBytesOnly = false;
+			Object[] typeData = vendor.getExtractTypeInfo(this, baseName, entryName);
+			// return here is [String type, Boolean] where Boolean.TRUE means include bytes
+			// and Boolean.FALSE means don't include file
+			if (typeData != null) {
+				isInlineBytes = Boolean.TRUE.equals(typeData[1]);
+				isBytesOnly = Boolean.FALSE.equals(typeData[1]);
 			}
-
 			boolean doInclude = (vendor == null || vendor.doRezipInclude(this, baseName, entryName));
 			// cache this one? -- could be a different vendor -- JDX inside Bruker;
 			// false for MNova within Bruker? TODO: But wouldn't that possibly have
@@ -2646,25 +2654,32 @@ public class Extractor implements ExtractorI {
 			len = entry.getSize();
 			if (len == 0 || !doInclude && !doCheck)
 				continue;
-			OutputStream os = (doCheck ? new ByteArrayOutputStream() : zos);
+			OutputStream os = (doCheck || isInlineBytes ? new ByteArrayOutputStream() : zos);
 			String outName = newDir + entryName.substring(lenOffset);
 			if (doInclude)
 				zos.putNextEntry(new ZipEntry(outName));
 			FAIRSpecUtilities.getLimitedStreamBytes(ais.getStream(), len, os, false, false);
+			byte[] bytes = (doCheck || isInlineBytes ? ((ByteArrayOutputStream) os).toByteArray() : null);
 			if (doCheck) {
-				byte[] bytes = ((ByteArrayOutputStream) os).toByteArray();
 				if (doInclude)
 					zos.write(bytes);
 				this.originPath = oPath + outName;
 				this.localizedName = localizedName;
 				if (mgr == null || mgr == vendor) {
-					vendor.accept(null, this.originPath, bytes);
+					vendor.accept(null, this.originPath, bytes, false);
 				} else {
-					mgr.accept(this, this.originPath, bytes);
+					mgr.accept(this, this.originPath, bytes, false);
 				}
 			}
 			if (doInclude)
 				zos.closeEntry();
+			if (typeData != null) {
+				String type = (String) typeData[0];
+				typeData[0] = (isBytesOnly ? null : localName);
+				typeData[1] = bytes;
+				// extract this file into the collection
+				addDeferredPropertyOrRepresentation(type, (isBytesOnly || isInlineBytes ? typeData : localName), isInlineBytes, null, null);
+			}
 		}
 		vendor.endRezip();
 		zos.close();
@@ -2986,12 +3001,15 @@ public class Extractor implements ExtractorI {
 				spec = null;
 			} else if (isNew && spec instanceof IFDDataObject) {
 				localSpec = (IFDDataObject) spec;
+				String label = (struc == null ? null : struc.getLabel());
+				if (label != null && label.startsWith("Structure_"))
+					struc = null;
 			}
 			if (isRep) {
 				// from reportVendor-- Bruker adds this for thumb.png and pdf files.
 				String mediaType = (String) a[5];
 				String note = (String) a[6];
-				if (value instanceof Object[]) {
+				if (!isInline && value instanceof Object[]) {
 					// from DefaultStructureHelper - a PNG version of a CIF file, for example.
 					Object[] oval = (Object[]) value;
 					byte[] bytes = (byte[]) oval[0];
@@ -3001,12 +3019,29 @@ public class Extractor implements ExtractorI {
 					addFileToFileLists(localName, LOG_OUTPUT, bytes.length, null);
 					value = localName;
 				}
-				String keyPath = (isInline ? null : value.toString());
-				Object data = (isInline ? value : null);
+				String keyPath = null;
+				Object data = null;
+				if (isInline) {
+					if (value instanceof Object[]) {
+						keyPath = ((Object[]) value)[0].toString();
+						data = ((Object[]) value)[1];
+					} else {
+						data = value;
+					}
+
+				} else {
+					keyPath = value.toString();
+				}
 				// note --- not allowing for AnalysisObject or Sample here
-				IFDRepresentableObject<?> obj = (IFDConst.isStructure(key) ? struc : spec);
+				boolean isStructureKey = IFDConst.isStructure(key);
+				if (isStructureKey && struc == null) {
+					struc = helper.addStructureForSpec(extractorResource.rootPath, (IFDDataObject) spec, key, keyPath,
+							localizePath(keyPath), null);
+				}
+				IFDRepresentableObject<?> obj = (isStructureKey ? struc : spec);
 				linkLocalizedNameToObject(keyPath, null, obj);
-				IFDRepresentation r = obj.findOrAddRepresentation(helper.getCurrentSource().getID(), originPath, extractorResource.rootPath, keyPath, data, key, mediaType);
+				IFDRepresentation r = obj.findOrAddRepresentation(helper.getCurrentSource().getID(), originPath,
+						extractorResource.rootPath, keyPath, data, key, mediaType);
 				if (note != null)
 					r.setNote(note);
 				if (!isInline)
@@ -3099,7 +3134,7 @@ public class Extractor implements ExtractorI {
 					if (struc == null) {
 						struc = helper.addStructureForSpec(extractorResource.rootPath, (IFDDataObject) spec, ifdRepType,
 								oPath, localName, name);
-						
+
 					}
 					htStructureRepCache.put(w, struc);
 					if (sample == null) {
@@ -3117,7 +3152,7 @@ public class Extractor implements ExtractorI {
 						assoc = helper.createCompound(struc, (IFDDataObject) spec);
 						log("!Structure " + struc + " found and associated with " + spec);
 					}
-				} 
+				}
 				if (struc.getID() == null) {
 					String id = assoc.getID();
 					if (id == null && spec != null) {
@@ -3139,6 +3174,10 @@ public class Extractor implements ExtractorI {
 			} else if (isSample) {
 				// TODO?
 			} else {
+				// spec?
+				if (key.equals(FAIRSpecExtractorHelper.DATAOBJECT_ORIGINATING_SAMPLE_ID)) {
+					helper.addSpecOriginatingSampleRef(extractorResource.rootPath, localSpec, (String) value);
+				}
 				setPropertyIfNotAlreadySet(localSpec, key, value, originPath);
 			}
 		}
@@ -3221,7 +3260,7 @@ public class Extractor implements ExtractorI {
 	
 	protected void outputListJSON(String name, File file) throws IOException {
 		int[] ret = new int[1];
-		String json = helper.getListJSON(name, rootLists, resourceList, extractscriptFile.getName(), ret);
+		String json = helper.getFileListJSON(name, rootLists, resourceList, extractscriptFile.getName(), ret);
 		writeBytesToFile(json.getBytes(), file);
 		log("!saved " + file + " (" + ret[0] + " items)");
 	}
@@ -3238,6 +3277,8 @@ public class Extractor implements ExtractorI {
 	 */
 	protected void linkLocalizedNameToObject(String localizedName, String type, IFDRepresentableObject<?> obj) throws IOException {
 		if (localizedName != null && (type == null || IFDConst.isRepresentation(type))) {
+			if (obj == null)
+				System.out.println("???");
 			String pre = obj.getObjectFlag();
 
 			htLocalizedNameToObject.put(localizedName, obj);

@@ -20,5 +20,7 @@ public class IFDSampleCollection extends IFDCollection<IFDRepresentableObject<IF
 		this();
 		add(sample);
 	}
+	
+	
 
 }

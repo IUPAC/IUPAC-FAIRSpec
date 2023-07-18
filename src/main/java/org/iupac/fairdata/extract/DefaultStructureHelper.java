@@ -51,9 +51,12 @@ public class DefaultStructureHelper implements PropertyManagerI {
 
 	private Map<String, String> fileToType = new HashMap<>();
 
+	private boolean isEmbedded;
+
 	@Override
-	public String accept(ExtractorI extractor, String originPath, byte[] bytes) {
+	public String accept(ExtractorI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
 		this.extractor = extractor;
+		this.isEmbedded = isEmbedded;
 		return processRepresentation(originPath, bytes);
 	}
 	
@@ -113,10 +116,17 @@ public class DefaultStructureHelper implements PropertyManagerI {
 				cellFormula = null, empiricalFormula = null;
 		boolean isCIF = ext.equals("cif");
 		boolean isCDXML = !isCIF && ext.equals("cdxml");
-		boolean isCDX = !isCIF && !isCIF && ext.equals("cdxml");
+		boolean isCDX = !isCIF && ext.equals("cdx");
 		String note = null;
-		if (isCIF || isCDX ||isCDXML || ext.equals("mol") || ext.equals("sdf") || ext.equals("cml")) {
+		if (isCIF || isCDX ||isCDXML 
+				|| ext.equals("mol") 
+				|| ext.equals("sdf") 
+				|| ext.equals("cml")) {
 			try {
+				if (isEmbedded) {
+					extractor.addDeferredPropertyOrRepresentation(type,
+							new Object[] { bytes, originPath}, false, IFDConst.getMediaTypesForExtension(ext), null);
+				}
 				Viewer v = getJmolViewer();
 				note = "generated from " + originPath + " by Jmol " + jmolVersion;
 				String data = new String(bytes);
@@ -155,11 +165,6 @@ public class DefaultStructureHelper implements PropertyManagerI {
 							inchiKey = v.getInchi(atoms, null, "key");
 						}
 					}
-					
-//					if (isCDX) {
-//						System.out.println("???" + originPath + " " + smiles);
-//					}
-
 					// using SMILES here to get implicit H count
 					if (isCDXML || isCDX) {
 						// issue here is that these may be quite unviewable.

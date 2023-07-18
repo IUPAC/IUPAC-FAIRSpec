@@ -1,9 +1,18 @@
 package com.integratedgraphics.ifd.vendor.jcamp;
 
+import java.io.ByteArrayInputStream;
+import java.util.Arrays;
+import java.util.Map;
+
+import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.extract.ExtractorI;
+import org.iupac.fairdata.util.ZipUtil;
 
 import com.integratedgraphics.ifd.util.DefaultVendorPlugin;
 import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
+
+import jspecview.source.JDXReader;
 
 public class JCAMPDXIFDVendorPlugin extends NMRVendorPlugin {
 
@@ -16,8 +25,8 @@ public class JCAMPDXIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	@Override
-	public String accept(ExtractorI extractor, String originPath, byte[] bytes) {
-		super.accept(extractor, originPath, bytes);
+	public String accept(ExtractorI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
+		super.accept(extractor, originPath, bytes, isEmbedded);
 		System.out.println("! JCAMPDX Plugin TODO: accept JDX file " + originPath);
 		return processRepresentation(null, null);
 	}

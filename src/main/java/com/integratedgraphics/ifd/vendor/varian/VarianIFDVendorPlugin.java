@@ -19,8 +19,8 @@ public class VarianIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 	}
 
 	@Override
-	public String accept(ExtractorI extractor, String originPath, byte[] bytes) {
-		super.accept(extractor, originPath, bytes);
+	public String accept(ExtractorI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
+		super.accept(extractor, originPath, bytes, isEmbedded);
 		try {
 			NmrMLVarianAcquStreamReader varian = new NmrMLVarianAcquStreamReader(new ByteArrayInputStream(bytes));
 			setParams(varian, varian.read());

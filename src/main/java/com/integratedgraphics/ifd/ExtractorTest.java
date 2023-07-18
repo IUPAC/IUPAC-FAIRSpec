@@ -88,9 +88,10 @@ public class ExtractorTest extends Extractor {
 	private static void runTests(String[] args) {
 //		int first = 0; // first test to run
 //		int last = 0; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
-//						// file test
+//					  // file test
 		//runACSTest(args, first, last);
-		runACSTest(args, 0, 12);
+		//runACSTest(args, 0, 1);
+		runSTOTest(args);
 //		runACSTest(args, 7);
 		//runUCLTest(args);
 		//runTest(args, "./extract/test/IFD-extract.json", "./extract/test/8f.zip");
@@ -126,6 +127,21 @@ public class ExtractorTest extends Extractor {
 		String options = null; // "-datacitedown"
 		args = setSourceTargetArgs(args, sourceArchive, targetDir, options);		
 		runExtraction(args, acsTestSet, first, last);
+	}
+
+	private static void runSTOTest(String[] args) {
+		
+		String dir = "c:/temp/iupac/struc-test/";
+
+		String[] testSet = new String[] { dir + "IFD-extract.json" };
+		String sourceArchive = null;//dir + "archive.tar.gz";		
+		String targetDir = dir + "../struc-test-ifd";
+
+		//debugging = true;
+		//readOnly = true;
+		
+		args = setSourceTargetArgs(args, sourceArchive, targetDir, null);
+		runExtraction(args, testSet, -1, -1);		
 	}
 
 	private static void runUCLTest(String[] args) {

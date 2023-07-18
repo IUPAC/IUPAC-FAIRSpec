@@ -84,11 +84,12 @@ public class IFDConst {
 				String key = e.getKey();
 				if (!key.startsWith(propertyPrefix)) {
 					removed.add(key);
-					key = propertyPrefix + key.substring(key.lastIndexOf("."));
-					IFDProperty p = e.getValue().getInherited(key);
-					iter.remove();
-					htProps.put(key, p);
 				}
+			}
+			for (String key : removed) {
+				String key1 = propertyPrefix + key.substring(key.lastIndexOf("."));
+				IFDProperty p = htProps.get(key).getInherited(key1);
+				htProps.put(key1, p);
 			}
 			for (String key : removed) {
 				htProps.remove(key);
@@ -157,6 +158,7 @@ public class IFDConst {
 	public static final String IFD_ID_FLAG = getProp("IFD_ID_FLAG");
 	public static final String IFD_NOTE_FLAG = getProp("IFD_NOTE_FLAG");
 	public static final String IFD_TIMESTAMP_FLAG = getProp("IFD_TIMESTAMP_FLAG");
+	public static final String IFD_ORIGINATING_SAMPLE_ID_FLAG = getProp("IFD_ORIGINATING_SAMPLE_ID_FLAG");
 	public static final String IFD_DESCRIPTION_FLAG = getProp("IFD_DESCRIPTION_FLAG");
 
 	public static final String IFD_FINDINGAID = getProp("IFD_FINDINGAID");
@@ -177,6 +179,10 @@ public class IFDConst {
 	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI = getProp(
 			"IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI");
 
+	public static final String IFD_PROPERTY_STRUCTURE_ID = concat(IFD_PROPERTY_FLAG, IFD_STRUCTURE_FLAG,
+			IFD_ID_FLAG);
+	public static final String IFD_PROPERTY_SAMPLE_ID = concat(IFD_PROPERTY_FLAG, IFD_SAMPLE_FLAG,
+			IFD_ID_FLAG);
 	public static final String IFD_REP_STRUCTURE_MOL = getProp("IFD_REP_STRUCTURE_MOL");
 	public static final String IFD_REP_STRUCTURE_MOL_2D = getProp("IFD_REP_STRUCTURE_MOL_2D");
 	public static final String IFD_REP_STRUCTURE_MOL_3D = getProp("IFD_REP_STRUCTURE_MOL_3D");
@@ -197,6 +203,7 @@ public class IFDConst {
 	public static final String IFD_PROPERTY_DATAOBJECT_FLAG = concat(IFDConst.IFD_PROPERTY_FLAG, IFD_DATAOBJECT_FLAG);
 	public static final String IFD_PROPERTY_DATAOBJECT_NOTE = concat(IFD_PROPERTY_DATAOBJECT_FLAG, IFD_NOTE_FLAG);
 	public static final String IFD_PROPERTY_DATAOBJECT_TIMESTAMP = concat(IFD_PROPERTY_DATAOBJECT_FLAG, IFD_TIMESTAMP_FLAG);	
+	public static final String IFD_PROPERTY_DATAOBJECT_ORIGINATING_SAMPLE_ID = concat(IFD_PROPERTY_DATAOBJECT_FLAG, IFD_ORIGINATING_SAMPLE_ID_FLAG);	
 	
 
 	public static String getVersion() {

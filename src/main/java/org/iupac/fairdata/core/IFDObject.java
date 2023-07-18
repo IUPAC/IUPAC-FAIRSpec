@@ -473,6 +473,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			return true;
 		} 
 		if (key.equals(myPropertyPrefix + IFDConst.IFD_ID_FLAG)) {
+			if (value == null)
+				System.out.println("????");
 			setID(value.toString());
 			return true;
 		}
@@ -679,7 +681,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	abstract void serializeList(IFDSerializerI serializer);
 
 	/**
-	 * add "type" and "typeExtends" to a map
+	 * add "ifdType" and "ifdTypeExtends" to a map
 	 * @param c
 	 * @param m
 	 * @return
@@ -688,10 +690,10 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		if (m == null)
 			m = new TreeMap<String, Object>();
 		String ctype = c.getName();
-		m.put("type", ctype);
+		m.put("ifdType", ctype);
 		String strtype = serializeExtended(c);
 		if (strtype.length() > 0 && !strtype.equals(ctype))
-			m.put("typeExtends", strtype);
+			m.put("ifdTypeExtends", strtype);
 		return m;
 	}
 
@@ -700,14 +702,14 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * 
 	 * @param serializer
 	 * @param c the class 
-	 * @param stype null or "type" or "itemType"
+	 * @param stype null or "ifdType" or "itemType"
 	 */
 	static void serializeClass(IFDSerializerI serializer, Class<?> c, String stype) {
 		if (stype == null)
 			stype = "ifdType";
 		Map<String, Object> m = getTypeAndExtends(c, null);
-		serializer.addAttr(stype, (String) m.get("type"));
-		String ext = (String) m.get("typeExtends");
+		serializer.addAttr(stype, (String) m.get("ifdType"));
+		String ext = (String) m.get("ifdTypeExtends");
 		if (ext != null)
 			serializer.addAttr(stype + "Extends", ext);
 	}

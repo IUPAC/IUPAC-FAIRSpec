@@ -36,6 +36,8 @@ public interface FAIRSpecExtractorHelperI {
 	IFDStructure addStructureForSpec(String rootPath, IFDDataObject spec, String ifdRepType, String ifdPath,
 			String localName, String name) throws IFDException;
 
+	IFDSample addSpecOriginatingSampleRef(String rootPath, IFDDataObject spec, String originatingSampleID) throws IFDException;
+
 	IFDSampleDataAssociation associateSampleSpec(IFDSample sample, IFDDataObject newSpec) throws IFDException;
 
 	IFDSampleStructureAssociation associateSampleStructure(IFDSample sample, IFDStructure struc) throws IFDException;
@@ -65,7 +67,7 @@ public interface FAIRSpecExtractorHelperI {
 
 	IFDStructure getFirstStructureForSpec(IFDDataObject localSpec, boolean andRemove);
 
-	String getListJSON(String name, List<FileList> rootLists, String resourceList, String scriptFileName, int[] ret) throws IOException;
+	String getFileListJSON(String name, List<FileList> rootLists, String resourceList, String scriptFileName, int[] ret) throws IOException;
 
 	IFDSample getSampleByName(String value);
 

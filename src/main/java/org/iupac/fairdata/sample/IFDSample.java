@@ -47,4 +47,9 @@ public class IFDSample extends IFDRepresentableObject<IFDSampleRepresentation> {
 		return new IFDSampleRepresentation(ifdReference, object, len, type, subtype);
 	}
 
+	@Override
+	public boolean allowEmpty() {
+		return true;
+	}
+
 }

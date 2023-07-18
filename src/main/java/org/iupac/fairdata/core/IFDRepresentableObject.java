@@ -116,5 +116,9 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 		}
 	}
 
+	public boolean allowEmpty() {
+		return false;
+	}
+
 
 }

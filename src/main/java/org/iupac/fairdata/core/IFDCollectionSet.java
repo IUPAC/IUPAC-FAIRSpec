@@ -53,7 +53,7 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 			} else {
 				for (int i = c.size(); --i >= 0;) {
 					IFDRepresentableObject<?> o = (IFDRepresentableObject<?>) c.get(i);
-					if (o.size() == 0) {
+					if (o.size() == 0 && !o.allowEmpty()) {
 						c.remove(i);
 						o.setValid(false);
 					}
