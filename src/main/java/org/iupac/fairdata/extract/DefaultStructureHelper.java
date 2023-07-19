@@ -10,6 +10,7 @@ import org.jmol.util.DefaultLogger;
 import org.jmol.viewer.Viewer;
 
 import javajs.util.BS;
+import jme.JMEJmol;
 
 /**
  * A class to handle the extraction of structure objects and metadata related to
@@ -117,15 +118,13 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		boolean isCIF = ext.equals("cif");
 		boolean isCDXML = !isCIF && ext.equals("cdxml");
 		boolean isCDX = !isCIF && ext.equals("cdx");
+		String uri = null;
 		String note = null;
-		if (isCIF || isCDX ||isCDXML 
-				|| ext.equals("mol") 
-				|| ext.equals("sdf") 
-				|| ext.equals("cml")) {
+		if (isCIF || isCDX || isCDXML || ext.equals("mol") || ext.equals("sdf") || ext.equals("cml")) {
 			try {
 				if (isEmbedded) {
-					extractor.addDeferredPropertyOrRepresentation(type,
-							new Object[] { bytes, originPath}, false, IFDConst.getMediaTypesForExtension(ext), null);
+					extractor.addDeferredPropertyOrRepresentation(type, new Object[] { bytes, originPath }, false,
+							IFDConst.getMediaTypesForExtension(ext), null);
 				}
 				Viewer v = getJmolViewer();
 				note = "generated from " + originPath + " by Jmol " + jmolVersion;
@@ -133,6 +132,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 				String s = "set allowembeddedscripts false;load DATA \"model\"\n" + data
 						+ "\nend \"model\" 1 FILTER 'no3D;noHydrogen'";
 				v.scriptWait(s);
+				boolean is3D = "3D".equals(v.getCurrentModelAuxInfo().get("dimension"));
 				if (isCIF) {
 					if (v.getCurrentModelAuxInfo().containsKey("hasBonds")) {
 						molecularFormula = v.evaluateExpression("{visible && configuration=1}.find('MF')").toString();
@@ -146,8 +146,8 @@ public class DefaultStructureHelper implements PropertyManagerI {
 				} else {
 					bytes = null;
 					BS atoms = v.bsA();
-					// We use noaromatic here because we want a 
-					// target SMILES, not a substructure smiles. 
+					// We use noaromatic here because we want a
+					// target SMILES, not a substructure smiles.
 					// Targets with aromatic atoms must match aromatic atoms exactly
 					smiles = v.getSmilesOpt(atoms, 0, 0, 0, "/noaromatic/");
 					molecularFormula = v.evaluateExpression("{1.1 && configuration=1}.find('SMILES','MF')").toString();
@@ -174,10 +174,16 @@ public class DefaultStructureHelper implements PropertyManagerI {
 									new Object[] { mol2d.getBytes(), originPath + ".mol" }, false,
 									"chemical/x-mdl-molfile", note);
 					}
+					if (!is3D) {
+						JMEJmol jme = (JMEJmol) org.jmol.api.Interface.getInterface("jme.JMEJmol", v, "FAIRSpec");
+						jme.options("headless");
+						jme.readMolFile(data);
+						bytes = jme.toBorderedPNG(null, 10, 10);
+					}
 				}
-				boolean is3D = "3D".equals(v.getCurrentModelAuxInfo().get("dimension"));
-				if (bytes == null && is3D)
+				if (bytes == null && is3D) {
 					bytes = v.getImageAsBytes("png", 500, 500, -1, new String[1]);
+				}
 			} catch (Exception e) {
 				extractor.log("!! Jmol error generating "
 						+ (smiles == null ? "SMILES" : standardInchi == null ? "InChI" : "InChIKey"));

@@ -131,11 +131,11 @@ public class ExtractorTest extends Extractor {
 
 	private static void runSTOTest(String[] args) {
 		
-		String dir = "c:/temp/iupac/struc-test/";
+		String dir = "c:/temp/iupac/stolaf/";
+		String targetDir = dir + "../stolaf-ifd";
 
 		String[] testSet = new String[] { dir + "IFD-extract.json" };
 		String sourceArchive = null;//dir + "archive.tar.gz";		
-		String targetDir = dir + "../struc-test-ifd";
 
 		//debugging = true;
 		//readOnly = true;

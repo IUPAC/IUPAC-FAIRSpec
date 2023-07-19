@@ -126,7 +126,8 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 			thisObj.append(sep);
 			IFDObject<?> e = list.get(i);
 			key = e.getID();
-			thisObj.append(FAIRSpecUtilities.esc(key));			addValue(e, false, true);
+			thisObj.append(FAIRSpecUtilities.esc(key) + ":");
+			addValue(e, false, true);
 			sep = ",\n";
 		}
 		thisObj.append("}");

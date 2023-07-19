@@ -3007,6 +3007,7 @@ public class Extractor implements ExtractorI {
 			}
 			if (isRep) {
 				// from reportVendor-- Bruker adds this for thumb.png and pdf files.
+				Object data = null;
 				String mediaType = (String) a[5];
 				String note = (String) a[6];
 				if (!isInline && value instanceof Object[]) {
@@ -3018,9 +3019,11 @@ public class Extractor implements ExtractorI {
 					writeOriginToCollection(oPath, bytes, 0);
 					addFileToFileLists(localName, LOG_OUTPUT, bytes.length, null);
 					value = localName;
+					if ("image/png".equals(mediaType)) {
+						data = bytes;
+					}
 				}
 				String keyPath = null;
-				Object data = null;
 				if (isInline) {
 					if (value instanceof Object[]) {
 						keyPath = ((Object[]) value)[0].toString();
