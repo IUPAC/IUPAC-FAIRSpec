@@ -56,26 +56,24 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 
 	/**
 	 * Add a representation as long as it has not already been added.
-	 * 
 	 * @param originPath an origin label used to identify unique representations
 	 * @param localName a localized label without / or |
 	 * @param data TODO
 	 * @param type
 	 * @param mediaType
+	 * 
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	public IFDRepresentation findOrAddRepresentation(String resourceID,	String originPath, String rootPath, String localName, Object data, String type, String mediaType) {
-		boolean isInline = (localName == null);
-		String key = (!isInline ? localName : data instanceof byte[] ? new String((byte[]) data) : data.toString());
+		String key = (data == null ? localName : data instanceof byte[] ? new String((byte[]) data) : data.toString());
 		IFDRepresentation rep = getRepresentation(resourceID, key);
 		if (rep == null) {
-			rep = newRepresentation((isInline ? null : new IFDReference(resourceID, originPath, rootPath, localName)), data, 0, type, mediaType);
+			rep = newRepresentation((localName == null ? null : new IFDReference(resourceID, originPath, rootPath, localName)), data, 0, type, mediaType);
 			add((T) rep);
 			map.put(resourceID + "::" + key, rep);
-//			if (!isInline) // Q: What is this for? -- was CIF issue
-//				System.out.println("IFDRepObj??? rootPath addition? Messes up two objects with the same origin ???" + originPath + " " + localName);
-			//	map.put(rootPath + "::" + originPath, rep);
+			if (localName != null && data != null)
+				map.put(resourceID + "::" + localName, rep);
 		}
 		return rep;
 	}
@@ -88,6 +86,8 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 
 
 	public void removeRepresentationFor(String localName) {
+		if (localName == null)
+			return;
 		for (int i = size(); --i >= 0;)
 			if (localName.equals(get(i).getRef().getLocalName())) {
 				remove(i);

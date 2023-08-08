@@ -30,8 +30,9 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 		IFDDataObject newData = data.clone();
 		if (newID != null)
 			newData.setID((data.getID() == null ? "" : data.getID()) + newID);
-		if (andReplace)
+		if (andReplace) {
 			data.setValid(false);
+		}
 		newData.setValid(true);
 		newData.getProperties();
 		add(newData);

@@ -93,7 +93,7 @@ public class ExtractorTest extends Extractor {
 		//runACSTest(args, 0, 1);
 		runSTOTest(args);
 //		runACSTest(args, 7);
-		//runUCLTest(args);
+		//runImperialCollegeTest(args);
 		//runTest(args, "./extract/test/IFD-extract.json", "./extract/test/8f.zip");
 		//runTest(args, "./extract/test/IFD-extract2.json", "./extract/test/acs3/*");
 		//runTest(args, "./extract/test/IFD-extract3.json", "c:/temp/mnova/test/*");
@@ -144,13 +144,13 @@ public class ExtractorTest extends Extractor {
 		runExtraction(args, testSet, -1, -1);		
 	}
 
-	private static void runUCLTest(String[] args) {
+	private static void runImperialCollegeTest(String[] args) {
 		
-		String dir = "c:/temp/henry/v7/";
+		String dir = "c:/temp/iupac/henry/v_acs/";
+		String targetDir = dir + "icl-ifd";
 
 		String[] testSet = new String[] { dir + "IFD-extract.json" };
-		String sourceArchive = null;//dir + "archive.tar.gz";		
-		String targetDir = dir + "ifd";
+		String sourceArchive = dir + "Archive.tar.gz";		
 
 		//debugging = true;
 		//readOnly = true;

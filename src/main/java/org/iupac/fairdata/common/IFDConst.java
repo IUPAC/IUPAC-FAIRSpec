@@ -76,7 +76,7 @@ public class IFDConst {
 			htProps = new Hashtable<String, IFDProperty>();
 		else {
 			// rename all inherited properties to this subclass name
-			System.out.println(htProps);
+			//System.out.println(htProps);
 			Iterator<Entry<String, IFDProperty>> iter = htProps.entrySet().iterator();
 			List<String> removed = new ArrayList<>();
 			while (iter.hasNext()) {

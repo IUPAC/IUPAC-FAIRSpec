@@ -70,9 +70,10 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public static final String FAIRSPEC_EXTRACTOR_IGNORE = IFDConst.getProp("FAIRSPEC_EXTRACTOR_IGNORE");
 	public static final String FAIRSPEC_EXTRACTOR_OPTION_FLAG = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OPTION_FLAG");
 	public static final String FAIRSPEC_EXTRACTOR_OPTIONS = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OPTIONS");
+	public static final String FAIRSPEC_EXTRACTOR_METADATA = IFDConst.getProp("FAIRSPEC_EXTRACTOR_METADATA");
+	public static final String FAIRSPEC_EXTRACTOR_RELATED_METADATA = IFDConst.getProp("FAIRSPEC_EXTRACTOR_RELATED_METADATA");
 
-	public static final Object FAIRSPEC_EXTRACTOR_METADATA = IFDConst.getProp("FAIRSPEC_EXTRACTOR_METADATA");
-	public static final Object EXIT = "EXIT";
+	public static final String EXIT = "EXIT";
 
 	public interface ClassTypes {
 
@@ -643,8 +644,10 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			@SuppressWarnings("unchecked")
 			IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>> dataCollection = (IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>) assoc.getObject(1);
 			for (IFDRepresentableObject<? extends IFDRepresentation> d : dataCollection) {
-				if (d.size() == 0)
+				if (d.size() == 0) {
+					extractor.log("! FAIRSpecExtractionHelper.removed " + d);
 					empty.add((IFDDataObject) d);
+				}
 			}
 			n += empty.size();
 			dataCollection.removeAll(empty);
@@ -709,8 +712,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		if (name == null)
 			name = "Structure_" + ++lastStructureName;			
 		IFDStructure struc = (IFDStructure) checkAddNewObject(getStructureCollection(), ClassTypes.Structure, rootPath,
-				IFD_PROPERTY_STRUCTURE_LABEL, name, localName, null, 0, true);
-		struc.findOrAddRepresentation(currentResource.getID(), rootPath, originPath, localName, null, ifdRepType,
+				IFD_PROPERTY_STRUCTURE_ID, name, localName, null, 0, true);
+		struc.findOrAddRepresentation(currentResource.getID(), originPath, rootPath, localName, null, ifdRepType,
 				FAIRSpecUtilities.mediaTypeFromFileName(localName));
 		getStructureCollection().add(struc);
 		IFDStructureDataAssociation ss = (IFDStructureDataAssociation) getCompoundCollection()

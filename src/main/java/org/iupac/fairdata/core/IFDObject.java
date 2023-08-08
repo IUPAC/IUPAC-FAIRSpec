@@ -473,8 +473,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			return true;
 		} 
 		if (key.equals(myPropertyPrefix + IFDConst.IFD_ID_FLAG)) {
-			if (value == null)
-				System.out.println("????");
 			setID(value.toString());
 			return true;
 		}
@@ -744,6 +742,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	public void setValid(boolean tf) {
 		isValid = tf;
+		if (!tf)
+			System.out.println("IFDO invalidating " + id);
 	}
 	
 	public boolean isValid() {

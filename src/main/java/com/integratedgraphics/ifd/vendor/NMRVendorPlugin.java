@@ -20,12 +20,4 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 		addProperty(IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_MANUFACTURER_NAME, getVendorName());
 	}
 
-	protected void addIFDMetadata(String data) {
-		List<String[]> list = FAIRSpecUtilities.getIFDPropertyMap(data);
-		for (int i = 0, n = list.size(); i < n; i++) {
-			String[] item = list.get(i);
-			addProperty(item[0], item[1]);
-		}
-	}
-
 }

@@ -21,7 +21,6 @@ import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.util.JSJSONParser;
-import org.iupac.fairdata.util.ZipUtil;
 
 /**
  * A class to contain various generally useful utility methods in association
@@ -689,6 +688,18 @@ public class FAIRSpecUtilities {
 		return true;
 	}
 
+	/**
+	 * Retrieve all "jdx comment" key/value pairs from a file
+	 * in the form:
+	 * 
+	 *  ##$IFD.property......=xxxx
+	 *  
+	 * valid lines must start with "##$IFD"; the "##$" will be stripped.
+	 * 
+	 * 
+	 * @param data
+	 * @return List of String[key,value]
+	 */
 	public static List<String[]> getIFDPropertyMap(String data) {
 		String[] lines = data.split("\n");
 		List<String[]> list = new ArrayList<>();

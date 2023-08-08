@@ -43,6 +43,8 @@ public class IFDSampleDataAssociation extends IFDAssociation {
 	@SuppressWarnings("unchecked")
 	public IFDSampleDataAssociation(String type, IFDSample sample, IFDDataObject data) throws IFDException {
 		super(null, new IFDCollection[] { new IFDSampleCollection(sample), new IFDDataObjectCollection(data) });
+		if (!data.isValid())
+			System.out.println("IFDSDA " + data);
 	}
 
 

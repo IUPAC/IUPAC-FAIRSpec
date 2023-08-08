@@ -26,9 +26,8 @@ public class JCAMPDXIFDVendorPlugin extends NMRVendorPlugin {
 
 	@Override
 	public String accept(ExtractorI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
-		super.accept(extractor, originPath, bytes, isEmbedded);
-		System.out.println("! JCAMPDX Plugin TODO: accept JDX file " + originPath);
-		return processRepresentation(null, null);
+	    System.out.println("! JCAMPDX Plugin TODO: accept JDX file " + originPath);
+		return super.accept(extractor, originPath, bytes, isEmbedded);
 	}
 
 	@Override

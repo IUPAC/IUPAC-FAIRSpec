@@ -9,6 +9,7 @@ import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper.FileList;
 import org.iupac.fairdata.core.IFDObject;
+import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.core.IFDResource;
 import org.iupac.fairdata.dataobject.IFDDataObject;
@@ -82,4 +83,5 @@ public interface FAIRSpecExtractorHelperI {
 	void setById(boolean tf);
 
 	void setCurrentResourceByteLength(long len);
+
 }

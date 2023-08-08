@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
@@ -37,7 +38,8 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 				"##$NUC1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_1"), //prop
 				"##$NUC2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_2"), //prop
 				"##$NUC3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_NUCL_3"), //prop
-				"##$PULPROG", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_PULSE_PROG"), //prop
+				"##$EXP", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_ID"),
+				"##$PULPROG", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_PULSE_PROGRAM"), //prop
 				"##$TE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_ABSOLUTE_TEMPERATURE"), //prop
 				"##$SOLVENT", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_SOLVENT"), //prop
 				"SOLVENT", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_EXPT_SOLVENT"), //prop
@@ -105,12 +107,9 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 
 	@Override
 	public Object[] getExtractTypeInfo(ExtractorI extractor, String baseName, String entryName) {
-		boolean isImage = entryName.endsWith("thumb.png"); 
-		return new Object[] { (entryName.endsWith(".pdf") ? PDF
-				: isImage ? 
-						IMAGE 
-						: null)
-				, (isImage ? Boolean.TRUE : null) };
+		boolean isImage = entryName.endsWith("thumb.png");
+		String type = (entryName.endsWith(".pdf") ? PDF : isImage ? IMAGE : null);
+		return (type == null ? null : new Object[] { type, (isImage ? Boolean.TRUE : null) });
 	}
 
 	@Override
@@ -160,10 +159,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			report("TITLE", new String(bytes));
 			return true;
 		}
-		if (originPath.indexOf("IFD_METADATA") >= 0) {
-			addIFDMetadata(new String(bytes));
-			return true;
-		}
+
 		Map<String, String> map = null;
 		try {
 			map = JDXReader.getHeaderMap(new ByteArrayInputStream(bytes), null);
@@ -233,14 +229,14 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		if (ndim == 0)
 			return false;
 		double freq1 = getDoubleValue(map, "##$BF1");
+		report("##$BF1", freq1);
 		if (ndim >= 2)
-			getDoubleValue(map, "##$BF2");
+			report("##$BF2", getDoubleValue(map, "##$BF2"));
 		if (ndim >= 3)
-			getDoubleValue(map, "##$BF3");
-		if (ndim >= 4)
-			getDoubleValue(map, "##$BF4");
+			report("##$BF3", getDoubleValue(map, "##$BF3"));
 		report("##$TE", getDoubleValue(map, "##$TE"));
 		processString(map, "##$PULPROG", null);
+		processString(map, "##$EXP", null);
 		if (originPath.endsWith("acqu2s")) {
 			report("DIM", spec.dim = "2D");
 		} else if (originPath.endsWith("acqus") && spec.dim == null) {

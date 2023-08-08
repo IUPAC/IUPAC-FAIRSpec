@@ -21,7 +21,7 @@ public class IFDReference implements IFDSerializableI {
 	/**
 	 * root path to this file
 	 */
-	private final String rootPath;
+	private final String localDir;
 
 	/**
 	 * source URL in the IFDFindingAid URLs list; must be set nonnegative
@@ -34,12 +34,21 @@ public class IFDReference implements IFDSerializableI {
 	 */
 	private String localName;
 	
-	public IFDReference(String resourceID, Object originPath, String localRoot, String localName) {
-		if (!resourceID.equals("1") && originPath != null && originPath.toString().indexOf("png") >= 0)
-			System.out.println("IFDRef ??? ");
+	/**
+	 * 
+	 * @param resourceID provides the resource path, ultimately
+	 * @param originPath the full original path, if it exists, or where it is derived from
+	 * @param localDir without closing "/"
+	 * @param localName
+	 */
+	public IFDReference(String resourceID, Object originPath, String localDir, String localName) {
 		this.originPath = originPath;
-		this.rootPath = localRoot;
+		this.localDir = localDir;
 		this.localName = localName;
+		
+		if (originPath.equals("structures"))
+		  System.out.println("IFDREF " + originPath + " " + getLocalPath());
+
 		this.resourceID = resourceID;
 	}
 
@@ -51,12 +60,12 @@ public class IFDReference implements IFDSerializableI {
 		return resourceID;
 	}
 
-	public String getRootPath() {
-		return rootPath;
+	public String getlocalDir() {
+		return localDir;
 	}
 	
 	public String getLocalPath() {
-		return (rootPath == null ? "" : rootPath + "/") + localName;
+		return (localDir == null ? "" : localDir + "/") + localName;
 	}
 	
 	public String getLocalName() {
@@ -65,7 +74,7 @@ public class IFDReference implements IFDSerializableI {
 
 	@Override
 	public String toString() {
-		return "[IFDReference " + (rootPath == null ? "" : rootPath + "::") + originPath + " :as::" + localName + "]";
+		return "[IFDReference " + (localDir == null ? "" : localDir + "::") + originPath + " :as::" + localName + "]";
 	}
 
 	@Override
@@ -77,7 +86,8 @@ public class IFDReference implements IFDSerializableI {
 		if (originPath != null)
 			serializer.addAttr("originPath", originPath.toString());
 		if (localName != null) {
-			serializer.addAttr("path", getLocalPath());
+			String s = getLocalPath();
+			serializer.addAttr("path", s);
 			// TODO: Could add #page=" to origin; localPath is null?
 		}
 	}

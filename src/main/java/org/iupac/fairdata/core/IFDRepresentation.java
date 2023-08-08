@@ -52,7 +52,7 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 	}
 
 	public void setType(String type) {
-		this.representationType = type;
+		representationType = type;
 	}
 
 	public IFDReference getRef() {
