@@ -8,7 +8,7 @@
  "----todo -- allow for remote API, not just remote file (as in FigShare)",
 
  
- {"IFD.property.collectionset.source_data_uri":"c:/temp/iupac/iupac-spec-structures-w-errors.zip}"},
+ {"IFD.property.collectionset.source_data_uri":"./"},
  
  "----reject for now all of the MNova 'master-documents' ",
 
@@ -17,52 +17,22 @@
 
  {"FAIRSpec.extractor.options" : ""},
 
- "----FAIRSpec.extractor.metadata is a special key that allows generation of IFDParameter metadata for any defined object",
+ "----FAIRSpec.extractor.metadata_file indicates files local to a dataset with properties (sample id in this case) ",
 
- {"FAIRSpec.extractor.metadata.jdx" : "IFD_metadata.jdx"},
+ {"FAIRSpec.extractor.related_metadata" : "IFD_METADATA"},
+
 
  "--parsing instructions--",
  
- "----trigger a new association if the id changes",
-
- {"cmpd":"{compound=IFD.property.fairspec.compound.id::*}"},
-
- "----ignoring lower-level cdxml here",
- {"#FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.cdxml::/{IFD.property.structure.id::<compound>}.cdxml}"},
-
  "----structures",
 
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.cdxml::/**/{IFD.property.structure.id::*}.cdxml}"},
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.mol::/{IFD.property.structure.id::*}.mol}"}, 
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.png::/{IFD.property.structure.id::*}.png}"},
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.cif::/**/{IFD.property.structure.id::*.cif}}"},
-
-
- "----computations as data objects (and structure from CML)",
-
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.structure.cml::/{IFD.property.structure.id::<compound>-comp/*}/*.cml}"},
-
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.comp.input::/{IFD.property.dataobject.id::<compound>-comp/*/*}.gjf}"},
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.comp.output::/{IFD.property.dataobject.id::<compound>-comp/*/*}.fchk}"},
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.comp.output::/{IFD.property.dataobject.id::<compound>-comp/*/*}.log}"},
-
- "----IR",
-
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.ir.document::/{IFD.property.dataobject.id::*-IR}/*.pdf}"},
- 
  "----NMR",
  
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::/**/{IFD.property.dataobject.id::*.mnova}}"},
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::/**/{IFD.property.dataobject.id::*}.jdx}"},
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::/**/{IFD.property.dataobject.id::*}.zip}"},
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::/*/{IFD.property.dataobject.id::*}.pdf}"},
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::/*/*/{IFD.property.dataobject.id::*}.pdf}"},
+
+ {"FAIRSpec.extractor.object":"{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*/*}/}"},
+
 
  "----xray",
- "-------Lots of case issues with cif names - using regex 'case insensitive' enclosure",
-
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.xray.cif::/**/{IFD.property.dataobject.id::*.cif}}"},
-
 
  
  "--end--" 
