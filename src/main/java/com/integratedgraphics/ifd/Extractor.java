@@ -61,6 +61,8 @@ import org.iupac.fairdata.util.ZipUtil;
 import com.integratedgraphics.ifd.api.VendorPluginI;
 import com.integratedgraphics.ifd.util.PubInfoExtractor;
 
+import javajs.util.PT;
+
 // TODO: check zipping Bruker directories into ZIP
 
 /**
@@ -807,6 +809,7 @@ public class Extractor implements ExtractorI {
 		String source;
 		FileList lstManifest;
 		FileList lstIgnored;
+		FileList lstAccepted;
 		protected String rootPath;
 		public String ifdResource;
 
@@ -814,13 +817,16 @@ public class Extractor implements ExtractorI {
 			this.source = source;
 		}
 
-		void setLists(String rootPath, String ignore) {
+		void setLists(String rootPath, String ignore, String accept) {
 			if (lstManifest != null)
 				return;
 			lstManifest = new FileList(rootPath, "manifest");
 			lstIgnored = new FileList(rootPath, "ignored");
+			lstAccepted = new FileList(rootPath, "accepted");
 			if (ignore != null)
-				lstIgnored.accept(ignore);
+				lstIgnored.setAcceptPattern(ignore);
+			if (accept != null)
+				lstAccepted.setAcceptPattern(accept);
 		}
 
 		@Override
@@ -844,6 +850,7 @@ public class Extractor implements ExtractorI {
 	protected static final int LOG_REJECTED = 0;
 	protected static final int LOG_IGNORED = 1;
 	protected static final int LOG_OUTPUT = 2;
+	protected static final int LOG_ACCEPTED = 3;
 
 	protected final static int PHASE_2A = 1;
 	protected final static int PHASE_2B = 2;
@@ -1020,6 +1027,11 @@ public class Extractor implements ExtractorI {
 	protected FileList lstIgnored;
 
 	/**
+	 * list of files to always accept, specified an extractor JSON template
+	 */
+	protected FileList lstAccepted = new FileList(null, "accepted");
+
+	/**
 	 * list of files rejected -- probably MACOSX trash or Google desktop.ini trash
 	 */
 	protected final FileList lstRejected = new FileList(null, "rejected");
@@ -1121,7 +1133,7 @@ public class Extractor implements ExtractorI {
 	 */
 	protected boolean allowMultipleObjectsForRepresentations = true;
 
-	protected String ignoreRegex;
+	protected String ignoreRegex, acceptRegex;
 
 	protected boolean isByID;
 
@@ -1214,28 +1226,34 @@ public class Extractor implements ExtractorI {
 	}
 
 	protected boolean phase1ProcessPubURI() throws IOException {
-		String puburi = null;
-		Map<String, Object> pubCrossrefInfo = null;
-		puburi = (String) helper.getFindingAid()
+		String datauri = (String) helper.getFindingAid()
+				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI);
+		String puburi = (String) helper.getFindingAid()
 				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI);
-		if (puburi != null && !skipPubInfo) {
-			pubCrossrefInfo = PubInfoExtractor.getPubInfo(puburi, addPublicationMetadata);
-			if (pubCrossrefInfo == null || pubCrossrefInfo.get("title") == null) {
-				if (skipPubInfo) {
-					logWarn("skipPubInfo == true; Finding aid does not contain PubInfo", "extractAndCreateFindingAid");
-				} else {
-					if (!allowNoPubInfo) {
-						logErr("Finding aid does not contain PubInfo! No internet? cannot continue",
-								"extractAndCreateFindingAid");
-						return false;
-					}
-					logWarn("Could not access " + PubInfoExtractor.getCrossrefMetadataUrl(puburi),
-							"extractAndCreateFindingAid");
-				}
+		List<Map<String, Object>> list = new ArrayList<>();
+		if (puburi != null  && !skipPubInfo) {
+			Map<String, Object> info = PubInfoExtractor.getPubInfo(puburi, addPublicationMetadata, PubInfoExtractor.CROSSREF);
+			if (info != null && info.get("registrationAgency") != null) {
+				list.add(info);
 			} else {
-				List<Map<String, Object>> list = new ArrayList<>();
-				list.add(pubCrossrefInfo);
+				logWarn("Could not access " + PubInfoExtractor.getCrossrefMetadataUrl(puburi),
+						"extractAndCreateFindingAid");
+			}
+		}
+		if (datauri != null && !skipPubInfo) {
+			Map<String, Object> info = PubInfoExtractor.getPubInfo(datauri, addPublicationMetadata, PubInfoExtractor.DATACITE);
+			if (info != null && info.get("title") != null) {
+				list.add(info);
+			} else {
+				logWarn("Could not access " + PubInfoExtractor.getCrossciteMetadataUrl(datauri),
+						"extractAndCreateFindingAid");
+			}
+			if (!list.isEmpty()) {
 				helper.getFindingAid().setRelatedTo(list);
+			} else if (!allowNoPubInfo) {
+				logErr("Finding aid does not contain PubInfo! No internet? cannot continue",
+						"extractAndCreateFindingAid");
+				return false;
 			}
 		}
 		return true;
@@ -1323,6 +1341,8 @@ public class Extractor implements ExtractorI {
 	 * @return
 	 */
 	protected PropertyManagerI getPropertyManager(Matcher m) {
+		if (m == null)
+			return null;
 		if (m.group("struc") != null)
 			return structurePropertyManager;
 		for (int i = bsPropertyVendors.nextSetBit(0); i >= 0; i = bsPropertyVendors.nextSetBit(i + 1)) {
@@ -1463,6 +1483,7 @@ public class Extractor implements ExtractorI {
 		List<ObjectParser> parsers = new ArrayList<>();
 		List<Object> ignored = new ArrayList<>();
 		List<Object> rejected = new ArrayList<>();
+		List<Object> accepted = new ArrayList<>();
 		ExtractorResource source = null;
 		boolean isDefaultStructurePath = false;
 		List<Object> replacements = null;
@@ -1514,6 +1535,15 @@ public class Extractor implements ExtractorI {
 					continue;
 				}
 
+				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_ACCEPT)) {
+					if (o instanceof String) {
+						accepted.add(o);
+					} else {
+						accepted.addAll((List<Object>) o);
+					}
+					continue;
+				}
+
 				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_REJECT)) {
 					if (o instanceof String) {
 						rejected.add(o);
@@ -1554,7 +1584,10 @@ public class Extractor implements ExtractorI {
 				// ..keydef=-----------------key--------
 
 				if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI)) {
-					if (!phase1CheckSource(val)) {
+					// allow for a local version (debugging mostly)
+					boolean isRemote = val.startsWith("http");
+					boolean isFoundLocal = phase1CheckLocalSource(val);
+					if (!isFoundLocal) {
 						source = null;
 						isDefaultStructurePath = (DEFAULT_STRUCTURE_DIR_URI.equals(val)
 								|| DEFAULT_STRUCTURE_ZIP_URI.equals(val));
@@ -1563,12 +1596,15 @@ public class Extractor implements ExtractorI {
 							logNote(msg, "phase1CheckSource");
 						else
 							logWarn(msg, "phase1CheckSource");
-						continue;
+						if (isDefaultStructurePath)
+							continue;
 					}
 					source = htResources.get(val);
 					if (source == null)
 						htResources.put(val, source = new ExtractorResource(val));
-					continue;
+					if (isFoundLocal || !isRemote)
+						continue;
+					// go ahead and add this data source to the metadata
 				}
 
 				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_OBJECT)) {
@@ -1617,20 +1653,30 @@ public class Extractor implements ExtractorI {
 				s += "(" + rejected.get(i) + ")|";
 			}
 		}
-		lstRejected.setAcceptPattern(s + FAIRSpecExtractorHelper.junkFilePattern);
+		lstRejected.setAcceptPattern(FAIRSpecUtilities.rep(s, ".", "\\.") + FAIRSpecExtractorHelper.junkFilePattern);
+		if (accepted.size() > 0) {
+			s = "";
+			for (int i = 0; i < accepted.size(); i++) {
+				s += "|(" + accepted.get(i) + ")";
+			}
+			acceptRegex = FAIRSpecUtilities.rep(s.substring(1), ".", "\\.");
+			lstAccepted.setAcceptPattern(acceptRegex);
+		} else {
+			acceptRegex = null;
+		}
 		if (ignored.size() > 0) {
 			s = "";
 			for (int i = 0; i < ignored.size(); i++) {
-				s += "|(" + ignored.get(i);
+				s += "|(" + ignored.get(i) + ")";
 			}
-			ignoreRegex = s.substring(1);
+			ignoreRegex = FAIRSpecUtilities.rep(s.substring(1), ".", "\\.");
 		} else {
 			ignoreRegex = null;
 		}
 		return parsers;
 	}
 
-	protected boolean phase1CheckSource(String val) throws IFDException {
+	protected boolean phase1CheckLocalSource(String val) throws IFDException {
 		val = localizeURL(val);
 		return (!val.startsWith("file:/") || new File(val.substring(6)).exists());
 	}
@@ -1852,7 +1898,7 @@ public class Extractor implements ExtractorI {
 			rootDir.mkdir();
 			// open a new log
 			resource.rootPath = rootPath;
-			resource.setLists(rootPath, ignoreRegex);
+			resource.setLists(rootPath, ignoreRegex, acceptRegex);
 
 		}
 		lstManifest = resource.lstManifest;
@@ -2046,9 +2092,8 @@ public class Extractor implements ExtractorI {
 		while ((zipEntry = (nextEntry != null ? nextEntry
 				: nextRealEntry != null ? nextRealEntry : ais.getNextEntry())) != null) {
 			n++;
-			// System.out.println(zipEntry);
 			nextEntry = null;
-			String name = zipEntry.getName();
+			String name = zipEntry.getName();			
 			boolean isDir = zipEntry.isDirectory();
 			if (first) {
 				first = false;
@@ -2064,12 +2109,15 @@ public class Extractor implements ExtractorI {
 			if (!isDir)
 				nextRealEntry = null;
 			String oPath = baseOriginPath + name;
+			boolean accepted = false;
 			if (isDir) {
 				if (logging())
 					log("Phase 2." + phase + " checking zip directory: " + n + " " + oPath);
 			} else if (zipEntry.getSize() == 0) {
 				continue;
 			} else {
+
+				
 				if (lstRejected.accept(oPath)) {
 					// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX,
 					// acs.joc.0c00770/22567817
@@ -2077,6 +2125,10 @@ public class Extractor implements ExtractorI {
 						addFileToFileLists(oPath, LOG_REJECTED, zipEntry.getSize(), null);
 					continue;
 				}
+				if (phase == PHASE_2A && lstAccepted.accept(oPath)) {
+					addFileToFileLists(oPath, LOG_ACCEPTED, zipEntry.getSize(), null);
+					accepted = true;
+				} 
 				if (lstIgnored.accept(oPath)) {
 					// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX,
 					// acs.joc.0c00770/22567817
@@ -2099,12 +2151,19 @@ public class Extractor implements ExtractorI {
 				switch (phase) {
 				case PHASE_2A:
 					if (!isDir)
-						phase2aProcessEntry(baseOriginPath, oPath, ais, zipEntry);
+						phase2aProcessEntry(baseOriginPath, oPath, ais, zipEntry, accepted);
 					break;
 				case PHASE_2C:
 					// rezipping
 					if (oPath.equals(currentRezipPath)) {
-						nextEntry = phase2cRezipEntry(baseOriginPath, oPath, ais, zipEntry, currentRezipVendor);
+						// nextRealEntry here may be the first
+						// file of the zip, because not all zip files
+						// list directories. Some do, but many do not. 
+						// tar.gz files definitely do not. So in that case,
+						// we must pass nextRealEntry as the first entry to write
+						// to the rezipper. 
+						nextEntry = phase2cRezipEntry(baseOriginPath, oPath, ais, zipEntry, nextRealEntry, currentRezipVendor);
+						nextRealEntry = null;
 						phase2cGetNextRezipName();
 						continue;
 					}
@@ -2152,20 +2211,20 @@ public class Extractor implements ExtractorI {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	protected void phase2aProcessEntry(String baseOriginPath, String originPath, InputStream ais, ArchiveEntry zipEntry)
+	protected void phase2aProcessEntry(String baseOriginPath, String originPath, InputStream ais, ArchiveEntry zipEntry, boolean accept)
 			throws FileNotFoundException, IOException {
 		long len = zipEntry.getSize();
-		Matcher m;
-
-		// Matcher mp;
+		Matcher m = null;
 
 		// check for files that should be pulled out - these might be JDX files, for
 		// example.
 		// "param" appears if a vendor has flagged these files for parameter extraction.
 
-		if (vendorCachePattern != null && (m = vendorCachePattern.matcher(originPath)).find()) {
+		boolean isFound = false;
+		if (vendorCachePattern != null && (isFound = (m = vendorCachePattern.matcher(originPath)).find()) || accept) {
 
-			PropertyManagerI v = getPropertyManager(m);
+			PropertyManagerI v = (isFound ? getPropertyManager(m) 
+					: null);
 			boolean doCheck = (v != null);
 			boolean doExtract = (!doCheck || v.doExtract(originPath));
 
@@ -2177,7 +2236,7 @@ public class Extractor implements ExtractorI {
 //		      - ignore completely
 
 			if (doExtract) {
-				String ext = m.group("ext");
+				String ext = (isFound ? m.group("ext") : originPath.substring(originPath.lastIndexOf(".") + 1));
 				File f = getAbsoluteFileTarget(originPath);
 				OutputStream os = (doCheck || noOutput ? new ByteArrayOutputStream() : new FileOutputStream(f));
 				if (os != null)
@@ -2515,14 +2574,14 @@ public class Extractor implements ExtractorI {
 	 * 
 	 * @param baseName xxxx.zip|
 	 * @param oPath
-	 * @param zis
+	 * @param ais
 	 * @param entry
-	 * @return next (unrelated) entry
+	 * @return firstEntry (if the first entry was read in order to start this zip operation.
 	 * @throws IOException
 	 * @throws IFDException
 	 */
 	protected ArchiveEntry phase2cRezipEntry(String baseName, String oPath, ArchiveInputStream ais, ArchiveEntry entry,
-			VendorPluginI vendor) throws IOException, IFDException {
+			ArchiveEntry firstEntry, VendorPluginI vendor) throws IOException, IFDException {
 
 		// originPath points to the directory containing pdata
 
@@ -2627,7 +2686,8 @@ public class Extractor implements ExtractorI {
 		ZipOutputStream zos = new ZipOutputStream(fos);
 		vendor.startRezip(this);
 		long len = 0;
-		while ((entry = ais.getNextEntry()) != null) {
+		while ((entry = (firstEntry == null ? ais.getNextEntry() : firstEntry)) != null) {
+			firstEntry = null;
 			entryName = entry.getName();
 			String entryPath = baseName + entryName;
 			boolean isDir = entry.isDirectory();
@@ -2954,7 +3014,7 @@ public class Extractor implements ExtractorI {
 	@Override
 	public void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType,
 			String note) {
-		System.out.println("!!!" + key + "   ln=" + localizedName + "    op=" + originPath);
+		//System.out.println("!!!" + key + "   ln=" + localizedName + "    op=" + originPath);
 		if (key == null) {
 			deferredPropertyList.add(null);
 			return;
@@ -3005,7 +3065,7 @@ public class Extractor implements ExtractorI {
 			String key = (String) a[2];
 			Object value = a[3];
 
-			System.out.println("!!!" + key + "   ln=" + localizedName + "    op=" + originPath);
+			//System.out.println("!!!" + key + "   ln=" + localizedName + "    op=" + originPath);
 
 			boolean isInline = (a[4] == Boolean.TRUE);
 			if (key == NEW_RESOURCE_KEY) {
@@ -3182,7 +3242,7 @@ public class Extractor implements ExtractorI {
 					htStructureRepCache = new HashMap<>();
 				AWrap w = new AWrap(inchi == null || inchi.length() < 2 ? bytes : inchi.getBytes());
 				struc = htStructureRepCache.get(w);
-				System.out.println("EXT " + name + " " + w.hashCode() + " " + oPath);
+				//System.out.println("EXT " + name + " " + w.hashCode() + " " + oPath);
 				if (struc == null) {
 					writeOriginToCollection(oPath, bytes, 0);
 					String localName = localizePath(oPath);
@@ -3505,6 +3565,10 @@ public class Extractor implements ExtractorI {
 			// fileName will be an origin name
 			lstRejected.add(fileName, len);
 			break;
+		case LOG_ACCEPTED:
+			// fileName will be an origin name
+			lstAccepted.add(fileName, len);
+			break;
 		case LOG_OUTPUT:
 			// fileName will be a localized file name
 			// in Phase 2c, this will be zip files
@@ -3755,7 +3819,7 @@ public class Extractor implements ExtractorI {
 		System.out.flush();
 		debugReadOnly = false; // quick settings - no file creation
 
-		addPublicationMetadata = false; // true to place metadata into the finding aid
+		addPublicationMetadata = false; // true to place full Crossref or DataCite metadata into the finding aid
 
 		cleanCollectionDir = true;
 
@@ -3871,7 +3935,7 @@ public class Extractor implements ExtractorI {
 				+ "\n" //
 				+ "\n" + "[flags] are one or more of:" //
 				+ "\n" //
-				+ "\n-addPublicationMetadata (only for post-publication-related collections)" //
+				+ "\n-addPublicationMetadata (only for post-publication-related collections; include ALL Crossref or DataCite metadata)" //
 				+ "\n-byID (order compounds by ID, not by index; overrides IFD_extract.json setting)"
 				+ "\n-dataciteDown (only for post-publication-related collections)" //
 				+ "\n-debugging (lots of messages)" //

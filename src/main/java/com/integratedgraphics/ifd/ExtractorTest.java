@@ -91,9 +91,9 @@ public class ExtractorTest extends Extractor {
 //					  // file test
 		//runACSTest(args, first, last);
 		//runACSTest(args, 0, 1);
-		runSTOTest(args);
+//		runSTOTest(args);
 //		runACSTest(args, 7);
-		//runImperialCollegeTest(args);
+		runImperialCollegeTest(args);
 		//runTest(args, "./extract/test/IFD-extract.json", "./extract/test/8f.zip");
 		//runTest(args, "./extract/test/IFD-extract2.json", "./extract/test/acs3/*");
 		//runTest(args, "./extract/test/IFD-extract3.json", "c:/temp/mnova/test/*");

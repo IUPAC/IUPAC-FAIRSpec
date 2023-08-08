@@ -165,7 +165,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 					return stype;
 				}
 				note = "generated from " + originPath + " by Jmol " + jmolVersion;
-				boolean is3D = "3D".equals(v.getCurrentModelAuxInfo().get("dimension"));
+				boolean is2D = "2D".equals(v.getCurrentModelAuxInfo().get("dimension"));
 				if (isCIF) {
 					if (v.getCurrentModelAuxInfo().containsKey("hasBonds")) {
 						v.scriptWait("configuration 1;display selected;set zshade;rotate best;refresh");
@@ -207,14 +207,14 @@ public class DefaultStructureHelper implements PropertyManagerI {
 									new Object[] { mol2d.getBytes(), originPath + ".mol" }, false,
 									"chemical/x-mdl-molfile", note);
 					}
-					if (!is3D) {
+					if (is2D) {
 						JMEJmol jme = (JMEJmol) org.jmol.api.Interface.getInterface("jme.JMEJmol", v, "FAIRSpec");
 						jme.options("headless");
 						jme.readMolFile(mol2d == null ? data : mol2d);
 						bytes = jme.toBorderedPNG(null, 10, 10);
 					}
 				}
-				if (bytes == null && is3D) {
+				if (bytes == null && !is2D) {
 					bytes = v.getImageAsBytes("png", 500, 500, -1, new String[1]);
 				}
 			} catch (Exception e) {

@@ -66,6 +66,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public static final String FAIRSPEC_EXTRACTOR_FLAG = IFDConst.getProp("FAIRSPEC_EXTRACTOR_FLAG");
 	public static final String FAIRSPEC_EXTRACTOR_OBJECT = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OBJECT");
 	public static final String FAIRSPEC_EXTRACTOR_REPLACEMENTS = IFDConst.getProp("FAIRSPEC_EXTRACTOR_REPLACEMENTS");
+	public static final String FAIRSPEC_EXTRACTOR_ACCEPT = IFDConst.getProp("FAIRSPEC_EXTRACTOR_ACCEPT");
 	public static final String FAIRSPEC_EXTRACTOR_REJECT = IFDConst.getProp("FAIRSPEC_EXTRACTOR_REJECT");
 	public static final String FAIRSPEC_EXTRACTOR_IGNORE = IFDConst.getProp("FAIRSPEC_EXTRACTOR_IGNORE");
 	public static final String FAIRSPEC_EXTRACTOR_OPTION_FLAG = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OPTION_FLAG");
@@ -156,11 +157,15 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		 */
 		public String serialize(StringBuffer sb) {
 			lengths = null;
+			return getJSON(sb);
+		}
+	
+		private String getJSON(StringBuffer sb) {
 			String[] list = files.toArray(new String[files.size()]);
 			Arrays.sort(list);
 			return toJSON(sb, list, rootPath, false);
 		}
-	
+
 		public boolean contains(String fileName) {
 			return files.contains(fileName);
 		}
@@ -169,6 +174,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			files.add(fileName);
 			if (len < 0)
 				len = 0;
+			
 			lengths.add(Long.valueOf(len));
 			byteCount += len;
 		}
@@ -198,7 +204,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			int n = 0;
 			for (int i = lists.size(); --i >= 0;) {
 				FileList list = lists.get(i);
-				if (list.getName().equals(name))
+				if (list != null && list.getName().equals(name))
 					n += list.size();
 			}
 			return n;
@@ -208,7 +214,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		    long n = 0;
 			for (int i = lists.size(); --i >= 0;) {
 				FileList list = lists.get(i);
-				if (list.getName().equals(name))
+				if (list != null && list.getName().equals(name))
 					n += list.getByteCount();
 			}
 			return n;
@@ -216,7 +222,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	
 		@Override
 		public String toString() {
-			return serialize(null);
+			return getJSON(null);
 		}
 
 		public long getLength(String fileName) {
@@ -1051,7 +1057,7 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 		String sep = "";
 		for (int i = 0; i < rootLists.size(); i++) {
 			FileList list = rootLists.get(i);
-			if (list.getName().equals(name) && list.size() > 0) {
+			if (list != null && list.getName().equals(name) && list.size() > 0) {
 				sb.append(sep);
 				list.serialize(sb);
 				sep = ",";
