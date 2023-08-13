@@ -179,7 +179,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			return true;
 		}
 		boolean isProc = false;
-		if (originPath.indexOf("audita.txt") >= 0  || (isProc = originPath.indexOf("auditp.txt") >= 0)) {
+		if (originPath.indexOf("audita.txt") >= 0 || (isProc = originPath.indexOf("auditp.txt") >= 0)) {
 			String timestamp = map.get("##AUDITTRAIL");
 			if (timestamp != null) {
 				String[] data = timestamp.split("\\(");
@@ -212,28 +212,29 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			// procs must have been processed already
 			if (spec.solvent == null)
 				processString(map, "##$SOLVENT", null);
-		}
 
-		// no need to close a ByteArrayInputStream
-		int ndim = 0;
-		// some of this can be decoupling, though.
-		String n1 = getBrukerString(map, "##$NUC1");
-		if ((spec.nuc1 == null ? (spec.nuc1 = processString(map, "##$NUC1", "off")) : spec.nuc1) != null)
-			ndim = 1;
-		if ((processString(map, "##$NUC2", "off")) != null)
-			ndim = 2;
-		if (processString(map, "##$NUC3", "off") != null)
-			ndim = 3;
-		if (processString(map, "##$NUC4", "off") != null)
-			ndim = 4;
-		if (ndim == 0)
-			return false;
-		double freq1 = getDoubleValue(map, "##$BF1");
-		report("##$BF1", freq1);
-		if (ndim >= 2)
-			report("##$BF2", getDoubleValue(map, "##$BF2"));
-		if (ndim >= 3)
-			report("##$BF3", getDoubleValue(map, "##$BF3"));
+			// no need to close a ByteArrayInputStream
+			int ndim = 0;
+			// some of this can be decoupling, though.
+			String n1 = getBrukerString(map, "##$NUC1");
+			if ((spec.nuc1 == null ? (spec.nuc1 = processString(map, "##$NUC1", "off")) : spec.nuc1) != null)
+				ndim = 1;
+			if ((processString(map, "##$NUC2", "off")) != null)
+				ndim = 2;
+			if (processString(map, "##$NUC3", "off") != null)
+				ndim = 3;
+			if (processString(map, "##$NUC4", "off") != null)
+				ndim = 4;
+			if (ndim == 0)
+				return false;
+			double freq1 = getDoubleValue(map, "##$BF1");
+			report("##$BF1", freq1);
+			if (ndim >= 2)
+				report("##$BF2", getDoubleValue(map, "##$BF2"));
+			if (ndim >= 3)
+				report("##$BF3", getDoubleValue(map, "##$BF3"));
+			report("SF", getNominalFrequency(freq1, n1));
+		}
 		report("##$TE", getDoubleValue(map, "##$TE"));
 		processString(map, "##$PULPROG", null);
 		processString(map, "##$EXP", null);
@@ -242,7 +243,6 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		} else if (originPath.endsWith("acqus") && spec.dim == null) {
 			report("DIM", spec.dim = "1D");
 		}
-		report("SF", getNominalFrequency(freq1, n1));
 		if (spec.probeHead == null)
 			spec.probeHead = processString(map, "##$PROBHD", null);
 		return true;

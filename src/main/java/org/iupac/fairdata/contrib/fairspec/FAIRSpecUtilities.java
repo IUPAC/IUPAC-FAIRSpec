@@ -99,6 +99,9 @@ public class FAIRSpecUtilities {
 	 * @throws IOException
 	 */
 	public static void writeBytesToFile(byte[] bytes, File fileTarget) throws IOException {
+		if (fileTarget.toString().indexOf("56.png")>= 0)
+			System.out.println("Extractor ???");
+
 		FileOutputStream fos = new FileOutputStream(fileTarget);
 		fos.write(bytes);
 		fos.close();

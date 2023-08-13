@@ -713,21 +713,26 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	@Override
 	public IFDStructure addStructureForSpec(String rootPath, IFDDataObject spec, String ifdRepType, String originPath,
 			String localName, String name) throws IFDException {
-		if (getSpecCollection().indexOf(spec) < 0)
-			getSpecCollection().add(spec);
-		if (name == null)
-			name = "Structure_" + ++lastStructureName;			
-		IFDStructure struc = (IFDStructure) checkAddNewObject(getStructureCollection(), ClassTypes.Structure, rootPath,
-				IFD_PROPERTY_STRUCTURE_ID, name, localName, null, 0, true);
-		struc.findOrAddRepresentation(currentResource.getID(), originPath, rootPath, localName, null, ifdRepType,
-				FAIRSpecUtilities.mediaTypeFromFileName(localName));
-		getStructureCollection().add(struc);
-		IFDStructureDataAssociation ss = (IFDStructureDataAssociation) getCompoundCollection()
-				.getAssociationForSingleObj2(spec);
-		if (ss == null) {
-			ss = getCompoundCollection().addAssociation(struc, spec);
-		} else {
-			ss.getStructureCollection().add(struc);
+		IFDStructure struc = structureCollection.getStructureFromLocalName(currentResource.getID(), localName);
+		if (struc == null) {
+			if (name == null)
+				name = "Structure_" + ++lastStructureName;
+			struc = (IFDStructure) checkAddNewObject(getStructureCollection(), ClassTypes.Structure, rootPath,
+					IFD_PROPERTY_STRUCTURE_ID, name, localName, null, 0, true);
+			struc.findOrAddRepresentation(currentResource.getID(), originPath, rootPath, localName, null, ifdRepType,
+					FAIRSpecUtilities.mediaTypeFromFileName(localName));
+			getStructureCollection().add(struc);
+		}
+		if (spec != null) {
+			if (getSpecCollection().indexOf(spec) < 0)
+				getSpecCollection().add(spec);
+			IFDStructureDataAssociation ss = (IFDStructureDataAssociation) getCompoundCollection()
+					.getAssociationForSingleObj2(spec);
+			if (ss == null) {
+				ss = getCompoundCollection().addAssociation(struc, spec);
+			} else {
+				ss.getStructureCollection().add(struc);
+			}
 		}
 		return struc;
 	}
@@ -998,13 +1003,20 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 					assoc.getDataObjectCollection().removeInvalidData();
 				}
 				IFDStructure struc = (IFDStructure) assoc.getFirstObj1(); 
+				IFDObject<?> spec = assoc.getFirstObj2();
 				if (assoc.get(1).size() > 0 && (struc == null || struc.size() == 0)) {
-					IFDObject<?> o = assoc.getFirstObj2();
 					extractor.log("! FAIRSpecExtractorHelper association id=" + assoc.getID()
-							+ " spec=" + (o == null ? "" : o.getID())
+							+ " spec=" + (spec == null ? "" : spec.getID())
 							+ " has no associated structure representation ");
 				}
+				if (assoc.get(0).size() > 0 && (spec == null || spec.size() == 0)) {
+					extractor.log("! FAIRSpecExtractorHelper association id=" + assoc.getID()
+							+ " struc=" + (struc == null ? "" : struc.getID())
+							+ " has no associated spectrum representation ");
+					assoc.setValid(false);
+				}
 			}
+			compoundCollection.removeInvalidData();
 		}
 		if (sampleDataCollection != null) {
 			for (IFDAssociation a : sampleDataCollection) {

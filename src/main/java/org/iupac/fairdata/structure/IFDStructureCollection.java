@@ -14,4 +14,13 @@ public class IFDStructureCollection extends IFDCollection<IFDStructure> {
 		add(structure);
 	}
 
+	public IFDStructure getStructureFromLocalName(String resourceID, String localName) {
+		for (int i = 0; i < size(); i++) {
+			IFDStructure struc = get(i);
+			if (struc.getRepresentation(resourceID, localName) != null)
+				return struc;
+		}
+		return null;
+	}
+
 }

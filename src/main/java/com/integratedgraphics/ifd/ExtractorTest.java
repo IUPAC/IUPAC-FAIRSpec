@@ -151,7 +151,7 @@ public class ExtractorTest extends Extractor {
 
 		String[] testSet = new String[] { dir + "IFD-extract.json" };
 		String sourceArchive = dir + "Archive.tar.gz";		
-
+//sourceArchive = dir + "56.zip";
 		//debugging = true;
 		//readOnly = true;
 		

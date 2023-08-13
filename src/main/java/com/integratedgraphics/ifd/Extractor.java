@@ -479,7 +479,18 @@ public class Extractor implements ExtractorI {
 
 		@Override
 		public boolean hasNext() {
-			return (i < objectParsers.size());
+			return (i < objectParsers.size() && !doneLocally());
+		}
+
+		private boolean doneLocally() {
+			if (localSourceDir != null) {
+				ObjectParser parser = objectParsers.get(i);
+				boolean ok = (parser.dataSource.source != objectParsers.get(0).dataSource.source);
+				return ok;
+				
+			}
+				
+			return false;
 		}
 
 		@Override
@@ -831,7 +842,7 @@ public class Extractor implements ExtractorI {
 
 		@Override
 		public String toString() {
-			return "[ExtractorSource " + source + "]";
+			return "[ExtractorSource " + source + " => " + rootPath + "]";
 		}
 	}
 
@@ -901,7 +912,7 @@ public class Extractor implements ExtractorI {
 	/**
 	 * set true to allow failure to create pub info
 	 */
-	protected boolean allowNoPubInfo = true;
+	protected boolean allowNoPubInfo = false;
 
 	/**
 	 * don't even try to read pub info -- debugging
@@ -1233,20 +1244,24 @@ public class Extractor implements ExtractorI {
 		List<Map<String, Object>> list = new ArrayList<>();
 		if (puburi != null  && !skipPubInfo) {
 			Map<String, Object> info = PubInfoExtractor.getPubInfo(puburi, addPublicationMetadata, PubInfoExtractor.CROSSREF);
-			if (info != null && info.get("registrationAgency") != null) {
+			if (info != null && info.get("metadataSource") != null) {
 				list.add(info);
 			} else {
 				logWarn("Could not access " + PubInfoExtractor.getCrossrefMetadataUrl(puburi),
 						"extractAndCreateFindingAid");
+				if (!allowNoPubInfo)
+					return false;
 			}
 		}
 		if (datauri != null && !skipPubInfo) {
 			Map<String, Object> info = PubInfoExtractor.getPubInfo(datauri, addPublicationMetadata, PubInfoExtractor.DATACITE);
-			if (info != null && info.get("title") != null) {
+			if (info != null && info.get("metadataSource") != null) {
 				list.add(info);
 			} else {
 				logWarn("Could not access " + PubInfoExtractor.getCrossciteMetadataUrl(datauri),
 						"extractAndCreateFindingAid");
+				if (!allowNoPubInfo)
+					return false;
 			}
 			if (!list.isEmpty()) {
 				helper.getFindingAid().setRelatedTo(list);
@@ -1874,7 +1889,6 @@ public class Extractor implements ExtractorI {
 	protected void phase2InitializeResource(ExtractorResource resource, boolean isInit)
 			throws IFDException, IOException {
 		// localize the URL if we are using a local copy of a remote resource.
-
 		localizedTopLevelZipURL = localizeURL(resource.source);
 
 		// remove ".zip" if present in the overall name
@@ -3065,7 +3079,7 @@ public class Extractor implements ExtractorI {
 			String key = (String) a[2];
 			Object value = a[3];
 
-			//System.out.println("!!!" + key + "   ln=" + localizedName + "    op=" + originPath);
+//System.out.println("!!!" + key + "   ln=" + localizedName + "    op=" + originPath);
 
 			boolean isInline = (a[4] == Boolean.TRUE);
 			if (key == NEW_RESOURCE_KEY) {
