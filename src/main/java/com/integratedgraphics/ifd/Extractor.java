@@ -484,10 +484,12 @@ public class Extractor implements ExtractorI {
 
 		private boolean doneLocally() {
 			if (localSourceDir != null) {
+//				return false;
 				ObjectParser parser = objectParsers.get(i);
-				boolean ok = (parser.dataSource.source != objectParsers.get(0).dataSource.source);
-				return ok;
-				
+				boolean done = 
+						//!parser.dataSource.isLocalStructures && 
+						(parser.dataSource.source != objectParsers.get(0).dataSource.source);
+				return done;				
 			}
 				
 			return false;
@@ -816,7 +818,8 @@ public class Extractor implements ExtractorI {
 
 	}
 
-	protected static class ExtractorResource {
+	protected class ExtractorResource {
+		public boolean isLocalStructures;
 		String source;
 		FileList lstManifest;
 		FileList lstIgnored;
@@ -826,6 +829,7 @@ public class Extractor implements ExtractorI {
 
 		ExtractorResource(String source) {
 			this.source = source;
+			isLocalStructures = isDefaultStructurePath(source);
 		}
 
 		void setLists(String rootPath, String ignore, String accept) {
@@ -1146,7 +1150,7 @@ public class Extractor implements ExtractorI {
 
 	protected String ignoreRegex, acceptRegex;
 
-	protected boolean isByID;
+	protected boolean isByID = true; // forcing
 
 	protected boolean isByIDSet;
 
@@ -1604,8 +1608,7 @@ public class Extractor implements ExtractorI {
 					boolean isFoundLocal = phase1CheckLocalSource(val);
 					if (!isFoundLocal) {
 						source = null;
-						isDefaultStructurePath = (DEFAULT_STRUCTURE_DIR_URI.equals(val)
-								|| DEFAULT_STRUCTURE_ZIP_URI.equals(val));
+						isDefaultStructurePath = isDefaultStructurePath(val);
 						String msg = "local source directory does not exist (ignored): " + val;
 						if (isDefaultStructurePath)
 							logNote(msg, "phase1CheckSource");
@@ -1615,6 +1618,7 @@ public class Extractor implements ExtractorI {
 							continue;
 					}
 					source = htResources.get(val);
+					
 					if (source == null)
 						htResources.put(val, source = new ExtractorResource(val));
 					if (isFoundLocal || !isRemote)
@@ -1691,8 +1695,13 @@ public class Extractor implements ExtractorI {
 		return parsers;
 	}
 
+	private static boolean isDefaultStructurePath(String val) {
+		return (DEFAULT_STRUCTURE_DIR_URI.equals(val) || DEFAULT_STRUCTURE_ZIP_URI.equals(val));
+	}
+
 	protected boolean phase1CheckLocalSource(String val) throws IFDException {
 		val = localizeURL(val);
+		System.out.println("checking for source " + val);
 		return (!val.startsWith("file:/") || new File(val.substring(6)).exists());
 	}
 
@@ -3346,7 +3355,7 @@ public class Extractor implements ExtractorI {
 			if (v != null && !isNull) {
 				String source = obj.getPropertySource(key);
 				logWarn(originPath + " property " + key + " can't set value '" + value + "', as it is already set to '"
-						+ v + "' from " + source, "setPropertyIfNotAlreadySet");
+						+ v + "' from " + source + " for " + obj, "setPropertyIfNotAlreadySet");
 				return;
 			}
 		}

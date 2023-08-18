@@ -90,10 +90,10 @@ public class ExtractorTest extends Extractor {
 //		int last = 0; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 //					  // file test
 		//runACSTest(args, first, last);
-		//runACSTest(args, 0, 1);
-//		runSTOTest(args);
+//		runACSTest(args, 0, 0);
+		runSTOTest(args);
 //		runACSTest(args, 7);
-		runImperialCollegeTest(args);
+//		runImperialCollegeTest(args);
 		//runTest(args, "./extract/test/IFD-extract.json", "./extract/test/8f.zip");
 		//runTest(args, "./extract/test/IFD-extract2.json", "./extract/test/acs3/*");
 		//runTest(args, "./extract/test/IFD-extract3.json", "c:/temp/mnova/test/*");
@@ -123,7 +123,7 @@ public class ExtractorTest extends Extractor {
 		 * the zip files
 		 */
 		String sourceArchive = "c:/temp/iupac/zip";
-		String targetDir = "c:/temp/iupac/ifd";//./site/ifd";
+		String targetDir = "c:/temp/iupac/ifd4";//./site/ifd";
 		String options = null; // "-datacitedown"
 		args = setSourceTargetArgs(args, sourceArchive, targetDir, options);		
 		runExtraction(args, acsTestSet, first, last);
