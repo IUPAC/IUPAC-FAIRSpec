@@ -9,7 +9,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.extract.ExtractorI;
 import org.iupac.fairdata.extract.PropertyManagerI;
 
-import com.integratedgraphics.ifd.Extractor;
+import com.integratedgraphics.extractor.Extractor;
 
 /**
  * A clas that implements IFDVendorPluginI extends the ability of an

@@ -1,4 +1,4 @@
-package com.integratedgraphics.ifd.util;
+package com.integratedgraphics.extractor;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;

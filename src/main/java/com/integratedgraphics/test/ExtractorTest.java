@@ -1,4 +1,6 @@
-package com.integratedgraphics.ifd;
+package com.integratedgraphics.test;
+
+import com.integratedgraphics.extractor.Extractor;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson

@@ -13,7 +13,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.extract.ExtractorI;
 
-import com.integratedgraphics.ifd.Extractor;
+import com.integratedgraphics.extractor.Extractor;
 import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
 import com.integratedgraphics.ifd.vendor.mestrelab.MNovaMetadataReader.Param;
 

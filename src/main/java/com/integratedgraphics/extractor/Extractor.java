@@ -1,4 +1,4 @@
-package com.integratedgraphics.ifd;
+package com.integratedgraphics.extractor;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -59,7 +59,6 @@ import org.iupac.fairdata.util.JSJSONParser;
 import org.iupac.fairdata.util.ZipUtil;
 
 import com.integratedgraphics.ifd.api.VendorPluginI;
-import com.integratedgraphics.ifd.util.PubInfoExtractor;
 
 import javajs.util.PT;
 

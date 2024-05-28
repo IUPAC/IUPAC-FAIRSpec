@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
-import com.integratedgraphics.ifd.util.DefaultVendorPlugin;
-
 public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 	
 	protected final static String IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET");

@@ -9,7 +9,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.extract.ExtractorI;
 import org.iupac.fairdata.util.ZipUtil;
 
-import com.integratedgraphics.ifd.util.DefaultVendorPlugin;
+import com.integratedgraphics.ifd.vendor.DefaultVendorPlugin;
 import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
 
 import jspecview.source.JDXReader;

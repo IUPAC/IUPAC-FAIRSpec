@@ -1,4 +1,4 @@
-package com.integratedgraphics.ifd.util;
+package com.integratedgraphics.ifd.vendor;
 
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.extract.ExtractorI;
 
-import com.integratedgraphics.ifd.Extractor;
+import com.integratedgraphics.extractor.Extractor;
 import com.integratedgraphics.ifd.api.VendorPluginI;
 
 import jspecview.source.JDXDataObject;
