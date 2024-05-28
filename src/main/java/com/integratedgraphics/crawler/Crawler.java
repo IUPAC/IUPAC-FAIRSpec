@@ -323,7 +323,7 @@ public class Crawler extends XmlReader {
 		Map<String, String> attrs;
 		switch (localName) {
 		case "description":
-			if (s.length() > 0) {
+			if (s.length() > 0 && !hack("description", s)) {
 				addAttrLast("description", s);
 			}
 			break;
@@ -342,7 +342,7 @@ public class Crawler extends XmlReader {
 			if (s.length() > 0) {
 				logAttr("relatedidentifier", s);
 			}
-			addRelatedIdentifier(getAttributes(true), s);
+			processRelatedIdentifier(getAttributes(true), s);
 			break;
 		default:
 			if (!skipping && s.length() > 0) {
@@ -363,32 +363,37 @@ public class Crawler extends XmlReader {
 //			</subjects>
 //
 		String key = attrs.get("subjectscheme");
-		switch (key) {
-		case FAIRSPEC_SUBJECT_SCHEME:
-			key = attrs.get("valueuri");
-			if (key.startsWith(FAIRSPEC_SCHEME_URI)) {
-				key = key.substring(key.lastIndexOf('/') + 1);
-			}
-			break;			
-		}
 		if (key != null) {
+			switch (key) {
+			case FAIRSPEC_SUBJECT_SCHEME:
+				key = attrs.get("valueuri");
+				if (key.startsWith(FAIRSPEC_SCHEME_URI)) {
+					key = key.substring(key.lastIndexOf('/') + 1);
+				}
+				break;
+			}
 			addAttrLast(key, s);
 		}
 	}
 
-	private void addRelatedIdentifier(Map<String, String> attrs, String s) {
+	private void processRelatedIdentifier(Map<String, String> attrs, String s) {
 		String type = attrs.get("relatedidentifiertype"); // DOI or URL
 		String generalType = attrs.get("relationtypegeneral");
 		switch (attrs.get("relationtype")) {
+		case "HasPart":
+			break;
 		case "References":
+			// only interested in JournalArticle
+			if (generalType == null)
+				return;
 			switch (generalType) {
 			case "JournalArticle":
 				type = "PUB" + type;
 				addAttrLast(type, s);
 				break;
+			default:
+				return;
 			}
-			break;
-		case "HasPart":
 			break;
 		default:
 			type = null;
@@ -403,22 +408,42 @@ public class Crawler extends XmlReader {
 		}
 	}
 
-	private void hack(String key, String val) {
+	/**
+	 * Process a hack for ICL preliminary repository files.
+	 * 
+	 * description DOI:.... to relatedIdentifier
+	 * 
+	 * title "Compound xx:..." adds subject IFD.property.fairspec.compound.id
+	 * 
+	 * @param key
+	 * @param val
+	 * @return
+	 */
+	private boolean hack(String key, String val) {
 		switch (key) {
 		case "description":
-			if (key.startsWith("DOI: ")) {
-				
+			if (val.startsWith("DOI: ")) {
+
+//			    replace this with:
+//				<relatedIdentifier 
+//					relatedIdentifierType="DOI" 
+//					relationType="References"
+//					relationTypeGeneral="JournalArticle">10.1021/acs.inorgchem.3c01506</relatedIdentifier>
+
+				String doi = val.substring(5).trim();
+				Map<String, String> attrs = new HashMap<>();
+				attrs.put("relatedidentifiertype", "DOI");
+				attrs.put("relationtype", "References");
+				attrs.put("relationtypegeneral", "JournalArticle");
+				processRelatedIdentifier(attrs, doi);
+
+				return true;
 			}
 			break;
 		case "title":
 			if (key.startsWith("Compound ")) {
-				Map<String, String> attrs = new HashMap<>();
-				String id = "" + PT.parseInt(key.substring(10));
-				attrs.put("subjectscheme", "IFD");
-				attrs.put("valueuri", "IFD.compound.id");
-				processSubject(attrs, id);
-				
-//				decided this needs to be supplemented by:
+
+				//				decided this needs to be supplemented by:
 //
 //					<subjects>
 //					    <subject 
@@ -426,12 +451,16 @@ public class Crawler extends XmlReader {
 //					subjectScheme="IFD" 
 //					valueURI="http://iupac.org/ifd/IFD.compound.id">21</subject>
 //					</subjects>
-//
-//
 
+				Map<String, String> attrs = new HashMap<>();
+				String id = "" + PT.parseInt(key.substring(10));
+				attrs.put("subjectscheme", "IFD");
+				attrs.put("valueuri", "IFD.property.fairspec.compound.id");
+				processSubject(attrs, id);
 			}
 			break;
 		}
+		return false;
 	}
 
 	private Map<String, String> getAttributes(boolean andPop) {
