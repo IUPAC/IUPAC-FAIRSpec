@@ -120,8 +120,9 @@ public class Extractor implements ExtractorI {
 
 	// TODO: update GitHub README.md
 
-	protected static final String version = "0.0.4-alpha+2023.01.09";
+	protected static final String version = "0.0.5-alpha+2024.05.28";
 
+	// 2024.05.28 version 0.0.5 moved to com.integratedgraphics.extractor.Extractor
 	// 2023.01.09 version 0.0.4 adds MNova_Page_Header parameter
 	// 2023.01.07 version 0.0.4 adds CDX reading by Jmol
 	// 2023.01.01 version 0.0.4 accepts structures automatically from ./structures/
@@ -859,7 +860,7 @@ public class Extractor implements ExtractorI {
 	 */
 	protected final static String SUBST = "=>";
 
-	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/Extractor.java";
+	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/extractor/Extractor.java";
 
 	protected static final int LOG_REJECTED = 0;
 	protected static final int LOG_IGNORED = 1;
@@ -1461,7 +1462,7 @@ public class Extractor implements ExtractorI {
 	}
 
 	protected FAIRSpecExtractorHelper newExtractionHelper() throws IFDException {
-		return new FAIRSpecExtractorHelper((ExtractorI) this, codeSource + " " + version);
+		return new FAIRSpecExtractorHelper((ExtractorI) this, getCodeSource() + " " + getVersion());
 	}
 
 	/**
@@ -2341,7 +2342,7 @@ public class Extractor implements ExtractorI {
 				lastRezipPath = originPath;
 				String localPath = localizePath(originPath);
 				CacheRepresentation ref = new CacheRepresentation(new IFDReference(helper.getCurrentSource().getID(),
-						originPath, extractorResource.rootPath, localPath), v, len, null, "application/zip");
+						originPath, extractorResource.rootPath, localPath, null), v, len, null, "application/zip");
 				// if this is a zip file, the data object will have been set to xxx.zip
 				// but we need this to be
 				String basePath = (baseOriginPath.endsWith("|")
@@ -3535,7 +3536,7 @@ public class Extractor implements ExtractorI {
 		}
 		addFileToFileLists(localizedName, LOG_OUTPUT, len, null);
 		CacheRepresentation rep = new CacheRepresentation(new IFDReference(helper.getCurrentSource().getID(),
-				originPath, extractorResource.rootPath, localizedName), null, len, ifdType, mediaType);
+				originPath, extractorResource.rootPath, localizedName, null), null, len, ifdType, mediaType);
 		vendorCache.put(localizedName, rep);
 		return rep;
 	}

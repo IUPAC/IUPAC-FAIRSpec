@@ -226,7 +226,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	protected boolean isValid = true;
 	protected boolean hasProperty = false;
-
+	
 	/**
 	 * 
 	 * @return
@@ -635,6 +635,12 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		serializeList(serializer);
 	}
 
+	protected IFDReference reference;
+	
+	public void setReference (IFDReference ref) {
+		this.reference = ref;
+	}
+	
 	protected void serializeTop(IFDSerializerI serializer) {
 		if (doSerializeType)
 			serializeClass(serializer, getClass(), null);
@@ -643,6 +649,9 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		serializer.addAttr("note", getNote());
 		serializer.addAttr("description", getDescription());
 		serializer.addAttr("timestamp", getTimestamp());
+		if (reference != null)
+			reference.serialize(serializer);
+
 		if (hasProperty)
 			serializer.addAttr("propertyPrefix", getPropertyPrefixForSerialization());
 	}

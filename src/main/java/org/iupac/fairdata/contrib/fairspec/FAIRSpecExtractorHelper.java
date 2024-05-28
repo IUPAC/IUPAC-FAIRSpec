@@ -312,9 +312,15 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	protected IFDCollection[] collections = new IFDCollection[5];
 	private ExtractorI extractor;
 
+	/**
+	 * 
+	 * @param extractor
+	 * @param creator
+	 * @throws IFDException in name only; necessary here, but will not be thown
+	 */
 	public FAIRSpecExtractorHelper(ExtractorI extractor, String creator) throws IFDException {
 		if (extractor == null)
-			throw new IFDException("FAIRSpecExtractorHelper: extractor cannot be null");
+			throw new RuntimeException("FAIRSpecExtractorHelper: extractor cannot be null");
 		this.extractor = extractor;
 		findingAid = new FAIRSpecFindingAid(null, null, creator);
 	}

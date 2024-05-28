@@ -135,6 +135,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 				get(i).setSerializeType(false);
 			}
 		}
+		
 	}
 
 	@Override

@@ -27,13 +27,18 @@ public class IFDReference implements IFDSerializableI {
 	 * source URL in the IFDFindingAid URLs list; must be set nonnegative
 	 * to register
 	 */
-	private String resourceID;
-
+	private final String resourceID;
+	
 	/**
 	 * label of this file
 	 */
-	private String localName;
+	private final String localName;
 	
+	/**
+	 * persistent identifier to this representation
+	 */
+	private final String pid;
+
 	/**
 	 * 
 	 * @param resourceID provides the resource path, ultimately
@@ -41,15 +46,12 @@ public class IFDReference implements IFDSerializableI {
 	 * @param localDir without closing "/"
 	 * @param localName
 	 */
-	public IFDReference(String resourceID, Object originPath, String localDir, String localName) {
+	public IFDReference(String resourceID, Object originPath, String localDir, String localName, String pid) {
 		this.originPath = originPath;
 		this.localDir = localDir;
 		this.localName = localName;
-		
-		if (originPath.equals("structures"))
-		  System.out.println("IFDREF " + originPath + " " + getLocalPath());
-
 		this.resourceID = resourceID;
+		this.pid = pid;
 	}
 
 	public Object getOriginPath() {
@@ -63,7 +65,7 @@ public class IFDReference implements IFDSerializableI {
 	public String getlocalDir() {
 		return localDir;
 	}
-	
+
 	public String getLocalPath() {
 		return (localDir == null ? "" : localDir + "/") + localName;
 	}
@@ -72,6 +74,10 @@ public class IFDReference implements IFDSerializableI {
 		return localName;
 	}
 
+	public String getPID() {
+		return pid;
+	}
+	
 	@Override
 	public String toString() {
 		return "[IFDReference " + (localDir == null ? "" : localDir + "::") + originPath + " :as::" + localName + "]";
@@ -80,9 +86,10 @@ public class IFDReference implements IFDSerializableI {
 	@Override
 	public void serialize(IFDSerializerI serializer) {
 		IFDObject.serializeClass(serializer, getClass(), null);
-		if (resourceID != null) {
+		if (resourceID != null)
 			serializer.addAttr("resourceID", resourceID);
-		}
+		if (pid != null)
+			serializer.addAttr("pid", pid);
 		if (originPath != null)
 			serializer.addAttr("originPath", originPath.toString());
 		if (localName != null) {
