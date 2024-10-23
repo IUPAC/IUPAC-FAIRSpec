@@ -17,6 +17,7 @@ public class PubInfoExtractor {
 		//"https://data.crosscite.org/application/vnd.datacite.datacite+json/";
 	
 	public final static String crossrefURL = "https://api.crossref.org/works/";
+	public static final String DOI_ORG = "https://doi.org/";
 	
 
 	/**
@@ -25,14 +26,14 @@ public class PubInfoExtractor {
 	 * @return
 	 */
 	public static String getCrossrefMetadataUrl(String puburi) {
-		if (puburi != null && puburi.startsWith("https://doi.org/")) {
+		if (puburi != null && puburi.startsWith(DOI_ORG)) {
 			return crossrefURL + puburi.substring(16);
 		}
 		return null;
 	}
 	
 	public static String getCrossciteMetadataUrl(String puburi) {
-		if (puburi != null && puburi.startsWith("https://doi.org/")) {
+		if (puburi != null && puburi.startsWith(DOI_ORG)) {
 			return crossciteURL + puburi.substring(16);
 		}
 		return null;

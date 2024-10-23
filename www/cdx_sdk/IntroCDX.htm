@@ -1,0 +1,188 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"><script type="text/javascript" src="CDX%20Format%20Specification_%20The%20CDX%20binary%20file%20format_files/bundle-playback.js" charset="utf-8"></script>
+<script type="text/javascript" src="CDX%20Format%20Specification_%20The%20CDX%20binary%20file%20format_files/wombat.js" charset="utf-8"></script>
+<script>window.RufflePlayer=window.RufflePlayer||{};window.RufflePlayer.config={"autoplay":"on","unmuteOverlay":"hidden"};</script>
+<script type="text/javascript" src="CDX%20Format%20Specification_%20The%20CDX%20binary%20file%20format_files/ruffle.js"></script>
+<script type="text/javascript">
+    __wm.pc(0.001);
+    __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/IntroCDX.htm","20210505150722","https://web.archive.org/","web","xhttps://web-static.archive.org/_static/",
+	      "1620227242");
+</script>
+<link rel="stylesheet" type="text/css" xxhref="CDX%20Format%20Specification_%20The%20CDX%20binary%20file%20format_files/banner-styles.css">
+<link rel="stylesheet" type="text/css" xxhref="CDX%20Format%20Specification_%20The%20CDX%20binary%20file%20format_files/iconochive.css">
+<!-- End Wayback Rewrite JS Include -->
+
+<title>CDX Format Specification: The CDX binary file format</title>
+<link rel="stylesheet" xxhref="CDX%20Format%20Specification_%20The%20CDX%20binary%20file%20format_" href="css/style.css" href="css/style.css"></head>
+
+<body bgcolor="#FFFFFF">
+<!--webbot bot="Include" U-Include="/chemdraw/header.htm" TAG="BODY" -->
+
+<h2>The CDX binary file format</h2>
+
+<p>A CDX file has the following general attributes:
+</p><ul>
+<li>It consists of a fixed header, followed by a series of tagged items.</li>
+<li>All multi-byte data items are stored in little-endian byte order, 
+that is, least significant byte first. (Intel uses little-endian; 
+Macintosh uses big-endian. Accordingly, CDX files must be byte-swapped 
+appropriately if they are to be read on Macintosh computers.)</li>
+</ul>
+
+<h3>Header Format</h3>
+
+<p>The CDX File Header consists of:
+</p><ul>
+<li>8 bytes with the value "VjCD0100" (<tt>56 6A 43 44 30 31 30 30</tt>)</li>
+<li>4 bytes reserved (<tt>04 03 02 01</tt>)</li>
+<li>16 bytes reserved, set to zero (<tt>00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</tt>).</li>
+</ul>
+
+<p><img src="CDXHeader.gif" alt="CDXHeader.gif (4668 bytes)" width="245" height="310"></p>
+
+<p>The header is then followed by an object tree of tagged items beginning with a document object.</p>
+
+<h3>End</h3>
+
+<p>The end of the CDX file is marked with two bytes of 0 (<tt>00 00</tt>).</p>
+
+<h3><a name="Attributes" href="TableOfProperties.htm">Properties</a></h3>
+
+<p>Properties, also called attributes, are self-contained. A property 
+applies to the object which logically contains it. It may also describe 
+other objects contained within the object which logically contains the 
+property. For example, bond order is a property of a bond, and molecular
+ weight is a property of a molecule. Unless otherwise noted, all 
+properties are optional.</p>
+
+<p>Properties have three parts, as follows:</p>
+
+<h4>Tag identifier</h4>
+
+<p>The tag identifier defines what this property represents -- for 
+instance, the order of a bond. The 2-byte tag identifier identifies the 
+property. Having the most significant bit (bit 15) clear indicates that 
+this is a property rather than an object. Bit 14 is clear for predefined
+ properties, set for user-defined properties. Therefore, there are 16383
+ tags reserved for predefined Properties and 16384 for user-defined 
+Properties.</p>
+
+<h4>Length</h4>
+
+<p>The 2-byte length item specifies the number of (8-bit) bytes that 
+comprise the data the property. The length is zero if the mere presence 
+of the property is sufficient.</p>
+
+<p>A length of 0xFFFF is a special value that indicates the object is 
+greater than 65534 bytes in size. In this case it is followed 
+immediately by an additional 4-byte Length item to specify the actual 
+length.</p>
+
+<h4>Data</h4>
+
+<p>The <em>n</em>-byte data item may be an integer, a floating point 
+number, or some other type determined by the property tag. For instance,
+ a RotationAngle property's value consists of a CDX angle.</p>
+
+<h4>Example</h4>
+
+<table>
+<tbody><tr><td><tt>06 00</tt></td><td>:</td><td valign="top">The tag identifier 0x0600 indicates a bond order</td></tr>
+<tr><td><tt>02 00</tt></td><td>:</td><td valign="top">Bond orders are stored as an INT16 value, consisting of two (0x0002) bytes</td></tr>
+<tr><td><tt>02 00</tt></td><td>:</td><td valign="top">This bond has a bond order of 0x0002.  It is a double bond.</td></tr>
+</tbody></table>
+
+<h3><a name="Objects" href="AllCDXObjects.htm"><big>Objects</big></a></h3>
+
+<p>Like properties, objects are also self-contained.  Unlike properties, however, objects can contain properties and other objects.</p>
+
+<p>Objects have four parts, as follows:</p>
+
+<h5>Tag Identifier</h5>
+<p>An object's tag is a two-byte value, which will always have the most 
+significant bit (bit 15) set. Bit 14 is zero for predefined objects, or 
+one for user-defined. There are therefore 16383 tags reserved for 
+predefined objects, and 16384 for user-defined objects.</p>
+
+<h4>Object Identifier</h4>
+
+<p>A four-byte object ID immediately follows the tag. It should be a 
+unique value within the container. An value of zero indicates that no ID
+ is assigned, and may only be used if the object is not referenced by 
+any other object.  Object IDs <em>need</em> only be unique within the containing object, however, we <em>recommend</em> that they be unique within the entire document.</p>
+
+<p>(In principle, a complete reference to any object in a CDX file may 
+require a series of object identifiers, each indicating the branch to 
+take at one level of the containment heirarchy. It is therefore 
+sufficient that identifiers be unique with respect to the other objects 
+housed in the same container. However, there is currently no mechanism 
+to specify series of object identifiers, and it is therefore recommended
+ that all object identifiers be "globally" unique for the time being, 
+when convenient.)</p>
+
+<h4>Object contents</h4>
+
+<p>An object may contain any number of properties or other objects.</p>
+
+<h4>EndObject</h4>
+
+<p>Every object ends with a pair of zero bytes (<tt>00 00</tt>).</p>
+
+<h4>Example</h4>
+
+<table>
+<tbody><tr><td valign="top"><tt>05 80</tt></td><td>:</td><td valign="top">The tag identifier 0x8005 indicates a bond</td></tr>
+<tr><td valign="top"><tt>1D 00 00 00</tt></td><td valign="top">:</td><td valign="top">This bond has an ID of 29 (0x0000001D)</td></tr>
+<tr><td valign="top"><tt>04 06 04 00 15 00 00 00</tt></td><td valign="top">:</td><td valign="top">The atom at the first end of this bond (property 0x0604) has ID 21 (0x00000015)</td></tr>
+<tr><td valign="top"><tt>05 06 04 00 16 00 00 00</tt></td><td valign="top">:</td><td valign="top">The atom at the second end of this bond (property 0x0605) has ID 22 (0x00000016)</td></tr>
+<tr><td valign="top"><tt>00 06 02 00 02 00</tt></td><td valign="top">:</td><td valign="top">This bond has a bond order (property 0x0600) of 0x0002.  It is a double bond.</td></tr>
+<tr><td valign="top"><tt>03 06 02 00 01 00</tt></td><td valign="top">:</td><td valign="top">This
+ double bond is positioned (property 0x0603) so that the second line of 
+the double bond is to the right of the first, looking from the first 
+atom to the second atom</td></tr>
+<tr><td valign="top"><tt>00 00</tt></td><td valign="top">:</td><td valign="top">There are no more properties or objects associated with this bond</td></tr>
+</tbody></table>
+
+<h3>Sample header file</h3>
+
+<p>As a convenience, we have provided a <a xxhref="CDXConstants.h">C++ header file</a>
+ with human-readable enumerations of all of the CDX object and property 
+values.  The enum names used in this file (kCDXProp_*, etc) are the same
+ as used throughout this documentation. This header file is provided 
+simply to save you the problem of typing the same values in again 
+youself.</p>
+
+<p>&nbsp;</p>
+
+<p><a href="General.htm">Return to Introduction</a><br>
+<a href="IntroExampleSimple.htm">Continue to simple example</a></p>
+
+
+
+<hr>
+<a href="index.htm">CDX Documentation index</a>
+<!--webbot bot="Include" U-Include="/footer.htm" TAG="BODY" -->
+
+
+</body></html>
+<!--
+     FILE ARCHIVED ON 15:07:22 May 05, 2021 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 05:34:23 Jul 22, 2024.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 1.331
+  exclusion.robots: 0.102
+  exclusion.robots.policy: 0.076
+  esindex: 0.034
+  cdx.remote: 32.434
+  LoadShardBlock: 258.622 (3)
+  PetaboxLoader3.resolve: 249.377 (3)
+  PetaboxLoader3.datanode: 239.833 (5)
+  load_resource: 332.206 (2)
+-->

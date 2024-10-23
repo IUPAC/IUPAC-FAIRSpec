@@ -1,0 +1,141 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"><script type="text/javascript" src="CDX%20Format%20Specification_%20The%20CDXML%20text-based%20file%20format_files/bundle-playback.js" charset="utf-8"></script>
+<script type="text/javascript" src="CDX%20Format%20Specification_%20The%20CDXML%20text-based%20file%20format_files/wombat.js" charset="utf-8"></script>
+<script>window.RufflePlayer=window.RufflePlayer||{};window.RufflePlayer.config={"autoplay":"on","unmuteOverlay":"hidden"};</script>
+<script type="text/javascript" src="CDX%20Format%20Specification_%20The%20CDXML%20text-based%20file%20format_files/ruffle.js"></script>
+<script type="text/javascript">
+    __wm.pc(0.001);
+    __wm.init("https://web.archive.org/web");
+  __wm.wombat("https://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/IntroCDXML.htm","20220504111704","https://web.archive.org/","web","xhttps://web-static.archive.org/_static/",
+	      "1651663024");
+</script>
+<link rel="stylesheet" type="text/css" xxhref="CDX%20Format%20Specification_%20The%20CDXML%20text-based%20file%20format_files/banner-styles.css">
+<link rel="stylesheet" type="text/css" xxhref="CDX%20Format%20Specification_%20The%20CDXML%20text-based%20file%20format_files/iconochive.css">
+<!-- End Wayback Rewrite JS Include -->
+
+<title>CDX Format Specification: The CDXML text-based file format</title>
+<link rel="stylesheet" xxhref="CDX%20Format%20Specification_%20The%20CDXML%20text-based%20file%20format_" href="css/style.css" href="css/style.css"></head>
+
+<body bgcolor="#FFFFFF">
+<!--webbot bot="Include" U-Include="/chemdraw/header.htm" TAG="BODY" -->
+
+<h2>The CDXML text-based file format</h2>
+
+<p>A CDXML is a CDX file specially formatted so that it conforms to the <a href="https://www.xml.org/">XML</a>
+ specification. We expect that anyone who manipulates a CDXML file will 
+be familiar with the general XML specifications, so we present only a 
+brief overview here.</p>
+
+<p>A CDXML file has the following general attributes:
+</p><ul>
+<li>Like a CDXML file, It consists of a fixed header followed by a series of tagged items.</li>
+<li>All multi-byte data items are stored as quoted text.  That is, the value equal to 2<sup>8</sup>
+ - 1 is stored as the three-byte string "255" rather than as the single 
+byte 0xFF or as any other value.  The same value might also be stored as
+ "255.0" or "255.00"; any program reading a CDXML file should be 
+flexible about data types.</li>
+<li>Any amount of whitespace is permitted between objects, and any non-zero amount of whitespace is permitted between properties.</li>
+</ul>
+
+<h3>Header Format</h3>
+
+<p>The CDX File Header consists of the following string:</p>
+
+<p><tt>&lt;?xml version="1.0" encoding="UTF-8" ?&gt;<br>
+&lt;!DOCTYPE CDXML SYSTEM "http://www.camsoft.com/xml/cdxml.dtd"&gt;</tt></p>
+
+<p>The header is then followed by an object tree of tagged items beginning with a document object.</p>
+
+<h3>End</h3>
+
+<p>Since the first object following the header is a document object, the
+ end of the file is signified by the end of the document object:</p>
+
+<p><tt>&lt;/CDXML&gt;</tt></p>
+
+<h4><a name="Attributes" href="TableOfProperties.htm">Properties</a></h4>
+
+<p>Properties, also called attributes, are self-contained. A property 
+applies to the object which logically contains it. It may also describe 
+other objects contained within the object which logically contains the 
+property. For example, bond order is a property of a bond, and molecular
+ weight is a property of a molecule. Unless otherwise noted, all 
+properties are optional.</p>
+
+<p>All properties have a name. Properties are included in a CDXML file 
+by listing the property name, an equals sign, and then a quoted string 
+representing the property's value.</p>
+
+<h5>Example</h5>
+
+<table>
+<tbody><tr><td><tt>Order="2"</tt></td><td>:</td><td valign="top">The bond with this property is a double bond</td></tr>
+</tbody></table>
+
+<h4><a name="Objects" href="AllCDXObjects.htm"><big>Objects</big></a></h4>
+
+<p>Like properties, objects are also self-contained.  Unlike properties, however, objects can contain properties and other objects.</p>
+
+<p>Each object has a name that identifies the type of object.  For 
+example, an object that represents a bond has the name "b".  These 
+names, like everything else in XML, are case-sensitive.</p><p>
+
+</p><p>The definition of an object starts with a less-than sign, 
+followed by the object's name.  Any properties, of present, are listed 
+immediately afterward in pairs formatted as <em>propertyname</em>="propertyvalue".  A greater-than sign will appear after the last property.</p>
+
+<p>The definition of an object ends with a less-than sign followed by a 
+slash followed by the object name again, followed by a greater-than 
+sign. Alternatively, if there are no subobjects, the end-object marker 
+may be omitted and replaced by a slash immediately before the first 
+closing greater-than sign.</p><p>
+
+</p><p>Any subobjects are listed between those object-begin and object-end markers.</p>
+
+<h5>Example</h5>
+
+<table>
+<tbody><tr><td valign="top"><tt>&lt;b</tt></td><td>:</td><td valign="top">This is a bond</td></tr>
+<tr><td valign="top"><tt>id="29"</tt></td><td>:</td><td valign="top">This bond has an ID of 29</td></tr>
+<tr><td valign="top"><tt>B="21"</tt></td><td valign="top">:</td><td valign="top">The atom at the first end of this bond has ID 21</td></tr>
+<tr><td valign="top"><tt>E="22"</tt></td><td valign="top">:</td><td valign="top">The atom at the first end of this bond has ID 22</td></tr>
+<tr><td valign="top"><tt>Order="2"</tt></td><td valign="top">:</td><td valign="top">This bond has a bond order 2.  It is a double bond.</td></tr>
+<tr><td valign="top"><tt>DoublePosition="Right"</tt></td><td valign="top">:</td><td valign="top">This
+ double bond is positioned so that the second line of the double bond is
+ to the right of the first, looking from the first atom to the second 
+atom</td></tr>
+<tr><td valign="top"><tt>/&gt;</tt></td><td valign="top">:</td><td valign="top">There are no more properties or objects associated with this bond</td></tr>
+</tbody></table>
+
+<p>&nbsp;</p>
+
+<p><a href="General.htm">Return to Introduction</a><br>
+<a href="IntroExampleSimple.htm">Continue to simple example</a>
+
+
+</p><hr>
+<a href="index.htm">CDX Documentation index</a>
+<!--webbot bot="Include" U-Include="/footer.htm" TAG="BODY" -->
+
+
+</body></html>
+<!--
+     FILE ARCHIVED ON 11:17:04 May 04, 2022 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 04:27:50 Jul 22, 2024.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 0.469
+  exclusion.robots: 0.023
+  exclusion.robots.policy: 0.013
+  esindex: 0.011
+  cdx.remote: 17.637
+  LoadShardBlock: 132.429 (3)
+  PetaboxLoader3.datanode: 194.237 (5)
+  load_resource: 1775.048 (2)
+  PetaboxLoader3.resolve: 1448.653 (2)
+-->

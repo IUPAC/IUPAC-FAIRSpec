@@ -1,0 +1,1040 @@
+<html>
+<head><script src="//archive.org/includes/analytics.js?v=cf34f82" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app203.us.archive.org';v.server_ms=287;archive_analytics.send_pageview({});});</script>
+<script type="text/javascript" src="xhttps://web-static.archive.org/_static/js/bundle-playback.js?v=qM_6omlu" charset="utf-8"></script>
+<script type="text/javascript" src="xhttps://web-static.archive.org/_static/js/wombat.js?v=txqj7nKC" charset="utf-8"></script>
+<script>window.RufflePlayer=window.RufflePlayer||{};window.RufflePlayer.config={"autoplay":"on","unmuteOverlay":"hidden"};</script>
+<script type="text/javascript" src="xhttps://web-static.archive.org/_static/js/ruffle/ruffle.js"></script>
+<script type="text/javascript">
+    __wm.pc(0.001);
+    __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Document.htm","20100503174317","https://web.archive.org/","web","xhttps://web-static.archive.org/_static/",
+	      "1272908597");
+</script>
+<link rel="stylesheet" type="text/css" href="xhttps://web-static.archive.org/_static/css/banner-styles.css?v=S1zqJCYt" />
+<link rel="stylesheet" type="text/css" href="xhttps://web-static.archive.org/_static/css/iconochive.css?v=qtvMKcIJ" />
+<!-- End Wayback Rewrite JS Include -->
+
+<title>CDX Format Specification: Document Object</title>
+</head>
+<link rel="stylesheet" xhref="/web/20100503174317cs_/http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/" href="css/style.css" href="css/style.css">
+<body bgcolor="#FFFFFF"><!-- BEGIN WAYBACK TOOLBAR INSERT -->
+<script>__wm.rw(0);</script>
+<div id="wm-ipp-base" lang="en" style="display:none;direction:ltr;">
+<div id="wm-ipp" style="position:fixed;left:0;top:0;right:0;">
+<div id="donato" style="position:relative;width:100%;">
+  <div id="donato-base">
+    <iframe id="donato-if" src="xhttps://archive.org/includes/donate.php?as_page=1&amp;platform=wb&amp;referer=https%3A//web.archive.org/web/20100503174317/http%3A//www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/Document.htm"
+	    scrolling="no" frameborder="0" style="width:100%; height:100%">
+    </iframe>
+  </div>
+</div><div id="wm-ipp-inside">
+  <div id="wm-toolbar" style="position:relative;display:flex;flex-flow:row nowrap;justify-content:space-between;">
+    <div id="wm-logo" style="/*width:110px;*/padding-top:12px;">
+      <a xhref="/web/" title="Wayback Machine home page"><img src="xhttps://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-200.png" srcset="xhttps://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-100.png, xhttps://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-150.png 1.5x, xhttps://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-200.png 2x" alt="Wayback Machine" style="width:100px" border="0" /></a>
+    </div>
+    <div class="c" style="display:flex;flex-flow:column nowrap;justify-content:space-between;flex:1;">
+      <form class="u" style="display:flex;flex-direction:row;flex-wrap:nowrap;" target="_top" method="get" action="/web/submit" name="wmtb" id="wmtb"><input type="text" name="url" id="wmtbURL" value="http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/Document.htm" onfocus="this.focus();this.select();" style="flex:1;"/><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20100503174317" /><input type="submit" value="Go" />
+      </form>
+      <div style="display:flex;flex-flow:row nowrap;align-items:flex-end;">
+                <div class="s" id="wm-nav-captures" style="flex:1;">
+                    <a class="t" xhref="/web/20100503174317*/http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/Document.htm" title="See a list of every capture for this URL">42 captures</a>
+          <div class="r" title="Timespan for captures of this URL">07 May 2006 - 26 Feb 2024</div>
+          </div>
+        <div class="k">
+          <a href="" id="wm-graph-anchor">
+            <div id="wm-ipp-sparkline" title="Explore captures for this URL" style="position: relative">
+              <canvas id="wm-sparkline-canvas" width="725" height="27" border="0"></canvas>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="n">
+      <table>
+        <tbody>
+          <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+          <tr class="m">
+            <td class="b" nowrap="nowrap"><a xhref="https://web.archive.org/web/20100103010131/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Document.htm" title="03 Jan 2010"><strong>Jan</strong></a></td>
+            <td class="c" id="displayMonthEl" title="You are here: 17:43:17 May 03, 2010">MAY</td>
+            <td class="f" nowrap="nowrap"><a xhref="https://web.archive.org/web/20150327131917/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Document.htm" title="27 Mar 2015"><strong>Mar</strong></a></td>
+          </tr>
+          <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+          <tr class="d">
+            <td class="b" nowrap="nowrap"><a xhref="https://web.archive.org/web/20100103010131/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Document.htm" title="01:01:31 Jan 03, 2010"><img src="xhttps://web-static.archive.org/_static/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a></td>
+            <td class="c" id="displayDayEl" style="width:34px;font-size:22px;white-space:nowrap;" title="You are here: 17:43:17 May 03, 2010">03</td>
+            <td class="f" nowrap="nowrap"><a xhref="https://web.archive.org/web/20150327131917/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Document.htm" title="13:19:17 Mar 27, 2015"><img src="xhttps://web-static.archive.org/_static/images/toolbar/wm_tb_nxt_on.png" alt="Next capture" width="14" height="16" border="0" /></a></td>
+          </tr>
+          <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+          <tr class="y">
+            <td class="b" nowrap="nowrap"><a xhref="https://web.archive.org/web/20070531125435/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Document.htm" title="31 May 2007"><strong>2007</strong></a></td>
+            <td class="c" id="displayYearEl" title="You are here: 17:43:17 May 03, 2010">2010</td>
+            <td class="f" nowrap="nowrap"><a xhref="https://web.archive.org/web/20150327131917/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Document.htm" title="27 Mar 2015"><strong>2015</strong></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="r" style="display:flex;flex-flow:column nowrap;align-items:flex-end;justify-content:space-between;">
+      <div id="wm-btns" style="text-align:right;height:23px;">
+                <span class="xxs">
+          <div id="wm-save-snapshot-success">success</div>
+          <div id="wm-save-snapshot-fail">fail</div>
+          <a id="wm-save-snapshot-open" href="#" title="Share via My Web Archive" >
+            <span class="iconochive-web"></span>
+          </a>
+          <a href="xhttps://archive.org/account/login.php" title="Sign In" id="wm-sign-in">
+            <span class="iconochive-person"></span>
+          </a>
+          <span id="wm-save-snapshot-in-progress" class="iconochive-web"></span>
+        </span>
+                <a class="xxs" href="http://faq.web.archive.org/" title="Get some help using the Wayback Machine" style="top:-6px;"><span class="iconochive-question" style="color:rgb(87,186,244);font-size:160%;"></span></a>
+        <a id="wm-tb-close" href="#close" style="top:-2px;" title="Close the toolbar"><span class="iconochive-remove-circle" style="color:#888888;font-size:240%;"></span></a>
+      </div>
+      <div id="wm-share" class="xxs">
+        <a xhref="/web/20100503174317/http://web.archive.org/screenshot/http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/Document.htm"
+           id="wm-screenshot"
+           title="screenshot">
+          <span class="wm-icon-screen-shot"></span>
+        </a>
+        <a href="#" id="wm-video" title="video">
+          <span class="iconochive-movies"></span>
+        </a>
+        <a id="wm-share-facebook" href="#" data-url="https://web.archive.org/web/20100503174317/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Document.htm" title="Share on Facebook" style="margin-right:5px;" target="_blank"><span class="iconochive-facebook" style="color:#3b5998;font-size:160%;"></span></a>
+        <a id="wm-share-twitter" href="#" data-url="https://web.archive.org/web/20100503174317/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Document.htm" title="Share on Twitter" style="margin-right:5px;" target="_blank"><span class="iconochive-twitter" style="color:#1dcaff;font-size:160%;"></span></a>
+      </div>
+      <div style="padding-right:2px;text-align:right;white-space:nowrap;">
+        <a id="wm-expand" class="wm-btn wm-closed" href="#expand" onclick="__wm.ex(event);return false;"><span id="wm-expand-icon" class="iconochive-down-solid"></span> <span class="xxs" style="font-size:80%;">About this capture</span></a>
+      </div>
+    </div>
+  </div>
+    <div id="wm-capinfo" style="border-top:1px solid #777;display:none; overflow: hidden">
+        <div id="wm-capinfo-notice" source="api"></div>
+                <div id="wm-capinfo-collected-by">
+    <div style="background-color:#666;color:#fff;font-weight:bold;text-align:center">COLLECTED BY</div>
+    <div style="padding:3px;position:relative" id="wm-collected-by-content">
+            <div style="display:inline-block;vertical-align:top;width:50%;">
+			<span class="c-logo" style="background-image:url(xhttps://archive.org/services/img/alexacrawls);"></span>
+		Organization: <a style="color:#33f;" href="xhttps://archive.org/details/alexacrawls" target="_new"><span class="wm-title">Alexa Crawls</span></a>
+		<div style="max-height:75px;overflow:hidden;position:relative;">
+	  <div style="position:absolute;top:0;left:0;width:100%;height:75px;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0) 90%,rgba(255,255,255,255) 100%);"></div>
+	  Starting in 1996, <a href="http://www.alexa.com/">Alexa Internet</a> has been donating their crawl data to the Internet Archive.  Flowing in every day, these data are added to the <a href="http://web.archive.org/">Wayback Machine</a> after an embargo period.
+	</div>
+	      </div>
+      <div style="display:inline-block;vertical-align:top;width:49%;">
+			<span class="c-logo" style="background-image:url(xhttps://archive.org/services/img/alexa_web_2010)"></span>
+		<div>Collection: <a style="color:#33f;" href="xhttps://archive.org/details/alexa_web_2010" target="_new"><span class="wm-title">alexa_web_2010</span></a></div>
+		<div style="max-height:75px;overflow:hidden;position:relative;">
+	  <div style="position:absolute;top:0;left:0;width:100%;height:75px;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0) 90%,rgba(255,255,255,255) 100%);"></div>
+	  this data is currently not publicly accessible.
+	</div>
+	      </div>
+    </div>
+    </div>
+    <div id="wm-capinfo-timestamps">
+    <div style="background-color:#666;color:#fff;font-weight:bold;text-align:center" title="Timestamps for the elements of this page">TIMESTAMPS</div>
+    <div>
+      <div id="wm-capresources" style="margin:0 5px 5px 5px;max-height:250px;overflow-y:scroll !important"></div>
+      <div id="wm-capresources-loading" style="text-align:left;margin:0 20px 5px 5px;display:none"><img src="xhttps://web-static.archive.org/_static/images/loading.gif" alt="loading" /></div>
+    </div>
+    </div>
+  </div></div></div></div><div id="wm-ipp-print">The Wayback Machine - https://web.archive.org/web/20100503174317/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Document.htm</div>
+<script type="text/javascript">//<![CDATA[
+__wm.bt(725,27,25,2,"web","http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/Document.htm","20100503174317",1996,"xhttps://web-static.archive.org/_static/",["xhttps://web-static.archive.org/_static/css/banner-styles.css?v=S1zqJCYt","xhttps://web-static.archive.org/_static/css/iconochive.css?v=qtvMKcIJ"], false);
+  __wm.rw(1);
+//]]></script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+ 
+<!--webbot bot="Include" U-Include="/chemdraw/header.htm" TAG="BODY" -->
+<h2>Document Object</h2>
+
+<table cellpadding="0" cellspacing="0">
+<tr><td valign="top"><b>CDXML Name:</b></td><td valign="top">CDXML</td></tr>
+<tr><td valign="top"><b>CDX Constant Name:</b></td><td valign="top">kCDXObj_Document</td></tr>
+<tr><td valign="top"><b>CDX Constant Value:</b></td><td valign="top">0x8000</td></tr>
+<tr><td valign="top"><b>Contained by objects:</b></td><td valign="top"></td></tr>
+<tr><td></td><td></td></tr>
+<tr><td valign="top"><b>First written/read in:</b></td><td valign="top">ChemDraw 4.0</td></tr>
+</table>
+<p><b><u>Description:</u></b><br>
+<p>A Document is the top-level CDX object. It contains all CDX propertys and objects. It is necessary (by definition) for any valid CDX or CDXML file.</p>
+
+<p>A Document must contain at least one <a href="Page.htm">Page</a> object, but it has no required properties.</p>
+
+<p>In versions of ChemDraw prior to 6.0, the <a href="properties/BoundingBox.htm">bounding box</a> property was  read and written as a member of the Document object, but its use is discouraged unless you need to maintain maximum compatibility with those older versions. Starting with ChemDraw 6.0, the data that used to be stored in the Document's bounding box property is now stored in the bounding box property of the relevent <a href="Page.htm">Page</a> object.</p><p>
+<p><b><u>Subobjects:</u></b><br>
+<table>
+<tr>
+<td width="10%"><b>Value</b></td>
+<td width="35%"><b>Name</b></td>
+<td width="35%"><b>CDXML Name</b></td>
+<td width="20%"><b></b></td>
+</tr>
+<tr>
+<td>0x8001</td>
+<td><a href="Page.htm">kCDXObj_Page</a></font></b></td>
+<td>page</td>
+</tr>
+<tr>
+<td></td><td colspan="3">A drawing space that can contain other objects.</td>
+</tr>
+<tr>
+<td>0x800B</td>
+<td><a href="TemplateGrid.htm">kCDXObj_TemplateGrid</a></font></b></td>
+<td>templategrid</td>
+</tr>
+<tr>
+<td></td><td colspan="3">A TemplateGrid indicates how multiple CDX page objects should be arranged in a Template document.</td>
+</tr>
+<tr>
+<td>0x0300</td>
+<td><a href="ColorTable.htm">kCDXProp_ColorTable</a></font></b></td>
+<td>colortable</td>
+</tr>
+<tr>
+<td></td><td colspan="3">The color palette used throughout the document. Color indexes 0 and 1 always correspond to black and white and are not saved in the color table. The first and second RGB values (color indexes 2 and 3) are the default background and foreground colors, and other colors are numbered sequentially.</td>
+</tr>
+<tr>
+<td>0x0100</td>
+<td><a href="FontTable.htm">kCDXProp_FontTable</a></font></b></td>
+<td>fonttable</td>
+</tr>
+<tr>
+<td></td><td colspan="3">A list of fonts used in the document.</td>
+</tr>
+</table>
+<p><b><u>Properties:</u></b><br>
+<table>
+<tr>
+<td width="10%"><b>Value</b></td>
+<td width="35%"><b>Name</b></td>
+<td width="35%"><b>CDXML Name</b></td>
+<td width="20%"><b>Type</b></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0001</td>
+<td><a href="properties/CreationUserName.htm">kCDXProp_CreationUserName</a></td>
+<td>CreationUserName</td>
+<td><a href="DataType/CDXString.htm">CDXString</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The name of the creator (program user's name) of the document.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0002</td>
+<td><a href="properties/CreationDate.htm">kCDXProp_CreationDate</a></td>
+<td>CreationDate</td>
+<td><a href="DataType/DateAndTime.htm">CDXDate</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The time of object creation.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0003</td>
+<td><a href="properties/CreationProgram.htm">kCDXProp_CreationProgram</a></td>
+<td>CreationProgram</td>
+<td><a href="DataType/CDXString.htm">CDXString</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The name of the program, including version and platform, that created the associated CDX object. ChemDraw 4.0 uses "ChemDraw 4.0" as the value of CreationProgram.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0004</td>
+<td><a href="properties/ModificationUserName.htm">kCDXProp_ModificationUserName</a></td>
+<td>ModificationUserName</td>
+<td><a href="DataType/CDXString.htm">CDXString</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The name of the last modifier (program user's name) of the document.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0005</td>
+<td><a href="properties/ModificationDate.htm">kCDXProp_ModificationDate</a></td>
+<td>ModificationDate</td>
+<td><a href="DataType/DateAndTime.htm">CDXDate</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Time of the last modification.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0006</td>
+<td><a href="properties/ModificationProgram.htm">kCDXProp_ModificationProgram</a></td>
+<td>ModificationProgram</td>
+<td><a href="DataType/CDXString.htm">CDXString</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The name of the program, including version and platform, of the last program to perform a modification. ChemDraw 4.0 uses "ChemDraw 4.0" as the value of CreationProgram.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0008</td>
+<td><a href="properties/Name.htm">kCDXProp_Name</a></td>
+<td>Name</td>
+<td><a href="DataType/CDXString.htm">CDXString</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+<font color="#FF0000">Required for objecttags.</font> Name of an object.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0009</td>
+<td><a href="properties/Comment.htm">kCDXProp_Comment</a></td>
+<td>Comment</td>
+<td><a href="DataType/CDXString.htm">CDXString</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+An arbitrary string intended to be meaningful to a user.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0100</td>
+<td><a href="properties/FontTable.htm">kCDXProp_FontTable</a></td>
+<td>fonttable</td>
+<td><a href="DataType/CDXFontTable.htm">CDXFontTable</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+<font color="#FF0000">Required if fonts are used.</font> A list of fonts used in the document.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0204</td>
+<td><a href="properties/BoundingBox.htm">kCDXProp_BoundingBox</a></td>
+<td>BoundingBox</td>
+<td><a href="DataType/CDXCoordinates.htm">CDXRectangle</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The smallest rectangle that encloses the graphical representation of the object.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0300</td>
+<td><a href="properties/ColorTable.htm">kCDXProp_ColorTable</a></td>
+<td>colortable</td>
+<td><a href="DataType/CDXColorTable.htm">CDXColorTable</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The color palette used throughout the document.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x043A</td>
+<td><a href="properties/Atom_ShowQuery.htm">kCDXProp_Atom_ShowQuery</a></td>
+<td>ShowAtomQuery</td>
+<td><a href="DataType/CDXBoolean.htm">CDXBoolean</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Show the query indicator if non-zero.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x043B</td>
+<td><a href="properties/Atom_ShowStereo.htm">kCDXProp_Atom_ShowStereo</a></td>
+<td>ShowAtomStereo</td>
+<td><a href="DataType/CDXBoolean.htm">CDXBoolean</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Show the stereochemistry indicator if non-zero.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x043C</td>
+<td><a href="properties/Atom_ShowAtomNumber.htm">kCDXProp_Atom_ShowAtomNumber</a></td>
+<td>ShowAtomNumber</td>
+<td><a href="DataType/CDXBoolean.htm">CDXBoolean</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Show the atom number if non-zero.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x060C</td>
+<td><a href="properties/Bond_ShowQuery.htm">kCDXProp_Bond_ShowQuery</a></td>
+<td>ShowBondQuery</td>
+<td><a href="DataType/CDXBoolean.htm">CDXBoolean</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Show the query indicator if non-zero.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x060D</td>
+<td><a href="properties/Bond_ShowStereo.htm">kCDXProp_Bond_ShowStereo</a></td>
+<td>ShowBondStereo</td>
+<td><a href="DataType/CDXBoolean.htm">CDXBoolean</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Show the stereochemistry indicator if non-zero.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x060F</td>
+<td><a href="properties/Bond_ShowRxn.htm">kCDXProp_Bond_ShowRxn</a></td>
+<td>ShowBondRxn</td>
+<td><a href="DataType/CDXBoolean.htm">CDXBoolean</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Show the reaction-change indicator if non-zero.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0706</td>
+<td><a href="properties/LabelLineHeight.htm">kCDXProp_LabelLineHeight</a></td>
+<td>LabelLineHeight</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Text line height for atom labels
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0707</td>
+<td><a href="properties/CaptionLineHeight.htm">kCDXProp_CaptionLineHeight</a></td>
+<td>CaptionLineHeight</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Text line height for non-atomlabel text objects
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0708</td>
+<td><a href="properties/InterpretChemically.htm">kCDXProp_InterpretChemically</a></td>
+<td>InterpretChemically</td>
+<td><a href="DataType/CDXBoolean.htm">CDXBooleanImplied</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Signifies whether to the text label should be interpreted chemically (if possible).
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0800</td>
+<td><a href="properties/MacPrintInfo.htm">kCDXProp_MacPrintInfo</a></td>
+<td>MacPrintInfo</td>
+<td><a href="DataType/Unformatted.htm">Unformatted</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The 120 byte Macintosh TPrint data associated with the CDX document object. Refer to Macintosh Toolbox manual for detailed description.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0801</td>
+<td><a href="properties/WinPrintInfo.htm">kCDXProp_WinPrintInfo</a></td>
+<td>WinPrintInfo</td>
+<td><a href="DataType/Unformatted.htm">Unformatted</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The Windows DEVMODE structure associated with the CDX document object.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0802</td>
+<td><a href="properties/PrintMargins.htm">kCDXProp_PrintMargins</a></td>
+<td>PrintMargins</td>
+<td><a href="DataType/CDXCoordinates.htm">CDXRectangle</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The outer margins of the Document.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0803</td>
+<td><a href="properties/ChainAngle.htm">kCDXProp_ChainAngle</a></td>
+<td>ChainAngle</td>
+<td><a href="DataType/CDXNumeric.htm">INT32</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default chain angle setting in degrees * 65536.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0804</td>
+<td><a href="properties/BondSpacing.htm">kCDXProp_BondSpacing</a></td>
+<td>BondSpacing         </td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The spacing between segments of a multiple bond, measured relative to bond length.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0805</td>
+<td><a href="properties/BondLength.htm">kCDXProp_BondLength</a></td>
+<td>BondLength          </td>
+<td><a href="DataType/CDXCoordinates.htm">CDXCoordinate</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default bond length.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0806</td>
+<td><a href="properties/BoldWidth.htm">kCDXProp_BoldWidth</a></td>
+<td>BoldWidth           </td>
+<td><a href="DataType/CDXCoordinates.htm">CDXCoordinate</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default bold bond width.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0807</td>
+<td><a href="properties/LineWidth.htm">kCDXProp_LineWidth</a></td>
+<td>LineWidth           </td>
+<td><a href="DataType/CDXCoordinates.htm">CDXCoordinate</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default line width.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0808</td>
+<td><a href="properties/MarginWidth.htm">kCDXProp_MarginWidth</a></td>
+<td>MarginWidth         </td>
+<td><a href="DataType/CDXCoordinates.htm">CDXCoordinate</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default amount of space surrounding atom labels.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0809</td>
+<td><a href="properties/HashSpacing.htm">kCDXProp_HashSpacing</a></td>
+<td>HashSpacing         </td>
+<td><a href="DataType/CDXCoordinates.htm">CDXCoordinate</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default spacing between hashed lines used in wedged hashed bonds.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x080A</td>
+<td><a href="properties/LabelStyle.htm">kCDXProp_LabelStyle</a></td>
+<td>(not used)</td>
+<td><a href="DataType/CDXString.htm">CDXFontStyle</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default style for atom labels..
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x080B</td>
+<td><a href="properties/CaptionStyle.htm">kCDXProp_CaptionStyle</a></td>
+<td>(not used)</td>
+<td><a href="DataType/CDXString.htm">CDXFontStyle</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default style for non-atomlabel text objects..
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x080C</td>
+<td><a href="properties/CaptionJustification.htm">kCDXProp_CaptionJustification</a></td>
+<td>CaptionJustification</td>
+<td><a href="DataType/CDXNumeric.htm">INT8</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The horizontal justification of a caption (non-atomlabel text object)
+This is an enumerated property.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x080D</td>
+<td><a href="properties/FractionalWidths.htm">kCDXProp_FractionalWidths</a></td>
+<td>FractionalWidths</td>
+<td><a href="DataType/CDXBoolean.htm">CDXBooleanImplied</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Signifies whether to use fractional width information when drawing text.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x080E</td>
+<td><a href="properties/Magnification.htm">kCDXProp_Magnification</a></td>
+<td>Magnification</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The view magnification factor
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x081A</td>
+<td><a href="properties/LabelStyleFont.htm">kCDXProp_LabelStyleFont</a></td>
+<td>LabelFont</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default font family for atom labels.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x081B</td>
+<td><a href="properties/CaptionStyleFont.htm">kCDXProp_CaptionStyleFont</a></td>
+<td>CaptionFont</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default font style for captions (non-atom-label text objects).
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x081C</td>
+<td><a href="properties/LabelStyleSize.htm">kCDXProp_LabelStyleSize</a></td>
+<td>LabelSize</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default font size for atom labels.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x081D</td>
+<td><a href="properties/CaptionStyleSize.htm">kCDXProp_CaptionStyleSize</a></td>
+<td>CaptionSize</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default font size for captions (non-atom-label text objects).
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x081E</td>
+<td><a href="properties/LabelStyleFace.htm">kCDXProp_LabelStyleFace</a></td>
+<td>LabelFace</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default font style for atom labels.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x081F</td>
+<td><a href="properties/CaptionStyleFace.htm">kCDXProp_CaptionStyleFace</a></td>
+<td>CaptionFace</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default font face for captions (non-atom-label text objects).
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0820</td>
+<td><a href="properties/LabelStyleColor.htm">kCDXProp_LabelStyleColor</a></td>
+<td>LabelColor</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default color for atom labels
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0821</td>
+<td><a href="properties/CaptionStyleColor.htm">kCDXProp_CaptionStyleColor</a></td>
+<td>CaptionColor</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default color for captions (non-atom-label text objects).
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0823</td>
+<td><a href="properties/LabelJustification.htm">kCDXProp_LabelJustification</a></td>
+<td>LabelJustification</td>
+<td><a href="DataType/CDXNumeric.htm">INT8</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default justification for atom labels.
+This is an enumerated property.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0824</td>
+<td><a href="properties/FixInplaceExtent.htm">kCDXProp_FixInplaceExtent</a></td>
+<td>FixInPlaceExtent</td>
+<td><a href="DataType/CDXCoordinates.htm">CDXPoint2D</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Defines a size for OLE In-Place editing.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0826</td>
+<td><a href="properties/FixInplaceGap.htm">kCDXProp_FixInplaceGap</a></td>
+<td>FixInPlaceGap</td>
+<td><a href="DataType/CDXCoordinates.htm">CDXPoint2D</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Defines a padding for OLE In-Place editing.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0827</td>
+<td><a href="properties/CartridgeData.htm">kCDXProp_CartridgeData</a></td>
+<td>CartridgeData</td>
+<td><a href="DataType/Unformatted.htm">Unformatted</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Transient data used by the CambridgeSoft Oracle Cartridge.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0900</td>
+<td><a href="properties/Window_IsZoomed.htm">kCDXProp_Window_IsZoomed</a></td>
+<td>WindowIsZoomed</td>
+<td><a href="DataType/CDXBoolean.htm">CDXBooleanImplied</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Signifies whether the main viewing window is zoomed (maximized).
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0901</td>
+<td><a href="properties/Window_Position.htm">kCDXProp_Window_Position</a></td>
+<td>WindowPosition</td>
+<td><a href="DataType/CDXCoordinates.htm">CDXPoint2D</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The top-left position of the main viewing window.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0902</td>
+<td><a href="properties/Window_Size.htm">kCDXProp_Window_Size</a></td>
+<td>WindowSize</td>
+<td><a href="DataType/CDXCoordinates.htm">CDXPoint2D</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Height and width of the document window.
+</td>
+</tr>
+
+</table>
+<p>&nbsp;</p>
+<hr>
+<a href="index.htm">CDX Documentation index</a>
+<!--webbot bot="Include" U-Include="/footer.htm" TAG="BODY" -->
+</body></html>
+<!--
+     FILE ARCHIVED ON 17:43:17 May 03, 2010 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 04:41:27 Jul 22, 2024.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 0.864
+  exclusion.robots: 0.228
+  exclusion.robots.policy: 0.215
+  esindex: 0.012
+  cdx.remote: 5.835
+  LoadShardBlock: 143.37 (3)
+  PetaboxLoader3.datanode: 93.561 (4)
+  PetaboxLoader3.resolve: 140.623 (2)
+  load_resource: 105.215
+-->

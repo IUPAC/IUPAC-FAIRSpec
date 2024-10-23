@@ -1,0 +1,765 @@
+<html>
+<head><script src="//archive.org/includes/analytics.js?v=cf34f82" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app204.us.archive.org';v.server_ms=541;archive_analytics.send_pageview({});});</script>
+<script type="text/javascript" src="xhttps://web-static.archive.org/_static/js/bundle-playback.js?v=qM_6omlu" charset="utf-8"></script>
+<script type="text/javascript" src="xhttps://web-static.archive.org/_static/js/wombat.js?v=txqj7nKC" charset="utf-8"></script>
+<script>window.RufflePlayer=window.RufflePlayer||{};window.RufflePlayer.config={"autoplay":"on","unmuteOverlay":"hidden"};</script>
+<script type="text/javascript" src="xhttps://web-static.archive.org/_static/js/ruffle/ruffle.js"></script>
+<script type="text/javascript">
+    __wm.pc(0.001);
+    __wm.init("https://web.archive.org/web");
+  __wm.wombat("http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Bond.htm","20100503174525","https://web.archive.org/","web","xhttps://web-static.archive.org/_static/",
+	      "1272908725");
+</script>
+<link rel="stylesheet" type="text/css" href="xhttps://web-static.archive.org/_static/css/banner-styles.css?v=S1zqJCYt" />
+<link rel="stylesheet" type="text/css" href="xhttps://web-static.archive.org/_static/css/iconochive.css?v=qtvMKcIJ" />
+<!-- End Wayback Rewrite JS Include -->
+
+<title>CDX Format Specification: Bond Object</title>
+</head>
+<link rel="stylesheet" xhref="/web/20100503174525cs_/http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/" href="css/style.css" href="css/style.css">
+<body bgcolor="#FFFFFF"><!-- BEGIN WAYBACK TOOLBAR INSERT -->
+<script>__wm.rw(0);</script>
+<div id="wm-ipp-base" lang="en" style="display:none;direction:ltr;">
+<div id="wm-ipp" style="position:fixed;left:0;top:0;right:0;">
+<div id="donato" style="position:relative;width:100%;">
+  <div id="donato-base">
+    <iframe id="donato-if" src="xhttps://archive.org/includes/donate.php?as_page=1&amp;platform=wb&amp;referer=https%3A//web.archive.org/web/20100503174525/http%3A//www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/Bond.htm"
+	    scrolling="no" frameborder="0" style="width:100%; height:100%">
+    </iframe>
+  </div>
+</div><div id="wm-ipp-inside">
+  <div id="wm-toolbar" style="position:relative;display:flex;flex-flow:row nowrap;justify-content:space-between;">
+    <div id="wm-logo" style="/*width:110px;*/padding-top:12px;">
+      <a xhref="/web/" title="Wayback Machine home page"><img src="xhttps://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-200.png" srcset="xhttps://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-100.png, xhttps://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-150.png 1.5x, xhttps://web-static.archive.org/_static/images/toolbar/wayback-toolbar-logo-200.png 2x" alt="Wayback Machine" style="width:100px" border="0" /></a>
+    </div>
+    <div class="c" style="display:flex;flex-flow:column nowrap;justify-content:space-between;flex:1;">
+      <form class="u" style="display:flex;flex-direction:row;flex-wrap:nowrap;" target="_top" method="get" action="/web/submit" name="wmtb" id="wmtb"><input type="text" name="url" id="wmtbURL" value="http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/Bond.htm" onfocus="this.focus();this.select();" style="flex:1;"/><input type="hidden" name="type" value="replay" /><input type="hidden" name="date" value="20100503174525" /><input type="submit" value="Go" />
+      </form>
+      <div style="display:flex;flex-flow:row nowrap;align-items:flex-end;">
+                <div class="s" id="wm-nav-captures" style="flex:1;">
+                    <a class="t" xhref="/web/20100503174525*/http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/Bond.htm" title="See a list of every capture for this URL">26 captures</a>
+          <div class="r" title="Timespan for captures of this URL">31 May 2007 - 26 Feb 2024</div>
+          </div>
+        <div class="k">
+          <a href="" id="wm-graph-anchor">
+            <div id="wm-ipp-sparkline" title="Explore captures for this URL" style="position: relative">
+              <canvas id="wm-sparkline-canvas" width="725" height="27" border="0"></canvas>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="n">
+      <table>
+        <tbody>
+          <!-- NEXT/PREV MONTH NAV AND MONTH INDICATOR -->
+          <tr class="m">
+            <td class="b" nowrap="nowrap"><a xhref="https://web.archive.org/web/20100103010046/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Bond.htm" title="03 Jan 2010"><strong>Jan</strong></a></td>
+            <td class="c" id="displayMonthEl" title="You are here: 17:45:25 May 03, 2010">MAY</td>
+            <td class="f" nowrap="nowrap"><a xhref="https://web.archive.org/web/20130615041232/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Bond.htm" title="15 Jun 2013"><strong>Jun</strong></a></td>
+          </tr>
+          <!-- NEXT/PREV CAPTURE NAV AND DAY OF MONTH INDICATOR -->
+          <tr class="d">
+            <td class="b" nowrap="nowrap"><a xhref="https://web.archive.org/web/20100103010046/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Bond.htm" title="01:00:46 Jan 03, 2010"><img src="xhttps://web-static.archive.org/_static/images/toolbar/wm_tb_prv_on.png" alt="Previous capture" width="14" height="16" border="0" /></a></td>
+            <td class="c" id="displayDayEl" style="width:34px;font-size:22px;white-space:nowrap;" title="You are here: 17:45:25 May 03, 2010">03</td>
+            <td class="f" nowrap="nowrap"><a xhref="https://web.archive.org/web/20130615041232/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Bond.htm" title="04:12:32 Jun 15, 2013"><img src="xhttps://web-static.archive.org/_static/images/toolbar/wm_tb_nxt_on.png" alt="Next capture" width="14" height="16" border="0" /></a></td>
+          </tr>
+          <!-- NEXT/PREV YEAR NAV AND YEAR INDICATOR -->
+          <tr class="y">
+            <td class="b" nowrap="nowrap"><a xhref="https://web.archive.org/web/20070531123116/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Bond.htm" title="31 May 2007"><strong>2007</strong></a></td>
+            <td class="c" id="displayYearEl" title="You are here: 17:45:25 May 03, 2010">2010</td>
+            <td class="f" nowrap="nowrap"><a xhref="https://web.archive.org/web/20130615041232/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Bond.htm" title="15 Jun 2013"><strong>2013</strong></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="r" style="display:flex;flex-flow:column nowrap;align-items:flex-end;justify-content:space-between;">
+      <div id="wm-btns" style="text-align:right;height:23px;">
+                <span class="xxs">
+          <div id="wm-save-snapshot-success">success</div>
+          <div id="wm-save-snapshot-fail">fail</div>
+          <a id="wm-save-snapshot-open" href="#" title="Share via My Web Archive" >
+            <span class="iconochive-web"></span>
+          </a>
+          <a href="xhttps://archive.org/account/login.php" title="Sign In" id="wm-sign-in">
+            <span class="iconochive-person"></span>
+          </a>
+          <span id="wm-save-snapshot-in-progress" class="iconochive-web"></span>
+        </span>
+                <a class="xxs" href="http://faq.web.archive.org/" title="Get some help using the Wayback Machine" style="top:-6px;"><span class="iconochive-question" style="color:rgb(87,186,244);font-size:160%;"></span></a>
+        <a id="wm-tb-close" href="#close" style="top:-2px;" title="Close the toolbar"><span class="iconochive-remove-circle" style="color:#888888;font-size:240%;"></span></a>
+      </div>
+      <div id="wm-share" class="xxs">
+        <a xhref="/web/20100503174525/http://web.archive.org/screenshot/http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/Bond.htm"
+           id="wm-screenshot"
+           title="screenshot">
+          <span class="wm-icon-screen-shot"></span>
+        </a>
+        <a href="#" id="wm-video" title="video">
+          <span class="iconochive-movies"></span>
+        </a>
+        <a id="wm-share-facebook" href="#" data-url="https://web.archive.org/web/20100503174525/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Bond.htm" title="Share on Facebook" style="margin-right:5px;" target="_blank"><span class="iconochive-facebook" style="color:#3b5998;font-size:160%;"></span></a>
+        <a id="wm-share-twitter" href="#" data-url="https://web.archive.org/web/20100503174525/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Bond.htm" title="Share on Twitter" style="margin-right:5px;" target="_blank"><span class="iconochive-twitter" style="color:#1dcaff;font-size:160%;"></span></a>
+      </div>
+      <div style="padding-right:2px;text-align:right;white-space:nowrap;">
+        <a id="wm-expand" class="wm-btn wm-closed" href="#expand" onclick="__wm.ex(event);return false;"><span id="wm-expand-icon" class="iconochive-down-solid"></span> <span class="xxs" style="font-size:80%;">About this capture</span></a>
+      </div>
+    </div>
+  </div>
+    <div id="wm-capinfo" style="border-top:1px solid #777;display:none; overflow: hidden">
+        <div id="wm-capinfo-notice" source="api"></div>
+                <div id="wm-capinfo-collected-by">
+    <div style="background-color:#666;color:#fff;font-weight:bold;text-align:center">COLLECTED BY</div>
+    <div style="padding:3px;position:relative" id="wm-collected-by-content">
+            <div style="display:inline-block;vertical-align:top;width:50%;">
+			<span class="c-logo" style="background-image:url(xhttps://archive.org/services/img/alexacrawls);"></span>
+		Organization: <a style="color:#33f;" href="xhttps://archive.org/details/alexacrawls" target="_new"><span class="wm-title">Alexa Crawls</span></a>
+		<div style="max-height:75px;overflow:hidden;position:relative;">
+	  <div style="position:absolute;top:0;left:0;width:100%;height:75px;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0) 90%,rgba(255,255,255,255) 100%);"></div>
+	  Starting in 1996, <a href="http://www.alexa.com/">Alexa Internet</a> has been donating their crawl data to the Internet Archive.  Flowing in every day, these data are added to the <a href="http://web.archive.org/">Wayback Machine</a> after an embargo period.
+	</div>
+	      </div>
+      <div style="display:inline-block;vertical-align:top;width:49%;">
+			<span class="c-logo" style="background-image:url(xhttps://archive.org/services/img/alexa_web_2010)"></span>
+		<div>Collection: <a style="color:#33f;" href="xhttps://archive.org/details/alexa_web_2010" target="_new"><span class="wm-title">alexa_web_2010</span></a></div>
+		<div style="max-height:75px;overflow:hidden;position:relative;">
+	  <div style="position:absolute;top:0;left:0;width:100%;height:75px;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0) 90%,rgba(255,255,255,255) 100%);"></div>
+	  this data is currently not publicly accessible.
+	</div>
+	      </div>
+    </div>
+    </div>
+    <div id="wm-capinfo-timestamps">
+    <div style="background-color:#666;color:#fff;font-weight:bold;text-align:center" title="Timestamps for the elements of this page">TIMESTAMPS</div>
+    <div>
+      <div id="wm-capresources" style="margin:0 5px 5px 5px;max-height:250px;overflow-y:scroll !important"></div>
+      <div id="wm-capresources-loading" style="text-align:left;margin:0 20px 5px 5px;display:none"><img src="xhttps://web-static.archive.org/_static/images/loading.gif" alt="loading" /></div>
+    </div>
+    </div>
+  </div></div></div></div><div id="wm-ipp-print">The Wayback Machine - https://web.archive.org/web/20100503174525/http://www.cambridgesoft.com:80/services/documentation/sdk/chemdraw/cdx/Bond.htm</div>
+<script type="text/javascript">//<![CDATA[
+__wm.bt(725,27,25,2,"web","http://www.cambridgesoft.com/services/documentation/sdk/chemdraw/cdx/Bond.htm","20100503174525",1996,"xhttps://web-static.archive.org/_static/",["xhttps://web-static.archive.org/_static/css/banner-styles.css?v=S1zqJCYt","xhttps://web-static.archive.org/_static/css/iconochive.css?v=qtvMKcIJ"], false);
+  __wm.rw(1);
+//]]></script>
+<!-- END WAYBACK TOOLBAR INSERT -->
+ 
+<!--webbot bot="Include" U-Include="/chemdraw/header.htm" TAG="BODY" -->
+<h2>Bond Object</h2>
+
+<table cellpadding="0" cellspacing="0">
+<tr><td valign="top"><b>CDXML Name:</b></td><td valign="top">b</td></tr>
+<tr><td valign="top"><b>CDX Constant Name:</b></td><td valign="top">kCDXObj_Bond</td></tr>
+<tr><td valign="top"><b>CDX Constant Value:</b></td><td valign="top">0x8005</td></tr>
+<tr><td valign="top"><b>Contained by objects:</b></td><td valign="top"><a href="Fragment.htm">kCDXObj_Fragment</a></td></tr>
+<tr><td></td><td></td></tr>
+<tr><td valign="top"><b>First written/read in:</b></td><td valign="top">ChemDraw 4.0</td></tr>
+</table>
+<p><b><u>Description:</u></b><br>
+<p>A Bond object defines a connection between Node objects. It corresponds directly to the notion of a chemical bond.</p>
+
+<p>All Bonds must be contained in <a href="Fragment.htm">Fragment</a> objects; they cannot be stored directly in <a href="Page.htm">Page</a> or <a href="Fragment.htm">Fragment</a> objects.</p>
+
+<p>Bond objects require Begin and End properties, but do not have any required objects.</p><p>
+<p><b><u>Subobjects:</u></b><br>
+<table>
+<tr>
+<td width="10%"><b>Value</b></td>
+<td width="35%"><b>Name</b></td>
+<td width="35%"><b>CDXML Name</b></td>
+<td width="20%"><b></b></td>
+</tr>
+<tr>
+<td>0x8011</td>
+<td><a href="ObjectTag.htm">kCDXObj_ObjectTag</a></font></b></td>
+<td>objecttag</td>
+</tr>
+<tr>
+<td></td><td colspan="3">Arbitrarily named property, one or more of which can be attached to any ChemDraw object.</td>
+</tr>
+</table>
+<p><b><u>Properties:</u></b><br>
+<table>
+<tr>
+<td width="10%"><b>Value</b></td>
+<td width="35%"><b>Name</b></td>
+<td width="35%"><b>CDXML Name</b></td>
+<td width="20%"><b>Type</b></td>
+</tr>
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>n/a</td>
+<td>n/a</td>
+<td><a href="properties/id.htm">id</a></td>
+<td><a href="DataType/CDXNumeric.htm">UINT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+A unique identifier for an object, used when other objects refer to it.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x000A</td>
+<td><a href="properties/ZOrder.htm">kCDXProp_ZOrder</a></td>
+<td>Z</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Back-to-front ordering index in 2D drawing.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x000F</td>
+<td><a href="properties/IgnoreWarnings.htm">kCDXProp_IgnoreWarnings</a></td>
+<td>IgnoreWarnings</td>
+<td><a href="DataType/CDXBoolean.htm">CDXBooleanImplied</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Signifies whether chemical warnings should be suppressed on this object.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0010</td>
+<td><a href="properties/ChemicalWarning.htm">kCDXProp_ChemicalWarning</a></td>
+<td>Warning</td>
+<td><a href="DataType/CDXString.htm">CDXString</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+A warning concerning possible chemical problems with this object.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0011</td>
+<td><a href="properties/Visible.htm">kCDXProp_Visible</a></td>
+<td>Visible       </td>
+<td><a href="DataType/CDXBoolean.htm">CDXBoolean</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The object is visible if non-zero.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0301</td>
+<td><a href="properties/ForegroundColor.htm">kCDXProp_ForegroundColor</a></td>
+<td>color</td>
+<td><a href="DataType/CDXNumeric.htm">UINT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The foreground color of an object represented as the two-based index into the object's color table.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0302</td>
+<td><a href="properties/BackgroundColor.htm">kCDXProp_BackgroundColor</a></td>
+<td>bgcolor</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The background color of an object represented as the two-based index into the object's color table.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0600</td>
+<td><a href="properties/Bond_Order.htm">kCDXProp_Bond_Order</a></td>
+<td>Order</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The order of a bond object.
+This is a bit-encoded property.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0601</td>
+<td><a href="properties/Bond_Display.htm">kCDXProp_Bond_Display</a></td>
+<td>Display</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The display type of a bond object.
+This is an enumerated property.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0602</td>
+<td><a href="properties/Bond_Display2.htm">kCDXProp_Bond_Display2</a></td>
+<td>Display2</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The display type for the second line of a double bond.
+This is an enumerated property.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0603</td>
+<td><a href="properties/Bond_DoublePosition.htm">kCDXProp_Bond_DoublePosition</a></td>
+<td>DoublePosition</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The position of the second line of a double bond.
+This is an enumerated property.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0604</td>
+<td><a href="properties/Bond_Begin.htm">kCDXProp_Bond_Begin</a></td>
+<td>B</td>
+<td><a href="DataType/CDXObjectID.htm">CDXObjectID</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+<font color="#FF0000">Required for bonds.</font> The ID of the CDX node object at the first end of a bond.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0605</td>
+<td><a href="properties/Bond_End.htm">kCDXProp_Bond_End</a></td>
+<td>E</td>
+<td><a href="DataType/CDXObjectID.htm">CDXObjectID</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+<font color="#FF0000">Required for bonds.</font> The ID of the CDX node object at the second end of a bond.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0606</td>
+<td><a href="properties/Bond_RestrictTopology.htm">kCDXProp_Bond_RestrictTopology</a></td>
+<td>Topology</td>
+<td><a href="DataType/CDXNumeric.htm">INT8</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Indicates the desired topology of a bond in a query.
+This is an enumerated property.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0607</td>
+<td><a href="properties/Bond_RestrictRxnParticipation.htm">kCDXProp_Bond_RestrictRxnParticipation</a></td>
+<td>RxnParticipation</td>
+<td><a href="DataType/CDXNumeric.htm">INT8</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Specifies that a bond is affected by a reaction.
+This is an enumerated property.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0608</td>
+<td><a href="properties/Bond_BeginAttach.htm">kCDXProp_Bond_BeginAttach</a></td>
+<td>BeginAttach</td>
+<td><a href="DataType/CDXNumeric.htm">UINT8</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Indicates where within the Bond_Begin node a bond is attached.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0609</td>
+<td><a href="properties/Bond_EndAttach.htm">kCDXProp_Bond_EndAttach</a></td>
+<td>EndAttach</td>
+<td><a href="DataType/CDXNumeric.htm">UINT8</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Indicates where within the Bond_End node a bond is attached.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x060A</td>
+<td><a href="properties/Bond_CIPStereochemistry.htm">kCDXProp_Bond_CIPStereochemistry</a></td>
+<td>BS</td>
+<td><a href="DataType/CDXNumeric.htm">INT8</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The bond's absolute stereochemistry according to the Cahn-Ingold-Prelog system.
+This is an enumerated property.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x060B</td>
+<td><a href="properties/Bond_BondOrdering.htm">kCDXProp_Bond_BondOrdering</a></td>
+<td>BondCircularOrdering</td>
+<td><a href="DataType/CDXObjectID.htm">CDXObjectIDArray</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Ordered list of attached bond IDs.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x060C</td>
+<td><a href="properties/Bond_ShowQuery.htm">kCDXProp_Bond_ShowQuery</a></td>
+<td>ShowBondQuery</td>
+<td><a href="DataType/CDXBoolean.htm">CDXBoolean</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Show the query indicator if non-zero.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x060D</td>
+<td><a href="properties/Bond_ShowStereo.htm">kCDXProp_Bond_ShowStereo</a></td>
+<td>ShowBondStereo</td>
+<td><a href="DataType/CDXBoolean.htm">CDXBoolean</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Show the stereochemistry indicator if non-zero.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x060E</td>
+<td><a href="properties/Bond_CrossingBonds.htm">kCDXProp_Bond_CrossingBonds</a></td>
+<td>CrossingBonds</td>
+<td><a href="DataType/CDXObjectID.htm">CDXObjectIDArray</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The set of bonds that cross a given bond.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x060F</td>
+<td><a href="properties/Bond_ShowRxn.htm">kCDXProp_Bond_ShowRxn</a></td>
+<td>ShowBondRxn</td>
+<td><a href="DataType/CDXBoolean.htm">CDXBoolean</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+Show the reaction-change indicator if non-zero.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0804</td>
+<td><a href="properties/BondSpacing.htm">kCDXProp_BondSpacing</a></td>
+<td>BondSpacing         </td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The spacing between segments of a multiple bond, measured relative to bond length.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0805</td>
+<td><a href="properties/BondLength.htm">kCDXProp_BondLength</a></td>
+<td>BondLength          </td>
+<td><a href="DataType/CDXCoordinates.htm">CDXCoordinate</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default bond length.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0806</td>
+<td><a href="properties/BoldWidth.htm">kCDXProp_BoldWidth</a></td>
+<td>BoldWidth           </td>
+<td><a href="DataType/CDXCoordinates.htm">CDXCoordinate</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default bold bond width.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0807</td>
+<td><a href="properties/LineWidth.htm">kCDXProp_LineWidth</a></td>
+<td>LineWidth           </td>
+<td><a href="DataType/CDXCoordinates.htm">CDXCoordinate</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default line width.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0808</td>
+<td><a href="properties/MarginWidth.htm">kCDXProp_MarginWidth</a></td>
+<td>MarginWidth         </td>
+<td><a href="DataType/CDXCoordinates.htm">CDXCoordinate</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default amount of space surrounding atom labels.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0809</td>
+<td><a href="properties/HashSpacing.htm">kCDXProp_HashSpacing</a></td>
+<td>HashSpacing         </td>
+<td><a href="DataType/CDXCoordinates.htm">CDXCoordinate</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default spacing between hashed lines used in wedged hashed bonds.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x080A</td>
+<td><a href="properties/LabelStyle.htm">kCDXProp_LabelStyle</a></td>
+<td>(not used)</td>
+<td><a href="DataType/CDXString.htm">CDXFontStyle</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default style for atom labels..
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x081A</td>
+<td><a href="properties/LabelStyleFont.htm">kCDXProp_LabelStyleFont</a></td>
+<td>LabelFont</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default font family for atom labels.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x081C</td>
+<td><a href="properties/LabelStyleSize.htm">kCDXProp_LabelStyleSize</a></td>
+<td>LabelSize</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default font size for atom labels.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x081E</td>
+<td><a href="properties/LabelStyleFace.htm">kCDXProp_LabelStyleFace</a></td>
+<td>LabelFace</td>
+<td><a href="DataType/CDXNumeric.htm">INT16</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The default font style for atom labels.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"></td>
+</tr>
+<tr>
+<td>0x0822</td>
+<td><a href="properties/BondSpacingAbs.htm">kCDXProp_BondSpacingAbs</a></td>
+<td>BondSpacingAbs</td>
+<td><a href="DataType/CDXCoordinates.htm">CDXCoordinate</a></td>
+</tr>
+<tr>
+<td></td>
+<td colspan="3">
+The absolute distance between segments of a multiple bond.
+</td>
+</tr>
+
+</table>
+<p>&nbsp;</p>
+<hr>
+<a href="index.htm">CDX Documentation index</a>
+<!--webbot bot="Include" U-Include="/footer.htm" TAG="BODY" -->
+</body></html>
+<!--
+     FILE ARCHIVED ON 17:45:25 May 03, 2010 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 04:41:35 Jul 22, 2024.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  captures_list: 0.498
+  exclusion.robots: 0.037
+  exclusion.robots.policy: 0.028
+  esindex: 0.009
+  cdx.remote: 15.135
+  LoadShardBlock: 365.08 (3)
+  PetaboxLoader3.resolve: 274.023 (2)
+  PetaboxLoader3.datanode: 129.245 (4)
+  load_resource: 134.965
+-->
