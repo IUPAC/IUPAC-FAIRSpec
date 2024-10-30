@@ -65,8 +65,12 @@ public class ZipUtil {
 	}
 
 	
-	public static TarArchiveInputStream newTarInputStream(InputStream is) throws IOException {
+	public static TarArchiveInputStream newTarGZInputStream(InputStream is) throws IOException {
 		return new TarArchiveInputStream(new GZIPInputStream(is, 512));
+	}
+
+	public static TarArchiveInputStream newTarInputStream(InputStream is) throws IOException {
+		return new TarArchiveInputStream(is);
 	}
 
 }

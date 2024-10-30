@@ -47,10 +47,10 @@ public class IFDReference implements IFDSerializableI {
 	 * @param localName
 	 */
 	public IFDReference(String resourceID, Object originPath, String localDir, String localName, String pid) {
+		this.resourceID = resourceID;
 		this.originPath = originPath;
 		this.localDir = localDir;
 		this.localName = localName;
-		this.resourceID = resourceID;
 		this.pid = pid;
 	}
 

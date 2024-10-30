@@ -397,6 +397,9 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * @return IFDProperty if one is set
 	 */
 	public IFDProperty setPropertyValue(String key, Object value) {
+		
+		if (key.length() == 0)
+			System.out.println("???");
 		// check for .representation., which is not stored in the object.
 		if (IFDConst.isRepresentation(key) || checkSpecialProperties(key, value)) {
 			return null;
@@ -468,23 +471,23 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 */
 	private boolean checkSpecialProperties(String key, Object value) {
 		String myPropertyPrefix = getIFDPropertyPrefix();
-		if (key.equals(myPropertyPrefix + IFDConst.IFD_LABEL_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_LABEL) || key.equals(myPropertyPrefix + IFDConst.IFD_LABEL_FLAG)) {
 			setLabel(value.toString());
 			return true;
 		} 
-		if (key.equals(myPropertyPrefix + IFDConst.IFD_ID_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_ID) || key.equals(myPropertyPrefix + IFDConst.IFD_ID_FLAG)) {
 			setID(value.toString());
 			return true;
 		}
-		if (key.equals(myPropertyPrefix + IFDConst.IFD_DESCRIPTION_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_DESCRIPTION) || key.equals(myPropertyPrefix + IFDConst.IFD_DESCRIPTION_FLAG)) {
 			setDescription(value.toString());
 			return true;
 		}
-		if (key.equals(myPropertyPrefix + IFDConst.IFD_NOTE_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_NOTE) || key.equals(myPropertyPrefix + IFDConst.IFD_NOTE_FLAG)) {
 			addNote(value.toString());
 			return true;
 		}
-		if (key.equals(myPropertyPrefix + IFDConst.IFD_TIMESTAMP_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_TIMESTAMP) || key.equals(myPropertyPrefix + IFDConst.IFD_TIMESTAMP_FLAG)) {
 			setTimestamp(value.toString());
 			return true;
 		}
@@ -506,6 +509,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	@Override
 	public String getID() {
+		if (id == null)
+			id = "" + index;
 		return id;
 	}
 

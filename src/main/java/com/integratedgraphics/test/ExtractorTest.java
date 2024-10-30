@@ -20,6 +20,10 @@ import com.integratedgraphics.extractor.Extractor;
 	acs.orglett.0c01197
 	acs.orglett.0c01277
 	acs.orglett.0c01297
+	
+	added 2024.10.29:
+	
+	acs.orgLett.9b02307  (Ley/May)
  </code>
  * 
  * Just modify the first few parameters in main and run this as a Java file.
@@ -85,15 +89,15 @@ public class ExtractorTest extends Extractor {
 /*10*/		"./extract/acs.orglett.0c01197/IFD-extract.json#22491647",  // 10 -- many mnovas
 /*11*/		"./extract/acs.orglett.0c01277/IFD-extract.json#22613762",  // 11 -- bruker dirs
 /*12*/		"./extract/acs.orglett.0c01297/IFD-extract.json#22612484",  // 12 --  bruker dirs
+/*13*/      "./extract/acs.orgLett.9b02307/IFD-extract.json#9b02307"    // 13 -- Ley, May
 	};
 
 	private static void runTests(String[] args) {
-//		int first = 0; // first test to run
-//		int last = 0; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
-//					  // file test
-		//runACSTest(args, first, last);
-//		runACSTest(args, 0, 0);
-		runSTOTest(args);
+		int first = 13; // first test to run
+		int last = 13; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+					  // file test
+		runACSTest(args, first, last);
+//		runSTOTest(args);
 //		runACSTest(args, 7);
 //		runImperialCollegeTest(args);
 		//runTest(args, "./extract/test/IFD-extract.json", "./extract/test/8f.zip");
@@ -125,7 +129,7 @@ public class ExtractorTest extends Extractor {
 		 * the zip files
 		 */
 		String sourceArchive = "c:/temp/iupac/zip";
-		String targetDir = "c:/temp/iupac/ifd4";//./site/ifd";
+		String targetDir = "c:/temp/iupac/ifd2024Ley";//./site/ifd";
 		String options = null; // "-datacitedown"
 		args = setSourceTargetArgs(args, sourceArchive, targetDir, options);		
 		runExtraction(args, acsTestSet, first, last);

@@ -47,6 +47,8 @@ public interface FAIRSpecExtractorHelperI {
 
 	IFDDataObject cloneData(IFDDataObject localSpec, String idExtension, boolean andReplace);
 
+	FAIRSpecCompoundAssociation createCompound(String id) throws IFDException;
+
 	FAIRSpecCompoundAssociation createCompound(IFDStructure struc, IFDDataObject newSpec) throws IFDException;
 
 	String createSerialization(File targetFile, String findingAidFileNameRoot, ArrayList<Object> products,

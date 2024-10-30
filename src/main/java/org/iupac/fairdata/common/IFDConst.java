@@ -88,7 +88,7 @@ public class IFDConst {
 			}
 			for (String key : removed) {
 				String key1 = propertyPrefix + key.substring(key.lastIndexOf("."));
-				IFDProperty p = htProps.get(key).getInherited(key1);
+				IFDProperty p = htProps.get(key).getInherited(key1);				
 				htProps.put(key1, p);
 			}
 			for (String key : removed) {
@@ -96,12 +96,21 @@ public class IFDConst {
 			}
 		}
 		propertyPrefix = propertyPrefix.toUpperCase().replace('.', '_');
+		
+		
 		for (Entry<Object, Object> e : props.entrySet()) {
 			String k = (String) e.getKey();
+			
 			if (k.startsWith(propertyPrefix)) {
 				// to be continued! -- need units and type
 				String val = trimValue(e.getValue().toString());
+				
 				if (!k.endsWith("_FLAG")) {
+					if (val.indexOf(".") < 0)
+						System.out.println("???");
+
+
+
 					htProps.put(val, new IFDProperty(val, null, null, null));
 				}
 			}
@@ -161,6 +170,14 @@ public class IFDConst {
 	public static final String IFD_ORIGINATING_SAMPLE_ID_FLAG = getProp("IFD_ORIGINATING_SAMPLE_ID_FLAG");
 	public static final String IFD_DESCRIPTION_FLAG = getProp("IFD_DESCRIPTION_FLAG");
 
+	public static final String IFD_PROPERTY_LABEL = concat(IFD_PROPERTY_FLAG, IFD_LABEL_FLAG);
+	public static final String IFD_PROPERTY_ID = concat(IFD_PROPERTY_FLAG, IFD_ID_FLAG);
+	public static final String IFD_PROPERTY_NOTE = concat(IFD_PROPERTY_FLAG, IFD_NOTE_FLAG);
+	public static final String IFD_PROPERTY_TIMESTAMP = concat(IFD_PROPERTY_FLAG, IFD_TIMESTAMP_FLAG);
+	public static final String IFD_PROPERTY_DESCRIPTION = concat(IFD_PROPERTY_FLAG, IFD_DESCRIPTION_FLAG);
+
+	
+	
 	public static final String IFD_FINDINGAID = getProp("IFD_FINDINGAID");
 
 	public static final String IFD_PROPERTY_COLLECTIONSET_BYID = IFDConst.getProp("IFD_PROPERTY_COLLECTIONSET_BYID");
@@ -178,6 +195,10 @@ public class IFDConst {
 			"IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI");
 	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI = getProp(
 			"IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI");
+	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI = getProp(
+			"IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI");
+	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_DOI = getProp(
+			"IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_DOI");
 
 	public static final String IFD_PROPERTY_STRUCTURE_ID = concat(IFD_PROPERTY_FLAG, IFD_STRUCTURE_FLAG,
 			IFD_ID_FLAG);

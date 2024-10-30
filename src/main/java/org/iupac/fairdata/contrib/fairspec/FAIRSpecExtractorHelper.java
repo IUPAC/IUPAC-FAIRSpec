@@ -73,7 +73,8 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 	public static final String FAIRSPEC_EXTRACTOR_OPTIONS = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OPTIONS");
 	public static final String FAIRSPEC_EXTRACTOR_METADATA = IFDConst.getProp("FAIRSPEC_EXTRACTOR_METADATA");
 	public static final String FAIRSPEC_EXTRACTOR_RELATED_METADATA = IFDConst.getProp("FAIRSPEC_EXTRACTOR_RELATED_METADATA");
-
+	public static final String FAIRSPEC_EXTRACTOR_LOCAL_SOURCE_FILE = IFDConst.getProp("FAIRSPEC_EXTRACTOR_LOCAL_SOURCE_FILE");
+		
 	public static final String EXIT = "EXIT";
 
 	public interface ClassTypes {
@@ -710,6 +711,15 @@ public class FAIRSpecExtractorHelper implements FAIRSpecExtractorHelperI {
 			throws IFDException {
 		return (FAIRSpecCompoundAssociation) getCompoundCollection().addAssociation(struc, spec);
 	}
+
+	@Override
+	public FAIRSpecCompoundAssociation createCompound(String id) throws IFDException {
+		FAIRSpecCompoundAssociation c = createCompound(null, null);
+		if (id != null)
+			c.setPropertyValue(IFDConst.IFD_PROPERTY_ID, id);
+		return c;
+	}
+
 
 	@Override
 	public IFDSampleDataAssociation associateSampleSpec(IFDSample sample, IFDDataObject spec) throws IFDException {

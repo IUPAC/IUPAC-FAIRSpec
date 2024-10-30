@@ -22,9 +22,15 @@ import java.util.Map.Entry;
 import java.util.Stack;
 import java.util.TreeMap;
 
+import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.common.IFDException;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundAssociation;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
+import org.iupac.fairdata.core.IFDObject;
+import org.iupac.fairdata.core.IFDReference;
 
 import com.integratedgraphics.extractor.Extractor;
+import com.integratedgraphics.extractor.PubInfoExtractor;
 import com.integratedgraphics.util.XmlReader;
 
 import javajs.util.PT;
@@ -37,8 +43,55 @@ import javajs.util.Rdr;
  * @author Bob Hanson
  *
  */
-
+ 
 public class Crawler extends XmlReader {
+
+	private class CrawlerExtractor extends Extractor {
+
+		private FAIRSpecCompoundAssociation thisCompound;
+		
+		private FAIRSpecFindingAid findingAid;
+
+		CrawlerExtractor() {
+			createZippedCollection = false;
+			try {
+				helper = newExtractionHelper();
+				findingAid = helper.getFindingAid();
+			} catch (IFDException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		@Override
+		public void log(String msg) {
+			super.log(msg);
+			appendLog("FindingAidHelper: " + msg);
+		}
+
+		@Override
+		public String getVersion() {
+			return Extractor.version + "(Crawler " + version + ")";
+		}
+
+		@Override
+		public String getCodeSource() {
+			return Extractor.codeSource + "(" + codeSource + ")";
+		}
+
+		public void processPubCrossRef(String url) throws IOException {
+			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI, url);
+			super.phase1ProcessPubURI();
+		}
+		public String generateFindingAid(File fileDir) throws IOException {
+			targetDir = fileDir;
+			return phase3SerializeFindingAid(null);			
+		}
+		
+		public FAIRSpecCompoundAssociation addCompound(String id) throws IFDException {
+			return thisCompound = helper.createCompound(id);
+		}
+		
+	}
 
 	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/crawler/crawler.java";
 
@@ -47,7 +100,6 @@ public class Crawler extends XmlReader {
 	// 2024.05.28 version 0.0.1 initial version used for ICL repository crawling
 
 	private final static String DOWNLOAD_TYPES = ";png;jpg;jpeg;cdxml;mol;cif;xls;xlsx;mnova;mnpub;";
-	public final static String DOI_ORG = "https://doi.org/";
 	public final static String DATACITE_METADATA = "https://data.datacite.org/application/vnd.datacite.datacite+xml/";
 	public final static String FAIRSPEC_SCHEME_URI = "http://iupac.org/ifd";
 	public final static String FAIRDATA_SUBJECT_SCHEME = "IFD";
@@ -55,14 +107,23 @@ public class Crawler extends XmlReader {
 
 	private final static String testPID = "10.14469/hpc/10386";
 
-	private FAIRSpecFindingAid findingAid;
-	private Extractor extractor;
+	private static final String DOI_ORG = PubInfoExtractor.DOI_ORG;
+
+	private static final String FAIRSPEC_COMPOUND_ID = "IFD.property.fairspec.compound.id";
+
+	private static final String IFD_INCHI = "IFD.representation.structure.inchi";
+	private static final String IFD_INCHIKEY = "IFD.representation.structure.inchikey";
+
+	private static final String IFD_SMILES = "IFD.representation.structure.smiles";
+	private static final String FAIRSPEC_TYPE = "IFD.property.dataobject.fairspec.type";
+
+	private static final String TAB_PROPERTY_KEY = "\t" + IFDConst.IFD_PROPERTY_FLAG;
+	
 	private URL dataCiteMetadataURL;
 	private int urlDepth;
 	private List<String> ifdList;
 	private String ifdLine = "";
 	private int nReps;
-	private List<String> processList;
 
 	private boolean isTop = true;
 	private boolean skipping = false;
@@ -78,13 +139,15 @@ public class Crawler extends XmlReader {
 	private long startTime;
 	private String thisCompoundID;
 	private String thisExperimentType;
+	private String thisDOI;
+
 
 	private Map<String, String> hackMap = new HashMap<>();
 
 	{
-		hackMap.put("inchi", "IFD.representation.structure.inchi");
-		hackMap.put("SMILES", "IFD.representation.structure.smiles");
-		hackMap.put("inchikey", "IFD.property.structure.inchikey");
+		hackMap.put("inchi", IFD_INCHI);
+		hackMap.put("SMILES", IFD_SMILES);
+		hackMap.put("inchikey", IFD_INCHIKEY);
 		hackMap.put("NMR_Solvent", "IFD.property.dataobject.fairspec.nmr.expt_solvent");
 		hackMap.put("NMR_Nucleus", "IFD.property.dataobject.fairspec.nmr.expt_nucl1");
 		hackMap.put("NMR_Nucleus1", "IFD.property.dataobject.fairspec.nmr.expt_nucl1");
@@ -94,31 +157,9 @@ public class Crawler extends XmlReader {
 	};
 
 	public Crawler(String pid) {
-		extractor = new Extractor() {
-
-			@Override
-			public void log(String msg) {
-				super.log(msg);
-				appendLog("FindingAidHelper: " + msg);
-			}
-
-			@Override
-			public String getVersion() {
-				return Extractor.version + "(Crawler " + version + ")";
-			}
-
-			@Override
-			public String getCodeSource() {
-				return Extractor.codeSource + "(" + codeSource + ")";
-			}
-
-		};
-
-		// findingAid = (FAIRSpecFindingAid) extractor.getFindingAid();
-
-		String thisPID = (pid == null ? testPID : pid);
+		thisDOI = (pid == null ? testPID : pid);
 		try {
-			dataCiteMetadataURL = getMetadataURL(thisPID);
+			dataCiteMetadataURL = getMetadataURL(thisDOI);
 		} catch (MalformedURLException e) {
 			addException(e);
 		}
@@ -131,12 +172,10 @@ public class Crawler extends XmlReader {
 		this.output = output;
 		log = new StringBuffer();
 		ifdList = new ArrayList<String>();
-		processList = new ArrayList<String>();
 		nextMetadata(null);
-		createFindingAid();
-
+		output.run();
+		createFindingAid(DOI_ORG + thisDOI);
 		return true;
-
 	}
 
 	private URL getMetadataURL(String pid) throws MalformedURLException {
@@ -184,7 +223,7 @@ public class Crawler extends XmlReader {
 			}
 			byte[] metadata = getBytesAndClose(is);
 			if (!haveData)
-				putToFile(dataFile, (byte[]) metadata);
+				putToFile((byte[]) metadata, dataFile);
 			is = new ByteArrayInputStream((byte[]) metadata);
 			parseXML(is);
 			is.close();
@@ -194,7 +233,7 @@ public class Crawler extends XmlReader {
 		logAttr("close", url.toString());
 		newLine();
 		pidPath = currentPath;
-		output.run();
+//		output.run();
 		urlDepth--;
 		return true;
 	}
@@ -219,6 +258,8 @@ public class Crawler extends XmlReader {
 		return s.replaceAll("[\\/?&:+=]", "_");
 	}
 
+	private long totalLength;
+	
 	/**
 	 * process a representation
 	 * 
@@ -230,7 +271,6 @@ public class Crawler extends XmlReader {
 		nReps++;
 		newLine();
 		ifdLine += ">R";
-		System.out.println("getContentHeaders: " + url);
 		File headerFile = new File(dataDir, cleanFileName(url.toString()) + ".txt");
 		boolean haveFile = headerFile.exists();
 		String length = null, fileName = null;
@@ -239,7 +279,12 @@ public class Crawler extends XmlReader {
 			bytes = getBytesAndClose(new FileInputStream(headerFile));
 			appendRepresentationHeaderAttrs(bytes);
 			String data = new String(bytes);
-			fileName = data.substring(data.indexOf("filename=") + 9);
+			int pt = data.indexOf("filename=");
+			if (pt >= 0)
+				fileName = data.substring(pt + 9);
+			pt = data.indexOf("length=");
+			if (pt >= 0)
+				totalLength += PT.parseInt(data.substring(pt + 7, data.indexOf('\t',pt))); 
 		} else {
 			int len = ifdLine.length();
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -252,18 +297,17 @@ public class Crawler extends XmlReader {
 			fileName = null;
 			if (item != null) {
 				List<String> list = map.get("Content-Length");
-				if (list != null && !list.isEmpty())
+				if (list != null && !list.isEmpty()) {
 					length = list.get(0);
+					addAttrLast("length", length);
+				}
 				fileName = PT.getQuotedOrUnquotedAttribute(item.toString(), "filename");
-			}
-			length = "" + putToFile(headerFile, ifdLine.substring(len).getBytes());
-			if (length != null) {
-				addAttrLast("length", length);
-			}
-			if (fileName != null)
 				addAttrLast("filename", fileName);
+			}
+			len = putToFile(ifdLine.substring(len).getBytes(), headerFile);
 		}
 		if (fileName != null) {
+			System.out.println("getContentHeaders: " + url + " " + length);
 			downloadCheck(url, new File(fileDir, cleanFileName(fileName)));
 			repMap.put(fileName, ifdLine);
 		}
@@ -286,7 +330,7 @@ public class Crawler extends XmlReader {
 			}
 			URLConnection con = url.openConnection();
 			InputStream is = con.getInputStream();
-			putToFile(file, getBytesAndClose(is));
+			putToFile(getBytesAndClose(is), file);
 		}
 	}
 
@@ -315,7 +359,10 @@ public class Crawler extends XmlReader {
 						return;
 					key = ifdName;
 					switch (key) {
-					case "IFD.representation.structure.inchi":
+					case FAIRSPEC_COMPOUND_ID:
+						addAttrFirst(key, s);
+						return;
+					case IFD_INCHI:
 						if (s.indexOf("=") < 0) {
 							addError("invalid inchi for Compound " + thisCompoundID);
 							return;
@@ -334,7 +381,7 @@ public class Crawler extends XmlReader {
 		switch (attrs.get("relationtype")) {
 		case "HasPart":
 			break;
-		case "References":
+		case "IsReferencedBy":
 			// only interested in JournalArticle
 			if (generalType == null)
 				return;
@@ -360,6 +407,7 @@ public class Crawler extends XmlReader {
 		}
 	}
 
+	private int dataIndex = 0;
 	/**
 	 * Process a hack for ICL preliminary repository files.
 	 * 
@@ -382,16 +430,15 @@ public class Crawler extends XmlReader {
 //		    replace this with:
 //			<relatedIdentifier 
 //				relatedIdentifierType="DOI" 
-//				relationType="References"
+//				relationType="IsReferencedBy"
 //				relationTypeGeneral="JournalArticle">10.1021/acs.inorgchem.3c01506</relatedIdentifier>
 
 				String doi = val.substring(5).trim();
 				attrs = new HashMap<>();
 				attrs.put("relatedidentifiertype", "DOI");
-				attrs.put("relationtype", "References");
+				attrs.put("relationtype", "IsReferencedBy");
 				attrs.put("relationtypegeneral", "JournalArticle");
 				addRelatedIdentifier(attrs, doi);
-
 				return true;
 			}
 			break;
@@ -411,25 +458,24 @@ public class Crawler extends XmlReader {
 //				</subjects>
 					String id = "" + PT.parseInt(val.substring(9));
 					thisCompoundID = id;
-					addIFDSubjectAttribute("IFD.property.fairspec.compound.id", id);
+					addIFDSubjectAttribute(FAIRSPEC_COMPOUND_ID, id);
+					addAttrLast(IFDConst.IFD_PROPERTY_LABEL, val);
 				}
-				break;
+				return true;
 			case "NMR":
 				type = "nmr";
 				break;
 			case "IR ":
 				type = "ir";
 				break;
-			case "Pri":
-			case "Cry":
+			case "Pri"://Primary crystal...
+			case "Cry"://Crystal...
 				type = "xray";
 				break;
 			}
 			if (type != null) {
-				if (pidPath.endsWith(">C"))
-					fixPIDPathForDataset();
 				this.thisExperimentType = type;
-				addIFDSubjectAttribute("IFD.property.dataobject.fairspec." + type + ".expt_title", val);
+				addIFDSubjectAttribute("IFD.property.dataobject.fairspec.type", "" + type);
 				return true;
 			}
 			break;
@@ -438,6 +484,10 @@ public class Crawler extends XmlReader {
 	}
 
 	private StringBuffer errorBuffer = new StringBuffer();
+
+	private FAIRSpecFindingAid findingAid;
+
+	private CrawlerExtractor extractor;
 
 	/**
 	 * change >C to >D
@@ -472,15 +522,71 @@ public class Crawler extends XmlReader {
 		}
 	}
 
-	private void createFindingAid() {
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < processList.size(); i++) {
-			String s = i + "\t" + processList.get(i);
-			sb.append(s).append('\n');
-			System.out.println(s);
+	protected void createFindingAid(String url) {
+		extractor = new CrawlerExtractor();
+		findingAid = (FAIRSpecFindingAid) extractor.getFindingAid();
+		// add DOI for repository
+		addDOI(findingAid.getCollectionSet(), url);
+		try {
+			String line = ifdList.get(0);
+			String pubdoi = getTabField(line, "PUBDOI");
+			if (pubdoi != null)
+				extractor.processPubCrossRef(pubdoi);
+			for (int i = 1, n = ifdList.size(); i < n; i++) {
+				line = ifdList.get(i);
+				System.out.println(line);
+				if (line.startsWith(">R")) {
+					addRepresentation(line);
+				} else if (line.indexOf(FAIRSPEC_COMPOUND_ID) >= 0) {
+					addCompound(line);		
+				} else if (line.indexOf(FAIRSPEC_TYPE) >= 0) {
+					addDataObject(line);
+				}
+			}
+			extractor.generateFindingAid(fileDir);
+		} catch (Exception e) {
+			addException(e);
 		}
-		putToFile(new File(dataDir, "items.txt"), sb.toString().getBytes());
 	}
+	
+	private void addDOI(IFDObject<?> o, String url) {
+		o.setReference(new IFDReference(null, null, null, null, url));
+	}
+
+	private void addCompound(String line) throws IFDException {
+		FAIRSpecCompoundAssociation c = extractor.addCompound(null);
+		addProperties(c, line);
+	}
+
+	private void addProperties(IFDObject<?> c, String line) {
+		for (int pt = -1; (pt = line.indexOf(TAB_PROPERTY_KEY, pt + 1)) >= 0;) {
+			int pt1 = line.indexOf('=', pt + 1);
+			int pt2 = line.indexOf('\t', pt + 1);
+			String key = line.substring(pt, pt1);
+			String val = line.substring(pt1 + 1, pt2 < 0 ? line.length() : pt2);
+			c.setPropertyValue(key, val);
+		}
+	}
+
+	private void addDataObject(String line) {		
+		String type = "IFD.property.dataobject.fairspec.type";
+		type = getTabField(line, type);
+	}
+
+	private void addRepresentation(String line) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected String getTabField(String line, String key) {
+		int pt = line.indexOf("\t" + key + "=");
+		if (pt < 0)
+			return null;
+		pt = pt + key.length() + 2;
+		int pt1 = line.indexOf('\t', pt);
+		return (pt1 < 0 ? line.substring(pt) : line.substring(pt, pt1));
+	}
+
 
 	// from XMLReader
 
@@ -557,14 +663,14 @@ public class Crawler extends XmlReader {
 		switch (localName) {
 		case "description":
 			if (s.length() > 0 && !hack("description", s)) {
-				addAttrLast("IFD.object.description", s);
+				addAttrLast(IFDConst.IFD_PROPERTY_DESCRIPTION, s);
 			}
 			break;
 		case "title":
 			System.out.println(localName + "=" + s);
 			if (s.length() > 0) {
 				if (!hack("title", s)) {
-					addAttrFirst("IFD.object.label", s);
+					addAttrFirst(IFDConst.IFD_PROPERTY_LABEL, s);
 				}
 			}
 			break;
@@ -634,13 +740,6 @@ public class Crawler extends XmlReader {
 			String line = (pidPath == null ? "" : pidPath) + ifdLine;
 			ifdList.add(line);
 			System.out.println(line);
-			String[] items = ifdLine.split("\t");
-			if (pidPath.length() > 0)
-				processList.add(">" + pidPath);
-			for (int i = 0; i < items.length; i++) {
-				if (items[i].length() > 0)
-					processList.add(items[i]);
-			}
 		}
 		ifdLine = "";
 	}
@@ -669,6 +768,20 @@ public class Crawler extends XmlReader {
 				.append(line);
 	}
 
+	private static int putToFile(byte[] bytes, File f) {
+		if (bytes == null || bytes.length == 0)
+			return 0;
+		try {
+			FileOutputStream fos = new FileOutputStream(f);
+			fos.write(bytes);
+			fos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return bytes.length;
+	}
+	
 	public static void main(String[] args) {
 		Crawler crawler = new Crawler(args.length > 0 ? args[0] : null);
 		String outdir = args.length > 1 ? args[1] : OUTDIR;
@@ -681,7 +794,7 @@ public class Crawler extends XmlReader {
 		crawler.crawl(dataDir, fileDir, () -> {
 			File f = new File(parent, "crawler.log");
 			System.out.println("writing " + crawler.log.length() + " bytes " + f.getAbsolutePath());
-			putToFile(f, crawler.log.toString().getBytes());
+			putToFile(crawler.log.toString().getBytes(), f);
 			f = new File(parent, "crawler.ifd.txt");
 			System.out.println("writing " + crawler.ifdList.size() + " entries " + f.getAbsolutePath());
 			System.out.println(crawler.nReps + " representations");
@@ -699,21 +812,7 @@ public class Crawler extends XmlReader {
 		if (crawler.errorBuffer.length() > 0) {
 			System.err.println(crawler.errorBuffer.toString());
 		}
-		System.out.println("done " + (System.currentTimeMillis() - t) / 1000 + " sec");
-	}
-
-	private static int putToFile(File f, byte[] bytes) {
-		if (bytes == null || bytes.length == 0)
-			return 0;
-		try {
-			FileOutputStream fos = new FileOutputStream(f);
-			fos.write(bytes);
-			fos.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 0;
-		}
-		return bytes.length;
+		System.out.println("done len = " + crawler.totalLength + " bytes " + (System.currentTimeMillis() - t) / 1000 + " sec");
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.integratedgraphics.extractor;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -59,8 +60,9 @@ import org.iupac.fairdata.util.JSJSONParser;
 import org.iupac.fairdata.util.ZipUtil;
 
 import com.integratedgraphics.ifd.api.VendorPluginI;
-
-import javajs.util.PT;
+import com.junrar.Archive;
+import com.junrar.exception.RarException;
+import com.junrar.rarfile.FileHeader;
 
 // TODO: check zipping Bruker directories into ZIP
 
@@ -486,12 +488,12 @@ public class Extractor implements ExtractorI {
 			if (localSourceDir != null) {
 //				return false;
 				ObjectParser parser = objectParsers.get(i);
-				boolean done = 
-						//!parser.dataSource.isLocalStructures && 
-						(parser.dataSource.source != objectParsers.get(0).dataSource.source);
-				return done;				
+				boolean done =
+						!parser.dataSource.isLocalStructures &&
+						(parser.dataSource.getSourceFile() != objectParsers.get(0).dataSource.getSourceFile());
+				return done;
 			}
-				
+
 			return false;
 		}
 
@@ -535,6 +537,11 @@ public class Extractor implements ExtractorI {
 		protected ArchiveEntry(TarArchiveEntry te) {
 			name = te.getName();
 			size = te.getSize();
+		}
+
+		protected ArchiveEntry(FileHeader fh) {
+			name = fh.getFileName();
+			size = fh.getUnpSize();
 		}
 
 		protected ArchiveEntry(String name) {
@@ -691,18 +698,118 @@ public class Extractor implements ExtractorI {
 	}
 
 	/**
+	 * A static class to provide a single input stream for a set of files.
+	 * 
+	 * @author hansonr
+	 *
+	 */
+	protected static class RARInputStream extends InputStream {
+
+		private Archive rar;
+		private List<FileHeader> rarList = new ArrayList<>();
+		private int rarPt = 0;
+		private FileHeader fh;
+		private RARArchiveEntry entry;
+
+		public RARInputStream(InputStream is) throws IOException {
+			try {
+				rar = new Archive(is);
+			} catch (RarException | IOException e) {
+				throw new IOException(e);
+			}
+			FileHeader fh;
+			List<FileHeader> list = new ArrayList<>();
+			while ((fh = rar.nextFileHeader()) != null) {
+				list.add(fh);
+			}
+			rarList = list;
+			reset();
+		}
+
+		@Override
+		public void reset() {
+			rarPt = 0;
+		}
+
+		@Override
+		public int read() throws IOException {
+			return (entry == null ? -1 : entry.getInputStream().read());
+		}
+
+		@Override
+		public int read(byte b[], int off, int len) throws IOException {
+			return (entry == null ? -1 : entry.getInputStream().read(b, off, len));
+		}
+
+		@Override
+		public void close() throws IOException {
+			closeEntry();
+			close();
+		}
+
+		protected RARArchiveEntry getNextEntry() throws FileNotFoundException {
+			closeEntry();
+			if (rarPt >= rarList.size())
+				return null;
+			return entry = new RARArchiveEntry(rar, rarList.get(rarPt++));
+		}
+
+		protected void closeEntry() {
+			if (entry != null) {
+				entry.close();
+				entry = null;
+			}
+		}
+
+	}
+
+	static class RARArchiveEntry extends ArchiveEntry {
+
+		private BufferedInputStream is;
+		private FileHeader fh;
+		private Archive rar;
+
+		protected RARArchiveEntry(Archive rar, FileHeader fh) {
+			super(fh);
+			this.rar = rar;
+			this.fh = fh;
+		}
+
+		public void close() {
+			fh = null;
+		}
+
+		public BufferedInputStream getInputStream() throws IOException {
+			if (is == null) {
+				try {
+					ByteArrayOutputStream bos = new ByteArrayOutputStream();
+					rar.extractFile(fh, bos);
+					byte[] bytes = bos.toByteArray();
+					System.out.println("extracting " + fh.getFileName() + " " + bytes.length);
+					is = new BufferedInputStream(new ByteArrayInputStream(bytes));
+				} catch (Exception e) {
+					throw new IOException(e);
+				}
+			}
+			return is;
+		}
+
+	}
+
+	/**
 	 * A static class to allow for either ZipInputStream or TarArchiveInputStream
 	 * 
 	 * @author hansonr
 	 *
 	 */
 	protected static class ArchiveInputStream extends InputStream {
-		protected ZipInputStream zis;
-		protected TarArchiveInputStream tis;
-		protected InputStream is;
-		protected DirectoryInputStream dis;
+		private ZipInputStream zis;
+		private TarArchiveInputStream tis;
+		private InputStream is;
+		private DirectoryInputStream dis;
+		private RARInputStream ris;
 
-		ArchiveInputStream(InputStream is) throws IOException {
+		ArchiveInputStream(InputStream is, String fname) throws IOException {
 
 			if (is instanceof ArchiveInputStream)
 				is = new BufferedInputStream(((ArchiveInputStream) is).getStream());
@@ -710,13 +817,20 @@ public class Extractor implements ExtractorI {
 				this.is = dis = (DirectoryInputStream) is;
 				dis.reset();
 			} else if (ZipUtil.isGzipS(is)) {
+				this.is = tis = ZipUtil.newTarGZInputStream(is);
+			} else if (fname != null && fname.endsWith(".tar")) {
 				this.is = tis = ZipUtil.newTarInputStream(is);
+			} else if (fname != null && fname.endsWith(".rar")) {
+				this.is = ris = new RARInputStream(is);
 			} else {
 				this.is = zis = new ZipInputStream(is);
 			}
 		}
 
 		protected ArchiveEntry getNextEntry() throws IOException {
+			if (ris != null) {
+				return ris.getNextEntry();
+			}
 			if (tis != null) {
 				TarArchiveEntry te = tis.getNextTarEntry();
 				return (te == null ? null : new ArchiveEntry(te));
@@ -826,6 +940,7 @@ public class Extractor implements ExtractorI {
 		FileList lstAccepted;
 		protected String rootPath;
 		public String ifdResource;
+		public String localSourceFile;
 
 		ExtractorResource(String source) {
 			this.source = source;
@@ -846,7 +961,11 @@ public class Extractor implements ExtractorI {
 
 		@Override
 		public String toString() {
-			return "[ExtractorSource " + source + " => " + rootPath + "]";
+			return "[ExtractorSource " + getSourceFile() + " => " + rootPath + "]";
+		}
+
+		public String getSourceFile() {
+			return (localSourceFile == null ? source : localSourceFile);
 		}
 	}
 
@@ -894,6 +1013,10 @@ public class Extractor implements ExtractorI {
 	 */
 	public static final Object NULL = "\1";
 
+	/**
+	 * "." here is the Eclipse project extract/ directory
+	 * 
+	 */
 	protected static final String DEFAULT_STRUCTURE_DIR_URI = "./structures/";
 	protected static final String DEFAULT_STRUCTURE_ZIP_URI = "./structures.zip";
 
@@ -1159,6 +1282,8 @@ public class Extractor implements ExtractorI {
 
 	protected String ifdMetadataFileName = "IFD_METADATA"; // default only
 
+	private String localSourceFile;
+
 	public int getErrorCount() {
 		return errors;
 	}
@@ -1241,28 +1366,36 @@ public class Extractor implements ExtractorI {
 	}
 
 	protected boolean phase1ProcessPubURI() throws IOException {
-		String datauri = (String) helper.getFindingAid()
-				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI);
-		String puburi = (String) helper.getFindingAid()
-				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI);
+		String datadoi = (String) helper.getFindingAid()
+				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI);
+		if (datadoi == null)
+			datadoi = (String) helper.getFindingAid()
+					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI);
+		String pubdoi = (String) helper.getFindingAid()
+				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_DOI);
+		if (pubdoi == null)
+			pubdoi = (String) helper.getFindingAid()
+					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI);
 		List<Map<String, Object>> list = new ArrayList<>();
-		if (puburi != null  && !skipPubInfo) {
-			Map<String, Object> info = PubInfoExtractor.getPubInfo(puburi, addPublicationMetadata, PubInfoExtractor.CROSSREF);
+		if (pubdoi != null && !skipPubInfo) {
+			Map<String, Object> info = PubInfoExtractor.getPubInfo(pubdoi, addPublicationMetadata,
+					PubInfoExtractor.CROSSREF);
 			if (info != null && info.get("metadataSource") != null) {
 				list.add(info);
 			} else {
-				logWarn("Could not access " + PubInfoExtractor.getCrossrefMetadataUrl(puburi),
+				logWarn("Could not access " + PubInfoExtractor.getCrossrefMetadataUrl(pubdoi),
 						"extractAndCreateFindingAid");
 				if (!allowNoPubInfo)
 					return false;
 			}
 		}
-		if (datauri != null && !skipPubInfo) {
-			Map<String, Object> info = PubInfoExtractor.getPubInfo(datauri, addPublicationMetadata, PubInfoExtractor.DATACITE);
+		if (datadoi != null && !skipPubInfo) {
+			Map<String, Object> info = PubInfoExtractor.getPubInfo(datadoi, addPublicationMetadata,
+					PubInfoExtractor.DATACITE);
 			if (info != null && info.get("metadataSource") != null) {
 				list.add(info);
 			} else {
-				logWarn("Could not access " + PubInfoExtractor.getCrossciteMetadataUrl(datauri),
+				logWarn("Could not access " + PubInfoExtractor.getCrossciteMetadataUrl(datadoi),
 						"extractAndCreateFindingAid");
 				if (!allowNoPubInfo)
 					return false;
@@ -1602,9 +1735,16 @@ public class Extractor implements ExtractorI {
 				// {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
 				// ..keydef=-----------------key--------
 
+				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_LOCAL_SOURCE_FILE)) {
+					localSourceFile = (val.length() == 0 ? null : val);
+					continue;
+				}
 				if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI)) {
 					// allow for a local version (debugging mostly)
 					boolean isRemote = val.startsWith("http");
+					boolean isRelative = val.startsWith("./"); // as in "./structures"
+					if (isRelative)
+						localSourceFile = null;
 					boolean isFoundLocal = phase1CheckLocalSource(val);
 					if (!isFoundLocal) {
 						source = null;
@@ -1618,9 +1758,11 @@ public class Extractor implements ExtractorI {
 							continue;
 					}
 					source = htResources.get(val);
-					
+
 					if (source == null)
-						htResources.put(val, source = new ExtractorResource(val));
+						htResources.put(val,
+								source = new ExtractorResource(localSourceFile == null || isRelative ? val : null));
+					source.localSourceFile = (localSourceFile == null ? null : localizeURL(null, localSourceFile));
 					if (isFoundLocal || !isRemote)
 						continue;
 					// go ahead and add this data source to the metadata
@@ -1700,7 +1842,7 @@ public class Extractor implements ExtractorI {
 	}
 
 	protected boolean phase1CheckLocalSource(String val) throws IFDException {
-		val = localizeURL(val);
+		val = localizeURL(val, localSourceFile);
 		System.out.println("checking for source " + val);
 		return (!val.startsWith("file:/") || new File(val.substring(6)).exists());
 	}
@@ -1898,12 +2040,9 @@ public class Extractor implements ExtractorI {
 	protected void phase2InitializeResource(ExtractorResource resource, boolean isInit)
 			throws IFDException, IOException {
 		// localize the URL if we are using a local copy of a remote resource.
-		localizedTopLevelZipURL = localizeURL(resource.source);
-
-		// remove ".zip" if present in the overall name
-
-		String zipPath = localizedTopLevelZipURL.substring(resource.source.lastIndexOf(":") + 1);
-
+		localizedTopLevelZipURL = localizeURL(resource.source, resource.localSourceFile);
+		String s = resource.getSourceFile();
+		String zipPath = s.substring(s.lastIndexOf(":") + 1);
 		File zipFile = new File(zipPath);
 
 		if (isInit) {
@@ -1912,7 +2051,8 @@ public class Extractor implements ExtractorI {
 				log("opening " + localizedTopLevelZipURL);
 
 			String rootPath = zipFile.getName();
-			if (rootPath.endsWith(".zip") || rootPath.endsWith(".tgz"))
+			if (rootPath.endsWith(".zip") || rootPath.endsWith(".tgz") || rootPath.endsWith(".rar")
+					|| rootPath.endsWith(".tar"))
 				rootPath = rootPath.substring(0, rootPath.length() - 4);
 			else if (rootPath.endsWith(".tar.gz"))
 				rootPath = rootPath.substring(0, rootPath.length() - 7);
@@ -1926,7 +2066,7 @@ public class Extractor implements ExtractorI {
 		}
 		lstManifest = resource.lstManifest;
 		lstIgnored = resource.lstIgnored;
-		if (helper.getCurrentSource() != helper.addOrSetSource(resource.source, resource.rootPath)) {
+		if (helper.getCurrentSource() != helper.addOrSetSource(resource.getSourceFile(), resource.rootPath)) {
 			if (isInit)
 				addDeferredPropertyOrRepresentation(NEW_RESOURCE_KEY, resource, false, null, null);
 		}
@@ -2105,7 +2245,7 @@ public class Extractor implements ExtractorI {
 		if (debugging && baseOriginPath.length() > 0)
 			log("! opening " + baseOriginPath);
 		boolean isTopLevel = (baseOriginPath.length() == 0);
-		ArchiveInputStream ais = new ArchiveInputStream(is);
+		ArchiveInputStream ais = new ArchiveInputStream(is, isTopLevel ? extractorResource.getSourceFile() : null);
 		ArchiveEntry zipEntry = null;
 		ArchiveEntry nextEntry = null;
 		ArchiveEntry nextRealEntry = null;
@@ -2116,7 +2256,7 @@ public class Extractor implements ExtractorI {
 				: nextRealEntry != null ? nextRealEntry : ais.getNextEntry())) != null) {
 			n++;
 			nextEntry = null;
-			String name = zipEntry.getName();			
+			String name = zipEntry.getName();
 			boolean isDir = zipEntry.isDirectory();
 			if (first) {
 				first = false;
@@ -2140,7 +2280,6 @@ public class Extractor implements ExtractorI {
 				continue;
 			} else {
 
-				
 				if (lstRejected.accept(oPath)) {
 					// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX,
 					// acs.joc.0c00770/22567817
@@ -2151,7 +2290,7 @@ public class Extractor implements ExtractorI {
 				if (phase == PHASE_2A && lstAccepted.accept(oPath)) {
 					addFileToFileLists(oPath, LOG_ACCEPTED, zipEntry.getSize(), null);
 					accepted = true;
-				} 
+				}
 				if (lstIgnored.accept(oPath)) {
 					// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX,
 					// acs.joc.0c00770/22567817
@@ -2181,11 +2320,12 @@ public class Extractor implements ExtractorI {
 					if (oPath.equals(currentRezipPath)) {
 						// nextRealEntry here may be the first
 						// file of the zip, because not all zip files
-						// list directories. Some do, but many do not. 
+						// list directories. Some do, but many do not.
 						// tar.gz files definitely do not. So in that case,
 						// we must pass nextRealEntry as the first entry to write
-						// to the rezipper. 
-						nextEntry = phase2cRezipEntry(baseOriginPath, oPath, ais, zipEntry, nextRealEntry, currentRezipVendor);
+						// to the rezipper.
+						nextEntry = phase2cRezipEntry(baseOriginPath, oPath, ais, zipEntry, nextRealEntry,
+								currentRezipVendor);
 						nextRealEntry = null;
 						phase2cGetNextRezipName();
 						continue;
@@ -2234,8 +2374,8 @@ public class Extractor implements ExtractorI {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	protected void phase2aProcessEntry(String baseOriginPath, String originPath, InputStream ais, ArchiveEntry zipEntry, boolean accept)
-			throws FileNotFoundException, IOException {
+	protected void phase2aProcessEntry(String baseOriginPath, String originPath, InputStream ais, ArchiveEntry zipEntry,
+			boolean accept) throws FileNotFoundException, IOException {
 		long len = zipEntry.getSize();
 		Matcher m = null;
 
@@ -2246,8 +2386,7 @@ public class Extractor implements ExtractorI {
 		boolean isFound = false;
 		if (vendorCachePattern != null && (isFound = (m = vendorCachePattern.matcher(originPath)).find()) || accept) {
 
-			PropertyManagerI v = (isFound ? getPropertyManager(m) 
-					: null);
+			PropertyManagerI v = (isFound ? getPropertyManager(m) : null);
 			boolean doCheck = (v != null);
 			boolean doExtract = (!doCheck || v.doExtract(originPath));
 
@@ -2486,22 +2625,30 @@ public class Extractor implements ExtractorI {
 	 * @return localized URL
 	 * @throws IFDException
 	 */
-	protected String localizeURL(String sUrl) throws IFDException {
-		if (localSourceDir != null && localSourceDir.endsWith(".zip")) {
-			sUrl = localSourceDir;
-		} else if (localSourceDir != null && localSourceDir.endsWith("/*")) {
-			sUrl = localSourceDir.substring(0, localSourceDir.length() - 1);
-		} else if (localSourceDir != null && !sUrl.startsWith("./")) {
-			int pt = sUrl.lastIndexOf("/");
-			if (pt >= 0) {
-				sUrl = localSourceDir + sUrl.substring(pt);
-				if (!sUrl.endsWith(".zip") && !sUrl.endsWith("/"))
-					sUrl += ".zip";
+	protected String localizeURL(String sUrl, String localSourceFile) throws IFDException {
+		if (localSourceDir != null) {
+			if (isZip(localSourceDir)) {
+				sUrl = localSourceDir;
+			} else if (localSourceDir.endsWith("/*")) {
+				sUrl = localSourceDir.substring(0, localSourceDir.length() - 1);
+			} else if (sUrl == null) {
+//				if (new File(localSourceFile).isAbsolute())
+					sUrl = localSourceFile;
+//				else
+//					sUrl = localSourceDir + "/" + localSourceFile;
+			} else if (!sUrl.startsWith("./")) {
+				int pt = sUrl.lastIndexOf("/");
+				if (pt >= 0) {
+					sUrl = localSourceDir + sUrl.substring(pt);
+					if (!isZip(sUrl) && !sUrl.endsWith("/"))
+						sUrl += ".zip";
+				}
 			}
+
 		}
 		sUrl = toAbsolutePath(sUrl);
 
-		if (sUrl.indexOf("//") < 0)
+		if (sUrl.indexOf("//") < 0 && !sUrl.startsWith("file:/"))
 			sUrl = "file:/" + sUrl;
 		return sUrl;
 	}
@@ -2599,7 +2746,8 @@ public class Extractor implements ExtractorI {
 	 * @param oPath
 	 * @param ais
 	 * @param entry
-	 * @return firstEntry (if the first entry was read in order to start this zip operation.
+	 * @return firstEntry (if the first entry was read in order to start this zip
+	 *         operation.
 	 * @throws IOException
 	 * @throws IFDException
 	 */
@@ -2851,7 +2999,7 @@ public class Extractor implements ExtractorI {
 		log("!Extractor.extractAndCreateFindingAid serializing...");
 		ArrayList<Object> products = rootPaths;
 		IFDSerializerI ser = getSerializer();
-		if (createZippedCollection) {
+		if (createZippedCollection && rootPaths != null) {
 			products.add(new File(targetDir + "/_IFD_extract.json"));
 			products.add(new File(targetDir + "/_IFD_ignored.json"));
 			products.add(new File(targetDir + "/_IFD_manifest.json"));
@@ -2993,7 +3141,8 @@ public class Extractor implements ExtractorI {
 	/// generally used
 
 	protected static boolean isZip(String name) {
-		return name.endsWith(".zip") || name.endsWith(".tgz") || name.endsWith("tar.gz");
+		return name.endsWith(".zip") || name.endsWith(".tgz") || name.endsWith(".tar") || name.endsWith(".rar")
+				|| name.endsWith("tar.gz");
 	}
 
 	@Override
@@ -3037,7 +3186,8 @@ public class Extractor implements ExtractorI {
 	@Override
 	public void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType,
 			String note) {
-		//System.out.println("!!!" + key + "   ln=" + localizedName + "    op=" + originPath);
+		// System.out.println("!!!" + key + " ln=" + localizedName + " op=" +
+		// originPath);
 		if (key == null) {
 			deferredPropertyList.add(null);
 			return;
@@ -3265,7 +3415,7 @@ public class Extractor implements ExtractorI {
 					htStructureRepCache = new HashMap<>();
 				AWrap w = new AWrap(inchi == null || inchi.length() < 2 ? bytes : inchi.getBytes());
 				struc = htStructureRepCache.get(w);
-				//System.out.println("EXT " + name + " " + w.hashCode() + " " + oPath);
+				// System.out.println("EXT " + name + " " + w.hashCode() + " " + oPath);
 				if (struc == null) {
 					writeOriginToCollection(oPath, bytes, 0);
 					String localName = localizePath(oPath);
@@ -3381,7 +3531,7 @@ public class Extractor implements ExtractorI {
 		resourceList = "";
 		rootLists = new ArrayList<>();
 		for (ExtractorResource r : htResources.values()) {
-			resourceList += ";" + r.source;
+			resourceList += ";" + r.getSourceFile();
 			rootLists.add(r.lstManifest);
 			rootLists.add(r.lstIgnored);
 		}
@@ -3560,6 +3710,8 @@ public class Extractor implements ExtractorI {
 	 * @return
 	 */
 	protected static String localizePath(String path) {
+		if (path.indexOf("structures") >= 0)
+			System.out.println("???");
 		path = path.replace('\\', '/');
 		boolean isDir = path.endsWith("/");
 		if (isDir)
@@ -3953,7 +4105,7 @@ public class Extractor implements ExtractorI {
 				+ "\n" + "\nwhere" //
 				+ "\n" //
 				+ "\n[IFD-extract.json] is the IFD extraction template for this collection" //
-				+ "\n[sourceArchive] is the source .zip, .tar.gz, or .tgz file" //
+				+ "\n[sourceArchive] is the source .zip, .tar.gz, .tar, .tgz, or .rar file" //
 				+ "\n[targetDir] is the target directory for the collection (which you are responsible to empty first)" //
 				+ "\n" //
 				+ "\n" + "[flags] are one or more of:" //

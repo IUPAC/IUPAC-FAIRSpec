@@ -34,8 +34,10 @@ public class FAIRSpecCompoundCollection extends IFDStructureDataAssociationColle
 	@Override
 	protected FAIRSpecCompoundAssociation newAssociation(IFDStructure struc, IFDDataObject data) throws IFDException {
 		FAIRSpecCompoundAssociation ca = new FAIRSpecCompoundAssociation();
-		ca.addStructure(struc);
-		ca.addDataObject(data);
+		if (struc != null)
+			ca.addStructure(struc);
+		if (data != null)
+			ca.addDataObject(data);
 		return ca;
 	}
 
