@@ -305,7 +305,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * generic properties that could be anything but are not in the list of known
 	 * properties
 	 */
-	protected List<IFDParameter> params = new ArrayList<>();
+	protected List<IFDAttribute> params = new ArrayList<>();
 
 	/**
 	 * the maximum number of items allowed in this list; may be 0
@@ -396,7 +396,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return htProps;
 	}
 
-	public final List<IFDParameter> getParams() {
+	public final List<IFDAttribute> getParams() {
 		return params;
 	}
 
@@ -423,11 +423,11 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			return p;
 		}
 		// add/remove parameter
-		key = fixParameterKey(key);
+		key = fixAttributeKey(key);
 		if (value == null)
-			IFDParameter.remove(params, key);
+			IFDAttribute.remove(params, key);
 		else
-			IFDParameter.add(params, key, value);
+			IFDAttribute.add(params, key, value);
 		return null;
 	}
 
@@ -461,7 +461,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * @param key
 	 * @return
 	 */
-	private String fixParameterKey(String key) {
+	private String fixAttributeKey(String key) {
 		key = key.trim().replaceAll("\\W","_");
 		return key;
 	}
@@ -721,13 +721,13 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		}
 		if (params.size() > 0) {
 			Map<String, Object> map = new TreeMap<>();
-			for (IFDParameter p : params) {
+			for (IFDAttribute p : params) {
 				Object val = p.getValue();
 				if (val != null && val != "") {
 					map.put(p.getName(), val);
 				}
 			}
-			serializer.addObject("parameters", map);
+			serializer.addObject("attributes", map);
 		}
 	}
 

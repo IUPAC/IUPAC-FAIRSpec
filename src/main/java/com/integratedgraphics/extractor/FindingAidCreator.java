@@ -12,6 +12,13 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 import com.integratedgraphics.ifd.api.VendorPluginI;
 
+/**
+ * This abstract class backs MetadataExtractor and DOICrawler,
+ * both of which create finding aids. 
+ * 
+ * @author hansonr@stolaf.edu
+ *
+ */
 public abstract class FindingAidCreator {
 
 	static {

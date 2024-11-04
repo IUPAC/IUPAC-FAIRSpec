@@ -48,9 +48,7 @@ import javajs.util.Rdr;
  * 
  * The class utilizes a SAX XML reader.
  * 
- * In particular, the following XML element tags are handled:
- * 
- * In particular, the following six elements are handled:
+ * In particular, the following six XML elements are handled:
  * 
  * title, description
  * 
@@ -79,9 +77,9 @@ public class DOICrawler extends FindingAidCreator {
 
 	protected StringBuffer log = new StringBuffer();
 
-	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/extractor/DOICrawler.java";
+	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/DOICrawler.java";
 
-	protected static final String version = "0.0.2-alpha+2024.11.04";
+	protected static final String version = "0.0.5-alpha+2024.11.04";
 
 	// 2024.05.28 version 0.0.1 initial version used for ICL repository crawling
 
@@ -135,8 +133,11 @@ public class DOICrawler extends FindingAidCreator {
 
 		public byte[] getBytes() {
 			String s = pidPath;
-			if (type == DOI_REP)
-				s += ">R";
+			switch (type) {
+			case DOI_REP:
+				s += ">R\t" + ifdRef;
+				break;
+			}
 			return s.getBytes();
 		}
 
@@ -749,7 +750,6 @@ public class DOICrawler extends FindingAidCreator {
 					nextMetadata(getMetadataURL(list.get(i)));
 				}
 			}
-			pidPath = "";
 			list = map.get("URL");
 			if (list != null) {
 				Map<String, DoiRecord> fMap = new TreeMap<>();

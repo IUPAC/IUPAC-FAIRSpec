@@ -205,7 +205,7 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 	 */
 	protected final static String SUBST = "=>";
 
-	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/ifd/extractor/Extractor.java";
+	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/Extractor.java";
 
 	protected static final int LOG_REJECTED = 0;
 	protected static final int LOG_IGNORED = 1;

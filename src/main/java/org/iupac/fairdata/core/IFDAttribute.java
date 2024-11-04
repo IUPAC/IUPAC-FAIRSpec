@@ -1,7 +1,6 @@
 package org.iupac.fairdata.core;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import org.iupac.fairdata.api.IFDSerializableI;
@@ -10,24 +9,24 @@ import org.iupac.fairdata.api.IFDSerializerI;
 /**
  * A class associating a name with either a single value or a list of values.
  * 
- * When adding and a parameter with the given name exists:
+ * When adding and an attribute with the given name exists:
  *   
- *    (1) if the value is null, the parameter is removed
+ *    (1) if the value is null, the attribute is removed
  *    
  *    (2) if the value matches a value already present, no addition is made
  *    
- *    (3) otherwise, a new value is added to this parameter
+ *    (3) otherwise, a new value is added to this attribute
  *    
  * @author hansonr
  *
  */
-public class IFDParameter implements IFDSerializableI, Comparable<IFDParameter> {
+public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> {
 
 	private final String name;
 	private Object value;
 	private List<Object> values;
 
-	public IFDParameter(String name, Object value) {
+	public IFDAttribute(String name, Object value) {
 		this.name = name;
 		this.value = value;
 	}
@@ -58,16 +57,16 @@ public class IFDParameter implements IFDSerializableI, Comparable<IFDParameter> 
 
 	@Override
 	public String getSerializedType() {
-		return "IFDParameter";
+		return "IFDAttribute";
 	}
 
 
 
 	
-	public static void add(List<IFDParameter> params, String name, Object value) {
+	public static void add(List<IFDAttribute> params, String name, Object value) {
 		if (value == null || name == null)
 			return;
-		IFDParameter p = null;
+		IFDAttribute p = null;
 		for (int i = params.size(); --i >= 0;) {
 			p = params.get(i);
 			if (p.name.equals(name))  {
@@ -83,10 +82,10 @@ public class IFDParameter implements IFDSerializableI, Comparable<IFDParameter> 
 				return;
 			}
 		}
-		params.add(new IFDParameter(name, value));
+		params.add(new IFDAttribute(name, value));
 	}
 
-	public static void remove(List<IFDParameter> params, String name) {
+	public static void remove(List<IFDAttribute> params, String name) {
 		if (name == null)
 			return;
 		for (int i = params.size(); --i >= 0;) {
@@ -98,19 +97,19 @@ public class IFDParameter implements IFDSerializableI, Comparable<IFDParameter> 
 	}
 	
 	/**
-	 * Remove this parameter or a value of this parameter.
+	 * Remove this attribute or a value of this attribute.
 	 * 
 	 * @param params
 	 * @param name
 	 * @param value
 	 * @return
 	 */
-	public static boolean remove(List<IFDParameter> params, String name, Object value) {
+	public static boolean remove(List<IFDAttribute> params, String name, Object value) {
 		if (name == null)
 			return false;
 		for (int i = params.size(); --i >= 0;) {
 			if (params.get(i).name.equals(name)) {
-				IFDParameter p = params.get(i);
+				IFDAttribute p = params.get(i);
 				if (value == null || value.equals(p.value)) {
 					params.remove(i);
 					return true;
@@ -136,20 +135,20 @@ public class IFDParameter implements IFDSerializableI, Comparable<IFDParameter> 
 
 
 	@Override
-	public int compareTo(IFDParameter o) {
+	public int compareTo(IFDAttribute o) {
 		return (name.compareTo(o.getName()));
 	}
 
-//	public static class ParamComparator implements Comparator<IFDParameter> {
+//	public static class ParamComparator implements Comparator<IFDAttribute> {
 //		@Override
-//		public int compare(IFDParameter p1, IFDParameter p2) {
+//		public int compare(IFDAttribute p1, IFDAttribute p2) {
 //			return p1.name.compareTo(p2.name);
 //		}
 //	}
 //
 //	private static ParamComparator sorter;
 //	
-//	public static void sort(List<IFDParameter> params) {
+//	public static void sort(List<IFDAttribute> params) {
 //		if (sorter == null)
 //			sorter = new ParamComparator();
 //		params.sort(sorter);
@@ -157,7 +156,7 @@ public class IFDParameter implements IFDSerializableI, Comparable<IFDParameter> 
 
 	@Override
 	public void serialize(IFDSerializerI serializer) {
-		// NOTE: THIS METHOD IS NOT USED; IFDParameter 
+		// NOTE: THIS METHOD IS NOT USED; IFDAttribute 
 		// does not use "name" as an attribute.
 		// instead, it creates a TreeMap as for IFDProperty
 //		if ((value == null || value == "") && values == null)

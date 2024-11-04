@@ -25,7 +25,7 @@ import org.iupac.fairdata.derived.IFDStructureDataAssociation;
  * https://pubchem.ncbi.nlm.nih.gov/compound/2,3-dibromoButane is ambiguous,
  * describing any one of four stereoisomers, or some mixture of them.
  * 
- * Ambiguity can be removed through the addition of properties or parameters
+ * Ambiguity can be removed through the addition of properties or attributes
  * that express the relationship and relative amounts of the related structures.
  * 
  * 
