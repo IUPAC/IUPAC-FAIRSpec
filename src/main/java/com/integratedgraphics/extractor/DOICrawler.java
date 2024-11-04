@@ -719,7 +719,7 @@ public class DOICrawler extends FindingAidCreator {
 				break;
 			case "Pri":// Primary crystal...
 			case "Cry":// Crystal...
-				type = "xray";
+				type = "xrd";
 				break;
 			}
 			if (type != null) {

@@ -1,4 +1,4 @@
-package org.iupac.fairdata.contrib.fairspec.dataobject.xray;
+package org.iupac.fairdata.contrib.fairspec.dataobject.xrd;
 
 import org.iupac.fairdata.contrib.fairspec.dataobject.FAIRSpecDataObject;
 import org.iupac.fairdata.core.IFDReference;
@@ -12,11 +12,11 @@ import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
  *
  */
 @SuppressWarnings("serial")
-public class FAIRSpecXRAYData extends FAIRSpecDataObject {
+public class FAIRSpecXRDData extends FAIRSpecDataObject {
 
 	@Override
 	protected IFDDataObjectRepresentation newRepresentation(IFDReference ref, Object obj, long len, String type, String subtype) {
-		return new FAIRSpecXRAYDataRepresentation(ref, obj, len, type, subtype);
+		return new FAIRSpecXRDDataRepresentation(ref, obj, len, type, subtype);
 	}	
 
 	
