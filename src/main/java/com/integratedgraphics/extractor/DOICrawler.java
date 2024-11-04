@@ -50,13 +50,13 @@ import javajs.util.Rdr;
  * 
  * In particular, the following XML element tags are handled:
  * 
- * In particular, the following attributes are handled:
+ * In particular, the following six elements are handled:
  * 
  * title, description
  * 
- * identifier, resourcetype, relatedidentifiers, relatedidentifier, 
+ * identifier, resourcetype, relatedidentifier, 
  * 
- * subjects, subject
+ * subject
  * 
  * 
  * @author Bob Hanson
