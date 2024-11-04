@@ -68,6 +68,8 @@ public class DOICrawler extends FindingAidCreator {
 	 * 
 	 * https://data.hpc.imperial.ac.uk/resolve/?doi=10386
 	 * 
+	 * https://doi.org/10.14469/hpc/10386
+	 * 
 	 * is the only archive tested
 	 * 
 	 */
