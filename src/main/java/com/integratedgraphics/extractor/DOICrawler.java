@@ -135,9 +135,10 @@ public class DOICrawler extends FindingAidCreator {
 			String s = pidPath;
 			switch (type) {
 			case DOI_REP:
-				s += ">R\t" + ifdRef;
+				s += ">R";
 				break;
 			}
+	    	s += "\t" + ifdRef;
 			return s.getBytes();
 		}
 
