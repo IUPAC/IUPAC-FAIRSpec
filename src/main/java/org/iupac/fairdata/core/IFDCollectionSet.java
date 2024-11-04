@@ -39,21 +39,24 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 
 	/**
 	 * Set all indices for IDFRepresentableObject collections to be sequential, and
-	 * and set each object's collectionSet field to the top-level collection containing it
+	 * and set each object's collectionSet field to the top-level collection
+	 * containing it
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
-	protected void finalizeCollections() {
+	protected void finalizeCollections(Map<String, Map<String, Object>> htURLReferences) {
 		for (int ic = 0; ic < size(); ic++) {
 			IFDCollection<?> c = get(ic);
 			if (c == null || c.size() == 0)
 				continue;
 			if (c instanceof IFDAssociationCollection) {
-					((IFDAssociationCollection) c).removeOrphanedAssociations();
+				((IFDAssociationCollection) c).removeOrphanedAssociations();
 			} else {
+				// representatableObject set
 				for (int i = c.size(); --i >= 0;) {
 					IFDRepresentableObject<?> o = (IFDRepresentableObject<?>) c.get(i);
 					if (o.size() == 0 && !o.allowEmpty()) {
+						System.out.println("IFDC removing " + i + " " + o + " from " + c);
 						c.remove(i);
 						o.setValid(false);
 					}
@@ -64,6 +67,9 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 					// coerced to collection of IFDRepresentableObject
 					o.setParentCollection(
 							(IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>) (Object) c);
+					if (htURLReferences != null) {
+						o.setFileRefs(htURLReferences);
+					}
 				}
 			}
 		}

@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.extract.ExtractorI;
 
-import com.integratedgraphics.extractor.Extractor;
+import com.integratedgraphics.extractor.MetadataExtractor;
 import com.integratedgraphics.ifd.api.VendorPluginI;
 
 import jspecview.source.JDXDataObject;
@@ -174,7 +174,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 		if (val instanceof Double) {
 			if (Double.isNaN((Double)val))
 				return;
-		} else if (val != Extractor.NULL && val instanceof String) {
+		} else if (val != MetadataExtractor.NULL && val instanceof String) {
 			val = ((String) val).trim();
 		}
 		extractor.addProperty(key, val);

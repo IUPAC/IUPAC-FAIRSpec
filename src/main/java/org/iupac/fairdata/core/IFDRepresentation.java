@@ -25,17 +25,25 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 	
 	private static int staticTest;
 	
+	/**
+	 * 
+	 * @param ref
+	 * @param data
+	 * @param len
+	 * @param type
+	 * @param subtype
+	 */
 	public IFDRepresentation(IFDReference ref, Object data, long len, String type, String subtype) {
-		this.representationType = type;
-		this.ref = ref;
 		this.test = staticTest++;
+		this.ref = ref;
+		this.data = data;
 //			System.out.println(this.test + " " + subtype + " " + len + " " + ref);
 //			if (this.test == 44)
 //				System.out.println("IDFReptest");
-		this.data = data;
 		this.len = (ref != null || len != 0 ? len
 				: data instanceof String ? ((String) data).length()
 						: data instanceof byte[] ? ((byte[]) data).length : 0);
+		this.representationType = type;
 		this.mediaType = subtype;
 //		if (ref != null && ref.getLocalName().indexOf("/") >= 0)
 //			System.out.println("IDFRef ???");

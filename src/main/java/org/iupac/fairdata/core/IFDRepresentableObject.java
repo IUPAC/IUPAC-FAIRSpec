@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.iupac.fairdata.api.IFDSerializerI;
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 
 /**
@@ -69,7 +70,7 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 		String key = (data == null ? localName : data instanceof byte[] ? new String((byte[]) data) : data.toString());
 		IFDRepresentation rep = getRepresentation(resourceID, key);
 		if (rep == null) {
-			rep = newRepresentation((localName == null ? null : new IFDReference(resourceID, originPath, rootPath, localName, null)), data, 0, type, mediaType);
+			rep = newRepresentation((localName == null ? null : new IFDReference(resourceID, originPath, rootPath, localName)), data, 0, type, mediaType);
 			add((T) rep);
 			map.put(resourceID + "::" + key, rep);
 			if (localName != null && data != null)
@@ -79,9 +80,7 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 	}
 
 	public IFDRepresentation getRepresentation(String resourceID, String key) {
-		IFDRepresentation r = map.get(resourceID + "::" + key);
-//		System.out.println(this.index + " getRep " + key + " " + r);	
-		return r;
+		return map.get(resourceID + "::" + key);
 	}
 
 
@@ -118,6 +117,32 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 
 	public boolean allowEmpty() {
 		return false;
+	}
+
+	public void setFileRefs(Map<String, Map<String, Object>> htCompoundFileReferences) {
+		// add repository reference
+		for (int i = size(); --i >= 0;) {
+			T c = get(i);
+			Object path;
+			IFDReference r = c.getRef();
+			if (r == null || (path = r.getOriginPath()) == null)
+				continue;
+			String key = path.toString();
+			int pt = key.lastIndexOf("/");
+			if (pt >= 0)
+				key = key.substring(pt + 1);
+			Map<String, Object> ref = htCompoundFileReferences.get(key);
+			if (ref == null)
+				continue;
+			String url = (String) ref.get("url");
+			if (url != null) {
+				r.setURL(url);
+			}
+			String doi = (String) ref.get("doi");
+			if (doi != null) {
+				r.setDOI(doi);
+			}
+		}
 	}
 
 

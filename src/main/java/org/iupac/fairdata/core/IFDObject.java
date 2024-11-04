@@ -279,6 +279,17 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected String description;
 
 	/**
+	 * a full DOI (with https://) for this object, 
+	 * targeting a landing page for the object, generally
+	 */
+	protected String doi;
+	
+	/**
+	 * a URL for this object, targeting the object itself, as in a repository
+	 */
+	protected String url;
+	
+	/**
 	 * a production note to provide some sort of context
 	 */
 	protected String note;
@@ -491,6 +502,14 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			setTimestamp(value.toString());
 			return true;
 		}
+		if (key.equals(IFDConst.IFD_PROPERTY_DOI) || key.equals(myPropertyPrefix + IFDConst.IFD_DOI_FLAG)) {
+			setDOI(value.toString());
+			return true;
+		}
+		if (key.equals(IFDConst.IFD_PROPERTY_URL) || key.equals(myPropertyPrefix + IFDConst.IFD_URL_FLAG)) {
+			setURL(value.toString());
+			return true;
+		}
 		return false;
 	}
 
@@ -564,6 +583,26 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	@Override
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Override
+	public String getURL() {
+		return url;
+	}
+
+	@Override
+	public void setURL(String url) {
+		this.url = url;
+	}
+
+	@Override
+	public String getDOI() {
+		return doi;
+	}
+
+	@Override
+	public void setDOI(String doi) {
+		this.doi = doi;
 	}
 
 
@@ -654,6 +693,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		serializer.addAttr("note", getNote());
 		serializer.addAttr("description", getDescription());
 		serializer.addAttr("timestamp", getTimestamp());
+		serializer.addAttr("doi", doi);
+		serializer.addAttr("url", url);
 		if (reference != null)
 			reference.serialize(serializer);
 
@@ -757,7 +798,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	public void setValid(boolean tf) {
 		isValid = tf;
 		if (!tf)
-			System.out.println("IFDO invalidating " + id);
+			System.out.println("IFDO invalidating " + getClass().getName() + " " + (id != null ? id : label != null ? label : description));
 	}
 	
 	public boolean isValid() {

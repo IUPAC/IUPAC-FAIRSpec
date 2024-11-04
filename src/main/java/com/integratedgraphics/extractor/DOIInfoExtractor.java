@@ -9,7 +9,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 import org.iupac.fairdata.util.JSJSONParser;
 
-public class PubInfoExtractor {
+public class DOIInfoExtractor {
 
 	public final static String CROSSREF = "Crossref";
 	public final static String DATACITE = "DataCite";
@@ -25,16 +25,14 @@ public class PubInfoExtractor {
 	 * @param puburi
 	 * @return
 	 */
-	public static String getCrossrefMetadataUrl(String puburi) {
+	public static String getMetadataUrl(String puburi, String type) {
 		if (puburi != null && puburi.startsWith(DOI_ORG)) {
-			return crossrefURL + puburi.substring(16);
-		}
-		return null;
-	}
-	
-	public static String getCrossciteMetadataUrl(String puburi) {
-		if (puburi != null && puburi.startsWith(DOI_ORG)) {
-			return crossciteURL + puburi.substring(16);
+			switch (type) {
+			case CROSSREF:
+				return crossrefURL + puburi.substring(16);
+			case DATACITE:
+				return crossciteURL + puburi.substring(16);				
+			}
 		}
 		return null;
 	}
@@ -54,15 +52,9 @@ public class PubInfoExtractor {
 		if (uri == null)
 			return null;
 		String url = null;
-		switch (agency) {
-		case CROSSREF:
-			url = getCrossrefMetadataUrl(uri);
-			break;
-		case DATACITE:
-			url = getCrossciteMetadataUrl(uri);
-			break;
-		default:			
-			System.out.println("PubInfoExtractor: unknown type " + agency + " should be one of 'datacite' or 'crossref'");
+		url = getMetadataUrl(uri, agency);
+		if (url == null) {
+			System.out.println("PubInfoExtractor: unknown type " + agency + " should be one of '"+ DATACITE + "DataCite' or '" + CROSSREF + "'");
 			return null;
 		}
 		System.out.println("PubInfoExtractor: " + url);
@@ -94,10 +86,9 @@ public class PubInfoExtractor {
 	}
 
 	/**
-	 * Considered doing this but could not figure out the journal citation
 	 * 
-	 * @param url
-	 * @param pubjson
+	 * @param info
+	 * @param json
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")

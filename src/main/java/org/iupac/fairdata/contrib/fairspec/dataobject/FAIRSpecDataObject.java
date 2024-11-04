@@ -41,6 +41,11 @@ public class FAIRSpecDataObject extends IFDDataObject {
 //		return objectType;
 //	}
 	
+	/**
+	 * This works with "nmr" or "xxx.xxx.nmr"
+	 * @param key
+	 * @return
+	 */
 	public static FAIRSpecDataObject createFAIRSpecObject(String key) {
 		String type = key.substring(key.lastIndexOf(".") + 1);
 		String ucType = type.toUpperCase();

@@ -1,6 +1,6 @@
 package com.integratedgraphics.test;
 
-import com.integratedgraphics.extractor.Extractor;
+import com.integratedgraphics.extractor.MetadataExtractor;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
@@ -32,7 +32,7 @@ import com.integratedgraphics.extractor.Extractor;
  * @author hansonr
  *
  */
-public class ExtractorTest extends Extractor {
+public class ExtractorTest extends MetadataExtractor {
 
 	/**
 	 * 
@@ -97,28 +97,6 @@ public class ExtractorTest extends Extractor {
 		int last = 13; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 					  // file test
 		runACSTest(args, first, last);
-//		runSTOTest(args);
-//		runACSTest(args, 7);
-//		runImperialCollegeTest(args);
-		//runTest(args, "./extract/test/IFD-extract.json", "./extract/test/8f.zip");
-		//runTest(args, "./extract/test/IFD-extract2.json", "./extract/test/acs3/*");
-		//runTest(args, "./extract/test/IFD-extract3.json", "c:/temp/mnova/test/*");
-	}
-
-	private static void runTest(String[] args, String script, String sourceArchive) {
-
-		String[] testSet = new String[] { script };
-		String targetDir = "c:/temp/iupac/ifd/test";
-
-		//debugging = true;
-		//readOnly = true;
-		
-		args = setSourceTargetArgs(args, sourceArchive, targetDir, null);
-		runExtraction(args, testSet, -1, -1);		
-	}
-
-	private static void runACSTest(String[] args, int i) {
-		runACSTest(args, i, i);
 	}
 
 	private static void runACSTest(String[] args, int first, int last) {
@@ -133,36 +111,6 @@ public class ExtractorTest extends Extractor {
 		String options = null; // "-datacitedown"
 		args = setSourceTargetArgs(args, sourceArchive, targetDir, options);		
 		runExtraction(args, acsTestSet, first, last);
-	}
-
-	private static void runSTOTest(String[] args) {
-		
-		String dir = "c:/temp/iupac/stolaf/";
-		String targetDir = dir + "../stolaf-ifd";
-
-		String[] testSet = new String[] { dir + "IFD-extract.json" };
-		String sourceArchive = null;//dir + "archive.tar.gz";		
-
-		//debugging = true;
-		//readOnly = true;
-		
-		args = setSourceTargetArgs(args, sourceArchive, targetDir, null);
-		runExtraction(args, testSet, -1, -1);		
-	}
-
-	private static void runImperialCollegeTest(String[] args) {
-		
-		String dir = "c:/temp/iupac/henry/v_acs/";
-		String targetDir = dir + "icl-ifd";
-
-		String[] testSet = new String[] { dir + "IFD-extract.json" };
-		String sourceArchive = dir + "Archive.tar.gz";		
-//sourceArchive = dir + "56.zip";
-		//debugging = true;
-		//readOnly = true;
-		
-		args = setSourceTargetArgs(args, sourceArchive, targetDir, null);
-		runExtraction(args, testSet, -1, -1);		
 	}
 
 	public static void main(String[] args) {

@@ -14,9 +14,12 @@ import org.iupac.fairdata.api.IFDSerializerI;
 public class IFDReference implements IFDSerializableI {
 
 	/**
-	 * Origin object; typically a ZIP file label; toString() will be used for serialization
+	 * Origin object; typically a ZIP file label; 
+	 * but possibly a remote archive path
+	 * 
+	 * toString() will be used for serialization
 	 */
-	private final Object originPath;
+	private Object originPath;
 	
 	/**
 	 * root path to this file
@@ -24,7 +27,7 @@ public class IFDReference implements IFDSerializableI {
 	private final String localDir;
 
 	/**
-	 * source URL in the IFDFindingAid URLs list; must be set nonnegative
+	 * source URL item in the IFDFindingAid URLs list; must be set nonnegative
 	 * to register
 	 */
 	private final String resourceID;
@@ -33,11 +36,32 @@ public class IFDReference implements IFDSerializableI {
 	 * label of this file
 	 */
 	private final String localName;
+
+	private String url;
 	
-	/**
-	 * persistent identifier to this representation
-	 */
-	private final String pid;
+	public String getURL() {
+		return url;
+	}
+
+	public void setURL(String url) {
+		this.url = url;
+	}
+
+	private String doi;
+	
+	public String getDOI() {
+		return doi;
+	}
+
+	public void setDOI(String doi) {
+		this.doi = doi;
+	}
+
+
+
+	public IFDReference() {
+		this(null, null, null, null);
+	}
 
 	/**
 	 * 
@@ -46,16 +70,19 @@ public class IFDReference implements IFDSerializableI {
 	 * @param localDir without closing "/"
 	 * @param localName
 	 */
-	public IFDReference(String resourceID, Object originPath, String localDir, String localName, String pid) {
+	public IFDReference(String resourceID, Object originPath, String localDir, String localName) {
 		this.resourceID = resourceID;
 		this.originPath = originPath;
 		this.localDir = localDir;
 		this.localName = localName;
-		this.pid = pid;
 	}
 
 	public Object getOriginPath() {
 		return originPath;
+	}
+
+	public void setOriginPath(Object path) {
+		originPath = path;
 	}
 
 	public String getResourceID() {
@@ -74,10 +101,6 @@ public class IFDReference implements IFDSerializableI {
 		return localName;
 	}
 
-	public String getPID() {
-		return pid;
-	}
-	
 	@Override
 	public String toString() {
 		return "[IFDReference " + (localDir == null ? "" : localDir + "::") + originPath + " :as::" + localName + "]";
@@ -88,8 +111,10 @@ public class IFDReference implements IFDSerializableI {
 		IFDObject.serializeClass(serializer, getClass(), null);
 		if (resourceID != null)
 			serializer.addAttr("resourceID", resourceID);
-		if (pid != null)
-			serializer.addAttr("pid", pid);
+		if (doi != null)
+			serializer.addAttr("doi", doi);
+		if (url != null)
+			serializer.addAttr("url", url);
 		if (originPath != null)
 			serializer.addAttr("originPath", originPath.toString());
 		if (localName != null) {
@@ -103,5 +128,7 @@ public class IFDReference implements IFDSerializableI {
 	public String getSerializedType() {
 		return "IFDReference";
 	}
+	
+	
 
 }

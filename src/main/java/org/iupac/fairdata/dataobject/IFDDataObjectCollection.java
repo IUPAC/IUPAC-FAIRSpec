@@ -2,6 +2,7 @@ package org.iupac.fairdata.dataobject;
 
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDRepresentableObject;
+import org.iupac.fairdata.structure.IFDStructure;
 
 @SuppressWarnings("serial")
 public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObject<IFDDataObjectRepresentation>> {
@@ -18,6 +19,13 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 	public IFDDataObjectCollection() {
 		super(null, null);
 	}
+	
+	@Override
+	public boolean add(IFDRepresentableObject<IFDDataObjectRepresentation> s) {
+		return super.add(s);
+	}
+
+
 	
 	/**
 	 * Replace a data object with a cloned version that has a new ID.

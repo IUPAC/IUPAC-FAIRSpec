@@ -13,6 +13,11 @@ public class IFDStructureCollection extends IFDCollection<IFDStructure> {
 		this();
 		add(structure);
 	}
+	
+	@Override
+	public boolean add(IFDStructure s) {
+		return super.add(s);
+	}
 
 	public IFDStructure getStructureFromLocalName(String resourceID, String localName) {
 		for (int i = 0; i < size(); i++) {

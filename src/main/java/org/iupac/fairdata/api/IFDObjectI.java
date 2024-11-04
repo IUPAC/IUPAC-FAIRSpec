@@ -36,4 +36,13 @@ public interface IFDObjectI<T> {
 
 	void setTimestamp(String timestamp);
 
+	String getDOI();
+
+	void setDOI(String doi);
+
+	String getURL();
+
+	void setURL(String url);
+
+
 }

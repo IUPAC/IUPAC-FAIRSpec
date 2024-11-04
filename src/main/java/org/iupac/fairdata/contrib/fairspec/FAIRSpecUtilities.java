@@ -83,6 +83,10 @@ public class FAIRSpecUtilities {
 		return buf;
 	}
 
+	public static String getFileStringData(File f) throws MalformedURLException, IOException {
+		return getURLContentsAsString(f.toURI().toString());
+	}
+	
 	public static byte[] getURLBytes(String url) throws MalformedURLException, IOException {
 		return getLimitedStreamBytes(new URL(url).openStream(), -1, null, true, true);
 	}
@@ -242,6 +246,8 @@ public class FAIRSpecUtilities {
 	}
 
 	public static String mediaTypeFromFileName(String fname) {
+		if (fname == null)
+			return null;
 		int pt = Math.max(fname.lastIndexOf('/'), fname.lastIndexOf('.'));
 		String t = IFDConst.getMediaTypesForExtension(fname.substring(pt + 1));
 		return (t == null ? "?" : t);
@@ -714,5 +720,5 @@ public class FAIRSpecUtilities {
 		}
 		return list;
 	}
-	
+
 }

@@ -1,7 +1,5 @@
 package com.integratedgraphics.extractor;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,11 +22,8 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
-import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.io.FileUtils;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
@@ -38,7 +33,8 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper.FileList;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelperI;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelper;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities.SpreadsheetReader;
 import org.iupac.fairdata.core.IFDAssociation;
@@ -57,12 +53,15 @@ import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.structure.IFDStructure;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 import org.iupac.fairdata.util.JSJSONParser;
-import org.iupac.fairdata.util.ZipUtil;
 
+import com.integratedgraphics.extractor.ExtractorAids.AWrap;
+import com.integratedgraphics.extractor.ExtractorAids.ArchiveEntry;
+import com.integratedgraphics.extractor.ExtractorAids.ArchiveInputStream;
+import com.integratedgraphics.extractor.ExtractorAids.CacheRepresentation;
+import com.integratedgraphics.extractor.ExtractorAids.DirectoryInputStream;
+import com.integratedgraphics.extractor.ExtractorAids.ExtractorResource;
+import com.integratedgraphics.extractor.ExtractorAids.ObjectParser;
 import com.integratedgraphics.ifd.api.VendorPluginI;
-import com.junrar.Archive;
-import com.junrar.exception.RarException;
-import com.junrar.rarfile.FileHeader;
 
 // TODO: check zipping Bruker directories into ZIP
 
@@ -115,15 +114,16 @@ import com.junrar.rarfile.FileHeader;
  * @author hansonr
  *
  */
-public class Extractor implements ExtractorI {
+public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 
 	// TODO: test rootpath and file lists for case with two root paths -- does it
 	// make sense that that manifests are cleared?
 
 	// TODO: update GitHub README.md
 
-	protected static final String version = "0.0.5-alpha+2024.05.28";
+	protected static final String version = "0.0.6-alpha+2024.11.03";
 
+	// 2024.11.03 version 0.0.6 adding support for DoiCrawler
 	// 2024.05.28 version 0.0.5 moved to com.integratedgraphics.extractor.Extractor
 	// 2023.01.09 version 0.0.4 adds MNova_Page_Header parameter
 	// 2023.01.07 version 0.0.4 adds CDX reading by Jmol
@@ -156,320 +156,6 @@ public class Extractor implements ExtractorI {
 	// 2022.11.14 version 0.0.3 "compound identifier" as organizing association
 	// 2022.06.09 MNovaMetadataReader CDX export fails due to buffer pointer error.
 
-	/**
-	 * A static class for parsing the object string and using regex to match
-	 * filenames. This static class may be overridden to give it different
-	 * capabilities.
-	 * 
-	 * @author hansonr
-	 *
-	 */
-
-	protected static class ObjectParser {
-
-		protected static final String REGEX_QUOTE = "\\Q";
-		protected static final String REGEX_UNQUOTE = "\\E";
-		protected static final String REGEX_ANY_NOT_PIPE_OR_DIR = REGEX_UNQUOTE + "[^|/]+" + REGEX_QUOTE;
-		protected static final String REGEX_KEYDEF_START = REGEX_UNQUOTE + "(?<";
-		protected static final String REGEX_KEYVAL_START = REGEX_UNQUOTE + "\\k<";
-		protected static final String REGEX_KV_END = ">" + REGEX_QUOTE;
-		protected static final String REGEX_END_PARENS = REGEX_UNQUOTE + ")" + REGEX_QUOTE;
-		protected static final String REGEX_EMPTY_QUOTE = REGEX_QUOTE + REGEX_UNQUOTE;
-
-		protected static final String RAW_REGEX_TAG = "{regex::";
-
-		protected static final char TEMP_RAW_IN_CHAR = '\0'; // --> <
-		protected static final char TEMP_RAW_OUT_CHAR = '\1'; // --> >
-		protected static final char TEMP_STAR_CHAR = '\2'; // --> *
-		protected static final char TEMP_KEYVAL_IN_CHAR = '\3'; // --> <
-		protected static final char TEMP_KEYVAL_OUT_CHAR = '\4'; // --> >
-		protected static final char TEMP_ANY_SEP_ANY_CHAR = '\5'; // see below
-		protected static final char TEMP_ANY_SEP_ANY_CHAR2 = '\6'; // see below
-		protected static final char TEMP_IGNORE = '\7'; // \\ removed
-
-		protected static final String TEMP_KEYVAL_IN = REGEX_UNQUOTE + "(?" + TEMP_KEYVAL_IN_CHAR;
-
-		protected static final String TEMP_KEYVAL_OUT = TEMP_KEYVAL_OUT_CHAR + REGEX_QUOTE;
-
-		/**
-		 * multiple separations by char. for example *-*.zip -->
-		 */
-		protected static final String TEMP_ANY_SEP_ANY_GROUPS = REGEX_UNQUOTE + "(" + "[^|/\5]+(?:\6[^|/\5]+)"
-		// + TEMP_STAR_CHAR
-				+ "+" + ")" + REGEX_QUOTE;
-
-		/**
-		 * // /**\/ --> "/\E(?:[^|/]+/)*\Q" [ backslash after two asterisks only for
-		 * this comment ]
-		 *
-		 * one or more directories;
-		 * 
-		 * test/**\/*.zip matches test/xxx.zip or test/bbb/aaa/xxx.zip
-		 */
-		protected static final String TEMP_ANY_DIRECTORIES = REGEX_UNQUOTE + "(?:[^|/]+/)" + TEMP_STAR_CHAR
-				+ REGEX_QUOTE;
-
-		protected static final char BACK_SLASH_IGNORED = '\\';
-
-		protected static int parserCount;
-
-		protected final int index;
-
-		protected int getIndex() {
-			return index;
-		}
-
-		protected String sData;
-
-		protected Pattern p;
-
-		protected List<String> regexList;
-
-		protected Map<String, String> keys;
-
-		protected ExtractorResource dataSource;
-		protected Extractor extractor;
-		protected List<String[]> assignments;
-		protected boolean hasData;
-		protected List<Object> replacements;
-
-		/**
-		 * @param sObj
-		 * @throws IFDException
-		 */
-		protected ObjectParser(Extractor extractor, ExtractorResource resource, String sObj) throws IFDException {
-			this.extractor = extractor;
-			this.index = parserCount++;
-			dataSource = resource;
-			sData = sObj.substring(sObj.charAt(0) == '|' ? 1 : 0);
-			init();
-		}
-
-		protected void addAssignment(String val) throws IFDException {
-			if (assignments == null)
-				assignments = new ArrayList<>();
-			int pt = val.indexOf("::") - 1;
-			if (pt < 0)
-				throw new IFDException(val + " is not of the form xx.xx.xx::definition");
-			val = val.substring(1, val.length() - 1);
-			String prop = val.substring(0, pt);
-			val = val.substring(pt + 2);
-			assignments.add(new String[] { prop, val });
-		}
-
-		/**
-		 * Prepare pattern and match.
-		 * 
-		 * @throws IFDException
-		 * 
-		 * 
-		 */
-		protected void init() throws IFDException {
-			// Using Java and JavaScript named capture groups for in-line defining.
-			//
-			// {regex::[a-z]} is left unchanged and becomes \\E[a-z]\\Q
-			//
-			// **/ becomes \\E(?:[^/]+/)*)\\Q
-			//
-			// *-* becomes \\E([^-]+(?:-[^-]+)+)\\Q and matches a-b-c
-			//
-			// * becomes \\E.+\\Q
-			//
-			// {id=IFD.property.dataobject.label::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
-			//
-			// {IFD.property.dataobject.label::xxx} becomes
-			// \\E(?<IFD0nmr0param0expt>\\Qxxx\\E)\\Q
-			//
-			// <id> becomes \\k<id>
-			//
-			// generally ... becomes ^\\Q...\\E$
-			//
-			// \\Q\\E in result is removed
-			//
-			// so:
-			//
-			// {IFD.property.dataobject.label::*} becomes \\E(?<IFD0nmr0param0expt>.+)\\Q
-			//
-			// {IFD.representation.spec.nmr.vendor.dataset::{IFD.property.sample.label::*-*}-{IFD.property.dataobject.label::*}.jdf}
-			//
-			// becomes:
-			//
-			// ^(?<IFD0nmr0representation0vendor0dataset>(?<IFD0structure0param0compound0id>([^-](?:-[^-]+)*))\\Q-\\E(?<IFD0nmr0param0expt>.+)\\Q.jdf\\E)$
-			//
-			// {id=IFD.property.sample.label::*}.zip|{IFD.representation.spec.nmr.vendor.dataset::{id}_{IFD.property.dataobject.label::*}/}
-			//
-			// becomes:
-			//
-			// ^(?<id>*)\\Q.zip|\\E(?<IFD0nmr0representation0vendor0dataset>\\k<id>\\Q_\\E(<IFD0nmr0param0expt>*)\\Q/\\E)$
-
-			// so....
-
-			// {regex::[a-z]} is left unchanged and becomes \\E[a-z]\\Q
-
-			String s = protectRegex(null);
-
-			// \ is ignored and removed at the end
-			// it should only be used to break up something like *\-* to be literally a
-			// single *-*, not "any number of "-"
-			s = s.replace(BACK_SLASH_IGNORED, TEMP_IGNORE);
-
-			// **/ becomes \\E(?:[^/]+/)*\\Q
-
-			s = FAIRSpecUtilities.rep(s, "**/", TEMP_ANY_DIRECTORIES);
-
-			Matcher m;
-			// *-* becomes \\E([^-]+(?:-[^-]+)*)\\Q and matches a-b-c
-			if (s.indexOf("*") != s.lastIndexOf("*")) {
-				while ((m = pStarDotStar.matcher(s)).find()) {
-					String schar = m.group(1);
-					char c = schar.charAt(0);
-					s = FAIRSpecUtilities.rep(s, "*" + schar + "*",
-							TEMP_ANY_SEP_ANY_GROUPS.replaceAll("" + TEMP_ANY_SEP_ANY_CHAR2, "\\\\Q" + c + "\\\\E")
-									.replace(TEMP_ANY_SEP_ANY_CHAR, c));
-				}
-			}
-			// * becomes \\E.+\\Q
-
-			s = FAIRSpecUtilities.rep(s, "*", REGEX_ANY_NOT_PIPE_OR_DIR);
-
-			// {id=IFD.property.dataobject.label::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
-			// {IFD.property.dataobject.label::xxx} becomes
-			// \\E(?<IFD0nmr0param0expt>\\Qxxx\\E)\\Q
-			// <id> becomes \\k<id>
-
-			s = compileIFDDefs(s, true, true);
-
-			// restore '*'
-			s = s.replace(TEMP_STAR_CHAR, '*');
-
-			// restore regex
-			// wrap with quotes and constraints ^\\Q...\\E$
-
-			s = "^" + REGEX_QUOTE + protectRegex(s) + REGEX_UNQUOTE + "$";
-
-			// \\Q\\E in result is removed
-
-			s = FAIRSpecUtilities.rep(s, REGEX_EMPTY_QUOTE, "");
-
-			s = FAIRSpecUtilities.rep(s, "" + TEMP_IGNORE, "");
-
-			extractor.log("!Extractor.ObjectParser pattern: " + s);
-			p = Pattern.compile(s);
-		}
-
-		/**
-		 * Find and regex-ify all {id=IFD.param::value} or {IFD.param::value}.
-		 * 
-		 * @param s growing regex string
-		 * @return regex string with all {...} fixed
-		 * @throws IFDException
-		 */
-		protected String compileIFDDefs(String s, boolean isFull, boolean replaceK) throws IFDException {
-			int pt;
-			while (s.indexOf("::") >= 0) {
-				Matcher m = objectDefPattern.matcher(s);
-				if (!m.find())
-					break;
-				String param = m.group(1);
-				String val = m.group(2);
-				String pv = "{" + param + "::" + val + "}";
-				if (val.indexOf("::") >= 0)
-					val = compileIFDDefs(val, false, replaceK);
-				pt = param.indexOf("=");
-				if (pt == 0)
-					throw new IFDException("bad {def=key::val} expression: " + param + "::" + val);
-				if (keys == null)
-					keys = new LinkedHashMap<String, String>();
-				String key;
-				if (pt > 0) {
-					key = param.substring(0, pt);
-					param = param.substring(pt + 1);
-					if (extractor.htMetadata != null && extractor.htMetadata.containsKey(key)) {
-						extractor.phase1SetMetadataTarget(key, param);
-					}
-				} else {
-					key = param.replace('.', '0').replace('_', '1');
-				}
-				keys.put(key, param);
-				String bk = "{" + key + "}";
-				if (s.indexOf(bk) >= 0) {
-					s = FAIRSpecUtilities.rep(s, bk, "<" + key + ">");
-				}
-				// escape < and > here
-
-				s = FAIRSpecUtilities.rep(s, pv,
-						(replaceK ? TEMP_KEYVAL_IN + key + TEMP_KEYVAL_OUT : REGEX_KEYDEF_START + key + REGEX_KV_END)
-								+ val + REGEX_END_PARENS);
-			}
-			if (isFull && (s.indexOf("<") >= 0 || s.indexOf(TEMP_KEYVAL_IN_CHAR) >= 0)) {
-				// now fix k< references and revert \3 \4
-				s = FAIRSpecUtilities.rep(s, "<", REGEX_KEYVAL_START);
-				s = FAIRSpecUtilities.rep(s, ">", REGEX_KV_END).replace(TEMP_KEYVAL_IN_CHAR, '<')
-						.replace(TEMP_KEYVAL_OUT_CHAR, '>');
-			}
-			return s;
-		}
-
-		/**
-		 * fix up {regex::...} phrases in IFD-extract.json. First pass initialization
-		 * clips out regex sections so that they are not processed by ObjectParser;
-		 * second pass puts it all together.
-		 * 
-		 * 
-		 * @param s the string to protect; null for second pass
-		 * @return
-		 * @throws IFDException
-		 */
-		protected String protectRegex(String s) throws IFDException {
-			if (sData.indexOf(RAW_REGEX_TAG) < 0)
-				return (s == null ? sData : s);
-			if (s == null) {
-				// init
-				s = sData;
-				regexList = new ArrayList<>();
-				int[] pt = new int[1];
-				int i = 0;
-				while ((pt[0] = s.indexOf(RAW_REGEX_TAG)) >= 0) {
-					// save regex and replace by \0n\1
-					int p0 = pt[0];
-					String rx = getIFDExtractValue(s, "regex", pt);
-					regexList.add(REGEX_UNQUOTE + rx + REGEX_QUOTE);
-					s = s.substring(0, p0) + TEMP_RAW_IN_CHAR + (i++) + TEMP_RAW_OUT_CHAR + s.substring(pt[0]);
-				}
-			} else {
-				// restore regex
-				int p;
-				while ((p = s.indexOf(TEMP_RAW_IN_CHAR)) >= 0) {
-					int p2 = s.indexOf(TEMP_RAW_OUT_CHAR);
-					int i = Integer.parseInt(s.substring(p + 1, p2));
-					s = s.substring(0, p) + regexList.get(i) + s.substring(p2 + 1);
-				}
-			}
-			return s;
-		}
-
-		@Override
-		public String toString() {
-			return "[ObjectParser " + this.sData + "]";
-		}
-
-		protected Matcher match(String origin) throws IFDException {
-			if (replacements != null) {
-				try {
-					for (int i = replacements.size(); --i >= 0;) {
-						@SuppressWarnings("unchecked")
-						List<Object> sub = (List<Object>) replacements.get(i);
-						origin = FAIRSpecUtilities.rep(origin, (String) sub.get(0), (String) sub.get(1));
-					}
-				} catch (Exception e) {
-					throw new IFDException("Error in subsitution for sub: " + e);
-				}
-			}
-			return p.matcher(origin);
-		}
-
-	}
-
 	protected class ParserIterator implements Iterator<ObjectParser> {
 
 		boolean byResource;
@@ -477,6 +163,7 @@ public class Extractor implements ExtractorI {
 
 		ParserIterator() {
 			extractorResource = null;
+			thisRootPath = "";
 		}
 
 		@Override
@@ -489,8 +176,8 @@ public class Extractor implements ExtractorI {
 //				return false;
 				ObjectParser parser = objectParsers.get(i);
 				boolean done =
-						!parser.dataSource.isLocalStructures &&
-						(parser.dataSource.getSourceFile() != objectParsers.get(0).dataSource.getSourceFile());
+						!parser.getDataSource().isLocalStructures &&
+						(parser.getDataSource().getSourceFile() != objectParsers.get(0).getDataSource().getSourceFile());
 				return done;
 			}
 
@@ -500,9 +187,9 @@ public class Extractor implements ExtractorI {
 		@Override
 		public ObjectParser next() {
 			ObjectParser parser = objectParsers.get(i++);
-			if (parser.dataSource != extractorResource) {
+			if (parser.getDataSource() != extractorResource) {
 				try {
-					phase2InitializeResource(parser.dataSource, true);
+					phase2InitializeResource(parser.getDataSource(), true);
 				} catch (IFDException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -511,467 +198,6 @@ public class Extractor implements ExtractorI {
 			return parser;
 		}
 
-	}
-
-	/**
-	 * A static class to cover both ZipEntry and TAR entries.
-	 * 
-	 * @author hansonr
-	 *
-	 */
-	protected static class ArchiveEntry {
-
-		protected String name;
-		protected long size;
-
-		protected ArchiveEntry(String name, long size) {
-			this.name = name;
-			this.size = size;
-		}
-
-		protected ArchiveEntry(ZipEntry ze) {
-			name = ze.getName();
-			size = ze.getSize();
-		}
-
-		protected ArchiveEntry(TarArchiveEntry te) {
-			name = te.getName();
-			size = te.getSize();
-		}
-
-		protected ArchiveEntry(FileHeader fh) {
-			name = fh.getFileName();
-			size = fh.getUnpSize();
-		}
-
-		protected ArchiveEntry(String name) {
-			this.name = name;
-		}
-
-		protected boolean isDirectory() {
-			return name.endsWith("/");
-		}
-
-		protected String getName() {
-			return name;
-		}
-
-		protected long getSize() {
-			return size;
-		}
-
-		@Override
-		public String toString() {
-			return name;
-		}
-	}
-
-	protected static class DirectoryEntry extends ArchiveEntry {
-
-		protected File file;
-		protected boolean isDir;
-		protected BufferedInputStream bis;
-
-		public DirectoryEntry(String name, File file) {
-			super(null, 0);
-			this.file = file;
-			isDir = file.isDirectory();
-			this.name = name.replace('\\', '/') + (isDir ? "/" : "");
-			size = (isDir ? 0 : file.length());
-		}
-
-		protected BufferedInputStream getInputStream() throws FileNotFoundException {
-			return (bis != null ? bis : isDir ? null : (bis = new BufferedInputStream(new FileInputStream(file))));
-		}
-
-		protected void close() {
-			if (bis != null) {
-				try {
-					bis.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-
-	protected static class DirIterator implements Iterator<File> {
-
-		protected File dir;
-		protected File[] list;
-		protected int pt = -1, n;
-		protected DirIterator iter;
-
-		DirIterator(File dir) {
-			this.dir = dir;
-			list = dir.listFiles();
-			n = list.length;
-		}
-
-		@Override
-		public boolean hasNext() {
-			return (pt < n || iter != null && iter.hasNext());
-		}
-
-		@Override
-		public File next() {
-			File f;
-			if (iter != null) {
-				if (iter.hasNext())
-					return iter.next();
-				iter = null;
-			}
-			if (pt < 0) {
-				pt = 0;
-				f = dir;
-			} else {
-				f = list[pt++];
-				if (f.isDirectory()) {
-					return (iter = new DirIterator(f)).next();
-				}
-			}
-			return f;
-		}
-	}
-
-	/**
-	 * A static class to provide a single input stream for a set of files.
-	 * 
-	 * @author hansonr
-	 *
-	 */
-	protected static class DirectoryInputStream extends InputStream {
-
-		File dir;
-		int offset;
-		DirIterator iter;
-		protected DirectoryEntry entry;
-
-		public DirectoryInputStream(String dir) {
-			if (dir.startsWith("file:/"))
-				dir = dir.substring(6);
-			this.dir = new File(dir);
-			offset = this.dir.getAbsolutePath().length() + 1;
-			reset();
-		}
-
-		@Override
-		public void reset() {
-			iter = new DirIterator(this.dir);
-			if (iter.hasNext())
-				iter.next(); // skip path itself
-		}
-
-		@Override
-		public int read() throws IOException {
-			return (entry == null ? -1 : entry.getInputStream().read());
-		}
-
-		@Override
-		public int read(byte b[], int off, int len) throws IOException {
-			return (entry == null ? -1 : entry.getInputStream().read(b, off, len));
-		}
-
-		@Override
-		public void close() throws IOException {
-			closeEntry();
-			iter = null;
-		}
-
-		protected ArchiveEntry getNextEntry() throws FileNotFoundException {
-			closeEntry();
-			if (!iter.hasNext())
-				return null;
-			File f = iter.next();
-			String name = f.getAbsolutePath().substring(offset);
-			return entry = new DirectoryEntry(name, f);
-		}
-
-		protected void closeEntry() {
-			if (entry != null) {
-				entry.close();
-				entry = null;
-			}
-		}
-
-	}
-
-	/**
-	 * A static class to provide a single input stream for a set of files.
-	 * 
-	 * @author hansonr
-	 *
-	 */
-	protected static class RARInputStream extends InputStream {
-
-		private Archive rar;
-		private List<FileHeader> rarList = new ArrayList<>();
-		private int rarPt = 0;
-		private FileHeader fh;
-		private RARArchiveEntry entry;
-
-		public RARInputStream(InputStream is) throws IOException {
-			try {
-				rar = new Archive(is);
-			} catch (RarException | IOException e) {
-				throw new IOException(e);
-			}
-			FileHeader fh;
-			List<FileHeader> list = new ArrayList<>();
-			while ((fh = rar.nextFileHeader()) != null) {
-				list.add(fh);
-			}
-			rarList = list;
-			reset();
-		}
-
-		@Override
-		public void reset() {
-			rarPt = 0;
-		}
-
-		@Override
-		public int read() throws IOException {
-			return (entry == null ? -1 : entry.getInputStream().read());
-		}
-
-		@Override
-		public int read(byte b[], int off, int len) throws IOException {
-			return (entry == null ? -1 : entry.getInputStream().read(b, off, len));
-		}
-
-		@Override
-		public void close() throws IOException {
-			closeEntry();
-			close();
-		}
-
-		protected RARArchiveEntry getNextEntry() throws FileNotFoundException {
-			closeEntry();
-			if (rarPt >= rarList.size())
-				return null;
-			return entry = new RARArchiveEntry(rar, rarList.get(rarPt++));
-		}
-
-		protected void closeEntry() {
-			if (entry != null) {
-				entry.close();
-				entry = null;
-			}
-		}
-
-	}
-
-	static class RARArchiveEntry extends ArchiveEntry {
-
-		private BufferedInputStream is;
-		private FileHeader fh;
-		private Archive rar;
-
-		protected RARArchiveEntry(Archive rar, FileHeader fh) {
-			super(fh);
-			this.rar = rar;
-			this.fh = fh;
-		}
-
-		public void close() {
-			fh = null;
-		}
-
-		public BufferedInputStream getInputStream() throws IOException {
-			if (is == null) {
-				try {
-					ByteArrayOutputStream bos = new ByteArrayOutputStream();
-					rar.extractFile(fh, bos);
-					byte[] bytes = bos.toByteArray();
-					System.out.println("extracting " + fh.getFileName() + " " + bytes.length);
-					is = new BufferedInputStream(new ByteArrayInputStream(bytes));
-				} catch (Exception e) {
-					throw new IOException(e);
-				}
-			}
-			return is;
-		}
-
-	}
-
-	/**
-	 * A static class to allow for either ZipInputStream or TarArchiveInputStream
-	 * 
-	 * @author hansonr
-	 *
-	 */
-	protected static class ArchiveInputStream extends InputStream {
-		private ZipInputStream zis;
-		private TarArchiveInputStream tis;
-		private InputStream is;
-		private DirectoryInputStream dis;
-		private RARInputStream ris;
-
-		ArchiveInputStream(InputStream is, String fname) throws IOException {
-
-			if (is instanceof ArchiveInputStream)
-				is = new BufferedInputStream(((ArchiveInputStream) is).getStream());
-			if (is instanceof DirectoryInputStream) {
-				this.is = dis = (DirectoryInputStream) is;
-				dis.reset();
-			} else if (ZipUtil.isGzipS(is)) {
-				this.is = tis = ZipUtil.newTarGZInputStream(is);
-			} else if (fname != null && fname.endsWith(".tar")) {
-				this.is = tis = ZipUtil.newTarInputStream(is);
-			} else if (fname != null && fname.endsWith(".rar")) {
-				this.is = ris = new RARInputStream(is);
-			} else {
-				this.is = zis = new ZipInputStream(is);
-			}
-		}
-
-		protected ArchiveEntry getNextEntry() throws IOException {
-			if (ris != null) {
-				return ris.getNextEntry();
-			}
-			if (tis != null) {
-				TarArchiveEntry te = tis.getNextTarEntry();
-				return (te == null ? null : new ArchiveEntry(te));
-			}
-			if (zis != null) {
-				ZipEntry ze = zis.getNextEntry();
-				return (ze == null ? null : new ArchiveEntry(ze));
-			}
-			return dis.getNextEntry();
-		}
-
-		@Override
-		public void close() throws IOException {
-			if (dis != null)
-				dis.close();
-			if (is != null)
-				is.close();
-		}
-
-		protected InputStream getStream() {
-			return is;
-		}
-
-		@Override
-		public int read() throws IOException {
-			return is.read();
-		}
-
-		@Override
-		public int read(byte b[], int off, int len) throws IOException {
-			return is.read(b, off, len);
-		}
-
-	}
-
-	/**
-	 * A static class to provide a temporary representation object for
-	 * representations that have been found but do not have an object yet.
-	 * 
-	 * @author hansonr
-	 *
-	 */
-	protected static class CacheRepresentation extends IFDRepresentation {
-
-		protected String rezipOrigin;
-		protected boolean isMultiple;
-
-		protected CacheRepresentation(IFDReference ifdReference, Object o, long len, String type, String subtype) {
-			super(ifdReference, o, len, type, subtype);
-		}
-
-		protected void setRezipOrigin(String path) {
-			rezipOrigin = path;
-		}
-
-		protected Object getRezipOrigin() {
-			return rezipOrigin;
-		}
-
-		protected void setIsMultiple() {
-			isMultiple = true;
-		}
-
-		protected boolean isMultiple() {
-			return isMultiple;
-		}
-
-	}
-
-	/**
-	 * A static class that provides a byte array wrapper that allows using them to
-	 * be keys in a HashMap.
-	 * 
-	 * Used here for checking if to structure files are identical. For example, two
-	 * different structures pulled from two different pages of an MNova file.
-	 * 
-	 * 
-	 * @author hansonr
-	 *
-	 */
-	protected static class AWrap {
-
-		protected byte[] a;
-
-		AWrap(byte[] b) {
-			a = b;
-		}
-
-		@Override
-		public boolean equals(Object o) {
-			AWrap b = (AWrap) o;
-			return Arrays.equals(a, b.a);
-		}
-
-		@Override
-		public int hashCode() {
-			return Arrays.hashCode(a);
-		}
-
-	}
-
-	protected class ExtractorResource {
-		public boolean isLocalStructures;
-		String source;
-		FileList lstManifest;
-		FileList lstIgnored;
-		FileList lstAccepted;
-		protected String rootPath;
-		public String ifdResource;
-		public String localSourceFile;
-
-		ExtractorResource(String source) {
-			this.source = source;
-			isLocalStructures = isDefaultStructurePath(source);
-		}
-
-		void setLists(String rootPath, String ignore, String accept) {
-			if (lstManifest != null)
-				return;
-			lstManifest = new FileList(rootPath, "manifest");
-			lstIgnored = new FileList(rootPath, "ignored");
-			lstAccepted = new FileList(rootPath, "accepted");
-			if (ignore != null)
-				lstIgnored.setAcceptPattern(ignore);
-			if (accept != null)
-				lstAccepted.setAcceptPattern(accept);
-		}
-
-		@Override
-		public String toString() {
-			return "[ExtractorSource " + getSourceFile() + " => " + rootPath + "]";
-		}
-
-		public String getSourceFile() {
-			return (localSourceFile == null ? source : localSourceFile);
-		}
-	}
-
-	static {
-		FAIRSpecFindingAid.loadProperties();
-		VendorPluginI.init();
 	}
 
 	/**
@@ -1023,46 +249,9 @@ public class Extractor implements ExtractorI {
 	Map<String, Object> config = null;
 
 	/**
-	 * start-up option to create JSON list for multiple
+	 * the finding aid helper - only one per instance
 	 */
-	protected boolean stopOnAnyFailure;
-	protected boolean debugReadOnly;
-
-	protected boolean debugging = false;
-	protected boolean readOnly = false;
-
-	/**
-	 * set true to only create finding aides, not extract file data
-	 */
-	protected boolean createFindingAidOnly = false;
-
-	/**
-	 * set true to allow failure to create pub info
-	 */
-	protected boolean allowNoPubInfo = false;
-
-	/**
-	 * don't even try to read pub info -- debugging
-	 */
-	protected boolean skipPubInfo = false;
-
-	/**
-	 * set to true add the source metadata from Crossref or DataCite
-	 */
-	protected boolean addPublicationMetadata = false;
-
-	/**
-	 * set true to zip up the extracted collection, placing that in the target
-	 * directory
-	 */
-	protected boolean createZippedCollection = true;
-
-//	protected String logfile;
-
-	/**
-	 * the finding aid - only one per instance
-	 */
-	protected FAIRSpecExtractorHelperI helper;
+	private FAIRSpecExtractorHelperI helper;
 
 	/**
 	 * the IFD-extract.json script
@@ -1226,40 +415,15 @@ public class Extractor implements ExtractorI {
 	 */
 	protected DefaultStructureHelper structurePropertyManager;
 
-	/**
-	 * produce no output other than a log file
-	 */
-	protected boolean noOutput;
-
-	/**
-	 * include ignored files in FAIRSpec collection
-	 */
-
-	protected boolean includeIgnoredFiles = true;
-
-	protected String localizedTopLevelZipURL;
-
-	protected boolean haveExtracted;
-
-	protected String ifdid = "";
-
 	protected Map<AWrap, IFDStructure> htStructureRepCache;
-
-	String strWarnings = "";
-
-	protected int warnings;
-
-	public int getWarningCount() {
-		return warnings;
-	}
-
-	protected int errors;
 
 	protected File currentZipFile;
 
 	protected Map<String, Map<String, Object>> htMetadata;
 
-	protected File extractscriptFile;
+	protected File extractScriptFile;
+	
+	protected String extractScriptFileDir;
 
 	protected String userStructureFilePattern;
 
@@ -1273,10 +437,6 @@ public class Extractor implements ExtractorI {
 
 	protected String ignoreRegex, acceptRegex;
 
-	protected boolean isByID = true; // forcing
-
-	protected boolean isByIDSet;
-
 	protected List<FileList> rootLists;
 	protected String resourceList;
 
@@ -1288,7 +448,7 @@ public class Extractor implements ExtractorI {
 		return errors;
 	}
 
-	public Extractor() {
+	public MetadataExtractor() {
 		setConfiguration();
 		setDefaultRunParams();
 		getStructurePropertyManager();
@@ -1296,7 +456,7 @@ public class Extractor implements ExtractorI {
 
 	protected void setConfiguration() {
 		try {
-			config = FAIRSpecUtilities.getJSONResource(Extractor.class, "extractor.config.json");
+			config = FAIRSpecUtilities.getJSONResource(MetadataExtractor.class, "extractor.config.json");
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;
@@ -1345,7 +505,8 @@ public class Extractor implements ExtractorI {
 	protected boolean processPhase1(File ifdExtractScriptFile, String localArchive) throws IOException, IFDException {
 		// first create objects, a List<String>
 		phase1SetLocalSourceDir(localArchive);
-		this.extractscriptFile = ifdExtractScriptFile;
+		extractScriptFile = ifdExtractScriptFile;
+		extractScriptFileDir = extractScriptFile.getParent();
 		phase1GetObjectParsersForFile(ifdExtractScriptFile);
 		if (!phase1ProcessPubURI())
 			return false;
@@ -1376,39 +537,7 @@ public class Extractor implements ExtractorI {
 		if (pubdoi == null)
 			pubdoi = (String) helper.getFindingAid()
 					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI);
-		List<Map<String, Object>> list = new ArrayList<>();
-		if (pubdoi != null && !skipPubInfo) {
-			Map<String, Object> info = PubInfoExtractor.getPubInfo(pubdoi, addPublicationMetadata,
-					PubInfoExtractor.CROSSREF);
-			if (info != null && info.get("metadataSource") != null) {
-				list.add(info);
-			} else {
-				logWarn("Could not access " + PubInfoExtractor.getCrossrefMetadataUrl(pubdoi),
-						"extractAndCreateFindingAid");
-				if (!allowNoPubInfo)
-					return false;
-			}
-		}
-		if (datadoi != null && !skipPubInfo) {
-			Map<String, Object> info = PubInfoExtractor.getPubInfo(datadoi, addPublicationMetadata,
-					PubInfoExtractor.DATACITE);
-			if (info != null && info.get("metadataSource") != null) {
-				list.add(info);
-			} else {
-				logWarn("Could not access " + PubInfoExtractor.getCrossciteMetadataUrl(datadoi),
-						"extractAndCreateFindingAid");
-				if (!allowNoPubInfo)
-					return false;
-			}
-			if (!list.isEmpty()) {
-				helper.getFindingAid().setRelatedTo(list);
-			} else if (!allowNoPubInfo) {
-				logErr("Finding aid does not contain PubInfo! No internet? cannot continue",
-						"extractAndCreateFindingAid");
-				return false;
-			}
-		}
-		return true;
+		return processDOIURLs(pubdoi, datadoi, helper);
 	}
 
 	/**
@@ -1536,22 +665,10 @@ public class Extractor implements ExtractorI {
 	 */
 	protected List<ObjectParser> phase1GetObjectParsersForFile(File ifdExtractScript) throws IOException, IFDException {
 		log("!Extracting " + ifdExtractScript.getAbsolutePath());
-		return phase1GetObjectsForStream(ifdExtractScript.toURI().toURL().openStream());
+		extractScript = FAIRSpecUtilities.getFileStringData(ifdExtractScript);
+		return objectParsers = phase1ParseScript(extractScript);
 	}
 
-	/**
-	 * Get all {object} data from IFD-extract.json.
-	 * 
-	 * @param ifdExtractScript
-	 * @return list of {objects}
-	 * @throws IOException
-	 * @throws IFDException
-	 */
-	protected List<ObjectParser> phase1GetObjectsForStream(InputStream is) throws IOException, IFDException {
-		extractScript = new String(FAIRSpecUtilities.getLimitedStreamBytes(is, -1, null, true, true));
-		objectParsers = phase1ParseScript(extractScript);
-		return objectParsers;
-	}
 
 	/**
 	 * Parse the script form an IFD-extract.js JSON file starting with the creation
@@ -1604,9 +721,11 @@ public class Extractor implements ExtractorI {
 	 * @return list of ObjectParsers that have successfully parsed the {object}
 	 *         lines of the file
 	 * @throws IFDException
+	 * @throws IOException 
+	 * @throws MalformedURLException 
 	 */
 	@SuppressWarnings("unchecked")
-	protected List<ObjectParser> phase1GetObjectParsers(List<Object> jsonArray) throws IFDException {
+	protected List<ObjectParser> phase1GetObjectParsers(List<Object> jsonArray) throws IFDException, MalformedURLException, IOException {
 
 		// input:
 
@@ -1735,6 +854,24 @@ public class Extractor implements ExtractorI {
 				// {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
 				// ..keydef=-----------------key--------
 
+				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_REFERENCES)) {
+					val = FAIRSpecUtilities.getFileStringData(new File(toAbsolutePath(val)));
+					log("!processing " + val);
+					Map<String, Map<String, Object>> htCompoundFileReferences = new HashMap<>();
+					List<Object> jsonMap = (List<Object>) new JSJSONParser().parse(val, false);
+					for (int j = jsonMap.size(); --j >= 0;) {
+						Map<String, Object> jm = (Map<String, Object>) jsonMap.get(j);
+						String file = (String) jm.get("file");
+						String cmpd = (String) jm.get("cmpd");
+						if (file == null) {
+							file = cmpd;
+							log("!" + jm.toString());
+						}
+						htCompoundFileReferences.put(file, jm);
+					}
+					helper.setCompoundRefMap(htCompoundFileReferences);
+				}
+				
 				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_LOCAL_SOURCE_FILE)) {
 					localSourceFile = (val.length() == 0 ? null : val);
 					continue;
@@ -1776,7 +913,7 @@ public class Extractor implements ExtractorI {
 								IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI + " was not set before " + val);
 					}
 					ObjectParser parser = newObjectParser(source, val);
-					parser.replacements = replacements;
+					parser.setReplacements(replacements);
 					parsers.add(parser);
 					continue;
 				}
@@ -1837,7 +974,7 @@ public class Extractor implements ExtractorI {
 		return parsers;
 	}
 
-	private static boolean isDefaultStructurePath(String val) {
+	static boolean isDefaultStructurePath(String val) {
 		return (DEFAULT_STRUCTURE_DIR_URI.equals(val) || DEFAULT_STRUCTURE_ZIP_URI.equals(val));
 	}
 
@@ -1847,44 +984,18 @@ public class Extractor implements ExtractorI {
 		return (!val.startsWith("file:/") || new File(val.substring(6)).exists());
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void phase1ProcessMetadataElement(Object m) throws IFDException {
-		@SuppressWarnings("unchecked")
 		Map<String, Object> map = (Map<String, Object>) m;
 		String key = (String) map.get("FOR");
 		if (key == null) {
 			throw new IFDException("extractor template METADATA element does not contain 'FOR' key in " + m);
-		}
-		if (!map.containsKey("METADATA_FILE")) {
-			throw new IFDException("extractor template METADATA_FILE was not found for " + m);
 		}
 		if (htMetadata == null)
 			htMetadata = new HashMap<String, Map<String, Object>>();
 		htMetadata.put(key, map);
 		if (key.startsWith("IFD."))
 			loadMetadata(key, map);
-	}
-
-	/**
-	 * Set options from command-line, IFD-extract.json, and extractor.config.json.
-	 * 
-	 * Note that setting isByID is only allowed once. Thus:
-	 * 
-	 * - extractor.config.json overrides built-in defaults - IFD-extract.json
-	 * overrides extractor.config.json
-	 * 
-	 * - command line overrides IFD-extract.json
-	 * 
-	 * @param key
-	 * @param val
-	 */
-	protected void setExtractorOption(String key, String val) {
-		if (!isByIDSet && key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID)) {
-			isByID = val.equalsIgnoreCase("true");
-			isByIDSet = true;
-			helper.setById(isByID);
-		} else {
-			checkFlags(val);
-		}
 	}
 
 	///////// PHASE 2: Parsing the ZIP file and extracting objects from it ////////
@@ -1954,7 +1065,7 @@ public class Extractor implements ExtractorI {
 			// all the parsing is done, because sometimes the object is not recognized
 			// until a key file (Bruker procs, for example, is found).
 
-			log("!Phase 2b \n" + localizedTopLevelZipURL + "\n" + parser.sData);
+			log("!Phase 2b \n" + localizedTopLevelZipURL + "\n" + parser.getStringData());
 
 			phase2bParseZipFileNamesForObjects(parser, htArchiveContents.get(localizedTopLevelZipURL));
 
@@ -1976,7 +1087,7 @@ public class Extractor implements ExtractorI {
 			iter = new ParserIterator();
 			while (iter.hasNext()) {
 				ObjectParser parser = iter.next();
-				if (parser.hasData)
+				if (parser.hasData())
 					phase2ReadZipContentsIteratively(getTopZipStream(), "", PHASE_2C, null);
 			}
 		}
@@ -1988,7 +1099,7 @@ public class Extractor implements ExtractorI {
 
 		// Phase 2d
 
-		log("!Phase 2d check for ignored files");
+		log("!Phase 2d read zip contents");
 
 		iter = new ParserIterator();
 		while (iter.hasNext()) {
@@ -2071,6 +1182,7 @@ public class Extractor implements ExtractorI {
 				addDeferredPropertyOrRepresentation(NEW_RESOURCE_KEY, resource, false, null, null);
 		}
 		extractorResource = resource;
+		thisRootPath = resource.rootPath;
 	}
 
 	protected void setupTargetDir() {
@@ -2155,12 +1267,12 @@ public class Extractor implements ExtractorI {
 		// htManifestNameToSpecData
 
 		List<String> keys = new ArrayList<>();
-		for (String key : parser.keys.keySet()) {
+		for (String key : parser.getKeys().keySet()) {
 			keys.add(key);
 		}
 		for (int i = keys.size(); --i >= 0;) {
 			String key = keys.get(i);
-			String param = parser.keys.get(key);
+			String param = parser.getKeys().get(key);
 			if (param.length() > 0) {
 				String id = m.group(key);
 				log("!found " + param + " " + id);
@@ -2174,7 +1286,7 @@ public class Extractor implements ExtractorI {
 				if (obj instanceof IFDRepresentableObject) {
 					linkLocalizedNameToObject(localizedName, param, (IFDRepresentableObject<?>) obj);
 					if (obj instanceof IFDDataObject)
-						parser.hasData = true;
+						parser.setHasData(true);
 				} else if (obj instanceof FAIRSpecCompoundAssociation) {
 					// this did not work, because we don't really know what is the defining
 					// characteristic
@@ -2245,7 +1357,7 @@ public class Extractor implements ExtractorI {
 		if (debugging && baseOriginPath.length() > 0)
 			log("! opening " + baseOriginPath);
 		boolean isTopLevel = (baseOriginPath.length() == 0);
-		ArchiveInputStream ais = new ArchiveInputStream(is, isTopLevel ? extractorResource.getSourceFile() : null);
+		ArchiveInputStream ais = (isTopLevel ? getArchiveInputStream(is) : new ArchiveInputStream(is, null));
 		ArchiveEntry zipEntry = null;
 		ArchiveEntry nextEntry = null;
 		ArchiveEntry nextRealEntry = null;
@@ -2343,6 +1455,10 @@ public class Extractor implements ExtractorI {
 		if (isTopLevel)
 			ais.close();
 		return originToEntryMap;
+	}
+
+	protected ArchiveInputStream getArchiveInputStream(InputStream is) throws IOException {
+		return new ArchiveInputStream(is, extractorResource.getSourceFile());
 	}
 
 	protected void phase2dCheckOrReject(ArchiveInputStream ais, String oPath, long len) throws IOException {
@@ -2481,7 +1597,7 @@ public class Extractor implements ExtractorI {
 				lastRezipPath = originPath;
 				String localPath = localizePath(originPath);
 				CacheRepresentation ref = new CacheRepresentation(new IFDReference(helper.getCurrentSource().getID(),
-						originPath, extractorResource.rootPath, localPath, null), v, len, null, "application/zip");
+						originPath, extractorResource.rootPath, localPath), v, len, null, "application/zip");
 				// if this is a zip file, the data object will have been set to xxx.zip
 				// but we need this to be
 				String basePath = (baseOriginPath.endsWith("|")
@@ -2532,89 +1648,6 @@ public class Extractor implements ExtractorI {
 		long len = lstWritten.getLength(name);
 		rep.setLength(len);
 		return len;
-	}
-
-	/**
-	 * Indicate that a local path Not 100% clear why these are happening.
-	 * 
-	 * @param localPath
-	 * @param method
-	 */
-	protected void logDigitalItem(String originPath, String localPath, String method) {
-		logWarn("digital item ignored, as it does not fit any template pattern: " + originPath, method);
-	}
-
-	protected void logNote(String msg, String method) {
-		msg = "!NOTE: " + msg + " -- Extractor." + method + " " + ifdid + " "
-				+ (extractorResource == null ? "" : extractorResource.rootPath);
-		log(msg);
-	}
-
-	protected void logWarn(String msg, String method) {
-		msg = "! WARNING: " + msg + " -- Extractor." + method + " " + ifdid + " "
-				+ (extractorResource == null ? "" : extractorResource.rootPath);
-		log(msg);
-	}
-
-	protected void logErr(String msg, String method) {
-		msg = "!! ERROR: " + msg + " -- Extractor." + method + " " + ifdid + " "
-				+ (extractorResource == null ? "" : extractorResource.rootPath);
-		log(msg);
-	}
-
-	protected String errorLog = "";
-
-	protected int testID = -1;
-
-	/**
-	 * Just a very simple logger. Messages that start with "!" are always logged;
-	 * others are logged if debugging is set to true.
-	 * 
-	 * 
-	 * @param msg
-	 */
-	@Override
-	public void log(String msg) {
-		if (msg.startsWith("!!")) {
-			errors++;
-			errorLog += msg + "\n";
-		} else if (msg.startsWith("! ")) {
-			warnings++;
-			errorLog += msg + "\n";
-		}
-		logToSys(msg);
-	}
-
-	protected void logToSys(String msg) {
-		if (logging() && msg == "!!") {
-			FAIRSpecUtilities.refreshLog();
-		}
-		boolean toSysErr = msg.startsWith("!!") || msg.startsWith("! ");
-		if (toSysErr)
-			strWarnings += msg + "\n";
-
-		boolean toSysOut = toSysErr || msg.startsWith("!");
-		if (testID >= 0)
-			msg = "test " + testID + ": " + msg;
-		if (logging()) {
-			try {
-				FAIRSpecUtilities.logStream.write((msg + "\n").getBytes());
-			} catch (IOException e) {
-			}
-		}
-		System.out.flush();
-		System.err.flush();
-		if (toSysErr) {
-			System.err.println(msg);
-		} else if (toSysOut) {
-			System.out.println(msg);
-		}
-		System.out.flush();
-		System.err.flush();
-	}
-
-	protected static boolean logging() {
-		return FAIRSpecUtilities.logStream != null;
 	}
 
 	/**
@@ -3248,8 +2281,8 @@ public class Extractor implements ExtractorI {
 			cloning = key.equals(NEW_PAGE_KEY);
 			boolean isRep = IFDConst.isRepresentation(key);
 			String type = FAIRSpecExtractorHelper.getObjectTypeForPropertyOrRepresentationKey(key, true);
-			boolean isSample = (type == FAIRSpecExtractorHelper.ClassTypes.Sample);
-			boolean isStructure = (type == FAIRSpecExtractorHelper.ClassTypes.Structure);
+			boolean isSample = (type == FAIRSpecFindingAidHelper.ClassTypes.Sample);
+			boolean isStructure = (type == FAIRSpecFindingAidHelper.ClassTypes.Structure);
 			if (isSample) {
 				sample = helper.getSampleByName((String) value);
 				continue;
@@ -3407,7 +2440,7 @@ public class Extractor implements ExtractorI {
 				byte[] bytes = (byte[]) oval[0];
 				String oPath = (String) oval[1];
 				String ifdRepType = (oval.length > 2 ? (String) oval[2]
-						: DefaultStructureHelper.getType(key.substring(key.lastIndexOf(".") + 1), bytes));
+						: DefaultStructureHelper.getType(key.substring(key.lastIndexOf(".") + 1), bytes, true));
 				String name = (oval.length > 2 ? null : getStructureNameFromPath(oPath));
 				String inchi = (oval.length > 3 ? (String) oval[3] : null);
 				// use the byte[] for the structure as a unique identifier.
@@ -3560,7 +2593,7 @@ public class Extractor implements ExtractorI {
 
 	protected void outputListJSON(String name, File file) throws IOException {
 		int[] ret = new int[1];
-		String json = helper.getFileListJSON(name, rootLists, resourceList, extractscriptFile.getName(), ret);
+		String json = helper.getFileListJSON(name, rootLists, resourceList, extractScriptFile.getName(), ret);
 		writeBytesToFile(json.getBytes(), file);
 		log("!saved " + file + " (" + ret[0] + " items)");
 	}
@@ -3642,7 +2675,7 @@ public class Extractor implements ExtractorI {
 
 	protected String toAbsolutePath(String fname) {
 		if (fname.startsWith("./"))
-			fname = extractscriptFile.getParent().toString().replace('\\', '/') + fname.substring(1);
+			fname = extractScriptFileDir.replace('\\', '/') + fname.substring(1);
 		return fname;
 	}
 
@@ -3686,7 +2719,7 @@ public class Extractor implements ExtractorI {
 		}
 		addFileToFileLists(localizedName, LOG_OUTPUT, len, null);
 		CacheRepresentation rep = new CacheRepresentation(new IFDReference(helper.getCurrentSource().getID(),
-				originPath, extractorResource.rootPath, localizedName, null), null, len, ifdType, mediaType);
+				originPath, extractorResource.rootPath, localizedName), null, len, ifdType, mediaType);
 		vendorCache.put(localizedName, rep);
 		return rep;
 	}
@@ -3862,11 +2895,11 @@ public class Extractor implements ExtractorI {
 		int nErrors = 0;
 		String warnings = "";
 		boolean createFindingAidJSONList = false;
-		Extractor extractor = null;
+		MetadataExtractor extractor = null;
 		String flags = null;
 		String targetDir0 = targetDir;
 		for (int i = i0; i <= i1; i++) {
-			extractor = new Extractor();
+			extractor = new MetadataExtractor();
 			extractor.logToSys("Extractor.runExtraction output to " + new File(targetDir).getAbsolutePath());
 			String job = null;
 			// ./extract/ should be in the main Eclipse project directory.
@@ -3988,118 +3021,6 @@ public class Extractor implements ExtractorI {
 		FAIRSpecUtilities.setLogging(null);
 	}
 
-	protected void setDefaultRunParams() {
-		// normally false:
-
-		System.out.flush();
-		debugReadOnly = false; // quick settings - no file creation
-
-		addPublicationMetadata = false; // true to place full Crossref or DataCite metadata into the finding aid
-
-		cleanCollectionDir = true;
-
-		// normally true:
-
-		stopOnAnyFailure = true; // set false to allow continuing after an error.
-
-		debugging = false; // true for verbose listing of all files
-		createFindingAidOnly = false; // true if extraction files already exist or you otherwise don't want not write
-
-		allowNoPubInfo = true;// debugReadOnly; // true to allow no internet connection and so no pub calls
-
-		setDerivedFlags();
-
-	}
-
-	protected boolean dataciteUp = true;
-
-	protected boolean cleanCollectionDir = true;
-
-	protected void setDerivedFlags() {
-
-		// this next is independent of readOnly
-		createZippedCollection = createZippedCollection && !debugReadOnly; // false to bypass final creation of an
-																			// _IFD_collection.zip file
-
-		readOnly |= debugReadOnly; // for testing; when true, no output other than a log file is produced
-		noOutput = (createFindingAidOnly || readOnly);
-		skipPubInfo = !dataciteUp || debugReadOnly; // true to allow no internet connection and so no pub calls
-	}
-
-	protected void processFlags(String[] args) {
-		String flags = "";
-		for (int i = 3; i < args.length; i++) {
-			if (args[i] != null)
-				flags += "-" + args[i] + ";";
-		}
-		checkFlags(flags);
-		setDerivedFlags();
-
-	}
-
-	protected void checkFlags(String flags) {
-		flags = flags.toLowerCase();
-		if (flags.indexOf("-") < 0)
-			flags = "-" + flags.replaceAll("\\;", "-;") + ";";
-
-		if (flags.indexOf("-addpublicationmetadata;") >= 0) {
-			addPublicationMetadata = true;
-		}
-
-		if (flags.indexOf("-byid;") >= 0) {
-			setExtractorOption(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID, "true");
-		}
-
-		if (flags.indexOf("-datacitedown;") >= 0) {
-			dataciteUp = false;
-		}
-
-		if (flags.indexOf("-debugging;") >= 0) {
-			debugging = true;
-		}
-
-		if (flags.indexOf("-debugreadonly;") >= 0) {
-			debugReadOnly = true;
-		}
-
-		if (flags.indexOf("-findingaidonly;") >= 0) {
-			createFindingAidOnly = true;
-		}
-
-		if (flags.indexOf("-noclean;") >= 0) {
-			cleanCollectionDir = false;
-		}
-
-		if (flags.indexOf("-noignored;") >= 0) {
-			includeIgnoredFiles = false;
-		}
-
-		if (flags.indexOf("-nopubinfo;") >= 0) {
-			skipPubInfo = true;
-		}
-
-		if (flags.indexOf("-nostoponfailure;") >= 0) {
-			stopOnAnyFailure = false;
-		}
-
-		if (flags.indexOf("-nozip;") >= 0) {
-			createZippedCollection = false;
-		}
-
-		if (flags.indexOf("-readonly;") >= 0) {
-			readOnly = true;
-		}
-		if (flags.indexOf("-requirepubinfo;") >= 0) {
-			allowNoPubInfo = false;
-		}
-
-// not working 
-//		int pt = flags.indexOf("-structurepattern="); 
-//		if (pt >= 0) {
-//			userStructureFilePattern = flags.substring(flags.indexOf("=", pt) + 1, flags.indexOf(";", pt));
-//		}
-	}
-
 	protected static String getCommandLineHelp() {
 		return "\nformat: java -jar IFDExtractor.jar [IFD-extract.json] [sourceArchive] [targetDir] [flags]" //
 				+ "\n" + "\nwhere" //
@@ -4137,6 +3058,11 @@ public class Extractor implements ExtractorI {
 				+ "\n targetDir = " + targetDir //
 				+ "\n createZippedCollection = " + createZippedCollection; //
 		return s;
+	}
+
+	@Override
+	protected FAIRSpecFindingAidHelperI getHelper() {
+		return helper;
 	}
 
 }

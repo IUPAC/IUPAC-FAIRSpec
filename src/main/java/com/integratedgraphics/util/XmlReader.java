@@ -92,11 +92,19 @@ abstract public class XmlReader {
 	protected Map<String, String> atts = new TreeMap<String, String>();
 	protected String myError;
 
-	protected StringBuffer log = new StringBuffer();
+	protected StringBuffer log;
 
 	/////////////// file reader option //////////////
 
-	protected String parseXML(BufferedReader reader) throws Exception {
+	public XmlReader(StringBuffer log) {
+		this.log = (log == null ? new StringBuffer() : log);
+	}
+	
+	public StringBuffer getLog() {
+		return log;
+	}
+
+	public String parseXML(BufferedReader reader) throws Exception {
 		org.xml.sax.XMLReader saxReader = null;
 		javax.xml.parsers.SAXParserFactory spf = javax.xml.parsers.SAXParserFactory.newInstance();
 		spf.setNamespaceAware(true);

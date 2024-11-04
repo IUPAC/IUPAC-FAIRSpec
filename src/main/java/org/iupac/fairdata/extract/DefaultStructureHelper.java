@@ -129,7 +129,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		}
 		String ext = originPath.substring(originPath.lastIndexOf('.') + 1);
 		if (type == null)
-			type = getType(ext, bytes);
+			type = getType(ext, bytes, true);
 		String smiles = null, fixedhInchi = null, inchiKey = null, molecularFormula = null, cellFormula = null,
 				empiricalFormula = null;
 		boolean isCIF = ext.equals("cif");
@@ -268,7 +268,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 	 * @param bytes
 	 * @return
 	 */
-	public static String getType(String ext, byte[] bytes) {
+	public static String getType(String ext, byte[] bytes, boolean allowNone) {
 		// TODO -- generalize this
 		switch (ext) {
 		case "png":
@@ -286,11 +286,13 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		case "cml":
 			return IFDConst.IFD_REP_STRUCTURE_CML;
 		default:
-			return ext.toUpperCase();
+			return (allowNone ? ext.toUpperCase() : null);
 		}
 	}
 
 	private static boolean isMol2D(byte[] bytes) {
+		if (bytes == null)
+			return false;
 		int line = 0;
 		int linept = 0;
 		for (int i = 0; i < bytes.length; i++) {

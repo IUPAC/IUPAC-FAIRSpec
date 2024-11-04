@@ -169,12 +169,19 @@ public class IFDConst {
 	public static final String IFD_TIMESTAMP_FLAG = getProp("IFD_TIMESTAMP_FLAG");
 	public static final String IFD_ORIGINATING_SAMPLE_ID_FLAG = getProp("IFD_ORIGINATING_SAMPLE_ID_FLAG");
 	public static final String IFD_DESCRIPTION_FLAG = getProp("IFD_DESCRIPTION_FLAG");
+	public static final String IFD_DOI_FLAG = getProp("IFD_DOI_FLAG");
+	public static final String IFD_URL_FLAG = getProp("IFD_URL_FLAG");
 
 	public static final String IFD_PROPERTY_LABEL = concat(IFD_PROPERTY_FLAG, IFD_LABEL_FLAG);
 	public static final String IFD_PROPERTY_ID = concat(IFD_PROPERTY_FLAG, IFD_ID_FLAG);
 	public static final String IFD_PROPERTY_NOTE = concat(IFD_PROPERTY_FLAG, IFD_NOTE_FLAG);
 	public static final String IFD_PROPERTY_TIMESTAMP = concat(IFD_PROPERTY_FLAG, IFD_TIMESTAMP_FLAG);
 	public static final String IFD_PROPERTY_DESCRIPTION = concat(IFD_PROPERTY_FLAG, IFD_DESCRIPTION_FLAG);
+	public static final String IFD_PROPERTY_DOI = concat(IFD_PROPERTY_FLAG, IFD_DOI_FLAG);
+	public static final String IFD_PROPERTY_URL = concat(IFD_PROPERTY_FLAG, IFD_URL_FLAG);
+
+	
+
 
 	
 	
@@ -224,8 +231,7 @@ public class IFDConst {
 	public static final String IFD_PROPERTY_DATAOBJECT_FLAG = concat(IFDConst.IFD_PROPERTY_FLAG, IFD_DATAOBJECT_FLAG);
 	public static final String IFD_PROPERTY_DATAOBJECT_NOTE = concat(IFD_PROPERTY_DATAOBJECT_FLAG, IFD_NOTE_FLAG);
 	public static final String IFD_PROPERTY_DATAOBJECT_TIMESTAMP = concat(IFD_PROPERTY_DATAOBJECT_FLAG, IFD_TIMESTAMP_FLAG);	
-	public static final String IFD_PROPERTY_DATAOBJECT_ORIGINATING_SAMPLE_ID = concat(IFD_PROPERTY_DATAOBJECT_FLAG, IFD_ORIGINATING_SAMPLE_ID_FLAG);	
-	
+	public static final String IFD_PROPERTY_DATAOBJECT_ORIGINATING_SAMPLE_ID = concat(IFD_PROPERTY_DATAOBJECT_FLAG, IFD_ORIGINATING_SAMPLE_ID_FLAG);
 
 	public static String getVersion() {
 		return "IFD " + IFD_VERSION;

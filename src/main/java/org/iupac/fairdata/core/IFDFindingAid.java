@@ -123,8 +123,8 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 		return date;
 	}
 
-	public void finalizeCollectionSet() {
-		collectionSet.finalizeCollections();
+	public void finalizeCollectionSet(Map<String, Map<String, Object>> htURLReferences) {
+		collectionSet.finalizeCollections(htURLReferences);
 	}
 
 	@Override

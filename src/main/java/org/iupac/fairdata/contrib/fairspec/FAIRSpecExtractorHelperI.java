@@ -4,12 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper.FileList;
 import org.iupac.fairdata.core.IFDObject;
-import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.core.IFDResource;
 import org.iupac.fairdata.dataobject.IFDDataObject;
@@ -25,7 +25,7 @@ import org.iupac.fairdata.structure.IFDStructure;
  * @author hansonr
  *
  */
-public interface FAIRSpecExtractorHelperI {
+public interface FAIRSpecExtractorHelperI extends FAIRSpecFindingAidHelperI {
 
 	IFDObject<?> addObject(String rootPath, String param, String id, String localizedName, long len)
 			throws IFDException;
@@ -64,8 +64,6 @@ public interface FAIRSpecExtractorHelperI {
 
 	IFDStructure getCurrentStructure();
 
-	FAIRSpecFindingAid getFindingAid();
-
 	IFDSample getFirstSampleForSpec(IFDDataObject localSpec, boolean b);
 
 	IFDStructure getFirstStructureForSpec(IFDDataObject localSpec, boolean andRemove);
@@ -85,5 +83,7 @@ public interface FAIRSpecExtractorHelperI {
 	void setById(boolean tf);
 
 	void setCurrentResourceByteLength(long len);
+
+	void setCompoundRefMap(Map<String, Map<String, Object>> htCompoundFileReferences);
 
 }
