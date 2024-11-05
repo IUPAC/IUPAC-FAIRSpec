@@ -63,10 +63,8 @@ import com.integratedgraphics.extractor.ExtractorAids.ExtractorResource;
 import com.integratedgraphics.extractor.ExtractorAids.ObjectParser;
 import com.integratedgraphics.ifd.api.VendorPluginI;
 
-// TODO: check zipping Bruker directories into ZIP
-
 /**
- * Copyright 2021/2022 Integrated Graphics and Robert M. Hanson
+ * Copyright 2021-2024 Integrated Graphics and Robert M. Hanson
  * 
  * A class to handle the extraction of objects from a "raw" dataset by
  * processing the full paths within a ZIP file as directed by an extraction
