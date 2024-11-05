@@ -253,6 +253,11 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 	 */
 	private FAIRSpecExtractorHelperI helper;
 
+	@Override
+	protected FAIRSpecFindingAidHelperI getHelper() {
+		return helper;
+	}
+
 	/**
 	 * the IFD-extract.json script
 	 */
@@ -2826,26 +2831,6 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 	}
 
 	/**
-	 * Minimal command-line interface for now. There are several flags set from
-	 * ExtractorTest. Right now these are not included in the options, and we also
-	 * need to use proper -x or --xxxx flags.
-	 * 
-	 * Just haven't implemented that yet.
-	 * 
-	 * @param args [0] extractionFile.json, [1] sourcePath, [2] targetDir
-	 * 
-	 */
-	public static void main(String[] args) {
-
-		if (args.length == 0) {
-			System.out.println(getCommandLineHelp());
-			return;
-		}
-		// just run one IFD-extract.json
-		runExtraction(args, null, -1, -1);
-	}
-
-	/**
 	 * Run a full extraction based on arguments, possibly a test set
 	 * 
 	 * @param args    [IFD-extractFile.json, source.zip, targetDirectory, flag1,
@@ -3060,9 +3045,24 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 		return s;
 	}
 
-	@Override
-	protected FAIRSpecFindingAidHelperI getHelper() {
-		return helper;
+	/**
+	 * Minimal command-line interface for now. There are several flags set from
+	 * ExtractorTest. Right now these are not included in the options, and we also
+	 * need to use proper -x or --xxxx flags.
+	 * 
+	 * Just haven't implemented that yet.
+	 * 
+	 * @param args [0] extractionFile.json, [1] sourcePath, [2] targetDir
+	 * 
+	 */
+	public static void main(String[] args) {
+
+		if (args.length == 0) {
+			System.out.println(getCommandLineHelp());
+			return;
+		}
+		// just run one IFD-extract.json
+		runExtraction(args, null, -1, -1);
 	}
 
 }
