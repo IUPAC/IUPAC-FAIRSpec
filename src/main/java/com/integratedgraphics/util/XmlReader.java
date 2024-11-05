@@ -143,7 +143,9 @@ abstract public class XmlReader {
 
 	protected abstract void processEndElement(String localName);
 
-	protected abstract void endDocument();
+	protected void endDocument() {
+		// nothing to do here by default;
+	}
 
 	void error(String msg) {
 		myError = msg;

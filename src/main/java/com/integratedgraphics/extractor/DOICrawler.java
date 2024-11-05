@@ -271,11 +271,6 @@ public class DOICrawler extends FindingAidCreator {
 			doEndXMLElement(localName, chars);
 		}
 
-		@Override
-		protected void endDocument() {
-			// to something here?
-		}
-
 	}
 
 	public void doStartXMLElement(String localName, Map<String, String> atts) {
