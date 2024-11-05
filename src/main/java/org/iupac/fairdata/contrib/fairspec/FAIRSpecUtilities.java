@@ -1,5 +1,6 @@
 package org.iupac.fairdata.contrib.fairspec;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,6 +22,8 @@ import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.util.JSJSONParser;
+
+import javajs.util.Rdr;
 
 /**
  * A class to contain various generally useful utility methods in association
@@ -719,6 +722,28 @@ public class FAIRSpecUtilities {
 				list.add(new String[] {s.substring(3, pt).trim(), s.substring(pt + 1).trim() });
 		}
 		return list;
+	}
+
+	public static byte[] getBytesAndClose(InputStream is) throws IOException {
+		return (byte[]) Rdr.getStreamAsBytes(new BufferedInputStream(is), null);
+	}
+
+	public static String cleanFileName(String s) {
+		return s.replaceAll("[\\/?&:+=]", "_");
+	}
+
+	public static int putToFile(byte[] bytes, File f) {
+		if (bytes == null || bytes.length == 0)
+			return 0;
+		try {
+			FileOutputStream fos = new FileOutputStream(f);
+			fos.write(bytes);
+			fos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return bytes.length;
 	}
 
 }

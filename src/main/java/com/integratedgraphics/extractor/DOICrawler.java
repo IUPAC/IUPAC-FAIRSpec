@@ -28,6 +28,7 @@ import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.dataobject.IFDDataObject;
@@ -36,7 +37,6 @@ import org.iupac.fairdata.extract.DefaultStructureHelper;
 import com.integratedgraphics.util.XmlReader;
 
 import javajs.util.PT;
-import javajs.util.Rdr;
 
 /**
  * A DataCite metadata crawler, resulting in the production of an IUPAC FAIRSpec
@@ -50,12 +50,25 @@ import javajs.util.Rdr;
  * 
  * In particular, the following six XML elements are handled:
  * 
- * title, description
+ * title, description,
  * 
- * identifier, resourcetype, relatedidentifier, 
+ * identifier, resourcetype, relatedidentifier,
  * 
  * subject
  * 
+ * Program operation:
+ * 
+ * Start-up String[] arguments: [initialDOI,outputDirectory]
+ * 
+ * By default three files are created in the output directory:
+ * 
+ * IFD.findingaid.json   The IUPAC FAIRSpec Finding Aid
+ * 
+ * ifd-fileURLMap.txt	 A concise listing of the digital items
+ * 
+ * crawler.log           A log of the crawl
+ * 
+ * Metadata is cached in the outputDirectory/metadata/ folder
  * 
  * @author Bob Hanson
  *
@@ -175,23 +188,54 @@ public class DOICrawler extends FindingAidCreator {
 		}
 
 	}
+	
+	private static String indent = "                              ";
+
+	private FAIRSpecFindingAidHelper faHelper;
+
+	@Override
+	protected FAIRSpecFindingAidHelperI getHelper() {
+		return faHelper;
+	}
+
+	// inputs
+	
+	private String initialDOI;
+	private File topDir, dataDir, fileDir;
+
+	// XML parser fields
+	
 	private URL dataCiteMetadataURL;
+	private Stack<Map<String, String>> thisAttrs = new Stack<>();
+	private Stack<Map<String, List<String>>> thisRelated = new Stack<>();
+	private int xmlDepth;
+	private String pidPath;
+
+	// iterative nesting of DOI reference
+	
+	private Stack<String> urlStack;
 	private int urlDepth;
+
+	/**
+	 * doiList is what we are generating in the first part
+	 */
+	private DoiRecord doiRecord;
 	private List<DoiRecord> doiList;
+
 	private int nReps;
+
+	private long startTime;	
+	private long totalLength;
 
 	private boolean isTop = true;
 	private boolean skipping = false;
 	private boolean isSilent = false;
 
-	private int xmlDepth = 0;
-	private static String indent = "                              ";
-	private Stack<Map<String, String>> thisAttrs = new Stack<>();
-	private Stack<Map<String, List<String>>> thisRelated = new Stack<>();
-	private String pidPath;
-	private File dataDir, fileDir;
-	private long startTime;
-	private String thisDOI;
+	private String thisCompoundID;
+	private String thisDataObjectType;
+
+
+	
 
 	/**
 	 * a map to convert the ICL archive's keys to proper IFD.property keys
@@ -210,14 +254,7 @@ public class DOICrawler extends FindingAidCreator {
 		hackMap.put("IFD.IR", "");
 	};
 
-	private Stack<String> urlStack;
-
-	private DoiRecord doiRecord;
-
-	protected FAIRSpecFindingAidHelper faHelper;
-
-	private File topDir;
-
+	
 	private class DOIXMLReader extends XmlReader {
 
 		public DOIXMLReader(StringBuffer log) {
@@ -231,7 +268,7 @@ public class DOICrawler extends FindingAidCreator {
 
 		@Override
 		protected void processEndElement(String localName) {
-			doEndElementElement(localName, chars);
+			doEndXMLElement(localName, chars);
 		}
 
 		@Override
@@ -303,7 +340,7 @@ public class DOICrawler extends FindingAidCreator {
 		}
 	}
 
-	public void doEndElementElement(String localName, StringBuffer chars) {
+	public void doEndXMLElement(String localName, StringBuffer chars) {
 		String s = chars.toString().trim();
 		chars.setLength(0);
 		Map<String, String> attrs;
@@ -351,14 +388,18 @@ public class DOICrawler extends FindingAidCreator {
 		return codeSource;
 	}
 
+	/**
+	 * 
+	 * @param args [initialDOI, outputDirectory]
+	 */
 	public DOICrawler(String... args) {
-		thisDOI = (args.length == 0 ? testPID : args[0]);
+		initialDOI = (args.length == 0 ? testPID : args[0]);
 		processFlags(args);
 		createZippedCollection = false;
 		faHelper = new FAIRSpecFindingAidHelper(getCodeSource() + " " + getVersion());
 		findingAid = faHelper.getFindingAid();
 		try {
-			dataCiteMetadataURL = getMetadataURL(thisDOI);
+			dataCiteMetadataURL = getMetadataURL(initialDOI);
 		} catch (MalformedURLException e) {
 			addException(e);
 		}
@@ -398,7 +439,7 @@ public class DOICrawler extends FindingAidCreator {
 		}
 		f = new File(parentDir, "crawler.log");
 		System.out.println("writing " + log.length() + " bytes " + f.getAbsolutePath());
-		putToFile(log.toString().getBytes(), f);
+		FAIRSpecUtilities.putToFile(log.toString().getBytes(), f);
 	}
 
 	private static URL getMetadataURL(String pid) throws MalformedURLException {
@@ -411,6 +452,12 @@ public class DOICrawler extends FindingAidCreator {
 		return new URL(s);
 	}
 
+	/**
+	 * Iterative loop for DOI traversal
+	 * 
+	 * @param doi starting with null
+	 * @return
+	 */
 	private boolean nextMetadata(URL doi) {
 		urlDepth++;
 		if (doi == null) {
@@ -421,7 +468,7 @@ public class DOICrawler extends FindingAidCreator {
 		String currentPath = pidPath;
 		String s = doi.toString().replace(DATACITE_METADATA, "");
 		urlStack.push(DOI_ORG + s);
-		String sfile = cleanFileName(s) + ".xml";
+		String sfile = FAIRSpecUtilities.cleanFileName(s) + ".xml";
 		int pt = s.lastIndexOf('/');
 		String dir = s.substring(0, pt + 1);
 		String file = s.substring(pt + 1);
@@ -445,9 +492,9 @@ public class DOICrawler extends FindingAidCreator {
 				URLConnection con = doi.openConnection();
 				is = con.getInputStream();
 			}
-			byte[] metadata = getBytesAndClose(is);
+			byte[] metadata = FAIRSpecUtilities.getBytesAndClose(is);
 			if (!haveData)
-				putToFile((byte[]) metadata, dataFile);
+				FAIRSpecUtilities.putToFile((byte[]) metadata, dataFile);
 			is = new ByteArrayInputStream((byte[]) metadata);
 			String url = DOI_ORG + s;
 			doiRecord = new DoiRecord(thisCompoundID, url, dataDir.toString(), sfile);
@@ -463,39 +510,31 @@ public class DOICrawler extends FindingAidCreator {
 		logAttr("close", doi.toString());
 		newRecord();
 		pidPath = currentPath;
-//		output.run();
 		urlStack.pop();
 		urlDepth--;
 		return true;
 	}
 
+	/**
+	 * Parse the XML document for desired information.
+	 * 
+	 * @param content
+	 * @throws Exception
+	 */
 	private void parseXML(InputStream content) throws Exception {
 		thisRelated.push(new LinkedHashMap<String, List<String>>());
 		BufferedReader reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(content), "UTF-8"));
-		//$FALL-THROUGH$
 		new DOIXMLReader(log).parseXML(reader);
 		newRecord();
 		content.close();
 		processRelated(thisRelated.pop());
 	}
 
-	private static byte[] getBytesAndClose(InputStream is) throws IOException {
-		return (byte[]) Rdr.getStreamAsBytes(new BufferedInputStream(is), null);
-	}
-
-	private static String cleanFileName(String s) {
-		return s.replaceAll("[\\/?&:+=]", "_");
-	}
-
-	private long totalLength;
-
-	private String thisCompoundID;
-
-	private String thisDataObjectType;
-
-
 	/**
-	 * process a representation
+	 * Process a representation. Uses the HEAD method for https connections
+	 * to get the local file name and the length of the file. 
+	 * We do not need to actually get the file, but if we wanted to, 
+	 * this code could be adapted to extract metadata from the files as well.
 	 * 
 	 * @param s
 	 * @throws IOException
@@ -503,13 +542,13 @@ public class DOICrawler extends FindingAidCreator {
 	private void processRepresentation(URL url, Map<String, DoiRecord> fMap) throws IOException {
 		urlDepth++;
 		nReps++;
-		File headerFile = new File(dataDir, cleanFileName(url.toString()) + ".txt");
+		File headerFile = new File(dataDir, FAIRSpecUtilities.cleanFileName(url.toString()) + ".txt");
 		boolean haveHeaderFile = headerFile.exists();
 		String fileName = null, mediaType = null;
 		byte[] bytes = null;
 		int len = 0;
 		if (haveHeaderFile) {
-			bytes = getBytesAndClose(new FileInputStream(headerFile));
+			bytes = FAIRSpecUtilities.getBytesAndClose(new FileInputStream(headerFile));
 			String data = new String(bytes);
 			fileName = getHeaderAttr(data, "filename");
 			String length = getHeaderAttr(data, "length");
@@ -535,11 +574,11 @@ public class DOICrawler extends FindingAidCreator {
 				fileName = PT.getQuotedOrUnquotedAttribute(item.toString(), "filename");
 				s += "\tfilename=" + fileName;
 			}
-			putToFile(s.getBytes(), headerFile);
+			FAIRSpecUtilities.putToFile(s.getBytes(), headerFile);
 		}
 		if (fileName != null) {
 			if (fileDir != null)
-				downloadCheck(url, new File(fileDir, cleanFileName(fileName)));
+				downloadCheck(url, new File(fileDir, FAIRSpecUtilities.cleanFileName(fileName)));
 			DoiRecord f0 = fMap.remove(fileName);
 			if (f0 != null)
 				log("!removed " + f0);
@@ -564,6 +603,14 @@ public class DOICrawler extends FindingAidCreator {
 		return data.substring(pt + name.length() + 1, pt2 > 0 ? pt2 : data.length());
 	}
 
+	/**
+	 * We could download the files for checking or extracting
+	 * metadata. We choose not to do that in this demonstration.
+	 * 
+	 * @param url
+	 * @param file
+	 * @throws IOException
+	 */
 	private void downloadCheck(URL url, File file) throws IOException {
 		long modTime = file.lastModified();
 		System.out.println(file);
@@ -579,48 +626,7 @@ public class DOICrawler extends FindingAidCreator {
 			}
 			URLConnection con = url.openConnection();
 			InputStream is = con.getInputStream();
-			putToFile(getBytesAndClose(is), file);
-		}
-	}
-
-	private void processSubject(Map<String, String> attrs, String s) {
-//		<subjects>
-//		    <subject 
-//		schemeURI="http://iupac.org/ifd" 
-//		subjectScheme="IFD" 
-//		valueURI="http://iupac.org/ifd/IFD.compound.id">21</subject>
-//		</subjects>
-//
-		String key = attrs.get("subjectscheme");
-		if (key != null) {
-			switch (key) {
-			case FAIRDATA_SUBJECT_SCHEME:
-				key = attrs.get("valueuri");
-				if (key.startsWith(FAIRSPEC_SCHEME_URI)) {
-					key = key.substring(key.lastIndexOf('/') + 1);
-				}
-				addAttr(key, s);
-				break;
-			default:
-				String ifdName = hackMap.get(key);
-				if (ifdName != null) {
-					if (ifdName.length() == 0)
-						return;
-					key = ifdName;
-					switch (key) {
-					case FAIRSPEC_COMPOUND_ID:
-						addAttr(key, s);
-						return;
-					case IFD_INCHI:
-						if (s.indexOf("=") < 0) {
-							addError("invalid inchi for Compound " + thisCompoundID);
-							return;
-						}
-					}
-				}
-				addAttr(key, s);
-				break;
-			}
+			FAIRSpecUtilities.putToFile(FAIRSpecUtilities.getBytesAndClose(is), file);
 		}
 	}
 
@@ -771,7 +777,7 @@ public class DOICrawler extends FindingAidCreator {
 	}
 
 	protected void createFindingAid() {
-		String url = DOI_ORG + thisDOI;
+		String url = DOI_ORG + initialDOI;
 		// add DOI for repository
 		IFDReference r = new IFDReference();
 		r.setDOI(url);
@@ -923,6 +929,47 @@ public class DOICrawler extends FindingAidCreator {
 		logAttr(key, value);
 	}
 
+	private void processSubject(Map<String, String> attrs, String s) {
+//		<subjects>
+//		    <subject 
+//		schemeURI="http://iupac.org/ifd" 
+//		subjectScheme="IFD" 
+//		valueURI="http://iupac.org/ifd/IFD.compound.id">21</subject>
+//		</subjects>
+//
+		String key = attrs.get("subjectscheme");
+		if (key != null) {
+			switch (key) {
+			case FAIRDATA_SUBJECT_SCHEME:
+				key = attrs.get("valueuri");
+				if (key.startsWith(FAIRSPEC_SCHEME_URI)) {
+					key = key.substring(key.lastIndexOf('/') + 1);
+				}
+				addAttr(key, s);
+				break;
+			default:
+				String ifdName = hackMap.get(key);
+				if (ifdName != null) {
+					if (ifdName.length() == 0)
+						return;
+					key = ifdName;
+					switch (key) {
+					case FAIRSPEC_COMPOUND_ID:
+						addAttr(key, s);
+						return;
+					case IFD_INCHI:
+						if (s.indexOf("=") < 0) {
+							addError("invalid inchi for Compound " + thisCompoundID);
+							return;
+						}
+					}
+				}
+				addAttr(key, s);
+				break;
+			}
+		}
+	}
+
 	/**
 	 * 
 	 * @param key e.g. "IFD.property.fairspec.compound.id"
@@ -951,6 +998,8 @@ public class DOICrawler extends FindingAidCreator {
 		doiRecord = null;
 	}
 
+	// logging
+	
 	protected void addError(String err) {
 		System.err.println(err);
 		errorBuffer.append(err + "\n");
@@ -973,20 +1022,6 @@ public class DOICrawler extends FindingAidCreator {
 			indent += indent;
 		log.append('\n').append(urlDepth).append(".").append(xmlDepth).append(indent.substring(0, xmlDepth * 2))
 				.append(line);
-	}
-
-	protected static int putToFile(byte[] bytes, File f) {
-		if (bytes == null || bytes.length == 0)
-			return 0;
-		try {
-			FileOutputStream fos = new FileOutputStream(f);
-			fos.write(bytes);
-			fos.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 0;
-		}
-		return bytes.length;
 	}
 
 	/**
@@ -1015,92 +1050,5 @@ public class DOICrawler extends FindingAidCreator {
 		System.out.println(
 				"done len = " + crawler.totalLength + " bytes " + (System.currentTimeMillis() - t) / 1000 + " sec");
 	}
-
-	@Override
-	protected FAIRSpecFindingAidHelperI getHelper() {
-		return faHelper;
-	}
-
-
-//////////// code left over from the idea 
-	//////// of passing files to the extractor
-	//////// and creating the FAIRSpec Collection from that
-	//////// This proved unnecessarily complicated
-	
-
-//	public static class DoiArchiveEntry extends ArchiveEntry {
-//
-//		private DoiRecord doiRecord;
-//
-//		protected DoiArchiveEntry(DoiRecord doiRecord) {
-//			super("");
-//			this.doiRecord = doiRecord;
-//		}
-//
-//	}
-//
-//	/**
-//	 * Deliver input streams for repository entries.
-//	 * 
-//	 * @author hanso
-//	 *
-//	 */
-//	protected class DoiArchiveInputStream extends ArchiveInputStream {
-//
-//		int pt = 0;
-//
-//		public DoiArchiveInputStream() throws IOException {
-//			super();
-//		}
-//		
-//		@Override
-//		public void reset() {
-//			pt = 0;			
-//		}
-//		@Override
-//		public ArchiveEntry getNextEntry() throws IOException {
-//			if (pt >= doiList.size())
-//				return null;
-//			DoiArchiveEntry entry = new DoiArchiveEntry(doiList.get(pt++));
-//			return entry;
-//		}			
-//	}
-//
-//	@Override
-//	protected ArchiveInputStream getArchiveInputStream(InputStream is) throws IOException {
-//		return new DoiArchiveInputStream();
-//	}
-//	
-//
-//	private void createJSONMap(File parentDir) {
-//		StringBuffer json = new StringBuffer();
-//		json.append("[\n");
-//		int i = 0;
-//		for (Entry<String, String> e : repMap.entrySet()) {
-//			String key = e.getKey();
-//			String val = e.getValue();
-//			json.append(i++ == 0 ? "{" : ",{");
-//			int pt = key.indexOf("|");
-//			String cmd;
-//			if (pt >= 0) {
-//				cmd = key.substring(0, pt);
-//				key = key.substring(pt + 1);
-//			} else {
-//				cmd = key;
-//				key = null;
-//			}
-//			if (cmd != null)
-//				json.append("\"cmpd\":\"").append(cmd).append("\",");
-//			if (key != null)
-//				json.append("\"file\":\"").append(key).append("\",");
-//			String urlOrDoi = (val.startsWith(DOI_ORG) ? "doi" : "url");
-//			json.append("\"" + urlOrDoi + "\":\"").append(val).append("\"}\n");
-//		}
-//		json.append("]");
-//		System.out.println(json);
-//		File f = new File(parentDir, "IFD-extract-ref.json");
-//		putToFile(json.toString().getBytes(), f);
-//	}
-//	private TreeMap<String, String> repMap;
 
 }
