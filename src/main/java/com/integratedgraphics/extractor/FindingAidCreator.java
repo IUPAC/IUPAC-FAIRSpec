@@ -244,8 +244,6 @@ public abstract class FindingAidCreator {
 	}
 
 	/**
-	 * shared with DoiCrawler
-	 * 
 	 * @param pubdoi
 	 * @param datadoi
 	 * @param helper
