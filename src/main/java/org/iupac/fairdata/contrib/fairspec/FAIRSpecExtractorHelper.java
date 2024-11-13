@@ -19,10 +19,9 @@ import org.iupac.fairdata.core.IFDResource;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.derived.IFDSampleDataAssociation;
-import org.iupac.fairdata.derived.IFDSampleStructureAssociation;
 import org.iupac.fairdata.derived.IFDStructureDataAssociation;
 import org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;
-import org.iupac.fairdata.extract.ExtractorI;
+import org.iupac.fairdata.extract.MetadataReceiverI;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.sample.IFDSampleCollection;
 import org.iupac.fairdata.structure.IFDStructure;
@@ -214,8 +213,6 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	public static final String DATAOBJECT_FAIRSPEC_FLAG = IFDConst.getProp("DATAOBJECT_FAIRSPEC_FLAG");
 
 	public static final String DATAOBJECT_ORIGINATING_SAMPLE_ID = IFDConst.getProp(IFDConst.IFD_PROPERTY_DATAOBJECT_ORIGINATING_SAMPLE_ID);
-	private static final String IFD_PROPERTY_STRUCTURE_LABEL = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
-			IFDConst.IFD_STRUCTURE_FLAG, IFDConst.IFD_LABEL_FLAG);
 	private static final String IFD_PROPERTY_SAMPLE_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			IFDConst.IFD_SAMPLE_FLAG, IFDConst.IFD_ID_FLAG);
 
@@ -233,7 +230,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	protected String currentOriginPath;
 	protected List<Object[]> currentDataProps;
 
-	private ExtractorI extractor;
+	private MetadataReceiverI extractor;
 
 	/**
 	 * 
@@ -241,7 +238,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	 * @param creator
 	 * @throws IFDException in name only; necessary here, but will not be thown
 	 */
-	public FAIRSpecExtractorHelper(ExtractorI extractor, String creator) {
+	public FAIRSpecExtractorHelper(MetadataReceiverI extractor, String creator) {
 		super(creator);
 		if (extractor == null)
 			throw new RuntimeException("FAIRSpecExtractorHelper: extractor cannot be null");
@@ -568,7 +565,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	}
 
 	private int lastStructureName;
-	private int lastSampleName;
+	private int lastSampleName; // TODO
 
 	@Override
 	public IFDSample addSpecOriginatingSampleRef(String rootPath, IFDDataObject spec, String id) throws IFDException {

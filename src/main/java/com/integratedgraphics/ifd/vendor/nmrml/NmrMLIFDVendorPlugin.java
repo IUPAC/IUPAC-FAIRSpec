@@ -35,7 +35,7 @@ public abstract class NmrMLIFDVendorPlugin extends NMRVendorPlugin {
 	}
 	
 	/**
-	 * Report the found property back to the IFDExtractorI class.
+	 * Report the found property back to the IFDMetadataReceiverI class.
 	 * 
 	 * @param key
 	 * @param val if null, this property is removed

@@ -16,7 +16,7 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 	 * The type of this data -- to be specified...
 	 */
 	private String representationType;
-	private final IFDReference ref;
+	private IFDReference ref;
 	private final Object data;
 	private long len;
 	private String mediaType;
@@ -61,6 +61,11 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 
 	public void setType(String type) {
 		representationType = type;
+	}
+
+	public void setRef(IFDReference ref) {
+		System.out.println("IFDRep ref=" + ref);
+		this.ref = ref;
 	}
 
 	public IFDReference getRef() {

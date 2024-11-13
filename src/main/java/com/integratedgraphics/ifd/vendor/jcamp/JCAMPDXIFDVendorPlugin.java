@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-import org.iupac.fairdata.extract.ExtractorI;
+import org.iupac.fairdata.extract.MetadataReceiverI;
 import org.iupac.fairdata.util.ZipUtil;
 
 import com.integratedgraphics.ifd.vendor.DefaultVendorPlugin;
@@ -25,7 +25,7 @@ public class JCAMPDXIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	@Override
-	public String accept(ExtractorI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
+	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
 	    System.out.println("! JCAMPDX Plugin TODO: accept JDX file " + originPath);
 		return super.accept(extractor, originPath, bytes, isEmbedded);
 	}

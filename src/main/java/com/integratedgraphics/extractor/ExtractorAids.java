@@ -23,6 +23,7 @@ import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper.FileList;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentation;
@@ -250,16 +251,17 @@ public class ExtractorAids {
 					throw new IFDException("bad {def=key::val} expression: " + param + "::" + val);
 				if (keys == null)
 					keys = new LinkedHashMap<String, String>();
-				String key;
+				String key = null;
 				if (pt > 0) {
 					key = param.substring(0, pt);
 					param = param.substring(pt + 1);
 					if (extractor.htMetadata != null && extractor.htMetadata.containsKey(key)) {
 						extractor.phase1SetMetadataTarget(key, param);
 					}
-				} else {
-					key = param.replace('.', '0').replace('_', '1');
 				}
+				param = FAIRSpecFindingAidHelper.updateKey(param);
+				if (key == null)
+					key = param.replace('.', '0').replace('_', '1');
 				keys.put(key, param);
 				String bk = "{" + key + "}";
 				if (s.indexOf(bk) >= 0) {

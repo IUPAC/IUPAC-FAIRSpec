@@ -38,7 +38,6 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities.SpreadsheetReader;
 import org.iupac.fairdata.core.IFDAssociation;
-import org.iupac.fairdata.core.IFDFindingAid;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
@@ -47,7 +46,6 @@ import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
-import org.iupac.fairdata.extract.ExtractorI;
 import org.iupac.fairdata.extract.PropertyManagerI;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.structure.IFDStructure;
@@ -112,7 +110,7 @@ import com.integratedgraphics.ifd.api.VendorPluginI;
  * @author hansonr
  *
  */
-public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
+public class MetadataExtractor extends FindingAidCreator {
 
 	// TODO: test rootpath and file lists for case with two root paths -- does it
 	// make sense that that manifests are cleared?
@@ -253,7 +251,7 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 
 	@Override
 	protected FAIRSpecFindingAidHelperI getHelper() {
-		return helper;
+		return faHelper;
 	}
 
 	/**
@@ -530,17 +528,17 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 	}
 
 	protected boolean phase1ProcessPubURI() throws IOException {
-		String datadoi = (String) helper.getFindingAid()
+		String datadoi = (String) faHelper.getFindingAid()
 				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI);
 		if (datadoi == null)
-			datadoi = (String) helper.getFindingAid()
+			datadoi = (String) faHelper.getFindingAid()
 					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI);
-		String pubdoi = (String) helper.getFindingAid()
+		String pubdoi = (String) faHelper.getFindingAid()
 				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_DOI);
 		if (pubdoi == null)
-			pubdoi = (String) helper.getFindingAid()
+			pubdoi = (String) faHelper.getFindingAid()
 					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI);
-		return processDOIURLs(pubdoi, datadoi, helper);
+		return processDOIURLs(pubdoi, datadoi, faHelper);
 	}
 
 	/**
@@ -568,11 +566,6 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 	@Override
 	public String getCodeSource() {
 		return codeSource;
-	}
-
-	@Override
-	public IFDFindingAid getFindingAid() {
-		return helper.getFindingAid();
 	}
 
 	/**
@@ -684,10 +677,10 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 	 */
 	@SuppressWarnings("unchecked")
 	protected List<ObjectParser> phase1ParseScript(String script) throws IOException, IFDException {
-		if (helper != null)
+		if (faHelper != null)
 			throw new IFDException("Only one finding aid per instance of Extractor is allowed (for now).");
 
-		helper = newExtractionHelper();
+		faHelper = helper = newExtractionHelper();
 
 		Map<String, Object> jsonMap = (Map<String, Object>) new JSJSONParser().parse(script, false);
 		if (debugging)
@@ -707,15 +700,15 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 			log(objectParsers.size() + " extractor regex strings");
 
 		log("!license: "
-				+ helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_NAME)
+				+ faHelper.getFindingAid().getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_NAME)
 				+ " at "
-				+ helper.getFindingAid().getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_URI));
+				+ faHelper.getFindingAid().getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_URI));
 
 		return objectParsers;
 	}
 
 	protected FAIRSpecExtractorHelper newExtractionHelper() throws IFDException {
-		return new FAIRSpecExtractorHelper((ExtractorI) this, getCodeSource() + " " + getVersion());
+		return new FAIRSpecExtractorHelper(this, getCodeSource() + " " + getVersion());
 	}
 
 	/**
@@ -931,13 +924,13 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 				if (key.startsWith(IFDConst.IFD_PROPERTY_FLAG)) {
 					if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_ID)) {
 						ifdid = val;
-						helper.getFindingAid().setID(val);
+						faHelper.getFindingAid().setID(val);
 					}
 					if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID)) {
 						setExtractorOption(key, val);
 						continue;
 					}
-					helper.getFindingAid().setPropertyValue(key, val);
+					faHelper.getFindingAid().setPropertyValue(key, val);
 					if (keyDef == null)
 						continue;
 				}
@@ -1182,7 +1175,7 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 		lstIgnored = resource.lstIgnored;
 		if (helper.getCurrentSource() != helper.addOrSetSource(resource.getSourceFile(), resource.rootPath)) {
 			if (isInit)
-				addDeferredPropertyOrRepresentation(NEW_RESOURCE_KEY, resource, false, null, null);
+				addPropertyOrRepresentation(NEW_RESOURCE_KEY, resource, false, null, null);
 		}
 		extractorResource = resource;
 		thisRootPath = resource.rootPath;
@@ -1279,7 +1272,6 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 			if (param.length() > 0) {
 				String id = m.group(key);
 				log("!found " + param + " " + id);
-
 				if (IFDConst.isDataObject(param)) {
 					String s = IFDConst.IFD_DATAOBJECT_FLAG + localizedName;
 					if (htLocalizedNameToObject.containsKey(s))
@@ -1562,7 +1554,7 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 							List<String[]> props = FAIRSpecUtilities.getIFDPropertyMap(new String(bytes));
 							for (int i = 0, n = props.size(); i < n; i++) {
 								String[] p = props.get(i);
-								addDeferredPropertyOrRepresentation(p[0].substring(3), p[1], false, null, null);
+								addPropertyOrRepresentation(p[0].substring(3), p[1], false, null, null);
 							}
 						} else {
 							deferredPropertyList.add(null);
@@ -1862,7 +1854,7 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 			if (this.localizedName == null || isMultiple)
 				this.localizedName = localizedName;
 			if (isMultiple) {
-				addDeferredPropertyOrRepresentation(NEW_PAGE_KEY, new Object[] {
+				addPropertyOrRepresentation(NEW_PAGE_KEY, new Object[] {
 						(obj.getID().endsWith("/" + thisDir) ? null : "_" + thisDir), obj, localizedName }, false, null,
 						null);
 			}
@@ -1964,7 +1956,7 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 				typeData[0] = (isBytesOnly ? null : localName);
 				typeData[1] = bytes;
 				// extract this file into the collection
-				addDeferredPropertyOrRepresentation(key, (isBytesOnly || isInlineBytes ? typeData : localName),
+				addPropertyOrRepresentation(key, (isBytesOnly || isInlineBytes ? typeData : localName),
 						isInlineBytes, null, null);
 			}
 		}
@@ -1974,7 +1966,7 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 		String dataType = vendor.processRepresentation(oPath + ".zip", null);
 		len = (noOutput ? ((ByteArrayOutputStream) fos).size() : outFile.length());
 		writeOriginToCollection(oPath, null, len);
-		IFDRepresentation r = helper.getSpecDataRepresentation(localizedName);
+		IFDRepresentation r = faHelper.getSpecDataRepresentation(localizedName);
 		if (r == null) {
 			// probably the case, as this renamed representation has not been added yet.
 		} else {
@@ -2041,7 +2033,7 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 			products.add(new File(targetDir + "/_IFD_manifest.json"));
 		}
 		long[] times = new long[3];
-		String serializedFindingAid = helper.createSerialization((readOnly && !createFindingAidOnly ? null : targetDir),
+		String serializedFindingAid = faHelper.createSerialization((readOnly && !createFindingAidOnly ? null : targetDir),
 				findingAidFileNameRoot, createZippedCollection ? products : null, ser, times);
 		log("!Extractor serialization done " + times[0] + " " + times[1] + " " + times[2] + " ms "
 				+ serializedFindingAid.length() + " bytes");
@@ -2097,7 +2089,7 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 	 */
 	protected void phase3CheckForDuplicateSpecData() {
 		BitSet bs = new BitSet();
-		FAIRSpecCompoundCollection ssc = helper.getCompoundCollection();
+		FAIRSpecCompoundCollection ssc = faHelper.getCompoundCollection();
 		boolean isFound = false;
 		boolean doRemove = false;
 		int n = 0;
@@ -2142,7 +2134,7 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 	 */
 	protected void phase3RemoveUnmanifestedRepresentations() {
 		boolean isRemoved = false;
-		for (IFDRepresentableObject<IFDDataObjectRepresentation> spec : helper.getSpecCollection()) {
+		for (IFDRepresentableObject<IFDDataObjectRepresentation> spec : faHelper.getSpecCollection()) {
 			List<IFDRepresentation> lstRepRemoved = new ArrayList<>();
 			for (Object o : spec) {
 				IFDRepresentation rep = (IFDRepresentation) o;
@@ -2185,7 +2177,7 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 	public void addProperty(String key, Object val) {
 		if (val != NULL)
 			log(this.localizedName + " addProperty " + key + "=" + val);
-		addDeferredPropertyOrRepresentation(key, val, false, null, null);
+		addPropertyOrRepresentation(key, val, false, null, null);
 	}
 
 	/**
@@ -2220,7 +2212,7 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 	 * @param mediaType a media type for a representation, or null
 	 */
 	@Override
-	public void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType,
+	public void addPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType,
 			String note) {
 		// System.out.println("!!!" + key + " ln=" + localizedName + " op=" +
 		// originPath);
@@ -2394,7 +2386,7 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 				}
 				String idExtension = (String) value;
 				if (assoc == null && localSpec != null)
-					assoc = helper.findCompound(null, localSpec);
+					assoc = faHelper.findCompound(null, localSpec);
 				System.out.println("cloning for association " + assoc);
 				IFDDataObject newSpec;
 				if (localSpec == null) {
@@ -2404,16 +2396,16 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 					mapClonedData(localSpec, newSpec);
 				}
 				spec = localSpec = newSpec;
-				struc = helper.getFirstStructureForSpec(localSpec, assoc == null);
+				struc = faHelper.getFirstStructureForSpec(localSpec, assoc == null);
 				if (sample == null)
-					sample = helper.getFirstSampleForSpec(localSpec, assoc == null);
+					sample = faHelper.getFirstSampleForSpec(localSpec, assoc == null);
 				if (assoc == null) {
 					if (struc != null) {
-						helper.createCompound(struc, newSpec);
+						faHelper.createCompound(struc, newSpec);
 						log("!Structure " + struc + " found and associated with " + spec);
 					}
 					if (sample != null) {
-						helper.associateSampleSpec(sample, newSpec);
+						faHelper.associateSampleSpec(sample, newSpec);
 						log("!Structure " + struc + " found and associated with " + spec);
 					}
 				} else {
@@ -2455,7 +2447,7 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 				if (struc == null) {
 					writeOriginToCollection(oPath, bytes, 0);
 					String localName = localizePath(oPath);
-					struc = helper.getFirstStructureForSpec((IFDDataObject) spec, false);
+					struc = faHelper.getFirstStructureForSpec((IFDDataObject) spec, false);
 					if (struc == null) {
 						struc = helper.addStructureForSpec(extractorResource.rootPath, (IFDDataObject) spec, ifdRepType,
 								oPath, localName, name);
@@ -2463,18 +2455,18 @@ public class MetadataExtractor extends FindingAidCreator implements ExtractorI {
 					}
 					htStructureRepCache.put(w, struc);
 					if (sample == null) {
-						assoc = helper.findCompound(struc, (IFDDataObject) spec);
+						assoc = faHelper.findCompound(struc, (IFDDataObject) spec);
 					} else {
-						helper.associateSampleStructure(sample, struc);
+						faHelper.associateSampleStructure(sample, struc);
 					}
 					// MNova 1 page, 1 spec, 1 structure Test #5
 					addFileAndCacheRepresentation(oPath, null, bytes.length, ifdRepType, null, null);
 					linkLocalizedNameToObject(localName, ifdRepType, struc);
 					log("!Structure " + struc + " created and associated with " + spec);
 				} else {
-					assoc = helper.findCompound(struc, (IFDDataObject) spec);
+					assoc = faHelper.findCompound(struc, (IFDDataObject) spec);
 					if (assoc == null) {
-						assoc = helper.createCompound(struc, (IFDDataObject) spec);
+						assoc = faHelper.createCompound(struc, (IFDDataObject) spec);
 						log("!Structure " + struc + " found and associated with " + spec);
 					}
 				}

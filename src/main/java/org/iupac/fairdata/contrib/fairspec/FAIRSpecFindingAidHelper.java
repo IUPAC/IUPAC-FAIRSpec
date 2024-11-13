@@ -236,6 +236,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	 * @param andRemove
 	 * @return
 	 */
+	@Override
 	public IFDStructure getFirstStructureForSpec(IFDDataObject spec, boolean andRemove) {
 		return (IFDStructure) getCompoundCollection().getFirstObj1ForObj2(spec, andRemove);
 	}
@@ -248,15 +249,18 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	 * @param andRemove
 	 * @return
 	 */
+	@Override
 	public IFDSample getFirstSampleForSpec(IFDDataObject spec, boolean andRemove) {
 		return (IFDSample) getSampleDataCollection().getFirstObj1ForObj2(spec, andRemove);
 	}
 
+	@Override
 	public FAIRSpecCompoundAssociation createCompound(IFDStructure struc, IFDDataObject spec)
 			throws IFDException {
 		return (FAIRSpecCompoundAssociation) getCompoundCollection().addAssociation(struc, spec);
 	}
 
+	@Override
 	public FAIRSpecCompoundAssociation createCompound(String id) throws IFDException {
 		FAIRSpecCompoundAssociation c = createCompound(null, null);
 		if (id != null)
@@ -284,6 +288,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		return structureCollection;
 	}
 
+	@Override
 	public IFDDataObjectCollection getSpecCollection() {
 		if (dataObjectCollection == null) {
 			objects[DATA_COLLECTION] = dataObjectCollection = new IFDDataObjectCollection();
@@ -310,6 +315,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		return sampleDataCollection;
 	}
 
+	@Override
 	public FAIRSpecCompoundCollection getCompoundCollection() {
 		if (compoundCollection == null) {
 			associations[STRUCTURE_DATA_COLLECTION] = compoundCollection = new FAIRSpecCompoundCollection(
@@ -343,6 +349,10 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		if (currentStructure == null)
 			currentStructure = createStructure(null);
 		IFDStructureRepresentation r = (IFDStructureRepresentation) findOrAddRepresentation(currentStructure, null, null, null, ref == null ? null : ref.getLocalName(), data, null);
+		if (data == null) {
+			r.getRef().setDOI(ref.getDOI());
+			r.getRef().setURL(ref.getURL());
+		}
 		r.setMediaType(mediatype);
 		r.setType(ifdStructureType);
 		r.setLength(len);
@@ -366,16 +376,19 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			return null;
 		}
 		IFDDataObjectRepresentation r = (IFDDataObjectRepresentation) findOrAddRepresentation(currentDataObject, null, null, null, ref == null ? null : ref.getLocalName(), data, null);
+		r.setRef(ref);
 		r.setMediaType(mediatype);
 		r.setType(ifdDataType);
 		r.setLength(len);
 		return r;
 	}
 
+	@Override
 	public FAIRSpecCompoundAssociation findCompound(IFDStructure struc, IFDDataObject spec) {
 		return (FAIRSpecCompoundAssociation) getCompoundCollection().findAssociation(struc, spec);
 	}
 
+	@Override
 	public IFDSampleDataAssociation associateSampleSpec(IFDSample sample, IFDDataObject spec) throws IFDException {
 		return (IFDSampleDataAssociation) getSampleDataCollection().addAssociation(sample, spec);
 	}
@@ -384,14 +397,17 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		return (IFDSampleDataAssociation) getSampleDataCollection().findAssociation(struc, spec);
 	}
 
+	@Override
 	public IFDRepresentation getSpecDataRepresentation(String localizeName) {
 		return (dataObjectCollection == null ? null : dataObjectCollection.getRepresentation(currentResource.getID(), localizeName));
 	}
 
+	@Override
 	public IFDSample getSampleByName(String label) {
 		return (IFDSample) getSampleCollection().getObjectByLabel(label);
 	}
 
+	@Override
 	public IFDSampleStructureAssociation associateSampleStructure(IFDSample sample, IFDStructure struc)
 			throws IFDException {
 		return getSampleStructureCollection().addAssociation(sample, struc);
@@ -421,6 +437,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	 * @return the serialization as a String
 	 * @throws IOException
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public String createSerialization(File targetDir, String rootName, ArrayList<Object> products, IFDSerializerI serializer,
 			long[] t) throws IOException {
@@ -519,6 +536,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	 * @return
 	 * @throws IOException
 	 */
+	@Override
 	public String generateFindingAid(File fileDir) throws IOException {
 		finalizeObjects();
 		finalizeCollectionSet(null);
@@ -542,6 +560,19 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			String localName, Object object, String param) {
 		return collection.findOrAddRepresentation(resourceID, currentOriginPath, 
 				rootPath, localName, object, param, FAIRSpecUtilities.mediaTypeFromFileName(localName));
+	}
+
+	/**
+	 * adjust key for backward compatibility.
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public static String updateKey(String key) {
+		int pt = key.indexOf(".xray.");
+		if (pt >= 0)
+			key = key.substring(0, pt + 1) + "xrd" + key.substring(pt + 5);
+		return key;
 	}
 
 

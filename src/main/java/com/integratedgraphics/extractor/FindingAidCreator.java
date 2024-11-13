@@ -9,6 +9,9 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+import org.iupac.fairdata.core.IFDFindingAid;
+import org.iupac.fairdata.core.IFDObject;
+import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.ifd.api.VendorPluginI;
 
@@ -19,7 +22,7 @@ import com.integratedgraphics.ifd.api.VendorPluginI;
  * @author hansonr@stolaf.edu
  *
  */
-public abstract class FindingAidCreator {
+public abstract class FindingAidCreator implements MetadataReceiverI {
 
 	static {
 		FAIRSpecFindingAid.loadProperties();
@@ -27,12 +30,6 @@ public abstract class FindingAidCreator {
 	}
 
 	
-	abstract protected String getVersion();
-	abstract protected String getCodeSource();
-
-    abstract protected FAIRSpecFindingAidHelperI getHelper();
-
-
 	/**
 	 * start-up option to create JSON list for multiple
 	 */
@@ -82,6 +79,14 @@ public abstract class FindingAidCreator {
 	 */
 
 	protected boolean includeIgnoredFiles = true;
+
+	
+	protected FAIRSpecFindingAidHelperI faHelper;
+
+	protected FAIRSpecFindingAidHelperI getHelper() {
+		return faHelper;
+	}
+
 
 	protected String localizedTopLevelZipURL;
 
@@ -310,6 +315,7 @@ public abstract class FindingAidCreator {
 	 * 
 	 * @param msg
 	 */
+	@Override
 	public void log(String msg) {
 		if (msg.startsWith("!!")) {
 			errors++;
@@ -352,5 +358,18 @@ public abstract class FindingAidCreator {
 	protected static boolean logging() {
 		return FAIRSpecUtilities.logStream != null;
 	}
+
+	@Override
+	public IFDFindingAid getFindingAid() {
+		return getHelper().getFindingAid();
+	}
+
+	/**
+	 * From FAIRSpecExtractorHelper; Overridden by MetadataExtractor
+	 */
+	@Override
+	public void setNewObjectMetadata(IFDObject<?> o, String param) {
+	}
+
 
 }

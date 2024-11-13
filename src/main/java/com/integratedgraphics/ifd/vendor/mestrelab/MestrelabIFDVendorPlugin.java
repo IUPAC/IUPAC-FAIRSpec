@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
-import org.iupac.fairdata.extract.ExtractorI;
+import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.extractor.MetadataExtractor;
 import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
@@ -87,7 +87,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	@Override
-	public String accept(ExtractorI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
+	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
 		super.accept(extractor, originPath, bytes, isEmbedded);
 		MNovaMetadataReader reader;
 		try {
@@ -297,7 +297,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	// private
 
 	/**
-	 * Report the found property back to the IFDExtractorI class.
+	 * Report the found property back to the IFDMetadataReceiverI class.
 	 * 
 	 * @param key
 	 * @param val if null, this property is removed

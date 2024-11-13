@@ -27,7 +27,6 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelper;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDReference;
@@ -35,8 +34,6 @@ import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
 
 import com.integratedgraphics.util.XmlReader;
-
-import javajs.util.PT;
 
 /**
  * A DataCite metadata crawler, resulting in the production of an IUPAC FAIRSpec
@@ -134,6 +131,10 @@ public class DOICrawler extends FindingAidCreator {
 		DoiRecord(String id, String url, String dirName, String localName) {
 			compoundID = id;
 			ifdRef = new IFDReference(null, url, dirName, localName);
+			if (url.startsWith(DOI_ORG))
+				ifdRef.setDOI(url);
+			else
+				ifdRef.setURL(url);
 		}
 
 		void addItem(DoiRecord rep) {
@@ -166,7 +167,7 @@ public class DOICrawler extends FindingAidCreator {
 			if (sortKey == null) {
 				switch (type) {
 				case DOI_COMP:
-					int num = PT.parseInt(compoundID);
+					int num = FAIRSpecUtilities.parseInt(compoundID);
 					if (num == Integer.MIN_VALUE) {
 						sortKey = (compoundID + "__________"); 
 					} else {
@@ -190,13 +191,6 @@ public class DOICrawler extends FindingAidCreator {
 	}
 	
 	private static String indent = "                              ";
-
-	private FAIRSpecFindingAidHelper faHelper;
-
-	@Override
-	protected FAIRSpecFindingAidHelperI getHelper() {
-		return faHelper;
-	}
 
 	// inputs
 	
@@ -443,7 +437,7 @@ public class DOICrawler extends FindingAidCreator {
 	}
 
 	private static URL newURL(String s) throws MalformedURLException {
-		s = PT.rep(s, "&amp;", "&");
+		s = FAIRSpecUtilities.rep(s, "&amp;", "&");
 		return new URL(s);
 	}
 
@@ -496,7 +490,6 @@ public class DOICrawler extends FindingAidCreator {
 			if (doi.equals(dataCiteMetadataURL)) {
 				doiRecord.type = DOI_TOP;	
 			}
-			doiRecord.ifdRef.setDOI(url);
 			parseXML(is);
 			is.close();
 		} catch (Exception e) {
@@ -549,7 +542,7 @@ public class DOICrawler extends FindingAidCreator {
 			String length = getHeaderAttr(data, "length");
 			mediaType = getHeaderAttr(data, "mediaType");
 			if (length != null) {
-				len = PT.parseInt(length);
+				len = FAIRSpecUtilities.parseInt(length);
 				totalLength += len;
 			}
 		} else {
@@ -566,7 +559,7 @@ public class DOICrawler extends FindingAidCreator {
 				if (list != null && !list.isEmpty()) {
 					s += "\tlength=" + list.get(0);
 				}
-				fileName = PT.getQuotedOrUnquotedAttribute(item.toString(), "filename");
+				fileName = FAIRSpecUtilities.getQuotedOrUnquotedAttribute(item.toString(), "filename");
 				s += "\tfilename=" + fileName;
 			}
 			FAIRSpecUtilities.putToFile(s.getBytes(), headerFile);
@@ -580,7 +573,6 @@ public class DOICrawler extends FindingAidCreator {
 			String surl = url.toString();
 			//repMap.put(thisCompoundID + "|" + fileName, surl);
 			DoiRecord rec = new DoiRecord(thisCompoundID, surl, null, fileName);
-			rec.ifdRef.setURL(url.toString());
 			rec.length = len;
 			rec.mediaType = mediaType;
 			rec.type = DOI_REP;
@@ -615,7 +607,7 @@ public class DOICrawler extends FindingAidCreator {
 		}
 		String s = file.getName();
 		int pt = s.lastIndexOf(".");
-		if (pt > 0 && PT.isOneOf(s.substring(pt + 1), DOWNLOAD_TYPES)) {
+		if (pt > 0 && FAIRSpecUtilities.isOneOf(s.substring(pt + 1), DOWNLOAD_TYPES)) {
 			if (modTime > 0) {
 				addError("replacing " + file.getName() + " with " + url);
 			}
@@ -704,7 +696,7 @@ public class DOICrawler extends FindingAidCreator {
 //				subjectScheme="IFD" 
 //				valueURI="http://iupac.org/ifd/IFD.compound.id">21</subject>
 //				</subjects>
-					String id = "" + PT.parseInt(val.substring(9));
+					String id = "" + FAIRSpecUtilities.parseInt(val.substring(9));
 					thisCompoundID = doiRecord.compoundID = id;
 					doiRecord.type = DOI_COMP;
 					//repMap.put(id, urlStack.get(urlStack.size() - 1).toString());
@@ -852,6 +844,9 @@ public class DOICrawler extends FindingAidCreator {
 			case DOI_COMP:
 				thisCompoundID = rec.compoundID;
 				o = faHelper.createCompound(thisCompoundID);
+				o.setDOI(rec.ifdRef.getDOI());
+				o.setURL(rec.ifdRef.getURL());
+				o.setReference(rec.ifdRef);
 				thisDataObject = null;
 				if (rec.itemList != null)
 					processRecords(rec.itemList);
@@ -864,6 +859,7 @@ public class DOICrawler extends FindingAidCreator {
 					ext = ext.substring(ext.lastIndexOf(".") + 1);
 					structureType = DefaultStructureHelper.getType(ext, null, false);
 					if (structureType != null) {
+						System.out.println(rec.ifdRef);
 						faHelper.createStructureRepresentation(rec.ifdRef, null, rec.length, structureType, rec.mediaType);
 					}
 				} 
@@ -1044,6 +1040,32 @@ public class DOICrawler extends FindingAidCreator {
 		}
 		System.out.println(
 				"done len = " + crawler.totalLength + " bytes " + (System.currentTimeMillis() - t) / 1000 + " sec");
+	}
+
+	/**
+	 * For future use in dataset file checking.
+	 */
+	@Override
+	public void addProperty(String key, Object val) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * For future use in structure file checking.
+	 * 
+	 * @param key
+	 * @param val in the case of a representation, this will be an Object[]
+	 * consisting of [ bytes, fileName, ifdStructureType, standardInchi|?, mediaType ]
+	 * @param isInLine
+	 * @param mediaType
+	 * @param note
+	 */
+	@Override
+	public void addPropertyOrRepresentation(String key, Object val, 
+			boolean isInLine, String mediaType, String note) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

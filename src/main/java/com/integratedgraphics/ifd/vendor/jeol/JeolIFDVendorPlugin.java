@@ -2,7 +2,7 @@ package com.integratedgraphics.ifd.vendor.jeol;
 
 import java.io.IOException;
 
-import org.iupac.fairdata.extract.ExtractorI;
+import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.ifd.vendor.nmrml.NmrMLIFDVendorPlugin;
 
@@ -18,7 +18,7 @@ public class JeolIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 	}
 
 	@Override
-	public String accept(ExtractorI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
+	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
 		super.accept(extractor, originPath, bytes, isEmbedded);
 		try {
 			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(bytes);

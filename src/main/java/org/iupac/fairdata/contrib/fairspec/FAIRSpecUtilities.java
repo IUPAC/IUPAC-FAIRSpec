@@ -11,8 +11,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.DoubleBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,7 +93,7 @@ public class FAIRSpecUtilities {
 	public static String getFileStringData(File f) throws MalformedURLException, IOException {
 		return getURLContentsAsString(f.toURI().toString());
 	}
-	
+
 	public static byte[] getURLBytes(String url) throws MalformedURLException, IOException {
 		return getLimitedStreamBytes(new URL(url).openStream(), -1, null, true, true);
 	}
@@ -106,7 +110,7 @@ public class FAIRSpecUtilities {
 	 * @throws IOException
 	 */
 	public static void writeBytesToFile(byte[] bytes, File fileTarget) throws IOException {
-		if (fileTarget.toString().indexOf("56.png")>= 0)
+		if (fileTarget.toString().indexOf("56.png") >= 0)
 			System.out.println("Extractor ???");
 
 		FileOutputStream fos = new FileOutputStream(fileTarget);
@@ -322,6 +326,34 @@ public class FAIRSpecUtilities {
 				s = rep(s, name, newName);
 		}
 		return s;
+	}
+
+	/**
+	 * single- or double-quoted string or up to the first space -- like HTML5 not
+	 * case-sensitive
+	 * 
+	 * @param line
+	 * @param key
+	 * @return attribute
+	 */
+	public static String getQuotedOrUnquotedAttribute(String line, String key) {
+		if (line == null || key == null)
+			return null;
+		int pt = line.toLowerCase().indexOf(key.toLowerCase() + "=");
+		if (pt < 0 || (pt = pt + key.length() + 1) >= line.length())
+			return "";
+		char c = line.charAt(pt);
+		switch (c) {
+		case '\'':
+		case '"':
+			pt++;
+			break;
+		default:
+			c = ' ';
+			line += " ";
+		}
+		int pt1 = line.indexOf(c, pt);
+		return (pt1 < 0 ? null : line.substring(pt, pt1));
 	}
 
 	/**
@@ -682,8 +714,8 @@ public class FAIRSpecUtilities {
 		return info.substring(pt, i);
 	}
 
-	private static byte[] IFDTAG = {'#','#', '$', 'I', 'F', 'D' };
-	
+	private static byte[] IFDTAG = { '#', '#', '$', 'I', 'F', 'D' };
+
 	/**
 	 * This will probably change. Bob knows this isn't a valid jdx format
 	 * 
@@ -701,11 +733,10 @@ public class FAIRSpecUtilities {
 	}
 
 	/**
-	 * Retrieve all "jdx comment" key/value pairs from a file
-	 * in the form:
+	 * Retrieve all "jdx comment" key/value pairs from a file in the form:
 	 * 
-	 *  ##$IFD.property......=xxxx
-	 *  
+	 * ##$IFD.property......=xxxx
+	 * 
 	 * valid lines must start with "##$IFD"; the "##$" will be stripped.
 	 * 
 	 * 
@@ -719,7 +750,7 @@ public class FAIRSpecUtilities {
 			String s = lines[i];
 			int pt;
 			if (s.startsWith("##$IFD") && (pt = s.indexOf("=")) > 0)
-				list.add(new String[] {s.substring(3, pt).trim(), s.substring(pt + 1).trim() });
+				list.add(new String[] { s.substring(3, pt).trim(), s.substring(pt + 1).trim() });
 		}
 		return list;
 	}
@@ -745,5 +776,77 @@ public class FAIRSpecUtilities {
 		}
 		return bytes.length;
 	}
+
+	/**
+	 * parse very simple positive integers; may have continuance after but not before
+	 * 
+	 * @param substring
+	 * @return
+	 */
+	public static int parseInt(String s) {
+		int n = Math.min(s.length(), 9);
+		int i = -1;
+		int val = 0;
+		while (++i < n) {
+			char ch = s.charAt(i);
+			if (!isDigit(ch))
+					break;
+			val = val * 10 + ch - '0';
+		}
+		return (i == 0 ? Integer.MIN_VALUE : val);
+	}
+
+	public static boolean isDigit(char ch) {
+		// just way simpler code than Character.isDigit(ch);
+		int c = ch;
+		return (48 <= c && c <= 57);
+	}
+
+	  public static boolean isOneOf(String key, String semiList) {
+		    if (semiList.length() == 0)
+		      return false;
+		    if (semiList.charAt(0) != ';')
+		      semiList = ";" + semiList + ";";
+		    return key.indexOf(";") < 0  && semiList.indexOf(';' + key + ';') >= 0;
+		  }
+
+
+		public static double[][] getXYFromBase64Complex128(String sdata) {
+			byte[] bytes = Base64.getDecoder().decode(sdata);
+			DoubleBuffer b = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asDoubleBuffer();
+			if ((bytes.length % 16) != 0) {
+				throw new RuntimeException("NMRmlFAIRSpecUtil byte length not multiple of 16 " + bytes.length);
+			}
+			try {
+				int n = bytes.length / 16;
+				double[][] values = new double[2][n];
+				FileOutputStream fos = new FileOutputStream("C:/temp/t.xls");
+				for (int i = 0, dpt = 0; i < n; i++) {
+					values[0][dpt] = b.get();
+					values[1][dpt] = b.get();
+					fos.write((values[0][dpt] + "\t" + values[1][dpt] + "\n").getBytes());
+					dpt++;
+				}
+				fos.close();
+				return values;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		static {
+//			try {
+//				byte[] bytes = getURLBytes("file:///c:/temp/t");
+//				double[][] a = getXYFromBase64Complex128(new String(bytes));
+//				System.out.println(a[1][1]);
+//			} catch (MalformedURLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+		}
 
 }

@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-import org.iupac.fairdata.extract.ExtractorI;
+import org.iupac.fairdata.extract.MetadataReceiverI;
 import org.iupac.fairdata.extract.PropertyManagerI;
 
 import com.integratedgraphics.extractor.MetadataExtractor;
 
 /**
  * A clas that implements IFDVendorPluginI extends the ability of an
- * IFDExtractorI class to extract data and metadata from a dataset.
+ * IFDMetadataReceiverI class to extract data and metadata from a dataset.
  * 
  * After statically (i.e. automatically upon the first time an instance of the
  * class is created) registering with
@@ -29,7 +29,7 @@ import com.integratedgraphics.extractor.MetadataExtractor;
  * property fields with values found in
  * org.iupac.fairdata.common.fairdata.properties (Or, for that matter, do
  * anything else it wants, including create new files from the data, since it
- * will have access to both the IFDExtractorI and IFDVendorPluginI instances
+ * will have access to both the IFDMetadataReceiverI and IFDVendorPluginI instances
  * once it accepts.)
  * 
  * @author hansonr
@@ -121,9 +121,9 @@ public interface VendorPluginI extends PropertyManagerI {
 
 	String getRezipPrefix(String dirname);
 
-	void startRezip(ExtractorI extractor);
+	void startRezip(MetadataReceiverI extractor);
 	
-	boolean doRezipInclude(ExtractorI extractor, String zipfileName, String entryName);
+	boolean doRezipInclude(MetadataReceiverI extractor, String zipfileName, String entryName);
 
 	void endRezip();
 
@@ -131,7 +131,7 @@ public interface VendorPluginI extends PropertyManagerI {
 	
 	void setIndex(int index);
 
-	Object[] getExtractTypeInfo(ExtractorI extractor, String baseName, String entryName);
+	Object[] getExtractTypeInfo(MetadataReceiverI extractor, String baseName, String entryName);
 
 //	void processVendorFile(String zipName);
 

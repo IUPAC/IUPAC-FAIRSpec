@@ -62,10 +62,10 @@
  {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::/*/{IFD.property.dataobject.id::*}.pdf}"},
  {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::/*/*/{IFD.property.dataobject.id::*}.pdf}"},
 
- "----xray",
+ "----xrd",
  "-------Lots of case issues with cif names - using regex 'case insensitive' enclosure",
 
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.xray.cif::/**/{IFD.property.dataobject.id::*.cif}}"},
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.xrd.cif::/**/{IFD.property.dataobject.id::*.cif}}"},
 
 
  

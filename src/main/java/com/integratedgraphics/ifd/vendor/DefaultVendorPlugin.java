@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.extract.ExtractorI;
+import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.extractor.MetadataExtractor;
 import com.integratedgraphics.ifd.api.VendorPluginI;
@@ -34,7 +34,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	/**
 	 * the extractor calling this plugin, set in startRezipping() or accept()
 	 */
-	protected ExtractorI extractor;
+	protected MetadataReceiverI extractor;
 
 	/**
 	 * the regex expression for what entry names are of interest; for example,
@@ -111,7 +111,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	}
 
 	@Override
-	public String accept(ExtractorI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
+	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
 		if (extractor != null) {
 			this.extractor = extractor;
 		}
@@ -134,7 +134,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	 * endRezip(). Also register the extractor.
 	 */
 	@Override
-	public void startRezip(ExtractorI extractor) {
+	public void startRezip(MetadataReceiverI extractor) {
 		this.extractor = extractor;
 		reportVendor();
 		rezipping = true;
@@ -158,12 +158,12 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	 * When rezipping, include this zip entry or not.
 	 */
 	@Override
-	public boolean doRezipInclude(ExtractorI extractor, String zipfileName, String entryName) {
+	public boolean doRezipInclude(MetadataReceiverI extractor, String zipfileName, String entryName) {
 		return true;
 	}
 
 	/**
-	 * Pass back the standardized key/val pair to the IFDExtractorI class.
+	 * Pass back the standardized key/val pair to the IFDMetadataReceiverI class.
 	 * 
 	 * @param key
 	 * @param val a String or Double
@@ -279,7 +279,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	 * @return Object[] { ifdtype, (add bytes inline ? Boolean.TRUE : add bytes inline only ? Boolean.FALSE : null (just copy the file) }
 	 */
 	@Override
-	public Object[] getExtractTypeInfo(ExtractorI extractor, String baseName, String entryName) {
+	public Object[] getExtractTypeInfo(MetadataReceiverI extractor, String baseName, String entryName) {
 		return null;
 	}
 

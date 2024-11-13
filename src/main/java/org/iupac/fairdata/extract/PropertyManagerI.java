@@ -43,7 +43,7 @@ public interface PropertyManagerI {
 	 * @param isEmbedded TODO
 	 * @return true if accepted (but may be ignored by the extractor)
 	 */
-	String accept(ExtractorI extractor, String originPath, byte[] bytes, boolean isEmbedded);
+	String accept(MetadataReceiverI extractor, String originPath, byte[] bytes, boolean isEmbedded);
 
 	/**
 	 * Process a representation (zip file or directory, mol file, etc.), possibly
@@ -68,7 +68,7 @@ public interface PropertyManagerI {
 	 * @param isInline
 	 * @param mediaType
 	 */
-	static void addPropertyOrRepresentation(ExtractorI extractor, String key, Object val, boolean isInline, String mediaType) {
+	static void addPropertyOrRepresentation(MetadataReceiverI extractor, String key, Object val, boolean isInline, String mediaType) {
 	}
 
 }

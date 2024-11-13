@@ -13,6 +13,8 @@ import org.iupac.fairdata.api.IFDSerializerI;
  */
 public class IFDReference implements IFDSerializableI {
 
+	static int test;
+	
 	/**
 	 * Origin object; typically a ZIP file label; 
 	 * but possibly a remote archive path
@@ -45,9 +47,12 @@ public class IFDReference implements IFDSerializableI {
 
 	public void setURL(String url) {
 		this.url = url;
+		System.out.println("IFDREF " + index + " " + localName + " " + url);
 	}
 
 	private String doi;
+
+	private int index;
 	
 	public String getDOI() {
 		return doi;
@@ -71,6 +76,8 @@ public class IFDReference implements IFDSerializableI {
 	 * @param localName
 	 */
 	public IFDReference(String resourceID, Object originPath, String localDir, String localName) {
+		this.index = ++test;
+		System.out.println("IFDREF. " + index + " " + localName);
 		this.resourceID = resourceID;
 		this.originPath = originPath;
 		this.localDir = localDir;
@@ -103,11 +110,12 @@ public class IFDReference implements IFDSerializableI {
 
 	@Override
 	public String toString() {
-		return "[IFDReference " + (localDir == null ? "" : localDir + "::") + originPath + " :as::" + localName + "]";
+		return "[IFDReference " + test + " " + (localDir == null ? "" : localDir + "::") + originPath + " :as::" + localName + " url:" + url + "]";
 	}
 
 	@Override
 	public void serialize(IFDSerializerI serializer) {
+		System.out.println("IFDRef " + index + " " + localName + " " + url);
 		IFDObject.serializeClass(serializer, getClass(), null);
 		if (resourceID != null)
 			serializer.addAttr("resourceID", resourceID);
@@ -118,9 +126,12 @@ public class IFDReference implements IFDSerializableI {
 		if (originPath != null)
 			serializer.addAttr("originPath", originPath.toString());
 		if (localName != null) {
-			String s = getLocalPath();
-			serializer.addAttr("path", s);
-			// TODO: Could add #page=" to origin; localPath is null?
+			if (localDir == null) {
+				serializer.addAttr("localName", localName);
+			} else {
+				serializer.addAttr("localPath", getLocalPath());
+				// TODO: Could add #page=" to origin; localPath is null?
+			}
 		}
 	}
 

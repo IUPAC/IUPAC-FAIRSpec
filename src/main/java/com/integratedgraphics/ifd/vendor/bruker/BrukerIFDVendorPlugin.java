@@ -5,11 +5,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-import org.iupac.fairdata.extract.ExtractorI;
+import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.extractor.MetadataExtractor;
 import com.integratedgraphics.ifd.api.VendorPluginI;
@@ -106,14 +105,14 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	private static String PDF = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR_SPECTRUM_DOCUMENT");
 
 	@Override
-	public Object[] getExtractTypeInfo(ExtractorI extractor, String baseName, String entryName) {
+	public Object[] getExtractTypeInfo(MetadataReceiverI extractor, String baseName, String entryName) {
 		boolean isImage = entryName.endsWith("thumb.png");
 		String type = (entryName.endsWith(".pdf") ? PDF : isImage ? IMAGE : null);
 		return (type == null ? null : new Object[] { type, (isImage ? Boolean.TRUE : null) });
 	}
 
 	@Override
-	public boolean doRezipInclude(ExtractorI extractor, String baseName, String entryName) {
+	public boolean doRezipInclude(MetadataReceiverI extractor, String baseName, String entryName) {
 		return !entryName.endsWith(".mnova");
 	}
 
@@ -123,7 +122,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	@Override
-	public void startRezip(ExtractorI extractor) {
+	public void startRezip(MetadataReceiverI extractor) {
 		// we will need dim for setting 1D
 		super.startRezip(extractor);
 		spec = new Globals();
@@ -149,7 +148,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	 * 
 	 */
 	@Override
-	public String accept(ExtractorI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
+	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
 		super.accept(extractor, originPath, bytes, isEmbedded);
 		return (readJDX(originPath, bytes) ? processRepresentation(originPath, null) : null);
 	}
@@ -288,7 +287,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	/**
-	 * Report the found property back to the IFDExtractorI class.
+	 * Report the found property back to the IFDMetadataReceiverI class.
 	 * 
 	 * @param key
 	 * @param val if null, this property is removed
@@ -327,7 +326,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	@Override
-	public String processRepresentation(String originPath, byte[] bytes) {
+	public String processRepresentation(String ifdPath, byte[] bytes) {
 		return IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET;
 	}
 

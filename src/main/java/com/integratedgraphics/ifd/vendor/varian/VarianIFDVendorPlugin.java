@@ -2,7 +2,7 @@ package com.integratedgraphics.ifd.vendor.varian;
 
 import java.io.ByteArrayInputStream;
 
-import org.iupac.fairdata.extract.ExtractorI;
+import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.ifd.vendor.nmrml.NmrMLIFDVendorPlugin;
 
@@ -19,7 +19,7 @@ public class VarianIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 	}
 
 	@Override
-	public String accept(ExtractorI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
+	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
 		super.accept(extractor, originPath, bytes, isEmbedded);
 		try {
 			NmrMLVarianAcquStreamReader varian = new NmrMLVarianAcquStreamReader(new ByteArrayInputStream(bytes));

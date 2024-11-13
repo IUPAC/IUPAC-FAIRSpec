@@ -18,6 +18,7 @@ public class FAIRSpecDataObject extends IFDDataObject {
 	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_DATAOBJECT_FLAG, "fairspec");
 			
 			
+	@Override
 	protected String getIFDPropertyPrefix() {
 		return (serializerPropertyPrefix == null ? propertyPrefix : serializerPropertyPrefix);
 	}
@@ -47,6 +48,8 @@ public class FAIRSpecDataObject extends IFDDataObject {
 	 * @return
 	 */
 	public static FAIRSpecDataObject createFAIRSpecObject(String key) {
+		// backward compatibility:
+		// 
 		String type = key.substring(key.lastIndexOf(".") + 1);
 		String ucType = type.toUpperCase();
 		String className = FAIRSpecDataObject.class.getName();
