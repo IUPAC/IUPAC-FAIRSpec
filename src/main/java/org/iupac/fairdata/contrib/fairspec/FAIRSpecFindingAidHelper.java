@@ -457,6 +457,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		String aidName = "IFD" + IFDConst.IFD_FINDINGAID_FLAG + serializer.getFileExt();
 		String faPath = targetDir.toString().replace('\\', '/') + "/" + aidName;
 		FAIRSpecUtilities.writeBytesToFile(serializedFindingAid.getBytes(), new File(faPath));
+		System.out.println("created " + faPath);
 		if (products != null) {
 			products = (ArrayList<Object>) products.clone();
 			// zip up the collection and re-create finding aid with updated information

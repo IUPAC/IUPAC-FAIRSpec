@@ -529,12 +529,16 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	@Override
 	public String getID() {
 		if (id == null)
-			id = "" + index;
+			id = "" + (index + 1);
+		if (id.equals("0"))
+			System.out.println("???");
 		return id;
 	}
 
 	@Override
 	public void setID(String id) {
+		if (id.equals("0"))
+			System.out.println("???");
 		this.id = id;
 	}
 
@@ -688,6 +692,9 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected void serializeTop(IFDSerializerI serializer) {
 		if (doSerializeType)
 			serializeClass(serializer, getClass(), null);
+		if (getID().equals("0"))
+			System.out.println("???");
+
 		serializer.addAttr("id", getID());
 		serializer.addAttr("label", getLabel());
 		serializer.addAttr("note", getNote());

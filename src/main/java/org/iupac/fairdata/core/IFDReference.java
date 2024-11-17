@@ -123,7 +123,7 @@ public class IFDReference implements IFDSerializableI {
 			serializer.addAttr("doi", doi);
 		if (url != null)
 			serializer.addAttr("url", url);
-		if (originPath != null)
+		if (originPath != null && !originPath.equals(doi) && !originPath.equals(url))
 			serializer.addAttr("originPath", originPath.toString());
 		if (localName != null) {
 			if (localDir == null) {

@@ -387,6 +387,7 @@ public class DOICrawler extends FindingAidCreator {
 		createZippedCollection = false;
 		faHelper = new FAIRSpecFindingAidHelper(getCodeSource() + " " + getVersion());
 		findingAid = faHelper.getFindingAid();
+		findingAid.setID(initialDOI.replace('/', '_'));
 		try {
 			dataCiteMetadataURL = getMetadataURL(initialDOI);
 		} catch (MalformedURLException e) {
@@ -684,6 +685,8 @@ public class DOICrawler extends FindingAidCreator {
 			break;
 		case "title":
 			String type = null;
+			if (val.startsWith("Primary NMR Data"))
+				System.out.println("????");
 			switch (val.substring(0, 3)) {
 			case "Com":
 				if (val.startsWith("Compound ")) {
@@ -712,6 +715,7 @@ public class DOICrawler extends FindingAidCreator {
 				break;
 			case "Pri":// Primary crystal...
 			case "Cry":// Crystal...
+				System.out.println(val + " xrd");
 				type = "xrd";
 				break;
 			}
@@ -776,7 +780,9 @@ public class DOICrawler extends FindingAidCreator {
 			processDOIURLs(pubdoi, datadoi, faHelper);
 			nestRecords();
 			processRecords(doiList);
-			faHelper.generateFindingAid(topDir);
+			File faDir = new File(topDir, findingAid.getID());
+			faDir.mkdirs();
+			faHelper.generateFindingAid(faDir);
 		} catch (Exception e) {
 			addException(e);
 		}
