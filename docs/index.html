@@ -1,30 +1,67 @@
-<span style="width:600px">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>IUPAC FAIRSpec GitHub Pages</title>
+</head>
+<body>
+<div style="width:600px">
 <H3>CDX/CDXML specification</H3>
-352 pages retrieved from multiple points on the wayBack machine.
+<p>352 pages retrieved from multiple points on the wayBack machine.
 
-<p><a href="cdx_sdk">CDX/CDXML specification</a>
-<p>
+<a href="cdx_sdk">CDX/CDXML specification</a>
+
 
 
 <H3>examples/v5-icl-repository-DOI-crawl</H3>
-The IUPAC FAIRSpec Finding Aid in JSON format:
-<br><a href="examples/v5-icl-repository-DOI-crawl/10.14469_hpc_10386/IFD.findingaid.json">IFD.findingaid.json</a>
-<p>
-A sample landing page for the Finding Aid uses only the information in the 
-Finding Aid to create a rich, searchable context.[in development]
-<br><a href="examples/v5-icl-repository-DOI-crawl/demo_icl.htm">Finding Aid landing page</a>
-<p>
-Additional output from DOICrawler.java collecting the contents of 
+<p>This demonstration highlights a what can be done 
+simply by "crawling" the interconnected DataCite 
+metadata records of a <a href="https://data.hpc.imperial.ac.uk/resolve/?doi=10386">highly curated collection</a> at 
 the high-performance computing repository at 
-Imperial College London. 
-<br>[<a href="https://doi.org/10.14469/hpc/10386">https://doi.org/10.14469/hpc/10386</a>]
-<br>This program works solely by following DataCite 
-metadata links. 
-<br>
-At least in Firefox, the Finding Aid links work in the JSON output.
+Imperial College London. This collection contains 
+data relating to 60 compounds associated with the
+article <a href=https://doi.org/10.14469/HPC/10386>Syntheses and Characterization of Main Group, Transition Metal, Lanthanide, 
+and Actinide Complexes of Bidentate Acylpyrazolone Ligands</a>, 
+by Thomas Mies, Andrew J. P. White, Henry S. Rzepa, 
+Luciano Barluzzi, Mohit Devgan and Richard A. Layfield, 
+and Anthony G. M. Barrett.
+<p>
+The <a href="examples/v5-icl-repository-DOI-crawl/10.14469_hpc_10386/IFD.findingaid.json">IUPAC FAIRSpec Finding Aid</a> 
+accesses 323 DOI-referenced pages in the repository 
+backed by DataCite metadata records pointing to 1843 distinct digital
+items, including 390 CDXML drawings, 294 MOL files, 
+140 complete Bruker NMR datasets, 144 JCAMP-DX files,
+and 328 PNG images.  
+<p>
+The <a href="examples/v5-icl-repository-DOI-crawl/demo_icl.htm">sample landing page</a>
+for the Finding Aid 
+uses only the information in the DataCite metadata records retrieved from 
+DataCite by <a href="https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/DOICrawler.java">DOICrawler.java</a>,
+which was initiated using only the DOI string for the main repository page, "10.14469/hpc/10386". 
+Thus, for this proof-of-concept, no files from the repository
+were actually downloaded in the creation of the Finding Aid or the 
+generation of the landing page itself.
+
+<p>The landing page uses <a href=https://jsme-editor.github.io>JSME</a> 
+to create SMARTS substructure searches and <a href=https://sourceforge.net/projects/jmol>JSmol</a> 
+to do the SMILES-string searching. Not all compounds in this collection
+have fully validated SMILES strings due to the inorganic nature of the 
+compounds. But this does not prevent SMARTS searching of the metal center, ligands, or 
+associated solvents. In addition, the page provides access to 
+<a href=https://www.nmrdb.org>nmrdb</a> for optional NMR spectrum prediction.
+
+<p>
+
+View the <a href="examples/v5-icl-repository-DOI-crawl/10.14469_hpc_10386/IFD.findingaid.json">IUPAC FAIRSpec Finding Aid</a> 
+<p>
+Go to the <a href="examples/v5-icl-repository-DOI-crawl/demo_icl.htm">landing page</a>
+<p>
+
+Additional output from DOICrawler.java: 
 <br>
 <p><a href="examples/v5-icl-repository-DOI-crawl/10.14469_hpc_10386/ifd-fileURLMap.txt">ifd-fileURLMap.txt</a>
 <p><a href="examples/v5-icl-repository-DOI-crawl/10.14469_hpc_10386/crawler.log">crawler.log</a>
-<p>
 
-</span>
+</div>
+</body>
+</html>
