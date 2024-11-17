@@ -5,7 +5,7 @@
 .spectitle { font-weight:bold;color:blue; }
 .version { font-size:9pt;font-style:italic; }
 .spectratable {            }
-.hiddendiv {cursor:pointer}
+.hiddendiv {cursor:pointer;color:blue}
 .hiddendiv:hover {color:blue}
 .structurehead{ font-weight:bold;color:red }
 h3{ color:red }

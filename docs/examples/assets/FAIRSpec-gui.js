@@ -521,7 +521,7 @@
 		s += "from SMILES:<br>" + IFD.getStructureVisual(reps);
 		s += IFD.getStructureSpectraPredictions(reps);
 		s += "</td>";
-		s += "<td>" + addRepresentationTable(aidID, reps, "png") + "</td>";
+		s += "<td>" + addRepresentationTable(false, aidID, reps, "png") + "</td>";
 		s += "</tr>";
 			s += "<tr>";
 		 	s += "<td><table>" + addPropertyRows("",props, null, false) + "</table></td>"
@@ -620,22 +620,24 @@
 		}
 	}
 
-	var addRepresentationTable = function(aidID, reps, firstItem) {
+	var addRepresentationTable = function(isData, aidID, reps, firstItem) {
 		var s = ""
 		for (var i = 0; i < reps.length; i++) {
 			var type = IFD.shortType(reps[i].representationType);
 			if (type == firstItem) {
-				s = addRepresentationRow(aidID, reps[i], type) + s;
+				s = addRepresentationRow(isData, aidID, reps[i], type) + s;
 			} else {
-				s += addRepresentationRow(aidID, reps[i], type);
+				s += addRepresentationRow(isData, aidID, reps[i], type);
 			}
 		}
 		return "<table>" + s + "</table>";
 	}
 
-	var addRepresentationRow = function(aidID, r, type) {
+	var addRepresentationRow = function(isData, aidID, r, type) {
 		var s = ""; 
-		var shead = (type == "png" ? "" : "<span class=repname>" + clean(type) + "</span> ");
+		var shead = //"";//
+			// TODO data type xrd is in the wrong place
+		(type == "png" || isData ? "" : "<span class=repname>" + clean(type) + "</span> ");
 		if (r.data) {
 			if (r.data.indexOf(";base64") == 0) {
 				var imgTag = "<img id=img" + (++divId)  + " onload=IFD.checkImage(" + divId + ")" +  " src=\"" + "data:" + r.mediaType + r.data + "\"</img>";
@@ -687,7 +689,7 @@
 		+ getSpectrumPrediction(spec.properties, smiles)
 		+ "</td>"
 		s += "<td id='q2'>";
-			s += addRepresentationTable(aidID, spec.representations);
+			s += addRepresentationTable(true, aidID, spec.representations);
 		s += "</td></tr>";
 		s += "<tr><td><table>";
 			s += addPropertyRows("IFD&nbsp;Properties", spec.properties, null, true);
@@ -703,7 +705,7 @@
 		var id = ++divId;
 		for (var key in map) {
 			if (n++ == 0 && name)
-				s0 = "<tr><td><h4>" + (hideDiv ? "<div class=hiddendiv onclick=IFD.toggleDiv(" + id + ")>" + name + "...</div>" : name) + "</h4></td></tr>";
+				s0 = "<tr><td><h4>" + (hideDiv ? "<div class=hiddendiv onclick=IFD.toggleDiv(" + id + ")><u>" + name + "...</u></div>" : name) + "</h4></td></tr>";
 			if (key == firstItem) {
 				s = addPropertyLine(key, map[key]) + s;
 			} else {
@@ -711,7 +713,7 @@
 			}
 		}
 		if (hideDiv) {
-			s = "<tr><td colspan=2><div id=prop" + id + " style='display:none'><table><tr><td>" + s + "</td></tr></table></div></td></tr>"
+			s = "<tr><td colspan=2><div id=prop" + id + " style='display:none'><table><tr><td><u>" + s + "</u></td></tr></table></div></td></tr>"
 		}
 		return s0 + s;
 	}
