@@ -115,6 +115,7 @@
 
 	// external
 	IFD.loadSelected = function(aidID, collection) {
+		IFD.mainText = null;
 		if (typeof aidID == "object") {
 			var next = aidID.pop();
 			if (!next)return;
@@ -157,6 +158,7 @@
 	
 	//external
 	IFD.showCompounds = function(aidID, ids) {
+		loadMainSummary(IFD.aid, false);
 		IFD.select(aidID);
 		setMode(MODE_COMPOUNDS);
 		ids || (ids = IFD.items[aidID][MODE_COMPOUNDS]);
@@ -170,6 +172,7 @@
 	
 	//external
 	IFD.showSpectra = function(aidID, ids) {
+		loadMainSummary(IFD.aid, false);
 		IFD.select(aidID);
 		setMode(MODE_SPECTRA);
 		ids || (ids = IFD.items[aidID][MODE_SPECTRA]);
@@ -183,6 +186,7 @@
 	
 	//external
 	IFD.showStructures = function(aidID, ids) {
+		loadMainSummary(IFD.aid, false);
 		IFD.select(aidID);
 		setMode(MODE_STRUCTURES);
 		ids || ids === false || (ids = IFD.getItems(aidID, MODE_STRUCTURES));
@@ -283,22 +287,31 @@
 		IFD.toggleDiv(MAIN_SEARCH_SUB,"none");
 		switch (IFD.mainMode) {
 		case MAIN_SUMMARY:
-			return loadMainSummary(aid);
+			return loadMainSummary(aid, true);
 		case MAIN_SEARCH:
 			return loadMainSearch(aid.id);
 		}
 	}
 	
-	var loadMainSummary = function(aid) {
-		if (!getInnerHTML(MAIN_SUMMARY)) {
-			var s = "<table>";
-			s += addPubInfo(aid);
-			s += addDescription(aid.collectionSet);
-			s += addResources(aid);
+	var loadMainSummary = function(aid, isAll) {
+//		if (!getInnerHTML(MAIN_SUMMARY)) {
+		var s;
+		if (isAll && IFD.mainText) {
+			s = IFD.mainText;
+		} else {
+			s = "<table>";
 			s += addTopRow(aid);
+			if (isAll) {
+				s += addPubInfo(aid);
+				s += addDescription(aid.collectionSet);
+				s += addResources(aid);
+			}
 			s += "</table>";
-			setMain(s);
+			if (isAll) {
+				IFD.mainText = s;
+			}
 		}
+		setMain(s);
 		showMain();
 	}
 
@@ -410,23 +423,23 @@
 		if (dc.samples) {
 			if (s)
 				s += sep;
-			var items = dItems[MODE_SAMPLES] = getIDs(dc.samples);
+			var items = dItems[MODE_SAMPLES] = IFD.getIDs(dc.samples);
 			s += "<a href=\"javascript:IFD.showSamples('"+aid.id+"')\">Samples(" + items.length + ")</a>";
 		}
 		if (dc.compounds) {
-			var items = dItems[MODE_COMPOUNDS] = getIDs(dc.compounds);
+			var items = dItems[MODE_COMPOUNDS] = IFD.getIDs(dc.compounds);
 			if (s)
 				s += sep;
 			s += "<a href=\"javascript:IFD.showCompounds('"+id+"')\">Compounds(" + items.length + ")</a>";
 		}
 		if (dc.structures) {
-			var items = dItems[MODE_STRUCTURES] = getIDs(dc.structures);
+			var items = dItems[MODE_STRUCTURES] = IFD.getIDs(dc.structures);
 			if (s)
 				s += sep;
 			s += "<a href=\"javascript:IFD.showStructures('"+aid.id+"')\">Structures(" + items.length + ")</a>";
 		}
 		if (dc.spectra) {
-			var items = dItems[MODE_SPECTRA] = getIDs(dc.spectra);
+			var items = dItems[MODE_SPECTRA] = IFD.getIDs(dc.spectra);
 			if (s)
 				s += sep;
 			s += "<a href=\"javascript:IFD.showSpectra('"+id+"')\">Spectra(" + items.length + ")</a>";
@@ -434,7 +447,7 @@
 
 	// TODO fold this information into "samples"
 		if (dc["sample-spectra associations"]) {
-			var items = dItems["samplespectra"] = getIDs(dc["sample-spectra associations"]);
+			var items = dItems["samplespectra"] = IFD.getIDs(dc["sample-spectra associations"]);
 //			s += "<a href=\"javascript:IFD.showSampleSpectraAssociations('"+aid.id+"')\">Sample-Spectra Associations(" + items.length + ")</a>";
 		}
 		return "<tr><td><b>Collections:</b>&nbsp;&nbsp;</td><td>"
@@ -828,14 +841,6 @@
 		f = f.substring(pt + 1);
 		pt = f.lastIndexOf("..");
 		return (pt < 0 ? f : f.substring(pt + 2));
-	}
-
-	var getIDs = function(map) {
-		var ids = [];
-		for (var id in map) {
-			ids.push(id);
-		}
-		return ids;
 	}
 
 	var clean = function(id){

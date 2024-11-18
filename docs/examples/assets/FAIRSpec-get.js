@@ -145,8 +145,16 @@ IFD.getRepTypes = function(reps, type) {
 
 IFD.getIDs = function(map) {
 	var ids = [];
-	for (var id in map) {
-		ids.push(id);
+	if (map.length == null) {
+		// actual map
+		for (var id in map) {
+			ids.push(id);
+		}		
+	} else {
+		// array
+		for (var id = 0; id < map.length; id++) {
+			ids.push("" +id);
+		}
 	}
 	return ids;
 }
