@@ -13,12 +13,17 @@
 	//    COSY prediction: https://www.nmrdb.org/service.php?name=cosy-prediction&smiles=c1ccccc1CC
 	//    HSQC/HMBC prediction: https://www.nmrdb.org/service.php?name=hmbc-prediction&smiles=c1ccccc1CC
 	//    All predictions: https://www.nmrdb.org/service.php?name=all-predictions&smiles=c1ccccc1CC
-	
+
+	var MAIN_SEARCH_SUB = "main_search_sub";
+	var MAIN_SEARCH_TEXT = "main_search_text";
+	var MAIN_SEARCH_PROP = "main_search_prop";
+	var MAIN_SEARCH     = "main_search";
+	var MAIN_SUMMARY    = "main_summary";
 	var MODE_NONE       = "none";
 	var MODE_COMPOUNDS  = "compounds";
 	var MODE_STRUCTURES = "structures";
 	var MODE_SPECTRA    = "spectra";
-	var MODEsearch_SAMPLES  = "samples";
+	var MODE_SAMPLES  = "samples";
 	var NMRDB_PREDICT_SMILES = "https://www.nmrdb.org/service.php?name=%TYPE%-prediction&smiles=%SMILES%";
 	// where type = 1h, 13c, cosy, hmbc, hsqc
 	
@@ -74,13 +79,14 @@
 			IFD.loadSelected(aidID, null);
 		} else {
 			s += '</select>'
-			$("#selectionBox").html(s);
+			$("#faselectiondiv").html(s);
 		}
-		IFD.createJmolAndJSME();		
+		IFD.createJmol();
 	}	
 	
 	// external
 	IFD.select = function(n, collection) {
+		IFD.mainMode = MAIN_SUMMARY;
 		var d = $("#articles")[0];
 		if (d) {
 			if (typeof n == "string") {
@@ -133,7 +139,7 @@
 	IFD.showSamples = function(aidID, ids) {
 		IFD.select(aidID);
 		setMode(MODE_SAMPLES);
-		ids || (ids = IFD.items[aidID]["samples"]);
+		ids || (ids = IFD.items[aidID][MODE_SAMPLES]);
 		var s = "<table>";
 		for (var i = 0; i < ids.length; i++) {
 			s += "<tr class=\"tableRow" + (i%2) + "\">" + showSample(aidID,ids[i]) + "</tr>";
@@ -146,10 +152,10 @@
 	IFD.showCompounds = function(aidID, ids) {
 		IFD.select(aidID);
 		setMode(MODE_COMPOUNDS);
-		ids || (ids = IFD.items[aidID]["compounds"]);
+		ids || (ids = IFD.items[aidID][MODE_COMPOUNDS]);
 		var s = "<table>";
 		for (var i = 0; i < ids.length; i++) {
-			s += "<tr class=\"tableRow" + (i%2) + "\">" + showCompound(aidID,ids[i]) + "</tr>";
+			s += "<tr class=\"tablerow" + (i%2) + "\">" + showCompound(aidID,ids[i]) + "</tr>";
 		}
 		s += "</table>";
 		setResults(s);
@@ -159,7 +165,7 @@
 	IFD.showSpectra = function(aidID, ids) {
 		IFD.select(aidID);
 		setMode(MODE_SPECTRA);
-		ids || (ids = IFD.items[aidID]["spectra"]);
+		ids || (ids = IFD.items[aidID][MODE_SPECTRA]);
 		var s = "<table>";
 		for (var i = 0; i < ids.length; i++) {
 			s += "<tr class=\"tableRow" + (i%2) + "\">" + showSpectrum(aidID,ids[i]) + "</tr>";
@@ -172,10 +178,15 @@
 	IFD.showStructures = function(aidID, ids) {
 		IFD.select(aidID);
 		setMode(MODE_STRUCTURES);
-		ids || ids === false || (ids = IFD.items[aidID]["structures"]);
+		ids || ids === false || (ids = IFD.getItems(aidID, MODE_STRUCTURES));
 		var s = showCompoundStructures(aidID,ids, false, true);
 		setResults(s);
 	} 	
+
+	IFD.getItems = function(aidID, mode) {
+		var ids = IFD.items[aidID][mode];
+		return ids;
+	}
 	
 	IFD.showCollection = function(aidID) {
 		window.open(dirFor(aidID), "_blank");
@@ -191,21 +202,12 @@
 
 
 	var setMode = function(mode) {
-	  IFD.mode = mode;
+	  IFD.resultsMode = mode;
 	  IFD.headers = [];
 	}
 
 	//external
 	// local methods
-
-	var loadSearchPanel = function(aid) {
-		var s = "";
-		s += "<h3>Search</h3>";
-		s += "<a href=\"javascript:IFD.searchStructures('"+(aid ? aid.id : "")+"')\">Substructure</a><br><br>";
-		//s += "<br><a href=\"javascript:IFD.searchText('"+(aid ? aid.id : "")+"')\">Text</a>";
-		//s += "<br><a href=\"javascript:IFD.searchSpectra('"+(aid ? aid.id : "")+"')\">Spectra</a>";
-		return s;
-	}
 
 	var loadAll = function() {
 		aLoading = [];
@@ -228,13 +230,16 @@
 
 
 	var loadAid = function(aid, collection) {
-		
 		if (!aLoading) {
+			IFD.mainMode = MAIN_SUMMARY;
 			setTop("");
+			setMain("");
 		}
 		setResults("");
-		setSearch("");
+		setMoreLeft("");
 		IFD.cachePut(IFD.findingAidID, aid);
+		IFD.aid = aid;
+		loadTop(aid);
 		loadAidPanels(aid);
 		if (aLoading) {
 			if (aLoading.length > 0) {
@@ -243,37 +248,77 @@
 			}
 			aLoading = null;
 			IFD.findingAidID = null;
-			setSearch("");
+			setMoreLeft("");
 		} else {
 			IFD.showVersion(aid);
 		}
 	}
 
 	var loadAidPanels = function(aid) {
-	 	loadTop(aid);
-		setSearch(aid);
+	 	loadMain(aid);
+		setMoreLeft(aid);
 	}
 
 	var loadTop = function(aid) {
 		var s = "&nbsp;&nbsp;&nbsp;" + aid.id 
-			+ (aLoading ? 
-				"&nbsp;&nbsp; <a target=_blank href=\"" + IFD.findingAidFile + "\">view "+IFD.findingAidFile.split("/").pop()+"</a>"
-				+ "&nbsp;&nbsp; " + addPathRef(aid.id, aid.collectionSet.properties.ref, aid.collectionSet.properties.len)
-			: ""); 
+		+ (aLoading ? 
+			"&nbsp;&nbsp; <a target=_blank href=\"" + IFD.findingAidFile + "\">view "+IFD.findingAidFile.split("/").pop()+"</a>"
+			+ "&nbsp;&nbsp; " + addPathRef(aid.id, aid.collectionSet.properties.ref, aid.collectionSet.properties.len)
+		: ""); 
 		s = "<h3>" + IFD.shortType(aid.ifdType) + s + " </h3>";
-		s += "<table>";
-		s += addPubInfo(aid);
-		s += addDescription(aid);
-		s += addResources(aid);
-		s += addTopRow(aid);
-		s += "</table>";
 		setTop(s);
 	}
 
-	var addDescription = function(aid) {
+	var loadMain = function(aid) {
+		aid || (aid = IFD.aid);
+		setResults("");
+		clearJQ("#contents");
+		switch (IFD.mainMode) {
+		case MAIN_SUMMARY:
+			return loadMainSummary(aid);
+		case MAIN_SEARCH:
+			return loadMainSearch();
+		}
+	}
+	
+	var loadMainSummary = function(aid) {
+		if (!getInnerHTML(MAIN_SUMMARY)) {
+			var s = "<table>";
+			s += addPubInfo(aid);
+			s += addDescription(aid.collectionSet);
+			s += addResources(aid);
+			s += addTopRow(aid);
+			s += "</table>";
+			setMain(s);
+		}
+		showMain();
+	}
+
+	var loadMainSearch = function(aidID) {
+		if (!getInnerHTML(MAIN_SEARCH)) {
+			var s = "";
+			aidID || (aidID = "");
+			s += "<h3>Search</h3>";
+			s += `<a href="javascript:IFD.searchStructures('${aidID}')">substructure</a>`;
+			s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.searchText('${aidID}')">text</a>`;
+			s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.searchProperties('${aidID}')">properties</a>`;
+			s += `<div id=${MAIN_SEARCH_TEXT} style="display:none"></div>`;
+			s += `<div id=${MAIN_SEARCH_PROP} style="display:none"></div>`;
+			setMain(s);
+		}
+		showMain();
+	}
+	
+	var showMain = function() {
+		var altmode = (IFD.mainMode == MAIN_SUMMARY ? MAIN_SEARCH : MAIN_SUMMARY);
+		$("#" + altmode).css({display:"none"});
+		$("#" + IFD.mainMode).css({display:"block"});
+	}
+	
+	var addDescription = function(element) {
 		var s = "";
-		if (aid.collectionSet.description)
-			s += "<tr><td valign=top>Description</td><td valign=top>" + aid.collectionSet.description + "</td></tr>";
+		if (element.description)
+			s += "<tr><td valign=top>Description</td><td valign=top>" + element.description + "</td></tr>";
 		return s;
 	}
 	var getPubText = function(aid, agency, t) {
@@ -335,10 +380,10 @@
 	var addResources = function(aid) {
 		var resources = aid.resources;
 		var s = "";
-		for (var r in resources) {
-			var ref = resources[r].ref;
+		for (var i = 0; i < resources.length; i++) {
+			var ref = resources[i].ref;
 			if (ref.indexOf("http") == 0) {
-				var size = getSizeString(resources[r].len);
+				var size = getSizeString(resources[i].len);
 				ref = "<a target=_blank href=\"" + ref + "\">" + ref + (size ? " ("+size+")":"") + "</a>"
 				s += "<tr><td>Data&nbsp;Origin</td><td>"+ref+"</td></tr>";
 			}
@@ -357,23 +402,23 @@
 		if (dc.samples) {
 			if (s)
 				s += sep;
-			var items = dItems["samples"] = getIDs(dc.samples);
+			var items = dItems[MODE_SAMPLES] = getIDs(dc.samples);
 			s += "<a href=\"javascript:IFD.showSamples('"+aid.id+"')\">Samples(" + items.length + ")</a>";
 		}
 		if (dc.compounds) {
-			var items = dItems["compounds"] = getIDs(dc.compounds);
+			var items = dItems[MODE_COMPOUNDS] = getIDs(dc.compounds);
 			if (s)
 				s += sep;
 			s += "<a href=\"javascript:IFD.showCompounds('"+id+"')\">Compounds(" + items.length + ")</a>";
 		}
 		if (dc.structures) {
-			var items = dItems["structures"] = getIDs(dc.structures);
+			var items = dItems[MODE_STRUCTURES] = getIDs(dc.structures);
 			if (s)
 				s += sep;
 			s += "<a href=\"javascript:IFD.showStructures('"+aid.id+"')\">Structures(" + items.length + ")</a>";
 		}
 		if (dc.spectra) {
-			var items = dItems["spectra"] = getIDs(dc.spectra);
+			var items = dItems[MODE_SPECTRA] = getIDs(dc.spectra);
 			if (s)
 				s += sep;
 			s += "<a href=\"javascript:IFD.showSpectra('"+id+"')\">Spectra(" + items.length + ")</a>";
@@ -449,10 +494,11 @@
 		return s;
 	}
 
-	var getHeader = function(name) {
+	var getHeader = function(name, description) {
 		var key = removeSpace(name) + "_" + ++divId
 		IFD.headers.push([key,name]);
 		return "<a name=\"" + key + "\"><h3>" + name + "</h3></a>"
+		+ (description ? description + "<p>" : "<p>");
 	}
 
 	var showCompound = function(aidID,id) {
@@ -463,7 +509,7 @@
 		var props = cmpd.properties;
 		var params = cmpd.attributes;
 		var label = cmpd.label || cmpd.id;
-		var s = getHeader(label.startsWith("Compound") ? label : "Compound " + label); 
+		var s = getHeader(label.startsWith("Compound") ? label : "Compound " + label, cmpd.description); 
 		s += "<table>" + addPropertyRows("",props, null, false) + "</table>"
 		s += "<table>" + addPropertyRows("",params, null, false) + "</table>"
 
@@ -486,7 +532,7 @@
 				if (aid == thisaid) {
 					ids.push(a[1]);
 				} else {
-					s += showCompoundStructures(thisaid, ids,false);
+					s += showCompoundStructures(thisaid, ids,false,i + 1);
 					ids = [];
 					thisaid = aid;
 				}
@@ -495,9 +541,9 @@
 			var showID = (ids.length > 1);
 			for (var i = 0; i < ids.length; i++) {	
 				if (aidID) 	{
-					s += "<tr>" + showCompoundStructure(aidID, ids[i], showID) + "</tr>";
+					s += "<tr>" + showCompoundStructure(aidID, ids[i], showID, i + 1) + "</tr>";
 				} else {
-					s += "<tr>" + showCompoundStructure(ids[i][0], ids[i][1], showID) + "</tr>";
+					s += "<tr>" + showCompoundStructure(ids[i][0], ids[i][1], showID, i + 1) + "</tr>";
 				}
 			}
 		}
@@ -506,8 +552,9 @@
 	}
 
 
-	var showCompoundStructure = function(aidID, id, showID) {
-		var s = "<td><table cellpadding=10><tr>";
+	var showCompoundStructure = function(aidID, id, showID, tableRow) {
+		var cl = (tableRow > 0 ? " class=tablerow" + (tableRow%2) : "");
+		var s = "<td" + cl + "><table cellpadding=10><tr>";
 		var struc = IFD.collections[aidID].structures[id];
 		var sid = struc.id;
 		var props = struc.properties;
@@ -516,9 +563,14 @@
 		s += "<td rowspan=2 valign=\"top\">";
 		if (showID) {
 			var h = (id.indexOf("Structure") == 0 ? removeUnderline(sid) : "Structure " + sid);
-			s += "<span class=structurehead>"+ (IFD.mode == MODE_STRUCTURES ? getHeader(h) : h) + "</span><br>";
+			s += "<span class=structurehead>"+ (IFD.resultsMode == MODE_STRUCTURES ? getHeader(h) : h) + "</span><br>";
 		}
-		s += "from SMILES:<br>" + IFD.getStructureVisual(reps);
+		v = IFD.getStructureVisual(reps);
+		if (v){
+			s += "<table border=1><tr><td>";
+			s += "from SMILES:<br>" + v;
+			s += "</td></tr></table>"
+		}
 		s += IFD.getStructureSpectraPredictions(reps);
 		s += "</td>";
 		s += "<td>" + addRepresentationTable(false, aidID, reps, "png") + "</td>";
@@ -532,26 +584,32 @@
 	}
 
 	var showCompoundSpectra = function(aidID,ids,smiles,withTitle) {
-		ids || (ids = IFD.items[aidID]["spectra"]);
+		ids || (ids = IFD.items[aidID][MODE_SPECTRA]);
 		var s = "<table>"
 			if (withTitle)
 				s += "<tr><td style=\"width:100px\" valign=top><span class=spectitle>Spectra</span></td></tr>";
 		for (var i = 0; i < ids.length; i++) {
-			s += addCompoundSpectrumRow(aidID, ids[i], smiles);
+			s += addCompoundSpectrumRow(aidID, ids[i], smiles, i + 2);
 		}
 		s += "</table>";
 		return s;
 	}
 
-
 	var setTop = function(s) {
-		clearJQ("#top");
-		addOrAppendJQ("#top",s);
+		s += '<a href="javascript:IFD.showSummary()">summary</a>&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.showSearch()">search</a>'
+		addOrAppendJQ("#top",s, true);
+	}
+
+	var getInnerHTML = function(id) {
+		return $("#" + id).html();
+	}
+
+	var setMain = function(s) {
+		addOrAppendJQ("#" + IFD.mainMode,s, true);
 	}
 
 	var setResults = function(s) {
-		clearJQ("#results");
-		addOrAppendJQ("#results",s);
+		addOrAppendJQ("#results",s, true);
 		loadContents(!!s);
 	}
 
@@ -569,35 +627,21 @@
 
 	}
 
-
-	IFD.checkImage = function(id) {
-		var max = IFD.properties.MAX_IMAGE_DIMENSIONS;
-		var image = document.getElementById("img" + id);
-		if (!image)
-			return;
-		var w = image.clientWidth;
-		var h = image.clientHeight;
-		if (!w || !h) {
-			console.log("image not ready " + image.id);
-			return;
-		}
-		var wh = (w > h ? w : h);
-		var f = Math.max(w/max.width, h/max.height);
-		if (f > 1) {
-			w = Math.round(w/f);
-			h = Math.round(h/f);
-			image.style.width = w + "px";
-			image.style.height = h + "px";
-			console.log("image set to " + w + "x" + h + " for " + image.id);
-		} 
+	IFD.showSummary = function() {
+		IFD.mainMode = MAIN_SUMMARY;
+		loadMain();
 	}
 
-	var setSearch = function(aid) {
-		var s = (aid ? "<br><a href=\"javascript:IFD.showAid('"+aid.id+"')\">Show Finding Aid</a>"
+	IFD.showSearch = function() {
+		IFD.mainMode = MAIN_SEARCH;
+		loadMain();		
+	}
+	
+	var setMoreLeft = function(aid) {
+		var s = (aid ? "<br><a href=\"javascript:IFD.showAid('"+aid.id+"')\">Show Finding Aid</a><hr>"
 				+ (IFD.properties.standalone ? "" 
 				: "<br><br><a href=\"javascript:IFD.showCollection('"+aid.id+"')\">Collection Folder</a>") : "");
-		s += loadSearchPanel(aid);
-		$("#search").html(s);
+		$("#moreleftdiv").html(s);
 	}
 
 	var getSizeString = function(n) {
@@ -611,12 +655,12 @@
 			$(jqid).html("");
 	}
 
-	var addOrAppendJQ = function(jqid, s) {
+	var addOrAppendJQ = function(jqid, s, andClear) {
+		if (!s || andClear)
+			clearJQ(jqid);
 		if (s) {
 			$(jqid).append("<hr>");
 			$(jqid).append(s);
-		} else {
-			$(jqid).html("");
 		}
 	}
 
@@ -682,9 +726,10 @@
 		return s;
 	}
 
-	var addCompoundSpectrumRow = function(aidID, id, smiles) {
+	var addCompoundSpectrumRow = function(aidID, id, smiles, tableRow) {
 		var spec = IFD.collections[aidID].spectra[id];
-		var s = "<tr><td id='q1' rowspan=2 style=\"width:100px\" valign=top>" 
+		var cl = (tableRow > 0 ? " class=tablerow" + (tableRow%2) : "");
+		var s = "<tr><td"+ cl + " id='q1' rowspan=2 style=\"width:100px\" valign=top>" 
 			+ (IFD.byID ? id : "") 
 		+ getSpectrumPrediction(spec.properties, smiles)
 		+ "</td>"
@@ -703,9 +748,16 @@
 		var s0 = "";
 		var n = 0;
 		var id = ++divId;
+		if (hideDiv) {
+			for (var key in map)
+				n++;
+			if (n < 6)
+				hideDiv = false;
+		}
+	    n = 0;
 		for (var key in map) {
 			if (n++ == 0 && name)
-				s0 = "<tr><td><h4>" + (hideDiv ? "<div class=hiddendiv onclick=IFD.toggleDiv(" + id + ")><u>" + name + "...</u></div>" : name) + "</h4></td></tr>";
+				s0 = "<tr><td><h4>" + (hideDiv ? "<div class=hiddendiv onclick=IFD.toggleDiv(\"prop" + id + "\")><u>" + name + "...</u></div>" : name) + "</h4></td></tr>";
 			if (key == firstItem) {
 				s = addPropertyLine(key, map[key]) + s;
 			} else {
@@ -733,9 +785,15 @@
 		return "<a class=doiref target=_blank href=\"https://doi.org/" + val + "\">"+val+"</a>";
 	}
 
-	IFD.toggleDiv = function(id) {
-		var d = document.getElementById("prop" + id);
-		d.style.display = (d.style.display == "none" ? "block" : "none");
+	IFD.toggleDiv = function(id, mode) {
+		var d = document.getElementById(id);
+		switch (mode) {
+		case "block":
+		case "none":
+			return d.style.display = mode;
+		default:
+			return d.style.display = (d.style.display == "none" ? "block" : "none");
+		}
 	}
 
 	var addPathForRep = function(aidID, ref, len, value) {
@@ -785,81 +843,22 @@
 	}
 	
 	var JMEshowSearch = function(fReturn) {
-
-// SwingJS version -- not implementing yet
-//	  if (IFD.JME) {
-//		IFD.JME.getTopLevelAncestor$().setVisible$Z(true);
-//	  } else {
-//		var Info = {
-//		  args: ["search"],
-//		  code: null,
-//		  main: "jme.JMEJmol",
-//		  core: "NONE",
-//			width: 850,
-//			height: 550,
-//		  readyFunction: IFD.JMEreadyCallback,
-//		  searchCallback: fReturn,
-//		  serverURL: 'https://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php',
-//		  j2sPath: IFD.properties.j2sPath,
-//		  console:'sysoutdiv',
-//		  allowjavascript: true
-//		}
-//		SwingJS.getApplet('testApplet', Info);
-//	  }
-
-	}
-
-
-	var JMEfindSubstructure = function(smarts, smilesList) {
-		var list = IFD.JME.findMatchingStructures$S$SA$Z(smarts, smilesList, true);
-		IFD.JME.getTopLevelAncestor$().setVisible$Z(false);	
-		return list;
-	}
-
-	var JMEsmartsReturn = function(smarts, smilesList, idList) {
-		IFD.smarts = smarts;
-		if (!smarts)
-			return;
-		var foundList = JMEfindSubstructure(smarts, smilesList);
-		var ids = [];
-		if (foundList != null) {
-			for (var i = 0; i < foundList.length; i++) {
-				if (foundList[i] == 1) {
-					ids.push(idList[i]);
-				}
-			}
+		IFD.toggleDiv(MAIN_SEARCH_SUB,"block");
+		IFD.jmeReturn = fReturn;
+		if (!IFD.JME) {
+			IFD.createJSME();			
 		}
-		alert(ids.length + " structures were found.");
-		IFD.showStructures(ids, false);
 	}
 
-	IFD.searchStructures = function(aidID) {
+	var JMESmartsReturn = function(aidID) {
 		aidID || (aidID = IFD.findingAidID);
-		var smilesList = [];
-		var idList = [];
-		getSMILESList(aidID, smilesList, idList);
-		JMEshowSearch(function(smarts) { JMEsmartsReturn(smarts, smilesList, idList)});
+		var ids = IFD.jmolGetSmartsMatch(aidID);
+		var indexes = IFD.getCompoundIndexesForStructures(aidID, ids);
+		IFD.showCompounds(aidID, indexes);
 	}
-
-	var getSMILESList = function(aidID, smilesList, idList) {
-		IFD.mode = MODE_STRUCTURES;	
-		if (!aidID) {
-			for (var i = 0; i < IFD.aidIDs.length; i++) {
-				getSMILESList(IFD.aidIDs[i], smilesList, idList);
-			}
-			return;
-		}
-		var structureIDs = IFD.items[aidID]["structures"];
-		for (var i = 0; i < structureIDs.length; i++) {
-			var id = structureIDs[i];
-			var struc = IFD.collections[aidID].structures[id];
-			var reps = struc.representations;
-			var types = IFD.getRepTypes(reps, "smiles");
-			if (types.smiles) {
-				smilesList.push(types.smiles.data);
-				idList.push([aidID, struc.id]);
-			}
-		}
+	
+	IFD.searchStructures = function() {
+		JMEshowSearch(JMESmartsReturn); 
 	}
 
 	IFD.getStructureVisual = function(reps) {
@@ -873,15 +872,70 @@
 		  var h        = IFD.properties.imageDimensions.height; // mm
 		  var hdisplay = "bridgehead";
 		  var annotate = "cip";
-		  return "<img  id=img" + (++divId) + " onload=IFD.checkImage(" + divId + ")"
-	//		+ " style=\"width:" + w + "px;height:"+h+"px\" "
-			+ " src=\"https://www.simolecule.com/cdkdepict/depict/bow/svg?smi=" 
-			+ encodeURIComponent(SMILES) + "&w=" + w + "&h=" + h + "&hdisp=" + hdisplay 
-			+ "&showtitle=false&zoom=1.7"
-			// + &annotate=" + annotate
-			+ "\"/>";
+		  var code = encodeURIComponent(SMILES);
+		  var dim = IFD.cacheGet(code);
+		  var onload;
+		  divId++;
+		  if (dim) {
+			  w = dim.w;
+			  h = dim.h;
+			  onload = "";  
+		  } else {
+			  onload = " onload=IFD.checkImage(" + divId + ",true)";
+			  IFD.cachePut("img" + divId, code);
+		  }
+		  var src =
+		  		"https://www.simolecule.com/cdkdepict/depict/bow/svg?smi=" 
+				+ code + "&w=" + w + "&h=" + h + "&hdisp=" + hdisplay 
+				+ "&showtitle=false&zoom=1.7";
+		  var s = "<img  id=\"img" + divId + "\"" + onload 
+			+ " src=\"" + src + "\"/>";
+//		  if (!data){
+//			  IFD.cachePut(code, "img" + divId);
+//			  IFD.cachePut("img" + divId, code);
+//		  }
+		  return s;
 		}
-	
+		
+
+	IFD.checkImage = function(id, doCache) {
+		id = "img" + id;
+		var max = IFD.properties.MAX_IMAGE_DIMENSIONS;
+		var image = document.getElementById(id);
+		if (!image)
+			return;
+		var w = image.clientWidth;
+		var h = image.clientHeight;
+		if (!w || !h) {
+			console.log("image not ready " + image.id);
+			return;
+		}
+		var wh = (w > h ? w : h);
+		var f = Math.max(w/max.width, h/max.height);
+		if (f > 1) {
+			w = Math.round(w/f);
+			h = Math.round(h/f);
+			image.style.width = w + "px";
+			image.style.height = h + "px";
+			console.log("image set to " + w + "x" + h + " for " + image.id);
+		} 
+		var code = IFD.cacheGet(id);
+		if (doCache && code && IFD.cacheGet(code) == id) {
+			IFD.cachePut(code, {w:w, h:h});
+			IFD.cachePut(id, null);
+		}
+		return image;
+	}
+
+// ah... but one cannot cache an image from another server.
+//	IFD.getImageData = function(img) {		
+//		var canvas = document.createElement('canvas');
+//	    var ctx = canvas.getContext('2d');   
+//	    canvas.width = img.width;
+//	    canvas.height = img.height;   
+//	    ctx.drawImage(img, 0, 0);
+//	    return canvas.toDataURL('image/jpeg');
+//	}
 	
 	IFD.getStructureSpectraPredictions = function(reps) {
 		var types = IFD.getRepTypes(reps);
@@ -901,27 +955,6 @@
 	
 	}
 	
-	var getCdkDepictImage = function(SMILES) {
-	  var w        = IFD.properties.imageDimensions.width; // mm
-	  var h        = IFD.properties.imageDimensions.height; // mm
-	  var hdisplay = "bridgehead";
-	  var annotate = "cip";
-	  return "<img  id=img" + (++divId) + " onload=IFD.checkImage(" + divId + ")"
-	//	+ " style=\"width:" + w + "px;height:"+h+"px\" "
-		+ " src=\"https://www.simolecule.com/cdkdepict/depict/bow/svg?smi=" 
-		+ encodeURIComponent(SMILES) + "&w=" + w + "&h=" + h + "&hdisp=" + hdisplay 
-		+ "&showtitle=false&zoom=1.7"
-		// + &annotate=" + annotate
-		+ "\"/>";
-	}
-	
-	
-	IFD.showHideDiv = function(d) {
-		d = $("#" + d);
-		var isVisible = ("block" == d.css("display"));	 
-		d.css({display:(isVisible ? "none" : "block")});
-	}
-
 })();
 
 

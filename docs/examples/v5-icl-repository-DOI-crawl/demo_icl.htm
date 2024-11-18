@@ -37,19 +37,20 @@ It is for development purposes only. Feel free to contribute if you have skills 
 <tr><td align="left" valign="top" width=150>
 <div id="leftpanel">
 <div id="faselectiondiv"></div>
-<div id="appletsdiv"></div>
+<div id="main_search_sub" style="display:none">
+<div id="jmediv" style="display:block;width:300px;height:300px;border:1px solid green"></div>
+<span><input type="button" style="font-size:16pt;position:relative;float:right" onclick="IFD.jmeReturn()" value="search"/></span>
+</div>
+<div id="jmoldiv" style="display:block;width:1px;height:1px;overflow:hidden;border:1px solid blue"></div>
+<div id="moreleftdiv"></div>
 <div id="contents"></div>
 </div>
 </td><td align="left" valign=top>
 <div id="rightpanel">
-<div id="main">
-<div id="header"></div>
 <div id="top"></div>
-</div>
-<div id="search"></div>
-
-<div id="selections">
-&nbsp;&nbsp;&nbsp;<span id="compounds"></span><span id="struc"></span><span id="spec"></span>
+<div id="main">
+<div id="main_summary"></div>
+<div id="main_search"></div>
 </div>
 <div id="results"></div>
 </div>

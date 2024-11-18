@@ -66,6 +66,28 @@ IFD.getSpectrumIDsForSample = function(aidID,id) {
 	return [];	
 }
 
+IFD.getCompoundIndexesForStructures = function(aidID, strucIDs) {
+	var compounds = IFD.collections[aidID].compounds;
+	var structures = IFD.collections[aidID].structures;
+	var keys = IFD.getCompoundCollectionKeys();
+	var ids = [];
+	var citems = IFD.items[aidID].compounds;
+	for (var is = 0; is < strucIDs.length; is++){
+		var id = strucIDs[is];
+		out: for (var i = 0; i < citems.length; i++) {
+			var assoc = compounds[citems[i]];
+			var sitems = assoc[IFD.itemsKey][keys.structures];
+			for (var j = 0; j < sitems.length; j++) {
+				if(structures[sitems[j]].id == id) {
+					ids.push(citems[i]);
+					break out;
+				}
+			}	
+		}
+	}
+	return ids;		
+}
+
 IFD.getStructureIDsForSpectra = function(aidID, specIDs) {
 	var compounds = IFD.collections[aidID].compounds;
 	var keys = IFD.getCompoundCollectionKeys();
@@ -163,7 +185,10 @@ var addUnique = function(afrom, ato) {
 
 
 IFD.cachePut = function(key, value) {
-	IFD.cache[key] = value;
+	if (value)
+		IFD.cache[key] = value;
+	else
+		delete IFD.cache[key]
 }
 
 IFD.cacheGet = function(key) {
@@ -203,6 +228,34 @@ IFD.getCompoundCollectionKeys = function() {
 		keys[ckeys[i]] = i; 
 	}
 	return IFD.collectionKeys.compounds = keys;
+}
+
+IFD.getSMILES = function(aidID, retIDs, retSMILES, allowReactions, withAidID) {
+	if (!aidID) {
+		// across all Finding Aids
+		for (var i = 0; i < IFD.aidIDs.length; i++) {
+			IFD.getSMILES(IFD.aidIDs[i], retIDs, retSMILES, allowReactions, true);
+		}
+		return;
+	}
+	var structureIDs = IFD.items[aidID]["structures"];
+	for (var i = 0; i < structureIDs.length; i++) {
+		var id = structureIDs[i];
+		var struc = IFD.collections[aidID].structures[id];
+		var reps = struc.representations;
+		var types = IFD.getRepTypes(reps, "smiles");
+		if (types.smiles) {
+			var data = types.smiles.data;
+			if (!allowReactions)
+				data = data.$replace("&gt;&gt;", ".");
+			if (IFD.jmolCheckSmiles(data)) {
+				retIDs.push(withAidID ? [aidID, struc.id] : struc.id);
+				retSMILES.push(data);
+			} else {
+				System.out.println("INVALID SMILES! " + data);
+			}
+		}
+	}
 }
 
 

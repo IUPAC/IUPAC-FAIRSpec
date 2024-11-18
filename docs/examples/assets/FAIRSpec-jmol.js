@@ -22,7 +22,7 @@ var JmolInfo = {
 	j2sPath: "https://chemapps.stolaf.edu/jmol/jsmol/j2s",
 	readyFunction : function(){IFD.jmolReadyCallback()},
 	console: "none",
-	script: "frank off;"
+	script: "frank off"
 }
 
 var JMEInfo = {     
@@ -44,21 +44,73 @@ IFD.jmolReadyCallback = function() {
 	IFD.showHideDiv(IFD.properties.jmolDiv);
 }
 
-IFD.createJmolAndJSME = function() {
-	var adiv = IFD.properties.appletsDiv;
-	if (!adiv)
+IFD.createJSME = function() {
+	// SwingJS version -- not implementing yet
+//	  if (IFD.JME) {
+//		IFD.JME.getTopLevelAncestor$().setVisible$Z(true);
+//	  } else {
+//		var Info = {
+//		  args: ["search"],
+//		  code: null,
+//		  main: "jme.JMEJmol",
+//		  core: "NONE",
+//			width: 850,
+//			height: 550,
+//		  readyFunction: IFD.JMEreadyCallback,
+//		  searchCallback: fReturn,
+//		  serverURL: 'https://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php',
+//		  j2sPath: IFD.properties.j2sPath,
+//		  console:'sysoutdiv',
+//		  allowjavascript: true
+//		}
+//		SwingJS.getApplet('testApplet', Info);
+//	  }
+	JMEInfo.divId = "jmediv";
+	IFD.JME = Jmol.getJMEApplet("jme", JMEInfo);	
+	Jmol._JMEApplet.onload();
+}
+
+IFD.createJmol = function() {
+	$("#jmoldiv").html(Jmol.getAppletHtml(jmol, JmolInfo));
+	IFD.jmol = Jmol._applets.jmol;
+}
+
+IFD.jmeGetSmiles = function() {
+	return IFD.JME._applet.smiles();
+}
+
+IFD.jmolFindSubstructure = function(smarts, smilesList) {
+	// swingjs? 
+	//	var list = IFD.jmol.JME.findMatchingStructures$S$SA$Z(smarts, smilesList, true);
+	//	IFD.JME.getTopLevelAncestor$().setVisible$Z(false);	
+	var list = IFD.jmol._applet.viewer.getSmilesMatcher().hasStructure(smarts, smilesList);
+	return list;
+}
+
+IFD.jmolCheckSmiles = function(data){
+	try {
+		IFD.jmol._applet.viewer.getSmilesMatcher().getMolecularFormula(data);
+		return true; 
+	} catch(e) {
+		return false;
+	}
+}
+
+IFD.jmolGetSmartsMatch = function(aidID) {
+	var smarts = IFD.smarts = IFD.jmeGetSmiles();
+	if (!smarts)
 		return;
-	var jmediv = IFD.properties.jmeDiv;
-	var jmoldiv = IFD.properties.jmolDiv;
-	var s = (jmediv ? `
-	<a href="javascript:IFD.showHideDiv('${jmediv}')">show/hide 2D</a>
-	<div id="${jmediv}" style="display:block;width:300px;height:300px;border:1px solid green"></div>`
-			: "")
-			+ (jmoldiv ? 
-	`<br><a href="javascript:IFD.showHideDiv('${jmoldiv}')">show/hide 3D</a>
-	<div id="${jmoldiv}" style="display:block;width:300px;height:300px;border:1px solid blue"></div>
-		` : "");
-	$("#"+adiv).html(s);
-	$("#"+jmoldiv).html(Jmol.getAppletHtml(jmol, JmolInfo));
-	Jmol.getJMEApplet(jme, JMEInfo);	
+	var smilesList = [];
+	var idList = [];
+	IFD.getSMILES(aidID, idList, smilesList);
+	var foundList = IFD.jmolFindSubstructure(smarts, smilesList);
+	var ids = [];
+	if (foundList != null) {
+		for (var i = 0; i < foundList.length; i++) {
+			if (foundList[i] == 1) {
+				ids.push(idList[i]);
+			}
+		}
+	}
+	return ids;
 }
