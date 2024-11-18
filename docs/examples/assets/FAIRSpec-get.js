@@ -66,6 +66,29 @@ IFD.getSpectrumIDsForSample = function(aidID,id) {
 	return [];	
 }
 
+IFD.getCompoundIndexesForText = function(aidID, text) {
+	var compounds = IFD.collections[aidID].compounds;	
+	var keys = IFD.getCompoundCollectionKeys();
+	var ids = [];
+	var citems = IFD.items[aidID].compounds;
+	text = text.toLowerCase();
+	for (var i = 0; i < citems.length; i++) {
+		var assoc = compounds[citems[i]];
+		var found = false;
+		while (!found) {
+			found = testText(assoc.label + "|" + assoc.description + "|", text);
+			break;
+		}
+		if (found)
+			ids.push(citems[i]);
+	}
+	return ids;
+}
+
+var testText = function(s, text) {
+	return (s.toLowerCase().indexOf(text) >= 0);
+}
+
 IFD.getCompoundIndexesForStructures = function(aidID, strucIDs) {
 	var compounds = IFD.collections[aidID].compounds;
 	var structures = IFD.collections[aidID].structures;

@@ -40,11 +40,18 @@
 	
 	//external
 	IFD.searchText = function(aidID) {
-		alert("not implemented");
+		IFD.toggleDiv(MAIN_SEARCH_SUB,"none");
+		var text = prompt("Text to search for?");
+		if (text) {
+			var indexes = IFD.getCompoundIndexesForText(aidID, text);
+			if (indexes)
+				IFD.showCompounds(aidID, indexes);
+		}
 	}
 
 	//external
-	IFD.searchSpectra = function(aidID) {
+	IFD.searchProperties = function(aidID) {
+		IFD.toggleDiv(MAIN_SEARCH_SUB,"none");
 		alert("not implemented");
 	}
 
@@ -273,11 +280,12 @@
 		aid || (aid = IFD.aid);
 		setResults("");
 		clearJQ("#contents");
+		IFD.toggleDiv(MAIN_SEARCH_SUB,"none");
 		switch (IFD.mainMode) {
 		case MAIN_SUMMARY:
 			return loadMainSummary(aid);
 		case MAIN_SEARCH:
-			return loadMainSearch();
+			return loadMainSearch(aid.id);
 		}
 	}
 	
