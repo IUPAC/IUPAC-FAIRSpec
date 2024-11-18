@@ -1,0 +1,64 @@
+Notes by Bob Hanson regarding the processing of
+10.14469/hpc/10386
+
+For the most part, the crawling was a straightforward
+task, looking for <relatedIdentifiers> that had either 
+a URL or DOI relatedIdentifierType. URL types were digital
+items; DOI types with relationType="HasPart" were followed
+to "child" records.  So, for instance we have:
+
+10386 (the main DOI):
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="HasPart">10.14469/hpc/11652</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="HasPart">10.14469/hpc/11349</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="DOI" relationType="HasPart">10.14469/hpc/11405</relatedIdentifier>
+
+and
+
+11652 (a compound DOI):
+    <relatedIdentifier relatedIdentifierType="URL" relationType="HasPart">https://data.hpc.imperial.ac.uk/resolve/?doi=11652&amp;file=1</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="URL" relationType="HasPart">https://data.hpc.imperial.ac.uk/resolve/?doi=11652&amp;file=2</relatedIdentifier>
+    <relatedIdentifier relatedIdentifierType="URL" relationType="HasPart">https://data.hpc.imperial.ac.uk/resolve/?doi=11652&amp;file=3</relatedIdentifier>
+
+Since the DataCite metadata has no more that this information about the URL parts, 
+we decided to pull the headers of the files using the HTTPS HEAD method. 
+These headers provided mediaType, length, and local filename.
+
+Determination of the spectroscopy type was not definitive. Some of the DOI entries had
+<subject subjectScheme="IFD.xxx" where xxx was "IR", "XRAY", or "comp". But "NMR" was not
+listed and had to be taken as a default, possibly leading to issues. 
+
+Most problematic was that these types were subject designations for *collections* of 
+data -- at the DOI level, not the URL level. 
+
+For example, 14469, tells us in its title that it involves NMR and IR prediction and 
+
+  <title>Compound 16: bis(4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-olate)magnesium. NMR and IR prediction, G = -2107.704571</title>
+
+
+  
+includes a mix of data types:
+
+Filename	Size	Type	Description
+NMR Spectra.mnova 	751KB 	chemical/x-mnova 	NMR Spectrum
+NMR Spectra.mnpub 	0 	chemical/x-mnpub 	Mestrenova signature file for NMR Spectra.mnova
+IR Spectrum.a2r 	125KB 	application/octet-stream 	IR Spectrum
+Mass Spectrum.pdf 	46KB 	application/pdf 	Mass Spectrum
+HPLC Scalemic.pdf 	46KB 	application/pdf 	HPLC Scalemic (57:43 er)
+HPLC Scalemic Report.pdf 	12KB 	application/pdf 	HPLC Scalemic (57:43 er) Report
+HPLC (R,R)-Enantiomer.pdf 	41KB 	application/pdf 	HPLC (R,R)-Enantiomer (>99:1 er)
+HPLC (R,R)-Enantiomer Report.pdf 	11KB 	application/pdf 	HPLC (R,R)-Enantiomer (>99:1 er) Report 
+
+Clearly the media type "application/pdf" is not particularly useful here. 
+
+And the <subjects> element for this record includes only:
+
+    <subject subjectScheme="Gibbs_Energy" schemeURI="https://doi.org/10.1351/goldbook.G02629" valueURI="http://gaussian.com/thermo/">-2107.704571</subject>
+    <subject subjectScheme="IFD.comp">Gaussian computation</subject>
+    <subject subjectScheme="inchi" schemeURI="http://www.inchi-trust.org/">InChI=1S/2C12H12N2O3.2C2H6O.Mg/c2*1-2-17-12(16)10-8-13-14(11(10)15)9-6-4-3-5-7-9;2*1-2-3;/h2*3-8,15H,2H2,1H3;2*3H,2H2,1H3;/q;;;;+2/p-2</subject>
+    <subject subjectScheme="inchikey" schemeURI="http://www.inchi-trust.org/">FCXMPNFUGCYHCR-UHFFFAOYSA-L</subject>
+
+despite the fact that we have NMR, IR, MS, and HPLC data. 
+
+  
+  
+ 

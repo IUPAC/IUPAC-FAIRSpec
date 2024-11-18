@@ -458,7 +458,7 @@
 		var sample = IFD.collections[aidID].samples[id];
 		var specids = IFD.getSpectrumIDsForSample(aidID, id);
 		var structureIDs = IFD.getStructureIDsForSpectra(aidID,specids);
-		var s = getHeader("Sample " + id); 
+		var s = getHeader("Sample/s", "Sample " + id); 
 		s += showCompoundStructures(aidID,structureIDs, false);
 		var smiles = IFD.getSmilesForStructureID(aidID, structureIDs[0]);
 		s += showCompoundSpectra(aidID,specids,smiles,true);
@@ -501,7 +501,7 @@
 		var sampleID = spec.properties && spec.properties.originating_sample_id;
 		var sid = (IFD.byID ? id : spec.id); 
 		var s = "<table padding=3><tr><td valign=top>"
-			+ getHeader("Spectrum " + sid) + "<h3>" 
+			+ getHeader("Spectrum/a  ", "Spectrum " + sid) + "<h3>" 
 			+ (sampleID ? "&nbsp;&nbsp;&nbsp; sample " + sampleID : "")
 			+ "</h3></td>"; 
 		var title = getObjectProperty(spec, "expt_title");
@@ -515,7 +515,8 @@
 		return s;
 	}
 
-	var getHeader = function(name, description) {
+	var getHeader = function(types, name, description) {
+		IFD.contentHeader = types;
 		var key = removeSpace(name) + "_" + ++divId
 		IFD.headers.push([key,name]);
 		return "<a name=\"" + key + "\"><h3>" + name + "</h3></a>"
@@ -530,7 +531,7 @@
 		var props = cmpd.properties;
 		var params = cmpd.attributes;
 		var label = cmpd.label || cmpd.id;
-		var s = getHeader(label.startsWith("Compound") ? label : "Compound " + label, cmpd.description); 
+		var s = getHeader("Compound/s", label.startsWith("Compound") ? label : "Compound " + label, cmpd.description); 
 		s += "<table>" + addPropertyRows("",props, null, false) + "</table>"
 		s += "<table>" + addPropertyRows("",params, null, false) + "</table>"
 
@@ -584,7 +585,7 @@
 		s += "<td rowspan=2 valign=\"top\">";
 		if (showID) {
 			var h = (id.indexOf("Structure") == 0 ? removeUnderline(sid) : "Structure " + sid);
-			s += "<span class=structurehead>"+ (IFD.resultsMode == MODE_STRUCTURES ? getHeader(h) : h) + "</span><br>";
+			s += "<span class=structurehead>"+ (IFD.resultsMode == MODE_STRUCTURES ? getHeader("Structure/s", h) : h) + "</span><br>";
 		}
 		v = IFD.getStructureVisual(reps);
 		if (v){
@@ -636,8 +637,13 @@
 
 	var loadContents = function(hasContent) {
 		clearJQ("#contents");
-		var s = "<table>";
-		for (var i = 0; i < IFD.headers.length; i++) {
+		if (!hasContent)
+			return;
+		var n = IFD.headers.length;
+		var type = IFD.contentHeader.split("/");
+		type = (n == 1 ? type[0] : type[0].substring(0, type[0].length + 1 - type[1].length) + type[1]);
+		var s = "<b>" + n + " " + type + "</b><br><table>";
+		for (var i = 0; i < n; i++) {
 			var h = IFD.headers[i];
 			var key = h[0];
 			var val = h[1];
@@ -706,7 +712,7 @@
 		if (r.data) {
 			if (r.data.indexOf(";base64") == 0) {
 				var imgTag = "<img id=img" + (++divId)  + " onload=IFD.checkImage(" + divId + ")" +  " src=\"" + "data:" + r.mediaType + r.data + "\"</img>";
-				s += addPathForRep(aidID, r.ref, -1, imgTag);
+				s += addPathForRep(aidID, r.ref, -1, imgTag, null);
 			} else {
 				if (r.data.length > 30) {
 					s += anchorHide(shead, r.data);
@@ -716,7 +722,7 @@
 				}
 			}
 		} else {
-			s += " " + addPathForRep(aidID, r.ref, r.len, null);
+			s += " " + addPathForRep(aidID, r.ref, r.len, null, r.mediaType);
 		}
 		s = "<tr><td>" + shead + s + "</td></tr>";
 		return s;
@@ -817,15 +823,16 @@
 		}
 	}
 
-	var addPathForRep = function(aidID, ref, len, value) {
+	var addPathForRep = function(aidID, ref, len, value, mediaType) {
 		var shortName = ref.localName || shortFileName(ref.localPath);
 		var url = ref.url || ref.doi || (ref.localPath ? fileFor(aidID, ref.localPath) : null);
+		mediaType = null;// nah. Doesn't really add anything || (mediaType = "");
 		if (value) {
 			s = "<a target=_blank href=\"" + url + "\">" + value + "</a>"
 		} else if (shortName.endsWith(".png")) {
 			s = "<img id=img" + (++divId)  + " onload=IFD.checkImage(" + divId + ")" +  " src=\"" + url +"\">"; 
 		} else {
-			s = "<a target=_blank href=\"" + url + "\">" + shortName + "</a>" + " (" + getSizeString(len) + ")";
+			s = "<a target=_blank href=\"" + url + "\">" + shortName + "</a>" + " (" + getSizeString(len) + (mediaType ? " " + mediaType : "") + ")";
 		}
 		return s;
 	}

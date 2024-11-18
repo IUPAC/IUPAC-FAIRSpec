@@ -150,18 +150,20 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		skipPubInfo = !dataciteUp || debugReadOnly; // true to allow no internet connection and so no pub calls
 	}
 
-	protected void processFlags(String[] args) {
-		String flags = "";
-		for (int i = 3; i < args.length; i++) {
+	protected String processFlags(String[] args, String flags) {
+		if (flags == null)
+			flags = "";
+		flags += ";";
+		for (int i = 0; i < args.length; i++) {
 			if (args[i] != null)
 				flags += "-" + args[i] + ";";
 		}
-		checkFlags(flags);
+		flags = checkFlags(flags);
 		setDerivedFlags();
-
+		return flags;
 	}
 
-	protected void checkFlags(String flags) {
+	protected String checkFlags(String flags) {
 		flags = flags.toLowerCase();
 		if (flags.indexOf("-") < 0)
 			flags = "-" + flags.replaceAll("\\;", "-;") + ";";
@@ -222,6 +224,8 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 //		if (pt >= 0) {
 //			userStructureFilePattern = flags.substring(flags.indexOf("=", pt) + 1, flags.indexOf(";", pt));
 //		}
+		
+		return flags;
 	}
 
 

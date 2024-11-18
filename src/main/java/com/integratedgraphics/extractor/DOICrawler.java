@@ -83,9 +83,9 @@ public class DOICrawler extends FindingAidCreator {
 	 * is the only archive tested
 	 * 
 	 */
-	private final static String testPID = "10.14469/hpc/10386";
+	private final static String TEST_PID = "10.14469/hpc/10386";
 
-	private static final String OUTDIR = "c:/temp/iupac/crawler";
+	private static final String DEFAULT_OUTDIR = "c:/temp/iupac/crawler";
 
 	protected StringBuffer log = new StringBuffer();
 
@@ -95,7 +95,7 @@ public class DOICrawler extends FindingAidCreator {
 
 	// 2024.05.28 version 0.0.1 initial version used for ICL repository crawling
 
-	private final static String DOWNLOAD_TYPES = ";zip;png;jpg;jpeg;cdxml;mol;cif;xls;xlsx;mnova;mnpub;";
+	private final static String DOWNLOAD_TYPES = ";zip;png;pdf;a2r;jpg;jpeg;cdxml;mol;cif;xls;xlsx;mnova;mnpub;";
 	public final static String DATACITE_METADATA = "https://data.datacite.org/application/vnd.datacite.datacite+xml/";
 	public final static String FAIRSPEC_SCHEME_URI = "http://iupac.org/ifd";
 	public final static String FAIRDATA_SUBJECT_SCHEME = "IFD";
@@ -127,6 +127,7 @@ public class DOICrawler extends FindingAidCreator {
 	
 		private List<DoiRecord> itemList;
 		private String sortKey;
+		private String label;
 
 		DoiRecord(String id, String url, String dirName, String localName) {
 			compoundID = id;
@@ -144,6 +145,8 @@ public class DOICrawler extends FindingAidCreator {
 		}
 		
 		void addProperty(String key, String val) {
+			if (key.endsWith(".label"))
+				label = val;
 			properties.put(key, val);
 		}
 
@@ -154,7 +157,7 @@ public class DOICrawler extends FindingAidCreator {
 				s += ">R";
 				break;
 			}
-	    	s += "\t" + ifdRef;
+	    	s += "\t" + ifdRef + (label == null ? "" : "\t" + label);
 			return s.getBytes();
 		}
 
@@ -194,6 +197,11 @@ public class DOICrawler extends FindingAidCreator {
 
 	// inputs
 	
+	/**
+	 * set to false using -nodownload flag
+	 */
+	private boolean doDownload = true;
+
 	private String initialDOI;
 	private File topDir, dataDir, fileDir;
 
@@ -235,6 +243,14 @@ public class DOICrawler extends FindingAidCreator {
 	 * a map to convert the ICL archive's keys to proper IFD.property keys
 	 */
 	private Map<String, String> hackMap = new HashMap<>();
+
+	private File faDir;
+
+	private String faId;
+
+	private long t0;
+
+	private String subdir;
 
 	{
 		hackMap.put("inchi", IFD_INCHI);
@@ -382,39 +398,66 @@ public class DOICrawler extends FindingAidCreator {
 	 * @param args [initialDOI, outputDirectory]
 	 */
 	public DOICrawler(String... args) {
-		initialDOI = (args.length == 0 ? testPID : args[0]);
-		processFlags(args);
-		createZippedCollection = false;
-		faHelper = new FAIRSpecFindingAidHelper(getCodeSource() + " " + getVersion());
-		findingAid = faHelper.getFindingAid();
-		findingAid.setID(initialDOI.replace('/', '_'));
-		try {
+		initialDOI = (args.length == 0 ? TEST_PID : args[0]);
+		String flags = processFlags(args, "-nozip");
+		if (flags.indexOf("-nodownload;") >= 0) {
+			doDownload = false;
+		}
+
+	try {
 			dataCiteMetadataURL = getMetadataURL(initialDOI);
 		} catch (MalformedURLException e) {
 			addException(e);
-		}
+		}		
+		String outdir = args.length > 1 ? args[1] : DEFAULT_OUTDIR;
+		topDir = new File(outdir);
+		t0 = System.currentTimeMillis();
 	}
 
-	private boolean crawl(File dataDir, File fileDir, File parentDir) {
-		this.startTime = System.currentTimeMillis();
+	public boolean crawl(File topDir, File dataDir, File fileDir) {
+		this.topDir = topDir;
 		this.dataDir = dataDir;
 		this.fileDir = fileDir;
-		this.topDir = parentDir;
+		return crawl();
+	}
+
+	public boolean crawl() {
+		// not retrieving data files
+		// but URLs are touched using the "head" option in https
+		faId = initialDOI.replace('/', '_');
+		faDir = new File(topDir, faId);
+		faDir.mkdirs();
+		faHelper = new FAIRSpecFindingAidHelper(getCodeSource() + " " + getVersion());
+		findingAid = faHelper.getFindingAid();
+		findingAid.setID(faId);
+		if (doDownload && fileDir == null) {
+			fileDir = new File(faDir, "files");
+		} else if (fileDir == null) {
+			doDownload = false;
+		}
+		if (dataDir == null)
+			dataDir = new File(faDir, "metadata");
 		log = new StringBuffer();
+		startTime = System.currentTimeMillis();
 		doiList = new ArrayList<DoiRecord>();
 		//repMap = new TreeMap<>();
 		urlStack = new Stack<String>();
+		dataDir.mkdirs();
+		if (fileDir != null)
+			fileDir.mkdirs();
 		nextMetadata(null);
-		if (parentDir != null) {
-			outputList(parentDir);
-			//createJSONMap(parentDir);
+		outputListAndLog(faDir);
+		if (errorBuffer.length() > 0) {
+			System.err.println(errorBuffer.toString());
 		}
 		createFindingAid();
+		System.out.println(
+				"done len = " + totalLength + " bytes " + (System.currentTimeMillis() - startTime) / 1000 + " sec");
 		return true;
 	}
 
-	private void outputList(File parentDir) {
-		File f = new File(parentDir, "ifd-fileURLMap.txt");
+	private void outputListAndLog(File dir) {
+		File f = new File(dir, "ifd-fileURLMap.txt");
 		System.out.println("writing " + doiList.size() + " entries " + f.getAbsolutePath());
 		System.out.println(nReps + " representations");
 		try {
@@ -427,7 +470,7 @@ public class DOICrawler extends FindingAidCreator {
 		} catch (Exception e) {
 			addException(e);
 		}
-		f = new File(parentDir, "crawler.log");
+		f = new File(dir, "crawler.log");
 		System.out.println("writing " + log.length() + " bytes " + f.getAbsolutePath());
 		FAIRSpecUtilities.putToFile(log.toString().getBytes(), f);
 	}
@@ -462,6 +505,7 @@ public class DOICrawler extends FindingAidCreator {
 		int pt = s.lastIndexOf('/');
 		String dir = s.substring(0, pt + 1);
 		String file = s.substring(pt + 1);
+		subdir = file;
 		newRecord();
 		if (pidPath == null) {
 			pidPath = s + ">";
@@ -528,7 +572,7 @@ public class DOICrawler extends FindingAidCreator {
 	 * @param s
 	 * @throws IOException
 	 */
-	private void processRepresentation(URL url, Map<String, DoiRecord> fMap) throws IOException {
+	private void processRepresentation(String subdir, URL url, Map<String, DoiRecord> fMap) throws IOException {
 		urlDepth++;
 		nReps++;
 		File headerFile = new File(dataDir, FAIRSpecUtilities.cleanFileName(url.toString()) + ".txt");
@@ -566,8 +610,11 @@ public class DOICrawler extends FindingAidCreator {
 			FAIRSpecUtilities.putToFile(s.getBytes(), headerFile);
 		}
 		if (fileName != null) {
-			if (fileDir != null)
-				downloadCheck(url, new File(fileDir, FAIRSpecUtilities.cleanFileName(fileName)));
+			if (fileDir != null) {
+				File subDir = new File(fileDir, subdir);
+				subDir.mkdirs();
+				downloadCheck(url, new File(subDir, FAIRSpecUtilities.cleanFileName(fileName)));
+			}
 			DoiRecord f0 = fMap.remove(fileName);
 			if (f0 != null)
 				log("!removed " + f0);
@@ -685,8 +732,6 @@ public class DOICrawler extends FindingAidCreator {
 			break;
 		case "title":
 			String type = null;
-			if (val.startsWith("Primary NMR Data"))
-				System.out.println("????");
 			switch (val.substring(0, 3)) {
 			case "Com":
 				if (val.startsWith("Compound ")) {
@@ -754,7 +799,7 @@ public class DOICrawler extends FindingAidCreator {
 			if (list != null) {
 				Map<String, DoiRecord> fMap = new TreeMap<>();
 				for (int i = 0; i < list.size(); i++) {
-					processRepresentation(newURL(list.get(i)), fMap);
+					processRepresentation(subdir, newURL(list.get(i)), fMap);
 				}
 				newRecord();
 				for (Entry<String, DoiRecord> e : fMap.entrySet()) {
@@ -780,8 +825,6 @@ public class DOICrawler extends FindingAidCreator {
 			processDOIURLs(pubdoi, datadoi, faHelper);
 			nestRecords();
 			processRecords(doiList);
-			File faDir = new File(topDir, findingAid.getID());
-			faDir.mkdirs();
 			faHelper.generateFindingAid(faDir);
 		} catch (Exception e) {
 			addException(e);
@@ -1022,33 +1065,6 @@ public class DOICrawler extends FindingAidCreator {
 	}
 
 	/**
-	 * set to true to also download data files
-	 */
-	static boolean doDownload = false; 
-
-	public static void main(String[] args) {
-		DOICrawler crawler = new DOICrawler(args);
-		String outdir = args.length > 1 ? args[1] : OUTDIR;
-		File parent = new File(outdir);
-		File dataDir = new File(outdir, "metadata");
-		dataDir.mkdirs();
-		// not retrieving data files
-		// but URLs are touched using the "head" option in https
-		File fileDir = null;
-		if (doDownload) {
-			fileDir = new File(outdir, "files");
-			fileDir.mkdir();
-		}
-		long t = System.currentTimeMillis();
-		crawler.crawl(dataDir, fileDir, parent);
-		if (crawler.errorBuffer.length() > 0) {
-			System.err.println(crawler.errorBuffer.toString());
-		}
-		System.out.println(
-				"done len = " + crawler.totalLength + " bytes " + (System.currentTimeMillis() - t) / 1000 + " sec");
-	}
-
-	/**
 	 * For future use in dataset file checking.
 	 */
 	@Override
@@ -1073,5 +1089,14 @@ public class DOICrawler extends FindingAidCreator {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public static void main(String[] args) {
+		if (args.length == 0) {
+			args = new String[] { TEST_PID, DEFAULT_OUTDIR, "-dodownload" };
+//			args = new String[] { "10.14469/hpc/14443" , DEFAULT_OUTDIR, "-dodownload" };
+		}
+		new DOICrawler(args).crawl();
+	}
+
 
 }

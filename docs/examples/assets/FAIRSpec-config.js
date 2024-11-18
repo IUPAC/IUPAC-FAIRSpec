@@ -26,5 +26,6 @@ IFD = {
 	jmeReturn: null,
 	smarts: null, // just for reference
 	canvas: null,
+	contentHeader: null,
 	cache: {}
 }

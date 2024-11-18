@@ -110,7 +110,7 @@ public class IFDReference implements IFDSerializableI {
 
 	@Override
 	public String toString() {
-		return "[IFDReference " + test + " " + (localDir == null ? "" : localDir + "::") + originPath + " :as::" + localName + " url:" + url + "]";
+		return "[IFDReference " + test + " " + (localDir == null ? "" : localDir + "::") + originPath + " :as::" + localName + " url:" + url +  " doi:" + doi + "]";
 	}
 
 	@Override

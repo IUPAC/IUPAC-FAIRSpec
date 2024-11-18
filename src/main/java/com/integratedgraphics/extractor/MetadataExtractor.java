@@ -2912,7 +2912,7 @@ public class MetadataExtractor extends FindingAidCreator {
 
 			extractor.testID = i;
 
-			extractor.processFlags(args);
+			extractor.processFlags(args, null);
 			new File(targetDir).mkdirs();
 			flags = "\n first = " + first + " last = " + last + "\n"//
 					+ extractor.dumpFlags() + "\n createFindingAidJSONList = " + createFindingAidJSONList //
