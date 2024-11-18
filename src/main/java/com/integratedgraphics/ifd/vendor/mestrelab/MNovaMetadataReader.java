@@ -1312,12 +1312,19 @@ class MNovaMetadataReader extends ByteBlockReader {
 			outdir = args[1];
 			pt += 2;
 		}
-		if (args.length == 0 && testFile == null) {
+		if (testFile == null && args.length == 1 && "--testall".equals(args[0])) {
 			testAll(outdir);
-		} else {
-			String fname = (args.length != pt ? args[pt] : testFile != null ? testFile : testFiles[defaultTest]);
-			
+		} else if (testFile != null && args.length > pt && "--test".equals(args[pt])) {
+			String f = (testFile != null ? testFile : testFiles[defaultTest]);
+			runFileTest(f, outdir);
+		} else if (args.length != pt) {
+			String fname = args[pt];			
 			runFileTest(fname, outdir);
+		} else {
+			System.out.println("usage: MNovaMetadataReader [-o outputdir] --test");
+			System.out.println("usage: MNovaMetadataReader [-o outputdir] --testall");
+			System.out.println("usage: MNovaMetadataReader [-o outputdir] mnovaFilename");
+			System.out.println("a json file will be created");
 		}
 	}
 
@@ -1345,12 +1352,11 @@ class MNovaMetadataReader extends ByteBlockReader {
 			rdr.process();
 			System.out.println("MNova file closed for " + filename);
 			if (rdr.reportData != null) {
-				Map<String, Object> data = new HashMap<>();
-				data.put("MNova.metadata", rdr.reportData);
 				IFDDefaultJSONSerializer serializer = new IFDDefaultJSONSerializer(false);
 				serializer.openObject();
-				serializer.addValue(data);
-				rdr.writeToFile("json", serializer.closeObject().getBytes());
+				serializer.addObject("MNova.metadata", rdr.reportData);
+				String json = serializer.closeObject();
+				rdr.writeToFile("json", json.getBytes());
 			}
 			return true;
 		} catch (IOException e) {
