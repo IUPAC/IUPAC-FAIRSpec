@@ -27,38 +27,135 @@ Determination of the spectroscopy type was not definitive. Some of the DOI entri
 <subject subjectScheme="IFD.xxx" where xxx was "IR", "XRAY", or "comp". But "NMR" was not
 listed and had to be taken as a default, possibly leading to issues. 
 
-Most problematic was that these types were subject designations for *collections* of 
-data -- at the DOI level, not the URL level. 
+An important aspect of this collection is that each data type subcollection -- NMR, IR, etc. -- has its own DOI:
 
-For example, 14469, tells us in its title that it involves NMR and IR prediction and 
+https://data.hpc.imperial.ac.uk/resolve/?doi=11358
+Members
+10.14469/hpc/11601 	NMR Data for Compound 24.
+10.14469/hpc/11602 	IR Data for Compound 24.
+10.14469/hpc/11359 	Crystal data for Compound 24 Tris((4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-yl)oxy)scandium 
 
-  <title>Compound 16: bis(4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-olate)magnesium. NMR and IR prediction, G = -2107.704571</title>
+and even those are subdivided. So the "NMR Data" object points to:
 
+https://data.hpc.imperial.ac.uk/resolve/?doi=11601
 
-  
-includes a mix of data types:
+Members
+10.14469/hpc/11603 	NMR Data for Tris((4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-yl)oxy)scandium (24), 1H
+10.14469/hpc/11604 	NMR data for Tris((4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-yl)oxy)scandium (24), 13C
+10.14469/hpc/11605 	NMR data for Tris((4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-yl)oxy)scandium (24), 1H, COSY
+10.14469/hpc/11606 	NMR Data for Tris((4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-yl)oxy)scandium (24), 1H, 13C, HSQC
+10.14469/hpc/11607 	NMR data for Tris((4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-yl)oxy)scandium (24), 1H, 13C, HMBC 
 
-Filename	Size	Type	Description
-NMR Spectra.mnova 	751KB 	chemical/x-mnova 	NMR Spectrum
+and each of *these* then has the actual digital items (relatedIdentifierType="URL"):
+
+https://data.hpc.imperial.ac.uk/resolve/?doi=11603
+Files
+24-1H.zip 	458KB 	application/zip 	Bruker primary data archive
+24-1H.mnpub 	0 	chemical/x-mnpub 	Mestrenova signature file for 24-1H.zip
+24-1H.mnova 	454KB 	chemical/x-mnova 	Mnova data archive
+24-1H.mnpub 	0 	chemical/x-mnpub 	Mestrenova signature file for 24-1H.mnova
+24-1H.jdx 	182KB 	chemical/x-jcamp-dx 	JCAMP-DX Spectrum
+24-1H.pdf 	47KB 	application/pdf 	Spectrum as PDF
+24.png 	36KB 	image/png 	Image structure representation
+24.cdxml 	19KB 	chemical/x-cdxml 	Chemdraw connection table
+24.mol 	5KB 	chemical/x-mdl-molfile 	MDL Molfile
+24.cdxml 	25KB 	chemical/x-cdxml 	Chemdraw connection table, V2
+24.mol 	6KB 	chemical/x-mdl-molfile 	MDL Molfile, V2
+24.png 	58KB 	image/png 	Image structure representation, V2
+24.png 	43KB 	image/png 	Image structure representation, V3
+24.cdxml 	23KB 	chemical/x-cdxml 	Chemdraw connection table, V3
+24.mol 	6KB 	chemical/x-mdl-molfile 	MDL Molfile, V3 
+
+Notice that this means that all the structure representations found in these deeper
+directories (which are all for the same compound) are duplicated in each directory. 
+This unnecessary duplication is not too difficult to handle by DOICrawler.java. It is
+handled by checking previously created files with the same name and verifying that they
+at least have the same file length. Alternatively, we could have downloaded these
+digital items and verified that they were identical. 
+
+An additional assumption here is that if two files have the same name prior to the 
+extension ("24" or "24-1H" here), then they are representations of the same 
+IFD.DataObject.  
+
+An additional note is that the final column in this table -- for example, 
+"Image structure representation, V3" -- is not found in the DataCite metadata
+and is thus not accessible to DOICrawler.java, as it never sees any of the actual
+pages from the repository, only the metadata records backing them, from DataCite.
+
+The proximity of theses files in the same directory allows us to connect stucture with 
+spectrum, and the hierarchy of the collection allows to then associate all of these
+digital representations with the same compound. 
+
+In addition, in this case, we see that some files have multiple versions. 
+DOICrawler.java handles this by always pointing the Finding Aid only the *last* 
+entry on the list (v3 in this case) assuming that as corrections are made, 
+these corrections are added to the list at the end. 
+This assumption may or may not be generally a correct one.
+
+It may be intersting that an unrelated collection at ICL, 
+
+https://doi.org/10.14469/hpc/14443 
+
+(a collection of data for a Ph.D. thesis) is organized in a simpler manner. In this
+case, the collection is subdivided into chapters:
+
+Members
+10.14469/hpc/14447 	Chapter 5
+10.14469/hpc/14446 	Chapter 4
+10.14469/hpc/14445 	Chapter 3
+10.14469/hpc/14444 	Chapter 2
+10.14469/hpc/14489 	VTNA Spreadsheets 
+
+and each chapter has additional subdivisions, by compound:
+
+Members
+10.14469/hpc/14449 	4-Chlorophthalazin-1(2H)-one (5.1)
+10.14469/hpc/14455 	(1S,2R)-(−)-2-Bromo-1,2,3,4-tetrahydronaphthalen-1-ol (5.2)
+
+wherein we find the relevant data:
+
+https://doi.org/10.14469/hpc/14449
+Files
+NMR Spectra.mnova 	575KB 	chemical/x-mnova 	NMR Spectrum
 NMR Spectra.mnpub 	0 	chemical/x-mnpub 	Mestrenova signature file for NMR Spectra.mnova
-IR Spectrum.a2r 	125KB 	application/octet-stream 	IR Spectrum
-Mass Spectrum.pdf 	46KB 	application/pdf 	Mass Spectrum
-HPLC Scalemic.pdf 	46KB 	application/pdf 	HPLC Scalemic (57:43 er)
-HPLC Scalemic Report.pdf 	12KB 	application/pdf 	HPLC Scalemic (57:43 er) Report
-HPLC (R,R)-Enantiomer.pdf 	41KB 	application/pdf 	HPLC (R,R)-Enantiomer (>99:1 er)
-HPLC (R,R)-Enantiomer Report.pdf 	11KB 	application/pdf 	HPLC (R,R)-Enantiomer (>99:1 er) Report 
+IR.a2r 	125KB 	application/octet-stream 	IR Spectrum
+Mass Spectrum.pdf 	140KB 	application/pdf 	Mass Spectrum
+CB2202b.doc 	26KB 	application/msword 	Crystal Data and Structure Refinement
+CB2202b_x.cif 	10KB 	chemical/x-cif 	CIF File
+CB2202b-PL1.png 	271KB 	image/png 	X-Ray Structure 
 
-Clearly the media type "application/pdf" is not particularly useful here. 
+Again, we have the problem that the description column information is not to be found
+in the DataCite metadata (since there is not DOI for each file here, only URLs).
+But the advantage here is that there is no duplication of structure representations, 
+and the metadata <subjects> contain subjectScheme="inchi" and subjectScheme="inchikey", 
+and we can back-translate an InChI to a SMILES and then to a structure within Jmol.
 
-And the <subjects> element for this record includes only:
+  <subjects>
+    <subject subjectScheme="inchi" schemeURI="http://www.inchi-trust.org/">InChI=1S/C8H4NO.Cl.N.H/c1-6-4-2-3-5-7(6)8(9)10;;;/h2-5H;;;</subject>
+    <subject subjectScheme="inchikey" schemeURI="http://www.inchi-trust.org/">WTOACRDOVRAYJI-UHFFFAOYSA-N</subject>
+  </subjects>
 
-    <subject subjectScheme="Gibbs_Energy" schemeURI="https://doi.org/10.1351/goldbook.G02629" valueURI="http://gaussian.com/thermo/">-2107.704571</subject>
-    <subject subjectScheme="IFD.comp">Gaussian computation</subject>
-    <subject subjectScheme="inchi" schemeURI="http://www.inchi-trust.org/">InChI=1S/2C12H12N2O3.2C2H6O.Mg/c2*1-2-17-12(16)10-8-13-14(11(10)15)9-6-4-3-5-7-9;2*1-2-3;/h2*3-8,15H,2H2,1H3;2*3H,2H2,1H3;/q;;;;+2/p-2</subject>
-    <subject subjectScheme="inchikey" schemeURI="http://www.inchi-trust.org/">FCXMPNFUGCYHCR-UHFFFAOYSA-L</subject>
+This *would* be perfect. As it turns out, though, this is not the InChI 
+of 4-chlorophthalazin-1(2H)-one, as shown in Jmol: 
 
-despite the fact that we have NMR, IR, MS, and HPLC data. 
+print "InChI=1S/C8H4NO.Cl.N.H/c1-6-4-2-3-5-7(6)8(9)10;;;/h2-5H;;;".smiles()
+[C+1]=C1C2=CC=C[CH+1]1.C2(=[N-1])[O-1]
 
-  
-  
- 
+Yeiks!
+
+The correct InChI, from PubChem gives us a valid SMILES string from Jmol, and turns
+that SMILES back into 4-chlorophthalazin-1(2H)-one:
+
+x = "InChI=1S/C8H5ClN2O/c9-7-5-3-1-2-4-6(5)8(12)11-10-7/h1-4H,(H,11,12)".smiles()
+print x
+c1ccc2c3c1.c2(O)[n][n]c3Cl
+load @{"$" + x}
+print {*}.find("MF")
+H 5 C 8 N 2 O 1 Cl 1
+show inchi
+InChI=1S/C8H5ClN2O/c9-7-5-3-1-2-4-6(5)8(12)11-10-7/h1-4H,(H,11,12)
+
+So, in this case, the crawler would not know the structure of the compound 
+from metadata only. 
+
+

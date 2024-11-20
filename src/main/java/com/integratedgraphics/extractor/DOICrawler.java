@@ -201,7 +201,12 @@ public class DOICrawler extends FindingAidCreator {
 	 * set to false using -nodownload flag
 	 */
 	private boolean doDownload = true;
-
+	
+	/**
+	 * set to true if all related URL groups are of the same compound
+	 */
+    private boolean byCompound = false;
+	
 	private String initialDOI;
 	private File topDir, dataDir, fileDir;
 
@@ -402,6 +407,9 @@ public class DOICrawler extends FindingAidCreator {
 		String flags = processFlags(args, "-nozip");
 		if (flags.indexOf("-nodownload;") >= 0) {
 			doDownload = false;
+		}
+		if (flags.indexOf("-bycompound;") >= 0) {
+			byCompound = true;
 		}
 
 	try {
@@ -1093,7 +1101,7 @@ public class DOICrawler extends FindingAidCreator {
 	public static void main(String[] args) {
 		if (args.length == 0) {
 			args = new String[] { TEST_PID, DEFAULT_OUTDIR, "-dodownload" };
-//			args = new String[] { "10.14469/hpc/14443" , DEFAULT_OUTDIR, "-dodownload" };
+//			args = new String[] { "10.14469/hpc/14443" , DEFAULT_OUTDIR, "-dodownload -bycompound" };
 		}
 		new DOICrawler(args).crawl();
 	}
