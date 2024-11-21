@@ -61,7 +61,7 @@ public class ICLDOICrawler extends DOICrawler {
 		 * return mapped key or key
 		 */
 		@Override
-		public String customizeGet(String key) {
+		public String customizeKey(String key) {
 			String mappedKey = hackMap.get(key);
 			return (mappedKey == null ? key : mappedKey);
 		}

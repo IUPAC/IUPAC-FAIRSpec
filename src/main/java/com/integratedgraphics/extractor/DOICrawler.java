@@ -93,7 +93,7 @@ public class DOICrawler extends FindingAidCreator {
 	public interface DOICustomizer {
 
 		boolean customizeText(String key, String val);
-		String customizeGet(String key);
+		String customizeKey(String key);
 		boolean ignoreURL(String url);
 		
 	}
@@ -361,14 +361,13 @@ public class DOICrawler extends FindingAidCreator {
 			Map<String, String> attrs;
 			switch (localName) {
 			case "description":
-				if (s.length() > 0 && !hackText("description", s)) {
+				if (s.length() > 0 && !customizeText("description", s)) {
 					crawler.addAttr(IFDConst.IFD_PROPERTY_DESCRIPTION, s);
 				}
 				break;
 			case "title":
-				System.out.println(localName + "=" + s);
 				if (s.length() > 0) {
-					if (!hackText("title", s)) {
+					if (!customizeText("title", s)) {
 						crawler.addAttr(IFDConst.IFD_PROPERTY_LABEL, s);
 					}
 				}
@@ -411,7 +410,7 @@ public class DOICrawler extends FindingAidCreator {
 					}
 					break;
 				default:
-					key = hackGet(key);
+					key = customizeKey(key);
 					break;
 				}
 				if (key.startsWith(FAIRSPEC_DATAOBJECT_FLAG)) {
@@ -423,12 +422,12 @@ public class DOICrawler extends FindingAidCreator {
 			}
 		}
 
-		private String hackGet(String key) {
-			return (customizer == null ? key : customizer.customizeGet(key));
+		private String customizeKey(String key) {
+			return (customizer == null ? key : customizer.customizeKey(key));
 		}
 
-		private boolean hackText(String key, String val) {
-			return (customizer == null || customizer.customizeText(key, val));
+		private boolean customizeText(String key, String val) {
+			return (customizer != null && customizer.customizeText(key, val));
 		}
 		
 	}
@@ -918,6 +917,8 @@ public class DOICrawler extends FindingAidCreator {
 				break;
 			case DOI_DATA:
 				o = thisDataObject = faHelper.createDataObject("" + ++ids, rec.dataObjectType);
+				o.setDOI(rec.ifdRef.getDOI());
+				o.setURL(rec.ifdRef.getURL());
 				thisDataObjectType = rec.dataObjectType;
 				break;
 			case DOI_REP:
@@ -1056,11 +1057,10 @@ public class DOICrawler extends FindingAidCreator {
 	}
 
 	public static void main(String[] args) {
-		if (args.length == 0) {
-			args = new String[] { TEST_PID, DEFAULT_OUTDIR, "-dodownload" };
-//			args = new String[] { "10.14469/hpc/14443" , DEFAULT_OUTDIR, "-dodownload -bycompound" };
-		}
-		new DOICrawler(args).crawl();
+		if (args.length == 0)
+			ICLDOICrawler.main(args);
+		else 
+			new DOICrawler(args).crawl();
 	}
 
 
