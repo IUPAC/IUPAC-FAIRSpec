@@ -361,20 +361,20 @@ public class DOICrawler extends FindingAidCreator {
 			Map<String, String> attrs;
 			switch (localName) {
 			case "description":
-				if (s.length() > 0 && !customizeText("description", s)) {
+				if (s.length() > 0 && !crawler.customizeText("description", s)) {
 					crawler.addAttr(IFDConst.IFD_PROPERTY_DESCRIPTION, s);
 				}
 				break;
 			case "title":
 				if (s.length() > 0) {
-					if (!customizeText("title", s)) {
+					if (!crawler.customizeText("title", s)) {
 						crawler.addAttr(IFDConst.IFD_PROPERTY_LABEL, s);
 					}
 				}
 				break;
 			case "subject":
 				attrs = getAttributes(true);
-				addSubjects(attrs, s);
+				addSubject(attrs, s);
 				break;
 			case "relatedidentifier":
 				if (s.length() > 0) {
@@ -392,7 +392,7 @@ public class DOICrawler extends FindingAidCreator {
 			crawler.xmlDepth--;
 		}
 
-		private void addSubjects(Map<String, String> attrs, String s) {
+		private void addSubject(Map<String, String> attrs, String s) {
 //			<subjects>
 //			    <subject 
 //			schemeURI="http://iupac.org/ifd" 
@@ -401,7 +401,9 @@ public class DOICrawler extends FindingAidCreator {
 //			</subjects>
 	//
 			String key = attrs.get("subjectscheme");
-			if (key != null) {
+			if (key == null) {
+				crawler.customizeText("subject", s);
+			} else {
 				switch (key) {
 				case FAIRDATA_SUBJECT_SCHEME:
 					key = attrs.get("valueuri");
@@ -426,9 +428,6 @@ public class DOICrawler extends FindingAidCreator {
 			return (customizer == null ? key : customizer.customizeKey(key));
 		}
 
-		private boolean customizeText(String key, String val) {
-			return (customizer != null && customizer.customizeText(key, val));
-		}
 		
 	}
 
@@ -630,6 +629,24 @@ public class DOICrawler extends FindingAidCreator {
 		return false;
 	}
 
+	protected boolean customizeText(String key, String val) {
+		switch (key) {
+		case "subject":
+			switch (val) {
+			// ccdc subject
+			case "Crystal Structure":
+				setDataObjectType("xrd");
+				return false;
+			}
+			break;
+		case "References":
+			if (val.indexOf("/ccdc.") >= 0)
+				return true;
+		}
+		return (customizer != null && customizer.customizeText(key, val));
+	}
+	
+
 	private void popURLStack(String currentPath) {
 		pidPath = currentPath;
 		urlStack.pop();
@@ -766,8 +783,12 @@ public class DOICrawler extends FindingAidCreator {
 			break;
 		case "References":
 			// only interested in JournalArticle
-			if (generalType == null)
+			if (generalType == null) {
+				if (customizeText("References", s)) {
+					break; // treat as "HasPart"
+				}
 				return;
+			}
 			switch (generalType) {
 			case "JournalArticle":
 				if ("DOI".equals(type))

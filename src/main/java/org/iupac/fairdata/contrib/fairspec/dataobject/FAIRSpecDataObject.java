@@ -62,6 +62,8 @@ public class FAIRSpecDataObject extends IFDDataObject {
 	public static FAIRSpecDataObject createFAIRSpecObject(String key) {
 		// backward compatibility:
 		//
+		if (key == null)
+			key = "unknown";
 		String type = key.substring(key.lastIndexOf(".") + 1);
 		String ucType = type.toUpperCase();
 		String className = FAIRSpecDataObject.class.getName();

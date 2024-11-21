@@ -153,7 +153,6 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 					get(i).setID("" + (i + 1));
 				}
 			}
-			
 			serializer.addCollection(byid ? "itemsByID" : "items", this, byid);
 		}
 		if (haveCommonClass) {

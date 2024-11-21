@@ -17,10 +17,10 @@ public class ICLDOICrawler extends DOICrawler {
 	public static class ICLCustomizer implements DOICustomizer {
 
 		private static String[] ignoreURLs = new String[] {
-				"10.14469/hpc/14300",
-				"10.14469/HPC/11652",
-				"https://data.hpc.imperial.ac.uk/resolve/?doi=11597&file=1",
-				"https://data.hpc.imperial.ac.uk/resolve/?doi=11597&file=2"
+//				"10.14469/hpc/14300",
+//				"10.14469/HPC/11652",
+//				"https://data.hpc.imperial.ac.uk/resolve/?doi=11597&file=1",
+//				"https://data.hpc.imperial.ac.uk/resolve/?doi=11597&file=2"
 		};		
 
 		private static Map<String, String> hackMap = new HashMap<>();
@@ -82,6 +82,13 @@ public class ICLDOICrawler extends DOICrawler {
 			if (val.length() < 3)
 				return false;
 			switch (key) {
+			case "subject":
+				switch (val) {
+				case "Crystal Structure":
+					crawler.setDataObjectType("xrd");
+					break;
+				}
+				break;
 			case "description":
 				break;
 			case "title":
@@ -116,8 +123,4 @@ public class ICLDOICrawler extends DOICrawler {
 		crawler.setCustomizer(new ICLCustomizer(crawler));
 		crawler.crawl();
 	}
-
-
-
-
 }
