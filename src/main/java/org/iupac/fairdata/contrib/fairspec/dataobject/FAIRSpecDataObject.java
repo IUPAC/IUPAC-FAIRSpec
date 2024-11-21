@@ -1,13 +1,14 @@
 package org.iupac.fairdata.contrib.fairspec.dataobject;
 
+import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 
 /**
- * A final class for high-resolution mass spec data.
- * It is final because it is created by reflection.
+ * A final class for high-resolution mass spec data. It is final because it is
+ * created by reflection.
  * 
  * @author hansonr
  *
@@ -15,9 +16,20 @@ import org.iupac.fairdata.dataobject.IFDDataObject;
 @SuppressWarnings("serial")
 public class FAIRSpecDataObject extends IFDDataObject {
 
-	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_DATAOBJECT_FLAG, "fairspec");
-			
-			
+	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_DATAOBJECT_FLAG,
+			"fairspec");
+
+	protected String exptMethod;
+	
+	/**
+	 * e.g. NMR, IR, MS, ...
+	 * 
+	 * @param method
+	 */
+	public void setExptMethod(String method) {
+		exptMethod = method.toUpperCase();
+	}
+
 	@Override
 	protected String getIFDPropertyPrefix() {
 		return (serializerPropertyPrefix == null ? propertyPrefix : serializerPropertyPrefix);
@@ -27,7 +39,6 @@ public class FAIRSpecDataObject extends IFDDataObject {
 	protected String getPropertyPrefixForSerialization() {
 		return serializerPropertyPrefix;
 	}
-	
 
 	public FAIRSpecDataObject() {
 		super();
@@ -36,26 +47,25 @@ public class FAIRSpecDataObject extends IFDDataObject {
 
 	private String serializerPropertyPrefix;
 	private String objectType;
-	private String exptMethod;
-	
+
 //	@Override
 //	public String getObjectFlag() {
 //		return objectType;
 //	}
-	
+
 	/**
 	 * This works with "nmr" or "xxx.xxx.nmr"
+	 * 
 	 * @param key
 	 * @return
 	 */
 	public static FAIRSpecDataObject createFAIRSpecObject(String key) {
 		// backward compatibility:
-		// 
+		//
 		String type = key.substring(key.lastIndexOf(".") + 1);
 		String ucType = type.toUpperCase();
 		String className = FAIRSpecDataObject.class.getName();
-		className = className.substring(0, className.lastIndexOf(".") + 1) + type + ".FAIRSpec" + ucType
-				+ "Data";
+		className = className.substring(0, className.lastIndexOf(".") + 1) + type + ".FAIRSpec" + ucType + "Data";
 		try {
 			FAIRSpecDataObject o = (FAIRSpecDataObject) Class.forName(className).newInstance();
 			// properties are loaded based on subtype
@@ -70,7 +80,6 @@ public class FAIRSpecDataObject extends IFDDataObject {
 		}
 	}
 
-
 	@Override
 	protected IFDRepresentation newRepresentation(IFDReference ifdReference, Object object, long len, String type,
 			String subtype) {
@@ -78,4 +87,11 @@ public class FAIRSpecDataObject extends IFDDataObject {
 		throw new NullPointerException("FAIRSpecDataObject cannot be instantialized directly");
 	}
 
+
+	@Override
+	protected void serializeProps(IFDSerializerI serializer) {
+		super.serializeProps(serializer);
+		if (exptMethod != null)
+			serializer.addAttr("exptMethod", exptMethod);
+	}
 }

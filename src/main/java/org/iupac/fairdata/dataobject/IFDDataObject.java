@@ -1,6 +1,5 @@
 package org.iupac.fairdata.dataobject;
 
-import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.core.IFDRepresentableObject;
@@ -62,7 +61,4 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 				: "[" + type + " " + (parentCollection != null) + " " + index + " id=" + id + " label=" + label + " rep[0]=" + (size() > 0 ? get(0) : null) + "]");
 	}
 
-	protected void serializeProps(IFDSerializerI serializer) {
-		super.serializeProps(serializer);
-	}		
 }

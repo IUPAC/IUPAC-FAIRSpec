@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.iupac.fairdata.api.IFDSerializerI;
-import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 
 /**
