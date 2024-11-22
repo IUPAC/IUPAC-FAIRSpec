@@ -73,7 +73,9 @@ public class FAIRSpecDataObject extends IFDDataObject {
 			// properties are loaded based on subtype
 			o.objectType = IFDConst.getProp("DATAOBJECT_FAIRSPEC_" + ucType + "_FLAG");
 			o.setExptMethod(ucType);
-			o.serializerPropertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, o.objectType);
+			String prefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, o.objectType);
+			prefix = prefix.substring(0, prefix.length() -1 - ucType.length());
+			o.serializerPropertyPrefix = prefix;
 			o.setProperties(IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG + key), null);
 			return o;
 		} catch (Exception e) {

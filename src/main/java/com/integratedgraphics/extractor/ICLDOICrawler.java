@@ -3,8 +3,6 @@ package com.integratedgraphics.extractor;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.iupac.fairdata.common.IFDConst;
-
 /**
  * 
  * @author Bob Hanson
