@@ -61,7 +61,7 @@ public class ICLDOICrawler extends DOICrawler {
 		 * return mapped key or key
 		 */
 		@Override
-		public String customizeKey(String key) {
+		public String customizeSubjectKey(String key) {
 			String mappedKey = hackMap.get(key);
 			return (mappedKey == null ? key : mappedKey);
 		}
@@ -82,8 +82,12 @@ public class ICLDOICrawler extends DOICrawler {
 			if (val.length() < 3)
 				return false;
 			switch (key) {
+			case "References":
+				crawler.addError("!RelatedIdentifier.References value ignored: " + val + " in " + crawler.doiRecord);
+				break;
 			case "subject":
 				switch (val) {
+				// from ccdc DOI
 				case "Crystal Structure":
 					crawler.setDataObjectType("xrd");
 					break;
@@ -104,9 +108,8 @@ public class ICLDOICrawler extends DOICrawler {
 					if (val.startsWith("Compound ")) {
 						String id = crawler.newCompound(val);
 						crawler.addAttr(FAIRSPEC_COMPOUND_ID, id);
-						crawler.addAttr(IFDConst.IFD_PROPERTY_LABEL, val);
 					}
-					return true;
+					break;
 				}
 			}
 			return false;

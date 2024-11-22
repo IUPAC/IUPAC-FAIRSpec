@@ -1,0 +1,204 @@
+// macro IUPAC_IFD.spt
+// Bob Hanson hansonr@stolaf.edu 11/21/2024
+
+function getFindingAid(url) {
+	var fa = load(url, "JSON")["IFD.findingaid"];
+	indexFA(fa);
+	return fa;
+}
+
+function isByID(fa) {
+	return fa.collectionSet.byID;
+}
+
+function getCollections(fa) {
+	var byid = isByID(fa);
+	var collectionNames = fa.contents.collections.select("(id)");
+	var itemsByID = {};
+	if (byid) {
+		for (var i = 1; i <= collectionNames.length; i++) {
+			itemsByID[collectionNames[i]] = fa.collectionSet.itemsById[i].itemsByID;
+		}
+	} else {
+		for (var i = 1; i <= collectionNames.length; i++) {
+			itemsByID[collectionNames[i]] = fa.collectionSet.items[i].items;
+		}
+	}
+	return itemsByID;
+}
+
+function indexFA(fa) {
+	if (fa._indexed) return;
+	fa._indexed = 1;
+	fa._collections = getCollections(fa);
+	indexRepresentations(fa);
+}
+
+function indexRepresentations(fa) {
+	var byid = isByID(fa);
+	var collections = getCollections(fa);
+	indexReps("samples", collections.samples, byid);
+	indexReps("structures", collections.structures, byid);
+	indexReps("spectra", collections.spectra, byid);
+	indexCompounds(collections, byid);
+}
+
+function indexCompounds(collections, byid) {
+	var list = collections.compounds;
+	var st = collections.structures;
+	var sp = collections.spectra;
+	var stid = if(byid ; "structures" ; 1);
+	var spid = if(byid ; "spectra" ; 2);
+	if (byid) {
+		for (var key in list.keys) {	
+			var cmpd = list[key];		
+			indexAllAssociation(cmpd.itemsByID, cmpd.id, true, collections);
+		}
+	} else {
+		var strucspec = [ st, sp ];
+		for (var j = 1; j <= list; j++) {
+			indexAllAssociation(list[j].items, j, false, strucspec);
+		}
+	}
+
+}
+
+function indexAllAssociation(assoc, cindex, byid, collections) {
+	if (!assoc) return;
+	if (byid) {
+		for (var key in assoc.keys) {
+			indexAllAssocItems(list[key], collections[key], cindex, true);
+		}
+	} else {
+		for (var j = 1; j <= assoc.length; j++) {
+pause
+			indexAllAssocItems(assoc[j], collections[j], cindex, false);
+		}
+	}
+}
+
+
+function indexAllAssocItems(list, collection, cindex, byid) {
+	for (var t = 1; t <= list.length; t++) {
+		var pt = list[t];
+		if (!byid) pt = pt + 1;
+		var item = collection[pt];
+		item._cindex = cindex;
+		if (item.representations) {
+			for (var i = 1; i <= item.representations.length; i++) {
+				var r = item.representations[i];
+				if (r.data) continue;
+				r._cindex = cindex;
+				r.ref._index = r._index;
+				r.ref._kind = r._kind;
+				r.ref._rep = r._rep;
+				r.ref._cindex = cindex;
+			}
+		}
+	}
+}
+
+function indexReps(kind, list, byid) {
+	if (!list) return;
+	if (byid) {
+		for (var item in list) {
+			indexAllItems(item, kind, item.id);
+		}
+	} else {
+		for (var j = 1; j <= list.length; j++) {
+			indexAllItems(list[j], kind, j);
+		}
+	}
+}
+
+function indexAllItems(item, kind, index) {
+	item._index = index;
+	item._kind = kind;
+	if (item.representations) {
+		for (var i = 1; i <= item.representations.length; i++) {
+			var r = item.representations[i];
+			if (r.data) continue;
+			r._index = index;
+			r._rep = i;
+			r._kind = kind;
+		}
+	}
+}
+
+
+function getItem(fa, item) {
+	if (!item) return;
+	var c = fa._collections[item._kind];
+	if (!c) return null;
+	return c[item._index]; 	
+}
+
+function getItemReps(fa, item) {
+	var ci = getItem(fa, item);
+	if (!ci) return null;
+	if (!item._rep) return ci.representations;
+	return [ci.representations[item._rep]];
+}
+
+function getItemRepList(fa, items) {
+	var a = [];
+	for (var i = 1; i <= items.length; i++) {
+		if (items[i]) {
+			a += getItemReps(fa, items[i]);
+		}
+	}
+	return a;
+}
+
+function findStructuresLike(fa, key, val) {
+	indexFA(fa);
+	var query = "where _kind='structures' and "+ key + " like '*" + val + "*'";
+	var list = fa._repList.select(query);
+	return getItemRepList(fa, list);
+} 
+
+function findSpectraLike(fa, key, val) {
+	indexFA(fa);
+	var query = "where _kind='spectra' and "+ key + " like '*" + val + "*'";
+	var list = fa._repList.select(query);
+	return getItemRepList(fa, list);
+} 
+
+function findAllItemsLike(fa, key, val) {
+	indexFA(fa);
+	var query = "where "+ key + " like '" + val + "'";
+	var list = fa._repList.select(query);
+	return getItemRepList(fa, list);
+} 
+
+
+fa = getFindingAid("c:/temp/iupac/crawler/10.14469_hpc_10386/IFD.findingaid.json");
+
+//ret = findAllItemsLike(fa, "mediaType", "*mol*");
+
+//ret = findStructuresLike(fa, "mediaType", "*mol*");
+
+//ret = findSpectraLike(fa, "properties.expt_nucl1", "13C");
+
+
+//print ret.select("(ref)").select("(localName)").format("JSON");
+
+
+c = getCollections(fa).spectra
+print c.select("wherein ref.localName like '*zip'")
+//print c.select("wherein ref.localName like '*zip'")[1]
+
+
+
+/**
+
+structures|spectra|compounds] where [fields|properties|attributes].[<keys>] [is<values>|is not<values>|like<input>|not like<input>] 
+                              [and|or] [fields|properties|attributes].[<keys] [not|] [is<values>|like<input>] 
+                              ...
+[and]
+[structures|spectra|compounds] where [fields|properties|attributes].[<keys>] [not|] [is<values>|like<input>] 
+                              [and|or] [fields|properties|attributes].[<keys>] [not|] [is<values>|like<input>] 
+                              ...
+
+
+

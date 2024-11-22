@@ -93,7 +93,7 @@ public class DOICrawler extends FindingAidCreator {
 	public interface DOICustomizer {
 
 		boolean customizeText(String key, String val);
-		String customizeKey(String key);
+		String customizeSubjectKey(String key);
 		boolean ignoreURL(String url);
 		
 	}
@@ -111,7 +111,7 @@ public class DOICrawler extends FindingAidCreator {
 
 	protected final static String DOWNLOAD_TYPES = ";zip;jdx;png;pdf;a2r;jpg;jpeg;cdxml;mol;cif;xls;xlsx;mnova;mnpub;";
 	public final static String DATACITE_METADATA = "https://data.datacite.org/application/vnd.datacite.datacite+xml/";
-	public final static String FAIRSPEC_SCHEME_URI = "http://iupac.org/ifd";
+	public final static String IFD_SCHEME_URI = "http://iupac.org/ifd";
 	public final static String FAIRDATA_SUBJECT_SCHEME = "IFD";
 
 	protected static final String DOI_ORG = DOIInfoExtractor.DOI_ORG;
@@ -244,7 +244,7 @@ public class DOICrawler extends FindingAidCreator {
 	/**
 	 * the current doiRecord during XML parsing
 	 */
-	private DoiRecord doiRecord;
+	DoiRecord doiRecord;
 
 	private int nReps;
 
@@ -393,13 +393,15 @@ public class DOICrawler extends FindingAidCreator {
 		}
 
 		private void addSubject(Map<String, String> attrs, String s) {
+// proposed plan:
+//
 //			<subjects>
 //			    <subject 
-//			schemeURI="http://iupac.org/ifd" 
 //			subjectScheme="IFD" 
+//			schemeURI="http://iupac.org/ifd" 
 //			valueURI="http://iupac.org/ifd/IFD.compound.id">21</subject>
 //			</subjects>
-	//
+//
 			String key = attrs.get("subjectscheme");
 			if (key == null) {
 				crawler.customizeText("subject", s);
@@ -407,12 +409,12 @@ public class DOICrawler extends FindingAidCreator {
 				switch (key) {
 				case FAIRDATA_SUBJECT_SCHEME:
 					key = attrs.get("valueuri");
-					if (key.startsWith(FAIRSPEC_SCHEME_URI)) {
+					if (key.startsWith(IFD_SCHEME_URI)) {
 						key = key.substring(key.lastIndexOf('/') + 1);
 					}
 					break;
 				default:
-					key = customizeKey(key);
+					key = customizeSubectKey(key);
 					break;
 				}
 				if (key.startsWith(FAIRSPEC_DATAOBJECT_FLAG)) {
@@ -424,8 +426,8 @@ public class DOICrawler extends FindingAidCreator {
 			}
 		}
 
-		private String customizeKey(String key) {
-			return (customizer == null ? key : customizer.customizeKey(key));
+		private String customizeSubectKey(String key) {
+			return (customizer == null ? key : customizer.customizeSubjectKey(key));
 		}
 
 		
@@ -602,7 +604,7 @@ public class DOICrawler extends FindingAidCreator {
 			String url = DOI_ORG + s;
 			if (ignoreURL(url))
 				return false;
-			DoiRecord doiRecord = new DoiRecord(thisCompoundID, url, dataDir.toString(), sfile);
+			DoiRecord doiRecord = new DoiRecord(thisCompoundID, url, null, null);
 			addRecord(doiRecord);
 			if (doi.equals(dataCiteMetadataURL)) {
 				doiRecord.type = DOI_TOP;	
