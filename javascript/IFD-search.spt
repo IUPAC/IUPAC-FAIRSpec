@@ -213,13 +213,8 @@ function getKeysAndValues(props, keyVals) {
 			 kv = {};
 			 keyVals[key] = kv;
 			 kv[val] = 0;
-
-print kv.format("JSON")
-
-
 		}
-		kv[val] = kv[val] + 1;
-print kv.format("JSON")
+		kv[val] = 1 + kv[val];
 	}
 }
 
