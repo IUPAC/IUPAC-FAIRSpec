@@ -1,0 +1,558 @@
+Extractor.runExtraction output to c:\temp\iupac\stolaf\..\stolaf-ifd
+Extractor.runExtraction 0 c:/temp/iupac/stolaf/IFD-extract.json
+test 0: !Extractor
+ ifdExtractScriptFIle= c:\temp\iupac\stolaf\IFD-extract.json
+ localsourceArchive = null
+ targetDir = c:\temp\iupac\stolaf\..\stolaf-ifd\stolaf
+test 0: !Extracting c:\temp\iupac\stolaf\IFD-extract.json
+test 0: 0.0.4-alpha+2202.11.28
+test 0: !example = aggregation Bruker student data St. Olaf College
+test 0: !IFD.property.collectionset.source_data_license_uri = https://creativecommons.org/licenses/by-nc/4.0
+test 0: !IFD.property.collectionset.source_data_license_name = cc-by-nc-4.0
+test 0: !IFD.property.collectionset.source_data_uri = ./
+test 0: !FAIRSpec.extractor.options = 
+test 0: !FAIRSpec.extractor.related_metadata = IFD_METADATA
+test 0: !FAIRSpec.extractor.object = {IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*/*}/}
+test 0: !Extractor.ObjectParser pattern: ^(?<IFD0representation0dataobject0fairspec0nmr0vendor1dataset>(?<IFD0property0dataobject0id>[^|/]+\Q/\E[^|/]+)\Q/\E)$
+test 0: !IFD.property.collectionset.byid = true
+test 0: !IFD.property.collectionset.source_data_uri = ./structures/
+test 0: !NOTE: local source directory does not exist (ignored): ./structures/ -- Extractor.phase1CheckSource  
+test 0: !FAIRSpec.extractor.object = {IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}.cdxml}
+test 0: !FAIRSpec.extractor.object = {IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::*}/{IFD.property.structure.id::*}.cdxml}
+test 0: !FAIRSpec.extractor.object = {IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}.cdx}
+test 0: !FAIRSpec.extractor.object = {IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::*}/{IFD.property.structure.id::*}.cdx}
+test 0: !IFD.property.collectionset.source_data_uri = ./structures.zip
+test 0: !NOTE: local source directory does not exist (ignored): ./structures.zip -- Extractor.phase1CheckSource  
+test 0: !FAIRSpec.extractor.object = {IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}.cdxml}
+test 0: !FAIRSpec.extractor.object = {IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::*}/{IFD.property.structure.id::*}.cdxml}
+test 0: !FAIRSpec.extractor.object = {IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}.cdx}
+test 0: !FAIRSpec.extractor.object = {IFD.representation.structure.cdxml::{IFD.property.fairspec.compound.id::*}/{IFD.property.structure.id::*}.cdx}
+test 0: 1 extractor regex strings
+test 0: !license: cc-by-nc-4.0 at https://creativecommons.org/licenses/by-nc/4.0
+test 0: =====
+test 0: extractObjects to c:\temp\iupac\stolaf\..\stolaf-ifd\stolaf
+test 0: !cleaning directory stolaf
+test 0: !retrieving file:/c:/temp/iupac/stolaf/
+test 0: Phase 2.1 checking zip directory: 1 chem-synthesis-summer-a-team1/
+test 0: Phase 2.1 checking zip directory: 2 chem-synthesis-summer-a-team1/nmr/
+test 0: Phase 2.1 checking zip directory: 3 chem-synthesis-summer-a-team1/nmr/Aug03-2023/
+test 0: Phase 2.1 checking zip directory: 4 chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295510/
+test 0: Phase 2.1 checking zip directory: 11 chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295510/pdata/
+test 0: Phase 2.1 checking zip directory: 12 chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295510/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295510/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295510/ :as::chem-synthesis-summer-a-team1_nmr_Aug03-2023_1295510.zip]]
+test 0: Phase 2.1 checking zip directory: 38 chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295610/
+test 0: Phase 2.1 checking zip directory: 46 chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295610/pdata/
+test 0: Phase 2.1 checking zip directory: 47 chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295610/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295610/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295610/ :as::chem-synthesis-summer-a-team1_nmr_Aug03-2023_1295610.zip]]
+test 0: Phase 2.1 checking zip directory: 73 chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295810/
+test 0: Phase 2.1 checking zip directory: 80 chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295810/pdata/
+test 0: Phase 2.1 checking zip directory: 81 chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295810/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295810/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295810/ :as::chem-synthesis-summer-a-team1_nmr_Aug03-2023_1295810.zip]]
+test 0: Phase 2.1 checking zip directory: 107 chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295910/
+test 0: Phase 2.1 checking zip directory: 115 chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295910/pdata/
+test 0: Phase 2.1 checking zip directory: 116 chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295910/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295910/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295910/ :as::chem-synthesis-summer-a-team1_nmr_Aug03-2023_1295910.zip]]
+test 0: Phase 2.1 checking zip directory: 146 chem-synthesis-summer-a-team1/nmr/Jul20-2023/
+test 0: Phase 2.1 checking zip directory: 147 chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257110/
+test 0: Phase 2.1 checking zip directory: 154 chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257110/pdata/
+test 0: Phase 2.1 checking zip directory: 155 chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257110/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257110/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257110/ :as::chem-synthesis-summer-a-team1_nmr_Jul20-2023_1257110.zip]]
+test 0: Phase 2.1 checking zip directory: 181 chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257210/
+test 0: Phase 2.1 checking zip directory: 189 chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257210/pdata/
+test 0: Phase 2.1 checking zip directory: 190 chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257210/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257210/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257210/ :as::chem-synthesis-summer-a-team1_nmr_Jul20-2023_1257210.zip]]
+test 0: Phase 2.1 checking zip directory: 216 chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257310/
+test 0: Phase 2.1 checking zip directory: 223 chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257310/pdata/
+test 0: Phase 2.1 checking zip directory: 224 chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257310/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257310/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257310/ :as::chem-synthesis-summer-a-team1_nmr_Jul20-2023_1257310.zip]]
+test 0: Phase 2.1 checking zip directory: 250 chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257410/
+test 0: Phase 2.1 checking zip directory: 258 chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257410/pdata/
+test 0: Phase 2.1 checking zip directory: 259 chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257410/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257410/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team1/nmr/Jul20-2023/1257410/ :as::chem-synthesis-summer-a-team1_nmr_Jul20-2023_1257410.zip]]
+test 0: Phase 2.1 checking zip directory: 285 chem-synthesis-summer-a-team1/nmr/Jul25-2023/
+test 0: Phase 2.1 checking zip directory: 286 chem-synthesis-summer-a-team1/nmr/Jul25-2023/1265010/
+test 0: Phase 2.1 checking zip directory: 294 chem-synthesis-summer-a-team1/nmr/Jul25-2023/1265010/pdata/
+test 0: Phase 2.1 checking zip directory: 295 chem-synthesis-summer-a-team1/nmr/Jul25-2023/1265010/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team1/nmr/Jul25-2023/1265010/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team1/nmr/Jul25-2023/1265010/ :as::chem-synthesis-summer-a-team1_nmr_Jul25-2023_1265010.zip]]
+test 0: Phase 2.1 checking zip directory: 321 chem-synthesis-summer-a-team1/nmr/Jul25-2023/1265110/
+test 0: Phase 2.1 checking zip directory: 328 chem-synthesis-summer-a-team1/nmr/Jul25-2023/1265110/pdata/
+test 0: Phase 2.1 checking zip directory: 329 chem-synthesis-summer-a-team1/nmr/Jul25-2023/1265110/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team1/nmr/Jul25-2023/1265110/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team1/nmr/Jul25-2023/1265110/ :as::chem-synthesis-summer-a-team1_nmr_Jul25-2023_1265110.zip]]
+test 0: !Jmol The Resolver thinks Mol
+test 0: !Jmol filtering with ;NO3D;NOHYDROGEN;
+test 0: !Jmol C1=CC=C(C)C=C1C(N(CC)CC)=O
+JME 2015-12-06 Tue Aug 08 10:46:39 GMT-500 2023
+test 0: !Jmol C1=CC=C(C)C=C1C(N(CC)CC)=O
+test 0: !Jmol This model is 2D. Its 3D structure has not been generated; use LOAD "" FILTER "2D" to optimize 3D.
+test 0: !Jmol #jmolScript: select thismodel;wireframe only
+test 0: !Jmol reading 14 atoms
+test 0: !Jmol ModelSet: haveSymmetry:false haveUnitcells:false haveFractionalCoord:false
+test 0: !Jmol 1 model in this collection. Use getProperty "modelInfo" or getProperty "auxiliaryInfo" to inspect them.
+test 0: !Jmol Default Van der Waals type for model set to Babel
+test 0: !Jmol 14 atoms created
+test 0: !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
+test 0: !Jmol Time for creating model: 5 ms
+test 0: Phase 2.1 checking zip directory: 356 chem-synthesis-summer-a-team1/nmr/Jul27-2023/
+test 0: Phase 2.1 checking zip directory: 357 chem-synthesis-summer-a-team1/nmr/Jul27-2023/1273510/
+test 0: Phase 2.1 checking zip directory: 364 chem-synthesis-summer-a-team1/nmr/Jul27-2023/1273510/pdata/
+test 0: Phase 2.1 checking zip directory: 365 chem-synthesis-summer-a-team1/nmr/Jul27-2023/1273510/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team1/nmr/Jul27-2023/1273510/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team1/nmr/Jul27-2023/1273510/ :as::chem-synthesis-summer-a-team1_nmr_Jul27-2023_1273510.zip]]
+test 0: Phase 2.1 checking zip directory: 397 chem-synthesis-summer-a-team1/nmr/Jul27-2023/1273610/
+test 0: Phase 2.1 checking zip directory: 405 chem-synthesis-summer-a-team1/nmr/Jul27-2023/1273610/pdata/
+test 0: Phase 2.1 checking zip directory: 406 chem-synthesis-summer-a-team1/nmr/Jul27-2023/1273610/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team1/nmr/Jul27-2023/1273610/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team1/nmr/Jul27-2023/1273610/ :as::chem-synthesis-summer-a-team1_nmr_Jul27-2023_1273610.zip]]
+test 0: Phase 2.1 checking zip directory: 432 chem-synthesis-summer-a-team1/nmr/Jul27-2023/1274210/
+test 0: Phase 2.1 checking zip directory: 443 chem-synthesis-summer-a-team1/nmr/Jul27-2023/1274210/pdata/
+test 0: Phase 2.1 checking zip directory: 444 chem-synthesis-summer-a-team1/nmr/Jul27-2023/1274210/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team1/nmr/Jul27-2023/1274210/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team1/nmr/Jul27-2023/1274210/ :as::chem-synthesis-summer-a-team1_nmr_Jul27-2023_1274210.zip]]
+test 0: Phase 2.1 checking zip directory: 468 chem-synthesis-summer-a-team1/nmr/Jul27-2023/1274410/
+test 0: Phase 2.1 checking zip directory: 475 chem-synthesis-summer-a-team1/nmr/Jul27-2023/1274410/pdata/
+test 0: Phase 2.1 checking zip directory: 476 chem-synthesis-summer-a-team1/nmr/Jul27-2023/1274410/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team1/nmr/Jul27-2023/1274410/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team1/nmr/Jul27-2023/1274410/ :as::chem-synthesis-summer-a-team1_nmr_Jul27-2023_1274410.zip]]
+test 0: !Jmol The Resolver thinks Mol
+test 0: !Jmol filtering with ;NO3D;NOHYDROGEN;
+test 0: !Jmol C1=CC=C(C)C=C1C(N(CC)CC)=O
+JME 2015-12-06 Tue Aug 08 10:57:55 GMT-500 2023
+test 0: !Jmol C1=CC=C(C)C=C1C(N(CC)CC)=O
+test 0: !Jmol This model is 2D. Its 3D structure has not been generated; use LOAD "" FILTER "2D" to optimize 3D.
+test 0: !Jmol #jmolScript: select thismodel;wireframe only
+test 0: !Jmol reading 14 atoms
+test 0: !Jmol ModelSet: haveSymmetry:false haveUnitcells:false haveFractionalCoord:false
+test 0: !Jmol 1 model in this collection. Use getProperty "modelInfo" or getProperty "auxiliaryInfo" to inspect them.
+test 0: !Jmol Default Van der Waals type for model set to Babel
+test 0: !Jmol 14 atoms created
+test 0: !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
+test 0: !Jmol Time for creating model: 2 ms
+test 0: Phase 2.1 checking zip directory: 509 chem-synthesis-summer-a-team2/
+test 0: Phase 2.1 checking zip directory: 510 chem-synthesis-summer-a-team2/nmr/
+test 0: Phase 2.1 checking zip directory: 511 chem-synthesis-summer-a-team2/nmr/Aug01-2023/
+test 0: Phase 2.1 checking zip directory: 512 chem-synthesis-summer-a-team2/nmr/Aug01-2023/1284810/
+test 0: Phase 2.1 checking zip directory: 523 chem-synthesis-summer-a-team2/nmr/Aug01-2023/1284810/pdata/
+test 0: Phase 2.1 checking zip directory: 524 chem-synthesis-summer-a-team2/nmr/Aug01-2023/1284810/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team2/nmr/Aug01-2023/1284810/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team2/nmr/Aug01-2023/1284810/ :as::chem-synthesis-summer-a-team2_nmr_Aug01-2023_1284810.zip]]
+test 0: Phase 2.1 checking zip directory: 548 chem-synthesis-summer-a-team2/nmr/Aug03-2023/
+test 0: Phase 2.1 checking zip directory: 549 chem-synthesis-summer-a-team2/nmr/Aug03-2023/1294810/
+test 0: Phase 2.1 checking zip directory: 556 chem-synthesis-summer-a-team2/nmr/Aug03-2023/1294810/pdata/
+test 0: Phase 2.1 checking zip directory: 557 chem-synthesis-summer-a-team2/nmr/Aug03-2023/1294810/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team2/nmr/Aug03-2023/1294810/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team2/nmr/Aug03-2023/1294810/ :as::chem-synthesis-summer-a-team2_nmr_Aug03-2023_1294810.zip]]
+test 0: Phase 2.1 checking zip directory: 583 chem-synthesis-summer-a-team2/nmr/Aug03-2023/1294910/
+test 0: Phase 2.1 checking zip directory: 591 chem-synthesis-summer-a-team2/nmr/Aug03-2023/1294910/pdata/
+test 0: Phase 2.1 checking zip directory: 592 chem-synthesis-summer-a-team2/nmr/Aug03-2023/1294910/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team2/nmr/Aug03-2023/1294910/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team2/nmr/Aug03-2023/1294910/ :as::chem-synthesis-summer-a-team2_nmr_Aug03-2023_1294910.zip]]
+test 0: Phase 2.1 checking zip directory: 618 chem-synthesis-summer-a-team2/nmr/Aug03-2023/1295710/
+test 0: Phase 2.1 checking zip directory: 625 chem-synthesis-summer-a-team2/nmr/Aug03-2023/1295710/pdata/
+test 0: Phase 2.1 checking zip directory: 626 chem-synthesis-summer-a-team2/nmr/Aug03-2023/1295710/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team2/nmr/Aug03-2023/1295710/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team2/nmr/Aug03-2023/1295710/ :as::chem-synthesis-summer-a-team2_nmr_Aug03-2023_1295710.zip]]
+test 0: Phase 2.1 checking zip directory: 652 chem-synthesis-summer-a-team2/nmr/Jul20-2023/
+test 0: Phase 2.1 checking zip directory: 653 chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258110/
+test 0: Phase 2.1 checking zip directory: 660 chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258110/pdata/
+test 0: Phase 2.1 checking zip directory: 661 chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258110/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258110/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258110/ :as::chem-synthesis-summer-a-team2_nmr_Jul20-2023_1258110.zip]]
+test 0: Phase 2.1 checking zip directory: 687 chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258210/
+test 0: Phase 2.1 checking zip directory: 695 chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258210/pdata/
+test 0: Phase 2.1 checking zip directory: 696 chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258210/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258210/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258210/ :as::chem-synthesis-summer-a-team2_nmr_Jul20-2023_1258210.zip]]
+test 0: Phase 2.1 checking zip directory: 722 chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258310/
+test 0: Phase 2.1 checking zip directory: 729 chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258310/pdata/
+test 0: Phase 2.1 checking zip directory: 730 chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258310/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258310/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258310/ :as::chem-synthesis-summer-a-team2_nmr_Jul20-2023_1258310.zip]]
+test 0: Phase 2.1 checking zip directory: 756 chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258410/
+test 0: Phase 2.1 checking zip directory: 764 chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258410/pdata/
+test 0: Phase 2.1 checking zip directory: 765 chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258410/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258410/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team2/nmr/Jul20-2023/1258410/ :as::chem-synthesis-summer-a-team2_nmr_Jul20-2023_1258410.zip]]
+test 0: Phase 2.1 checking zip directory: 791 chem-synthesis-summer-a-team2/nmr/Jul23-2023/
+test 0: Phase 2.1 checking zip directory: 792 chem-synthesis-summer-a-team2/nmr/Jul23-2023/1262610/
+test 0: Phase 2.1 checking zip directory: 799 chem-synthesis-summer-a-team2/nmr/Jul23-2023/1262610/pdata/
+test 0: Phase 2.1 checking zip directory: 800 chem-synthesis-summer-a-team2/nmr/Jul23-2023/1262610/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team2/nmr/Jul23-2023/1262610/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team2/nmr/Jul23-2023/1262610/ :as::chem-synthesis-summer-a-team2_nmr_Jul23-2023_1262610.zip]]
+test 0: Phase 2.1 checking zip directory: 826 chem-synthesis-summer-a-team2/nmr/Jul23-2023/1262710/
+test 0: Phase 2.1 checking zip directory: 834 chem-synthesis-summer-a-team2/nmr/Jul23-2023/1262710/pdata/
+test 0: Phase 2.1 checking zip directory: 835 chem-synthesis-summer-a-team2/nmr/Jul23-2023/1262710/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team2/nmr/Jul23-2023/1262710/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team2/nmr/Jul23-2023/1262710/ :as::chem-synthesis-summer-a-team2_nmr_Jul23-2023_1262710.zip]]
+test 0: Phase 2.1 checking zip directory: 861 chem-synthesis-summer-a-team2/nmr/Jul25-2023/
+test 0: Phase 2.1 checking zip directory: 862 chem-synthesis-summer-a-team2/nmr/Jul25-2023/1265210/
+test 0: Phase 2.1 checking zip directory: 869 chem-synthesis-summer-a-team2/nmr/Jul25-2023/1265210/pdata/
+test 0: Phase 2.1 checking zip directory: 870 chem-synthesis-summer-a-team2/nmr/Jul25-2023/1265210/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team2/nmr/Jul25-2023/1265210/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team2/nmr/Jul25-2023/1265210/ :as::chem-synthesis-summer-a-team2_nmr_Jul25-2023_1265210.zip]]
+test 0: Phase 2.1 checking zip directory: 896 chem-synthesis-summer-a-team2/nmr/Jul27-2023/
+test 0: Phase 2.1 checking zip directory: 897 chem-synthesis-summer-a-team2/nmr/Jul27-2023/1273710/
+test 0: Phase 2.1 checking zip directory: 904 chem-synthesis-summer-a-team2/nmr/Jul27-2023/1273710/pdata/
+test 0: Phase 2.1 checking zip directory: 905 chem-synthesis-summer-a-team2/nmr/Jul27-2023/1273710/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team2/nmr/Jul27-2023/1273710/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team2/nmr/Jul27-2023/1273710/ :as::chem-synthesis-summer-a-team2_nmr_Jul27-2023_1273710.zip]]
+test 0: Phase 2.1 checking zip directory: 943 chem-synthesis-summer-a-team2/nmr/Jul27-2023/1273910/
+test 0: Phase 2.1 checking zip directory: 951 chem-synthesis-summer-a-team2/nmr/Jul27-2023/1273910/pdata/
+test 0: Phase 2.1 checking zip directory: 952 chem-synthesis-summer-a-team2/nmr/Jul27-2023/1273910/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team2/nmr/Jul27-2023/1273910/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team2/nmr/Jul27-2023/1273910/ :as::chem-synthesis-summer-a-team2_nmr_Jul27-2023_1273910.zip]]
+test 0: Phase 2.1 checking zip directory: 978 chem-synthesis-summer-a-team2/nmr/Jul27-2023/1274510/
+test 0: Phase 2.1 checking zip directory: 985 chem-synthesis-summer-a-team2/nmr/Jul27-2023/1274510/pdata/
+test 0: Phase 2.1 checking zip directory: 986 chem-synthesis-summer-a-team2/nmr/Jul27-2023/1274510/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team2/nmr/Jul27-2023/1274510/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team2/nmr/Jul27-2023/1274510/ :as::chem-synthesis-summer-a-team2_nmr_Jul27-2023_1274510.zip]]
+test 0: Phase 2.1 checking zip directory: 1012 chem-synthesis-summer-a-team2/nmr/Jul27-2023/1274610/
+test 0: Phase 2.1 checking zip directory: 1019 chem-synthesis-summer-a-team2/nmr/Jul27-2023/1274610/pdata/
+test 0: Phase 2.1 checking zip directory: 1020 chem-synthesis-summer-a-team2/nmr/Jul27-2023/1274610/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team2/nmr/Jul27-2023/1274610/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team2/nmr/Jul27-2023/1274610/ :as::chem-synthesis-summer-a-team2_nmr_Jul27-2023_1274610.zip]]
+test 0: Phase 2.1 checking zip directory: 1046 chem-synthesis-summer-a-team3/
+test 0: Phase 2.1 checking zip directory: 1047 chem-synthesis-summer-a-team3/nmr/
+test 0: Phase 2.1 checking zip directory: 1048 chem-synthesis-summer-a-team3/nmr/Aug01-2023/
+test 0: Phase 2.1 checking zip directory: 1049 chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285010/
+test 0: Phase 2.1 checking zip directory: 1056 chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285010/pdata/
+test 0: Phase 2.1 checking zip directory: 1057 chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285010/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285010/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285010/ :as::chem-synthesis-summer-a-team3_nmr_Aug01-2023_1285010.zip]]
+test 0: Phase 2.1 checking zip directory: 1098 chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285210/
+test 0: Phase 2.1 checking zip directory: 1106 chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285210/pdata/
+test 0: Phase 2.1 checking zip directory: 1107 chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285210/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285210/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285210/ :as::chem-synthesis-summer-a-team3_nmr_Aug01-2023_1285210.zip]]
+test 0: Phase 2.1 checking zip directory: 1133 chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285310/
+test 0: Phase 2.1 checking zip directory: 1138 chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285310/pdata/
+test 0: Phase 2.1 checking zip directory: 1139 chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285310/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285310/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285310/ :as::chem-synthesis-summer-a-team3_nmr_Aug01-2023_1285310.zip]]
+test 0: Phase 2.1 checking zip directory: 1148 chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285810/
+test 0: Phase 2.1 checking zip directory: 1159 chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285810/pdata/
+test 0: Phase 2.1 checking zip directory: 1160 chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285810/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285810/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Aug01-2023/1285810/ :as::chem-synthesis-summer-a-team3_nmr_Aug01-2023_1285810.zip]]
+test 0: Phase 2.1 checking zip directory: 1184 chem-synthesis-summer-a-team3/nmr/Aug03-2023/
+test 0: Phase 2.1 checking zip directory: 1185 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1295310/
+test 0: Phase 2.1 checking zip directory: 1192 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1295310/pdata/
+test 0: Phase 2.1 checking zip directory: 1193 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1295310/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Aug03-2023/1295310/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Aug03-2023/1295310/ :as::chem-synthesis-summer-a-team3_nmr_Aug03-2023_1295310.zip]]
+test 0: !Jmol The Resolver thinks Mol
+test 0: !Jmol filtering with ;NO3D;NOHYDROGEN;
+test 0: !Jmol C1=CC(OC)=CC=C1C#CC2=CC=CC=C2
+JME 2015-12-06 Thu Aug 03 12:12:35 GMT-500 2023
+test 0: !Jmol C1=CC(OC)=CC=C1C#CC2=CC=CC=C2
+test 0: !Jmol This model is 2D. Its 3D structure has not been generated; use LOAD "" FILTER "2D" to optimize 3D.
+test 0: !Jmol #jmolScript: select thismodel;wireframe only
+test 0: !Jmol reading 16 atoms
+test 0: !Jmol ModelSet: haveSymmetry:false haveUnitcells:false haveFractionalCoord:false
+test 0: !Jmol 1 model in this collection. Use getProperty "modelInfo" or getProperty "auxiliaryInfo" to inspect them.
+test 0: !Jmol Default Van der Waals type for model set to Babel
+test 0: !Jmol 16 atoms created
+test 0: !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
+test 0: !Jmol Time for creating model: 2 ms
+test 0: Phase 2.1 checking zip directory: 1233 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1295410/
+test 0: Phase 2.1 checking zip directory: 1241 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1295410/pdata/
+test 0: Phase 2.1 checking zip directory: 1242 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1295410/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Aug03-2023/1295410/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Aug03-2023/1295410/ :as::chem-synthesis-summer-a-team3_nmr_Aug03-2023_1295410.zip]]
+test 0: Phase 2.1 checking zip directory: 1268 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296010/
+test 0: Phase 2.1 checking zip directory: 1276 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296010/pdata/
+test 0: Phase 2.1 checking zip directory: 1277 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296010/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296010/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296010/ :as::chem-synthesis-summer-a-team3_nmr_Aug03-2023_1296010.zip]]
+test 0: Phase 2.1 checking zip directory: 1303 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296110/
+test 0: Phase 2.1 checking zip directory: 1314 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296110/pdata/
+test 0: Phase 2.1 checking zip directory: 1315 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296110/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296110/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296110/ :as::chem-synthesis-summer-a-team3_nmr_Aug03-2023_1296110.zip]]
+test 0: Phase 2.1 checking zip directory: 1339 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296210/
+test 0: Phase 2.1 checking zip directory: 1346 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296210/pdata/
+test 0: Phase 2.1 checking zip directory: 1347 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296210/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296210/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296210/ :as::chem-synthesis-summer-a-team3_nmr_Aug03-2023_1296210.zip]]
+test 0: !Jmol The Resolver thinks Mol
+test 0: !Jmol filtering with ;NO3D;NOHYDROGEN;
+test 0: !Jmol C1=CCC(C(=O)OCC)(C(=O)OCC)C1
+JME 2015-12-06 Fri Aug 04 13:58:22 GMT-500 2023
+test 0: !Jmol C1=CCC(C(=O)OCC)(C(=O)OCC)C1
+test 0: !Jmol This model is 2D. Its 3D structure has not been generated; use LOAD "" FILTER "2D" to optimize 3D.
+test 0: !Jmol #jmolScript: select thismodel;wireframe only
+test 0: !Jmol reading 15 atoms
+test 0: !Jmol ModelSet: haveSymmetry:false haveUnitcells:false haveFractionalCoord:false
+test 0: !Jmol 1 model in this collection. Use getProperty "modelInfo" or getProperty "auxiliaryInfo" to inspect them.
+test 0: !Jmol Default Van der Waals type for model set to Babel
+test 0: !Jmol 15 atoms created
+test 0: !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
+test 0: !Jmol Time for creating model: 1 ms
+test 0: Phase 2.1 checking zip directory: 1374 chem-synthesis-summer-a-team3/nmr/Aug07-2023/
+test 0: Phase 2.1 checking zip directory: 1375 chem-synthesis-summer-a-team3/nmr/Aug07-2023/1297410/
+test 0: Phase 2.1 checking zip directory: 1378 chem-synthesis-summer-a-team3/nmr/Aug07-2023/1297410/pdata/
+test 0: Phase 2.1 checking zip directory: 1379 chem-synthesis-summer-a-team3/nmr/Aug07-2023/1297410/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Aug07-2023/1297410/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Aug07-2023/1297410/ :as::chem-synthesis-summer-a-team3_nmr_Aug07-2023_1297410.zip]]
+test 0: Phase 2.1 checking zip directory: 1387 chem-synthesis-summer-a-team3/nmr/Jul20-2023/
+test 0: Phase 2.1 checking zip directory: 1388 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257510/
+test 0: Phase 2.1 checking zip directory: 1395 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257510/pdata/
+test 0: Phase 2.1 checking zip directory: 1396 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257510/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257510/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257510/ :as::chem-synthesis-summer-a-team3_nmr_Jul20-2023_1257510.zip]]
+test 0: Phase 2.1 checking zip directory: 1428 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257610/
+test 0: Phase 2.1 checking zip directory: 1435 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257610/pdata/
+test 0: Phase 2.1 checking zip directory: 1436 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257610/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257610/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257610/ :as::chem-synthesis-summer-a-team3_nmr_Jul20-2023_1257610.zip]]
+test 0: Phase 2.1 checking zip directory: 1462 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257710/
+test 0: Phase 2.1 checking zip directory: 1469 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257710/pdata/
+test 0: Phase 2.1 checking zip directory: 1470 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257710/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257710/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257710/ :as::chem-synthesis-summer-a-team3_nmr_Jul20-2023_1257710.zip]]
+test 0: Phase 2.1 checking zip directory: 1505 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257810/
+test 0: Phase 2.1 checking zip directory: 1513 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257810/pdata/
+test 0: Phase 2.1 checking zip directory: 1514 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257810/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257810/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257810/ :as::chem-synthesis-summer-a-team3_nmr_Jul20-2023_1257810.zip]]
+test 0: Phase 2.1 checking zip directory: 1540 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257910/
+test 0: Phase 2.1 checking zip directory: 1548 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257910/pdata/
+test 0: Phase 2.1 checking zip directory: 1549 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257910/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257910/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul20-2023/1257910/ :as::chem-synthesis-summer-a-team3_nmr_Jul20-2023_1257910.zip]]
+test 0: Phase 2.1 checking zip directory: 1575 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1258010/
+test 0: Phase 2.1 checking zip directory: 1583 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1258010/pdata/
+test 0: Phase 2.1 checking zip directory: 1584 chem-synthesis-summer-a-team3/nmr/Jul20-2023/1258010/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul20-2023/1258010/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul20-2023/1258010/ :as::chem-synthesis-summer-a-team3_nmr_Jul20-2023_1258010.zip]]
+test 0: Phase 2.1 checking zip directory: 1610 chem-synthesis-summer-a-team3/nmr/Jul25-2023/
+test 0: Phase 2.1 checking zip directory: 1611 chem-synthesis-summer-a-team3/nmr/Jul25-2023/1265310/
+test 0: Phase 2.1 checking zip directory: 1619 chem-synthesis-summer-a-team3/nmr/Jul25-2023/1265310/pdata/
+test 0: Phase 2.1 checking zip directory: 1620 chem-synthesis-summer-a-team3/nmr/Jul25-2023/1265310/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul25-2023/1265310/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul25-2023/1265310/ :as::chem-synthesis-summer-a-team3_nmr_Jul25-2023_1265310.zip]]
+test 0: Phase 2.1 checking zip directory: 1646 chem-synthesis-summer-a-team3/nmr/Jul25-2023/1265510/
+test 0: Phase 2.1 checking zip directory: 1653 chem-synthesis-summer-a-team3/nmr/Jul25-2023/1265510/pdata/
+test 0: Phase 2.1 checking zip directory: 1654 chem-synthesis-summer-a-team3/nmr/Jul25-2023/1265510/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul25-2023/1265510/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul25-2023/1265510/ :as::chem-synthesis-summer-a-team3_nmr_Jul25-2023_1265510.zip]]
+test 0: Phase 2.1 checking zip directory: 1680 chem-synthesis-summer-a-team3/nmr/Jul25-2023/1268810/
+test 0: Phase 2.1 checking zip directory: 1687 chem-synthesis-summer-a-team3/nmr/Jul25-2023/1268810/pdata/
+test 0: Phase 2.1 checking zip directory: 1688 chem-synthesis-summer-a-team3/nmr/Jul25-2023/1268810/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul25-2023/1268810/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul25-2023/1268810/ :as::chem-synthesis-summer-a-team3_nmr_Jul25-2023_1268810.zip]]
+test 0: Phase 2.1 checking zip directory: 1714 chem-synthesis-summer-a-team3/nmr/Jul25-2023/1268910/
+test 0: Phase 2.1 checking zip directory: 1722 chem-synthesis-summer-a-team3/nmr/Jul25-2023/1268910/pdata/
+test 0: Phase 2.1 checking zip directory: 1723 chem-synthesis-summer-a-team3/nmr/Jul25-2023/1268910/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul25-2023/1268910/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul25-2023/1268910/ :as::chem-synthesis-summer-a-team3_nmr_Jul25-2023_1268910.zip]]
+test 0: Phase 2.1 checking zip directory: 1749 chem-synthesis-summer-a-team3/nmr/Jul26-2023/
+test 0: Phase 2.1 checking zip directory: 1750 chem-synthesis-summer-a-team3/nmr/Jul26-2023/1273110/
+test 0: Phase 2.1 checking zip directory: 1758 chem-synthesis-summer-a-team3/nmr/Jul26-2023/1273110/pdata/
+test 0: Phase 2.1 checking zip directory: 1759 chem-synthesis-summer-a-team3/nmr/Jul26-2023/1273110/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul26-2023/1273110/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul26-2023/1273110/ :as::chem-synthesis-summer-a-team3_nmr_Jul26-2023_1273110.zip]]
+test 0: Phase 2.1 checking zip directory: 1785 chem-synthesis-summer-a-team3/nmr/Jul26-2023/1273210/
+test 0: Phase 2.1 checking zip directory: 1792 chem-synthesis-summer-a-team3/nmr/Jul26-2023/1273210/pdata/
+test 0: Phase 2.1 checking zip directory: 1793 chem-synthesis-summer-a-team3/nmr/Jul26-2023/1273210/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul26-2023/1273210/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul26-2023/1273210/ :as::chem-synthesis-summer-a-team3_nmr_Jul26-2023_1273210.zip]]
+test 0: Phase 2.1 checking zip directory: 1819 chem-synthesis-summer-a-team3/nmr/Jul27-2023/
+test 0: Phase 2.1 checking zip directory: 1820 chem-synthesis-summer-a-team3/nmr/Jul27-2023/1273810/
+test 0: Phase 2.1 checking zip directory: 1827 chem-synthesis-summer-a-team3/nmr/Jul27-2023/1273810/pdata/
+test 0: Phase 2.1 checking zip directory: 1828 chem-synthesis-summer-a-team3/nmr/Jul27-2023/1273810/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul27-2023/1273810/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul27-2023/1273810/ :as::chem-synthesis-summer-a-team3_nmr_Jul27-2023_1273810.zip]]
+test 0: Phase 2.1 checking zip directory: 1854 chem-synthesis-summer-a-team3/nmr/Jul27-2023/1274010/
+test 0: Phase 2.1 checking zip directory: 1862 chem-synthesis-summer-a-team3/nmr/Jul27-2023/1274010/pdata/
+test 0: Phase 2.1 checking zip directory: 1863 chem-synthesis-summer-a-team3/nmr/Jul27-2023/1274010/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul27-2023/1274010/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul27-2023/1274010/ :as::chem-synthesis-summer-a-team3_nmr_Jul27-2023_1274010.zip]]
+test 0: Phase 2.1 checking zip directory: 1887 chem-synthesis-summer-a-team3/nmr/Jul27-2023/1274110/
+test 0: Phase 2.1 checking zip directory: 1898 chem-synthesis-summer-a-team3/nmr/Jul27-2023/1274110/pdata/
+test 0: Phase 2.1 checking zip directory: 1899 chem-synthesis-summer-a-team3/nmr/Jul27-2023/1274110/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul27-2023/1274110/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul27-2023/1274110/ :as::chem-synthesis-summer-a-team3_nmr_Jul27-2023_1274110.zip]]
+test 0: Phase 2.1 checking zip directory: 1923 chem-synthesis-summer-a-team3/nmr/Jul27-2023/1274810/
+test 0: Phase 2.1 checking zip directory: 1930 chem-synthesis-summer-a-team3/nmr/Jul27-2023/1274810/pdata/
+test 0: Phase 2.1 checking zip directory: 1931 chem-synthesis-summer-a-team3/nmr/Jul27-2023/1274810/pdata/1/
+test 0: !rezip pattern found chem-synthesis-summer-a-team3/nmr/Jul27-2023/1274810/ [IFDRepresentation type=null ref=[IFDReference stolaf::chem-synthesis-summer-a-team3/nmr/Jul27-2023/1274810/ :as::chem-synthesis-summer-a-team3_nmr_Jul27-2023_1274810.zip]]
+test 0: Phase 2.1 checking zip directory: 1964 Jun15-20231/
+test 0: Phase 2.1 checking zip directory: 1965 Jun15-20231/1203110/
+test 0: Phase 2.1 checking zip directory: 1973 Jun15-20231/1203110/pdata/
+test 0: Phase 2.1 checking zip directory: 1974 Jun15-20231/1203110/pdata/1/
+test 0: !rezip pattern found Jun15-20231/1203110/ [IFDRepresentation type=null ref=[IFDReference stolaf::Jun15-20231/1203110/ :as::Jun15-20231_1203110.zip]]
+test 0: Phase 2.1 checking zip directory: 1 Jun15-20231/1203110.zip|1203110/
+test 0: Phase 2.1 checking zip directory: 9 Jun15-20231/1203110.zip|1203110/pdata/
+test 0: Phase 2.1 checking zip directory: 10 Jun15-20231/1203110.zip|1203110/pdata/1/
+test 0: !rezip pattern found Jun15-20231/1203110.zip|1203110/ [IFDRepresentation type=null ref=[IFDReference stolaf::Jun15-20231/1203110.zip|1203110/ :as::Jun15-20231_1203110.zip..1203110.zip]]
+test 0: Phase 2.1 checking zip directory: 2003 Jun15-20231/1203310/
+test 0: Phase 2.1 checking zip directory: 2010 Jun15-20231/1203310/pdata/
+test 0: Phase 2.1 checking zip directory: 2011 Jun15-20231/1203310/pdata/1/
+test 0: !rezip pattern found Jun15-20231/1203310/ [IFDRepresentation type=null ref=[IFDReference stolaf::Jun15-20231/1203310/ :as::Jun15-20231_1203310.zip]]
+test 0: Phase 2.1 checking zip directory: 2037 Jun15-20232/
+test 0: Phase 2.1 checking zip directory: 2038 Jun15-20232/1203510/
+test 0: Phase 2.1 checking zip directory: 2045 Jun15-20232/1203510/pdata/
+test 0: Phase 2.1 checking zip directory: 2046 Jun15-20232/1203510/pdata/1/
+test 0: !rezip pattern found Jun15-20232/1203510/ [IFDRepresentation type=null ref=[IFDReference stolaf::Jun15-20232/1203510/ :as::Jun15-20232_1203510.zip]]
+test 0: !Jmol The Resolver thinks Mol
+test 0: !Jmol filtering with ;NO3D;NOHYDROGEN;
+test 0: !Jmol C1=CC(N(=O)=O)=CC=C1C(=O)OC
+JME 2015-12-06 Tue Jul 11 15:00:45 GMT-500 2023
+test 0: !Jmol C1=CC(N(=O)=O)=CC=C1C(=O)OC
+test 0: !Jmol This model is 2D. Its 3D structure has not been generated; use LOAD "" FILTER "2D" to optimize 3D.
+test 0: !Jmol #jmolScript: select thismodel;wireframe only
+test 0: !Jmol reading 13 atoms
+test 0: !Jmol ModelSet: haveSymmetry:false haveUnitcells:false haveFractionalCoord:false
+test 0: !Jmol 1 model in this collection. Use getProperty "modelInfo" or getProperty "auxiliaryInfo" to inspect them.
+test 0: !Jmol Default Van der Waals type for model set to Babel
+test 0: !Jmol 13 atoms created
+test 0: !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
+test 0: !Jmol Time for creating model: 5 ms
+test 0: Phase 2.1 checking zip directory: 2085 Jun15-20233/
+test 0: Phase 2.1 checking zip directory: 2086 Jun15-20233/1203410/
+test 0: Phase 2.1 checking zip directory: 2093 Jun15-20233/1203410/pdata/
+test 0: Phase 2.1 checking zip directory: 2094 Jun15-20233/1203410/pdata/1/
+test 0: !rezip pattern found Jun15-20233/1203410/ [IFDRepresentation type=null ref=[IFDReference stolaf::Jun15-20233/1203410/ :as::Jun15-20233_1203410.zip]]
+test 0: !Jmol The Resolver thinks Mol
+test 0: !Jmol filtering with ;NO3D;NOHYDROGEN;
+test 0: !Jmol C1=CC(C)=CC=C1NC(C)=O
+JME 2015-12-06 Tue Jul 11 15:06:23 GMT-500 2023
+test 0: !Jmol C1=CC(C)=CC=C1NC(C)=O
+test 0: !Jmol This model is 2D. Its 3D structure has not been generated; use LOAD "" FILTER "2D" to optimize 3D.
+test 0: !Jmol #jmolScript: select thismodel;wireframe only
+test 0: !Jmol reading 11 atoms
+test 0: !Jmol ModelSet: haveSymmetry:false haveUnitcells:false haveFractionalCoord:false
+test 0: !Jmol 1 model in this collection. Use getProperty "modelInfo" or getProperty "auxiliaryInfo" to inspect them.
+test 0: !Jmol Default Van der Waals type for model set to Babel
+test 0: !Jmol 11 atoms created
+test 0: !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
+test 0: !Jmol Time for creating model: 1 ms
+test 0: Phase 2.1 checking zip directory: 2121 Jun15-20234/
+test 0: Phase 2.1 checking zip directory: 2122 Jun15-20234/1203610/
+test 0: Phase 2.1 checking zip directory: 2129 Jun15-20234/1203610/pdata/
+test 0: Phase 2.1 checking zip directory: 2130 Jun15-20234/1203610/pdata/1/
+test 0: !rezip pattern found Jun15-20234/1203610/ [IFDRepresentation type=null ref=[IFDReference stolaf::Jun15-20234/1203610/ :as::Jun15-20234_1203610.zip]]
+test 0: !Jmol The Resolver thinks Mol
+test 0: !Jmol filtering with ;NO3D;NOHYDROGEN;
+test 0: !Jmol C1=CC(N(=O)=O)=CC=C1C(=O)OC
+JME 2015-12-06 Tue Jul 11 14:59:18 GMT-500 2023
+test 0: !Jmol C1=CC(N(=O)=O)=CC=C1C(=O)OC
+test 0: !Jmol This model is 2D. Its 3D structure has not been generated; use LOAD "" FILTER "2D" to optimize 3D.
+test 0: !Jmol #jmolScript: select thismodel;wireframe only
+test 0: !Jmol reading 13 atoms
+test 0: !Jmol ModelSet: haveSymmetry:false haveUnitcells:false haveFractionalCoord:false
+test 0: !Jmol 1 model in this collection. Use getProperty "modelInfo" or getProperty "auxiliaryInfo" to inspect them.
+test 0: !Jmol Default Van der Waals type for model set to Babel
+test 0: !Jmol 13 atoms created
+test 0: !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
+test 0: !Jmol Time for creating model: 1 ms
+test 0: Phase 2.1 checking zip directory: 2166 Jun15-20234/1203710/
+test 0: Phase 2.1 checking zip directory: 2175 Jun15-20234/1203710/pdata/
+test 0: Phase 2.1 checking zip directory: 2176 Jun15-20234/1203710/pdata/1/
+test 0: !rezip pattern found Jun15-20234/1203710/ [IFDRepresentation type=null ref=[IFDReference stolaf::Jun15-20234/1203710/ :as::Jun15-20234_1203710.zip]]
+test 0: Phase 2.1 checking zip directory: 2209 Jun15-20236/
+test 0: Phase 2.1 checking zip directory: 2210 Jun15-20236/1203010/
+test 0: Phase 2.1 checking zip directory: 2213 Jun15-20236/1203010/pdata/
+test 0: Phase 2.1 checking zip directory: 2214 Jun15-20236/1203010/pdata/1/
+test 0: !rezip pattern found Jun15-20236/1203010/ [IFDRepresentation type=null ref=[IFDReference stolaf::Jun15-20236/1203010/ :as::Jun15-20236_1203010.zip]]
+test 0: Phase 2.1 checking zip directory: 2219 Jun15-20236/1203210/
+test 0: Phase 2.1 checking zip directory: 2226 Jun15-20236/1203210/pdata/
+test 0: Phase 2.1 checking zip directory: 2227 Jun15-20236/1203210/pdata/1/
+test 0: !rezip pattern found Jun15-20236/1203210/ [IFDRepresentation type=null ref=[IFDReference stolaf::Jun15-20236/1203210/ :as::Jun15-20236_1203210.zip]]
+test 0: !Jmol The Resolver thinks Mol
+test 0: !Jmol filtering with ;NO3D;NOHYDROGEN;
+test 0: !Jmol C1=CC(C)=CC=C1NC(C)=O
+JME 2015-12-06 Tue Jul 11 15:07:41 GMT-500 2023
+test 0: !Jmol C1=CC(C)=CC=C1NC(C)=O
+test 0: !Jmol This model is 2D. Its 3D structure has not been generated; use LOAD "" FILTER "2D" to optimize 3D.
+test 0: !Jmol #jmolScript: select thismodel;wireframe only
+test 0: !Jmol reading 11 atoms
+test 0: !Jmol ModelSet: haveSymmetry:false haveUnitcells:false haveFractionalCoord:false
+test 0: !Jmol 1 model in this collection. Use getProperty "modelInfo" or getProperty "auxiliaryInfo" to inspect them.
+test 0: !Jmol Default Van der Waals type for model set to Babel
+test 0: !Jmol 11 atoms created
+test 0: !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
+test 0: !Jmol Time for creating model: 1 ms
+test 0: Phase 2.1 checking zip directory: 2260 Jun20-20231/
+test 0: Phase 2.1 checking zip directory: 2261 Jun20-20231/1210610/
+test 0: Phase 2.1 checking zip directory: 2269 Jun20-20231/1210610/pdata/
+test 0: Phase 2.1 checking zip directory: 2270 Jun20-20231/1210610/pdata/1/
+test 0: !rezip pattern found Jun20-20231/1210610/ [IFDRepresentation type=null ref=[IFDReference stolaf::Jun20-20231/1210610/ :as::Jun20-20231_1210610.zip]]
+test 0: !Jmol The Resolver thinks Mol
+test 0: !Jmol filtering with ;NO3D;NOHYDROGEN;
+test 0: !Jmol O(C1=CC=C(C(=O)O)C=C1)C
+JME 2015-12-06 Tue Jul 11 15:13:09 GMT-500 2023
+test 0: !Jmol O(C1=CC=C(C(=O)O)C=C1)C
+test 0: !Jmol This model is 2D. Its 3D structure has not been generated; use LOAD "" FILTER "2D" to optimize 3D.
+test 0: !Jmol #jmolScript: select thismodel;wireframe only
+test 0: !Jmol reading 11 atoms
+test 0: !Jmol ModelSet: haveSymmetry:false haveUnitcells:false haveFractionalCoord:false
+test 0: !Jmol 1 model in this collection. Use getProperty "modelInfo" or getProperty "auxiliaryInfo" to inspect them.
+test 0: !Jmol Default Van der Waals type for model set to Babel
+test 0: !Jmol 11 atoms created
+test 0: !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
+test 0: !Jmol Time for creating model: 2 ms
+test 0: Phase 2.1 checking zip directory: 2297 Jun20-20232/
+test 0: Phase 2.1 checking zip directory: 2298 Jun20-20232/1210710/
+test 0: Phase 2.1 checking zip directory: 2306 Jun20-20232/1210710/pdata/
+test 0: Phase 2.1 checking zip directory: 2307 Jun20-20232/1210710/pdata/1/
+test 0: !rezip pattern found Jun20-20232/1210710/ [IFDRepresentation type=null ref=[IFDReference stolaf::Jun20-20232/1210710/ :as::Jun20-20232_1210710.zip]]
+test 0: Phase 2.1 checking zip directory: 2333 Jun20-20233/
+test 0: Phase 2.1 checking zip directory: 2334 Jun20-20233/1210510/
+test 0: Phase 2.1 checking zip directory: 2342 Jun20-20233/1210510/pdata/
+test 0: Phase 2.1 checking zip directory: 2343 Jun20-20233/1210510/pdata/1/
+test 0: !rezip pattern found Jun20-20233/1210510/ [IFDRepresentation type=null ref=[IFDReference stolaf::Jun20-20233/1210510/ :as::Jun20-20233_1210510.zip]]
+test 0: Phase 2.1 checking zip directory: 2369 Jun20-20236/
+test 0: Phase 2.1 checking zip directory: 2370 Jun20-20236/1210410/
+test 0: Phase 2.1 checking zip directory: 2379 Jun20-20236/1210410/pdata/
+test 0: Phase 2.1 checking zip directory: 2380 Jun20-20236/1210410/pdata/1/
+test 0: !rezip pattern found Jun20-20236/1210410/ [IFDRepresentation type=null ref=[IFDReference stolaf::Jun20-20236/1210410/ :as::Jun20-20236_1210410.zip]]
+test 0: !Jmol The Resolver thinks Mol
+test 0: !Jmol filtering with ;NO3D;NOHYDROGEN;
+test 0: !Jmol C1=CC(C)=CC=C1NC(C)=O
+JME 2015-12-06 Tue Jul 11 15:08:33 GMT-500 2023
+test 0: !Jmol C1=CC(C)=CC=C1NC(C)=O
+test 0: !Jmol This model is 2D. Its 3D structure has not been generated; use LOAD "" FILTER "2D" to optimize 3D.
+test 0: !Jmol #jmolScript: select thismodel;wireframe only
+test 0: !Jmol reading 11 atoms
+test 0: !Jmol ModelSet: haveSymmetry:false haveUnitcells:false haveFractionalCoord:false
+test 0: !Jmol 1 model in this collection. Use getProperty "modelInfo" or getProperty "auxiliaryInfo" to inspect them.
+test 0: !Jmol Default Van der Waals type for model set to Babel
+test 0: !Jmol 11 atoms created
+test 0: !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
+test 0: !Jmol Time for creating model: 1 ms
+test 0: Phase 2.1 checking zip directory: 2409 Jun27-20235/
+test 0: Phase 2.1 checking zip directory: 2410 Jun27-20235/1226610/
+test 0: Phase 2.1 checking zip directory: 2417 Jun27-20235/1226610/pdata/
+test 0: Phase 2.1 checking zip directory: 2418 Jun27-20235/1226610/pdata/1/
+test 0: !rezip pattern found Jun27-20235/1226610/ [IFDRepresentation type=null ref=[IFDReference stolaf::Jun27-20235/1226610/ :as::Jun27-20235_1226610.zip]]
+test 0: !Jmol The Resolver thinks Mol
+test 0: !Jmol filtering with ;NO3D;NOHYDROGEN;
+test 0: !Jmol C1=CC(C=O)=CC=C1N(C)C
+JME 2015-12-06 Tue Jul 11 15:12:14 GMT-500 2023
+test 0: !Jmol C1=CC(C=O)=CC=C1N(C)C
+test 0: !Jmol This model is 2D. Its 3D structure has not been generated; use LOAD "" FILTER "2D" to optimize 3D.
+test 0: !Jmol #jmolScript: select thismodel;wireframe only
+test 0: !Jmol reading 11 atoms
+test 0: !Jmol ModelSet: haveSymmetry:false haveUnitcells:false haveFractionalCoord:false
+test 0: !Jmol 1 model in this collection. Use getProperty "modelInfo" or getProperty "auxiliaryInfo" to inspect them.
+test 0: !Jmol Default Van der Waals type for model set to Babel
+test 0: !Jmol 11 atoms created
+test 0: !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
+test 0: !Jmol Time for creating model: 1 ms
+test 0: Phase 2.1 checking zip directory: 2451 Jun27-20235/1226810/
+test 0: Phase 2.1 checking zip directory: 2460 Jun27-20235/1226810/pdata/
+test 0: Phase 2.1 checking zip directory: 2461 Jun27-20235/1226810/pdata/1/
+test 0: !rezip pattern found Jun27-20235/1226810/ [IFDRepresentation type=null ref=[IFDReference stolaf::Jun27-20235/1226810/ :as::Jun27-20235_1226810.zip]]
+test 0: !Jmol The Resolver thinks Mol
+test 0: !Jmol filtering with ;NO3D;NOHYDROGEN;
+test 0: !Jmol C1=CC(C=O)=CC=C1OC
+JME 2015-12-06 Tue Jul 11 14:50:23 GMT-500 2023
+test 0: !Jmol C1=CC(C=O)=CC=C1OC
+test 0: !Jmol This model is 2D. Its 3D structure has not been generated; use LOAD "" FILTER "2D" to optimize 3D.
+test 0: !Jmol #jmolScript: select thismodel;wireframe only
+test 0: !Jmol reading 10 atoms
+test 0: !Jmol ModelSet: haveSymmetry:false haveUnitcells:false haveFractionalCoord:false
+test 0: !Jmol 1 model in this collection. Use getProperty "modelInfo" or getProperty "auxiliaryInfo" to inspect them.
+test 0: !Jmol Default Van der Waals type for model set to Babel
+test 0: !Jmol 10 atoms created
+test 0: !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
+test 0: !Jmol Time for creating model: 2 ms
+test 0: !Phase 2b 
+file:/c:/temp/iupac/stolaf/
+{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*/*}/}
+test 0: !found IFD.property.dataobject.id chem-synthesis-summer-a-team1/nmr
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset chem-synthesis-summer-a-team1/nmr/
+test 0: !found IFD.property.dataobject.id chem-synthesis-summer-a-team2/nmr
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset chem-synthesis-summer-a-team2/nmr/
+test 0: !found IFD.property.dataobject.id chem-synthesis-summer-a-team3/nmr
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset chem-synthesis-summer-a-team3/nmr/
+test 0: !found IFD.property.dataobject.id Jun15-20231/1203110
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset Jun15-20231/1203110/
+test 0: !found IFD.property.dataobject.id Jun15-20231/1203310
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset Jun15-20231/1203310/
+test 0: !found IFD.property.dataobject.id Jun15-20232/1203510
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset Jun15-20232/1203510/
+test 0: !found IFD.property.dataobject.id Jun15-20233/1203410
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset Jun15-20233/1203410/
+test 0: !found IFD.property.dataobject.id Jun15-20234/1203610
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset Jun15-20234/1203610/
+test 0: !found IFD.property.dataobject.id Jun15-20234/1203710
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset Jun15-20234/1203710/
+test 0: !found IFD.property.dataobject.id Jun15-20236/1203010
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset Jun15-20236/1203010/
+test 0: !found IFD.property.dataobject.id Jun15-20236/1203210
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset Jun15-20236/1203210/
+test 0: !found IFD.property.dataobject.id Jun20-20231/1210610
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset Jun20-20231/1210610/
+test 0: !found IFD.property.dataobject.id Jun20-20232/1210710
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset Jun20-20232/1210710/
+test 0: !found IFD.property.dataobject.id Jun20-20233/1210510
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset Jun20-20233/1210510/
+test 0: !found IFD.property.dataobject.id Jun20-20236/1210410
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset Jun20-20236/1210410/
+test 0: !found IFD.property.dataobject.id Jun27-20235/1226610
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset Jun27-20235/1226610/
+test 0: !found IFD.property.dataobject.id Jun27-20235/1226810
+test 0: !found IFD.representation.dataobject.fairspec.nmr.vendor_dataset Jun27-20235/1226810/
+test 0: !Phase 2b found 17 IFD objects
+test 0: Phase 2.3 checking zip directory: 1 chem-synthesis-summer-a-team1/
+test 0: Phase 2.3 checking zip directory: 2 chem-synthesis-summer-a-team1/nmr/
+test 0: Phase 2.3 checking zip directory: 3 chem-synthesis-summer-a-team1/nmr/Aug03-2023/
+test 0: Phase 2.3 checking zip directory: 4 chem-synthesis-summer-a-team1/nmr/Aug03-2023/1295510/

@@ -6,16 +6,39 @@
 </head>
 <body>
 <div style="width:600px">
-<H3>CDX/CDXML specification</H3>
-<p>352 pages retrieved from multiple points on the wayBack machine.
+<H2><a href=https://github.com/IUPAC/IUPAC-FAIRSpec>IUPAC FAIRSpec GitHub pages</a></H2>
+Welcome to the GitHub project web pages for 
+<a href=https://iupac.org/projects/project-details/?project_nr=2019-031-1-024>IUPAC Project 2019-031-1-024, Development of a Standard for FAIR Data Management for Spectroscopic Data</a>. 
+At this site we highlight our development of IUPAC FAIRSpec Finding Aids.
 
-<a href="cdx_sdk">CDX/CDXML specification</a>
+<H3><a href="cdx_sdk">CDX/CDXML specification</a></H3>
+<p>But, first, 352 pages retrieved from multiple points on the wayBack machine 
+preserving the CDX/CDXML specification. (Note that some images were not retrievable.)
+This specification is important, as it is the basis for one of the most
+widely used and accessible formats in the chemistry community for 
+communicating structural information. The specification is detailed and 
+extensive, and has been implemented in Jmol, allowing an extractor
+to use it as a basis for creating value-added structure representations such as 
+molecular formulas, InChI strings, SMILES, and MOL-format descriptions, 
+which can be used both for display and validation.
 
 
+<H3><a href="examples/v1-demo/demo.htm">examples/v1-demo</a></H3>
+<p>Our first demonstration of a prototypical finding aid (2021), 
+just giving an idea of what a minimal extraction of metadata might look like in JSON format.
 
-<H3>examples/v5-icl-repository-DOI-crawl</H3>
+<H3><a href="examples/v4-acs/site/demo3.htm">examples/v4-acs</a></H3>
+<p>A more sophisticated demonstration involving finding aids 
+generated from a set of twelve supporting information data sets from the <a href=https://pubs.acs.org/doi/full/10.1021/acs.joc.0c00248>ACS FAIRData pilot study</a> (2023). 
+This demonstration illustrates how supporting information ZIP files in a variety of formats can be 
+extracted for metadata.
+
+
+<H3><a href="examples/v5-icl-repository-DOI-crawl/demo_icl.htm">examples/v5-icl-repository-DOI-crawl</a></H3>
 <p>This demonstration highlights a what can be done 
-simply by "crawling" the interconnected DataCite 
+by "crawling" of DataCite metadata records as well as the searching of compounds using substructure searches. 
+
+The demonstration focus on the interconnected DataCite 
 metadata records of a <a href="https://data.hpc.imperial.ac.uk/resolve/?doi=10386">highly curated collection</a> at 
 the high-performance computing repository at 
 Imperial College London. This collection contains 
@@ -33,7 +56,7 @@ items, including 390 CDXML drawings, 294 MOL files,
 140 complete Bruker NMR datasets, 144 JCAMP-DX files,
 and 328 PNG images.  
 <p>
-The <a href="examples/v5-icl-repository-DOI-crawl/demo_icl.htm">sample landing page</a>
+The sample landing page
 for the Finding Aid 
 uses only the information in the DataCite metadata records retrieved from 
 DataCite by <a href="https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/DOICrawler.java">DOICrawler.java</a>,
@@ -43,17 +66,8 @@ were actually downloaded in the creation of the Finding Aid or the
 generation of the landing page itself.
 
 <p>The landing page uses <a href=https://jsme-editor.github.io>JSME</a> 
-to create <a href=Robert Lancashire
-	
-9:43 AM (3 minutes ago)
-	
-to me
-Bob,
-must admit to not being familiar with SMARTS.
-A few clicks on GOOGLE retrieved this
-
-General Reference
-https://www.daylight.com/dayhtml/doc/theory/theory.smarts.html>SMARTS</a> substructure searches and <a href=https://sourceforge.net/projects/jmol>JSmol</a> 
+to create <a href=https://www.daylight.com/dayhtml/doc/theory/theory.smarts.html>SMARTS</a> 
+substructure searches and <a href=https://sourceforge.net/projects/jmol>JSmol</a> 
 to do the SMILES-string searching. Not all compounds in this collection
 have fully validated <a href=https://www.daylight.com/dayhtml/doc/theory/theory.smiles.html>SMILES</a> strings due to the inorganic nature of the 
 compounds. But this does not prevent SMARTS searching of the metal center, ligands, or 
@@ -63,8 +77,6 @@ associated solvents. In addition, the page provides access to
 <p>
 
 View the <a href="examples/v5-icl-repository-DOI-crawl/10.14469_hpc_10386/IFD.findingaid.json">IUPAC FAIRSpec Finding Aid</a> 
-<p>
-Go to the <a href="examples/v5-icl-repository-DOI-crawl/demo_icl.htm">landing page</a>
 <p>
 
 Additional output from DOICrawler.java: 

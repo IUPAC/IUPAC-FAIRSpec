@@ -1,0 +1,40 @@
+{"FAIRSpec.extract.version":"0.0.4-alpha+2202.11.28","keys":[
+ {"example":"aggregation Bruker student data St. Olaf College"},
+
+ {"IFD.property.collectionset.source_data_license_uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.source_data_license_name":"cc-by-nc-4.0"},
+ 
+
+ "----todo -- allow for remote API, not just remote file (as in FigShare)",
+
+ 
+ {"IFD.property.collectionset.source_data_uri":"./"},
+ 
+ "----reject for now all of the MNova 'master-documents' ",
+
+ {"FAIRSpec.extractor.reject": ["document"]},
+
+
+ {"FAIRSpec.extractor.options" : ""},
+
+ "----FAIRSpec.extractor.metadata_file indicates files local to a dataset with properties (sample id in this case) ",
+
+ {"FAIRSpec.extractor.related_metadata" : "IFD_METADATA"},
+
+
+ "--parsing instructions--",
+ 
+ "----structures",
+
+ "----NMR",
+ 
+
+ {"FAIRSpec.extractor.object":"{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*/*}/}"},
+
+
+ "----xray",
+
+ 
+ "--end--" 
+
+]}
