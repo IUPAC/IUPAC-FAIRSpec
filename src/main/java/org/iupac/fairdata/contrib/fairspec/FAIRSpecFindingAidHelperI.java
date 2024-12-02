@@ -20,26 +20,30 @@ import org.iupac.fairdata.structure.IFDStructure;
 import org.iupac.fairdata.structure.IFDStructureRepresentation;
 
 public interface FAIRSpecFindingAidHelperI {
- 
-	public IFDStructure createStructure(String id);
 
-	public IFDStructureRepresentation createStructureRepresentation(IFDReference ref, Object data, long len, String ifdStructureType, String mediatype);
+	public IFDSampleDataAssociation associateSampleSpec(IFDSample sample, IFDDataObject newSpec) throws IFDException;
 
-	public IFDDataObject createDataObject(String id, String type);
+	public IFDSampleStructureAssociation associateSampleStructure(IFDSample sample, IFDStructure struc)
+			throws IFDException;
 
-	public IFDDataObjectRepresentation createDataObjectRepresentation(IFDReference ref, Object data, long len, String ifdStructureType, String mediatype);
-
-	FAIRSpecFindingAid getFindingAid();
-
-	String addRelatedInfo(String pubdoi, boolean addPublicationMetadata, List<Map<String, Object>> list, String type) throws IOException;
-
-	public void setById(boolean isByID);
-
-	public String generateFindingAid(File topDir) throws IOException;
+	public FAIRSpecCompoundAssociation createCompound(IFDStructure struc, IFDDataObject newSpec) throws IFDException;
 
 	public FAIRSpecCompoundAssociation createCompound(String thisCompoundID) throws IFDException;
 
-	public FAIRSpecCompoundAssociation createCompound(IFDStructure struc, IFDDataObject newSpec) throws IFDException;
+	public IFDDataObject createDataObject(String id, String type);
+
+	public IFDDataObjectRepresentation createDataObjectRepresentation(IFDReference ref, Object data, long len,
+			String ifdStructureType, String mediatype);
+
+	public String createSerialization(File targetDir, ArrayList<Object> products, IFDSerializerI serializer,
+			long[] t) throws IOException;
+
+	public IFDStructure createStructure(String id);
+
+	public IFDStructureRepresentation createStructureRepresentation(IFDReference ref, Object data, long len,
+			String ifdStructureType, String mediatype);
+
+	public String generateFindingAid(File topDir) throws IOException;
 
 	public FAIRSpecCompoundCollection getCompoundCollection();
 
@@ -47,21 +51,19 @@ public interface FAIRSpecFindingAidHelperI {
 
 	public IFDRepresentation getSpecDataRepresentation(String ifdPath);
 
-	public String createSerialization(File targetDir, String rootName, ArrayList<Object> products, IFDSerializerI serializer,
-			long[] t) throws IOException;
-	
-	public IFDSampleDataAssociation associateSampleSpec(IFDSample sample, IFDDataObject newSpec) throws IFDException;
+	public void setById(boolean isByID);
 
-	public IFDSampleStructureAssociation associateSampleStructure(IFDSample sample, IFDStructure struc) throws IFDException;
+	String addRelatedInfo(String pubdoi, boolean addPublicationMetadata, List<Map<String, Object>> list, String type)
+			throws IOException;
 
 	FAIRSpecCompoundAssociation findCompound(IFDStructure struc, IFDDataObject spec);
+
+	FAIRSpecFindingAid getFindingAid();
 
 	IFDSample getFirstSampleForSpec(IFDDataObject localSpec, boolean b);
 
 	IFDStructure getFirstStructureForSpec(IFDDataObject localSpec, boolean andRemove);
 
 	IFDSample getSampleByName(String value);
-
-
-
+	
 }

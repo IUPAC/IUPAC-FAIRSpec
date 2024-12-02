@@ -1,6 +1,7 @@
 package org.iupac.fairdata.core;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,11 +9,15 @@ import java.util.Map;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
+import org.iupac.fairdata.common.IFDUtil;
 
 @SuppressWarnings("serial")
 public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T> {
 
 	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_COLLECTION_FLAG);
+	
+	
+	private boolean isSorted;
 	
 	@Override
 	protected String getIFDPropertyPrefix() {
@@ -153,6 +158,10 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 					get(i).setID("" + (i + 1));
 				}
 			}
+			
+			if (!isSorted) 
+				sortList();
+			
 			serializer.addCollection(byid ? "itemsByID" : "items", this, byid);
 		}
 		if (haveCommonClass) {
@@ -178,5 +187,38 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 				remove(i);
 		}
 	}
+
+	/**
+	 * Avoid sorting by presorting the list or at least setting isSorted true.
+	 */
+	public void setSorted() {
+		isSorted = true;
+	}
+	
+	protected void sortList() {
+		for (int i = size(); --i >= 0;) {
+			T o = get(i);
+			if (o.getSortKey() == null) {
+				o.setSortKey(IFDUtil.getNumericalSortKey(o.getID()));
+			}
+		}
+		sort(getSorter());
+	}
+
+	private Comparator<IFDObject<?>> getSorter() {
+		if (sorter == null)
+			sorter = new Comparator<IFDObject<?>>() {
+
+				@Override
+				public int compare(IFDObject<?> o1, IFDObject<?> o2) {
+					return (o1.getSortKey().compareTo(o2.getSortKey()));
+				}
+
+			};
+
+		return sorter;
+	}
+
+	private static Comparator<IFDObject<?>> sorter;
 
 }

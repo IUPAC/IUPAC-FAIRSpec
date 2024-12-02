@@ -39,6 +39,9 @@ import javajs.util.Rdr;
  */
 public class FAIRSpecUtilities {
 
+	public static final String DATA_KEY = "DATA";
+	public static final String INDEX_COL = "INDEX_COL";
+
 	private static String logFile;
 
 	public static byte[] getLimitedStreamBytes(InputStream is, long n, OutputStream out, boolean andCloseInput,
@@ -572,7 +575,7 @@ public class FAIRSpecUtilities {
 		}
 
 		public static boolean hasDataKey(Map<String, Object> map) {
-			return map.containsKey("DATA");
+			return map.containsKey(DATA_KEY);
 		}
 
 		/**
@@ -597,14 +600,14 @@ public class FAIRSpecUtilities {
 					break;
 				}
 			}
-			map.put("INDEX_COL", Integer.valueOf(icol));
-			map.put("DATA", data);
+			map.put(INDEX_COL, Integer.valueOf(icol));
+			map.put(DATA_KEY, data);
 			return icol;
 		}
 
 		public static List<Object[]> getRowDataForIndex(Map<String, Object> map, String index) {
-			Object[][] cellData = (Object[][]) map.get("DATA");
-			int icol = ((Integer) map.get("INDEX_COL")).intValue() - 1;
+			Object[][] cellData = (Object[][]) map.get(DATA_KEY);
+			int icol = ((Integer) map.get(INDEX_COL)).intValue() - 1;
 			return getRowData(cellData, icol, index);
 		}
 
@@ -777,32 +780,7 @@ public class FAIRSpecUtilities {
 		return bytes.length;
 	}
 
-	/**
-	 * parse very simple positive integers; may have continuance after but not before
-	 * 
-	 * @param substring
-	 * @return
-	 */
-	public static int parseInt(String s) {
-		int n = Math.min(s.length(), 9);
-		int i = -1;
-		int val = 0;
-		while (++i < n) {
-			char ch = s.charAt(i);
-			if (!isDigit(ch))
-					break;
-			val = val * 10 + ch - '0';
-		}
-		return (i == 0 ? Integer.MIN_VALUE : val);
-	}
-
-	public static boolean isDigit(char ch) {
-		// just way simpler code than Character.isDigit(ch);
-		int c = ch;
-		return (48 <= c && c <= 57);
-	}
-
-	  public static boolean isOneOf(String key, String semiList) {
+	public static boolean isOneOf(String key, String semiList) {
 		    if (semiList.length() == 0)
 		      return false;
 		    if (semiList.charAt(0) != ';')
@@ -847,6 +825,56 @@ public class FAIRSpecUtilities {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
+		}
+
+		/**
+			 * Load metadata from a file as directed by a line in IFD-Extract.json
+			 * via a map with keys FOR (IFD.fairspec.compound.id), 
+			 * METADATA_FILE (./Manifest.xlsx), and METADATA_KEY (column header)
+			 * 
+			 * 
+			 * @param param
+			 * @param map will have "DATA" key filled with the data
+			 * @return null if successful, error string if not successful
+			 */
+			public static String loadFileMetadata(String param, Map<String, Object> map, String fileName) {
+		//		 {"FAIRSpec.extractor.metadata":[
+		//         	{"FOR":"IFD.property.fairspec.compound.id",
+		//         		"METADATA_FILE":"./Manifest.xlsx",
+		//         		"METADATA_KEY":"TM compound number"
+		//         	}
+		//          ]},
+				String indexKey = null;
+				try {
+					// ./Manifest.xls#Sheet1
+					indexKey = (String) map.get(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_METADATA_KEY);
+					// header of spreadsheet column
+					int pt = fileName.indexOf("#");
+					String sheetRef = null;
+					File metadataFile = null;
+					if (pt >= 0) {
+						sheetRef = fileName.substring(pt + 1);
+						fileName = fileName.substring(0, pt);
+					}
+					metadataFile = new File(fileName);
+					Object data = SpreadsheetReader.getCellData(new FileInputStream(metadataFile), sheetRef, "", true);
+					
+					int icol = SpreadsheetReader.setMapData(map, data, indexKey);
+					if (icol < 1) {
+						return "METADATA file " + fileName + " did not have a column titled " + indexKey;
+					}
+				} catch (Exception e) {
+					return e.getMessage();
+				}
+				// map.DATA will be filled in with the appropriate mappings only if they exist
+				if (!map.containsKey(DATA_KEY))
+					map.put(DATA_KEY, null);
+				return null;
+			}
+
+		public static boolean isZip(String name) {
+			return name.endsWith(".zip") || name.endsWith(".tgz") || name.endsWith(".tar") || name.endsWith(".rar")
+					|| name.endsWith("tar.gz");
 		}
 
 }

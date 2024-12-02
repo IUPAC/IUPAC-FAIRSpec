@@ -255,9 +255,6 @@ public class ExtractorAids {
 				if (pt > 0) {
 					key = param.substring(0, pt);
 					param = param.substring(pt + 1);
-					if (extractor.htMetadata != null && extractor.htMetadata.containsKey(key)) {
-						extractor.phase1SetMetadataTarget(key, param);
-					}
 				}
 				param = FAIRSpecFindingAidHelper.updateKey(param);
 				if (key == null)
@@ -304,7 +301,7 @@ public class ExtractorAids {
 				while ((pt[0] = s.indexOf(RAW_REGEX_TAG)) >= 0) {
 					// save regex and replace by \0n\1
 					int p0 = pt[0];
-					String rx = MetadataExtractor.getIFDExtractValue(s, "regex", pt);
+					String rx = getIFDExtractValue(s, "regex", pt);
 					regexList.add(REGEX_UNQUOTE + rx + REGEX_QUOTE);
 					s = s.substring(0, p0) + TEMP_RAW_IN_CHAR + (i++) + TEMP_RAW_OUT_CHAR + s.substring(pt[0]);
 				}
@@ -320,6 +317,47 @@ public class ExtractorAids {
 			return s;
 		}
 	
+		/**
+		 * Process a {key::value} set.
+		 * 
+		 * @param sObj
+		 * @param key
+		 * @param pt
+		 * @return the value for this key
+		 * @throws IFDException
+		 */
+		protected static String getIFDExtractValue(String sObj, String key, int[] pt) throws IFDException {
+			key = "{" + key + "::";
+			if (pt == null)
+				pt = new int[1];
+			int p = sObj.indexOf(key, pt[0]);
+			if (p < 0)
+				return null;
+			int q = -1;
+			int nBrace = 1;
+			p += key.length();
+			int len = sObj.length();
+			for (int i = p; i < len && nBrace > 0; i++) {
+				switch (sObj.charAt(i)) {
+				case '{':
+					q = i;
+					nBrace++;
+					break;
+				case '}':
+					if (--nBrace < 0) {
+						throw new IFDException("unopened '}' in " + sObj + " at char " + i);
+					}
+					q = i;
+					break;
+				}
+			}
+			if (nBrace > 0) {
+				throw new IFDException("unclosed '{' in " + sObj + " at char " + q);
+			}
+			pt[0] = q;
+			return sObj.substring(p, pt[0]++);
+		}
+
 		@Override
 		public String toString() {
 			return "[ObjectParser " + this.sData + "]";
@@ -673,7 +711,9 @@ public class ExtractorAids {
 				this.is = dis = (DirectoryInputStream) is;
 				dis.reset();
 			} else if (is instanceof ZipInputStream) {
-				this.is = zis = new ZipInputStream(is);
+				this.is = is;
+			} else if (ZipUtil.isZipS(is)) {
+				this.is = zis = new ZipInputStream(is);				
 			} else if (ZipUtil.isGzipS(is)) {
 				this.is = tis = ZipUtil.newTarGZInputStream(is);
 			} else if (fname != null && fname.endsWith(".tar")) {

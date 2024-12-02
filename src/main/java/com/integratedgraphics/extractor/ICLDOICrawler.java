@@ -3,6 +3,8 @@ package com.integratedgraphics.extractor;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.iupac.fairdata.common.IFDUtil;
+
 /**
  * 
  * @author Bob Hanson
@@ -104,7 +106,7 @@ public class ICLDOICrawler extends DOICrawler {
 					break;
 				case "Com":
 					if (val.startsWith("Compound ")) {
-						String id = crawler.newCompound(val);
+						String id = crawler.newCompound("" + IFDUtil.parsePositiveInt(val.substring(9)));
 						crawler.addAttr(FAIRSPEC_COMPOUND_ID, id);
 					}
 					break;
@@ -117,7 +119,7 @@ public class ICLDOICrawler extends DOICrawler {
 
 	public static void main(String[] args) {
 		if (args.length == 0) {
-			args = new String[] { TEST_PID, DEFAULT_OUTDIR, "-dodownload" };
+			args = new String[] { TEST_PID, DEFAULT_OUTDIR, };//"-dodownload" };
 //			args = new String[] { "10.14469/hpc/14443" , DEFAULT_OUTDIR, "-dodownload -bycompound" };
 		}
 		ICLDOICrawler crawler = new ICLDOICrawler();

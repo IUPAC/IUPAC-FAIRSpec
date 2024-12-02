@@ -180,7 +180,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	 * @throws IFDException
 	 */
 	public static String getObjectTypeForPropertyOrRepresentationKey(String key, boolean allowError) throws IFDException {
-		if (IFDConst.isProperty(key))
+		if (IFDConst.isIFDProperty(key))
 			key = FAIRSpecUtilities.rep(key, IFDConst.IFD_PROPERTY_FLAG, "\0");
 		else if (IFDConst.isRepresentation(key))
 			key = FAIRSpecUtilities.rep(key, IFDConst.IFD_REPRESENTATION_FLAG, "\0");
@@ -423,13 +423,10 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	/**
 	 * 
 	 * Generate the serialization and optionally save it to disk as
-	 * [rootname]_IFD_PROPERTY_COLLECTIONSET.[ext] and optionally create an
+	 * _IFD_PROPERTY_COLLECTIONSET.[ext] and optionally create an
 	 * _IFD_collection.zip in that same directory.
 	 * 
 	 * @param targetDir  or null for no output
-	 * @param rootName   a prefix root to add to the
-	 *                   _IFD_PROPERTY_COLLECTIONSET.json (or.xml) finding aid
-	 *                   created
 	 * @param products   optionally, a list of directories containing the files
 	 *                   referenced by the finding aid for creating the
 	 *                   IFD_collection.zip file
@@ -439,8 +436,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public String createSerialization(File targetDir, String rootName, ArrayList<Object> products, IFDSerializerI serializer,
-			long[] t) throws IOException {
+	public String createSerialization(File targetDir, ArrayList<Object> products, IFDSerializerI serializer, long[] t) throws IOException {
 		if (serializer == null)
 			serializer = new IFDDefaultJSONSerializer(byId);
 		// subclasses should be able to use this directly with no changes.
@@ -541,7 +537,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	public String generateFindingAid(File fileDir) throws IOException {
 		finalizeObjects();
 		finalizeCollectionSet(null);
-		return createSerialization(fileDir, null, null, null, null);
+		return createSerialization(fileDir, null, null, null);
 	}
 
 	/**
@@ -575,6 +571,5 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			key = key.substring(0, pt + 1) + "xrd" + key.substring(pt + 5);
 		return key;
 	}
-
 
 }

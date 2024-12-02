@@ -3,7 +3,7 @@
  {"journal":"acs.orglett"},{"hash":"0c00874"},
  {"figshareid":"22233351"},
 
- {"IFD.property.collectionset.id":"{journal}.{hash}"},
+ {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
  {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"},
  {"IFD.property.collectionset.source_data_license_uri":"https://creativecommons.org/licenses/by-nc/4.0"},
  {"IFD.property.collectionset.source_data_license_name":"cc-by-nc-4.0"},

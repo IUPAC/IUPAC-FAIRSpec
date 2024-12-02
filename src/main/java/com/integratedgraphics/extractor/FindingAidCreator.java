@@ -10,7 +10,6 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDFindingAid;
-import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.ifd.api.VendorPluginI;
@@ -33,11 +32,11 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	/**
 	 * start-up option to create JSON list for multiple
 	 */
-	protected boolean stopOnAnyFailure;
-	protected boolean debugReadOnly;
+	public boolean stopOnAnyFailure;
+	public boolean debugReadOnly;
 
 	protected boolean debugging = false;
-	protected boolean readOnly = false;
+	public boolean readOnly = false;
 
 	protected boolean isByID = true; // forcing
 
@@ -94,20 +93,20 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 
 	protected String errorLog = "";
 
-	protected int testID = -1;
+	public int testID = -1;
 	
 	protected String thisRootPath;
 
 
-	String strWarnings = "";
+	public String strWarnings = "";
 
-	protected int warnings;
+	public int warnings;
 
 	public int getWarningCount() {
 		return warnings;
 	}
 
-	protected int errors;
+	public int errors;
 
 
 	protected boolean dataciteUp = true;
@@ -150,17 +149,25 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		skipPubInfo = !dataciteUp || debugReadOnly; // true to allow no internet connection and so no pub calls
 	}
 
-	protected String processFlags(String[] args, String flags) {
-		if (flags == null)
-			flags = "";
-		flags += ";";
+	/**
+	 * Just convert all args[0..n] to a string concatenation of "-" args[i] ";".
+	 * Some of the early flags may not be actual flags, but that does not matter.
+	 * 
+	 * @param args
+	 * @param moreFlags flags that will override anything in args[]
+	 * @return
+	 */
+	public String processFlags(String[] args, String moreFlags) {
+		if (moreFlags == null)
+			moreFlags = "";
+		moreFlags += ";";
 		for (int i = 0; i < args.length; i++) {
 			if (args[i] != null)
-				flags += "-" + args[i] + ";";
+				moreFlags += "-" + args[i] + ";";
 		}
-		flags = checkFlags(flags);
+		moreFlags = checkFlags(moreFlags);
 		setDerivedFlags();
-		return flags;
+		return moreFlags;
 	}
 
 	protected String checkFlags(String flags) {
@@ -306,7 +313,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		log(msg);
 	}
 
-	protected void logErr(String msg, String method) {
+	public void logErr(String msg, String method) {
 		msg = "!! ERROR: " + msg + " -- Extractor." + method + " " + ifdid + " "
 				+ thisRootPath;
 		log(msg);
@@ -331,7 +338,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		logToSys(msg);
 	}
 
-	protected void logToSys(String msg) {
+	public void logToSys(String msg) {
 		if (logging() && msg == "!!") {
 			FAIRSpecUtilities.refreshLog();
 		}
@@ -367,13 +374,5 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	public IFDFindingAid getFindingAid() {
 		return getHelper().getFindingAid();
 	}
-
-	/**
-	 * From FAIRSpecExtractorHelper; Overridden by MetadataExtractor
-	 */
-	@Override
-	public void setNewObjectMetadata(IFDObject<?> o, String param) {
-	}
-
 
 }

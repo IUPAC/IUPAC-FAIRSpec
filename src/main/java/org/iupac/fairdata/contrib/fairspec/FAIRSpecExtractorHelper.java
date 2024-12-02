@@ -13,6 +13,7 @@ import org.iupac.fairdata.contrib.fairspec.dataobject.FAIRSpecDataObject;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDObject;
+import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.core.IFDResource;
@@ -21,7 +22,6 @@ import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.derived.IFDSampleDataAssociation;
 import org.iupac.fairdata.derived.IFDStructureDataAssociation;
 import org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;
-import org.iupac.fairdata.extract.MetadataReceiverI;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.sample.IFDSampleCollection;
 import org.iupac.fairdata.structure.IFDStructure;
@@ -65,6 +65,9 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	public static final String FAIRSPEC_EXTRACTOR_OPTION_FLAG = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OPTION_FLAG");
 	public static final String FAIRSPEC_EXTRACTOR_OPTIONS = IFDConst.getProp("FAIRSPEC_EXTRACTOR_OPTIONS");
 	public static final String FAIRSPEC_EXTRACTOR_METADATA = IFDConst.getProp("FAIRSPEC_EXTRACTOR_METADATA");
+	public static final String FAIRSPEC_EXTRACTOR_METADATA_FILE = IFDConst.getProp("FAIRSPEC_EXTRACTOR_METADATA_FILE");
+	public static final String FAIRSPEC_EXTRACTOR_METADATA_KEY = IFDConst.getProp("FAIRSPEC_EXTRACTOR_METADATA_KEY");	
+	public static final String FAIRSPEC_EXTRACTOR_METADATA_IGNORE_PREFIX = IFDConst.getProp("FAIRSPEC_EXTRACTOR_METADATA_IGNORE_PREFIX");
 	public static final String FAIRSPEC_EXTRACTOR_RELATED_METADATA = IFDConst.getProp("FAIRSPEC_EXTRACTOR_RELATED_METADATA");
 	public static final String FAIRSPEC_EXTRACTOR_LOCAL_SOURCE_FILE = IFDConst.getProp("FAIRSPEC_EXTRACTOR_LOCAL_SOURCE_FILE");
 	public static final String FAIRSPEC_EXTRACTOR_REFERENCES = IFDConst.getProp("FAIRSPEC_EXTRACTOR_REFERENCES");
@@ -205,13 +208,13 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	 * the files we want extracted -- just PDF and PNG here; all others are taken
 	 * care of by individual IFDVendorPluginI classes
 	 */
-	public static final String defaultCachePattern = "" + "(?<img>\\.pdf$|\\.png$)"
+	public static final String defaultCachePattern = "(?<img>\\.pdf$|\\.png$)"
 //			+ "|(?<text>\\.log$|\\.out$|\\.txt$)"// maybe put these into JSON only? 
 	;
 
 	public static final String FAIRSPEC_EXTRACT_VERSION = IFDConst.getProp("FAIRSPEC_EXTRACT_VERSION");
 	public static final String DATAOBJECT_FAIRSPEC_FLAG = IFDConst.getProp("DATAOBJECT_FAIRSPEC_FLAG");
-
+	
 	public static final String DATAOBJECT_ORIGINATING_SAMPLE_ID = IFDConst.getProp(IFDConst.IFD_PROPERTY_DATAOBJECT_ORIGINATING_SAMPLE_ID);
 	private static final String IFD_PROPERTY_SAMPLE_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			IFDConst.IFD_SAMPLE_FLAG, IFDConst.IFD_ID_FLAG);
@@ -222,6 +225,8 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 			IFDConst.IFD_DATAOBJECT_FLAG, IFDConst.IFD_ID_FLAG);
 
 	public static final String IFD_PROPERTY_FAIRSPEC_COMPOUND_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, "fairspec.compound.id");
+	
+;
 
 	/**
 	 * current state of extraction
@@ -230,7 +235,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	protected String currentOriginPath;
 	protected List<Object[]> currentDataProps;
 
-	private MetadataReceiverI extractor;
+	private FAIRSpecExtractorI extractor;
 
 	/**
 	 * 
@@ -238,7 +243,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	 * @param creator
 	 * @throws IFDException in name only; necessary here, but will not be thown
 	 */
-	public FAIRSpecExtractorHelper(MetadataReceiverI extractor, String creator) {
+	public FAIRSpecExtractorHelper(FAIRSpecExtractorI extractor, String creator) {
 		super(creator);
 		if (extractor == null)
 			throw new RuntimeException("FAIRSpecExtractorHelper: extractor cannot be null");
@@ -274,7 +279,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	@Override
 	public IFDObject<?> addObject(String rootPath, String param, String value, String localizedName, long len)
 			throws IFDException {
-
+		// from MetadataExtractorLevel2
 		if (!isAddingObjects())
 			throw new IFDException("addObject " + param + " " + value + " called with no current object file name");
 
@@ -388,8 +393,13 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	public static void addProperties(IFDObject<?> o, List<Object[]> props) {
 		for (Object[] s : props) {
 			Object val = s[1];
-			if (val != null)
-				o.setPropertyValue((String) s[0], val);
+			if (val == null)
+				continue;
+			String key = (String) s[0];
+			// "*" prefix indicates private, not to be included in Finding Aid
+			if (key.startsWith(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_METADATA_IGNORE_PREFIX))
+				continue;
+			o.setPropertyValue(key, val);
 		}
 	}
 
@@ -540,7 +550,8 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	@Override
 	public IFDStructure addStructureForSpec(String rootPath, IFDDataObject spec, String ifdRepType, String originPath,
 			String localName, String name) throws IFDException {
-		IFDStructure struc = structureCollection.getStructureFromLocalName(currentResource.getID(), localName);
+		// from MetadataExtractorLayer2
+		IFDStructure struc = getStructureCollection().getStructureFromLocalName(currentResource.getID(), localName);
 		if (struc == null) {
 			if (name == null)
 				name = "Structure_" + ++lastStructureName;
@@ -569,6 +580,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 
 	@Override
 	public IFDSample addSpecOriginatingSampleRef(String rootPath, IFDDataObject spec, String id) throws IFDException {
+			// from MetadataExtractorLayer2
 			if (getSpecCollection().indexOf(spec) < 0)
 				getSpecCollection().add(spec);
 			IFDSample sample = (IFDSample) checkAddNewObject(getSampleCollection(), FAIRSpecFindingAidHelper.ClassTypes.Sample, rootPath,
@@ -750,6 +762,27 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 		sb.append("]\n");
 		sb.append("}\n");
 		return sb.toString();
+	}
+
+
+	@Override
+	public Object setPropertyValueNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath) {
+		if (IFDConst.isIFDProperty(key)) {
+			// not a parameter and not forcing NULL
+			Object v = obj.getPropertyValue(key);
+			if (value.equals(v))
+				return null;
+			if (v != null && value != IFDProperty.NULL) {
+				String objSource = obj.getPropertySource(key);
+				if (originPath != null && !originPath.equals(objSource)) {
+				return v;
+				} else {
+					System.out.println("OK!!");
+				}
+			}
+		}
+		obj.setPropertyValue(key, value, originPath);
+		return null;
 	}
 
 }

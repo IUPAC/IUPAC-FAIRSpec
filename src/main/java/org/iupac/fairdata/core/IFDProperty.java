@@ -14,11 +14,16 @@ public class IFDProperty implements IFDSerializableI {
 	private Object value;
 	private String source;
 
+	/**
+	 * non-null value to represent null; saved as null
+	 */
+	public static final String NULL = "\1";
+
 	public IFDProperty(String name, Object value, PROPERTY_TYPE dataType, PROPERTY_UNIT units) {
 		this.name = name;
 		this.dataType = dataType;
 		this.units = units;
-		this.value = value;
+		setValue(value);
 	}
 
 	public IFDProperty(String name, PROPERTY_TYPE dataType, PROPERTY_UNIT units) {
@@ -89,7 +94,7 @@ public class IFDProperty implements IFDSerializableI {
 	}
 
 	public void setValue(Object val) {
-		value = val;
+		value = (val == NULL ? null : val);
 		source = null;
 	}
 }

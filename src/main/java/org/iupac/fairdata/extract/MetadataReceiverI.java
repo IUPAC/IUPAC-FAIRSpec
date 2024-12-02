@@ -1,8 +1,17 @@
 package org.iupac.fairdata.extract;
 
 import org.iupac.fairdata.core.IFDFindingAid;
-import org.iupac.fairdata.core.IFDObject;
 
+/**
+ * Implemented by MetaDataExtractor and DOICrawler. Includes methods for
+ * reporting version and source as well as getting an IFDFindingAid, and
+ * logging. Also used for adding properties from a vender plugin or a structure
+ * representation or its properties from the structure helper.
+ * 
+ * 
+ * @author hanso
+ *
+ */
 public interface MetadataReceiverI {
 
 	String getVersion();
@@ -27,16 +36,8 @@ public interface MetadataReceiverI {
 	 */
 	void log(String string);
 
-	void addPropertyOrRepresentation(String key, Object val, boolean isInLine, String mediaType, String note);
+	void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInLine, String mediaType, String note);
 
 	void addProperty(String key, Object val);
-
-	/**
-	 * Used by MetadataExtractor to inject metadata from a spreadsheet.
-	 * 
-	 * @param o
-	 * @param param
-	 */
-	void setNewObjectMetadata(IFDObject<?> o, String param);
 
 }

@@ -261,7 +261,7 @@ public class IFDConst {
 		return (propName != null && propName.startsWith(IFDConst.IFD_REPRESENTATION_FLAG));
 	}
 
-	public static boolean isProperty(String propName) {
+	public static boolean isIFDProperty(String propName) {
 		return (propName != null && propName.startsWith(IFDConst.IFD_PROPERTY_FLAG));
 	}
 
@@ -276,7 +276,7 @@ public class IFDConst {
 	public static boolean checkPropOrRep(String key, String type) {
 		if (key == null || type == null)
 			return false;
-		String prefix = (isProperty(key) ? IFD_PROPERTY_FLAG : isRepresentation(key) ? IFD_REPRESENTATION_FLAG : null);
+		String prefix = (isIFDProperty(key) ? IFD_PROPERTY_FLAG : isRepresentation(key) ? IFD_REPRESENTATION_FLAG : null);
 		return (prefix != null && key.indexOf(type) == prefix.length() - 1);
 	}
 

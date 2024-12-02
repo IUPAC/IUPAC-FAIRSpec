@@ -5,9 +5,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-import com.integratedgraphics.extractor.MetadataExtractor;
 import com.integratedgraphics.ifd.api.VendorPluginI;
 
 import jspecview.source.JDXDataObject;
@@ -166,7 +166,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	 * Pass back the standardized key/val pair to the IFDMetadataReceiverI class.
 	 * 
 	 * @param key
-	 * @param val a String or Double
+	 * @param val a String or Double; IFD.Property.NULL to remove value
 	 */
 	public void addProperty(String key, Object val) {
 		if (val == null || extractor == null)
@@ -174,7 +174,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 		if (val instanceof Double) {
 			if (Double.isNaN((Double)val))
 				return;
-		} else if (val != MetadataExtractor.NULL && val instanceof String) {
+		} else if (val instanceof String && val != IFDProperty.NULL) {
 			val = ((String) val).trim();
 		}
 		extractor.addProperty(key, val);

@@ -9,6 +9,8 @@ import org.jmol.api.JmolViewer;
 import org.jmol.util.DefaultLogger;
 import org.jmol.viewer.Viewer;
 
+import javajs.util.Base64;
+
 import javajs.util.BS;
 import jme.JMEJmol;
 
@@ -139,24 +141,27 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		String note = null;
 		if (isCIF || isCDX || isCDXML || isCML || ext.equals("mol") || ext.equals("sdf")) {
 			try {
-				String data = new String(bytes);
+				String data = (isCDX 
+						? ";base64," + Base64.getBase64(bytes) 
+						:  new String(bytes));
 				Viewer v = getJmolViewer();
-				if (isEmbedded) {
+//				if (isEmbedded) {
 					String s = "set allowembeddedscripts false;load DATA \"model\"\n" + data
 							+ "\nend \"model\" 1 FILTER 'no3D;noHydrogen'";
 					v.scriptWait(s);
-				}
+//				}
 				BS atoms = v.bsA();
 				if (standardInchi == null)
 					standardInchi = v.getInchi(atoms, null, null);
 				if (isEmbedded) {
+					// add the representation
 					String stype = (isCIF ? CIF_FILE_DATA
 							: isCDXML ? CDXML_FILE_DATA
 									: isCDX ? CDX_FILE_DATA : isCML ? CML_FILE_DATA : MOL_FILE_DATA);
 					// We use noaromatic here because we want a
 					// target SMILES, not a substructure smiles.
 					// Targets with aromatic atoms must match aromatic atoms exactly
-					extractor.addPropertyOrRepresentation(stype, 
+					extractor.addDeferredPropertyOrRepresentation(stype, 
 							new Object[] { bytes, originPath, type,
 									standardInchi == null ? "?" : standardInchi, 
 									IFDConst.getMediaTypesForExtension(ext) 
@@ -203,7 +208,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 						// issue here is that these may be quite unviewable.
 						mol2d = (String) v.evaluateExpression("write('MOL')");
 						if (mol2d != null && mol2d.indexOf("2D") >= 0)
-							extractor.addPropertyOrRepresentation(IFDConst.IFD_REP_STRUCTURE_MOL_2D,
+							extractor.addDeferredPropertyOrRepresentation(IFDConst.IFD_REP_STRUCTURE_MOL_2D,
 									new Object[] { mol2d.getBytes(), originPath + ".mol" }, false,
 									"chemical/x-mdl-molfile", note);
 					}
@@ -224,37 +229,37 @@ public class DefaultStructureHelper implements PropertyManagerI {
 				e.printStackTrace();
 			}
 			if (standardInchi != null && !"?".equals(standardInchi)) {
-				extractor.addPropertyOrRepresentation(STANDARD_INCHI, standardInchi, true, "chemical/x-inchi",
+				extractor.addDeferredPropertyOrRepresentation(STANDARD_INCHI, standardInchi, true, "chemical/x-inchi",
 						note);
 				if (fixedhInchi != null) {
-					extractor.addPropertyOrRepresentation(FIXEDH_INCHI, fixedhInchi, true, "chemical/x-inchi",
+					extractor.addDeferredPropertyOrRepresentation(FIXEDH_INCHI, fixedhInchi, true, "chemical/x-inchi",
 							note);
 				}
 				if (inchiKey != null) {
-					extractor.addPropertyOrRepresentation(INCHIKEY, inchiKey, true, "chemical/x-inchikey", null);
+					extractor.addDeferredPropertyOrRepresentation(INCHIKEY, inchiKey, true, "chemical/x-inchikey", null);
 				}
 			} else {
 				standardInchi = null;
 			}
 			if (smiles != null) {
-				extractor.addPropertyOrRepresentation(SMILES, smiles, true, "chemical/x-smiles", note);
+				extractor.addDeferredPropertyOrRepresentation(SMILES, smiles, true, "chemical/x-smiles", note);
 			}
 			// .getFileType(Rdr.getBufferedReader(Rdr.getBIS(bytes), null));
 			if (bytes != null) {
-				extractor.addPropertyOrRepresentation(IFDConst.IFD_REP_STRUCTURE_PNG,
+				extractor.addDeferredPropertyOrRepresentation(IFDConst.IFD_REP_STRUCTURE_PNG,
 						new Object[] { bytes, originPath + ".png",
 								IFDConst.IFD_REP_STRUCTURE_PNG,
 								standardInchi
 								}, false, "image/png", note);
 			}
 			if (molecularFormula != null) {
-				extractor.addPropertyOrRepresentation(MOLECULAR_FORMULA, molecularFormula, true, null, note);
+				extractor.addDeferredPropertyOrRepresentation(MOLECULAR_FORMULA, molecularFormula, true, null, note);
 			}
 			if (empiricalFormula != null) {
-				extractor.addPropertyOrRepresentation(EMPIRICAL_FORMULA, empiricalFormula, true, null, note);
+				extractor.addDeferredPropertyOrRepresentation(EMPIRICAL_FORMULA, empiricalFormula, true, null, note);
 			}
 			if (cellFormula != null) {
-				extractor.addPropertyOrRepresentation(CELL_FORMULA, cellFormula, true, null, note);
+				extractor.addDeferredPropertyOrRepresentation(CELL_FORMULA, cellFormula, true, null, note);
 			}
 		}
 		fileToType.put(originPath, type);

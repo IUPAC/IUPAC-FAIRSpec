@@ -52,4 +52,17 @@ public interface FAIRSpecExtractorHelperI extends FAIRSpecFindingAidHelperI {
 
 	void setCompoundRefMap(Map<String, Map<String, Object>> htCompoundFileReferences);
 
+	/**
+	 * Set a property value only if it is not already set.
+	 * 
+	 * @param obj
+	 * @param key
+	 * @param value      if null, allows removal of current value
+	 * @param originPath
+	 * @return current value if not equal to value and value != NULL
+	 */
+	Object setPropertyValueNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath);
+
+
+
 }

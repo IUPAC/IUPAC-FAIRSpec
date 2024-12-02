@@ -293,7 +293,21 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * a production note to provide some sort of context
 	 */
 	protected String note;
+	
+	/**
+	 * for internal use only;
+	 * a key for sorting; used by IFDCollection
+	 */
 
+	private String sortKey;
+	
+	public String getSortKey() {
+		return sortKey;
+	}
+
+	public void setSortKey(String key) {
+		sortKey = key;
+	}
 	/**
 	 * known properties of this class, fully identified in terms of data type and
 	 * units
@@ -408,9 +422,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * @return IFDProperty if one is set
 	 */
 	public IFDProperty setPropertyValue(String key, Object value) {
-		
-		if (key.length() == 0)
-			System.out.println("???");
 		// check for .representation., which is not stored in the object.
 		if (IFDConst.isRepresentation(key) || checkSpecialProperties(key, value)) {
 			return null;
@@ -436,13 +447,13 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * identify the original source.
 	 * 
 	 * @param key
-	 * @param value
+	 * @param value could be IFDProperty.NULL
 	 * @param source
 	 */
 	public void setPropertyValue(String key, Object value, String source) {
 		IFDProperty p = setPropertyValue(key, value);
 		if (p != null)
-			p.setSource(value == null ? null : source);
+			p.setSource(p.getValue() == null ? null : source);
 	}
 	
 	

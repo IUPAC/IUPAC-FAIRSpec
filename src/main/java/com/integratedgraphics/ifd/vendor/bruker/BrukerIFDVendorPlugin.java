@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-import com.integratedgraphics.extractor.MetadataExtractor;
 import com.integratedgraphics.ifd.api.VendorPluginI;
 import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
 
@@ -136,7 +136,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		// experiment.
 		if (spec.dim == null) {
 			report("DIM", "1D");
-			report("##$NUC2", MetadataExtractor.NULL);
+			report("##$NUC2", IFDProperty.NULL);
 		}
 		spec.clear();
 		super.endRezip();
@@ -172,7 +172,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			Object solvent = getSolvent(map);
 			if (solvent != null) {
 				spec.solvent = (String) solvent;
-				report("SOLVENT", MetadataExtractor.NULL); // this will clear the
+				report("SOLVENT", IFDProperty.NULL); // this will clear the
 				report("SOLVENT", solvent);
 			}
 			return true;

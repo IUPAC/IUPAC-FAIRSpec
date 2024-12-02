@@ -24,6 +24,7 @@ import java.util.TreeMap;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
+import org.iupac.fairdata.common.IFDUtil;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
@@ -186,14 +187,7 @@ public class DOICrawler extends FindingAidCreator {
 			if (sortKey == null) {
 				switch (type) {
 				case DOI_COMP:
-					int num = FAIRSpecUtilities.parseInt(compoundID);
-					if (num == Integer.MIN_VALUE) {
-						sortKey = (compoundID + "__________"); 
-					} else {
-						sortKey = "" + num;
-						sortKey = ("0000000000" + compoundID).substring(sortKey.length());
-					}
-					return sortKey = "C_" + sortKey;
+					return "C_" + IFDUtil.getNumericalSortKey(compoundID);
 				case DOI_DATA:
 					return sortKey = dkey = ckey + "_" + pidPath;
 				case DOI_REP:
@@ -446,8 +440,7 @@ public class DOICrawler extends FindingAidCreator {
 		doiRecord.dataObjectType = type;
 	}
 
-	public String newCompound(String val) {
-		String id = "" + FAIRSpecUtilities.parseInt(val.substring(9));
+	public String newCompound(String id) {
 		thisCompoundID = doiRecord.compoundID = id;
 		doiRecord.type = DOI_COMP;
 		return id;
@@ -695,7 +688,7 @@ public class DOICrawler extends FindingAidCreator {
 			String length = getHeaderAttr(data, "length");
 			mediaType = getHeaderAttr(data, "mediaType");
 			if (length != null) {
-				len = FAIRSpecUtilities.parseInt(length);
+				len = IFDUtil.parsePositiveInt(length);
 				totalLength += len;
 			}
 		} else {
@@ -727,7 +720,7 @@ public class DOICrawler extends FindingAidCreator {
 			}
 			DoiRecord f0 = fMap.remove(fileName);
 			if (f0 != null)
-				log("!removed " + f0);
+				log("!removed duplicate " + f0 + " " + f0.ifdRef);
 			String surl = url.toString();
 			//repMap.put(thisCompoundID + "|" + fileName, surl);
 			DoiRecord rec = new DoiRecord(thisCompoundID, surl, null, fileName);
@@ -1073,7 +1066,7 @@ public class DOICrawler extends FindingAidCreator {
 	 * @param note
 	 */
 	@Override
-	public void addPropertyOrRepresentation(String key, Object val, 
+	public void addDeferredPropertyOrRepresentation(String key, Object val, 
 			boolean isInLine, String mediaType, String note) {
 		// TODO Auto-generated method stub
 		
@@ -1085,6 +1078,5 @@ public class DOICrawler extends FindingAidCreator {
 		else 
 			new DOICrawler(args).crawl();
 	}
-
 
 }

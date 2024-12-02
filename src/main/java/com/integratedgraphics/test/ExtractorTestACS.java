@@ -1,5 +1,13 @@
 package com.integratedgraphics.test;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+
+import com.integratedgraphics.extractor.MetadataExtractor;
+
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
  * 
@@ -32,27 +40,6 @@ package com.integratedgraphics.test;
  */
 public class ExtractorTestACS extends ExtractorTest {
 
-	/**
-	 * 
-	 * @param args
-	 * @param sourceArchive
-	 * @param targetDir
-	 * @return
-	 */
-	private static String[] setSourceTargetArgs(String[] args, String sourceArchive, String targetDir, String flags) {
-		String[] a = new String[4];
-		if (args.length > 0)
-			a[0] = args[0];
-		if (args.length < 2 || args[1] == null)
-			a[1] = sourceArchive;
-		if (args.length < 3 || args[2] == null)
-			a[2] = targetDir;
-		if (args.length < 4 || args[3] == null)
-			a[3] = flags;
-		return a;
-	}
-
-
 	//FigShare searching:
 	//import requests as rq
 	//from pprint import pprint as pp
@@ -81,36 +68,142 @@ public class ExtractorTestACS extends ExtractorTest {
 /*4*/		"./extract/acs.orglett.0c00788/IFD-extract.json#22125318",   // 4 -- jeol jdfs
 /*5*/		"./extract/acs.orglett.0c00874/IFD-extract.json#22233351",   // 5 -- bruker dirs
 /*6*/		"./extract/acs.orglett.0c00967/IFD-extract.json#22111341",   // 6 -- bruker dirs + jeol jdfs
-/*7*/		"./extract/acs.orglett.0c01022/IFD-extract.json#22195341",   // 7 -- many mnovas
+
+/*7*/		"./extract/acs.orglett.0c01022/IFD-extract.json#22195341",   // 7 -- many mnovas with CDX files
+
 /*8*/		"./extract/acs.orglett.0c01043/IFD-extract.json#22232721",  // 8 -- LARGE single 158-MB mnova -- IGNORING!
-/*9*/		"./extract/acs.orglett.0c01153/IFD-extract.json#22284726,22284720",  // 9 -- LARGE two remote locations; bruker dirs + cdx
-/*10*/		"./extract/acs.orglett.0c01197/IFD-extract.json#22491647",  // 10 -- many mnovas
+/*9*/		"./extract/acs.orglett.0c01153/IFD-extract.json#22284726,22284720",  // 9 -- LARGE two remote locations; bruker dirs + cdx + one mnova
+
+/*10*/		"./extract/acs.orglett.0c01197/IFD-extract.json#22491647",  // 10 -- many mnovas with PNG only
+
 /*11*/		"./extract/acs.orglett.0c01277/IFD-extract.json#22613762",  // 11 -- bruker dirs
 /*12*/		"./extract/acs.orglett.0c01297/IFD-extract.json#22612484",  // 12 --  bruker dirs
 /*13*/      "./extract/acs.orgLett.9b02307/IFD-extract.json#9b02307"    // 13 -- Ley, May
 	};
 
-	private static void runTests(String[] args) {
-		int first = 0; // first test to run
+	/**
+	 * Run a full extraction based on arguments, possibly a test set
+	 * 
+	 * @param args [null, sourceAchive, targetDir, flags...]
+	 * @param first
+	 * @param last
+	 * @param createFindingAidJSONList
+	 */
+	private static void runACSExtractionTest(String[] args,
+			int first, int last, boolean createFindingAidJSONList) {
+		String sourceArchive = args[1];
+		String targetDir = args[2];
+		new File(targetDir).mkdirs();
+		FAIRSpecUtilities.setLogging(targetDir + "/extractor.log");
+
+		String json = null;
+
+		int i0 = Math.max(0, Math.min(first, last));
+		int i1 = Math.max(0, Math.max(first, last));
+		int failed = 0;
+		int n = 0;
+		int nWarnings = 0;
+		int nErrors = 0;
+		String warnings = "";
+		MetadataExtractor extractor = null;
+		String sflags = null;
+		String targetDir0 = targetDir;
+		// ./extract/ should be in the main Eclipse project directory.
+		// [0] "./extract/acs.joc.0c00770/IFD-extract.json#22567817", // 0 727 files;
+		// zips of bruker dirs + mnovas
+		for (int i = i0; i <= i1; i++) {
+			extractor = new MetadataExtractor();
+			extractor.logToSys("Extractor.runExtractionTest output to " + new File(targetDir).getAbsolutePath());
+			String extractInfo = acsTestSet[i];
+			extractor.logToSys("Extractor.runExtraction " + i + " " + extractInfo);
+			String ifdExtractFile;
+			int pt = extractInfo.indexOf("#");
+			if (pt == 0) {
+				ifdExtractFile = null;
+				System.out.println("Ignoring " + extractInfo);
+				continue;
+			} else if (pt > 0) {
+				ifdExtractFile = extractInfo.substring(0, pt);
+			} else {
+				ifdExtractFile = extractInfo;
+			}
+			String targetSubDirectory = new File(ifdExtractFile).getParentFile().getName();
+			if (targetSubDirectory.length() > 0)
+				targetDir = targetDir0 + "/" + targetSubDirectory;
+			n++;
+			if (json == null) {
+				json = "{\"findingaids\":[\n";
+			} else {
+				json += ",\n";
+			}
+			json += "\"" + targetDir + "/IFD.findingaid.json\"";
+			long t0 = System.currentTimeMillis();
+
+			extractor.testID = i;
+			extractor.processFlags(args, null);
+			new File(targetDir).mkdirs();
+			// false for testing and you don't want to mess up _IFD_findingaids.json
+			try {
+				File ifdExtractScriptFile = new File(ifdExtractFile).getAbsoluteFile();
+				File targetPath = new File(targetDir).getAbsoluteFile();
+				String sourcePath = (sourceArchive == null ? null : new File(sourceArchive).getAbsolutePath());
+				extractor.run(ifdExtractScriptFile, targetPath, sourcePath);
+				extractor.logToSys("Extractor.runExtraction ok " + extractInfo);
+			} catch (Exception e) {
+				failed++;
+				extractor.logErr("Exception " + e + " " + i, "runExtraction");
+				e.printStackTrace();
+				if (extractor.stopOnAnyFailure)
+					break;
+			}
+			nWarnings += extractor.warnings;
+			nErrors += extractor.errors;
+			extractor.logToSys("!Extractor.runExtraction job " + extractInfo + " time/sec="
+					+ (System.currentTimeMillis() - t0) / 1000.0);
+			ifdExtractFile = null;
+			if (extractor.warnings > 0) {
+				warnings += "======== " + i + ": " + extractor.warnings + " warnings for " + targetDir + "\n"
+						+ extractor.strWarnings;
+				try {
+					FAIRSpecUtilities.writeBytesToFile((warnings).getBytes(),
+							new File(targetDir0 + "/_IFD_warnings.txt"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
+		if (extractor != null) {
+			if (createFindingAidJSONList)
+				createFindingAidJSONList = !extractor.debugReadOnly && (first != last || first < 0);
+			sflags = "\n first = " + first + " last = " + last + "\n"//
+					+ extractor.dumpFlags() + "\n createFindingAidJSONList = " + createFindingAidJSONList //
+					+ "\n IFD version " + IFDConst.IFD_VERSION + "\n";
+			if (!createFindingAidJSONList)
+				json = null;
+			else if (json != null)
+				json += "\n]}\n";
+			extractor.finalizeExtraction(json, targetDir0, n, failed, nWarnings, nErrors, sflags);
+		}
+		FAIRSpecUtilities.setLogging(null);
+	}
+	
+	public static void main(String[] args) {
+		// args[] may override sourceArchive as ars[1] 
+		// and testDir as args[2]; args[0] is ignored;
+		int first = 13; // first test to run
 		int last = 13; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
 					  // file test
-		runACSTest(args, first, last);
-	}
-
-	private static void runACSTest(String[] args, int first, int last) {
 		/**
-		 * null to download from FigShare; a local dir if you have already downloaded
-		 * the zip files
+		 * a local dir if you have already downloaded the zip files, otherwise null to
+		 * download from FigShare;
 		 */
 		String sourceArchive = "c:/temp/iupac/zip";
-		String targetDir = "c:/temp/iupac/ifd2024Ley";//./site/ifd";
+		String targetDir = "c:/temp/iupac/ifd2024";
 		String options = null; // "-datacitedown"
-		args = setSourceTargetArgs(args, sourceArchive, targetDir, options);		
-		runExtraction(args, acsTestSet, first, last);
-	}
-
-	public static void main(String[] args) {
-		runTests(args);
+		args = setSourceTargetArgs(args, null, sourceArchive, targetDir, options);
+		boolean createFindingAidJSONList = true;
+		runACSExtractionTest(args, first, last, createFindingAidJSONList);
 	}
 
 }
