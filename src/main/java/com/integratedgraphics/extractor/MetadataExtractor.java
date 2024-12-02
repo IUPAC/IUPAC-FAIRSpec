@@ -60,7 +60,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
  * @author hansonr
  *
  */
-public class MetadataExtractor extends MetadataExtractorLayer1 {
+public class MetadataExtractor extends MetadataExtractorLayer3 {
 	
 	// 2024.11.03 version 0.0.6 adding support for DoiCrawler
 	// 2024.05.28 version 0.0.5 moved to com.integratedgraphics.extractor.Extractor

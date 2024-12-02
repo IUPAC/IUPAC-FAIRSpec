@@ -46,7 +46,7 @@ import com.integratedgraphics.ifd.api.VendorPluginI;
  * @author hanso
  *
  */
-abstract class MetadataExtractorLayer1 extends MetadataExtractorLayer2 {
+abstract class MetadataExtractorLayer1 extends MetadataExtractorLayer0 {
 
 	/**
 	 * extract version from IFD-extract.json

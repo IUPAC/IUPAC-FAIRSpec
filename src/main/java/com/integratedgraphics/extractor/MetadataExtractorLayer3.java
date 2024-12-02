@@ -40,7 +40,7 @@ import com.integratedgraphics.extractor.ExtractorAids.ExtractorResource;
  * @author hanso
  *
  */
-abstract class MetadataExtractorLayer3 extends MetadataExtractorLayer0 {
+abstract class MetadataExtractorLayer3 extends MetadataExtractorLayer2 {
 
 	private List<FileList> rootLists;
 

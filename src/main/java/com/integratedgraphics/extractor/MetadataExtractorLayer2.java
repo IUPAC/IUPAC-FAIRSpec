@@ -48,7 +48,7 @@ import com.integratedgraphics.extractor.ExtractorAids.ExtractorResource;
 import com.integratedgraphics.extractor.ExtractorAids.ObjectParser;
 import com.integratedgraphics.ifd.api.VendorPluginI;
 
-abstract class MetadataExtractorLayer2 extends MetadataExtractorLayer3 {
+abstract class MetadataExtractorLayer2 extends MetadataExtractorLayer1 {
 
 	/**
 	 * Phase 2: Carry out the actual extraction of metadata.
