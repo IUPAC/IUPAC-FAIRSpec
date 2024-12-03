@@ -29,7 +29,7 @@ var JMEInfo = {
 	visible: true,
   	divId: "jmediv"
   //optional parameters
-  ,"options" : "canonize"// that is, created c1ccccc1 for benzene search//"query,hydrogens"
+  ,"options" : "canonize,nohydrogens"// that is, created c1ccccc1 for benzene search//"query,hydrogens"
   //,"jme" : startingStructure   
 }
 
