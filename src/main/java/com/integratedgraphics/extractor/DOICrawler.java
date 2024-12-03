@@ -33,6 +33,7 @@ import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
 
+import com.integratedgraphics.test.ICLDOICrawler;
 import com.integratedgraphics.util.XmlReader;
 
 /**
@@ -73,6 +74,13 @@ import com.integratedgraphics.util.XmlReader;
 
 public class DOICrawler extends FindingAidCreator {
 
+	// 2024.12.02 version 0.0.6 (copied from IFDExtractor.java)
+	// 2024.05.28 version 0.0.1 initial version used for ICL repository crawling
+
+	protected static final String version = "0.0.6-alpha+2024.12.02";
+	
+	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/DOICrawler.java";
+
 	/**
 	 * Imperial College 
 	 * 
@@ -84,67 +92,38 @@ public class DOICrawler extends FindingAidCreator {
 	 * 
 	 */
 	protected final static String TEST_PID = "10.14469/hpc/10386";
-
+	
+	
 	/**
 	 * A class to allow some adjustments. See ICLDOICrawler.
 	 * 
 	 * @author hanso
 	 *
 	 */
-	public interface DOICustomizer {
+	protected interface DOICustomizer {
 
-		boolean customizeText(String key, String val);
 		String customizeSubjectKey(String key);
+		boolean customizeText(String key, String val);
 		boolean ignoreURL(String url);
 		
 	}
 
-
-	protected static final String DEFAULT_OUTDIR = "c:/temp/iupac/crawler";
-	
-	protected StringBuffer log = new StringBuffer();
-
-	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/DOICrawler.java";
-
-	protected static final String version = "0.0.5-alpha+2024.11.04";
-
-	// 2024.05.28 version 0.0.1 initial version used for ICL repository crawling
-
-	protected final static String DOWNLOAD_TYPES = ";zip;jdx;png;pdf;a2r;jpg;jpeg;cdxml;mol;cif;xls;xlsx;mnova;mnpub;";
-	public final static String DATACITE_METADATA = "https://data.datacite.org/application/vnd.datacite.datacite+xml/";
-	public final static String IFD_SCHEME_URI = "http://iupac.org/ifd";
-	public final static String FAIRDATA_SUBJECT_SCHEME = "IFD";
-
-	protected static final String DOI_ORG = DOIInfoExtractor.DOI_ORG;
-
-	protected static final String FAIRSPEC_COMPOUND_ID = "IFD.property.fairspec.compound.id";
-
-	protected static final String IFD_INCHI = "IFD.representation.structure.inchi";
-	protected static final String IFD_INCHIKEY = "IFD.representation.structure.inchikey";
-	protected static final String FAIRSPEC_DATAOBJECT_FLAG = "IFD.property.dataobject.fairspec.";
-	protected static final String IFD_SMILES = "IFD.representation.structure.smiles";
-
-	protected static final char DOI_REP = 'R';
-	protected static final char DOI_COMP = 'C';
-	protected static final char DOI_DATA = 'D';
-	protected static final char DOI_TOP = 'T';
-	
 	protected static class DoiRecord {
 
-		String compoundID;
-		char type; 
-		IFDReference ifdRef;
-		Map<String, String> properties = new TreeMap<>();
-		String pidPath;
-		int length;
-		public String mediaType;
 		public String dataObjectType;
-	
-		protected List<DoiRecord> itemList;
-		protected String sortKey;
-		protected String label;
+		public boolean hasRepresentations; 
+		public String mediaType;
 		public LinkedHashMap<String, List<String>> relatedItems;
-		public boolean hasRepresentations;
+		String compoundID;
+		IFDReference ifdRef;
+		int length;
+		String pidPath;
+	
+		Map<String, String> properties = new TreeMap<>();
+		char type;
+		protected List<DoiRecord> itemList;
+		protected String label;
+		protected String sortKey;
 
 		DoiRecord(String id, String url, String dirName, String localName) {
 			compoundID = id;
@@ -153,18 +132,6 @@ public class DOICrawler extends FindingAidCreator {
 				ifdRef.setDOI(url);
 			else
 				ifdRef.setURL(url);
-		}
-
-		void addItem(DoiRecord rep) {
-			if (itemList == null)
-				itemList = new ArrayList<>();
-			itemList.add(rep);
-		}
-		
-		void addProperty(String key, String val) {
-			if (key.endsWith(".label"))
-				label = val;
-			properties.put(key, val);
 		}
 
 		public byte[] getBytes() {
@@ -177,12 +144,7 @@ public class DOICrawler extends FindingAidCreator {
 	    	s += "\t" + ifdRef + (label == null ? "" : "\t" + label);
 			return s.getBytes();
 		}
-
-		@Override
-		public String toString() {
-			return "[doiRecord " + type + (type == DOI_DATA ? "." + dataObjectType : "") + " " + compoundID + ": " + ifdRef.getLocalName() + " mt=" + mediaType + " " + properties + "]";
-		}
-
+		
 		public String getSortKey(String ckey, String dkey) {
 			if (sortKey == null) {
 				switch (type) {
@@ -201,87 +163,79 @@ public class DOICrawler extends FindingAidCreator {
 			return sortKey;
 		}
 
+		@Override
+		public String toString() {
+			return "[doiRecord " + type + (type == DOI_DATA ? "." + dataObjectType : "") + " " + compoundID + ": " + ifdRef.getLocalName() + " mt=" + mediaType + " " + properties + "]";
+		}
+
+		void addItem(DoiRecord rep) {
+			if (itemList == null)
+				itemList = new ArrayList<>();
+			itemList.add(rep);
+		}
+
+		void addProperty(String key, String val) {
+			if (key.endsWith(".label"))
+				label = val;
+			properties.put(key, val);
+		}
+
 	}
-	
-	private static String indent = "                              ";
-
-	// inputs
-	
-	/**
-	 * set to false using -nodownload flag
-	 */
-	private boolean doDownload = true;
-	
-	/**
-	 * set to true if all related URL groups are of the same compound
-	 */
-    private boolean byCompound = false;
-	
-	private String initialDOI;
-	private File topDir, dataDir, fileDir;
-
-	// XML parser fields
-	
-	private URL dataCiteMetadataURL;
-	protected int xmlDepth;
-	private String pidPath;
-
-	// iterative nesting of DOI reference
-	
-	private Stack<String> urlStack;
-	private int urlDepth;
-
-	/**
-	 * doiList is what we are generating during XML parsing
-	 */
-	private List<DoiRecord> doiList;
-	/**
-	 * the current doiRecord during XML parsing
-	 */
-	DoiRecord doiRecord;
-
-	private int nReps;
-
-	private long startTime;	
-	private long totalLength;
-
-	private boolean isTop = true;
-	private boolean isSilent = false;
-
-	private String thisCompoundID;
-	private String thisDataObjectType;
-
-
-	
-
-	/**
-	 * a map to convert the ICL archive's keys to proper IFD.property keys
-	 */
-
-	private File faDir;
-
-	private String faId;
-
-	private String subdir;
-
-	private DOICustomizer customizer;
 
 	private static class DOIXMLReader extends XmlReader {
 
 		private DOICrawler crawler;
+		private DOICustomizer customizer;
 		private boolean skipping;
 		private Stack<Map<String, String>> thisAttrs = new Stack<>();
-		private DOICustomizer customizer;
-		protected Map<String, String> getAttributes(boolean andPop) {
-			return (andPop ? thisAttrs.pop() : thisAttrs.get(thisAttrs.size() - 1));
-		}
-		
 		public DOIXMLReader(DOICrawler crawler, DOICustomizer customizer, boolean isTop, StringBuffer log) {
 			super(log);
 			// if not isTop, we skip the initial business
 			skipping = !isTop;
 			this.crawler = crawler;
 			this.customizer = customizer;
+		}
+		
+		protected Map<String, String> getAttributes(boolean andPop) {
+			return (andPop ? thisAttrs.pop() : thisAttrs.get(thisAttrs.size() - 1));
+		}
+
+		@Override
+		protected void processEndElement(String localName) {
+			String s = chars.toString().trim();
+			chars.setLength(0);
+			Map<String, String> attrs;
+			switch (localName) {
+			case "description":
+				if (s.length() > 0 && !crawler.customizeText("description", s)) {
+					crawler.addAttr(IFDConst.IFD_PROPERTY_DESCRIPTION, s);
+				}
+				break;
+			case "title":
+				if (s.length() > 0) {
+					if (!crawler.customizeText("title", s)) {
+						crawler.addAttr(IFDConst.IFD_PROPERTY_LABEL, s);
+					}
+				}
+				break;
+			case "subject":
+				attrs = getAttributes(true);
+				addSubject(attrs, s);
+				break;
+			case "relatedidentifier":
+				if (s.length() > 0) {
+					crawler.logAttr("relatedidentifier", s);
+				}
+				crawler.addRelatedIdentifier(getAttributes(true), s);
+				break;
+			default:
+				if (!skipping && s.length() > 0) {
+					crawler.logAttr("value", s);
+					crawler.addAttr(localName, s);
+				}
+				break;
+			}
+			crawler.xmlDepth--;
 		}
 
 		@Override
@@ -348,54 +302,16 @@ public class DOICrawler extends FindingAidCreator {
 			}
 		}
 
-		@Override
-		protected void processEndElement(String localName) {
-			String s = chars.toString().trim();
-			chars.setLength(0);
-			Map<String, String> attrs;
-			switch (localName) {
-			case "description":
-				if (s.length() > 0 && !crawler.customizeText("description", s)) {
-					crawler.addAttr(IFDConst.IFD_PROPERTY_DESCRIPTION, s);
-				}
-				break;
-			case "title":
-				if (s.length() > 0) {
-					if (!crawler.customizeText("title", s)) {
-						crawler.addAttr(IFDConst.IFD_PROPERTY_LABEL, s);
-					}
-				}
-				break;
-			case "subject":
-				attrs = getAttributes(true);
-				addSubject(attrs, s);
-				break;
-			case "relatedidentifier":
-				if (s.length() > 0) {
-					crawler.logAttr("relatedidentifier", s);
-				}
-				crawler.addRelatedIdentifier(getAttributes(true), s);
-				break;
-			default:
-				if (!skipping && s.length() > 0) {
-					crawler.logAttr("value", s);
-					crawler.addAttr(localName, s);
-				}
-				break;
-			}
-			crawler.xmlDepth--;
-		}
-
 		private void addSubject(Map<String, String> attrs, String s) {
-// proposed plan:
-//
-//			<subjects>
-//			    <subject 
-//			subjectScheme="IFD" 
-//			schemeURI="http://iupac.org/ifd" 
-//			valueURI="http://iupac.org/ifd/IFD.compound.id">21</subject>
-//			</subjects>
-//
+			// proposed plan:
+			//
+			//			<subjects>
+			//			    <subject 
+			//			subjectScheme="IFD" 
+			//			schemeURI="http://iupac.org/ifd" 
+			//			valueURI="http://iupac.org/ifd/IFD.compound.id">21</subject>
+			//			</subjects>
+			//
 			String key = attrs.get("subjectscheme");
 			if (key == null) {
 				crawler.customizeText("subject", s);
@@ -422,39 +338,166 @@ public class DOICrawler extends FindingAidCreator {
 
 		private String customizeSubectKey(String key) {
 			return (customizer == null ? key : customizer.customizeSubjectKey(key));
+		}		
+	
+	}
+	
+	public final static String DATACITE_METADATA = "https://data.datacite.org/application/vnd.datacite.datacite+xml/";
+
+	public final static String FAIRDATA_SUBJECT_SCHEME = "IFD";
+
+	public final static String IFD_SCHEME_URI = "http://iupac.org/ifd";
+
+	protected static final String DEFAULT_OUTDIR = "c:/temp/iupac/crawler";
+	protected static final char DOI_COMP = 'C';
+	protected static final char DOI_DATA = 'D';
+	protected static final char DOI_REP = 'R';
+	protected static final char DOI_TOP = 'T';
+
+	protected static final String DOI_ORG = DOIInfoExtractor.DOI_ORG;
+
+	protected final static String DOWNLOAD_TYPES = ";zip;jdx;png;pdf;a2r;jpg;jpeg;cdxml;mol;cif;xls;xlsx;mnova;mnpub;";
+	protected static final String FAIRSPEC_COMPOUND_ID = "IFD.property.fairspec.compound.id";
+	protected static final String FAIRSPEC_DATAOBJECT_FLAG = "IFD.property.dataobject.fairspec.";
+
+	protected static final String IFD_INCHI = "IFD.representation.structure.inchi";
+	protected static final String IFD_INCHIKEY = "IFD.representation.structure.inchikey";
+	protected static final String IFD_SMILES = "IFD.representation.structure.smiles";
+
+	private static String indent = "                              ";
+
+	private static Comparator<DoiRecord> sorter = new Comparator<DoiRecord>() {
+
+		@Override
+		public int compare(DoiRecord o1, DoiRecord o2) {
+			return (o1.getSortKey(null, null).compareTo(o2.getSortKey(null, null)));
 		}
-
 		
+	};
+
+	public static void main(String[] args) {
+		if (args.length == 0)
+			ICLDOICrawler.main(args);
+		else 
+			new DOICrawler(args).crawl();
 	}
 
-	public void doEndXMLElement(String localName, StringBuffer chars) {
+	protected static String cleanData(String s) {
+		return s.replaceAll("\t", "\\\\t").replaceAll("\r\n", "\\\\n").replaceAll("\n", "\\\\n");
 	}
 
-	public void setResourceType(char doiType) {
-		pidPath += doiType;
-		if (doiRecord.type == '\0')
-			doiRecord.type = doiType;
+	protected static void sortRecords(List<DoiRecord> doiList) {
+		String ckey = null, dkey = null;
+		for (int i = 0; i < doiList.size(); i++) {
+			DoiRecord rec = doiList.get(i);
+			switch (rec.type) {
+			case DOI_COMP:
+				ckey = rec.getSortKey(null, null);
+				break;
+			case DOI_DATA:
+				dkey = rec.getSortKey(ckey, null);
+				break;
+			case DOI_REP:
+				rec.getSortKey(ckey, dkey);
+				break;
+			case DOI_TOP:
+			default:
+				rec.getSortKey(ckey, null);
+				break;
+			}
+		}
+		doiList.sort(sorter);
 	}
 
-	public void setDataObjectType(String type) {
-		doiRecord.dataObjectType = type;
-	}
+	// inputs
+	
+	private static String getHeaderAttr(String data, String name) {
 
-	public String newCompound(String id) {
-		thisCompoundID = doiRecord.compoundID = id;
-		doiRecord.type = DOI_COMP;
-		return id;
+		int pt = data.indexOf(name + "=");
+		if (pt < 0)
+			return null;
+		int pt2 = data.indexOf('\t', pt);
+		return data.substring(pt + name.length() + 1, pt2 > 0 ? pt2 : data.length());
 	}
+	
+	private static URL getMetadataURL(String pid) throws MalformedURLException {
+		System.out.println(pid);
+		return new URL(DATACITE_METADATA + pid);
+	}
+	
+	private static URL newURL(String s) throws MalformedURLException {
+		s = FAIRSpecUtilities.rep(s, "&amp;", "&");
+		return new URL(s);
+	}
+	/**
+	 * the current doiRecord during XML parsing
+	 */
+	public DoiRecord doiRecord;
 
-	@Override
-	public String getVersion() {
-		return "DoiCrawler " + version;
-	}
+	// XML parser fields
+	
+	protected StringBuffer log = new StringBuffer();
+	protected int xmlDepth;
+	/**
+	 * set to true if all related URL groups are of the same compound
+	 */
+    private boolean byCompound = false;
 
-	@Override
-	public String getCodeSource() {
-		return codeSource;
-	}
+	// iterative nesting of DOI reference
+	
+	private DOICustomizer customizer;
+	private URL dataCiteMetadataURL;
+
+	/**
+	 * set to false using -nodownload flag
+	 */
+	private boolean doDownload = true;
+	/**
+	 * doiList is what we are generating during XML parsing
+	 */
+	private List<DoiRecord> doiList;
+
+	private StringBuffer errorBuffer = new StringBuffer();
+
+	/**
+	 * a map to convert the ICL archive's keys to proper IFD.property keys
+	 */
+
+	private File faDir;	
+	private String faId;
+
+	private FAIRSpecFindingAid findingAid;
+	private int ids = 0;
+
+	private String initialDOI;
+	private boolean isSilent = false;
+
+
+	
+
+	private boolean isTop = true;
+
+	private int nReps;
+
+	private String pidPath;
+
+	private long startTime;
+
+	private String subdir;
+
+	private String thisCompoundID;
+
+	private IFDDataObject thisDataObject;
+
+	private String thisDataObjectType;
+
+	private File topDir, dataDir, fileDir;
+
+	private long totalLength;
+
+	private int urlDepth;
+
+	private Stack<String> urlStack;
 
 	/**
 	 * 
@@ -478,16 +521,31 @@ public class DOICrawler extends FindingAidCreator {
 		String outdir = args.length > 1 ? args[1] : DEFAULT_OUTDIR;
 		topDir = new File(outdir);
 	}
-
-	public void setCustomizer(DOICustomizer customizer) {
-		this.customizer = customizer;
-	}
 	
-	public boolean crawl(File topDir, File dataDir, File fileDir) {
-		this.topDir = topDir;
-		this.dataDir = dataDir;
-		this.fileDir = fileDir;
-		return crawl();
+	/**
+	 * For future use in structure file checking.
+	 * 
+	 * @param key
+	 * @param val in the case of a representation, this will be an Object[]
+	 * consisting of [ bytes, fileName, ifdStructureType, standardInchi|?, mediaType ]
+	 * @param isInLine
+	 * @param mediaType
+	 * @param note
+	 */
+	@Override
+	public void addDeferredPropertyOrRepresentation(String key, Object val, 
+			boolean isInLine, String mediaType, String note) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * For future use in dataset file checking.
+	 */
+	@Override
+	public void addProperty(String key, Object val) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public boolean crawl() {
@@ -525,33 +583,308 @@ public class DOICrawler extends FindingAidCreator {
 		return true;
 	}
 
-	private void outputListAndLog(File dir) {
-		File f = new File(dir, "ifd-fileURLMap.txt");
-		System.out.println("writing " + doiList.size() + " entries " + f.getAbsolutePath());
-		System.out.println(nReps + " representations");
-		try {
-			FileOutputStream fos = new FileOutputStream(f);
-			for (int i = 0; i < doiList.size(); i++) {
-				fos.write(doiList.get(i).getBytes());
-				fos.write((byte) '\n');
+	public boolean crawl(File topDir, File dataDir, File fileDir) {
+		this.topDir = topDir;
+		this.dataDir = dataDir;
+		this.fileDir = fileDir;
+		return crawl();
+	}
+
+	public void doEndXMLElement(String localName, StringBuffer chars) {
+	}
+
+	@Override
+	public String getCodeSource() {
+		return codeSource;
+	}
+
+	@Override
+	public String getVersion() {
+		return "DoiCrawler " + version;
+	}
+
+	public String newCompound(String id) {
+		thisCompoundID = doiRecord.compoundID = id;
+		doiRecord.type = DOI_COMP;
+		return id;
+	}
+	
+
+	public void setCustomizer(DOICustomizer customizer) {
+		this.customizer = customizer;
+	}
+
+	public void setDataObjectType(String type) {
+		doiRecord.dataObjectType = type;
+	}
+
+	public void setResourceType(char doiType) {
+		pidPath += doiType;
+		if (doiRecord.type == '\0')
+			doiRecord.type = doiType;
+	}
+	
+	protected void addAttr(String key, String value) {
+		doiRecord.addProperty(key, cleanData(value));
+		logAttr(key, value);
+	}
+
+	protected void addError(String err) {
+		System.err.println(err);
+		errorBuffer.append(err + "\n");
+	}
+
+	protected void addException(Exception e) {
+		e.printStackTrace();
+		logAttr("exception", e.getClass().getName() + ": " + e.getMessage());
+	}
+
+	//	/**
+//	 * change >C to >D
+//	 */
+//	private void fixPIDPathForDataset() {
+//		pidPath = pidPath.substring(0, pidPath.length() - 1) + "D";
+//		addError("Dataset was Collection: " + pidPath);
+//	}
+
+	/**
+	 * 
+	 * @param c
+	 * @param rec
+	 */
+	protected void addProperties(IFDObject<?> c, DoiRecord rec) {
+		boolean isData = (rec.type == DOI_DATA);
+		for (Entry<String, String> e : rec.properties.entrySet()) {
+			String key = e.getKey();
+			String value = e.getValue();
+			switch (key) {
+			case "schemalocation":
+				continue;
 			}
-			fos.close();
+			if (isData && key.contains(IFDConst.IFD_STRUCTURE_FLAG)) {
+				// structure props found in dataset collection
+				faHelper.createStructureRepresentation(null, value, value.length(), key, null);
+			} else {
+				c.setPropertyValue(key, value, rec.compoundID);
+			}
+		}
+	}
+
+	protected void appendLog(String line) {
+		if (isSilent)
+			return;
+		line = line.trim();
+		if (xmlDepth * 2 > indent.length())
+			indent += indent;
+		log.append('\n').append(urlDepth).append(".").append(xmlDepth).append(indent.substring(0, xmlDepth * 2))
+				.append(line);
+	}
+	
+	protected void createFindingAid() {
+		String url = DOI_ORG + initialDOI;
+		// add DOI for repository
+		IFDReference r = new IFDReference();
+		r.setDOI(url);
+		findingAid.getCollectionSet().setReference(r);
+		try {
+			DoiRecord rec = doiList.get(0);
+			String pubdoi = rec.properties.remove("PUBDOI");
+			String datadoi = url;
+			processDOIURLs(pubdoi, datadoi, faHelper);
+			nestRecords();
+			processRecords(null, doiList);
+			faHelper.generateFindingAid(faDir);
 		} catch (Exception e) {
 			addException(e);
 		}
-		f = new File(dir, "crawler.log");
-		System.out.println("writing " + log.length() + " bytes " + f.getAbsolutePath());
-		FAIRSpecUtilities.putToFile(log.toString().getBytes(), f);
 	}
 
-	private static URL getMetadataURL(String pid) throws MalformedURLException {
-		System.out.println(pid);
-		return new URL(DATACITE_METADATA + pid);
+	protected boolean customizeText(String key, String val) {
+		switch (key) {
+		case "subject":
+			switch (val) {
+			// ccdc subject
+			case "Crystal Structure":
+				setDataObjectType("xrd");
+				return false;
+			}
+			break;
+		case "References":
+			if (val.indexOf("/ccdc.") >= 0)
+				return true;
+		}
+		return (customizer != null && customizer.customizeText(key, val));
 	}
 
-	private static URL newURL(String s) throws MalformedURLException {
-		s = FAIRSpecUtilities.rep(s, "&amp;", "&");
-		return new URL(s);
+	protected String getTabField(String line, String key) {
+		int pt = line.indexOf("\t" + key + "=");
+		if (pt < 0)
+			return null;
+		pt = pt + key.length() + 2;
+		int pt1 = line.indexOf('\t', pt);
+		return (pt1 < 0 ? line.substring(pt) : line.substring(pt, pt1));
+	}
+
+	protected void logAttr(String key, String value) {
+		appendLog(key + "=" + value);
+	}
+	
+	protected void processRecords(String dataObjectType, List<DoiRecord> doiList) throws IFDException {
+		sortRecords(doiList);
+		for (int i = 0; i < doiList.size(); i++) {
+			DoiRecord rec = doiList.get(i);
+			IFDObject<?> o = null;
+			switch (rec.type) {
+			case DOI_TOP:
+				o = faHelper.getFindingAid().getCollectionSet();
+				break;
+			case DOI_COMP:
+				thisCompoundID = rec.compoundID;
+				o = faHelper.createCompound(thisCompoundID);
+				o.setDOI(rec.ifdRef.getDOI());
+				o.setURL(rec.ifdRef.getURL());
+				o.setReference(rec.ifdRef);
+				thisDataObject = null;
+				if (rec.itemList != null)
+					processRecords(rec.dataObjectType, rec.itemList);
+				break;
+			case DOI_DATA:
+				o = thisDataObject = faHelper.createDataObject("" + ++ids, rec.dataObjectType);
+				o.setDOI(rec.ifdRef.getDOI());
+				o.setURL(rec.ifdRef.getURL());
+				thisDataObjectType = rec.dataObjectType;
+				break;
+			case DOI_REP:
+				String structureType = null;
+				if (rec.dataObjectType == null) {
+					// isStructure
+					String ext = rec.ifdRef.getLocalName();
+					ext = ext.substring(ext.lastIndexOf(".") + 1);
+					structureType = DefaultStructureHelper.getType(ext, null, false);
+					if (structureType != null) {
+						System.out.println(rec.ifdRef);
+						faHelper.createStructureRepresentation(rec.ifdRef, null, rec.length, structureType, rec.mediaType);
+					}
+				} 
+				
+				if (structureType == null) {
+					if (thisDataObject == null) {
+						log("!!no data object for " + rec.ifdRef.getLocalName() + " " + rec.ifdRef.getURL());
+					} else {
+						if (thisDataObjectType == null) {
+							thisDataObjectType = "unknown";
+							addError("!no data type found for " + rec);
+						}
+						if (!thisDataObjectType.startsWith(FAIRSPEC_DATAOBJECT_FLAG))
+							thisDataObjectType = FAIRSPEC_DATAOBJECT_FLAG + thisDataObjectType;
+						rec.dataObjectType = thisDataObjectType;
+						faHelper.createDataObjectRepresentation(rec.ifdRef, null, rec.length, rec.dataObjectType, rec.mediaType);
+					}
+				}
+				break;
+			}
+			if (o != null) {
+				addProperties(o, rec);
+			}
+		}
+	}
+
+	private void addRecord(DoiRecord doiRecord) {
+		doiRecord.pidPath = pidPath;
+		doiList.add(doiRecord);
+	}
+
+	// from XMLReader
+
+	private void addRelatedIdentifier(Map<String, String> attrs, String s) {
+		String type = attrs.get("relatedidentifiertype"); // DOI or URL
+		String generalType = attrs.get("resourcetypegeneral");
+		switch (attrs.get("relationtype")) {
+		case "HasPart":
+			break;
+		case "References":
+			// only interested in JournalArticle
+			if (generalType == null) {
+				if (customizeText("References", s)) {
+					break; // treat as "HasPart"
+				}
+				return;
+			}
+			switch (generalType) {
+			case "JournalArticle":
+				if ("DOI".equals(type))
+					s = DOI_ORG + s;
+				addAttr("PUB" + type, s);
+				break;
+			}
+			return;
+		default:
+			type = null;
+			break;
+		}
+		if (type != null) {
+			if (ignoreURL(s))
+				return;
+			Map<String, List<String>> map = doiRecord.relatedItems;
+			List<String> list = map.get(type);
+			if (list == null)
+				map.put(type, list = new ArrayList<String>());
+			list.add(s);
+		}
+	}
+
+
+	/**
+	 * We could download the files for checking or extracting
+	 * metadata. We choose not to do that in this demonstration.
+	 * 
+	 * @param url
+	 * @param file
+	 * @throws IOException
+	 */
+	private void downloadCheck(URL url, File file) throws IOException {
+		long modTime = file.lastModified();
+		System.out.println(file);
+		if (modTime > 0 && modTime < startTime) {
+			// existed before we started crawling
+			return;
+		}
+		String s = file.getName();
+		int pt = s.lastIndexOf(".");
+		if (pt > 0 && FAIRSpecUtilities.isOneOf(s.substring(pt + 1), DOWNLOAD_TYPES)) {
+			if (modTime > 0) {
+				addError("replacing " + file.getName() + " with " + url);
+			}
+			URLConnection con = url.openConnection();
+			InputStream is = con.getInputStream();
+			int n = FAIRSpecUtilities.putToFile(FAIRSpecUtilities.getBytesAndClose(is), file);
+			if (n == 0)
+				addError("!URL returns 0 bytes! " + url);
+		}
+	}
+
+	private boolean ignoreURL(String url) {
+		if (customizer != null && customizer.ignoreURL(url)) {
+			log("DOICrawler customizer ignoring " + url);
+			return true;
+		}
+		return false;
+	}
+	
+	// logging
+	
+	private void nestRecords() {
+		for (int i = 0; i < doiList.size(); i++) {
+			DoiRecord rec = doiList.get(i);
+			if (rec.type == DOI_COMP) {
+				while (i + 1 < doiList.size()) {
+					if (doiList.get(i + 1).type == 'C') {
+						break;
+					} 
+					rec.addItem(doiList.remove(i + 1));
+				}
+			}
+		}
 	}
 
 	/**
@@ -616,36 +949,23 @@ public class DOICrawler extends FindingAidCreator {
 		return true;
 	}
 
-	private boolean ignoreURL(String url) {
-		if (customizer != null && customizer.ignoreURL(url)) {
-			log("DOICrawler customizer ignoring " + url);
-			return true;
-		}
-		return false;
-	}
-
-	protected boolean customizeText(String key, String val) {
-		switch (key) {
-		case "subject":
-			switch (val) {
-			// ccdc subject
-			case "Crystal Structure":
-				setDataObjectType("xrd");
-				return false;
+	private void outputListAndLog(File dir) {
+		File f = new File(dir, "ifd-fileURLMap.txt");
+		System.out.println("writing " + doiList.size() + " entries " + f.getAbsolutePath());
+		System.out.println(nReps + " representations");
+		try {
+			FileOutputStream fos = new FileOutputStream(f);
+			for (int i = 0; i < doiList.size(); i++) {
+				fos.write(doiList.get(i).getBytes());
+				fos.write((byte) '\n');
 			}
-			break;
-		case "References":
-			if (val.indexOf("/ccdc.") >= 0)
-				return true;
+			fos.close();
+		} catch (Exception e) {
+			addException(e);
 		}
-		return (customizer != null && customizer.customizeText(key, val));
-	}
-	
-
-	private void popURLStack(String currentPath) {
-		pidPath = currentPath;
-		urlStack.pop();
-		urlDepth--;
+		f = new File(dir, "crawler.log");
+		System.out.println("writing " + log.length() + " bytes " + f.getAbsolutePath());
+		FAIRSpecUtilities.putToFile(log.toString().getBytes(), f);
 	}
 
 	/**
@@ -662,6 +982,36 @@ public class DOICrawler extends FindingAidCreator {
 		new DOIXMLReader(this, customizer, isTop, log).parseXML(reader);
 		content.close();
 		processRelated(doiRecord.relatedItems);
+	}
+
+	private void popURLStack(String currentPath) {
+		pidPath = currentPath;
+		urlStack.pop();
+		urlDepth--;
+	}
+
+	private void processRelated(Map<String, List<String>> map) {
+		try {
+			List<String> list = map.get("URL");
+			if (list != null) {
+				Map<String, DoiRecord> fMap = new TreeMap<>();
+				for (int i = 0; i < list.size(); i++) {
+					processRepresentation(subdir, newURL(list.get(i)), fMap);
+				}
+				for (Entry<String, DoiRecord> e : fMap.entrySet()) {
+					addRecord(e.getValue());
+				}
+				doiRecord.hasRepresentations = true;
+			}
+			list = map.get("DOI");
+			if (list != null) {
+				for (int i = 0; i < list.size(); i++) {
+					nextDOI(getMetadataURL(list.get(i)));
+				}
+			}
+		} catch (Exception e) {
+			addException(e);
+		}
 	}
 
 	/**
@@ -730,353 +1080,6 @@ public class DOICrawler extends FindingAidCreator {
 			fMap.put(fileName, rec);
 		}
 		urlDepth--;
-	}
-
-	private static String getHeaderAttr(String data, String name) {
-
-		int pt = data.indexOf(name + "=");
-		if (pt < 0)
-			return null;
-		int pt2 = data.indexOf('\t', pt);
-		return data.substring(pt + name.length() + 1, pt2 > 0 ? pt2 : data.length());
-	}
-
-	/**
-	 * We could download the files for checking or extracting
-	 * metadata. We choose not to do that in this demonstration.
-	 * 
-	 * @param url
-	 * @param file
-	 * @throws IOException
-	 */
-	private void downloadCheck(URL url, File file) throws IOException {
-		long modTime = file.lastModified();
-		System.out.println(file);
-		if (modTime > 0 && modTime < startTime) {
-			// existed before we started crawling
-			return;
-		}
-		String s = file.getName();
-		int pt = s.lastIndexOf(".");
-		if (pt > 0 && FAIRSpecUtilities.isOneOf(s.substring(pt + 1), DOWNLOAD_TYPES)) {
-			if (modTime > 0) {
-				addError("replacing " + file.getName() + " with " + url);
-			}
-			URLConnection con = url.openConnection();
-			InputStream is = con.getInputStream();
-			int n = FAIRSpecUtilities.putToFile(FAIRSpecUtilities.getBytesAndClose(is), file);
-			if (n == 0)
-				addError("!URL returns 0 bytes! " + url);
-		}
-	}
-
-	private void addRelatedIdentifier(Map<String, String> attrs, String s) {
-		String type = attrs.get("relatedidentifiertype"); // DOI or URL
-		String generalType = attrs.get("resourcetypegeneral");
-		switch (attrs.get("relationtype")) {
-		case "HasPart":
-			break;
-		case "References":
-			// only interested in JournalArticle
-			if (generalType == null) {
-				if (customizeText("References", s)) {
-					break; // treat as "HasPart"
-				}
-				return;
-			}
-			switch (generalType) {
-			case "JournalArticle":
-				if ("DOI".equals(type))
-					s = DOI_ORG + s;
-				addAttr("PUB" + type, s);
-				break;
-			}
-			return;
-		default:
-			type = null;
-			break;
-		}
-		if (type != null) {
-			if (ignoreURL(s))
-				return;
-			Map<String, List<String>> map = doiRecord.relatedItems;
-			List<String> list = map.get(type);
-			if (list == null)
-				map.put(type, list = new ArrayList<String>());
-			list.add(s);
-		}
-	}
-
-	private StringBuffer errorBuffer = new StringBuffer();
-
-	private FAIRSpecFindingAid findingAid;
-
-//	/**
-//	 * change >C to >D
-//	 */
-//	private void fixPIDPathForDataset() {
-//		pidPath = pidPath.substring(0, pidPath.length() - 1) + "D";
-//		addError("Dataset was Collection: " + pidPath);
-//	}
-
-	private void processRelated(Map<String, List<String>> map) {
-		try {
-			List<String> list = map.get("URL");
-			if (list != null) {
-				Map<String, DoiRecord> fMap = new TreeMap<>();
-				for (int i = 0; i < list.size(); i++) {
-					processRepresentation(subdir, newURL(list.get(i)), fMap);
-				}
-				for (Entry<String, DoiRecord> e : fMap.entrySet()) {
-					addRecord(e.getValue());
-				}
-				doiRecord.hasRepresentations = true;
-			}
-			list = map.get("DOI");
-			if (list != null) {
-				for (int i = 0; i < list.size(); i++) {
-					nextDOI(getMetadataURL(list.get(i)));
-				}
-			}
-		} catch (Exception e) {
-			addException(e);
-		}
-	}
-
-	protected void createFindingAid() {
-		String url = DOI_ORG + initialDOI;
-		// add DOI for repository
-		IFDReference r = new IFDReference();
-		r.setDOI(url);
-		findingAid.getCollectionSet().setReference(r);
-		try {
-			DoiRecord rec = doiList.get(0);
-			String pubdoi = rec.properties.remove("PUBDOI");
-			String datadoi = url;
-			processDOIURLs(pubdoi, datadoi, faHelper);
-			nestRecords();
-			processRecords(null, doiList);
-			faHelper.generateFindingAid(faDir);
-		} catch (Exception e) {
-			addException(e);
-		}
-	}
-	
-	private void nestRecords() {
-		for (int i = 0; i < doiList.size(); i++) {
-			DoiRecord rec = doiList.get(i);
-			if (rec.type == DOI_COMP) {
-				while (i + 1 < doiList.size()) {
-					if (doiList.get(i + 1).type == 'C') {
-						break;
-					} 
-					rec.addItem(doiList.remove(i + 1));
-				}
-			}
-		}
-	}
-
-	int ids = 0;
-
-	private IFDDataObject thisDataObject;
-
-	private static Comparator<DoiRecord> sorter = new Comparator<DoiRecord>() {
-
-		@Override
-		public int compare(DoiRecord o1, DoiRecord o2) {
-			return (o1.getSortKey(null, null).compareTo(o2.getSortKey(null, null)));
-		}
-		
-	};
-
-	protected static void sortRecords(List<DoiRecord> doiList) {
-		String ckey = null, dkey = null;
-		for (int i = 0; i < doiList.size(); i++) {
-			DoiRecord rec = doiList.get(i);
-			switch (rec.type) {
-			case DOI_COMP:
-				ckey = rec.getSortKey(null, null);
-				break;
-			case DOI_DATA:
-				dkey = rec.getSortKey(ckey, null);
-				break;
-			case DOI_REP:
-				rec.getSortKey(ckey, dkey);
-				break;
-			case DOI_TOP:
-			default:
-				rec.getSortKey(ckey, null);
-				break;
-			}
-		}
-		doiList.sort(sorter);
-	}
-
-	protected void processRecords(String dataObjectType, List<DoiRecord> doiList) throws IFDException {
-		sortRecords(doiList);
-		for (int i = 0; i < doiList.size(); i++) {
-			DoiRecord rec = doiList.get(i);
-			IFDObject<?> o = null;
-			switch (rec.type) {
-			case DOI_TOP:
-				o = faHelper.getFindingAid().getCollectionSet();
-				break;
-			case DOI_COMP:
-				thisCompoundID = rec.compoundID;
-				o = faHelper.createCompound(thisCompoundID);
-				o.setDOI(rec.ifdRef.getDOI());
-				o.setURL(rec.ifdRef.getURL());
-				o.setReference(rec.ifdRef);
-				thisDataObject = null;
-				if (rec.itemList != null)
-					processRecords(rec.dataObjectType, rec.itemList);
-				break;
-			case DOI_DATA:
-				o = thisDataObject = faHelper.createDataObject("" + ++ids, rec.dataObjectType);
-				o.setDOI(rec.ifdRef.getDOI());
-				o.setURL(rec.ifdRef.getURL());
-				thisDataObjectType = rec.dataObjectType;
-				break;
-			case DOI_REP:
-				String structureType = null;
-				if (rec.dataObjectType == null) {
-					// isStructure
-					String ext = rec.ifdRef.getLocalName();
-					ext = ext.substring(ext.lastIndexOf(".") + 1);
-					structureType = DefaultStructureHelper.getType(ext, null, false);
-					if (structureType != null) {
-						System.out.println(rec.ifdRef);
-						faHelper.createStructureRepresentation(rec.ifdRef, null, rec.length, structureType, rec.mediaType);
-					}
-				} 
-				
-				if (structureType == null) {
-					if (thisDataObject == null) {
-						log("!!no data object for " + rec.ifdRef.getLocalName() + " " + rec.ifdRef.getURL());
-					} else {
-						if (thisDataObjectType == null) {
-							thisDataObjectType = "unknown";
-							addError("!no data type found for " + rec);
-						}
-						if (!thisDataObjectType.startsWith(FAIRSPEC_DATAOBJECT_FLAG))
-							thisDataObjectType = FAIRSPEC_DATAOBJECT_FLAG + thisDataObjectType;
-						rec.dataObjectType = thisDataObjectType;
-						faHelper.createDataObjectRepresentation(rec.ifdRef, null, rec.length, rec.dataObjectType, rec.mediaType);
-					}
-				}
-				break;
-			}
-			if (o != null) {
-				addProperties(o, rec);
-			}
-		}
-	}
-	/**
-	 * 
-	 * @param c
-	 * @param rec
-	 */
-	protected void addProperties(IFDObject<?> c, DoiRecord rec) {
-		boolean isData = (rec.type == DOI_DATA);
-		for (Entry<String, String> e : rec.properties.entrySet()) {
-			String key = e.getKey();
-			String value = e.getValue();
-			switch (key) {
-			case "schemalocation":
-				continue;
-			}
-			if (isData && key.contains(IFDConst.IFD_STRUCTURE_FLAG)) {
-				// structure props found in dataset collection
-				faHelper.createStructureRepresentation(null, value, value.length(), key, null);
-			} else {
-				c.setPropertyValue(key, value, rec.compoundID);
-			}
-		}
-	}
-
-	protected String getTabField(String line, String key) {
-		int pt = line.indexOf("\t" + key + "=");
-		if (pt < 0)
-			return null;
-		pt = pt + key.length() + 2;
-		int pt1 = line.indexOf('\t', pt);
-		return (pt1 < 0 ? line.substring(pt) : line.substring(pt, pt1));
-	}
-
-	// from XMLReader
-
-	protected void addAttr(String key, String value) {
-		doiRecord.addProperty(key, cleanData(value));
-		logAttr(key, value);
-	}
-
-
-	protected static String cleanData(String s) {
-		return s.replaceAll("\t", "\\\\t").replaceAll("\r\n", "\\\\n").replaceAll("\n", "\\\\n");
-	}
-
-	private void addRecord(DoiRecord doiRecord) {
-		doiRecord.pidPath = pidPath;
-		doiList.add(doiRecord);
-	}
-	
-	// logging
-	
-	protected void addError(String err) {
-		System.err.println(err);
-		errorBuffer.append(err + "\n");
-	}
-
-	protected void logAttr(String key, String value) {
-		appendLog(key + "=" + value);
-	}
-
-	protected void addException(Exception e) {
-		e.printStackTrace();
-		logAttr("exception", e.getClass().getName() + ": " + e.getMessage());
-	}
-
-	protected void appendLog(String line) {
-		if (isSilent)
-			return;
-		line = line.trim();
-		if (xmlDepth * 2 > indent.length())
-			indent += indent;
-		log.append('\n').append(urlDepth).append(".").append(xmlDepth).append(indent.substring(0, xmlDepth * 2))
-				.append(line);
-	}
-
-	/**
-	 * For future use in dataset file checking.
-	 */
-	@Override
-	public void addProperty(String key, Object val) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * For future use in structure file checking.
-	 * 
-	 * @param key
-	 * @param val in the case of a representation, this will be an Object[]
-	 * consisting of [ bytes, fileName, ifdStructureType, standardInchi|?, mediaType ]
-	 * @param isInLine
-	 * @param mediaType
-	 * @param note
-	 */
-	@Override
-	public void addDeferredPropertyOrRepresentation(String key, Object val, 
-			boolean isInLine, String mediaType, String note) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public static void main(String[] args) {
-		if (args.length == 0)
-			ICLDOICrawler.main(args);
-		else 
-			new DOICrawler(args).crawl();
 	}
 
 }

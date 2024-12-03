@@ -13,7 +13,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-import com.integratedgraphics.extractor.MetadataExtractor;
+import com.integratedgraphics.extractor.IFDExtractor;
 import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
 import com.integratedgraphics.ifd.vendor.mestrelab.MNovaMetadataReader.Param;
 
@@ -111,7 +111,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 					reportVendor(); // really? Before start of pages? 
 					for (Entry<String, Object> p : params.entrySet()) {
 						String key = p.getKey();
-						boolean isNewPage = key.equals(MetadataExtractor.NEW_PAGE_KEY);
+						boolean isNewPage = key.equals(IFDExtractor.NEW_PAGE_KEY);
 						boolean isSpecialKey = key.startsWith("_");
 						// the only special key we send 
 						if (isSpecialKey ? key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)
@@ -284,7 +284,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 		finalizeParams();
 		// the reader will be filling in params
 		params = new LinkedHashMap<>();
-		params.put(MetadataExtractor.NEW_PAGE_KEY, "_page=" + page);
+		params.put(IFDExtractor.NEW_PAGE_KEY, "_page=" + page);
 		pageGlobals = new Globals();
 		pageList.add(params);
 		System.out.println("MestrelabIFDVendor ------------ page " + page);

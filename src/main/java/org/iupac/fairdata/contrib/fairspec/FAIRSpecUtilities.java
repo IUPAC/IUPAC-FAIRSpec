@@ -9,14 +9,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.DoubleBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -148,6 +146,10 @@ public class FAIRSpecUtilities {
 
 	public static String getResource(Class<?> c, String fileName) throws FileNotFoundException, IOException {
 		return new String(getLimitedStreamBytes(c.getResourceAsStream(fileName), -1, null, true, true));
+	}
+
+	public static byte[] getResourceBytes(Class<?> c, String fileName) throws FileNotFoundException, IOException {
+		return getLimitedStreamBytes(c.getResourceAsStream(fileName), -1, null, true, true);
 	}
 
 	public static Map<String, Object> getJSONResource(Class<?> c, String fileName)
@@ -374,10 +376,10 @@ public class FAIRSpecUtilities {
 	public static class SpreadsheetReader {
 
 		/**
-		 * Get cell data for
+		 * Get a full block of cell data for a given sheet in an XMLX or ODS(XML) spreadsheet file.
 		 * 
 		 * @param is
-		 * @param sheetName
+		 * @param sheetName   default "sheet1"
 		 * @param emptyValue  default value for "empty" cell, typically empty string or
 		 *                    null
 		 * @param closeStream
@@ -781,100 +783,76 @@ public class FAIRSpecUtilities {
 	}
 
 	public static boolean isOneOf(String key, String semiList) {
-		    if (semiList.length() == 0)
-		      return false;
-		    if (semiList.charAt(0) != ';')
-		      semiList = ";" + semiList + ";";
-		    return key.indexOf(";") < 0  && semiList.indexOf(';' + key + ';') >= 0;
-		  }
+		if (semiList.length() == 0)
+			return false;
+		if (semiList.charAt(0) != ';')
+			semiList = ";" + semiList + ";";
+		return key.indexOf(";") < 0 && semiList.indexOf(';' + key + ';') >= 0;
+	}
 
-
-		public static double[][] getXYFromBase64Complex128(String sdata) {
-			byte[] bytes = Base64.getDecoder().decode(sdata);
-			DoubleBuffer b = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).asDoubleBuffer();
-			if ((bytes.length % 16) != 0) {
-				throw new RuntimeException("NMRmlFAIRSpecUtil byte length not multiple of 16 " + bytes.length);
+	/**
+	 * Load metadata from an xlsx or ods sheet as directed by a line in IFD-Extract.json via a map
+	 * with keys FOR (IFD.fairspec.compound.id), METADATA_FILE (./Manifest.xlsx),
+	 * and METADATA_KEY (column header)
+	 * 
+	 * 
+	 * @param param
+	 * @param map   will have "DATA" key filled with the data
+	 * @return null if successful, error string if not successful
+	 */
+	public static String loadFileMetadata(String param, Map<String, Object> map, String fileName) {
+		// {"FAIRSpec.extractor.metadata":[
+		// {"FOR":"IFD.property.fairspec.compound.id",
+		// "METADATA_FILE":"./Manifest.xlsx",
+		// "METADATA_KEY":"TM compound number"
+		// }
+		// ]},
+		String indexKey = null;
+		try {
+			// ./Manifest.xls#Sheet1
+			indexKey = (String) map.get(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_METADATA_KEY);
+			// header of spreadsheet column
+			int pt = fileName.indexOf("#");
+			String sheetRef = null;
+			File metadataFile = null;
+			if (pt >= 0) {
+				sheetRef = fileName.substring(pt + 1);
+				fileName = fileName.substring(0, pt);
 			}
-			try {
-				int n = bytes.length / 16;
-				double[][] values = new double[2][n];
-				FileOutputStream fos = new FileOutputStream("C:/temp/t.xls");
-				for (int i = 0, dpt = 0; i < n; i++) {
-					values[0][dpt] = b.get();
-					values[1][dpt] = b.get();
-					fos.write((values[0][dpt] + "\t" + values[1][dpt] + "\n").getBytes());
-					dpt++;
-				}
-				fos.close();
-				return values;
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
-		
-		static {
-//			try {
-//				byte[] bytes = getURLBytes("file:///c:/temp/t");
-//				double[][] a = getXYFromBase64Complex128(new String(bytes));
-//				System.out.println(a[1][1]);
-//			} catch (MalformedURLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-		}
+			metadataFile = new File(fileName);
+			Object data = SpreadsheetReader.getCellData(new FileInputStream(metadataFile), sheetRef, "", true);
 
-		/**
-			 * Load metadata from a file as directed by a line in IFD-Extract.json
-			 * via a map with keys FOR (IFD.fairspec.compound.id), 
-			 * METADATA_FILE (./Manifest.xlsx), and METADATA_KEY (column header)
-			 * 
-			 * 
-			 * @param param
-			 * @param map will have "DATA" key filled with the data
-			 * @return null if successful, error string if not successful
-			 */
-			public static String loadFileMetadata(String param, Map<String, Object> map, String fileName) {
-		//		 {"FAIRSpec.extractor.metadata":[
-		//         	{"FOR":"IFD.property.fairspec.compound.id",
-		//         		"METADATA_FILE":"./Manifest.xlsx",
-		//         		"METADATA_KEY":"TM compound number"
-		//         	}
-		//          ]},
-				String indexKey = null;
-				try {
-					// ./Manifest.xls#Sheet1
-					indexKey = (String) map.get(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_METADATA_KEY);
-					// header of spreadsheet column
-					int pt = fileName.indexOf("#");
-					String sheetRef = null;
-					File metadataFile = null;
-					if (pt >= 0) {
-						sheetRef = fileName.substring(pt + 1);
-						fileName = fileName.substring(0, pt);
-					}
-					metadataFile = new File(fileName);
-					Object data = SpreadsheetReader.getCellData(new FileInputStream(metadataFile), sheetRef, "", true);
-					
-					int icol = SpreadsheetReader.setMapData(map, data, indexKey);
-					if (icol < 1) {
-						return "METADATA file " + fileName + " did not have a column titled " + indexKey;
-					}
-				} catch (Exception e) {
-					return e.getMessage();
-				}
-				// map.DATA will be filled in with the appropriate mappings only if they exist
-				if (!map.containsKey(DATA_KEY))
-					map.put(DATA_KEY, null);
-				return null;
+			int icol = SpreadsheetReader.setMapData(map, data, indexKey);
+			if (icol < 1) {
+				return "METADATA file " + fileName + " did not have a column titled " + indexKey;
 			}
-
-		public static boolean isZip(String name) {
-			return name.endsWith(".zip") || name.endsWith(".tgz") || name.endsWith(".tar") || name.endsWith(".rar")
-					|| name.endsWith("tar.gz");
+		} catch (Exception e) {
+			return e.getMessage();
 		}
+		// map.DATA will be filled in with the appropriate mappings only if they exist
+		if (!map.containsKey(DATA_KEY))
+			map.put(DATA_KEY, null);
+		return null;
+	}
+
+	public static boolean isZip(String name) {
+		return name.endsWith(".zip") || name.endsWith(".tgz") || name.endsWith(".tar") || name.endsWith(".rar")
+				|| name.endsWith("tar.gz");
+	}
+
+	/**
+	 * Simple Java method of displaying a page in the default browser.
+	 * 
+	 * @param url
+	 * @throws Exception
+	 */
+	public static void showUrl(String url) throws Exception {
+		Class<?> c = Class.forName("java.awt.Desktop");
+		Method getDesktop = c.getMethod("getDesktop", new Class[] {});
+		Object deskTop = getDesktop.invoke(null, new Object[] {});
+		Method browse = c.getMethod("browse", new Class[] { URI.class });
+		Object arguments[] = { new URI(url) };
+		browse.invoke(deskTop, arguments);
+	}
 
 }

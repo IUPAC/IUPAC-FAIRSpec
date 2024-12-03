@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
-import com.integratedgraphics.extractor.MetadataExtractor;
+import com.integratedgraphics.extractor.IFDExtractor;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
@@ -91,7 +91,7 @@ public class ExtractorTestACS extends ExtractorTest {
 	 */
 	private static void runACSExtractionTest(String[] args,
 			int first, int last, boolean createFindingAidJSONList) {
-		String sourceArchive = args[1];
+		String localSourceArchive = args[1];
 		String targetDir = args[2];
 		new File(targetDir).mkdirs();
 		FAIRSpecUtilities.setLogging(targetDir + "/extractor.log");
@@ -105,14 +105,14 @@ public class ExtractorTestACS extends ExtractorTest {
 		int nWarnings = 0;
 		int nErrors = 0;
 		String warnings = "";
-		MetadataExtractor extractor = null;
+		IFDExtractor extractor = null;
 		String sflags = null;
 		String targetDir0 = targetDir;
 		// ./extract/ should be in the main Eclipse project directory.
 		// [0] "./extract/acs.joc.0c00770/IFD-extract.json#22567817", // 0 727 files;
 		// zips of bruker dirs + mnovas
 		for (int i = i0; i <= i1; i++) {
-			extractor = new MetadataExtractor();
+			extractor = new IFDExtractor();
 			extractor.logToSys("Extractor.runExtractionTest output to " + new File(targetDir).getAbsolutePath());
 			String extractInfo = acsTestSet[i];
 			extractor.logToSys("Extractor.runExtraction " + i + " " + extractInfo);
@@ -146,7 +146,7 @@ public class ExtractorTestACS extends ExtractorTest {
 			try {
 				File ifdExtractScriptFile = new File(ifdExtractFile).getAbsoluteFile();
 				File targetPath = new File(targetDir).getAbsoluteFile();
-				String sourcePath = (sourceArchive == null ? null : new File(sourceArchive).getAbsolutePath());
+				String sourcePath = (localSourceArchive == null || "-".equals(localSourceArchive) ? "-" : new File(localSourceArchive).getAbsolutePath());
 				extractor.run(ifdExtractScriptFile, targetPath, sourcePath);
 				extractor.logToSys("Extractor.runExtraction ok " + extractInfo);
 			} catch (Exception e) {
@@ -189,19 +189,20 @@ public class ExtractorTestACS extends ExtractorTest {
 	}
 	
 	public static void main(String[] args) {
-		// args[] may override sourceArchive as ars[1] 
+		// args[] may override localSourceArchive as ars[1] 
 		// and testDir as args[2]; args[0] is ignored;
-		int first = 13; // first test to run
-		int last = 13; // last test to run; 12 max, 9 for smaller files only; 11 to skip single-mnova
+		int first = 1; // first test to run
+		int last = 1; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
 					  // file test
 		/**
 		 * a local dir if you have already downloaded the zip files, otherwise null to
 		 * download from FigShare;
 		 */
-		String sourceArchive = "c:/temp/iupac/zip";
+		String localSourceArchive = "-";//c:/temp/iupac/zip";//-";
+		
 		String targetDir = "c:/temp/iupac/ifd2024";
-		String options = null; // "-datacitedown"
-		args = setSourceTargetArgs(args, null, sourceArchive, targetDir, options);
+		String flags = null; // "-datacitedown"
+		args = setSourceTargetArgs(args, null, localSourceArchive, targetDir, flags);
 		boolean createFindingAidJSONList = true;
 		runACSExtractionTest(args, first, last, createFindingAidJSONList);
 	}

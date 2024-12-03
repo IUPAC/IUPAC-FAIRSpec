@@ -11,7 +11,7 @@ Welcome to the GitHub project web pages for
 <a href=https://iupac.org/projects/project-details/?project_nr=2019-031-1-024>IUPAC Project 2019-031-1-024, Development of a Standard for FAIR Data Management for Spectroscopic Data</a>. 
 At this site we highlight our development of IUPAC FAIRSpec Finding Aids.
 
-<H3><a href="cdx_sdk">CDX/CDXML specification</a></H3>
+<H3><a name=cdx href="cdx_sdk">CDX/CDXML specification</a></H3>
 <p>But, first, 352 pages retrieved from multiple points on the wayBack machine 
 preserving the CDX/CDXML specification. (Note that some images were not retrievable.)
 This specification is important, as it is the basis for one of the most
@@ -24,18 +24,18 @@ which can be used both for display and validation. The pages are also available
 as a <a href=https://github.com/IUPAC/IUPAC-FAIRSpec/tree/main/specs/cdx_cdxml>ZIP file</a>.
 
 
-<H3><a href="examples/v1-demo/demo.htm">examples/v1-demo</a></H3>
+<H3><a name=v1 href="examples/v1-demo/demo.htm">examples/v1-demo</a></H3>
 <p>Our first demonstration of a prototypical finding aid (2021), 
 just giving an idea of what a minimal extraction of metadata might look like in JSON format.
 
-<H3><a href="examples/v4-acs/site/demo3.htm">examples/v4-acs</a></H3>
+<H3><a name=v4 href="examples/v4-acs/site/demo3.htm">examples/v4-acs</a></H3>
 <p>A more sophisticated demonstration involving finding aids 
 generated from a set of twelve supporting information data sets from the <a href=https://pubs.acs.org/doi/full/10.1021/acs.joc.0c00248>ACS FAIRData pilot study</a> (2023). 
 This demonstration illustrates how supporting information ZIP files in a variety of formats can be 
 extracted for metadata.
 
 
-<H3><a href="examples/v5-icl-repository-DOI-crawl/demo_icl.htm">examples/v5-icl-repository-DOI-crawl</a></H3>
+<H3><a name=v5 href="examples/v5-icl-repository-DOI-crawl/demo_icl.htm">examples/v5-icl-repository-DOI-crawl</a></H3>
 <p>This demonstration highlights a what can be done 
 by "crawling" of DataCite metadata records as well as the searching of compounds using substructure searches. 
 
@@ -85,6 +85,28 @@ Additional output from DOICrawler.java:
 <p><a href="examples/v5-icl-repository-DOI-crawl/10.14469_hpc_10386/ifd-fileURLMap.txt">ifd-fileURLMap.txt</a>
 <br><a href="examples/v5-icl-repository-DOI-crawl/10.14469_hpc_10386/crawler.log">crawler.log</a>
 <br><a href="examples/v5-icl-repository-DOI-crawl/devnotes.txt">devnotes.txt</a>
+
+<H3><a name=v5j href="https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/dist">IFDExtractor.jar (beta)</a></H3>
+<p>This demonstration illustrates how IFDExtractor can create a IUPAC FAIRSpec Finding Aid and an associated example landing page from a 
+structured set of information that defines the key aspects of a data collection. 
+Now in beta testing, <a href="https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/IFDExtractor.java">IFDExtractor.java</a> requires a small configuration file to do its job.
+We are currently working on providing a handful of templates for this file; right now
+it has to be constructed by hand for each dataset being processed.
+<p>
+The command line looks like this:
+<p>
+<code>java -jar IFDExtractor.jar _IFD_extract-test.json</code>
+<p>
+and produces <a href="examples/IFDExtractor">this page</a>.
+
+
+
+
+
+
+
+
+
 
 </div>
 </body>

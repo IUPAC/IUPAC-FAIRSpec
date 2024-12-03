@@ -112,7 +112,7 @@ public class ExtractorAids {
 		private Map<String, String> keys;
 	
 		private ExtractorResource dataSource;
-		private MetadataExtractor extractor;
+		private IFDExtractor extractor;
 		private boolean hasData;
 		private List<Object> replacements;
 	
@@ -120,7 +120,7 @@ public class ExtractorAids {
 		 * @param sObj
 		 * @throws IFDException
 		 */
-		public ObjectParser(MetadataExtractor extractor, ExtractorResource resource, String sObj) throws IFDException {
+		public ObjectParser(IFDExtractor extractor, ExtractorResource resource, String sObj) throws IFDException {
 			this.extractor = extractor;
 			index = parserCount++;
 			dataSource = resource;
@@ -191,7 +191,7 @@ public class ExtractorAids {
 			Matcher m;
 			// *-* becomes \\E([^-]+(?:-[^-]+)*)\\Q and matches a-b-c
 			if (s.indexOf("*") != s.lastIndexOf("*")) {
-				while ((m = MetadataExtractor.pStarDotStar.matcher(s)).find()) {
+				while ((m = IFDExtractor.pStarDotStar.matcher(s)).find()) {
 					String schar = m.group(1);
 					char c = schar.charAt(0);
 					s = FAIRSpecUtilities.rep(s, "*" + schar + "*",
@@ -238,7 +238,7 @@ public class ExtractorAids {
 		private String compileIFDDefs(String s, boolean isFull, boolean replaceK) throws IFDException {
 			int pt;
 			while (s.indexOf("::") >= 0) {
-				Matcher m = MetadataExtractor.objectDefPattern.matcher(s);
+				Matcher m = IFDExtractor.objectDefPattern.matcher(s);
 				if (!m.find())
 					break;
 				String param = m.group(1);
@@ -837,18 +837,29 @@ public class ExtractorAids {
 	}
 
 	public static class ExtractorResource {
-		public boolean isLocalStructures;
-		public String source;
+		
+		private int id, tempID;
+
+		private String source;
+		private String localSourceFile;
+
+		public String rootPath;
+
 		public FileList lstManifest;
 		public FileList lstIgnored;
 		public FileList lstAccepted;
-		public String rootPath;
-		public String ifdResource;
-		public String localSourceFile;
-	
-		public ExtractorResource(String source) {
+
+		public ExtractorResource(int id, String source) {
+			this.id = id;
 			this.source = source;
-			isLocalStructures = MetadataExtractor.isDefaultStructurePath(source);
+		}
+			
+		public String getLocalSourceFileName() {
+			return localSourceFile;
+		}
+	
+		public void setLocalSourceFileName(String name) {
+		    localSourceFile = name;
 		}
 	
 		public void setLists(String rootPath, String ignore, String accept) {
@@ -871,6 +882,36 @@ public class ExtractorAids {
 		public String getSourceFile() {
 			return (localSourceFile == null ? source : localSourceFile);
 		}
+
+		public void setTemp(String name) {
+			localSourceFile = name;
+			tempID = id;
+		}
+		
+		public boolean isTempFile() {
+			return tempID > 0;
+		}
+
+		public String createZipRootPath(String zipPath) {
+			if (rootPath != null)
+				return rootPath;
+			if (tempID > 0) {
+				zipPath = "resource" + tempID;
+			}
+			String rootPath = new File(zipPath).getName();
+			if (rootPath.endsWith(".zip") || rootPath.endsWith(".tgz") || rootPath.endsWith(".rar")
+					|| rootPath.endsWith(".tar"))
+				rootPath = rootPath.substring(0, rootPath.length() - 4);
+			else if (rootPath.endsWith(".tar.gz"))
+				rootPath = rootPath.substring(0, rootPath.length() - 7);
+			this.rootPath = rootPath;
+			return rootPath;
+		}
+
+		public String getRemoteSource() {
+			return (source == null ? localSourceFile : source);
+		}
+
 	}
 
 }

@@ -35,6 +35,10 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	public boolean stopOnAnyFailure;
 	public boolean debugReadOnly;
 
+	public boolean createLandingPage = true;
+	public boolean launchLandingPage = true;
+
+
 	protected boolean debugging = false;
 	public boolean readOnly = false;
 
@@ -123,9 +127,14 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 
 		addPublicationMetadata = false; // true to place full Crossref or DataCite metadata into the finding aid
 
-		cleanCollectionDir = true;
-
+		
 		// normally true:
+
+		launchLandingPage = true;
+		
+		createLandingPage = true;
+		
+		cleanCollectionDir = true;
 
 		stopOnAnyFailure = true; // set false to allow continuing after an error.
 
@@ -141,12 +150,17 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	protected void setDerivedFlags() {
 
 		// this next is independent of readOnly
-		createZippedCollection = createZippedCollection && !debugReadOnly; // false to bypass final creation of an
-																			// _IFD_collection.zip file
-
+		// false to bypass final creation of an
+		// _IFD_collection.zip file
+		createZippedCollection = createZippedCollection && !debugReadOnly;
+		
 		readOnly |= debugReadOnly; // for testing; when true, no output other than a log file is produced
 		noOutput = (createFindingAidOnly || readOnly);
 		skipPubInfo = !dataciteUp || debugReadOnly; // true to allow no internet connection and so no pub calls
+		
+		createLandingPage &= !readOnly;
+		launchLandingPage &= createLandingPage;
+
 	}
 
 	/**
@@ -213,6 +227,14 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 
 		if (flags.indexOf("-nostoponfailure;") >= 0) {
 			stopOnAnyFailure = false;
+		}
+
+		if (flags.indexOf("-nolandingpage;") >= 0) {
+			createLandingPage = false;
+		}
+
+		if (flags.indexOf("-nolaunch;") >= 0) {
+			launchLandingPage = false;
 		}
 
 		if (flags.indexOf("-nozip;") >= 0) {

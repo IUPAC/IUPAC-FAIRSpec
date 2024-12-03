@@ -1,14 +1,15 @@
 IFDExtractor.jar is a Java executable that takes as input an "IUPAC FAIRSpec-Ready" 
 aggregation of files and produces an IUPAC FAIRSpec Collection (a zip file) with 
-associated IUPAC FAIRSpec Finding Aid. 
+associated IUPAC FAIRSpec Finding Aid and HTML landing page. 
 
 It does this by parsing the list of files in the archive, applying a regex-based 
-"IFD extraction template" to those file paths to produce an internal Java-based
-model of the collection, with "samples", "structures", "data objects", and various
-associations of these. 
+"IFD extraction template" (example IFD.extract-test.json provided here) to those file paths 
+in order to produce an internal Java-based
+model of the collection, with "samples", "structures", and "spectra", 
+and various associations of those, such as "compounds" (which are structure/spectra associations).
 
-In v. 0.0.4, the input needs to be in the form of an a archive (zip or tgz or tar.gz).
-But plans are to also allow a local file directory for v. 0.0.5 as well (simple enough).
+Input can be a remote compressed file (from FigShare in this example) or 
+a local file (zip, tar, tar.gz, tgz, rar), or a local file directory.
 
 The key aspects of this include:
 
@@ -16,40 +17,37 @@ a) A "reasonably structured" aggregation organized, for example, along the lines
 "compounds" and including subdirectories for spectroscopic types (IR, NMR, RAMAN, MS, etc.) 
 and subtypes (1H, 13C, COSY, HMQS, etc.)
  
-b) A matching JSON extraction template file ("IFD-extract.json" here)  
- 
-format: java -jar IFDExtractor.jar [JSON template] [sourceArchive] [targetDir] [flags]
+b) A matching JSON extraction template file ("IFD-extract-test.json" here)  
 
+command-line format:
+ 
+java -jar IFDExtractor.jar [JSON template] [optional sourceArchive] [optional targetDir] [flags]
 
 where
 
 [JSON template] is the IFD extraction template for this collection ("IFD-extract.json", perhaps)
-[sourceArchive] is the source .zip, .tar.gz, or .tgz file
-[targetDir] is the target directory for the collection
+[sourceArchive] is a LOCAL source .zip, .tar.gz, or .tgz file if that exists
+[targetDir] is the target directory for the collection (default "site")
 
 [flags] are one or more of:
 
-
-
-		if (flags.indexOf("-addpublicationmetadata;") >= 0) {
-			addPublicationMetadata = true;
-		}
-
-		if (flags.indexOf("-byid;") >= 0) {
-			setExtractorFlag(FAIRSpecExtractorHelper.IFD_EXTRACTOR_FLAG_ASSOCIATION_BYID, "true");
-		}
-
-
--addPublicationMetadata (only for post-publication-related collections)
--byID (associations will reference string identifiers -- for structures and spectra, for example -- not just array index numbers) [this is preferred for human readability]
--datacitedown (only for post-publication-related collections)
+-addPublicationMetadata (only for post-publication-related collections; include ALL Crossref or DataCite metadata)
+-byID (order compounds by ID, not by index; overrides IFD_extract.json setting)
+-dataciteDown (only for post-publication-related collections)
 -debugging (lots of messages)
--debugreadonly (readonly, no publicationmetadata)
--noclean (don't empty the archive directory [generally the extractor will delete all the files first in the archive directory, which is created in the target directory])
--noignored (don't include ignored files [generally "ignored" files are still kept in the collection, just not mentioned in the finding aid)
--nopubinfo (skip all template publication information, adding no such metadata) [typically just for debugging]
--nostoponfailure (continue if there is an error) [typically just for debugging]
--nozip (don't zip up the target directory) [typically just for debugging]
--readonly (just create a log file) [typically just for debugging]
--requirepubinfo (throw an error if datacite cannot be reached; post-publication-related collections only)
+-debugReadonly (readonly, no publicationmetadata)
+-findingAidOnly (only create a finding aid)
+-nolaunch (don't launch the landing page)
+-noclean (don't empty the destination collection directory before extraction; allows additional files to be zipped)
+-noignored (don't include ignored files -- treat them as REJECTED)
+-nolandingPage (don't create a landing page)
+-nopubinfo (ignore all publication info)
+-nostopOnFailure (continue if there is an error)
+-nozip (don't zip up the target directory)
+-readonly (just create a log file)
+-requirePubInfo (throw an error is datacite cannot be reached; post-publication-related collections only)
+
+
+This is all in beta testing; plenty of it may not work as expected.
+Contact Bob Hanson (hansonr@stolaf.edu) if you want to try it out.
 

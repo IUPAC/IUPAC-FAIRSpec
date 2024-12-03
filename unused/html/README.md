@@ -1,0 +1,1 @@
+The html/ folder holds the demo files that are normally in site/ when pushed to [the demonstration site](https://chemapp.stolaf.edu/iupac/site/demo.htm). They are here so that they are not ignored by git.

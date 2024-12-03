@@ -1,6 +1,9 @@
 package org.nmrml.parser;
 
+import java.io.FileOutputStream;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.DoubleBuffer;
 import java.util.Base64;
 
 import javajs.util.BC;
@@ -34,8 +37,4 @@ public class NMRmlFAIRSpecUtil {
 		}
 	}
 	
-	static {
-		
-	}
-
 }

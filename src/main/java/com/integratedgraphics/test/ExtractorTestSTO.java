@@ -15,13 +15,13 @@ public class ExtractorTestSTO extends ExtractorTest {
 	public static void main(String[] args) {
 		String dir = "c:/temp/iupac/stolaf/";
 		String ifdExtractFile = dir + "IFD-extract.json";
-		String sourceArchive = null;//dir + "archive.tar.gz";
+		String localSourceArchive = null;//dir + "archive.tar.gz";
 		String targetDir = dir + "c:/temp/iupac/stolaf-ifd";
 
 		//debugging = true;
 		//readOnly = true;
 		
-		runExtraction(setSourceTargetArgs(args, ifdExtractFile, sourceArchive, targetDir, null));
+		runExtraction(setSourceTargetArgs(args, ifdExtractFile, localSourceArchive, targetDir, null));
 	}
 
 }

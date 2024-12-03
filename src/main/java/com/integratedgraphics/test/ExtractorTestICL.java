@@ -15,13 +15,13 @@ public class ExtractorTestICL extends ExtractorTest {
 	public static void main(String[] args) {
 		String dir = "c:/temp/iupac/henry/v_acs/";
 		String ifdExtractFile = dir + "IFD-extract.json";
-		String sourceArchive = dir + "Archive.tar.gz";	
+		String localSourceArchive = dir + "Archive.tar.gz";	
 		String targetDir = dir + "icl-ifd";
 		
 		//debugging = true;
 		//readOnly = true;		
 		
-		runExtraction(setSourceTargetArgs(args, ifdExtractFile, sourceArchive, targetDir, null));
+		runExtraction(setSourceTargetArgs(args, ifdExtractFile, localSourceArchive, targetDir, null));
 	}
 
 }

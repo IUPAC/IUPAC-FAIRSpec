@@ -1,0 +1,293 @@
+// ${IFD site}/assets/FAIRSpec-get.js
+// 
+// Bob Hanson hansonr@stolaf.edu 2023.01.19
+
+
+// samples --- associated via originating_sample property of a spectrum -- 1 sample : N spectra
+// structures --- associated with
+// the logical experimental progression is
+//  
+//    sample --> spectrum --> structure
+//
+// NOT   
+// 
+//    sample --> structure --> spectrum 
+//
+// So "by sample" means:
+//
+// 1. list by sample
+// 2. for each sample:
+//    a. show the originating ID, maybe link to ELN?
+//    b. show all spectra associated with this sample
+//    c. show all compounds associated with these spectra -- should be just one? or could be a mixture.
+//    d. highlight any case where compound/spectra relationships are different. 
+//
+//       For example, this is OK:
+//
+//         Sample A:
+//             1H   Compound 1 and Compound 2
+//             13C  Compound 1 and Compound 2
+//
+//       But this is not OK:
+//
+//         Sample B:
+//             1H   Compound 1
+//             13C  Compound 2
+//
+//       Something is amiss here!
+
+// Structure/Spectra checks:
+//
+// 1. "by compound"
+// 2. for each compound:
+//    a. show Compound ID
+//    b. show structure, other identifiers?
+//    c. show associated spectra
+
+;(function() {
+
+IFD.getSmilesForStructureID = function(aidID, id) {
+	var struc = IFD.collections[aidID].structures[id];
+	if (!struc) return "";
+	var reps = struc.representations;
+	var types = IFD.getRepTypes(reps);
+	return types.smiles && types.smiles.data;
+}
+
+IFD.getSpectrumIDsForSample = function(aidID,id) {
+	var samplespecs = IFD.collections[aidID]["sample-spectra associations"];
+	var items = IFD.items[aidID].samplespectra;
+	for (var i = 0; i < items.length; i++) {
+		var assoc = samplespecs[items[i]];
+		if (assoc.itemsByID.samples[0] == id) {
+			return assoc.itemsByID.spectra;
+		}
+	}
+	return [];	
+}
+
+IFD.getCompoundIndexesForText = function(aidID, text) {
+	var compounds = IFD.collections[aidID].compounds;	
+	var keys = IFD.getCompoundCollectionKeys();
+	var ids = [];
+	var citems = IFD.items[aidID].compounds;
+	text = text.toLowerCase();
+	for (var i = 0; i < citems.length; i++) {
+		var assoc = compounds[citems[i]];
+		var found = false;
+		while (!found) {
+			found = testText(assoc.label + "|" + assoc.description + "|", text);
+			break;
+		}
+		if (found)
+			ids.push(citems[i]);
+	}
+	return ids;
+}
+
+var testText = function(s, text) {
+	return (s.toLowerCase().indexOf(text) >= 0);
+}
+
+IFD.getCompoundIndexesForStructures = function(aidID, strucIDs) {
+	var compounds = IFD.collections[aidID].compounds;
+	var structures = IFD.collections[aidID].structures;
+	var keys = IFD.getCompoundCollectionKeys();
+	var ids = [];
+	var citems = IFD.items[aidID].compounds;
+	for (var is = 0; is < strucIDs.length; is++){
+		var id = strucIDs[is];
+		out: for (var i = 0; i < citems.length; i++) {
+			var assoc = compounds[citems[i]];
+			var sitems = assoc[IFD.itemsKey][keys.structures];
+			for (var j = 0; j < sitems.length; j++) {
+				if(structures[sitems[j]].id == id) {
+					ids.push(citems[i]);
+					break out;
+				}
+			}	
+		}
+	}
+	return ids;		
+}
+
+IFD.getStructureIDsForSpectra = function(aidID, specIDs) {
+	var compounds = IFD.collections[aidID].compounds;
+	var keys = IFD.getCompoundCollectionKeys();
+	var ids = [];
+	var items = IFD.items[aidID].compounds;
+	for (var is = 0; is < specIDs.length; is++){
+		var specid = specIDs[is];
+		for (var i = 0; i < items.length; i++) {
+			var assoc = compounds[items[i]];
+			var spectra = assoc[IFD.itemsKey][keys.spectra];
+			for (var j = 0; j < spectra.length; j++) {
+				if(spectra[j] == specid) {
+					addUnique(assoc[IFD.itemsKey][keys.structures], ids);
+					break;
+				}
+			}	
+		}
+	}
+	return ids;	
+}
+
+IFD.getRepTypes = function(reps, type) {
+	var types = {};
+	for (var i = 0; i < reps.length; i++) {
+		var t = IFD.shortType(reps[i].representationType);
+		if (!type || t == type)
+			types[t] = reps[i];
+	}
+	return types;
+}
+
+
+IFD.getIDs = function(map) {
+	var ids = [];
+	if (map.length == null) {
+		// actual map
+		for (var id in map) {
+			ids.push(id);
+		}		
+	} else {
+		// array
+		for (var id = 0; id < map.length; id++) {
+			ids.push("" +id);
+		}
+	}
+	return ids;
+}
+
+// samples --- associated via originating_sample property of a spectrum -- 1 sample : N spectra
+// structures --- associated with spectra as "compounds" -- N structures : N' spectra
+//
+// the logical experimental progression is
+//  
+//    sample --> spectrum --> structure
+//
+// NOT   
+// 
+//    sample --> structure --> spectrum 
+//
+// So "by sample" means:
+//
+// 1. list by sample
+// 2. for each sample:
+//    a. show the originating ID, maybe link to ELN?
+//    b. show all spectra associated with this sample
+//    c. show all compounds associated with these spectra -- should be just one? or could be a mixture.
+//    d. highlight any case where compound/spectra relationships are different. 
+//
+//       For example, this is OK:
+//
+//         Sample A:
+//             1H   Compound 1 and Compound 2
+//             13C  Compound 1 and Compound 2
+//
+//       But this is not OK:
+//
+//         Sample B:
+//             1H   Compound 1
+//             13C  Compound 2
+//
+//       Something is amiss here!
+
+// Structure/Spectra checks:
+//
+// 1. "by compound"
+// 2. for each compound:
+//    a. show Compound ID
+//    b. show structure, other identifiers?
+//    c. show associated spectra
+
+var addUnique = function(afrom, ato) {
+	for (var i = 0; i < afrom.length; i++) {
+		var v = afrom[i];
+		for (var j = 0; j < ato.length; j++) {
+			if (v == ato[j]) {
+				v = null;
+				break;
+			}
+		}
+		v && ato.push(v);
+	}
+}
+
+
+IFD.cachePut = function(key, value) {
+	if (value)
+		IFD.cache[key] = value;
+	else
+		delete IFD.cache[key]
+}
+
+IFD.cacheGet = function(key) {
+	return IFD.cache[key];
+}
+
+IFD.shortType = function(type) {
+	return type.substring(type.lastIndexOf(".") + 1);
+}
+
+IFD.getCollectionSetById = function(aid) {
+	IFD.byID = !!aid.collectionSet.itemsByID;
+	IFD.itemsKey = (IFD.byID ? "itemsByID" : "items");
+	IFD.collectionKeys = {};
+	var collections = aid.collectionSet.itemsByID || aid.collectionSet.items;
+	var dc = IFD.collections[aid.id] = {};
+	for (var i in collections) {
+		c = collections[i];
+		dc[c.id] = c.items || c.itemsByID;
+		if (!IFD.byID) {
+			IFD.collectionKeys[c.id] = c.collections; // compounds only
+		}
+	}
+	return dc;
+}
+
+IFD.getCompoundCollectionKeys = function() {
+	var ckeys = IFD.collectionKeys.compounds;
+	if (ckeys && !ckeys[0]) {
+		return ckeys;
+	}
+	if (!ckeys) {
+		return ckeys = {structures: "structures", spectra:"spectra"};
+	}
+	var keys = {};
+	for (var i = ckeys.length; --i >= 0;) {
+		keys[ckeys[i]] = i; 
+	}
+	return IFD.collectionKeys.compounds = keys;
+}
+
+IFD.getSMILES = function(aidID, retIDs, retSMILES, allowReactions, withAidID) {
+	if (!aidID) {
+		// across all Finding Aids
+		for (var i = 0; i < IFD.aidIDs.length; i++) {
+			IFD.getSMILES(IFD.aidIDs[i], retIDs, retSMILES, allowReactions, true);
+		}
+		return;
+	}
+	var structureIDs = IFD.items[aidID]["structures"];
+	for (var i = 0; i < structureIDs.length; i++) {
+		var id = structureIDs[i];
+		var struc = IFD.collections[aidID].structures[id];
+		var reps = struc.representations;
+		var types = IFD.getRepTypes(reps, "smiles");
+		if (types.smiles) {
+			var data = types.smiles.data;
+			if (!allowReactions)
+				data = data.$replace("&gt;&gt;", ".");
+			if (IFD.jmolCheckSmiles(data)) {
+				retIDs.push(withAidID ? [aidID, struc.id] : struc.id);
+				retSMILES.push(data);
+			} else {
+				System.out.println("INVALID SMILES! " + data);
+			}
+		}
+	}
+}
+
+
+})();
