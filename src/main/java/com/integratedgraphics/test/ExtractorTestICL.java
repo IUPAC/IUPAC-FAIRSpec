@@ -16,7 +16,7 @@ public class ExtractorTestICL extends ExtractorTest {
 		String dir = "c:/temp/iupac/henry/v_acs/";
 		String ifdExtractFile = dir + "IFD-extract.json";
 		String localSourceArchive = dir + "Archive.tar.gz";	
-		String targetDir = dir + "icl-ifd";
+		String targetDir = dir + "icl-ifd2024";
 		
 		//debugging = true;
 		//readOnly = true;		
