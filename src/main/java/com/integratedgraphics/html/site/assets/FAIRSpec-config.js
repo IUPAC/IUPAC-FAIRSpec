@@ -29,3 +29,11 @@ IFD = {
 	contentHeader: null,
 	cache: {}
 }
+
+IFD.MODE_NONE       = "none";
+IFD.MODE_COMPOUNDS  = "compounds";
+IFD.MODE_STRUCTURES = "structures";
+IFD.MODE_SPECTRA    = "spectra";
+IFD.MODE_SAMPLES  = "samples";
+IFD.MODE_SAMPLESPECTRA = "samplespectra";
+

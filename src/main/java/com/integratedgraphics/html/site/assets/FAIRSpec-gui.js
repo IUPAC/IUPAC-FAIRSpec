@@ -19,11 +19,7 @@
 	var MAIN_SEARCH_PROP = "main_search_prop";
 	var MAIN_SEARCH     = "main_search";
 	var MAIN_SUMMARY    = "main_summary";
-	var MODE_NONE       = "none";
-	var MODE_COMPOUNDS  = "compounds";
-	var MODE_STRUCTURES = "structures";
-	var MODE_SPECTRA    = "spectra";
-	var MODE_SAMPLES  = "samples";
+	
 	var NMRDB_PREDICT_SMILES = "https://www.nmrdb.org/service.php?name=%TYPE%-prediction&smiles=%SMILES%";
 	// where type = 1h, 13c, cosy, hmbc, hsqc
 	
@@ -146,8 +142,8 @@
 	//external
 	IFD.showSamples = function(aidID, ids) {
 		IFD.select(aidID);
-		setMode(MODE_SAMPLES);
-		ids || (ids = IFD.items[aidID][MODE_SAMPLES]);
+		setMode(IFD.MODE_SAMPLES);
+		ids || (ids = IFD.items[aidID][IFD.MODE_SAMPLES]);
 		var s = "<table>";
 		for (var i = 0; i < ids.length; i++) {
 			s += "<tr class=\"tableRow" + (i%2) + "\">" + showSample(aidID,ids[i]) + "</tr>";
@@ -160,13 +156,18 @@
 	IFD.showCompounds = function(aidID, ids) {
 		loadMainSummary(IFD.aid, false);
 		IFD.select(aidID);
-		setMode(MODE_COMPOUNDS);
-		ids || (ids = IFD.items[aidID][MODE_COMPOUNDS]);
-		var s = "<table>";
-		for (var i = 0; i < ids.length; i++) {
-			s += "<tr class=\"tablerow" + (i%2) + "\">" + showCompound(aidID,ids[i]) + "</tr>";
+		setMode(IFD.MODE_COMPOUNDS);
+		ids || (ids = IFD.items[aidID][IFD.MODE_COMPOUNDS]);
+		var s;
+		if (ids.length == 0) {
+			s = "no compounds found";
+		} else {
+			s = "<table>";
+			for (var i = 0; i < ids.length; i++) {
+				s += "<tr class=\"tablerow" + (i%2) + "\">" + showCompound(aidID,ids[i]) + "</tr>";
+			}
+			s += "</table>";
 		}
-		s += "</table>";
 		setResults(s);
 	} 
 	
@@ -174,8 +175,8 @@
 	IFD.showSpectra = function(aidID, ids) {
 		loadMainSummary(IFD.aid, false);
 		IFD.select(aidID);
-		setMode(MODE_SPECTRA);
-		ids || (ids = IFD.items[aidID][MODE_SPECTRA]);
+		setMode(IFD.MODE_SPECTRA);
+		ids || (ids = IFD.items[aidID][IFD.MODE_SPECTRA]);
 		var s = "<table>";
 		for (var i = 0; i < ids.length; i++) {
 			s += "<tr class=\"tableRow" + (i%2) + "\">" + showSpectrum(aidID,ids[i]) + "</tr>";
@@ -188,8 +189,8 @@
 	IFD.showStructures = function(aidID, ids) {
 		loadMainSummary(IFD.aid, false);
 		IFD.select(aidID);
-		setMode(MODE_STRUCTURES);
-		ids || ids === false || (ids = IFD.getItems(aidID, MODE_STRUCTURES));
+		setMode(IFD.MODE_STRUCTURES);
+		ids || ids === false || (ids = IFD.getItems(aidID, IFD.MODE_STRUCTURES));
 		var s = showCompoundStructures(aidID,ids, false, true);
 		setResults(s);
 	} 	
@@ -413,41 +414,39 @@
 	}
 
 	var addTopRow = function(aid) {
-		var dc = IFD.getCollectionSetById(aid);
+		var dItems = IFD.getCollectionSetItems(aid);
 		var id = aid.id;
-		var dItems = IFD.items[id] = {};
 		var sep = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" 
-			//+ ==&gt;
 			+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 		var s = "";
-		if (dc.samples) {
+		var items = dItems[IFD.MODE_SAMPLES];
+		if (items) {
 			if (s)
 				s += sep;
-			var items = dItems[MODE_SAMPLES] = IFD.getIDs(dc.samples);
 			s += "<a href=\"javascript:IFD.showSamples('"+aid.id+"')\">Samples(" + items.length + ")</a>";
 		}
-		if (dc.compounds) {
-			var items = dItems[MODE_COMPOUNDS] = IFD.getIDs(dc.compounds);
+		items = dItems[IFD.MODE_COMPOUNDS];
+		if (items) {
 			if (s)
 				s += sep;
 			s += "<a href=\"javascript:IFD.showCompounds('"+id+"')\">Compounds(" + items.length + ")</a>";
 		}
-		if (dc.structures) {
-			var items = dItems[MODE_STRUCTURES] = IFD.getIDs(dc.structures);
+		items = dItems[IFD.MODE_STRUCTURES];
+		if (items) {
 			if (s)
 				s += sep;
 			s += "<a href=\"javascript:IFD.showStructures('"+aid.id+"')\">Structures(" + items.length + ")</a>";
 		}
-		if (dc.spectra) {
-			var items = dItems[MODE_SPECTRA] = IFD.getIDs(dc.spectra);
+		items = dItems[IFD.MODE_SPECTRA];
+		if (items) {
 			if (s)
 				s += sep;
 			s += "<a href=\"javascript:IFD.showSpectra('"+id+"')\">Spectra(" + items.length + ")</a>";
 		}
 
-	// TODO fold this information into "samples"
-		if (dc["sample-spectra associations"]) {
-			var items = dItems["samplespectra"] = IFD.getIDs(dc["sample-spectra associations"]);
+		items = dItems[IFD.MODE_SAMPLESPECTRA];
+		if (items) {
+			// TODO fold this information into "samples"
 //			s += "<a href=\"javascript:IFD.showSampleSpectraAssociations('"+aid.id+"')\">Sample-Spectra Associations(" + items.length + ")</a>";
 		}
 		return "<tr><td><b>Collections:</b>&nbsp;&nbsp;</td><td>"
@@ -455,7 +454,7 @@
 	}
 
 	var showSample = function(aidID,id) {
-		var sample = IFD.collections[aidID].samples[id];
+		var sample = IFD.getCollection(aidID).samples[id];
 		var specids = IFD.getSpectrumIDsForSample(aidID, id);
 		var structureIDs = IFD.getStructureIDsForSpectra(aidID,specids);
 		var s = getHeader("Sample/s", "Sample " + id); 
@@ -496,7 +495,7 @@
 	}
 
 	var showSpectrum = function(aidID,id) {
-		var spec = IFD.collections[aidID].spectra[id];
+		var spec = IFD.getCollection(aidID).spectra[id];
 		var structureIDs = IFD.getStructureIDsForSpectra(aidID, [id]);
 		var sampleID = spec.properties && spec.properties.originating_sample_id;
 		var sid = (IFD.byID ? id : spec.id); 
@@ -524,7 +523,7 @@
 	}
 
 	var showCompound = function(aidID,id) {
-		var cmpd = IFD.collections[aidID].compounds[id];
+		var cmpd = IFD.getCollection(aidID).compounds[id];
 		var keys = IFD.getCompoundCollectionKeys();
 		var structureIDs = cmpd[IFD.itemsKey][keys.structures];
 		var spectraIDs = cmpd[IFD.itemsKey][keys.spectra];
@@ -577,7 +576,7 @@
 	var showCompoundStructure = function(aidID, id, showID, tableRow) {
 		var cl = (tableRow > 0 ? " class=tablerow" + (tableRow%2) : "");
 		var s = "<td" + cl + "><table cellpadding=10><tr>";
-		var struc = IFD.collections[aidID].structures[id];
+		var struc = IFD.getCollection(aidID).structures[id];
 		var sid = struc.id;
 		var props = struc.properties;
 		var reps = struc.representations;
@@ -585,7 +584,7 @@
 		s += "<td rowspan=2 valign=\"top\">";
 		if (showID) {
 			var h = (id.indexOf("Structure") == 0 ? removeUnderline(sid) : "Structure " + sid);
-			s += "<span class=structurehead>"+ (IFD.resultsMode == MODE_STRUCTURES ? getHeader("Structure/s", h) : h) + "</span><br>";
+			s += "<span class=structurehead>"+ (IFD.resultsMode == IFD.MODE_STRUCTURES ? getHeader("Structure/s", h) : h) + "</span><br>";
 		}
 		v = IFD.getStructureVisual(reps);
 		if (v){
@@ -606,7 +605,7 @@
 	}
 
 	var showCompoundSpectra = function(aidID,ids,smiles,withTitle) {
-		ids || (ids = IFD.items[aidID][MODE_SPECTRA]);
+		ids || (ids = IFD.items[aidID][IFD.MODE_SPECTRA]);
 		var s = "<table>"
 			if (withTitle)
 				s += "<tr><td style=\"width:100px\" valign=top><span class=spectitle>Spectra</span></td></tr>";
@@ -632,7 +631,7 @@
 
 	var setResults = function(s) {
 		addOrAppendJQ("#results",s, true);
-		loadContents(!!s);
+		loadContents(s && !s.startsWith("no "));
 	}
 
 	var loadContents = function(hasContent) {
@@ -754,7 +753,7 @@
 	}
 
 	var addCompoundSpectrumRow = function(aidID, id, smiles, tableRow) {
-		var spec = IFD.collections[aidID].spectra[id];
+		var spec = IFD.getCollection(aidID).spectra[id];
 		var cl = (tableRow > 0 ? " class=tablerow" + (tableRow%2) : "");
 		var s = "<tr><td"+ cl + " id='q1' rowspan=2 style=\"width:100px\" valign=top>" 
 			+ (IFD.byID ? id : "") 

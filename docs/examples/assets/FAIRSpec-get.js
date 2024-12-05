@@ -46,8 +46,12 @@
 
 ;(function() {
 
+IFD.getCollection = function(aidID) {
+	return IFD.collections[aidID];
+} 
+
 IFD.getSmilesForStructureID = function(aidID, id) {
-	var struc = IFD.collections[aidID].structures[id];
+	var struc = IFD.getCollection(aidID).structures[id];
 	if (!struc) return "";
 	var reps = struc.representations;
 	var types = IFD.getRepTypes(reps);
@@ -55,7 +59,7 @@ IFD.getSmilesForStructureID = function(aidID, id) {
 }
 
 IFD.getSpectrumIDsForSample = function(aidID,id) {
-	var samplespecs = IFD.collections[aidID]["sample-spectra associations"];
+	var samplespecs = IFD.getCollection(aidID)["sample-spectra associations"];
 	var items = IFD.items[aidID].samplespectra;
 	for (var i = 0; i < items.length; i++) {
 		var assoc = samplespecs[items[i]];
@@ -67,11 +71,11 @@ IFD.getSpectrumIDsForSample = function(aidID,id) {
 }
 
 IFD.getCompoundIndexesForText = function(aidID, text) {
-	var compounds = IFD.collections[aidID].compounds;	
+	var compounds = IFD.getCollection(aidID).compounds;
 	var keys = IFD.getCompoundCollectionKeys();
 	var ids = [];
-	var citems = IFD.items[aidID].compounds;
 	text = text.toLowerCase();
+	var citems = IFD.items[aidID].compounds;
 	for (var i = 0; i < citems.length; i++) {
 		var assoc = compounds[citems[i]];
 		var found = false;
@@ -90,8 +94,8 @@ var testText = function(s, text) {
 }
 
 IFD.getCompoundIndexesForStructures = function(aidID, strucIDs) {
-	var compounds = IFD.collections[aidID].compounds;
-	var structures = IFD.collections[aidID].structures;
+	var compounds = IFD.getCollection(aidID).compounds;
+	var structures = IFD.getCollection(aidID).structures;
 	var keys = IFD.getCompoundCollectionKeys();
 	var ids = [];
 	var citems = IFD.items[aidID].compounds;
@@ -112,7 +116,7 @@ IFD.getCompoundIndexesForStructures = function(aidID, strucIDs) {
 }
 
 IFD.getStructureIDsForSpectra = function(aidID, specIDs) {
-	var compounds = IFD.collections[aidID].compounds;
+	var compounds = IFD.getCollection(aidID).compounds;
 	var keys = IFD.getCompoundCollectionKeys();
 	var ids = [];
 	var items = IFD.items[aidID].compounds;
@@ -233,17 +237,42 @@ IFD.shortType = function(type) {
 IFD.getCollectionSetById = function(aid) {
 	IFD.byID = !!aid.collectionSet.itemsByID;
 	IFD.itemsKey = (IFD.byID ? "itemsByID" : "items");
-	IFD.collectionKeys = (IFD.byID ? null : {});
+	IFD.collectionKeys = {};
 	var collections = aid.collectionSet.itemsByID || aid.collectionSet.items;
 	var dc = IFD.collections[aid.id] = {};
+	if (IFD.findingAidID == '.')
+		IFD.collections['.'] = dc;
 	for (var i in collections) {
 		c = collections[i];
-		dc[c.id] = c.items || c.itemsById;
+		dc[c.id] = c.items || c.itemsByID;
 		if (!IFD.byID) {
 			IFD.collectionKeys[c.id] = c.collections; // compounds only
 		}
 	}
 	return dc;
+}
+
+IFD.getCollectionSetItems = function(aid) {
+	var dc = IFD.getCollectionSetById(aid);
+	var dItems = IFD.items[aid.id] = {};
+	if (IFD.findingAidID == '.')
+		IFD.items['.'] = dItems;
+	if (dc[IFD.MODE_SAMPLES]) {
+		dItems[IFD.MODE_SAMPLES] = IFD.getIDs(dc[IFD.MODE_SAMPLES]);
+	}
+	if (dc[IFD.MODE_COMPOUNDS]) {
+		dItems[IFD.MODE_COMPOUNDS] = IFD.getIDs(dc[IFD.MODE_COMPOUNDS]);
+	}
+	if (dc[IFD.MODE_STRUCTURES]) {
+		dItems[IFD.MODE_STRUCTURES] = IFD.getIDs(dc[IFD.MODE_STRUCTURES]);
+	}
+	if (dc[IFD.MODE_SPECTRA]) {
+		dItems[IFD.MODE_SPECTRA] = IFD.getIDs(dc[IFD.MODE_SPECTRA]);
+	}
+	if (dc["sample-spectra associations"]) {
+		dItems[IFD.MODE_SAMPLESPECTRA] = IFD.getIDs(dc["sample-spectra associations"]);
+	}
+	return dItems;
 }
 
 IFD.getCompoundCollectionKeys = function() {
@@ -272,7 +301,7 @@ IFD.getSMILES = function(aidID, retIDs, retSMILES, allowReactions, withAidID) {
 	var structureIDs = IFD.items[aidID]["structures"];
 	for (var i = 0; i < structureIDs.length; i++) {
 		var id = structureIDs[i];
-		var struc = IFD.collections[aidID].structures[id];
+		var struc = IFD.getCollection(aidID).structures[id];
 		var reps = struc.representations;
 		var types = IFD.getRepTypes(reps, "smiles");
 		if (types.smiles) {
