@@ -293,8 +293,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 				}
 				if (key.startsWith(IFDConst.IFD_PROPERTY_FLAG)) {
 					if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_ID)) {
-						ifdid = val;
-						faHelper.getFindingAid().setID(val);
+						faHelper.getFindingAid().setID(ifdid = val);
 					}
 					if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID)) {
 						setExtractorOption(key, val);
@@ -311,6 +310,8 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 			}
 		}
 
+		// ensure the faHelper has a non-null id
+		faHelper.getFindingAid().setID(ifdid);
 		String s = "";
 		if (rejected.size() > 0) {
 			for (int i = 0; i < rejected.size(); i++) {

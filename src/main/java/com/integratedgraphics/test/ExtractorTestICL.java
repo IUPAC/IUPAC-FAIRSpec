@@ -1,5 +1,7 @@
 package com.integratedgraphics.test;
 
+import com.integratedgraphics.extractor.IFDExtractor;
+
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
  * 
@@ -10,18 +12,18 @@ package com.integratedgraphics.test;
  * @author hansonr
  *
  */
-public class ExtractorTestICL extends ExtractorTest {
+public class ExtractorTestICL {
 
 	public static void main(String[] args) {
 		String dir = "c:/temp/iupac/henry/v_acs/";
 		String ifdExtractFile = dir + "IFD-extract.json";
-		String localSourceArchive = dir + "Archive.tar.gz";	
-		String targetDir = dir + "icl-ifd2024";
-		
-		//debugging = true;
-		//readOnly = true;		
-		
-		runExtraction(setSourceTargetArgs(args, ifdExtractFile, localSourceArchive, targetDir, null));
+		String localSourceArchive = dir + "Archive.tar.gz";
+		String targetDir = dir + "icl-ifd2024c";
+
+		// debugging = true;
+		// readOnly = true;
+
+		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir);
 	}
 
 }

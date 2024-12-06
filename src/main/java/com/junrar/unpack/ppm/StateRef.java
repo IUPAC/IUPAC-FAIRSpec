@@ -77,7 +77,8 @@ public class StateRef {
         this.successor = successor;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder buffer = new StringBuilder();
         buffer.append("State[");
         buffer.append("\n  symbol=");

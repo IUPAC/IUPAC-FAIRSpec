@@ -32,7 +32,9 @@ public class IFDConst {
 	}
 
 	public static String getProp(String key) {
-		String s = props.getProperty(key.toUpperCase().replace('.', '_'));
+		String s = props.getProperty(key.toUpperCase()
+				//.replace('.', '_')
+				);
 		if (s == null) {
 			System.err.println("IFDConst Property " + key + " was not found");
 			s = key;
@@ -98,19 +100,15 @@ public class IFDConst {
 		propertyPrefix = propertyPrefix.toUpperCase().replace('.', '_');
 		
 		
+		int pt = propertyPrefix.length();
 		for (Entry<Object, Object> e : props.entrySet()) {
 			String k = (String) e.getKey();
-			
-			if (k.startsWith(propertyPrefix)) {
+
+			if (k.startsWith(propertyPrefix) && k.lastIndexOf(".") == pt) {
 				// to be continued! -- need units and type
 				String val = trimValue(e.getValue().toString());
 				
 				if (!k.endsWith("_FLAG")) {
-					if (val.indexOf(".") < 0)
-						System.out.println("???");
-
-
-
 					htProps.put(val, new IFDProperty(val, null, null, null));
 				}
 			}
@@ -187,42 +185,42 @@ public class IFDConst {
 	
 	public static final String IFD_FINDINGAID = getProp("IFD_FINDINGAID");
 
-	public static final String IFD_PROPERTY_COLLECTIONSET_BYID = IFDConst.getProp("IFD_PROPERTY_COLLECTIONSET_BYID");
+	public static final String IFD_PROPERTY_COLLECTIONSET_BYID = IFDConst.getProp("IFD_PROPERTY_COLLECTIONSET.BYID");
 
 	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_NAME = getProp(
-			"IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_NAME");
+			"IFD_PROPERTY_COLLECTIONSET.SOURCE_DATA_LICENSE_NAME");
 	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_URI = getProp(
-			"IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_URI");
+			"IFD_PROPERTY_COLLECTIONSET.SOURCE_DATA_LICENSE_URI");
 
 	public static final String IFD_PROPERTY_COLLECTIONSET_ID = concat(IFD_PROPERTY_FLAG, IFD_COLLECTIONSET_FLAG,
 			IFD_ID_FLAG);
-	public static final String IFD_PROPERTY_COLLECTIONSET_REF = getProp("IFD_PROPERTY_COLLECTIONSET_REF");
-	public static final String IFD_PROPERTY_COLLECTIONSET_LEN = getProp("IFD_PROPERTY_COLLECTIONSET_LEN");
+	public static final String IFD_PROPERTY_COLLECTIONSET_REF = getProp("IFD_PROPERTY_COLLECTIONSET.REF");
+	public static final String IFD_PROPERTY_COLLECTIONSET_LEN = getProp("IFD_PROPERTY_COLLECTIONSET.LEN");
 	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI = getProp(
-			"IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI");
+			"IFD_PROPERTY_COLLECTIONSET.SOURCE_DATA_URI");
 	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI = getProp(
-			"IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI");
+			"IFD_PROPERTY_COLLECTIONSET.SOURCE_PUBLICATION_URI");
 	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI = getProp(
-			"IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI");
+			"IFD_PROPERTY_COLLECTIONSET.SOURCE_DATA_DOI");
 	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_DOI = getProp(
-			"IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_DOI");
+			"IFD_PROPERTY_COLLECTIONSET.SOURCE_PUBLICATION_DOI");
 
 	public static final String IFD_PROPERTY_STRUCTURE_ID = concat(IFD_PROPERTY_FLAG, IFD_STRUCTURE_FLAG,
 			IFD_ID_FLAG);
 	public static final String IFD_PROPERTY_SAMPLE_ID = concat(IFD_PROPERTY_FLAG, IFD_SAMPLE_FLAG,
 			IFD_ID_FLAG);
-	public static final String IFD_REP_STRUCTURE_MOL = getProp("IFD_REP_STRUCTURE_MOL");
-	public static final String IFD_REP_STRUCTURE_MOL_2D = getProp("IFD_REP_STRUCTURE_MOL_2D");
-	public static final String IFD_REP_STRUCTURE_MOL_3D = getProp("IFD_REP_STRUCTURE_MOL_3D");
-	public static final String IFD_REP_STRUCTURE_SDF = getProp("IFD_REP_STRUCTURE_SDF");
-	public static final String IFD_REP_STRUCTURE_SDF_2D = getProp("IFD_REP_STRUCTURE_SDF_2D");
-	public static final String IFD_REP_STRUCTURE_SDF_3D = getProp("IFD_REP_STRUCTURE_SDF_3D");
-	public static final String IFD_REP_STRUCTURE_CDX = getProp("IFD_REP_STRUCTURE_CDX");
-	public static final String IFD_REP_STRUCTURE_CDXML = getProp("IFD_REP_STRUCTURE_CDXML");
-	public static final String IFD_REP_STRUCTURE_CIF = getProp("IFD_REP_STRUCTURE_CIF");
-	public static final String IFD_REP_STRUCTURE_CML = getProp("IFD_REP_STRUCTURE_CML");
-	public static final String IFD_REP_STRUCTURE_PNG = getProp("IFD_REP_STRUCTURE_PNG");
-	public static final String IFD_REP_STRUCTURE_UNKNOWN = getProp("IFD_REP_STRUCTURE_UNKNOWN");
+	public static final String IFD_REP_STRUCTURE_MOL = getProp("IFD_REP_STRUCTURE.MOL");
+	public static final String IFD_REP_STRUCTURE_MOL_2D = getProp("IFD_REP_STRUCTURE.MOL_2D");
+	public static final String IFD_REP_STRUCTURE_MOL_3D = getProp("IFD_REP_STRUCTURE.MOL_3D");
+	public static final String IFD_REP_STRUCTURE_SDF = getProp("IFD_REP_STRUCTURE.SDF");
+	public static final String IFD_REP_STRUCTURE_SDF_2D = getProp("IFD_REP_STRUCTURE.SDF_2D");
+	public static final String IFD_REP_STRUCTURE_SDF_3D = getProp("IFD_REP_STRUCTURE.SDF_3D");
+	public static final String IFD_REP_STRUCTURE_CDX = getProp("IFD_REP_STRUCTURE.CDX");
+	public static final String IFD_REP_STRUCTURE_CDXML = getProp("IFD_REP_STRUCTURE.CDXML");
+	public static final String IFD_REP_STRUCTURE_CIF = getProp("IFD_REP_STRUCTURE.CIF");
+	public static final String IFD_REP_STRUCTURE_CML = getProp("IFD_REP_STRUCTURE.CML");
+	public static final String IFD_REP_STRUCTURE_PNG = getProp("IFD_REP_STRUCTURE.PNG");
+	public static final String IFD_REP_STRUCTURE_UNKNOWN = getProp("IFD_REP_STRUCTURE.UNKNOWN");
 
 	public static final String IFD_STRUCTUREDATA_ASSOCIATION_FLAG = getProp("IFD_STRUCTUREDATA_ASSOCIATION_FLAG");
 	public static final String IFD_SAMPLEDATA_ASSOCIATION_FLAG = getProp("IFD_SAMPLEDATA_ASSOCIATION_FLAG");
@@ -231,8 +229,7 @@ public class IFDConst {
 	public static final String IFD_PROPERTY_DATAOBJECT_FLAG = concat(IFDConst.IFD_PROPERTY_FLAG, IFD_DATAOBJECT_FLAG);
 	public static final String IFD_PROPERTY_DATAOBJECT_NOTE = concat(IFD_PROPERTY_DATAOBJECT_FLAG, IFD_NOTE_FLAG);
 	public static final String IFD_PROPERTY_DATAOBJECT_TIMESTAMP = concat(IFD_PROPERTY_DATAOBJECT_FLAG, IFD_TIMESTAMP_FLAG);	
-	public static final String IFD_PROPERTY_DATAOBJECT_ORIGINATING_SAMPLE_ID = concat(IFD_PROPERTY_DATAOBJECT_FLAG, IFD_ORIGINATING_SAMPLE_ID_FLAG);
-
+	public static final String IFD_PROPERTY_DATAOBJECT_ORIGINATING_SAMPLE_ID = "IFD_PROPERTY_DATAOBJECT.ORIGINATING_SAMPLE_ID";
 	public static String getVersion() {
 		return "IFD " + IFD_VERSION;
 	}

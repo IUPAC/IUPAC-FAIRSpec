@@ -31,6 +31,7 @@ public class NmrMLVarianAcquStreamReader implements NmrMLHeader {
 
 	private int dimension = 1;
 	
+	@Override
 	public int getDimension() {
 		return dimension;
 	}

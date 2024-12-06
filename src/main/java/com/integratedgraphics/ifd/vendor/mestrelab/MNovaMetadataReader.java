@@ -8,7 +8,6 @@ import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Stack;
 import java.util.TreeMap;
 

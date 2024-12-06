@@ -30,20 +30,29 @@ public class PageCreator {
 			"index.htm",
 	};
 
-	public static void buildSite(File targetDir, boolean isLocal, boolean doLaunch) throws Exception {
-		new File(targetDir, "assets").mkdirs();
+	public static void buildSite(File targetPath, boolean isLocal, boolean doLaunch) throws Exception {
+		if (targetPath == null)
+			return;
+		new File(targetPath, "assets").mkdirs();
 		for (int i = 0; i < files.length; i++) {
 			byte[] bytes = FAIRSpecUtilities.getResourceBytes(PageCreator.class, "site/" + files[i]);
 			if (!isLocal && files[i] == ifdConfigJS) {
 				bytes = new String(bytes).replace("true", "false").getBytes();
 			}
-			FAIRSpecUtilities.writeBytesToFile(bytes,
-					new File(targetDir + "/" + files[i]));
+			File f = new File(targetPath + "/" + files[i]);
+			System.out.println("PageCreator creating " + f.getAbsolutePath());
+			FAIRSpecUtilities.writeBytesToFile(bytes, f);
 		}
 		System.out
-				.println("PageCreater created " + files.length + " files in " + targetDir.getAbsolutePath());
-		if (doLaunch)
-			FAIRSpecUtilities.showUrl(targetDir.toString().replace('\\', '/') + "/index.htm");
+				.println("PageCreater created " + files.length + " files in " + targetPath.getAbsolutePath());
+		if (doLaunch) {
+			String path = targetPath.getAbsolutePath().replace('\\', '/') + "/index.htm";
+			try {
+				FAIRSpecUtilities.showUrl(path);
+			} catch (Exception e) {
+				System.out.println("PageCreator could not launch " + path);
+			}
+		}
 	}
 
 	public final static void main(String[] args) {

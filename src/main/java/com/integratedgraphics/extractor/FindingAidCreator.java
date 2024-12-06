@@ -1,5 +1,6 @@
 package com.integratedgraphics.extractor;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDFindingAid;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
+import com.integratedgraphics.html.PageCreator;
 import com.integratedgraphics.ifd.api.VendorPluginI;
 
 /**
@@ -101,6 +103,11 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	
 	protected String thisRootPath;
 
+	protected File targetPath;
+
+	public void setTargetPath(File targetPath) {
+		this.targetPath = targetPath;
+	}
 
 	public String strWarnings = "";
 
@@ -396,5 +403,15 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	public IFDFindingAid getFindingAid() {
 		return getHelper().getFindingAid();
 	}
+
+	protected void buildSite() {
+		try {
+			PageCreator.buildSite(targetPath, true, launchLandingPage);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 
 }

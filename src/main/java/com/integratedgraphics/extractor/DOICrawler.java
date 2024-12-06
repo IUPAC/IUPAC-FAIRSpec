@@ -92,6 +92,13 @@ public class DOICrawler extends FindingAidCreator {
 	 * 
 	 */
 	protected final static String TEST_PID = "10.14469/hpc/10386";
+
+	protected static final String DATACITE_DESCRIPTION = "description";
+	protected static final String DATACITE_TITLE = "title";
+	protected static final String DATACITE_SUBJECT = "subject";
+	protected static final String DATACITE_REFERENCES = "References";
+	protected static final String DATACITE_RELATEDIDENTIFIER = "relatedidentifier";
+
 	
 	
 	/**
@@ -206,25 +213,25 @@ public class DOICrawler extends FindingAidCreator {
 			chars.setLength(0);
 			Map<String, String> attrs;
 			switch (localName) {
-			case "description":
-				if (s.length() > 0 && !crawler.customizeText("description", s)) {
+			case DATACITE_DESCRIPTION:
+				if (s.length() > 0 && !crawler.customizeText(DATACITE_DESCRIPTION, s)) {
 					crawler.addAttr(IFDConst.IFD_PROPERTY_DESCRIPTION, s);
 				}
 				break;
-			case "title":
+			case DATACITE_TITLE:
 				if (s.length() > 0) {
-					if (!crawler.customizeText("title", s)) {
+					if (!crawler.customizeText(DATACITE_TITLE, s)) {
 						crawler.addAttr(IFDConst.IFD_PROPERTY_LABEL, s);
 					}
 				}
 				break;
-			case "subject":
+			case DATACITE_SUBJECT:
 				attrs = getAttributes(true);
 				addSubject(attrs, s);
 				break;
-			case "relatedidentifier":
+			case DATACITE_RELATEDIDENTIFIER:
 				if (s.length() > 0) {
-					crawler.logAttr("relatedidentifier", s);
+					crawler.logAttr(DATACITE_RELATEDIDENTIFIER, s);
 				}
 				crawler.addRelatedIdentifier(getAttributes(true), s);
 				break;
@@ -260,13 +267,13 @@ public class DOICrawler extends FindingAidCreator {
 				break;
 			case "relatedidentifiers":
 			case "subjects":
-			case "title":
+			case DATACITE_TITLE:
 				isData = false;
 				skipping = false;
 				break;
-			case "relatedidentifier":
-			case "subject":
-			case "description":
+			case DATACITE_RELATEDIDENTIFIER:
+			case DATACITE_SUBJECT:
+			case DATACITE_DESCRIPTION:
 				// deferring to end
 				isData = false;
 				skipping = false;
@@ -314,7 +321,7 @@ public class DOICrawler extends FindingAidCreator {
 			//
 			String key = attrs.get("subjectscheme");
 			if (key == null) {
-				crawler.customizeText("subject", s);
+				crawler.customizeText(DATACITE_SUBJECT, s);
 			} else {
 				switch (key) {
 				case FAIRDATA_SUBJECT_SCHEME:
@@ -438,10 +445,6 @@ public class DOICrawler extends FindingAidCreator {
 	
 	protected StringBuffer log = new StringBuffer();
 	protected int xmlDepth;
-	/**
-	 * set to true if all related URL groups are of the same compound
-	 */
-    private boolean byCompound = false;
 
 	// iterative nesting of DOI reference
 	
@@ -463,7 +466,6 @@ public class DOICrawler extends FindingAidCreator {
 	 * a map to convert the ICL archive's keys to proper IFD.property keys
 	 */
 
-	private File faDir;	
 	private String faId;
 
 	private FAIRSpecFindingAid findingAid;
@@ -499,6 +501,8 @@ public class DOICrawler extends FindingAidCreator {
 
 	private Stack<String> urlStack;
 
+	private IFDObject<?> thisCompound;
+
 	/**
 	 * 
 	 * @param args [initialDOI, outputDirectory]
@@ -509,10 +513,6 @@ public class DOICrawler extends FindingAidCreator {
 		if (flags.indexOf("-nodownload;") >= 0) {
 			doDownload = false;
 		}
-		if (flags.indexOf("-bycompound;") >= 0) {
-			byCompound = true;
-		}
-
 	try {
 			dataCiteMetadataURL = getMetadataURL(initialDOI);
 		} catch (MalformedURLException e) {
@@ -552,18 +552,21 @@ public class DOICrawler extends FindingAidCreator {
 		// not retrieving data files
 		// but URLs are touched using the "head" option in https
 		faId = initialDOI.replace('/', '_');
-		faDir = new File(topDir, faId);
-		faDir.mkdirs();
+		targetPath = new File(topDir, faId);
+		targetPath.mkdirs();
 		faHelper = new FAIRSpecFindingAidHelper(getCodeSource() + " " + getVersion());
+		if (!isByIDSet) {
+			setExtractorOption(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID, "true");
+		}
 		findingAid = faHelper.getFindingAid();
 		findingAid.setID(faId);
 		if (doDownload && fileDir == null) {
-			fileDir = new File(faDir, "files");
+			fileDir = new File(targetPath, "files");
 		} else if (fileDir == null) {
 			doDownload = false;
 		}
 		if (dataDir == null)
-			dataDir = new File(faDir, "metadata");
+			dataDir = new File(targetPath, "metadata");
 		log = new StringBuffer();
 		startTime = System.currentTimeMillis();
 		doiList = new ArrayList<DoiRecord>();
@@ -573,7 +576,7 @@ public class DOICrawler extends FindingAidCreator {
 		if (fileDir != null)
 			fileDir.mkdirs();
 		nextDOI(dataCiteMetadataURL);
-		outputListAndLog(faDir);
+		outputListAndLog(targetPath);
 		createFindingAid();
 		if (errorBuffer.length() > 0) {
 			System.err.println(errorBuffer.toString());
@@ -693,7 +696,11 @@ public class DOICrawler extends FindingAidCreator {
 			processDOIURLs(pubdoi, datadoi, faHelper);
 			nestRecords();
 			processRecords(null, doiList);
-			faHelper.generateFindingAid(faDir);
+			String aid = faHelper.generateFindingAid(targetPath);
+			if (aid != null && createLandingPage) {
+				buildSite();
+			}
+
 		} catch (Exception e) {
 			addException(e);
 		}
@@ -701,7 +708,7 @@ public class DOICrawler extends FindingAidCreator {
 
 	protected boolean customizeText(String key, String val) {
 		switch (key) {
-		case "subject":
+		case DATACITE_SUBJECT:
 			switch (val) {
 			// ccdc subject
 			case "Crystal Structure":
@@ -709,7 +716,7 @@ public class DOICrawler extends FindingAidCreator {
 				return false;
 			}
 			break;
-		case "References":
+		case DATACITE_REFERENCES:
 			if (val.indexOf("/ccdc.") >= 0)
 				return true;
 		}
@@ -739,11 +746,16 @@ public class DOICrawler extends FindingAidCreator {
 				o = faHelper.getFindingAid().getCollectionSet();
 				break;
 			case DOI_COMP:
-				thisCompoundID = rec.compoundID;
-				o = faHelper.createCompound(thisCompoundID);
-				o.setDOI(rec.ifdRef.getDOI());
-				o.setURL(rec.ifdRef.getURL());
-				o.setReference(rec.ifdRef);
+				String id = rec.compoundID;
+				if (id == thisCompoundID) {
+					o = thisCompound;
+				} else {
+					thisCompoundID = rec.compoundID;
+					thisCompound = o = faHelper.createCompound(thisCompoundID);
+					o.setDOI(rec.ifdRef.getDOI());
+					o.setURL(rec.ifdRef.getURL());
+					o.setReference(rec.ifdRef);
+				}
 				thisDataObject = null;
 				if (rec.itemList != null)
 					processRecords(rec.dataObjectType, rec.itemList);
@@ -763,10 +775,11 @@ public class DOICrawler extends FindingAidCreator {
 					structureType = DefaultStructureHelper.getType(ext, null, false);
 					if (structureType != null) {
 						System.out.println(rec.ifdRef);
-						faHelper.createStructureRepresentation(rec.ifdRef, null, rec.length, structureType, rec.mediaType);
+						faHelper.createStructureRepresentation(rec.ifdRef, null, rec.length, structureType,
+								rec.mediaType);
 					}
-				} 
-				
+				}
+
 				if (structureType == null) {
 					if (thisDataObject == null) {
 						log("!!no data object for " + rec.ifdRef.getLocalName() + " " + rec.ifdRef.getURL());
@@ -778,7 +791,8 @@ public class DOICrawler extends FindingAidCreator {
 						if (!thisDataObjectType.startsWith(FAIRSPEC_DATAOBJECT_FLAG))
 							thisDataObjectType = FAIRSPEC_DATAOBJECT_FLAG + thisDataObjectType;
 						rec.dataObjectType = thisDataObjectType;
-						faHelper.createDataObjectRepresentation(rec.ifdRef, null, rec.length, rec.dataObjectType, rec.mediaType);
+						faHelper.createDataObjectRepresentation(rec.ifdRef, null, rec.length, rec.dataObjectType,
+								rec.mediaType);
 					}
 				}
 				break;

@@ -171,9 +171,8 @@ public class Junrar {
             final Archive arch,
             final FileHeader fileHeader
     ) throws IOException, RarException {
-        final String fileNameString = fileHeader.getFileName();
-
-//        Junrar.///logger.info("extracting: {}", fileNameString);
+        //final String fileNameString = fileHeader.getFileName();
+    	//Junrar.///logger.info("extracting: {}", fileNameString);
         if (fileHeader.isDirectory()) {
             return destination.createDirectory(fileHeader);
         } else {

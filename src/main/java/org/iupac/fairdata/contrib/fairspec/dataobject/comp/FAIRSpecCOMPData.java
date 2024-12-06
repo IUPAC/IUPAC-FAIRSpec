@@ -14,9 +14,9 @@ import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
 public class FAIRSpecCOMPData extends FAIRSpecDataObject {
 
 	public FAIRSpecCOMPData() {
-		super();
+		super("comp");
 	}
-	
+
 	@Override
 	protected IFDDataObjectRepresentation newRepresentation(IFDReference ref, Object obj, long len, String type, String subtype) {
 		return new FAIRSpecCOMPDataRepresentation(ref, obj, len, type, subtype);

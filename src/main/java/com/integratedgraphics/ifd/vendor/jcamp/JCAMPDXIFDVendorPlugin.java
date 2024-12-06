@@ -1,18 +1,8 @@
 package com.integratedgraphics.ifd.vendor.jcamp;
 
-import java.io.ByteArrayInputStream;
-import java.util.Arrays;
-import java.util.Map;
-
-import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.extract.MetadataReceiverI;
-import org.iupac.fairdata.util.ZipUtil;
 
-import com.integratedgraphics.ifd.vendor.DefaultVendorPlugin;
 import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
-
-import jspecview.source.JDXReader;
 
 public class JCAMPDXIFDVendorPlugin extends NMRVendorPlugin {
 

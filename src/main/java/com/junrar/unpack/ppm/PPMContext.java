@@ -432,7 +432,8 @@ public class PPMContext extends Pointer {
         return (true);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder buffer = new StringBuilder();
         buffer.append("PPMContext[");
         buffer.append("\n  pos=");

@@ -98,7 +98,8 @@ public class RangeCoder {
     }
 
     // Debug
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder buffer = new StringBuilder();
         buffer.append("RangeCoder[");
         buffer.append("\n  low=");
@@ -146,7 +147,8 @@ public class RangeCoder {
         }
 
         // Debug
-        public String toString() {
+        @Override
+		public String toString() {
             StringBuilder buffer = new StringBuilder();
             buffer.append("SubRange[");
             buffer.append("\n  lowCount=");

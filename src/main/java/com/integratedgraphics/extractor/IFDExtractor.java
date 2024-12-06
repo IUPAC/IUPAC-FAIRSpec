@@ -133,7 +133,17 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 				+ "\n-requirePubInfo (throw an error is datacite cannot be reached; post-publication-related collections only)";
 	}
 
-	protected static void runExtraction(String[] args) {
+	public void runExtraction(String ifdExtractFile, String localSourceArchive, String targetDir) {
+		runExtraction(
+				new String[] {
+						ifdExtractFile, 
+						localSourceArchive, 
+						targetDir
+				}
+		);
+	}
+
+	public void runExtraction(String[] args) {
 
 		System.out.println(Arrays.toString(args));
 
@@ -163,32 +173,31 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		new File(targetDir).mkdirs();
 		FAIRSpecUtilities.setLogging(targetDir + "/extractor.log");
 		int failed = 0;
-		IFDExtractor extractor = new IFDExtractor();
-		extractor.logToSys("Extractor.runExtraction output to " + new File(targetDir).getAbsolutePath());
+		logToSys("Extractor.runExtraction output to " + new File(targetDir).getAbsolutePath());
 		// ./extract/ should be in the main Eclipse project directory.
 		long t0 = System.currentTimeMillis();
-		extractor.processFlags(args, null);
+		processFlags(args, null);
 		new File(targetDir).mkdirs();
-		String flags = "\n" + extractor.dumpFlags() + "\n IFD version " + IFDConst.IFD_VERSION + "\n";
+		String flags = "\n" + dumpFlags() + "\n IFD version " + IFDConst.IFD_VERSION + "\n";
 		try {
 			File ifdExtractScriptFile = new File(ifdExtractJSONFilename).getAbsoluteFile();
 			File targetPath = new File(targetDir).getAbsoluteFile();
 			String sourcePath = (localSourceArchive == null ? null : new File(localSourceArchive).getAbsolutePath());
-			extractor.run(ifdExtractScriptFile, targetPath, sourcePath);
-			extractor.logToSys("Extractor.runExtraction ok ");
+			run(ifdExtractScriptFile, targetPath, sourcePath);
+			logToSys("Extractor.runExtraction ok ");
 		} catch (Exception e) {
 			failed = 1;
-			extractor.logErr("Exception " + e, "runExtraction");
+			logErr("Exception " + e, "runExtraction");
 			e.printStackTrace();
 		}
 		String warnings = "";
-		if (failed == 0 || !extractor.stopOnAnyFailure) {
-			extractor.logToSys(
+		if (failed == 0 || !stopOnAnyFailure) {
+			logToSys(
 					"!Extractor.runExtraction time/sec=" + (System.currentTimeMillis() - t0) / 1000.0);
 			ifdExtractJSONFilename = null;
-			if (extractor.warnings > 0) {
-				warnings += "======== " + ": " + extractor.warnings + " warnings for " + targetDir + "\n"
-						+ extractor.strWarnings;
+			if (this.warnings > 0) {
+				warnings += "======== " + ": " + this.warnings + " warnings for " + targetDir + "\n"
+						+ strWarnings;
 				try {
 					FAIRSpecUtilities.writeBytesToFile((warnings).getBytes(),
 							new File(targetDir + "/_IFD_warnings.txt"));
@@ -197,8 +206,8 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 				}
 			}
 		}
-		String json = (extractor.readOnly ? null : "{\"findingaids\":[\"" + targetDir + "/IFD.findingaid.json\"]}");
-		extractor.finalizeExtraction(json, targetDir, 1, failed, -1, -1, flags);
+		String json = (readOnly ? null : "{\"findingaids\":[\"" + targetDir + "/IFD.findingaid.json\"]}");
+		finalizeExtraction(json, 1, failed, -1, -1, flags);
 		FAIRSpecUtilities.setLogging(null);
 	}
 
@@ -224,8 +233,10 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 	/**
 	 * @return the FindingAid as a string
 	 */
-	public final String extractAndCreateFindingAid(File ifdExtractScriptFile, String localArchive, File targetDir) throws IOException, IFDException {
+	public final String extractAndCreateFindingAid(File ifdExtractScriptFile, String localArchive, File targetPath) throws IOException, IFDException {
 
+		this.targetPath = targetPath;
+		
 		// set up the extraction
 
 		processPhase1(ifdExtractScriptFile, localArchive);
@@ -233,14 +244,14 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 
 		// now actually do the extraction.
 
-		processPhase2(targetDir);
+		processPhase2(targetPath);
 		FAIRSpecUtilities.refreshLog();
 
 		// finish up all processing
 		return processPhase3();
 	}
 
-	public void finalizeExtraction(String json, String targetDir, int n, int failed, int nWarnings, int nErrors, String flags) {
+	public void finalizeExtraction(String json, int n, int failed, int nWarnings, int nErrors, String flags) {
 		if (failed == 0) {
 			try {
 				if (json != null) {
@@ -291,13 +302,16 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		return version;
 	}
 
-	public void run(File ifdExtractScriptFile, File targetDir, String localsourceArchive)
+	public void run(File ifdExtractScriptFile, File targetPath, String localsourceArchive)
 			throws IOException, IFDException {
 		log("!Extractor\n ifdExtractScriptFile= " + ifdExtractScriptFile + "\n localsourceArchive = "
-				+ localsourceArchive + "\n targetDir = " + targetDir.getAbsolutePath());
-		if (extractAndCreateFindingAid(ifdExtractScriptFile, localsourceArchive, targetDir) == null
-				&& !allowNoPubInfo) {
-			throw new IFDException("Extractor failed");
+				+ localsourceArchive + "\n targetDir = " + targetPath.getAbsolutePath());
+		if (extractAndCreateFindingAid(ifdExtractScriptFile, localsourceArchive, targetPath) == null) {
+			if (!allowNoPubInfo) {
+				throw new IFDException("Extractor failed");
+			}
+		} else if (createLandingPage) {
+			buildSite();
 		}
 
 		log("!Extractor extracted " + lstManifest.size() + " files (" + lstManifest.getByteCount() + " bytes)"
@@ -322,7 +336,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 			return;
 		}
 		// just run one IFD-extract.json
-		runExtraction(args);
+		new IFDExtractor().runExtraction(args);
 	}
 
 }

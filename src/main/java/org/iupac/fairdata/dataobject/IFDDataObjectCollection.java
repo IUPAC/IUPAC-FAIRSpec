@@ -2,7 +2,6 @@ package org.iupac.fairdata.dataobject;
 
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDRepresentableObject;
-import org.iupac.fairdata.structure.IFDStructure;
 
 @SuppressWarnings("serial")
 public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObject<IFDDataObjectRepresentation>> {
@@ -42,7 +41,6 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 			data.setValid(false);
 		}
 		newData.setValid(true);
-		newData.getProperties();
 		add(newData);
 		return newData;
 	}

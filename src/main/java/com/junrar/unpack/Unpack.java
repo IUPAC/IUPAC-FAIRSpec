@@ -601,7 +601,8 @@ public final class Unpack extends Unpack20 {
         }
     }
 
-    protected void unpInitData(boolean solid) {
+    @Override
+	protected void unpInitData(boolean solid) {
         if (!solid) {
             tablesRead = false;
             Arrays.fill(oldDist, 0); // memset(oldDist,0,sizeof(OldDist));

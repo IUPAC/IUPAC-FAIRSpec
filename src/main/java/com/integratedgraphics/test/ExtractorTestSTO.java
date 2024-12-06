@@ -1,5 +1,7 @@
 package com.integratedgraphics.test;
 
+import com.integratedgraphics.extractor.IFDExtractor;
+
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
  * 
@@ -10,18 +12,18 @@ package com.integratedgraphics.test;
  * @author hansonr
  *
  */
-public class ExtractorTestSTO extends ExtractorTest {
+public class ExtractorTestSTO {
 
 	public static void main(String[] args) {
 		String dir = "c:/temp/iupac/stolaf/";
 		String ifdExtractFile = dir + "IFD-extract.json";
-		String localSourceArchive = null;//dir + "archive.tar.gz";
-		String targetDir = dir + "c:/temp/iupac/stolaf-ifd";
+		String localSourceArchive = null;// dir + "archive.tar.gz";
+		String targetDir = "c:/temp/iupac/stolaf-ifd";
 
-		//debugging = true;
-		//readOnly = true;
-		
-		runExtraction(setSourceTargetArgs(args, ifdExtractFile, localSourceArchive, targetDir, null));
+		// debugging = true;
+		// readOnly = true;
+
+		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir);
 	}
 
 }

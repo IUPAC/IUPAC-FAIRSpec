@@ -12,6 +12,11 @@ import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
 @SuppressWarnings("serial")
 public final class FAIRSpecUNKNOWNData extends FAIRSpecDataObject {
 
+	public FAIRSpecUNKNOWNData() {
+		super("unknown");
+	}
+
+
 	@Override
 	protected IFDDataObjectRepresentation newRepresentation(IFDReference ref, Object obj, long len, String type, String subtype) {
 		return new FAIRSpecUNKNOWNDataRepresentation(ref, obj, len, type, subtype);

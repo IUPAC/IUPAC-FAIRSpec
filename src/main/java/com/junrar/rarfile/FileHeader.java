@@ -229,7 +229,7 @@ public class FileHeader extends BlockHeader {
 
     private static boolean isFilenameValid(String filename) {
         try {
-            String ignored = new File(filename).getCanonicalPath();
+            new File(filename).getCanonicalPath();
             return true;
         } catch (IOException e) {
             return false;

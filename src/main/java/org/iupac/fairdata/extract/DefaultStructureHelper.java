@@ -109,13 +109,13 @@ public class DefaultStructureHelper implements PropertyManagerI {
 	
 	public static final String STRUC_FILE_DATA_KEY = "_struc.";
 
-	private static final String SMILES = IFDConst.getProp("IFD_REP_STRUCTURE_SMILES");
-	private static final String STANDARD_INCHI = IFDConst.getProp("IFD_REP_STRUCTURE_STANDARD_INCHI");
-	private static final String FIXEDH_INCHI = IFDConst.getProp("IFD_REP_STRUCTURE_FIXEDH_INCHI");
-	private static final String INCHIKEY = IFDConst.getProp("IFD_PROPERTY_STRUCTURE_INCHIKEY");
-	private static final String MOLECULAR_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE_MOLECULAR_FORMULA");
-	private static final String EMPIRICAL_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE_EMPIRICAL_FORMULA");
-	private static final String CELL_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE_CELL_FORMULA");
+	private static final String SMILES = IFDConst.getProp("IFD_REP_STRUCTURE.SMILES");
+	private static final String STANDARD_INCHI = IFDConst.getProp("IFD_REP_STRUCTURE.STANDARD_INCHI");
+	private static final String FIXEDH_INCHI = IFDConst.getProp("IFD_REP_STRUCTURE.FIXEDH_INCHI");
+	private static final String INCHIKEY = IFDConst.getProp("IFD_PROPERTY_STRUCTURE.INCHIKEY");
+	private static final String MOLECULAR_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE.MOLECULAR_FORMULA");
+	private static final String EMPIRICAL_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE.EMPIRICAL_FORMULA");
+	private static final String CELL_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE.CELL_FORMULA");
 
 	@Override
 	public String processRepresentation(String originPath, byte[] bytes) {

@@ -20,10 +20,10 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 	private final Object data;
 	private long len;
 	private String mediaType;
-	private int test;
+	//private int test;
 	private String note;
 	
-	private static int staticTest;
+	//private static int staticTest;
 	
 	/**
 	 * 
@@ -34,7 +34,7 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 	 * @param subtype
 	 */
 	public IFDRepresentation(IFDReference ref, Object data, long len, String type, String subtype) {
-		this.test = staticTest++;
+		//this.test = staticTest++;
 		this.ref = ref;
 		this.data = data;
 //			System.out.println(this.test + " " + subtype + " " + len + " " + ref);

@@ -85,7 +85,8 @@ public class SEE2Context {
         setSumm(getSumm() + dSumm);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder buffer = new StringBuilder();
         buffer.append("SEE2Context[");
         buffer.append("\n  size=");

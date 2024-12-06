@@ -77,7 +77,7 @@ public class IFDReference implements IFDSerializableI {
 	public IFDReference(String resourceID, Object originPath, String localDir, String localName) {
 		this.index = ++test;
 		this.resourceID = resourceID;
-		this.originPath = originPath;
+		setOriginPath(originPath);
 		this.localDir = localDir;
 		this.localName = localName;
 	}
@@ -113,7 +113,7 @@ public class IFDReference implements IFDSerializableI {
 
 	@Override
 	public void serialize(IFDSerializerI serializer) {
-		System.out.println("IFDRef " + index + " " + localName + " " + url);
+		//System.out.println("IFDRef " + index + " " + localName + " " + url);
 		IFDObject.serializeClass(serializer, getClass(), null);
 		if (resourceID != null)
 			serializer.addAttr("resourceID", resourceID);

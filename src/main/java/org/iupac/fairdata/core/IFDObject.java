@@ -319,7 +319,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * generic properties that could be anything but are not in the list of known
 	 * properties
 	 */
-	protected List<IFDAttribute> params = new ArrayList<>();
+	protected List<IFDAttribute> attributes = new ArrayList<>();
 
 	/**
 	 * the maximum number of items allowed in this list; may be 0
@@ -340,6 +340,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * flag to allow collections to identify their items using "itemType"
 	 */
 	private boolean doSerializeType = true;
+
+	private String myPropertyPrefix;
 
 	public IFDObject(String label, String type) {
 		set(label, type, Integer.MAX_VALUE);
@@ -403,6 +405,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * @param notKey no longer used
 	 */
 	protected void setProperties(String propertyPrefix, String notKey) {
+		myPropertyPrefix = propertyPrefix;
 		IFDConst.setProperties(htProps, propertyPrefix, notKey);
 	}
 
@@ -410,8 +413,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return htProps;
 	}
 
-	public final List<IFDAttribute> getParams() {
-		return params;
+	public final List<IFDAttribute> getAttributes() {
+		return attributes;
 	}
 
 	/**
@@ -436,9 +439,9 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		// add/remove parameter
 		key = fixAttributeKey(key);
 		if (value == null)
-			IFDAttribute.remove(params, key);
+			IFDAttribute.remove(attributes, key);
 		else
-			IFDAttribute.add(params, key, value);
+			IFDAttribute.add(attributes, key, value);
 		return null;
 	}
 
@@ -541,15 +544,11 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	public String getID() {
 		if (id == null)
 			id = "" + (index + 1);
-		if (id.equals("0"))
-			System.out.println("???");
 		return id;
 	}
 
 	@Override
 	public void setID(String id) {
-		if (id.equals("0"))
-			System.out.println("???");
 		this.id = id;
 	}
 
@@ -703,9 +702,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected void serializeTop(IFDSerializerI serializer) {
 		if (doSerializeType)
 			serializeClass(serializer, getClass(), null);
-		if (getID().equals("0"))
-			System.out.println("???");
-
 		serializer.addAttr("id", getID());
 		serializer.addAttr("label", getLabel());
 		serializer.addAttr("note", getNote());
@@ -737,9 +733,9 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			}
 			serializer.addObject("properties", map);
 		}
-		if (params.size() > 0) {
+		if (attributes.size() > 0) {
 			Map<String, Object> map = new TreeMap<>();
-			for (IFDAttribute p : params) {
+			for (IFDAttribute p : attributes) {
 				Object val = p.getValue();
 				if (val != null && val != "") {
 					map.put(p.getName(), val);
@@ -832,10 +828,13 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	public IFDObject<T> clone() {
 		@SuppressWarnings("unchecked")
 		IFDObject<T> o = (IFDObject<T>) super.clone();
-		params = new ArrayList<>();
+		o.index = indexCount++;
+		// o.id must be adjusted later
+		o.attributes = new ArrayList<>();
 		o.htProps = new PropertyMap();
-		o.htProps.putAll(htProps);
-		o.htProps.clear();
+		o.setProperties(myPropertyPrefix, null);
+		o.clear();
+		// why this?? clear the OLD attributes?? attributes = new ArrayList<>();
 		return o;
 	}
 	@Override

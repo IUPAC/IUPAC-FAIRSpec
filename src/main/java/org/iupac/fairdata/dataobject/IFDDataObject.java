@@ -33,7 +33,6 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 		IFDDataObject o = null;
 		try {
 			o = (IFDDataObject) super.clone();//getClass().newInstance();
-			o.index = indexCount++;
 		} catch (Exception e) {
 			// ignore
 		}

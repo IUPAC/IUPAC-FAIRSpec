@@ -39,6 +39,7 @@ public class IFDStructureDataAssociation extends IFDAssociation {
 		return sdaPrefix;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected IFDStructureDataAssociation(IFDCollection[] collection) throws IFDException {
 		super(null, collection);		
 	}

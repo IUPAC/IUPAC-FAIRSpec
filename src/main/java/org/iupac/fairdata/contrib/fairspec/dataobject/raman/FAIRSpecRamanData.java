@@ -12,6 +12,10 @@ import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
 @SuppressWarnings("serial")
 public final class FAIRSpecRamanData extends FAIRSpecDataObject {
 
+	public FAIRSpecRamanData() {
+		super("raman");
+	}
+
 	@Override
 	protected IFDDataObjectRepresentation newRepresentation(IFDReference ref, Object obj, long len, String type, String subtype) {
 		return new FAIRSpecRamanDataRepresentation(ref, obj, len, type, subtype);

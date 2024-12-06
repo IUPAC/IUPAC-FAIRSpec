@@ -28,17 +28,17 @@ public class ICLDOICrawler extends DOICrawler {
 		private static Map<String, String> hackMap = new HashMap<>();
 		
 		{
-			hackMap.put("inchi", IFD_INCHI);
+			hackMap.put("INCHI", IFD_INCHI);
 			hackMap.put("SMILES", IFD_SMILES);
-			hackMap.put("inchikey", IFD_INCHIKEY);
-			hackMap.put("NMR_Solvent", FAIRSPEC_DATAOBJECT_FLAG + "nmr.expt_solvent");
-			hackMap.put("NMR_Nucleus", FAIRSPEC_DATAOBJECT_FLAG + "nmr.expt_nucl1");
-			hackMap.put("NMR_Nucleus1", FAIRSPEC_DATAOBJECT_FLAG + "nmr.expt_nucl1");
-			hackMap.put("NMR_Nucleus2", FAIRSPEC_DATAOBJECT_FLAG + "nmr.expt_nucl2");
-			hackMap.put("NMR_Expt", FAIRSPEC_DATAOBJECT_FLAG + "nmr.expt_name");
+			hackMap.put("INCHIKEY", IFD_INCHIKEY);
+			hackMap.put("NMR_SOLVENT", FAIRSPEC_DATAOBJECT_FLAG + "nmr.expt_solvent");
+			hackMap.put("NMR_NUCLEUS", FAIRSPEC_DATAOBJECT_FLAG + "nmr.expt_nucl1");
+			hackMap.put("NMR_NUCLEUS1", FAIRSPEC_DATAOBJECT_FLAG + "nmr.expt_nucl1");
+			hackMap.put("NMR_NUCLEUS2", FAIRSPEC_DATAOBJECT_FLAG + "nmr.expt_nucl2");
+			hackMap.put("NMR_EXPT", FAIRSPEC_DATAOBJECT_FLAG + "nmr.expt_name");
 			hackMap.put("IFD.IR", FAIRSPEC_DATAOBJECT_FLAG + "ir.description");
 			hackMap.put("IFD.XRAY", FAIRSPEC_DATAOBJECT_FLAG + "xrd.description");
-			hackMap.put("IFD.comp", FAIRSPEC_DATAOBJECT_FLAG + "comp.description");
+			hackMap.put("IFD.COMP", FAIRSPEC_DATAOBJECT_FLAG + "comp.description");
 		};
 		
 		private ICLDOICrawler crawler;
@@ -64,7 +64,7 @@ public class ICLDOICrawler extends DOICrawler {
 		 */
 		@Override
 		public String customizeSubjectKey(String key) {
-			String mappedKey = hackMap.get(key);
+			String mappedKey = hackMap.get(key.toUpperCase());
 			return (mappedKey == null ? key : mappedKey);
 		}
 
@@ -87,7 +87,7 @@ public class ICLDOICrawler extends DOICrawler {
 			case "References":
 				crawler.addError("!RelatedIdentifier.References value ignored: " + val + " in " + crawler.doiRecord);
 				break;
-			case "subject":
+			case DATACITE_SUBJECT:
 				switch (val) {
 				// from ccdc DOI
 				case "Crystal Structure":
@@ -95,9 +95,9 @@ public class ICLDOICrawler extends DOICrawler {
 					break;
 				}
 				break;
-			case "description":
+			case DATACITE_DESCRIPTION:
 				break;
-			case "title":
+			case DATACITE_TITLE:
 				switch (val.substring(0, 3)) {
 				default:
 					if (val.indexOf("-ray") >= 0 || val.indexOf("rystal") >= 0)

@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
+import com.integratedgraphics.extractor.FindingAidCreator;
 import com.integratedgraphics.extractor.IFDExtractor;
 
 /**
@@ -183,11 +184,34 @@ public class ExtractorTestACS extends ExtractorTest {
 				json = null;
 			else if (json != null)
 				json += "\n]}\n";
-			extractor.finalizeExtraction(json, targetDir0, n, failed, nWarnings, nErrors, sflags);
+			((FindingAidCreator) extractor).setTargetPath(new File(targetDir0));
+			extractor.finalizeExtraction(json, n, failed, nWarnings, nErrors, sflags);
 		}
 		FAIRSpecUtilities.setLogging(null);
 	}
 	
+	/**
+	 *  Set the args[] for MetadataExtractor to 
+	 *  [ifdExtractJSONFilename, localSourceArchive, targetDir, flags...]
+	 *  
+	 * @param args
+	 * @param localSourceArchive
+	 * @param targetDir
+	 * @return
+	 */
+	private static String[] setSourceTargetArgs(String[] args, String ifdExtractJSONFilename, String localSourceArchive, String targetDir, String flags) {
+		if (args == null)
+			args = new String[0];
+		String[] a = new String[Math.max(4,  args.length)];
+		a[0] = (args.length < 1 || args[0] == null ? ifdExtractJSONFilename : args[0]);
+		a[1] = (args.length < 2 || args[1] == null ? localSourceArchive : args[1]);
+		a[2] = (args.length < 3 || args[2] == null ? targetDir : args[2]);
+		a[3] = (args.length < 4 || args[3] == null ? flags : args[3]);
+		for (int i = 4; i < args.length; i++)
+			a[i] = args[i];
+		return a;
+	}
+
 	public static void main(String[] args) {
 		// args[] may override localSourceArchive as ars[1] 
 		// and testDir as args[2]; args[0] is ignored;

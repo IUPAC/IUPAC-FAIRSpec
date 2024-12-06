@@ -69,7 +69,8 @@ public class FreqData extends Pointer {
         Raw.writeIntLittleEndian(mem, pos + 2, state);
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder buffer = new StringBuilder();
         buffer.append("FreqData[");
         buffer.append("\n  pos=");

@@ -24,7 +24,6 @@ import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 
 import com.integratedgraphics.extractor.ExtractorAids.CacheRepresentation;
 import com.integratedgraphics.extractor.ExtractorAids.ExtractorResource;
-import com.integratedgraphics.html.PageCreator;
 
 /**
  * Phase 3: Clean up the collections.
@@ -66,19 +65,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		log(msg);
 		
 		String serializedFA = phase3SerializeFindingAid();
-		if (serializedFA != null && createLandingPage) {
-			buildSite();
-		}
 		return serializedFA;
-	}
-
-	private void buildSite() {
-		try {
-			PageCreator.buildSite(targetDir, true, launchLandingPage);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**

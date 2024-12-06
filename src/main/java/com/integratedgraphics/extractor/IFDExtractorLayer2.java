@@ -307,7 +307,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 		// Phase 2d
 
-		log("!Phase 2d read zip contents");
+		log("!Phase 2d check rejected files and update lists");
 
 		iter = new ParserIterator();
 		while (iter.hasNext()) {
@@ -323,14 +323,16 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		// Scan through parsers for resource changes
 
 		ParserIterator iter = new ParserIterator();
+		log("!Phase 2a initializing data sources ");
 		while (iter.hasNext()) {
 			ExtractorResource currentSource = extractorResource;
 			nextParser(iter);
 			if (extractorResource != currentSource) {
 				currentSource = extractorResource;
 				if (cleanCollectionDir) {
-					log("!cleaning directory " + extractorResource.rootPath);
-					FileUtils.cleanDirectory(new File(targetDir + "/" + extractorResource.rootPath));
+				    File dir = new File(targetDir + "/" + extractorResource.rootPath);
+					log("!Phase 2a cleaning directory " + dir);
+					FileUtils.cleanDirectory(dir);
 				}
 				String source = targetDir + "/" + extractorResource.rootPath;
 				if (!rootPaths.contains(source))
@@ -664,13 +666,14 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 			boolean isInline = (a[4] == Boolean.TRUE);
 			if (key == NEW_RESOURCE_KEY) {
+				System.out.println("MEX NEW_RESOURCE " + value);
 				initializeResource((ExtractorResource) value, false);
 				continue;
 			}
 			cloning = key.equals(NEW_PAGE_KEY);
-//			if (cloning) {
-//				System.out.println("MEX NEW_PAGE_KEY");
-//			}
+			if (cloning) {
+				System.out.println("MEX NEW_PAGE_KEY" + value);
+			}
 			boolean isRep = IFDConst.isRepresentation(key);
 			String type = FAIRSpecExtractorHelper.getObjectTypeForPropertyOrRepresentationKey(key, true);
 			boolean isSample = (type == FAIRSpecFindingAidHelper.ClassTypes.Sample);
@@ -985,7 +988,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 			obj = getObjectFromLocalizedName(localizePath(name), IFDConst.IFD_DATAOBJECT_FLAG);
 			if (obj == null) {
-				obj = getObjectFromLocalizedName(localizePath(name), IFDConst.IFD_DATAOBJECT_FLAG);
 				throw new IFDException("phase2cRezipEntry could not find object for " + lNameForObj);
 			}
 		}

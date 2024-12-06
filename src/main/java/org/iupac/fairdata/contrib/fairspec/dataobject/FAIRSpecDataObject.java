@@ -16,8 +16,8 @@ import org.iupac.fairdata.dataobject.IFDDataObject;
 @SuppressWarnings("serial")
 public class FAIRSpecDataObject extends IFDDataObject {
 
-	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_DATAOBJECT_FLAG,
-			"fairspec");
+	private static String basePropertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_DATAOBJECT_FLAG,
+			"fairspec.");
 
 	protected String exptMethod;
 	
@@ -32,7 +32,7 @@ public class FAIRSpecDataObject extends IFDDataObject {
 
 	@Override
 	protected String getIFDPropertyPrefix() {
-		return (serializerPropertyPrefix == null ? propertyPrefix : serializerPropertyPrefix);
+		return (serializerPropertyPrefix == null ? basePropertyPrefix : serializerPropertyPrefix);
 	}
 
 	@Override
@@ -40,9 +40,9 @@ public class FAIRSpecDataObject extends IFDDataObject {
 		return serializerPropertyPrefix;
 	}
 
-	public FAIRSpecDataObject() {
+	public FAIRSpecDataObject(String name) {
 		super();
-		setProperties(propertyPrefix, null);
+		setProperties(basePropertyPrefix + "." + name, null);
 	}
 
 	private String serializerPropertyPrefix;
@@ -76,7 +76,7 @@ public class FAIRSpecDataObject extends IFDDataObject {
 			String prefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, o.objectType);
 			prefix = prefix.substring(0, prefix.length() -1 - ucType.length());
 			o.serializerPropertyPrefix = prefix;
-			o.setProperties(IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG + key), null);
+			o.setProperties(prefix + "." + type, null);
 			return o;
 		} catch (Exception e) {
 			e.printStackTrace();

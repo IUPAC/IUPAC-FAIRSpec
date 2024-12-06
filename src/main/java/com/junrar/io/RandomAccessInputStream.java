@@ -47,7 +47,8 @@ public final class RandomAccessInputStream extends InputStream {
         return pointer;
     }
 
-    public int read() throws IOException {
+    @Override
+	public int read() throws IOException {
         long l = pointer + 1L;
         long l1 = readUntil(l);
         if (l1 >= l) {
@@ -59,7 +60,8 @@ public final class RandomAccessInputStream extends InputStream {
         }
     }
 
-    public int read(byte[] bytes, int off, int len) throws IOException {
+    @Override
+	public int read(byte[] bytes, int off, int len) throws IOException {
         if (bytes == null) {
             throw new NullPointerException();
         }
@@ -180,7 +182,8 @@ public final class RandomAccessInputStream extends InputStream {
         return Float.intBitsToFloat(readInt());
     }
 
-    public void close() throws IOException {
+    @Override
+	public void close() throws IOException {
         data.removeAllElements();
         src.close();
     }

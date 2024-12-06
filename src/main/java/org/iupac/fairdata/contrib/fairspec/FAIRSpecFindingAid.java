@@ -34,7 +34,8 @@ public class FAIRSpecFindingAid extends IFDFindingAid {
 	}
 	
 	public FAIRSpecFindingAid(String label, String type, String creator) throws IFDException {
-		super(label, type, creator, new FAIRSpecCollection());
+		super(label, type, creator, null);
+		add(new FAIRSpecCollection());
 	}
 
 	@Override

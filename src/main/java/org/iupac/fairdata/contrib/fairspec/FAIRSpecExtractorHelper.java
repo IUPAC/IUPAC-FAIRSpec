@@ -216,6 +216,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	public static final String DATAOBJECT_FAIRSPEC_FLAG = IFDConst.getProp("DATAOBJECT_FAIRSPEC_FLAG");
 	
 	public static final String DATAOBJECT_ORIGINATING_SAMPLE_ID = IFDConst.getProp(IFDConst.IFD_PROPERTY_DATAOBJECT_ORIGINATING_SAMPLE_ID);
+	
 	private static final String IFD_PROPERTY_SAMPLE_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			IFDConst.IFD_SAMPLE_FLAG, IFDConst.IFD_ID_FLAG);
 
@@ -333,7 +334,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 			return currentStructure;
 		case FAIRSpecFindingAidHelper.ClassTypes.DataObject:
 			if (currentDataObject == null) {
-				if (IFDConst.isID(param) && this.byId) {
+				if (IFDConst.isID(param) && byId) {
 					currentDataObject = (IFDDataObject) checkAddNewObject(getSpecCollection(), type, rootPath, param,
 							value, localizedName, currentOriginPath, len, false);
 					if (currentDataObject != null)
@@ -775,7 +776,20 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 			if (v != null && value != IFDProperty.NULL) {
 				String objSource = obj.getPropertySource(key);
 				if (originPath != null && !originPath.equals(objSource)) {
-				return v;
+					// this was happening when there was a zip file AND a directory in the same
+					// directory in the stolaf collection
+
+//					 Directory of c:\temp\iupac\stolaf\Jun15-20231
+//
+//					 09/01/2023  05:55 AM    <DIR>          .
+//					 09/01/2023  05:55 AM    <DIR>          ..
+//					 09/01/2023  05:55 AM    <DIR>          1203110
+//					 08/13/2023  07:11 PM           656,600 1203110.zip
+//					 09/01/2023  05:55 AM    <DIR>          1203310
+
+//					System.out.println(originPath + " " + objSource);
+
+					return v;
 				} else {
 					System.out.println("OK!!");
 				}

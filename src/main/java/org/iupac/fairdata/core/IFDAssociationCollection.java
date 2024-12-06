@@ -56,7 +56,6 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 	 * @param andRemove
 	 * @return obj1
 	 */
-	@SuppressWarnings("unchecked")
 	public IFDObject<?> getFirstObj1ForObj2(IFDObject<?> obj2, boolean andRemove) {
 		for (IFDAssociation a : this) {
 			IFDCollection<? extends IFDObject<?>> c = a.get(1);
@@ -124,6 +123,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 		// TODO should ensure these are all the same parent and that no null entries
 		// exist.
 		for (int i = 0; i < arity; i++) {
+			@SuppressWarnings("rawtypes")
 			IFDCollection<? extends IFDObject> c = firstAssociation.get(i);
 			if (c.size() == 0) {
 				String name = null;

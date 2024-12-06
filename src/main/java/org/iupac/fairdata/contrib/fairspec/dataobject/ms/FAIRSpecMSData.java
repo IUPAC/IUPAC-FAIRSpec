@@ -12,6 +12,10 @@ import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
 @SuppressWarnings("serial")
 public final class FAIRSpecMSData extends FAIRSpecDataObject {
 
+	public FAIRSpecMSData() {
+		super("ms");
+	}
+
 	@Override
 	protected IFDDataObjectRepresentation newRepresentation(IFDReference ref, Object obj, long len, String type, String subtype) {
 		return new FAIRSpecMSDataRepresentation(ref, obj, len, type, subtype);

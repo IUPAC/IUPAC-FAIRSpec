@@ -100,7 +100,8 @@ public class State extends Pointer {
         }
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuilder buffer = new StringBuilder();
         buffer.append("State[");
         buffer.append("\n  pos=");

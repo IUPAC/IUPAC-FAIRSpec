@@ -12,6 +12,10 @@ import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
 @SuppressWarnings("serial")
 public final class FAIRSpecIRData extends FAIRSpecDataObject {
 
+	public FAIRSpecIRData() {
+		super("ir");
+	}
+
 	@Override
 	protected IFDDataObjectRepresentation newRepresentation(IFDReference ref, Object obj, long len, String type, String subtype) {
 		return new FAIRSpecIRDataRepresentation(ref, obj, len, type, subtype);

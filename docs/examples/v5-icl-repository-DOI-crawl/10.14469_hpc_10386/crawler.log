@@ -601,15 +601,15 @@ Anal. Calcd for C36H30CaN4O6 ∙ 2 EtOH ∙ NaCl: C, 59.66; H, 5.26; N, 6.96. Fo
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
 3.3      relationtype=HasPart
+3.3      relatedidentifier=10.14469/hpc/11445
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=DOI
+3.3      relationtype=HasPart
 3.3      relatedidentifier=10.14469/hpc/11443
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
 3.3      relationtype=HasPart
 3.3      relatedidentifier=10.14469/hpc/11444
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=DOI
-3.3      relationtype=HasPart
-3.3      relatedidentifier=10.14469/hpc/11445
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
 3.3      relationtype=HasPart
@@ -625,6 +625,110 @@ Anal. Calcd for C36H30CaN4O6 ∙ 2 EtOH ∙ NaCl: C, 59.66; H, 5.26; N, 6.96. Fo
 3.3      item=description
 3.3      descriptiontype=Other
 3.3      IFD.property.description=NMR data for Bis(ethanol) bis(4-benzoyl-1-(4-methoxybenzyl)-1H-pyrazol-5-olate)calcium, sample 21
+4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11445
+4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
+4.2    item=identifier
+4.2    identifiertype=DOI
+4.2    value=10.14469/HPC/11445
+4.2    identifier=10.14469/HPC/11445
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      item=title
+4.3      IFD.property.label=NMR Data for Bis(ethanol) bis(4-benzoyl-1-(4-methoxybenzyl)-1H-pyrazol-5-olate)calcium (21) 1H-13C HMBC
+4.2    item=resourcetype
+4.2    resourcetypegeneral=Dataset
+4.2    value=Results
+4.2    resourcetype=Results
+4.2    item=subjects
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchi
+4.3      IFD.representation.structure.inchi=InChI=1S/2C18H16N2O3.2C2H6O.Ca/c2*1-23-15-9-7-13(8-10-15)12-20-18(22)16(11-19-20)17(21)14-5-3-2-4-6-14;2*1-2-3;/h2*2-11,22H,12H2,1H3;2*3H,2H2,1H3;/q;;;;+2/p-2
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchikey
+4.3      IFD.representation.structure.inchikey=OZEYXLXJQKVGCZ-UHFFFAOYSA-L
+4.3      item=subject
+4.3      subjectscheme=NMR_Expt
+4.3      IFD.property.dataobject.fairspec.nmr.expt_name=HMBC
+4.3      item=subject
+4.3      subjectscheme=NMR_Nucleus
+4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=1H
+4.3      item=subject
+4.3      subjectscheme=NMR_Nucleus
+4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=13C
+4.3      item=subject
+4.3      subjectscheme=SMILES
+4.3      IFD.representation.structure.smiles=[H]O(CC)[Ca]12(OC3=C(C(C4=CC=CC=C4)=O1)C=NN3CC5=CC=C(OC)C=C5)(OC6=C(C(C7=CC=CC=C7)=O2)C=NN6CC8=CC=C(OC)C=C8)O([H])CC
+4.3      contributortype=HostingInstitution
+4.4        nametype=Organizational
+4.3      contributortype=DataManager
+4.4        nametype=Organizational
+4.3      contributortype=Researcher
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      datetype=Issued
+4.2    item=relatedidentifiers
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasMetadata
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11445
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=1
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=2
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=3
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=4
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=5
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=6
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=7
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=8
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=9
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=DOI
+4.3      relationtype=IsPartOf
+4.3      relatedidentifier=10.14469/hpc/11442
+4.3      rightsidentifier=cc0-1.0
+4.3      rightsidentifierscheme=SPDX
+4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
+4.3      schemeuri=https://spdx.org/licenses/
+4.3      item=description
+4.3      descriptiontype=Other
+4.3      IFD.property.description=Primary NMR data for sample 21
+4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11445
 4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11443
 4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 4.2    item=identifier
@@ -824,110 +928,6 @@ Anal. Calcd for C36H30CaN4O6 ∙ 2 EtOH ∙ NaCl: C, 59.66; H, 5.26; N, 6.96. Fo
 4.3      descriptiontype=Other
 4.3      IFD.property.description=Primary NMR data for sample 21
 4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11444
-4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11445
-4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
-4.2    item=identifier
-4.2    identifiertype=DOI
-4.2    value=10.14469/HPC/11445
-4.2    identifier=10.14469/HPC/11445
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      item=title
-4.3      IFD.property.label=NMR Data for Bis(ethanol) bis(4-benzoyl-1-(4-methoxybenzyl)-1H-pyrazol-5-olate)calcium (21) 1H-13C HMBC
-4.2    item=resourcetype
-4.2    resourcetypegeneral=Dataset
-4.2    value=Results
-4.2    resourcetype=Results
-4.2    item=subjects
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchi
-4.3      IFD.representation.structure.inchi=InChI=1S/2C18H16N2O3.2C2H6O.Ca/c2*1-23-15-9-7-13(8-10-15)12-20-18(22)16(11-19-20)17(21)14-5-3-2-4-6-14;2*1-2-3;/h2*2-11,22H,12H2,1H3;2*3H,2H2,1H3;/q;;;;+2/p-2
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchikey
-4.3      IFD.representation.structure.inchikey=OZEYXLXJQKVGCZ-UHFFFAOYSA-L
-4.3      item=subject
-4.3      subjectscheme=NMR_expt
-4.3      NMR_expt=HMBC
-4.3      item=subject
-4.3      subjectscheme=NMR_Nucleus
-4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=1H
-4.3      item=subject
-4.3      subjectscheme=NMR_Nucleus
-4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=13C
-4.3      item=subject
-4.3      subjectscheme=SMILES
-4.3      IFD.representation.structure.smiles=[H]O(CC)[Ca]12(OC3=C(C(C4=CC=CC=C4)=O1)C=NN3CC5=CC=C(OC)C=C5)(OC6=C(C(C7=CC=CC=C7)=O2)C=NN6CC8=CC=C(OC)C=C8)O([H])CC
-4.3      contributortype=HostingInstitution
-4.4        nametype=Organizational
-4.3      contributortype=DataManager
-4.4        nametype=Organizational
-4.3      contributortype=Researcher
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      datetype=Issued
-4.2    item=relatedidentifiers
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasMetadata
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11445
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=1
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=2
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=3
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=4
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=5
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=6
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=7
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=8
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11445&file=9
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=DOI
-4.3      relationtype=IsPartOf
-4.3      relatedidentifier=10.14469/hpc/11442
-4.3      rightsidentifier=cc0-1.0
-4.3      rightsidentifierscheme=SPDX
-4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
-4.3      schemeuri=https://spdx.org/licenses/
-4.3      item=description
-4.3      descriptiontype=Other
-4.3      IFD.property.description=Primary NMR data for sample 21
-4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11445
 4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11446
 4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 4.2    item=identifier
@@ -961,7 +961,7 @@ Anal. Calcd for C36H30CaN4O6 ∙ 2 EtOH ∙ NaCl: C, 59.66; H, 5.26; N, 6.96. Fo
 4.3      IFD.representation.structure.inchikey=OZEYXLXJQKVGCZ-UHFFFAOYSA-L
 4.3      item=subject
 4.3      subjectscheme=NMR_expt
-4.3      NMR_expt=COSY
+4.3      IFD.property.dataobject.fairspec.nmr.expt_name=COSY
 4.3      item=subject
 4.3      subjectscheme=NMR_Nucleus
 4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=1H
@@ -1059,7 +1059,7 @@ Anal. Calcd for C36H30CaN4O6 ∙ 2 EtOH ∙ NaCl: C, 59.66; H, 5.26; N, 6.96. Fo
 4.3      IFD.representation.structure.inchikey=OZEYXLXJQKVGCZ-UHFFFAOYSA-L
 4.3      item=subject
 4.3      subjectscheme=NMR_expt
-4.3      NMR_expt=HSQC
+4.3      IFD.property.dataobject.fairspec.nmr.expt_name=HSQC
 4.3      item=subject
 4.3      subjectscheme=NMR_Nucleus1
 4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=1H
@@ -2623,7 +2623,7 @@ Anal. Calcd for C42H45N6O12Yb ∙ 2 EtOH ∙ Yb2O3: C, 37.20; H, 3.87; N, 5.66. 
 2.3      IFD.representation.structure.inchi=InChI=1S/2C18H16N2O3.2C2H6O.Ni/c2*1-23-15-9-7-13(8-10-15)12-20-18(22)16(11-19-20)17(21)14-5-3-2-4-6-14;2*1-2-3;/h2*2-11,22H,12H2,1H3;2*3H,2H2,1H3;/q;;;;+2/p-2
 2.3      item=subject
 2.3      subjectscheme=InChIKey
-2.3      InChIKey=QMGSYWONMRFYEQ-UHFFFAOYSA-L
+2.3      IFD.representation.structure.inchikey=QMGSYWONMRFYEQ-UHFFFAOYSA-L
 2.3      contributortype=HostingInstitution
 2.4        nametype=Organizational
 2.3      contributortype=DataManager
@@ -4958,8 +4958,8 @@ Anal. Calcd for C28H30CaN4O8 ∙ 2 H2O: C, 53.67; H, 5.47; N, 8.94. Found: C, 53
 4.3      subjectscheme=inchikey
 4.3      IFD.representation.structure.inchikey=COXUFEKBFOSEFD-UHFFFAOYSA-L
 4.3      item=subject
-4.3      subjectscheme=NME_Expt
-4.3      NME_Expt=HSQC
+4.3      subjectscheme=NMR_Expt
+4.3      IFD.property.dataobject.fairspec.nmr.expt_name=HSQC
 4.3      item=subject
 4.3      subjectscheme=NMR_Nucleus1
 4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=1H
@@ -5579,6 +5579,10 @@ The analytic data were in good agreement with literature values.[4]
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
 3.3      relationtype=HasPart
+3.3      relatedidentifier=10.14469/hpc/11841
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=DOI
+3.3      relationtype=HasPart
 3.3      relatedidentifier=10.14469/hpc/11840
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
@@ -5595,10 +5599,6 @@ The analytic data were in good agreement with literature values.[4]
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
 3.3      relationtype=HasPart
-3.3      relatedidentifier=10.14469/hpc/11841
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=DOI
-3.3      relationtype=HasPart
 3.3      relatedidentifier=10.14469/hpc/11844
 3.3      rightsidentifier=cc0-1.0
 3.3      rightsidentifierscheme=SPDX
@@ -5607,6 +5607,114 @@ The analytic data were in good agreement with literature values.[4]
 3.3      item=description
 3.3      descriptiontype=Other
 3.3      IFD.property.description=Primary NMR Data for ethyl 2-(4-methoxybenzyl)-3-oxo-2,3-dihydro-1H-pyrazole-4-carboxylate (8).
+4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11841
+4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
+4.2    item=identifier
+4.2    identifiertype=DOI
+4.2    value=10.14469/HPC/11841
+4.2    identifier=10.14469/HPC/11841
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      item=title
+4.3      IFD.property.label=NMR Data for ethyl 2-(4-methoxybenzyl)-3-oxo-2,3-dihydro-1H-pyrazole-4-carboxylate (8), 13C, CDCl3
+4.2    item=resourcetype
+4.2    resourcetypegeneral=Dataset
+4.2    value=Results
+4.2    resourcetype=Results
+4.2    item=subjects
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchi
+4.3      IFD.representation.structure.inchi=InChI=1S/C14H16N2O4/c1-3-20-14(18)12-8-15-16(13(12)17)9-10-4-6-11(19-2)7-5-10/h4-8,15H,3,9H2,1-2H3
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchikey
+4.3      IFD.representation.structure.inchikey=NPSZAPMNTHSOSS-UHFFFAOYSA-N
+4.3      item=subject
+4.3      subjectscheme=NMR_Expt
+4.3      IFD.property.dataobject.fairspec.nmr.expt_name=1D
+4.3      item=subject
+4.3      subjectscheme=NMR_Nucleus
+4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=13C
+4.3      item=subject
+4.3      subjectscheme=NMR_Solvent
+4.3      IFD.property.dataobject.fairspec.nmr.expt_solvent=CDCl3
+4.3      item=subject
+4.3      subjectscheme=SMILES
+4.3      IFD.representation.structure.smiles=O=C1N(CC2=CC=C(OC)C=C2)NC=C1C(OCC)=O
+4.3      contributortype=HostingInstitution
+4.4        nametype=Organizational
+4.3      contributortype=DataManager
+4.4        nametype=Organizational
+4.3      contributortype=Researcher
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      datetype=Issued
+4.2    item=relatedidentifiers
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasMetadata
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11841
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=1
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=2
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=3
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=4
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=5
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=6
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=7
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=8
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=9
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=10
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=DOI
+4.3      relationtype=IsPartOf
+4.3      relatedidentifier=10.14469/hpc/11828
+4.3      rightsidentifier=cc0-1.0
+4.3      rightsidentifierscheme=SPDX
+4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
+4.3      schemeuri=https://spdx.org/licenses/
+4.3      item=description
+4.3      descriptiontype=Other
+4.3      IFD.property.description=NMR primary data for Compound 8.
+4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11841
 4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11840
 4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 4.2    item=identifier
@@ -6063,114 +6171,6 @@ The analytic data were in good agreement with literature values.[4]
 4.3      descriptiontype=Other
 4.3      IFD.property.description=Primary NMR data for Compound 8.
 4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11839
-4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11841
-4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
-4.2    item=identifier
-4.2    identifiertype=DOI
-4.2    value=10.14469/HPC/11841
-4.2    identifier=10.14469/HPC/11841
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      item=title
-4.3      IFD.property.label=NMR Data for ethyl 2-(4-methoxybenzyl)-3-oxo-2,3-dihydro-1H-pyrazole-4-carboxylate (8), 13C, CDCl3
-4.2    item=resourcetype
-4.2    resourcetypegeneral=Dataset
-4.2    value=Results
-4.2    resourcetype=Results
-4.2    item=subjects
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchi
-4.3      IFD.representation.structure.inchi=InChI=1S/C14H16N2O4/c1-3-20-14(18)12-8-15-16(13(12)17)9-10-4-6-11(19-2)7-5-10/h4-8,15H,3,9H2,1-2H3
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchikey
-4.3      IFD.representation.structure.inchikey=NPSZAPMNTHSOSS-UHFFFAOYSA-N
-4.3      item=subject
-4.3      subjectscheme=NMR_Expt
-4.3      IFD.property.dataobject.fairspec.nmr.expt_name=1D
-4.3      item=subject
-4.3      subjectscheme=NMR_Nucleus
-4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=13C
-4.3      item=subject
-4.3      subjectscheme=NMS_Solvent
-4.3      NMS_Solvent=CDCl3
-4.3      item=subject
-4.3      subjectscheme=SMILES
-4.3      IFD.representation.structure.smiles=O=C1N(CC2=CC=C(OC)C=C2)NC=C1C(OCC)=O
-4.3      contributortype=HostingInstitution
-4.4        nametype=Organizational
-4.3      contributortype=DataManager
-4.4        nametype=Organizational
-4.3      contributortype=Researcher
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      datetype=Issued
-4.2    item=relatedidentifiers
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasMetadata
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11841
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=1
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=2
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=3
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=4
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=5
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=6
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=7
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=8
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=9
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11841&file=10
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=DOI
-4.3      relationtype=IsPartOf
-4.3      relatedidentifier=10.14469/hpc/11828
-4.3      rightsidentifier=cc0-1.0
-4.3      rightsidentifierscheme=SPDX
-4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
-4.3      schemeuri=https://spdx.org/licenses/
-4.3      item=description
-4.3      descriptiontype=Other
-4.3      IFD.property.description=NMR primary data for Compound 8.
-4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11841
 4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11844
 4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 4.2    item=identifier
@@ -10165,8 +10165,8 @@ The analytic data were in good agreement with literature values.[4]
 4.3      subjectscheme=inchikey
 4.3      IFD.representation.structure.inchikey=TWEWOISBMXNRJZ-UHFFFAOYSA-N
 4.3      item=subject
-4.3      subjectscheme=NME_Exp
-4.3      NME_Exp=1D
+4.3      subjectscheme=NMR_Exp
+4.3      NMR_Exp=1D
 4.3      item=subject
 4.3      subjectscheme=NMR_Nucleus1
 4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=1H
@@ -11000,15 +11000,15 @@ The analytic data were in good agreement with literature values.[4]
 2.3      item=relatedidentifier
 2.3      relatedidentifiertype=DOI
 2.3      relationtype=HasPart
+2.3      relatedidentifier=10.14469/hpc/11299
+2.3      item=relatedidentifier
+2.3      relatedidentifiertype=DOI
+2.3      relationtype=HasPart
 2.3      relatedidentifier=10.14469/hpc/11504
 2.3      item=relatedidentifier
 2.3      relatedidentifiertype=DOI
 2.3      relationtype=HasPart
 2.3      relatedidentifier=10.14469/hpc/11300
-2.3      item=relatedidentifier
-2.3      relatedidentifiertype=DOI
-2.3      relationtype=HasPart
-2.3      relatedidentifier=10.14469/hpc/11299
 2.3      rightsidentifier=cc0-1.0
 2.3      rightsidentifierscheme=SPDX
 2.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
@@ -11020,6 +11020,327 @@ IR (Diamond-ATR, neat) νmax (cm-1) = 3287, 1676, 1636, 1546, 1523, 1438, 1317, 
 HRMS (ES-ToF) m/z: [M – Solvent + H]+ calc. for (C12H15CuN4O6)+: 374.0282, found: 374.0051.
 m.p.: 235 – 238 °C (EtOH).
 Anal. Calcd for C12H14CuN4O6 ∙ 0.25 CuO: C, 36.61; H, 3.58; N, 14.23. Found: C, 36.58; H, 3.60; N, 13.01.
+3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11299
+3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
+3.2    item=identifier
+3.2    identifiertype=DOI
+3.2    value=10.14469/HPC/11299
+3.2    identifier=10.14469/HPC/11299
+3.4        nametype=Personal
+3.4        nameidentifierscheme=ORCID
+3.4        schemeuri=https://orcid.org
+3.4        affiliationidentifier=https://ror.org/041kmwe10
+3.4        affiliationidentifierscheme=ROR
+3.4        schemeuri=https://ror.org/
+3.3      item=title
+3.3      IFD.property.fairspec.compound.id=56
+3.3      IFD.property.label=Compound 56: bis((4-(ethoxycarbonyl)-1H-pyrazol-5-yl)oxy)copper. Computational data
+3.2    item=resourcetype
+3.2    resourcetypegeneral=Collection
+3.2    value=Results
+3.2    resourcetype=Results
+3.2    item=subjects
+3.3      item=subject
+3.3      subjectscheme=IFD.Comp
+3.3      IFD.property.dataobject.fairspec.comp.description=Gaussian Computation
+3.3      contributortype=HostingInstitution
+3.4        nametype=Organizational
+3.3      contributortype=DataManager
+3.4        nametype=Organizational
+3.3      contributortype=Researcher
+3.4        nametype=Personal
+3.4        nameidentifierscheme=ORCID
+3.4        schemeuri=https://orcid.org
+3.4        affiliationidentifier=https://ror.org/041kmwe10
+3.4        affiliationidentifierscheme=ROR
+3.4        schemeuri=https://ror.org/
+3.3      datetype=Issued
+3.2    item=relatedidentifiers
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasMetadata
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11299
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=DOI
+3.3      relationtype=IsPartOf
+3.3      relatedidentifier=10.14469/hpc/10385
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=DOI
+3.3      relationtype=HasPart
+3.3      relatedidentifier=10.14469/hpc/10292
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=DOI
+3.3      relationtype=HasPart
+3.3      relatedidentifier=10.14469/hpc/10311
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=DOI
+3.3      relationtype=HasPart
+3.3      relatedidentifier=10.14469/hpc/10323
+3.3      rightsidentifier=cc0-1.0
+3.3      rightsidentifierscheme=SPDX
+3.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
+3.3      schemeuri=https://spdx.org/licenses/
+3.3      item=description
+3.3      descriptiontype=Other
+3.3      IFD.property.description=Gaussian16 calculations of wavefunction.
+4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/10292
+4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
+4.2    item=identifier
+4.2    identifiertype=DOI
+4.2    value=10.14469/HPC/10292
+4.2    identifier=10.14469/HPC/10292
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      item=title
+4.3      IFD.property.fairspec.compound.id=56
+4.3      IFD.property.label=Compound 56: bis((4-(ethoxycarbonyl)-1H-pyrazol-5-yl)oxy)copper M062X/Def2-SVP, Two short Cu-N bonds G = -3270.768676
+4.2    item=resourcetype
+4.2    resourcetypegeneral=Dataset
+4.2    value=Results
+4.2    resourcetype=Results
+4.2    item=subjects
+4.3      item=subject
+4.3      schemeuri=https://doi.org/10.1351/goldbook.G02629
+4.3      subjectscheme=Gibbs_Energy
+4.3      valueuri=http://gaussian.com/thermo/
+4.3      Gibbs_Energy=-3270.768676
+4.3      item=subject
+4.3      subjectscheme=IFD.Comp
+4.3      IFD.property.dataobject.fairspec.comp.description=Gaussian Computation
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchi
+4.3      IFD.representation.structure.inchi=InChI=1S/2C6H8N2O3.2C2H6O.Cu/c2*1-2-11-6(10)4-3-7-8-5(4)9;2*1-2-3;/h2*3H,2H2,1H3,(H2,7,8,9);2*3H,2H2,1H3;/q;;;;+2/p-2
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchikey
+4.3      IFD.representation.structure.inchikey=GDMQIYIAOJJNMT-UHFFFAOYSA-L
+4.3      contributortype=HostingInstitution
+4.4        nametype=Organizational
+4.3      contributortype=DataManager
+4.4        nametype=Organizational
+4.3      contributortype=Researcher
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      datetype=Issued
+4.2    item=relatedidentifiers
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasMetadata
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=10292
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10292&file=1
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10292&file=2
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10292&file=3
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10292&file=4
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10292&file=5
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=DOI
+4.3      relationtype=IsPartOf
+4.3      relatedidentifier=10.14469/hpc/11299
+4.3      rightsidentifier=cc0-1.0
+4.3      rightsidentifierscheme=SPDX
+4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
+4.3      schemeuri=https://spdx.org/licenses/
+4.3      item=description
+4.3      descriptiontype=Other
+4.3      IFD.property.description=Gaussian 16 (C01) calculation
+4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/10292
+4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/10311
+4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
+4.2    item=identifier
+4.2    identifiertype=DOI
+4.2    value=10.14469/HPC/10311
+4.2    identifier=10.14469/HPC/10311
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      item=title
+4.3      IFD.property.fairspec.compound.id=56
+4.3      IFD.property.label=Compound 56: bis((4-(ethoxycarbonyl)-1H-pyrazol-5-yl)oxy)copper ROM062X/Def2-SVP, Two short Cu-N bonds G = -3270.766757 ROHF
+4.2    item=resourcetype
+4.2    resourcetypegeneral=Dataset
+4.2    value=Results
+4.2    resourcetype=Results
+4.2    item=subjects
+4.3      item=subject
+4.3      schemeuri=https://doi.org/10.1351/goldbook.G02629
+4.3      subjectscheme=Gibbs_Energy
+4.3      valueuri=http://gaussian.com/thermo/
+4.3      Gibbs_Energy=-3270.766757
+4.3      item=subject
+4.3      subjectscheme=IFD.Comp
+4.3      IFD.property.dataobject.fairspec.comp.description=Gaussian computation
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchi
+4.3      IFD.representation.structure.inchi=InChI=1S/2C6H8N2O3.2C2H6O.Cu/c2*1-2-11-6(10)4-3-7-8-5(4)9;2*1-2-3;/h2*3H,2H2,1H3,(H2,7,8,9);2*3H,2H2,1H3;/q;;;;+2/p-2
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchikey
+4.3      IFD.representation.structure.inchikey=GDMQIYIAOJJNMT-UHFFFAOYSA-L
+4.3      contributortype=HostingInstitution
+4.4        nametype=Organizational
+4.3      contributortype=DataManager
+4.4        nametype=Organizational
+4.3      contributortype=Researcher
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      datetype=Issued
+4.2    item=relatedidentifiers
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasMetadata
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=10311
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10311&file=1
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10311&file=2
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10311&file=3
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10311&file=4
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10311&file=5
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=DOI
+4.3      relationtype=IsPartOf
+4.3      relatedidentifier=10.14469/hpc/11299
+4.3      rightsidentifier=cc0-1.0
+4.3      rightsidentifierscheme=SPDX
+4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
+4.3      schemeuri=https://spdx.org/licenses/
+4.3      item=description
+4.3      descriptiontype=Other
+4.3      IFD.property.description=Gaussian 16 (C01) calculation for bis((4-(ethoxycarbonyl)-1H-pyrazol-5-yl)oxy)copper, starting from a geometry with two short Cu-N bonds (2.39) and two short Cu-O bond and two long Cu-O bonds. This pattern is preserved after geometry optimisation.
+
+Keywords used opt freq scf=(maxcycles=1024) def2svp integral=(acc2e=14,grid=superfinegrid,noxctest) rom062x
+4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/10311
+4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/10323
+4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
+4.2    item=identifier
+4.2    identifiertype=DOI
+4.2    value=10.14469/HPC/10323
+4.2    identifier=10.14469/HPC/10323
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      item=title
+4.3      IFD.property.fairspec.compound.id=56
+4.3      IFD.property.label=Compound 56: bis((4-(ethoxycarbonyl)-1H-pyrazol-5-yl)oxy)copper, ROM062X/Def2-SVP, Two long Cu-N
+4.2    item=resourcetype
+4.2    resourcetypegeneral=Dataset
+4.2    value=Results
+4.2    resourcetype=Results
+4.2    item=subjects
+4.3      item=subject
+4.3      schemeuri=https://doi.org/10.1351/goldbook.G02629
+4.3      subjectscheme=Gibbs_Energy
+4.3      valueuri=http://gaussian.com/thermo/
+4.3      Gibbs_Energy=-3270.766634
+4.3      item=subject
+4.3      subjectscheme=IFD.Comp
+4.3      IFD.property.dataobject.fairspec.comp.description=Gaussian computation
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchi
+4.3      IFD.representation.structure.inchi=InChI=1S/2C6H8N2O3.2C2H6O.Cu/c2*1-2-11-6(10)4-3-7-8-5(4)9;2*1-2-3;/h2*3H,2H2,1H3,(H2,7,8,9);2*3H,2H2,1H3;/q;;;;+2/p-2
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchikey
+4.3      IFD.representation.structure.inchikey=GDMQIYIAOJJNMT-UHFFFAOYSA-L
+4.3      contributortype=HostingInstitution
+4.4        nametype=Organizational
+4.3      contributortype=DataManager
+4.4        nametype=Organizational
+4.3      contributortype=Researcher
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      datetype=Issued
+4.2    item=relatedidentifiers
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasMetadata
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=10323
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10323&file=1
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10323&file=2
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10323&file=3
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10323&file=4
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10323&file=5
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=DOI
+4.3      relationtype=IsPartOf
+4.3      relatedidentifier=10.14469/hpc/11299
+4.3      rightsidentifier=cc0-1.0
+4.3      rightsidentifierscheme=SPDX
+4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
+4.3      schemeuri=https://spdx.org/licenses/
+4.3      item=description
+4.3      descriptiontype=Other
+4.3      IFD.property.description=Gaussian 16 (C01) calculation, starting from a geometry with two long Cu-N bonds (2.39) and four short Cu-O bond. After optimisation, the structure reverts to one with two short Cu-N bonds, two short Cu-O bonds and a pair of long Cu-O bonds.
+4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/10323
+3.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11299
 3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11504
 3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 3.2    item=identifier
@@ -11196,327 +11517,6 @@ Anal. Calcd for C12H14CuN4O6 ∙ 0.25 CuO: C, 36.61; H, 3.58; N, 14.23. Found: C
 3.3      descriptiontype=Other
 3.3      IFD.property.description=Primary crystal data for Bis(ethanol) bis((4-(ethoxycarbonyl)-1H-pyrazol-5-yl)oxy)copper (56)
 3.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11300
-3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11299
-3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
-3.2    item=identifier
-3.2    identifiertype=DOI
-3.2    value=10.14469/HPC/11299
-3.2    identifier=10.14469/HPC/11299
-3.4        nametype=Personal
-3.4        nameidentifierscheme=ORCID
-3.4        schemeuri=https://orcid.org
-3.4        affiliationidentifier=https://ror.org/041kmwe10
-3.4        affiliationidentifierscheme=ROR
-3.4        schemeuri=https://ror.org/
-3.3      item=title
-3.3      IFD.property.fairspec.compound.id=56
-3.3      IFD.property.label=Compound 56: bis((4-(ethoxycarbonyl)-1H-pyrazol-5-yl)oxy)copper. Computational data
-3.2    item=resourcetype
-3.2    resourcetypegeneral=Collection
-3.2    value=Results
-3.2    resourcetype=Results
-3.2    item=subjects
-3.3      item=subject
-3.3      subjectscheme=IFD.comp
-3.3      IFD.property.dataobject.fairspec.comp.description=Computation
-3.3      contributortype=HostingInstitution
-3.4        nametype=Organizational
-3.3      contributortype=DataManager
-3.4        nametype=Organizational
-3.3      contributortype=Researcher
-3.4        nametype=Personal
-3.4        nameidentifierscheme=ORCID
-3.4        schemeuri=https://orcid.org
-3.4        affiliationidentifier=https://ror.org/041kmwe10
-3.4        affiliationidentifierscheme=ROR
-3.4        schemeuri=https://ror.org/
-3.3      datetype=Issued
-3.2    item=relatedidentifiers
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasMetadata
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11299
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=DOI
-3.3      relationtype=IsPartOf
-3.3      relatedidentifier=10.14469/hpc/10385
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=DOI
-3.3      relationtype=HasPart
-3.3      relatedidentifier=10.14469/hpc/10323
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=DOI
-3.3      relationtype=HasPart
-3.3      relatedidentifier=10.14469/hpc/10292
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=DOI
-3.3      relationtype=HasPart
-3.3      relatedidentifier=10.14469/hpc/10311
-3.3      rightsidentifier=cc0-1.0
-3.3      rightsidentifierscheme=SPDX
-3.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
-3.3      schemeuri=https://spdx.org/licenses/
-3.3      item=description
-3.3      descriptiontype=Other
-3.3      IFD.property.description=Gaussian16 calculations of wavefunction.
-4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/10323
-4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
-4.2    item=identifier
-4.2    identifiertype=DOI
-4.2    value=10.14469/HPC/10323
-4.2    identifier=10.14469/HPC/10323
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      item=title
-4.3      IFD.property.fairspec.compound.id=56
-4.3      IFD.property.label=Compound 56: bis((4-(ethoxycarbonyl)-1H-pyrazol-5-yl)oxy)copper, ROM062X/Def2-SVP, Two long Cu-N
-4.2    item=resourcetype
-4.2    resourcetypegeneral=Dataset
-4.2    value=Results
-4.2    resourcetype=Results
-4.2    item=subjects
-4.3      item=subject
-4.3      schemeuri=https://doi.org/10.1351/goldbook.G02629
-4.3      subjectscheme=Gibbs_Energy
-4.3      valueuri=http://gaussian.com/thermo/
-4.3      Gibbs_Energy=-3270.766634
-4.3      item=subject
-4.3      subjectscheme=IFD.comp
-4.3      IFD.property.dataobject.fairspec.comp.description=Gaussian computation
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchi
-4.3      IFD.representation.structure.inchi=InChI=1S/2C6H8N2O3.2C2H6O.Cu/c2*1-2-11-6(10)4-3-7-8-5(4)9;2*1-2-3;/h2*3H,2H2,1H3,(H2,7,8,9);2*3H,2H2,1H3;/q;;;;+2/p-2
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchikey
-4.3      IFD.representation.structure.inchikey=GDMQIYIAOJJNMT-UHFFFAOYSA-L
-4.3      contributortype=HostingInstitution
-4.4        nametype=Organizational
-4.3      contributortype=DataManager
-4.4        nametype=Organizational
-4.3      contributortype=Researcher
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      datetype=Issued
-4.2    item=relatedidentifiers
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasMetadata
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=10323
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10323&file=1
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10323&file=2
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10323&file=3
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10323&file=4
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10323&file=5
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=DOI
-4.3      relationtype=IsPartOf
-4.3      relatedidentifier=10.14469/hpc/11299
-4.3      rightsidentifier=cc0-1.0
-4.3      rightsidentifierscheme=SPDX
-4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
-4.3      schemeuri=https://spdx.org/licenses/
-4.3      item=description
-4.3      descriptiontype=Other
-4.3      IFD.property.description=Gaussian 16 (C01) calculation, starting from a geometry with two long Cu-N bonds (2.39) and four short Cu-O bond. After optimisation, the structure reverts to one with two short Cu-N bonds, two short Cu-O bonds and a pair of long Cu-O bonds.
-4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/10323
-4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/10292
-4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
-4.2    item=identifier
-4.2    identifiertype=DOI
-4.2    value=10.14469/HPC/10292
-4.2    identifier=10.14469/HPC/10292
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      item=title
-4.3      IFD.property.fairspec.compound.id=56
-4.3      IFD.property.label=Compound 56: bis((4-(ethoxycarbonyl)-1H-pyrazol-5-yl)oxy)copper M062X/Def2-SVP, Two short Cu-N bonds G = -3270.768676
-4.2    item=resourcetype
-4.2    resourcetypegeneral=Dataset
-4.2    value=Results
-4.2    resourcetype=Results
-4.2    item=subjects
-4.3      item=subject
-4.3      schemeuri=https://doi.org/10.1351/goldbook.G02629
-4.3      subjectscheme=Gibbs_Energy
-4.3      valueuri=http://gaussian.com/thermo/
-4.3      Gibbs_Energy=-3270.768676
-4.3      item=subject
-4.3      subjectscheme=IFD.comp
-4.3      IFD.property.dataobject.fairspec.comp.description=Gaussian Computation
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchi
-4.3      IFD.representation.structure.inchi=InChI=1S/2C6H8N2O3.2C2H6O.Cu/c2*1-2-11-6(10)4-3-7-8-5(4)9;2*1-2-3;/h2*3H,2H2,1H3,(H2,7,8,9);2*3H,2H2,1H3;/q;;;;+2/p-2
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchikey
-4.3      IFD.representation.structure.inchikey=GDMQIYIAOJJNMT-UHFFFAOYSA-L
-4.3      contributortype=HostingInstitution
-4.4        nametype=Organizational
-4.3      contributortype=DataManager
-4.4        nametype=Organizational
-4.3      contributortype=Researcher
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      datetype=Issued
-4.2    item=relatedidentifiers
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasMetadata
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=10292
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10292&file=1
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10292&file=2
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10292&file=3
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10292&file=4
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10292&file=5
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=DOI
-4.3      relationtype=IsPartOf
-4.3      relatedidentifier=10.14469/hpc/11299
-4.3      rightsidentifier=cc0-1.0
-4.3      rightsidentifierscheme=SPDX
-4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
-4.3      schemeuri=https://spdx.org/licenses/
-4.3      item=description
-4.3      descriptiontype=Other
-4.3      IFD.property.description=Gaussian 16 (C01) calculation
-4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/10292
-4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/10311
-4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
-4.2    item=identifier
-4.2    identifiertype=DOI
-4.2    value=10.14469/HPC/10311
-4.2    identifier=10.14469/HPC/10311
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      item=title
-4.3      IFD.property.fairspec.compound.id=56
-4.3      IFD.property.label=Compound 56: bis((4-(ethoxycarbonyl)-1H-pyrazol-5-yl)oxy)copper ROM062X/Def2-SVP, Two short Cu-N bonds G = -3270.766757 ROHF
-4.2    item=resourcetype
-4.2    resourcetypegeneral=Dataset
-4.2    value=Results
-4.2    resourcetype=Results
-4.2    item=subjects
-4.3      item=subject
-4.3      schemeuri=https://doi.org/10.1351/goldbook.G02629
-4.3      subjectscheme=Gibbs_Energy
-4.3      valueuri=http://gaussian.com/thermo/
-4.3      Gibbs_Energy=-3270.766757
-4.3      item=subject
-4.3      subjectscheme=IFD.comp
-4.3      IFD.property.dataobject.fairspec.comp.description=Gaussian computation
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchi
-4.3      IFD.representation.structure.inchi=InChI=1S/2C6H8N2O3.2C2H6O.Cu/c2*1-2-11-6(10)4-3-7-8-5(4)9;2*1-2-3;/h2*3H,2H2,1H3,(H2,7,8,9);2*3H,2H2,1H3;/q;;;;+2/p-2
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchikey
-4.3      IFD.representation.structure.inchikey=GDMQIYIAOJJNMT-UHFFFAOYSA-L
-4.3      contributortype=HostingInstitution
-4.4        nametype=Organizational
-4.3      contributortype=DataManager
-4.4        nametype=Organizational
-4.3      contributortype=Researcher
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      datetype=Issued
-4.2    item=relatedidentifiers
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasMetadata
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=10311
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10311&file=1
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10311&file=2
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10311&file=3
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10311&file=4
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=10311&file=5
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=DOI
-4.3      relationtype=IsPartOf
-4.3      relatedidentifier=10.14469/hpc/11299
-4.3      rightsidentifier=cc0-1.0
-4.3      rightsidentifierscheme=SPDX
-4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
-4.3      schemeuri=https://spdx.org/licenses/
-4.3      item=description
-4.3      descriptiontype=Other
-4.3      IFD.property.description=Gaussian 16 (C01) calculation for bis((4-(ethoxycarbonyl)-1H-pyrazol-5-yl)oxy)copper, starting from a geometry with two short Cu-N bonds (2.39) and two short Cu-O bond and two long Cu-O bonds. This pattern is preserved after geometry optimisation.
-
-Keywords used opt freq scf=(maxcycles=1024) def2svp integral=(acc2e=14,grid=superfinegrid,noxctest) rom062x
-4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/10311
-3.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11299
 2.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/10385
 2.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11337
 2.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
@@ -13723,11 +13723,11 @@ Anal. Calcd for C36H30CuN4O6: C, 63.76; H, 4.46; N, 8.26. Found: C, 63.56; H, 4.
 2.3      item=relatedidentifier
 2.3      relatedidentifiertype=DOI
 2.3      relationtype=HasPart
-2.3      relatedidentifier=10.14469/hpc/11613
+2.3      relatedidentifier=10.14469/hpc/11612
 2.3      item=relatedidentifier
 2.3      relatedidentifiertype=DOI
 2.3      relationtype=HasPart
-2.3      relatedidentifier=10.14469/hpc/11612
+2.3      relatedidentifier=10.14469/hpc/11613
 2.3      item=relatedidentifier
 2.3      relatedidentifiertype=DOI
 2.3      relationtype=HasPart
@@ -13746,6 +13746,76 @@ IR (Diamond-ATR, neat) νmax (cm-1) = 1651, 1634, 1612, 1593, 1586, 1541, 1530, 
 HRMS (ES-ToF) m/z: [M + H]+ calc. for ()+:, found:.
 m.p.: &gt;190 °C (decomp.).
 Anal. Calcd for C58H54N8O13Zr2 ∙ 0.35 ZrO2: C, 53.07; H, 4.15; N, 8.54. Found: C, 53.50; H, 4.10; N, 8.32.
+3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11612
+3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
+3.2    item=identifier
+3.2    identifiertype=DOI
+3.2    value=10.14469/HPC/11612
+3.2    identifier=10.14469/HPC/11612
+3.4        nametype=Personal
+3.4        nameidentifierscheme=ORCID
+3.4        schemeuri=https://orcid.org
+3.4        affiliationidentifier=https://ror.org/041kmwe10
+3.4        affiliationidentifierscheme=ROR
+3.4        schemeuri=https://ror.org/
+3.3      item=title
+3.3      IFD.property.label=IR Data for Compound 38.
+3.2    item=resourcetype
+3.2    resourcetypegeneral=Dataset
+3.2    value=Results
+3.2    resourcetype=Results
+3.2    item=subjects
+3.3      item=subject
+3.3      subjectscheme=IFD.IR
+3.3      IFD.property.dataobject.fairspec.ir.description=IR Spectrum
+3.3      item=subject
+3.3      subjectscheme=SMILES
+3.3      IFD.representation.structure.smiles=[][Zr]12(OC3=C(C(OCC)=O1)C=NN3C4=CC=CC=C4)(O[Zr]5(O=C6OCC)(OC7=C6C=NN7C8=CC=CC=C8)([])OC(N(C9=CC=CC=C9)N=C%10)=C%10C(OCC)=O5)O=C(OCC)C%11=C(O2)N(C%12=CC=CC=C%12)N=C%11.c%13cccc%13.c%14cccc%14
+3.3      contributortype=HostingInstitution
+3.4        nametype=Organizational
+3.3      contributortype=DataManager
+3.4        nametype=Organizational
+3.3      contributortype=Researcher
+3.4        nametype=Personal
+3.4        nameidentifierscheme=ORCID
+3.4        schemeuri=https://orcid.org
+3.4        affiliationidentifier=https://ror.org/041kmwe10
+3.4        affiliationidentifierscheme=ROR
+3.4        schemeuri=https://ror.org/
+3.3      datetype=Issued
+3.2    item=relatedidentifiers
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasMetadata
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11612
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasPart
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11612&file=1
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasPart
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11612&file=2
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasPart
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11612&file=3
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasPart
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11612&file=4
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=DOI
+3.3      relationtype=IsPartOf
+3.3      relatedidentifier=10.14469/hpc/11375
+3.3      rightsidentifier=cc0-1.0
+3.3      rightsidentifierscheme=SPDX
+3.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
+3.3      schemeuri=https://spdx.org/licenses/
+3.3      item=description
+3.3      descriptiontype=Other
+3.3      IFD.property.description=IR Data for (m-O)-Di-[cyclopentadienyl-bis((4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-yl)oxy)zirconium] (38)
+3.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11612
 3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11613
 3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 3.2    item=identifier
@@ -14281,79 +14351,6 @@ Anal. Calcd for C58H54N8O13Zr2 ∙ 0.35 ZrO2: C, 53.07; H, 4.15; N, 8.54. Found:
 4.3      IFD.property.description=Primary NMR Data for Sample 38.
 4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11644
 3.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11613
-3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11612
-3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
-3.2    item=identifier
-3.2    identifiertype=DOI
-3.2    value=10.14469/HPC/11612
-3.2    identifier=10.14469/HPC/11612
-3.4        nametype=Personal
-3.4        nameidentifierscheme=ORCID
-3.4        schemeuri=https://orcid.org
-3.4        affiliationidentifier=https://ror.org/041kmwe10
-3.4        affiliationidentifierscheme=ROR
-3.3      item=title
-3.3      IFD.property.label=IR Data for Compound 38.
-3.2    item=resourcetype
-3.2    resourcetypegeneral=Dataset
-3.2    value=Results
-3.2    resourcetype=Results
-3.2    item=subjects
-3.3      item=subject
-3.3      schemeuri=http://www.inchi-trust.org/
-3.3      subjectscheme=inchi
-3.3      IFD.representation.structure.inchi=Variable attachment points not supported by InChI
-3.3      item=subject
-3.3      schemeuri=http://www.inchi-trust.org/
-3.3      subjectscheme=inchikey
-3.3      IFD.representation.structure.inchikey=Variable attachment points not supported by InChI
-3.3      item=subject
-3.3      subjectscheme=SMILES
-3.3      IFD.representation.structure.smiles=[][Zr]12(OC3=C(C(OCC)=O1)C=NN3C4=CC=CC=C4)(O[Zr]5(O=C6OCC)(OC7=C6C=NN7C8=CC=CC=C8)([])OC(N(C9=CC=CC=C9)N=C%10)=C%10C(OCC)=O5)O=C(OCC)C%11=C(O2)N(C%12=CC=CC=C%12)N=C%11.c%13cccc%13.c%14cccc%14
-3.3      contributortype=HostingInstitution
-3.4        nametype=Organizational
-3.3      contributortype=DataManager
-3.4        nametype=Organizational
-3.3      contributortype=Researcher
-3.4        nametype=Personal
-3.4        nameidentifierscheme=ORCID
-3.4        schemeuri=https://orcid.org
-3.4        affiliationidentifier=https://ror.org/041kmwe10
-3.4        affiliationidentifierscheme=ROR
-3.3      datetype=Issued
-3.2    item=relatedidentifiers
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasMetadata
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11612
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasPart
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11612&file=1
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasPart
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11612&file=2
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasPart
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11612&file=3
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasPart
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11612&file=4
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=DOI
-3.3      relationtype=IsPartOf
-3.3      relatedidentifier=10.14469/hpc/11375
-3.3      rightsidentifier=cc0-1.0
-3.3      rightsidentifierscheme=SPDX
-3.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
-3.3      schemeuri=https://spdx.org/licenses/
-3.3      item=description
-3.3      descriptiontype=Other
-3.3      IFD.property.description=IR Data for (m-O)-Di-[cyclopentadienyl-bis((4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-yl)oxy)zirconium] (38)
-3.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11612
 3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11392
 3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 3.2    item=identifier
@@ -14512,15 +14509,15 @@ Anal. Calcd for C58H54N8O13Zr2 ∙ 0.35 ZrO2: C, 53.07; H, 4.15; N, 8.54. Found:
 2.3      item=relatedidentifier
 2.3      relatedidentifiertype=DOI
 2.3      relationtype=HasPart
+2.3      relatedidentifier=10.14469/hpc/11691
+2.3      item=relatedidentifier
+2.3      relatedidentifiertype=DOI
+2.3      relationtype=HasPart
 2.3      relatedidentifier=10.14469/hpc/11542
 2.3      item=relatedidentifier
 2.3      relatedidentifiertype=DOI
 2.3      relationtype=HasPart
 2.3      relatedidentifier=10.14469/hpc/11543
-2.3      item=relatedidentifier
-2.3      relatedidentifiertype=DOI
-2.3      relationtype=HasPart
-2.3      relatedidentifier=10.14469/hpc/11691
 2.3      item=relatedidentifier
 2.3      relatedidentifiertype=DOI
 2.3      relationtype=HasPart
@@ -14537,6 +14534,108 @@ Anal. Calcd for C58H54N8O13Zr2 ∙ 0.35 ZrO2: C, 53.07; H, 4.15; N, 8.54. Found:
 IR (Diamond-ATR, neat) νmax (cm-1) = 1680, 1647, 1599, 1566, 1527, 1499, 1465, 1457, 1420, 1360, 1331, 1231, 1208, 1081, 948, 784, 752.
 m.p.: 273 – 277 °C (EtOH).
 Anal. Calcd for C24H22MgN4O6 ∙ 2 EtOH ∙ H2O: C, 56.34; H, 6.08; N, 9.39. Found: C, 56.11; H, 5.39; N, 9.65.
+3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11691
+3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
+3.2    item=identifier
+3.2    identifiertype=DOI
+3.2    value=10.14469/HPC/11691
+3.2    identifier=10.14469/HPC/11691
+3.4        nametype=Personal
+3.4        nameidentifierscheme=ORCID
+3.4        schemeuri=https://orcid.org
+3.4        affiliationidentifier=https://ror.org/041kmwe10
+3.4        affiliationidentifierscheme=ROR
+3.4        schemeuri=https://ror.org/
+3.3      item=title
+3.3      IFD.property.fairspec.compound.id=16
+3.3      IFD.property.label=Compound 16: bis(4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-olate)magnesium. NMR and IR prediction, G = -2107.704571
+3.2    item=resourcetype
+3.2    resourcetypegeneral=Dataset
+3.2    value=Results
+3.2    resourcetype=Results
+3.2    item=subjects
+3.3      item=subject
+3.3      schemeuri=https://doi.org/10.1351/goldbook.G02629
+3.3      subjectscheme=Gibbs_Energy
+3.3      valueuri=http://gaussian.com/thermo/
+3.3      Gibbs_Energy=-2107.704571
+3.3      item=subject
+3.3      subjectscheme=IFD.Comp
+3.3      IFD.property.dataobject.fairspec.comp.description=Gaussian computation
+3.3      item=subject
+3.3      subjectscheme=IFD.Comp.IR
+3.3      IFD.Comp.IR=Predicted IR Spectrum
+3.3      item=subject
+3.3      subjectscheme=IFD.Comp.NMR
+3.3      IFD.Comp.NMR=Predicted NMR Spectrum
+3.3      item=subject
+3.3      schemeuri=http://www.inchi-trust.org/
+3.3      subjectscheme=inchi
+3.3      IFD.representation.structure.inchi=InChI=1S/2C12H12N2O3.2C2H6O.Mg/c2*1-2-17-12(16)10-8-13-14(11(10)15)9-6-4-3-5-7-9;2*1-2-3;/h2*3-8,15H,2H2,1H3;2*3H,2H2,1H3;/q;;;;+2/p-2
+3.3      item=subject
+3.3      schemeuri=http://www.inchi-trust.org/
+3.3      subjectscheme=inchikey
+3.3      IFD.representation.structure.inchikey=FCXMPNFUGCYHCR-UHFFFAOYSA-L
+3.3      item=subject
+3.3      subjectscheme=NMR_Nucleus
+3.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=13C
+3.3      contributortype=HostingInstitution
+3.4        nametype=Organizational
+3.3      contributortype=DataManager
+3.4        nametype=Organizational
+3.3      contributortype=Researcher
+3.4        nametype=Personal
+3.4        nameidentifierscheme=ORCID
+3.4        schemeuri=https://orcid.org
+3.4        affiliationidentifier=https://ror.org/041kmwe10
+3.4        affiliationidentifierscheme=ROR
+3.4        schemeuri=https://ror.org/
+3.3      datetype=Issued
+3.2    item=relatedidentifiers
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasMetadata
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11691
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasPart
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11691&file=1
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasPart
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11691&file=2
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasPart
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11691&file=3
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasPart
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11691&file=4
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasPart
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11691&file=5
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasPart
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11691&file=6
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasPart
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11691&file=7
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=DOI
+3.3      relationtype=IsPartOf
+3.3      relatedidentifier=10.14469/hpc/11335
+3.3      rightsidentifier=cc0-1.0
+3.3      rightsidentifierscheme=SPDX
+3.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
+3.3      schemeuri=https://spdx.org/licenses/
+3.3      item=description
+3.3      descriptiontype=Other
+3.3      IFD.property.description=Gaussian 16 (C01) calculation for bis(4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-olate)magnesium
+3.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11691
 3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11542
 3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 3.2    item=identifier
@@ -14583,11 +14682,11 @@ Anal. Calcd for C24H22MgN4O6 ∙ 2 EtOH ∙ H2O: C, 56.34; H, 6.08; N, 9.39. Fou
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
 3.3      relationtype=HasPart
-3.3      relatedidentifier=10.14469/hpc/11546
+3.3      relatedidentifier=10.14469/hpc/11547
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
 3.3      relationtype=HasPart
-3.3      relatedidentifier=10.14469/hpc/11547
+3.3      relatedidentifier=10.14469/hpc/11546
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
 3.3      relationtype=HasPart
@@ -14692,6 +14791,105 @@ Anal. Calcd for C24H22MgN4O6 ∙ 2 EtOH ∙ H2O: C, 56.34; H, 6.08; N, 9.39. Fou
 4.3      descriptiontype=Other
 4.3      IFD.property.description=Primary NMR data for Sample 16.
 4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11544
+4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11547
+4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
+4.2    item=identifier
+4.2    identifiertype=DOI
+4.2    value=10.14469/HPC/11547
+4.2    identifier=10.14469/HPC/11547
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      item=title
+4.3      IFD.property.label=NMR Data for Bis(ethanol) bis(4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-olate)magnesium (16), HSQC
+4.2    item=resourcetype
+4.2    resourcetypegeneral=Dataset
+4.2    value=Results
+4.2    resourcetype=Results
+4.2    item=subjects
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchi
+4.3      IFD.representation.structure.inchi=InChI=1S/2C12H12N2O3.2C2H6O.Mg/c2*1-2-17-12(16)10-8-13-14(11(10)15)9-6-4-3-5-7-9;2*1-2-3;/h2*3-8,15H,2H2,1H3;2*3H,2H2,1H3;/q;;;;+2/p-2
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchikey
+4.3      IFD.representation.structure.inchikey=FCXMPNFUGCYHCR-UHFFFAOYSA-L
+4.3      item=subject
+4.3      subjectscheme=NMR_Expt
+4.3      IFD.property.dataobject.fairspec.nmr.expt_name=HSQC
+4.3      item=subject
+4.3      subjectscheme=NMR_Nucleus1
+4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=1H
+4.3      item=subject
+4.3      subjectscheme=NMR_Nucleus2
+4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl2=13C
+4.3      item=subject
+4.3      subjectscheme=NMR_Solvent
+4.3      IFD.property.dataobject.fairspec.nmr.expt_solvent=acetone-d6
+4.3      item=subject
+4.3      subjectscheme=SMILES
+4.3      IFD.representation.structure.smiles=[H]O(CC)[Mg]12(OC3=C(C(OCC)=O1)C=NN3C4=CC=CC=C4)(OC5=C(C(OCC)=O2)C=NN5C6=CC=CC=C6)O([H])CC
+4.3      contributortype=HostingInstitution
+4.4        nametype=Organizational
+4.3      contributortype=DataManager
+4.4        nametype=Organizational
+4.3      contributortype=Researcher
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      datetype=Issued
+4.2    item=relatedidentifiers
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasMetadata
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11547
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11547&file=1
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11547&file=2
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11547&file=3
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11547&file=4
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11547&file=5
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11547&file=6
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11547&file=7
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=DOI
+4.3      relationtype=IsPartOf
+4.3      relatedidentifier=10.14469/hpc/11542
+4.3      rightsidentifier=cc0-1.0
+4.3      rightsidentifierscheme=SPDX
+4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
+4.3      schemeuri=https://spdx.org/licenses/
+4.3      item=description
+4.3      descriptiontype=Other
+4.3      IFD.property.description=Primary NMR Data for Sample 16.
+4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11547
 4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11546
 4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 4.2    item=identifier
@@ -14788,105 +14986,6 @@ Anal. Calcd for C24H22MgN4O6 ∙ 2 EtOH ∙ H2O: C, 56.34; H, 6.08; N, 9.39. Fou
 4.3      descriptiontype=Other
 4.3      IFD.property.description=Primary NMR data for Sample 16.
 4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11546
-4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11547
-4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
-4.2    item=identifier
-4.2    identifiertype=DOI
-4.2    value=10.14469/HPC/11547
-4.2    identifier=10.14469/HPC/11547
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      item=title
-4.3      IFD.property.label=NMR Data for Bis(ethanol) bis(4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-olate)magnesium (16), HSQC
-4.2    item=resourcetype
-4.2    resourcetypegeneral=Dataset
-4.2    value=Results
-4.2    resourcetype=Results
-4.2    item=subjects
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchi
-4.3      IFD.representation.structure.inchi=InChI=1S/2C12H12N2O3.2C2H6O.Mg/c2*1-2-17-12(16)10-8-13-14(11(10)15)9-6-4-3-5-7-9;2*1-2-3;/h2*3-8,15H,2H2,1H3;2*3H,2H2,1H3;/q;;;;+2/p-2
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchikey
-4.3      IFD.representation.structure.inchikey=FCXMPNFUGCYHCR-UHFFFAOYSA-L
-4.3      item=subject
-4.3      subjectscheme=NMR_Expt
-4.3      IFD.property.dataobject.fairspec.nmr.expt_name=HSQC
-4.3      item=subject
-4.3      subjectscheme=NMR_Nucleus1
-4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=1H
-4.3      item=subject
-4.3      subjectscheme=NMR_Nucleus2
-4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl2=13C
-4.3      item=subject
-4.3      subjectscheme=NMR_Solvent
-4.3      IFD.property.dataobject.fairspec.nmr.expt_solvent=Acetone-d6
-4.3      item=subject
-4.3      subjectscheme=SMILES
-4.3      IFD.representation.structure.smiles=[H]O(CC)[Mg]12(OC3=C(C(OCC)=O1)C=NN3C4=CC=CC=C4)(OC5=C(C(OCC)=O2)C=NN5C6=CC=CC=C6)O([H])CC
-4.3      contributortype=HostingInstitution
-4.4        nametype=Organizational
-4.3      contributortype=DataManager
-4.4        nametype=Organizational
-4.3      contributortype=Researcher
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      datetype=Issued
-4.2    item=relatedidentifiers
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasMetadata
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11547
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11547&file=1
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11547&file=2
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11547&file=3
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11547&file=4
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11547&file=5
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11547&file=6
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11547&file=7
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=DOI
-4.3      relationtype=IsPartOf
-4.3      relatedidentifier=10.14469/hpc/11542
-4.3      rightsidentifier=cc0-1.0
-4.3      rightsidentifierscheme=SPDX
-4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
-4.3      schemeuri=https://spdx.org/licenses/
-4.3      item=description
-4.3      descriptiontype=Other
-4.3      IFD.property.description=Primary NMR Data for Sample 16.
-4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11547
 4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11545
 4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 4.2    item=identifier
@@ -15059,91 +15158,6 @@ Anal. Calcd for C24H22MgN4O6 ∙ 2 EtOH ∙ H2O: C, 56.34; H, 6.08; N, 9.39. Fou
 3.3      descriptiontype=Other
 3.3      IFD.property.description=IR data for Bis(ethanol) bis(4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-olate)magnesium (16)
 3.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11543
-3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11691
-3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
-3.2    item=identifier
-3.2    identifiertype=DOI
-3.2    value=10.14469/HPC/11691
-3.2    identifier=10.14469/HPC/11691
-3.4        nametype=Personal
-3.4        nameidentifierscheme=ORCID
-3.4        schemeuri=https://orcid.org
-3.4        affiliationidentifier=https://ror.org/041kmwe10
-3.4        affiliationidentifierscheme=ROR
-3.4        schemeuri=https://ror.org/
-3.3      item=title
-3.3      IFD.property.fairspec.compound.id=16
-3.3      IFD.property.label=Compound 16: bis(4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-olate)magnesium. NMR and IR prediction, G = -2107.704571
-3.2    item=resourcetype
-3.2    resourcetypegeneral=Dataset
-3.2    value=Results
-3.2    resourcetype=Results
-3.2    item=subjects
-3.3      item=subject
-3.3      schemeuri=https://doi.org/10.1351/goldbook.G02629
-3.3      subjectscheme=Gibbs_Energy
-3.3      valueuri=http://gaussian.com/thermo/
-3.3      Gibbs_Energy=-2107.704571
-3.3      item=subject
-3.3      subjectscheme=IFD.comp
-3.3      IFD.property.dataobject.fairspec.comp.description=Gaussian computation
-3.3      item=subject
-3.3      schemeuri=http://www.inchi-trust.org/
-3.3      subjectscheme=inchi
-3.3      IFD.representation.structure.inchi=InChI=1S/2C12H12N2O3.2C2H6O.Mg/c2*1-2-17-12(16)10-8-13-14(11(10)15)9-6-4-3-5-7-9;2*1-2-3;/h2*3-8,15H,2H2,1H3;2*3H,2H2,1H3;/q;;;;+2/p-2
-3.3      item=subject
-3.3      schemeuri=http://www.inchi-trust.org/
-3.3      subjectscheme=inchikey
-3.3      IFD.representation.structure.inchikey=FCXMPNFUGCYHCR-UHFFFAOYSA-L
-3.3      contributortype=HostingInstitution
-3.4        nametype=Organizational
-3.3      contributortype=DataManager
-3.4        nametype=Organizational
-3.3      contributortype=Researcher
-3.4        nametype=Personal
-3.4        nameidentifierscheme=ORCID
-3.4        schemeuri=https://orcid.org
-3.4        affiliationidentifier=https://ror.org/041kmwe10
-3.4        affiliationidentifierscheme=ROR
-3.4        schemeuri=https://ror.org/
-3.3      datetype=Issued
-3.2    item=relatedidentifiers
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasMetadata
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11691
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasPart
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11691&file=1
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasPart
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11691&file=2
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasPart
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11691&file=3
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasPart
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11691&file=4
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasPart
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11691&file=5
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=DOI
-3.3      relationtype=IsPartOf
-3.3      relatedidentifier=10.14469/hpc/11335
-3.3      rightsidentifier=cc0-1.0
-3.3      rightsidentifierscheme=SPDX
-3.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
-3.3      schemeuri=https://spdx.org/licenses/
-3.3      item=description
-3.3      descriptiontype=Other
-3.3      IFD.property.description=Gaussian 16 (C01) calculation for bis(4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-olate)magnesium
-3.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11691
 3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11336
 3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 3.2    item=identifier
@@ -15352,6 +15366,9 @@ Anal. Calcd for C24H22MgN4O6 ∙ 2 EtOH ∙ H2O: C, 56.34; H, 6.08; N, 9.39. Fou
 3.2    value=Results
 3.2    resourcetype=Results
 3.2    item=subjects
+3.3      item=subject
+3.3      subjectscheme=IFD.XRAY
+3.3      IFD.property.dataobject.fairspec.xrd.description=Crystal structure
 3.3      item=subject
 3.3      schemeuri=http://www.inchi-trust.org/
 3.3      subjectscheme=inchi
@@ -19583,15 +19600,15 @@ Anal. Calcd for C56H60N8O16Zr ∙ C6H14: C, 58.24; H, 5.83; N, 8.76. Found: C, 5
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
 3.3      relationtype=HasPart
+3.3      relatedidentifier=10.14469/hpc/11629
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=DOI
+3.3      relationtype=HasPart
 3.3      relatedidentifier=10.14469/hpc/11628
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
 3.3      relationtype=HasPart
 3.3      relatedidentifier=10.14469/hpc/11635
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=DOI
-3.3      relationtype=HasPart
-3.3      relatedidentifier=10.14469/hpc/11629
 3.3      rightsidentifier=cc0-1.0
 3.3      rightsidentifierscheme=SPDX
 3.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
@@ -20175,6 +20192,105 @@ Anal. Calcd for C56H60N8O16Zr ∙ C6H14: C, 58.24; H, 5.83; N, 8.76. Found: C, 5
 4.3      descriptiontype=Other
 4.3      IFD.property.description=Primary NMR Data for Sample 33.
 4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11627
+4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11629
+4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
+4.2    item=identifier
+4.2    identifiertype=DOI
+4.2    value=10.14469/HPC/11629
+4.2    identifier=10.14469/HPC/11629
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      item=title
+4.3      IFD.property.label=NMR Data for Tetrakis((4-(ethoxycarbonyl)-1-(4-methoxybenzyl)-1H-pyrazol-5-yl)oxy)zirconium (33), 1H, 13C, HMBC, acetone-d6
+4.2    item=resourcetype
+4.2    resourcetypegeneral=Dataset
+4.2    value=Results
+4.2    resourcetype=Results
+4.2    item=subjects
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchi
+4.3      IFD.representation.structure.inchi=InChI=1S/4C14H16N2O4.Zr/c4*1-3-20-14(18)12-8-15-16(13(12)17)9-10-4-6-11(19-2)7-5-10;/h4*4-8,17H,3,9H2,1-2H3;/q;;;;+4/p-4
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchikey
+4.3      IFD.representation.structure.inchikey=NBCBVPABRHVLHH-UHFFFAOYSA-J
+4.3      item=subject
+4.3      subjectscheme=NMR_Expt
+4.3      IFD.property.dataobject.fairspec.nmr.expt_name=HMBC
+4.3      item=subject
+4.3      subjectscheme=NMR_Nucleus1
+4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=1H
+4.3      item=subject
+4.3      subjectscheme=NMR_Nucleus2
+4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl2=13C
+4.3      item=subject
+4.3      subjectscheme=NMR_Solvent
+4.3      IFD.property.dataobject.fairspec.nmr.expt_solvent=acetone-d6
+4.3      item=subject
+4.3      subjectscheme=SMILES
+4.3      IFD.representation.structure.smiles=CCOC(C(C=N1)=C(O2)N1CC3=CC=C(OC)C=C3)=O[Zr]4256(O=C(OCC)C(C=N7)=C(O5)N7CC8=CC=C(OC)C=C8)(O=C(OCC)C(C=N9)=C(O6)N9CC%10=CC=C(OC)C=C%10)OC%11=C(C(OCC)=O4)C=NN%11CC%12=CC=C(OC)C=C%12
+4.3      contributortype=HostingInstitution
+4.4        nametype=Organizational
+4.3      contributortype=DataManager
+4.4        nametype=Organizational
+4.3      contributortype=Researcher
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      datetype=Issued
+4.2    item=relatedidentifiers
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasMetadata
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11629
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11629&file=1
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11629&file=2
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11629&file=3
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11629&file=4
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11629&file=5
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11629&file=6
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11629&file=7
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=DOI
+4.3      relationtype=IsPartOf
+4.3      relatedidentifier=10.14469/hpc/11615
+4.3      rightsidentifier=cc0-1.0
+4.3      rightsidentifierscheme=SPDX
+4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
+4.3      schemeuri=https://spdx.org/licenses/
+4.3      item=description
+4.3      descriptiontype=Other
+4.3      IFD.property.description=Primary NMR Data for Sample 33
+4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11629
 4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11628
 4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 4.2    item=identifier
@@ -20370,105 +20486,6 @@ Anal. Calcd for C56H60N8O16Zr ∙ C6H14: C, 58.24; H, 5.83; N, 8.76. Found: C, 5
 4.3      descriptiontype=Other
 4.3      IFD.property.description=Primary NMR Data archive for sample 33.
 4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11635
-4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11629
-4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
-4.2    item=identifier
-4.2    identifiertype=DOI
-4.2    value=10.14469/HPC/11629
-4.2    identifier=10.14469/HPC/11629
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      item=title
-4.3      IFD.property.label=NMR Data for Tetrakis((4-(ethoxycarbonyl)-1-(4-methoxybenzyl)-1H-pyrazol-5-yl)oxy)zirconium (33), 1H, 13C, HMBC, acetone-d6
-4.2    item=resourcetype
-4.2    resourcetypegeneral=Dataset
-4.2    value=Results
-4.2    resourcetype=Results
-4.2    item=subjects
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchi
-4.3      IFD.representation.structure.inchi=InChI=1S/4C14H16N2O4.Zr/c4*1-3-20-14(18)12-8-15-16(13(12)17)9-10-4-6-11(19-2)7-5-10;/h4*4-8,17H,3,9H2,1-2H3;/q;;;;+4/p-4
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchikey
-4.3      IFD.representation.structure.inchikey=NBCBVPABRHVLHH-UHFFFAOYSA-J
-4.3      item=subject
-4.3      subjectscheme=NMR_Expt
-4.3      IFD.property.dataobject.fairspec.nmr.expt_name=HMBC
-4.3      item=subject
-4.3      subjectscheme=NMR_Nucleus1
-4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=1H
-4.3      item=subject
-4.3      subjectscheme=NMR_Nucleus2
-4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl2=13C
-4.3      item=subject
-4.3      subjectscheme=NMR_solvent
-4.3      NMR_solvent=acetone-d6
-4.3      item=subject
-4.3      subjectscheme=SMILES
-4.3      IFD.representation.structure.smiles=CCOC(C(C=N1)=C(O2)N1CC3=CC=C(OC)C=C3)=O[Zr]4256(O=C(OCC)C(C=N7)=C(O5)N7CC8=CC=C(OC)C=C8)(O=C(OCC)C(C=N9)=C(O6)N9CC%10=CC=C(OC)C=C%10)OC%11=C(C(OCC)=O4)C=NN%11CC%12=CC=C(OC)C=C%12
-4.3      contributortype=HostingInstitution
-4.4        nametype=Organizational
-4.3      contributortype=DataManager
-4.4        nametype=Organizational
-4.3      contributortype=Researcher
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      datetype=Issued
-4.2    item=relatedidentifiers
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasMetadata
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11629
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11629&file=1
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11629&file=2
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11629&file=3
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11629&file=4
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11629&file=5
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11629&file=6
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11629&file=7
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=DOI
-4.3      relationtype=IsPartOf
-4.3      relatedidentifier=10.14469/hpc/11615
-4.3      rightsidentifier=cc0-1.0
-4.3      rightsidentifierscheme=SPDX
-4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
-4.3      schemeuri=https://spdx.org/licenses/
-4.3      item=description
-4.3      descriptiontype=Other
-4.3      IFD.property.description=Primary NMR Data for Sample 33
-4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11629
 3.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11615
 3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11614
 3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
@@ -22202,11 +22219,11 @@ Anal. Calcd for C54H45N6O9Yb ∙ 1.5 EtOH ∙ 1.2 Yb2O3: C, 42.85; H, 3.41; N, 5
 2.3      item=relatedidentifier
 2.3      relatedidentifiertype=DOI
 2.3      relationtype=HasPart
-2.3      relatedidentifier=10.14469/hpc/11549
+2.3      relatedidentifier=10.14469/hpc/11548
 2.3      item=relatedidentifier
 2.3      relatedidentifiertype=DOI
 2.3      relationtype=HasPart
-2.3      relatedidentifier=10.14469/hpc/11548
+2.3      relatedidentifier=10.14469/hpc/11549
 2.3      item=relatedidentifier
 2.3      relatedidentifiertype=DOI
 2.3      relationtype=HasPart
@@ -22223,6 +22240,77 @@ Anal. Calcd for C54H45N6O9Yb ∙ 1.5 EtOH ∙ 1.2 Yb2O3: C, 42.85; H, 3.41; N, 5
 IR (Diamond-ATR, neat) νmax (cm-1) = 1669, 1635, 1600, 1551, 1498, 1420, 1383, 1256, 1230, 1170, 1035, 764, 631.
 m.p.: 214 – 216 °C (EtOH).
 Anal. Calcd for C36H33LaN6O9 ∙ 3 EtOH ∙ 4 La2O3: C, 22.50; H, 2.29; N, 3.75. Found: C, 22.50; H, 1.95; N, 3.45.
+3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11548
+3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
+3.2    item=identifier
+3.2    identifiertype=DOI
+3.2    value=10.14469/HPC/11548
+3.2    identifier=10.14469/HPC/11548
+3.4        nametype=Personal
+3.4        nameidentifierscheme=ORCID
+3.4        schemeuri=https://orcid.org
+3.4        affiliationidentifier=https://ror.org/041kmwe10
+3.4        affiliationidentifierscheme=ROR
+3.4        schemeuri=https://ror.org/
+3.3      item=title
+3.3      IFD.property.label=IR data for Compound 62.
+3.2    item=resourcetype
+3.2    resourcetypegeneral=Dataset
+3.2    value=Results
+3.2    resourcetype=Results
+3.2    item=subjects
+3.3      item=subject
+3.3      subjectscheme=IFD.IR
+3.3      IFD.property.dataobject.fairspec.ir.description=IR Spectrum
+3.3      item=subject
+3.3      schemeuri=http://www.inchi-trust.org/
+3.3      subjectscheme=inchi
+3.3      IFD.representation.structure.inchi=InChI=1S/3C12H12N2O3.La.2H2O/c3*1-2-17-12(16)10-8-13-14(11(10)15)9-6-4-3-5-7-9;;;/h3*3-8,15H,2H2,1H3;;2*1H2/q;;;+3;;/p-3
+3.3      item=subject
+3.3      schemeuri=http://www.inchi-trust.org/
+3.3      subjectscheme=inchikey
+3.3      IFD.representation.structure.inchikey=BUXNFNSTODCTAL-UHFFFAOYSA-K
+3.3      contributortype=HostingInstitution
+3.4        nametype=Organizational
+3.3      contributortype=DataManager
+3.4        nametype=Organizational
+3.3      contributortype=Researcher
+3.4        nametype=Personal
+3.4        nameidentifierscheme=ORCID
+3.4        schemeuri=https://orcid.org
+3.4        affiliationidentifier=https://ror.org/041kmwe10
+3.4        affiliationidentifierscheme=ROR
+3.4        schemeuri=https://ror.org/
+3.3      datetype=Issued
+3.2    item=relatedidentifiers
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasMetadata
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11548
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasPart
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11548&file=1
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasPart
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11548&file=2
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=URL
+3.3      relationtype=HasPart
+3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11548&file=3
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=DOI
+3.3      relationtype=IsPartOf
+3.3      relatedidentifier=10.14469/hpc/11407
+3.3      rightsidentifier=cc0-1.0
+3.3      rightsidentifierscheme=SPDX
+3.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
+3.3      schemeuri=https://spdx.org/licenses/
+3.3      item=description
+3.3      descriptiontype=Other
+3.3      IFD.property.description=IR Data for Bis(aqua) tris((4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-yl)oxy)lanthanum (62)
+3.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11548
 3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11549
 3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 3.2    item=identifier
@@ -22781,74 +22869,6 @@ Anal. Calcd for C36H33LaN6O9 ∙ 3 EtOH ∙ 4 La2O3: C, 22.50; H, 2.29; N, 3.75.
 4.3      IFD.property.description=Primary NMR Data for Sample 62.
 4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11595
 3.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11549
-3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11548
-3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
-3.2    item=identifier
-3.2    identifiertype=DOI
-3.2    value=10.14469/HPC/11548
-3.2    identifier=10.14469/HPC/11548
-3.4        nametype=Personal
-3.4        nameidentifierscheme=ORCID
-3.4        schemeuri=https://orcid.org
-3.4        affiliationidentifier=https://ror.org/041kmwe10
-3.4        affiliationidentifierscheme=ROR
-3.4        schemeuri=https://ror.org/
-3.3      item=title
-3.3      IFD.property.label=IR data for Compound 62.
-3.2    item=resourcetype
-3.2    resourcetypegeneral=Dataset
-3.2    value=Results
-3.2    resourcetype=Results
-3.2    item=subjects
-3.3      item=subject
-3.3      schemeuri=http://www.inchi-trust.org/
-3.3      subjectscheme=inchi
-3.3      IFD.representation.structure.inchi=InChI=1S/3C12H12N2O3.La.2H2O/c3*1-2-17-12(16)10-8-13-14(11(10)15)9-6-4-3-5-7-9;;;/h3*3-8,15H,2H2,1H3;;2*1H2/q;;;+3;;/p-3
-3.3      item=subject
-3.3      schemeuri=http://www.inchi-trust.org/
-3.3      subjectscheme=inchikey
-3.3      IFD.representation.structure.inchikey=BUXNFNSTODCTAL-UHFFFAOYSA-K
-3.3      contributortype=HostingInstitution
-3.4        nametype=Organizational
-3.3      contributortype=DataManager
-3.4        nametype=Organizational
-3.3      contributortype=Researcher
-3.4        nametype=Personal
-3.4        nameidentifierscheme=ORCID
-3.4        schemeuri=https://orcid.org
-3.4        affiliationidentifier=https://ror.org/041kmwe10
-3.4        affiliationidentifierscheme=ROR
-3.4        schemeuri=https://ror.org/
-3.3      datetype=Issued
-3.2    item=relatedidentifiers
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasMetadata
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11548
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasPart
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11548&file=1
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasPart
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11548&file=2
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=URL
-3.3      relationtype=HasPart
-3.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11548&file=3
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=DOI
-3.3      relationtype=IsPartOf
-3.3      relatedidentifier=10.14469/hpc/11407
-3.3      rightsidentifier=cc0-1.0
-3.3      rightsidentifierscheme=SPDX
-3.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
-3.3      schemeuri=https://spdx.org/licenses/
-3.3      item=description
-3.3      descriptiontype=Other
-3.3      IFD.property.description=IR Data for Bis(aqua) tris((4-(ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-yl)oxy)lanthanum (62)
-3.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11548
 3.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11430
 3.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 3.2    item=identifier
@@ -27496,6 +27516,10 @@ Anal. Calcd for C12H11N2O3Na∙H2O: C, 52.94; H, 4.81; N, 10.29. Found: C, 53.90
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
 3.3      relationtype=HasPart
+3.3      relatedidentifier=10.14469/hpc/11557
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=DOI
+3.3      relationtype=HasPart
 3.3      relatedidentifier=10.14469/hpc/11558
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
@@ -27508,10 +27532,6 @@ Anal. Calcd for C12H11N2O3Na∙H2O: C, 52.94; H, 4.81; N, 10.29. Found: C, 53.90
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
 3.3      relationtype=HasPart
-3.3      relatedidentifier=10.14469/hpc/11557
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=DOI
-3.3      relationtype=HasPart
 3.3      relatedidentifier=10.14469/hpc/11556
 3.3      rightsidentifier=cc0-1.0
 3.3      rightsidentifierscheme=SPDX
@@ -27520,6 +27540,106 @@ Anal. Calcd for C12H11N2O3Na∙H2O: C, 52.94; H, 4.81; N, 10.29. Found: C, 53.90
 3.3      item=description
 3.3      descriptiontype=Other
 3.3      IFD.property.description=Primary NMR Data for (4-(Ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-olate)sodium (12)
+4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11557
+4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
+4.2    item=identifier
+4.2    identifiertype=DOI
+4.2    value=10.14469/HPC/11557
+4.2    identifier=10.14469/HPC/11557
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      item=title
+4.3      IFD.property.label=NMR Data for (4-(Ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-olate)sodium (12), 13C
+4.2    item=resourcetype
+4.2    resourcetypegeneral=Dataset
+4.2    value=Results
+4.2    resourcetype=Results
+4.2    item=subjects
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchi
+4.3      IFD.representation.structure.inchi=InChI=1S/C12H12N2O3.Na/c1-2-17-12(16)10-8-13-14(11(10)15)9-6-4-3-5-7-9;/h3-8,15H,2H2,1H3;/q;+1/p-1
+4.3      item=subject
+4.3      schemeuri=http://www.inchi-trust.org/
+4.3      subjectscheme=inchikey
+4.3      IFD.representation.structure.inchikey=AKKLILOXIQSUNT-UHFFFAOYSA-M
+4.3      item=subject
+4.3      subjectscheme=NMR_Expt
+4.3      IFD.property.dataobject.fairspec.nmr.expt_name=1D
+4.3      item=subject
+4.3      subjectscheme=NMR_Nucleus
+4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=13C
+4.3      item=subject
+4.3      subjectscheme=NMR_Solvent
+4.3      IFD.property.dataobject.fairspec.nmr.expt_solvent=CD3OD
+4.3      item=subject
+4.3      subjectscheme=SMILES
+4.3      IFD.representation.structure.smiles=CCOC1=O[Na]OC2=C1C=NN2C3=CC=CC=C3
+4.3      contributortype=HostingInstitution
+4.4        nametype=Organizational
+4.3      contributortype=DataManager
+4.4        nametype=Organizational
+4.3      contributortype=Researcher
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      datetype=Issued
+4.2    item=relatedidentifiers
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasMetadata
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11557
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=1
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=2
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=3
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=4
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=5
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=6
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=7
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=8
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=DOI
+4.3      relationtype=IsPartOf
+4.3      relatedidentifier=10.14469/hpc/11555
+4.3      rightsidentifier=cc0-1.0
+4.3      rightsidentifierscheme=SPDX
+4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
+4.3      schemeuri=https://spdx.org/licenses/
+4.3      item=description
+4.3      descriptiontype=Other
+4.3      IFD.property.description=Primary NMR Data for Sample 12.
+4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11557
 4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11558
 4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 4.2    item=identifier
@@ -27826,106 +27946,6 @@ Anal. Calcd for C12H11N2O3Na∙H2O: C, 52.94; H, 4.81; N, 10.29. Found: C, 53.90
 4.3      descriptiontype=Other
 4.3      IFD.property.description=Primary NMR data for Sample 12.
 4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11559
-4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11557
-4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
-4.2    item=identifier
-4.2    identifiertype=DOI
-4.2    value=10.14469/HPC/11557
-4.2    identifier=10.14469/HPC/11557
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      item=title
-4.3      IFD.property.label=NMR Data for (4-(Ethoxycarbonyl)-1-phenyl-1H-pyrazol-5-olate)sodium (12), 13C
-4.2    item=resourcetype
-4.2    resourcetypegeneral=Dataset
-4.2    value=Results
-4.2    resourcetype=Results
-4.2    item=subjects
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchi
-4.3      IFD.representation.structure.inchi=InChI=1S/C12H12N2O3.Na/c1-2-17-12(16)10-8-13-14(11(10)15)9-6-4-3-5-7-9;/h3-8,15H,2H2,1H3;/q;+1/p-1
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchikey
-4.3      IFD.representation.structure.inchikey=AKKLILOXIQSUNT-UHFFFAOYSA-M
-4.3      item=subject
-4.3      subjectscheme=NME_Expt
-4.3      NME_Expt=1D
-4.3      item=subject
-4.3      subjectscheme=NMR_Nucleus
-4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=13C
-4.3      item=subject
-4.3      subjectscheme=NMR_Solvent
-4.3      IFD.property.dataobject.fairspec.nmr.expt_solvent=CD3OD
-4.3      item=subject
-4.3      subjectscheme=SMILES
-4.3      IFD.representation.structure.smiles=CCOC1=O[Na]OC2=C1C=NN2C3=CC=CC=C3
-4.3      contributortype=HostingInstitution
-4.4        nametype=Organizational
-4.3      contributortype=DataManager
-4.4        nametype=Organizational
-4.3      contributortype=Researcher
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      datetype=Issued
-4.2    item=relatedidentifiers
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasMetadata
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11557
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=1
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=2
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=3
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=4
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=5
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=6
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=7
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11557&file=8
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=DOI
-4.3      relationtype=IsPartOf
-4.3      relatedidentifier=10.14469/hpc/11555
-4.3      rightsidentifier=cc0-1.0
-4.3      rightsidentifierscheme=SPDX
-4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
-4.3      schemeuri=https://spdx.org/licenses/
-4.3      item=description
-4.3      descriptiontype=Other
-4.3      IFD.property.description=Primary NMR Data for Sample 12.
-4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11557
 4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11556
 4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 4.2    item=identifier
@@ -29022,15 +29042,15 @@ Anal. Calcd for C28H30ZnN4O8: C, 54.60; H, 4.91; N, 9.10. Found: C, 54.69; H, 4.
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
 3.3      relationtype=HasPart
+3.3      relatedidentifier=10.14469/hpc/11659
+3.3      item=relatedidentifier
+3.3      relatedidentifiertype=DOI
+3.3      relationtype=HasPart
 3.3      relatedidentifier=10.14469/hpc/11660
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
 3.3      relationtype=HasPart
 3.3      relatedidentifier=10.14469/hpc/11661
-3.3      item=relatedidentifier
-3.3      relatedidentifiertype=DOI
-3.3      relationtype=HasPart
-3.3      relatedidentifier=10.14469/hpc/11659
 3.3      item=relatedidentifier
 3.3      relatedidentifiertype=DOI
 3.3      relationtype=HasPart
@@ -29046,6 +29066,91 @@ Anal. Calcd for C28H30ZnN4O8: C, 54.60; H, 4.91; N, 9.10. Found: C, 54.69; H, 4.
 3.3      item=description
 3.3      descriptiontype=Other
 3.3      IFD.property.description=Primary NMR Data for ((4-(Ethoxycarbonyl)-1-(4-methoxybenzyl)-1H-pyrazol-5-yl)oxy)zinc polymer (49)
+4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11659
+4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
+4.2    item=identifier
+4.2    identifiertype=DOI
+4.2    value=10.14469/HPC/11659
+4.2    identifier=10.14469/HPC/11659
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      item=title
+4.3      IFD.property.label=NMR data for ((4-(Ethoxycarbonyl)-1-(4-methoxybenzyl)-1H-pyrazol-5-yl)oxy)zinc polymer (49), 1H
+4.2    item=resourcetype
+4.2    resourcetypegeneral=Dataset
+4.2    value=Results
+4.2    resourcetype=Results
+4.2    item=subjects
+4.3      item=subject
+4.3      subjectscheme=NMR_expt
+4.3      IFD.property.dataobject.fairspec.nmr.expt_name=1D
+4.3      item=subject
+4.3      subjectscheme=NMR_Nucleus
+4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=1H
+4.3      item=subject
+4.3      subjectscheme=SMILES
+4.3      IFD.representation.structure.smiles=[N][Zn]1(OC2=C(C(OCC)=O1)C=N([Zn])N2CC3=CC=C(OC)C=C3)([O])([O])[N]
+4.3      contributortype=HostingInstitution
+4.4        nametype=Organizational
+4.3      contributortype=DataManager
+4.4        nametype=Organizational
+4.3      contributortype=Researcher
+4.4        nametype=Personal
+4.4        nameidentifierscheme=ORCID
+4.4        schemeuri=https://orcid.org
+4.4        affiliationidentifier=https://ror.org/041kmwe10
+4.4        affiliationidentifierscheme=ROR
+4.4        schemeuri=https://ror.org/
+4.3      datetype=Issued
+4.2    item=relatedidentifiers
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasMetadata
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11659
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11659&file=1
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11659&file=2
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11659&file=3
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11659&file=4
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11659&file=5
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11659&file=6
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=URL
+4.3      relationtype=HasPart
+4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11659&file=7
+4.3      item=relatedidentifier
+4.3      relatedidentifiertype=DOI
+4.3      relationtype=IsPartOf
+4.3      relatedidentifier=10.14469/hpc/11656
+4.3      rightsidentifier=cc0-1.0
+4.3      rightsidentifierscheme=SPDX
+4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
+4.3      schemeuri=https://spdx.org/licenses/
+4.3      item=description
+4.3      descriptiontype=Other
+4.3      IFD.property.description=Primary NMR data for Sample 49.
+4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11659
 4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11660
 4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 4.2    item=identifier
@@ -29228,103 +29333,6 @@ Anal. Calcd for C28H30ZnN4O8: C, 54.60; H, 4.91; N, 9.10. Found: C, 54.69; H, 4.
 4.3      descriptiontype=Other
 4.3      IFD.property.description=Primary NMR data for Sample 49.
 4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11661
-4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11659
-4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
-4.2    item=identifier
-4.2    identifiertype=DOI
-4.2    value=10.14469/HPC/11659
-4.2    identifier=10.14469/HPC/11659
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      item=title
-4.3      IFD.property.label=NMR data for ((4-(Ethoxycarbonyl)-1-(4-methoxybenzyl)-1H-pyrazol-5-yl)oxy)zinc polymer (49), 1H
-4.2    item=resourcetype
-4.2    resourcetypegeneral=Dataset
-4.2    value=Results
-4.2    resourcetype=Results
-4.2    item=subjects
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchi
-4.3      IFD.representation.structure.inchi=Not supported by InChI
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchi
-4.3      IFD.representation.structure.inchi=Not Supported by InChI
-4.3      item=subject
-4.3      schemeuri=http://www.inchi-trust.org/
-4.3      subjectscheme=inchikey
-4.3      IFD.representation.structure.inchikey=Not supported by InChI
-4.3      item=subject
-4.3      subjectscheme=NMR_expt
-4.3      NMR_expt=1D
-4.3      item=subject
-4.3      subjectscheme=NMR_Nucleus
-4.3      IFD.property.dataobject.fairspec.nmr.expt_nucl1=1H
-4.3      item=subject
-4.3      subjectscheme=SMILES
-4.3      IFD.representation.structure.smiles=[N][Zn]1(OC2=C(C(OCC)=O1)C=N([Zn])N2CC3=CC=C(OC)C=C3)([O])([O])[N]
-4.3      contributortype=HostingInstitution
-4.4        nametype=Organizational
-4.3      contributortype=DataManager
-4.4        nametype=Organizational
-4.3      contributortype=Researcher
-4.4        nametype=Personal
-4.4        nameidentifierscheme=ORCID
-4.4        schemeuri=https://orcid.org
-4.4        affiliationidentifier=https://ror.org/041kmwe10
-4.4        affiliationidentifierscheme=ROR
-4.4        schemeuri=https://ror.org/
-4.3      datetype=Issued
-4.2    item=relatedidentifiers
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasMetadata
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?ore=11659
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11659&file=1
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11659&file=2
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11659&file=3
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11659&file=4
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11659&file=5
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11659&file=6
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=URL
-4.3      relationtype=HasPart
-4.3      relatedidentifier=https://data.hpc.imperial.ac.uk/resolve/?doi=11659&file=7
-4.3      item=relatedidentifier
-4.3      relatedidentifiertype=DOI
-4.3      relationtype=IsPartOf
-4.3      relatedidentifier=10.14469/hpc/11656
-4.3      rightsidentifier=cc0-1.0
-4.3      rightsidentifierscheme=SPDX
-4.3      rightsuri=https://creativecommons.org/publicdomain/zero/1.0/legalcode
-4.3      schemeuri=https://spdx.org/licenses/
-4.3      item=description
-4.3      descriptiontype=Other
-4.3      IFD.property.description=Primary NMR data for Sample 49.
-4.0close=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11659
 4.0open=https://data.datacite.org/application/vnd.datacite.datacite+xml/10.14469/hpc/11662
 4.1  schemalocation=http://datacite.org/schema/kernel-4 http://schema.datacite.org/meta/kernel-4/metadata.xsd
 4.2    item=identifier
@@ -29529,6 +29537,7 @@ Anal. Calcd for C28H30ZnN4O8: C, 54.60; H, 4.91; N, 9.10. Found: C, 54.69; H, 4.
 3.4        schemeuri=https://orcid.org
 3.4        affiliationidentifier=https://ror.org/041kmwe10
 3.4        affiliationidentifierscheme=ROR
+3.4        schemeuri=https://ror.org/
 3.3      item=title
 3.3      IFD.property.label=IR Data for Compound 49.
 3.2    item=resourcetype
@@ -29537,13 +29546,8 @@ Anal. Calcd for C28H30ZnN4O8: C, 54.60; H, 4.91; N, 9.10. Found: C, 54.69; H, 4.
 3.2    resourcetype=Results
 3.2    item=subjects
 3.3      item=subject
-3.3      schemeuri=http://www.inchi-trust.org/
-3.3      subjectscheme=inchi
-3.3      IFD.representation.structure.inchi=Not supported by InChI
-3.3      item=subject
-3.3      schemeuri=http://www.inchi-trust.org/
-3.3      subjectscheme=inchikey
-3.3      IFD.representation.structure.inchikey=Not supported by InChI
+3.3      subjectscheme=IFD.IR
+3.3      IFD.property.dataobject.fairspec.ir.description=IR Spectrum
 3.3      item=subject
 3.3      subjectscheme=SMILES
 3.3      IFD.representation.structure.smiles=[N][Zn]1(OC2=C(C(OCC)=O1)C=[N]([Zn])N2CC3=CC=C(OC)C=C3)([O])([O])[N]
@@ -29557,6 +29561,7 @@ Anal. Calcd for C28H30ZnN4O8: C, 54.60; H, 4.91; N, 9.10. Found: C, 54.69; H, 4.
 3.4        schemeuri=https://orcid.org
 3.4        affiliationidentifier=https://ror.org/041kmwe10
 3.4        affiliationidentifierscheme=ROR
+3.4        schemeuri=https://ror.org/
 3.3      datetype=Issued
 3.2    item=relatedidentifiers
 3.3      item=relatedidentifier
