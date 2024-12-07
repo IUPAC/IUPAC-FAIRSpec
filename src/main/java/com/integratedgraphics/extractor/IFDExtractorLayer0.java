@@ -23,10 +23,10 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
 
-import com.integratedgraphics.extractor.ExtractorAids.ArchiveInputStream;
-import com.integratedgraphics.extractor.ExtractorAids.CacheRepresentation;
-import com.integratedgraphics.extractor.ExtractorAids.ExtractorResource;
-import com.integratedgraphics.extractor.ExtractorAids.ObjectParser;
+import com.integratedgraphics.extractor.ExtractorUtils.ArchiveInputStream;
+import com.integratedgraphics.extractor.ExtractorUtils.CacheRepresentation;
+import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
+import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
 
 /**
  * A general class for constants, shared fields, logging and file writing, 

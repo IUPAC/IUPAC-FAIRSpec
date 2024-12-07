@@ -22,8 +22,8 @@ import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 
-import com.integratedgraphics.extractor.ExtractorAids.CacheRepresentation;
-import com.integratedgraphics.extractor.ExtractorAids.ExtractorResource;
+import com.integratedgraphics.extractor.ExtractorUtils.CacheRepresentation;
+import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
 
 /**
  * Phase 3: Clean up the collections.

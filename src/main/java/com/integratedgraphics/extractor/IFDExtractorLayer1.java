@@ -17,9 +17,9 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.util.JSJSONParser;
 
-import com.integratedgraphics.extractor.ExtractorAids.CacheRepresentation;
-import com.integratedgraphics.extractor.ExtractorAids.ExtractorResource;
-import com.integratedgraphics.extractor.ExtractorAids.ObjectParser;
+import com.integratedgraphics.extractor.ExtractorUtils.CacheRepresentation;
+import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
+import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
 import com.integratedgraphics.ifd.api.VendorPluginI;
 
 /**

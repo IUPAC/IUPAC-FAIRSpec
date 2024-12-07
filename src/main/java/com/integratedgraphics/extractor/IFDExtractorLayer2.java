@@ -40,13 +40,13 @@ import org.iupac.fairdata.extract.PropertyManagerI;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.structure.IFDStructure;
 
-import com.integratedgraphics.extractor.ExtractorAids.AWrap;
-import com.integratedgraphics.extractor.ExtractorAids.ArchiveEntry;
-import com.integratedgraphics.extractor.ExtractorAids.ArchiveInputStream;
-import com.integratedgraphics.extractor.ExtractorAids.CacheRepresentation;
-import com.integratedgraphics.extractor.ExtractorAids.DirectoryInputStream;
-import com.integratedgraphics.extractor.ExtractorAids.ExtractorResource;
-import com.integratedgraphics.extractor.ExtractorAids.ObjectParser;
+import com.integratedgraphics.extractor.ExtractorUtils.AWrap;
+import com.integratedgraphics.extractor.ExtractorUtils.ArchiveEntry;
+import com.integratedgraphics.extractor.ExtractorUtils.ArchiveInputStream;
+import com.integratedgraphics.extractor.ExtractorUtils.CacheRepresentation;
+import com.integratedgraphics.extractor.ExtractorUtils.DirectoryInputStream;
+import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
+import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
 import com.integratedgraphics.ifd.api.VendorPluginI;
 
 abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
@@ -330,7 +330,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			if (extractorResource != currentSource) {
 				currentSource = extractorResource;
 				if (cleanCollectionDir) {
-				    File dir = new File(targetDir + "/" + extractorResource.rootPath);
+					File dir = new File(targetDir + "/" + extractorResource.rootPath);
 					log("!Phase 2a cleaning directory " + dir);
 					FileUtils.cleanDirectory(dir);
 				}
@@ -1191,6 +1191,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			n++;
 			nextEntry = null;
 			String name = zipEntry.getName();
+			if (name == null)
+				continue;
 			boolean isDir = zipEntry.isDirectory();
 			if (first) {
 				first = false;
