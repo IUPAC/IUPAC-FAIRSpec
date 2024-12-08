@@ -337,11 +337,14 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	@Override
 	public IFDStructure createStructure(String id) {
 		currentStructure = new IFDStructure();
+		if (id != null)
+			currentStructure.setID(id);
 		if (thisCompound != null)
 			thisCompound.addStructure(currentStructure);
 		getStructureCollection().add(currentStructure);
 		return currentStructure;
 	}
+
 	
 	@Override
 	public IFDStructureRepresentation createStructureRepresentation(IFDReference ref, Object data, long len,

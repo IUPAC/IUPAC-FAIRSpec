@@ -46,11 +46,6 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecE
 	public static final String NEW_PAGE_KEY = "*NEW_PAGE*";
 
 	/**
-	 * a key for the deferredObjectList that indicates we have a new resource
-	 * setting
-	 */
-	public static final String NEW_RESOURCE_KEY = "*NEW_RESOURCE*";
-	/**
 	 * "." here is the Eclipse project extract/ directory
 	 * 
 	 */
@@ -63,13 +58,19 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecE
 	protected static final int LOG_REJECTED = 0;
 	protected final static Pattern objectDefPattern = Pattern.compile("\\{([^:]+)::([^}]+)\\}");
 
-	protected final static int PHASE_2A = 1;
-	protected final static int PHASE_2B = 2;
-	protected final static int PHASE_2C = 3;
-	protected final static int PHASE_2D = 4;
-
 	protected final static Pattern pStarDotStar = Pattern.compile("\\*([^|/])\\*");
 	protected final static String SUBST = "=>";
+
+	protected String stopAfter;
+
+	protected void checkStopAfter(String what) {
+		boolean stopping = what.equals(stopAfter);
+		if (stopping) {
+			System.out.println("stopping after " + what);
+			System.exit(0);
+		}
+	}
+		
 
 	/**
 	 * the resource currrently being processed in Phase 2 or 3.
@@ -245,7 +246,9 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecE
 		deferredPropertyList
 				.add(new Object[] { originPath, localizedName, key, val, Boolean.valueOf(isInline), mediaType, note });
 		if (key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
+			// Phase 2a has identified a structure before a compound has been established in Phase 2b.
 			// Mestrelab vendor plug-in has found a MOL or SDF file in Phase 2b.
+			
 			// val is Object[] {byte[] bytes, String name}
 			// Pass data to structure property manager in order
 			// to add (by coming right back here) InChI, SMILES, and InChIKey.
@@ -255,6 +258,7 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecE
 			String type = (oval.length > 2 ? (String) oval[2] : null);
 			String standardInchi = (oval.length > 3 ? (String) oval[3] : null);
 			getStructurePropertyManager().processRepresentation(name, bytes, type, standardInchi, false);
+			deferredPropertyList.add(new Object[0]);
 		}
 	}
 

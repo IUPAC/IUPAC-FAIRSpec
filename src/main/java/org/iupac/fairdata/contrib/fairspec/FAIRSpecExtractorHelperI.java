@@ -29,6 +29,9 @@ public interface FAIRSpecExtractorHelperI extends FAIRSpecFindingAidHelperI {
 
 	void beginAddingObjects(String ifdPath);
 
+	IFDStructure addStructureForCompound(String rootPath, FAIRSpecCompoundAssociation assoc, String ifdRepType,
+			String oPath, String localName, String name) throws IFDException;
+
 	IFDStructure addStructureForSpec(String rootPath, IFDDataObject spec, String ifdRepType, String ifdPath,
 			String localName, String name) throws IFDException;
 
@@ -62,7 +65,6 @@ public interface FAIRSpecExtractorHelperI extends FAIRSpecFindingAidHelperI {
 	 * @return current value if not equal to value and value != NULL
 	 */
 	Object setPropertyValueNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath);
-
 
 
 }

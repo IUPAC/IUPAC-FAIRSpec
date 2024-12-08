@@ -235,7 +235,7 @@
 		loadAid(aid);
 	}
 
-	var callbackLoadFailed = function(x) {
+	var callbackLoadFailed = function(x,y,z) {
 		alert([x,y,z]);
 		return;
 	}

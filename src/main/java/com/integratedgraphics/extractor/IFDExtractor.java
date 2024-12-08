@@ -35,8 +35,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
  * ... metadata property information is from
  * org.iupac.common.fairspec.properties
  * 
- * ... allows for an XLSX or OpenSheets file that contains 
- * additional metadata
+ * ... allows for an XLSX or OpenSheets file that contains additional metadata
  * 
  * ... creates IFDFAIRSpecFindingAid objects ready for serialization
  * 
@@ -62,7 +61,20 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
  */
 public class IFDExtractor extends IFDExtractorLayer3 {
 
-	// 2024.12.02 version 0.0.6 fully refactored, revised; adds creation of landing page and -nolandingpage -nolaunch flags
+	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/IFDExtractor.java";
+
+	// TODO: test rootpath and file lists for case with two root paths -- does it
+	// make sense that that manifests are cleared?
+
+	// TODO: update GitHub README.md
+
+
+	protected static final String version = "0.0.6-alpha+2024.12.02";
+
+	private static final String debugFlags = "-stopAfter=end";
+
+	// 2024.12.02 version 0.0.6 fully refactored, revised; adds creation of landing
+	// page and -nolandingpage -nolaunch flags
 	// 2024.11.03 version 0.0.6 adding support for DOICrawler
 	// 2024.05.28 version 0.0.5 moved to com.integratedgraphics.extractor.Extractor
 	// 2023.01.09 version 0.0.4 adds MNova_Page_Header parameter
@@ -95,16 +107,6 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 	// 2022.11.17 version 0.0.3 allows associations "byID"
 	// 2022.11.14 version 0.0.3 "compound identifier" as organizing association
 	// 2022.06.09 MNovaMetadataReader CDX export fails due to buffer pointer error.
-	
-	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/IFDExtractor.java";
-
-
-	// TODO: test rootpath and file lists for case with two root paths -- does it
-	// make sense that that manifests are cleared?
-
-	// TODO: update GitHub README.md
-
-	protected static final String version = "0.0.6-alpha+2024.12.02";
 
 	protected static String getCommandLineHelp() {
 		return "\nformat: java -jar MetadataExtractor.jar [IFD-extract.json] [localSourceArchive] [targetDir] [flags]" //
@@ -134,13 +136,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 	}
 
 	public void runExtraction(String ifdExtractFile, String localSourceArchive, String targetDir) {
-		runExtraction(
-				new String[] {
-						ifdExtractFile, 
-						localSourceArchive, 
-						targetDir
-				}
-		);
+		runExtraction(new String[] { ifdExtractFile, localSourceArchive, targetDir });
 	}
 
 	public void runExtraction(String[] args) {
@@ -176,7 +172,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		logToSys("Extractor.runExtraction output to " + new File(targetDir).getAbsolutePath());
 		// ./extract/ should be in the main Eclipse project directory.
 		long t0 = System.currentTimeMillis();
-		processFlags(args, null);
+		processFlags(args, debugFlags);
 		new File(targetDir).mkdirs();
 		String flags = "\n" + dumpFlags() + "\n IFD version " + IFDConst.IFD_VERSION + "\n";
 		try {
@@ -192,12 +188,10 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		}
 		String warnings = "";
 		if (failed == 0 || !stopOnAnyFailure) {
-			logToSys(
-					"!Extractor.runExtraction time/sec=" + (System.currentTimeMillis() - t0) / 1000.0);
+			logToSys("!Extractor.runExtraction time/sec=" + (System.currentTimeMillis() - t0) / 1000.0);
 			ifdExtractJSONFilename = null;
 			if (this.warnings > 0) {
-				warnings += "======== " + ": " + this.warnings + " warnings for " + targetDir + "\n"
-						+ strWarnings;
+				warnings += "======== " + ": " + this.warnings + " warnings for " + targetDir + "\n" + strWarnings;
 				try {
 					FAIRSpecUtilities.writeBytesToFile((warnings).getBytes(),
 							new File(targetDir + "/_IFD_warnings.txt"));
@@ -209,6 +203,13 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		String json = (readOnly ? null : "{\"findingaids\":[\"" + targetDir + "/IFD.findingaid.json\"]}");
 		finalizeExtraction(json, 1, failed, -1, -1, flags);
 		FAIRSpecUtilities.setLogging(null);
+	}
+
+	@Override
+	public String processFlags(String[] args, String moreFlags) {
+		String flags = super.processFlags(args, moreFlags);
+		stopAfter = getFlagEquals(flags, "-stopafter");
+		return flags;
 	}
 
 	public IFDExtractor() {
@@ -233,20 +234,24 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 	/**
 	 * @return the FindingAid as a string
 	 */
-	public final String extractAndCreateFindingAid(File ifdExtractScriptFile, String localArchive, File targetPath) throws IOException, IFDException {
+	public final String extractAndCreateFindingAid(File ifdExtractScriptFile, String localArchive, File targetPath)
+			throws IOException, IFDException {
 
 		this.targetPath = targetPath;
-		
+
 		// set up the extraction
 
 		processPhase1(ifdExtractScriptFile, localArchive);
 		FAIRSpecUtilities.refreshLog();
 
+		checkStopAfter("1");
+
 		// now actually do the extraction.
 
 		processPhase2(targetPath);
 		FAIRSpecUtilities.refreshLog();
-
+		checkStopAfter("2");
+	
 		// finish up all processing
 		return processPhase3();
 	}
@@ -270,12 +275,12 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 			}
 		}
 		if (nWarnings == -1)
-			nWarnings = this.warnings;
+			nWarnings = warnings;
 		if (nErrors == -1)
-			nErrors = this.errors;
+			nErrors = errors;
 		if (nWarnings > 0) {
 			try {
-				FAIRSpecUtilities.writeBytesToFile((warnings + nWarnings + " warnings\n").getBytes(),
+				FAIRSpecUtilities.writeBytesToFile((warnings + nWarnings + " warnings\n" + strWarnings).getBytes(),
 						new File(targetDir + "/_IFD_warnings.txt"));
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -288,8 +293,8 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		System.err.flush();
 		System.out.flush();
 		logToSys("!Extractor.runExtraction flags " + flags);
-		logToSys("!Extractor " + (failed == 0 ? "done" : "failed") + " total=" + n + " failed=" + failed
-				+ " errors=" + nErrors + " warnings=" + nWarnings);
+		logToSys("!Extractor " + (failed == 0 ? "done" : "failed") + " total=" + n + " failed=" + failed + " errors="
+				+ nErrors + " warnings=" + nWarnings);
 	}
 
 	@Override
@@ -316,7 +321,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 
 		log("!Extractor extracted " + lstManifest.size() + " files (" + lstManifest.getByteCount() + " bytes)"
 				+ "; ignored " + lstIgnored.size() + " files (" + lstIgnored.getByteCount() + " bytes)" + "; rejected "
-				+ lstRejected.size() + " files (" + lstRejected.getByteCount() + " bytes)");		
+				+ lstRejected.size() + " files (" + lstRejected.getByteCount() + " bytes)");
 	}
 
 	/**

@@ -264,6 +264,14 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		return flags;
 	}
 
+	protected static String getFlagEquals(String flags, String flag) {
+		int pt = flags.indexOf(flag + "=");
+		if (pt < 0)
+			return null;
+		String val = flags.substring(pt + flag.length() + 1);
+		return val.substring(0, val.indexOf(";"));
+	}
+
 
 	/**
 	 * Set options from command-line, IFD-extract.json, and extractor.config.json.
@@ -321,12 +329,17 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	}
 
 	/**
-	 * Indicate that a local path Not 100% clear why these are happening.
+	 * Indicate that a local path is being include in the 
+	 * collection but doesn't appear in the finding aid.
+	 * 
+	 * From Phase 2c and Phase 3
+	 * 
+	 * Not 100% clear why these are happening.
 	 * 
 	 * @param localPath
 	 * @param method
 	 */
-	protected void logDigitalItem(String originPath, String localPath, String method) {
+	protected void logDigitalItemIgnored(String originPath, String localPath, String method) {
 		logWarn("digital item ignored, as it does not fit any template pattern: " + originPath, method);
 	}
 

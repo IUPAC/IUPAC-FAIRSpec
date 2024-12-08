@@ -548,19 +548,41 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 		return n;
 	}
 
+
+	@Override
+	public IFDStructure addStructureForCompound(String rootPath, FAIRSpecCompoundAssociation assoc, String ifdRepType,
+			String oPath, String localName, String name) throws IFDException {
+		IFDStructure struc = getStructureCollection().getStructureFromLocalName(currentResource.getID(), localName);
+		if (struc == null) {
+			struc = newStructure(rootPath, ifdRepType, oPath, localName, name);
+			if (name == null)
+				name = "Structure_" + ++lastStructureName;
+			
+		}
+		if (assoc != null) {
+			assoc.addStructure(struc);
+		}
+		return struc;
+	}
+
+	private IFDStructure newStructure(String rootPath, String ifdRepType, String originPath, String localName, String name) throws IFDException {
+		if (name == null)
+			name = "Structure_" + ++lastStructureName;
+		IFDStructure struc = (IFDStructure) checkAddNewObject(getStructureCollection(), FAIRSpecFindingAidHelper.ClassTypes.Structure, rootPath,
+				IFD_PROPERTY_STRUCTURE_ID, name, localName, null, 0, true);
+		struc.findOrAddRepresentation(currentResource.getID(), originPath, rootPath, localName, null, ifdRepType,
+				FAIRSpecUtilities.mediaTypeFromFileName(localName));
+		getStructureCollection().add(struc);
+		return struc;
+	}
+
 	@Override
 	public IFDStructure addStructureForSpec(String rootPath, IFDDataObject spec, String ifdRepType, String originPath,
 			String localName, String name) throws IFDException {
 		// from MetadataExtractorLayer2
 		IFDStructure struc = getStructureCollection().getStructureFromLocalName(currentResource.getID(), localName);
 		if (struc == null) {
-			if (name == null)
-				name = "Structure_" + ++lastStructureName;
-			struc = (IFDStructure) checkAddNewObject(getStructureCollection(), FAIRSpecFindingAidHelper.ClassTypes.Structure, rootPath,
-					IFD_PROPERTY_STRUCTURE_ID, name, localName, null, 0, true);
-			struc.findOrAddRepresentation(currentResource.getID(), originPath, rootPath, localName, null, ifdRepType,
-					FAIRSpecUtilities.mediaTypeFromFileName(localName));
-			getStructureCollection().add(struc);
+			struc = newStructure(rootPath, ifdRepType, originPath, localName, name);
 		}
 		if (spec != null) {
 			if (getSpecCollection().indexOf(spec) < 0)

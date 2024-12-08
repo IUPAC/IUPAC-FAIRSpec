@@ -48,14 +48,18 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 
 	protected String processPhase3() throws IFDException, IOException {
 
-		phase3UpdateCachedRepresentations();
-
+		phase3aUpdateCachedRepresentations();
+		checkStopAfter("3a");
+		
 		// clean up the collection
 
-		phase3RemoveUnmanifestedRepresentations();
-		phase3CheckForDuplicateSpecData();
+		phase3bRemoveUnmanifestedRepresentations();
+		checkStopAfter("3b");
 
+		phase3cCheckForDuplicateSpecData();
 		helper.removeInvalidData();
+		checkStopAfter("3c");
+		
 
 		// write the files and create the finding aid serialization
 
@@ -95,7 +99,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	 * 
 	 * 
 	 */
-	private void phase3CheckForDuplicateSpecData() {
+	private void phase3cCheckForDuplicateSpecData() {
 		BitSet bs = new BitSet();
 		FAIRSpecCompoundCollection ssc = faHelper.getCompoundCollection();
 		boolean isFound = false;
@@ -140,7 +144,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	 * going to be zipped up in the end, because they do not match the rezip
 	 * trigger.
 	 */
-	private void phase3RemoveUnmanifestedRepresentations() {
+	private void phase3bRemoveUnmanifestedRepresentations() {
 		boolean isRemoved = false;
 		for (IFDRepresentableObject<IFDDataObjectRepresentation> spec : faHelper.getSpecCollection()) {
 			List<IFDRepresentation> lstRepRemoved = new ArrayList<>();
@@ -196,14 +200,14 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	/**
 	 * Set the type and len fields for structure and spec data
 	 */
-	private void phase3UpdateCachedRepresentations() {
+	private void phase3aUpdateCachedRepresentations() {
 
 		for (String ckey : vendorCache.keySet()) {
 			CacheRepresentation r = vendorCache.get(ckey);
 			IFDRepresentableObject<?> obj = htLocalizedNameToObject.get(ckey);
 			if (obj == null) {
 				String path = r.getRef().getOriginPath().toString();
-				logDigitalItem(path, ckey, "addCachedRepresentationsToObjects");
+				logDigitalItemIgnored(path, ckey, "addCachedRepresentationsToObjects");
 				try {
 					addFileToFileLists(path, LOG_IGNORED, r.getLength(), null);
 				} catch (IOException e) {

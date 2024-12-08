@@ -35,8 +35,6 @@ import com.junrar.Archive;
 import com.junrar.exception.RarException;
 import com.junrar.rarfile.FileHeader;
 
-import javajs.util.ZipTools;
-
 /**
  * A set of static classes for use by MetadataExtractor, primarily
  * @author hansonr@stolaf.edu
@@ -119,6 +117,7 @@ public class ExtractorUtils {
 		private IFDExtractor extractor;
 		private boolean hasData;
 		private List<Object> replacements;
+		private ArrayList<String> keyList;
 	
 		/**
 		 * @param sObj
@@ -404,6 +403,17 @@ public class ExtractorUtils {
 
 		public void setHasData(boolean b) {
 			hasData = b;
+		}
+
+		public List<String> getKeyList() {
+			if (keyList == null) {
+				keyList = new ArrayList<String>();
+				for (String key : getKeys().keySet()) {
+					keyList.add(key);
+				}
+
+			}
+			return keyList;
 		}
 	
 	}
