@@ -12,7 +12,7 @@ import com.integratedgraphics.extractor.IFDExtractor;
  * @author hansonr
  *
  */
-public class ExtractorTestICL2 {
+public class ExtractorTestICL2insitu {
 
 	public static void main(String[] args) {
 		String dir = "c:/temp/iupac/henry/";
@@ -20,7 +20,7 @@ public class ExtractorTestICL2 {
 		String localSourceArchive = dir + "Procter/";
 		String targetDir = dir + "icl-procter";
 
-		String flags = null;
+		String flags = "-insitu";
 
 		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir, flags);
 	}

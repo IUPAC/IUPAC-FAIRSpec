@@ -712,7 +712,7 @@
 			if (r.data.indexOf(";base64") == 0) {
 				if (type == "png") {
 					var imgTag = "<img id=img" + (++divId)  + " onload=IFD.checkImage(" + divId + ")" +  " src=\"" + "data:" + r.mediaType + r.data + "\"</img>";
-					s += addPathForRep(aidID, r.ref, -1, imgTag, null);					
+					s += addPathForRep(aidID, r.ref, -1, imgTag, null);	
 				} else {
 					s += anchorBase64(r.ref.localPath, r.data, r.mediaType);
 				}
@@ -742,7 +742,10 @@
 
 	var anchorBase64 = function(label, sdata, mediaType) {
 		mediaType || (mediaType = "application/octet-stream");
-		return "<a href=\"data:" + mediaType + sdata + "\")>" + label + "</a>";
+		var s = "<a href=\"data:" + mediaType + sdata + "\")>" + label + "</a>";
+		if (mediaType.indexOf("/pdf") < 0) 
+			return s;
+		return "<object data=\"data:application/pdf" + sdata + "\" type=\"application/pdf\" width=\"800\" height=\"600\">" + s +"</object>";
 	}
 
 	var getSpectrumPrediction = function(props, smiles) {
