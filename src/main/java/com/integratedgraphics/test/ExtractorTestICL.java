@@ -20,10 +20,9 @@ public class ExtractorTestICL {
 		String localSourceArchive = dir + "Archive.tar.gz";
 		String targetDir = dir + "icl-ifd2024c";
 
-		// debugging = true;
-		// readOnly = true;
+		String flags = null;
 
-		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir);
+		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir, flags);
 	}
 
 }

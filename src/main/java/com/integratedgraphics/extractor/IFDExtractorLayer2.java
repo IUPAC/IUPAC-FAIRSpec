@@ -560,38 +560,23 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			if (doExtract) {
 				String ext = (isFound ? m.group("ext") : originPath.substring(originPath.lastIndexOf(".") + 1));
 				File f = getAbsoluteFileTarget(originPath);
-				OutputStream os = (doCheck || noOutput ? new ByteArrayOutputStream() : new FileOutputStream(f));
+				boolean toByteArray = (doCheck || noOutput || insitu);
+				OutputStream os = (toByteArray ? new ByteArrayOutputStream() : new FileOutputStream(f));
 				if (os != null)
 					FAIRSpecUtilities.getLimitedStreamBytes(ais, len, os, false, true);
 				String localizedName = localizePath(originPath);
 				String type = null;
-				if (!doCheck && !noOutput) {
-					len = f.length();
-					writeOriginToCollection(originPath, null, len);
-				} else {
-					// doCheck or noOutput
-					byte[] bytes = ((ByteArrayOutputStream) os).toByteArray();
+				byte[] bytes = null;
+				if (toByteArray) {
+					// doCheck or noOutput or insitu
+					bytes = ((ByteArrayOutputStream) os).toByteArray();
 					len = bytes.length;
 					if (doCheck) {
-// abandoned - useful for pure sample associations? 
-//						mp = parser.p.matcher(originPath);
-//						if (mp.find()) {
-//							addProperty(null, null);
-//							for (String key : parser.keys.keySet()) {
-//								String param = parser.keys.get(key);
-//								if (param.equals(FAIRSpecExtractorHelper.IFD_PROPERTY_SAMPLE_LABEL)) {
-//									String label = mp.group(key);
-//									this.originPath = originPath;
-//									this.localizedName = localizedName;
-//									addProperty(param, label);
-//								}
-//							}
-//						}
-
 						// set this.localizedName for parameters
 						// preserve this.localizedName, as we might be in a rezip.
 						// as, for example, a JDX file within a Bruker dataset
-						writeOriginToCollection(originPath, bytes, 0);
+						if (!insitu)
+							writeOriginToCollection(originPath, bytes, 0);
 						String oldOriginPath = this.originPath;
 						String oldLocal = this.localizedName;
 						this.originPath = originPath;
@@ -603,7 +588,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 							List<String[]> props = FAIRSpecUtilities.getIFDPropertyMap(new String(bytes));
 							for (int i = 0, n = props.size(); i < n; i++) {
 								String[] p = props.get(i);
-								addDeferredPropertyOrRepresentation(p[0].substring(3), p[1], false, null, null);
+								addDeferredPropertyOrRepresentation(p[0].substring(3), p[1], false, null, null, null);
 							}
 						} else {
 							deferredPropertyList.add(null);
@@ -617,8 +602,11 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 							}
 						}
 					}
+				} else {
+					len = f.length();
+					writeOriginToCollection(originPath, null, len);
 				}
-				addFileAndCacheRepresentation(originPath, localizedName, len, type, ext, null);
+				addFileAndCacheRepresentation(originPath, localizedName, insitu ? bytes : null, len, type, ext, null);
 			}
 		}
 
@@ -772,7 +760,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @param zipFileMap
 	 * @return true if have spectra objects
 	 * @throws IOException
-	 * @throws IFDException
+	 * @throws IFDException 
 	 */
 	private void phase2bParseZipFileNamesForObjects(ObjectParser parser, Map<String, ArchiveEntry> zipFileMap)
 			throws IOException, IFDException {
@@ -933,7 +921,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			if (isMultiple) {
 				addDeferredPropertyOrRepresentation(NEW_PAGE_KEY, new Object[] {
 						(obj.getID().endsWith("/" + thisDir) ? null : "_" + thisDir), obj, localizedName }, false, null,
-						null);
+						null, "P2 rezip");
 			}
 		} else {
 			newDir += "/";
@@ -958,8 +946,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		this.localizedName = localizedName;
 		File outFile = getAbsoluteFileTarget(oPath);
 		log("!Extractor Phase 2c rezipping " + baseName + entry + " as " + outFile);
-		OutputStream fos = (noOutput ? new ByteArrayOutputStream() : new FileOutputStream(outFile));
-		ZipOutputStream zos = new ZipOutputStream(fos);
+		OutputStream fos = (insitu || noOutput ? new ByteArrayOutputStream() : new FileOutputStream(outFile));
+		ZipOutputStream zos = (insitu ? null : new ZipOutputStream(fos));
 		vendor.startRezip(this);
 		long len = 0;
 		while ((entry = (firstEntry == null ? ais.getNextEntry() : firstEntry)) != null) {
@@ -1008,14 +996,15 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			len = entry.getSize();
 			if (len == 0 || !doInclude && !doCheck)
 				continue;
-			OutputStream os = (doCheck || isInlineBytes ? new ByteArrayOutputStream() : zos);
+			boolean getBytes = (doCheck || isInlineBytes || insitu);
+			OutputStream os = (getBytes ? new ByteArrayOutputStream() : zos);
 			String outName = newDir + entryName.substring(lenOffset);
-			if (doInclude)
+			if (doInclude && !insitu)
 				zos.putNextEntry(new ZipEntry(outName));
 			FAIRSpecUtilities.getLimitedStreamBytes(ais.getStream(), len, os, false, false);
-			byte[] bytes = (doCheck || isInlineBytes ? ((ByteArrayOutputStream) os).toByteArray() : null);
+			byte[] bytes = (getBytes ? ((ByteArrayOutputStream) os).toByteArray() : null);
 			if (doCheck) {
-				if (doInclude)
+				if (doInclude && !insitu)
 					zos.write(bytes);
 				// have this already; multiple will duplicate the numbered directory
 				// this.originPath = oPath + outName;
@@ -1026,7 +1015,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					(mgr == null ? vendor : mgr).accept(null, this.originPath, bytes, false);
 				}
 			}
-			if (doInclude)
+			if (doInclude && !insitu)
 				zos.closeEntry();
 			if (typeData != null) {
 				String key = (String) typeData[0];
@@ -1034,15 +1023,17 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				typeData[1] = bytes;
 				// extract this file into the collection
 				addDeferredPropertyOrRepresentation(key, (isBytesOnly || isInlineBytes ? typeData : localName),
-						isInlineBytes, null, null);
+						isInlineBytes || insitu, null, null, "P2c rezipTD");
 			}
 		}
 		vendor.endRezip();
-		zos.close();
+		if (zos != null)
+			zos.close();
 		fos.close();
 		String dataType = vendor.processRepresentation(oPath + ".zip", null);
-		len = (noOutput ? ((ByteArrayOutputStream) fos).size() : outFile.length());
-		writeOriginToCollection(oPath, null, len);
+		len = (noOutput || insitu ? ((ByteArrayOutputStream) fos).size() : outFile.length());
+		if (!insitu)
+			writeOriginToCollection(oPath, null, len);
 		IFDRepresentation r = faHelper.getSpecDataRepresentation(localizedName);
 		if (r == null) {
 			// probably the case, as this renamed representation has not been added yet.
@@ -1051,7 +1042,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		}
 		if (oPath.endsWith(".zip"))
 			oPath = oPath.substring(0, oPath.length() - 4); // remove ".zip"
-		addFileAndCacheRepresentation(oPath, localizedName, len, dataType, null, "application/zip");
+		addFileAndCacheRepresentation(oPath, localizedName, null, len, dataType, null, "application/zip");
 		if (obj != null && !localizedName.equals(lNameForObj)) {
 			htLocalizedNameToObject.put(localizedName, obj);
 		}
@@ -1084,7 +1075,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 */
 	private void phase2dProcessDeferredObjectProperties(String phase2OriginPath) throws IFDException, IOException {
 		IFDSample sample = null;
-		IFDStructure struc = null, astruc = null;
+		IFDStructure struc = null;
 		IFDDataObject dataObject = null;
 		IFDDataObject localSpec = null;
 		IFDRepresentableObject<?> spec = null;
@@ -1097,11 +1088,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				sample = null;
 				dataObject = null; // use localSpec
 				continue;
-			}
-			if (a.length == 0) {
-				// end of structure addition
-				astruc = null;
-				continue;				
 			}
 			assoc = null;
 			String originPath = (String) a[0];
@@ -1168,10 +1154,11 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					byte[] bytes = (byte[]) oval[0];
 					String oPath = (String) oval[1];
 					String localName = localizePath(oPath);
-					writeOriginToCollection(oPath, bytes, 0);
+					if (!insitu)
+						writeOriginToCollection(oPath, bytes, 0);
 					addFileToFileLists(localName, LOG_OUTPUT, bytes.length, null);
 					value = localName;
-					if ("image/png".equals(mediaType)) {
+					if (insitu || "image/png".equals(mediaType)) {
 						data = bytes;
 					}
 				}
@@ -1291,7 +1278,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				struc = htStructureRepCache.get(w);
 				// System.out.println("EXT " + name + " " + w.hashCode() + " " + oPath);
 				if (struc == null) {
-					writeOriginToCollection(oPath, bytes, 0);
+					if (!insitu)
+						writeOriginToCollection(oPath, bytes, 0);
 					String localName = localizePath(oPath);
 					struc = faHelper.getFirstStructureForSpec((IFDDataObject) spec, false);
 					if (struc == null) {
@@ -1305,7 +1293,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 						faHelper.associateSampleStructure(sample, struc);
 					}
 					// MNova 1 page, 1 spec, 1 structure Test #5
-					addFileAndCacheRepresentation(oPath, null, bytes.length, ifdRepType, null, null);
+					addFileAndCacheRepresentation(oPath, null, insitu ? bytes : null, bytes.length, ifdRepType, null, null);
 					linkLocalizedNameToObject(localName, ifdRepType, struc);
 					log("!Structure " + struc + " created and associated with " + spec);
 				} else {
@@ -1440,7 +1428,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @throws IOException not really; just because addFileToFileLists could do that
 	 *                     in other cases
 	 */
-	private IFDRepresentation addFileAndCacheRepresentation(String originPath, String localizedName, long len,
+	private IFDRepresentation addFileAndCacheRepresentation(String originPath, String localizedName, Object data, long len,
 			String ifdType, String fileNameForMediaType, String mediaType) throws IOException {
 		if (localizedName == null)
 			localizedName = localizePath(originPath);
@@ -1453,7 +1441,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		}
 		addFileToFileLists(localizedName, LOG_OUTPUT, len, null);
 		CacheRepresentation rep = new CacheRepresentation(new IFDReference(helper.getCurrentSource().getID(),
-				originPath, extractorResource.rootPath, localizedName), null, len, ifdType, mediaType);
+				originPath, extractorResource.rootPath, localizedName), data, len, ifdType, mediaType);
 		vendorCache.put(localizedName, rep);
 		return rep;
 	}
@@ -1549,8 +1537,9 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			if (debugging)
 				log("opening " + localizedTopLevelZipURL);
 			String rootPath = resource.createZipRootPath(zipPath);
-			File rootDir = new File(targetDir + "/" + rootPath);
-			rootDir.mkdir();
+			if (!insitu) {
+				new File(targetDir + "/" + rootPath).mkdir();
+			}
 			resource.setLists(rootPath, ignoreRegex, acceptRegex);
 
 		}
@@ -1558,7 +1547,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		lstIgnored = resource.lstIgnored;
 		if (helper.getCurrentSource() != helper.addOrSetSource(resource.getRemoteSource(), resource.rootPath)) {
 			if (isInit)
-				addDeferredPropertyOrRepresentation(NEW_RESOURCE_KEY, resource, false, null, null);
+				addDeferredPropertyOrRepresentation(NEW_RESOURCE_KEY, resource, false, null, null, null);
 		}
 		extractorResource = resource;
 
@@ -1665,10 +1654,14 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @param len
 	 * @throws IOException
 	 */
-	private void writeOriginToCollection(String originPath, byte[] bytes, long len) throws IOException {
+	private byte[] writeOriginToCollection(String originPath, byte[] bytes, long len) throws IOException {
 		lstWritten.add(localizePath(originPath), (bytes == null ? len : bytes.length));
+		if (insitu) {
+			return bytes; 
+		}
 		if (!noOutput && bytes != null)
 			writeBytesToFile(bytes, getAbsoluteFileTarget(originPath));
+		return null;
 	}
 
 }

@@ -88,10 +88,12 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 		private List<Long> lengths = new ArrayList<>();
 		private Pattern acceptPattern;
 		private long byteCount;
+		private String start;
 	
-		public FileList(String rootPath, String name) {
+		public FileList(String rootPath, String name, String start) {
 			this.name = name;
 			this.rootPath = rootPath;
+			this.start = start;
 		}
 	
 		public static String toJSON(StringBuffer sb, String[] list, String rootPath, boolean withBrackets) {
@@ -156,7 +158,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 		}
 	
 		public boolean accept(String fileName) {
-			return (acceptPattern != null && acceptPattern.matcher(fileName).find());
+			return (start != null && fileName.startsWith(start) || acceptPattern != null && acceptPattern.matcher(fileName).find());
 		}
 	
 		public void setAcceptPattern(String pattern) {

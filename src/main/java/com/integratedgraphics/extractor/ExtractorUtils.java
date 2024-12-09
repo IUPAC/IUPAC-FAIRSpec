@@ -892,9 +892,9 @@ public class ExtractorUtils {
 		public void setLists(String rootPath, String ignore, String accept) {
 			if (lstManifest != null)
 				return;
-			lstManifest = new FileList(rootPath, "manifest");
-			lstIgnored = new FileList(rootPath, "ignored");
-			lstAccepted = new FileList(rootPath, "accepted");
+			lstManifest = new FileList(rootPath, "manifest", null);
+			lstIgnored = new FileList(rootPath, "ignored", null);
+			lstAccepted = new FileList(rootPath, "accepted", null);
 			if (ignore != null)
 				lstIgnored.setAcceptPattern(ignore);
 			if (accept != null)

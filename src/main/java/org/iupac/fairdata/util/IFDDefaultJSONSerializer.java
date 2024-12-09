@@ -172,7 +172,7 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 		} else if (val instanceof String) {
 			val = FAIRSpecUtilities.esc((String) val);
 		} else if (val instanceof byte[]) {
-			val = FAIRSpecUtilities.esc(";base64," + Base64.getBase64((byte[]) val));
+			val = FAIRSpecUtilities.esc(";base64," + ZipUtil.getBase64((byte[]) val));
 		}
 		if (addKey) {
 			thisObj.appendNoEsc("value", val.toString());
@@ -197,7 +197,7 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 
 		  //                              0         1         2         3         4         5         6
 		  //                              0123456789012345678901234567890123456789012345678901234567890123
-		  private static String base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+		  static String base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 		  //                              41----------------------5A
 		  //                                                        61----------------------7A
 		  //                                                                                  30------39    
@@ -205,7 +205,7 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 		  //                                                                                             2F
 		  //                                                 alternative "URL-SAFE"     2D and 5F       -_
 		  
-		  private static int[] decode64 = new int[] {
+		  static int[] decode64 = new int[] {
 		    0,0,0,0,     0,0,0,0,     0,0,0,0,     0,0,0,0,      //0x00-0x0F
 		    0,0,0,0,     0,0,0,0,     0,0,0,0,     0,0,0,0,      //0x10-0x1F
 		    0,0,0,0,     0,0,0,0,     0,0,0,62,    0,62,0,63,    //0x20-0x2F
@@ -227,73 +227,7 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 		//  }
 
 		  public static byte[] getBytes64(byte[] bytes) {
-		    return getBase64(bytes).getBytes();
-		  }
-
-		  /**
-		   * 
-		   * @param bytes
-		   * @return BASE64-encoded string, without ";base64,"
-		   */
-		  public static String getBase64(byte[] bytes) {
-		    long nBytes = bytes.length;
-		    StringBuffer sout = new StringBuffer();
-		    if (nBytes == 0)
-		      return sout.toString();
-		    for (int i = 0, nPad = 0; i < nBytes && nPad == 0;) {
-		      if (i % 75 == 0 && i != 0)
-		        sout.append("\r\n");
-		      nPad = (i + 2 == nBytes ? 1 : i + 1 == nBytes ? 2 : 0);
-		      int outbytes = ((bytes[i++] << 16) & 0xFF0000)
-		          | ((nPad == 2 ? 0 : bytes[i++] << 8) & 0x00FF00)
-		          | ((nPad >= 1 ? 0 : (int) bytes[i++]) & 0x0000FF);
-		      //System.out.println(Integer.toHexString(outbytes));
-		      sout.append(base64.charAt((outbytes >> 18) & 0x3F));
-		      sout.append(base64.charAt((outbytes >> 12) & 0x3F));
-		      sout.append(nPad == 2 ? '=' : base64.charAt((outbytes >> 6) & 0x3F));
-		      sout.append(nPad >= 1 ? '=' : base64.charAt(outbytes & 0x3F));
-		    }
-		    return sout.toString();
-		  }
-
-		  //Note: Just a simple decoder here. Nothing fancy at all
-		  //      Because of the 0s in decode64, this is not a VERIFIER
-		  //      Rather, it may decode even bad Base64-encoded data
-		  //
-		  // Bob Hanson 4/2007
-		  
-		  public static byte[] decodeBase64(String strBase64) {
-		    int nBytes = 0;
-		    int ch;
-		    int pt0 = strBase64.indexOf(";base64,") + 1;
-		    if (pt0 > 0)
-		      pt0 += 7;
-		    char[] chars64 = strBase64.toCharArray();
-		    int len64 = chars64.length;
-		    if (len64 == 0)
-		      return new byte[0];
-		    for (int i = len64; --i >= pt0;)
-		      nBytes += ((ch = chars64[i] & 0x7F) == 'A' || decode64[ch] > 0 ? 3 : 0);
-		    nBytes = nBytes >> 2;
-		    byte[] bytes = new byte[nBytes];
-		    int offset = 18;
-		    for (int i = pt0, pt = 0, b = 0; i < len64; i++) {
-		      if (decode64[ch = chars64[i] & 0x7F] > 0 || ch == 'A' || ch == '=') {
-		        b |= decode64[ch] << offset;
-		        //System.out.println(chars64[i] + " " + decode64[ch] + " " + offset + " " + Integer.toHexString(b));
-		        offset -= 6;
-		        if (offset < 0) {
-		          bytes[pt++] = (byte) ((b & 0xFF0000) >> 16);
-		          if (pt < nBytes)
-		            bytes[pt++] = (byte) ((b & 0xFF00) >> 8);
-		          if (pt < nBytes)
-		            bytes[pt++] = (byte) (b & 0xFF);
-		          offset = 18;
-		          b =  0;
-		        }
-		      }
-		    }
-		    return bytes;
+		    return ZipUtil.getBase64(bytes).getBytes();
 		  }  
 	}
 

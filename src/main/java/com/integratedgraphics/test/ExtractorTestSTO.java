@@ -20,10 +20,9 @@ public class ExtractorTestSTO {
 		String localSourceArchive = null;// dir + "archive.tar.gz";
 		String targetDir = "c:/temp/iupac/stolaf-ifd";
 
-		// debugging = true;
-		// readOnly = true;
-
-		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir);
+		String flags = null;
+		
+		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir, flags);
 	}
 
 }

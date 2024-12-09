@@ -14,6 +14,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundAssociation;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper.FileList;
 import org.iupac.fairdata.core.IFDAssociation;
+import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
@@ -46,6 +47,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 
 	private String resourceList;
 
+	@SuppressWarnings("unchecked")
 	protected String processPhase3() throws IFDException, IOException {
 
 		phase3aUpdateCachedRepresentations();
@@ -53,7 +55,12 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		
 		// clean up the collection
 
-		phase3bRemoveUnmanifestedRepresentations();
+		if (insitu) {
+			phase3bSetInSitu((IFDCollection<IFDRepresentableObject<?>>)(Object) helper.getStructureCollection());
+			phase3bSetInSitu((IFDCollection<IFDRepresentableObject<?>>)(Object) helper.getSpecCollection());
+		} else {
+			phase3bRemoveUnmanifestedRepresentations();
+		}
 		checkStopAfter("3b");
 
 		phase3cCheckForDuplicateSpecData();
@@ -70,6 +77,14 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		
 		String serializedFA = phase3SerializeFindingAid();
 		return serializedFA;
+	}
+
+	private void phase3bSetInSitu(IFDCollection<IFDRepresentableObject<?>> c) {
+		for(IFDRepresentableObject<?> o : c) {
+			for (IFDRepresentation r : o) {
+				r.setInSitu();
+			}
+		}
 	}
 
 	/**
@@ -223,7 +238,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 			int pt = ckey.indexOf('\0');
 			String localName = (pt > 0 ? ckey.substring(0, pt) : ckey);
 			IFDRepresentation r1 = obj.findOrAddRepresentation(r.getRef().getResourceID(), originPath,
-					r.getRef().getlocalDir(), localName, null, type, null);
+					r.getRef().getlocalDir(), localName, r.getData(), type, null);
 			if (type != null && r1.getType() == null)
 				r1.setType(type);
 			if (mediatype != null && r1.getMediaType() == null)

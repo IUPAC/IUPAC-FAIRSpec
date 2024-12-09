@@ -17,6 +17,7 @@ import org.iupac.fairdata.derived.IFDSampleDataAssociation;
 import org.iupac.fairdata.derived.IFDSampleStructureAssociation;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.structure.IFDStructure;
+import org.iupac.fairdata.structure.IFDStructureCollection;
 import org.iupac.fairdata.structure.IFDStructureRepresentation;
 
 public interface FAIRSpecFindingAidHelperI {
@@ -48,6 +49,8 @@ public interface FAIRSpecFindingAidHelperI {
 	public FAIRSpecCompoundCollection getCompoundCollection();
 
 	public IFDDataObjectCollection getSpecCollection();
+
+	public IFDStructureCollection getStructureCollection();
 
 	public IFDRepresentation getSpecDataRepresentation(String ifdPath);
 

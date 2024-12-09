@@ -280,6 +280,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		return sampleCollection;
 	}
 
+	@Override
 	public IFDStructureCollection getStructureCollection() {
 		if (structureCollection == null) {
 			objects[STRUCTURE_COLLECTION] = structureCollection = new IFDStructureCollection();
@@ -557,9 +558,9 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	public IFDRepresentation findOrAddRepresentation(IFDRepresentableObject<? extends IFDRepresentation> collection, 
 			String resourceID,
 			String currentOriginPath, String rootPath, 
-			String localName, Object object, String param) {
+			String localName, Object data, String param) {
 		return collection.findOrAddRepresentation(resourceID, currentOriginPath, 
-				rootPath, localName, object, param, FAIRSpecUtilities.mediaTypeFromFileName(localName));
+				rootPath, localName, data, param, FAIRSpecUtilities.mediaTypeFromFileName(localName));
 	}
 
 	/**

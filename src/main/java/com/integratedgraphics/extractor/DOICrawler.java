@@ -534,7 +534,7 @@ public class DOICrawler extends FindingAidCreator {
 	 */
 	@Override
 	public void addDeferredPropertyOrRepresentation(String key, Object val, 
-			boolean isInLine, String mediaType, String note) {
+			boolean isInLine, String mediaType, String note, String src) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -698,7 +698,7 @@ public class DOICrawler extends FindingAidCreator {
 			processRecords(null, doiList);
 			String aid = faHelper.generateFindingAid(targetPath);
 			if (aid != null && createLandingPage) {
-				buildSite();
+				buildSite(targetPath);
 			}
 
 		} catch (Exception e) {

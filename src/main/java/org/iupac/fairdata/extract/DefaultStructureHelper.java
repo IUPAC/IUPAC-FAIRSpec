@@ -166,7 +166,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 									standardInchi == null ? "?" : standardInchi, 
 									IFDConst.getMediaTypesForExtension(ext) 
 									},
-							false, null, null);
+							false, null, null, "Helper.procRep");
 					return stype;
 				}
 				note = "generated from " + originPath + " by Jmol " + jmolVersion;
@@ -210,7 +210,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 						if (mol2d != null && mol2d.indexOf("2D") >= 0)
 							extractor.addDeferredPropertyOrRepresentation(IFDConst.IFD_REP_STRUCTURE_MOL_2D,
 									new Object[] { mol2d.getBytes(), originPath + ".mol" }, false,
-									"chemical/x-mdl-molfile", note);
+									"chemical/x-mdl-molfile", note, null);
 					}
 					if (is2D) {
 						JMEJmol jme = (JMEJmol) org.jmol.api.Interface.getInterface("jme.JMEJmol", v, "FAIRSpec");
@@ -230,19 +230,19 @@ public class DefaultStructureHelper implements PropertyManagerI {
 			}
 			if (standardInchi != null && !"?".equals(standardInchi)) {
 				extractor.addDeferredPropertyOrRepresentation(STANDARD_INCHI, standardInchi, true, "chemical/x-inchi",
-						note);
+						note, null);
 				if (fixedhInchi != null) {
 					extractor.addDeferredPropertyOrRepresentation(FIXEDH_INCHI, fixedhInchi, true, "chemical/x-inchi",
-							note);
+							note, null);
 				}
 				if (inchiKey != null) {
-					extractor.addDeferredPropertyOrRepresentation(INCHIKEY, inchiKey, true, "chemical/x-inchikey", null);
+					extractor.addDeferredPropertyOrRepresentation(INCHIKEY, inchiKey, true, "chemical/x-inchikey", null, null);
 				}
 			} else {
 				standardInchi = null;
 			}
 			if (smiles != null) {
-				extractor.addDeferredPropertyOrRepresentation(SMILES, smiles, true, "chemical/x-smiles", note);
+				extractor.addDeferredPropertyOrRepresentation(SMILES, smiles, true, "chemical/x-smiles", note, null);
 			}
 			// .getFileType(Rdr.getBufferedReader(Rdr.getBIS(bytes), null));
 			if (bytes != null) {
@@ -250,16 +250,16 @@ public class DefaultStructureHelper implements PropertyManagerI {
 						new Object[] { bytes, originPath + ".png",
 								IFDConst.IFD_REP_STRUCTURE_PNG,
 								standardInchi
-								}, false, "image/png", note);
+								}, false, "image/png", note, null);
 			}
 			if (molecularFormula != null) {
-				extractor.addDeferredPropertyOrRepresentation(MOLECULAR_FORMULA, molecularFormula, true, null, note);
+				extractor.addDeferredPropertyOrRepresentation(MOLECULAR_FORMULA, molecularFormula, true, null, note, null);
 			}
 			if (empiricalFormula != null) {
-				extractor.addDeferredPropertyOrRepresentation(EMPIRICAL_FORMULA, empiricalFormula, true, null, note);
+				extractor.addDeferredPropertyOrRepresentation(EMPIRICAL_FORMULA, empiricalFormula, true, null, note, null);
 			}
 			if (cellFormula != null) {
-				extractor.addDeferredPropertyOrRepresentation(CELL_FORMULA, cellFormula, true, null, note);
+				extractor.addDeferredPropertyOrRepresentation(CELL_FORMULA, cellFormula, true, null, note, null);
 			}
 		}
 		fileToType.put(originPath, type);

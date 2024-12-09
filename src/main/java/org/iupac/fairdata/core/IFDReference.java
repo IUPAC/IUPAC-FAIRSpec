@@ -16,6 +16,12 @@ public class IFDReference implements IFDSerializableI {
 	static int test;
 	
 	/**
+	 * source URL item in the IFDFindingAid URLs list; must be set nonnegative
+	 * to register
+	 */
+	private final String resourceID;
+	
+	/**
 	 * Origin object; typically a ZIP file label; 
 	 * but possibly a remote archive path
 	 * 
@@ -28,12 +34,6 @@ public class IFDReference implements IFDSerializableI {
 	 */
 	private final String localDir;
 
-	/**
-	 * source URL item in the IFDFindingAid URLs list; must be set nonnegative
-	 * to register
-	 */
-	private final String resourceID;
-	
 	/**
 	 * label of this file
 	 */
@@ -52,6 +52,8 @@ public class IFDReference implements IFDSerializableI {
 	private String doi;
 
 	private int index;
+
+	private String insituExt;
 	
 	public String getDOI() {
 		return doi;
@@ -106,6 +108,42 @@ public class IFDReference implements IFDSerializableI {
 		return localName;
 	}
 
+	/**
+	 * Two possibilities:
+	 * 
+	 * origin path contains "|" and so is internal to a zip file:
+	 * 
+	 * keep the data; treat normally.
+	 * 
+	 * otherwise:
+	 * 
+	 * keep the data only if the localName is null or the localName's last three
+	 * chars are not the same as the origin path's (indicating a derived file, for
+	 * example, xxx.cdxml and xxx.cdxml.mol)
+	 * 
+	 * to be run only just before serialization
+	 * 
+	 * @return true if data can be cleared
+	 */
+	public boolean checkInSitu() {
+		if (originPath == null || localName == null)
+			return false;
+		String op = originPath.toString();
+		if (op.indexOf("|") >= 0) {
+			insituExt = "";
+			return false;
+		}
+		int pt = localName.lastIndexOf(".");
+		String ext = (pt >= 0 ? localName.substring(pt) : "");
+		if (pt >= 0 && !op.endsWith(ext)) {
+			insituExt = ext;			
+	 		return false;
+		}
+		// we can just display the local data
+		insituExt = "";
+		return true;
+	}
+	
 	@Override
 	public String toString() {
 		return "[IFDReference " + index + " " + (localDir == null ? "" : localDir + "::") + originPath + ">as>" + localName + " url:" + url +  " doi:" + doi + "]";
@@ -113,7 +151,7 @@ public class IFDReference implements IFDSerializableI {
 
 	@Override
 	public void serialize(IFDSerializerI serializer) {
-		//System.out.println("IFDRef " + index + " " + localName + " " + url);
+		// System.out.println("IFDRef " + index + " " + localName + " " + url);
 		IFDObject.serializeClass(serializer, getClass(), null);
 		if (resourceID != null)
 			serializer.addAttr("resourceID", resourceID);
@@ -121,14 +159,18 @@ public class IFDReference implements IFDSerializableI {
 			serializer.addAttr("doi", doi);
 		if (url != null)
 			serializer.addAttr("url", url);
-		if (originPath != null && !originPath.equals(doi) && !originPath.equals(url))
-			serializer.addAttr("originPath", originPath.toString());
-		if (localName != null) {
-			if (url != null || doi != null || localDir == null) {
-				serializer.addAttr("localName", localName);
-			} else {
-				serializer.addAttr("localPath", getLocalPath());
-				// TODO: Could add #page=" to origin; localPath is null?
+		if (insituExt != null) {
+			serializer.addAttr("localPath", originPath + insituExt);
+		} else {
+			if (originPath != null && !originPath.equals(doi) && !originPath.equals(url))
+				serializer.addAttr("originPath", originPath.toString());
+			if (localName != null) {
+				if (url != null || doi != null || localDir == null) {
+					serializer.addAttr("localName", localName);
+				} else {
+					serializer.addAttr("localPath", getLocalPath());
+					// TODO: Could add #page=" to origin; localPath is null?
+				}
 			}
 		}
 	}
@@ -137,7 +179,6 @@ public class IFDReference implements IFDSerializableI {
 	public String getSerializedType() {
 		return "IFDReference";
 	}
-	
-	
+
 
 }

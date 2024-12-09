@@ -20,10 +20,9 @@ public class ExtractorTestICL2 {
 		String localSourceArchive = dir + "Procter/";
 		String targetDir = dir + "icl-procter";
 
-		// debugging = true;
-		// readOnly = true;
+		String flags = "-insitu";
 
-		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir);
+		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir, flags);
 	}
 
 }

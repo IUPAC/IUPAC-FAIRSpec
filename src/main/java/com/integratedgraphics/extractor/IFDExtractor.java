@@ -135,8 +135,12 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 				+ "\n-requirePubInfo (throw an error is datacite cannot be reached; post-publication-related collections only)";
 	}
 
-	public void runExtraction(String ifdExtractFile, String localSourceArchive, String targetDir) {
-		runExtraction(new String[] { ifdExtractFile, localSourceArchive, targetDir });
+	public IFDExtractor() {
+		initializeExtractor();
+	}
+
+	public void runExtraction(String ifdExtractFile, String localSourceArchive, String targetDir, String flags) {
+		runExtraction(new String[] { ifdExtractFile, localSourceArchive, targetDir, flags });
 	}
 
 	public void runExtraction(String[] args) {
@@ -166,7 +170,6 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 			throw new NullPointerException("No IFD-extract.json or test set?");
 		if (targetDir == null)
 			targetDir = "site";
-		new File(targetDir).mkdirs();
 		FAIRSpecUtilities.setLogging(targetDir + "/extractor.log");
 		int failed = 0;
 		logToSys("Extractor.runExtraction output to " + new File(targetDir).getAbsolutePath());
@@ -210,10 +213,6 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		String flags = super.processFlags(args, moreFlags);
 		stopAfter = getFlagEquals(flags, "-stopafter");
 		return flags;
-	}
-
-	public IFDExtractor() {
-		initializeExtractor();
 	}
 
 	public String dumpFlags() {
@@ -311,12 +310,18 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 			throws IOException, IFDException {
 		log("!Extractor\n ifdExtractScriptFile= " + ifdExtractScriptFile + "\n localsourceArchive = "
 				+ localsourceArchive + "\n targetDir = " + targetPath.getAbsolutePath());
-		if (extractAndCreateFindingAid(ifdExtractScriptFile, localsourceArchive, targetPath) == null) {
+		
+		File htmlPath = (insitu ? new File(localsourceArchive) : targetPath);
+		
+		String serializedFA = extractAndCreateFindingAid(ifdExtractScriptFile, localsourceArchive, targetPath);
+		if (serializedFA == null) {
 			if (!allowNoPubInfo) {
 				throw new IFDException("Extractor failed");
 			}
 		} else if (createLandingPage) {
-			buildSite();
+			if (insitu)
+				FAIRSpecUtilities.writeBytesToFile(serializedFA.getBytes(), new File(htmlPath, "IFD.findingaid.json"));
+			buildSite(htmlPath);
 		}
 
 		log("!Extractor extracted " + lstManifest.size() + " files (" + lstManifest.getByteCount() + " bytes)"

@@ -66,5 +66,4 @@ public interface FAIRSpecExtractorHelperI extends FAIRSpecFindingAidHelperI {
 	 */
 	Object setPropertyValueNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath);
 
-
 }

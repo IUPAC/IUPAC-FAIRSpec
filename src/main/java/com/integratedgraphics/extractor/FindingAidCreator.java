@@ -69,6 +69,13 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	protected boolean addPublicationMetadata = false;
 
 	/**
+	 * setting insitu true generates an entirely self-contained finding aid, with
+	 * no local files at all, only origin files, without any rezipping, 
+	 * in the origin directory. The target directory only contains ancillary files.
+	 */
+	protected boolean insitu = false;
+
+	/**
 	 * set true to zip up the extracted collection, placing that in the target
 	 * directory
 	 */
@@ -159,7 +166,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		// this next is independent of readOnly
 		// false to bypass final creation of an
 		// _IFD_collection.zip file
-		createZippedCollection = createZippedCollection && !debugReadOnly;
+		createZippedCollection = createZippedCollection && !insitu && !debugReadOnly;
 		
 		readOnly |= debugReadOnly; // for testing; when true, no output other than a log file is produced
 		noOutput = (createFindingAidOnly || readOnly);
@@ -246,6 +253,10 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 
 		if (flags.indexOf("-nozip;") >= 0) {
 			createZippedCollection = false;
+		}
+
+		if (flags.indexOf("-insitu;") >= 0) {
+			insitu = true;
 		}
 
 		if (flags.indexOf("-readonly;") >= 0) {
@@ -417,9 +428,9 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		return getHelper().getFindingAid();
 	}
 
-	protected void buildSite() {
+	protected void buildSite(File htmlPath) {
 		try {
-			PageCreator.buildSite(targetPath, true, launchLandingPage);
+			PageCreator.buildSite(htmlPath, true, launchLandingPage);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

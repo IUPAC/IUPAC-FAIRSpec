@@ -710,8 +710,12 @@
 		(type == "png" || isData ? "" : "<span class=repname>" + clean(type) + "</span> ");
 		if (r.data) {
 			if (r.data.indexOf(";base64") == 0) {
-				var imgTag = "<img id=img" + (++divId)  + " onload=IFD.checkImage(" + divId + ")" +  " src=\"" + "data:" + r.mediaType + r.data + "\"</img>";
-				s += addPathForRep(aidID, r.ref, -1, imgTag, null);
+				if (type == "png") {
+					var imgTag = "<img id=img" + (++divId)  + " onload=IFD.checkImage(" + divId + ")" +  " src=\"" + "data:" + r.mediaType + r.data + "\"</img>";
+					s += addPathForRep(aidID, r.ref, -1, imgTag, null);					
+				} else {
+					s += anchorBase64(r.ref.localPath, r.data, r.mediaType);
+				}
 			} else {
 				if (r.data.length > 30) {
 					s += anchorHide(shead, r.data);
@@ -735,6 +739,11 @@
 	}
 
 	IFD.showHead = function(i) {alert(heads[i])}
+
+	var anchorBase64 = function(label, sdata, mediaType) {
+		mediaType || (mediaType = "application/octet-stream");
+		return "<a href=\"data:" + mediaType + sdata + "\")>" + label + "</a>";
+	}
 
 	var getSpectrumPrediction = function(props, smiles) {
 		if (!props || !smiles) return "";
@@ -824,13 +833,15 @@
 
 	var addPathForRep = function(aidID, ref, len, value, mediaType) {
 		var shortName = ref.localName || shortFileName(ref.localPath);
-		var url = ref.url || ref.doi || (ref.localPath ? fileFor(aidID, ref.localPath) : null);
+		var url = ref.url || ref.doi || (ref.localPath ? fileFor(aidID, ref.localPath) : ref.localName);
 		mediaType = null;// nah. Doesn't really add anything || (mediaType = "");
 		if (value) {
 			s = "<a target=_blank href=\"" + url + "\">" + value + "</a>"
 		} else if (shortName.endsWith(".png")) {
 			s = "<img id=img" + (++divId)  + " onload=IFD.checkImage(" + divId + ")" +  " src=\"" + url +"\">"; 
 		} else {
+			if (url.startsWith(";base64,"))
+				url = "data:application/octet-stream" + url;
 			s = "<a target=_blank href=\"" + url + "\">" + shortName + "</a>" + " (" + getSizeString(len) + (mediaType ? " " + mediaType : "") + ")";
 		}
 		return s;
@@ -850,7 +861,7 @@
 	}
 
 	var clean = function(id){
-		return id;//.replace(/_/g, ' ');
+		return id || "";//.replace(/_/g, ' ');
 	}
 
 	var removeUnderline = function(id){

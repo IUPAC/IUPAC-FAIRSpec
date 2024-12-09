@@ -17,7 +17,7 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 	 */
 	private String representationType;
 	private IFDReference ref;
-	private final Object data;
+	private Object data;
 	private long len;
 	private String mediaType;
 	//private int test;
@@ -40,15 +40,12 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 //			System.out.println(this.test + " " + subtype + " " + len + " " + ref);
 //			if (this.test == 44)
 //				System.out.println("IDFReptest");
-		this.len = (ref != null || len != 0 ? len
-				: data instanceof String ? ((String) data).length()
-						: data instanceof byte[] ? ((byte[]) data).length : 0);
+		this.len = (data instanceof String ? ((String) data).length()
+				: data instanceof byte[] ? ((byte[]) data).length 
+				: ref != null || len != 0 ? len 
+				: 0);
 		this.representationType = type;
 		this.mediaType = subtype;
-//		if (ref != null && ref.getLocalName().indexOf("/") >= 0)
-//			System.out.println("IDFRef ???");
-//		if (this.len == 0)
-//			System.out.println("IDFRef " + this);
 	}
 
 	public IFDRepresentation(IFDRepresentation rep) {
@@ -122,6 +119,19 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 			this.note = note;
 		else
 			this.note += ";\n" + note;		
+	}
+
+	/**
+	 * remove any data that is for an originPath that has no "|" in it, indicating
+	 * that this origin path can be retrieved directly.
+	 * 
+	 */
+	public void setInSitu() {
+		// check for InChI or SMILES, which have no reference anyway
+		if (data != null && ref == null)
+			return;
+		if (ref.checkInSitu())
+			data = null;
 	}
 
 }

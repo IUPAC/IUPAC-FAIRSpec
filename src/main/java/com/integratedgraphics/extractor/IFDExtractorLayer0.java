@@ -64,6 +64,11 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecE
 	protected String stopAfter;
 
 	protected void checkStopAfter(String what) {
+		System.out.println(what 
+				+ " " + helper.getCompoundCollection().size()
+				+ " " + helper.getStructureCollection().size()
+				+ " " + helper.getSpecCollection().size()
+				);
 		boolean stopping = what.equals(stopAfter);
 		if (stopping) {
 			System.out.println("stopping after " + what);
@@ -143,7 +148,7 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecE
 	/**
 	 * list of files to always accept, specified an extractor JSON template
 	 */
-	protected FileList lstAccepted = new FileList(null, "accepted");
+	protected FileList lstAccepted = new FileList(null, "accepted", null);
 
 	/**
 	 * list of files ignored -- probably MACOSX trash or Google desktop.ini trash
@@ -158,14 +163,14 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecE
 	/**
 	 * list of files rejected -- probably MACOSX trash or Google desktop.ini trash
 	 */
-	protected final FileList lstRejected = new FileList(null, "rejected");
+	protected final FileList lstRejected = new FileList(null, "rejected", ".");
 
 	/**
 	 * Track the files written to the collection, even if there is no output. This
 	 * allows for removing ZIP files from the finding aid and manifest if they are
 	 * not actually written.
 	 */
-	protected FileList lstWritten = new FileList(null, "written");
+	protected FileList lstWritten = new FileList(null, "written", null);
 
 	/**
 	 * objects found in IFD-extract.json
@@ -214,7 +219,7 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecE
 	public void addProperty(String key, Object val) {
 		if (val != IFDProperty.NULL)
 			log(this.localizedName + " addProperty " + key + "=" + val);
-		addDeferredPropertyOrRepresentation(key, val, false, null, null);
+		addDeferredPropertyOrRepresentation(key, val, false, null, null, "L0 vndaddprop");
 	}
 
 	/**
@@ -230,13 +235,13 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecE
 	 *                  extraction
 	 * @param val       either a String value or an Object[] with elements byte[]
 	 *                  and String name
+	 * @param mediaType a media type for a representation, or null
 	 * @param isInline  representation data is being provided as inline-data, to be
 	 *                  saved only in the finding aid (InChI, SMILES, InChIKey)
-	 * @param mediaType a media type for a representation, or null
 	 */
 	@Override
 	public void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType,
-			String note) {
+			String note, String src) {
 		// System.out.println("!!!" + key + " ln=" + localizedName + " op=" +
 		// originPath);
 		if (key == null) {
@@ -244,7 +249,7 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecE
 			return;
 		}
 		deferredPropertyList
-				.add(new Object[] { originPath, localizedName, key, val, Boolean.valueOf(isInline), mediaType, note });
+				.add(new Object[] { originPath, localizedName, key, val, Boolean.valueOf(isInline), mediaType, note, src });
 		if (key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
 			// Phase 2a has identified a structure before a compound has been established in Phase 2b.
 			// Mestrelab vendor plug-in has found a MOL or SDF file in Phase 2b.
@@ -461,6 +466,8 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecE
 			lstManifest.add(localizedName, len);
 			break;
 		}
+		if (insitu)
+			return;
 		File f = getAbsoluteFileTarget(localizedName);
 		FAIRSpecUtilities.getLimitedStreamBytes(ais, len, new FileOutputStream(f), false, true);
 	}

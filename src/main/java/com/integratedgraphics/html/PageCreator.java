@@ -30,23 +30,23 @@ public class PageCreator {
 			"index.htm",
 	};
 
-	public static void buildSite(File targetPath, boolean isLocal, boolean doLaunch) throws Exception {
-		if (targetPath == null)
+	public static void buildSite(File htmlPath, boolean isLocal, boolean doLaunch) throws Exception {
+		if (htmlPath == null)
 			return;
-		new File(targetPath, "assets").mkdirs();
+		new File(htmlPath, "assets").mkdirs();
 		for (int i = 0; i < files.length; i++) {
 			byte[] bytes = FAIRSpecUtilities.getResourceBytes(PageCreator.class, "site/" + files[i]);
 			if (!isLocal && files[i] == ifdConfigJS) {
 				bytes = new String(bytes).replace("true", "false").getBytes();
 			}
-			File f = new File(targetPath + "/" + files[i]);
+			File f = new File(htmlPath + "/" + files[i]);
 			System.out.println("PageCreator creating " + f.getAbsolutePath());
 			FAIRSpecUtilities.writeBytesToFile(bytes, f);
 		}
 		System.out
-				.println("PageCreater created " + files.length + " files in " + targetPath.getAbsolutePath());
+				.println("PageCreater created " + files.length + " files in " + htmlPath.getAbsolutePath());
 		if (doLaunch) {
-			String path = targetPath.getAbsolutePath().replace('\\', '/') + "/index.htm";
+			String path = htmlPath.getAbsolutePath().replace('\\', '/') + "/index.htm";
 			try {
 				FAIRSpecUtilities.showUrl(path);
 			} catch (Exception e) {
