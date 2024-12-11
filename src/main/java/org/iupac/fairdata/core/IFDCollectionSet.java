@@ -45,8 +45,9 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 	/**
 	 * Set all indices for IDFRepresentableObject collections to be sequential, and
 	 * and set each object's collectionSet field to the top-level collection
-	 * containing it
+	 * containing it. Also add URI and DOI references if available 
 	 * 
+	 * @param htURLReferences  a JSON-derived map containing "cmpd", "file", and either "doi" or "url" links
 	 */
 	@SuppressWarnings("unchecked")
 	protected void finalizeCollections(Map<String, Map<String, Object>> htURLReferences) {
@@ -57,7 +58,7 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 			if (c instanceof IFDAssociationCollection) {
 				((IFDAssociationCollection) c).removeOrphanedAssociations();
 			} else {
-				// representatableObject set
+				// check representatableObjects
 				for (int i = c.size(); --i >= 0;) {
 					IFDRepresentableObject<?> o = (IFDRepresentableObject<?>) c.get(i);
 					if (o.size() == 0 && !o.allowEmpty()) {
@@ -66,6 +67,7 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 						o.setValid(false);
 					}
 				}
+				// set index finally; set parent colletion; set URL/DOI from reference map
 				for (int i = c.size(); --i >= 0;) {
 					IFDRepresentableObject<?> o = (IFDRepresentableObject<?>) c.get(i);
 					o.setIndex(i);
@@ -73,7 +75,7 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 					o.setParentCollection(
 							(IFDCollection<IFDRepresentableObject<? extends IFDRepresentation>>) (Object) c);
 					if (htURLReferences != null) {
-						o.setFileRefs(htURLReferences);
+						o.setRepresentationDOIandURLs(htURLReferences);
 					}
 				}
 			}

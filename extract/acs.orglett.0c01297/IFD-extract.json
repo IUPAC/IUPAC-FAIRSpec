@@ -1,6 +1,20 @@
 {"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
  {"example":"compound directories containing identified bruker directories"},
- "note: article has wrong structure for amide 28",
+
+ "This collection has 'broken' Bruker directories missing their /n/ directories, for example /10/.",
+ "   (This means that these directories could not be read back into TopSpin.)",
+ "   IDFExtractor fixes this problem, zipping the directories up with an added /1/ subdirectory.",
+ 
+ "The collection consists of directory containing a set of proper Bruker directoris, some with mulitple experiments",
+ "  NMR fids/              ",
+ "       Compound 33/      ",
+ "           13C/pdata     ",
+ "           1H/pdata      ",
+
+ " An added structures/ directory accompanies this JSON file ",
+ " It was created by hand in order referring to the publication",
+ " Note: The article has wrong structure for amide 28",
+ 
  {"journal":"acs.orglett"},{"hash":"0c01297"},
  {"figshareid":"22612484"},
 
@@ -16,12 +30,14 @@
 		["Compound ", ""]
 		]},
 			
- "an mnova file with 26 pages buried in the Compound 4c/13C Bruker directory",		
+ "an mnova file with 26 pages buried in the Compound 4c/13C Bruker directory is rejected",		
  {"FAIRSpec.extractor.reject": ["mnova"]},
 
-
  {"path":"NMR fids"},
+ "this next is commented out because we are rejecting this single mnova file inside a Bruker directory",
  {"#FAIRSpec.extractor.object":"{path}/{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{id=IFD.property.fairspec.compound.id::*}/**/*.mnova}}"},
+
+ "picking up two possibilities for Bruker directories",
  {"FAIRSpec.extractor.object":"{path}/{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{id=IFD.property.fairspec.compound.id::*}/*}/}"},
  {"FAIRSpec.extractor.object":"{path}/{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{id=IFD.property.fairspec.compound.id::*}/*/*}/}"},
  

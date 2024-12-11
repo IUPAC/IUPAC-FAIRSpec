@@ -48,16 +48,15 @@ public class IFDStructureDataAssociation extends IFDAssociation {
 		this(new IFDCollection[] { new IFDStructureCollection(), new IFDDataObjectCollection() });		
 	}
 	
+	public IFDStructureDataAssociation(IFDStructure structure, IFDDataObject data) throws IFDException {
+		this(new IFDStructureCollection(structure), new IFDDataObjectCollection(data));
+	}
+
 	@SuppressWarnings("unchecked")
 	public IFDStructureDataAssociation(IFDStructureCollection structureCollection, IFDDataObjectCollection dataCollection) throws IFDException {
 		super(null, new IFDCollection[] { structureCollection, dataCollection });		
 	}
 	
-	@SuppressWarnings("unchecked")
-	public IFDStructureDataAssociation(IFDStructure structure, IFDDataObject data) throws IFDException {
-		super(null, new IFDCollection[] { new IFDStructureCollection(structure), new IFDDataObjectCollection(data) });
-	}
-
 	public IFDStructureCollection getStructureCollection() {
 		// coerce IFDStructureCollection. I do not know why this does not work directly
 		return (IFDStructureCollection) (Object) get(ITEM_STRUC);

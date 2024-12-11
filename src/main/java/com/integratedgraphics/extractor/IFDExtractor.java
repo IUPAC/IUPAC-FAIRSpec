@@ -73,6 +73,8 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 
 	private static final String debugFlags = "-stopAfter=end";
 
+	public static final String PAGE_ID_PROPERTY_SOURCE = "*idf.property.compound.id.source*";
+
 	// 2024.12.02 version 0.0.6 fully refactored, revised; adds creation of landing
 	// page and -nolandingpage -nolaunch flags
 	// 2024.11.03 version 0.0.6 adding support for DOICrawler

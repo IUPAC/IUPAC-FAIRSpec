@@ -14,19 +14,19 @@ import com.integratedgraphics.extractor.IFDExtractor;
  * 
  * A test class to extract metadata and representation objects from the ACS
  * sample set of 13 articles. specifically: <code>
-	acs.joc.0c00770
-	acs.orglett.0c00571
-	acs.orglett.0c00624
-	acs.orglett.0c00755
-	acs.orglett.0c00788
-	acs.orglett.0c00874
-	acs.orglett.0c00967
-	acs.orglett.0c01022
-	acs.orglett.0c01043
-	acs.orglett.0c01153
-	acs.orglett.0c01197
-	acs.orglett.0c01277
-	acs.orglett.0c01297
+0	acs.joc.0c00770
+1	acs.orglett.0c00571
+2	acs.orglett.0c00624
+3	acs.orglett.0c00755
+4	acs.orglett.0c00788
+5	acs.orglett.0c00874
+6	acs.orglett.0c00967
+7	acs.orglett.0c01022
+8	acs.orglett.0c01043
+9	acs.orglett.0c01153
+10	acs.orglett.0c01197
+11	acs.orglett.0c01277
+12	acs.orglett.0c01297
 	
 	added 2024.10.29:
 	
@@ -215,14 +215,14 @@ public class ExtractorTestACS extends ExtractorTest {
 	public static void main(String[] args) {
 		// args[] may override localSourceArchive as ars[1] 
 		// and testDir as args[2]; args[0] is ignored;
-		int first = 1; // first test to run
-		int last = 1; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
+		int first = 12; // first test to run
+		int last = 12; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
 					  // file test
 		/**
 		 * a local dir if you have already downloaded the zip files, otherwise null to
 		 * download from FigShare;
 		 */
-		String localSourceArchive = "-";//c:/temp/iupac/zip";//-";
+		String localSourceArchive = "c:/temp/iupac/zip";//-";
 		
 		String targetDir = "c:/temp/iupac/ifd2024";
 		String flags = null; // "-datacitedown"

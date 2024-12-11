@@ -8,8 +8,10 @@ import java.util.Map;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
+import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentation;
+import org.iupac.fairdata.core.IFDResource;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
@@ -26,6 +28,8 @@ public interface FAIRSpecFindingAidHelperI {
 
 	public IFDSampleStructureAssociation associateSampleStructure(IFDSample sample, IFDStructure struc)
 			throws IFDException;
+
+	public IFDDataObject cloneData(IFDDataObject localSpec, String idExtension, boolean andReplace);
 
 	public FAIRSpecCompoundAssociation createCompound(IFDStructure struc, IFDDataObject newSpec) throws IFDException;
 
@@ -48,6 +52,8 @@ public interface FAIRSpecFindingAidHelperI {
 
 	public FAIRSpecCompoundCollection getCompoundCollection();
 
+	public IFDResource getCurrentSource();
+
 	public IFDDataObjectCollection getSpecCollection();
 
 	public IFDStructureCollection getStructureCollection();
@@ -68,5 +74,21 @@ public interface FAIRSpecFindingAidHelperI {
 	IFDStructure getFirstStructureForSpec(IFDDataObject localSpec, boolean andRemove);
 
 	IFDSample getSampleByName(String value);
-	
+
+	IFDResource addOrSetSource(String dataSource, String rootPath);
+
+	void setCurrentResourceByteLength(long len);
+
+	/**
+	 * Set a property value only if it is not already set.
+	 * 
+	 * @param obj
+	 * @param key
+	 * @param value      if null, allows removal of current value
+	 * @param originPath
+	 * @return current value if not equal to value and value != NULL
+	 */
+	Object setPropertyValueNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath);
+
+
 }

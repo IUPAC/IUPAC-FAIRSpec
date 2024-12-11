@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
+import org.iupac.fairdata.common.IFDUtil;
 
 /**
  * A class implementing IFDRepresentableObject is expected to have one or more
@@ -118,7 +119,7 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 		return false;
 	}
 
-	public void setFileRefs(Map<String, Map<String, Object>> htCompoundFileReferences) {
+	public void setRepresentationDOIandURLs(Map<String, Map<String, Object>> htDOIURL) {
 		// add repository reference
 		for (int i = size(); --i >= 0;) {
 			T c = get(i);
@@ -126,20 +127,17 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 			IFDReference r = c.getRef();
 			if (r == null || (path = r.getOriginPath()) == null)
 				continue;
-			String key = path.toString();
-			int pt = key.lastIndexOf("/");
-			if (pt >= 0)
-				key = key.substring(pt + 1);
-			Map<String, Object> ref = htCompoundFileReferences.get(key);
-			if (ref == null)
-				continue;
-			String url = (String) ref.get("url");
-			if (url != null) {
-				r.setURL(url);
-			}
-			String doi = (String) ref.get("doi");
-			if (doi != null) {
-				r.setDOI(doi);
+			String key = IFDUtil.getShortFileName(path.toString());
+			Map<String, Object> ref = htDOIURL.get(key);
+			if (ref != null) {
+				Object o = ref.get("url");
+				if (o != null) {
+					r.setURL(o.toString());
+				}
+				o = ref.get("doi");
+				if (o != null) {
+					r.setDOI(o.toString());
+				}
 			}
 		}
 	}

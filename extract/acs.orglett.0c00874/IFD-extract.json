@@ -1,5 +1,37 @@
 {"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
  {"example":"compound directories containing unidentified bruker files"},
+ 
+"This is almost a good example of typical Bruker directories that contain more than one spectrum.",
+"Unfortunately, for a couple of structures, there is an additional subdirectory containing spectra.",
+"Thus we have a highly specialized template in this case.",
+"The collection would have been better had the creators added structures",
+ 
+"Each compound directory containing multiple bruker-like directories",
+
+"  NMR FID files/                     ",
+"                3a/                  ",
+"                   1/pdata           ",
+"                   2/pdata           ",
+"                    ...              ",
+"                3k/                  ",
+"                   1/pdata           ",
+"                   2/pdata           ",
+"                   cd-wzh-2019-84/   ",
+"                      1/pdata        ",
+"                      2/pdata        ",
+"                ...                  ",
+
+" The added structures/ directory just provides one struture for each compound.",
+" It was created by hand from reading the publication",
+
+"   structures/    ",
+"       3a.cdxml   ",
+"       3b.cdxml   ",
+"       3c.cdxml   ",
+"       ...        ",
+
+ 
+ 
  {"journal":"acs.orglett"},{"hash":"0c00874"},
  {"figshareid":"22233351"},
 
@@ -12,7 +44,11 @@
  {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
  
  {"path":"NMR FID files/"},
+ 
+   "matching NMR FID files/3k/cd-wzh-2019-84/",
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}/cd*}/}"},
+
+   "matching NMR FID files/3k/",
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}}/}"}
  
  

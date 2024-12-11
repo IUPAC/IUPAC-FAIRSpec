@@ -9,6 +9,6 @@
 	<classpathentry kind="lib" path="lib/commons-compress-1.22.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.11.0.jar"/>
 	<classpathentry kind="lib" path="lib/JME-SwingJS.jar"/>
-	<classpathentry kind="lib" path="lib/JmolDataD-16.3.8..jar"/>
+	<classpathentry kind="lib" path="lib/JmolDataD.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

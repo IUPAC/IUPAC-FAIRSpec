@@ -11,14 +11,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper.FileList;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelperI;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
@@ -35,8 +34,8 @@ import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
  * @author hanso
  *
  */
-abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecExtractorI {
-
+abstract class IFDExtractorLayer0 extends FindingAidCreator {
+ 
 	/**
 	 * a key for the deferredObjectList that flags a structure with a spectrum;
 	 * needs attention, as this was created prior to the idea of a compound
@@ -61,13 +60,16 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecE
 	protected final static Pattern pStarDotStar = Pattern.compile("\\*([^|/])\\*");
 	protected final static String SUBST = "=>";
 
+	protected static final String FAIRSPEC_EXTRACTOR_REFERENCES = IFDConst.getProp("FAIRSPEC_EXTRACTOR_REFERENCES");
+
+
 	protected String stopAfter;
 
 	protected void checkStopAfter(String what) {
 		System.out.println(what 
-				+ " " + helper.getCompoundCollection().size()
-				+ " " + helper.getStructureCollection().size()
-				+ " " + helper.getSpecCollection().size()
+				+ " " + faHelper.getCompoundCollection().size()
+				+ " " + faHelper.getStructureCollection().size()
+				+ " " + faHelper.getSpecCollection().size()
 				);
 		boolean stopping = what.equals(stopAfter);
 		if (stopping) {
@@ -99,6 +101,11 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecE
 	 * vendors have supplied cacheRegex patterns
 	 */
 	protected boolean cachePatternHasVendors;
+
+	/**
+	 * a JSON-derived map
+	 */
+	protected Map<String, Map<String, Object>> htURLReferences;
 
 	/**
 	 * a list of properties that vendors have indicated need addition, keyed by the
@@ -214,58 +221,6 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecE
 	 * files matched will be cached in the target directory
 	 */
 	protected Pattern vendorCachePattern;
-
-	@Override
-	public void addProperty(String key, Object val) {
-		if (val != IFDProperty.NULL)
-			log(this.localizedName + " addProperty " + key + "=" + val);
-		addDeferredPropertyOrRepresentation(key, val, false, null, null, "L0 vndaddprop");
-	}
-
-	/**
-	 * Cache the property or representation created by an IFDVendorPluginI class or
-	 * returned from the DefaultStructureHelper for later processing. This method is
-	 * a callback from IFDVendorPluginI classes or
-	 * DefaultStructureHelper.processRepresentation(...) only.
-	 * 
-	 * @param key       representation or property key; the key "_struc" is used by
-	 *                  a vendor plugin to pass back both a file name and a byte
-	 *                  array to create a new digital object extracted from the
-	 *                  original object, for example, from an MNova object
-	 *                  extraction
-	 * @param val       either a String value or an Object[] with elements byte[]
-	 *                  and String name
-	 * @param mediaType a media type for a representation, or null
-	 * @param isInline  representation data is being provided as inline-data, to be
-	 *                  saved only in the finding aid (InChI, SMILES, InChIKey)
-	 */
-	@Override
-	public void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType,
-			String note, String src) {
-		// System.out.println("!!!" + key + " ln=" + localizedName + " op=" +
-		// originPath);
-		if (key == null) {
-			deferredPropertyList.add(null);
-			return;
-		}
-		deferredPropertyList
-				.add(new Object[] { originPath, localizedName, key, val, Boolean.valueOf(isInline), mediaType, note, src });
-		if (key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
-			// Phase 2a has identified a structure before a compound has been established in Phase 2b.
-			// Mestrelab vendor plug-in has found a MOL or SDF file in Phase 2b.
-			
-			// val is Object[] {byte[] bytes, String name}
-			// Pass data to structure property manager in order
-			// to add (by coming right back here) InChI, SMILES, and InChIKey.
-			Object[] oval = (Object[]) val;
-			byte[] bytes = (byte[]) oval[0];
-			String name = (String) oval[1]; // must not be null
-			String type = (oval.length > 2 ? (String) oval[2] : null);
-			String standardInchi = (oval.length > 3 ? (String) oval[3] : null);
-			getStructurePropertyManager().processRepresentation(name, bytes, type, standardInchi, false);
-			deferredPropertyList.add(new Object[0]);
-		}
-	}
 
 	public int getErrorCount() {
 		return errors;
@@ -414,6 +369,8 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator implements FAIRSpecE
 	 */
 	protected long setLocalFileLength(IFDRepresentation rep) {
 		String name = rep.getRef().getLocalName();
+		if (name.indexOf("#") >= 0)
+			return -1;
 		long len = lstWritten.getLength(name);
 		rep.setLength(len);
 		return len;

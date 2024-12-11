@@ -1,7 +1,26 @@
 {"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
  {"example":"compound directories containing numbered bruker files"},
- "note: ambiguous, inverted stereochemistry for dehydrocholic acid derivative 3ay corrected (BH)",
- "note: ambiguous, inverted stereochemistry for 3-keto-4-etiocholenic acid derivative 5ah corrected (BH)",
+
+ "This collection had no structures before curation.", 
+ "This collection had some problems with ambiguous and inverted stereochemistry",
+ "for dehydrocholic acid derivative 3ay and 3-keto-4-etiocholenic acid derivative 5ah",
+ "which was corrected during curation",
+ "compound names ending with ' update' were shortened",
+
+ "The collection consists of directory containing a set of proper Bruker directoris, some with mulitple experiments",
+ "  alkylation orginal FID submitted/            ",
+ "                            5ah/2/pdata        ",
+ "                            5ah/1/pdata        ",
+ "                            5ag update/2/pdata ",
+ "                            5ag update/1/pdata ",
+ 
+ " An added structures/ directory accompanies this JSON file ",
+ " It was created by hand in order referring to the publication",
+ " One compound is a mixture of E- and Z-alkene, so it has two strutures in a directory",
+ 
+ 
+  
+ 
  {"journal":"acs.orglett"},{"hash":"0c01277"},
  {"figshareid":"22613762"},
  

@@ -502,7 +502,9 @@
 		var s = "<table padding=3><tr><td valign=top>"
 			+ getHeader("Spectrum/a  ", "Spectrum " + sid) + "<h3>" 
 			+ (sampleID ? "&nbsp;&nbsp;&nbsp; sample " + sampleID : "")
-			+ "</h3></td>"; 
+			+ "</h3>"
+			+ (spec.description ? spec.description : "")
+			+ "</td>"; 
 		var title = getObjectProperty(spec, "expt_title");
 		if (title)
 			s += "<td>&nbsp;&nbsp;</td><td><b>" + title + "</b></td>"
@@ -710,7 +712,7 @@
 		(type == "png" || isData ? "" : "<span class=repname>" + clean(type) + "</span> ");
 		if (r.data) {
 			if (r.data.indexOf(";base64") == 0) {
-				if (type == "png") {
+				if (type == "png" || "image/png" == r.mediaType) {
 					var imgTag = "<img id=img" + (++divId)  + " onload=IFD.checkImage(" + divId + ")" +  " src=\"" + "data:" + r.mediaType + r.data + "\"</img>";
 					s += addPathForRep(aidID, r.ref, -1, imgTag, null);	
 				} else {
@@ -864,7 +866,7 @@
 	}
 
 	var clean = function(id){
-		return id || "";//.replace(/_/g, ' ');
+		return (id == "unknown" ? "" : id || "");//.replace(/_/g, ' ');
 	}
 
 	var removeUnderline = function(id){

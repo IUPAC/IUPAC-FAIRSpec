@@ -1,6 +1,7 @@
 package org.iupac.fairdata.extract;
 
 import org.iupac.fairdata.core.IFDFindingAid;
+import org.iupac.fairdata.core.IFDObject;
 
 /**
  * Implemented by MetaDataExtractor and DOICrawler. Includes methods for
@@ -39,5 +40,7 @@ public interface MetadataReceiverI {
 	void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInLine, String mediaType, String note, String src);
 
 	void addProperty(String key, Object val);
+
+	void setNewObjectMetadata(IFDObject<?> o, String param);
 
 }

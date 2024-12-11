@@ -31,6 +31,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities.SpreadsheetReader;
 import org.iupac.fairdata.core.IFDObject;
+import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
@@ -196,10 +197,12 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 */
 	private String lastRezipPath;
 
-	/**
-	 * the number of IFDObjects created
-	 */
-	private int ifdObjectCount;
+//	/**
+//	 * not used, typically 0
+//	 * 
+//	 * the number of IFDObjects created
+//	 */
+//	private int ifdObjectCount;
 
 	/**
 	 * cache of top-level resources to be rezipped
@@ -326,6 +329,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 		log("!Phase 2e check rejected files and update lists");
 
+		
 		phase2eIterate();
 
 		return;
@@ -391,7 +395,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					InputStream is = openLocalFileInputStream(url, retLength);
 					long len = retLength[0];
 					if (len > 0)
-						helper.setCurrentResourceByteLength(len);
+						faHelper.setCurrentResourceByteLength(len);
 					zipFileMap = phase2ReadZipContentsIteratively(is, "", PHASE_2A,
 							new LinkedHashMap<String, ArchiveEntry>());
 					contents.put(localizedTopLevelZipURL, zipFileMap);
@@ -628,7 +632,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			} else {
 				lastRezipPath = originPath;
 				String localPath = localizePath(originPath);
-				CacheRepresentation rep = new CacheRepresentation(new IFDReference(helper.getCurrentSource().getID(),
+				CacheRepresentation rep = new CacheRepresentation(new IFDReference(faHelper.getCurrentSource().getID(),
 						originPath, extractorResource.rootPath, localPath), v, len, null, "application/zip");
 				// if this is a zip file, the data object will have been set to xxx.zip
 				// but we need this to be
@@ -786,7 +790,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			IFDObject<?> obj = phase2bAddIFDObjectsForName(parser, keyList, originPath, localizedName, len);
 			if (obj instanceof IFDRepresentableObject) {
 				addFileToFileLists(originPath, LOG_OUTPUT, len, null);
-				ifdObjectCount++;
+				//ifdObjectCount++;
 			}
 		}
 	}
@@ -1076,17 +1080,18 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	private void phase2dProcessDeferredObjectProperties(String phase2OriginPath) throws IFDException, IOException {
 		IFDSample sample = null;
 		IFDStructure struc = null;
-		IFDDataObject dataObject = null;
+		IFDDataObject cloneOriginObject = null;
 		IFDDataObject localSpec = null;
 		IFDRepresentableObject<?> spec = null;
 		FAIRSpecCompoundAssociation assoc = null;
 		String lastLocal = null;
+		String pageCompoundID = null;
 		boolean cloning = false;
 		for (int i = 0, n = deferredPropertyList.size(); i < n; i++) {
 			Object[] a = deferredPropertyList.get(i);
 			if (a == null) {
 				sample = null;
-				dataObject = null; // use localSpec
+				cloneOriginObject = null;
 				continue;
 			}
 			assoc = null;
@@ -1095,28 +1100,44 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			String key = (String) a[2];
 			Object value = a[3];
 			boolean isInline = (a[4] == Boolean.TRUE);
-			if (key == NEW_RESOURCE_KEY) {
+			switch (key) {
+			case NEW_RESOURCE_KEY:
 				initializeResource((ExtractorResource) value, false);
 				continue;
+			case NEW_PAGE_KEY:
+				pageCompoundID = null;
+				if (value == IFDProperty.NULL) {
+					// done reading MNova file
+					cloning = false;
+					cloneOriginObject = null;
+					continue;
+				}
+				cloning = true;
+				break;
+			case IFDExtractor.PAGE_ID_PROPERTY_SOURCE:
+				if (pageCompoundID == null)
+					pageCompoundID = inferCompoundID((String) value);
+				continue;
 			}
-			cloning = key.equals(NEW_PAGE_KEY);
 			boolean isStructureHelperStructureKey = key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY);
 			boolean isRep = IFDConst.isRepresentation(key);
 			boolean isStructureRep = (isRep && IFDConst.isStructure(key));
 			boolean isWritableRepresentation = (isRep && !isInline && value instanceof Object[]);
-			String type = FAIRSpecExtractorHelper.getObjectTypeForPropertyOrRepresentationKey(key, true);
+			String type = FAIRSpecFindingAidHelper.getObjectTypeForPropertyOrRepresentationKey(key, true);
 			boolean isSample = (type == FAIRSpecFindingAidHelper.ClassTypes.Sample);
 			boolean isStructure = (type == FAIRSpecFindingAidHelper.ClassTypes.Structure);
 			if (isSample) {
-				sample = helper.getSampleByName((String) value);
+				sample = faHelper.getSampleByName((String) value);
 				continue;
 			}
+			// note that MNOVA here would be the same as previous.
 			boolean isNew = !localizedName.equals(lastLocal);
 			if (isNew) {
 				lastLocal = localizedName;
 			}
 			// link to the originating spec representation -- xxx.mnova, xxx.zip
 
+			// this could pick up the first spectrum in an mnova file.
 			String propType = IFDConst.getObjectTypeFlag(key);
 			spec = getObjectFromLocalizedName(localizedName, propType);
 			if (spec != null && !spec.isValid()) {
@@ -1125,11 +1146,11 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 
 			if (spec == null && !cloning) {
-				//if (!isWritableRepresentation) {
-					// just here to notify of an issue
-					logDigitalItemIgnored(originPath, localizedName, "processDeferredObjectProperties");
-					continue;
-				//}
+				// if (!isWritableRepresentation) {
+				// just here to notify of an issue
+				logDigitalItemIgnored(originPath, localizedName, "processDeferredObjectProperties");
+				continue;
+				// }
 			}
 			if (spec instanceof IFDStructure) {
 				struc = (IFDStructure) spec;
@@ -1180,7 +1201,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				}
 				IFDRepresentableObject<?> obj = (isStructureRep ? struc : phase2dGetClonedData(spec));
 				linkLocalizedNameToObject(keyPath, null, obj);
-				IFDRepresentation r = obj.findOrAddRepresentation(helper.getCurrentSource().getID(), originPath,
+				IFDRepresentation r = obj.findOrAddRepresentation(faHelper.getCurrentSource().getID(), originPath,
 						extractorResource.rootPath, keyPath, data, key, mediaType);
 				if (note != null)
 					r.setNote(note);
@@ -1190,44 +1211,55 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 
 			// properties only
-			if (cloning) {
+			if (cloning && key == NEW_PAGE_KEY) {
 				String newLocalName = null;
 				boolean removeAllRepresentations = false;
 				boolean replaceOld = true;
+				IFDDataObject specToClone = null;
+				// we will clone localSpec
 				if (value instanceof String) {
 					// e.g. MNova extracted _page=10
 					// clear structure for not allowing an MNova structure to carry to next page?
 //					struc = null; 
-					if (dataObject == null) {
-						dataObject = localSpec;
-					} else {
-						localSpec = dataObject;
-					}
-				} else {
+						if (cloneOriginObject == null) {
+							// first time through, get the parent MNova object
+							// which has the origin information and at least one property.
+							specToClone = cloneOriginObject = localSpec;
+						} else {
+							specToClone = localSpec = cloneOriginObject;
+						}
+				} else if (value instanceof Object[]) {
 					// e.g. Bruker created a new object from multiple <n>/ directories
 					a = (Object[]) value;
 					value = (String) a[0];
 					IFDDataObject sp = (IFDDataObject) a[1];
 					removeAllRepresentations = true;
 					replaceOld = sp.isValid(); // will be true first time only
-					localSpec = sp;
+					specToClone = localSpec = sp;
 					newLocalName = (String) a[2];
+				} else {
+					System.out.println("L2 ???? How can this be??");
 				}
+				
 				String idExtension = (String) value;
-				if (assoc == null && localSpec != null)
-					assoc = faHelper.findCompound(null, localSpec);
+				if (assoc == null && specToClone != null)
+					assoc = faHelper.findCompound(null, specToClone);
 				IFDDataObject newSpec;
-				if (localSpec == null) {
+				if (specToClone == null) {
+					// I don't think we can get here..
 					// second Bruker directory, for example
-					localSpec = (IFDDataObject) spec;
-					newSpec = helper.cloneData(localSpec, idExtension, false);
+					specToClone = localSpec = (IFDDataObject) spec;
+					replaceOld = false;
 				} else {
 					// internal Bruker directories
 					// or MNova extract
-					newSpec = helper.cloneData(localSpec, idExtension, replaceOld);
 				}
-				phase2dMapClonedData(localSpec, newSpec);
+				//specToClone.dumpProperties("local");
+				newSpec = faHelper.cloneData(specToClone, idExtension, replaceOld);
+				htCloneMap.put(specToClone.getID(), newSpec);
+				htCloneMap.put("$" + newSpec.getID(), specToClone);
 				spec = localSpec = newSpec;
+				//newSpec.dumpProperties("new");
 				struc = faHelper.getFirstStructureForSpec(localSpec, assoc == null);
 				if (sample == null)
 					sample = faHelper.getFirstSampleForSpec(localSpec, assoc == null);
@@ -1267,8 +1299,9 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				Object[] oval = (Object[]) value;
 				byte[] bytes = (byte[]) oval[0];
 				String oPath = (String) oval[1];
-				String ifdRepType = (oval.length > 2 ? (String) oval[2]
-						: DefaultStructureHelper.getType(key.substring(key.lastIndexOf(".") + 1), bytes, true));
+				String ifdRepType = (oval.length > 2 ? (String) oval[2] : null);
+				if (ifdRepType == null)
+					ifdRepType = DefaultStructureHelper.getType(key.substring(key.lastIndexOf(".") + 1), bytes, true);
 				String name = (oval.length > 2 ? null : phase2dGetStructureNameFromPath(oPath));
 				String inchi = (oval.length > 3 ? (String) oval[3] : null);
 				// use the byte[] for the structure as a unique identifier.
@@ -1281,10 +1314,11 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					if (!insitu)
 						writeOriginToCollection(oPath, bytes, 0);
 					String localName = localizePath(oPath);
+					// will have pageN for mnova
 					struc = faHelper.getFirstStructureForSpec((IFDDataObject) spec, false);
 					if (struc == null) {
 						struc = helper.addStructureForSpec(extractorResource.rootPath, (IFDDataObject) spec, ifdRepType,
-							oPath, localName, name);
+								oPath, localName, name);
 					}
 					htStructureRepCache.put(w, struc);
 					if (sample == null) {
@@ -1293,7 +1327,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 						faHelper.associateSampleStructure(sample, struc);
 					}
 					// MNova 1 page, 1 spec, 1 structure Test #5
-					addFileAndCacheRepresentation(oPath, null, insitu ? bytes : null, bytes.length, ifdRepType, null, null);
+					addFileAndCacheRepresentation(oPath, null, insitu ? bytes : null, bytes.length, ifdRepType, null,
+							null);
 					linkLocalizedNameToObject(localName, ifdRepType, struc);
 					log("!Structure " + struc + " created and associated with " + spec);
 				} else {
@@ -1302,6 +1337,10 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 						assoc = faHelper.createCompound(struc, (IFDDataObject) spec);
 						log("!Structure " + struc + " found and associated with " + spec);
 					}
+				}
+				if (pageCompoundID != null) {
+					assoc.setID(pageCompoundID);
+					pageCompoundID = null;
 				}
 				if (struc.getID() == null) {
 					String id = assoc.getID();
@@ -1340,6 +1379,16 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		}
 	}
 
+	private static String inferCompoundID(String s) {
+	    s = s.toUpperCase();
+	    int pt = s.indexOf("COMPOUND ");
+	    if (pt < 0)
+	    	return null;
+	    s = s.substring(pt + 9);
+	    pt = s.indexOf(" ");
+	    return (pt < 0 ? s : s.substring(0, pt));
+	}
+
 	/**
 	 * Starting with "xxxx/xx#page1.mol" return "page1".
 	 * 
@@ -1357,20 +1406,13 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		return name;
 	}
 
-	private void phase2dMapClonedData(IFDRepresentableObject<?> oldSpec, IFDRepresentableObject<?> newSpec) {
-		htCloneMap.put(oldSpec.getID(), newSpec);
-		htCloneMap.put("$" + newSpec.getID(), oldSpec);
-	}
-
 	private IFDRepresentableObject<?> phase2dGetClonedData(IFDRepresentableObject<?> spec) {
-		if (spec == null)
-			System.out.println("??");
 		IFDRepresentableObject<?> d = (spec.isValid() ? null : htCloneMap.get(spec.getID()));
 		return (d == null ? spec : d);
 	}
 
 	private void phase2dSetPropertyIfNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath) {
-		Object currentValue = helper.setPropertyValueNotAlreadySet(obj, key, value, originPath);
+		Object currentValue = faHelper.setPropertyValueNotAlreadySet(obj, key, value, originPath);
 		if (currentValue != null) {
 			String msg = originPath + " property " + key + " can't set value '" + value + "', as it is already set to '"
 					+ currentValue + "' from " + obj.getPropertySource(key) + " for " + obj;
@@ -1410,6 +1452,58 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		}
 	}
 
+	@Override
+	public void addProperty(String key, Object val) {
+		if (val != IFDProperty.NULL)
+			log(this.localizedName + " addProperty " + key + "=" + val);
+		addDeferredPropertyOrRepresentation(key, val, false, null, null, "L0 vndaddprop");
+	}
+
+	/**
+	 * Cache the property or representation created by an IFDVendorPluginI class or
+	 * returned from the DefaultStructureHelper for later processing. This method is
+	 * a callback from IFDVendorPluginI classes or
+	 * DefaultStructureHelper.processRepresentation(...) only.
+	 * 
+	 * @param key       representation or property key; the key "_struc" is used by
+	 *                  a vendor plugin to pass back both a file name and a byte
+	 *                  array to create a new digital object extracted from the
+	 *                  original object, for example, from an MNova object
+	 *                  extraction
+	 * @param val       either a String value or an Object[] with elements byte[]
+	 *                  and String name
+	 * @param mediaType a media type for a representation, or null
+	 * @param isInline  representation data is being provided as inline-data, to be
+	 *                  saved only in the finding aid (InChI, SMILES, InChIKey)
+	 */
+	@Override
+	public void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType,
+			String note, String src) {
+		
+		 System.out.println("L2 adddef >>>" +key + " src=" + src + " " + val);
+		// originPath);
+		if (key == null) {
+			deferredPropertyList.add(null);
+			return;
+		}
+		deferredPropertyList
+				.add(new Object[] { originPath, localizedName, key, val, Boolean.valueOf(isInline), mediaType, note, src });
+		if (key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
+			// Phase 2a has identified a structure before a compound has been established in Phase 2b.
+			// Mestrelab vendor plug-in has found a MOL or SDF file in Phase 2b.
+			
+			// val is Object[] {byte[] bytes, String name}
+			// Pass data to structure property manager in order
+			// to add (by coming right back here) InChI, SMILES, and InChIKey.
+			Object[] oval = (Object[]) val;
+			byte[] bytes = (byte[]) oval[0];
+			String name = (String) oval[1]; // must not be null
+			String type = (oval.length > 2 ? (String) oval[2] : null);
+			String standardInchi = (oval.length > 3 ? (String) oval[3] : null);
+			getStructurePropertyManager().processRepresentation(name, bytes, type, standardInchi, false);
+		}
+	}
+
 	private Map<String, IFDRepresentableObject<?>> htCloneMap = new HashMap<>();
 
 	/**
@@ -1440,7 +1534,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				mediaType = FAIRSpecUtilities.mediaTypeFromFileName(localizedName);
 		}
 		addFileToFileLists(localizedName, LOG_OUTPUT, len, null);
-		CacheRepresentation rep = new CacheRepresentation(new IFDReference(helper.getCurrentSource().getID(),
+		CacheRepresentation rep = new CacheRepresentation(new IFDReference(faHelper.getCurrentSource().getID(),
 				originPath, extractorResource.rootPath, localizedName), data, len, ifdType, mediaType);
 		vendorCache.put(localizedName, rep);
 		return rep;
@@ -1545,7 +1639,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		}
 		lstManifest = resource.lstManifest;
 		lstIgnored = resource.lstIgnored;
-		if (helper.getCurrentSource() != helper.addOrSetSource(resource.getRemoteSource(), resource.rootPath)) {
+		if (faHelper.getCurrentSource() != faHelper.addOrSetSource(resource.getRemoteSource(), resource.rootPath)) {
 			if (isInit)
 				addDeferredPropertyOrRepresentation(NEW_RESOURCE_KEY, resource, false, null, null, null);
 		}

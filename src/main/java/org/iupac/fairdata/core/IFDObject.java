@@ -543,7 +543,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	@Override
 	public String getID() {
 		if (id == null)
-			id = "" + (index + 1);
+			id = "[" + (index + 1) + "]";
 		return id;
 	}
 
@@ -618,6 +618,21 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	public void setDOI(String doi) {
 		this.doi = doi;
 	}
+
+	public void setDOIorURLFromMapByID(Map<String, Map<String, Object>> htURLReferences) {
+		Map<String, Object> ref = htURLReferences.get(getID());
+		if (ref == null)
+			return;
+		Object r = ref.get("url");
+		if (r != null) {
+			url = r.toString();
+		}
+		r = ref.get("doi");
+		if (r != null) {
+			doi = r.toString();
+		}
+	}
+
 
 
 	@Override
@@ -833,8 +848,14 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		o.attributes = new ArrayList<>();
 		o.htProps = new PropertyMap();
 		o.setProperties(myPropertyPrefix, null);
-		o.clear();
-		// why this?? clear the OLD attributes?? attributes = new ArrayList<>();
+		for (Entry<String, IFDProperty> p : htProps.entrySet()) {
+			Object val = p.getValue().getValue();
+			if (val != null)
+				o.setPropertyValue(p.getKey(), val);
+		}
+		// clear the original representations, (that were written in an earlier pass, e.g. nmr pdf files)
+		// they are now copied now to this object. 
+		clear();
 		return o;
 	}
 	@Override
@@ -845,6 +866,15 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 				+ " size=" + size() 
 				+ " isValid=" + isValid
 				+ "]";
+	}
+
+	public void dumpProperties(String label) {
+		Map<String, IFDProperty> props = getProperties();
+		System.out.println("IFDObject property dump for " + this);
+		for (Entry<String, IFDProperty> p : props.entrySet()) {
+			if (p.getValue().getValue() != null)
+				System.out.println(label + ":" + p.getKey() + "=" + p.getValue());
+		}
 	}
 
 }

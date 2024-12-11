@@ -14,6 +14,7 @@ import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDCollectionSet;
 import org.iupac.fairdata.core.IFDObject;
+import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
@@ -26,6 +27,7 @@ import org.iupac.fairdata.derived.IFDSampleDataAssociationCollection;
 import org.iupac.fairdata.derived.IFDSampleStructureAssociation;
 import org.iupac.fairdata.derived.IFDSampleStructureAssociationCollection;
 import org.iupac.fairdata.derived.IFDStructureDataAnalysisCollection;
+import org.iupac.fairdata.derived.IFDStructureDataAssociation;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.sample.IFDSampleCollection;
 import org.iupac.fairdata.structure.IFDStructure;
@@ -173,7 +175,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	}
 
 	/**
-	 * For Phase 2b This list will grow.
+	 * This list will grow with new object types.
 	 * 
 	 * @param key
 	 * @return
@@ -191,23 +193,23 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		else
 			throw new IFDException("bad IFD identifier: " + key);
 		if (key.startsWith("\0structure."))
-			return FAIRSpecFindingAidHelper.ClassTypes.Structure;
+			return ClassTypes.Structure;
 		if (key.startsWith("\0sample."))
-			return FAIRSpecFindingAidHelper.ClassTypes.Sample;
+			return ClassTypes.Sample;
 		if (key.startsWith("\0fairspec.compound."))
-			return FAIRSpecFindingAidHelper.ClassTypes.Compound;
+			return ClassTypes.Compound;
 		if (key.startsWith("\0association.sampledata"))
-			return FAIRSpecFindingAidHelper.ClassTypes.SampleDataAssociation;
+			return ClassTypes.SampleDataAssociation;
 		if (key.startsWith("\0analysis.structuredata"))
-			return FAIRSpecFindingAidHelper.ClassTypes.StructureDataAnalysis;
+			return ClassTypes.StructureDataAnalysis;
 		if (key.startsWith("\0analysis.sampledata"))
-			return FAIRSpecFindingAidHelper.ClassTypes.SampleDataAnalysis;
+			return ClassTypes.SampleDataAnalysis;
 		if (key.startsWith("\0dataobject.fairspec.")) {
 			// adds next part, e.g "nmr"
 			return key.replace('\0', '.').substring(0, key.indexOf(".", 21));
 		}
 		if (key.startsWith("\0dataobject."))
-			return FAIRSpecFindingAidHelper.ClassTypes.DataObject;
+			return ClassTypes.DataObject;
 		return "Unknown";
 	}
 
@@ -227,6 +229,32 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		return null;
 	}
 	
+	/**
+	 * Clone the spectrum object that has declared a sub-spectrum from it (as from
+	 * Mestrenova plugin page-based spectra) and make sure it is part of any
+	 * structureDataCollection or sampleDataCollection
+	 */
+	@Override
+	public IFDDataObject cloneData(IFDDataObject localSpec, String idExtension, boolean andReplace) {
+		// this will invalidate localSpec -- 1.mnova, for example.
+		// TODO clean out invalidated data
+		IFDDataObject data = getSpecCollection().cloneData(localSpec, idExtension, andReplace);
+		if (compoundCollection != null) {
+			for (IFDAssociation a : compoundCollection) {
+				IFDStructureDataAssociation assoc = (IFDStructureDataAssociation) a;
+				if (assoc.getDataObjectCollection().contains(localSpec))
+					assoc.getDataObjectCollection().add(data);
+			}
+		}
+		if (sampleDataCollection != null) {
+			for (IFDAssociation a : sampleDataCollection) {
+				IFDSampleDataAssociation assoc = (IFDSampleDataAssociation) a;
+				if (assoc.getDataObjectCollection().contains(localSpec))
+					assoc.getDataObjectCollection().add(data);
+			}
+		}
+		return data;
+	}
 
 	/**
 	 * This method will return the FIRST structure associated with a spectrum and
@@ -470,7 +498,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			// creating the zip file is the time-consuming part.
 			
 			FAIRSpecUtilities.refreshLog();
-			System.out.println("FAIRSpecExtractorHelper creating " + path);
+			System.out.println("FAIRSpecFindingAidHelper creating " + path);
 			t[1] = System.currentTimeMillis();
 			
 			// byte[] followed by entry name signals that we already have the bytes; don't open a FileInputStream
@@ -575,5 +603,66 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			key = key.substring(0, pt + 1) + "xrd" + key.substring(pt + 5);
 		return key;
 	}
+
+	@Override
+	public IFDResource getCurrentSource() {
+		return currentResource;
+	}
+	
+	@Override
+	public IFDResource addOrSetSource(String dataSource, String rootPath) {
+		return (currentResource = getFindingAid().addOrSetResource(dataSource, rootPath));
+	}
+
+	@Override
+	public void setCurrentResourceByteLength(long len) {
+		currentResource.setLength(len);
+	}
+
+	public static void addProperties(IFDObject<?> o, List<Object[]> props) {
+		for (Object[] s : props) {
+			Object val = s[1];
+			if (val == null)
+				continue;
+			String key = (String) s[0];
+			// "*" prefix indicates private, not to be included in Finding Aid
+			if (key.startsWith(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_METADATA_IGNORE_PREFIX))
+				continue;
+			o.setPropertyValue(key, val);
+		}
+	}
+
+	@Override
+	public Object setPropertyValueNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath) {
+		if (IFDConst.isIFDProperty(key)) {
+			// not a parameter and not forcing NULL
+			Object v = obj.getPropertyValue(key);
+			if (value.equals(v))
+				return null;
+			if (v != null && value != IFDProperty.NULL) {
+				String objSource = obj.getPropertySource(key);
+				if (originPath != null && !originPath.equals(objSource)) {
+					// this was happening when there was a zip file AND a directory in the same
+					// directory in the stolaf collection
+
+//					 Directory of c:\temp\iupac\stolaf\Jun15-20231
+//
+//					 09/01/2023  05:55 AM    <DIR>          .
+//					 09/01/2023  05:55 AM    <DIR>          ..
+//					 09/01/2023  05:55 AM    <DIR>          1203110
+//					 08/13/2023  07:11 PM           656,600 1203110.zip
+//					 09/01/2023  05:55 AM    <DIR>          1203310
+
+//					System.out.println(originPath + " " + objSource);
+
+					return v;
+				}
+			}
+		}
+		//System.out.println(">>helper>>" + key  + "==>" + value + " for " + obj);
+		obj.setPropertyValue(key, value, originPath);
+		return null;
+	}
+
 
 }

@@ -11,6 +11,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDFindingAid;
+import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.html.PageCreator;
@@ -339,6 +340,20 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		return true;
 	}
 
+	protected boolean processPubURI() throws IOException {
+		String datadoi = (String) faHelper.getFindingAid()
+				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI);
+		if (datadoi == null)
+			datadoi = (String) faHelper.getFindingAid()
+					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI);
+		String pubdoi = (String) faHelper.getFindingAid()
+				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_DOI);
+		if (pubdoi == null)
+			pubdoi = (String) faHelper.getFindingAid()
+					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI);
+		return processDOIURLs(pubdoi, datadoi, faHelper);
+	}
+
 	/**
 	 * Indicate that a local path is being include in the 
 	 * collection but doesn't appear in the finding aid.
@@ -436,6 +451,12 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void setNewObjectMetadata(IFDObject<?> o, String param) {
+		// not used 
+	}
+
 
 
 }

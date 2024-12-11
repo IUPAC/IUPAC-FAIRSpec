@@ -1,5 +1,17 @@
 {"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
  {"example":"JEOL files identified as '3a-Carbon'"},
+ 
+"The collection is a stack of JEOL files with no structures.",
+"Structures were added manually by checking the publication.",
+
+"The extractor objects are specialized because the file names ",
+"combine both aspects of compound name and data object type,",
+"separating them with multiple hyphens, ",
+"sometimes hyphenating the compound number, as in '3a-reduced-Carbon.jdf'",
+"and sometimes hyphenating the spectroscopy, as in '8a-Carbon-CDCl3.jdf'",
+"This is suboptimal.",
+
+  
  {"journal":"acs.orglett"},{"hash":"0c00788"},
  {"figshareid": "22125318"},
 
@@ -13,13 +25,14 @@
 
  {"path":"|"},
 
- 	"3a-reduced-*-...-*.jdf", "where compound id is 3a-reduced ",
+ 	"3a-reduced-Carbon.jdf, where compound id is '3a-reduced'' ",
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*-reduced}-*.jdf}}"},
-	"3a+3b+3c-*.jdf",
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*+*}-*.jdf}}"},
-	"3a-Proton-DSMSO.jdf",
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}-*-*.jdf}}"},
-	"3a-Carbon.jdf", "3a-NOE.jdf",
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}-*.jdf}}"}
 
+	"3a-Proton-DSMSO.jdf, where the data object id is 'Carbon-DMSO' ", 
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}-*-*.jdf}}"},
+
+	"3a-Carbon.jdf,3a-NOE.jdf",
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}-*.jdf}}"},
+
+ "note that order here is important"
 ]}

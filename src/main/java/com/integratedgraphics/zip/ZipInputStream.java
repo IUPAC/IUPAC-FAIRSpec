@@ -358,16 +358,17 @@ public class ZipInputStream extends InflaterInputStream {
 			throw new ZipException("encrypted ZIP entry not supported");
 		}
 		e.setMethod(get16(tmpbuf, LOCHOW));
-		e.setCrc(get32(tmpbuf, LOCCRC));
-		e.setCompressedSize(get32(tmpbuf, LOCSIZ));
-		e.setSize(get32(tmpbuf, LOCLEN));
-		if ((flag & 8) == 8) {
-			// size is unknown at compression time
+		boolean readSizes = ((flag & 8) != 8 || e.getMethod() != DEFLATED);
+		// flag 8 means size is unknown at compression time
+			// leave crc and sizes -1
 			/* "Data Descriptor" present */
-			if (e.getMethod() != DEFLATED) {
-				// throw new ZipException
+		// still read the 0 if  (e.getMethod() == DEFLATED)
+				// DO NOT throw new ZipException
 				//System.out.println("ZipInputStream: only DEFLATED entries can have EXT descriptor?? - " + e.getName());
-			}
+		if (readSizes) {
+			e.setCrc(get32(tmpbuf, LOCCRC));
+			e.setCompressedSize(get32(tmpbuf, LOCSIZ));
+			e.setSize(get32(tmpbuf, LOCLEN));
 		}
 		len = get16(tmpbuf, LOCEXT);
 		if (len > 0) {

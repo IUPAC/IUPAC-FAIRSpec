@@ -852,4 +852,23 @@ public class FAIRSpecUtilities {
 		browse.invoke(deskTop, arguments);
 	}
 
+	public static String toJSON(StringBuffer sb, String[] list, String rootPath, boolean withBrackets) {
+		boolean returnString = (sb == null);
+		if (returnString)
+			sb = new StringBuffer();
+		if (withBrackets)
+			sb.append("[");
+		String sep = "";
+		for (int i = 0; i < list.length; i++) {
+			String fname = list[i];
+			sb.append((sep + "\"" 
+			+ (rootPath == null ? "" : rootPath + "/") + fname + "\""));
+			sep = ",\n";
+		}
+		sb.append("\n");
+		if (withBrackets)
+			sb.append("]");
+		return (returnString ? sb.toString() : null);
+	}
+
 }

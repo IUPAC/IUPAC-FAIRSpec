@@ -72,7 +72,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 
 		writeRootManifests();
 		
-		String msg = helper.finalizeExtraction();
+		String msg = helper.finalizeExtraction(htURLReferences);
 		log(msg);
 		
 		String serializedFA = phase3SerializeFindingAid();

@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
@@ -120,6 +121,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 					}
 				}
 				close();
+				report(IFDExtractor.NEW_PAGE_KEY, IFDProperty.NULL);
 				return processRepresentation(null, null);
 			}
 		} catch (IOException e) {
@@ -305,7 +307,10 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	protected void report(String key, Object val) {
 		String k = ifdMap.get(key);
 		// TODO? but not all keys are like this key = "MNova_" + key;
-
+		if (k == null && key.equals("Page_Header")) {
+			addProperty(IFDConst.IFD_PROPERTY_DESCRIPTION, val);
+			addProperty(IFDExtractor.PAGE_ID_PROPERTY_SOURCE, val);
+		}
 		addProperty(k == null ? key : k, val);
 	}
 

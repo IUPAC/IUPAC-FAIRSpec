@@ -62,7 +62,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 * A combination of FAIRSpecExtractionHelper.defaultCachePattern
 	 * and ifd.properties.IFD_DEFAULT_STRUCTURE_FILE_PATTERN
 	 */
-	protected String userStructureFilePattern;
+	private String userStructureFilePattern;
 
 	protected boolean processPhase1(File ifdExtractScriptFile, String localArchive) throws IOException, IFDException {
 		// first create objects, a List<String>
@@ -70,7 +70,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		extractScriptFile = ifdExtractScriptFile;
 		extractScriptFileDir = extractScriptFile.getParent();
 		phase1GetObjectParsersForFile(ifdExtractScriptFile);
-		if (!phase1ProcessPubURI())
+		if (!processPubURI())
 			return false;
 		// options here to set cache and rezip options -- debugging only!
 		phase1SetCachePattern(userStructureFilePattern);
@@ -217,7 +217,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 				// {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
 				// ..keydef=-----------------key--------
 
-				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_REFERENCES)) {
+				if (key.equals(FAIRSPEC_EXTRACTOR_REFERENCES)) {
 					val = FAIRSpecUtilities.getFileStringData(new File(toAbsolutePath(val)));
 					log("!processing " + val);
 					Map<String, Map<String, Object>> htCompoundFileReferences = new HashMap<>();
@@ -226,13 +226,9 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 						Map<String, Object> jm = (Map<String, Object>) jsonMap.get(j);
 						String file = (String) jm.get("file");
 						String cmpd = (String) jm.get("cmpd");
-						if (file == null) {
-							file = cmpd;
-							log("!" + jm.toString());
-						}
-						htCompoundFileReferences.put(file, jm);
+						htCompoundFileReferences.put(cmpd + (file == null ? "" : "|" + file), jm);
 					}
-					helper.setCompoundRefMap(htCompoundFileReferences);
+					htURLReferences = htCompoundFileReferences;
 				}
 				
 				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_LOCAL_SOURCE_FILE)) {
@@ -266,7 +262,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 						htResources.put(val, source);
 					}
 					source.setLocalSourceFileName(localSourceFile == null ? null : localizeURL(null));
-					if (isFoundLocal || !isRemote)
+					if (!isRemote)
 						continue;
 					// go ahead and add this data source to the metadata
 				}
@@ -423,20 +419,6 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 					logWarn(err + " loading " + fileName, "loadFileMetadata");
 			}
 		}
-	}
-
-	private boolean phase1ProcessPubURI() throws IOException {
-		String datadoi = (String) faHelper.getFindingAid()
-				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI);
-		if (datadoi == null)
-			datadoi = (String) faHelper.getFindingAid()
-					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI);
-		String pubdoi = (String) faHelper.getFindingAid()
-				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_DOI);
-		if (pubdoi == null)
-			pubdoi = (String) faHelper.getFindingAid()
-					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI);
-		return processDOIURLs(pubdoi, datadoi, faHelper);
 	}
 
 	/**

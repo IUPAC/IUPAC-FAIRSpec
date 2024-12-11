@@ -1,6 +1,11 @@
 {"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
  {"example":"'product' and 'starting materials' directories containing identified mnova files - acs test 5"},
- "note: corrects aggregation compound id '3ar+3ar', which should be '3ab+3ab'",
+ 
+ "This collection is a stack of MNOVA files that contain extractable CDX structure files. ",
+ "While not ideal, in that it does not retain the original instrument files, it is quite sufficient.",
+ "Note that this template illustrates how the extractor can fix an identifier.", 
+ "Compound id '3ar+3ar' should be '3ab+3ab'", 
+ 
  {"journal":"acs.orglett"},{"hash":"0c01022"},
  {"figshareid":"22195341"},
 
@@ -18,7 +23,10 @@
 			
  {"path":"NMR DATA/*/"},
  
+   "matches 'NMR DATA/product/3j-C.mnova' ",
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}-*}.mnova}"},
+ 
+   "matches NMR DATA/product/3ar+3ar'.mnova ",
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*+*}}.mnova}"}
  
 ]}

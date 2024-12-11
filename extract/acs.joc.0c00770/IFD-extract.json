@@ -1,5 +1,53 @@
 {"FAIRSpec.extract.version":"0.0.2-alpha+2202.11.24","keys":[
- {"example":"compound zip files containing bruker and no-structure mnova files'"},
+ {"example":"a single directory containing individual compound zip files"},
+
+"This is not an example to copy.",
+"It has no structures and has 'broken' Bruker files.",
+"A problem with this collection is that the Bruker directories",
+"have lost their /n/ directories, for example /10/.",
+"This means that these directories cannot be read back into TopSpin.",
+"IDFExtractor will fix this problem, zipping the directories up with an added /1/ subdirectory.",
+
+"Each zip file containing multiple bruker-like directories",
+" and one no-structure mnova file.",
+   
+"  1.zip|          ",
+"     1_13C/       ",
+"        pdata/    ",
+"        ...       ",
+"    1_1H/         ",
+"        pdata/    ",
+"        ...       ",
+"    1.mnova       ",
+"  10.zip|         ",
+"  ...             ",
+
+" this should be something like:",
+
+"  1.zip|          ",
+"     1_13C/10/    ",
+"        pdata/    ",
+"        ...       ",
+
+
+" An added structures/ directory accompanies this JSON file ",
+" It was created by hand from reading the publication",
+
+"   structures/    ",
+"      1/          ",
+"        1.cdxml   ",
+"      10/         ",
+"        10.cdxml  ",
+"      11/         ",
+"        11.cdxml  ",
+"       ...        ",
+
+"Note that it was not necessary to use separate directories here.",
+"We could have just a list of files. But this example illustrates",
+" how one could allow for multiple structures for a given compound,",
+" just by adding more than one cdxml file with a different ID. For example,",
+" 1(R,R).cdxml and 1(S,R).cdxml",
+
  {"journal":"acs.joc"},{"hash":"0c00770"},
  {"figshareid":"22567817"},
  
@@ -15,10 +63,19 @@
 
 
  {"cmpd":"{id=IFD.property.fairspec.compound.id::*}.zip|"},
+ "The{cmpd} shortcut will be used at the start of each extractor object definition, below.",
+ " this reads: 'retrieve the compound identifier XXX from the name of the zip file'",
+ " note that the pipe symbol '|' means 'continue with the file path within the zip file'",
+ " It defines the <id> variable, which actually is not used in this template",
 
- "the mnova check must come before the generic zip directory / check, because *.mnova is in the vendor list for Mestrec, and some Bruker files have mnova files within them",
-
+ "just two extractor objects",
+ " note that the mnova check must come before the generic zip directory / check, because *.mnova is in the vendor list for Mestrec, and some of these Bruker files have mnova files within them",
+ 
  {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*.mnova}}"},
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*}/}"}
-
+ " matches file path: 1.mnova and assigns '1.mnova' to the nmr data object identifier",
+ 
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*}/}"},
+ " matches file path: 1.zip|1_13C/... and assigns '1_13C' to the nmr data object identifier",
+ 
+ "--the extractor configuration adds a search of a structure/ directory"
 ]}
