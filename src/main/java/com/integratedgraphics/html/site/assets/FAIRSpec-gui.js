@@ -1,6 +1,6 @@
 // ${IFD site}/assets/FAIRSpec-gui.js
 // 
-// Bob Hanson hansonr@stolaf.edu 2024.11.15
+// Bob Hanson hansonr@stolaf.edu 2024.12.11
 
 // anonymous function for local functions
 
@@ -713,8 +713,8 @@
 		if (r.data) {
 			if (r.data.indexOf(";base64") == 0) {
 				if (type == "png" || "image/png" == r.mediaType) {
-					var imgTag = "<img id=img" + (++divId)  + " onload=IFD.checkImage(" + divId + ")" +  " src=\"" + "data:" + r.mediaType + r.data + "\"</img>";
-					s += addPathForRep(aidID, r.ref, -1, imgTag, null);	
+					var imgTag = getImageTag(r.ref.localPath, "data:" + r.mediaType + r.data);
+					s += addPathForRep(aidID, r.ref, -1, imgTag, null, r.note);
 				} else {
 					s += anchorBase64(r.ref.localPath, r.data, r.mediaType);
 				}
@@ -727,7 +727,7 @@
 				}
 			}
 		} else {
-			s += " " + addPathForRep(aidID, r.ref, r.len, null, r.mediaType);
+			s += " " + addPathForRep(aidID, r.ref, r.len, null, r.mediaType, r.note);
 		}
 		s = "<tr><td>" + shead + s + "</td></tr>";
 		return s;
@@ -836,19 +836,34 @@
 		}
 	}
 
-	var addPathForRep = function(aidID, ref, len, value, mediaType) {
+	var getImageTag = function(title, url) {
+		return "<img id=img" + (++divId)  
+			+  (title ? " title=\"" + title + "\"" : "")
+			+ " onload=IFD.checkImage(" + divId + ")" 
+			+  " src=\"" + url +"\">";			
+	}
+
+	var addPathForRep = function(aidID, ref, len, value, mediaType, note) {
 		var shortName = ref.localName || shortFileName(ref.localPath);
 		var url = ref.url || ref.doi || (ref.localPath ? fileFor(aidID, ref.localPath) : ref.localName);
 		mediaType = null;// nah. Doesn't really add anything || (mediaType = "");
 		if (value) {
 			s = "<a target=_blank href=\"" + url + "\">" + value + "</a>"
+			if (value.indexOf("<img") >= 0)
+				return s;
 		} else if (shortName.endsWith(".png")) {
-			s = "<img id=img" + (++divId)  + " onload=IFD.checkImage(" + divId + ")" +  " src=\"" + url +"\">"; 
+			return getImageTag(url, url); 
 		} else {
 			if (url.startsWith(";base64,"))
 				url = "data:application/octet-stream" + url;
-			s = "<a target=_blank href=\"" + url + "\">" + shortName + "</a>" + " (" + getSizeString(len) + (mediaType ? " " + mediaType : "") + ")";
+			s = "<a target=_blank href=\"" + url + "\">" + shortName + "</a>" + " (" + getSizeString(len) + (mediaType ? " " + mediaType : "") + ")";				
+			if (IFD.resultsMode == IFD.MODE_SPECTRA && shortName.endsWith(".pdf")) {
+				s = "<object data=\"" + url + "\" type=\"application/pdf\" width=\"800\" height=\"600\">" + s +"</object>";
+			}
 		}
+		note = (note && note.startsWith("Warning") ? note : null);
+		if (note)
+			s += "<br><span class=warning>" + note + "</span>";
 		return s;
 	}
 	
@@ -923,8 +938,7 @@
 		  		"https://www.simolecule.com/cdkdepict/depict/bow/svg?smi=" 
 				+ code + "&w=" + w + "&h=" + h + "&hdisp=" + hdisplay 
 				+ "&showtitle=false&zoom=1.7";
-		  var s = "<img  id=\"img" + divId + "\"" + onload 
-			+ " src=\"" + src + "\"/>";
+		  var s = getImageTag(null, src);
 //		  if (!data){
 //			  IFD.cachePut(code, "img" + divId);
 //			  IFD.cachePut("img" + divId, code);

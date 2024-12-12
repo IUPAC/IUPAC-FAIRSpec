@@ -37,7 +37,16 @@ public interface MetadataReceiverI {
 	 */
 	void log(String string);
 
-	void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInLine, String mediaType, String note, String src);
+	/**
+	 * 
+	 * @param key
+	 * @param val
+	 * @param isInLine
+	 * @param mediaType
+	 * @param note
+	 * @param method
+	 */
+	void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInLine, String mediaType, String note, String method);
 
 	void addProperty(String key, Object val);
 

@@ -66,7 +66,7 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public IFDRepresentation findOrAddRepresentation(String resourceID,	String originPath, String rootPath, String localName, Object data, String type, String mediaType) {
+	public IFDRepresentation findOrAddRepresentation(String resourceID,	String originPath, String rootPath, String localName, Object data, String type, String mediaType) {		
 		String key = (data == null ? localName : data instanceof byte[] ? new String((byte[]) data) : data.toString());
 		IFDRepresentation rep = getRepresentation(resourceID, key);
 		if (rep == null) {

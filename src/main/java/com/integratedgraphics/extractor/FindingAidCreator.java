@@ -365,8 +365,8 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	 * @param localPath
 	 * @param method
 	 */
-	protected void logDigitalItemIgnored(String originPath, String localPath, String method) {
-		logWarn("digital item ignored, as it does not fit any template pattern: " + originPath, method);
+	protected void logDigitalItemIgnored(String originPath, String localPath, String why, String method) {
+		logWarn("digital item ignored, because " + why + ": " + originPath, method);
 	}
 
 	protected void logNote(String msg, String method) {

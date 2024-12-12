@@ -258,6 +258,8 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	/**
 	 * Add the object to the appropriate collection.
 	 * 
+	 * phase 2b
+	 * 
 	 * @param rootPath
 	 * @param param
 	 * @param value
@@ -504,7 +506,8 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 					.getObject(1);
 			for (IFDRepresentableObject<? extends IFDRepresentation> d : dataCollection) {
 				if (d.size() == 0) {
-					extractor.log("! FAIRSpecExtractionHelper.removed " + d);
+					if (d.isValid())
+						extractor.log("! FAIRSpecExtractionHelper.removed " + d);
 					empty.add((IFDDataObject) d);
 				}
 			}

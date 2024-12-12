@@ -41,47 +41,6 @@ import com.integratedgraphics.extractor.IFDExtractor;
  */
 public class ExtractorTestACS extends ExtractorTest {
 
-	//FigShare searching:
-	//import requests as rq
-	//from pprint import pprint as pp
-	//
-	//HEADERS = {'content-type': 'application/json'}
-	//
-	//r = rq.post('https://api.figshare.com/v2/articles/search', data='{"search_for": "university of sheffield", "page_size":20}', headers=HEADERS)
-	//print(r.status_code)
-	//results = r.json()
-	//pp(results)
-
-	/**
-	 * ACS/FigShare codes /21947274
-	 * 
-	 * for example: https://ndownloader.figshare.com/files/21947274
-	 */
-	private static String[] acsTestSet = { 
-		// initial # ignored --  very large (> 100 MB) sets, 
-		// which take some time to process if
-		// not using a local sourceDir
-
-/*0*/		"./extract/acs.joc.0c00770/IFD-extract.json#22567817",       // 0 -- struc/ added; 727 files; zips of bruker dirs + mnovas
-/*1*/		"./extract/acs.orglett.0c00571/IFD-extract.json#21975525",  // 1 -- LARGE 180+MB 3212 files; zips of bruker zips and HRMS
-/*2*/		"./extract/acs.orglett.0c00624/IFD-extract.json#21947274",   // 2 -- struc/ added; 1143 files; MANY bruker dirs
-/*3*/		"./extract/acs.orglett.0c00755/IFD-extract.json#22150197",  // 3 -- LARGE MANY bruker dirs
-/*4*/		"./extract/acs.orglett.0c00788/IFD-extract.json#22125318",   // 4 -- jeol jdfs
-/*5*/		"./extract/acs.orglett.0c00874/IFD-extract.json#22233351",   // 5 -- bruker dirs
-/*6*/		"./extract/acs.orglett.0c00967/IFD-extract.json#22111341",   // 6 -- bruker dirs + jeol jdfs
-
-/*7*/		"./extract/acs.orglett.0c01022/IFD-extract.json#22195341",   // 7 -- many mnovas with CDX files
-
-/*8*/		"./extract/acs.orglett.0c01043/IFD-extract.json#22232721",  // 8 -- LARGE single 158-MB mnova -- IGNORING!
-/*9*/		"./extract/acs.orglett.0c01153/IFD-extract.json#22284726,22284720",  // 9 -- LARGE two remote locations; bruker dirs + cdx + one mnova
-
-/*10*/		"./extract/acs.orglett.0c01197/IFD-extract.json#22491647",  // 10 -- many mnovas with PNG only
-
-/*11*/		"./extract/acs.orglett.0c01277/IFD-extract.json#22613762",  // 11 -- bruker dirs
-/*12*/		"./extract/acs.orglett.0c01297/IFD-extract.json#22612484",  // 12 --  bruker dirs
-/*13*/      "./extract/acs.orgLett.9b02307/IFD-extract.json#9b02307"    // 13 -- Ley, May
-	};
-
 	/**
 	 * Run a full extraction based on arguments, possibly a test set
 	 * 
@@ -91,7 +50,7 @@ public class ExtractorTestACS extends ExtractorTest {
 	 * @param createFindingAidJSONList
 	 */
 	private static void runACSExtractionTest(String[] args,
-			int first, int last, boolean createFindingAidJSONList) {
+			String findACSID, int first, int last, boolean createFindingAidJSONList) {
 		String localSourceArchive = args[1];
 		String targetDir = args[2];
 		new File(targetDir).mkdirs();
@@ -99,8 +58,8 @@ public class ExtractorTestACS extends ExtractorTest {
 
 		String json = null;
 
-		int i0 = Math.max(0, Math.min(first, last));
-		int i1 = Math.max(0, Math.max(first, last));
+		int i0 = Math.max(0, Math.min((findACSID != null ? 0 : first), last));
+		int i1 = Math.min(acsTestSet.length - 1, Math.max(0, Math.max(first, (findACSID != null ? acsTestSet.length : last))));
 		int failed = 0;
 		int n = 0;
 		int nWarnings = 0;
@@ -113,9 +72,11 @@ public class ExtractorTestACS extends ExtractorTest {
 		// [0] "./extract/acs.joc.0c00770/IFD-extract.json#22567817", // 0 727 files;
 		// zips of bruker dirs + mnovas
 		for (int i = i0; i <= i1; i++) {
+			String extractInfo = acsTestSet[i];
+			if (findACSID != null && !extractInfo.contains(findACSID))
+				continue;
 			extractor = new IFDExtractor();
 			extractor.logToSys("Extractor.runExtractionTest output to " + new File(targetDir).getAbsolutePath());
-			String extractInfo = acsTestSet[i];
 			extractor.logToSys("Extractor.runExtraction " + i + " " + extractInfo);
 			String ifdExtractFile;
 			int pt = extractInfo.indexOf("#");
@@ -199,7 +160,7 @@ public class ExtractorTestACS extends ExtractorTest {
 	 * @param targetDir
 	 * @return
 	 */
-	private static String[] setSourceTargetArgs(String[] args, String ifdExtractJSONFilename, String localSourceArchive, String targetDir, String flags) {
+	protected static String[] setSourceTargetArgs(String[] args, String ifdExtractJSONFilename, String localSourceArchive, String targetDir, String flags) {
 		if (args == null)
 			args = new String[0];
 		String[] a = new String[Math.max(4,  args.length)];
@@ -212,12 +173,54 @@ public class ExtractorTestACS extends ExtractorTest {
 		return a;
 	}
 
+	//FigShare searching:
+	//import requests as rq
+	//from pprint import pprint as pp
+	//
+	//HEADERS = {'content-type': 'application/json'}
+	//
+	//r = rq.post('https://api.figshare.com/v2/articles/search', data='{"search_for": "university of sheffield", "page_size":20}', headers=HEADERS)
+	//print(r.status_code)
+	//results = r.json()
+	//pp(results)
+
+	/**
+	 * ACS/FigShare codes /21947274
+	 * 
+	 * for example: https://ndownloader.figshare.com/files/21947274
+	 */
+	private static String[] acsTestSet = { 
+		// initial # ignored --  very large (> 100 MB) sets, 
+		// which take some time to process if
+		// not using a local sourceDir
+
+/*0*/		"./extract/acs.joc.0c00770/IFD-extract.json#22567817",       // 0 -- struc/ added; 727 files; zips of bruker dirs + mnovas
+/*1*/		"./extract/acs.orglett.0c00571/IFD-extract.json#21975525",  // 1 -- LARGE 180+MB 3212 files; zips of bruker zips and HRMS
+/*2*/		"./extract/acs.orglett.0c00624/IFD-extract.json#21947274",   // 2 -- struc/ added; 1143 files; MANY bruker dirs
+/*3*/		"./extract/acs.orglett.0c00755/IFD-extract.json#22150197",  // 3 -- LARGE MANY bruker dirs
+/*4*/		"./extract/acs.orglett.0c00788/IFD-extract.json#22125318",   // 4 -- jeol jdfs
+/*5*/		"./extract/acs.orglett.0c00874/IFD-extract.json#22233351",   // 5 -- bruker dirs
+/*6*/		"./extract/acs.orglett.0c00967/IFD-extract.json#22111341",   // 6 -- bruker dirs + jeol jdfs
+
+/*7*/		"./extract/acs.orglett.0c01022/IFD-extract.json#22195341",   // 7 -- many mnovas with CDX files
+
+/*8*/		"./extract/acs.orglett.0c01043/IFD-extract.json#22232721",  // 8 -- LARGE single 158-MB mnova -- IGNORING!
+/*9*/		"./extract/acs.orglett.0c01153/IFD-extract.json#22284726,22284720",  // 9 -- LARGE two remote locations; bruker dirs + cdx + one mnova
+
+/*10*/		"./extract/acs.orglett.0c01197/IFD-extract.json#22491647",  // 10 -- many mnovas with PNG only
+
+/*11*/		"./extract/acs.orglett.0c01277/IFD-extract.json#22613762",  // 11 -- bruker dirs
+/*12*/		"./extract/acs.orglett.0c01297/IFD-extract.json#22612484",  // 12 --  bruker dirs
+/*13*/      "./extract/acs.orgLett.9b02307/IFD-extract.json#acs.orglett.9b02307.NMR.rar"    // 13 -- Ley, May
+	};
+
 	public static void main(String[] args) {
 		// args[] may override localSourceArchive as ars[1] 
 		// and testDir as args[2]; args[0] is ignored;
-		int first = 12; // first test to run
-		int last = 12; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
+		int first = 13; // first test to run
+		int last = 13; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
 					  // file test
+		String findACSID = null;//"1022" to ignore first/last;
 		/**
 		 * a local dir if you have already downloaded the zip files, otherwise null to
 		 * download from FigShare;
@@ -228,7 +231,7 @@ public class ExtractorTestACS extends ExtractorTest {
 		String flags = null; // "-datacitedown"
 		args = setSourceTargetArgs(args, null, localSourceArchive, targetDir, flags);
 		boolean createFindingAidJSONList = true;
-		runACSExtractionTest(args, first, last, createFindingAidJSONList);
+		runACSExtractionTest(args, findACSID, first, last, createFindingAidJSONList);
 	}
 
 }

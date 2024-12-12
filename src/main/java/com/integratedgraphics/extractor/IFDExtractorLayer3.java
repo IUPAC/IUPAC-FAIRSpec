@@ -215,18 +215,23 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	/**
 	 * Set the type and len fields for structure and spec data
 	 */
+	/**
+	 * 
+	 */
 	private void phase3aUpdateCachedRepresentations() {
-
 		for (String ckey : vendorCache.keySet()) {
 			CacheRepresentation r = vendorCache.get(ckey);
-			IFDRepresentableObject<?> obj = htLocalizedNameToObject.get(ckey);
-			if (obj == null) {
+			IFDRepresentableObject<?> obj = getObjectFromLocalizedName(ckey, null);
+			if (obj == null || !r.isValid) {
 				String path = r.getRef().getOriginPath().toString();
-				logDigitalItemIgnored(path, ckey, "addCachedRepresentationsToObjects");
-				try {
-					addFileToFileLists(path, LOG_IGNORED, r.getLength(), null);
-				} catch (IOException e) {
-					// not possible
+				if (r.isValid) {
+					logDigitalItemIgnored(path, ckey, "it was never associated with an object",
+							"addCachedRepresentationsToObjects");
+					try {
+						addFileToFileLists(path, LOG_IGNORED, r.getLength(), null);
+					} catch (IOException e) {
+						// not possible
+					}
 				}
 				continue;
 			}

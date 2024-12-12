@@ -257,13 +257,13 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 			oval = new Object[] { oval, originPath + "#page" + page + ".png", pageGlobals.pngcss };
 			break;
 		case DefaultStructureHelper.CDX_FILE_DATA:
-			oval = new Object[] { oval, originPath + "#page" + page + ".cdx", null };
+			oval = new Object[] { oval, originPath + "#page" + page + ".cdx", null, null };
 			break;
 		case DefaultStructureHelper.CDXML_FILE_DATA:
-			oval = new Object[] { oval, originPath + "#page" + page + ".cdxml", null };
+			oval = new Object[] { oval, originPath + "#page" + page + ".cdxml", null, null };
 			break;
 		case DefaultStructureHelper.MOL_FILE_DATA:
-			oval = new Object[] { oval, originPath + "#page" + page + ".mol", null };
+			oval = new Object[] { oval, originPath + "#page" + page + ".mol", null, null };
 			break;
 		}
 		if (propName != null)

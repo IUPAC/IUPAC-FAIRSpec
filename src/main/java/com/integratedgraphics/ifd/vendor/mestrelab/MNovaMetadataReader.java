@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Stack;
 import java.util.TreeMap;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
@@ -1074,7 +1075,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 */
 	private void exportPNG(long lastPosition, int skip, int nBlock) throws IOException {
 		seekIn(lastPosition);
-		int w = 0, h = 0;
+		//int w = 0, h = 0;
 		try {
 			// this part is basically just for fun. We skip if we have to.
 			readPointer();
@@ -1097,8 +1098,8 @@ class MNovaMetadataReader extends ByteBlockReader {
 			}
 			readDouble();
 			readDouble();
-			w = (int) Math.round(readDouble());
-			h = (int) Math.round(readDouble());
+			/*w = (int)*/ Math.round(readDouble());
+			/*h = (int)*/ Math.round(readDouble());
 			readByte(); // 1
 			readInt(); // 1
 			if (peekInt() != 0x89504E47) {
@@ -1119,7 +1120,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		if (len > 0) {
 			nPNG++;
 			handleFileData(nBlock, DefaultStructureHelper.PNG_FILE_DATA, bytes, readPosition() - len, len, null,
-					"css:{width:" + w + "px;height:" + h + "px}");
+					IFDConst.IFD_REPRESENTATION_FLAG + "png");
 		}
 		seekIn(lastPosition);
 	}

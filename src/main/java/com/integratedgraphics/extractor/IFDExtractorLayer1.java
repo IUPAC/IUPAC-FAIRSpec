@@ -69,7 +69,10 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		phase1SetLocalSourceDir(localArchive);
 		extractScriptFile = ifdExtractScriptFile;
 		extractScriptFileDir = extractScriptFile.getParent();
-		phase1GetObjectParsersForFile(ifdExtractScriptFile);
+		// Scan data from IFD-extract.json and set up the parsers
+		log("!Extracting " + ifdExtractScriptFile.getAbsolutePath());
+		extractScript = FAIRSpecUtilities.getFileStringData(ifdExtractScriptFile);
+		objectParsers = phase1ParseScript(extractScript);
 		if (!processPubURI())
 			return false;
 		// options here to set cache and rezip options -- debugging only!
@@ -233,6 +236,8 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 				
 				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_LOCAL_SOURCE_FILE)) {
 					localSourceFile = (val.length() == 0 ? null : val);
+					if (localSourceDir != null)
+						localSourceFile = localSourceDir + "/" + localSourceFile;
 					continue;
 				}
 				if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI)) {
@@ -338,20 +343,6 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	}
 	
 	/**
-	 * Get all {object} data from IFD-extract.json.
-	 * 
-	 * @param ifdExtractScript
-	 * @return list of {objects}
-	 * @throws IOException
-	 * @throws IFDException
-	 */
-	private List<ObjectParser> phase1GetObjectParsersForFile(File ifdExtractScript) throws IOException, IFDException {
-		log("!Extracting " + ifdExtractScript.getAbsolutePath());
-		extractScript = FAIRSpecUtilities.getFileStringData(ifdExtractScript);
-		return objectParsers = phase1ParseScript(extractScript);
-	}
-
-	/**
 	 * Parse the script form an IFD-extract.js JSON file starting with the creation
 	 * of a Map by JSJSONParser.
 	 * 
@@ -405,9 +396,9 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		if (key == null) {
 			throw new IFDException("extractor template METADATA element does not contain 'FOR' key in " + m);
 		}
-		if (htMetadata == null)
-			htMetadata = new HashMap<String, Map<String, Object>>();
-		htMetadata.put(key, map);
+		if (htSpreadsheetMetadata == null)
+			htSpreadsheetMetadata = new HashMap<String, Map<String, Object>>();
+		htSpreadsheetMetadata.put(key, map);
 		if (key.startsWith("IFD.")) {
 			String fileName = (String) map.get(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_METADATA_FILE);
 			if (fileName == null) {
@@ -435,7 +426,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 */
 	private void phase1SetCachePattern(String sp) {
 		if (sp == null) {
-			sp = FAIRSpecExtractorHelper.defaultCachePattern + "|" + structurePropertyManager.getParamRegex();
+			sp = FAIRSpecExtractorHelper.defaultCachePattern + "|" + getStructurePropertyManager().getParamRegex();
 		} else if (sp.length() == 0) {
 			sp = "(?<img>\n)|(?<struc>\n)";
 		}
@@ -456,7 +447,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 			s = sp;
 		}
 		vendorCachePattern = Pattern.compile("(?<ext>" + s + ")");
-		vendorCache = new LinkedHashMap<String, CacheRepresentation>();
+		vendorCache = new LinkedHashMap<String, ExtractorUtils.CacheRepresentation>();
 	}
 
 	private void phase1SetLocalSourceDir(String sourceDir) {
@@ -500,6 +491,55 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		return new ObjectParser((IFDExtractor) this, source, sObj);
 	}
 
+	protected String toAbsolutePath(String fname) {
+		if (fname.startsWith("./"))
+			fname = extractScriptFileDir.replace('\\', '/') + fname.substring(1);
+		return fname;
+	}
 
+	/**
+	 * For testing (or for whatever reason zip files are local or should not use the
+	 * given source paths), replace https://......./ with sourceDir/
+	 * 
+	 * @param sUrl
+	 * @return localized URL
+	 * @throws IFDException
+	 */
+	protected String localizeURL(String sUrl) throws IFDException {
+		if (sUrl == null) {
+//			if (new File(localSourceFile).isAbsolute())
+			sUrl = localSourceFile;
+//			else
+//				sUrl = localSourceDir + "/" + localSourceFile;
+		} else {
+			boolean isRelative = sUrl != null && (sUrl.startsWith("./") || sUrl.indexOf("/./") >= 0);
+			if (!isRelative && localSourceDir != null) {
+				if (FAIRSpecUtilities.isZip(localSourceDir)) {
+					sUrl = localSourceDir;
+				} else if (localSourceDir.endsWith("/*")) {
+					sUrl = localSourceDir.substring(0, localSourceDir.length() - 1);
+				} else {
+					int pt = sUrl.lastIndexOf("/");
+					if (pt >= 0) {
+						sUrl = localSourceDir + sUrl.substring(pt);
+						if (!FAIRSpecUtilities.isZip(sUrl) && !sUrl.endsWith("/"))
+							sUrl += ".zip";
+					}
+				}
+
+			}
+		}
+		sUrl = toAbsolutePath(sUrl);
+
+		if (sUrl.indexOf("//") < 0 && !sUrl.startsWith("file:/"))
+			sUrl = "file:/" + sUrl;
+		return sUrl;
+	}
+
+
+	private static boolean isDefaultStructurePath(String val) {
+		return (DEFAULT_STRUCTURE_DIR_URI.equals(val) || DEFAULT_STRUCTURE_ZIP_URI.equals(val));
+	}
+	
 
 }

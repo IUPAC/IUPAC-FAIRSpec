@@ -33,8 +33,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.zip.ZipException;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 
 import swingjs.jzlib.CRC32;
 import swingjs.jzlib.Inflater;
@@ -42,7 +42,9 @@ import swingjs.jzlib.InflaterInputStream;
 
 
 /**
- * Modified by Bob Hanson for compatibility with jzlib and allowance for MACOS EXT records
+ * Modified by Bob Hanson for compatibility with jzlib and allowance for
+ * improper ZIP construction for zero-length files. Incorporates package-only
+ * constants from java.util.zip package.
  * 
  * 
  * @author David Connelly
@@ -66,7 +68,7 @@ public class ZipInputStream extends InflaterInputStream {
      */
     private static final int LOCFLG = 6;        // general purpose bit flag
     private static final int LOCHOW = 8;        // compression method
-    private static final int LOCTIM = 10;       // modification time
+    //private static final int LOCTIM = 10;       // modification time
     private static final int LOCCRC = 14;       // uncompressed file crc-32 value
     private static final int LOCSIZ = 18;       // compressed size
     private static final int LOCLEN = 22;       // uncompressed size
@@ -288,25 +290,27 @@ public class ZipInputStream extends InflaterInputStream {
    */
   @Override
   public long skip(long n) throws IOException {
-    if (n < 0) {
-      throw new IllegalArgumentException("negative skip length");
-    }
-    ensureOpen();
-    int max = (int) Math.min(n, Integer.MAX_VALUE);
-    int total = 0;
-    while (total < max) {
-      int len = max - total;
-      if (len > tmpbuf.length) {
-        len = tmpbuf.length;
-      }
-      len = read(tmpbuf, 0, len);
-      if (len == -1) {
-        entryEOF = true;
-        break;
-      }
-      total += len;
-    }
-    return total;
+      throw new IllegalArgumentException("ZipInputStream.skip not implemented");
+	  // unimplemented
+//    if (n < 0) {
+//      throw new IllegalArgumentException("negative skip length");
+//    }
+//    ensureOpen();
+//    int max = (int) Math.min(n, Integer.MAX_VALUE);
+//    int total = 0;
+//    while (total < max) {
+//      int len = max - total;
+//      if (len > tmpbuf.length) {
+//        len = tmpbuf.length;
+//      }
+//      len = read(tmpbuf, 0, len);
+//      if (len == -1) {
+//        entryEOF = true;
+//        break;
+//      }
+//      total += len;
+//    }
+//    return total;
   }
 
   /**

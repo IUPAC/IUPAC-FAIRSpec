@@ -530,11 +530,11 @@ public class DOICrawler extends FindingAidCreator {
 	 * consisting of [ bytes, fileName, ifdStructureType, standardInchi|?, mediaType ]
 	 * @param isInLine
 	 * @param mediaType
-	 * @param note
+	 * @param method
 	 */
 	@Override
 	public void addDeferredPropertyOrRepresentation(String key, Object val, 
-			boolean isInLine, String mediaType, String note, String src) {
+			boolean isInLine, String mediaType, String note, String method) {
 		// TODO Auto-generated method stub
 		
 	}

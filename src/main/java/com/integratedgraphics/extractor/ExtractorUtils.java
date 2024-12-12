@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -446,6 +447,9 @@ public class ExtractorUtils {
 	
 		protected ArchiveEntry(FileHeader fh) {
 			name = fh.getFileName();
+			name = name.replace('\\', '/');
+			if (fh.isDirectory() && !name.endsWith("/"))
+				name += "/";
 			size = fh.getUnpSize();
 		}
 	
@@ -630,7 +634,16 @@ public class ExtractorUtils {
 			while ((fh = rar.nextFileHeader()) != null) {
 				list.add(fh);
 			}
+			list.sort(new Comparator<FileHeader>() {
+
+				@Override
+				public int compare(FileHeader o1, FileHeader o2) {
+					return o1.getFileName().compareTo(o2.getFileName());
+				}
+				
+			});
 			rarList = list;
+			
 			reset();
 		}
 	
@@ -652,7 +665,7 @@ public class ExtractorUtils {
 		@Override
 		public void close() throws IOException {
 			closeEntry();
-			close();
+			super.close();
 		}
 	
 		protected RARArchiveEntry getNextEntry() throws FileNotFoundException {
@@ -691,8 +704,10 @@ public class ExtractorUtils {
 			if (is == null) {
 				try {
 					ByteArrayOutputStream bos = new ByteArrayOutputStream();
+					System.out.println("rar.extractFile " + fh.getFileName());
 					rar.extractFile(fh, bos);
 					byte[] bytes = bos.toByteArray();
+					bos.close();
 					System.out.println("extracting " + fh.getFileName() + " " + bytes.length);
 					is = new BufferedInputStream(new ByteArrayInputStream(bytes));
 				} catch (Exception e) {
@@ -797,72 +812,6 @@ public class ExtractorUtils {
 	
 	}
 
-	/**
-	 * A static class to provide a temporary representation object for
-	 * representations that have been found but do not have an object yet.
-	 * 
-	 * @author hansonr
-	 *
-	 */
-	public static class CacheRepresentation extends IFDRepresentation {
-	
-		protected String rezipOrigin;
-		public boolean isMultiple;
-	
-		public CacheRepresentation(IFDReference ifdReference, Object o, long len, String type, String subtype) {
-			super(ifdReference, o, len, type, subtype);
-		}
-	
-		public void setRezipOrigin(String path) {
-			rezipOrigin = path;
-		}
-	
-		public Object getRezipOrigin() {
-			return rezipOrigin;
-		}
-	
-		public void setIsMultiple() {
-			isMultiple = true;
-		}
-	
-		public boolean isMultiple() {
-			return isMultiple;
-		}
-	
-	}
-
-	/**
-	 * A static class that provides a byte array wrapper that allows using them to
-	 * be keys in a HashMap.
-	 * 
-	 * Used here for checking if to structure files are identical. For example, two
-	 * different structures pulled from two different pages of an MNova file.
-	 * 
-	 * 
-	 * @author hansonr
-	 *
-	 */
-	public static class AWrap {
-	
-		public byte[] a;
-	
-		AWrap(byte[] b) {
-			a = b;
-		}
-	
-		@Override
-		public boolean equals(Object o) {
-			AWrap b = (AWrap) o;
-			return Arrays.equals(a, b.a);
-		}
-	
-		@Override
-		public int hashCode() {
-			return Arrays.hashCode(a);
-		}
-	
-	}
-
 	public static class ExtractorResource {
 		
 		private int id, tempID;
@@ -939,6 +888,76 @@ public class ExtractorUtils {
 			return (source == null ? localSourceFile : source);
 		}
 
+	}
+
+	/**
+	 * A static class that provides a byte array wrapper that allows using them to
+	 * be keys in a HashMap.
+	 * 
+	 * Used here for checking if to structure files are identical. For example, two
+	 * different structures pulled from two different pages of an MNova file.
+	 * 
+	 * 
+	 * @author hansonr
+	 *
+	 */
+	public static class AWrap {
+	
+		private byte[] a;
+	
+		public AWrap() {
+		}
+	
+		public void setBytes(byte[] bytes) {
+			a = bytes;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			AWrap b = (AWrap) o;
+			return Arrays.equals(a, b.a);
+		}
+	
+		@Override
+		public int hashCode() {
+			return Arrays.hashCode(a);
+		}
+	
+	}
+
+	/**
+	 * A static class to provide a temporary representation object for
+	 * representations that have been found but do not have an object yet.
+	 * 
+	 * @author hansonr
+	 *
+	 */
+	public static class CacheRepresentation extends IFDRepresentation {
+	
+		protected String rezipOrigin;
+		public boolean isMultiple;
+		public boolean isValid = true;
+		
+		public CacheRepresentation(IFDReference ifdReference, Object o, long len, String type, String subtype) {
+			super(ifdReference, o, len, type, subtype);
+		}
+	
+		public void setRezipOrigin(String path) {
+			rezipOrigin = path;
+		}
+	
+		public Object getRezipOrigin() {
+			return rezipOrigin;
+		}
+	
+		public void setIsMultiple() {
+			isMultiple = true;
+		}
+	
+		public boolean isMultiple() {
+			return isMultiple;
+		}
+	
 	}
 
 }
