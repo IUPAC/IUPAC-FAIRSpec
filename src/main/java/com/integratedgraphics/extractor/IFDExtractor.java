@@ -69,7 +69,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 	// TODO: update GitHub README.md
 
 
-	protected static final String version = "0.0.6-alpha+2024.12.02";
+	protected static final String version = "0.0.6-beta+2024.12.12";
 
 	private static final String debugFlags = "-stopAfter=end";
 

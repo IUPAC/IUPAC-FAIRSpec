@@ -77,7 +77,7 @@ public class DOICrawler extends FindingAidCreator {
 	// 2024.12.02 version 0.0.6 (copied from IFDExtractor.java)
 	// 2024.05.28 version 0.0.1 initial version used for ICL repository crawling
 
-	protected static final String version = "0.0.6-alpha+2024.12.02";
+	protected static final String version = "0.0.6-beta+2024.12.12";
 	
 	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/DOICrawler.java";
 
