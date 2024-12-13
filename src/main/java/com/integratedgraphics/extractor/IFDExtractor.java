@@ -261,11 +261,12 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		if (failed == 0) {
 			try {
 				if (json != null) {
-					String s = FAIRSpecUtilities.rep(json, targetDir + "/", "./");
-					File f = new File(targetDir + "/_IFD_findingaids.json");
+					String dir = targetPath.getAbsolutePath();
+					String s = FAIRSpecUtilities.rep(json, dir + "/", "./");
+					File f = new File(dir + "/_IFD_findingaids.json");
 					FAIRSpecUtilities.writeBytesToFile(s.getBytes(), f);
 					logToSys("Extractor.runExtraction File " + f.getAbsolutePath() + " created ");
-					f = new File(targetDir + "/_IFD_findingaids.js");
+					f = new File(dir + "/_IFD_findingaids.js");
 					FAIRSpecUtilities.writeBytesToFile(("IFD.findingAids=" + s).getBytes(), f);
 					logToSys("Extractor.runExtraction File " + f.getAbsolutePath() + " created \n" + json);
 				} else {
@@ -314,6 +315,10 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 				+ localsourceArchive + "\n targetDir = " + targetPath.getAbsolutePath());
 		
 		File htmlPath = (insitu ? new File(localsourceArchive) : targetPath);
+		if (assetsOnly) {
+			buildSite(htmlPath);
+			return;
+		}
 		
 		String serializedFA = extractAndCreateFindingAid(ifdExtractScriptFile, localsourceArchive, targetPath);
 		if (serializedFA == null) {

@@ -111,8 +111,6 @@ public class FAIRSpecUtilities {
 	 * @throws IOException
 	 */
 	public static void writeBytesToFile(byte[] bytes, File fileTarget) throws IOException {
-		if (fileTarget.getName().indexOf("fid") >= 0)
-			System.out.println("????");
 		FileOutputStream fos = new FileOutputStream(fileTarget);
 		fos.write(bytes);
 		fos.close();

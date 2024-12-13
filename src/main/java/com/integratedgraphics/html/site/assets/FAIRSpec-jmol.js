@@ -1,3 +1,4 @@
+// ${IUPAC FAIRSpec}/src/html/site/FAIRSpec-jmol.js
 // from https://chemapps.stolaf.edu/jmol/jsmol/jsmol.htm
 
 

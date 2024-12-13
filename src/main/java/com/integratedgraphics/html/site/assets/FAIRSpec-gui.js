@@ -1,6 +1,6 @@
-// ${IFD site}/assets/FAIRSpec-gui.js
+// ${IUPAC FAIRSpec}/src/html/site/assets/FAIRSpec-gui.js
 // 
-// Bob Hanson hansonr@stolaf.edu 2024.12.11
+// Bob Hanson hansonr@stolaf.edu 2024.12.12
 
 // anonymous function for local functions
 
@@ -64,7 +64,7 @@
 
 	// external
 	IFD.loadFindingAids = function() {
-		var aids = IFD.findingAids || ["."];
+		var aids = (IFD.findingAids ? IFD.findingAids.findingaids : ["."]);
 		IFD.aidIDs = [];
 		var s = (aids.length == 1 ? null : '<select id=articles onchange="IFD.loadSelected(this.selectedOptions[0].value)"><option value="">Select a Finding Aid</option>')
 		// set up for ./name/IFD.findingAid.json
@@ -111,6 +111,11 @@
 
 	// external
 	IFD.loadSelected = function(aidID, collection) {
+		
+		if (!aidID)
+			return;
+		
+		
 		IFD.mainText = null;
 		if (typeof aidID == "object") {
 			var next = aidID.pop();
@@ -295,19 +300,11 @@
 	}
 	
 	var loadMainSummary = function(aid, isAll) {
-//		if (!getInnerHTML(MAIN_SUMMARY)) {
 		var s;
 		if (isAll && IFD.mainText) {
 			s = IFD.mainText;
 		} else {
-			s = "<table>";
-			s += addTopRow(aid);
-			if (isAll) {
-				s += addPubInfo(aid);
-				s += addDescription(aid.collectionSet);
-				s += addResources(aid);
-			}
-			s += "</table>";
+			s = getMainTable(aid, isAll);
 			if (isAll) {
 				IFD.mainText = s;
 			}
@@ -316,6 +313,18 @@
 		showMain();
 	}
 
+	var getMainTable = function(aid, isAll) {		
+		var s = "<table>";
+		s += addTopRow(aid);
+		if (isAll) {
+			s += addPubInfo(aid);
+			s += addDescription(aid.collectionSet);
+			s += addResources(aid);
+		}
+		s += "</table>";
+		return s;
+	}
+	
 	var loadMainSearch = function(aidID) {
 		if (!getInnerHTML(MAIN_SEARCH)) {
 			var s = "";
@@ -460,7 +469,7 @@
 		var s = getHeader("Sample/s", "Sample " + id); 
 		s += showCompoundStructures(aidID,structureIDs, false);
 		var smiles = IFD.getSmilesForStructureID(aidID, structureIDs[0]);
-		s += showCompoundSpectra(aidID,specids,smiles,true);
+		s += showCompoundSpectra(aidID,specids,smiles,true,false);
 		s += "<hr style='color:red'>";
 		return s;
 	}
@@ -495,6 +504,7 @@
 	}
 
 	var showSpectrum = function(aidID,id) {
+		var isAll = (IFD.resultsMode == IFD.MODE_SPECTRA);
 		var spec = IFD.getCollection(aidID).spectra[id];
 		var structureIDs = IFD.getStructureIDsForSpectra(aidID, [id]);
 		var sampleID = spec.properties && spec.properties.originating_sample_id;
@@ -510,7 +520,7 @@
 			s += "<td>&nbsp;&nbsp;</td><td><b>" + title + "</b></td>"
 		s += "</tr></table>";
 		var smiles = IFD.getSmilesForStructureID(aidID, structureIDs[0]);
-		s += showCompoundSpectra(aidID,[id],smiles,false);
+		s += showCompoundSpectra(aidID,[id],smiles,false, isAll);
 		s += showCompoundStructures(aidID,structureIDs, false);
 		s += "<hr style='color:blue'>";
 		return s;
@@ -538,7 +548,7 @@
 
 		s += showCompoundStructures(aidID,structureIDs, false);
 		var smiles = IFD.getSmilesForStructureID(aidID, structureIDs[0]);
-		s += showCompoundSpectra(aidID,spectraIDs,smiles);
+		s += showCompoundSpectra(aidID,spectraIDs,smiles,false,false);
 		s += "<hr style='color:red'>";
 		return s;
 	}
@@ -576,6 +586,7 @@
 
 
 	var showCompoundStructure = function(aidID, id, showID, tableRow) {
+		var isAll = (IFD.resultsMode == IFD.MODE_STRUCTURES);
 		var cl = (tableRow > 0 ? " class=tablerow" + (tableRow%2) : "");
 		var s = "<td" + cl + "><table cellpadding=10><tr>";
 		var struc = IFD.getCollection(aidID).structures[id];
@@ -589,30 +600,32 @@
 			s += "<span class=structurehead>"+ (IFD.resultsMode == IFD.MODE_STRUCTURES ? getHeader("Structure/s", h) : h) + "</span><br>";
 		}
 		v = IFD.getStructureVisual(reps);
-		if (v){
+		if (v && isAll){
 			s += "<table border=1><tr><td>";
 			s += "from SMILES:<br>" + v;
 			s += "</td></tr></table>"
 		}
 		s += IFD.getStructureSpectraPredictions(reps);
 		s += "</td>";
-		s += "<td>" + addRepresentationTable(false, aidID, reps, "png") + "</td>";
+		s += "<td>" + addRepresentationTable(false, aidID, reps, "png", isAll) + "</td>";
 		s += "</tr>";
+		if (isAll) {
 			s += "<tr>";
-		 	s += "<td><table>" + addPropertyRows("",props, null, false) + "</table></td>"
+		 	s += "<td><table>" + addPropertyRows("",props, null, false) + "</table></td>";
 			s += "</tr>";
-			s += "</table>";
+		}
+		s += "</table>";
 		s += "</td>";
 		return s;
 	}
 
-	var showCompoundSpectra = function(aidID,ids,smiles,withTitle) {
+	var showCompoundSpectra = function(aidID,ids,smiles,withTitle,isAll) {
 		ids || (ids = IFD.items[aidID][IFD.MODE_SPECTRA]);
 		var s = "<table>"
 			if (withTitle)
 				s += "<tr><td style=\"width:100px\" valign=top><span class=spectitle>Spectra</span></td></tr>";
 		for (var i = 0; i < ids.length; i++) {
-			s += addCompoundSpectrumRow(aidID, ids[i], smiles, i + 2);
+			s += addCompoundSpectrumRow(aidID, ids[i], smiles, i + 2, isAll);
 		}
 		s += "</table>";
 		return s;
@@ -692,13 +705,13 @@
 		}
 	}
 
-	var addRepresentationTable = function(isData, aidID, reps, firstItem) {
+	var addRepresentationTable = function(isData, aidID, reps, specialItem, isAll) {
 		var s = ""
 		for (var i = 0; i < reps.length; i++) {
 			var type = IFD.shortType(reps[i].representationType);
-			if (type == firstItem) {
+			if (type == specialItem) {
 				s = addRepresentationRow(isData, aidID, reps[i], type) + s;
-			} else {
+			} else if ("!" + type != specialItem) {
 				s += addRepresentationRow(isData, aidID, reps[i], type);
 			}
 		}
@@ -766,19 +779,19 @@
 		return s;
 	}
 
-	var addCompoundSpectrumRow = function(aidID, id, smiles, tableRow) {
+	var addCompoundSpectrumRow = function(aidID, id, smiles, tableRow, isAll) {
 		var spec = IFD.getCollection(aidID).spectra[id];
 		var cl = (tableRow > 0 ? " class=tablerow" + (tableRow%2) : "");
 		var s = "<tr><td"+ cl + " id='q1' rowspan=2 style=\"width:100px\" valign=top>" 
 			+ (IFD.byID ? id : "") 
-		+ getSpectrumPrediction(spec.properties, smiles)
+		+ (isAll ? getSpectrumPrediction(spec.properties, smiles) : "")
 		+ "</td>"
 		s += "<td id='q2'>";
-			s += addRepresentationTable(true, aidID, spec.representations);
+			s += addRepresentationTable(true, aidID, spec.representations, (isAll ? null : "pdf"), isAll);
 		s += "</td></tr>";
 		s += "<tr><td><table>";
-			s += addPropertyRows("IFD&nbsp;Properties", spec.properties, null, true);
-			s += addPropertyRows("More&nbsp;Attributes", spec.attributes, null, true);
+			s += addPropertyRows("IFD&nbsp;Properties", spec.properties, null, !isAll);
+			s += addPropertyRows("More&nbsp;Attributes", spec.attributes, null, !isAll);
 		s += "</table></td></tr>";
 		return s;	
 	}
@@ -913,7 +926,7 @@
 
 	IFD.getStructureVisual = function(reps) {
 		var types = IFD.getRepTypes(reps);
-		if (types.png && types.png.data || !types.smiles || !types.smiles.data) return "";
+		if (!types.smiles || !types.smiles.data) return "";
 		return IFD.getCDKDepictImage(types.smiles.data);
 	}
 	

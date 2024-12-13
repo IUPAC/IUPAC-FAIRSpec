@@ -1,6 +1,6 @@
-// ${IFD site}/assets/FAIRSpec-get.js
+// ${IUPAC FAIRSpec}/src/html/site/FAIRSpec-get.js
 // 
-// Bob Hanson hansonr@stolaf.edu 2023.01.19
+// Bob Hanson hansonr@stolaf.edu 2024.12.05
 
 
 // samples --- associated via originating_sample property of a spectrum -- 1 sample : N spectra

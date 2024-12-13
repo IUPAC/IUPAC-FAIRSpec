@@ -8,6 +8,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 import com.integratedgraphics.extractor.FindingAidCreator;
 import com.integratedgraphics.extractor.IFDExtractor;
+import com.integratedgraphics.html.PageCreator;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
@@ -118,6 +119,8 @@ public class ExtractorTestACS extends ExtractorTest {
 				if (extractor.stopOnAnyFailure)
 					break;
 			}
+			if (extractor.assetsOnly)
+				continue;
 			nWarnings += extractor.warnings;
 			nErrors += extractor.errors;
 			extractor.logToSys("!Extractor.runExtraction job " + extractInfo + " time/sec="
@@ -145,7 +148,14 @@ public class ExtractorTestACS extends ExtractorTest {
 				json = null;
 			else if (json != null)
 				json += "\n]}\n";
-			((FindingAidCreator) extractor).setTargetPath(new File(targetDir0));
+			File htmlPath = new File(targetDir0);
+			try {
+				if (json != null)
+					PageCreator.buildSite(htmlPath, true, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}		
+			((FindingAidCreator) extractor).setTargetPath(htmlPath);
 			extractor.finalizeExtraction(json, n, failed, nWarnings, nErrors, sflags);
 		}
 		FAIRSpecUtilities.setLogging(null);
@@ -217,10 +227,12 @@ public class ExtractorTestACS extends ExtractorTest {
 	public static void main(String[] args) {
 		// args[] may override localSourceArchive as ars[1] 
 		// and testDir as args[2]; args[0] is ignored;
-		int first = 13; // first test to run
+		int first = 0; // first test to run
 		int last = 13; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
 					  // file test
 		String findACSID = null;//"1022" to ignore first/last;
+		String flags = null;//"-assetsOnly"; // "-datacitedown"
+		
 		/**
 		 * a local dir if you have already downloaded the zip files, otherwise null to
 		 * download from FigShare;
@@ -228,7 +240,6 @@ public class ExtractorTestACS extends ExtractorTest {
 		String localSourceArchive = "c:/temp/iupac/zip";//-";
 		
 		String targetDir = "c:/temp/iupac/ifd2024";
-		String flags = null; // "-datacitedown"
 		args = setSourceTargetArgs(args, null, localSourceArchive, targetDir, flags);
 		boolean createFindingAidJSONList = true;
 		runACSExtractionTest(args, findACSID, first, last, createFindingAidJSONList);

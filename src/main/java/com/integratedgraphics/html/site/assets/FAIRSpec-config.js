@@ -1,4 +1,4 @@
-// IFD site/assets/search.js
+// ${IUPAC FAIRSpec}/src/html/site/FAIRSpec-config.js
 // 
 // Bob Hanson hansonr@stolaf.edu 2023.01.19
 

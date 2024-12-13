@@ -132,6 +132,8 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 
 	protected boolean cleanCollectionDir = true;
 
+	public boolean assetsOnly;
+
 	protected String ifdid = "";
 
 	protected void setDefaultRunParams() {
@@ -174,7 +176,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		skipPubInfo = !dataciteUp || debugReadOnly; // true to allow no internet connection and so no pub calls
 		
 		createLandingPage &= !readOnly;
-		launchLandingPage &= createLandingPage;
+		launchLandingPage &= createLandingPage && !assetsOnly;
 
 	}
 
@@ -265,6 +267,9 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		}
 		if (flags.indexOf("-requirepubinfo;") >= 0) {
 			allowNoPubInfo = false;
+		}
+		if (flags.indexOf("-assetsonly;") >= 0) {
+			assetsOnly = true;
 		}
 
 // not working 

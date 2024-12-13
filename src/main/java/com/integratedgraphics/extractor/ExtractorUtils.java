@@ -704,11 +704,9 @@ public class ExtractorUtils {
 			if (is == null) {
 				try {
 					ByteArrayOutputStream bos = new ByteArrayOutputStream();
-					System.out.println("rar.extractFile " + fh.getFileName());
 					rar.extractFile(fh, bos);
 					byte[] bytes = bos.toByteArray();
 					bos.close();
-					System.out.println("extracting " + fh.getFileName() + " " + bytes.length);
 					is = new BufferedInputStream(new ByteArrayInputStream(bytes));
 				} catch (Exception e) {
 					throw new IOException(e);
