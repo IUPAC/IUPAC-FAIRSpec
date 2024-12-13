@@ -1,8 +1,6 @@
 // ${IUPAC FAIRSpec}/src/html/site/assets/FAIRSpec-gui.js
 // 
-// Bob Hanson hansonr@stolaf.edu 2024.12.12
-
-// anonymous function for local functions
+// Bob Hanson hansonr@stolaf.edu 2024.12.13
 
 ;(function() {
 
@@ -300,6 +298,7 @@
 	}
 	
 	var loadMainSummary = function(aid, isAll) {
+		clearPDFCache();
 		var s;
 		if (isAll && IFD.mainText) {
 			s = IFD.mainText;
@@ -520,8 +519,8 @@
 			s += "<td>&nbsp;&nbsp;</td><td><b>" + title + "</b></td>"
 		s += "</tr></table>";
 		var smiles = IFD.getSmilesForStructureID(aidID, structureIDs[0]);
-		s += showCompoundSpectra(aidID,[id],smiles,false, isAll);
 		s += showCompoundStructures(aidID,structureIDs, false);
+		s += showCompoundSpectra(aidID,[id],smiles,false, isAll);
 		s += "<hr style='color:blue'>";
 		return s;
 	}
@@ -706,12 +705,13 @@
 	}
 
 	var addRepresentationTable = function(isData, aidID, reps, specialItem, isAll) {
+		var justImage = (!isData && IFD.resultsMode == IFD.MODE_SPECTRA);
 		var s = ""
 		for (var i = 0; i < reps.length; i++) {
 			var type = IFD.shortType(reps[i].representationType);
 			if (type == specialItem) {
 				s = addRepresentationRow(isData, aidID, reps[i], type) + s;
-			} else if ("!" + type != specialItem) {
+			} else if (!justImage && "!" + type != specialItem) {
 				s += addRepresentationRow(isData, aidID, reps[i], type);
 			}
 		}
@@ -755,12 +755,30 @@
 
 	IFD.showHead = function(i) {alert(heads[i])}
 
+	var clearPDFCache = function() {
+		IFD.pdfData = [];
+		IFD.pdfDataPt = 0;		
+	}
+	
+	clearPDFCache();
+	
 	var anchorBase64 = function(label, sdata, mediaType) {
 		mediaType || (mediaType = "application/octet-stream");
 		var s = "<a href=\"data:" + mediaType + sdata + "\")>" + label + "</a>";
-		if (mediaType.indexOf("/pdf") < 0) 
-			return s;
-		return "<object data=\"data:application/pdf" + sdata + "\" type=\"application/pdf\" width=\"800\" height=\"600\">" + s +"</object>";
+		if (mediaType.indexOf("/pdf") >= 0) {
+			s += getPDFLink("data:application/pdf" + sdata);
+		}
+		return s;
+	}
+
+	var getPDFLink = function(uri) {
+		var s = "&nbsp;&nbsp;<span id=pdf" + IFD.pdfDataPt + "><a href=\"javascript:IFD.viewPDF("+IFD.pdfDataPt+")\">VIEW</a></div>";
+		IFD.pdfData[IFD.pdfDataPt++] = "<object data=\"" + uri + "\" type=\"application/pdf\" width=\"800\" height=\"600\"></object>";
+		return s;
+	}
+	
+	IFD.viewPDF = function(i) {
+		$("#pdf" + i).html(IFD.pdfData[i]);
 	}
 
 	var getSpectrumPrediction = function(props, smiles) {
@@ -871,7 +889,7 @@
 				url = "data:application/octet-stream" + url;
 			s = "<a target=_blank href=\"" + url + "\">" + shortName + "</a>" + " (" + getSizeString(len) + (mediaType ? " " + mediaType : "") + ")";				
 			if (IFD.resultsMode == IFD.MODE_SPECTRA && shortName.endsWith(".pdf")) {
-				s = "<object data=\"" + url + "\" type=\"application/pdf\" width=\"800\" height=\"600\">" + s +"</object>";
+				s +=  getPDFLink(url);
 			}
 		}
 		note = (note && note.startsWith("Warning") ? note : null);

@@ -69,12 +69,12 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 				"Temperature", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_ABSOLUTE_TEMPERATURE"), //prop
 				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_DIMENSION"), //prop
 				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_TITLE"), //prop
-				"F1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_1"), //prop
-				"F2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_2"), //prop
-				"F3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_3"), //prop
-				"N1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_1"), //prop
-				"N2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_2"), //prop
-				"N3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_3"), //prop
+				"Spectrometer Frequency", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_1"), //prop
+				"Spectrometer Frequency2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_2"), //prop
+				"Spectrometer Frequency3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_3"), //prop
+				"Nucleus", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_1"), //prop
+				"Nucleus2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_2"), //prop
+				"Nucleus3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_3"), //prop
 				"SF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_NOMINAL_FREQ"), //prop
 				"TIMESTAMP", IFDConst.IFD_PROPERTY_DATAOBJECT_TIMESTAMP, //prop
 		};
@@ -190,15 +190,16 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 				case "Site":
 				case "Solvent":
 				case "Title":
+				case "Instrument":
+				case "Spectrometer":
 				default:
 					oval = FAIRSpecUtilities.rep(val, "\n", " ").trim();
+					break;
+				case "Purity":
 					break;
 				case "Data File Name":
 					pageGlobals.isJDF = (val.endsWith(".jdf"));
 					return;
-				case "Instrument":
-				case "Spectrometer":
-					break;
 				case "Temperature":
 					double d = Double.parseDouble(val);
 					if (pageGlobals.isJDF) {
@@ -208,19 +209,16 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 					oval = Double.valueOf(d);
 					break;
 				case "Nucleus":
-					key = "N1";
 					pageGlobals.nuc1 = val;
 					if (param2 != null) {
-						params.put("N2", param2.value);
+						params.put("Nucleus2", param2.value);
 					}
 					break;
-				case "Purity":
 				case "Spectrometer Frequency":
-					key = "F1";
 					pageGlobals.freq = Double.parseDouble(val);
 					oval = Double.valueOf(pageGlobals.freq);
 					if (param2 != null) {
-						params.put("F2", Double.valueOf(param2.value));
+						params.put("Spectrometer Frequency2", Double.valueOf(param2.value));
 					}
 					break;
 				case "Spectrum Quality":
@@ -311,7 +309,11 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 			addProperty(IFDConst.IFD_PROPERTY_DESCRIPTION, val);
 			addProperty(IFDExtractor.PAGE_ID_PROPERTY_SOURCE, val);
 		}
-		addProperty(k == null ? key : k, val);
+		// SM and DIM are derived
+		if (!key.startsWith("!"))
+			addProperty(key, val);
+		if (k != null)
+			addProperty(k, val);
 	}
 
 	private void close() {
@@ -324,8 +326,8 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	private void finalizeParams() {
 		if (params != null && pageGlobals.freq != 0) {
 			int f = getNominalFrequency(pageGlobals.freq, pageGlobals.nuc1);
-			params.put("SF", Double.valueOf(f));
-			params.put("DIM", Integer.valueOf(pageGlobals.dim) + "D");
+			params.put("!SF", Integer.valueOf(f));
+			params.put("!DIM", Integer.valueOf(pageGlobals.dim) + "D");
 			params.put("mnovaVersion", mnovaVersion);
 		} 
 		params = null;

@@ -37,9 +37,6 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 		//this.test = staticTest++;
 		this.ref = ref;
 		this.data = data;
-//			System.out.println(this.test + " " + subtype + " " + len + " " + ref);
-//			if (this.test == 44)
-//				System.out.println("IDFReptest");
 		this.len = (data instanceof String ? ((String) data).length()
 				: data instanceof byte[] ? ((byte[]) data).length 
 				: ref != null || len != 0 ? len 
@@ -61,7 +58,6 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 	}
 
 	public void setRef(IFDReference ref) {
-		System.out.println("IFDRep ref=" + ref);
 		this.ref = ref;
 	}
 

@@ -67,10 +67,10 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 	 */
 	@SuppressWarnings("unchecked")
 	public IFDRepresentation findOrAddRepresentation(String resourceID,	String originPath, String rootPath, String localName, Object data, String type, String mediaType) {		
-		String key = (data == null ? localName : data instanceof byte[] ? new String((byte[]) data) : data.toString());
+		String key = (localName != null ? localName : data instanceof byte[] ? new String((byte[]) data) : data.toString());
 		IFDRepresentation rep = getRepresentation(resourceID, key);
 		if (rep == null) {
-			rep = newRepresentation((localName == null ? null : new IFDReference(resourceID, originPath, rootPath, localName)), data, 0, type, mediaType);
+			rep = newRepresentation((localName == null ? null : new IFDReference(resourceID, originPath, rootPath, localName)), data, 0, type, mediaType);			
 			add((T) rep);
 			map.put(resourceID + "::" + key, rep);
 			if (localName != null && data != null)

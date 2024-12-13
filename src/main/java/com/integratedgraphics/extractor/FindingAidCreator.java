@@ -171,6 +171,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		// _IFD_collection.zip file
 		createZippedCollection = createZippedCollection && !insitu && !debugReadOnly;
 		
+		cleanCollectionDir &= !insitu;
 		readOnly |= debugReadOnly; // for testing; when true, no output other than a log file is produced
 		noOutput = (createFindingAidOnly || readOnly);
 		skipPubInfo = !dataciteUp || debugReadOnly; // true to allow no internet connection and so no pub calls

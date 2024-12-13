@@ -77,10 +77,21 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	private Map<String, IFDRepresentableObject<?>> htLocalizedNameToObject = new LinkedHashMap<>();
 
 	/**
+	 * retrieves a clone data source or a cloned object from an id 
+	 */
+	private Map<String, IFDRepresentableObject<?>> htCloneMap = new HashMap<>();
+
+	/**
 	 * a list of properties that vendors have indicated need addition, keyed by the
 	 * zip path for the resource
 	 */
 	private List<Object[]> deferredPropertyList;
+
+	/**
+	 * an insertion pointer into the deferredPropertyList;
+	 * reset to 0 after Phase 2b.
+	 */
+	private int deferredPropertyPointer;
 
 	/**
 	 * a key for the deferredObjectList that indicates we have a new resource
@@ -316,6 +327,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		// removing resources that are totally unnecessary and extracting properties
 		// and representations using IFDVendorPluginI services.
 
+		deferredPropertyPointer = 0;
 		if (rezipCache != null && rezipCache.size() > 0) {
 			phase2cGetNextRezipName();
 			lastRezipPath = null;
@@ -506,6 +518,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 						phase2aProcessEntry(baseOriginPath, oPath, ais, zipEntry, accepted);
 					break;
 				case PHASE_2C:
+					
+					
 					// rezipping
 					if (oPath.equals(currentRezipPath)) {
 						// nextRealEntry here may be the first
@@ -1049,7 +1063,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		IFDRepresentation r = faHelper.getSpecDataRepresentation(localizedName);
 		if (r == null) {
 			// probably the case, as this renamed representation has not been added yet.
-		} else {
+		} else if (!insitu){
 			r.setLength(len);
 		}
 		if (oPath.endsWith(".zip"))
@@ -1433,7 +1447,14 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		return name;
 	}
 
+	/**
+	 * Get the clone source
+	 * @param spec
+	 * @return
+	 */
 	private IFDRepresentableObject<?> phase2dGetClonedData(IFDRepresentableObject<?> spec) {
+		if (htCloneMap.isEmpty())
+			return spec;
 		IFDRepresentableObject<?> d = (spec.isValid() ? null : htCloneMap.get(spec.getID()));
 		return (d == null ? spec : d);
 	}
@@ -1507,13 +1528,13 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	public void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType,
 			String note, String method) {
 		
-		// System.out.println("L2 adddef >>>" +key + " src=" + method + " " + val);
+		//System.out.println("L2 adddef >>>" +key + " src=" + method + " " + val);
 		if (key == null) {
-			deferredPropertyList.add(null);
+			deferredPropertyList.add(deferredPropertyPointer++, null);
 			return;
 		}
 		deferredPropertyList
-				.add(new Object[] { originPath, localizedName, key, val, Boolean.valueOf(isInline), mediaType, note, method });
+				.add(deferredPropertyPointer++, new Object[] { originPath, localizedName, key, val, Boolean.valueOf(isInline), mediaType, note, method });
 		if (key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
 			// Phase 2a has identified a structure before a compound has been established in Phase 2b.
 			// Mestrelab vendor plug-in has found a MOL or SDF file in Phase 2b.
@@ -1533,7 +1554,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		}
 	}
 
-	private Map<String, IFDRepresentableObject<?>> htCloneMap = new HashMap<>();
 
 	/**
 	 * Register a digital item as significant and to be included in the collection.
