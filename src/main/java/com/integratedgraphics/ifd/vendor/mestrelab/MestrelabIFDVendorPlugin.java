@@ -88,8 +88,8 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	@Override
-	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
-		super.accept(extractor, originPath, bytes, isEmbedded);
+	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
+		super.accept(extractor, originPath, bytes);
 		MNovaMetadataReader reader;
 		try {
 			page = 0;

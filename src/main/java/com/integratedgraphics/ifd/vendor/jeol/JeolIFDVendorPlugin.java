@@ -18,8 +18,8 @@ public class JeolIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 	}
 
 	@Override
-	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
-		super.accept(extractor, originPath, bytes, isEmbedded);
+	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
+		super.accept(extractor, originPath, bytes);
 		try {
 			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(bytes);
 			System.out.println("JEOL " + originPath);

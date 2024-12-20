@@ -609,7 +609,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 						this.localizedName = localizedName;
 						// indicating "this" here notifies the vendor plug-in that
 						// this is a one-shot file, not a collection.
-						type = v.accept(this, originPath, bytes, true);
+						type = v.accept(this, originPath, bytes);
 						if (type == IFDConst.IFD_PROPERTY_FLAG) {
 							List<String[]> props = FAIRSpecUtilities.getIFDPropertyMap(new String(bytes));
 							for (int i = 0, n = props.size(); i < n; i++) {
@@ -1038,7 +1038,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				if (isIFDMetadataFile) {
 					addIFDMetadata(new String(bytes));
 				} else {
-					(mgr == null ? vendor : mgr).accept(null, this.originPath, bytes, false);
+					(mgr == null ? vendor : mgr).accept(null, this.originPath, bytes);
 				}
 			}
 			if (doInclude && !insitu)

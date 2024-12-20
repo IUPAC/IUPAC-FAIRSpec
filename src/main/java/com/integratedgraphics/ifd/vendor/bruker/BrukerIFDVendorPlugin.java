@@ -148,8 +148,8 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	 * 
 	 */
 	@Override
-	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
-		super.accept(extractor, originPath, bytes, isEmbedded);
+	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
+		super.accept(extractor, originPath, bytes);
 		return (readJDX(originPath, bytes) ? processRepresentation(originPath, null) : null);
 	}
 
@@ -314,7 +314,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		try {
 			String filename = new File(originPath).getAbsolutePath();
 			byte[] bytes = FAIRSpecUtilities.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
-			new BrukerIFDVendorPlugin().accept(null, filename, bytes, false);
+			new BrukerIFDVendorPlugin().accept(null, filename, bytes);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

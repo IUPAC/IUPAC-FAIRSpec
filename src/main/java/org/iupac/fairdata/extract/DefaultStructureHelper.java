@@ -1,18 +1,28 @@
 package org.iupac.fairdata.extract;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.jmol.api.JmolViewer;
 import org.jmol.util.DefaultLogger;
 import org.jmol.viewer.Viewer;
 
-import javajs.util.Base64;
+import com.actelion.research.chem.AbstractDepictor;
+import com.actelion.research.chem.SmilesParser;
+import com.actelion.research.chem.StereoMolecule;
+import com.actelion.research.gui.JStructureView;
+import com.actelion.research.gui.generic.GenericRectangle;
 
 import javajs.util.BS;
-import jme.JMEJmol;
+import javajs.util.Base64;
 
 /**
  * A class to handle the extraction of structure objects and metadata related to
@@ -54,16 +64,14 @@ public class DefaultStructureHelper implements PropertyManagerI {
 
 	private Map<String, String> fileToType = new HashMap<>();
 
-	private boolean isEmbedded;
+	private boolean createRepresentation;
 
 	/**
-	 * @param isEmbedded true when extractor is non-null 
-	    and so we need to store the bytes of this file externally in a deferred manner 
 	 */
 	@Override
-	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
+	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
 		this.extractor = extractor;
-		this.isEmbedded = isEmbedded; 
+		this.createRepresentation = (extractor != null); 
 		return processRepresentation(originPath, bytes);
 	}
 	
@@ -119,7 +127,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 
 	@Override
 	public String processRepresentation(String originPath, byte[] bytes) {
-		return processStructureRepresentation(originPath, bytes, null, null, isEmbedded, false);
+		return processStructureRepresentation(originPath, bytes, null, null, createRepresentation, false);
 	}
 
 	public String processStructureRepresentation(String originPath, byte[] bytes, String type, String standardInChI,
@@ -215,11 +223,16 @@ public class DefaultStructureHelper implements PropertyManagerI {
 									getDeferredObject(mol2d.getBytes(), originPath + ".mol" , null, standardInChI, null), false,
 									"chemical/x-mdl-molfile", note, null);
 					}
-					if (is2D) {
-						JMEJmol jme = (JMEJmol) org.jmol.api.Interface.getInterface("jme.JMEJmol", v, "FAIRSpec");
-						jme.options("headless");
-						jme.readMolFile(mol2d == null ? data : mol2d);
-						bytes = jme.toBorderedPNG(null, 10, 10);
+//					if (is2D) {
+//						JMEJmol jme = (JMEJmol) org.jmol.api.Interface.getInterface("jme.JMEJmol", v, "FAIRSpec");
+//						jme.options("headless");
+//						jme.readMolFile(mol2d == null ? data : mol2d);
+//						bytes = jme.toBorderedPNG(null, 10, 10);
+//					}
+					if (is2D && smiles != null) {
+						ByteArrayOutputStream bos = new ByteArrayOutputStream();
+						writeMoleculePNG(smiles, bos);
+						bytes = bos.toByteArray();
 					}
 				}
 				if (bytes == null && !is2D) {
@@ -270,6 +283,22 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		fileToType.put(originPath, type);
 		return (returnInChI ? standardInChI : type);
 	}
+	
+	private static void writeMoleculePNG(String smiles, OutputStream os) throws IOException {
+		StereoMolecule mol = new SmilesParser().parseMolecule(smiles); 
+		GenericRectangle rect = mol.getBounds(null);
+		int w = (int) (rect.getWidth() * 30);
+		int h = (int) (rect.getHeight()/rect.getWidth()* w);
+		int mode = AbstractDepictor.cDModeSuppressCIPParity | AbstractDepictor.cDModeSuppressESR
+				| AbstractDepictor.cDModeSuppressChiralText;
+		JStructureView mArea = new JStructureView(mol);
+		mArea.setDisplayMode(mode);
+		mArea.setSize(w, h);
+		BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+		mArea.paint(bi.getGraphics());
+		ImageIO.write(bi, "png", os);
+	}
+
 
 	/**
 	 * 

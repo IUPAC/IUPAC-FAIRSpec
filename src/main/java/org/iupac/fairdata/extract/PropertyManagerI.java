@@ -40,10 +40,9 @@ public interface PropertyManagerI {
 	 *                  FileOutputStream
 	 * @param bytes     the decompressed contents of this file, for checking and
 	 *                  further processing; may be null in some applications
-	 * @param isEmbedded TODO
 	 * @return true if accepted (but may be ignored by the extractor)
 	 */
-	String accept(MetadataReceiverI extractor, String originPath, byte[] bytes, boolean isEmbedded);
+	String accept(MetadataReceiverI extractor, String originPath, byte[] bytes);
 
 	/**
 	 * Process a representation (zip file or directory, mol file, etc.), possibly

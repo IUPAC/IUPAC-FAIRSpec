@@ -111,7 +111,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	}
 
 	@Override
-	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes, boolean isEmbedded) {
+	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
 		if (extractor != null) {
 			this.extractor = extractor;
 		}
