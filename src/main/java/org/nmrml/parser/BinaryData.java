@@ -14,6 +14,7 @@ import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.HashMap;
 //import java.util.List;
 import java.util.Map;
@@ -21,12 +22,12 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
-import javax.xml.bind.DatatypeConverter;
+//import javax.xml.bind.DatatypeConverter;
 
 public class BinaryData {
 
 	private byte[] data;
-	private BigInteger encodedLength;
+	private int encodedLength;
 	private String byteFormat;
 	private boolean exists = false;
 	private boolean compressed = false;
@@ -68,11 +69,15 @@ public class BinaryData {
 		return buffer.toString();
 	}
 
-	public BigInteger getEncodedLength() {
+	public int getEncodedLength() {
+		if (encodedLength == 0) {
+			// Here the Base64 encoding is just for knowing the encoded length
+			encodedLength = Base64.getEncoder().encode(getData()).length;
+		}
 		return encodedLength;
 	}
 
-	public void setEncodedLength(BigInteger encodedLength) {
+	public void setEncodedLength(int encodedLength) {
 		this.encodedLength = encodedLength;
 	}
 
@@ -184,7 +189,7 @@ public class BinaryData {
 		return buf;
 	}
 
-	public static byte[] compress(byte[] data) throws IOException {
+	public static byte[] deflate(byte[] data) throws IOException {
 		Deflater deflater = new Deflater();
 		deflater.setInput(data);
 
@@ -279,7 +284,8 @@ public class BinaryData {
 				break;
 			}
 			this.setData(buffer.array());
-			this.setEncodedLength(BigInteger.valueOf(this.getData().length));
+			// why here? We do it again later, and get() is never called. (BH)
+			//this.setEncodedLength(BigInteger.valueOf(this.getData().length));
 			this.setByteFormat(byteFormat);
 			this.setCrossVallues(crossvalues);
 
@@ -297,15 +303,12 @@ public class BinaryData {
 			acq.setByteOrder(ByteOrder.LITTLE_ENDIAN);
 
 			if (isCompressed) {
-				this.setData(compress(buf));
+				this.setData(deflate(buf));
 			} else {
 				this.setData(buf);
 			}
 
 			this.compressed = isCompressed;
-			// Here the Base64 encoding is just for knowing the encoded length
-			String base64String = DatatypeConverter.printBase64Binary(this.getData());
-			this.setEncodedLength(BigInteger.valueOf(base64String.length()));
 			this.setByteFormat(byteFormat);
 			this.exists = true;
 			MessageDigest md = null;
