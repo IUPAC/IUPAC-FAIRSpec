@@ -261,7 +261,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		if (failed == 0) {
 			try {
 				if (json != null) {
-					String dir = targetPath.getAbsolutePath();
+					String dir = targetPath.getAbsolutePath().replace('\\','/');
 					String s = FAIRSpecUtilities.rep(json, dir + "/", "./");
 					File f = new File(dir + "/_IFD_findingaids.json");
 					FAIRSpecUtilities.writeBytesToFile(s.getBytes(), f);

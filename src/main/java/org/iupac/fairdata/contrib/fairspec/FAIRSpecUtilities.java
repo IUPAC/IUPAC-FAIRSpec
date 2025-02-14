@@ -489,10 +489,10 @@ public class FAIRSpecUtilities {
 		private static Map<Integer, String> processXLSXData(String sheetXML, String sharedXML, int[] retMaxRC) {
 			String[] sharedStrings = null;
 			if (sharedXML != null) {
-				String[] tokens = sharedXML.split("\\<si\\>\\<t\\>");
+				String[] tokens = sharedXML.split("\\<si\\>\\<t");
 				sharedStrings = new String[tokens.length - 1];
 				for (int i = 1; i < tokens.length; i++) {
-					sharedStrings[i - 1] = tokens[i].substring(0, tokens[i].indexOf("</t>"));
+					sharedStrings[i - 1] = tokens[i].substring(tokens[i].indexOf(">") + 1, tokens[i].indexOf("</t>"));
 				}
 			}
 			// ArrayList<ArrayList<String>> cells = new ArrayList<ArrayList<String>>();
@@ -516,6 +516,7 @@ public class FAIRSpecUtilities {
 					val = cell.substring(pt + 3);
 					val = val.substring(0, val.indexOf("</v>"));
 					if (isShared) {
+						System.out.println("FAIRSpecUtilities.processXLS " + cell);
 						val = sharedStrings[Integer.parseInt(val)];
 					}
 					// TODO what about formatting?

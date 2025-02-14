@@ -16,9 +16,13 @@ public class ExtractorTestICL2 {
 
 	public static void main(String[] args) {
 		String dir = "c:/temp/iupac/henry/";
-		String ifdExtractFile = dir + "IFD-extract-procter.json";
-		String localSourceArchive = dir + "Procter/";
-		String targetDir = dir + "icl-procter";
+//		String ifdExtractFile = dir + "IFD-extract-procter.json";
+//		String localSourceArchive = dir + "Procter/";
+//		String targetDir = dir + "icl-procter";
+
+		String ifdExtractFile = dir + "IFD-extract-HR.json";
+		String localSourceArchive = dir + "Procter2/Procter";
+		String targetDir = dir + "icl-procter2";
 
 		String flags = null;
 

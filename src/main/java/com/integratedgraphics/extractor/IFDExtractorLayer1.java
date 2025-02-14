@@ -64,6 +64,8 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 */
 	private String userStructureFilePattern;
 
+	private String findingaidId;
+
 	protected boolean processPhase1(File ifdExtractScriptFile, String localArchive) throws IOException, IFDException {
 		// first create objects, a List<String>
 		phase1SetLocalSourceDir(localArchive);
@@ -234,12 +236,14 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 					htURLReferences = htCompoundFileReferences;
 				}
 				
-				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_LOCAL_SOURCE_FILE)) {
+
+				 if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_LOCAL_SOURCE_FILE)) {
 					localSourceFile = (val.length() == 0 ? null : val);
 					if (localSourceDir != null)
 						localSourceFile = localSourceDir + "/" + localSourceFile;
 					continue;
 				}
+				 
 				if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI)) {
 					// allow for a local version (debugging mostly)
 					boolean isRemote = val.startsWith("http");
@@ -293,7 +297,8 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 					continue;
 				}
 				if (key.startsWith(IFDConst.IFD_PROPERTY_FLAG)) {
-					if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_ID)) {
+					if (key.equals(IFDConst.IFD_PROPERTY_FINDINGAID_ID) 
+							|| key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_ID)) {
 						faHelper.getFindingAid().setID(ifdid = val);
 					}
 					if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID)) {

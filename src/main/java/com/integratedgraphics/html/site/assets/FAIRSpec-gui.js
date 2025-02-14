@@ -275,7 +275,7 @@
 	}
 
 	var loadTop = function(aid) {
-		var s = "&nbsp;&nbsp;&nbsp;" + aid.id 
+		var s = (aid.id == '.' ? "" : "&nbsp;&nbsp;&nbsp;" + aid.id) 
 		+ (aLoading ? 
 			"&nbsp;&nbsp; <a target=_blank href=\"" + IFD.findingAidFile + "\">view "+IFD.findingAidFile.split("/").pop()+"</a>"
 			+ "&nbsp;&nbsp; " + addPathRef(aid.id, aid.collectionSet.properties.ref, aid.collectionSet.properties.len)
