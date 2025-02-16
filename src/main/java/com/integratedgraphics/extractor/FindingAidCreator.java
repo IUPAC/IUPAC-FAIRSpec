@@ -194,8 +194,10 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			moreFlags = "";
 		moreFlags += ";";
 		for (int i = 0; i < args.length; i++) {
-			if (args[i] != null)
-				moreFlags += "-" + args[i] + ";";
+			if (args[i] != null && args[i].startsWith("-")) {
+				moreFlags += args[i] + ";";				
+				args[i] = null;
+			}
 		}
 		moreFlags = checkFlags(moreFlags);
 		setDerivedFlags();

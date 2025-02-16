@@ -148,7 +148,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 	public void runExtraction(String[] args) {
 
 		System.out.println(Arrays.toString(args));
-
+	    processFlags(args, debugFlags);
 		String localSourceArchive = null;
 		String targetDir = null;
 		String ifdExtractJSONFilename;
@@ -177,9 +177,9 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		logToSys("Extractor.runExtraction output to " + new File(targetDir).getAbsolutePath());
 		// ./extract/ should be in the main Eclipse project directory.
 		long t0 = System.currentTimeMillis();
-		processFlags(args, debugFlags);
 		new File(targetDir).mkdirs();
 		String flags = "\n" + dumpFlags() + "\n IFD version " + IFDConst.IFD_VERSION + "\n";
+		String json = (readOnly ? null : "{\"findingaids\":[\".\"]}");
 		try {
 			File ifdExtractScriptFile = new File(ifdExtractJSONFilename).getAbsoluteFile();
 			File targetPath = new File(targetDir).getAbsoluteFile();
@@ -205,7 +205,6 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 				}
 			}
 		}
-		String json = (readOnly ? null : "{\"findingaids\":[\"" + targetDir + "/IFD.findingaid.json\"]}");
 		finalizeExtraction(json, 1, failed, -1, -1, flags);
 		FAIRSpecUtilities.setLogging(null);
 	}
@@ -262,6 +261,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 			try {
 				if (json != null) {
 					String dir = targetPath.getAbsolutePath().replace('\\','/');
+					// TODO the problem is here. We have abolute paths.
 					String s = FAIRSpecUtilities.rep(json, dir + "/", "./");
 					File f = new File(dir + "/_IFD_findingaids.json");
 					FAIRSpecUtilities.writeBytesToFile(s.getBytes(), f);
@@ -314,9 +314,8 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		log("!Extractor\n ifdExtractScriptFile= " + ifdExtractScriptFile + "\n localsourceArchive = "
 				+ localsourceArchive + "\n targetDir = " + targetPath.getAbsolutePath());
 		
-		File htmlPath = (insitu ? new File(localsourceArchive) : targetPath);
-		if (assetsOnly) {
-			buildSite(htmlPath);
+		if (assetsOnly && !insitu) {
+			buildSite(targetPath);
 			return;
 		}
 		
@@ -326,14 +325,20 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 				throw new IFDException("Extractor failed");
 			}
 		} else if (createLandingPage) {
-			if (insitu)
-				FAIRSpecUtilities.writeBytesToFile(serializedFA.getBytes(), new File(htmlPath, "IFD.findingaid.json"));
-			buildSite(htmlPath);
+			buildLandingPage(serializedFA, targetPath);
 		}
 
 		log("!Extractor extracted " + lstManifest.size() + " files (" + lstManifest.getByteCount() + " bytes)"
 				+ "; ignored " + lstIgnored.size() + " files (" + lstIgnored.getByteCount() + " bytes)" + "; rejected "
 				+ lstRejected.size() + " files (" + lstRejected.getByteCount() + " bytes)");
+	}
+
+	private void buildLandingPage(String serializedFA, File targetPath) throws IOException {
+		String dir = extractScriptFileDir;
+		File htmlPath = (insitu && dir != null ? new File(dir) : targetPath);
+		if (insitu)
+			FAIRSpecUtilities.writeBytesToFile(serializedFA.getBytes(), new File(htmlPath, "IFD.findingaid.json"));
+		buildSite(htmlPath);
 	}
 
 	/**

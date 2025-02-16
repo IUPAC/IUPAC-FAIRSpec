@@ -456,7 +456,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			n++;
 			nextEntry = null;
 			String name = zipEntry.getName();
-			//System.out.println(">>>>" + name);
+//			System.out.println(">>>>" + name);
 			if (name == null)
 				continue;
 			boolean isDir = zipEntry.isDirectory();
@@ -1836,7 +1836,9 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		switch (mode) {
 		case LOG_IGNORED:
 			// fileName will be an origin name
-			writeDigitalItem(fileName, ais, len, mode);
+			  lstIgnored.add(fileName, len);
+			  // though ignored, still added to collection
+			  writeDigitalItem(fileName, ais, len, mode);
 			break;
 		case LOG_REJECTED:
 			// fileName will be an origin name
@@ -1871,7 +1873,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		String localizedName = localizePath(originPath);
 		switch (mode) {
 		case LOG_IGNORED:
-			lstIgnored.add(localizedName, len);
 			if (noOutput || !includeIgnoredFiles || ais == null)
 				return;
 			break;
