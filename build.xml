@@ -21,7 +21,6 @@
 
   <!-- see below for unjar references -->
   <property name="jmol.jar" value="JmolDataD.jar" />
-  <property name="jme.jar" value="JME-SwingJS.jar" />
   <property name="commons-io.jar" value="commons-io-2.11.0.jar" />
   <property name="commons-compress.jar" value="commons-compress-1.22.jar" />
 	
@@ -38,7 +37,6 @@
 	  	<delete includeemptydirs="true">
 		      <fileset dir="${appjars.dir}" includes="**/*"/>
 		</delete>
-	    <unjar dest="${appjars.dir}" src="${lib.dir}/${jme.jar}"/>
 	    <unjar dest="${appjars.dir}" src="${lib.dir}/${jmol.jar}"/>
 		<unjar dest="${appjars.dir}" src="${lib.dir}/${commons-compress.jar}"/>
 		<unjar dest="${appjars.dir}" src="${lib.dir}/${commons-io.jar}"/>

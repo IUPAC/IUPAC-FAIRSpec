@@ -74,11 +74,6 @@ import com.integratedgraphics.util.XmlReader;
 
 public class DOICrawler extends FindingAidCreator {
 
-	// 2024.12.02 version 0.0.6 (copied from IFDExtractor.java)
-	// 2024.05.28 version 0.0.1 initial version used for ICL repository crawling
-
-	protected static final String version = "0.0.6-beta+2024.12.12";
-	
 	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/DOICrawler.java";
 
 	/**
@@ -382,13 +377,6 @@ public class DOICrawler extends FindingAidCreator {
 		
 	};
 
-	public static void main(String[] args) {
-		if (args.length == 0)
-			ICLDOICrawler.main(args);
-		else 
-			new DOICrawler(args).crawl();
-	}
-
 	protected static String cleanData(String s) {
 		return s.replaceAll("\t", "\\\\t").replaceAll("\r\n", "\\\\n").replaceAll("\n", "\\\\n");
 	}
@@ -508,7 +496,8 @@ public class DOICrawler extends FindingAidCreator {
 	 * @param args [initialDOI, outputDirectory]
 	 */
 	public DOICrawler(String... args) {
-		initialDOI = (args.length == 0 ? TEST_PID : args[0]);
+		int arg0 = (args.length > 0 && args[0] == null ? 1 : 0);
+		initialDOI = (args.length == arg0 ? TEST_PID : args[arg0]);
 		String flags = processFlags(args, "-nozip");
 		if (flags.indexOf("-nodownload;") >= 0) {
 			doDownload = false;
@@ -1095,5 +1084,13 @@ public class DOICrawler extends FindingAidCreator {
 		}
 		urlDepth--;
 	}
+
+	public static void main(String[] args) {
+		if (args.length == 0)
+			ICLDOICrawler.main(args);
+		else 
+			new DOICrawler(args).crawl();
+	}
+
 
 }

@@ -26,6 +26,43 @@ import com.integratedgraphics.ifd.api.VendorPluginI;
  */
 public abstract class FindingAidCreator implements MetadataReceiverI {
 
+	public static final String version = "0.0.7-beta+2025.02.17";
+	// 2025.02.17 version 0.0.7-beta+2025.02.17 integrates the crawler
+	// 2024.12.02 version 0.0.6 fully refactored, revised; adds creation of landing
+	// page and -nolandingpage -nolaunch flags
+	// 2024.11.03 version 0.0.6 adding support for DOICrawler
+	// 2024.05.28 version 0.0.5 moved to com.integratedgraphics.extractor.Extractor
+	// 2023.01.09 version 0.0.4 adds MNova_Page_Header parameter
+	// 2023.01.07 version 0.0.4 adds CDX reading by Jmol
+	// 2023.01.01 version 0.0.4 accepts structures automatically from ./structures/
+	// and ./structures.zip
+	// 2022.12.30 version 0.0.4 ACS 0-7 with structures; fixing rezip issue of
+	// Bruker files placed in _IFD.ignored.json
+	// 2022.12.29 version 0.0.4 ACS 0-4 with structures; fixing *-* Regex for ACS#4
+	// acs.orglett.0c00788
+	// 2022.12.27 version 0.0.4 ACS 0-2 working
+	// 2022.12.27 version 0.0.4 introduces FAIRSpecCompoundAssociation
+	// 2022.12.23 version 0.0.4 fixes from ACS testing, Bruker directories with
+	// multiple numbered subdirectories adds "-<n>" to the id
+	// 2022.12.14 version 0.0.4 allows for local directory parsing (no zip or
+	// tar.gz)
+	// 2022.12.13 verison 0.0.4 adds "EXIT" and comment-only "..." for
+	// IFD-extract.json
+	// 2022.12.10 version 0.0.4 adds CDXML reading by Jmol and conversion of CIF to
+	// PNG along with Jmol 15.2.82 fixes for V3000 and XmlChemDrawReader
+	// 2022.12.01 version 0.0.4 fixes multi-page MNova with compound association
+	// (ACS 22567817#./extract/acs.joc.0c00770)
+	// 2022.11.29 version 0.0.4 allows for a representation to be both a structure
+	// and a data object
+	// 2022.11.27 version 0.0.4 adds parameters from a Metadata file as XLSX or ODS
+	// 2022.11.23 version 0.0.3 fixes missing properties in NMR; upgrades to
+	// double-precision Jmol-SwingJS JmolDataD.jar
+	// 2022.11.21 version 0.0.3 fixes minor details; ICL.v6, ACS.0, ACS.5 working
+	// adds command-line arguments, distinguishes REJECTED and IGNORED
+	// 2022.11.17 version 0.0.3 allows associations "byID"
+	// 2022.11.14 version 0.0.3 "compound identifier" as organizing association
+	// 2022.06.09 MNovaMetadataReader CDX export fails due to buffer pointer error.
+
 	static {
 		FAIRSpecFindingAid.loadProperties();
 		VendorPluginI.init();
