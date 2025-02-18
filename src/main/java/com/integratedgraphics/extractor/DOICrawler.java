@@ -33,7 +33,6 @@ import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
 
-import com.integratedgraphics.test.ICLDOICrawler;
 import com.integratedgraphics.util.XmlReader;
 
 /**
@@ -86,8 +85,6 @@ public class DOICrawler extends FindingAidCreator {
 	 * is the only archive tested
 	 * 
 	 */
-	protected final static String TEST_PID = "10.14469/hpc/10386";
-
 	protected static final String DATACITE_DESCRIPTION = "description";
 	protected static final String DATACITE_TITLE = "title";
 	protected static final String DATACITE_SUBJECT = "subject";
@@ -110,8 +107,9 @@ public class DOICrawler extends FindingAidCreator {
 		
 	}
 
+	
 	protected static class DoiRecord {
-
+		static int test;
 		public String dataObjectType;
 		public boolean hasRepresentations; 
 		public String mediaType;
@@ -127,7 +125,11 @@ public class DOICrawler extends FindingAidCreator {
 		protected String label;
 		protected String sortKey;
 
+		int thisTest;
+		
 		DoiRecord(String id, String url, String dirName, String localName) {
+			thisTest = ++test;
+			
 			compoundID = id;
 			ifdRef = new IFDReference(null, url, dirName, localName);
 			if (url.startsWith(DOI_ORG))
@@ -167,7 +169,7 @@ public class DOICrawler extends FindingAidCreator {
 
 		@Override
 		public String toString() {
-			return "[doiRecord " + type + (type == DOI_DATA ? "." + dataObjectType : "") + " " + compoundID + ": " + ifdRef.getLocalName() + " mt=" + mediaType + " " + properties + "]";
+			return "[doiRecord#" + thisTest + " " + type + (dataObjectType != null ? "." + dataObjectType : "") + " " + compoundID + ": " + ifdRef.getLocalName() + " mt=" + mediaType + " " + properties + "]";
 		}
 
 		void addItem(DoiRecord rep) {
@@ -359,6 +361,7 @@ public class DOICrawler extends FindingAidCreator {
 	protected static final String DOI_ORG = DOIInfoExtractor.DOI_ORG;
 
 	protected final static String DOWNLOAD_TYPES = ";zip;jdx;png;pdf;a2r;jpg;jpeg;cdxml;mol;cif;xls;xlsx;mnova;mnpub;";
+	protected static final String FAIRSPEC_COMPOUND_FLAG = "IFD.property.fairspec.compound.";
 	protected static final String FAIRSPEC_COMPOUND_ID = "IFD.property.fairspec.compound.id";
 	protected static final String FAIRSPEC_DATAOBJECT_FLAG = "IFD.property.dataobject.fairspec.";
 
@@ -497,7 +500,7 @@ public class DOICrawler extends FindingAidCreator {
 	 */
 	public DOICrawler(String... args) {
 		int arg0 = (args.length > 0 && args[0] == null ? 1 : 0);
-		initialDOI = (args.length == arg0 ? TEST_PID : args[arg0]);
+		initialDOI = (args.length == arg0 ? null : args[arg0]);
 		String flags = processFlags(args, "-nozip");
 		if (flags.indexOf("-nodownload;") >= 0) {
 			doDownload = false;
@@ -598,6 +601,7 @@ public class DOICrawler extends FindingAidCreator {
 	public String newCompound(String id) {
 		thisCompoundID = doiRecord.compoundID = id;
 		doiRecord.type = DOI_COMP;
+		System.out.println("DOICrawler.newCompound " + id);
 		return id;
 	}
 	
@@ -617,6 +621,10 @@ public class DOICrawler extends FindingAidCreator {
 	}
 	
 	protected void addAttr(String key, String value) {
+		if (key.indexOf("compound.id") >= 0) {
+			// don't add compound.id -- the FindingAidHelper will do that.
+			return;
+		}
 		doiRecord.addProperty(key, cleanData(value));
 		logAttr(key, value);
 	}
@@ -646,6 +654,7 @@ public class DOICrawler extends FindingAidCreator {
 	 */
 	protected void addProperties(IFDObject<?> c, DoiRecord rec) {
 		boolean isData = (rec.type == DOI_DATA);
+		String identifierType = null;
 		for (Entry<String, String> e : rec.properties.entrySet()) {
 			String key = e.getKey();
 			String value = e.getValue();
@@ -653,12 +662,28 @@ public class DOICrawler extends FindingAidCreator {
 			case "schemalocation":
 				continue;
 			}
-			if (isData && key.contains(IFDConst.IFD_STRUCTURE_FLAG)) {
+			if (isData && key.indexOf("compound") >= 0)
+				System.out.println(key);
+			if (isData && key.contains(FAIRSPEC_COMPOUND_FLAG)) {
+				// sometimes a collection doubles as a dataset
+			} else if (isData && key.contains(IFDConst.IFD_STRUCTURE_FLAG)) {
 				// structure props found in dataset collection
 				faHelper.createStructureRepresentation(null, value, value.length(), key, null);
 			} else {
+				if (key.equals("identifiertype")) {
+					identifierType = value;
+					continue;
+				}
 				c.setPropertyValue(key, value, rec.compoundID);
 			}
+		}
+		if ("DOI".equals(identifierType)) {
+			String id = (String) c.getAttribute("identifier");
+			if (id != null) {
+				c.setPropertyValue("identifier", null);
+				c.setPropertyValue(IFDConst.IFD_PROPERTY_DOI, id);
+			}
+
 		}
 	}
 
@@ -729,6 +754,7 @@ public class DOICrawler extends FindingAidCreator {
 		sortRecords(doiList);
 		for (int i = 0; i < doiList.size(); i++) {
 			DoiRecord rec = doiList.get(i);
+			System.out.println(rec);
 			IFDObject<?> o = null;
 			switch (rec.type) {
 			case DOI_TOP:
@@ -737,7 +763,8 @@ public class DOICrawler extends FindingAidCreator {
 			case DOI_COMP:
 				String id = rec.compoundID;
 				if (id == thisCompoundID) {
-					o = thisCompound;
+					if (rec.dataObjectType == null)
+						o = thisCompound;
 				} else {
 					thisCompoundID = rec.compoundID;
 					thisCompound = o = faHelper.createCompound(thisCompoundID);
@@ -746,14 +773,16 @@ public class DOICrawler extends FindingAidCreator {
 					o.setReference(rec.ifdRef);
 				}
 				thisDataObject = null;
-				if (rec.itemList != null)
+				if (rec.itemList != null) {
+					if (rec.dataObjectType != null) {
+						o = setDataObject(rec);
+					}
 					processRecords(rec.dataObjectType, rec.itemList);
+				}
 				break;
+				//$FALL-THROUGH$
 			case DOI_DATA:
-				o = thisDataObject = faHelper.createDataObject("" + ++ids, rec.dataObjectType);
-				o.setDOI(rec.ifdRef.getDOI());
-				o.setURL(rec.ifdRef.getURL());
-				thisDataObjectType = rec.dataObjectType;
+				o = setDataObject(rec);
 				break;
 			case DOI_REP:
 				String structureType = null;
@@ -763,7 +792,6 @@ public class DOICrawler extends FindingAidCreator {
 					ext = ext.substring(ext.lastIndexOf(".") + 1);
 					structureType = DefaultStructureHelper.getType(ext, null, false);
 					if (structureType != null) {
-						System.out.println(rec.ifdRef);
 						faHelper.createStructureRepresentation(rec.ifdRef, null, rec.length, structureType,
 								rec.mediaType);
 					}
@@ -790,6 +818,14 @@ public class DOICrawler extends FindingAidCreator {
 				addProperties(o, rec);
 			}
 		}
+	}
+
+	private IFDObject<?> setDataObject(DoiRecord rec) {
+		IFDDataObject o = thisDataObject = faHelper.createDataObject("" + ++ids, rec.dataObjectType);
+		o.setDOI(rec.ifdRef.getDOI());
+		o.setURL(rec.ifdRef.getURL());
+		thisDataObjectType = rec.dataObjectType;
+		return o;
 	}
 
 	private void addRecord(DoiRecord doiRecord) {

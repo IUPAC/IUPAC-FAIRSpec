@@ -1,0 +1,98 @@
+<project name="IUPAC-FAIRSpec" default="main" basedir=".">
+  <!--
+      DocumentId  $Id: build.xml 21793 2018-01-02 16:58:31Z hansonr $
+  -->
+	
+  <!-- Contributions -->
+  <!-- <for list ...> construct needs ant-contrib.jar -->
+  <taskdef resource="net/sf/antcontrib/antlib.xml">
+    <classpath>
+      <pathelement location="tools/ant-contrib.jar" />
+    </classpath>
+  </taskdef>
+
+  <!-- compile options -->
+	  <property name="application" value="ICLDOICrawler" />
+	  
+	  <property name="manifest.dir" value="manifest" />
+  
+  	
+  	<property name="debug" value="on" />
+  <property name="deprecation" value="off" />
+  <property name="optimization" value="off" />
+  <property name="lib.dir" value="lib" />
+  <property name="appjars.dir" value="build/appjars" />
+  <property name="classes.dir" value="build/classes" />  
+
+  <!-- see below for unjar references -->
+  <property name="jmol.jar" value="JmolDataD.jar" />
+  <property name="commons-io.jar" value="commons-io-2.11.0.jar" />
+  <property name="commons-compress.jar" value="commons-compress-1.22.jar" />
+	
+
+	  <path id="project.class.path">
+	    <fileset dir="${lib.dir}">
+	      <include name="*.jar" />
+	    </fileset>
+	  </path>
+	  
+
+	  <target name="libjars" id="libjars">
+	    <mkdir dir="${appjars.dir}"/>
+	  	<delete includeemptydirs="true">
+		      <fileset dir="${appjars.dir}" includes="**/*"/>
+		</delete>
+	    <unjar dest="${appjars.dir}" src="${lib.dir}/${jmol.jar}"/>
+		<unjar dest="${appjars.dir}" src="${lib.dir}/${commons-compress.jar}"/>
+		<unjar dest="${appjars.dir}" src="${lib.dir}/${commons-io.jar}"/>
+	  </target>
+
+	  	
+	    <target id="classes" name="classes">
+	      <mkdir dir="${classes.dir}"/>
+		  	<delete includeemptydirs="true">
+			      <fileset dir="${classes.dir}" includes="**/*"/>
+			</delete>
+	      <javac srcdir="src" destdir="${classes.dir}" encoding="UTF8"
+	             debug="${debug}" deprecation="${deprecation}"
+	             optimize="${optimization}" source="1.8" target="1.8">
+	        <classpath refid="project.class.path" />
+	      </javac>
+	      <copy todir="${classes.dir}" >
+	        <fileset dir="src/main/java">
+	          <include name="**/license.txt" />
+	          <include name="**/*.jpg" />
+	          <include name="**/*.gif" />
+	          <include name="**/*.png" />
+	          <include name="**/*.html" />
+	          <include name="**/*.htm" />
+	          <include name="**/*.css" />
+	          <include name="**/*.js" />
+		      <include name="**/*.json" />
+	          <include name="**/*.properties" />
+	          <include name="**/*.txt" />
+	        </fileset>
+	      </copy>
+	    </target>
+	    
+
+	  <target name="jar" id="jar"
+	          depends="classes,libjars">
+	     <jar destfile="build/${application}.jar"
+	         manifest="${manifest.dir}/${application}">
+	      <fileset dir="${classes.dir}" >
+	        <include name="**/*" />
+	      </fileset>
+	      <fileset dir="${appjars.dir}" includes="**/*"/>
+	    </jar>
+	  	<echo>build/${application}.jar created (unsigned)</echo>
+	  	<copy file="build/${application}.jar" tofile="dist/${application}.jar" />
+	  	<delete includeemptydirs="true">
+		      <fileset dir="${appjars.dir}" includes="**/*"/>
+		</delete>
+	  </target>
+
+  <target name="main" id="main" depends="jar"/>
+  
+ 	
+</project>

@@ -616,6 +616,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	@Override
 	public void setDOI(String doi) {
+		if (doi.indexOf("14758") >= 0)
+			System.out.println("????");
 		this.doi = doi;
 	}
 
@@ -875,6 +877,16 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			if (p.getValue().getValue() != null)
 				System.out.println(label + ":" + p.getKey() + "=" + p.getValue());
 		}
+	}
+
+	public String getAttribute(String key) {
+		for (int i = attributes.size(); --i >= 0;) {
+			IFDAttribute a = attributes.get(i);
+			if (key.equals(a.getName())) {
+				return a.getValue().toString();
+			}
+		}
+		return null;
 	}
 
 }

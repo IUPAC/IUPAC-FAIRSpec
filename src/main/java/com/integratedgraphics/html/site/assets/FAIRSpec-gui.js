@@ -502,6 +502,17 @@
 		return o.properties && o.properties[what] || "";
 	}
 
+	var getSpecialText = function(spec) {
+		var label = (spec.label || "");
+		var desc = (spec.description || "");
+		var s = (spec.doi ? getDOIAnchor("DOI", spec.doi) : "");
+		if (label)
+			s += (s ? "<br>": "") + label;
+		if (desc)
+			s += (s ? "<br>": "") + desc;
+		return s;
+	}
+	
 	var showSpectrum = function(aidID,id) {
 		var isAll = (IFD.resultsMode == IFD.MODE_SPECTRA);
 		var spec = IFD.getCollection(aidID).spectra[id];
@@ -512,7 +523,6 @@
 			+ getHeader("Spectrum/a  ", "Spectrum " + sid) + "<h3>" 
 			+ (sampleID ? "&nbsp;&nbsp;&nbsp; sample " + sampleID : "")
 			+ "</h3>"
-			+ (spec.description ? spec.description : "")
 			+ "</td>"; 
 		var title = getObjectProperty(spec, "expt_title");
 		if (title)
@@ -542,6 +552,7 @@
 		var params = cmpd.attributes;
 		var label = cmpd.label || cmpd.id;
 		var s = getHeader("Compound/s", label.startsWith("Compound") ? label : "Compound " + label, cmpd.description); 
+		s += getSpecialText(cmpd);
 		s += "<table>" + addPropertyRows("",props, null, false) + "</table>"
 		s += "<table>" + addPropertyRows("",params, null, false) + "</table>"
 
@@ -805,6 +816,7 @@
 		+ (isAll ? getSpectrumPrediction(spec.properties, smiles) : "")
 		+ "</td>"
 		s += "<td id='q2'>";
+		s += getSpecialText(spec);
 			s += addRepresentationTable(true, aidID, spec.representations, (isAll ? null : "pdf"), isAll);
 		s += "</td></tr>";
 		s += "<tr><td><table>";
@@ -851,6 +863,9 @@
 
 	var getDOIAnchor = function(key, val) {
 		// PID 10.xxxxxx
+		if (!key.endsWith("DOI")) {
+			return "<a class=pidref target=_blank href=\"" + val + "\">"+val+"</a>";
+		}
 		if (val.startsWith("https://doi.org/"))
 			val = val.split("doi.org/")[1];
 		return "<a class=doiref target=_blank href=\"https://doi.org/" + val + "\">"+val+"</a>";
