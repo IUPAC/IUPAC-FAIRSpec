@@ -10,7 +10,7 @@ IFD = {
 		jmeDiv: "jmediv",
 		readyFunction : function(){IFD.jmolReadyCallback()},
 		imageDimensions:{width:40,height:40},
-		MAX_IMAGE_DIMENSIONS: {width:400, height:400}
+		MAX_IMAGE_DIMENSIONS: {width:250, height:250}
 	},
 	collections: {},
 	collectionsKeys: null,
