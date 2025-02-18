@@ -540,7 +540,7 @@
 		var key = removeSpace(name) + "_" + ++divId
 		IFD.headers.push([key,name]);
 		return "<a name=\"" + key + "\"><h3>" + name + "</h3></a>"
-		+ (description ? description + "<p>" : "<p>");
+		+ (false && description ? description + "<p>" : "<p>");
 	}
 
 	var showCompound = function(aidID,id) {
@@ -551,7 +551,7 @@
 		var props = cmpd.properties;
 		var params = cmpd.attributes;
 		var label = cmpd.label || cmpd.id;
-		var s = getHeader("Compound/s", label.startsWith("Compound") ? label : "Compound " + label, cmpd.description); 
+		var s = getHeader("Compound/s", label.startsWith("Compound") ? label : "Compound " + label, null);// cmpd.description); 
 		s += getSpecialText(cmpd);
 		s += "<table>" + addPropertyRows("",props, null, false) + "</table>"
 		s += "<table>" + addPropertyRows("",params, null, false) + "</table>"

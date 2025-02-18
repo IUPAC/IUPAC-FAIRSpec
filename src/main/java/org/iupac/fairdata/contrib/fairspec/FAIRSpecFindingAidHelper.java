@@ -290,7 +290,12 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 
 	@Override
 	public FAIRSpecCompoundAssociation createCompound(String id) throws IFDException {
-		FAIRSpecCompoundAssociation c = createCompound(null, null);
+		FAIRSpecCompoundAssociation c = null;
+		if (id != null) {
+			c = findCompoundById(id);
+		}
+		if (c == null)
+			c = createCompound(null, null);
 		if (id != null)
 			c.setPropertyValue(IFDConst.IFD_PROPERTY_ID, id);
 		currentAssociation = thisCompound = c;
@@ -298,6 +303,16 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		currentStructure = null;
 		currentDataObject = null;
 		return c;
+	}
+
+	private FAIRSpecCompoundAssociation findCompoundById(String id) {
+		ArrayList<?> c = getCompoundCollection();
+		for (Object a: c) {
+			if (id.equals(((FAIRSpecCompoundAssociation)a).getID())) {
+				return (FAIRSpecCompoundAssociation)a;
+			}			
+		}
+		return null;
 	}
 
 	public IFDSampleCollection getSampleCollection() {

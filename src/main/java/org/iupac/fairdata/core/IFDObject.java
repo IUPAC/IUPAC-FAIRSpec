@@ -616,8 +616,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	@Override
 	public void setDOI(String doi) {
-		if (doi.indexOf("14758") >= 0)
-			System.out.println("????");
 		this.doi = doi;
 	}
 

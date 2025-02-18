@@ -1,0 +1,14 @@
+.tablerow0 { background-color:lightgreen; }
+.tablerow1 { background-color:lightblue; }
+.propname { font-weight:bold; }
+.repname { font-weight:bold; }
+.warning { font-weight:bold;color:red; }
+.spectitle { font-weight:bold;color:blue; }
+.version { font-size:9pt;font-style:italic; }
+.spectratable {            }
+.hiddendiv {cursor:pointer;color:blue}
+.hiddendiv:hover {color:blue}
+.structurehead{ font-weight:bold;color:red }
+h3{ color:red }
+.hiddenhead {cursor:pointer;color:blue;text-decoration:none}
+.doiref {cursor:pointer;color:blue;text-decoration:none}

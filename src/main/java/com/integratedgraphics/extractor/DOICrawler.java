@@ -179,6 +179,11 @@ public class DOICrawler extends FindingAidCreator {
 		}
 
 		void addProperty(String key, String val) {
+			switch (key) {
+			case "resourcetype":
+			case "resourcetypegeneral":
+				return;
+			}
 			if (key.endsWith(".label"))
 				label = val;
 			properties.put(key, val);
@@ -352,7 +357,7 @@ public class DOICrawler extends FindingAidCreator {
 
 	public final static String IFD_SCHEME_URI = "http://iupac.org/ifd";
 
-	protected static final String DEFAULT_OUTDIR = "c:/temp/iupac/crawler";
+	protected static final String DEFAULT_OUTDIR = ".";//"c:/temp/iupac/crawler";
 	protected static final char DOI_COMP = 'C';
 	protected static final char DOI_DATA = 'D';
 	protected static final char DOI_REP = 'R';
@@ -768,9 +773,11 @@ public class DOICrawler extends FindingAidCreator {
 				} else {
 					thisCompoundID = rec.compoundID;
 					thisCompound = o = faHelper.createCompound(thisCompoundID);
-					o.setDOI(rec.ifdRef.getDOI());
-					o.setURL(rec.ifdRef.getURL());
-					o.setReference(rec.ifdRef);
+					if (o.getDOI() == null) {
+						o.setDOI(rec.ifdRef.getDOI());
+						o.setURL(rec.ifdRef.getURL());
+						o.setReference(rec.ifdRef);
+					}
 				}
 				thisDataObject = null;
 				if (rec.itemList != null) {
