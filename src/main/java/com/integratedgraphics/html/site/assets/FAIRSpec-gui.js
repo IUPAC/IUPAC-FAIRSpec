@@ -31,17 +31,129 @@
 	var fileFor = function(aidID, fname) {
 		return dirFor(aidID) + "/" + fname;
 	}
-	
+
+
+	const sanitizeUserInput = (string) =>{
+		const map = {
+			'&': '&amp;',
+			'<': '&lt;',
+			'>': '&gt;',
+			'"': '&quot;',
+			"'": '&#x27;',
+			"/": '&#x2F;',
+		}
+		const reg = /[&<>"'/]/g;
+		return string.replace(reg, (match)=>(map[match]));
+	  }
+
+
 	//external
 	IFD.searchText = function(aidID) {
 		IFD.toggleDiv(MAIN_SEARCH_SUB,"none");
 		var text = prompt("Text to search for?");
+		var highlightEnabled = document.getElementById("highlightToggle").checked; 
 		if (text) {
+			// clear previous search state
+			//IFD.clearSearchState();
+			//sanitize user input text
+			text = sanitizeUserInput(text)
+
+			// Save the search text & the state of the highlight toggle
+			localStorage.setItem("searchText", text);
+			localStorage.setItem("highlightEnabled", highlightEnabled);
+
 			var indexes = IFD.getCompoundIndexesForText(aidID, text);
 			if (indexes)
 				IFD.showCompounds(aidID, indexes);
+				if (highlightEnabled)
+					IFD.highlightText(text);
 		}
 	}
+
+
+
+	IFD.highlightText = function(text){
+		// reference to the DOM element
+		var resultsDiv = document.getElementById("results");
+		var contentsDiv = document.getElementById("contents");
+
+
+		//			  using capture groups ; gi- global + case insensitive
+		var regex= new RegExp(`(${text})`, "gi");
+		;
+
+		// change contents
+		var frequency_contents = replaceInnerHtml(regex, contentsDiv);
+		// change results
+		var frequency_results = replaceInnerHtml(regex, resultsDiv);
+		displayMatchCount(frequency_results);
+
+
+	}
+
+	function displayMatchCount(count) {
+		// Select or create an element to display the count
+		let countDisplay = document.getElementById('highlightCount');
+		if (!countDisplay) {
+			// If the element doesn't exist, create it
+			countDisplay = document.createElement('div');
+			countDisplay.id = 'highlightCount';
+			}
+		// Update the content of the element
+		countDisplay.innerHTML = `<br> <b> <mark> Highlighted ${count} match${count === 1 ? '' : 'es'} </b> </mark>`;
+
+		// Insert before the results div
+		let result = document.getElementById('results');
+		result.parentNode.insertBefore(countDisplay, result); // Insert before the first child of the body
+	}
+
+	function replaceInnerHtml(regex, div){
+		var txtContent = div.textContent || div.innerText;
+		var matches = [...txtContent.matchAll(regex)];
+		matches.forEach(match => {
+			var matchText = match[0];
+			var index = match.index;
+
+			let node = getTextNodeAtOffset(div, index, regex);
+			
+			//console.log(node == null);
+			
+			var highlightedText = node.textContent.replace(matchText, `<mark>${matchText}</mark>`);
+			let newNode = document.createElement('span');
+            newNode.innerHTML = highlightedText;
+
+            node.replaceWith(...newNode.childNodes);
+		})
+
+		return matches.length
+	}
+
+	function getTextNodeAtOffset(element, offset, regex){
+		// treeWalker to traverse text nodes only
+		var treeWalker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null);
+		var currentNode = treeWalker.nextNode();
+		var currentOffset = 0;
+		
+		while (currentNode){
+			//console.log(currentNode.textContent);
+			currentOffset += currentNode.textContent.length;
+			if(currentOffset >= offset){
+				if(!!currentNode.textContent.match(regex)){
+					return currentNode;
+				}
+			}
+			currentNode  = treeWalker.nextNode()
+		}
+		return null;
+	}
+
+
+	IFD.clearSearchState = function(){
+		localStorage.removeItem("searchText");
+		localStorage.removeItem("highlightEnabled");
+	}
+
+
 
 	//external
 	IFD.searchProperties = function(aidID) {
@@ -157,7 +269,7 @@
 	
 	//external
 	IFD.showCompounds = function(aidID, ids) {
-		loadMainSummary(IFD.aid, false);
+		loadMainSummary(IFD.aid, false); 
 		IFD.select(aidID);
 		setMode(IFD.MODE_COMPOUNDS);
 		ids || (ids = IFD.items[aidID][IFD.MODE_COMPOUNDS]);
@@ -172,6 +284,15 @@
 			s += "</table>";
 		}
 		setResults(s);
+
+
+		// retain highlight
+		var highlightEnabled = localStorage.getItem("highlightEnabled") === "true";
+    	var searchText = localStorage.getItem("searchText");
+		if (highlightEnabled && searchText) {
+			IFD.highlightText(searchText);
+		}
+
 	} 
 	
 	//external
@@ -186,6 +307,13 @@
 		}
 		s += "</table>";
 		setResults(s);
+
+		// retain highlight
+		var highlightEnabled = localStorage.getItem("highlightEnabled") === "true";
+    	var searchText = localStorage.getItem("searchText");
+		if (highlightEnabled && searchText) {
+			IFD.highlightText(searchText);
+		}
 	} 
 	
 	//external
@@ -196,6 +324,13 @@
 		ids || ids === false || (ids = IFD.getItems(aidID, IFD.MODE_STRUCTURES));
 		var s = showCompoundStructures(aidID,ids, false, true);
 		setResults(s);
+
+		// retain highlight
+		var highlightEnabled = localStorage.getItem("highlightEnabled") === "true";
+    	var searchText = localStorage.getItem("searchText");
+		if (highlightEnabled && searchText) {
+			IFD.highlightText(searchText);
+		}
 	} 	
 
 	IFD.getItems = function(aidID, mode) {
@@ -299,6 +434,13 @@
 	
 	var loadMainSummary = function(aid, isAll) {
 		clearPDFCache();
+		
+		// remove the highlight count
+		div = document.getElementById("highlightCount")
+		if(div){
+			div.remove();
+		}
+
 		var s;
 		if (isAll && IFD.mainText) {
 			s = IFD.mainText;
@@ -309,6 +451,7 @@
 			}
 		}
 		setMain(s);
+
 		showMain();
 	}
 
@@ -325,7 +468,11 @@
 	}
 	
 	var loadMainSearch = function(aidID) {
-		if (!getInnerHTML(MAIN_SEARCH)) {
+		// remove the highlight count
+		div = document.getElementById("highlightCount")
+		if(div){
+			div.remove();
+		}
 			var s = "";
 			aidID || (aidID = "");
 			s += "<h3>Search</h3>";
@@ -334,8 +481,9 @@
 			s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.searchProperties('${aidID}')">properties</a>`;
 			s += `<div id=${MAIN_SEARCH_TEXT} style="display:none"></div>`;
 			s += `<div id=${MAIN_SEARCH_PROP} style="display:none"></div>`;
+			s += `&nbsp;<input type="checkbox" id="highlightToggle" name="highlight"> enable highlight`;
 			setMain(s);
-		}
+	
 		showMain();
 	}
 	
@@ -684,6 +832,7 @@
 	}
 
 	IFD.showSearch = function() {
+		IFD.clearSearchState();
 		IFD.mainMode = MAIN_SEARCH;
 		loadMain();		
 	}
