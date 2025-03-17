@@ -78,14 +78,10 @@
 		var contentsDiv = document.getElementById("contents");
 
 
-		//			  using capture groups ; gi- global + case insensitive
-		var regex= new RegExp(`(${text})`, "gi");
-		;
-
 		// change contents
-		var frequency_contents = replaceInnerHtml(regex, contentsDiv);
+		var frequency_contents = replaceInnerHtml(text, contentsDiv);
 		// change results
-		var frequency_results = replaceInnerHtml(regex, resultsDiv);
+		var frequency_results = replaceInnerHtml(text, resultsDiv);
 		displayMatchCount(frequency_results);
 
 
@@ -107,44 +103,37 @@
 		result.parentNode.insertBefore(countDisplay, result); // Insert before the first child of the body
 	}
 
-	function replaceInnerHtml(regex, div){
-		var txtContent = div.textContent || div.innerText;
-		var matches = [...txtContent.matchAll(regex)];
-		matches.forEach(match => {
-			var matchText = match[0];
-			var index = match.index;
+	function replaceInnerHtml(text, div){
 
-			let node = getTextNodeAtOffset(div, index, regex);
-			
-			//console.log(node == null);
-			
-			var highlightedText = node.textContent.replace(matchText, `<mark>${matchText}</mark>`);
-			let newNode = document.createElement('span');
-            newNode.innerHTML = highlightedText;
+		//			  using capture groups ; gi- global + case insensitive
+		var regex= new RegExp(`(${text})`, "gi");
+		
 
-            node.replaceWith(...newNode.childNodes);
-		})
-
-		return matches.length
-	}
-
-	function getTextNodeAtOffset(element, offset, regex){
 		// treeWalker to traverse text nodes only
-		var treeWalker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null);
+		var treeWalker = document.createTreeWalker(div, NodeFilter.SHOW_TEXT, null);
 		var currentNode = treeWalker.nextNode();
-		var currentOffset = 0;
+		var count = 0 
 		
 		while (currentNode){
-			//console.log(currentNode.textContent);
-			currentOffset += currentNode.textContent.length;
-			if(currentOffset >= offset){
-				if(!!currentNode.textContent.match(regex)){
-					return currentNode;
-				}
+			let nextNode = treeWalker.nextNode(); // Save the next node before modifying the DOM
+			if(currentNode.textContent.match(regex)){
+				//	before replacemenet
+				//console.log(div.innerHTML);
+				
+				count += 1
+				var highlightText = currentNode.textContent.replace(regex, `<mark>${text}</mark>`)
+				var newNode = document.createElement(`span`);
+				newNode.innerHTML = highlightText;
+				// ... being the spread operator
+				currentNode.replaceWith(...newNode.childNodes);
+				
+				//	after replacement
+				//console.log(div.innerHTML);
 			}
-			currentNode  = treeWalker.nextNode()
+			currentNode  = nextNode
 		}
-		return null;
+
+		return count
 	}
 
 
