@@ -13,3 +13,6 @@ h3{ color:red }
 .hiddenhead {cursor:pointer;color:blue;text-decoration:none}
 .doiref {cursor:pointer;color:blue;text-decoration:none}
 mark {background-color:  #ffff99;}
+.ifd-search-val-div {
+    margin-left: 20px;
+}

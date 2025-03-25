@@ -49,6 +49,7 @@
 
 	//external
 	IFD.searchText = function(aidID) {
+		// hide the main search sub 
 		IFD.toggleDiv(MAIN_SEARCH_SUB,"none");
 		var text = prompt("Text to search for?");
 		var highlightEnabled = document.getElementById("highlightToggle").checked; 
@@ -79,9 +80,9 @@
 
 
 		// change contents
-		var frequency_contents = replaceInnerHtml(text, contentsDiv);
+		var frequency_contents = replaceInnerHtmlText(text, contentsDiv);
 		// change results
-		var frequency_results = replaceInnerHtml(text, resultsDiv);
+		var frequency_results = replaceInnerHtmlText(text, resultsDiv);
 		displayMatchCount(frequency_results);
 
 
@@ -103,7 +104,7 @@
 		result.parentNode.insertBefore(countDisplay, result); // Insert before the first child of the body
 	}
 
-	function replaceInnerHtml(text, div){
+	function replaceInnerHtmlText(text, div){
 
 		//			  using capture groups ; gi- global + case insensitive
 		var regex= new RegExp(`(${text})`, "gi");
@@ -112,7 +113,7 @@
 		// treeWalker to traverse text nodes only
 		var treeWalker = document.createTreeWalker(div, NodeFilter.SHOW_TEXT, null);
 		var currentNode = treeWalker.nextNode();
-		var count = 0 
+		var count = 0;
 		
 		while (currentNode){
 			let nextNode = treeWalker.nextNode(); // Save the next node before modifying the DOM
@@ -130,10 +131,10 @@
 				//	after replacement
 				//console.log(div.innerHTML);
 			}
-			currentNode  = nextNode
+			currentNode  = nextNode;
 		}
 
-		return count
+		return count;
 	}
 
 
@@ -142,18 +143,281 @@
 		localStorage.removeItem("highlightEnabled");
 	}
 
+	IFD.propertyMap = {
+		"compounds": {}, 
+		"structures": {},
+		"spectra": {}
+	}
+
+	const updatePropertyMap = function(aidID){
+		switch(IFD.searchType){
+			case IFD.MODE_COMPOUNDS:
+				IFD.propertyMap[IFD.MODE_COMPOUNDS] =  IFD.getPropertyMap(aidID, IFD.MODE_COMPOUNDS);
+				break;
+			
+			case IFD.MODE_STRUCTURES:
+				IFD.propertyMap[IFD.MODE_STRUCTURES] = IFD.getPropertyMap(aidID, IFD.MODE_STRUCTURES);
+				break
+
+			case IFD.MODE_SPECTRA:
+				IFD.propertyMap[IFD.MODE_SPECTRA] = IFD.getPropertyMap(aidID, IFD.MODE_SPECTRA);
+				break;
+		}
+	}
 
 
 	//external
-	IFD.searchProperties = function(aidID) {
-		IFD.toggleDiv(MAIN_SEARCH_SUB,"none");
-		alert("not implemented");
+	IFD.searchProperties = function(aidID) {													
+		prepDOM_searchProperties();
+		let initiliazed_keys = new Set(); // do avoid repeated key setting
+		const searchTypeArr = document.querySelectorAll('input[name = "searchPropOption"]');
+		searchTypeArr.forEach(radioBttn =>{
+			radioBttn.addEventListener("change", function(){
+
+				if(this.checked){
+					IFD.searchType = this.value;
+
+					// set the key in the map if needed
+					if(!initiliazed_keys.has(IFD.searchType)){
+						updatePropertyMap(aidID);
+						initiliazed_keys.add(IFD.searchType);
+
+					}
+				}
+				buildCheckboxContainer();
+				getPropIDsFromGUI(aidID);
+				
+				
+			})
+
+			}
+			
+		)
+
 	}
+
+	const getPropIDsFromGUI = function(aidID){
+		let searchKeys = [];
+		let nestedList = [];
+		let idList = [];
+		let propertyDiv = document.getElementById(`${MAIN_SEARCH_PROP}`);
+		let form = propertyDiv.querySelector("#propertySearch");
+		form.addEventListener("submit", function(event){
+			event.preventDefault();
+			//console.log('Form submission prevented.');
+
+			childBoxes = form.querySelectorAll(`input[class="ifd-search-value-checkbox"]`);
+			
+	
+			childBoxes.forEach(box =>{
+				if(box.checked){
+					searchKeys.push(box.dataset.parentBoxProperty + "$" + box.value);
+				}
+			})
+
+			for(let i = 0; i < searchKeys.length; i++){
+				nestedList.push(IFD.propertyMap[IFD.searchType][searchKeys[i]]);
+			}
+		
+
+			idList = nestedList
+			.filter(item => item instanceof Set) // Remove `undefined`
+			.flatMap(set => [...set]); // Convert each Set to an array and flatten
+			
+			//console.log("ID list Contains duplicates " + (new Set(idList).size !== idList.length));
+			IFD.showSpectra(aidID, [...new Set(idList)]);
+	
+		})	
+		}
+
+
+
+
+	const checkboxHelper_prop = function(property, value){
+		let checkbox = document.createElement('input');
+		checkbox.id = `${property}_${value}`;
+		checkbox.dataset.parentBoxProperty = property;
+		checkbox.type = 'checkbox';
+		checkbox.name = 'propertyVal';
+		checkbox.value = value;
+		checkbox.className = 'ifd-search-value-checkbox';
+
+
+		return checkbox;
+
+	}
+
+	const labelHelper_prop = function(id, value, count){
+		let label = document.createElement('label');
+		label.setAttribute('for', id);
+		label.textContent = value + ' (' + count + ')';
+
+		return label;
+
+	}
+
+	const buildCheckboxContainer = function(){
+		let checkboxContainer = document.getElementById('checkboxContainerPropSearch');
+		 
+
+		// clean the container if pre-populated
+		checkboxContainer.innerHTML = '';
+		propMap = IFD.propertyMap[IFD.searchType];
+		if(Object.keys(propMap).length == 0){
+			textNode = document.createTextNode("Nothing to show here");
+			checkboxContainer.appendChild(textNode);
+			checkboxContainer.style.display = "block";
+
+			return 
+		}
+
+		//console.log(propMap);
+		uniqueProperties = new Set();
+		
+		for(const prop in propMap){
+			const parentCheckbox = document.createElement(`input`);
+			parentCheckbox.type = 'checkbox';
+			let count = propMap[prop].size;
+			//console.log(count);
+			let [property, value] = prop.split("$");
+			if(!uniqueProperties.has(property)){
+
+				let parentCheckboxDiv = document.createElement('div');
+				parentCheckboxDiv.id =	property + " Div";
+				parentCheckboxDiv.className = "ifd-property-parent";
+
+
+				checkboxContainer.appendChild(document.createElement('br'));
+				uniqueProperties.add(property)
+
+				parentCheckbox.id = `property_${property}`;
+				parentCheckbox.name = `propertyType`;
+				parentCheckbox.value = property;
+				parentCheckbox.className = "ifd-search-key-checkbox";
+				
+				// Create the label element for the checkbox
+				const label = document.createElement('label');
+				label.setAttribute('for', parentCheckbox.id);
+				label.textContent = property;
+				
+				// Append the checkbox and label to the main div container
+				parentCheckboxDiv.appendChild(parentCheckbox);
+				parentCheckboxDiv.appendChild(label);
+				checkboxContainer.appendChild(parentCheckboxDiv);
+
+				// for each parent property, create a corresponding child div
+				let childCheckboxDiv = document.createElement('div');
+				childCheckboxDiv.id =	property + " ChildDiv";
+				childCheckboxDiv.className = "ifd-search-val-div";
+
+				
+				let childCheckbox = checkboxHelper_prop(property, value);
+
+				// Create the label element for the child checkbox
+				const childLabel = labelHelper_prop(childCheckbox.id, value, count);
+			
+				
+				// add the child checkbox and label to the childDiv
+				childCheckboxDiv.appendChild(childCheckbox);
+				childCheckboxDiv.append(childLabel);
+
+				childCheckboxDiv.appendChild(document.createElement('br'));
+
+				parentCheckboxDiv.appendChild(childCheckboxDiv)
+				checkboxContainer.append(parentCheckboxDiv);
+				
+				//checkboxContainer.appendChild(document.createElement('br'));
+				
+
+			}else {
+				//let parentBoxDiv = document.getElementById(property + " Div");
+				let childDiv = document.getElementById(property + " ChildDiv");
+
+				let childCheckbox = checkboxHelper_prop(property, value);
+
+				// Create the label element for the child checkbox
+				let childLabel = labelHelper_prop(childCheckbox.id, value, count);
+
+				
+				// add the child checkbox and label to the childDiv
+				childDiv.appendChild(childCheckbox);
+				childDiv.append(childLabel);
+				childDiv.appendChild(document.createElement('br'));
+		
+			}
+		
+		}
+
+		// padding before the search button
+		checkboxContainer.appendChild(document.createElement('br'));
+		const submitButton = document.createElement('input');
+		submitButton.type = 'submit';
+		submitButton.value = 'search';
+		checkboxContainer.appendChild(submitButton);
+
+
+		//add event listener to the checkbox div
+
+		checkboxContainer.addEventListener("change", function(event){
+			
+			// records any input targetted inside the div
+			let target = event.target;
+
+			// if a parent checkbox is clicked
+			if(target.classList.contains("ifd-search-key-checkbox")){
+				// get the child boxes
+				let childBoxes = this.querySelectorAll(`input[data-parent-box-property = "${target.value}"]`);
+				childBoxes.forEach(box => box.checked = target.checked);
+			}
+			else if(target.classList.contains("ifd-search-value-checkbox")){
+				// get the parent box
+				let parentValue = target.dataset.parentBoxProperty;
+				let parentBox = this.querySelector(`input.ifd-search-key-checkbox[value = "${parentValue}"]`);
+				let childBoxes = this.querySelectorAll(`input[data-parent-box-property = "${parentValue}"]`);
+				let andBool = true;
+				childBoxes.forEach(box => 
+					andBool = andBool && box.checked
+				);
+
+				
+				//console.log(parentBox);
+				//console.log(andBool);
+
+				if(andBool){
+					parentBox.checked = true;
+				}
+				else{
+					parentBox.checked = false;
+				}
+				
+			}
+		})
+
+
+		checkboxContainer.style.display = "block";
+	}
+
+	const prepDOM_searchProperties = function(){
+			//change the title
+			const title_h3 = document.querySelector("#main_search h3"); // Select the <h3> inside the <div> with id="container"
+			title_h3.textContent = "Property Search";
+	
+			const mainSearch = document.getElementById("main_search");
+	
+			// Hide the anchors, hightlight toggle, & label text inside #main_search div
+			mainSearch.querySelectorAll("a, #highlightToggle, label[for='highlightToggle']").forEach(a => a.style.display = "none");
+			
+			IFD.toggleDiv(MAIN_SEARCH_PROP, "block");
+
+	}
+
 
 	IFD.showStructuresByAidAndID = function(idList) {
 		// not implemented
 		s = showCompoundStructures(null, idList, false);
 	}
+
+
 	
 	
 	// external
@@ -458,9 +722,9 @@
 	
 	var loadMainSearch = function(aidID) {
 		// remove the highlight count
-		div = document.getElementById("highlightCount")
-		if(div){
-			div.remove();
+		highlight_div = document.getElementById("highlightCount");
+		if(highlight_div){
+			highlight_div.remove();
 		}
 			var s = "";
 			aidID || (aidID = "");
@@ -469,11 +733,30 @@
 			s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.searchText('${aidID}')">text</a>`;
 			s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.searchProperties('${aidID}')">properties</a>`;
 			s += `<div id=${MAIN_SEARCH_TEXT} style="display:none"></div>`;
-			s += `<div id=${MAIN_SEARCH_PROP} style="display:none"></div>`;
-			s += `&nbsp;<input type="checkbox" id="highlightToggle" name="highlight"> enable highlight`;
+			s +=  buildSearchPropertyDiv(); 
+			s += `&nbsp;<input type="checkbox" id="highlightToggle" name="highlight"> <label for = "highlightToggle"> enable highlight </label>`;
 			setMain(s);
 	
 		showMain();
+	}
+
+	var buildSearchPropertyDiv = function(){
+		s = 	`<div id=${MAIN_SEARCH_PROP} style="display:none">`
+		s += 	`<form id = propertySearch>`
+		s += 	`<input id = "searchProp_Compounds" type = "radio" name = "searchPropOption" value = "${IFD.MODE_COMPOUNDS}"> 
+					<label for = "searchProp_Compounds">compounds</label>&nbsp;&nbsp;&nbsp;`
+		s += 	`<input id = "searchProp_Structures" type = "radio" name = "searchPropOption" value = "${IFD.MODE_STRUCTURES}">
+					<label for = "searchProp_Structures">structures</label>&nbsp;&nbsp;&nbsp;`
+		
+		s += 	`<input id = "searchProp_Spectra" type = "radio" name = "searchPropOption" value = "${IFD.MODE_SPECTRA}">
+					<label for = "searchProp_Spectra">spectra</label>&nbsp;&nbsp;&nbsp;`
+		s +=	`<hr>`
+
+		s +=	`<div id = checkboxContainerPropSearch style = "display:none">
+				</div>`
+		s += 	`</form>`
+		s += `</div>`
+		return s
 	}
 	
 	var showMain = function() {

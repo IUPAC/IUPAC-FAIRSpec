@@ -36,4 +36,5 @@ IFD.MODE_STRUCTURES = "structures";
 IFD.MODE_SPECTRA    = "spectra";
 IFD.MODE_SAMPLES  = "samples";
 IFD.MODE_SAMPLESPECTRA = "samplespectra";
+IFD.searchType = IFD.MODE_NONE;
 

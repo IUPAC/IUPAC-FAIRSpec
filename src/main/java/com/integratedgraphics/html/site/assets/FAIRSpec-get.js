@@ -70,6 +70,33 @@ IFD.getSpectrumIDsForSample = function(aidID,id) {
 	return [];	
 }
 
+IFD.getPropertyMap = function(aidID, searchType){
+	map = {}
+	idObj = IFD.getCollection(aidID)[searchType];
+	for(const key in idObj){
+		propertyObj = idObj[key].properties;
+		// go into a deeper loop if the obj has properties
+		if(propertyObj){
+			for(const propKey in propertyObj){
+				//console.log(key, propKey);
+				propVal = propertyObj[propKey]
+				if(!map[propKey + `$${propVal}`]){
+					map[propKey + `$${propVal}`] = new Set();
+				}else{
+					//add the index to the set
+					
+					//can't use this one right now because of "[i]" issue
+					//map[propKey + `$${propVal}`].add(parseInt(key.match(/\d+/)[0]));
+					map[propKey + `$${propVal}`].add(key);
+				}
+			}
+		}
+	}
+
+	return map;
+}
+
+
 IFD.getCompoundIndexesForText = function(aidID, text) {
 	var compounds = IFD.getCollection(aidID).compounds;
 	var keys = IFD.getCompoundCollectionKeys();
