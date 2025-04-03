@@ -72,25 +72,23 @@ IFD.getSpectrumIDsForSample = function(aidID,id) {
 
 IFD.getPropertyMap = function(aidID, searchType){
 	map = {}
-	idObj = IFD.getCollection(aidID)[searchType];
-	for(const key in idObj){
-		propertyObj = idObj[key].properties;
+	idObj = IFD.getCollection(aidID)[searchType]
+	for(const item in idObj){
+		propertyObj = idObj[item].properties;
 		// go into a deeper loop if the obj has properties
+		//console.log(propertyObj);
 		if(propertyObj){
 			for(const propKey in propertyObj){
-				//console.log(key, propKey);
+				//console.log(item, propKey);
 				propVal = propertyObj[propKey]
-				if(!map[propKey + `$${propVal}`]){
-					map[propKey + `$${propVal}`] = new Set();
-				}else{
-					//add the index to the set
-					
-					//can't use this one right now because of "[i]" issue
-					//map[propKey + `$${propVal}`].add(parseInt(key.match(/\d+/)[0]));
-					map[propKey + `$${propVal}`].add(key);
+				if(!map[propKey + '$' + propVal]){
+					map[propKey + '$' + propVal] = new Set();
 				}
-			}
-		}
+				
+					//add the index to the set
+					map[propKey + '$' + propVal].add(item);
+			}	
+		}	
 	}
 
 	return map;
@@ -246,15 +244,15 @@ var addUnique = function(afrom, ato) {
 }
 
 
-IFD.cachePut = function(key, value) {
+IFD.cachePut = function(item, value) {
 	if (value)
-		IFD.cache[key] = value;
+		IFD.cache[item] = value;
 	else
-		delete IFD.cache[key]
+		delete IFD.cache[item]
 }
 
-IFD.cacheGet = function(key) {
-	return IFD.cache[key];
+IFD.cacheGet = function(item) {
+	return IFD.cache[item];
 }
 
 IFD.shortType = function(type) {

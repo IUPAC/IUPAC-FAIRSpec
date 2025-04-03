@@ -149,23 +149,6 @@
 		"spectra": {}
 	}
 
-	const updatePropertyMap = function(aidID){
-		switch(IFD.searchType){
-			case IFD.MODE_COMPOUNDS:
-				IFD.propertyMap[IFD.MODE_COMPOUNDS] =  IFD.getPropertyMap(aidID, IFD.MODE_COMPOUNDS);
-				break;
-			
-			case IFD.MODE_STRUCTURES:
-				IFD.propertyMap[IFD.MODE_STRUCTURES] = IFD.getPropertyMap(aidID, IFD.MODE_STRUCTURES);
-				break
-
-			case IFD.MODE_SPECTRA:
-				IFD.propertyMap[IFD.MODE_SPECTRA] = IFD.getPropertyMap(aidID, IFD.MODE_SPECTRA);
-				break;
-		}
-	}
-
-
 	//external
 	IFD.searchProperties = function(aidID) {													
 		prepDOM_searchProperties();
@@ -173,13 +156,13 @@
 		const searchTypeArr = document.querySelectorAll('input[name = "searchPropOption"]');
 		searchTypeArr.forEach(radioBttn =>{
 			radioBttn.addEventListener("change", function(){
-
 				if(this.checked){
 					IFD.searchType = this.value;
 
 					// set the key in the map if needed
 					if(!initiliazed_keys.has(IFD.searchType)){
-						updatePropertyMap(aidID);
+						//update property map
+						IFD.propertyMap[IFD.searchType] = IFD.getPropertyMap(aidID, IFD.searchType)
 						initiliazed_keys.add(IFD.searchType);
 
 					}
@@ -198,35 +181,43 @@
 
 	const getPropIDsFromGUI = function(aidID){
 		let searchKeys = [];
-		let nestedList = [];
-		let idList = [];
+		let setList = [];
+		let idSet = new Set();
 		let propertyDiv = document.getElementById(`${MAIN_SEARCH_PROP}`);
 		let form = propertyDiv.querySelector("#propertySearch");
+		
+		userSelectedOptions = {}
 		form.addEventListener("submit", function(event){
 			event.preventDefault();
-			//console.log('Form submission prevented.');
+			childBoxes = form.querySelectorAll(`input[class="ifd-search-value-checkbox"]`);	
 
-			childBoxes = form.querySelectorAll(`input[class="ifd-search-value-checkbox"]`);
 			
-	
 			childBoxes.forEach(box =>{
 				if(box.checked){
-					searchKeys.push(box.dataset.parentBoxProperty + "$" + box.value);
+					currParentProperty = box.dataset.parentBoxProperty;
+					if(!(currParentProperty in userSelectedOptions)){
+						userSelectedOptions[currParentProperty] = IFD.propertyMap[IFD.searchType][currParentProperty + "$" + box.value];
+				
+					}else{
+						userSelectedOptions[currParentProperty] = userSelectedOptions[currParentProperty].union(IFD.propertyMap[IFD.searchType][currParentProperty + "$" + box.value]);
+					}
 				}
 			})
 
-			for(let i = 0; i < searchKeys.length; i++){
-				nestedList.push(IFD.propertyMap[IFD.searchType][searchKeys[i]]);
-			}
-		
+			// if something to display
+			if(Object.values(userSelectedOptions).length > 0){
+				setColelction = Object.values(userSelectedOptions);
+				// Intersection/&& operation between all the set IDs
+				idSet = setColelction[0];
+				for(let setItem of setColelction){
+					idSet = idSet.intersection(setItem);
 
-			idList = nestedList
-			.filter(item => item instanceof Set) // Remove `undefined`
-			.flatMap(set => [...set]); // Convert each Set to an array and flatten
+				}
 			
-			//console.log("ID list Contains duplicates " + (new Set(idList).size !== idList.length));
-			IFD.showSpectra(aidID, [...new Set(idList)]);
-	
+				
+				console.log("Final Set:", idSet);
+				IFD.showSpectra(aidID, [...idSet]);
+			}
 		})	
 		}
 
@@ -374,16 +365,16 @@
 				let parentValue = target.dataset.parentBoxProperty;
 				let parentBox = this.querySelector(`input.ifd-search-key-checkbox[value = "${parentValue}"]`);
 				let childBoxes = this.querySelectorAll(`input[data-parent-box-property = "${parentValue}"]`);
-				let andBool = true;
+				let orBool = false;
 				childBoxes.forEach(box => 
-					andBool = andBool && box.checked
+					orBool = orBool || box.checked
 				);
 
 				
 				//console.log(parentBox);
-				//console.log(andBool);
+				//console.log(orBool);
 
-				if(andBool){
+				if(orBool){
 					parentBox.checked = true;
 				}
 				else{
@@ -412,9 +403,9 @@
 	}
 
 
-	IFD.showStructuresByAidAndID = function(idList) {
+	IFD.showStructuresByAidAndID = function(idSet) {
 		// not implemented
-		s = showCompoundStructures(null, idList, false);
+		s = showCompoundStructures(null, idSet, false);
 	}
 
 
