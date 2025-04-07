@@ -188,8 +188,8 @@
 		
 		userSelectedOptions = {}
 		form.addEventListener("submit", function(event){
-			event.preventDefault();
-			childBoxes = form.querySelectorAll(`input[class="ifd-search-value-checkbox"]`);	
+			event.preventDefault();                     // ^= ~ starts with
+			childBoxes = form.querySelectorAll(`input[class^="ifd-search-value-checkbox"]`);	
 
 			
 			childBoxes.forEach(box =>{
@@ -215,7 +215,7 @@
 				}
 			
 				
-				console.log("Final Set:", idSet);
+				//console.log("Final Set:", idSet);
 				IFD.showSpectra(aidID, [...idSet]);
 			}
 		})	
@@ -224,23 +224,24 @@
 
 
 
-	const checkboxHelper_prop = function(property, value){
+	const checkboxHelper_prop = function(property, value, visibility = "visible"){
 		let checkbox = document.createElement('input');
 		checkbox.id = `${property}_${value}`;
 		checkbox.dataset.parentBoxProperty = property;
 		checkbox.type = 'checkbox';
 		checkbox.name = 'propertyVal';
 		checkbox.value = value;
-		checkbox.className = 'ifd-search-value-checkbox';
+		checkbox.className = 'ifd-search-value-checkbox_' + visibility;
 
 
 		return checkbox;
 
 	}
 
-	const labelHelper_prop = function(id, value, count){
+	const labelHelper_prop = function(id, value, count, visibility = "visible"){
 		let label = document.createElement('label');
 		label.setAttribute('for', id);
+		label.setAttribute('class', "ifd-search-value-checkbox_" + visibility);
 		label.textContent = value + ' (' + count + ')';
 
 		return label;
@@ -248,6 +249,7 @@
 	}
 
 	const buildCheckboxContainer = function(){
+		const MAX_CHECKBOXES = 5;
 		let checkboxContainer = document.getElementById('checkboxContainerPropSearch');
 		 
 
@@ -263,23 +265,29 @@
 		}
 
 		//console.log(propMap);
-		uniqueProperties = new Set();
-		
+
+		// track properties and the count of their values
+		uniqueProperties = {};
+
+		hiddenBoxesMap = {} //need to think about this
+
 		for(const prop in propMap){
 			const parentCheckbox = document.createElement(`input`);
 			parentCheckbox.type = 'checkbox';
 			let count = propMap[prop].size;
-			//console.log(count);
+			
 			let [property, value] = prop.split("$");
-			if(!uniqueProperties.has(property)){
+			
 
+			if(!(property in uniqueProperties)){
+			
 				let parentCheckboxDiv = document.createElement('div');
 				parentCheckboxDiv.id =	property + " Div";
 				parentCheckboxDiv.className = "ifd-property-parent";
 
 
 				checkboxContainer.appendChild(document.createElement('br'));
-				uniqueProperties.add(property)
+				uniqueProperties[property] = 1;
 
 				parentCheckbox.id = `property_${property}`;
 				parentCheckbox.name = `propertyType`;
@@ -317,27 +325,83 @@
 				parentCheckboxDiv.appendChild(childCheckboxDiv)
 				checkboxContainer.append(parentCheckboxDiv);
 				
-				//checkboxContainer.appendChild(document.createElement('br'));
 				
 
-			}else {
-				//let parentBoxDiv = document.getElementById(property + " Div");
+			}else { // we've seen this property before
+				let visibilityClass;
+				uniqueProperties[property] += 1;
+				if(uniqueProperties[property] > MAX_CHECKBOXES){
+					visibilityClass = "hidden";
+					let hiddenWrapperId = property + "_HiddenDiv";
+					var hiddenWrapper = document.getElementById(hiddenWrapperId);
+					if(!hiddenWrapper){
+						hiddenWrapper = document.createElement('div');
+						hiddenWrapper.id = hiddenWrapperId;
+						hiddenWrapper.className = 'hidden-checkbox-group';
+						hiddenWrapper.style.display = "none";
+					}
+						if(hiddenBoxesMap[hiddenWrapperId]){
+							hiddenBoxesMap[hiddenWrapperId] += 1;
+						}
+						else{
+							hiddenBoxesMap[hiddenWrapperId] = 1;
+						}
+				}
+				else{
+					visibilityClass = "visible";
+				}
+
 				let childDiv = document.getElementById(property + " ChildDiv");
 
-				let childCheckbox = checkboxHelper_prop(property, value);
+				let childCheckbox = checkboxHelper_prop(property, value, visibilityClass);
 
 				// Create the label element for the child checkbox
-				let childLabel = labelHelper_prop(childCheckbox.id, value, count);
+				let childLabel = labelHelper_prop(childCheckbox.id, value, count, visibilityClass);
+
+				if(visibilityClass == "hidden"){
+					hiddenWrapper.appendChild(childCheckbox);
+					hiddenWrapper.append(childLabel);
+					hiddenWrapper.appendChild(document.createElement('br'));
+					childDiv.appendChild(hiddenWrapper);
+
+				}else{
+					// add the child checkbox and label to the childDiv 
+					childDiv.appendChild(childCheckbox);
+					childDiv.append(childLabel);
+					childDiv.appendChild(document.createElement('br'));
+				}
+				
+			}
+		}
+
+		parentContainers = checkboxContainer.querySelectorAll('div[class=ifd-property-parent]');
+			
+		parentContainers.forEach(div => {
+			hiddenDiv = div.querySelector('div[class=hidden-checkbox-group]');
+
+			if(hiddenDiv){
+				showBttn = document.createElement('button');
+				showBttn.setAttribute('class', 'showHiddenBttn');
+				showBttn.setAttribute("type", "button");
+				showBttn.dataset.assocDiv = hiddenDiv.id;
+				showBttn.textContent = "Show More " + `(${hiddenBoxesMap[hiddenDiv.id]})`;
+				showBttn.addEventListener('click', function(){
+					assocDiv = document.getElementById(this.dataset.assocDiv);
+					if(assocDiv.style.display == "none"){
+						assocDiv.style.display = "block";
+						this.textContent = "Hide";
+					}
+					else{
+						assocDiv.style.display = "none";
+						this.textContent = "Show More " + `(${hiddenBoxesMap[assocDiv.id]})`;
+					}
+				})
+				div.appendChild(showBttn);
 
 				
-				// add the child checkbox and label to the childDiv
-				childDiv.appendChild(childCheckbox);
-				childDiv.append(childLabel);
-				childDiv.appendChild(document.createElement('br'));
-		
 			}
-		
-		}
+		});
+
 
 		// padding before the search button
 		checkboxContainer.appendChild(document.createElement('br'));
@@ -360,7 +424,7 @@
 				let childBoxes = this.querySelectorAll(`input[data-parent-box-property = "${target.value}"]`);
 				childBoxes.forEach(box => box.checked = target.checked);
 			}
-			else if(target.classList.contains("ifd-search-value-checkbox")){
+			else if(target.classList[0].startsWith("ifd-search-value-checkbox")){
 				// get the parent box
 				let parentValue = target.dataset.parentBoxProperty;
 				let parentBox = this.querySelector(`input.ifd-search-key-checkbox[value = "${parentValue}"]`);
@@ -369,10 +433,6 @@
 				childBoxes.forEach(box => 
 					orBool = orBool || box.checked
 				);
-
-				
-				//console.log(parentBox);
-				//console.log(orBool);
 
 				if(orBool){
 					parentBox.checked = true;

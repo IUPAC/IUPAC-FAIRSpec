@@ -16,3 +16,7 @@ mark {background-color:  #ffff99;}
 .ifd-search-val-div {
     margin-left: 20px;
 }
+
+.hidden-checkbox-group{
+  display: none;
+}
