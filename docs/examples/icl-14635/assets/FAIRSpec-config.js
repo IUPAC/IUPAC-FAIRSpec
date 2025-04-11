@@ -10,7 +10,7 @@ IFD = {
 		jmeDiv: "jmediv",
 		readyFunction : function(){IFD.jmolReadyCallback()},
 		imageDimensions:{width:40,height:40},
-		MAX_IMAGE_DIMENSIONS: {width:250, height:250}
+		MAX_IMAGE_DIMENSIONS: {width:400, height:400}
 	},
 	collections: {},
 	collectionsKeys: null,
@@ -36,4 +36,5 @@ IFD.MODE_STRUCTURES = "structures";
 IFD.MODE_SPECTRA    = "spectra";
 IFD.MODE_SAMPLES  = "samples";
 IFD.MODE_SAMPLESPECTRA = "samplespectra";
+IFD.searchType = IFD.MODE_NONE;
 
