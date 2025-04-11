@@ -663,6 +663,9 @@ public class DOICrawler extends FindingAidCreator {
 		for (Entry<String, String> e : rec.properties.entrySet()) {
 			String key = e.getKey();
 			String value = e.getValue();
+			if (key.indexOf("inchi") >=0) {
+				System.out.println("???");
+			}
 			switch (key) {
 			case "schemalocation":
 				continue;
