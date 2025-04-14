@@ -17,7 +17,6 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.util.JSJSONParser;
 
-import com.integratedgraphics.extractor.ExtractorUtils.CacheRepresentation;
 import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
 import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
 import com.integratedgraphics.ifd.api.VendorPluginI;
@@ -64,7 +63,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 */
 	private String userStructureFilePattern;
 
-	private String findingaidId;
+	String findingaidId;
 
 	protected boolean processPhase1(File ifdExtractScriptFile, String localArchive) throws IOException, IFDException {
 		// first create objects, a List<String>

@@ -155,7 +155,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 			}
 			if (i >= 0) {
 				for (i = size(); --i >= 0;) {
-					get(i).setID("" + (i + 1));
+					get(i).setID("[" + (i + 1) + "]");
 				}
 			}
 			
@@ -174,7 +174,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 	public T getObjectByID(String value) {
 		for (int i = size(); --i >= 0;) {
 			T v = get(i);
-			if (value.equals(v.getID()))
+			if (value.equals(v.getIDorIndex()))
 					return v;
 		}
 		return null;
@@ -199,7 +199,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 		for (int i = size(); --i >= 0;) {
 			T o = get(i);
 			if (o.getSortKey() == null) {
-				o.setSortKey(IFDUtil.getNumericalSortKey(o.getID()));
+				o.setSortKey(IFDUtil.getNumericalSortKey(o.getIDorIndex()));
 			}
 		}
 		sort(getSorter());

@@ -15,6 +15,8 @@ public interface IFDObjectI<T> {
 	
 	String getID();
 	
+	String getIDorIndex();
+
 	String getLabel();
 	
 	String getNote();

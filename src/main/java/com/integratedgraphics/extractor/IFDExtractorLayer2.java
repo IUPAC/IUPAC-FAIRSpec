@@ -946,7 +946,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				this.localizedName = localizedName;
 			if (isMultiple) {
 				addDeferredPropertyOrRepresentation(NEW_PAGE_KEY, new Object[] {
-						(obj.getID().endsWith("/" + thisDir) ? null : "_" + thisDir), obj, localizedName }, false, null,
+						(obj.getIDorIndex().endsWith("/" + thisDir) ? null : "_" + thisDir), obj, localizedName }, false, null,
 						null, "P2 rezip");
 			}
 		} else {
@@ -1234,7 +1234,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				IFDRepresentation r = obj.findOrAddRepresentation(faHelper.getCurrentSource().getID(), originPath,
 						extractorResource.rootPath, keyPath, data, key, mediaType);
 				if (note != null)
-					r.setNote(note);
+					r.addNote(note);
 				if (!isInline)
 					setLocalFileLength(r);
 				continue;
@@ -1286,8 +1286,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				}
 				//specToClone.dumpProperties("local");
 				newSpec = faHelper.cloneData(specToClone, idExtension, replaceOld);
-				htCloneMap.put(specToClone.getID(), newSpec);
-				htCloneMap.put("$" + newSpec.getID(), specToClone);
+				htCloneMap.put(specToClone.getIDorIndex(), newSpec);
+				htCloneMap.put("$" + newSpec.getIDorIndex(), specToClone);
 				spec = localSpec = newSpec;
 				//newSpec.dumpProperties("new");
 				struc = faHelper.getFirstStructureForSpec(localSpec, assoc == null);
@@ -1455,7 +1455,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	private IFDRepresentableObject<?> phase2dGetClonedData(IFDRepresentableObject<?> spec) {
 		if (htCloneMap.isEmpty())
 			return spec;
-		IFDRepresentableObject<?> d = (spec.isValid() ? null : htCloneMap.get(spec.getID()));
+		IFDRepresentableObject<?> d = (spec.isValid() ? null : htCloneMap.get(spec.getIDorIndex()));
 		return (d == null ? spec : d);
 	}
 
@@ -1782,14 +1782,13 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	@Override
 	public void setNewObjectMetadata(IFDObject<?> o, String param) {
 		// from FAIRSpecExtractorHelper
-		String id;
 		Map<String, Object> map;
 		List<Object[]> metadata;
-		if (htSpreadsheetMetadata == null || (id = o.getID()) == null || (map = htSpreadsheetMetadata.get(param)) == null
+		if (htSpreadsheetMetadata == null || o.getID() == null || (map = htSpreadsheetMetadata.get(param)) == null
 				|| !SpreadsheetReader.hasDataKey(map)
-				|| (metadata = SpreadsheetReader.getRowDataForIndex(map, id)) == null)
+				|| (metadata = SpreadsheetReader.getRowDataForIndex(map, o.getIDorIndex())) == null)
 			return;
-		log("!Extractor adding " + metadata.size() + " metadata items for " + param + "=" + id);
+		log("!Extractor adding " + metadata.size() + " metadata items for " + param + "=" + o.getIDorIndex());
 		FAIRSpecExtractorHelper.addProperties(o, metadata);
 	}
 

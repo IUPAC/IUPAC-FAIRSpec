@@ -24,7 +24,7 @@ public class PageCreator {
 			"assets/FAIRSpec-config.js",
 			"assets/FAIRSpec-get.js",
 			"assets/FAIRSpec-gui.js",
-			"assets/FAIRSpec-jmol.js",
+			"assets/FAIRSpec-swingjs.js",
 			ifdConfigJS,
 			ifdFindingAidsJS,
 			"index.htm",

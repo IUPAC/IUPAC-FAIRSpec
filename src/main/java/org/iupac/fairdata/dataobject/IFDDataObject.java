@@ -1,8 +1,5 @@
 package org.iupac.fairdata.dataobject;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.core.IFDRepresentableObject;

@@ -518,7 +518,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 				IFDStructure st = (IFDStructure) assoc.getFirstObj1();
 				if (st != null) {
 					extractor.log("! FAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure "
-							+ st.getID());
+							+ st.getIDorIndex());
 					getStructureCollection().remove(st);
 				}
 				n++;
@@ -686,12 +686,12 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 				IFDStructure struc = (IFDStructure) assoc.getFirstObj1();
 				IFDObject<?> spec = assoc.getFirstObj2();
 				if (assoc.get(1).size() > 0 && (struc == null || struc.size() == 0)) {
-					extractor.log("! FAIRSpecExtractorHelper association id=" + assoc.getID() + " spec="
-							+ (spec == null ? "" : spec.getID()) + " has no associated structure representation ");
+					extractor.log("! FAIRSpecExtractorHelper association id=" + assoc.getIDorIndex() + " spec="
+							+ (spec == null ? "" : spec.getIDorIndex()) + " has no associated structure representation ");
 				}
 				if (assoc.get(0).size() > 0 && (spec == null || spec.size() == 0)) {
-					extractor.log("! FAIRSpecExtractorHelper association id=" + assoc.getID() + " struc="
-							+ (struc == null ? "" : struc.getID()) + " has no associated spectrum representation ");
+					extractor.log("! FAIRSpecExtractorHelper association id=" + assoc.getIDorIndex() + " struc="
+							+ (struc == null ? "" : struc.getIDorIndex()) + " has no associated spectrum representation ");
 					assoc.setValid(false);
 				}
 			}
@@ -704,7 +704,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 					assoc.getDataObjectCollection().removeInvalidData();
 				}
 				if (assoc.getFirstObj1() == null)
-					extractor.log("! FAIRSpecExtractorHelper association " + assoc.getID()
+					extractor.log("! FAIRSpecExtractorHelper association " + assoc.getIDorIndex()
 							+ " has no associated sample representation");
 			}
 		}
