@@ -72,6 +72,10 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 			return sb;
 		}
 
+		@Override
+		public String toString() {
+			return sb.toString();
+		}
 	}
 
 	@Override
@@ -125,7 +129,7 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 		for (int i = 0, n = list.size(); i < n; i++) {
 			thisObj.append(sep);
 			IFDObject<?> e = list.get(i);
-			key = e.getID();
+			key = e.getIDorIndex();
 			thisObj.append(FAIRSpecUtilities.esc(key) + ":");
 			addValue(e, false, true);
 			sep = ",\n";

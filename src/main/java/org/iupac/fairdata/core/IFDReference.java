@@ -32,12 +32,12 @@ public class IFDReference implements IFDSerializableI {
 	/**
 	 * root path to this file
 	 */
-	private final String localDir;
+	private String localDir;
 
 	/**
 	 * label of this file
 	 */
-	private final String localName;
+	private String localName;
 
 	private String url;
 	
@@ -178,6 +178,10 @@ public class IFDReference implements IFDSerializableI {
 	@Override
 	public String getSerializedType() {
 		return "IFDReference";
+	}
+
+	public void setLocalPath(Object object) {
+		localDir = localName = null;
 	}
 
 

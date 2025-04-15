@@ -125,7 +125,7 @@ public class Deflater extends ZStream {
 		if (dstate == null)
 			return;
 //      return Z_STREAM_ERROR;
-		int ret = dstate.deflateEnd();
+		dstate.deflateEnd();
 		dstate = null;
 		free();
 //    return ret;

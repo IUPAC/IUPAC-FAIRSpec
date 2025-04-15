@@ -158,6 +158,12 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		byId = tf;
 	}
 
+	@Override
+	public FAIRSpecCompoundAssociation getThisCompound() {
+		return thisCompound;
+	}
+
+	@Override
 	public IFDStructure getCurrentStructure() {
 		return currentStructure;
 	}
@@ -166,6 +172,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		currentStructure = struc;
 	}
 
+	@Override
 	public IFDDataObject getCurrentSpecData() {
 		return currentDataObject;
 	}
@@ -294,21 +301,25 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		if (id != null) {
 			c = findCompoundById(id);
 		}
-		if (c == null)
+		boolean isNew = (c == null);
+		if (isNew) {
 			c = createCompound(null, null);
+		} 
+		if (c != thisCompound) {
+			currentStructure = null;
+			currentDataObject = null;			
+		}
+		currentAssociation = thisCompound = c;
 		if (id != null)
 			c.setPropertyValue(IFDConst.IFD_PROPERTY_ID, id);
-		currentAssociation = thisCompound = c;
 		getCompoundCollection().add(c);
-		currentStructure = null;
-		currentDataObject = null;
 		return c;
 	}
 
 	private FAIRSpecCompoundAssociation findCompoundById(String id) {
 		ArrayList<?> c = getCompoundCollection();
 		for (Object a: c) {
-			if (id.equals(((FAIRSpecCompoundAssociation)a).getID())) {
+			if (id.equals(((FAIRSpecCompoundAssociation)a).getIDorIndex())) {
 				return (FAIRSpecCompoundAssociation)a;
 			}			
 		}
@@ -383,8 +394,11 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		currentStructure = new IFDStructure();
 		if (id != null)
 			currentStructure.setID(id);
-		if (thisCompound != null)
+		System.out.println("FAHelper creating structure " + currentStructure);
+		if (thisCompound != null) {
 			thisCompound.addStructure(currentStructure);
+			System.out.println("FAHelper adding new structure to compound " + thisCompound);
+		}
 		getStructureCollection().add(currentStructure);
 		return currentStructure;
 	}
@@ -395,6 +409,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			String ifdStructureType, String mediatype) {
 		if (currentStructure == null)
 			currentStructure = createStructure(null);
+		System.out.println("FAHelper adding structure rep to " + currentStructure + ":" + ref);
 		IFDStructureRepresentation r = (IFDStructureRepresentation) findOrAddRepresentation(currentStructure, null, null, null, ref == null ? null : ref.getLocalName(), data, null);
 		if (data == null) {
 			r.getRef().setDOI(ref.getDOI());
@@ -402,6 +417,9 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		}
 		r.setMediaType(mediatype);
 		r.setType(ifdStructureType);
+		if (len == 0 && data != null) {
+			len = (data instanceof byte[] ? ((byte[]) data).length : data instanceof String ? ((String) data).length() : 0);
+		}
 		r.setLength(len);
 		return r;
 	}
@@ -422,6 +440,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			System.out.println("no data object for " + ref);
 			return null;
 		}
+		System.out.println("FAHelper adding data rep to " + currentDataObject + ":" + ref);
 		IFDDataObjectRepresentation r = (IFDDataObjectRepresentation) findOrAddRepresentation(currentDataObject, null, null, null, ref == null ? null : ref.getLocalName(), data, null);
 		r.setRef(ref);
 		r.setMediaType(mediatype);
@@ -560,7 +579,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 				s += ("\t" + sd + "\n");
 				n++;
 			}
-			s += "## " + c.size() + " " + c.getID() + "\n";
+			s += "## " + c.size() + " " + c.getIDorIndex() + "\n";
 		}
 		s = "!FAIRSpecExtractionHelper.dumpSummary extraction complete:\n! " + getFindingAid().getResources() + "\n!\n"
 				+ (n == 0 ? "!FAIRSpecExtractionHelper.dumpSummary no objects?\n" : s)
@@ -678,6 +697,5 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		obj.setPropertyValue(key, value, originPath);
 		return null;
 	}
-
 
 }

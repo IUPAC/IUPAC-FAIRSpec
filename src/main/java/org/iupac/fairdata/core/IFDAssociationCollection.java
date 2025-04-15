@@ -129,7 +129,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 				String name = null;
 				for (int n = size(); --n >= 0;) {
 					c = get(n).get(i);					
-					String id = (c.isEmpty() ? null : c.get(0).getParentCollection().getID());
+					String id = (c.isEmpty() ? null : c.get(0).getParentCollection().getIDorIndex());
 					if (id != null) {
 						name = id;
 						break;
@@ -142,7 +142,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 				if (cp == null) {
 					throw new NullPointerException("IFDAssociationCollection null or 0-length association");
 				}
-				list.add(cp.getID());
+				list.add(cp.getIDorIndex());
 			}
 		}
 		if (byID) {

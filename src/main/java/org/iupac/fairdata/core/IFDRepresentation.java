@@ -36,11 +36,7 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 	public IFDRepresentation(IFDReference ref, Object data, long len, String type, String subtype) {
 		//this.test = staticTest++;
 		this.ref = ref;
-		this.data = data;
-		this.len = (data instanceof String ? ((String) data).length()
-				: data instanceof byte[] ? ((byte[]) data).length 
-				: ref != null || len != 0 ? len 
-				: 0);
+		setData(data);
 		this.representationType = type;
 		this.mediaType = subtype;
 	}
@@ -110,8 +106,10 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 			serializer.addObject("note", note);
 	}
 
-	public void setNote(String note) {
-		if (this.note == null)
+	public void addNote(String note) {
+		if (note == null)
+			this.note = null;
+		else if (this.note == null)
 			this.note = note;
 		else
 			this.note += ";\n" + note;		
@@ -129,5 +127,15 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 		if (ref.checkInSitu())
 			data = null;
 	}
+	
+	public void setData(Object bytes) {
+		data = bytes;
+		len = (data instanceof String ? ((String) data).length()
+				: data instanceof byte[] ? ((byte[]) data).length 
+				: ref != null || len != 0 ? len 
+				: 0);
+	}
+
+
 
 }
