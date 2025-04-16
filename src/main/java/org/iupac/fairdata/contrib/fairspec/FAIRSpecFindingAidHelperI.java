@@ -90,5 +90,10 @@ public interface FAIRSpecFindingAidHelperI {
 	 */
 	Object setPropertyValueNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath);
 
+	public IFDStructure getCurrentStructure();
+	
+	public IFDDataObject getCurrentSpecData();
+
+	FAIRSpecCompoundAssociation getThisCompound();
 
 }

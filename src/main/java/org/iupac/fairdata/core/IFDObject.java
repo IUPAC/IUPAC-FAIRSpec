@@ -542,10 +542,14 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	@Override
 	public String getID() {
-		if (id == null)
-			id = "[" + (index + 1) + "]";
 		return id;
 	}
+
+	@Override
+	public String getIDorIndex() {
+		return (id == null ? "[" + (index + 1) + "]" : id);
+	}
+
 
 	@Override
 	public void setID(String id) {
@@ -620,7 +624,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	}
 
 	public void setDOIorURLFromMapByID(Map<String, Map<String, Object>> htURLReferences) {
-		Map<String, Object> ref = htURLReferences.get(getID());
+		Map<String, Object> ref = htURLReferences.get(getIDorIndex());
 		if (ref == null)
 			return;
 		Object r = ref.get("url");
@@ -708,12 +712,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		serializeList(serializer);
 	}
 
-	protected IFDReference reference;
-	
-	public void setReference (IFDReference ref) {
-		this.reference = ref;
-	}
-	
 	protected void serializeTop(IFDSerializerI serializer) {
 		if (doSerializeType)
 			serializeClass(serializer, getClass(), null);
@@ -723,10 +721,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		serializer.addAttr("description", getDescription());
 		serializer.addAttr("timestamp", getTimestamp());
 		serializer.addAttr("doi", doi);
-		serializer.addAttr("url", url);
-		if (reference != null)
-			reference.serialize(serializer);
-
+		if (doi == null || url != null && !doi.equals(url))
+			serializer.addAttr("url", url);
 		if (hasProperty)
 			serializer.addAttr("propertyPrefix", getPropertyPrefixForSerialization());
 	}
@@ -861,7 +857,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	@Override
 	public String toString() {
 		return "[" + getClass().getSimpleName() + " " + index 
-				+ " id=" + getID()
+				+ " id=" + getIDorIndex()
 				+ (label == null ? "" : " label=" + getLabel()) 
 				+ " size=" + size() 
 				+ " isValid=" + isValid

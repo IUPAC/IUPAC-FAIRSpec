@@ -90,6 +90,11 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 	}
 
 	@Override
+	public String getID() {
+		return null; // no need for this in finding aid
+	}
+
+	@Override
 	public void serializeList(IFDSerializerI serializer) {
 		IFDCollectionSet list = new IFDCollectionSet(null);
 		for (int i = 0; i < size(); i++) {
@@ -109,7 +114,7 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 			if (c.size() == 0)
 				continue;
 			Map<String, Object> m = new TreeMap<>();
-			m.put("id", c.getID());
+			m.put("id", c.getIDorIndex());
 			getTypeAndExtends(c.getClass(), m);
 			m.put("count", c.size());
 			list.add(m);
