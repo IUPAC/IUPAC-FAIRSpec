@@ -100,7 +100,6 @@ IFD.getPropertyMap = function(aidID, searchType){
 		}
 		generalizedMap[generalKey] = (generalizedMap[generalKey]).union(map[key]);
 	})
-
 	completeSet = new Set(Object.keys(IFD.collections["."][searchType]));
 	Object.keys(generalizedMap).forEach(key =>{
 		setDiff = completeSet.difference(generalizedMap[key]);
@@ -109,9 +108,6 @@ IFD.getPropertyMap = function(aidID, searchType){
 			map[key + "$Unspecified"] = setDiff;
 		}
 	})
-
-	
-
 	return map;
 }
 
@@ -353,7 +349,7 @@ IFD.getSMILES = function(aidID, retIDs, retSMILES, allowReactions, withAidID) {
 		if (types.smiles) {
 			var data = types.smiles.data;
 			if (!allowReactions)
-				data = data.$replace("&gt;&gt;", ".");
+				data = data.replace("&gt;&gt;", ".");
 			if (IFD.jmolCheckSmiles(data)) {
 				retIDs.push(withAidID ? [aidID, struc.id] : struc.id);
 				retSMILES.push(data);
