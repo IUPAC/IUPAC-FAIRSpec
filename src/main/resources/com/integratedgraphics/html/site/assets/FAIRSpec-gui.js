@@ -12,13 +12,15 @@
 	//    HSQC/HMBC prediction: https://www.nmrdb.org/service.php?name=hmbc-prediction&smiles=c1ccccc1CC
 	//    All predictions: https://www.nmrdb.org/service.php?name=all-predictions&smiles=c1ccccc1CC
 
-	var MAIN_SEARCH_SUB = "main_search_sub";
-	var MAIN_SEARCH_TEXT = "main_search_text";
-	var MAIN_SEARCH_PROP = "main_search_prop";
-	var MAIN_SEARCH     = "main_search";
-	var MAIN_SUMMARY    = "main_summary";
+	const MAIN_SEARCH_SUB = "main_search_sub";
+	const MAIN_SEARCH_TEXT = "main_search_text";
+	const MAIN_SEARCH_PROP = "main_search_prop";
+	const MAIN_SEARCH     = "main_search";
+	const MAIN_SUMMARY    = "main_summary";
+
+	const INVALID = "invalid!"; 
 	
-	var NMRDB_PREDICT_SMILES = "https://www.nmrdb.org/service.php?name=%TYPE%-prediction&smiles=%SMILES%";
+	const NMRDB_PREDICT_SMILES = "https://www.nmrdb.org/service.php?name=%TYPE%-prediction&smiles=%SMILES%";
 	// where type = 1h, 13c, cosy, hmbc, hsqc
 	
 	var aLoading = null;
@@ -1007,7 +1009,7 @@
 
 	var getHeader = function(types, name, description) {
 		IFD.contentHeader = types;
-		var key = removeSpace(name) + "_" + ++divId
+		var key = toAlphanumeric(name) + "_" + ++divId
 		IFD.headers.push([key,name]);
 		return "<a name=\"" + key + "\"><h3>" + name + "</h3></a>"
 		+ (false && description ? description + "<p>" : "<p>");
@@ -1202,28 +1204,30 @@
 	}
 
 	var addRepresentationRow = function(isData, aidID, r, type) {
-		var s = ""; 
+		var s; 
 		var shead = //"";//
 			// TODO data type xrd is in the wrong place
-		(type == "png" || isData ? "" : "<span class=repname>" + (type = clean(type)) + "</span> ");
+		(type == "png" || isData ? "" : "<span class=repname>" + (type = cleanKey(type)) + "</span> ");
 		if (r.data) {
 			if (r.data.indexOf(";base64") == 0) {
                                 if (type == "png" || "image/png" == r.mediaType) {
-                                        var imgTag = getImageTag((r.ref ? r.ref.localPath : "image.png"), "data:" + r.mediaType + r.data);
-					s += addPathForRep(aidID, r.ref, -1, imgTag, null, r.note);
+                                        var imgTag = getImageTag((r.ref ? r.ref.localPath : "image.png"),(r.note ? cleanText(r.note) : null), "data:" + r.mediaType + r.data);
+					s = addPathForRep(aidID, r.ref, -1, imgTag, null, r.note);
 				} else {
-					s += anchorBase64(r.ref.localPath, r.data, r.mediaType);
+					s = anchorBase64(r.ref.localPath, r.data, r.mediaType);
 				}
 			} else {
-				if (r.data.length > 30 || type == "inchikey") {
-					s += anchorHide(shead, r.data);
+				if (r.data.indexOf(INVALID) >= 0) {
+					s = "<span class='invalid'>" + r.data + "</span>";
+				} else if (r.data.length > 30 || type == "inchikey") {
+					s = anchorHide(shead, r.data, r.note);
 					shead = "";
 				} else {
-					s += r.data;
+					s = r.data;
 				}
 			}
 		} else {
-			s += " " + addPathForRep(aidID, r.ref, r.len, null, r.mediaType, r.note);
+			s = " " + addPathForRep(aidID, r.ref, r.len, null, r.mediaType, r.note);
 		}
 		s = "<tr><td>" + shead + s + "</td></tr>";
 		return s;
@@ -1231,9 +1235,10 @@
 
 	var heads = [];
 
-	var anchorHide = function(shead, sdata) {
+	var anchorHide = function(shead, sdata, title) {
 		heads.push(sdata);
-		return "<a class=hiddenhead href=javascript:IFD.showHead(" + (heads.length - 1) + ")>" + shead + "</a>";
+		return "<a " +(title ? "title=\"" + cleanText(title) + "\" ": "")
+			+ "class=hiddenhead href=javascript:IFD.showHead(" + (heads.length - 1) + ")>" + shead + "</a>";
 	}
 
 	IFD.showHead = function(i) {alert(heads[i])}
@@ -1326,7 +1331,7 @@
 	}
 
 	var addPropertyLine = function(key, val) {
-		key = clean(key);
+		key = cleanKey(key);
 		if ((key.endsWith("_PID") || key.endsWith("_DOI")) && val.startsWith("10.")) {
 			val = getDOIAnchor(key, val);
 		}
@@ -1358,7 +1363,7 @@
 		divId++;
 		if (note && title && title.indexOf(note) < 0)
 			title += " " + note;
-			startImageMonitor(divId);
+		startImageMonitor(divId);
 		return "<img width=50% height=50% id=img" + divId  
 			+  (title ? " title=\"" + title + "\"" : "")
 			+ " onload=IFD.checkImage(" + divId + ")" 
@@ -1372,12 +1377,13 @@
 		var shortName = ref.localName || shortFileName(ref.localPath);
 		var url = ref.url || ref.doi || (ref.localPath ? fileFor(aidID, ref.localPath) : ref.localName);
 		mediaType = null;// nah. Doesn't really add anything || (mediaType = "");
+		var s;
 		if (value) {
-			s = "<a target=_blank href=\"" + url + "\">" + value + "</a>"
+			s = (url == "?" ? value : "<a target=_blank href=\"" + url + "\">" + value + "</a>");
 			if (value.indexOf("<img") >= 0)
 				return s;
 		} else if (shortName.endsWith(".png")) {
-			return getImageTag(url, url); 
+			return getImageTag(url, null, url); 
 		} else {
 			if (url.startsWith(";base64,"))
 				url = "data:application/octet-stream" + url;
@@ -1405,16 +1411,20 @@
 		return (pt < 0 ? f : f.substring(pt + 2));
 	}
 
-	var clean = function(id){
-		return (id == "unknown" ? "" : id || "");//.replace(/_/g, ' ');
+	var cleanKey = function(key){
+		return (key == "unknown" ? "" : key || "");//.replace(/_/g, ' ');
 	}
 
-	var removeUnderline = function(id){
-		return id.replace(/_/g, ' ');
+	var removeUnderline = function(s){
+		return s.replace(/_/g, ' ');
 	}
 
-	var removeSpace = function(id){
-		return id.replace(/[^a-zA-Z0-9_]/g, '_');
+	var toAlphanumeric = function(s){
+		return s.replace(/[^a-zA-Z0-9_]/g, '_');
+	}
+	
+	var cleanText = function(text) {
+		return removeUnderline(toAlphanumeric(text));
 	}
 	
 	var JMEshowSearch = function(fReturn) {
@@ -1466,7 +1476,7 @@ return ""; // no longer necessary
 		  var src =	"https://www.simolecule.com/cdkdepict/depict/bow/svg?smi=" 
 				+ code + "&w=" + w + "&h=" + h + "&hdisp=" + hdisplay 
 				+ "&showtitle=false&zoom=1.7";
-		  var s = getImageTag(null, src);
+		  var s = getImageTag(null, null, src);
 //		  if (!data){
 //			  IFD.cachePut(code, "img" + divId);
 //			  IFD.cachePut("img" + divId, code);

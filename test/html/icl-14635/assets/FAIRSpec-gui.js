@@ -152,7 +152,7 @@
 	//external
 	IFD.searchProperties = function(aidID) {													
 		prepDOM_searchProperties();
-		let initiliazed_keys = new Set(); // to avoid repeated key setting
+		let initiliazed_keys = new Set(); // do avoid repeated key setting
 		const searchTypeArr = document.querySelectorAll('input[name = "searchPropOption"]');
 		searchTypeArr.forEach(radioBttn =>{
 			radioBttn.addEventListener("change", function(){
@@ -161,21 +161,12 @@
 
 					// set the key in the map if needed
 					if(!initiliazed_keys.has(IFD.searchType)){
-						//update property map & record the total number of items
-						IFD.propertyMap[IFD.searchType] = IFD.getPropertyMap(aidID, IFD.searchType);
-		
+						//update property map
+						IFD.propertyMap[IFD.searchType] = IFD.getPropertyMap(aidID, IFD.searchType)
 						initiliazed_keys.add(IFD.searchType);
 
-
 					}
-
-
-
-
 				}
-
-			
-
 				buildCheckboxContainer();
 				getPropIDsFromGUI(aidID);
 				
