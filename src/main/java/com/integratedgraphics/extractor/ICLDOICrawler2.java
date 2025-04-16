@@ -69,9 +69,14 @@ import org.iupac.fairdata.common.IFDConst;
 		return false;
 	}
 
-	public static void main(String[] args) {
+	private static boolean debug = true;
+	public static void main(String[] args) {		
+		
 		if (args.length == 0) {
 		  System.out.println("java -jar ICLDOICrawler2.jar 10.14469/hpc/14635 <outputdir>");
+		  if (debug) {
+			  args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler" };
+		  }
 		}
 		DOICrawler crawler = new DOICrawler(args);
 		crawler.setCustomizer(new ICLDOICrawler2(crawler));

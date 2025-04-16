@@ -15,14 +15,15 @@ import org.jmol.api.JmolViewer;
 import org.jmol.util.DefaultLogger;
 import org.jmol.viewer.Viewer;
 
-import com.actelion.research.chem.AbstractDepictor;
-import com.actelion.research.chem.SmilesParser;
-import com.actelion.research.chem.StereoMolecule;
-import com.actelion.research.gui.JStructureView;
-import com.actelion.research.gui.generic.GenericRectangle;
+//import com.actelion.research.chem.AbstractDepictor;
+//import com.actelion.research.chem.SmilesParser;
+//import com.actelion.research.chem.StereoMolecule;
+//import com.actelion.research.gui.JStructureView;
+//import com.actelion.research.gui.generic.GenericRectangle;
 
 import javajs.util.BS;
 import javajs.util.Base64;
+import swingjs.CDK;
 
 /**
  * A class to handle the extraction of structure objects and metadata related to
@@ -147,6 +148,10 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		boolean isCDX = !isCIF && ext.equals("cdx");
 		boolean isCML = ext.equals("cml");
 		String note = null, warning = null;
+		// We use Jmol for reading all files and creating standard and hydrogen-only InChI and InChIKeys
+		
+		// We use CDK for creating the images and converting SMILES to "canonical" smiles and to InChI
+		
 		if (isCIF || isCDX || isCDXML || isCML || ext.equals("mol") || ext.equals("sdf")) {
 			try {
 				String data = (isCDX ? ";base64," + Base64.getBase64(bytes) : new String(bytes));
@@ -231,7 +236,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 //					}
 					if (is2D && smiles != null) {
 						ByteArrayOutputStream bos = new ByteArrayOutputStream();
-						writeMoleculePNG(smiles, bos);
+						writeCDKMoleculePNG(smiles, bos);
 						bytes = bos.toByteArray();
 					}
 				}
@@ -284,21 +289,29 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		return (returnInChI ? standardInChI : type);
 	}
 	
-	private static void writeMoleculePNG(String smiles, OutputStream os) throws IOException {
-		StereoMolecule mol = new SmilesParser().parseMolecule(smiles); 
-		GenericRectangle rect = mol.getBounds(null);
-		int w = (int) (rect.getWidth() * 30);
-		int h = (int) (rect.getHeight()/rect.getWidth()* w);
-		int mode = AbstractDepictor.cDModeSuppressCIPParity | AbstractDepictor.cDModeSuppressESR
-				| AbstractDepictor.cDModeSuppressChiralText;
-		JStructureView mArea = new JStructureView(mol);
-		mArea.setDisplayMode(mode);
-		mArea.setSize(w, h);
-		BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-		mArea.paint(bi.getGraphics());
+	private static String getCDKSmiles(String smiles) throws IOException {
+		return CDK.getSmilesFromCDKMolecule(CDK.getCDKMoleculeFromSmiles(smiles));
+	}
+		
+	private static void writeCDKMoleculePNG(String smiles, OutputStream os) throws IOException {
+		BufferedImage bi = CDK.getImageFromCDKMolecule(CDK.getCDKMoleculeFromSmiles(smiles));
 		ImageIO.write(bi, "png", os);
 	}
 
+//	private static void writeOCLMoleculePNG(String smiles, OutputStream os) throws IOException {	
+//		StereoMolecule mol = new SmilesParser().parseMolecule(smiles); 
+//		GenericRectangle rect = mol.getBounds(null);
+//		int w = (int) (rect.getWidth() * 30);
+//		int h = (int) (rect.getHeight()/rect.getWidth()* w);
+//		int mode = AbstractDepictor.cDModeSuppressCIPParity | AbstractDepictor.cDModeSuppressESR
+//				| AbstractDepictor.cDModeSuppressChiralText;
+//		JStructureView mArea = new JStructureView(mol);
+//		mArea.setDisplayMode(mode);
+//		mArea.setSize(w, h);
+//		BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+//		mArea.paint(bi.getGraphics());
+//		ImageIO.write(bi, "png", os);
+//	}
 
 	/**
 	 * 
