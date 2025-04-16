@@ -332,7 +332,7 @@ IFD.getSMILES = function(aidID, retIDs, retSMILES, allowReactions, withAidID) {
 		if (types.smiles) {
 			var data = types.smiles.data;
 			if (!allowReactions)
-				data = data.$replace("&gt;&gt;", ".");
+				data = data.replace("&gt;&gt;", ".");
 			if (IFD.jmolCheckSmiles(data)) {
 				retIDs.push(withAidID ? [aidID, struc.id] : struc.id);
 				retSMILES.push(data);
