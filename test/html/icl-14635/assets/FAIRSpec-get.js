@@ -91,7 +91,7 @@ IFD.getPropertyMap = function(aidID, searchType){
 		}	
 	}
 
-		// check for unspecified property values
+	// check for unspecified property values
 	generalizedMap = {}
 	Object.keys(map).forEach(key=>{
 		generalKey = key.split("$")[0];
