@@ -9,12 +9,12 @@ var s = document.location.search;
 var SMILESInfo = {
   code: null,
   main: "org.jmol.smiles.SmilesMatcher",
-  core: "_jmolsmiles",
+  core: "assets/core_fairspec.z.js",
 	width: 1,
 	height: 1,
 	readyFunction: function(app) { IFD.SMILESapp = app; IFD.SMILES = app._applet.app; },
 	serverURL: 'https://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php',
-	j2sPath: '../assets/swingjs/j2s',
+	j2sPath: 'https://chemapps.stolaf.edu/swingjs/chem/swingjs/j2s',
 	console:'sysoutdiv',
 	allowjavascript: true
 }
