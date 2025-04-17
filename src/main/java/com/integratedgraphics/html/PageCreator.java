@@ -20,6 +20,7 @@ public class PageCreator {
 	private final static String ifdFindingAidsJS = "_IFD_findingaids.js";
 
 	private final static String[] files = {
+			"assets/core_fairspec.z.js",
 			"assets/FAIRSpec.css",
 			"assets/FAIRSpec-config.js",
 			"assets/FAIRSpec-get.js",

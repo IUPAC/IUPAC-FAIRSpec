@@ -80,7 +80,7 @@ IFD.getPropertyMap = function(aidID, searchType){
 		if(propertyObj){
 			for(const propKey in propertyObj){
 				//console.log(item, propKey);
-				propVal = propertyObj[propKey]
+				propVal = propertyObj[propKey];
 				if(!map[propKey + '$' + propVal]){
 					map[propKey + '$' + propVal] = new Set();
 				}
@@ -91,6 +91,23 @@ IFD.getPropertyMap = function(aidID, searchType){
 		}	
 	}
 
+	// check for unspecified property values
+	generalizedMap = {}
+	Object.keys(map).forEach(key=>{
+		generalKey = key.split("$")[0];
+		if(!generalizedMap[generalKey]){
+			generalizedMap[generalKey] = new Set();
+		}
+		generalizedMap[generalKey] = (generalizedMap[generalKey]).union(map[key]);
+	})
+	completeSet = new Set(Object.keys(IFD.collections["."][searchType]));
+	Object.keys(generalizedMap).forEach(key =>{
+		setDiff = completeSet.difference(generalizedMap[key]);
+		// an unspecified value has been detected
+		if(setDiff.size != 0){
+			map[key + "$Unspecified"] = setDiff;
+		}
+	})
 	return map;
 }
 
@@ -332,7 +349,7 @@ IFD.getSMILES = function(aidID, retIDs, retSMILES, allowReactions, withAidID) {
 		if (types.smiles) {
 			var data = types.smiles.data;
 			if (!allowReactions)
-				data = data.$replace("&gt;&gt;", ".");
+				data = data.replace("&gt;&gt;", ".");
 			if (IFD.jmolCheckSmiles(data)) {
 				retIDs.push(withAidID ? [aidID, struc.id] : struc.id);
 				retSMILES.push(data);

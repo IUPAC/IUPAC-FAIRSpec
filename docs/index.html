@@ -24,6 +24,24 @@ which can be used both for display and validation. The pages are also available
 as a <a href=https://github.com/IUPAC/IUPAC-FAIRSpec/tree/main/specs/cdx_cdxml>ZIP file</a>.
 
 
+<H3><a name=icl-14635 href="examples2/icl-14635/index.htm">examples/examples2/icl-14635</a></H3>
+<p>This "metadata crawler" demonstration illustrates how we 
+can take a single DOI, "    ", and produce a complete
+IUPAC FAIRSpec Finding Aid simply by following metadata at DataCite.
+The data set is from Imperial College London. 
+The only calls to the actual repository in creating the Finding Aid were
+to extract http HEAD information about each data item. This included preferred file name, 
+media type (such as "image/png"), and number of bytes. The program used 
+to create the IUPAC FAIRSpec Finding Aid was DOICrawler.java, subclassed as ICLDOICrawler in order to handle a few idiocyncracies 
+of that repository. 
+<br><br>
+The resultant landing page (the link above) utilizes about 400 Java classes 
+transpiled into JavaScript using the Eclipse java2script transpiler, running the SwingJS implementation
+of Java 8. These JavaScript (né Java) classes provide substructure searching for the page. 
+Input uses a hybrid JME (Java Molecular Editor)/OCL (OpenChemLib) structure-drawing interface; matching is carried
+out using a small Jmol-derived smiles processing package, also transpiled to JavaScript from Java. 
+<br><br>
+
 <H3><a name=v1 href="examples/v1-demo/demo.htm">examples/v1-demo</a></H3>
 <p>Our first demonstration of a prototypical finding aid (2021), 
 just giving an idea of what a minimal extraction of metadata might look like in JSON format.
