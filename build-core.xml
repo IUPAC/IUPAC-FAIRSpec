@@ -94,6 +94,8 @@
    <property name="core.name" value="_fairspec" />
    <property name="j2s.class.list.file" value="_j2sclasslist.txt" />	
    <property name="site.path" value="site/swingjs" />
+   <property name="core.path" value="src/main/resources/com/integratedgraphics/html/site/assets" />
+   <property name="test.path" value="test/html/assets" />
    <property name="closure.jar" value="tools/closure_compiler.jar" />
 
    <target name="toJs" id="toJs">
@@ -125,15 +127,20 @@
     </resourcecount>
     <echo message="${j2s.class.list.file} has ${line.count} unique lines" />
    	
-   	<!-- not including			core/coreswingjs.js -->
-   	
     <antcall target="call-core">
         <param name="call-core.name" value="${core.name}" />
         <param name="call-core.list" value="
          	${coreclasses}
         	" />
     </antcall>
-   	
+
+    <echo> Copying ${core.path} files into ${test.path} </echo>
+    <copy todir="${core.path}" failontest.error="false">
+      <fileset dir="${test.path}">
+        <include name="core_*"/>
+    </fileset>
+    </copy>
+
 
   </target>
 
@@ -146,20 +153,20 @@
 
 	  	<replace dir="${site.path}/js/core" includes="tmp.js" token="Clazz." value="Clazz_"/>
 	  	<replace dir="${site.path}/js/core" includes="tmp.js" token="Clazz__" value="Clazz._"/>
-	   	<echo>......Generating ${site.path}/j2s/core/core${call-core.name}.js</echo> 	
-	   	<concat destfile="${site.path}/j2s/core/core${call-core.name}.js"><filelist dir="${site.path}/js" files="
+	   	<echo>......Generating ${core.path}/core${call-core.name}.js</echo> 	
+	   	<concat destfile="${core.path}/core${call-core.name}.js"><filelist dir="${site.path}/js" files="
 	   		core/coretop2.js
 	   		core/tmp.js
 	   		core/corebottom2.js
 	   		" />
 	   	</concat>
-	   	<echo>......Generating ${site.path}/j2s/core/core${call-core.name}.z.js</echo> 	
-	   	<java jar="${closure.jar}" fork="true" dir="${site.path}/j2s/core" failonerror="false">
+	   	<echo>......Generating ${core.path}/core${call-core.name}.z.js</echo> 	
+	   	<java jar="${closure.jar}" fork="true" dir="${core.path}" failonerror="true">
 	   		<arg line="--js core${call-core.name}.js --js_output_file core${call-core.name}.z.js" />
 	    </java>
 	 	<delete quiet="true" file="${site.path}/js/core/tmp.js" />
-	  	<length file="${site.path}/j2s/core/core${call-core.name}.z.js" property="core.length"/>
-		<echo>... ${site.path}/j2s/core/core${call-core.name}.z.js created [${core.length} bytes]</echo>
+	  	<length file="${core.path}/core${call-core.name}.z.js" property="core.length"/>
+		<echo>... ${core.path}/core${call-core.name}.z.js created [${core.length} bytes]</echo>
 	  </target>
 
 		
