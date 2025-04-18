@@ -1536,9 +1536,10 @@ return ""; // no longer necessary
 	var startImageMonitor = function(id) {
 		if (!id) {
 			// hide
-			if (IFD.imageSet.size != 0) 
+			if (IFD.imageSet.size != 0) {
 				$("#spinner").show();
 				$("#results").css("visibility","hidden");
+			}
 			return;
 		}
 		IFD.imageSet.add("img" + id);
