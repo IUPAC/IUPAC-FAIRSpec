@@ -7,7 +7,7 @@ IFD = {
 		baseDir: ".",
 		findingAidFileName: "IFD.findingaid.json",
 		standalone: true, // we DO NOT have actual data in this demo - all is coming from remote sources in the Finding Aid 
-		jmeDiv: "jmediv",
+		jmeDiv: "jme-app-frame0-div",
 		readyFunction : function(){IFD.jmolReadyCallback()},
 		imageDimensions:{width:40,height:40},
 		MAX_IMAGE_DIMENSIONS: {width:400, height:400}
@@ -27,7 +27,8 @@ IFD = {
 	smarts: null, // just for reference
 	canvas: null,
 	contentHeader: null,
-	cache: {}
+	cache: {},
+	imageSet: new Set()
 }
 
 IFD.MODE_NONE       = "none";

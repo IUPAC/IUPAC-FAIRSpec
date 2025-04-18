@@ -6,13 +6,11 @@
 <title>IUPAC FAIRSpec Extractor Demo</title>
 <!--  we are in /temp/iupac/crawler/site --> 
 <!--  order is important. First JSmol.min.js, then JSmol, then IFD, then this demo's JavaScript --> 
-<script src="https://chemapps.stolaf.edu/jmol/jsmol/jsme/jsme/jsme.nocache.js"></script>
-<script src="https://chemapps.stolaf.edu/jmol/jsmol/JSmol.min.js"></script>
-<script src="https://chemapps.stolaf.edu/jmol/jsmol/js/JSmolJME.js"></script>
+<script src="https://chemapps.stolaf.edu/swingjs/chem/swingjs/swingjs2.js"></script>
 <script src="assets/FAIRSpec-config.js"></script>
 <script src="assets/FAIRSpec-get.js"></script>
 <script src="assets/FAIRSpec-gui.js"></script>
-<script src="assets/FAIRSpec-jmol.js"></script>
+<script src="assets/FAIRSpec-swingjs.js"></script>
 <script src="_IFD_findingaids.js"></script>
 <script src="_IFD_config.js"></script>
 <link rel="stylesheet" href="assets/FAIRSpec.css">
@@ -20,9 +18,11 @@
 $(document).ready(function() {
 	IFD.loadFindingAid();
 })
+
 </script>
 </head>
 <body>
+<div style="width:1000px;overflow:hidden">
 <img src="https://iupac.org/wp-content/themes/iupac/dist/images/logo.png" style="width:454px;height:105px"/>
 <table width=1000 cellpadding=10>
 <tr><td colspan=6>
@@ -38,7 +38,7 @@ It is a demonstration page for
 <div id="leftpanel">
 <div id="faselectiondiv"></div>
 <div id="main_search_sub" style="display:none">
-<div id="jmediv" style="display:block;width:300px;height:300px;border:1px solid green"></div>
+<div id="jme-app-frame0-div" style="position:relative;resize:none;display:block;width:350px;height:350px;border:1px solid green"></div>
 <span><input type="button" style="font-size:16pt;position:relative;float:right" onclick="IFD.jmeReturn()" value="search"/></span>
 </div>
 <div id="jmoldiv" style="display:block;width:1px;height:1px;overflow:hidden;border:1px solid blue"></div>
@@ -52,11 +52,13 @@ It is a demonstration page for
 <div id="main_summary"></div>
 <div id="main_search"></div>
 </div>
+<div id="spinner" style="margin-left: auto;margin-right:auto;display:none"><img src=assets/spinner.gif></div>
 <div id="results"></div>
 </div>
 </td>
 </tr></table>
 <div id="version" class=version></div>
-<div id="sysoutdiv"></div>
+<div id="sysoutdiv" style="display:none"></div>
+</div>
 </body>
 </html>

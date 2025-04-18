@@ -80,7 +80,7 @@ IFD.getPropertyMap = function(aidID, searchType){
 		if(propertyObj){
 			for(const propKey in propertyObj){
 				//console.log(item, propKey);
-				propVal = propertyObj[propKey]
+				propVal = propertyObj[propKey];
 				if(!map[propKey + '$' + propVal]){
 					map[propKey + '$' + propVal] = new Set();
 				}
@@ -91,6 +91,23 @@ IFD.getPropertyMap = function(aidID, searchType){
 		}	
 	}
 
+		// check for unspecified property values
+	generalizedMap = {}
+	Object.keys(map).forEach(key=>{
+		generalKey = key.split("$")[0];
+		if(!generalizedMap[generalKey]){
+			generalizedMap[generalKey] = new Set();
+		}
+		generalizedMap[generalKey] = (generalizedMap[generalKey]).union(map[key]);
+	})
+	completeSet = new Set(Object.keys(IFD.collections["."][searchType]));
+	Object.keys(generalizedMap).forEach(key =>{
+		setDiff = completeSet.difference(generalizedMap[key]);
+		// an unspecified value has been detected
+		if(setDiff.size != 0){
+			map[key + "$Unspecified"] = setDiff;
+		}
+	})
 	return map;
 }
 
