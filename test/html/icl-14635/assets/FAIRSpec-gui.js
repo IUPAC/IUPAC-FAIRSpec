@@ -49,6 +49,8 @@
 	  }
 
 
+	
+
 	//external
 	IFD.searchText = function(aidID) {
 		// hide the main search sub 
@@ -470,14 +472,21 @@
 		s = showCompoundStructures(null, idSet, false);
 	}
 
+	IFD.documentReady = function(){
 
-	
+	}
+
+	IFD.pageLoaded = function(){
+		IFD.loadFindingAid();
+
+	}
 	
 	// external
 	IFD.loadFindingAid = function() {
-		return IFD.loadFindingAids();
+		if(!getFindingAid()){;
+			IFD.loadFindingAids();
+		}	
 	}
-
 	// external
 	IFD.loadFindingAids = function() {
 		var aids = (IFD.findingAids ? IFD.findingAids.findingaids : ["."]);
@@ -681,6 +690,32 @@
 	var callbackLoadFailed = function(x,y,z) {
 		alert([x,y,z]);
 		return;
+	}
+
+	var getField = function(name){
+		var search = "&"+document.location.search.substring(1)+"&" + name + "=";
+		search = search.split("&" + name + "=")[1];
+		search = search.split("&")[0];
+		if(!search){
+			return ""
+		}else{
+			return decodeURIComponent(search);
+		}
+	
+	}
+	
+	var getFindingAid = function(url){
+		if(!url){
+			url = getField("url");
+		}
+		var faJson = J2S.getFileData(url);
+		if(faJson.startsWith('"IFD.findingaid"')){
+			var aid = JSON.parse(faJson)["IFD.findingaid"];
+			IFD.findingAidID = aid.id || "?" ;
+			loadAid(aid);
+			return true;
+		}	
+		return false;
 	}
 
 
