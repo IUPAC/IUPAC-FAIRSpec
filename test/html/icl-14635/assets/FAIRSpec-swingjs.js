@@ -12,7 +12,7 @@ var SMILESInfo = {
   core: "assets/core_fairspec.z.js",
 	width: 1,
 	height: 1,
-	readyFunction: function(app) { IFD.SMILESapp = app; IFD.SMILES = app._applet.app; IFD.pageLoaded();},
+	readyFunction: function(app) { IFD.pageLoaded();},
 	serverURL: 'https://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php',
 	j2sPath: 'https://chemapps.stolaf.edu/swingjs/chem/swingjs/j2s',
 	console:'sysoutdiv',

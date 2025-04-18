@@ -478,7 +478,6 @@
 
 	IFD.pageLoaded = function(){
 		IFD.loadFindingAid();
-
 	}
 	
 	// external
@@ -709,7 +708,7 @@
 			url = getField("url");
 		}
 		var faJson = J2S.getFileData(url);
-		if(faJson.startsWith('"IFD.findingaid"')){
+		if(faJson.startsWith('{"IFD.findingaid"')){
 			var aid = JSON.parse(faJson)["IFD.findingaid"];
 			IFD.findingAidID = aid.id || "?" ;
 			loadAid(aid);
@@ -729,6 +728,7 @@
 		setMoreLeft("");
 		IFD.cachePut(IFD.findingAidID, aid);
 		IFD.aid = aid;
+		IFD.isCrawler = (aid.createdBy && aid.createdBy.indexOf("Crawler") >= 0);
 		loadTop(aid);
 		loadAidPanels(aid);
 		if (aLoading) {
@@ -1395,6 +1395,8 @@
 	}
 
 	var getImageTag = function(title, note, url) {
+		if (!IFD.isCrawler && url.indexOf("data:") < 0 && url.indexOf("https://") < 0)
+			return "";
 		divId++;
 		if (note && title && title.indexOf(note) < 0)
 			title += " " + note;
@@ -1569,6 +1571,8 @@ return ""; // no longer necessary
 	}
 
 	var startImageMonitor = function(id) {
+		if (!IFD.isCrawler)
+			return;
 		if (!id) {
 			// hide
 			if (IFD.imageSet.size != 0) {
