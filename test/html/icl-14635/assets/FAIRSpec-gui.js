@@ -220,7 +220,19 @@
 			
 				
 				//console.log("Final Set:", idSet);
-				IFD.showSpectra(aidID, [...idSet]);
+				var f;
+				switch(IFD.searchType){
+				case "structures":
+					f = IFD.showStructures;
+					break;
+				case "spectra":
+					f = IFD.showSpectra;
+					break;
+				case "compounds":
+					f = IFD.showCompounds;
+					break;					
+				}
+				f(aidID, [...idSet]);
 			}
 		})	
 		}
@@ -656,7 +668,8 @@
 	}
 
 	IFD.showAid = function(aidID) {
-		window.open(fileFor(IFD.findingAidID, IFD.properties.findingAidFileName), "_blank");
+		var url = (IFD.findingAidURL || fileFor(IFD.findingAidID, IFD.properties.findingAidFileName));
+		window.open(url, "_blank");
 	}
 
 	IFD.showVersion = function(aid) {
@@ -709,6 +722,7 @@
 		}
 		var faJson = J2S.getFileData(url);
 		if(faJson.startsWith('{"IFD.findingaid"')){
+			IFD.findingAidURL = url;
 			var aid = JSON.parse(faJson)["IFD.findingaid"];
 			IFD.findingAidID = aid.id || "?" ;
 			loadAid(aid);
