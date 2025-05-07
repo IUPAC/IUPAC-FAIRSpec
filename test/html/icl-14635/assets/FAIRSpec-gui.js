@@ -258,7 +258,12 @@
 		let label = document.createElement('label');
 		label.setAttribute('for', id);
 		label.setAttribute('class', "ifd-search-value-checkbox_" + visibility);
-		label.textContent = value + ' (' + count + ')';
+		if(count > 1){
+			label.textContent = value + ' (' + count + ')';
+		}
+		else{
+			label.textContent = value;
+		}
 
 		return label;
 
@@ -280,12 +285,11 @@
 			return 
 		}
 
-		//console.log(propMap);
 
 		// track properties and the count of their values
 		uniqueProperties = {};
 
-		hiddenBoxesMap = {} //need to think about this
+		hiddenBoxesMap = {} 
 
 		for(const prop in propMap){
 			const parentCheckbox = document.createElement(`input`);
@@ -403,14 +407,125 @@
 				showBttn.textContent = "Show More " + `(${hiddenBoxesMap[hiddenDiv.id]})`;
 				showBttn.addEventListener('click', function(){
 					assocDiv = document.getElementById(this.dataset.assocDiv);
+					assocDiv.parentElement.parentElement.scrollIntoView({
+						 behavior: "smooth",
+						 block: "start"
+						});
 					if(assocDiv.style.display == "none"){
 						assocDiv.style.display = "block";
 						this.textContent = "Hide";
 					}
 					else{
+						// get all the selected checkboxes in the hidden div
+						let checkedinHidden = [];
+						assocDiv.childNodes.forEach(box => {
+							if(box.checked){
+								checkedinHidden.push(box);
+							}
+						});
+
+						let checkedinVisible = [];
+						let uncheckedinVisible = [];
+						assocDiv.parentElement.childNodes.forEach(elem =>{
+							if(elem.type == "checkbox"){
+								if(elem.checked){
+									checkedinVisible.push(elem);
+								}
+								else{
+									uncheckedinVisible.push(elem);
+								}
+							}
+						})
+						
+						// bring checkedinHidden to the visible div
+						if(checkedinVisible.length + checkedinHidden.length <= MAX_CHECKBOXES){
+							//checkedinVisible
+							//checkedinHidden
+							let fragment = document.createDocumentFragment();
+
+							checkedinHidden.forEach(cb => {
+								let label = cb.nextElementSibling;
+								label.className = label.className.split("_")[0] + "_visible";
+								cb.className = cb.className.split("_")[0] + "_visible";
+								let br = label.nextElementSibling;
+								fragment.appendChild(cb);
+								fragment.appendChild(label);
+								fragment.appendChild(br);
+							});
+
+							//update the counts
+							hiddenBoxesMap[assocDiv.id] -= checkedinHidden.length;			
+							assocDiv.parentElement.insertBefore(fragment, uncheckedinVisible[0]);
+
+							//enforce 5 elem limit in the visible Div
+							let inVisibleCh = checkedinVisible.length + checkedinHidden.length;
+							let inVisibleUnch = uncheckedinVisible.length;
+							idx = 0;
+							while(inVisibleCh + inVisibleUnch  > MAX_CHECKBOXES){
+								//move the unchecked boxes to hidden
+								fragment = document.createDocumentFragment();
+								
+								let cb = uncheckedinVisible[idx];
+								cb.className = cb.className.split("_")[0] + "_hidden";
+								let label = cb.nextElementSibling;
+								label.className = label.className.split("_")[0] + "_hidden";
+								let br = label.nextElementSibling;
+								fragment.appendChild(cb);
+								fragment.appendChild(label);
+								fragment.appendChild(br);
+
+								assocDiv.insertBefore(fragment, assocDiv.children[0]);
+								hiddenBoxesMap[assocDiv.id] += 1;
+								inVisibleUnch -= 1;
+								idx++;	 
+							}
+							
+						}
+						else{
+							// more than MAX_CHECKBOXES were checked
+							// show all of them 
+							let fragment = document.createDocumentFragment();
+
+							checkedinHidden.forEach(cb => {
+								let label = cb.nextElementSibling;
+								label.className = label.className.split("_")[0] + "_visible";
+								cb.className = cb.className.split("_")[0] + "_visible";
+								let br = label.nextElementSibling;
+								fragment.appendChild(cb);
+								fragment.appendChild(label);
+								fragment.appendChild(br);
+							});
+							
+							//update the counts
+							hiddenBoxesMap[assocDiv.id] -= checkedinHidden.length;			
+							assocDiv.parentElement.insertBefore(fragment, assocDiv.parentElement.children[0]);
+
+							//move all the unchecked boxes to hidden div
+							fragment = document.createDocumentFragment();
+
+							uncheckedinVisible.forEach(cb => {
+								let label = cb.nextElementSibling;
+								label.className = label.className.split("_")[0] + "_hidden";
+								cb.className = cb.className.split("_")[0] + "_hidden";
+								let br = label.nextElementSibling;
+								fragment.appendChild(cb);
+								fragment.appendChild(label);
+								fragment.appendChild(br);
+							});
+
+							//update the counts
+							hiddenBoxesMap[assocDiv.id] += uncheckedinVisible.length;			
+							assocDiv.insertBefore(fragment, assocDiv.children[0]);
+						}
+
+						// console.log("checkedinHidden: ", checkedinHidden);
+						// console.log("checkedinVisible: ", checkedinVisible);
+						// console.log("uncheckedinVisible: ", uncheckedinVisible);
+						
 						assocDiv.style.display = "none";
 						this.textContent = "Show More " + `(${hiddenBoxesMap[assocDiv.id]})`;
 					}
+
 				})
 				div.appendChild(showBttn);
 
@@ -462,6 +577,51 @@
 
 
 		checkboxContainer.style.display = "block";
+	
+		// put unspecified property val to the top (if it exists)
+		unspecified_checkboxes = document.querySelectorAll('input[value="Unspecified"]');
+	
+		unspecified_checkboxes?.forEach(unspecifiedBox => {
+			let parentDiv = unspecifiedBox.parentElement;
+
+			let propertyValDivId = unspecifiedBox.dataset.parentBoxProperty + " ChildDiv";
+			let unspecifiedLabel = unspecifiedBox.nextElementSibling;
+			// swap with the first checkbox in the parentDiv
+			let visibleDiv = document.getElementById(propertyValDivId);
+			
+			//temp for hidden box's class names
+			let temp = unspecifiedBox.className;
+
+			let firstBox = visibleDiv.firstChild;
+			let firstLabel = firstBox.nextSibling;
+
+			unspecifiedLabel.className = firstLabel.className;
+			unspecifiedBox.className = firstBox.className;
+			const br = document.createElement('br');
+			
+			visibleDiv.insertBefore(unspecifiedBox, firstBox);
+			visibleDiv.insertBefore(unspecifiedLabel, firstBox);
+			visibleDiv.insertBefore(br, firstBox);
+
+			firstBox.className = temp;
+			firstLabel.className = temp;
+
+			// if the unspecified checkbox was inside the hidden div
+			if(parentDiv.className.includes("hidden")){
+
+				//remove the break after the first label
+				visibleDiv.removeChild(firstLabel.nextElementSibling);
+
+				// insert the previous first box as the first elem in the hidden div
+				const br = document.createElement('br');
+				parentDiv.insertBefore(br, parentDiv.firstChild);
+				parentDiv.insertBefore(firstLabel, br);
+				parentDiv.insertBefore(firstBox, firstLabel);
+			}
+		});
+		
+		
+	
 	}
 
 	const prepDOM_searchProperties = function(){
