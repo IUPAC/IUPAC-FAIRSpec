@@ -100,7 +100,8 @@ IFD.getPropertyMap = function(aidID, searchType){
 		}
 		generalizedMap[generalKey] = (generalizedMap[generalKey]).union(map[key]);
 	})
-	completeSet = new Set(Object.keys(IFD.collections["."][searchType]));
+	var collection = IFD.collections[IFD.findingAidID];
+	completeSet = new Set(Object.keys(collection[searchType]));
 	Object.keys(generalizedMap).forEach(key =>{
 		setDiff = completeSet.difference(generalizedMap[key]);
 		// an unspecified value has been detected
