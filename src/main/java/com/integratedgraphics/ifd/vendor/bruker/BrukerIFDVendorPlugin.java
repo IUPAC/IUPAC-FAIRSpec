@@ -31,9 +31,9 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		// derived, not the value itself
 		String[] keys = { //
 				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_DIMENSION"), //prop
-				"##$BF1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_1"), //prop
-				"##$BF2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_2"), //prop
-				"##$BF3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_3"), //prop
+				"##$SFO1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_1"), //prop
+				"##$SFO2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_2"), //prop
+				"##$SFO3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_3"), //prop
 				"##$NUC1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_1"), //prop
 				"##$NUC2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_2"), //prop
 				"##$NUC3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_3"), //prop
@@ -226,13 +226,13 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 				ndim = 4;
 			if (ndim == 0)
 				return false;
-			double freq1 = getDoubleValue(map, "##$BF1");
-			report("##$BF1", freq1);
+			report("##BF1", getDoubleValue(map, "##$BF1"));
+			report("##SFO1", getDoubleValue(map, "##$SFO1"));
 			if (ndim >= 2)
-				report("##$BF2", getDoubleValue(map, "##$BF2"));
+				report("##$SFO2", getDoubleValue(map, "##$SFO2"));
 			if (ndim >= 3)
-				report("##$BF3", getDoubleValue(map, "##$BF3"));
-			report("SF", getNominalFrequency(freq1, n1));
+				report("##$SFO3", getDoubleValue(map, "##$SFO3"));
+			report("SF", getNominalFrequency(getDoubleValue(map, "##$BF1"), n1));
 		}
 		report("##$TE", getDoubleValue(map, "##$TE"));
 		processString(map, "##$PULPROG", null);

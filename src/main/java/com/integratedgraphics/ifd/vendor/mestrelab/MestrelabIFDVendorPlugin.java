@@ -160,7 +160,6 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 				return;
 			}
 			oval = val = val.trim();
-
 			try {
 				switch (key) {
 				case "Owner":
