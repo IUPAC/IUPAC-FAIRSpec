@@ -742,7 +742,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 					map.put(key, val);
 				}
 			}
-			serializer.addObject("properties", map);
+			serializer.addObject("ifdProperties", map);
 		}
 		if (attributes.size() > 0) {
 			Map<String, Object> map = new TreeMap<>();
