@@ -1,0 +1,306 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://github.com/IUPAC/IUPAC-FAIRSpec/tree/0.1.0/dist/schema/fairspec.findingaid.schema.json",
+	"required": [
+		"IUPAC.FAIRSpec.findingAid"
+	],
+	"additionalProperties": false,
+	"properties": {
+		"IUPAC.FAIRSpec.findingAid": {
+			"description": "primary and only key in this object, marking the finding aid as an IUPAC FAIRSpec Finding Aid and serving as a 'magic number' at the start of the byte data",
+			"type": "object",
+			"required": [
+				"id",
+				"version",
+				"created",
+				"createdBy",
+				"contents",
+				"collectionSet"
+			],
+			"properties": {
+				"class": {
+					"$ref": "#/$defs/class_findingAid"
+				},
+				"id": {
+					"$ref": "#/$defs/field_id"
+				},
+				"version": {
+					"description": "the version of this IFD Finding Aid,for example : IFD 0.0.5-alpha+2024.11.04;FAIRSpec 0.0.5-alpha+2024.11.04",
+					"type": "string"
+				},
+				"created": {
+					"description": "date and time of creation ISO 8601 date+time (UTC), for example: 2025-04-17T18:55Z",
+					"type": "string"
+				},
+				"createdBy": {
+					"description": "identifies the software used to create this finding aid. For example:  https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/DOICrawler.java DoiCrawler 0.0.7-beta+2025.02.17",
+					"type": "string"
+				},
+				"contents": {
+					"description": "contents of this finding aid",
+					"type": "object",
+					"properties": {
+						"relatedCount": {
+							"description": "count of items related to this finding aid",
+							"type": "integer"
+						},
+						"resourceCount": {
+							"description": "count of resources referenced in this finding aid",
+							"type": "integer"
+						},
+						"collections": {
+							"type": "object",
+							"properties": {
+								"samples": {
+									"type": "object",
+									"required": [
+										"count"
+									],
+									"properties": {
+										"class": {
+											"$ref": "#/$defs/class_samples"
+										},
+										"count": {
+											"type": "integer"
+										}
+									}
+								},
+								"structures": {
+									"type": "object",
+									"required": [
+										"count"
+									],
+									"properties": {
+										"class": {
+											"$ref": "#/$defs/class_structures"
+										},
+										"count": {
+											"type": "integer"
+										}
+									}
+								},
+								"spectra": {
+									"type": "object",
+									"required": [
+										"count"
+									],
+									"properties": {
+										"class": {
+											"$ref": "#/$defs/class_spectra"
+										},
+										"count": {
+											"type": "integer"
+										}
+									}
+								},
+								"compounds": {
+									"type": "object",
+									"required": [
+										"count"
+									],
+									"properties": {
+										"class": {
+											"$ref": "#/$defs/class_compounds"
+										},
+										"count": {
+											"type": "integer"
+										}
+									}
+								},
+								"analyses": {
+									"type": "object",
+									"required": [
+										"count"
+									],
+									"properties": {
+										"class": {
+											"$ref": "#/$defs/class_analyses"
+										},
+										"count": {
+											"type": "integer"
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"collectionSet": {
+					"class": {
+						"$ref": "#/$defs/class_collectionSet"
+					}
+				}
+			}
+		}
+	},
+	"$defs": {
+		"class_findingAid": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"ifdType": {
+					"description": "specific declaration of the IUPAC FAIRSpec Metadata Model class",
+					"type": "string",
+					"enum": [
+						"org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid"
+					],
+					"default": "org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid"
+				},
+				"ifdTypeExtends": {
+					"description": "specific declaration of the core IUPAC FAIRSpec Metadata Model superclass",
+					"type": "string",
+					"enum": [
+						"org.iupac.fairdata.core.IFDFindingAid"
+					],
+					"default": "org.iupac.fairdata.core.IFDFindingAid"
+				}
+			}
+		},
+		"class_collectionSet": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"ifdType": {
+					"type": "string",
+					"enum": [
+						"org.iupac.fairdata.core.IFDCollectionSet"
+					],
+					"default": "org.iupac.fairdata.core.IFDCollectionSet"
+				},
+				"ifdTypeExtends": {
+					"type": "string",
+					"enum": [
+						"org.iupac.fairdata.core.IFDCollection"
+					],
+					"default": "org.iupac.fairdata.core.IFDCollection"
+				}
+			}
+		},
+		"class_samples": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"ifdType": {
+					"type": "string",
+					"enum": [
+						"org.iupac.fairdata.sample.IFDSampleCollection"
+					],
+					"default": "org.iupac.fairdata.sample.IFDSampleCollection"
+				},
+				"ifdTypeExtends": {
+					"type": "string",
+					"enum": [
+						"org.iupac.fairdata.core.IFDCollection"
+					],
+					"default": "org.iupac.fairdata.core.IFDCollection"
+				}
+			}
+		},
+		"class_structures": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"ifdType": {
+					"type": "string",
+					"enum": [
+						"org.iupac.fairdata.structure.IFDStructureCollection"
+					],
+					"default": "org.iupac.fairdata.structure.IFDStructureCollection"
+				},
+				"ifdTypeExtends": {
+					"type": "string",
+					"enum": [
+						"org.iupac.fairdata.core.IFDCollection"
+					],
+					"default": "org.iupac.fairdata.core.IFDCollection"
+				}
+			}
+		},
+		"class_spectra": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"ifdType": {
+					"type": "string",
+					"enum": [
+						"org.iupac.fairdata.dataobject.IFDDataObjectCollection"
+					],
+					"default": "org.iupac.fairdata.dataobject.IFDDataObjectCollection"
+				},
+				"ifdTypeExtends": {
+					"type": "string",
+					"enum": [
+						"org.iupac.fairdata.core.IFDCollection"
+					],
+					"default": "org.iupac.fairdata.core.IFDCollection"
+				}
+			}
+		},
+		"class_compounds": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"ifdType": {
+					"type": "string",
+					"enum": [
+						"org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection"
+					],
+					"default": "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection"
+				},
+				"ifdTypeExtends": {
+					"type": "string",
+					"enum": [
+						"org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;org.iupac.fairdata.core.IFDAssociationCollection"
+					],
+					"default": "org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;org.iupac.fairdata.core.IFDAssociationCollection"
+				}
+			}
+		},
+		"class_analyses": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"ifdType": {
+					"type": "string",
+					"enum": [
+						"org.iupac.fairdata.analysisobject.IFDAnalysisObjectCollection"
+					],
+					"default": "org.iupac.fairdata.analysisobject.IFDAnalysisObjectCollection"
+				},
+				"ifdTypeExtends": {
+					"type": "string",
+					"enum": [
+						"org.iupac.fairdata.core.IFDCollection"
+					],
+					"default": "org.iupac.fairdata.core.IFDCollection"
+				}
+			}
+		},
+		"field_id": {
+			"description": "a unique identifier, for example, a compound number such as 38b or a DOI such as 10.14469/hpc/14635",
+			"type": "string",
+			"pattern": "^[a-zA-Z0-9_+\\-/*.,()\\[\\]]*([ ][a-zA-Z0-9_+\\-/*.,()\\[\\]]+)*$"
+		}
+	}
+}
