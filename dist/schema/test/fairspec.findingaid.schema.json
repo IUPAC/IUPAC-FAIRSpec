@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://github.com/IUPAC/IUPAC-FAIRSpec/tree/0.1.0/dist/schema/fairspec.findingaid.schema.json",
+	"$id": "https://iupac.github.io/IUPAC-FAIRSpec/schema/fairspec.findingaid.schema.0.1.0.json",
 	"required": [
 		"IUPAC.FAIRSpec.findingAid"
 	],
@@ -10,6 +10,7 @@
 			"description": "primary and only key in this object, marking the finding aid as an IUPAC FAIRSpec Finding Aid and serving as a 'magic number' at the start of the byte data",
 			"type": "object",
 			"required": [
+				"schema",
 				"id",
 				"version",
 				"created",
@@ -20,6 +21,9 @@
 			"properties": {
 				"class": {
 					"$ref": "#/$defs/class_findingAid"
+				},
+				"schema": {
+					"$ref": "#/$defs/schema"
 				},
 				"id": {
 					"$ref": "#/$defs/field_id"
@@ -49,98 +53,50 @@
 							"type": "integer"
 						},
 						"collections": {
-							"type": "object",
-							"properties": {
-								"samples": {
-									"type": "object",
-									"required": [
-										"count"
-									],
-									"properties": {
-										"class": {
-											"$ref": "#/$defs/class_samples"
-										},
-										"count": {
-											"type": "integer"
-										}
+							"type": "array",
+							"items": {
+								"type": "object",
+								"anyOf": [
+									{
+										"$ref": "#/$defs/contents.samples"
+									},
+									{
+										"$ref": "#/$defs/contents.structures"
+									},
+									{
+										"$ref": "#/$defs/contents.spectra"
+									},
+									{
+										"$ref": "#/$defs/contents.compounds"
+									},
+									{
+										"$ref": "#/$defs/contents.analyses"
 									}
-								},
-								"structures": {
-									"type": "object",
-									"required": [
-										"count"
-									],
-									"properties": {
-										"class": {
-											"$ref": "#/$defs/class_structures"
-										},
-										"count": {
-											"type": "integer"
-										}
-									}
-								},
-								"spectra": {
-									"type": "object",
-									"required": [
-										"count"
-									],
-									"properties": {
-										"class": {
-											"$ref": "#/$defs/class_spectra"
-										},
-										"count": {
-											"type": "integer"
-										}
-									}
-								},
-								"compounds": {
-									"type": "object",
-									"required": [
-										"count"
-									],
-									"properties": {
-										"class": {
-											"$ref": "#/$defs/class_compounds"
-										},
-										"count": {
-											"type": "integer"
-										}
-									}
-								},
-								"analyses": {
-									"type": "object",
-									"required": [
-										"count"
-									],
-									"properties": {
-										"class": {
-											"$ref": "#/$defs/class_analyses"
-										},
-										"count": {
-											"type": "integer"
-										}
-									}
-								}
+								]
 							}
 						}
 					}
-				},
-				"collectionSet": {
-					"class": {
-						"$ref": "#/$defs/class_collectionSet"
-					}
+				}
+			},
+			"collectionSet": {
+				"class": {
+					"$ref": "#/$defs/class_collectionSet"
 				}
 			}
 		}
 	},
 	"$defs": {
+        "schema": {
+          	"type": "string",
+           	"const": "https://iupac.github.io/IUPAC-FAIRSpec/schema/fairspec.findingaid.schema.0.1.0.json"
+		},
 		"class_findingAid": {
 			"required": [
 				"ifdType",
 				"ifdTypeExtends"
 			],
 			"additionalProperties": false,
-			"properties": {
+            "properties": {
 				"ifdType": {
 					"description": "specific declaration of the IUPAC FAIRSpec Metadata Model class",
 					"type": "string",
@@ -159,6 +115,103 @@
 				}
 			}
 		},
+		"contents.samples": {
+			"type": "object",
+			"required": [
+				"id",
+				"count"
+			],
+			"properties": {
+				"id": {
+					"type": "string",
+					"enum": [
+						"samples"
+					]
+				},
+				"class": {
+					"$ref": "#/$defs/class_samples"
+				},
+				"count": {
+					"type": "integer"
+				}
+			}
+		},
+        "contents.structures": {
+            "type": "object",
+            "required": [
+                "id",
+                "count"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "const": "structures"
+                },
+                "class": {
+                    "$ref": "#/$defs/class_structures"
+                },
+                "count": {
+                    "type": "integer"
+                }
+            }
+        },
+        "contents.spectra": {
+            "type": "object",
+            "required": [
+                "id",
+                "count"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "const": "spectra"
+                },
+                "class": {
+                    "$ref": "#/$defs/class_spectra"
+                },
+                "count": {
+                    "type": "integer"
+                }
+            }
+        },
+        "contents.compounds": {
+            "type": "object",
+            "required": [
+                "id",
+                "count"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "const": "compounds"
+                },
+                "class": {
+                    "$ref": "#/$defs/class_compounds"
+                },
+                "count": {
+                    "type": "integer"
+                }
+            }
+        },
+        "contents.analyses": {
+            "type": "object",
+            "required": [
+                "id",
+                "count"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "const": "analyses"
+                },
+                "class": {
+                    "$ref": "#/$defs/class_analyses"
+                },
+                "count": {
+                    "type": "integer"
+                }
+            }
+        },
 		"class_collectionSet": {
 			"required": [
 				"ifdType",
@@ -168,17 +221,11 @@
 			"properties": {
 				"ifdType": {
 					"type": "string",
-					"enum": [
-						"org.iupac.fairdata.core.IFDCollectionSet"
-					],
-					"default": "org.iupac.fairdata.core.IFDCollectionSet"
+					"const": "org.iupac.fairdata.core.IFDCollectionSet"
 				},
 				"ifdTypeExtends": {
 					"type": "string",
-					"enum": [
-						"org.iupac.fairdata.core.IFDCollection"
-					],
-					"default": "org.iupac.fairdata.core.IFDCollection"
+					"const": "org.iupac.fairdata.core.IFDCollection"
 				}
 			}
 		},
@@ -191,17 +238,11 @@
 			"properties": {
 				"ifdType": {
 					"type": "string",
-					"enum": [
-						"org.iupac.fairdata.sample.IFDSampleCollection"
-					],
-					"default": "org.iupac.fairdata.sample.IFDSampleCollection"
+					"const": "org.iupac.fairdata.sample.IFDSampleCollection"
 				},
 				"ifdTypeExtends": {
 					"type": "string",
-					"enum": [
-						"org.iupac.fairdata.core.IFDCollection"
-					],
-					"default": "org.iupac.fairdata.core.IFDCollection"
+					"const": "org.iupac.fairdata.core.IFDCollection"
 				}
 			}
 		},
@@ -214,17 +255,11 @@
 			"properties": {
 				"ifdType": {
 					"type": "string",
-					"enum": [
-						"org.iupac.fairdata.structure.IFDStructureCollection"
-					],
-					"default": "org.iupac.fairdata.structure.IFDStructureCollection"
+					"const": "org.iupac.fairdata.structure.IFDStructureCollection"
 				},
 				"ifdTypeExtends": {
 					"type": "string",
-					"enum": [
-						"org.iupac.fairdata.core.IFDCollection"
-					],
-					"default": "org.iupac.fairdata.core.IFDCollection"
+					"const": "org.iupac.fairdata.core.IFDCollection"
 				}
 			}
 		},
@@ -237,17 +272,11 @@
 			"properties": {
 				"ifdType": {
 					"type": "string",
-					"enum": [
-						"org.iupac.fairdata.dataobject.IFDDataObjectCollection"
-					],
-					"default": "org.iupac.fairdata.dataobject.IFDDataObjectCollection"
+					"const": "org.iupac.fairdata.dataobject.IFDDataObjectCollection"
 				},
 				"ifdTypeExtends": {
 					"type": "string",
-					"enum": [
-						"org.iupac.fairdata.core.IFDCollection"
-					],
-					"default": "org.iupac.fairdata.core.IFDCollection"
+					"const": "org.iupac.fairdata.core.IFDCollection"
 				}
 			}
 		},
@@ -260,17 +289,11 @@
 			"properties": {
 				"ifdType": {
 					"type": "string",
-					"enum": [
-						"org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection"
-					],
-					"default": "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection"
+					"const": "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection"
 				},
 				"ifdTypeExtends": {
 					"type": "string",
-					"enum": [
-						"org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;org.iupac.fairdata.core.IFDAssociationCollection"
-					],
-					"default": "org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;org.iupac.fairdata.core.IFDAssociationCollection"
+					"const": "org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;org.iupac.fairdata.core.IFDAssociationCollection"
 				}
 			}
 		},
@@ -283,17 +306,11 @@
 			"properties": {
 				"ifdType": {
 					"type": "string",
-					"enum": [
-						"org.iupac.fairdata.analysisobject.IFDAnalysisObjectCollection"
-					],
-					"default": "org.iupac.fairdata.analysisobject.IFDAnalysisObjectCollection"
+					"const": "org.iupac.fairdata.analysisobject.IFDAnalysisObjectCollection"
 				},
 				"ifdTypeExtends": {
 					"type": "string",
-					"enum": [
-						"org.iupac.fairdata.core.IFDCollection"
-					],
-					"default": "org.iupac.fairdata.core.IFDCollection"
+					"const": "org.iupac.fairdata.core.IFDCollection"
 				}
 			}
 		},
@@ -304,3 +321,4 @@
 		}
 	}
 }
+		
