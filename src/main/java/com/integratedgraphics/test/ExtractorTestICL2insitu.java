@@ -20,7 +20,7 @@ public class ExtractorTestICL2insitu {
 		String localSourceArchive = dir + "Procter/";
 		String targetDir = dir + "icl-procter";
 
-		String flags = "-insitu";
+		String flags = "";//"-insitu";
 
 		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir, flags);
 	}
