@@ -135,12 +135,17 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 		}
 		if (commonClass != null) {
 			haveCommonClass = true;
-			serializeClass(serializer, commonClass, "itemType");
+			if (doSerializeItems())
+				serializeClass(serializer, commonClass, "itemType");
 			for (int i = size(); --i >= 0;) {
 				get(i).setSerializeType(false);
 			}
 		}
 		
+	}
+
+	protected boolean doSerializeItems() {
+		return true;
 	}
 
 	@Override

@@ -1,5 +1,4 @@
-{
-    "IUPAC.FAIRSpec.findingAid": {
+{"IUPAC.FAIRSpec.findingAid": {
         "schema":"https://iupac.github.io/IUPAC-FAIRSpec/schema/fairspec.findingaid.schema.0.1.0.json",
         "id": "10.14469_hpc_14635",
         "version": "IFD 0.0.5-alpha+2024.11.04;FAIRSpec 0.0.5-alpha+2024.11.04",

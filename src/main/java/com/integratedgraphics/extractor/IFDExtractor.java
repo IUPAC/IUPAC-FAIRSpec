@@ -3,10 +3,14 @@ package com.integratedgraphics.extractor;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.regex.Matcher;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
+import org.iupac.fairdata.extract.PropertyManagerI;
 
 /**
  * Copyright 2021-2024 Integrated Graphics and Robert M. Hanson

@@ -4,6 +4,7 @@ import org.iupac.fairdata.common.IFDConst;
 
 /**
  * 
+ * Second ICL repository crawler, for 10.14469/hpc/14635 (2025.04)
  * @author Bob Hanson
  *
  */
@@ -71,6 +72,18 @@ import org.iupac.fairdata.common.IFDConst;
 
 	private static boolean debug = true;
 	public static void main(String[] args) {		
+//		String f = "c:\\temp\\iupac\\crawler\\10.14469_hpc_14635\\files\\14749\\5-H.zip";
+//		try {
+//			FileInputStream fis = new FileInputStream(f);
+//			ZipInputStream zis = new ZipInputStream(fis);
+//			ZipEntry e = zis.getNextEntry();
+//			System.out.println(e);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		
 		
 		if (args.length == 0) {
 		  System.out.println("java -jar ICLDOICrawler2.jar 10.14469/hpc/14635 <outputdir>");

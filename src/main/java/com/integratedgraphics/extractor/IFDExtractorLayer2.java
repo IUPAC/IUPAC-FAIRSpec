@@ -27,9 +27,9 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundAssociation;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper.FileList;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper.FileList;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities.SpreadsheetReader;
 import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDObject;
@@ -241,6 +241,11 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * structure and an object
 	 */
 	private boolean allowMultipleObjectsForRepresentations = true;
+	
+	/**
+	 * Used by Crawler to capture properties
+	 */
+	private Map<String, Object> targetPropertyMap;
 
 	/**
 	 * The main extraction phase. Find and extract all objects of interest from a ZIP
@@ -572,7 +577,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		boolean isFound = false;
 		if (vendorCachePattern != null && (isFound = (m = vendorCachePattern.matcher(originPath)).find()) || accept) {
 
-			PropertyManagerI v = (isFound ? getPropertyManager(m) : null);
+			PropertyManagerI v = (isFound ? getPropertyManager(m, true) : null);
 			boolean doCheck = (v != null);
 			boolean doExtract = (!doCheck || v.doExtract(originPath));
 
@@ -1016,7 +1021,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			// directory, for example
 			boolean doCache = (!isIFDMetadataFile && vendorCachePattern != null
 					&& (m = vendorCachePattern.matcher(entryName)).find() && phase2cGetParamName(m) != null
-					&& ((mgr = getPropertyManager(m)) == null || mgr.doExtract(entryName)));
+					&& ((mgr = getPropertyManager(m, true)) == null || mgr.doExtract(entryName)));
 			boolean doCheck = (doCache || mgr != null || isIFDMetadataFile);
 
 			len = entry.getSize();
@@ -1502,6 +1507,10 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 	@Override
 	public void addProperty(String key, Object val) {
+		if (targetPropertyMap != null) {
+			targetPropertyMap.put(key, val);
+			return;
+		}
 		if (val != IFDProperty.NULL)
 			log(this.localizedName + " addProperty " + key + "=" + val);
 		addDeferredPropertyOrRepresentation(key, val, false, null, null, "L0 vndaddprop");
@@ -1634,33 +1643,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	protected IFDRepresentableObject<?> getObjectFromLocalizedName(String name, String type) {
 		IFDRepresentableObject<?> obj = (type == null ? null : htLocalizedNameToObject.get(type + name));
 		return (obj == null ? htLocalizedNameToObject.get(name) : obj);
-	}
-
-	/**
-	 * phases 2a and 2c
-	 * 
-	 * The regex pattern uses param0, param1, etc., to indicated parameters for
-	 * different vendors. This method looks through the activeVendor list to
-	 * retrieve the match, avoiding throwing any regex exceptions due to missing
-	 * group names.
-	 * 
-	 * (Couldn't Java have supplied a check method for group names?)
-	 * 
-	 * @param m
-	 * @return
-	 */
-	private PropertyManagerI getPropertyManager(Matcher m) {
-		if (m == null)
-			return null;
-		if (m.group("struc") != null)
-			return getStructurePropertyManager();
-		for (int i = bsPropertyVendors.nextSetBit(0); i >= 0; i = bsPropertyVendors.nextSetBit(i + 1)) {
-			String ret = m.group("param" + i);
-			if (ret != null && ret.length() > 0) {
-				return VendorPluginI.activeVendors.get(i).vendor;
-			}
-		}
-		return null;
 	}
 
 	/**
@@ -1941,5 +1923,119 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		return path.replace('/', '_').replace('#', '_').replace(' ', '_') + (isDir ? ".zip" : "");
 	}
 
+	/**
+	 * phases 2a and 2c
+	 * 
+	 * The regex pattern uses param0, param1, etc., to indicated parameters for
+	 * different vendors. This method looks through the activeVendor list to
+	 * retrieve the match, avoiding throwing any regex exceptions due to missing
+	 * group names.
+	 * 
+	 * (Couldn't Java have supplied a check method for group names?)
+	 * 
+	 * @param m
+	 * @return
+	 */
+	protected PropertyManagerI getPropertyManager(Matcher m, boolean allowStruc) {
+		if (m == null)
+			return null;
+		if (m.group("struc") != null)
+			return (allowStruc ? getStructurePropertyManager() : null);
+		for (int i = bsPropertyVendors.nextSetBit(0); i >= 0; i = bsPropertyVendors.nextSetBit(i + 1)) {
+			String ret = m.group("param" + i);
+			if (ret != null && ret.length() > 0) {
+				return VendorPluginI.activeVendors.get(i).vendor;
+			}
+		}
+		return null;
+	}
+
+	public void extractSpecProperties(File f, Map<String, Object> map) {
+		targetPropertyMap = map;
+		if (vendorCachePattern == null)
+			return;
+		PropertyManagerI pm = null;
+		String localPath = f.getAbsolutePath();
+		ArchiveInputStream ais = null;
+		try {
+			if (!FAIRSpecUtilities.isZip(localPath)){
+				Matcher m = vendorCachePattern.matcher(localPath);
+				if (m.find()) {
+					pm = getPropertyManager(m, false);
+					if (pm == null || pm.isDerived())
+						return;
+					byte[] bytes = FAIRSpecUtilities.getBytesAndClose(new FileInputStream(f));
+					pm.accept(this, localPath, bytes);
+				}
+			    return;
+			}
+			// zip file -- check all contents
+			pm = getVendorForZipFile(localPath);
+			if (pm == null)
+				return;
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(localPath));
+			ais = new ArchiveInputStream(bis, null);
+			ArchiveEntry zipEntry = null;
+			while ((zipEntry = ais.getNextEntry()) != null) {
+				String name = zipEntry.getName();
+				long len = zipEntry.getSize();
+				if (len <= 0 || name == null || name.length() == 0
+						|| zipEntry.isDirectory()) {
+					continue;
+				}				
+				byte[] bytes = FAIRSpecUtilities.getLimitedStreamBytes(ais, len, null, false, false);
+				Matcher m = vendorCachePattern.matcher(name);
+				if (m.find() && pm == getPropertyManager(m, false))
+					pm.accept(this, name, bytes);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (ais != null) {
+				try {
+					ais.close();
+				} catch (IOException e) {
+				}
+			}
+		}
+		
+	}
+
+	/**
+	 * Check for zip entry name match, such as props or acqui.
+	 * 
+	 * @param localPath
+	 * @return vendor PropertyManagerI
+	 */
+	private PropertyManagerI getVendorForZipFile(String localPath) {
+		ArchiveInputStream ais = null;
+		try {
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(localPath));
+			ais = new ArchiveInputStream(bis, null);
+			ArchiveEntry zipEntry = null;
+			while ((zipEntry = ais.getNextEntry()) != null) {
+				String name = zipEntry.getName();
+				if (name == null || name.length() == 0
+						|| zipEntry.isDirectory()) {
+					continue;
+				}
+				Matcher m = vendorCachePattern.matcher(name);
+				if (m.find())
+					return getPropertyManager(m, false);
+			}
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			if (ais != null) {
+				try {
+					ais.close();
+				} catch (IOException e) {
+				}
+			}
+		}
+	}
+	
 
 }

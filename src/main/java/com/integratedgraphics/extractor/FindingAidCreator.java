@@ -1,6 +1,7 @@
 package com.integratedgraphics.extractor;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,10 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDFindingAid;
 import org.iupac.fairdata.core.IFDObject;
+import org.iupac.fairdata.core.IFDRepresentableObject;
+import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
 import org.iupac.fairdata.extract.MetadataReceiverI;
+import org.iupac.fairdata.extract.PropertyManagerI;
 
 import com.integratedgraphics.html.PageCreator;
 import com.integratedgraphics.ifd.api.VendorPluginI;
@@ -172,6 +176,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	public boolean assetsOnly;
 
 	protected String ifdid = "";
+	private IFDExtractor extractor;
 
 	protected void setDefaultRunParams() {
 		// normally false:
@@ -502,6 +507,11 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		// not used 
 	}
 
-
-
+	public void extractAllSpecProperties(File f, Map<String, Object> doiRecord) {
+		if (extractor == null) {
+			extractor = new IFDExtractor();
+			extractor.phase1SetCachePattern(null);
+		}
+		extractor.extractSpecProperties(f, doiRecord);
+	}
 }

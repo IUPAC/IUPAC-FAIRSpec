@@ -115,7 +115,8 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 				continue;
 			Map<String, Object> m = new TreeMap<>();
 			m.put("id", c.getIDorIndex());
-			getTypeAndExtends(c.getClass(), m);
+			if (doTypeSerialization)
+				getTypeAndExtends(c.getClass(), m);
 			m.put("count", c.size());
 			list.add(m);
 		}		

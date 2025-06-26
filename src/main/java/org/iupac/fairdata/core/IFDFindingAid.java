@@ -188,10 +188,14 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 				serializer.addObject("collectionSet", collectionSet);
 		} else {
 			// addObject will call this method after wrapping
-			serializing = true;
-			serializer.addObject(IFDConst.IFD_FINDINGAID, this);
+			serializing = true;			
+			addTopKey(serializer);
 			serializing = false;
 		}
+	}
+
+	protected void addTopKey(IFDSerializerI serializer) {
+		serializer.addObject(IFDConst.IFD_FINDINGAID, this);
 	}
 
 }

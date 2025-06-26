@@ -74,7 +74,7 @@ IFD.getPropertyMap = function(aidID, searchType){
 	map = {}
 	idObj = IFD.getCollection(aidID)[searchType]
 	for(const item in idObj){
-		propertyObj = idObj[item].properties;
+		propertyObj = idObj[item].ifdProperties;
 		// go into a deeper loop if the obj has properties
 		//console.log(propertyObj);
 		if(propertyObj){
@@ -100,7 +100,8 @@ IFD.getPropertyMap = function(aidID, searchType){
 		}
 		generalizedMap[generalKey] = (generalizedMap[generalKey]).union(map[key]);
 	})
-	completeSet = new Set(Object.keys(IFD.collections["."][searchType]));
+	var collection = IFD.collections[IFD.findingAidID];
+	completeSet = new Set(Object.keys(collection[searchType]));
 	Object.keys(generalizedMap).forEach(key =>{
 		setDiff = completeSet.difference(generalizedMap[key]);
 		// an unspecified value has been detected
@@ -273,7 +274,7 @@ IFD.cacheGet = function(item) {
 }
 
 IFD.shortType = function(type) {
-	return type.substring(type.lastIndexOf(".") + 1);
+	return (!type ? "" : type.substring(type.lastIndexOf(".") + 1));
 }
 
 IFD.getCollectionSetById = function(aid) {

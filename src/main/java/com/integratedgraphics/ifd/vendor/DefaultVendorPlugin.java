@@ -230,47 +230,6 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 		}
 	}
 
-	private static Pattern nucPat = Pattern.compile("(^[^\\d]*)(\\d+)([^\\d]*)$");
-
-	
-	public static String fixNucleus(String nuc) {
-		Matcher m = nucPat.matcher(nuc);
-		if (m.find()) {
-			String sn = m.group(2);
-			String el = m.group(1);
-			el = (el.length() == 0 ? m.group(3) : el);
-			if (el.length() > 2) {
-				int an = org.jmol.util.Elements.elementNumberFromName(el);
-				el = org.jmol.util.Elements.elementSymbolFromNumber(an);
-				if (el != null)
-					nuc = el;
-			} else {
-				nuc = el;
-			}
-			if (nuc.length() == 2) {
-				nuc = nuc.substring(0, 1).toUpperCase() + nuc.substring(1).toLowerCase();
-			}
-			nuc = sn + nuc;
-		}
-		return nuc;
-	}
-
-
-	public static String fixSolvent(String solvent) {
-		// TODO 
-		return solvent;
-	}
-
-	/**
-	 * Get the "nominal" spectrometer frequency -- 300, 400, 500, etc. -- from the frequency and identity of the nucleus
-	 * @param freq
-	 * @param nuc if null, just do the century cleaning
-	 * @return
-	 */
-	public static int getNominalFrequency(double freq, String nuc) {
-		return JDXDataObject.getNominalSpecFreq(nuc, freq);
-	}
-
 	/**
 	 * check a file by name if it is something that 
 	 * the Extractor should copy out of a directory
@@ -283,13 +242,8 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 		return null;
 	}
 
-//	/**
-//	 * First pass for a plugin may not have established a finding aid struc and spec
-//	 */
-//	@Override
-//	public void processVendorFile(String zipName) {
-//		// TODO Auto-generated method stub
-//		
-//	}
+	@Override
+	public boolean isDerived() {		return false;
+	}
 
 }

@@ -70,4 +70,11 @@ public interface PropertyManagerI {
 	static void addPropertyOrRepresentation(MetadataReceiverI extractor, String key, Object val, boolean isInline, String mediaType) {
 	}
 
+	/**
+	 * reserved for Mestrenova or other complex derived
+	 * datasets that cannot be simply analyzed
+	 * @return
+	 */
+	boolean isDerived();
+
 }

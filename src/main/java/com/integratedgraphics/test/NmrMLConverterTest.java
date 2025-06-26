@@ -8,6 +8,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.nmrml.parser.Acqu;
 
 import com.integratedgraphics.ifd.vendor.DefaultVendorPlugin;
+import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
 import com.integratedgraphics.ifd.vendor.jeol.NmrMLJeolAcquStreamReader;
 import com.integratedgraphics.ifd.vendor.varian.NmrMLVarianAcquStreamReader;
 
@@ -55,9 +56,9 @@ public class NmrMLConverterTest {
 		double freq = acq.getTransmiterFreq();
 		report("F1", freq);
 		String nuc = acq.getObservedNucleus();
-		nuc = DefaultVendorPlugin.fixNucleus(nuc);
+		nuc = NMRVendorPlugin.fixNucleus(nuc);
 		report("N1", nuc);
-		int nominalFreq = DefaultVendorPlugin.getNominalFrequency(freq, nuc);
+		int nominalFreq = NMRVendorPlugin.getNominalFrequency(freq, nuc);
 		report("SF", nominalFreq);
 		String solvent = acq.getSolvent();
 		report("SOLVENT", solvent);

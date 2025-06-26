@@ -219,6 +219,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	}
 	protected static int indexCount;
 
+	protected static boolean doTypeSerialization;
+
 	/**
 	 * a unique identifier for debugging
 	 */
@@ -438,7 +440,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		}
 		// add/remove parameter
 		key = fixAttributeKey(key);
-		if (value == null)
+		if (value == null || value.equals(IFDProperty.NULL))
 			IFDAttribute.remove(attributes, key);
 		else
 			IFDAttribute.add(attributes, key, value);
@@ -742,7 +744,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 					map.put(key, val);
 				}
 			}
-			serializer.addObject("properties", map);
+			serializer.addObject("ifdProperties", map);
 		}
 		if (attributes.size() > 0) {
 			Map<String, Object> map = new TreeMap<>();
@@ -775,6 +777,9 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return m;
 	}
 
+	public static void setDoTypeSerialization(boolean b) {
+		doTypeSerialization = b;
+	}
 	/**
 	 * Add "type" and "typeExtends" fields
 	 * 
@@ -783,8 +788,11 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * @param stype null or "ifdType" or "itemType"
 	 */
 	static void serializeClass(IFDSerializerI serializer, Class<?> c, String stype) {
-		if (stype == null)
+		if (stype == null) {
+			if (!doTypeSerialization)
+				return;
 			stype = "ifdType";
+		}
 		Map<String, Object> m = getTypeAndExtends(c, null);
 		serializer.addAttr(stype, (String) m.get("ifdType"));
 		String ext = (String) m.get("ifdTypeExtends");

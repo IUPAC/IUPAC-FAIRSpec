@@ -31,19 +31,19 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		// derived, not the value itself
 		String[] keys = { //
 				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_DIMENSION"), //prop
-				"##$BF1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_1"), //prop
-				"##$BF2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_2"), //prop
-				"##$BF3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_3"), //prop
+				"##$BF1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_SPECTROMETER_FREQ_1"), //prop
+				"##$SFO1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_1"), //prop
+				"##$SFO2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_2"), //prop
+				"##$SFO3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_3"), //prop
 				"##$NUC1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_1"), //prop
 				"##$NUC2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_2"), //prop
 				"##$NUC3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_3"), //prop
 				"##$EXP", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_ID"),
 				"##$PULPROG", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_PULSE_PROGRAM"), //prop
 				"##$TE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_ABSOLUTE_TEMPERATURE"), //prop
-				"##$SOLVENT", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_SOLVENT"), //prop
-				"SOLVENT", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_SOLVENT"), //prop
 				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_TITLE"), //prop
-				"SF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_NOMINAL_FREQ"), //prop
+				"NF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_NOMINAL_FREQ"), //prop
+				"PF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_PROTON_FREQ"), //prop
 				"##$PROBHD", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_PROBE_TYPE"), //prop
 				"TIMESTAMP", getProp("IFD_PROPERTY_DATAOBJECT.TIMESTAMP"), // prop
 				"PROC_TIMESTAMP", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.PROC_TIMESTAMP"), // prop
@@ -172,8 +172,8 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			Object solvent = getSolvent(map);
 			if (solvent != null) {
 				spec.solvent = (String) solvent;
-				report("SOLVENT", IFDProperty.NULL); // this will clear the
-				report("SOLVENT", solvent);
+				reportSolvent(IFDProperty.NULL); // this will clear the
+				reportSolvent( spec.solvent);
 			}
 			return true;
 		}
@@ -226,13 +226,14 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 				ndim = 4;
 			if (ndim == 0)
 				return false;
-			double freq1 = getDoubleValue(map, "##$BF1");
-			report("##$BF1", freq1);
+			report("##$SFO1", getDoubleValue(map, "##$SFO1"));
 			if (ndim >= 2)
-				report("##$BF2", getDoubleValue(map, "##$BF2"));
+				report("##$SFO2", getDoubleValue(map, "##$SFO2"));
 			if (ndim >= 3)
-				report("##$BF3", getDoubleValue(map, "##$BF3"));
-			report("SF", getNominalFrequency(freq1, n1));
+				report("##$SFO3", getDoubleValue(map, "##$SFO3"));
+			double bf1 = getDoubleValue(map, "##$BF1");
+			report("PF", getProtonFrequency(bf1, n1));
+			report("NF", getNominalFrequency(bf1, n1));
 		}
 		report("##$TE", getDoubleValue(map, "##$TE"));
 		processString(map, "##$PULPROG", null);
@@ -271,7 +272,11 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		String val = getBrukerString(map, key);
 		if (val == null || val.equals(ignore))
 			return null;
-		report(key, val);
+		if (key.equals("##$SOLVENT")) {
+		    reportSolvent(val);	
+		} else {
+			report(key, val);
+		}
 		return val;
 	}
 

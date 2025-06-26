@@ -15,15 +15,14 @@ public abstract class NmrMLIFDVendorPlugin extends NMRVendorPlugin {
 	static {
 		String[] keys = { //
 				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_DIMENSION"), //prop
-				"F1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_1"), //prop
-				"F2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_2"), //prop
-				"F3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_3"), //prop
+				"F1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_1"), //prop
+				"F2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_2"), //prop
+				"F3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_3"), //prop
 				"N1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_1"), //prop
 				"N2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_2"), //prop
 				"N3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_3"), //prop
 				"PP", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_PULSE_PROGRAM"), //prop
-				"SOLVENT", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_SOLVENT"), //prop
-				"SF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_NOMINAL_FREQ"), //prop
+				"NF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_NOMINAL_FREQ"), //prop
 				"PROBE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_PROBE_TYPE"), //prop
 				"TEMPERATURE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_ABSOLUTE_TEMPERATURE"), //prop
 				"TIMESTAMP", IFDConst.IFD_PROPERTY_DATAOBJECT_TIMESTAMP,
@@ -51,8 +50,8 @@ public abstract class NmrMLIFDVendorPlugin extends NMRVendorPlugin {
 		report("F1", freq);
  		String nuc = fixNucleus(acq.getObservedNucleus());
 		report("N1", nuc);
-		report("SF", getNominalFrequency(freq, nuc));
-		report("SOLVENT", fixSolvent(acq.getSolvent()));
+		report("NF", getNominalFrequency(freq, nuc));
+		reportSolvent(acq.getSolvent());
 		report("TEMPERATURE", acq.getTemperature());
 		report("PP", acq.getPulseProgram());
 		report("PROBE", acq.getProbehead());

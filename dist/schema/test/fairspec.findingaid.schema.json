@@ -81,22 +81,11 @@
 			"collectionSet": {
 				"class": {
 					"$ref": "#/$defs/class_collectionSet"
-				}
-			}
-		}
-	},
-	"$defs": {
         "schema": {
           	"type": "string",
            	"const": "https://iupac.github.io/IUPAC-FAIRSpec/schema/fairspec.findingaid.schema.0.1.0.json"
 		},
-		"class_findingAid": {
-			"required": [
-				"ifdType",
-				"ifdTypeExtends"
-			],
-			"additionalProperties": false,
-            "properties": {
+			"properties": {
 				"ifdType": {
 					"description": "specific declaration of the IUPAC FAIRSpec Metadata Model class",
 					"type": "string",
@@ -321,4 +310,3 @@
 		}
 	}
 }
-		

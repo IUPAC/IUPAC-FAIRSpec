@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -20,6 +21,7 @@ import org.iupac.fairdata.extract.DefaultStructureHelper;
 
 import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
 import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
+import com.integratedgraphics.ifd.api.VendorPluginI;
 
 /**
  * A general class for constants, setting the configuration, 
@@ -108,6 +110,13 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 * set in phase 1; used in phase 2c
 	 */
 	protected boolean cachePatternHasVendors;
+
+	/**
+	 * vendors have supplied cacheRegex patterns
+	 * 
+	 * set in phase 1; used in phase 2c
+	 */
+	protected boolean cachePatternHasStructures;
 
 	/**
 	 * a JSON-derived map
@@ -305,5 +314,27 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 			return;
 		}
 	}
+	
+	protected void setPropertyVendors(String sp) {
+		cachePatternHasStructures = (sp.indexOf("<struc>") >= 0);
+		String s = "";
+		for (int i = 0; i < VendorPluginI.activeVendors.size(); i++) {
+			String cp = VendorPluginI.activeVendors.get(i).vcache;
+			if (cp != null) {
+				bsPropertyVendors.set(i);
+				s += "|" + cp;
+			}
+		}
+		if (s.length() > 0) {
+			s = "(?<param>" + s.substring(1) + ")|" + sp;
+			cachePatternHasVendors = true;
+		} else {
+			s = sp;
+		}
+		vendorCachePattern = Pattern.compile("(?<ext>" + s + ")");
+		vendorCache = new LinkedHashMap<String, ExtractorUtils.CacheRepresentation>();
+	}
+	
+	
 
 }

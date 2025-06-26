@@ -1,6 +1,6 @@
 ![logo](https://iupac.org/wp-content/themes/iupac/dist/images/logo.png)
 
-last updated 2024-12-08 (BH)
+last updated 2025-06-24 (BH)
 
 # IUPAC-FAIRSpec
 

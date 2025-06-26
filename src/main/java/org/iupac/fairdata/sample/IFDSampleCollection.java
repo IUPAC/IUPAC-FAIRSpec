@@ -21,6 +21,11 @@ public class IFDSampleCollection extends IFDCollection<IFDRepresentableObject<IF
 		add(sample);
 	}
 	
+	@Override
+	protected boolean doSerializeItems() {
+		return doTypeSerialization;
+	}
+
 	
 
 }

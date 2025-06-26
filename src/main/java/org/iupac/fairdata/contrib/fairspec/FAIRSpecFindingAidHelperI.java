@@ -96,4 +96,6 @@ public interface FAIRSpecFindingAidHelperI {
 
 	FAIRSpecCompoundAssociation getThisCompound();
 
+	public void setDoIFDTypeSerialization(boolean b);
+
 }
