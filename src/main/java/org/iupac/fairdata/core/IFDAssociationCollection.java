@@ -7,8 +7,8 @@ import java.util.List;
 import org.iupac.fairdata.api.IFDSerializerI;
 
 /**
- * An class to handle generic collections of N:N associations. 
- * For example, Structure-Data associations.
+ * An class to handle generic collections of N:N associations. For example,
+ * Structure-Data associations.
  * 
  * Serialization and construction can be
  * 
@@ -19,17 +19,17 @@ import org.iupac.fairdata.api.IFDSerializerI;
 public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 
 	protected boolean byID;
-	
+
 	protected IFDAssociationCollection(String label, String type, boolean byID) {
 		super(label, type);
 		this.byID = byID;
 	}
-	
+
 	/**
-	 * Find the 1:N association in this collection that involves 
-	 * a given obj1. For example, in SampleDataAssociations, where 
-	 * we have one sample but multiple data objects, we know there 
-	 * can be only one sample from which all these data objects derive.
+	 * Find the 1:N association in this collection that involves a given obj1. For
+	 * example, in SampleDataAssociations, where we have one sample but multiple
+	 * data objects, we know there can be only one sample from which all these data
+	 * objects derive.
 	 * 
 	 * @param obj1
 	 * @return the found association or null
@@ -42,7 +42,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public boolean add(IFDAssociation a) {
 		a.setByID(byID);
@@ -50,8 +50,9 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 	}
 
 	/**
-	 * Look for an association containing obj2, optionally remove obj2 from that association, 
-	 * and return the first obj1 associated with it.
+	 * Look for an association containing obj2, optionally remove obj2 from that
+	 * association, and return the first obj1 associated with it.
+	 * 
 	 * @param obj2
 	 * @param andRemove
 	 * @return obj1
@@ -111,7 +112,6 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 		}
 	}
 
-	
 	@Override
 	protected void serializeTop(IFDSerializerI serializer) {
 		if (size() == 0)
@@ -128,7 +128,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 			if (c.size() == 0) {
 				String name = null;
 				for (int n = size(); --n >= 0;) {
-					c = get(n).get(i);					
+					c = get(n).get(i);
 					String id = (c.isEmpty() ? null : c.get(0).getParentCollection().getIDorIndex());
 					if (id != null) {
 						name = id;
@@ -137,8 +137,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 				}
 				list.add(name == null ? getDefaultName(i) : name);
 			} else {
-				IFDCollection<?> cp = (c == null ? null
-						: c.get(0).getParentCollection());
+				IFDCollection<?> cp = (c == null ? null : c.get(0).getParentCollection());
 				if (cp == null) {
 					throw new NullPointerException("IFDAssociationCollection null or 0-length association");
 				}
@@ -162,5 +161,10 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 		}
 		super.serializeList(serializer);
 	}
-	
+
+	@Override
+	protected boolean doSerializeItems() {
+		return doTypeSerialization;
+	}
+
 }

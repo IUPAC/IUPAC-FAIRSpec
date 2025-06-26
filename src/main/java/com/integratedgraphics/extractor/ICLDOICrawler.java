@@ -10,6 +10,7 @@ import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 
 /**
  * 
+ * Crawler for ICL repository 10.14469/hpc/10386 (2024.12)
  * @author Bob Hanson
  *
  */

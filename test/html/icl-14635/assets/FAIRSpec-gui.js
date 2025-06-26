@@ -927,7 +927,7 @@
 		var s = (aid.id == '.' ? "" : "&nbsp;&nbsp;&nbsp;" + aid.id) 
 		+ (aLoading ? 
 			"&nbsp;&nbsp; <a target=_blank href=\"" + IFD.findingAidFile + "\">view "+IFD.findingAidFile.split("/").pop()+"</a>"
-			+ "&nbsp;&nbsp; " + addPathRef(aid.id, aid.collectionSet.properties.ref, aid.collectionSet.properties.len)
+			+ "&nbsp;&nbsp; " + addPathRef(aid.id, aid.collectionSet.ifdProperties.ref, aid.collectionSet.ifdProperties.len)
 		: ""); 
 		s = "<h3>" + IFD.shortType(aid.ifdType) + s + " </h3>";
 		setTop(s);
@@ -1180,7 +1180,7 @@
 //	       Something is amiss here!
 
 	var getObjectProperty = function(o, what) {
-		return o.properties && o.properties[what] || "";
+		return o.ifdProperties && o.ifdProperties[what] || "";
 	}
 
 	var getSpecialText = function(spec) {
@@ -1197,15 +1197,16 @@
 	var showSpectrum = function(aidID,id) {
 		var isAll = (IFD.resultsMode == IFD.MODE_SPECTRA);
 		var spec = IFD.getCollection(aidID).spectra[id];
+		var method = spec.exptMethod.toLowerCase();
 		var structureIDs = IFD.getStructureIDsForSpectra(aidID, [id]);
-		var sampleID = spec.properties && spec.properties.originating_sample_id;
+		var sampleID = spec.ifdProperties && spec.ifdProperties.originating_sample_id;
 		var sid = (IFD.byID ? id : spec.id); 
 		var s = "<table padding=3><tr><td valign=top>"
 			+ getHeader("Spectrum/a  ", "Spectrum " + sid) + "<h3>" 
 			+ (sampleID ? "&nbsp;&nbsp;&nbsp; sample " + sampleID : "")
 			+ "</h3>"
 			+ "</td>"; 
-		var title = getObjectProperty(spec, "expt_title");
+		var title = getObjectProperty(spec, method + ".expt_title");
 		if (title)
 			s += "<td>&nbsp;&nbsp;</td><td><b>" + title + "</b></td>"
 		s += "</tr></table>";
@@ -1229,7 +1230,7 @@
 		var keys = IFD.getCompoundCollectionKeys();
 		var structureIDs = cmpd[IFD.itemsKey][keys.structures];
 		var spectraIDs = cmpd[IFD.itemsKey][keys.spectra];
-		var props = cmpd.properties;
+		var props = cmpd.ifdProperties;
 		var params = cmpd.attributes;
 		var label = cmpd.label || cmpd.id;
 		var s = getHeader("Compound/s", label.startsWith("Compound") ? label : "Compound " + label, null);// cmpd.description); 
@@ -1282,7 +1283,7 @@
 		var s = "<td" + cl + "><table cellpadding=10><tr>";
 		var struc = IFD.getCollection(aidID).structures[id];
 		var sid = struc.id;
-		var props = struc.properties;
+		var props = struc.ifdProperties;
 		var reps = struc.representations;
 
 		s += "<td rowspan=2 valign=\"top\">";
@@ -1499,14 +1500,14 @@
 		var cl = (tableRow > 0 ? " class=tablerow" + (tableRow%2) : "");
 		var s = "<tr><td"+ cl + " id='q1' rowspan=2 style=\"width:100px\" valign=top>" 
 			+ (IFD.byID ? id : "") 
-		+ (isAll ? getSpectrumPrediction(spec.properties, smiles) : "")
+		+ (isAll ? getSpectrumPrediction(spec.ifdProperties, smiles) : "")
 		+ "</td>"
 		s += "<td id='q2'>";
 		s += getSpecialText(spec);
 			s += addRepresentationTable(true, aidID, spec.representations, (isAll ? null : "pdf"), isAll);
 		s += "</td></tr>";
 		s += "<tr><td><table>";
-			s += addPropertyRows("IFD&nbsp;Properties", spec.properties, null, !isAll);
+			s += addPropertyRows("IFD&nbsp;Properties", spec.ifdProperties, null, !isAll);
 			s += addPropertyRows("More&nbsp;Attributes", spec.attributes, null, !isAll);
 		s += "</table></td></tr>";
 		return s;	

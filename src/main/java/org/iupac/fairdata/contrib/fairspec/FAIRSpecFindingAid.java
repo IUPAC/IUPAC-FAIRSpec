@@ -2,6 +2,7 @@ package org.iupac.fairdata.contrib.fairspec;
 
 import java.io.File;
 
+import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.core.IFDFindingAid;
@@ -32,7 +33,7 @@ public class FAIRSpecFindingAid extends IFDFindingAid {
 	static {
 		loadProperties();
 	}
-	
+
 	public FAIRSpecFindingAid(String label, String type, String creator) throws IFDException {
 		super(label, type, creator, null);
 		add(new FAIRSpecCollection());
@@ -43,5 +44,11 @@ public class FAIRSpecFindingAid extends IFDFindingAid {
 		return super.getVersion() + ";FAIRSpec " + IFDConst.getProp("FAIRSPEC_VERSION") ;
 	}
 	
+	@Override
+	protected void addTopKey(IFDSerializerI serializer) {
+		// "IUPAC.FAIRSpec.findingAid"
+		serializer.addObject(IFDConst.getProp("FAIRSPEC_MAGIC_VALUE_KEY"), this);
+	}
+
 
 }

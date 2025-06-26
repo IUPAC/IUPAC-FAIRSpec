@@ -428,30 +428,13 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 * This includes structure representations handled by DefaultStructureHelper.
 	 * 
 	 */
-	private void phase1SetCachePattern(String sp) {
+	public void phase1SetCachePattern(String sp) {
 		if (sp == null) {
 			sp = FAIRSpecExtractorHelper.defaultCachePattern + "|" + getStructurePropertyManager().getParamRegex();
 		} else if (sp.length() == 0) {
 			sp = "(?<img>\n)|(?<struc>\n)";
 		}
-
-		String s = "";
-		for (int i = 0; i < VendorPluginI.activeVendors.size(); i++) {
-			String cp = VendorPluginI.activeVendors.get(i).vcache;
-			if (cp != null) {
-				bsPropertyVendors.set(i);
-				s += "|" + cp;
-			}
-		}
-
-		if (s.length() > 0) {
-			s = "(?<param>" + s.substring(1) + ")|" + sp;
-			cachePatternHasVendors = true;
-		} else {
-			s = sp;
-		}
-		vendorCachePattern = Pattern.compile("(?<ext>" + s + ")");
-		vendorCache = new LinkedHashMap<String, ExtractorUtils.CacheRepresentation>();
+		setPropertyVendors(sp);
 	}
 
 	private void phase1SetLocalSourceDir(String sourceDir) {

@@ -15,6 +15,7 @@ import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -872,4 +873,38 @@ public class FAIRSpecUtilities {
 		return (returnString ? sb.toString() : null);
 	}
 
+	private static Map<String, List<String>> nmrSolventMap;
+
+	public static Map<String, List<String>> getNMRSolventMap() {
+		if (nmrSolventMap == null) {
+			nmrSolventMap = new HashMap<>();
+			int nv = 0, nk = 0;
+			try {
+				String[] data = ((String) getResource(FAIRSpecUtilities.class, "nmr_solvents.tab")).replace("\r\n","\n").split("\n");
+				String[] headers = data[0].split("\t");
+				for (int i = 1; i < data.length; i++) {
+					String[] line = data[i].split("\t");
+					List<String> val = new ArrayList<>();
+					for (int j = 0; j < line.length; j++) {
+						String key = line[j].trim();
+						if (headers[j].startsWith("(") || key.length() == 0) {
+							continue;
+						}
+						if (headers[j].startsWith("*")) {
+							val.add(headers[j]);
+							val.add(key);
+							if (i == 1)
+								nv++;
+						}
+						nmrSolventMap.put(key.toLowerCase(), val);
+						nk++;
+					}					
+				}
+				System.out.println("FAIRSpecUtilites created nmrSolventMap valueFields=" + nv + " keys=" + nk);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return nmrSolventMap;		
+	}
 }

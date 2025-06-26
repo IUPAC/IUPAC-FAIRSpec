@@ -28,4 +28,10 @@ public class IFDStructureCollection extends IFDCollection<IFDStructure> {
 		return null;
 	}
 
+	@Override
+	protected boolean doSerializeItems() {
+		return doTypeSerialization;
+	}
+
+
 }

@@ -399,5 +399,10 @@ public class DefaultStructureHelper implements PropertyManagerI {
 //				"__Jmol-14_07301921552").getBytes()));
 //	}
 
+	@Override
+	public boolean isDerived() {
+		return false;
+	}
+
 }
 

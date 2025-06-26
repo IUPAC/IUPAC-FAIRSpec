@@ -64,18 +64,17 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	static {
 		String[] keys = { //
 				"Pulse Sequence", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_PULSE_PROGRAM"), //prop
-				"Solvent", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_SOLVENT"), //prop
 				"Probe", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_PROBE_TYPE"), //prop
 				"Temperature", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_ABSOLUTE_TEMPERATURE"), //prop
 				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_DIMENSION"), //prop
 				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_TITLE"), //prop
-				"Spectrometer Frequency", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_1"), //prop
-				"Spectrometer Frequency2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_2"), //prop
-				"Spectrometer Frequency3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_FREQ_3"), //prop
+				"Spectrometer Frequency", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_1"), //prop
+				"Spectrometer Frequency2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_2"), //prop
+				"Spectrometer Frequency3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_3"), //prop
 				"Nucleus", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_1"), //prop
 				"Nucleus2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_2"), //prop
 				"Nucleus3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_3"), //prop
-				"SF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_NOMINAL_FREQ"), //prop
+				"NF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_NOMINAL_FREQ"), //prop
 				"TIMESTAMP", IFDConst.IFD_PROPERTY_DATAOBJECT_TIMESTAMP, //prop
 		};
 
@@ -187,13 +186,16 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 				case "Modification Date":
 				case "Pulse Sequence":
 				case "Site":
-				case "Solvent":
 				case "Title":
 				case "Instrument":
 				case "Spectrometer":
 				default:
 					oval = FAIRSpecUtilities.rep(val, "\n", " ").trim();
 					break;
+				case "Solvent":
+					oval = val = FAIRSpecUtilities.rep(val, "\n", " ").trim();
+					reportSolvent(val);
+					return;
 				case "Purity":
 					break;
 				case "Data File Name":
@@ -325,7 +327,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	private void finalizeParams() {
 		if (params != null && pageGlobals.freq != 0) {
 			int f = getNominalFrequency(pageGlobals.freq, pageGlobals.nuc1);
-			params.put("!SF", Integer.valueOf(f));
+			params.put("!NF", Integer.valueOf(f));
 			params.put("!DIM", Integer.valueOf(pageGlobals.dim) + "D");
 			params.put("mnovaVersion", mnovaVersion);
 		} 
@@ -334,6 +336,11 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 
 	void setVersion(String mnovaVersion) {
 		this.mnovaVersion = mnovaVersion;
+	}
+
+	@Override
+	public boolean isDerived() {
+		return true;
 	}
 
 }

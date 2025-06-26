@@ -74,7 +74,7 @@ IFD.getPropertyMap = function(aidID, searchType){
 	map = {}
 	idObj = IFD.getCollection(aidID)[searchType]
 	for(const item in idObj){
-		propertyObj = idObj[item].properties;
+		propertyObj = idObj[item].ifdProperties;
 		// go into a deeper loop if the obj has properties
 		//console.log(propertyObj);
 		if(propertyObj){
@@ -274,7 +274,7 @@ IFD.cacheGet = function(item) {
 }
 
 IFD.shortType = function(type) {
-	return type.substring(type.lastIndexOf(".") + 1);
+	return (!type ? "" : type.substring(type.lastIndexOf(".") + 1));
 }
 
 IFD.getCollectionSetById = function(aid) {

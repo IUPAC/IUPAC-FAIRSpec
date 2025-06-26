@@ -698,4 +698,9 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		return null;
 	}
 
+	@Override
+	public void setDoIFDTypeSerialization(boolean b) {
+		IFDObject.setDoTypeSerialization(b);
+	}
+
 }
