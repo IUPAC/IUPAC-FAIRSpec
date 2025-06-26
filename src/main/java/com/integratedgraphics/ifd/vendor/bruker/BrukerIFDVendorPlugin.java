@@ -122,14 +122,14 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	@Override
-	public void startRezip(MetadataReceiverI extractor) {
+	public void initializeDataSet(MetadataReceiverI extractor) {
 		// we will need dim for setting 1D
-		super.startRezip(extractor);
+		super.initializeDataSet(extractor);
 		spec = new Globals();
 	}
 
 	@Override
-	public void endRezip() {
+	public void endDataSet() {
 		// if we found an acqu2s file, then dim has been set to 2D already.
 		// NUC2 will be set already, but that might just involve decoupling, which we
 		// don't generally indicate. So here we remove the NUC2 property if this is a 1D
@@ -139,7 +139,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			report("##$NUC2", IFDProperty.NULL);
 		}
 		spec.clear();
-		super.endRezip();
+		super.endDataSet();
 	}
 
 	/**
@@ -243,8 +243,9 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		} else if (originPath.endsWith("acqus") && spec.dim == null) {
 			report("DIM", spec.dim = "1D");
 		}
-		if (spec.probeHead == null)
+		if (spec.probeHead == null) {
 			spec.probeHead = processString(map, "##$PROBHD", null);
+		}
 		return true;
 	}
 

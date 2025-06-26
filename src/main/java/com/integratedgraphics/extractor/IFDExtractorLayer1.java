@@ -9,7 +9,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.regex.Pattern;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
@@ -19,7 +18,6 @@ import org.iupac.fairdata.util.JSJSONParser;
 
 import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
 import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
-import com.integratedgraphics.ifd.api.VendorPluginI;
 
 /**
  * Extraction Phase 1.
@@ -52,18 +50,16 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 */
 	private String extractVersion;
 
-	/**
-	 * not implemented as something that can be adjusted;
-	 * currently: 
-	 * 
-	 * "(?<img>\\.pdf$|\\.png$)|(?<struc>(?<mol>\\.mol$|\\.sdf$)|(?<cdx>\\.cdx$|\\.cdxml$)|(?<cif>\\.cif$)|(?<cml>\\.cml$))"
-	 * 
-	 * A combination of FAIRSpecExtractionHelper.defaultCachePattern
-	 * and ifd.properties.IFD_DEFAULT_STRUCTURE_FILE_PATTERN
-	 */
-	private String userStructureFilePattern;
-
 	String findingaidId;
+	
+	/**
+	 * working memory cache of representations keyed to their localized name
+	 * (possibly with an extension for a page within the representation, such as an
+	 * MNova file. These are identified by vendors and that can create additional
+	 * properties or representations from them in Phase 2b that will need to be
+	 * processed in Phase 2c.
+	 */
+	protected Map<String, ExtractorUtils.CacheRepresentation> vendorCache;
 
 	protected boolean processPhase1(File ifdExtractScriptFile, String localArchive) throws IOException, IFDException {
 		// first create objects, a List<String>
@@ -76,9 +72,8 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		objectParsers = phase1ParseScript(extractScript);
 		if (!processPubURI())
 			return false;
-		// options here to set cache and rezip options -- debugging only!
-		phase1SetCachePattern(userStructureFilePattern);
-		rezipCachePattern = phase1SetRezipCachePattern(null, null);
+		initializePropertyExtraction();
+		vendorCache = new LinkedHashMap<String, ExtractorUtils.CacheRepresentation>();
 		return true;
 	}
 
@@ -416,53 +411,12 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		}
 	}
 
-	/**
-	 * Set the regex string assembling all vendor requests.
-	 * 
-	 * Each vendor's pattern will be surrounded by (?<param0> ... ), (?<param1> ...
-	 * ), etc.
-	 * 
-	 * Here we wrap them all with (?<param>....), then add on our non-vendor checks,
-	 * and finally wrap all this using (?<type>...).
-	 * 
-	 * This includes structure representations handled by DefaultStructureHelper.
-	 * 
-	 */
-	public void phase1SetCachePattern(String sp) {
-		if (sp == null) {
-			sp = FAIRSpecExtractorHelper.defaultCachePattern + "|" + getStructurePropertyManager().getParamRegex();
-		} else if (sp.length() == 0) {
-			sp = "(?<img>\n)|(?<struc>\n)";
-		}
-		setPropertyVendors(sp);
-	}
-
 	private void phase1SetLocalSourceDir(String sourceDir) {
 		if ("-".equals(sourceDir))
 			sourceDir = null;
 		if (sourceDir != null && sourceDir.indexOf("://") < 0)
 			sourceDir = "file:///" + sourceDir.replace('\\', '/');
 		localSourceDir = sourceDir;
-	}
-
-	/**
-	 * Set the file match zip cache pattern.
-	 * 
-	 * @param procs
-	 * @param toExclude
-	 * @return the rezip pattern
-	 */
-	private Pattern phase1SetRezipCachePattern(String procs, String toExclude) {
-		String s = "";
-		for (int i = 0; i < VendorPluginI.activeVendors.size(); i++) {
-			String cp = VendorPluginI.activeVendors.get(i).vrezip;
-			if (cp != null) {
-				bsRezipVendors.set(i);
-				s = s + "|" + cp;
-			}
-		}
-		s += (procs == null ? "" : "|" + procs);
-		return (s.length() == 0 ? null : Pattern.compile(s.substring(1)));
 	}
 
 	/**

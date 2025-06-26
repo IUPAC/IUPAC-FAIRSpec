@@ -121,11 +121,11 @@ public interface VendorPluginI extends PropertyManagerI {
 
 	String getRezipPrefix(String dirname);
 
-	void startRezip(MetadataReceiverI extractor);
+	void initializeDataSet(MetadataReceiverI extractor);
 	
 	boolean doRezipInclude(MetadataReceiverI extractor, String zipfileName, String entryName);
 
-	void endRezip();
+	void endDataSet();
 
 	int getIndex();
 	

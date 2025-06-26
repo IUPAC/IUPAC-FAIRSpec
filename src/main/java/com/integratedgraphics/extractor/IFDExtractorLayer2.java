@@ -243,11 +243,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	private boolean allowMultipleObjectsForRepresentations = true;
 	
 	/**
-	 * Used by Crawler to capture properties
-	 */
-	private Map<String, Object> targetPropertyMap;
-
-	/**
 	 * The main extraction phase. Find and extract all objects of interest from a ZIP
 	 * file.
 	 * 
@@ -647,7 +642,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		// file and just an FID but no pdata/ directory. But for now we want to see that
 		// processed data.
 
-		if (rezipCachePattern != null && (m = rezipCachePattern.matcher(originPath)).find()) {
+		if (extractionCachePattern != null && (m = extractionCachePattern.matcher(originPath)).find()) {
 
 			// e.g. exptno/./pdata/procs
 
@@ -979,7 +974,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		log("!Extractor Phase 2c rezipping " + baseName + entry + " as " + outFile);
 		OutputStream fos = (insitu || noOutput ? new ByteArrayOutputStream() : new FileOutputStream(outFile));
 		ZipOutputStream zos = (insitu ? null : new ZipOutputStream(fos));
-		vendor.startRezip(this);
+		vendor.initializeDataSet(this);
 		long len = 0;
 		while ((entry = (firstEntry == null ? ais.getNextEntry() : firstEntry)) != null) {
 			firstEntry = null;
@@ -1057,7 +1052,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 						isInlineBytes || insitu, null, null, "P2c rezipTD");
 			}
 		}
-		vendor.endRezip();
+		vendor.endDataSet();
 		if (zos != null)
 			zos.close();
 		fos.close();
@@ -1507,10 +1502,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 	@Override
 	public void addProperty(String key, Object val) {
-		if (targetPropertyMap != null) {
-			targetPropertyMap.put(key, val);
-			return;
-		}
 		if (val != IFDProperty.NULL)
 			log(this.localizedName + " addProperty " + key + "=" + val);
 		addDeferredPropertyOrRepresentation(key, val, false, null, null, "L0 vndaddprop");
@@ -1922,120 +1913,5 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			path = path.substring(0, pt) + ".." + path.substring(++pt);
 		return path.replace('/', '_').replace('#', '_').replace(' ', '_') + (isDir ? ".zip" : "");
 	}
-
-	/**
-	 * phases 2a and 2c
-	 * 
-	 * The regex pattern uses param0, param1, etc., to indicated parameters for
-	 * different vendors. This method looks through the activeVendor list to
-	 * retrieve the match, avoiding throwing any regex exceptions due to missing
-	 * group names.
-	 * 
-	 * (Couldn't Java have supplied a check method for group names?)
-	 * 
-	 * @param m
-	 * @return
-	 */
-	protected PropertyManagerI getPropertyManager(Matcher m, boolean allowStruc) {
-		if (m == null)
-			return null;
-		if (m.group("struc") != null)
-			return (allowStruc ? getStructurePropertyManager() : null);
-		for (int i = bsPropertyVendors.nextSetBit(0); i >= 0; i = bsPropertyVendors.nextSetBit(i + 1)) {
-			String ret = m.group("param" + i);
-			if (ret != null && ret.length() > 0) {
-				return VendorPluginI.activeVendors.get(i).vendor;
-			}
-		}
-		return null;
-	}
-
-	public void extractSpecProperties(File f, Map<String, Object> map) {
-		targetPropertyMap = map;
-		if (vendorCachePattern == null)
-			return;
-		PropertyManagerI pm = null;
-		String localPath = f.getAbsolutePath();
-		ArchiveInputStream ais = null;
-		try {
-			if (!FAIRSpecUtilities.isZip(localPath)){
-				Matcher m = vendorCachePattern.matcher(localPath);
-				if (m.find()) {
-					pm = getPropertyManager(m, false);
-					if (pm == null || pm.isDerived())
-						return;
-					byte[] bytes = FAIRSpecUtilities.getBytesAndClose(new FileInputStream(f));
-					pm.accept(this, localPath, bytes);
-				}
-			    return;
-			}
-			// zip file -- check all contents
-			pm = getVendorForZipFile(localPath);
-			if (pm == null)
-				return;
-			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(localPath));
-			ais = new ArchiveInputStream(bis, null);
-			ArchiveEntry zipEntry = null;
-			while ((zipEntry = ais.getNextEntry()) != null) {
-				String name = zipEntry.getName();
-				long len = zipEntry.getSize();
-				if (len <= 0 || name == null || name.length() == 0
-						|| zipEntry.isDirectory()) {
-					continue;
-				}				
-				byte[] bytes = FAIRSpecUtilities.getLimitedStreamBytes(ais, len, null, false, false);
-				Matcher m = vendorCachePattern.matcher(name);
-				if (m.find() && pm == getPropertyManager(m, false))
-					pm.accept(this, name, bytes);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (ais != null) {
-				try {
-					ais.close();
-				} catch (IOException e) {
-				}
-			}
-		}
-		
-	}
-
-	/**
-	 * Check for zip entry name match, such as props or acqui.
-	 * 
-	 * @param localPath
-	 * @return vendor PropertyManagerI
-	 */
-	private PropertyManagerI getVendorForZipFile(String localPath) {
-		ArchiveInputStream ais = null;
-		try {
-			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(localPath));
-			ais = new ArchiveInputStream(bis, null);
-			ArchiveEntry zipEntry = null;
-			while ((zipEntry = ais.getNextEntry()) != null) {
-				String name = zipEntry.getName();
-				if (name == null || name.length() == 0
-						|| zipEntry.isDirectory()) {
-					continue;
-				}
-				Matcher m = vendorCachePattern.matcher(name);
-				if (m.find())
-					return getPropertyManager(m, false);
-			}
-			return null;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		} finally {
-			if (ais != null) {
-				try {
-					ais.close();
-				} catch (IOException e) {
-				}
-			}
-		}
-	}
-	
 
 }

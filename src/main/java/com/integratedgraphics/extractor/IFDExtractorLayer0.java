@@ -3,9 +3,7 @@ package com.integratedgraphics.extractor;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.BitSet;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -17,21 +15,19 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper.FileList;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-import org.iupac.fairdata.extract.DefaultStructureHelper;
 
 import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
 import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
-import com.integratedgraphics.ifd.api.VendorPluginI;
 
 /**
- * A general class for constants, setting the configuration, 
- * shared fields, logging and file writing, 
+ * A general class for constants, setting the configuration, shared fields,
+ * logging and file writing,
  * 
  * @author hanso
  *
  */
 abstract class IFDExtractorLayer0 extends FindingAidCreator {
- 
+
 	/**
 	 * a key for the deferredObjectList that flags a structure with a spectrum;
 	 * needs attention, as this was created prior to the idea of a compound
@@ -58,7 +54,6 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 
 	protected static final String FAIRSPEC_EXTRACTOR_REFERENCES = IFDConst.getProp("FAIRSPEC_EXTRACTOR_REFERENCES");
 
-
 	/**
 	 * debugging help
 	 */
@@ -72,51 +67,19 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 * @param what
 	 */
 	protected void checkStopAfter(String what) {
-		log("!" + what 
-				+ " #struc=" + faHelper.getStructureCollection().size()
-				+ " #spec=" + faHelper.getSpecCollection().size()
-				+ " #cmpd=" + faHelper.getCompoundCollection().size()
-				);
+		log("!" + what + " #struc=" + faHelper.getStructureCollection().size() + " #spec="
+				+ faHelper.getSpecCollection().size() + " #cmpd=" + faHelper.getCompoundCollection().size());
 		boolean stopping = what.equals(stopAfter);
 		if (stopping) {
 			log("stopping after " + what);
 			System.exit(0);
 		}
 	}
-		
 
 	/**
 	 * contents of the file "extractor.config.json"
 	 */
 	protected Map<String, Object> config = null;
-
-	/**
-	 * bitset of activeVendors that are set for property parsing
-	 * 
-	 * set in phase 1; used in phase 2a and 2c
-	 */
-	protected BitSet bsPropertyVendors = new BitSet();
-
-	/**
-	 * bitset of activeVendors that are set for rezipping
-	 * 
-	 * set in phase 1; used in phase 2a
-	 */
-	protected BitSet bsRezipVendors = new BitSet();
-
-	/**
-	 * vendors have supplied cacheRegex patterns
-	 * 
-	 * set in phase 1; used in phase 2c
-	 */
-	protected boolean cachePatternHasVendors;
-
-	/**
-	 * vendors have supplied cacheRegex patterns
-	 * 
-	 * set in phase 1; used in phase 2c
-	 */
-	protected boolean cachePatternHasStructures;
 
 	/**
 	 * a JSON-derived map
@@ -147,17 +110,12 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	protected FAIRSpecExtractorHelperI helper;
 
 	/**
-	 * a map of metadata key/value pairs created from 
-	 * reading a spreadsheet file
+	 * a map of metadata key/value pairs created from reading a spreadsheet file
 	 * 
-	 * <code>
-		{"FAIRSpec.extractor.metadata":[
-       	  {"FOR":"IFD.property.fairspec.compound.id",
-         		"METADATA_FILE":"./Manifest.xlsx",
-         		"METADATA_KEY":"TM compound number"
-       	  }
-  		]},
-
+	 * <code> {"FAIRSpec.extractor.metadata":[
+	 * {"FOR":"IFD.property.fairspec.compound.id",
+	 * "METADATA_FILE":"./Manifest.xlsx", "METADATA_KEY":"TM compound number" } ]},
+	 * 
 	 * 
 	 * set in phase 1; used in phase 2b
 	 * 
@@ -172,14 +130,12 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 */
 	protected Map<String, ExtractorResource> htResources = new HashMap<>();
 
-	
 	/**
-	 * a simple file (default IFD_METADATA) with key=value pairs
-	 * one per line.
+	 * a simple file (default IFD_METADATA) with key=value pairs one per line.
 	 * 
 	 * set in phase 1; used in phase 2c
 	 */
-	protected String ifdMetadataFileName = "IFD_METADATA"; 
+	protected String ifdMetadataFileName = "IFD_METADATA";
 
 	/**
 	 * regex patters for ignoring and accepting files
@@ -238,44 +194,19 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 * objects found in IFD-extract.json
 	 */
 	protected List<ObjectParser> objectParsers;
-	
+
 	/**
 	 * working origin path while checking zip files
 	 * 
 	 */
 	protected String originPath;
 
-	/**
-	 * files matched will be cached as zip files
-	 */
-	protected Pattern rezipCachePattern;
-
 	protected ArrayList<Object> rootPaths = new ArrayList<>();
-
-	/**
-	 * the structure property manager for this extractor
-	 * 
-	 */
-	private DefaultStructureHelper structurePropertyManager;
 
 	/**
 	 * a required target directory
 	 */
 	protected File targetDir;
-
-	/**
-	 * working memory cache of representations keyed to their localized name
-	 * (possibly with an extension for a page within the representation, such as an
-	 * MNova file. These are identified by vendors and that can create additional
-	 * properties or representations from them in Phase 2b that will need to be
-	 * processed in Phase 2c.
-	 */
-	protected Map<String, ExtractorUtils.CacheRepresentation> vendorCache;
-
-	/**
-	 * files matched will be cached in the target directory
-	 */
-	protected Pattern vendorCachePattern;
 
 	public int getErrorCount() {
 		return errors;
@@ -284,17 +215,6 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	@Override
 	protected FAIRSpecFindingAidHelperI getHelper() {
 		return faHelper;
-	}
-
-	/**
-	 * get a new structure property manager to handle processing of MOL, SDF, and
-	 * CDX files, primarily. Can be overridden.
-	 * 
-	 * @return
-	 */
-	protected DefaultStructureHelper getStructurePropertyManager() {
-		return (structurePropertyManager == null ? (structurePropertyManager = new DefaultStructureHelper(this))
-				: structurePropertyManager);
 	}
 
 	protected void initializeExtractor() {
@@ -314,27 +234,5 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 			return;
 		}
 	}
-	
-	protected void setPropertyVendors(String sp) {
-		cachePatternHasStructures = (sp.indexOf("<struc>") >= 0);
-		String s = "";
-		for (int i = 0; i < VendorPluginI.activeVendors.size(); i++) {
-			String cp = VendorPluginI.activeVendors.get(i).vcache;
-			if (cp != null) {
-				bsPropertyVendors.set(i);
-				s += "|" + cp;
-			}
-		}
-		if (s.length() > 0) {
-			s = "(?<param>" + s.substring(1) + ")|" + sp;
-			cachePatternHasVendors = true;
-		} else {
-			s = sp;
-		}
-		vendorCachePattern = Pattern.compile("(?<ext>" + s + ")");
-		vendorCache = new LinkedHashMap<String, ExtractorUtils.CacheRepresentation>();
-	}
-	
-	
 
 }
