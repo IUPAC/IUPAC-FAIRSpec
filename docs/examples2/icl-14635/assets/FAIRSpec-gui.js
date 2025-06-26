@@ -854,7 +854,9 @@
 	}
 
 	var callbackLoaded = function(json) {
-		var aid = json["IFD.findingaid"];
+		var aid = json["IUPAC.FAIRSpec.findingAid"];
+		if (aid == null)
+			aid = json["IFD.findingaid"];
 		aid.id || (aid.id = IFD.findingAidID);
 		loadAid(aid);
 	}
@@ -881,9 +883,13 @@
 			url = getField("url");
 		}
 		var faJson = J2S.getFileData(url);
-		if(faJson.startsWith('{"IFD.findingaid"')){
+		var topKey = "IUPAC.FAIRSpec.findingAid";
+		if (!faJson.startsWith('{"' + topKey))
+			key = "IFD.findingaid";
+		if(faJson.startsWith('{"'+topKey+'"')){
 			IFD.findingAidURL = url;
-			var aid = JSON.parse(faJson)["IFD.findingaid"];
+			IFD.topKey = topKey;
+			var aid = JSON.parse(faJson)[key];
 			IFD.findingAidID = aid.id || "?" ;
 			loadAid(aid);
 			return true;
