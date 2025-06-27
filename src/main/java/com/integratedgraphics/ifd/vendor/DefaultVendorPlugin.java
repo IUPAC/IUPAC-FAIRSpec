@@ -1,16 +1,12 @@
 package com.integratedgraphics.ifd.vendor;
 
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.ifd.api.VendorPluginI;
-
-import jspecview.source.JDXDataObject;
 
 /**
  * An abstract class that underlies all the vendor plugins.
@@ -53,7 +49,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	/**
 	 * whether or not this vendor plugin is involved in rezipping currently
 	 */
-	protected boolean rezipping;
+	protected boolean processing;
 
 	/**
 	 * whether this plugin is currently enabled
@@ -131,13 +127,13 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 
 	/**
 	 * Rezipping has started; initialize all fields that will be utilized in
-	 * endRezip(). Also register the extractor.
+	 * endDataset(). Also register the extractor.
 	 */
 	@Override
-	public void startRezip(MetadataReceiverI extractor) {
+	public void initializeDataSet(MetadataReceiverI extractor) {
 		this.extractor = extractor;
 		reportVendor();
-		rezipping = true;
+		processing = true;
 	}
 
 	protected static String getProp(String name) {
@@ -149,8 +145,8 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	 * single files's information.
 	 */
 	@Override
-	public void endRezip() {
-		rezipping = false;
+	public void endDataSet() {
+		processing = false;
 		this.extractor = null;
 	}
 

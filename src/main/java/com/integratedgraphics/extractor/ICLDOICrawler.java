@@ -84,7 +84,7 @@ import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 				return false;
 			switch (key) {
 			case "References":
-				crawler.addError("!RelatedIdentifier.References value ignored: " + val + " in " + crawler.doiRecord);
+				crawler.log("!!RelatedIdentifier.References value ignored: " + val + " in " + crawler.doiRecord);
 				break;
 			case DOICrawler.DATACITE_SUBJECT:
 				switch (val) {

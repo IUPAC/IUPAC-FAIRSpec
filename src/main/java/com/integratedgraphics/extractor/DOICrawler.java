@@ -34,12 +34,8 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDObject;
-import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.core.IFDReference;
-import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.dataobject.IFDDataObject;
-import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
-import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.structure.IFDStructure;
 import org.iupac.fairdata.structure.IFDStructureCollection;
@@ -48,7 +44,6 @@ import org.openscience.cdk.interfaces.IAtomContainer;
 
 import com.integratedgraphics.util.XmlReader;
 
-import javajs.util.Base64;
 import swingjs.CDK;
 
 /**
@@ -219,6 +214,58 @@ public class DOICrawler extends FindingAidCreator {
 				val = cleanData((String) val);
 			return super.put(key, val);
 		}
+
+		/**
+		 * 
+		 * @param c
+		 * @param rec
+		 */
+		protected void addProperties(IFDObject<?> c, DOICrawler crawler) {
+			boolean isData = (type == DOI_DATA);
+			boolean isDOI = false;
+			String identifier = null;
+			for (Entry<String, Object> e : entrySet()) {
+				String key = e.getKey();
+				Object value = e.getValue();
+				switch (key) {
+				case "schemalocation":
+					continue;
+				case "identifier":
+					identifier = value.toString();
+					continue;
+				case "identifiertype":
+					isDOI = value.equals("DOI");
+					continue;
+				}
+
+				boolean isStructureProp = false, isCompoundProp = false;
+				// yes, assignments here
+				if (!(isCompoundProp = key.contains(FAIRSPEC_COMPOUND_FLAG))
+						&& !(isStructureProp = key.contains(IFDConst.IFD_STRUCTURE_FLAG))
+						&& !(key.contains(IFDConst.IFD_DATAOBJECT_FLAG))) {
+				}
+				if (isData && key.indexOf("compound") >= 0)
+					System.out.println(key);
+				if (isData && isCompoundProp) {
+					// sometimes a collection doubles as a dataset
+				} else if (isStructureProp) {
+					//System.out.println("addProp " + c.getClass().getSimpleName() + " " + key + "=" + value);
+					crawler.addStructureRepresentationsFromProperties(key, value);
+				} else {
+					c.setPropertyValue(key, value, compoundID);
+				}
+			}
+			if (identifier != null) {
+				if (isDOI) {
+					if (!identifier.startsWith("https://"))
+						identifier = DOIInfoExtractor.DOI_ORG + identifier;
+					c.setPropertyValue(IFDConst.IFD_PROPERTY_DOI, identifier);				
+				} else {
+					c.setPropertyValue("identifier", identifier);
+				}
+			}
+		}
+
 
 	}
 
@@ -490,8 +537,6 @@ public class DOICrawler extends FindingAidCreator {
 	 */
 	private List<DoiRecord> doiList;
 
-	private StringBuffer errorBuffer = new StringBuffer();
-
 	/**
 	 * a map to convert the ICL archive's keys to proper IFD.property keys
 	 */
@@ -553,7 +598,7 @@ public class DOICrawler extends FindingAidCreator {
 			doDownload = false;
 		}
 		if (flags.indexOf("-extractspecproperties;") >= 0) {
-			extractSpecProperties = true;
+			extractSpecProperties = initializePropertyExtraction();
 		}
 		
 		if (flags.indexOf("-addifdtypes;") >= 0) {
@@ -583,15 +628,6 @@ public class DOICrawler extends FindingAidCreator {
 	@Override
 	public void addDeferredPropertyOrRepresentation(String key, Object val, 
 			boolean isInLine, String mediaType, String note, String method) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * For future use in dataset file checking.
-	 */
-	@Override
-	public void addProperty(String key, Object val) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -626,8 +662,8 @@ public class DOICrawler extends FindingAidCreator {
 		nextDOI(dataCiteMetadataURL);
 		outputListAndLog(targetPath);
 		createFindingAid();
-		if (errorBuffer.length() > 0) {
-			System.err.println(errorBuffer.toString());
+		if (errorLog.length() > 0) {
+			System.err.println(errorLog.toString());
 		}
 		System.out.println(
 				"done len = " + totalLength + " bytes " + (System.currentTimeMillis() - startTime) / 1000 + " sec");
@@ -685,75 +721,9 @@ public class DOICrawler extends FindingAidCreator {
 		logAttr(key, value);
 	}
 
-	protected void addError(String err) {
-		System.err.println(err);
-		errorBuffer.append(err + "\n");
-	}
-
 	protected void addException(Exception e) {
 		e.printStackTrace();
 		logAttr("exception", e.getClass().getName() + ": " + e.getMessage());
-	}
-
-	// /**
-//	 * change >C to >D
-//	 */
-//	private void fixPIDPathForDataset() {
-//		pidPath = pidPath.substring(0, pidPath.length() - 1) + "D";
-//		addError("Dataset was Collection: " + pidPath);
-//	}
-
-	/**
-	 * 
-	 * @param c
-	 * @param rec
-	 */
-	protected void addProperties(IFDObject<?> c, DoiRecord rec) {
-		boolean isData = (rec.type == DOI_DATA);
-		boolean isDOI = false;
-		String identifier = null;
-		for (Entry<String, Object> e : rec.entrySet()) {
-			String key = e.getKey();
-			Object value = e.getValue();
-			switch (key) {
-			case "schemalocation":
-				continue;
-			case "identifier":
-				identifier = value.toString();
-				continue;
-			case "identifiertype":
-				isDOI = value.equals("DOI");
-				continue;
-			}
-
-			boolean isStructureProp = false, isCompoundProp = false, isDataProp = false;
-			// yes, assignments here
-			if (!(isCompoundProp = key.contains(FAIRSPEC_COMPOUND_FLAG))
-					&& !(isStructureProp = key.contains(IFDConst.IFD_STRUCTURE_FLAG))
-					&& !(isDataProp = key.contains(IFDConst.IFD_DATAOBJECT_FLAG))) {
-			}
-			if (isData && key.indexOf("compound") >= 0)
-				System.out.println(key);
-			if (isData && isCompoundProp) {
-				// sometimes a collection doubles as a dataset
-			} else if (isStructureProp) {
-				// structure props found in dataset collection
-				System.out.println("addProp " + c.getClass().getSimpleName() + " " + key + "=" + value);
-				faHelper.createStructureRepresentation(null, value, value.toString().length(), key, null);
-				addStructureRepresentationsFromProperties(key, value);
-			} else {
-				c.setPropertyValue(key, value, rec.compoundID);
-			}
-		}
-		if (identifier != null) {
-			if (isDOI) {
-				if (!identifier.startsWith("https://"))
-					identifier = DOIInfoExtractor.DOI_ORG + identifier;
-				c.setPropertyValue(IFDConst.IFD_PROPERTY_DOI, identifier);				
-			} else {
-				c.setPropertyValue("identifier", identifier);
-			}
-		}
 	}
 
 	/**
@@ -763,7 +733,9 @@ public class DOICrawler extends FindingAidCreator {
 	 * @param key
 	 * @param value
 	 */
-	private void addStructureRepresentationsFromProperties(String key, Object value) {
+	protected void addStructureRepresentationsFromProperties(String key, Object value) {
+		// structure props found in dataset collection
+		faHelper.createStructureRepresentation(null, value, value.toString().length(), key, null);
 		String cdkSmiles = null, inchi = null, fixedHInchi = null;
 		IAtomContainer mol = null;
 		String from = "";
@@ -818,9 +790,8 @@ public class DOICrawler extends FindingAidCreator {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			addError("!error processing " + value);
+			log("!!error processing " + value);
 		}
-
 	}
 
 	private void addStructureImage(BufferedImage bi, String note) {
@@ -995,7 +966,7 @@ public class DOICrawler extends FindingAidCreator {
 					} else {
 						if (thisDataObjectType == null) {
 							thisDataObjectType = "unknown";
-							addError("!no data type found for " + rec);
+							log("!!no data type found for " + rec);
 						}
 						if (!thisDataObjectType.startsWith(FAIRSPEC_DATAOBJECT_FLAG))
 							thisDataObjectType = FAIRSPEC_DATAOBJECT_FLAG + thisDataObjectType;
@@ -1009,14 +980,9 @@ public class DOICrawler extends FindingAidCreator {
 			if (o != null) {
 				System.out.println(i + " for " + faHelper.getThisCompound() + "\n " + faHelper.getCurrentStructure()
 						+ "\n " + faHelper.getCurrentSpecData());
-				addProperties(o, rec);
+				rec.addProperties(o, this);
 			}
 		}
-	}
-
-	private BufferedImage getImage(DoiRecord rec) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	private IFDObject<?> setDataObject(DoiRecord rec) {
@@ -1092,13 +1058,13 @@ public class DOICrawler extends FindingAidCreator {
 		int pt = s.lastIndexOf(".");
 		if (pt > 0 && FAIRSpecUtilities.isOneOf(s.substring(pt + 1), DOWNLOAD_TYPES)) {
 			if (modTime > 0) {
-				addError("replacing " + file.getName() + " with " + url);
+				log("! replacing " + file.getName() + " with " + url);
 			}
 			URLConnection con = url.openConnection();
 			InputStream is = con.getInputStream();
 			int n = FAIRSpecUtilities.putToFile(FAIRSpecUtilities.getBytesAndClose(is), file);
 			if (n == 0) {
-				addError("!URL returns 0 bytes! " + url);
+				log("!!URL returns 0 bytes! " + url);
 			} else if (extractSpecProperties) {
 				return true;
 			}
@@ -1183,7 +1149,7 @@ public class DOICrawler extends FindingAidCreator {
 			if (doiRecord.type == DOI_DATA && doiRecord.dataObjectType == null 
 					&& doiRecord.hasRepresentations) {
 				doiRecord.dataObjectType = "unknown";
-				addError("!No data type found for " + doiRecord);
+				log("!!No data type found for " + doiRecord);
 			}
 		} catch (Exception e) {
 			addException(e);
@@ -1300,7 +1266,7 @@ public class DOICrawler extends FindingAidCreator {
 				if (list != null && !list.isEmpty()) {
 					s += "\tlength=" + list.get(0);
 				} else {
-					addError("!HEAD " + url + " no Content-Length!");
+					log("!!HEAD " + url + " no Content-Length!");
 				}
 				fileName = FAIRSpecUtilities.getQuotedOrUnquotedAttribute(item.toString(), "filename");
 				s += "\tfilename=" + fileName;
@@ -1325,12 +1291,20 @@ public class DOICrawler extends FindingAidCreator {
 			rec.mediaType = mediaType;
 			rec.type = DOI_REP;
 			if (downloaded && extractSpecProperties) {
-				extractAllSpecProperties(localFile, doiRecord);
+				extractSpecProperties(localFile);
 			}
 			fMap.put(fileName, rec);
 			localMap.put(surl, localFile);
 		}
 		urlDepth--;
+	}
+
+	/**
+	 * Callback from a vendor plugin with a property.
+	 */
+	@Override
+	public void addProperty(String key, Object val) {
+		doiRecord.put(key, val);
 	}
 
 	public static void main(String[] args) {

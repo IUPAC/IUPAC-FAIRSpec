@@ -1,23 +1,29 @@
 package com.integratedgraphics.extractor;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDFindingAid;
 import org.iupac.fairdata.core.IFDObject;
-import org.iupac.fairdata.core.IFDRepresentableObject;
-import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
+import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 import org.iupac.fairdata.extract.PropertyManagerI;
 
+import com.integratedgraphics.extractor.ExtractorUtils.ArchiveEntry;
+import com.integratedgraphics.extractor.ExtractorUtils.ArchiveInputStream;
 import com.integratedgraphics.html.PageCreator;
 import com.integratedgraphics.ifd.api.VendorPluginI;
 
@@ -142,6 +148,12 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	}
 
 
+	/**
+	 * the structure property manager for this extractor
+	 * 
+	 */
+	private DefaultStructureHelper structurePropertyManager;
+
 	protected String localizedTopLevelZipURL;
 
 	protected boolean haveExtracted;
@@ -176,7 +188,6 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	public boolean assetsOnly;
 
 	protected String ifdid = "";
-	private IFDExtractor extractor;
 
 	protected void setDefaultRunParams() {
 		// normally false:
@@ -507,11 +518,233 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		// not used 
 	}
 
-	public void extractAllSpecProperties(File f, Map<String, Object> doiRecord) {
-		if (extractor == null) {
-			extractor = new IFDExtractor();
-			extractor.phase1SetCachePattern(null);
-		}
-		extractor.extractSpecProperties(f, doiRecord);
+	
+	//////// methods for extraction of metadata by vendor plugins
+	
+	/**
+	 * bitset of activeVendors that are set for property parsing
+	 * 
+	 * set in phase 1; used in phase 2a and 2c
+	 */
+	protected BitSet bsPropertyVendors = new BitSet();
+
+	/**
+	 * bitset of activeVendors that are set for rezipping
+	 * 
+	 * set in phase 1; used in phase 2a
+	 */
+	protected BitSet bsRezipVendors = new BitSet();
+
+	/**
+	 * vendors have supplied cacheRegex patterns
+	 * 
+	 * set in phase 1; used in phase 2c
+	 */
+	protected boolean cachePatternHasVendors;
+
+	/**
+	 * vendors have supplied cacheRegex patterns
+	 * 
+	 * set in phase 1; used in phase 2c
+	 */
+	protected boolean cachePatternHasStructures;
+
+	/**
+	 * files matched will be cached in the target directory
+	 */
+	protected Pattern vendorCachePattern;
+
+	/**
+	 * get a new structure property manager to handle processing of MOL, SDF, and
+	 * CDX files, primarily. Can be overridden.
+	 * 
+	 * @return
+	 */
+	protected DefaultStructureHelper getStructurePropertyManager() {
+		return (structurePropertyManager == null ? (structurePropertyManager = new DefaultStructureHelper(this))
+				: structurePropertyManager);
 	}
+
+	/**
+	 * phases 2a and 2c
+	 * 
+	 * The regex pattern uses param0, param1, etc., to indicated parameters for
+	 * different vendors. This method looks through the activeVendor list to
+	 * retrieve the match, avoiding throwing any regex exceptions due to missing
+	 * group names.
+	 * 
+	 * (Couldn't Java have supplied a check method for group names?)
+	 * 
+	 * @param m
+	 * @return
+	 */
+	protected PropertyManagerI getPropertyManager(Matcher m, boolean allowStruc) {
+		if (m == null)
+			return null;
+		if (m.group("struc") != null)
+			return (allowStruc ? getStructurePropertyManager() : null);
+		for (int i = bsPropertyVendors.nextSetBit(0); i >= 0; i = bsPropertyVendors.nextSetBit(i + 1)) {
+			String ret = m.group("param" + i);
+			if (ret != null && ret.length() > 0) {
+				return VendorPluginI.activeVendors.get(i).vendor;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * A simpler method of extraction than what IFDExtractor uses; no rezipping here.
+	 * Used by Crawler. 
+	 * 
+	 * @param f
+	 */
+	public void extractSpecProperties(File f) {
+		if (vendorCachePattern == null)
+			return;
+		VendorPluginI vendor = null;
+		String localPath = f.getAbsolutePath();
+		ArchiveInputStream ais = null;
+		try {
+			if (!FAIRSpecUtilities.isZip(localPath)){
+				Matcher m = vendorCachePattern.matcher(localPath);
+				if (m.find()) {
+					vendor = (VendorPluginI) getPropertyManager(m, false);
+					if (vendor == null || vendor.isDerived())
+						return;
+					byte[] bytes = FAIRSpecUtilities.getBytesAndClose(new FileInputStream(f));
+					vendor.accept(this, localPath, bytes);
+				}
+			    return;
+			}
+			// zip file -- check all contents
+			vendor = getVendorForZipFile(localPath);
+			if (vendor == null)
+				return;
+			vendor.initializeDataSet(this);
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(localPath));
+			ais = new ArchiveInputStream(bis, null);
+			ArchiveEntry zipEntry = null;
+			while ((zipEntry = ais.getNextEntry()) != null) {
+				String name = zipEntry.getName();
+				long len = zipEntry.getSize();
+				if (len <= 0 || name == null || name.length() == 0
+						|| zipEntry.isDirectory()) {
+					continue;
+				}				
+				byte[] bytes = FAIRSpecUtilities.getLimitedStreamBytes(ais, len, null, false, false);
+				Matcher m = vendorCachePattern.matcher(name);
+				if (m.find() && vendor == getPropertyManager(m, false))
+					vendor.accept(this, name, bytes);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (vendor != null)
+				vendor.endDataSet();
+			if (ais != null) {
+				try {
+					ais.close();
+				} catch (IOException e) {
+				}
+			}
+		}
+		
+	}
+
+	/**
+	 * Check for zip entry name match, such as props or acqui.
+	 * 
+	 * @param localPath
+	 * @return vendor PropertyManagerI
+	 */
+	private VendorPluginI getVendorForZipFile(String localPath) {
+		ArchiveInputStream ais = null;
+		try {
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(localPath));
+			ais = new ArchiveInputStream(bis, null);
+			ArchiveEntry zipEntry = null;
+			while ((zipEntry = ais.getNextEntry()) != null) {
+				String name = zipEntry.getName();
+				if (name == null || name.length() == 0
+						|| zipEntry.isDirectory()) {
+					continue;
+				}
+				Matcher m = vendorCachePattern.matcher(name);
+				if (m.find())
+					return (VendorPluginI) getPropertyManager(m, false);
+			}
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			if (ais != null) {
+				try {
+					ais.close();
+				} catch (IOException e) {
+				}
+			}
+		}
+	}
+	
+	/**
+	 * not implemented as something that can be adjusted; currently:
+	 * 
+	 * "(?<img>\\.pdf$|\\.png$)|(?<struc>(?<mol>\\.mol$|\\.sdf$)|(?<cdx>\\.cdx$|\\.cdxml$)|(?<cif>\\.cif$)|(?<cml>\\.cml$))"
+	 * 
+	 * A combination of FAIRSpecExtractionHelper.defaultCachePattern and
+	 * ifd.properties.IFD_DEFAULT_STRUCTURE_FILE_PATTERN
+	 */
+	private String userStructureFilePattern;
+
+	/**
+	 * files matched will be cached as zip files
+	 */
+	protected Pattern extractionCachePattern;
+
+	/**
+	 * Set the regex string assembling all vendor requests.
+	 * 
+	 * Each vendor's pattern will be surrounded by (?<param0> ... ), (?<param1> ...
+	 * ), etc.
+	 * 
+	 * Here we wrap them all with (?<param>....), then add on our non-vendor checks,
+	 * and finally wrap all this using (?<type>...).
+	 * 
+	 * This includes structure representations handled by DefaultStructureHelper.
+	 * 
+	 */
+
+	public boolean initializePropertyExtraction() {
+		// options here to set cache and rezip options -- debugging only!
+		String sp = userStructureFilePattern;
+		if (sp == null) {
+			sp = FAIRSpecExtractorHelper.defaultCachePattern + "|" + getStructurePropertyManager().getParamRegex();
+		} else if (sp.length() == 0) {
+			sp = "(?<img>\n)|(?<struc>\n)";
+		}
+		cachePatternHasStructures = (sp.indexOf("<struc>") >= 0);
+		String s = "";
+		for (int i = 0; i < VendorPluginI.activeVendors.size(); i++) {
+			String cp = VendorPluginI.activeVendors.get(i).vcache;
+			if (cp != null) {
+				bsPropertyVendors.set(i);
+				s += "|" + cp;
+			}
+		}
+//		String procs = null; // for debugging only
+//		if (procs != null) {
+//			s += "|" + procs;
+//		}
+		extractionCachePattern = (s.length() == 0 ? null : Pattern.compile(s.substring(1)));
+		if (s.length() > 0) {
+			s = "(?<param>" + s.substring(1) + ")|" + sp;
+			cachePatternHasVendors = true;
+		} else {
+			s = sp;
+		}
+		vendorCachePattern = Pattern.compile("(?<ext>" + s + ")");
+		return (extractionCachePattern != null);
+	}
+
 }
