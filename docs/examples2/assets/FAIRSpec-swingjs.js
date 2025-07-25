@@ -9,7 +9,7 @@ var s = document.location.search;
 var SMILESInfo = {
   code: null,
   main: "org.jmol.smiles.SmilesMatcher",
-  core: "assets/core_fairspec.z.js",
+  core: "../assets/core_fairspec.z.js",
 	width: 1,
 	height: 1,
 	readyFunction: function(app) { IFD.pageLoaded();},
