@@ -717,7 +717,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected void serializeTop(IFDSerializerI serializer) {
 		if (doSerializeType)
 			serializeClass(serializer, getClass(), null);
-		serializer.addAttr("id", getID());
+//		serializer.addAttr("id", getID());
 		serializer.addAttr("label", getLabel());
 		serializer.addAttr("note", getNote());
 		serializer.addAttr("description", getDescription());

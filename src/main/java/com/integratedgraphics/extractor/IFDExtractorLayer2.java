@@ -572,7 +572,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		boolean isFound = false;
 		if (vendorCachePattern != null && (isFound = (m = vendorCachePattern.matcher(originPath)).find()) || accept) {
 
-			PropertyManagerI v = (isFound ? getPropertyManager(m, true) : null);
+			PropertyManagerI v = (isFound ? getPropertyManager(m, true, true) : null);
 			boolean doCheck = (v != null);
 			boolean doExtract = (!doCheck || v.doExtract(originPath));
 
@@ -586,7 +586,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			if (doExtract) {
 				String ext = (isFound ? m.group("ext") : originPath.substring(originPath.lastIndexOf(".") + 1));
 				File f = getAbsoluteFileTarget(originPath);
-				boolean toByteArray = (doCheck || noOutput || insitu);
+				boolean embed = (insitu || embedPDF && originPath.endsWith(".pdf"));
+				boolean toByteArray = (doCheck || noOutput || embed);
 				OutputStream os = (toByteArray ? new ByteArrayOutputStream() : new FileOutputStream(f));
 				if (os != null)
 					FAIRSpecUtilities.getLimitedStreamBytes(ais, len, os, false, true);
@@ -601,7 +602,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 						// set this.localizedName for parameters
 						// preserve this.localizedName, as we might be in a rezip.
 						// as, for example, a JDX file within a Bruker dataset
-						if (!insitu)
+						if (!embed)
 							writeOriginToCollection(originPath, bytes, 0);
 						String oldOriginPath = this.originPath;
 						String oldLocal = this.localizedName;
@@ -632,7 +633,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					len = f.length();
 					writeOriginToCollection(originPath, null, len);
 				}
-				addFileAndCacheRepresentation(originPath, localizedName, insitu ? bytes : null, len, type, ext, null);
+				addFileAndCacheRepresentation(originPath, localizedName, embed ? bytes : null, len, type, ext, null);
 			}
 		}
 
@@ -642,7 +643,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		// file and just an FID but no pdata/ directory. But for now we want to see that
 		// processed data.
 
-		if (extractionCachePattern != null && (m = extractionCachePattern.matcher(originPath)).find()) {
+		if (rezipCachePattern != null && (m = rezipCachePattern.matcher(originPath)).find()) {
 
 			// e.g. exptno/./pdata/procs
 
@@ -1016,7 +1017,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			// directory, for example
 			boolean doCache = (!isIFDMetadataFile && vendorCachePattern != null
 					&& (m = vendorCachePattern.matcher(entryName)).find() && phase2cGetParamName(m) != null
-					&& ((mgr = getPropertyManager(m, true)) == null || mgr.doExtract(entryName)));
+					&& ((mgr = getPropertyManager(m, true, true)) == null || mgr.doExtract(entryName)));
 			boolean doCheck = (doCache || mgr != null || isIFDMetadataFile);
 
 			len = entry.getSize();

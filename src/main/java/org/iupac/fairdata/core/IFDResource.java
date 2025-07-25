@@ -48,7 +48,7 @@ public class IFDResource implements IFDSerializableI {
 			serializer.addAttr("ref", ref);
 		if (getLength() > 0)
 			serializer.addAttrInt("len", len);
-		serializer.addAttr("id", id);
+		//serializer.addAttr("id", id);
 	}
 
 	@Override

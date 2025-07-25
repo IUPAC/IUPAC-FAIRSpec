@@ -880,23 +880,60 @@ public class FAIRSpecUtilities {
 			nmrSolventMap = new HashMap<>();
 			int nv = 0, nk = 0;
 			try {
+				
+				// (....) ignored
+				// *xxxx reportable key
+				// xxxx match key
+				// xxxx (...) match key, just xxxx
+				
+				// IUPAC_PI	
+				// (IUPAC PIN note)	
+				// (ISOMERIC SMILES(NCI/CADD, with revisions))	
+				// *InChIKey	
+				// *InChI	
+				// *common_name	
+				// alternative	
+				// Bruker_ID (from TopSpin4.5.0\conf\instr\topshim\solvents)	
+				// ChEBI_name	
+				// ChEBI_ID	
+				// PubChem_name	
+				// PubChem_CID	
+				// (PubChem Link)		
+
 				String[] data = ((String) getResource(FAIRSpecUtilities.class, "nmr_solvents.tab")).replace("\r\n","\n").split("\n");
 				String[] headers = data[0].split("\t");
+				for (int j = headers.length; --j >= 0;) {
+					int pt = headers[j].indexOf("(");
+					if (pt == 0 || headers[j].length() == 0) {
+						headers[j] = null;
+					} else if (pt > 0) {
+						headers[j] = headers[j].substring(0, pt).trim();
+					}
+				}
 				for (int i = 1; i < data.length; i++) {
 					String[] line = data[i].split("\t");
 					List<String> val = new ArrayList<>();
 					for (int j = 0; j < line.length; j++) {
 						String key = line[j].trim();
-						if (headers[j].startsWith("(") || key.length() == 0) {
+						if (headers[j] == null || key.length() == 0) {
 							continue;
 						}
+						if (key.charAt(0) == '"')
+							key= key.substring(1, key.length() - 1);
 						if (headers[j].startsWith("*")) {
 							val.add(headers[j]);
 							val.add(key);
 							if (i == 1)
 								nv++;
 						}
-						nmrSolventMap.put(key.toLowerCase(), val);
+						key = key.toLowerCase();
+						int pt;
+						while ((pt = key.indexOf(';')) > 0) {
+							nmrSolventMap.put(key.substring(0, pt), val);
+							key = key.substring(pt + 1);
+							nk++;
+						}
+						nmrSolventMap.put(key, val);
 						nk++;
 					}					
 				}

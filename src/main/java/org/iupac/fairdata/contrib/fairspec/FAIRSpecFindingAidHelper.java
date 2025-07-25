@@ -149,14 +149,21 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	}
 	
 	/**
+	 * Always true. 
+	 * 
 	 * Set associations to be listed by ID, not by index.
+	 * 
+	 * This option is deprecated, as TRUE is the only way to 
+	 * guarantee unique IDs. 
+	 * 
+	 * Making this final simplifies FindingAid parsing. 
 	 */
-	protected boolean byId;
+	final protected boolean byId = true;
 
-	@Override
-	public void setById(boolean tf) {
-		byId = tf;
-	}
+//	@Override
+//	public void setById(boolean tf) {
+//		byId = tf;
+//	}
 
 	@Override
 	public FAIRSpecCompoundAssociation getThisCompound() {
@@ -524,11 +531,8 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			products = (ArrayList<Object>) products.clone();
 			// zip up the collection and re-create finding aid with updated information
 			
-			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_REF, null);
-			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_LEN, null);
 			String zipName = "IFD" + IFDConst.IFD_COLLECTION_FLAG + "zip";
 			String path = targetDir + "/" + zipName;
-			
 			// creating the zip file is the time-consuming part.
 			
 			FAIRSpecUtilities.refreshLog();
@@ -546,8 +550,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			// update external finding aid with length of data and reference
 			
 			t[2] = System.currentTimeMillis();
-			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_REF, zipName);
-			findingAid.setPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_LEN, len);
+			findingAid.addResource("./" + zipName, null, "FAIRSpecDataCollection", len, true);
 			serializedFindingAid = serializer.serialize(findingAid).toString();
 			t[2] = System.currentTimeMillis() - t[2];
 			FAIRSpecUtilities.writeBytesToFile(serializedFindingAid.getBytes(), new File(faPath));

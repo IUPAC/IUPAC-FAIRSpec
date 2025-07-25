@@ -253,6 +253,7 @@ java/util/regex/Pattern.js
 javajs/api/JSONEncodable.js
 javajs/util/AU.js
 javajs/util/AjaxURLStreamHandlerFactory.js
+javajs/util/Base64.js
 javajs/util/BS.js
 javajs/util/JSThread.js
 javajs/util/Lst.js

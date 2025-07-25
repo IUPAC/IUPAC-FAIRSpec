@@ -36,8 +36,9 @@ import com.integratedgraphics.ifd.api.VendorPluginI;
  */
 public abstract class FindingAidCreator implements MetadataReceiverI {
 
-	public static final String version = "0.0.7-beta+2025.02.17";
-	// 2025.02.17 version 0.0.7-beta+2025.02.17 integrates the crawler
+	public static final String version = "0.1.0-beta+2025.07.24";
+	// 2026.07.24 version 0.1.0-beta with FAIRSpec-ready paper
+	// 2025.02.17 version 0.0.7-beta integrates the crawler
 	// 2024.12.02 version 0.0.6 fully refactored, revised; adds creation of landing
 	// page and -nolandingpage -nolaunch flags
 	// 2024.11.03 version 0.0.6 adding support for DOICrawler
@@ -92,9 +93,9 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	protected boolean debugging = false;
 	public boolean readOnly = false;
 
-	protected boolean isByID = true; // forcing
+	final protected boolean isByID = true; // forcing
 
-	protected boolean isByIDSet;
+    final protected boolean isByIDSet = true;
 
 	/**
 	 * set true to only create finding aides, not extract file data
@@ -122,6 +123,14 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	 * in the origin directory. The target directory only contains ancillary files.
 	 */
 	protected boolean insitu = false;
+	
+	
+	/**
+	 * embedPDF true loads PDF documents into finding aids for cross-domain viewing of specta
+	 * 
+	 */
+	protected boolean embedPDF = false;
+	
 
 	/**
 	 * set true to zip up the extracted collection, placing that in the target
@@ -318,6 +327,10 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			insitu = true;
 		}
 
+		if (flags.indexOf("-embedpdf;") >= 0) {
+			embedPDF = true;
+		}
+
 		if (flags.indexOf("-readonly;") >= 0) {
 			readOnly = true;
 		}
@@ -360,13 +373,13 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	 * @param val
 	 */
 	protected void setExtractorOption(String key, String val) {
-		if (!isByIDSet && key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID)) {
-			isByID = val.equalsIgnoreCase("true");
-			isByIDSet = true;
-			getHelper().setById(isByID);
-		} else {
+//		if (!isByIDSet && key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID)) {
+//			isByID = val.equalsIgnoreCase("true");
+//			isByIDSet = true;
+//			getHelper().setById(isByID);
+//		} else {
 			checkFlags(val);
-		}
+//		}
 	}
 
 	/**
@@ -569,22 +582,25 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	 * phases 2a and 2c
 	 * 
 	 * The regex pattern uses param0, param1, etc., to indicated parameters for
-	 * different vendors. This method looks through the activeVendor list to
-	 * retrieve the match, avoiding throwing any regex exceptions due to missing
-	 * group names.
+	 * different vendors and rezip0, rezip1, etc., to indicate rezip vendors.
+	 * 
+	 * This method looks through the activeVendor list to retrieve the match,
+	 * avoiding throwing any regex exceptions due to missing group names.
 	 * 
 	 * (Couldn't Java have supplied a check method for group names?)
 	 * 
 	 * @param m
 	 * @return
 	 */
-	protected PropertyManagerI getPropertyManager(Matcher m, boolean allowStruc) {
+	protected PropertyManagerI getPropertyManager(Matcher m, boolean allowStruc, boolean isPropertyExtract) {
 		if (m == null)
 			return null;
 		if (m.group("struc") != null)
 			return (allowStruc ? getStructurePropertyManager() : null);
-		for (int i = bsPropertyVendors.nextSetBit(0); i >= 0; i = bsPropertyVendors.nextSetBit(i + 1)) {
-			String ret = m.group("param" + i);
+		BitSet bs = (isPropertyExtract ? bsPropertyVendors : bsRezipVendors);
+		String group = (isPropertyExtract ? "param" : "rezip");
+		for (int i = bs.nextSetBit(0); i >= 0; i = bs.nextSetBit(i + 1)) {
+			String ret = m.group(group + i);
 			if (ret != null && ret.length() > 0) {
 				return VendorPluginI.activeVendors.get(i).vendor;
 			}
@@ -608,7 +624,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			if (!FAIRSpecUtilities.isZip(localPath)){
 				Matcher m = vendorCachePattern.matcher(localPath);
 				if (m.find()) {
-					vendor = (VendorPluginI) getPropertyManager(m, false);
+					vendor = (VendorPluginI) getPropertyManager(m, false, true);
 					if (vendor == null || vendor.isDerived())
 						return;
 					byte[] bytes = FAIRSpecUtilities.getBytesAndClose(new FileInputStream(f));
@@ -633,7 +649,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 				}				
 				byte[] bytes = FAIRSpecUtilities.getLimitedStreamBytes(ais, len, null, false, false);
 				Matcher m = vendorCachePattern.matcher(name);
-				if (m.find() && vendor == getPropertyManager(m, false))
+				if (m.find() && vendor == getPropertyManager(m, false, true))
 					vendor.accept(this, name, bytes);
 			}
 		} catch (IOException e) {
@@ -669,9 +685,9 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 						|| zipEntry.isDirectory()) {
 					continue;
 				}
-				Matcher m = vendorCachePattern.matcher(name);
+				Matcher m = rezipCachePattern.matcher(name);
 				if (m.find())
-					return (VendorPluginI) getPropertyManager(m, false);
+					return (VendorPluginI) getPropertyManager(m, false, false);
 			}
 			return null;
 		} catch (IOException e) {
@@ -701,6 +717,9 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	 * files matched will be cached as zip files
 	 */
 	protected Pattern extractionCachePattern;
+	
+	
+	protected Pattern rezipCachePattern;
 
 	/**
 	 * Set the regex string assembling all vendor requests.
@@ -744,6 +763,17 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			s = sp;
 		}
 		vendorCachePattern = Pattern.compile("(?<ext>" + s + ")");
+		
+		s = "";
+		for (int i = 0; i < VendorPluginI.activeVendors.size(); i++) {
+			String cp = VendorPluginI.activeVendors.get(i).vrezip;
+			if (cp != null) {
+				bsRezipVendors.set(i);
+				s = s + "|" + cp;
+			}
+		}
+		//s += (procs == null ? "" : "|" + procs);
+		rezipCachePattern = (s.length() == 0 ? null : Pattern.compile(s.substring(1)));
 		return (extractionCachePattern != null);
 	}
 

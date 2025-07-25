@@ -191,8 +191,8 @@ public class DefaultStructureHelper implements PropertyManagerI {
 					v.scriptWait("load DATA \"model\"\n" + data
 							+ "\nend \"model\" 1 packed;configuration 1;display selected;set zshade;rotate best");
 
-					cellFormula = v.evaluateExpression("{visible && configuration=1}.find('CELLFORMULA')").toString();
-					empiricalFormula = v.evaluateExpression("{visible && configuration=1}.find('CELLFORMULA', true)")
+					cellFormula = v.evaluateExpression("{visible && configuration=1 && within(unitcell)}.find('CELLFORMULA')").toString();
+					empiricalFormula = v.evaluateExpression("{visible && configuration=1 && within(unitcell)}.find('CELLFORMULA', true)")
 							.toString();
 				} else {
 					bytes = null;
