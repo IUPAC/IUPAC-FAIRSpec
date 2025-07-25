@@ -13,11 +13,6 @@ public class VarianIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 		register(com.integratedgraphics.ifd.vendor.varian.VarianIFDVendorPlugin.class);
 	}
 
-	public VarianIFDVendorPlugin() {
-		paramRegex = "procpar$";
-		rezipRegex = "procpar";
-	}
-
 	@Override
 	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
 		super.accept(extractor, originPath, bytes);

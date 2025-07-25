@@ -4,8 +4,6 @@
  
  {"IFD.property.collectionset.source_data_uri":"testing"},
  
- {"IFD.property.collectionset.byid":true},
-
  {"FAIRSpec.extractor.object":"{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::tv.mnova}}"}
 
 ]}

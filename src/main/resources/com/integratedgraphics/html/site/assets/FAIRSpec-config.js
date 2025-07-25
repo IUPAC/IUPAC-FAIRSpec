@@ -5,6 +5,8 @@
 IFD = {		
 	properties:{
 		baseDir: ".",
+		corsOK: null,
+		findingAidPath: "./",
 		findingAidFileName: "IFD.findingaid.json",
 		standalone: true, // we DO NOT have actual data in this demo - all is coming from remote sources in the Finding Aid 
 		jmeDiv: "jme-app-frame0-div",
@@ -38,4 +40,9 @@ IFD.MODE_SPECTRA    = "spectra";
 IFD.MODE_SAMPLES  = "samples";
 IFD.MODE_SAMPLESPECTRA = "samplespectra";
 IFD.searchType = IFD.MODE_NONE;
+
+
+IFD.setFindingAidPath = function(url) {
+	IFD.properties.baseDir = IFD.properties.findingAidPath = (url ? url.substring(0, url.lastIndexOf("/") + 1) : "./");
+}
 

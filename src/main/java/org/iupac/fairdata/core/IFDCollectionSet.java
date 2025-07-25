@@ -23,6 +23,7 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 
 	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_COLLECTIONSET_FLAG);
 	private boolean byID = true; // making byID the default for IFDCollectionSet
+	private IFDResource resource;
 	
 	@Override
 	protected String getIFDPropertyPrefix() {
@@ -41,7 +42,11 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 	public void setById(boolean b) {
 		byID = b;
 	}
-
+	
+	public void setResource(IFDResource resource) {
+		this.resource = resource;
+	}
+	
 	/**
 	 * Set all indices for IDFRepresentableObject collections to be sequential, and
 	 * and set each object's collectionSet field to the top-level collection
@@ -85,8 +90,10 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 	@Override
 	public void serializeTop(IFDSerializerI serializer) {
 		super.serializeTop(serializer);
-		if (byID)
-			serializer.addAttrBoolean("byID", true);
+		if (resource != null) {
+			serializer.addAttr("resourceID", resource.getID());
+		}
+		// always true serializer.addAttrBoolean("byID", byID);
 	}
 
 	@Override

@@ -1,9 +1,11 @@
 // ${IUPAC FAIRSpec}/src/html/site/assets/FAIRSpec-gui.js
 // 
+// BH 2025.07.23 adds zip file link, author orcid link
+// Swagat Malla 2025.05.10 many new features
+
 // Bob Hanson hansonr@stolaf.edu 2024.12.13
 
 ;(function() {
-
 	// from https://www.nmrdb.org/service/
 
 	//    1H NMR prediction: https://www.nmrdb.org/service.php?name=nmr-1h-prediction&smiles=c1ccccc1CC
@@ -184,59 +186,60 @@
 	}
 
 	const getPropIDsFromGUI = function(aidID){
-		let searchKeys = [];
-		let setList = [];
-		let idSet = new Set();
 		let propertyDiv = document.getElementById(`${MAIN_SEARCH_PROP}`);
-		let form = propertyDiv.querySelector("#propertySearch");
-		
-		userSelectedOptions = {}
+		let form = propertyDiv.querySelector("#propertySearch");	
 		form.addEventListener("submit", function(event){
-			event.preventDefault();                     // ^= ~ starts with
-			childBoxes = form.querySelectorAll(`input[class^="ifd-search-value-checkbox"]`);	
-
-			
-			childBoxes.forEach(box =>{
-				if(box.checked){
-					currParentProperty = box.dataset.parentBoxProperty;
-					if(!(currParentProperty in userSelectedOptions)){
-						userSelectedOptions[currParentProperty] = IFD.propertyMap[IFD.searchType][currParentProperty + "$" + box.value];
-				
-					}else{
-						userSelectedOptions[currParentProperty] = userSelectedOptions[currParentProperty].union(IFD.propertyMap[IFD.searchType][currParentProperty + "$" + box.value]);
-					}
-				}
-			})
-
-			// if something to display
-			if(Object.values(userSelectedOptions).length > 0){
-				setColelction = Object.values(userSelectedOptions);
-				// Intersection/&& operation between all the set IDs
-				idSet = setColelction[0];
-				for(let setItem of setColelction){
-					idSet = idSet.intersection(setItem);
-
-				}
-			
-				
-				//console.log("Final Set:", idSet);
-				var f;
-				switch(IFD.searchType){
-				case "structures":
-					f = IFD.showStructures;
-					break;
-				case "spectra":
-					f = IFD.showSpectra;
-					break;
-				case "compounds":
-					f = IFD.showCompounds;
-					break;					
-				}
-				f(aidID, [...idSet]);
-			}
+			event.preventDefault(); 
+			$("#searchTop").css({visibility:"hidden"});
+			searchForm(form, aidID);
 		})	
+	}
+
+	var searchForm = function(form, aidID) {
+		var userSelectedOptions = {};
+		var childBoxes = form.querySelectorAll(`input[class^="ifd-search-value-checkbox"]`);	
+		childBoxes.forEach(box =>{
+			if(box.checked){
+				var currParentProperty = box.dataset.parentBoxProperty;
+				if(!(currParentProperty in userSelectedOptions)){
+					userSelectedOptions[currParentProperty] = IFD.propertyMap[IFD.searchType][currParentProperty + "$" + box.value];
+			
+				}else{
+					userSelectedOptions[currParentProperty] = userSelectedOptions[currParentProperty].union(IFD.propertyMap[IFD.searchType][currParentProperty + "$" + box.value]);
+				}
+			}
+		})
+
+		// if something to display
+		if(Object.values(userSelectedOptions).length > 0){
+			var setCollection = Object.values(userSelectedOptions);
+			// Intersection/&& operation between all the set IDs
+			var idSet = setCollection[0];
+			for(let setItem of setCollection){
+				idSet = idSet.intersection(setItem);
+
+			}
+		
+			
+			//console.log("Final Set:", idSet);
+			var f;
+			switch(IFD.searchType){
+			case "structures":
+				f = IFD.showStructures;
+				break;
+			case "spectra":
+				f = IFD.showSpectra;
+				break;
+			case "compounds":
+				f = IFD.showCompounds;
+				break;					
+			}
+			f(aidID, [...idSet]);
 		}
 
+		
+		
+	}
 
 
 
@@ -284,7 +287,6 @@
 
 			return 
 		}
-
 
 		// track properties and the count of their values
 		uniqueProperties = {};
@@ -539,7 +541,10 @@
 		const submitButton = document.createElement('input');
 		submitButton.type = 'submit';
 		submitButton.value = 'search';
+		IFD.searchSubmitButton = submitButton;
+		
 		checkboxContainer.appendChild(submitButton);
+
 
 
 		//add event listener to the checkbox div
@@ -621,6 +626,7 @@
 		});
 		
 		
+		$("#searchTop").css({visibility:"visible"});
 	
 	}
 
@@ -879,18 +885,19 @@
 	}
 	
 	var getFindingAid = function(url){
-		if(!url){
-			url = getField("url");
-		}
+		if(!url && !(url = getField("url")))
+			return false;
+		IFD.setFindingAidPath(url);
 		var faJson = J2S.getFileData(url);
 		var topKey = "IUPAC.FAIRSpec.findingAid";
 		if (!faJson.startsWith('{"' + topKey))
-			key = "IFD.findingaid";
+			topKey = "IFD.findingaid";
 		if(faJson.startsWith('{"'+topKey+'"')){
 			IFD.findingAidURL = url;
 			IFD.topKey = topKey;
-			var aid = JSON.parse(faJson)[key];
-			IFD.findingAidID = aid.id || "?" ;
+			var aid = JSON.parse(faJson)[topKey];
+			IFD.findingAidID = aid.id = aid.id || "." ;
+			aid.ifdType || (aid.ifdType = "");
 			loadAid(aid);
 			return true;
 		}	
@@ -1013,10 +1020,10 @@
 		s += 	`<input id = "searchProp_Compounds" type = "radio" name = "searchPropOption" value = "${IFD.MODE_COMPOUNDS}"> 
 					<label for = "searchProp_Compounds">compounds</label>&nbsp;&nbsp;&nbsp;`
 		s += 	`<input id = "searchProp_Structures" type = "radio" name = "searchPropOption" value = "${IFD.MODE_STRUCTURES}">
-					<label for = "searchProp_Structures">structures</label>&nbsp;&nbsp;&nbsp;`
-		
+					<label for = "searchProp_Structures">structures</label>&nbsp;&nbsp;&nbsp;`		
 		s += 	`<input id = "searchProp_Spectra" type = "radio" name = "searchPropOption" value = "${IFD.MODE_SPECTRA}">
 					<label for = "searchProp_Spectra">spectra</label>&nbsp;&nbsp;&nbsp;`
+		s += 	"<span id=searchTop style='visibility:hidden'><input type=submit value=search></span>"
 		s +=	`<hr>`
 
 		s +=	`<div id = checkboxContainerPropSearch style = "display:none">
@@ -1072,13 +1079,15 @@
 
 	var cleanOrcids = function(d) {
 	  // Thomas Mies (https://orcid.org/0000-0002-3296-6817);...
-		var a = d.split(";");
+	  // or Thomas Mies (https://orcid.org/0000-0002-3296-6817),...
+		var haveSemi = (d.indexOf(";") > 0);
+		var a = d.split(haveSemi ? ");" : "),");
 		var s = "";
 		for (var i = 0; i < a.length; i++) {
-			var d = a[i].split("[https://orcid.org");
+			var d = a[i].split("(https://orcid.org");
 			var name = d[0];
 			if (d.length > 1) {
-				name = "<a target=_blank href=https://orcid.org" + d[1].substring(0, d[1].indexOf("]")) + ">" + name.trim() + "</a>";
+				name = "<a target=_blank href=https://orcid.org" + d[1].split(')')[0] + ">" + name.trim() + "</a>";
 			}
 			s += ", " + name.trim();
 		}
@@ -1097,12 +1106,18 @@
 	var addResources = function(aid) {
 		var resources = aid.resources;
 		var s = "";
-		for (var i = 0; i < resources.length; i++) {
-			var ref = resources[i].ref;
-			if (ref.indexOf("http") == 0) {
-				var size = getSizeString(resources[i].len);
+		for (var id in resources) {
+			var r = resources[id];
+			var ref = r.ref;
+			var isRelative = ref.startsWith("./");
+			var isDataOrigin = !isNaN(id);
+			if (isDataOrigin ? ref.indexOf("http") == 0 : isRelative) {
+				if (isRelative && IFD.findingAidPath != "./")
+					ref = IFD.findingAidPath + ref;
+				var size = getSizeString(r.len);
 				ref = "<a target=_blank href=\"" + ref + "\">" + ref + (size ? " ("+size+")":"") + "</a>"
-				s += "<tr><td>Data&nbsp;Origin</td><td>"+ref+"</td></tr>";
+				s += "<tr><td>" + (isDataOrigin ? "Data&nbsp;Origin" : id) 
+				   + "</td><td>"+ref+"</td></tr>";
 			}
 	      }
 		return s;
@@ -1238,7 +1253,7 @@
 		var spectraIDs = cmpd[IFD.itemsKey][keys.spectra];
 		var props = cmpd.ifdProperties;
 		var params = cmpd.attributes;
-		var label = cmpd.label || cmpd.id;
+		var label = cmpd.label || cmpd.id || id;
 		var s = getHeader("Compound/s", label.startsWith("Compound") ? label : "Compound " + label, null);// cmpd.description); 
 		s += getSpecialText(cmpd);
 		s += "<table>" + addPropertyRows("",props, null, false) + "</table>"
@@ -1288,7 +1303,7 @@
 		var cl = (tableRow > 0 ? " class=tablerow" + (tableRow%2) : "");
 		var s = "<td" + cl + "><table cellpadding=10><tr>";
 		var struc = IFD.getCollection(aidID).structures[id];
-		var sid = struc.id;
+		var sid = struc.id || id;
 		var props = struc.ifdProperties;
 		var reps = struc.representations;
 
@@ -1379,9 +1394,25 @@
 	}
 	
 	var setMoreLeft = function(aid) {
-		var s = (aid ? "<br><a href=\"javascript:IFD.showAid('"+aid.id+"')\">Show Finding Aid</a><hr>"
-				+ (IFD.properties.standalone ? "" 
-				: "<br><br><a href=\"javascript:IFD.showCollection('"+aid.id+"')\">Collection Folder</a>") : "");
+		var s = "";
+		if (aid) {
+			s = "<br><a href=\"javascript:IFD.showAid('"+aid.id+"')\">Show Finding Aid</a>";
+			if (IFD.properties.standalone) {
+				var p = IFD.aid.collectionSet.resourceID;
+				var ref = p && p.ref;
+			 	if (ref) {
+			 		if (IFD.properties.collectionZipPath)
+			 			ref = IFD.properties.collectionZipPath;
+			 		else if (ref.startsWith("."))
+			 			ref = IFD.findingAidPath + ref;
+					s += "<br><br><a href=\"" + ref + "\">" + p.ref + "</a><br>(" + getSizeString(p.len) + ")";
+				}
+			} else {
+				s += "<br><br><a href=\"javascript:IFD.showCollection('"+aid.id+"')\">Collection Folder</a>";
+			}
+			s += "<hr>";
+
+		} 
 		$("#moreleftdiv").html(s);
 	}
 
@@ -1476,13 +1507,41 @@
 	}
 
 	var getPDFLink = function(uri) {
-		var s = "&nbsp;&nbsp;<span id=pdf" + IFD.pdfDataPt + "><a href=\"javascript:IFD.viewPDF("+IFD.pdfDataPt+")\">VIEW</a></div>";
-		IFD.pdfData[IFD.pdfDataPt++] = "<object data=\"" + uri + "\" type=\"application/pdf\" width=\"800\" height=\"600\"></object>";
+		var pt = IFD.pdfDataPt++;
+		var s = "&nbsp;&nbsp;<span id=pdf" + pt + "><a href=\"javascript:IFD.viewPDF("+pt+",0)\">VIEW</a></span>";
+		var s2 = "&nbsp;&nbsp;<a href=\"javascript:IFD.viewPDF("+pt+",1)\">HIDE</a>";
+		IFD.pdfData[pt] = [s2, s, uri];
 		return s;
 	}
 	
-	IFD.viewPDF = function(i) {
-		$("#pdf" + i).html(IFD.pdfData[i]);
+	IFD.viewPDF = function(pt, mode) {
+		var e = document.scrollingElement;
+		var t = e.scrollTop;
+		var l = e.scrollleft;
+		if (mode == 0) {
+			// cross-origin needs to get the data asynchronously as a byte array
+			var uri = IFD.pdfData[pt][2];
+			if (uri && !uri.startsWith("data:")) {
+				if (IFD.properties.findingAidPath) {
+					if (IFD.properties.corsOK === null) {
+						 var myhost = document.location.host;
+						 IFD.properties.corsOK = (myhost && IFD.properties.findingAidPath.indexOf(myhost) >= 0);
+					}
+					if (!IFD.properties.corsOK) {
+						var data = J2S.getFileData(uri, function(data) {
+							IFD.pdfData[pt][2] = "data:application/pdf;base64," 
+							+ Clazz.loadClass("javajs.util.Base64").getBase64$BA(data).toString();
+							IFD.viewPDF(pt, 0);
+						}, false, true);
+						return;
+					}
+				}
+ 			}
+			IFD.pdfData[pt][0] += "<object data=\"" + uri + "\" type=\"application/pdf\" width=\"800\" height=\"600\"></object>";
+			IFD.pdfData[pt][2] = null;
+		}
+		$("#pdf" + pt).html(IFD.pdfData[pt][mode]);
+		e.scroll(l,t);
 	}
 
 	var getSpectrumPrediction = function(props, smiles) {
@@ -1531,9 +1590,9 @@
 				hideDiv = false;
 		}
 	    n = 0;
-		for (var key in map) {
+	    for (var key in map) {
 			if (n++ == 0 && name)
-				s0 = "<tr><td><h4>" + (hideDiv ? "<div class=hiddendiv onclick=IFD.toggleDiv(\"prop" + id + "\")><u>" + name + "...</u></div>" : name) + "</h4></td></tr>";
+				s0 = "<tr><td><b>" + (hideDiv ? "<div class=hiddendiv onclick=IFD.toggleDiv(\"prop" + id + "\")>" + name + "...</div>" : name) + "</b></td></tr>";
 			if (key == firstItem) {
 				s = addPropertyLine(key, map[key]) + s;
 			} else {
@@ -1556,7 +1615,7 @@
 
 	var getDOIAnchor = function(key, val) {
 		// PID 10.xxxxxx
-		if (!key.endsWith("DOI")) {
+		if (!key.endsWith("DOI") && !key.endsWith("PID")) {
 			return "<a class=pidref target=_blank href=\"" + val + "\">"+val+"</a>";
 		}
 		if (val.startsWith("https://doi.org/"))
@@ -1606,7 +1665,8 @@
 			if (url.startsWith(";base64,"))
 				url = "data:application/octet-stream" + url;
 			s = "<a target=_blank href=\"" + url + "\">" + shortName + "</a>" + " (" + getSizeString(len) + (mediaType ? " " + mediaType : "") + ")";				
-			if (IFD.resultsMode == IFD.MODE_SPECTRA && shortName.endsWith(".pdf")) {
+			if (//IFD.resultsMode == IFD.MODE_SPECTRA && 
+					shortName.endsWith(".pdf")) {
 				s +=  getPDFLink(url);
 			}
 		}

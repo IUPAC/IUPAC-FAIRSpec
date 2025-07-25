@@ -15,7 +15,7 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 	protected final static String IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR.VENDOR_DATASET");
     final static String IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_MANUFACTURER_NAME = getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_MANUFACTURER_NAME");
 	private static Map<String, List<String>> solventMap;
-	private static List<String> solventNullList;
+	private static List<String> solventKeyList;
 
     protected NMRVendorPlugin() {
     	super();
@@ -84,20 +84,23 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 	protected void reportSolvent(String solvent) {		
 		if (solventMap == null) {
 			solventMap = FAIRSpecUtilities.getNMRSolventMap();
-			solventNullList = solventMap.get("cdcl3");
+			solventKeyList = solventMap.get("cdcl3");
 		}
 		if (solvent.equals(IFDProperty.NULL)) {
 			addProperty(nmrSolvent, solvent);
-			for (int i = 0; i < solventNullList.size(); i+= 2) {
-				addProperty(nmrSolvent + "_" + solventNullList.get(i).substring(1), solvent);
+			for (int i = 0; i < solventKeyList.size(); i+= 2) {
+				addProperty(nmrSolvent + "_" + solventKeyList.get(i).substring(1), solvent);
 			}
 			return;
 		}
 		addProperty(nmrSolvent, solvent);
+		int pt = solvent.indexOf("_"); // as in Bruker MeOD_SPE
+		if (pt > 0)
+			solvent = solvent.substring(0, pt);
 		List<String> lst = solventMap.get(solvent.toLowerCase());
 		if (lst != null) {
 			for (int i = 0; i < lst.size(); i+= 2) {
-				String key = nmrSolvent + "_" + lst.get(i).substring(1);;
+				String key = nmrSolvent + "_" + lst.get(i).substring(1);
 				String val = lst.get(i + 1);
 				addProperty(key, val);
 			}

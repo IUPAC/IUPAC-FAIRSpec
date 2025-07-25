@@ -151,7 +151,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 	@Override
 	protected void serializeList(IFDSerializerI serializer) {
 		if (size() > 0) {
-			boolean byid = serializer.isByID();
+			boolean byid = true;//serializer.isByID();
 			int i;
 			for (i = size(); --i >= 0;) {
 				if (get(i).getID() == null) {

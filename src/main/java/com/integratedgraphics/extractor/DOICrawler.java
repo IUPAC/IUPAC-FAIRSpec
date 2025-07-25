@@ -639,9 +639,9 @@ public class DOICrawler extends FindingAidCreator {
 		targetPath = new File(topDir, faId);
 		targetPath.mkdirs();
 		faHelper = new FAIRSpecFindingAidHelper(getCodeSource() + " " + getVersion());
-		if (!isByIDSet) {
-			setExtractorOption(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID, "true");
-		}
+//		if (!isByIDSet) {
+//			setExtractorOption(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID, "true");
+//		}
 		findingAid = faHelper.getFindingAid();
 		findingAid.setID(faId);
 		if (doDownload && fileDir == null) {

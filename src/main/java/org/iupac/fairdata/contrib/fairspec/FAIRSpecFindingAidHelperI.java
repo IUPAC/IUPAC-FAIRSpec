@@ -60,7 +60,7 @@ public interface FAIRSpecFindingAidHelperI {
 
 	public IFDRepresentation getSpecDataRepresentation(String ifdPath);
 
-	public void setById(boolean isByID);
+	// deprecated public void setById(boolean isByID);
 
 	String addRelatedInfo(String pubdoi, boolean addPublicationMetadata, List<Map<String, Object>> list, String type)
 			throws IOException;

@@ -19,21 +19,21 @@ import org.iupac.fairdata.core.IFDObject;
  */
 public class IFDDefaultJSONSerializer implements IFDSerializerI {
 
-	public IFDDefaultJSONSerializer(boolean byID) {
-		this.byID = byID;
+	public IFDDefaultJSONSerializer(boolean byIDIgnored) {
+//		this.byID = byID;
 	} 
+//	
+//	private boolean byID;
 	
-	private boolean byID;
-	
-	@Override
-	public void setByID(boolean tf) {
-		byID = tf;
-	}
+//	@Override
+//	public void setByID(boolean tf) {
+//		byID = tf;
+//	}
 
-	@Override
-	public boolean isByID() {
-		return byID;
-	}
+//	@Override
+//	public boolean isByID() {
+//		return byID;
+//	}
 
 	
 	private Obj thisObj;

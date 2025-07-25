@@ -107,7 +107,7 @@ public class DOIInfoExtractor {
 		for (int i = 0; i < author.size(); i++) {
 			Map<String, Object> au = (Map<String, Object>) author.get(i);
 			String name = getValue(au, "given", "") + " " + getValue(au, "family", "");
-			s += ", " + name;
+			s += "; " + name;
 			String orcid = getValue(au, "ORCID", null);
 			if (orcid != null)
 				s += " (" + orcid.replace("http:", "https:") + ")";

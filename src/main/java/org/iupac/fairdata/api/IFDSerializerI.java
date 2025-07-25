@@ -25,13 +25,13 @@ public interface IFDSerializerI {
 
 	String getFileExt();
 
-	boolean isByID();
+//	boolean isByID();
 
 	void openObject();
 	
 	String serialize(IFDSerializableI obj);
 
-	void setByID(boolean tf);
+//	void setByID(boolean tf);
 
 
 }

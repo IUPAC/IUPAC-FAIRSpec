@@ -102,15 +102,25 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 	 * @return index of the resource found or added
 	 */
 	public IFDResource addOrSetResource(String ref, String rootPath) {
-		IFDResource r;
+		IFDResource r = getResourceByRef(ref);
+		return (r == null ? addResource(ref, rootPath, "" + (resources.size() + 1), 0, false) : r);
+	}
+	
+	private IFDResource getResourceByRef(String ref) {
 		for (int i = resources.size(); --i >= 0;) {
-			r = resources.get(i);
+			IFDResource r = resources.get(i);
 			if (r.getRef().equals(ref)) {
 				return r;
 			}
 		}
-		r = new IFDResource(ref, rootPath, "" + (resources.size() + 1), 0);
+		return null;
+	}
+
+	public IFDResource addResource(String ref, String rootPath, String id, long len, boolean isCollectionFile) {
+		IFDResource r = new IFDResource(ref, rootPath, id, len);
 		resources.add(r);
+		if (isCollectionFile)
+			collectionSet.setResource(r);
 		return r;
 	}
 
@@ -166,6 +176,9 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 	public void serialize(IFDSerializerI serializer) {
 		if (serializing) {
 			serializeTop(serializer);
+			String id = getID();
+			if (id != null && id.length() > 0)
+				serializer.addAttr("id", getID());
 			serializer.addObject("version", getVersion());
 			serializer.addObject("created", df.format(date));
 			if (getCreator() != null)
@@ -174,14 +187,14 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 			if (relatedItems != null)
 				serializer.addObject("relatedItems", relatedItems);
 			Object o = resources;
-			if (serializer.isByID()) {
+//			if (serializer.isByID()) {
 				Map<String, IFDResource> map = new LinkedHashMap<>();
 				for (int i = 0; i < resources.size(); i++) {
 					IFDResource r = resources.get(i);
 					map.put(r.getID(), r);
 				}
 				o = map;				
-			}
+//			}
 			serializer.addObject("resources", o);
 			serializeProps(serializer);
 			if (collectionSet != null)

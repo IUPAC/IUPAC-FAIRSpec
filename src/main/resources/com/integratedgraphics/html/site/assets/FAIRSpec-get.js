@@ -285,9 +285,10 @@ IFD.getCollectionSetById = function(aid) {
 	var dc = IFD.collections[aid.id] = {};
 	if (IFD.findingAidID == '.')
 		IFD.collections['.'] = dc;
-	for (var i in collections) {
-		c = collections[i];
-		dc[c.id] = c.items || c.itemsByID;
+	for (var id in collections) {
+		c = collections[id];
+		dc[c.id || id] = c.items || c.itemsByID;
+		// deprecated not byID
 		if (!IFD.byID) {
 			IFD.collectionKeys[c.id] = c.collections; // compounds only
 		}
