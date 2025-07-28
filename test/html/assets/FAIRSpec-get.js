@@ -148,8 +148,9 @@ IFD.getCompoundIndexesForStructures = function(aidID, strucIDs) {
 		out: for (var i = 0; i < citems.length; i++) {
 			var assoc = compounds[citems[i]];
 			var sitems = assoc[IFD.itemsKey][keys.structures];
+			// all by ID now
 			for (var j = 0; j < sitems.length; j++) {
-				if(structures[sitems[j]].id == id) {
+				if(sitems[j] == id) {
 					ids.push(citems[i]);
 					break out;
 				}
@@ -354,7 +355,7 @@ IFD.getSMILES = function(aidID, retIDs, retSMILES, allowReactions, withAidID) {
 			if (!allowReactions)
 				data = data.replace("&gt;&gt;", ".");
 			if (IFD.jmolCheckSmiles(data)) {
-				retIDs.push(withAidID ? [aidID, struc.id] : struc.id);
+				retIDs.push(withAidID ? [aidID, id] : id);
 				retSMILES.push(data);
 			} else {
 				System.out.println("INVALID SMILES! " + data);

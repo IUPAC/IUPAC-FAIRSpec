@@ -1,0 +1,18 @@
+<project name="JSmol" default="toJs" basedir=".">
+
+	
+   <property name="core.path" value="src/main/resources/com/integratedgraphics/html/site/assets" />
+   <property name="assets.path" value="docs/examples2/assets" />
+
+	<target name="toJs" id="toJs">
+  			
+    <echo> Copying ${core.path} files into ${assets.path} </echo>
+    <copy todir="${assets.path}" failonerror="true">
+      <fileset dir="${core.path}">
+        <include name="*"/>
+    </fileset>
+    </copy>
+
+
+  </target>
+</project>
