@@ -1462,7 +1462,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 	private void phase2dSetPropertyIfNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath) {
 		Object currentValue = faHelper.setPropertyValueNotAlreadySet(obj, key, value, originPath);
-		if (currentValue != null) {
+		if (currentValue != null && !currentValue.equals(value)) {
 			String msg = originPath + " property " + key + " can't set value '" + value + "', as it is already set to '"
 					+ currentValue + "' from " + obj.getPropertySource(key) + " for " + obj;
 			if (key.endsWith("timestamp")) {

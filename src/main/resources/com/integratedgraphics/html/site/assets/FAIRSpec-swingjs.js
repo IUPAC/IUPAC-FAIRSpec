@@ -6,10 +6,11 @@ var s = document.location.search;
 //Jmol._isAsync = false;
 //Jmol._debugCode = (s.indexOf("debugcode") >= 0);
 
+var assetsDir = document.currentScript.src.split("assets/")[0];
 var SMILESInfo = {
   code: null,
   main: "org.jmol.smiles.SmilesMatcher",
-  core: "assets/core_fairspec.z.js",
+  core: assetsDir + "assets/core_fairspec.z.js",
 	width: 1,
 	height: 1,
 	readyFunction: function(app) { IFD.pageLoaded();},

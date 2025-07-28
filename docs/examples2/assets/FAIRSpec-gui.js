@@ -168,7 +168,10 @@
 					// set the key in the map if needed
 					if(!initiliazed_keys.has(IFD.searchType)){
 						//update property map
-						IFD.propertyMap[IFD.searchType] = IFD.getPropertyMap(aidID, IFD.searchType)
+						var map = {};
+						IFD.getPropertyMap(aidID, IFD.searchType, "1ifdProperties", map);
+						IFD.getPropertyMap(aidID, IFD.searchType, "2attributes", map);
+						IFD.propertyMap[IFD.searchType] = map;
 						initiliazed_keys.add(IFD.searchType);
 
 					}
@@ -261,6 +264,8 @@
 		let label = document.createElement('label');
 		label.setAttribute('for', id);
 		label.setAttribute('class', "ifd-search-value-checkbox_" + visibility);
+		if (value[0] == '\0')
+			value = value.substring(1);
 		if(count > 1){
 			label.textContent = value + ' (' + count + ')';
 		}
@@ -284,7 +289,6 @@
 			textNode = document.createTextNode("Nothing to show here");
 			checkboxContainer.appendChild(textNode);
 			checkboxContainer.style.display = "block";
-
 			return 
 		}
 
@@ -293,7 +297,15 @@
 
 		hiddenBoxesMap = {} 
 
+        var propList = [];		// key, property, value
+
 		for(const prop in propMap){
+			propList.push(prop);
+		}
+		propList.sort();	
+		
+		for(var i = 0; i < propList.length; i++) {
+			var prop = propList[i];
 			const parentCheckbox = document.createElement(`input`);
 			parentCheckbox.type = 'checkbox';
 			let count = propMap[prop].size;
@@ -306,8 +318,6 @@
 				let parentCheckboxDiv = document.createElement('div');
 				parentCheckboxDiv.id =	property + " Div";
 				parentCheckboxDiv.className = "ifd-property-parent";
-
-
 				checkboxContainer.appendChild(document.createElement('br'));
 				uniqueProperties[property] = 1;
 
@@ -340,11 +350,12 @@
 				
 				// add the child checkbox and label to the childDiv
 				childCheckboxDiv.appendChild(childCheckbox);
-				childCheckboxDiv.append(childLabel);
+				childCheckboxDiv.appendChild(childLabel);
 
 				childCheckboxDiv.appendChild(document.createElement('br'));
 
 				parentCheckboxDiv.appendChild(childCheckboxDiv)
+
 				checkboxContainer.append(parentCheckboxDiv);
 				
 				
@@ -382,14 +393,14 @@
 
 				if(visibilityClass == "hidden"){
 					hiddenWrapper.appendChild(childCheckbox);
-					hiddenWrapper.append(childLabel);
+					hiddenWrapper.appendChild(childLabel);
 					hiddenWrapper.appendChild(document.createElement('br'));
 					childDiv.appendChild(hiddenWrapper);
 
 				}else{
 					// add the child checkbox and label to the childDiv 
 					childDiv.appendChild(childCheckbox);
-					childDiv.append(childLabel);
+					childDiv.appendChild(childLabel);
 					childDiv.appendChild(document.createElement('br'));
 				}
 				
@@ -584,7 +595,7 @@
 		checkboxContainer.style.display = "block";
 	
 		// put unspecified property val to the top (if it exists)
-		unspecified_checkboxes = document.querySelectorAll('input[value="Unspecified"]');
+		unspecified_checkboxes = document.querySelectorAll('input[value="\0unspecified"]');
 	
 		unspecified_checkboxes?.forEach(unspecifiedBox => {
 			let parentDiv = unspecifiedBox.parentElement;
@@ -1297,7 +1308,6 @@
 		return s;
 	}
 
-
 	var showCompoundStructure = function(aidID, id, showID, tableRow) {
 		var isAll = (IFD.resultsMode == IFD.MODE_STRUCTURES);
 		var cl = (tableRow > 0 ? " class=tablerow" + (tableRow%2) : "");
@@ -1312,7 +1322,7 @@
 			var h = (id.indexOf("Structure") == 0 ? removeUnderline(sid) : "Structure " + sid);
 			s += "<span class=structurehead>"+ (IFD.resultsMode == IFD.MODE_STRUCTURES ? getHeader("Structure/s", h) : h) + "</span><br>";
 		}
-		v = IFD.getStructureVisual(reps);
+		var v = IFD.getStructureVisual(reps);
 		if (v && isAll){
 			s += "<table border=1><tr><td>";
 			s += "from SMILES:<br>" + v;
@@ -1519,6 +1529,7 @@
 		var t = e.scrollTop;
 		var l = e.scrollleft;
 		if (mode == 0) {
+			// cross-origin needs to get the data asynchronously as a byte array
 			var uri = IFD.pdfData[pt][2];
 			if (uri && !uri.startsWith("data:")) {
 				if (IFD.properties.findingAidPath) {
@@ -1591,7 +1602,7 @@
 	    n = 0;
 	    for (var key in map) {
 			if (n++ == 0 && name)
-				s0 = "<tr><td><b>" + (hideDiv ? "<div class=hiddendiv onclick=IFD.toggleDiv(\"prop" + id + "\")>" + name + "...</div>" : name) + "</b></td></tr>";
+				s0 = "<tr><td><b>" + (hideDiv ? "<div class=hiddendiv onclick=IFD.toggleDiv(\"prop" + id + "\")>" + name + "...</div>" : "<span class=propertytitle>"  +name + "</span>") + "</b></td></tr>";
 			if (key == firstItem) {
 				s = addPropertyLine(key, map[key]) + s;
 			} else {

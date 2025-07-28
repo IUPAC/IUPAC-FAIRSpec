@@ -11,6 +11,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
+import com.integratedgraphics.extractor.ExtractorUtils.DoubleString;
 import com.integratedgraphics.ifd.api.VendorPluginI;
 import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
 
@@ -59,13 +60,13 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		 * think)
 		 */
 		String dim;
-		String nuc1;
+		String nuc1, nuc2;
 		String probeHead;
 		String solvent;
 
 		public void clear() {
 			dim = null;
-			nuc1 = null;
+			nuc1 = nuc2 = null;
 			probeHead = null;
 		}
 
@@ -215,10 +216,9 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			// no need to close a ByteArrayInputStream
 			int ndim = 0;
 			// some of this can be decoupling, though.
-			String n1 = getBrukerString(map, "##$NUC1");
 			if ((spec.nuc1 == null ? (spec.nuc1 = processString(map, "##$NUC1", "off")) : spec.nuc1) != null)
 				ndim = 1;
-			if ((processString(map, "##$NUC2", "off")) != null)
+			if ((spec.nuc2 = processString(map, "##$NUC2", "off")) != null)
 				ndim = 2;
 			if (processString(map, "##$NUC3", "off") != null)
 				ndim = 3;
@@ -226,14 +226,16 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 				ndim = 4;
 			if (ndim == 0)
 				return false;
+			// offset frequencies BF1+O1
 			report("##$SFO1", getDoubleValue(map, "##$SFO1"));
 			if (ndim >= 2)
 				report("##$SFO2", getDoubleValue(map, "##$SFO2"));
 			if (ndim >= 3)
 				report("##$SFO3", getDoubleValue(map, "##$SFO3"));
-			double bf1 = getDoubleValue(map, "##$BF1");
-			report("PF", getProtonFrequency(bf1, n1));
-			report("NF", getNominalFrequency(bf1, n1));
+			DoubleString bf1 = new DoubleString((String) map.get("##$BF1"));
+			DoubleString bf2 = new DoubleString((String) map.get("##$BF2"));
+			report("PF", getProtonFrequency(bf1, spec.nuc1, bf2, spec.nuc2));
+			report("NF", getNominalFrequency(bf1, spec.nuc1));
 		}
 		report("##$TE", getDoubleValue(map, "##$TE"));
 		processString(map, "##$PULPROG", null);
