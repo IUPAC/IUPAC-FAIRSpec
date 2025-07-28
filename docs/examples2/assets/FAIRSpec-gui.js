@@ -823,7 +823,7 @@
 		loadMainSummary(IFD.aid, false);
 		IFD.select(aidID);
 		setMode(IFD.MODE_STRUCTURES);
-		ids || ids === false || (ids = IFD.getItems(aidID, IFD.MODE_STRUCTURES));
+		ids || ids === false || (ids = IFD.items[aidID][IFD.MODE_STRUCTURES]);
 		var s = showCompoundStructures(aidID,ids, false, true);
 		setResults(s);
 
@@ -835,11 +835,6 @@
 		}
 	} 	
 
-	IFD.getItems = function(aidID, mode) {
-		var ids = IFD.items[aidID][mode];
-		return ids;
-	}
-	
 	IFD.showCollection = function(aidID) {
 		window.open(dirFor(aidID), "_blank");
 	}
@@ -1234,7 +1229,7 @@
 		var sampleID = spec.ifdProperties && spec.ifdProperties.originating_sample_id;
 		var sid = (IFD.byID ? id : spec.id); 
 		var s = "<table padding=3><tr><td valign=top>"
-			+ getHeader("Spectrum/a  ", "Spectrum " + sid) + "<h3>" 
+			+ getHeader("Spectrum/a  ", "Spectrum ", sid) + "<h3>" 
 			+ (sampleID ? "&nbsp;&nbsp;&nbsp; sample " + sampleID : "")
 			+ "</h3>"
 			+ "</td>"; 
@@ -1249,11 +1244,21 @@
 		return s;
 	}
 
-	var getHeader = function(types, name, description) {
+	var getHeader = function(types, prefix, name) {
 		IFD.contentHeader = types;
-		var key = toAlphanumeric(name) + "_" + ++divId
+		var type_name = prefix;
+		if (name) {
+			// remove redundant xxx/xxx/ or xxx/xxx.yyy
+			type_name += name;
+			var parts = name.split('/');
+			if (parts.length > 1 && parts[1].indexOf(parts[0]) == 0)
+				name = name.substring(parts[0].length + 1);
+		} else {
+			name = type_name;
+		}
+		var key = toAlphanumeric(type_name) + "_" + ++divId
 		IFD.headers.push([key,name]);
-		return "<a name=\"" + key + "\"><h3>" + name + "</h3></a>"
+		return "<a name=\"" + key + "\"><h3>" + type_name + "</h3></a>"
 		+ (false && description ? description + "<p>" : "<p>");
 	}
 
@@ -1265,7 +1270,7 @@
 		var props = cmpd.ifdProperties;
 		var params = cmpd.attributes;
 		var label = cmpd.label || cmpd.id || id;
-		var s = getHeader("Compound/s", label.startsWith("Compound") ? label : "Compound " + label, null);// cmpd.description); 
+		var s = getHeader("Compound/s", label.startsWith("Compound") ? label : "Compound " + label);// cmpd.description); 
 		s += getSpecialText(cmpd);
 		s += "<table>" + addPropertyRows("",props, null, false) + "</table>"
 		s += "<table>" + addPropertyRows("",params, null, false) + "</table>"
@@ -1320,7 +1325,8 @@
 		s += "<td rowspan=2 valign=\"top\">";
 		if (showID) {
 			var h = (id.indexOf("Structure") == 0 ? removeUnderline(sid) : "Structure " + sid);
-			s += "<span class=structurehead>"+ (IFD.resultsMode == IFD.MODE_STRUCTURES ? getHeader("Structure/s", h) : h) + "</span><br>";
+			s += "<span class=structurehead>"+ (IFD.resultsMode == IFD.MODE_STRUCTURES 
+					? getHeader("Structure/s", h) : h) + "</span><br>";
 		}
 		var v = IFD.getStructureVisual(reps);
 		if (v && isAll){

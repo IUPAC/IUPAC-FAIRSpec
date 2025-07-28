@@ -96,6 +96,7 @@
    <property name="site.path" value="site/swingjs" />
    <property name="core.path" value="src/main/resources/com/integratedgraphics/html/site/assets" />
    <property name="test.path" value="test/html/assets" />
+   <property name="assets.path" value="docs/examples2/assets" />
    <property name="closure.jar" value="tools/closure_compiler.jar" />
 
    <target name="toJs" id="toJs">
@@ -137,7 +138,13 @@
     <echo> Copying ${core.path} files into ${test.path} </echo>
     <copy todir="${test.path}" failonerror="true">
       <fileset dir="${core.path}">
-        <include name="core_*"/>
+        <include name="*"/>
+    </fileset>
+    </copy>
+    <echo> Copying ${core.path} files into ${assets.path} </echo>
+    <copy todir="${assets.path}" failonerror="true">
+      <fileset dir="${core.path}">
+        <include name="*"/>
     </fileset>
     </copy>
 
