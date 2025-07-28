@@ -70,43 +70,44 @@ IFD.getSpectrumIDsForSample = function(aidID,id) {
 	return [];	
 }
 
-IFD.getPropertyMap = function(aidID, searchType){
-	map = {}
-	idObj = IFD.getCollection(aidID)[searchType]
+IFD.getPropertyMap = function(aidID, searchType, nKeyType, map){
+	var idObj = IFD.getCollection(aidID)[searchType]
+	var n = nKeyType[0] + "_";
+	var keyType = nKeyType.substring(1);
 	for(const item in idObj){
-		propertyObj = idObj[item].ifdProperties;
+		var propertyObj = idObj[item][keyType];
 		// go into a deeper loop if the obj has properties
 		//console.log(propertyObj);
 		if(propertyObj){
 			for(const propKey in propertyObj){
 				//console.log(item, propKey);
-				propVal = propertyObj[propKey];
-				if(!map[propKey + '$' + propVal]){
-					map[propKey + '$' + propVal] = new Set();
+				var propVal = propertyObj[propKey];
+				if(!map[n + propKey + '$' + propVal]){
+					map[n + propKey + '$' + propVal] = new Set();
 				}
 				
-					//add the index to the set
-					map[propKey + '$' + propVal].add(item);
+				//add the index to the set
+				map[n + propKey + '$' + propVal].add(item);
 			}	
 		}	
 	}
 
 		// check for unspecified property values
-	generalizedMap = {}
+	var generalizedMap = {}
 	Object.keys(map).forEach(key=>{
-		generalKey = key.split("$")[0];
+		var generalKey = key.split("$")[0];
 		if(!generalizedMap[generalKey]){
 			generalizedMap[generalKey] = new Set();
 		}
 		generalizedMap[generalKey] = (generalizedMap[generalKey]).union(map[key]);
 	})
 	var collection = IFD.collections[IFD.findingAidID];
-	completeSet = new Set(Object.keys(collection[searchType]));
+	var completeSet = new Set(Object.keys(collection[searchType]));
 	Object.keys(generalizedMap).forEach(key =>{
-		setDiff = completeSet.difference(generalizedMap[key]);
+		var setDiff = completeSet.difference(generalizedMap[key]);
 		// an unspecified value has been detected
 		if(setDiff.size != 0){
-			map[key + "$Unspecified"] = setDiff;
+			map[key + "$\0unspecified"] = setDiff;
 		}
 	})
 	return map;

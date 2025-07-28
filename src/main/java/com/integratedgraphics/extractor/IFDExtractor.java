@@ -3,14 +3,10 @@ package com.integratedgraphics.extractor;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Map;
-import java.util.regex.Matcher;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
-import org.iupac.fairdata.extract.PropertyManagerI;
 
 /**
  * Copyright 2021-2024 Integrated Graphics and Robert M. Hanson
@@ -65,6 +61,8 @@ import org.iupac.fairdata.extract.PropertyManagerI;
  */
 public class IFDExtractor extends IFDExtractorLayer3 {
 
+	// TODO spectrum fingerprint
+	
 	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/IFDExtractor.java";
 
 	// TODO: test rootpath and file lists for case with two root paths -- does it

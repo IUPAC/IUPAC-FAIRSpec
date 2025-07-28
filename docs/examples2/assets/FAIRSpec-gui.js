@@ -168,7 +168,10 @@
 					// set the key in the map if needed
 					if(!initiliazed_keys.has(IFD.searchType)){
 						//update property map
-						IFD.propertyMap[IFD.searchType] = IFD.getPropertyMap(aidID, IFD.searchType)
+						var map = {};
+						IFD.getPropertyMap(aidID, IFD.searchType, "1ifdProperties", map);
+						IFD.getPropertyMap(aidID, IFD.searchType, "2attributes", map);
+						IFD.propertyMap[IFD.searchType] = map;
 						initiliazed_keys.add(IFD.searchType);
 
 					}
@@ -261,6 +264,8 @@
 		let label = document.createElement('label');
 		label.setAttribute('for', id);
 		label.setAttribute('class', "ifd-search-value-checkbox_" + visibility);
+		if (value[0] == '\0')
+			value = value.substring(1);
 		if(count > 1){
 			label.textContent = value + ' (' + count + ')';
 		}
@@ -284,7 +289,6 @@
 			textNode = document.createTextNode("Nothing to show here");
 			checkboxContainer.appendChild(textNode);
 			checkboxContainer.style.display = "block";
-
 			return 
 		}
 
@@ -293,7 +297,15 @@
 
 		hiddenBoxesMap = {} 
 
+        var propList = [];		// key, property, value
+
 		for(const prop in propMap){
+			propList.push(prop);
+		}
+		propList.sort();	
+		
+		for(var i = 0; i < propList.length; i++) {
+			var prop = propList[i];
 			const parentCheckbox = document.createElement(`input`);
 			parentCheckbox.type = 'checkbox';
 			let count = propMap[prop].size;
@@ -306,8 +318,6 @@
 				let parentCheckboxDiv = document.createElement('div');
 				parentCheckboxDiv.id =	property + " Div";
 				parentCheckboxDiv.className = "ifd-property-parent";
-
-
 				checkboxContainer.appendChild(document.createElement('br'));
 				uniqueProperties[property] = 1;
 
@@ -340,11 +350,12 @@
 				
 				// add the child checkbox and label to the childDiv
 				childCheckboxDiv.appendChild(childCheckbox);
-				childCheckboxDiv.append(childLabel);
+				childCheckboxDiv.appendChild(childLabel);
 
 				childCheckboxDiv.appendChild(document.createElement('br'));
 
 				parentCheckboxDiv.appendChild(childCheckboxDiv)
+
 				checkboxContainer.append(parentCheckboxDiv);
 				
 				
@@ -382,14 +393,14 @@
 
 				if(visibilityClass == "hidden"){
 					hiddenWrapper.appendChild(childCheckbox);
-					hiddenWrapper.append(childLabel);
+					hiddenWrapper.appendChild(childLabel);
 					hiddenWrapper.appendChild(document.createElement('br'));
 					childDiv.appendChild(hiddenWrapper);
 
 				}else{
 					// add the child checkbox and label to the childDiv 
 					childDiv.appendChild(childCheckbox);
-					childDiv.append(childLabel);
+					childDiv.appendChild(childLabel);
 					childDiv.appendChild(document.createElement('br'));
 				}
 				
@@ -584,7 +595,7 @@
 		checkboxContainer.style.display = "block";
 	
 		// put unspecified property val to the top (if it exists)
-		unspecified_checkboxes = document.querySelectorAll('input[value="Unspecified"]');
+		unspecified_checkboxes = document.querySelectorAll('input[value="\0unspecified"]');
 	
 		unspecified_checkboxes?.forEach(unspecifiedBox => {
 			let parentDiv = unspecifiedBox.parentElement;
@@ -812,7 +823,7 @@
 		loadMainSummary(IFD.aid, false);
 		IFD.select(aidID);
 		setMode(IFD.MODE_STRUCTURES);
-		ids || ids === false || (ids = IFD.getItems(aidID, IFD.MODE_STRUCTURES));
+		ids || ids === false || (ids = IFD.items[aidID][IFD.MODE_STRUCTURES]);
 		var s = showCompoundStructures(aidID,ids, false, true);
 		setResults(s);
 
@@ -824,11 +835,6 @@
 		}
 	} 	
 
-	IFD.getItems = function(aidID, mode) {
-		var ids = IFD.items[aidID][mode];
-		return ids;
-	}
-	
 	IFD.showCollection = function(aidID) {
 		window.open(dirFor(aidID), "_blank");
 	}
@@ -1223,7 +1229,7 @@
 		var sampleID = spec.ifdProperties && spec.ifdProperties.originating_sample_id;
 		var sid = (IFD.byID ? id : spec.id); 
 		var s = "<table padding=3><tr><td valign=top>"
-			+ getHeader("Spectrum/a  ", "Spectrum " + sid) + "<h3>" 
+			+ getHeader("Spectrum/a  ", "Spectrum ", sid) + "<h3>" 
 			+ (sampleID ? "&nbsp;&nbsp;&nbsp; sample " + sampleID : "")
 			+ "</h3>"
 			+ "</td>"; 
@@ -1238,11 +1244,21 @@
 		return s;
 	}
 
-	var getHeader = function(types, name, description) {
+	var getHeader = function(types, prefix, name) {
 		IFD.contentHeader = types;
-		var key = toAlphanumeric(name) + "_" + ++divId
+		var type_name = prefix;
+		if (name) {
+			// remove redundant xxx/xxx/ or xxx/xxx.yyy
+			type_name += name;
+			var parts = name.split('/');
+			if (parts.length > 1 && parts[1].indexOf(parts[0]) == 0)
+				name = name.substring(parts[0].length + 1);
+		} else {
+			name = type_name;
+		}
+		var key = toAlphanumeric(type_name) + "_" + ++divId
 		IFD.headers.push([key,name]);
-		return "<a name=\"" + key + "\"><h3>" + name + "</h3></a>"
+		return "<a name=\"" + key + "\"><h3>" + type_name + "</h3></a>"
 		+ (false && description ? description + "<p>" : "<p>");
 	}
 
@@ -1254,7 +1270,7 @@
 		var props = cmpd.ifdProperties;
 		var params = cmpd.attributes;
 		var label = cmpd.label || cmpd.id || id;
-		var s = getHeader("Compound/s", label.startsWith("Compound") ? label : "Compound " + label, null);// cmpd.description); 
+		var s = getHeader("Compound/s", label.startsWith("Compound") ? label : "Compound " + label);// cmpd.description); 
 		s += getSpecialText(cmpd);
 		s += "<table>" + addPropertyRows("",props, null, false) + "</table>"
 		s += "<table>" + addPropertyRows("",params, null, false) + "</table>"
@@ -1297,7 +1313,6 @@
 		return s;
 	}
 
-
 	var showCompoundStructure = function(aidID, id, showID, tableRow) {
 		var isAll = (IFD.resultsMode == IFD.MODE_STRUCTURES);
 		var cl = (tableRow > 0 ? " class=tablerow" + (tableRow%2) : "");
@@ -1310,9 +1325,10 @@
 		s += "<td rowspan=2 valign=\"top\">";
 		if (showID) {
 			var h = (id.indexOf("Structure") == 0 ? removeUnderline(sid) : "Structure " + sid);
-			s += "<span class=structurehead>"+ (IFD.resultsMode == IFD.MODE_STRUCTURES ? getHeader("Structure/s", h) : h) + "</span><br>";
+			s += "<span class=structurehead>"+ (IFD.resultsMode == IFD.MODE_STRUCTURES 
+					? getHeader("Structure/s", h) : h) + "</span><br>";
 		}
-		v = IFD.getStructureVisual(reps);
+		var v = IFD.getStructureVisual(reps);
 		if (v && isAll){
 			s += "<table border=1><tr><td>";
 			s += "from SMILES:<br>" + v;
@@ -1519,6 +1535,7 @@
 		var t = e.scrollTop;
 		var l = e.scrollleft;
 		if (mode == 0) {
+			// cross-origin needs to get the data asynchronously as a byte array
 			var uri = IFD.pdfData[pt][2];
 			if (uri && !uri.startsWith("data:")) {
 				if (IFD.properties.findingAidPath) {
@@ -1591,7 +1608,7 @@
 	    n = 0;
 	    for (var key in map) {
 			if (n++ == 0 && name)
-				s0 = "<tr><td><b>" + (hideDiv ? "<div class=hiddendiv onclick=IFD.toggleDiv(\"prop" + id + "\")>" + name + "...</div>" : name) + "</b></td></tr>";
+				s0 = "<tr><td><b>" + (hideDiv ? "<div class=hiddendiv onclick=IFD.toggleDiv(\"prop" + id + "\")>" + name + "...</div>" : "<span class=propertytitle>"  +name + "</span>") + "</b></td></tr>";
 			if (key == firstItem) {
 				s = addPropertyLine(key, map[key]) + s;
 			} else {

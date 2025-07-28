@@ -6,6 +6,7 @@ import java.util.Map;
 import org.iupac.fairdata.common.IFDConst;
 import org.nmrml.parser.Acqu;
 
+import com.integratedgraphics.extractor.ExtractorUtils.DoubleString;
 import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
 
 public abstract class NmrMLIFDVendorPlugin extends NMRVendorPlugin {
@@ -50,7 +51,7 @@ public abstract class NmrMLIFDVendorPlugin extends NMRVendorPlugin {
 		report("F1", freq);
  		String nuc = fixNucleus(acq.getObservedNucleus());
 		report("N1", nuc);
-		report("NF", getNominalFrequency(freq, nuc));
+		report("NF", getNominalFrequency(new DoubleString("" + freq), nuc));
 		reportSolvent(acq.getSolvent());
 		report("TEMPERATURE", acq.getTemperature());
 		report("PP", acq.getPulseProgram());

@@ -6,6 +6,7 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
+import com.integratedgraphics.extractor.ExtractorUtils.DoubleString;
 import com.integratedgraphics.ifd.api.VendorPluginI;
 
 /**
@@ -217,12 +218,12 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	 * @param key
 	 * @return
 	 */
-	protected static double getDoubleValue(Map<String, String> map, String key) {
+	protected static DoubleString getDoubleValue(Map<String, String> map, String key) {
 		String f = map.get(key);
 		try {
-			return (f == null ? Double.NaN : Double.valueOf(f).doubleValue());
+			return (f == null ? null : new DoubleString(f));
 		} catch (NumberFormatException e) {
-			return Double.NaN;
+			return null;
 		}
 	}
 

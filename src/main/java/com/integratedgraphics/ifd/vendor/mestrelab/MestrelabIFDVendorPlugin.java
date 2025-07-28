@@ -15,6 +15,8 @@ import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.extractor.IFDExtractor;
+import com.integratedgraphics.extractor.ExtractorUtils.DoubleString;
+import com.integratedgraphics.extractor.ExtractorUtils.FloatString;
 import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
 import com.integratedgraphics.ifd.vendor.mestrelab.MNovaMetadataReader.Param;
 
@@ -35,7 +37,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 		private String pngcss;
 		private boolean isJDF;
 		private String nuc1;
-		private double freq;
+		private DoubleString freq;
 		private String origin;
 		public int dim = 1;
 
@@ -180,7 +182,6 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 					//$FALL-THROUGH$
 				case "Author":
 				case "Class":
-				case "Experiment":
 				case "Presaturation Frequency":
 				case "Probe":
 				case "Modification Date":
@@ -189,6 +190,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 				case "Title":
 				case "Instrument":
 				case "Spectrometer":
+				case "Experiment":
 				default:
 					oval = FAIRSpecUtilities.rep(val, "\n", " ").trim();
 					break;
@@ -202,12 +204,12 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 					pageGlobals.isJDF = (val.endsWith(".jdf"));
 					return;
 				case "Temperature":
-					double d = Double.parseDouble(val);
+					float f = Float.parseFloat(val);
 					if (pageGlobals.isJDF) {
 						// JDF temp is oC not K from MNOVA
-						d += 273.15;
+						val = "" +(f + 273.15);
 					}
-					oval = Double.valueOf(d);
+					oval = new FloatString(val);
 					break;
 				case "Nucleus":
 					pageGlobals.nuc1 = val;
@@ -216,24 +218,26 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 					}
 					break;
 				case "Spectrometer Frequency":
-					pageGlobals.freq = Double.parseDouble(val);
-					oval = Double.valueOf(pageGlobals.freq);
+					pageGlobals.freq = new DoubleString(val);
+					oval = pageGlobals.freq;
 					if (param2 != null) {
-						params.put("Spectrometer Frequency2", Double.valueOf(param2.value));
+						params.put("Spectrometer Frequency2", new DoubleString(param2.value));
 					}
 					break;
 				case "Spectrum Quality":
 					double q = Double.parseDouble(val);
 					if (q != 0)
-						oval = Double.valueOf(q);
+						oval = new FloatString(val);
 					break;
 				case "Pulse Width":
 				case "Spectral Width":
 				case "Receiver Gain":
 				case "Relaxation Delay":
-				case "Lowest Frequency":
 				case "Acquisition Time":
-					oval = Double.valueOf(Double.parseDouble(val));
+					oval = new FloatString(val);
+					break;
+				case "Lowest Frequency":
+					oval = new DoubleString(val);
 					break;
 				case "Spectral Size":
 					oval = Integer.valueOf(Integer.parseInt(val));
@@ -304,14 +308,15 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	 * @param val if null, this property is removed
 	 */
 	protected void report(String key, Object val) {
-		String k = ifdMap.get(key);
+		boolean isDerived = key.startsWith("!");
+		String k = ifdMap.get(isDerived ? key.substring(1) : key);
 		// TODO? but not all keys are like this key = "MNova_" + key;
 		if (k == null && key.equals("Page_Header")) {
 			addProperty(IFDConst.IFD_PROPERTY_DESCRIPTION, val);
 			addProperty(IFDExtractor.PAGE_ID_PROPERTY_SOURCE, val);
 		}
 		// SM and DIM are derived
-		if (!key.startsWith("!"))
+		if (!isDerived)
 			addProperty(key, val);
 		if (k != null)
 			addProperty(k, val);
@@ -325,10 +330,10 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	private void finalizeParams() {
-		if (params != null && pageGlobals.freq != 0) {
+		if (params != null && pageGlobals.freq != null) {
 			int f = getNominalFrequency(pageGlobals.freq, pageGlobals.nuc1);
 			params.put("!NF", Integer.valueOf(f));
-			params.put("!DIM", Integer.valueOf(pageGlobals.dim) + "D");
+			params.put("!DIM", pageGlobals.dim + "D");
 			params.put("mnovaVersion", mnovaVersion);
 		} 
 		params = null;
