@@ -38,7 +38,7 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 		if (newID != null)
 			newData.setID((data.getID() == null ? "" : data.getID()) + newID);
 		if (andReplace) {
-			data.setValid(false);
+			data.setReplaced();
 		}
 		newData.setValid(true);
 		add(newData);

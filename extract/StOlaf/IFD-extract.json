@@ -8,7 +8,7 @@
  "----todo -- allow for remote API, not just remote file (as in FigShare)",
 
  
- {"IFD.property.collectionset.source_data_uri":"./"},
+ {"IFD.property.collectionset.source_repository_uri":"./"},
  
  "----reject for now all of the MNova 'master-documents' ",
 

@@ -10,7 +10,7 @@ import org.iupac.fairdata.core.IFDObject;
  * representation or its properties from the structure helper.
  * 
  * 
- * @author hanso
+ * @author Bob Hanson (hansonr@stolaf.edu)
  *
  */
 public interface MetadataReceiverI {
@@ -50,6 +50,8 @@ public interface MetadataReceiverI {
 
 	void addProperty(String key, Object val);
 
-	void setNewObjectMetadata(IFDObject<?> o, String param);
+	void setSpreadSheetMetadata(IFDObject<?> o, String param);
+
+	boolean hasStructureFor(byte[] bytes);
 
 }

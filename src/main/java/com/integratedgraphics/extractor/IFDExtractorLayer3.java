@@ -38,7 +38,7 @@ import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
  *  
  * Finish writing the files, finalize the extraction, and create the finding aid.
  * 
- * @author hanso
+ * @author Bob Hanson (hansonr@stolaf.edu)
  *
  */
 abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
@@ -50,15 +50,27 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	@SuppressWarnings("unchecked")
 	protected String processPhase3() throws IFDException, IOException {
 
+		// Phase 3a
+
+		// Update lengths for representations.
+		// Flag files that are unused because they did not fit a configuration record.
+
 		phase3aUpdateCachedRepresentations();
 		checkStopAfter("3a");
+
+		// Phase 3b
 		
-		// clean up the collection
+		// Clean up the collection by removing any unmanifested files.
 
 		if (insitu) {
-			phase3bSetInSitu((IFDCollection<IFDRepresentableObject<?>>)(Object) helper.getStructureCollection());
-			phase3bSetInSitu((IFDCollection<IFDRepresentableObject<?>>)(Object) helper.getSpecCollection());
+			
+			// grab any remaining representations that should be included 
+			// in the Finding Aid *as well as* in the collection.
+			
+			phase3bUpdateInSitu((IFDCollection<IFDRepresentableObject<?>>) (Object) helper.getStructureCollection());
+			phase3bUpdateInSitu((IFDCollection<IFDRepresentableObject<?>>) (Object) helper.getSpecCollection());
 		} else {
+			// otherwise, we remove any unmanifested representations.
 			phase3bRemoveUnmanifestedRepresentations();
 		}
 		checkStopAfter("3b");
@@ -66,23 +78,26 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		phase3cCheckForDuplicateSpecData();
 		helper.removeInvalidData();
 		checkStopAfter("3c");
-		
 
-		// write the files and create the finding aid serialization
+		// Write the _IFD_manifest.json, _IFD_ignored.json and _IFD_extract.json files.
 
 		writeRootManifests();
-		
+
+		// Push collections to the Finding Aid
+
 		String msg = helper.finalizeExtraction(htURLReferences);
 		log(msg);
-		
+
+		// Create the finding aid serialization
+
 		String serializedFA = phase3SerializeFindingAid();
 		return serializedFA;
 	}
 
-	private void phase3bSetInSitu(IFDCollection<IFDRepresentableObject<?>> c) {
+	private void phase3bUpdateInSitu(IFDCollection<IFDRepresentableObject<?>> c) {
 		for(IFDRepresentableObject<?> o : c) {
 			for (IFDRepresentation r : o) {
-				r.setInSitu();
+				r.updateInSitu();
 			}
 		}
 	}
@@ -167,9 +182,10 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 				IFDRepresentation rep = (IFDRepresentation) o;
 				if (setLocalFileLength(rep) == 0) {
 					lstRepRemoved.add(rep);
-					// zip file reference in extact.json could actually reference only an extracted
-					// PDF
-					// this can be normal -- pdf created two different ways, for example.
+					// zip file reference in extact.json could 
+					// actually reference only an extracted PDF
+					// this can be normal 
+					// -- pdf created two different ways, for example.
 					// or from MNova, it is standard
 //					log("!OK removing 0-length representation " + rep);
 				}
@@ -205,7 +221,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 			products.add(new File(targetDir + "/_IFD_manifest.json"));
 		}
 		long[] times = new long[3];
-		String serializedFindingAid = faHelper.createSerialization((readOnly && !createFindingAidOnly ? null : targetDir),
+		String serializedFindingAid = faHelper.createSerialization((insitu || readOnly && !createFindingAidOnly ? null : targetDir),
 				createZippedCollection ? products : null, ser, times);
 		log("!Extractor serialization done " + times[0] + " " + times[1] + " " + times[2] + " ms "
 				+ serializedFindingAid.length() + " bytes");
@@ -214,9 +230,6 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 
 	/**
 	 * Set the type and len fields for structure and spec data
-	 */
-	/**
-	 * 
 	 */
 	private void phase3aUpdateCachedRepresentations() {
 		for (String ckey : vendorCache.keySet()) {

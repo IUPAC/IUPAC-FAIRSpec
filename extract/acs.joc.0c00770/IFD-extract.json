@@ -58,8 +58,8 @@
 
  "source is figshare, but could be pub.acs.org and can be overridden by command line arguments",
 
- {"#IFD.property.collectionset.source_data_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/jo{hash}_si_002.zip"},
- {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
+ {"#IFD.property.collectionset.source_repository_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/jo{hash}_si_002.zip"},
+ {"IFD.property.collectionset.source_repository_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
 
 
  {"cmpd":"{id=IFD.property.fairspec.compound.id::*}.zip|"},

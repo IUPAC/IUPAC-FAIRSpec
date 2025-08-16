@@ -58,10 +58,11 @@ public class DOIInfoExtractor {
 			return null;
 		}
 		System.out.println("PubInfoExtractor: " + url);
-		Map<String, Object> metadata = new JSJSONParser().parseMap(FAIRSpecUtilities.getURLContentsAsString(url), false);
-		System.out.println("PubInfoExtractor: " + (metadata == null ? "no metadata" : "extracted " + metadata.entrySet().size() + " metadata items"));
-		Map<String, Object> info = new LinkedHashMap<>();
+		Map<String, Object> info = null;
 		try {
+			Map<String, Object> metadata = new JSJSONParser().parseMap(FAIRSpecUtilities.getURLContentsAsString(url), false);
+			System.out.println("PubInfoExtractor: " + (metadata == null ? "no metadata" : "extracted " + metadata.entrySet().size() + " metadata items"));
+			info = new LinkedHashMap<>();
 			if (metadata != null) {
 				switch (agency) {
 				case CROSSREF:

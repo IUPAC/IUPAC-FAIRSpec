@@ -24,6 +24,8 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.common.IFDConst.PROPERTY_TYPE;
+import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.util.JSJSONParser;
 
 import javajs.util.Rdr;
@@ -741,20 +743,30 @@ public class FAIRSpecUtilities {
 	 * 
 	 * ##$IFD.property......=xxxx
 	 * 
-	 * valid lines must start with "##$IFD"; the "##$" will be stripped.
+	 * or
+	 * 
+	 * IFD.property......=xxxx
+	 * 
+	 * 
+	 * Valid lines must start with "IFD." or "##$IFD."; the "##$" will be stripped.
+	 * 
+	 * 
+	 * Note that values will be given OBJ type
 	 * 
 	 * 
 	 * @param data
 	 * @return List of String[key,value]
 	 */
-	public static List<String[]> getIFDPropertyMap(String data) {
+	public static ArrayList<IFDProperty> getIFDPropertyList(String data) {
+		ArrayList<IFDProperty> list = new ArrayList<>();
 		String[] lines = data.split("\n");
-		List<String[]> list = new ArrayList<>();
 		for (int i = 0; i < lines.length; i++) {
 			String s = lines[i];
 			int pt;
-			if (s.startsWith("##$IFD") && (pt = s.indexOf("=")) > 0)
-				list.add(new String[] { s.substring(3, pt).trim(), s.substring(pt + 1).trim() });
+			if (s.startsWith("##$IFD."))
+				s = s.substring(3);
+			if (s.startsWith("IFD.") && (pt = s.indexOf("=")) > 0)
+				list.add(new IFDProperty(s.substring(3, pt).trim(), s.substring(pt + 1).trim(), PROPERTY_TYPE.OBJ));
 		}
 		return list;
 	}

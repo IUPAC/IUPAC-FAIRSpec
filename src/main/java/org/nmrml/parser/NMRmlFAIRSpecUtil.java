@@ -6,7 +6,7 @@ import java.util.Base64;
 /**
  * This could be expanded as necessary.
  * 
- * @author hanso
+ * @author Bob Hanson (hansonr@stolaf.edu)
  *
  */
 public class NMRmlFAIRSpecUtil {

@@ -107,7 +107,7 @@ public class DOICrawler extends FindingAidCreator {
 	/**
 	 * A class to allow some adjustments. See ICLDOICrawler.
 	 * 
-	 * @author hanso
+	 * @author Bob Hanson (hansonr@stolaf.edu)
 	 *
 	 */
 	protected interface DOICustomizer {
@@ -130,7 +130,7 @@ public class DOICrawler extends FindingAidCreator {
 		IFDReference ifdRef;
 		int length;
 		String pidPath;
-		char type;
+		char type = '?';
 		protected List<DoiRecord> itemList;
 		protected String label;
 		protected String sortKey;
@@ -429,7 +429,8 @@ public class DOICrawler extends FindingAidCreator {
 	
 	}
 	
-	public final static String DATACITE_METADATA = "https://data.datacite.org/application/vnd.datacite.datacite+xml/";
+//	public final static String DATACITE_METADATA = "https://data.datacite.org/application/vnd.datacite.datacite+xml/";
+	public final static String DATACITE_METADATA = "https://api.datacite.org/application/vnd.datacite.datacite+xml/";
 
 	public final static String FAIRDATA_SUBJECT_SCHEME = "IFD";
 

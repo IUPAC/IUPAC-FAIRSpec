@@ -19,7 +19,7 @@ public class VarianIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 		try {
 			NmrMLVarianAcquStreamReader varian = new NmrMLVarianAcquStreamReader(new ByteArrayInputStream(bytes));
 			setParams(varian, varian.read());
-			return processRepresentation(null, null);
+			return getVendorDataSetKey();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -32,7 +32,7 @@ public class VarianIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 	}
 
 	@Override
-	public String processRepresentation(String originPath, byte[] bytes) {
+	public String getVendorDataSetKey() {
 		return IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET;
 	}
 

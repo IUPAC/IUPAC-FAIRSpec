@@ -2,7 +2,7 @@
  " acs.orglett.00571/8f.zip with two Bruker numeric directories in one folder ",
 
  
- {"IFD.property.collectionset.source_data_uri":"testing"},
+ {"IFD.property.collectionset.source_repository_uri":"testing"},
  
  {"FAIRSpec.extractor.object":"{IFD.property.fairspec.compound.id::*}/{IFD.representation.structure.cdxml::{IFD.property.structure.id::*}.cdxml}"}
 

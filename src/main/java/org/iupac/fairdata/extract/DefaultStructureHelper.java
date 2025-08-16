@@ -11,9 +11,11 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.core.IFDProperty;
 import org.jmol.api.JmolViewer;
 import org.jmol.util.DefaultLogger;
 import org.jmol.viewer.Viewer;
+import org.openscience.cdk.interfaces.IAtomContainer;
 
 //import com.actelion.research.chem.AbstractDepictor;
 //import com.actelion.research.chem.SmilesParser;
@@ -72,8 +74,8 @@ public class DefaultStructureHelper implements PropertyManagerI {
 	@Override
 	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
 		this.extractor = extractor;
-		this.createRepresentation = (extractor != null); 
-		return processRepresentation(originPath, bytes);
+		createRepresentation = (extractor != null); 
+		return processStructureRepresentation(originPath, bytes, null, null, createRepresentation, false);
 	}
 	
 	protected Viewer getJmolViewer() {
@@ -127,8 +129,8 @@ public class DefaultStructureHelper implements PropertyManagerI {
 	private static final String CELL_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE.CELL_FORMULA");
 
 	@Override
-	public String processRepresentation(String originPath, byte[] bytes) {
-		return processStructureRepresentation(originPath, bytes, null, null, createRepresentation, false);
+	public String getVendorDataSetKey() {
+		return null; // n/a
 	}
 
 	public String processStructureRepresentation(String originPath, byte[] bytes, String type, String standardInChI,
@@ -155,6 +157,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		if (isCIF || isCDX || isCDXML || isCML || ext.equals("mol") || ext.equals("sdf")) {
 			try {
 				String data = (isCDX ? ";base64," + Base64.getBase64(bytes) : new String(bytes));
+				//System.out.println(data);
 				Viewer v = getJmolViewer();
 				String s = "set allowembeddedscripts false;load DATA \"model\"\n" + data
 						+ "\nend \"model\" 1 FILTER 'no3D;noHydrogen'";
@@ -235,8 +238,10 @@ public class DefaultStructureHelper implements PropertyManagerI {
 //						bytes = jme.toBorderedPNG(null, 10, 10);
 //					}
 					if (is2D && smiles != null) {
+						IAtomContainer mol = CDK.getCDKMoleculeFromSmiles(smiles);
+						smiles = getCDKSmiles(smiles, mol);
 						ByteArrayOutputStream bos = new ByteArrayOutputStream();
-						writeCDKMoleculePNG(smiles, bos);
+						writeCDKMoleculePNG(mol, bos);
 						bytes = bos.toByteArray();
 					}
 				}
@@ -289,12 +294,12 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		return (returnInChI ? standardInChI : type);
 	}
 	
-	private static String getCDKSmiles(String smiles) throws IOException {
-		return CDK.getSmilesFromCDKMolecule(CDK.getCDKMoleculeFromSmiles(smiles));
+	private static String getCDKSmiles(String smiles, IAtomContainer mol) throws IOException {
+		return CDK.getSmilesFromCDKMolecule(mol);
 	}
 		
-	private static void writeCDKMoleculePNG(String smiles, OutputStream os) throws IOException {
-		BufferedImage bi = CDK.getImageFromCDKMolecule(CDK.getCDKMoleculeFromSmiles(smiles));
+	private static void writeCDKMoleculePNG(IAtomContainer mol, OutputStream os) throws IOException {
+		BufferedImage bi = CDK.getImageFromCDKMolecule(mol);
 		ImageIO.write(bi, "png", os);
 	}
 

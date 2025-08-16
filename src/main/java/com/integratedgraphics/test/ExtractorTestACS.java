@@ -42,6 +42,8 @@ import com.integratedgraphics.html.PageCreator;
  */
 public class ExtractorTestACS extends ExtractorTest {
 
+	
+	static String moreFlags = "-assetsonly";
 	/**
 	 * Run a full extraction based on arguments, possibly a test set
 	 * 
@@ -103,7 +105,7 @@ public class ExtractorTestACS extends ExtractorTest {
 			long t0 = System.currentTimeMillis();
 
 			extractor.testID = i;
-			extractor.processFlags(args, null);
+			extractor.processFlags(args, moreFlags);
 			new File(targetDir).mkdirs();
 			// false for testing and you don't want to mess up _IFD_findingaids.json
 			try {
@@ -151,7 +153,7 @@ public class ExtractorTestACS extends ExtractorTest {
 			File htmlPath = new File(targetDir0);
 			try {
 				if (json != null)
-					PageCreator.buildSite(htmlPath, true, false);
+					PageCreator.buildSite(htmlPath, true, null, false);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}		
@@ -237,9 +239,9 @@ public class ExtractorTestACS extends ExtractorTest {
 		 * a local dir if you have already downloaded the zip files, otherwise null to
 		 * download from FigShare;
 		 */
-		String localSourceArchive = "c:/temp/iupac/zip";//-";
+		String localSourceArchive = "c:/temp/iupac/acs/zip";//-";
 		
-		String targetDir = "c:/temp/iupac/ifd2024";
+		String targetDir = "c:/temp/iupac/acs/ifd2025-08";
 		args = setSourceTargetArgs(args, null, localSourceArchive, targetDir, flags);
 		boolean createFindingAidJSONList = true;
 		runACSExtractionTest(args, findACSID, first, last, createFindingAidJSONList);

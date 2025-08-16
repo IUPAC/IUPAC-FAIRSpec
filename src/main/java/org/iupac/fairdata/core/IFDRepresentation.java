@@ -120,7 +120,7 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 	 * that this origin path can be retrieved directly.
 	 * 
 	 */
-	public void setInSitu() {
+	public void updateInSitu() {
 		// check for InChI or SMILES, which have no reference anyway
 		if (data != null && ref == null)
 			return;

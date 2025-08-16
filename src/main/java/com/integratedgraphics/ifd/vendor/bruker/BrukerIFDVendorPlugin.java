@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDProperty;
@@ -32,7 +33,6 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		// derived, not the value itself
 		String[] keys = { //
 				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_DIMENSION"), //prop
-				"##$BF1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_SPECTROMETER_FREQ_1"), //prop
 				"##$SFO1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_1"), //prop
 				"##$SFO2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_2"), //prop
 				"##$SFO3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_3"), //prop
@@ -63,11 +63,23 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		String nuc1, nuc2;
 		String probeHead;
 		String solvent;
+		Stack<Object> originCache = new Stack<>();
 
 		public void clear() {
 			dim = null;
 			nuc1 = nuc2 = null;
 			probeHead = null;
+			flushCache();
+			originCache = new Stack<>();
+		}
+
+		public void flushCache() {
+			if (originCache != null) {
+				while (!originCache.isEmpty()) {
+					readBrukerParameterFileJDX((String) originCache.remove(0), (byte[]) spec.originCache.remove(0), true);
+				}
+				originCache = null;
+			}
 		}
 
 
@@ -129,6 +141,9 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		spec = new Globals();
 	}
 
+	/**
+	 * called when rezip is complete
+	 */
 	@Override
 	public void endDataSet() {
 		// if we found an acqu2s file, then dim has been set to 2D already.
@@ -151,15 +166,29 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	@Override
 	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
 		super.accept(extractor, originPath, bytes);
-		return (readJDX(originPath, bytes) ? processRepresentation(originPath, null) : null);
-	}
+		return (readBrukerParameterFileJDX(originPath, bytes, false) ? getVendorDataSetKey() : null);
+	} 
 
-	private boolean readJDX(String originPath, byte[] bytes) {
-		if (originPath.indexOf("title") >= 0) {
-			report("TITLE", new String(bytes));
+	/**
+	 * reading title, procs, audita.txt, auditp.txt, acqus, acqu2s
+	 * 
+	 * @param originPath
+	 * @param bytes
+	 * @return
+	 */
+	private boolean readBrukerParameterFileJDX(String originPath, byte[] bytes, boolean isFlush) {
+
+		boolean isAcqus = originPath.endsWith("acqus");
+		if (!isAcqus && !isFlush && spec.originCache != null) {
+			spec.originCache.push(originPath);
+			spec.originCache.push(bytes);
 			return true;
 		}
 
+		if (originPath.endsWith("title")) {
+			report("TITLE", new String(bytes));
+			return true;
+		}
 		Map<String, String> map = null;
 		try {
 			map = JDXReader.getHeaderMap(new ByteArrayInputStream(bytes), null);
@@ -168,86 +197,106 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			e.printStackTrace();
 			return false;
 		}
-		if (originPath.indexOf("procs") >= 0) {
+		if (originPath.endsWith("procs")) {
+			// this will be processed after acqus
 			// solvent in procs overrides solvent in acqu or acqus
+			// case acs.joc.0c0070|22567817 SREGLIST <13C.CDCl3> but ACQUS is acetone??
+			// 2025.08.14 but SREGLST is just the scaling region file. ACQUS should be
+			// correct
 			Object solvent = getSolvent(map);
-			if (solvent != null) {
+			if (solvent != null && spec.solvent == null) {
+				System.out.println(
+						"??Bruker ACQUS solvent not found -- using procs.SREGLIST " + solvent + " " + originPath);
 				spec.solvent = (String) solvent;
-				reportSolvent(IFDProperty.NULL); // this will clear the
-				reportSolvent( spec.solvent);
+//				reportSolvent(IFDProperty.NULL); // this will clear the
+				reportSolvent(spec.solvent);
 			}
-			return true;
-		}
+		return true;
+	}
 		boolean isProc = false;
 		if (originPath.indexOf("audita.txt") >= 0 || (isProc = originPath.indexOf("auditp.txt") >= 0)) {
-			String timestamp = map.get("##AUDITTRAIL");
-			if (timestamp != null) {
-				String[] data = timestamp.split("\\(");
-				if (data.length > 1)
-					data = data[data.length - 1].split("<");
-				try {
-					if (data.length > 1) {
-						timestamp = data[1];
-						timestamp = timestamp.substring(0, data[1].indexOf(">")).trim();
-						int pt = Math.max(timestamp.indexOf("+"), timestamp.lastIndexOf("-"));
-						String off = "";
-						if (pt > 10) {
-							off = "00000" + timestamp.substring(pt + 1);
-							int len = off.length();
-							off = timestamp.substring(pt, pt + 1) + off.substring(len - 4, len - 2) + ":"
-									+ off.substring(len - 2);
-						}
-						timestamp = timestamp.substring(0, 10) + "T" + timestamp.substring(11, 19) + off;
-						ZonedDateTime d = ZonedDateTime.parse(timestamp);
-						addProperty(ifdMap.get(isProc ? "PROC_TIMESTAMP" : "TIMESTAMP"), d.toString());
-					}
-				} catch (Exception e) {
-					System.out.println(e);
-				}
-			}
+			return processAudit(map, isProc);
+		}
+		if (isAcqus) {
+			return processAcqus(map);
+		}
+		if (originPath.endsWith("acqu2s")) {
+			report("DIM", spec.dim = "2D");
 			return true;
 		}
+	    System.out.println("Bruker?? " + originPath);		
+		return false;
+	}
 
-		if (originPath.indexOf("acqus") >= 0) {
-			// procs must have been processed already
-			if (spec.solvent == null)
-				processString(map, "##$SOLVENT", null);
-
-			// no need to close a ByteArrayInputStream
-			int ndim = 0;
-			// some of this can be decoupling, though.
-			if ((spec.nuc1 == null ? (spec.nuc1 = processString(map, "##$NUC1", "off")) : spec.nuc1) != null)
-				ndim = 1;
-			if ((spec.nuc2 = processString(map, "##$NUC2", "off")) != null)
-				ndim = 2;
-			if (processString(map, "##$NUC3", "off") != null)
-				ndim = 3;
-			if (processString(map, "##$NUC4", "off") != null)
-				ndim = 4;
-			if (ndim == 0)
-				return false;
-			// offset frequencies BF1+O1
-			report("##$SFO1", getDoubleValue(map, "##$SFO1"));
-			if (ndim >= 2)
-				report("##$SFO2", getDoubleValue(map, "##$SFO2"));
-			if (ndim >= 3)
-				report("##$SFO3", getDoubleValue(map, "##$SFO3"));
-			DoubleString bf1 = new DoubleString((String) map.get("##$BF1"));
-			DoubleString bf2 = new DoubleString((String) map.get("##$BF2"));
-			report("PF", getProtonFrequency(bf1, spec.nuc1, bf2, spec.nuc2));
-			report("NF", getNominalFrequency(bf1, spec.nuc1));
+	private boolean processAudit(Map<String, String> map, boolean isProc) {
+		String timestamp = map.get("##AUDITTRAIL");
+		if (timestamp != null) {
+			String[] data = timestamp.split("\\(");
+			if (data.length > 1)
+				data = data[data.length - 1].split("<");
+			try {
+				if (data.length > 1) {
+					timestamp = data[1];
+					timestamp = timestamp.substring(0, data[1].indexOf(">")).trim();
+					int pt = Math.max(timestamp.indexOf("+"), timestamp.lastIndexOf("-"));
+					String off = "";
+					if (pt > 10) {
+						off = "00000" + timestamp.substring(pt + 1);
+						int len = off.length();
+						off = timestamp.substring(pt, pt + 1) + off.substring(len - 4, len - 2) + ":"
+								+ off.substring(len - 2);
+					}
+					timestamp = timestamp.substring(0, 10) + "T" + timestamp.substring(11, 19) + off;
+					ZonedDateTime d = ZonedDateTime.parse(timestamp);
+					addProperty(ifdMap.get(isProc ? "PROC_TIMESTAMP" : "TIMESTAMP"), d.toString());
+				}
+				return true;
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 		}
+		return false;
+	}
+
+	private boolean processAcqus(Map<String, String> map) {
+		String date = map.get("##$DATE");
+		if (date != null)
+			dataObjectLongID = Long.valueOf(date);
+		if (spec.solvent == null) {
+			// procs must have been processed already
+			spec.solvent = processString(map, "##$SOLVENT", null);
+		}
+		// no need to close a ByteArrayInputStream
+		int ndim = 0;
+		// some of this can be decoupling, though.
+		if ((spec.nuc1 == null ? (spec.nuc1 = processString(map, "##$NUC1", "off")) : spec.nuc1) != null)
+			ndim = 1;
+		if ((spec.nuc2 = processString(map, "##$NUC2", "off")) != null)
+			ndim = 2;
+		if (processString(map, "##$NUC3", "off") != null)
+			ndim = 3;
+		if (processString(map, "##$NUC4", "off") != null)
+			ndim = 4;
+		if (ndim == 0)
+			return false;
+		// offset frequencies BF1+O1
+		report("##$SFO1", getDoubleValue(map, "##$SFO1"));
+		if (ndim >= 2)
+			report("##$SFO2", getDoubleValue(map, "##$SFO2"));
+		if (ndim >= 3)
+			report("##$SFO3", getDoubleValue(map, "##$SFO3"));
+		DoubleString bf1 = new DoubleString((String) map.get("##$BF1"));
+		DoubleString bf2 = new DoubleString((String) map.get("##$BF2"));
+		report("PF", getProtonFrequency(bf1, spec.nuc1, bf2, spec.nuc2));
+		report("NF", getNominalFrequency(bf1, spec.nuc1));
 		report("##$TE", getDoubleValue(map, "##$TE"));
 		processString(map, "##$PULPROG", null);
 		processString(map, "##$EXP", null);
-		if (originPath.endsWith("acqu2s")) {
-			report("DIM", spec.dim = "2D");
-		} else if (originPath.endsWith("acqus") && spec.dim == null) {
-			report("DIM", spec.dim = "1D");
-		}
+//		report("DIM", spec.dim = "1D");
 		if (spec.probeHead == null) {
 			spec.probeHead = processString(map, "##$PROBHD", null);
 		}
+		spec.flushCache();
 		return true;
 	}
 
@@ -334,7 +383,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	@Override
-	public String processRepresentation(String ifdPath, byte[] bytes) {
+	public String getVendorDataSetKey() {
 		return IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET;
 	}
 

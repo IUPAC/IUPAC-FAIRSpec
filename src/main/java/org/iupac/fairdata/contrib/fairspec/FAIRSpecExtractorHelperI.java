@@ -34,8 +34,6 @@ public interface FAIRSpecExtractorHelperI extends FAIRSpecFindingAidHelperI {
 
 	IFDObject<?> endAddingObjects();
 
-	IFDStructure getCurrentStructure();
-
 	String getFileListJSON(String name, List<FileList> rootLists, String resourceList, String scriptFileName, int[] ret) throws IOException;
 
 	void removeInvalidData();

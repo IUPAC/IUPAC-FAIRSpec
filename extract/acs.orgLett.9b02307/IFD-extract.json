@@ -9,7 +9,7 @@
  {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
  {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"}, 
  {"IFD.property.collectionset.source_data_doi":"{repositoryDataDOI}"}, 
- {"IFD.property.collectionset.source_data_uri":"{repositoryDataURL}"}, 
+ {"IFD.property.collectionset.source_repository_uri":"{repositoryDataURL}"}, 
  
  {"path":"NMR/{id=IFD.property.fairspec.compound.id::*}/"},
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::*/}"}

@@ -32,6 +32,7 @@ public interface PropertyManagerI {
 	 * plugin both the name and the bytes of the zip entry that is being considered
 	 * for extraction from directories or zip collections. 
 	 * 
+	 * This process will report back 
 	 * 
 	 * 
 	 * @param extractor will be null if rezipping, otherwise the calling
@@ -45,19 +46,12 @@ public interface PropertyManagerI {
 	String accept(MetadataReceiverI extractor, String originPath, byte[] bytes);
 
 	/**
-	 * Process a representation (zip file or directory, mol file, etc.), possibly
-	 * sending new properties to the Extractor, such as InChI or SMILES for a MOL
-	 * file.
-	 * 
-	 * @param ifdPath the path to this representation; may be null (for example, in
-	 *                the case of a zip file), but may be used for distinguishing
-	 *                representation types such as mol.2d or sdf.
-	 * 
-	 * @param bytes   bytes for this representation; may be null for zip files
-	 * @return the IFD type key for this digital object (e.g.
+	 * Get the IFD type key for this digital object (e.g.
 	 *         IFDNMRSpecDataRepresentation.IFD_REP_DATAOBJECT_SPEC_NMR_VENDOR_DATASET)
+	 * 
+	 * @return the IFD type key
 	 */
-	String processRepresentation(String ifdPath, byte[] bytes);
+	String getVendorDataSetKey();
 
 	/**
 	 * 

@@ -36,8 +36,8 @@
  {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"},
  
  "we take the two sources one at a time",
- {"#IFD.property.collectionset.source_data_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip"},
- {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid1}"},
+ {"#IFD.property.collectionset.source_repository_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip"},
+ {"IFD.property.collectionset.source_repository_uri":"https://ndownloader.figshare.com/files/{figshareid1}"},
 
  {"FAIRSpec.extractor.replacements":[
 	["Compound ", ""],
@@ -62,8 +62,8 @@
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::**/{IFD.property.dataobject.id::*.mnova*}}"},
 
  "second set",
- {"#IFD.property.collectionset.source_data_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_003.zip"},
- {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid2}"},
+ {"#IFD.property.collectionset.source_repository_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_003.zip"},
+ {"IFD.property.collectionset.source_repository_uri":"https://ndownloader.figshare.com/files/{figshareid2}"},
  
  "as above",
  {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::**/{IFD.property.dataobject.id::*.mnova*}}"},

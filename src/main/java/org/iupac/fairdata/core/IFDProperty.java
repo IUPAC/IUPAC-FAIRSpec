@@ -26,6 +26,10 @@ public class IFDProperty implements IFDSerializableI {
 		setValue(value);
 	}
 
+	public IFDProperty(String name, Object value, PROPERTY_TYPE dataType) {
+		this(name, value, dataType, PROPERTY_UNIT.NONE);
+	}
+	
 	public IFDProperty(String name, PROPERTY_TYPE dataType, PROPERTY_UNIT units) {
 		this(name, null, dataType, units);
 	}

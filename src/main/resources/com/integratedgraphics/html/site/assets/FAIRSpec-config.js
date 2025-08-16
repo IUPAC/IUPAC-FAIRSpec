@@ -5,6 +5,7 @@
 IFD = {		
 	properties:{
 		baseDir: ".",
+		aLoading: null,
 		corsOK: null,
 		findingAidPath: "./",
 		findingAidFileName: "IFD.findingaid.json",
@@ -25,7 +26,6 @@ IFD = {
 	resultsMode: "none",
 	findingAid: null,
 	JME: null,
-	jmeReturn: null,
 	smarts: null, // just for reference
 	canvas: null,
 	contentHeader: null,
@@ -42,7 +42,11 @@ IFD.MODE_SAMPLESPECTRA = "samplespectra";
 IFD.searchType = IFD.MODE_NONE;
 
 
-IFD.setFindingAidPath = function(url) {
-	IFD.properties.baseDir = IFD.properties.findingAidPath = (url ? url.substring(0, url.lastIndexOf("/") + 1) : "./");
+IFD.setFindingAidPath = function(url, base) {
+	base || (base = IFD.properties.baseDir);
+	if (!base.endsWith("/"))
+		base += '/';
+	IFD.properties.findingAidPath = (url ? url.substring(0, url.lastIndexOf("/") + 1) : "./");
+	IFD.properties.baseDir = (base.startsWith(".") ? IFD.properties.findingAidPath + base : base);
 }
 

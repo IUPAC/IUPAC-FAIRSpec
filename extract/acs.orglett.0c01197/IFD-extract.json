@@ -16,8 +16,8 @@
  {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
  {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"},
 
- {"#IFD.property.collectionset.source_data_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip"},
- {"IFD.property.collectionset.source_data_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
+ {"#IFD.property.collectionset.source_repository_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip"},
+ {"IFD.property.collectionset.source_repository_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
 
  {"FAIRSpec.extractor.object":"*/{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}}.mnova}"}
 ]}

@@ -25,7 +25,6 @@
 	const NMRDB_PREDICT_SMILES = "https://www.nmrdb.org/service.php?name=%TYPE%-prediction&smiles=%SMILES%";
 	// where type = 1h, 13c, cosy, hmbc, hsqc
 	
-	var aLoading = null;
 	var divId = 0;
 	
 	var dirFor = function(aidID) {
@@ -54,7 +53,7 @@
 	
 
 	//external
-	IFD.searchText = function(aidID) {
+	IFD.doTextSearch = function(aidID) {
 		// hide the main search sub 
 		IFD.toggleDiv(MAIN_SEARCH_SUB,"none");
 		var text = prompt("Text to search for?");
@@ -155,8 +154,7 @@
 		"spectra": {}
 	}
 
-	//external
-	IFD.searchProperties = function(aidID) {													
+	IFD.createPropertySearchForm = function(aidID) {
 		prepDOM_searchProperties();
 		let initiliazed_keys = new Set(); // do avoid repeated key setting
 		const searchTypeArr = document.querySelectorAll('input[name = "searchPropOption"]');
@@ -178,26 +176,25 @@
 				}
 				buildCheckboxContainer();
 				getPropIDsFromGUI(aidID);
-				
-				
 			})
-
-			}
-			
-		)
-
+		})
 	}
 
 	const getPropIDsFromGUI = function(aidID){
 		let propertyDiv = document.getElementById(`${MAIN_SEARCH_PROP}`);
-		let form = propertyDiv.querySelector("#propertySearch");	
+		let form = propertyDiv.querySelector("#propertySearch");
 		form.addEventListener("submit", function(event){
-			event.preventDefault(); 
-			$("#searchTop").css({visibility:"hidden"});
-			searchForm(form, aidID);
+			propertySearchAction(event, form, aidID);
 		})	
 	}
 
+	const propertySearchAction = function(event, form, aidID) {
+		event.preventDefault(); 
+		$("#searchTop").css({visibility:"hidden"});
+		searchForm(form, aidID);	
+	}
+	
+	
 	var searchForm = function(form, aidID) {
 		var userSelectedOptions = {};
 		var childBoxes = form.querySelectorAll(`input[class^="ifd-search-value-checkbox"]`);	
@@ -696,6 +693,7 @@
 		} else {
 			s += '</select>'
 			$("#faselectiondiv").html(s);
+			loadAll();
 		}
 	}	
 	
@@ -723,31 +721,29 @@
 
 	// external
 	IFD.loadSelected = function(aidID, collection) {
-		
-		if (!aidID)
-			return;
-		
-		
 		IFD.mainText = null;
 		if (typeof aidID == "object") {
 			var next = aidID.pop();
 			if (!next)return;
-			aLoading = aidID;
+			IFD.properties.aLoading = aidID;
 			IFD.loadSelected(next);
 			return;
 		}
-		aidID || (aidID = "");
-		setResults("");
-		var dir = dirFor(aidID);
-		if (IFD.findingAidID == '.' || IFD.findingAidID == aidID) return;
-		IFD.findingAidID = aidID;
-		if (IFD.findingAidDir == dir) return;
-		IFD.findingAidDir = dir;
 		if (!aidID) {
 			loadAll();
 			return;
 		}
-		IFD.findingAidFile = fileFor(aidID, IFD.properties.findingAidFileName);
+		aidID || (aidID = ".");
+		setResults("");
+		if (IFD.findingAidID == '.' || IFD.findingAidID == aidID) return;
+		IFD.findingAidID = aidID;
+		var dir = (aidID != "." ? dirFor(aidID) : IFD.properties.findingAidPath);
+		if (!dir.endsWith('/'))
+			dir += '/';
+		
+		if (IFD.findingAidDir == dir) return;
+		IFD.findingAidDir = dir;
+		IFD.findingAidFile = IFD.findingAidDir + IFD.properties.findingAidFileName;
 		var aid = IFD.cacheGet(aidID);
 		if (aid == null) {
 			$.ajax({url:IFD.findingAidFile, dataType:"json", success:callbackLoaded, error:function(){callbackLoadFailed()}});
@@ -840,8 +836,7 @@
 	}
 
 	IFD.showAid = function(aidID) {
-		var url = (IFD.findingAidURL || fileFor(IFD.findingAidID, IFD.properties.findingAidFileName));
-		window.open(url, "_blank");
+		window.open(IFD.findingAidFile, "_blank");
 	}
 
 	IFD.showVersion = function(aid) {
@@ -858,11 +853,13 @@
 	// local methods
 
 	var loadAll = function() {
-		aLoading = [];
-		for (var i = 0; i < IFD.aidIDs.length; i++) {
-			aLoading[i] = IFD.aidIDs[i];
+		setTop("");
+		setMain("");
+		IFD.properties.aLoading = [];
+		for (var i = IFD.aidIDs.length; --i >= 0;) {
+			IFD.properties.aLoading.push(IFD.aidIDs[i]);
 		}
-		IFD.loadSelected(aLoading);
+		IFD.loadSelected(IFD.properties.aLoading);
 	}
 
 	var callbackLoaded = function(json) {
@@ -891,9 +888,12 @@
 	}
 	
 	var getFindingAid = function(url){
-		if(!url && !(url = getField("url")))
+		url || (url = getField("url"));
+		var base = getField("base");
+		if (url || base)
+			IFD.setFindingAidPath(url, base);
+		if (!url)
 			return false;
-		IFD.setFindingAidPath(url);
 		var faJson = J2S.getFileData(url);
 		var topKey = "IUPAC.FAIRSpec.findingAid";
 		if (!faJson.startsWith('{"' + topKey))
@@ -912,7 +912,7 @@
 
 
 	var loadAid = function(aid, collection) {
-		if (!aLoading) {
+		if (!IFD.properties.aLoading) {
 			IFD.mainMode = MAIN_SUMMARY;
 			setTop("");
 			setMain("");
@@ -924,12 +924,12 @@
 		IFD.isCrawler = (aid.createdBy && aid.createdBy.indexOf("Crawler") >= 0);
 		loadTop(aid);
 		loadAidPanels(aid);
-		if (aLoading) {
-			if (aLoading.length > 0) {
-				IFD.loadSelected(aLoading);
+		if (IFD.properties.aLoading) {
+			if (IFD.properties.aLoading.length > 0) {
+				IFD.loadSelected(IFD.properties.aLoading);
 				return;
 			}
-			aLoading = null;
+			IFD.properties.aLoading = null;
 			IFD.findingAidID = null;
 			setMoreLeft("");
 		} else {
@@ -944,12 +944,28 @@
 
 	var loadTop = function(aid) {
 		var s = (aid.id == '.' ? "" : "&nbsp;&nbsp;&nbsp;" + aid.id) 
-		+ (aLoading ? 
+		+ (IFD.properties.aLoading ? 
 			"&nbsp;&nbsp; <a target=_blank href=\"" + IFD.findingAidFile + "\">view "+IFD.findingAidFile.split("/").pop()+"</a>"
-			+ "&nbsp;&nbsp; " + addPathRef(aid.id, aid.collectionSet.ifdProperties.ref, aid.collectionSet.ifdProperties.len)
+			+ "&nbsp;&nbsp; " + addPathRef(aid.id, aid.resources.FAIRSpecDataCollection.ref, 
+					aid.resources.FAIRSpecDataCollection.len)
 		: ""); 
 		s = "<h3>" + IFD.shortType(aid.ifdType) + s + " </h3>";
-		setTop(s);
+		if (IFD.properties.aLoading) {
+			setTopLoading(aid, s);			
+		} else {
+			setTop(s);
+		}
+	}
+
+	var setTopLoading = function(aid, s) {
+		s += getMain(aid, true);
+		addOrAppendJQ("#top",s, false);		
+	}
+	
+	var setTop = function(s) {
+		if (s)
+			s += '<a href="javascript:IFD.showSummary()">summary</a>&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.showSearch()">search</a>'			
+		addOrAppendJQ("#top",s, true);
 	}
 
 	var loadMain = function(aid) {
@@ -966,6 +982,12 @@
 	}
 	
 	var loadMainSummary = function(aid, isAll) {
+		var s = getMain(aid, isAll);
+		setMain(s);
+		showMain();
+	}
+	
+	var getMain = function(aid, isAll) {
 		clearPDFCache();
 		
 		// remove the highlight count
@@ -983,9 +1005,7 @@
 				IFD.mainText = s;
 			}
 		}
-		setMain(s);
-
-		showMain();
+		return s;
 	}
 
 	var getMainTable = function(aid, isAll) {		
@@ -1009,9 +1029,9 @@
 			var s = "";
 			aidID || (aidID = "");
 			s += "<h3>Search</h3>";
-			s += `<a href="javascript:IFD.searchStructures('${aidID}')">substructure</a>`;
-			s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.searchText('${aidID}')">text</a>`;
-			s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.searchProperties('${aidID}')">properties</a>`;
+			s += `<a href="javascript:IFD.showJSMESearch('${aidID}')">substructure</a>`;
+			s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.doTextSearch('${aidID}')">text</a>`;
+			s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.createPropertySearchForm('${aidID}')">properties</a>`;
 			s += `<div id=${MAIN_SEARCH_TEXT} style="display:none"></div>`;
 			s +=  buildSearchPropertyDiv(); 
 			s += `&nbsp;<input type="checkbox" id="highlightToggle" name="highlight"> <label for = "highlightToggle"> enable highlight </label>`;
@@ -1115,13 +1135,13 @@
 		for (var id in resources) {
 			var r = resources[id];
 			var ref = r.ref;
-			var isRelative = ref.startsWith("./");
+			var isRelative = ref.startsWith(".");
 			var isDataOrigin = !isNaN(id);
 			if (isDataOrigin ? ref.indexOf("http") == 0 : isRelative) {
-				if (isRelative && IFD.findingAidPath != "./")
-					ref = IFD.findingAidPath + ref;
+				if (isRelative && IFD.properties.baseDir != "./")
+					ref = IFD.properties.baseDir + ref;
 				var size = getSizeString(r.len);
-				ref = "<a target=_blank href=\"" + ref + "\">" + ref + (size ? " ("+size+")":"") + "</a>"
+				ref = "<a target=_blank href=\"" + ref + "\">" + ref + (size ? " " + size:"") + "</a>"
 				s += "<tr><td>" + (isDataOrigin ? "Data&nbsp;Origin" : id) 
 				   + "</td><td>"+ref+"</td></tr>";
 			}
@@ -1328,12 +1348,12 @@
 			s += "<span class=structurehead>"+ (IFD.resultsMode == IFD.MODE_STRUCTURES 
 					? getHeader("Structure/s", h) : h) + "</span><br>";
 		}
-		var v = IFD.getStructureVisual(reps);
-		if (v && isAll){
-			s += "<table border=1><tr><td>";
-			s += "from SMILES:<br>" + v;
-			s += "</td></tr></table>"
-		}
+//		var v = IFD.getStructureVisual(reps);
+//		if (v && isAll){
+//			s += "<table border=1><tr><td>";
+//			s += "from SMILES:<br>" + v;
+//			s += "</td></tr></table>"
+//		}
 		s += IFD.getStructureSpectraPredictions(reps);
 		s += "</td>";
 		s += "<td>" + addRepresentationTable(false, aidID, reps, "png", isAll) + "</td>";
@@ -1358,11 +1378,6 @@
 		}
 		s += "</table>";
 		return s;
-	}
-
-	var setTop = function(s) {
-		s += '<a href="javascript:IFD.showSummary()">summary</a>&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.showSearch()">search</a>'
-		addOrAppendJQ("#top",s, true);
 	}
 
 	var getInnerHTML = function(id) {
@@ -1420,8 +1435,8 @@
 			 		if (IFD.properties.collectionZipPath)
 			 			ref = IFD.properties.collectionZipPath;
 			 		else if (ref.startsWith("."))
-			 			ref = IFD.findingAidPath + ref;
-					s += "<br><br><a href=\"" + ref + "\">" + p.ref + "</a><br>(" + getSizeString(p.len) + ")";
+			 			ref = IFD.properties.baseDir + ref;
+					s += "<br><br><a href=\"" + ref + "\">" + p.ref + "</a><br>" + getSizeString(p.len);
 				}
 			} else {
 				s += "<br><br><a href=\"javascript:IFD.showCollection('"+aid.id+"')\">Collection Folder</a>";
@@ -1434,9 +1449,10 @@
 
 	var getSizeString = function(n) {
 		if (!n) return "";
-		if (n > 1000000) return Math.round(n/100000)/10 + " MB";
-		if (n > 1000) return Math.round(n/100)/10 + " KB";
-		return n + " bytes";
+		var s = (n > 1000000 ? Math.round(n/100000)/10 + " MB"
+				: n > 1000 ? Math.round(n/100)/10 + " KB"
+						: n + " bytes");
+		return "(" + s + ")";
 	}
 
 	var clearJQ = function(jqid) {
@@ -1515,7 +1531,7 @@
 	
 	var anchorBase64 = function(label, sdata, mediaType) {
 		mediaType || (mediaType = "application/octet-stream");
-		var s = "<a href=\"data:" + mediaType + sdata + "\")>" + label + "</a>";
+		var s = "<a download=\"" + shortFileName(label) + "\" href=\"data:" + mediaType + sdata + "\">" + label + "</a>";
 		if (mediaType.indexOf("/pdf") >= 0) {
 			s += getPDFLink("data:application/pdf" + sdata);
 		}
@@ -1538,10 +1554,10 @@
 			// cross-origin needs to get the data asynchronously as a byte array
 			var uri = IFD.pdfData[pt][2];
 			if (uri && !uri.startsWith("data:")) {
-				if (IFD.properties.findingAidPath) {
+				if (IFD.properties.baseDir) {
 					if (IFD.properties.corsOK === null) {
 						 var myhost = document.location.host;
-						 IFD.properties.corsOK = (myhost && IFD.properties.findingAidPath.indexOf(myhost) >= 0);
+						 IFD.properties.corsOK = (myhost && IFD.properties.baseDir.indexOf(myhost) >= 0);
 					}
 					if (!IFD.properties.corsOK) {
 						var data = J2S.getFileData(uri, function(data) {
@@ -1680,7 +1696,9 @@
 		} else {
 			if (url.startsWith(";base64,"))
 				url = "data:application/octet-stream" + url;
-			s = "<a target=_blank href=\"" + url + "\">" + shortName + "</a>" + " (" + getSizeString(len) + (mediaType ? " " + mediaType : "") + ")";				
+			var size = getSizeString(len);
+			var info = ((size ? " " + size.substring(1, size.length - 1) : "") + (mediaType ? " " + mediaType : "")).trim();
+			s = "<a target=_blank href=\"" + url + "\">" + shortName + "</a>" + (info ? " (" + info + ")" : "");
 			if (//IFD.resultsMode == IFD.MODE_SPECTRA && 
 					shortName.endsWith(".pdf")) {
 				s +=  getPDFLink(url);
@@ -1695,7 +1713,7 @@
 	var addPathRef = function(aidID, path, len) {
 		var url = fileFor(aidID, path);
 		return "<a target=_blank href=\"" + url + "\">" 
-			+ shortFileName(path) + "</a>" + " (" + getSizeString(len) + ")";
+			+ shortFileName(path) + "</a>" + " " + getSizeString(len);
 	}
 		
 	var shortFileName = function(f) {
@@ -1721,62 +1739,50 @@
 		return removeUnderline(toAlphanumeric(text));
 	}
 	
-	var JMEshowSearch = function(fReturn) {
+	IFD.showJSMESearch = function() {
 		IFD.toggleDiv(MAIN_SEARCH_SUB,"block");
-		IFD.jmeReturn = fReturn;
-		if (!IFD.JME) {
-			IFD.createJSME();			
-		}
+		IFD.createJSME();			
 	}
 
-	var JMESmartsReturn = function(aidID) {
-		aidID || (aidID = IFD.findingAidID);
-		var ids = IFD.jmolGetSmartsMatch(aidID);
-		var indexes = IFD.getCompoundIndexesForStructures(aidID, ids);
-		IFD.showCompounds(aidID, indexes);
-	}
-	
-	IFD.searchStructures = function() {
-		JMEshowSearch(JMESmartsReturn); 
-	}
-
-	IFD.getStructureVisual = function(reps) {
-
-return ""; // no longer necessary
-
-		var types = IFD.getRepTypes(reps);
-		if (!types.smiles || !types.smiles.data) return "";
-		return IFD.getCDKDepictImage(types.smiles.data);
-	}
-	
-	IFD.getCDKDepictImage = function(SMILES) {
-		  var w        = IFD.properties.imageDimensions.width; // mm
-		  var h        = IFD.properties.imageDimensions.height; // mm
-		  var hdisplay = "bridgehead";
-		  var annotate = "cip";
-		  var code = encodeURIComponent(SMILES);
-		  var dim = IFD.cacheGet(code);
-		  var onload;
-		  divId++;
-		  if (dim) {
-			  w = dim.w;
-			  h = dim.h;
-			  onload = "";  
-		  } else {
-			startImageMonitor(divId);
-			onload = " onload=IFD.checkImage(" + divId + ",true)";
-			IFD.cachePut("img" + divId, code);
-		  }
-		  var src =	"https://www.simolecule.com/cdkdepict/depict/bow/svg?smi=" 
-				+ code + "&w=" + w + "&h=" + h + "&hdisp=" + hdisplay 
-				+ "&showtitle=false&zoom=1.7";
-		  var s = getImageTag(null, null, src);
-//		  if (!data){
-//			  IFD.cachePut(code, "img" + divId);
-//			  IFD.cachePut("img" + divId, code);
+//	IFD.getStructureVisual = function(reps) {
+//		// abandoned no longer necessary
+//
+//		var types = IFD.getRepTypes(reps);
+//		if (!types.smiles || !types.smiles.data) return "";
+//		return IFD.getCDKDepictImage(types.smiles.data);
+//	}
+//	
+//	IFD.getCDKDepictImage = function(SMILES) {
+// Initially we were using CDKDepict to get images, but that is no longer necessary, 
+// as we are creating images already as part of the extraction process
+//	
+//		  var w        = IFD.properties.imageDimensions.width; // mm
+//		  var h        = IFD.properties.imageDimensions.height; // mm
+//		  var hdisplay = "bridgehead";
+//		  var annotate = "cip";
+//		  var code = encodeURIComponent(SMILES);
+//		  var dim = IFD.cacheGet(code);
+//		  var onload;
+//		  divId++;
+//		  if (dim) {
+//			  w = dim.w;
+//			  h = dim.h;
+//			  onload = "";  
+//		  } else {
+//			startImageMonitor(divId);
+//			onload = " onload=IFD.checkImage(" + divId + ",true)";
+//			IFD.cachePut("img" + divId, code);
 //		  }
-		  return s;
-	}
+//		  var src =	"https://www.simolecule.com/cdkdepict/depict/bow/svg?smi=" 
+//				+ code + "&w=" + w + "&h=" + h + "&hdisp=" + hdisplay 
+//				+ "&showtitle=false&zoom=1.7";
+//		  var s = getImageTag(null, null, src);
+////		  if (!data){
+////			  IFD.cachePut(code, "img" + divId);
+////			  IFD.cachePut("img" + divId, code);
+////		  }
+//		  return s;
+//	}
 	
 	IFD.getStructureSpectraPredictions = function(reps) {
 		var types = IFD.getRepTypes(reps);

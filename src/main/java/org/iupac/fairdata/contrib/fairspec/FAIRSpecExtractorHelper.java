@@ -3,6 +3,7 @@ package org.iupac.fairdata.contrib.fairspec;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -85,11 +86,11 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	public static class FileList {
 		private String rootPath;
 		private final String name;
-		private final List<String> files = new ArrayList<>();
-		private List<Long> lengths = new ArrayList<>();
+		private HashMap<String, Long> files = new HashMap<>();
 		private Pattern acceptPattern;
 		private long byteCount;
 		private String start;
+		private boolean serialized;
 
 		public FileList(String rootPath, String name, String start) {
 			this.name = name;
@@ -106,28 +107,27 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 		 * 
 		 * @param sb
 		 * @return String if sb == null, or null is sb != null
-		 */
+//		 */
 		public String serialize(StringBuffer sb) {
-			lengths = null;
+			serialized = true;
 			return getJSON(sb);
 		}
 
 		private String getJSON(StringBuffer sb) {
-			String[] list = files.toArray(new String[files.size()]);
+			String[] list = files.keySet().toArray(new String[files.size()]);
 			Arrays.sort(list);
 			return FAIRSpecUtilities.toJSON(sb, list, rootPath, false);
 		}
 
 		public boolean contains(String fileName) {
-			return files.contains(fileName);
+			return files.containsKey(fileName);
 		}
 
 		public void add(String fileName, long len) {
-			files.add(fileName);
-			if (len < 0)
-				len = 0;
-
-			lengths.add(Long.valueOf(len));
+			if (files.containsKey(fileName))
+				return;
+			len = Math.max(0, len);
+			files.put(fileName, Long.valueOf(len));
 			byteCount += len;
 		}
 
@@ -179,8 +179,10 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 		}
 
 		public long getLength(String fileName) {
-			int i = files.indexOf(fileName);
-			return (i < 0 || lengths == null ? 0 : lengths.get(i).longValue());
+			if (serialized)
+				return 0;
+			Long len = files.get(fileName);
+			return (len == null ? 0 : len.longValue());
 		}
 
 	}
@@ -215,7 +217,8 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	public static final String IFD_PROPERTY_FAIRSPEC_COMPOUND_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			"fairspec.compound.id");
 
-	;
+	public static final String SPEC_LONGDATE_ID = "_spec_id_long_date";
+
 
 	/**
 	 * current state of extraction
@@ -295,7 +298,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 				addProperties((IFDObject<?>) currentDataObject, currentDataProps);
 			}
 			if (isNew)
-				extractor.setNewObjectMetadata(currentDataObject, IFD_PROPERTY_DATAOBJECT_ID);
+				extractor.setSpreadSheetMetadata(currentDataObject, IFD_PROPERTY_DATAOBJECT_ID);
 			if (currentAssociation != null && currentAssociation instanceof FAIRSpecCompoundAssociation) {
 				((IFDStructureDataAssociation) currentAssociation).getDataObjectCollection().add(currentDataObject);
 			}
@@ -353,7 +356,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 				currentAssociation = new FAIRSpecCompoundAssociation();
 			currentAssociation.setPropertyValue(param, value);
 			if (IFDConst.isID(param))
-				extractor.setNewObjectMetadata(currentAssociation, param);
+				extractor.setSpreadSheetMetadata(currentAssociation, param);
 			getCompoundCollection().add(currentAssociation);
 //				System.out
 //						.println("addObject currentAssociation=" + param + "..." + value + "..." + currentAssociation);
@@ -435,7 +438,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 		}
 		checkAddRepOrSetParam(o, param, value, localName, len);
 		if (isNew && isID)
-			extractor.setNewObjectMetadata(o, param);
+			extractor.setSpreadSheetMetadata(o, param);
 		return o;
 	}
 
@@ -623,7 +626,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 
 	@Override
 	public String finalizeExtraction(Map<String, Map<String, Object>> htURLReferences) {
-		finalizeObjects();
+		finalizeCollections();
 		finalizeCompoundURLRefs(htURLReferences);
 		finalizeCollectionSet(htURLReferences);
 		return dumpSummary();

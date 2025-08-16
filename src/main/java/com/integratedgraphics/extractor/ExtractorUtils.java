@@ -873,7 +873,7 @@ public class ExtractorUtils {
 
 	public static class ExtractorResource {
 		
-		private int id, tempID;
+		public int id, tempID;
 
 		private String source;
 		private String localSourceFile;
@@ -883,10 +883,13 @@ public class ExtractorUtils {
 		public FileList lstManifest;
 		public FileList lstIgnored;
 		public FileList lstAccepted;
+		
+		public boolean isDefaultStructurePath;
 
-		public ExtractorResource(int id, String source) {
+		public ExtractorResource(int id, String source, boolean isDefaultStructurePath) {
 			this.id = id;
 			this.source = source;
+			this.isDefaultStructurePath = isDefaultStructurePath;
 		}
 			
 		public String getLocalSourceFileName() {
@@ -965,6 +968,10 @@ public class ExtractorUtils {
 		private byte[] a;
 	
 		public AWrap() {
+		}
+	
+		public AWrap(byte[] bytes) {
+			setBytes(bytes);
 		}
 	
 		public void setBytes(byte[] bytes) {

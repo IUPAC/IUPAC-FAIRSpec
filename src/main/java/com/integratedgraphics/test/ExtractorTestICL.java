@@ -21,7 +21,7 @@ public class ExtractorTestICL {
 		String targetDir = dir + "icl-ifd2025.07.23"; // 10386
 		String flags = null;// this did not work: "-embedpdf";
 
-		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir, flags);
+		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir, null, flags);
 	}
 
 }
