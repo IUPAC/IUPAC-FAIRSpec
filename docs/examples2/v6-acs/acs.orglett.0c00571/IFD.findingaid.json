@@ -19,7 +19,7 @@
 "metadataUrl":"https://api.crossref.org/works/10.1021/acs.orglett.0c00571"}}],
 "resources":{"1":{"ref":"https://ndownloader.figshare.com/files/21975525",
 "len":189870637},
-"FAIRSpecDataCollection":{"ref":"./IFD.collection.zip",
+"FAIRSpecDataCollection":{"ref":"https://chemapps.stolaf.edu/iupac/examples2/v6-acs/acs.orglett.0c00571.IFD.collection.zip",
 "len":199638759}},
 "collectionSet":{"propertyPrefix":"IFD.property.collectionset",
 "resourceID":"FAIRSpecDataCollection",
