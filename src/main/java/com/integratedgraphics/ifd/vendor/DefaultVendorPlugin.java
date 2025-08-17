@@ -17,8 +17,14 @@ import com.integratedgraphics.ifd.api.VendorPluginI;
  */
 public abstract class DefaultVendorPlugin implements VendorPluginI {
 
-	/*
-	 * note that as coded, ONLY ONE vendor can use this. 
+	/**
+	 * A (relatively) unique Long value, probably a time stamp from a DateTime millisecond instance / 1000.
+	 */
+	protected Long dataObjectLongID;
+    
+	
+	/**
+	 * note that as coded, ONLY ONE vendor can use this (Bruker). 
 	 */
 	private static final String rezipPathHeader = "^(?<path#>.+(?:/|\\|)(?<dir#>[^/]+)(?:/|\\|))";
 
@@ -26,7 +32,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 		VendorPluginI.registerIFDVendorPlugin(c);
 	}
 
-    abstract protected void reportVendor();
+    abstract public void reportVendor();
 
 	/**
 	 * the extractor calling this plugin, set in startRezipping() or accept()
@@ -112,7 +118,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 		if (extractor != null) {
 			this.extractor = extractor;
 		}
-		return processRepresentation(null, null);
+		return getVendorDataSetKey();
 	}
 
 	/**

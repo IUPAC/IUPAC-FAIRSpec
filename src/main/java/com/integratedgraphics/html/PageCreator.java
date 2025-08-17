@@ -7,10 +7,12 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 /**
  * Create a test site for a finding aid. Just transfers files from site/* and optionally launch it.
  * 
- * @author hanso
+ * @author Bob Hanson (hansonr@stolaf.edu)
  *
  */
 public class PageCreator {
+
+	private static CharSequence baseDir;
 
 	private PageCreator() {
 		// no instance necessary
@@ -31,15 +33,25 @@ public class PageCreator {
 			"index.htm",
 	};
 
-	public static void buildSite(File htmlPath, boolean isLocal, boolean doLaunch) throws Exception {
+	public static void buildSite(File htmlPath, boolean isLocal, String baseDir, boolean doLaunch) throws Exception {
 		if (htmlPath == null)
 			return;
 		new File(htmlPath, "assets").mkdirs();
 		for (int i = 0; i < files.length; i++) {
 			byte[] bytes = FAIRSpecUtilities.getResourceBytes(PageCreator.class, "site/" + files[i]);
-			if (!isLocal && files[i] == ifdConfigJS) {
-				bytes = new String(bytes).replace("true", "false").getBytes();
+			String sbytes = null;
+			if (files[i] == ifdConfigJS) {
+				if (!isLocal)
+					sbytes = new String(bytes).replace("true", "false");
+				if (baseDir != null) {
+					if (sbytes == null)
+						sbytes = new String(bytes);
+					int pt = sbytes.indexOf("\".\"");
+					sbytes = sbytes.substring(0, pt + 1) + baseDir + sbytes.substring(pt + 2);
+				}
 			}
+			if (sbytes != null)
+				bytes = sbytes.getBytes();
 			File f = new File(htmlPath + "/" + files[i]);
 			System.out.println("PageCreator creating " + f.getAbsolutePath());
 			FAIRSpecUtilities.writeBytesToFile(bytes, f);
@@ -58,7 +70,7 @@ public class PageCreator {
 
 	public final static void main(String[] args) {
 		try {
-			PageCreator.buildSite(new File("C:/temp/tpc"), true, true);
+			PageCreator.buildSite(new File("C:/temp/tpc"), true, null, true);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

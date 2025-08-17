@@ -17,6 +17,11 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 
 	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_DATAOBJECT_FLAG);
 
+	/**
+	 * replaced and to be ignored, but does not need to be reported (MNOVA file)
+	 */
+	private boolean replaced;
+
 	@Override
 	protected String getIFDPropertyPrefix() {
 		return propertyPrefix;
@@ -58,6 +63,15 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 	public String toString() {
 		return (label == null ? super.toString()
 				: "[" + type + " " + (parentCollection != null) + " " + index + " id=" + id + " label=" + label + " rep[0]=" + (size() > 0 ? get(0) : null) + "]");
+	}
+
+	public void setReplaced() {
+		replaced = true;
+		setValid(false);
+	}
+	
+	public boolean isReplaced() {
+		return replaced;
 	}
 
 }

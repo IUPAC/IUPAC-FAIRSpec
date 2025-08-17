@@ -28,7 +28,7 @@ public class JeolIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return processRepresentation(null, null);
+		return getVendorDataSetKey();
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class JeolIFDVendorPlugin extends NmrMLIFDVendorPlugin {
 	}
 
 	@Override
-	public String processRepresentation(String originPath, byte[] bytes) {
+	public String getVendorDataSetKey() {
 		return IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET;
 	}
 

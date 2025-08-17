@@ -6,8 +6,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,7 +25,9 @@ import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 import org.iupac.fairdata.extract.PropertyManagerI;
+import org.iupac.fairdata.structure.IFDStructure;
 
+import com.integratedgraphics.extractor.ExtractorUtils.AWrap;
 import com.integratedgraphics.extractor.ExtractorUtils.ArchiveEntry;
 import com.integratedgraphics.extractor.ExtractorUtils.ArchiveInputStream;
 import com.integratedgraphics.html.PageCreator;
@@ -105,7 +111,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	/**
 	 * set true to allow failure to create pub info
 	 */
-	protected boolean allowNoPubInfo = false;
+	protected boolean allowNoPubInfo = true; // TODO SHOULD GE CACHING THESE
 
 	/**
 	 * don't even try to read pub info -- debugging
@@ -161,7 +167,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	 * the structure property manager for this extractor
 	 * 
 	 */
-	private DefaultStructureHelper structurePropertyManager;
+	protected DefaultStructureHelper structurePropertyManager;
 
 	protected String localizedTopLevelZipURL;
 
@@ -194,9 +200,14 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 
 	protected boolean cleanCollectionDir = true;
 
+	/**
+	 * just build the site -- do not actually process files
+	 */
 	public boolean assetsOnly;
 
 	protected String ifdid = "";
+
+	protected String baseDir;
 
 	protected void setDefaultRunParams() {
 		// normally false:
@@ -261,6 +272,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 				args[i] = null;
 			}
 		}
+		System.out.println("FindingAidCreator processFlags " + moreFlags);
 		moreFlags = checkFlags(moreFlags);
 		setDerivedFlags();
 		return moreFlags;
@@ -415,8 +427,14 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	}
 
 	protected boolean processPubURI() throws IOException {
+		// first check for a repository DOI
 		String datadoi = (String) faHelper.getFindingAid()
-				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI);
+				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_REPOSITORY_DOI);
+		// then check for a data DOI
+		if (datadoi == null)
+			datadoi = (String) faHelper.getFindingAid()
+					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI);
+		// then check for a data URI (nonstandard, but possible)
 		if (datadoi == null)
 			datadoi = (String) faHelper.getFindingAid()
 					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI);
@@ -519,7 +537,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 
 	protected void buildSite(File htmlPath) {
 		try {
-			PageCreator.buildSite(htmlPath, true, launchLandingPage);
+			PageCreator.buildSite(htmlPath, true, baseDir, launchLandingPage);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -527,7 +545,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	}
 
 	@Override
-	public void setNewObjectMetadata(IFDObject<?> o, String param) {
+	public void setSpreadSheetMetadata(IFDObject<?> o, String param) {
 		// not used 
 	}
 
@@ -776,5 +794,73 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		rezipCachePattern = (s.length() == 0 ? null : Pattern.compile(s.substring(1)));
 		return (extractionCachePattern != null);
 	}
+
+	protected Map<AWrap, IFDStructure> htStructureRepCache;
+
+	protected Set<AWrap> structureCache;
+
+	protected void cacheStructure(AWrap w, IFDStructure struc) {
+		htStructureRepCache.put(w, struc);
+	}
+
+	public IFDStructure getCachedStructure(AWrap w, byte[] bytes, String inchi) {
+		bytes = (inchi == null || inchi.length() < 2 ? bytes : inchi.getBytes());
+		w.setBytes(bytes);
+		if (htStructureRepCache == null)
+			htStructureRepCache = new HashMap<>();
+		return htStructureRepCache.get(w);
+	}
+
+	@Override
+	public boolean hasStructureFor(byte[] bytes) {
+		if (bytes == null)
+			return false;
+		if (structureCache == null)
+			structureCache = new HashSet<>();
+		return !structureCache.add(new AWrap(bytes));
+	}
+
+	/**
+	 * @param bytes
+	 * @param f
+	 * @throws IOException
+	 */
+	protected void writeBytesToFile(byte[] bytes, File f) throws IOException {
+		if (!noOutput)
+			FAIRSpecUtilities.writeBytesToFile(bytes, f);
+	}
+
+	private final static String[] extractorFiles = new String[] {
+			"IFD.findingaid.json",
+			"IFD.collection.zip",
+			"_IFD_extract.json",
+			"_IFD_ignored.json",
+			"_IFD_manifest.json",
+			"_IFD_warnings.txt",
+			"_IFD_fileURLMap.json",
+			"crawler.log",
+			"extractor.log",			
+	};
+	
+	
+	public void createExtractorFilesJSON(boolean isCrawler) {
+		String s = "[";
+		for (int i = 0, pt = 0; i < extractorFiles.length; i++) {
+			String name = extractorFiles[i];
+			File f = new File(targetPath, name);
+			if (f.exists()) {
+				s += (pt++ == 0 ? "\n" : ",\n");
+				s += "\"" + name + "\"";
+			}
+		}
+		s += "\n]";
+		try {
+			writeBytesToFile(s.getBytes(), new File(targetPath, "_IFD_extractor_files.json"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 
 }

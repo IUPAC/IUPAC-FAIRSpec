@@ -1,7 +1,9 @@
 package com.integratedgraphics.ifd.vendor.mestrelab;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
@@ -123,7 +126,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 				}
 				close();
 				report(IFDExtractor.NEW_PAGE_KEY, IFDProperty.NULL);
-				return processRepresentation(null, null);
+				return getVendorDataSetKey();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -137,7 +140,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	@Override
-	public String processRepresentation(String originPath, byte[] bytes) {
+	public String getVendorDataSetKey() {
 		return IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET;
 	}
 
@@ -150,6 +153,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	 * @param param1
 	 * @param param2
 	 */
+	@SuppressWarnings("deprecation")
 	void addParam(String key, Object oval, Param param1, Param param2) {
 		if (param1 != null)
 			oval = (param1.value == null || param1.value.length() == 0 ? param1.calc : param1.value);
@@ -173,9 +177,22 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 					oval = pageGlobals.setOrigin(val);
 					break;
 				case "Acquisition Date":
-					// timestamp
+					// 2022-07-23T17:32:00
+					// same as jdx .longdate (which Bruker does not include)
+					// timestamp from longdate, truncated to the minute
 					propName = "TIMESTAMP";
 					oval = FAIRSpecUtilities.rep(val, "\n", " ").trim();
+					System.out.println(">>" + originPath);
+					System.out.println(">>" + oval);
+					// 2022-01-25T00:55:28
+					long longDate = Instant.parse(oval.toString() + "Z").toEpochMilli();
+					dataObjectLongID = Long.valueOf(longDate/1000);
+					params.put(FAIRSpecExtractorHelper.SPEC_LONGDATE_ID, new Long(longDate/1000));
+					System.out.println(">>##$DATE=" + longDate/1000);
+					// 1643072128
+					// 2147483647 is the Jan 18, 2038
+					System.out.println(">>" + new Date(longDate).toGMTString());
+					// 25 Jan 2022 00:55:28 GMT
 					break;
 				case "Comment":
 					propName = "TITLE";
@@ -233,6 +250,8 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 				case "Spectral Width":
 				case "Receiver Gain":
 				case "Relaxation Delay":
+					oval = new FloatString(val);
+					break;
 				case "Acquisition Time":
 					oval = new FloatString(val);
 					break;
@@ -291,6 +310,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 		params = new LinkedHashMap<>();
 		params.put(IFDExtractor.NEW_PAGE_KEY, "_page=" + page);
 		pageGlobals = new Globals();
+		dataObjectLongID = null;
 		pageList.add(params);
 		System.out.println("MestrelabIFDVendor ------------ page " + page);
 	}

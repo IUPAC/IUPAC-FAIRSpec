@@ -26,7 +26,7 @@ public class ExtractorTestICL2 {
 
 		String flags = null;
 
-		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir, flags);
+		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir, null, flags);
 	}
 
 }

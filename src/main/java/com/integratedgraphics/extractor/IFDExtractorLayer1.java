@@ -40,7 +40,7 @@ import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
  * expression "pdata/[^/]+/procs$" would indicate the presence of a procs file one directory
  * below a directory called "pdata". This will trigger a rezip request in Phase 2.
  * 
- * @author hanso
+ * @author Bob Hanson (hansonr@stolaf.edu)
  *
  */
 abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
@@ -118,6 +118,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		List<Object> rejected = new ArrayList<>();
 		List<Object> accepted = new ArrayList<>();
 		ExtractorResource source = null;
+		String repositoryURI = null;
 		boolean isDefaultStructurePath = false;
 		List<Object> replacements = null;
 
@@ -237,6 +238,12 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 						localSourceFile = localSourceDir + "/" + localSourceFile;
 					continue;
 				}
+				if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_REPOSITORY_URI)) {
+					boolean isRemote = val.startsWith("http");
+					if (isRemote)
+						repositoryURI = val;
+					key = IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI;
+				}
 				 
 				if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI)) {
 					// allow for a local version (debugging mostly)
@@ -261,7 +268,8 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 					}
 					source = htResources.get(val);
 					if (source == null) {
-						source = new ExtractorResource(htResources.size() + 1, localSourceFile == null || isRelative ? val : null);
+						source = new ExtractorResource(htResources.size() + 1, repositoryURI != null ? repositoryURI : localSourceFile == null || isRelative ? val : null, val.startsWith(DEFAULT_STRUCTURE_KEY));
+						repositoryURI = null;
 						htResources.put(val, source);
 					}
 					source.setLocalSourceFileName(localSourceFile == null ? null : localizeURL(null));

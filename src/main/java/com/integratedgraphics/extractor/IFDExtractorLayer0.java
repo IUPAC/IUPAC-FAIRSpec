@@ -23,7 +23,7 @@ import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
  * A general class for constants, setting the configuration, shared fields,
  * logging and file writing,
  * 
- * @author hanso
+ * @author Bob Hanson (hansonr@stolaf.edu)
  *
  */
 abstract class IFDExtractorLayer0 extends FindingAidCreator {
@@ -40,8 +40,9 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 * "." here is the Eclipse project extract/ directory
 	 * 
 	 */
-	protected static final String DEFAULT_STRUCTURE_DIR_URI = "./structures/";
-	protected static final String DEFAULT_STRUCTURE_ZIP_URI = "./structures.zip";
+	protected static final String DEFAULT_STRUCTURE_KEY = "./structures";
+	protected static final String DEFAULT_STRUCTURE_DIR_URI = DEFAULT_STRUCTURE_KEY + "/";
+	protected static final String DEFAULT_STRUCTURE_ZIP_URI = DEFAULT_STRUCTURE_KEY + ".zip";
 	protected static final int LOG_ACCEPTED = 3;
 
 	protected static final int LOG_IGNORED = 1;
@@ -67,8 +68,10 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 * @param what
 	 */
 	protected void checkStopAfter(String what) {
-		log("!" + what + " #struc=" + faHelper.getStructureCollection().size() + " #spec="
-				+ faHelper.getSpecCollection().size() + " #cmpd=" + faHelper.getCompoundCollection().size());
+		log("!" + what + (what.equals("1") || what.equals("2a") ? " done" 
+				: " #struc=" + faHelper.getStructureCollection().size()
+				+ " #spec=" + faHelper.getSpecCollection().size() 
+				+ " #cmpd=" + faHelper.getCompoundCollection().size()));
 		boolean stopping = what.equals(stopAfter);
 		if (stopping) {
 			log("stopping after " + what);
@@ -131,7 +134,8 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	protected Map<String, ExtractorResource> htResources = new HashMap<>();
 
 	/**
-	 * a simple file (default IFD_METADATA) with key=value pairs one per line.
+	 * a simple file (default IFD_METADATA) with key=value pairs one per line;
+	 * keys may be IFD.Property... or ##$IFD.Property...
 	 * 
 	 * set in phase 1; used in phase 2c
 	 */

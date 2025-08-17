@@ -30,7 +30,6 @@ com/actelion/research/chem/moreparsers/CDXParser.js
 com/actelion/research/chem/moreparsers/XmlReader.js
 com/actelion/research/util/IntArrayComparator.js
 com/actelion/research/util/StringFunctions.js
-core/package.js
 java/applet/AppletContext.js
 java/applet/AppletStub.js
 java/applet/JSApplet.js
@@ -231,6 +230,7 @@ java/util/List.js
 java/util/ListIterator.js
 java/util/Locale.js
 java/util/Map.js
+javajs/util/MeasureD.js
 java/util/NavigableMap.js
 java/util/NavigableSet.js
 java/util/Objects.js
@@ -299,6 +299,7 @@ javax/swing/SwingContainerOrderFocusTraversalPolicy.js
 javax/swing/SwingDefaultFocusTraversalPolicy.js
 javax/swing/SwingPaintEventDispatcher.js
 javax/swing/SwingUtilities.js
+javax/swing/Timer.js
 javax/swing/TransferHandler.js
 javax/swing/UIDefaults.js
 javax/swing/UIManager.js

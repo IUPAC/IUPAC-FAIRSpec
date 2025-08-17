@@ -5,8 +5,8 @@
  {"IFD.property.collectionset.source_data_license_name":"cc-by-nc-4.0"},
  {"IFD.property.collectionset.source_repository_uri":"https://data.hpc.imperial.ac.uk/resolve/?doi=10386"}, 
  
- {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/acs.inorgchem.3c01506"}, 
- {"IFD.property.collectionset.source_data_uri":"https://doi.org/10.14469/hpc/10386"},
+ {"IFD.property.collectionset.source_publication_doi":"https://doi.org/10.1021/acs.inorgchem.3c01506"}, 
+ {"IFD.property.collectionset.source_repository_doi":"https://doi.org/10.14469/hpc/10386"},
  
  "-- could ignore publication and data uri information",
  {"##FAIRSpec.extractor.flags" : "-ignorepublicationmetadata;"},

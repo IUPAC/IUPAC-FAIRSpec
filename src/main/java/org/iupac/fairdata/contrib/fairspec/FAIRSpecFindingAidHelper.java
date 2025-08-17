@@ -133,7 +133,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	 * 
 	 */
 	@SuppressWarnings("rawtypes")
-	protected IFDCollection[] objects = new IFDCollection[3];
+	protected IFDCollection[] objectCollections = new IFDCollection[3];
 	@SuppressWarnings("rawtypes")
 	protected IFDCollection[] associations = new IFDCollection[5];
 
@@ -232,6 +232,9 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		return findingAid;
 	}
 	
+	/**
+	 * add related information from CrossRef or DataCite
+	 */
 	@Override
 	public String addRelatedInfo(String doi, boolean addPublicationMetadata, List<Map<String, Object>> list,
 			String type) throws IOException {
@@ -335,7 +338,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 
 	public IFDSampleCollection getSampleCollection() {
 		if (sampleCollection == null) {
-			objects[SAMPLE_COLLECTION] = sampleCollection = new IFDSampleCollection();
+			objectCollections[SAMPLE_COLLECTION] = sampleCollection = new IFDSampleCollection();
 			sampleCollection.setID("samples");
 		}
 		return sampleCollection;
@@ -344,7 +347,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	@Override
 	public IFDStructureCollection getStructureCollection() {
 		if (structureCollection == null) {
-			objects[STRUCTURE_COLLECTION] = structureCollection = new IFDStructureCollection();
+			objectCollections[STRUCTURE_COLLECTION] = structureCollection = new IFDStructureCollection();
 			structureCollection.setID("structures");
 		}
 		return structureCollection;
@@ -353,7 +356,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	@Override
 	public IFDDataObjectCollection getSpecCollection() {
 		if (dataObjectCollection == null) {
-			objects[DATA_COLLECTION] = dataObjectCollection = new IFDDataObjectCollection();
+			objectCollections[DATA_COLLECTION] = dataObjectCollection = new IFDDataObjectCollection();
 			dataObjectCollection.setID("spectra");
 		}
 		return dataObjectCollection;
@@ -558,16 +561,16 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		return serializedFindingAid;
 	}
 
-	public void finalizeObjects() {
-		if (objects == null)
+	public void finalizeCollections() {
+		if (objectCollections == null)
 			return;
-		for (int i = 0; i < objects.length; i++)
-			if (objects[i] != null)
-				findingAid.addCollection(objects[i]);
+		for (int i = 0; i < objectCollections.length; i++)
+			if (objectCollections[i] != null)
+				findingAid.addCollection(objectCollections[i]);
 		for (int i = 0; i < associations.length; i++)
 			if (associations[i] != null)
 				findingAid.addCollection(associations[i]);
-		objects = null;
+		objectCollections = null;
 		associations = null;
 	}
 
@@ -604,7 +607,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	 */
 	@Override
 	public String generateFindingAid(File fileDir) throws IOException {
-		finalizeObjects();
+		finalizeCollections();
 		finalizeCollectionSet(null);
 		return createSerialization(fileDir, null, null, null);
 	}

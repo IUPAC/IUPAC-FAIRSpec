@@ -16,13 +16,14 @@ public class ExtractorTestICL2insitu {
 
 	public static void main(String[] args) {
 		String dir = "c:/temp/iupac/henry/";
+		String baseDir = "./Procter";
 		String ifdExtractFile = dir + "IFD-extract-procter.json";
-		String localSourceArchive = dir + "Procter/";
-		String targetDir = dir + "icl-procter";
+		String localSourceArchive = dir + baseDir;
+		String targetDir = dir + "icl-procter-insitu";
 
-		String flags = "";//"-insitu";
+		String flags = "-insitu";
 
-		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir, flags);
+		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir, baseDir, flags);
 	}
 
 }

@@ -119,8 +119,8 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		initializeExtractor();
 	}
 
-	public void runExtraction(String ifdExtractFile, String localSourceArchive, String targetDir, String flags) {
-		runExtraction(new String[] { ifdExtractFile, localSourceArchive, targetDir, flags });
+	public void runExtraction(String ifdExtractFile, String localSourceArchive, String targetDir, String baseDir, String flags) {
+		runExtraction(new String[] { ifdExtractFile, localSourceArchive, targetDir, baseDir, flags });
 	}
 
 	public void runExtraction(String[] args) {
@@ -132,6 +132,9 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		String ifdExtractJSONFilename;
 		switch (args.length) {
 		default:
+		case 4:
+			baseDir = args[3];
+			//$FALL-THROUGH$
 		case 3:
 			targetDir = args[2];
 			//$FALL-THROUGH$
@@ -272,6 +275,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		System.err.println(errorLog);
 		System.err.flush();
 		System.out.flush();
+		createExtractorFilesJSON(false);
 		logToSys("!Extractor.runExtraction flags " + flags);
 		logToSys("!Extractor " + (failed == 0 ? "done" : "failed") + " total=" + n + " failed=" + failed + " errors="
 				+ nErrors + " warnings=" + nWarnings);
@@ -289,13 +293,13 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 
 	public void run(File ifdExtractScriptFile, File targetPath, String localsourceArchive)
 			throws IOException, IFDException {
-		log("!Extractor\n ifdExtractScriptFile= " + ifdExtractScriptFile + "\n localsourceArchive = "
-				+ localsourceArchive + "\n targetDir = " + targetPath.getAbsolutePath());
-		
 		if (assetsOnly && !insitu) {
 			buildSite(targetPath);
 			return;
 		}
+		
+		log("!Extractor\n ifdExtractScriptFile= " + ifdExtractScriptFile + "\n localsourceArchive = "
+				+ localsourceArchive + "\n targetDir = " + targetPath.getAbsolutePath());
 		
 		String serializedFA = extractAndCreateFindingAid(ifdExtractScriptFile, localsourceArchive, targetPath);
 		if (serializedFA == null) {
