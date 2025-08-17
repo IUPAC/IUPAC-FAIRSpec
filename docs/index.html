@@ -23,10 +23,23 @@ molecular formulas, InChI strings, SMILES, and MOL-format descriptions,
 which can be used both for display and validation. The pages are also available
 as a <a href=https://github.com/IUPAC/IUPAC-FAIRSpec/tree/main/specs/cdx_cdxml>ZIP file</a>.
 
-<H3><a name=v6-acs href="examples2/v6-acs/index.htm">examples2/v6-acs</a></H3>
-<p>A second, more complete, demonstration involving finding aids 
+<H3><a name=v1 href="examples/v1-demo/demo.htm">examples/v1-demo</a></H3>
+<p>Our first demonstration of a prototypical finding aid (2021), 
+just giving an idea of what a minimal extraction of metadata might look like in JSON format.
+
+<H3><a name=v4 href="https://chemapps.stolaf.edu/iupac/site/ifd2024/index.htm">examples/v4-acs</a></H3>
+<p>A more sophisticated demonstration involving finding aids (2023)
 generated from a set of fourteen supporting information data sets from the <a href=https://pubs.acs.org/doi/full/10.1021/acs.joc.0c00248>ACS FAIRData pilot study</a> (2023). 
-This demonstration illustrates the latest (2025.08.16) version of the extractor and IUPAC FAIRSpec Finding Aid specification involving multiple finding aids. 
+This demonstration illustrates how supporting information ZIP files in a variety of formats can be 
+extracted for metadata.
+<br><br>
+
+<H3><a name=v6-acs href="examples2/v6-acs/index.htm">examples2/v6-acs</a></H3>
+<p>A much richer demonstration involving finding aids (2025) created using
+<a target=_blank href=https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/test/ExtractorTestACS.java>ExtractorTestACS.java</a>.
+The extractor generates the web pages from a set of fourteen supporting information data sets from ACS FAIRData pilot study. 
+This demonstration illustrates IUPAC FAIRSpec Metadata Object Model Specification, version 0.1.0 (2025.08.15). 
+<br><br>
 
 <H3><a name=icl-10386 href="examples2/index.htm?url=https://chemapps.stolaf.edu/iupac/examples2/icl-10386/IFD.findingaid.json">examples2/index.htm?url=[path to finding aid]</a></H3>
 <p>This example demonstrates a generic web page loading an IUPAC FAIRSpec Finding Aid 
@@ -117,26 +130,8 @@ The command line looks like this:
 <code>java -jar IFDExtractor.jar IFD.extract-test.json</code>
 <p>
 and produces <a href="examples/IFDExtractor">this page</a>.
+
 <div style="height:400px"></div>
-
-
-<H3><a name=v4 href="https://chemapps.stolaf.edu/iupac/site/ifd2024/index.htm">examples/v4-acs</a></H3>
-<p>A more sophisticated demonstration involving finding aids 
-generated from a set of fourteen supporting information data sets from the <a href=https://pubs.acs.org/doi/full/10.1021/acs.joc.0c00248>ACS FAIRData pilot study</a> (2023). 
-This demonstration illustrates how supporting information ZIP files in a variety of formats can be 
-extracted for metadata.
-
-<H3><a name=v1 href="examples/v1-demo/demo.htm">examples/v1-demo</a></H3>
-<p>Our first demonstration of a prototypical finding aid (2021), 
-just giving an idea of what a minimal extraction of metadata might look like in JSON format.
-
-
-
-
-
-
-
-
 
 </div>
 </body>

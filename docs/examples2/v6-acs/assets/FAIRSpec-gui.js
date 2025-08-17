@@ -1,5 +1,6 @@
 // ${IUPAC FAIRSpec}/src/html/site/assets/FAIRSpec-gui.js
 // 
+// BH 2025.08.17 adds FAIRSpecDataCollection resource
 // BH 2025.07.23 adds zip file link, author orcid link
 // Swagat Malla 2025.05.10 many new features
 
@@ -724,7 +725,10 @@
 		IFD.mainText = null;
 		if (typeof aidID == "object") {
 			var next = aidID.pop();
-			if (!next)return;
+			if (!next) {
+				IFD.findingAidDir = null;
+				return;
+			}
 			IFD.properties.aLoading = aidID;
 			IFD.loadSelected(next);
 			return;
@@ -931,6 +935,7 @@
 			}
 			IFD.properties.aLoading = null;
 			IFD.findingAidID = null;
+			IFD.findingAidDir = null;
 			setMoreLeft("");
 		} else {
 			IFD.showVersion(aid);
@@ -983,7 +988,7 @@
 	}
 	
 	var setFileListContents = function(aid) {
-		if (aid && !document.location.host) {
+		if (aid && !IFD.properties.aLoading && !document.location.host) {
 			// file:/// only
 			$.getJSON(fileFor(aid.id, "_IFD_extractor_files.json"), function(data) {
 				var s = "";
@@ -1150,7 +1155,7 @@
 			var ref = r.ref;
 			var isRelative = ref.startsWith(".");
 			var isDataOrigin = !isNaN(id);
-			if (isDataOrigin ? ref.indexOf("http") == 0 : isRelative) {
+			if (!isDataOrigin || ref.indexOf("http") == 0) {
 				if (isRelative && IFD.findingAidDir != "./")
 					ref = IFD.findingAidDir + ref;
 				if (ref.startsWith(".."))

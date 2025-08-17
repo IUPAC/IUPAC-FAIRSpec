@@ -725,7 +725,10 @@
 		IFD.mainText = null;
 		if (typeof aidID == "object") {
 			var next = aidID.pop();
-			if (!next)return;
+			if (!next) {
+				IFD.findingAidDir = null;
+				return;
+			}
 			IFD.properties.aLoading = aidID;
 			IFD.loadSelected(next);
 			return;
@@ -932,6 +935,7 @@
 			}
 			IFD.properties.aLoading = null;
 			IFD.findingAidID = null;
+			IFD.findingAidDir = null;
 			setMoreLeft("");
 		} else {
 			IFD.showVersion(aid);
@@ -984,7 +988,7 @@
 	}
 	
 	var setFileListContents = function(aid) {
-		if (aid && !document.location.host) {
+		if (aid && !IFD.properties.aLoading && !document.location.host) {
 			// file:/// only
 			$.getJSON(fileFor(aid.id, "_IFD_extractor_files.json"), function(data) {
 				var s = "";
