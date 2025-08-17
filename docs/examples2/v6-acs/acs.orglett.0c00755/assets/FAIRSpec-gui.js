@@ -1,5 +1,6 @@
 // ${IUPAC FAIRSpec}/src/html/site/assets/FAIRSpec-gui.js
 // 
+// BH 2025.08.17 adds FAIRSpecDataCollection resource
 // BH 2025.07.23 adds zip file link, author orcid link
 // Swagat Malla 2025.05.10 many new features
 
@@ -1150,7 +1151,7 @@
 			var ref = r.ref;
 			var isRelative = ref.startsWith(".");
 			var isDataOrigin = !isNaN(id);
-			if (isDataOrigin ? ref.indexOf("http") == 0 : isRelative) {
+			if (!isDataOrigin || ref.indexOf("http") == 0) {
 				if (isRelative && IFD.findingAidDir != "./")
 					ref = IFD.findingAidDir + ref;
 				if (ref.startsWith(".."))

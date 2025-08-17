@@ -22,7 +22,7 @@
 "2":{"ref":"https://ndownloader.figshare.com/files/22284729",
 "len":100761699},
 "3":{"ref":"./structures/"},
-"FAIRSpecDataCollection":{"ref":"./IFD.collection.zip",
+"FAIRSpecDataCollection":{"ref":"https://chemapps.stolaf.edu/iupac/examples2/v6-acs/acs.orglett.0c01153/IFD.collection.zip",
 "len":241369775}},
 "collectionSet":{"propertyPrefix":"IFD.property.collectionset",
 "resourceID":"FAIRSpecDataCollection",
