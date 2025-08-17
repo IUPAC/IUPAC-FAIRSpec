@@ -72,7 +72,7 @@ import swingjs.CDK;
  * 
  * IFD.findingaid.json   The IUPAC FAIRSpec Finding Aid
  * 
- * ifd-fileURLMap.txt	 A concise listing of the digital items
+ * _ifd_fileURLMap.txt	 A concise listing of the digital items
  * 
  * crawler.log           A log of the crawl
  * 
@@ -666,6 +666,7 @@ public class DOICrawler extends FindingAidCreator {
 		if (errorLog.length() > 0) {
 			System.err.println(errorLog.toString());
 		}
+		createExtractorFilesJSON(true);
 		System.out.println(
 				"done len = " + totalLength + " bytes " + (System.currentTimeMillis() - startTime) / 1000 + " sec");
 		return true;
@@ -1161,7 +1162,7 @@ public class DOICrawler extends FindingAidCreator {
 	}
 
 	private void outputListAndLog(File dir) {
-		File f = new File(dir, "ifd-fileURLMap.txt");
+		File f = new File(dir, "_IFD_fileURLMap.txt");
 		System.out.println("writing " + doiList.size() + " entries " + f.getAbsolutePath());
 		System.out.println(nReps + " representations");
 		try {

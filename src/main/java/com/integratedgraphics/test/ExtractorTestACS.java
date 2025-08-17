@@ -42,8 +42,9 @@ import com.integratedgraphics.html.PageCreator;
  */
 public class ExtractorTestACS extends ExtractorTest {
 
+	private static boolean acsAssetsOnly = //false;//
+	true;
 	
-	static String moreFlags = "-assetsonly";
 	/**
 	 * Run a full extraction based on arguments, possibly a test set
 	 * 
@@ -57,9 +58,9 @@ public class ExtractorTestACS extends ExtractorTest {
 		String localSourceArchive = args[1];
 		String targetDir = args[2];
 		new File(targetDir).mkdirs();
-		FAIRSpecUtilities.setLogging(targetDir + "/extractor.log");
-
 		String json = null;
+
+		String moreFlags = (acsAssetsOnly ? "-assetsonly" : null);
 
 		int i0 = Math.max(0, Math.min((findACSID != null ? 0 : first), last));
 		int i1 = Math.min(acsTestSet.length - 1, Math.max(0, Math.max(first, (findACSID != null ? acsTestSet.length : last))));
@@ -105,6 +106,10 @@ public class ExtractorTestACS extends ExtractorTest {
 			long t0 = System.currentTimeMillis();
 
 			extractor.testID = i;
+			FAIRSpecUtilities.setLogging(null);
+			if (!acsAssetsOnly)
+				FAIRSpecUtilities.setLogging(targetDir + "/extractor.log");
+
 			extractor.processFlags(args, moreFlags);
 			new File(targetDir).mkdirs();
 			// false for testing and you don't want to mess up _IFD_findingaids.json
@@ -129,16 +134,19 @@ public class ExtractorTestACS extends ExtractorTest {
 					+ (System.currentTimeMillis() - t0) / 1000.0);
 			ifdExtractFile = null;
 			if (extractor.warnings > 0) {
-				warnings += "======== " + i + ": " + extractor.warnings + " warnings for " + targetDir + "\n"
-						+ extractor.strWarnings;
+				String w = "======== " + i + ": " + extractor.warnings + " warnings for " + targetDir + "\n"
+						+ extractor.strWarnings;;
+				warnings += w;
 				try {
-					FAIRSpecUtilities.writeBytesToFile((warnings).getBytes(),
+					FAIRSpecUtilities.writeBytesToFile(w.getBytes(),
+							new File(targetDir + "/_IFD_warnings.txt"));
+					FAIRSpecUtilities.writeBytesToFile(warnings.getBytes(),
 							new File(targetDir0 + "/_IFD_warnings.txt"));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-
+			extractor.createExtractorFilesJSON(false);
 		}
 		if (extractor != null) {
 			if (createFindingAidJSONList)

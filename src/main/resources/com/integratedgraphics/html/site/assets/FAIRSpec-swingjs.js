@@ -6,7 +6,7 @@ var s = document.location.search;
 //Jmol._isAsync = false;
 //Jmol._debugCode = (s.indexOf("debugcode") >= 0);
 
-var assetsDir = document.currentScript.src.split("assets/")[0] + "assets/xx";
+var assetsDir = document.currentScript.src.split("assets/")[0] + "assets/";
 
 var SMILESInfo = {
   code: null,
@@ -61,8 +61,7 @@ IFD.createJSME = function() {
 IFD.jmeReturn = function() { 
 	var aidID = IFD.findingAidID;
 	var ids = IFD.jmolGetSmartsMatch(aidID);
-	var indexes = IFD.getCompoundIndexesForStructures(aidID, ids);
-	IFD.showCompounds(aidID, indexes);
+	IFD.showSmartsMatch(aidID, ids);
 }
 
 IFD.jmeGetSmiles = function() {

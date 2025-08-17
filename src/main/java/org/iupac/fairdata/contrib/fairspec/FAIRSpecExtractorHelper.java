@@ -733,7 +733,6 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 		// found when
 		// converting d.toString() due to a check in Date.toString for daylight savings
 		// time!
-
 		StringBuffer sb = new StringBuffer();
 		sb.append("{\"" + IFDConst.IFD_FLAG + "version\":\"" + IFDConst.IFD_VERSION + "\",\n");
 		sb.append("\"" + FAIRSPEC_EXTRACTOR_FLAG + "version\":\"" + extractor.getVersion() + "\",\n")

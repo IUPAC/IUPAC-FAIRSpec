@@ -972,6 +972,7 @@
 		aid || (aid = IFD.aid);
 		setResults("");
 		clearJQ("#contents");
+		setFileListContents(aid)
 		IFD.toggleDiv(MAIN_SEARCH_SUB,"none");
 		switch (IFD.mainMode) {
 		case MAIN_SUMMARY:
@@ -981,6 +982,18 @@
 		}
 	}
 	
+	var setFileListContents = function(aid) {
+		if (aid && !document.location.host) {
+			// file:/// only
+			$.getJSON(fileFor(aid.id, "_IFD_extractor_files.json"), function(data) {
+				var s = "";
+				for (var i = 0; i < data.length; i++) {
+					s += addPathRef(aid.id, data[i]) + "<br>";
+				}
+				$("#contents").html(s);
+			});
+		}
+	}
 	var loadMainSummary = function(aid, isAll) {
 		var s = getMain(aid, isAll);
 		setMain(s);
@@ -1138,8 +1151,10 @@
 			var isRelative = ref.startsWith(".");
 			var isDataOrigin = !isNaN(id);
 			if (isDataOrigin ? ref.indexOf("http") == 0 : isRelative) {
-				if (isRelative && IFD.properties.baseDir != "./")
-					ref = IFD.properties.baseDir + ref;
+				if (isRelative && IFD.findingAidDir != "./")
+					ref = IFD.findingAidDir + ref;
+				if (ref.startsWith(".."))
+					ref = ref.substring(1);
 				var size = getSizeString(r.len);
 				ref = "<a target=_blank href=\"" + ref + "\">" + ref + (size ? " " + size:"") + "</a>"
 				s += "<tr><td>" + (isDataOrigin ? "Data&nbsp;Origin" : id) 
@@ -1396,8 +1411,9 @@
 
 	var loadContents = function(hasContent) {
 		clearJQ("#contents");
-		if (!hasContent)
-			return;
+		if (!hasContent) {
+			return;			
+		}
 		var n = IFD.headers.length;
 		var type = IFD.contentHeader.split("/");
 		type = (n == 1 ? type[0] : type[0].substring(0, type[0].length + 1 - type[1].length) + type[1]);
@@ -1442,11 +1458,10 @@
 				s += "<br><br><a href=\"javascript:IFD.showCollection('"+aid.id+"')\">Collection Folder</a>";
 			}
 			s += "<hr>";
-
 		} 
 		$("#moreleftdiv").html(s);
-	}
-
+	}		
+	
 	var getSizeString = function(n) {
 		if (!n) return "";
 		var s = (n > 1000000 ? Math.round(n/100000)/10 + " MB"
@@ -1742,6 +1757,11 @@
 	IFD.showJSMESearch = function() {
 		IFD.toggleDiv(MAIN_SEARCH_SUB,"block");
 		IFD.createJSME();			
+	}
+
+	IFD.showSmartsMatch = function(aidID, ids) {
+		var indexes = IFD.getCompoundIndexesForStructures(aidID, ids);
+		IFD.showCompounds(aidID, indexes);		
 	}
 
 //	IFD.getStructureVisual = function(reps) {

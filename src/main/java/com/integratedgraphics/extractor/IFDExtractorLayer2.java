@@ -1893,17 +1893,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	}
 
 	/**
-	 * For Phases 2 and 3 only
-	 * @param bytes
-	 * @param f
-	 * @throws IOException
-	 */
-	protected void writeBytesToFile(byte[] bytes, File f) throws IOException {
-		if (!noOutput)
-			FAIRSpecUtilities.writeBytesToFile(bytes, f);
-	}
-
-	/**
 	 * Ensure that we have a correct length in the metadata for this representation.
 	 * as long as it exists, even if we are not writing it in this pass.
 	 * 

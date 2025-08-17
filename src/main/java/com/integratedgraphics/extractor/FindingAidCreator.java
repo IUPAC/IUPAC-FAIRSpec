@@ -820,5 +820,47 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		return !structureCache.add(new AWrap(bytes));
 	}
 
+	/**
+	 * @param bytes
+	 * @param f
+	 * @throws IOException
+	 */
+	protected void writeBytesToFile(byte[] bytes, File f) throws IOException {
+		if (!noOutput)
+			FAIRSpecUtilities.writeBytesToFile(bytes, f);
+	}
+
+	private final static String[] extractorFiles = new String[] {
+			"IFD.findingaid.json",
+			"IFD.collection.zip",
+			"_IFD_extract.json",
+			"_IFD_ignored.json",
+			"_IFD_manifest.json",
+			"_IFD_warnings.txt",
+			"_IFD_fileURLMap.json",
+			"crawler.log",
+			"extractor.log",			
+	};
+	
+	
+	public void createExtractorFilesJSON(boolean isCrawler) {
+		String s = "[";
+		for (int i = 0, pt = 0; i < extractorFiles.length; i++) {
+			String name = extractorFiles[i];
+			File f = new File(targetPath, name);
+			if (f.exists()) {
+				s += (pt++ == 0 ? "\n" : ",\n");
+				s += "\"" + name + "\"";
+			}
+		}
+		s += "\n]";
+		try {
+			writeBytesToFile(s.getBytes(), new File(targetPath, "_IFD_extractor_files.json"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 
 }
