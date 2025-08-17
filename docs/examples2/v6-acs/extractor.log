@@ -1,0 +1,135 @@
+Extractor.runExtractionTest output to c:\temp\iupac\acs\ifd2025-08
+Extractor.runExtraction 0 ./extract/acs.joc.0c00770/IFD-extract.json#22567817
+test 0: !Extractor
+ ifdExtractScriptFile= C:\Users\hanso\git\IUPAC-FAIRSpec\.\extract\acs.joc.0c00770\IFD-extract.json
+ localsourceArchive = c:\temp\iupac\acs\zip
+ targetDir = c:\temp\iupac\acs\ifd2025-08\acs.joc.0c00770
+test 0: Extractor.runExtraction ok ./extract/acs.joc.0c00770/IFD-extract.json#22567817
+Extractor.runExtractionTest output to c:\temp\iupac\acs\ifd2025-08\acs.joc.0c00770
+Extractor.runExtraction 1 ./extract/acs.orglett.0c00571/IFD-extract.json#21975525
+test 1: !Extractor
+ ifdExtractScriptFile= C:\Users\hanso\git\IUPAC-FAIRSpec\.\extract\acs.orglett.0c00571\IFD-extract.json
+ localsourceArchive = c:\temp\iupac\acs\zip
+ targetDir = c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c00571
+test 1: Extractor.runExtraction ok ./extract/acs.orglett.0c00571/IFD-extract.json#21975525
+Extractor.runExtractionTest output to c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c00571
+Extractor.runExtraction 2 ./extract/acs.orglett.0c00624/IFD-extract.json#21947274
+test 2: !Extractor
+ ifdExtractScriptFile= C:\Users\hanso\git\IUPAC-FAIRSpec\.\extract\acs.orglett.0c00624\IFD-extract.json
+ localsourceArchive = c:\temp\iupac\acs\zip
+ targetDir = c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c00624
+test 2: Extractor.runExtraction ok ./extract/acs.orglett.0c00624/IFD-extract.json#21947274
+Extractor.runExtractionTest output to c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c00624
+Extractor.runExtraction 3 ./extract/acs.orglett.0c00755/IFD-extract.json#22150197
+test 3: !Extractor
+ ifdExtractScriptFile= C:\Users\hanso\git\IUPAC-FAIRSpec\.\extract\acs.orglett.0c00755\IFD-extract.json
+ localsourceArchive = c:\temp\iupac\acs\zip
+ targetDir = c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c00755
+test 3: Extractor.runExtraction ok ./extract/acs.orglett.0c00755/IFD-extract.json#22150197
+Extractor.runExtractionTest output to c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c00755
+Extractor.runExtraction 4 ./extract/acs.orglett.0c00788/IFD-extract.json#22125318
+test 4: !Extractor
+ ifdExtractScriptFile= C:\Users\hanso\git\IUPAC-FAIRSpec\.\extract\acs.orglett.0c00788\IFD-extract.json
+ localsourceArchive = c:\temp\iupac\acs\zip
+ targetDir = c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c00788
+test 4: Extractor.runExtraction ok ./extract/acs.orglett.0c00788/IFD-extract.json#22125318
+Extractor.runExtractionTest output to c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c00788
+Extractor.runExtraction 5 ./extract/acs.orglett.0c00874/IFD-extract.json#22233351
+test 5: !Extractor
+ ifdExtractScriptFile= C:\Users\hanso\git\IUPAC-FAIRSpec\.\extract\acs.orglett.0c00874\IFD-extract.json
+ localsourceArchive = c:\temp\iupac\acs\zip
+ targetDir = c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c00874
+test 5: Extractor.runExtraction ok ./extract/acs.orglett.0c00874/IFD-extract.json#22233351
+Extractor.runExtractionTest output to c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c00874
+Extractor.runExtraction 6 ./extract/acs.orglett.0c00967/IFD-extract.json#22111341
+test 6: !Extractor
+ ifdExtractScriptFile= C:\Users\hanso\git\IUPAC-FAIRSpec\.\extract\acs.orglett.0c00967\IFD-extract.json
+ localsourceArchive = c:\temp\iupac\acs\zip
+ targetDir = c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c00967
+test 6: Extractor.runExtraction ok ./extract/acs.orglett.0c00967/IFD-extract.json#22111341
+Extractor.runExtractionTest output to c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c00967
+Extractor.runExtraction 7 ./extract/acs.orglett.0c01022/IFD-extract.json#22195341
+test 7: !Extractor
+ ifdExtractScriptFile= C:\Users\hanso\git\IUPAC-FAIRSpec\.\extract\acs.orglett.0c01022\IFD-extract.json
+ localsourceArchive = c:\temp\iupac\acs\zip
+ targetDir = c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c01022
+test 7: Extractor.runExtraction ok ./extract/acs.orglett.0c01022/IFD-extract.json#22195341
+Extractor.runExtractionTest output to c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c01022
+Extractor.runExtraction 8 ./extract/acs.orglett.0c01043/IFD-extract.json#22232721
+test 8: !Extractor
+ ifdExtractScriptFile= C:\Users\hanso\git\IUPAC-FAIRSpec\.\extract\acs.orglett.0c01043\IFD-extract.json
+ localsourceArchive = c:\temp\iupac\acs\zip
+ targetDir = c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c01043
+test 8: Extractor.runExtraction ok ./extract/acs.orglett.0c01043/IFD-extract.json#22232721
+Extractor.runExtractionTest output to c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c01043
+Extractor.runExtraction 9 ./extract/acs.orglett.0c01153/IFD-extract.json#22284726,22284720
+test 9: !Extractor
+ ifdExtractScriptFile= C:\Users\hanso\git\IUPAC-FAIRSpec\.\extract\acs.orglett.0c01153\IFD-extract.json
+ localsourceArchive = c:\temp\iupac\acs\zip
+ targetDir = c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c01153
+test 9: Extractor.runExtraction ok ./extract/acs.orglett.0c01153/IFD-extract.json#22284726,22284720
+Extractor.runExtractionTest output to c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c01153
+Extractor.runExtraction 10 ./extract/acs.orglett.0c01197/IFD-extract.json#22491647
+test 10: !Extractor
+ ifdExtractScriptFile= C:\Users\hanso\git\IUPAC-FAIRSpec\.\extract\acs.orglett.0c01197\IFD-extract.json
+ localsourceArchive = c:\temp\iupac\acs\zip
+ targetDir = c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c01197
+test 10: Extractor.runExtraction ok ./extract/acs.orglett.0c01197/IFD-extract.json#22491647
+Extractor.runExtractionTest output to c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c01197
+Extractor.runExtraction 11 ./extract/acs.orglett.0c01277/IFD-extract.json#22613762
+test 11: !Extractor
+ ifdExtractScriptFile= C:\Users\hanso\git\IUPAC-FAIRSpec\.\extract\acs.orglett.0c01277\IFD-extract.json
+ localsourceArchive = c:\temp\iupac\acs\zip
+ targetDir = c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c01277
+test 11: Extractor.runExtraction ok ./extract/acs.orglett.0c01277/IFD-extract.json#22613762
+Extractor.runExtractionTest output to c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c01277
+Extractor.runExtraction 12 ./extract/acs.orglett.0c01297/IFD-extract.json#22612484
+test 12: !Extractor
+ ifdExtractScriptFile= C:\Users\hanso\git\IUPAC-FAIRSpec\.\extract\acs.orglett.0c01297\IFD-extract.json
+ localsourceArchive = c:\temp\iupac\acs\zip
+ targetDir = c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c01297
+test 12: Extractor.runExtraction ok ./extract/acs.orglett.0c01297/IFD-extract.json#22612484
+Extractor.runExtractionTest output to c:\temp\iupac\acs\ifd2025-08\acs.orglett.0c01297
+Extractor.runExtraction 13 ./extract/acs.orgLett.9b02307/IFD-extract.json#acs.orglett.9b02307.NMR.rar
+test 13: !Extractor
+ ifdExtractScriptFile= C:\Users\hanso\git\IUPAC-FAIRSpec\.\extract\acs.orgLett.9b02307\IFD-extract.json
+ localsourceArchive = c:\temp\iupac\acs\zip
+ targetDir = c:\temp\iupac\acs\ifd2025-08\acs.orgLett.9b02307
+test 13: Extractor.runExtraction ok ./extract/acs.orgLett.9b02307/IFD-extract.json#acs.orglett.9b02307.NMR.rar
+test 13: Extractor.runExtraction File c:\temp\iupac\acs\ifd2025-08\_IFD_findingaids.json created 
+test 13: Extractor.runExtraction File c:\temp\iupac\acs\ifd2025-08\_IFD_findingaids.js created 
+{"findingaids":[
+"c:/temp/iupac/acs/ifd2025-08/acs.joc.0c00770/IFD.findingaid.json",
+"c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c00571/IFD.findingaid.json",
+"c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c00624/IFD.findingaid.json",
+"c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c00755/IFD.findingaid.json",
+"c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c00788/IFD.findingaid.json",
+"c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c00874/IFD.findingaid.json",
+"c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c00967/IFD.findingaid.json",
+"c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c01022/IFD.findingaid.json",
+"c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c01043/IFD.findingaid.json",
+"c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c01153/IFD.findingaid.json",
+"c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c01197/IFD.findingaid.json",
+"c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c01277/IFD.findingaid.json",
+"c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c01297/IFD.findingaid.json",
+"c:/temp/iupac/acs/ifd2025-08/acs.orgLett.9b02307/IFD.findingaid.json"
+]}
+
+test 13: 
+test 13: !Extractor.runExtraction flags 
+ first = 0 last = 13
+ stopOnAnyFailure = true
+ debugging = false
+ readOnly = false
+ debugReadOnly = false
+ allowNoPubInfo = false
+ noLandingPage = false
+ noLaunch = true
+ skipPubInfo = false
+ localSourceArchive = null
+ targetDir = null
+ createZippedCollection = true
+ createFindingAidJSONList = true
+ IFD version 0.1.0-beta+2025.07.24
+
+test 13: !Extractor done total=14 failed=0 errors=0 warnings=0
