@@ -1,0 +1,16 @@
+{"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
+ {"example":"Cambridge Oliver May NMR directory"},
+ {"journal":"acs.orglett"},{"hash":"9b02307"},
+ {"repositoryDataDOI":"https://doi.org/10.17863/CAM.40213"},
+ {"repositoryDataURL":"https://www.repository.cam.ac.uk/bitstreams/983933fe-6c07-4793-bf32-0d715d2d9087/download"},
+ {"FAIRSpec.extractor.local_source_file":"acs.orglett.9b02307.NMR.rar"},
+ {"#IFD.property.collectionset.data_license_uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"#IFD.property.collectionset.data.license_name":"cc-by-nc-4.0"},
+ {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
+ {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"}, 
+ {"IFD.property.collectionset.source_data_doi":"{repositoryDataDOI}"}, 
+ {"IFD.property.collectionset.source_repository_uri":"{repositoryDataURL}"}, 
+ 
+ {"path":"NMR/{id=IFD.property.fairspec.compound.id::*}/"},
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::*/}"}
+]}

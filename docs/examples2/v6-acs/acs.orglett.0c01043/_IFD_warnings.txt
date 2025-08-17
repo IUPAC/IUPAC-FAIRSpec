@@ -1,0 +1,46 @@
+======== 8: 45 warnings for c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c01043
+! WARNING: Could not access null -- Extractor.processDOIURLs acs.orglett.0c01043 null
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page19.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page19.mol MF=H 16 C 21 N 1 O 2 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page20.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page20.mol MF=H 16 C 21 N 1 O 2 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page21.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page21.mol MF=H 16 C 21 N 1 O 2 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page22.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page22.mol MF=H 16 C 21 N 1 O 2 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page23.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page23.mol MF=H 16 C 21 N 1 O 2 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page24.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page24.mol MF=H 15 C 21 N 1 O 2 F 1 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page25.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page25.mol MF=H 15 C 21 N 1 O 2 F 1 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page26.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page26.mol MF=H 15 C 21 N 1 O 2 F 1 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page27.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page27.mol MF=H 15 C 21 N 1 O 2 F 1 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page28.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page28.mol MF=H 15 C 21 N 1 O 2 F 1 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page29.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page29.mol MF=H 16 C 21 N 1 O 2 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page30.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page30.mol MF=H 16 C 21 N 1 O 2 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page31.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page31.mol MF=H 16 C 21 N 1 O 2 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page32.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page32.mol MF=H 16 C 21 N 1 O 2 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page33.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page33.mol MF=H 16 C 21 N 1 O 2 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page36.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page36.mol MF=H 15 C 21 N 1 O 2 F 1 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page37.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page37.mol MF=H 15 C 21 N 1 O 2 F 1 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page38.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page38.mol MF=H 15 C 21 N 1 O 2 F 1 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page39.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page39.mol MF=H 15 C 21 N 1 O 2 F 1 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page40.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page40.mol MF=H 15 C 21 N 1 O 2 F 1 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page41.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page41.mol MF=H 15 C 21 N 1 O 2 F 1 S 3
+! InChI could not be created for metadataNMR/NMR spectra.mnova#page42.mol
+! DefaultStructureHelper WARNING: SMILES could not be created for metadataNMR/NMR spectra.mnova#page42.mol MF=H 15 C 21 N 1 O 2 F 1 S 3

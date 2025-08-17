@@ -1,0 +1,38 @@
+{"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
+ {"example":"JEOL files identified as '3a-Carbon'"},
+ 
+"The collection is a stack of JEOL files with no structures.",
+"Structures were added manually by checking the publication.",
+
+"The extractor objects are specialized because the file names ",
+"combine both aspects of compound name and data object type,",
+"separating them with multiple hyphens, ",
+"sometimes hyphenating the compound number, as in '3a-reduced-Carbon.jdf'",
+"and sometimes hyphenating the spectroscopy, as in '8a-Carbon-CDCl3.jdf'",
+"This is suboptimal.",
+
+  
+ {"journal":"acs.orglett"},{"hash":"0c00788"},
+ {"figshareid": "22125318"},
+
+ {"IFD.property.collectionset.source_data_license_uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.source_data_license_name":"cc-by-nc-4.0"},
+ {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
+ {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"},
+
+ {"#IFD.property.collectionset.source_repository_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip"},
+ {"IFD.property.collectionset.source_repository_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
+
+ {"path":"|"},
+
+ 	"3a-reduced-Carbon.jdf, where compound id is '3a-reduced'' ",
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*-reduced}-*.jdf}}"},
+
+	"3a-Proton-DSMSO.jdf, where the data object id is 'Carbon-DMSO' ", 
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}-*-*.jdf}}"},
+
+	"3a-Carbon.jdf,3a-NOE.jdf",
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}-*.jdf}}"},
+
+ "note that order here is important"
+]}

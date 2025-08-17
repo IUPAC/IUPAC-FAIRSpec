@@ -1,0 +1,4 @@
+======== 6: 3 warnings for c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c00967
+! WARNING: Could not access null -- Extractor.processDOIURLs acs.orglett.0c00967 null
+! FAIRSpecExtractorHelper association id=2h spec=2H-13C has no associated structure representation 
+! FAIRSpecExtractorHelper association id=2H struc=2H has no associated spectrum representation 

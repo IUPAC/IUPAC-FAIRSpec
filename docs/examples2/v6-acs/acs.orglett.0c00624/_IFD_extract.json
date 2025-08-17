@@ -1,0 +1,46 @@
+{"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
+ {"example":"compound directories containing  bruker files identified as '1-C' or '1-H'"},
+ {"journal":"acs.orglett"},{"hash":"0c00624"},
+ {"figshareid":"21947274"},
+ 
+"This is not an example to copy.",
+"It has no structures and has 'broken' Bruker directories.",
+"A problem with this collection is that the Bruker directories",
+"have lost their /n/ directories, for example /10/.",
+"This means that these directories cannot be read back into TopSpin.",
+"IDFExtractor will fix this problem, zipping the directories up with an added /1/ subdirectory.",
+ 
+"Each compound directory containing multiple bruker-like directories",
+   
+"  3a/             ",
+"     3a_C/        ",
+"        pdata/    ",
+"        ...       ",
+"     3a_H/        ",
+"        pdata/    ",
+"        ...       ",
+
+" An added structures/ directory accompanies this JSON file ",
+" It was created by hand from reading the publication",
+
+"   structures/    ",
+"       1.cdxml    ",
+"       10.cdxml   ",
+"       11.cdxml   ",
+"       ...        ",
+
+ 
+ 
+ {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
+ {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"},
+ {"IFD.property.collectionset.source_data_license_uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.source_data_license_name":"cc-by-nc-4.0"},
+ 
+ {"#IFD.property.collectionset.source_repository_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip"},
+ {"IFD.property.collectionset.source_repository_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
+
+ {"path":"primary NMR data/{id=IFD.property.fairspec.compound.id::*}/"},
+
+ {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::<id>-*}/}"}
+  
+]}

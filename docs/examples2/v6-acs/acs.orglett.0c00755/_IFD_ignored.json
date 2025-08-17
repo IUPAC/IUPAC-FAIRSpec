@@ -1,0 +1,19 @@
+{"IFD.version":"0.1.0-beta+2025.07.24",
+"FAIRSpec.extractor.version":"0.1.0-beta+2025.07.24",
+"FAIRSpec.extractor.code":"https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/IFDExtractor.java",
+"FAIRSpec.extractor.creation_date":"17 Aug 2025 02:43:22 GMT",
+"FAIRSpec.extractor.script":"IFD-extract.json",
+"FAIRSpec.extractor.sources":
+["file:///c:/temp/iupac/acs/zip/22150197.zip",
+"file:/C:/Users/hanso/git/IUPAC-FAIRSpec/./extract/acs.orglett.0c00755/structures/"
+],
+"FAIRSpec.extractor.list_type":"ignored",
+"FAIRSpec.extractor.list_fileCount":3,
+"FAIRSpec.extractor.list_byteCount":25113,
+"FAIRSpec.extractor.list":
+[
+"structures/19+19a+18/18.cdxml",
+"structures/19+19a+18/19.cdxml",
+"structures/19.cdxml"
+]
+}

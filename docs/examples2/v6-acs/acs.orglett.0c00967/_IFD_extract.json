@@ -1,0 +1,33 @@
+{"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
+ {"example":"compound directories containing identified Bruker directories and JEOL files; Bruker directories missing n/"},
+ 
+"This is an excellent example, other than that it is missing structures.",
+"Each compound's directory contains one or more Bruker directories and/or JEOL jdf files. ",
+"Unfortunately, these are missing their numbered directories and so are not readable by TopSpin.",
+
+"     1h/                       ",
+"        1h-1H/pdata            ",
+"        1h-13C.jdf             ",
+"     ...                       ",
+
+ 
+ 
+ {"journal":"acs.orglett"},
+ {"hash":"0c00967"},
+ {"figshareid":"22111341"},
+ 
+ {"IFD.property.collectionset.source_data_license_uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.source_data_license_name":"cc-by-nc-4.0"},
+ {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
+ {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"},
+ 
+ {"#IFD.property.collectionset.source_repository_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip"},
+ {"IFD.property.collectionset.source_repository_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
+
+   "matches '1h/1h-13C/', assigning '1h' to the compound id and '1h-13C' to the data objec id", 
+ {"FAIRSpec.extractor.object":"{IFD.property.fairspec.compound.id::*}/{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*}/}"},
+
+   "matches '1h/1h-1H.jdf', assigning '1h' to the compound id and '1h-1H' to the data objec id", 
+ {"FAIRSpec.extractor.object":"{IFD.property.fairspec.compound.id::*}/{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*}.jdf}"}
+ 
+]}

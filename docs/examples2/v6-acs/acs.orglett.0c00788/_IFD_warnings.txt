@@ -1,0 +1,2 @@
+======== 4: 1 warnings for c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c00788
+! WARNING: Could not access null -- Extractor.processDOIURLs acs.orglett.0c00788 null
