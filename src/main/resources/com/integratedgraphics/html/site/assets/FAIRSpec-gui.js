@@ -1,6 +1,6 @@
 // ${IUPAC FAIRSpec}/src/html/site/assets/FAIRSpec-gui.js
 // 
-// BH 2025.08.17 adds FAIRSpecDataCollection resource
+// BH 2025.08.17 adds FAIRSpecDataCollection resource; checking docs examples
 // BH 2025.07.23 adds zip file link, author orcid link
 // Swagat Malla 2025.05.10 many new features
 
@@ -33,9 +33,11 @@
 	}
 	
 	var fileFor = function(aidID, fname) {
-		return dirFor(aidID) + "/" + fname;
+		var s = dirFor(aidID);
+		if (!s.endsWith("/"))
+			s += "/";
+		return s + fname;
 	}
-
 
 	const sanitizeUserInput = (string) =>{
 		const map = {
@@ -840,7 +842,7 @@
 	}
 
 	IFD.showAid = function(aidID) {
-		window.open(IFD.findingAidFile, "_blank");
+		window.open(IFD.findingAidFile || IFD.findingAidURL, "_blank");
 	}
 
 	IFD.showVersion = function(aid) {
@@ -895,7 +897,7 @@
 		url || (url = getField("url"));
 		var base = getField("base");
 		if (url || base)
-			IFD.setFindingAidPath(url, base);
+			IFD.configSetFindingAidPath(url, base);
 		if (!url)
 			return false;
 		var faJson = J2S.getFileData(url);
@@ -903,7 +905,6 @@
 		if (!faJson.startsWith('{"' + topKey))
 			topKey = "IFD.findingaid";
 		if(faJson.startsWith('{"'+topKey+'"')){
-			IFD.findingAidURL = url;
 			IFD.topKey = topKey;
 			var aid = JSON.parse(faJson)[topKey];
 			IFD.findingAidID = aid.id = aid.id || "." ;
@@ -1156,10 +1157,12 @@
 			var isRelative = ref.startsWith(".");
 			var isDataOrigin = !isNaN(id);
 			if (!isDataOrigin || ref.indexOf("http") == 0) {
+				// could be FAIRSpecDataCollection
 				if (isRelative && IFD.findingAidDir != "./")
-					ref = IFD.findingAidDir + ref;
+					ref = (IFD.findingAidDir || IFD.properties.findingAidPath) + ref;
 				if (ref.startsWith(".."))
 					ref = ref.substring(1);
+				ref = ref.replace('/./', '/');
 				var size = getSizeString(r.len);
 				ref = "<a target=_blank href=\"" + ref + "\">" + ref + (size ? " " + size:"") + "</a>"
 				s += "<tr><td>" + (isDataOrigin ? "Data&nbsp;Origin" : id) 

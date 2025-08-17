@@ -6,11 +6,12 @@ var s = document.location.search;
 //Jmol._isAsync = false;
 //Jmol._debugCode = (s.indexOf("debugcode") >= 0);
 
-var assetsDir = document.currentScript.src.split("assets/")[0];
+var assetsDir = document.currentScript.src.split("assets/")[0] + "assets/";
+
 var SMILESInfo = {
   code: null,
   main: "org.jmol.smiles.SmilesMatcher",
-  core: assetsDir + "assets/core_fairspec.z.js",
+  core: assetsDir + "core_fairspec.z.js",
 	width: 1,
 	height: 1,
 	readyFunction: function(app) { IFD.pageLoaded();},
@@ -25,7 +26,7 @@ var JMEInfo = {
 	visible: true,
   	divId: "jme-app-frame0-div"
   //optional parameters
-  ,"options" : "canonize"// that is, created c1ccccc1 for benzene search//"query,hydrogens"
+  ,"options" : "canonize,search"// that is, created c1ccccc1 for benzene search//"query,hydrogens"
   //,"jme" : startingStructure   
 }
 
@@ -36,26 +37,31 @@ IFD.jmolReadyCallback = function() {
 
 
 IFD.createJSME = function() {
-	// SwingJS version -- not implementing yet
-	  if (IFD.JME) {
-		IFD.JME.getTopLevelAncestor$().setVisible$Z(true);
-	  } else {
-		var Info = {
-		  args: ["search"],
-		  code: null,
-		  main: "jme.JME",
-		  core: "NONE",
-			width: 350,
-			height: 350,
-		  readyFunction: function(app) { IFD.JMEapp = app; IFD.JME = app._applet.app; },
-		  searchCallback: IFD.jmeReturn,
-		  serverURL: 'https://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php',
-		  j2sPath: '../assets/swingjs/j2s',
-		  console:'sysoutdiv',
-		  allowjavascript: true
-		}
-		SwingJS.getApplet('jme-app', Info);
-	  }
+  if (IFD.JME) {
+	IFD.JME.getTopLevelAncestor$().setVisible$Z(true);
+  } else {
+	var Info = {
+	  args: ["search,nohydrogens"],
+	  code: null,
+	  main: "jme.JME",
+	  core: assetsDir + "core_fairspec.z.js",
+		width: 350,
+		height: 350,
+	  readyFunction: function(app) { IFD.JMEapp = app; IFD.JME = app._applet.app; },
+	  searchCallback: IFD.jmeReturn,
+	  serverURL: 'https://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php',
+	  j2sPath: 'https://chemapps.stolaf.edu/swingjs/chem/swingjs/j2s',
+	  console:'sysoutdiv',
+	  allowjavascript: true
+	}
+	SwingJS.getApplet('jme-app', Info);
+  }
+}
+
+IFD.jmeReturn = function() { 
+	var aidID = IFD.findingAidID;
+	var ids = IFD.jmolGetSmartsMatch(aidID);
+	IFD.showSmartsMatch(aidID, ids);
 }
 
 IFD.jmeGetSmiles = function() {
