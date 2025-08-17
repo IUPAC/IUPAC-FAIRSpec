@@ -1,0 +1,42 @@
+{"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
+ {"example":"compound directories containing numbered bruker files"},
+
+ "This collection had no structures before curation.", 
+ "This collection had some problems with ambiguous and inverted stereochemistry",
+ "for dehydrocholic acid derivative 3ay and 3-keto-4-etiocholenic acid derivative 5ah",
+ "which was corrected during curation",
+ "compound names ending with ' update' were shortened",
+
+ "The collection consists of directory containing a set of proper Bruker directories, some with mulitple experiments",
+ "  alkylation orginal FID submitted/            ",
+ "                            5ah/2/pdata        ",
+ "                            5ah/1/pdata        ",
+ "                            5ag update/2/pdata ",
+ "                            5ag update/1/pdata ",
+ 
+ " An added structures/ directory accompanies this JSON file ",
+ " It was created by hand in order referring to the publication",
+ " One compound is a mixture of E- and Z-alkene, so it has two strutures in a directory",
+ 
+ 
+  
+ 
+ {"journal":"acs.orglett"},{"hash":"0c01277"},
+ {"figshareid":"22613762"},
+ 
+ {"IFD.property.collectionset.source_data_license_uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.source_data_license_name":"cc-by-nc-4.0"},
+ {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
+ {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"},
+
+ {"#IFD.property.collectionset.source_repository_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip"},
+ {"IFD.property.collectionset.source_repository_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
+
+	{"FAIRSpec.extractor.replacements":[
+		["3ax", "(E,Z)3ax+(E,E)3ax"],
+		[" update",""]
+		]},
+			
+ {"FAIRSpec.extractor.object":"{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::*/{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}}/}"}
+ 
+]}

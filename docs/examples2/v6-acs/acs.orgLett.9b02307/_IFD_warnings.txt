@@ -1,0 +1,5 @@
+117 warnings
+! WARNING: local source directory does not exist (ignored): https://www.repository.cam.ac.uk/bitstreams/983933fe-6c07-4793-bf32-0d715d2d9087/download -- Extractor.phase1CheckSource acs.orglett.9b02307 null
+! InChI could not be created for 3i-NOT.cdxml
+! DefaultStructureHelper WARNING: SMILES could not be created for 3i-NOT.cdxml MF=null
+! FAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure 3i-NOT
