@@ -415,12 +415,12 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 
 	
 	@Override
-	public IFDStructureRepresentation createStructureRepresentation(IFDReference ref, Object data, long len,
-			String ifdStructureType, String mediatype) {
+	public IFDStructureRepresentation createStructureRepresentation(String key, IFDReference ref, Object data,
+			long len, String ifdStructureType, String mediatype) {
 		if (currentStructure == null)
 			currentStructure = createStructure(null);
 		System.out.println("FAHelper adding structure rep to " + currentStructure + ":" + ref);
-		IFDStructureRepresentation r = (IFDStructureRepresentation) findOrAddRepresentation(currentStructure, null, null, null, ref == null ? null : ref.getLocalName(), data, null);
+		IFDStructureRepresentation r = (IFDStructureRepresentation) findOrAddRepresentation(key, currentStructure, null, null, null, ref == null ? null : ref.getLocalName(), data, null);
 		if (data == null) {
 			r.getRef().setDOI(ref.getDOI());
 			r.getRef().setURL(ref.getURL());
@@ -451,7 +451,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			return null;
 		}
 		System.out.println("FAHelper adding data rep to " + currentDataObject + ":" + ref);
-		IFDDataObjectRepresentation r = (IFDDataObjectRepresentation) findOrAddRepresentation(currentDataObject, null, null, null, ref == null ? null : ref.getLocalName(), data, null);
+		IFDDataObjectRepresentation r = (IFDDataObjectRepresentation) findOrAddRepresentation(null, currentDataObject, null, null, null, ref == null ? null : ref.getLocalName(), data, null);
 		r.setRef(ref);
 		r.setMediaType(mediatype);
 		r.setType(ifdDataType);
@@ -614,21 +614,22 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 
 	/**
 	 * 
+	 * @param key TODO
 	 * @param collection
 	 * @param resourceID
 	 * @param currentOriginPath
 	 * @param rootPath
 	 * @param localName
-	 * @param object
 	 * @param param
+	 * @param object
 	 * @return
 	 */
-	public IFDRepresentation findOrAddRepresentation(IFDRepresentableObject<? extends IFDRepresentation> collection, 
-			String resourceID,
-			String currentOriginPath, String rootPath, 
-			String localName, Object data, String param) {
-		return collection.findOrAddRepresentation(resourceID, currentOriginPath, 
-				rootPath, localName, data, param, FAIRSpecUtilities.mediaTypeFromFileName(localName));
+	public IFDRepresentation findOrAddRepresentation(String key, 
+			IFDRepresentableObject<? extends IFDRepresentation> collection,
+			String resourceID, String currentOriginPath, 
+			String rootPath, String localName, Object data, String param) {
+		return collection.findOrAddRepresentation(key, resourceID, 
+				currentOriginPath, rootPath, localName, data, param, FAIRSpecUtilities.mediaTypeFromFileName(localName));
 	}
 
 	/**

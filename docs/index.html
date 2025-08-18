@@ -12,7 +12,7 @@
 	At this site we highlight our development of IUPAC FAIRSpec Finding Aids.
 	
 	<H3><a name=cdx href="cdx_sdk">CDX/CDXML specification</a></H3>
-	<p>But, first, 352 pages retrieved from multiple points on the wayBack machine 
+	<br><br>But, first, 352 pages retrieved from multiple points on the wayBack machine 
 	preserving the CDX/CDXML specification. (Note that some images were not retrievable.)
 	This specification is important, as it is the basis for one of the most
 	widely used and accessible formats in the chemistry community for 
@@ -26,14 +26,14 @@
 	
 	<H3><a target=_blank name=v1 href="examples/v1-demo/demo.htm">examples/v1-demo</a></H3>
 	<img width=600 src=examples/v1-demo/v1.png>
-	<p>Our first demonstration of a very early (2021) prototypical finding aid. 
+	<br><br>Our first demonstration of a very early (2021) prototypical finding aid. 
 	It was generated from a set of supporting information data sets from the <a href=https://pubs.acs.org/doi/full/10.1021/acs.joc.0c00248>ACS FAIRData pilot study</a> (2023).
 	This demo just gave an idea of what a minimal extraction of metadata might look like in JSON format.
 	<br><br>
 	
 	<H3><a target=_blank name=v4 href="https://chemapps.stolaf.edu/iupac/site/ifd2024/index.htm">examples/v4-acs</a></H3>
 	<img width=600 src=examples/v4-acs/v4.png>
-	<p>A more sophisticated demonstration allowing for substructure and text searching, as well as the creation of predicted spectra based on SMILES strings (2023).
+	<br><br>A more sophisticated demonstration allowing for substructure and text searching, as well as the creation of predicted spectra based on SMILES strings (2023).
 	This demonstration illustrates how supporting information ZIP files in a variety of formats can be 
 	extracted for metadata. 
 	<br><br>
@@ -47,7 +47,7 @@
 	
 	<H3><a target=_blank name=v6-acs href="examples2/v6-acs/index.htm">examples2/v6-acs</a></H3>
 	<img width=600 src=examples2/v6-acs/v6.png>
-    <p>A much richer demonstration involving advanced finding aids created using
+    <br><br>A much richer demonstration involving advanced finding aids created using
 	<a target=_blank href=https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/test/ExtractorTestACS.java>ExtractorTestACS.java</a>.
 	The extractor generates the web pages from a set of supporting information data sets from ACS FAIRData pilot study, adding the capability to 
 	search for properties of compounds, strutures, and spectra. 
@@ -56,7 +56,7 @@
 	
 	<H3><a target=_blank name=icl-10386 href="examples2/index.htm?url=https://chemapps.stolaf.edu/iupac/examples2/icl-10386/IFD.findingaid.json">examples2/index.htm?url=[path to finding aid]</a></H3>
     <img width=600 src=examples2/icl-10386/icl-10386.png>
-	<p>This example demonstrates a generic web page loading an IUPAC FAIRSpec Finding Aid 
+	<br><br>This example demonstrates a generic web page loading an IUPAC FAIRSpec Finding Aid 
 	from the URL on a different server using the ?url= query. In this case, the requested finding aid along 
 	with its associated IUPAC FAIRSpec Data Collection
 	 are hosted at St. Olaf College in
@@ -65,7 +65,7 @@
 	
 	<H3><a target=_blank name=icl-14635 href="examples2/icl-14635/index.htm">examples2/icl-14635</a></H3>
     <img width=600 src=examples2/icl-14635/icl-14635.png>
-	<p>This "metadata crawler" demonstration illustrates how we 
+	<br><br>This "metadata crawler" demonstration illustrates how we 
 	can take a single DOI, "10.14469/HPC/14635", and produce a 
 	complete IUPAC FAIRSpec Finding Aid simply by following metadata stored at DataCite.
 	The data set is from Imperial College London. 
@@ -77,12 +77,11 @@
 	in order to handle a few idiocyncracies 
 	of that particular repository. Though not as rich...
 	
-	<br><br>
-	
+    <br><br>	
 	<H3><a name=v5 href="examples/v5-icl-repository-DOI-crawl/demo_icl.htm">examples/v5-icl-repository-DOI-crawl</a></H3>
-	<p>This demonstration highlights a what can be done 
-	by "crawling" of DataCite metadata records as well as the searching of compounds using substructure searches. 
-	
+	This demonstration highlights a what can be done 
+	by "crawling" of metadata-rich DataCite records. 
+    <br><br>    	
 	The demonstration focus on the interconnected DataCite 
 	metadata records of a <a href="https://data.hpc.imperial.ac.uk/resolve/?doi=10386">highly curated collection</a> at 
 	the high-performance computing repository at 
@@ -93,24 +92,23 @@
 	by Thomas Mies, Andrew J. P. White, Henry S. Rzepa, 
 	Luciano Barluzzi, Mohit Devgan and Richard A. Layfield, 
 	and Anthony G. M. Barrett.
-	<p>
-	The <a href="examples/v5-icl-repository-DOI-crawl/10.14469_hpc_10386/IFD.findingaid.json">IUPAC FAIRSpec Finding Aid</a> 
+	<br><br>
+    The <a href="examples/v5-icl-repository-DOI-crawl/10.14469_hpc_10386/IFD.findingaid.json">IUPAC FAIRSpec Finding Aid</a> 
 	accesses 323 DOI-referenced pages in the repository 
 	backed by DataCite metadata records pointing to 1843 distinct digital
 	items, including 390 CDXML drawings, 294 MOL files, 
 	140 complete Bruker NMR datasets, 144 JCAMP-DX files,
 	and 328 PNG images.  
-	<p>
-	The sample landing page
-	for the Finding Aid 
+	<br><br>
+    The sample landing page for the Finding Aid 
 	uses only the information in the DataCite metadata records retrieved from 
 	DataCite by <a href="https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/DOICrawler.java">DOICrawler.java</a>,
 	which was initiated using only the DOI string for the main repository page, "10.14469/hpc/10386". 
 	Thus, for this proof-of-concept, no files from the repository
 	were actually downloaded in the creation of the Finding Aid or the 
 	generation of the landing page itself.
-	
-	<p>The landing page uses <a href=https://github.com/BobHanson/JME-SwingJS>JME-SwintJS</a> 
+	<br><br>
+	The landing page uses <a href=https://github.com/BobHanson/JME-SwingJS>JME-SwintJS</a> 
 	to create <a href=https://www.daylight.com/dayhtml/doc/theory/theory.smarts.html>SMARTS</a> 
 	substructure searches and <a href=https://github.com/BobHanson/Jmol-SwingJS>Jmol-SwingJS</a> 
 	to do the SMILES-string searching. Not all compounds in this collection
@@ -119,30 +117,39 @@
 	compounds. But this does not prevent SMARTS searching of the metal center, ligands, or 
 	associated solvents. In addition, the page provides access to 
 	<a href=https://www.nmrdb.org>nmrdb</a> for optional NMR spectrum prediction.
-	<p>
+	(You may notice some bouncing around of text while loading; this was a problem with this
+	first-generation crawler landing page.) 
+	<br><br>
 	
-	View the <a href="examples/v5-icl-repository-DOI-crawl/10.14469_hpc_10386/IFD.findingaid.json">IUPAC FAIRSpec Finding Aid</a> 
-	<p>
-	
-	Additional output from DOICrawler.java: 
-	<br>
-	<p><a href="examples/v5-icl-repository-DOI-crawl/10.14469_hpc_10386/ifd-fileURLMap.txt">ifd-fileURLMap.txt</a>
-	<br><a href="examples/v5-icl-repository-DOI-crawl/10.14469_hpc_10386/crawler.log">crawler.log</a>
-	<br><a href="examples/v5-icl-repository-DOI-crawl/devnotes.txt">devnotes.txt</a>
-	
+    <H3><a name=v6-crawler2 href="examples2/v6-crawler2/index.htm">examples2/v6-crawler2</a></H3>
+    <img width=600 src=examples2/v6-crawler2/v6c2.png>
+    <br><br>This more recent demonstration combines crawling of DataCite metadata records with extraction of the files. 
+    The DataCite DOI records are followed, but unlike the v5 example, here we also download all digital items 
+    into a temporary directory in order to extract their metadata.
+    <br><br>
+    The process creates an especially metadata-rich IUPAC FAIRSpec Finding Aid 
+    for a repository, in effect converting the repository from a FAIRSpec-ready data collection 
+    to an IUPAC FAIRSpec Data Collection.
+    <br><br>
+    The finding aid in this case also internalizes all PNG images as dataURIs, allowing the page to 
+    load and display rapidly, without directly accessing the repository itself for images.
+    This creates a somewhat larger JSON document (17 MB). 
+
+<!-- 	
+    <br><br>
 	<H3><a name=v5j href="https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/dist">IFDExtractor.jar (beta)</a></H3>
-	<p>This demonstration illustrates how IFDExtractor can create an IUPAC FAIRSpec Finding Aid and an associated example landing page from a 
+	<br><br>This demonstration illustrates how IFDExtractor can create an IUPAC FAIRSpec Finding Aid and an associated example landing page from a 
 	structured set of information that defines the key aspects of a data collection. 
 	Now in beta testing, <a href="https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/IFDExtractor.java">IFDExtractor.java</a> requires a small configuration file to do its job.
 	We are currently working on providing a handful of templates for this file; right now
 	it has to be constructed by hand for each dataset being processed.
-	<p>
+	<br><br>
 	The command line looks like this:
-	<p>
+	<br><br>
 	<code>java -jar IFDExtractor.jar IFD.extract-test.json</code>
-	<p>
+	<br><br>
 	and produces <a href="examples/IFDExtractor">this page</a>.
-	
+	 -->
 	<div style="height:400px"></div>
 	
 	</div>

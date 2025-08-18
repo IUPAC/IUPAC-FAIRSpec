@@ -12,8 +12,6 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
  */
 public class PageCreator {
 
-	private static CharSequence baseDir;
-
 	private PageCreator() {
 		// no instance necessary
 	}
@@ -28,6 +26,7 @@ public class PageCreator {
 			"assets/FAIRSpec-get.js",
 			"assets/FAIRSpec-gui.js",
 			"assets/FAIRSpec-swingjs.js",
+			"assets/spinner.gif",
 			ifdConfigJS,
 			ifdFindingAidsJS,
 			"index.htm",
@@ -37,7 +36,7 @@ public class PageCreator {
 		if (htmlPath == null)
 			return;
 		new File(htmlPath, "assets").mkdirs();
-		for (int i = 0; i < files.length; i++) {
+		for (int i = files.length; --i >= 0;) {
 			byte[] bytes = FAIRSpecUtilities.getResourceBytes(PageCreator.class, "site/" + files[i]);
 			String sbytes = null;
 			if (files[i] == ifdConfigJS) {

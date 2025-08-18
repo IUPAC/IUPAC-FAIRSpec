@@ -1,7 +1,5 @@
 package com.integratedgraphics.extractor;
 
-import com.integratedgraphics.zip.ZipInputStream;
-
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -32,6 +30,7 @@ import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.util.ZipUtil;
 
+import com.integratedgraphics.zip.ZipInputStream;
 import com.junrar.Archive;
 import com.junrar.exception.RarException;
 import com.junrar.rarfile.FileHeader;
@@ -778,6 +777,8 @@ public class ExtractorUtils {
 	
 	}
 
+	public static final String CRAWLER_NAME = "CRAWLER.ifdcrawler";
+
 	/**
 	 * A static class to allow for either ZipInputStream or TarArchiveInputStream
 	 * 
@@ -787,9 +788,9 @@ public class ExtractorUtils {
 	public static class ArchiveInputStream extends InputStream {
 		private ZipInputStream zis;
 		private TarArchiveInputStream tis;
-		private InputStream is;
 		private DirectoryInputStream dis;
 		private RARInputStream ris;
+		protected InputStream is;
 	
 		protected ArchiveInputStream() throws IOException {
 			this(null, null);
@@ -802,6 +803,8 @@ public class ExtractorUtils {
 			if (is instanceof DirectoryInputStream) {
 				this.is = dis = (DirectoryInputStream) is;
 				dis.reset();
+			} else if (is instanceof CrawlerInputStream) {
+				this.is = is;
 			} else if (is instanceof ZipInputStream) {
 				this.is = is;
 			} else if (ZipUtil.isZipS(is)) {
@@ -815,6 +818,85 @@ public class ExtractorUtils {
 			}
 		}
 	
+		protected static class CrawlerInputStream extends InputStream {
+
+			long len;
+			
+			private CrawlerEntry entry;
+
+			private static class CrawlerEntry extends ArchiveEntry {
+
+				/**
+				 * may contain additional IFD.xxx metadata
+				 */
+				private String pidDescription;
+				private File file;
+				private Object subdir;
+				private String compoundID;
+				private String dataType;
+				private String surl;
+
+				public CrawlerEntry(String name, String surl, String compoundID, String dataType, String subdir, String pidDescription, File f, long size) {
+					super(null, size);
+					this.dataType = dataType;
+					this.name = name;
+					this.surl = surl;
+					System.out.println(f.getName() + " " + surl);
+					System.out.println(name);
+					this.compoundID = compoundID;
+					this.subdir = subdir;
+					this.pidDescription = pidDescription;
+					this.file = f;
+				}			
+			}
+			
+			private List<CrawlerEntry> fileList = new ArrayList<CrawlerEntry>();
+			private int pt = 0;
+
+			private InputStream is;
+			
+			protected CrawlerInputStream() throws IOException {
+				super();
+			}
+			
+			protected void addFile(String name, String surl, String dataType, String compoundID, String subdir, String pidDescription, File f, long len) {
+				fileList.add(new CrawlerEntry(name, surl, dataType, compoundID, subdir, pidDescription, f, len));
+				this.len += len;
+			}
+	
+			protected long getLength() {
+				return len;
+			}
+			
+			@Override
+			public void reset() {
+				pt = 0;
+				if (is != null) {
+					try {
+						is.close();
+					} catch (IOException e) {
+					}
+					is = null;
+				}
+			}
+			
+			protected CrawlerEntry getNextEntry() throws IOException {
+				if (is != null)
+					is.close();
+			    if (pt >= fileList.size())
+			    	return null;
+			    entry = fileList.get(pt++);
+			    is = new FileInputStream(entry.file);
+			    return entry;
+			}
+
+			@Override
+			public int read() throws IOException {
+				return is.read();
+			}
+
+		}
+		
 		/**
 		 * Override this method to implement a custom archive reader.
 		 * 

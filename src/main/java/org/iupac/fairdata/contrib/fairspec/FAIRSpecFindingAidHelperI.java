@@ -45,8 +45,8 @@ public interface FAIRSpecFindingAidHelperI {
 
 	public IFDStructure createStructure(String id);
 
-	public IFDStructureRepresentation createStructureRepresentation(IFDReference ref, Object data, long len,
-			String ifdStructureType, String mediatype);
+	public IFDStructureRepresentation createStructureRepresentation(String key, IFDReference ref, Object data,
+			long len, String ifdStructureType, String mediatype);
 
 	public String generateFindingAid(File topDir) throws IOException;
 

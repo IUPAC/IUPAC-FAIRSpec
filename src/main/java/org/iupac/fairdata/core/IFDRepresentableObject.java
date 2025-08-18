@@ -57,17 +57,18 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 
 	/**
 	 * Add a representation as long as it has not already been added.
+	 * @param key TODO
 	 * @param originPath an origin label used to identify unique representations
 	 * @param localName a localized label without / or |
 	 * @param data TODO
 	 * @param type
 	 * @param mediaType
-	 * 
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public IFDRepresentation findOrAddRepresentation(String resourceID,	String originPath, String rootPath, String localName, Object data, String type, String mediaType) {		
-		String key = (localName != null ? localName : data instanceof byte[] ? new String((byte[]) data) : data.toString());
+	public IFDRepresentation findOrAddRepresentation(String key,	String resourceID, String originPath, String rootPath, String localName, Object data, String type, String mediaType) {				
+		if (key == null)
+			key = (localName != null ? localName : data instanceof byte[] ? new String((byte[]) data) : data.toString());
 		IFDRepresentation rep = getRepresentation(resourceID, key);
 		if (rep == null) {
 			rep = newRepresentation((localName == null ? null : new IFDReference(resourceID, originPath, rootPath, localName)), data, 0, type, mediaType);			

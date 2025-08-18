@@ -41,30 +41,12 @@ public class IFDReference implements IFDSerializableI {
 
 	private String url;
 	
-	public String getURL() {
-		return url;
-	}
-
-	public void setURL(String url) {
-		this.url = url;
-	}
-
 	private String doi;
 
 	private int index;
 
 	private String insituExt;
 	
-	public String getDOI() {
-		return doi;
-	}
-
-	public void setDOI(String doi) {
-		this.doi = doi;
-	}
-
-
-
 	public IFDReference() {
 		this(null, null, null, null);
 	}
@@ -82,6 +64,22 @@ public class IFDReference implements IFDSerializableI {
 		setOriginPath(originPath);
 		this.localDir = localDir;
 		this.localName = localName;
+	}
+
+	public String getURL() {
+		return url;
+	}
+
+	public void setURL(String url) {
+		this.url = url;
+	}
+
+	public String getDOI() {
+		return doi;
+	}
+
+	public void setDOI(String doi) {
+		this.doi = doi;
 	}
 
 	public Object getOriginPath() {
@@ -145,11 +143,6 @@ public class IFDReference implements IFDSerializableI {
 	}
 	
 	@Override
-	public String toString() {
-		return "[IFDReference " + index + " " + (localDir == null ? "" : localDir + "::") + originPath + ">as>" + localName + " url:" + url +  " doi:" + doi + "]";
-	}
-
-	@Override
 	public void serialize(IFDSerializerI serializer) {
 		// System.out.println("IFDRef " + index + " " + localName + " " + url);
 		IFDObject.serializeClass(serializer, getClass(), null);
@@ -180,8 +173,15 @@ public class IFDReference implements IFDSerializableI {
 		return "IFDReference";
 	}
 
-	public void setLocalPath(Object object) {
-		localDir = localName = null;
+	@Override
+	public String toString() {
+		return "[IFDReference " + index + " " 
+		+ (localDir == null ? "" : localDir + "::") 
+		+ (url == null && doi == null ? originPath : "") 
+		+ ">as>" + localName 
+		+ (url == null ? "" : " url:" + url) 
+		+ (doi == null ? "" : " doi:" + doi) 
+		+ "]";
 	}
 
 

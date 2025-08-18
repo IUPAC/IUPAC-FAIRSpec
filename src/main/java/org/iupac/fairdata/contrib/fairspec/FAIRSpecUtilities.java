@@ -848,7 +848,7 @@ public class FAIRSpecUtilities {
 
 	public static boolean isZip(String name) {
 		return name.endsWith(".zip") || name.endsWith(".tgz") || name.endsWith(".tar") || name.endsWith(".rar")
-				|| name.endsWith("tar.gz");
+				|| name.endsWith("tar.gz") || name.endsWith(".ifdcrawler");
 	}
 
 	/**
