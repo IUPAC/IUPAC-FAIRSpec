@@ -216,12 +216,12 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		ArrayList<Object> products = rootPaths;
 		IFDSerializerI ser = getSerializer();
 		if (createZippedCollection && rootPaths != null) {
-			products.add(new File(targetDir + "/_IFD_extract.json"));
-			products.add(new File(targetDir + "/_IFD_ignored.json"));
-			products.add(new File(targetDir + "/_IFD_manifest.json"));
+			products.add(new File(targetPath + "/_IFD_extract.json"));
+			products.add(new File(targetPath + "/_IFD_ignored.json"));
+			products.add(new File(targetPath + "/_IFD_manifest.json"));
 		}
 		long[] times = new long[3];
-		String serializedFindingAid = faHelper.createSerialization((insitu || readOnly && !createFindingAidOnly ? null : targetDir),
+		String serializedFindingAid = faHelper.createSerialization((insitu || readOnly && !createFindingAidOnly ? null : targetPath),
 				createZippedCollection ? products : null, ser, times);
 		log("!Extractor serialization done " + times[0] + " " + times[1] + " " + times[2] + " ms "
 				+ serializedFindingAid.length() + " bytes");
@@ -255,8 +255,8 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 			// suffix is just unique internal ID for the cache
 			int pt = ckey.indexOf('\0');
 			String localName = (pt > 0 ? ckey.substring(0, pt) : ckey);
-			IFDRepresentation r1 = obj.findOrAddRepresentation(r.getRef().getResourceID(), originPath,
-					r.getRef().getlocalDir(), localName, r.getData(), type, null);
+			IFDRepresentation r1 = obj.findOrAddRepresentation(null, r.getRef().getResourceID(),
+					originPath, r.getRef().getlocalDir(), localName, r.getData(), type, null);
 			if (type != null && r1.getType() == null)
 				r1.setType(type);
 			if (mediatype != null && r1.getMediaType() == null)
@@ -296,14 +296,14 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 				logWarn("rejected " + nrej + " files", "writeRootManifests");
 			}
 		} else {
-			File f = new File(targetDir + "/_IFD_extract.json");
+			File f = new File(targetPath + "/_IFD_extract.json");
 			writeBytesToFile(extractScript.getBytes(), f);
 
-			outputListJSON("manifest", new File(targetDir + "/_IFD_manifest.json"));
+			outputListJSON("manifest", new File(targetPath + "/_IFD_manifest.json"));
 			if (nign > 0)
-				outputListJSON("ignored", new File(targetDir + "/_IFD_ignored.json"));
+				outputListJSON("ignored", new File(targetPath + "/_IFD_ignored.json"));
 			if (nrej > 0)
-				outputListJSON("rejected", new File(targetDir + "/_IFD_rejected.json"));
+				outputListJSON("rejected", new File(targetPath + "/_IFD_rejected.json"));
 		}
 	}
 

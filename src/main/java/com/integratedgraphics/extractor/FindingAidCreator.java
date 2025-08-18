@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
@@ -11,11 +12,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
@@ -171,6 +172,8 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 
 	protected String localizedTopLevelZipURL;
 
+	protected InputStream crawlerInputStream;
+
 	protected boolean haveExtracted;
 
 	protected String errorLog = "";
@@ -180,10 +183,6 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	protected String thisRootPath;
 
 	protected File targetPath;
-
-	public void setTargetPath(File targetPath) {
-		this.targetPath = targetPath;
-	}
 
 	public String strWarnings = "";
 
@@ -489,11 +488,15 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	@Override
 	public void log(String msg) {
 		if (msg.startsWith("!!")) {
-			errors++;
-			errorLog += msg + "\n";
+			if (errorLog.indexOf(msg) < 0) {
+				errors++;
+				errorLog += msg + "\n";
+			}
 		} else if (msg.startsWith("! ")) {
-			warnings++;
-			errorLog += msg + "\n";
+			if (strWarnings.indexOf(msg) < 0) {
+				warnings++;
+				strWarnings += msg + "\n";
+			}
 		}
 		logToSys(msg);
 	}
@@ -503,9 +506,6 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			FAIRSpecUtilities.refreshLog();
 		}
 		boolean toSysErr = msg.startsWith("!!") || msg.startsWith("! ");
-		if (toSysErr)
-			strWarnings += msg + "\n";
-
 		boolean toSysOut = toSysErr || msg.startsWith("!");
 		if (testID >= 0)
 			msg = "test " + testID + ": " + msg;
@@ -613,7 +613,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	protected PropertyManagerI getPropertyManager(Matcher m, boolean allowStruc, boolean isPropertyExtract) {
 		if (m == null)
 			return null;
-		if (m.group("struc") != null)
+		if (allowStruc && m.group("struc") != null)
 			return (allowStruc ? getStructurePropertyManager() : null);
 		BitSet bs = (isPropertyExtract ? bsPropertyVendors : bsRezipVendors);
 		String group = (isPropertyExtract ? "param" : "rezip");
@@ -632,9 +632,10 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	 * 
 	 * @param f
 	 */
-	public void extractSpecProperties(File f) {
+	public void crawlerExtractSpecProperties(File f) {
 		if (vendorCachePattern == null)
 			return;
+		System.out.println("FAC.extractSpecProp " + f.getName());
 		VendorPluginI vendor = null;
 		String localPath = f.getAbsolutePath();
 		ArchiveInputStream ais = null;
@@ -651,7 +652,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			    return;
 			}
 			// zip file -- check all contents
-			vendor = getVendorForZipFile(localPath);
+			vendor = crawlerGetVendorForZipFile(localPath);
 			if (vendor == null)
 				return;
 			vendor.initializeDataSet(this);
@@ -691,7 +692,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	 * @param localPath
 	 * @return vendor PropertyManagerI
 	 */
-	private VendorPluginI getVendorForZipFile(String localPath) {
+	private VendorPluginI crawlerGetVendorForZipFile(String localPath) {
 		ArchiveInputStream ais = null;
 		try {
 			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(localPath));
@@ -703,6 +704,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 						|| zipEntry.isDirectory()) {
 					continue;
 				}
+				name = "zip|" + name;
 				Matcher m = rezipCachePattern.matcher(name);
 				if (m.find())
 					return (VendorPluginI) getPropertyManager(m, false, false);
@@ -780,7 +782,8 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		} else {
 			s = sp;
 		}
-		vendorCachePattern = Pattern.compile("(?<ext>" + s + ")");
+		s = "(?<ext>" + s + ")";
+		vendorCachePattern = Pattern.compile(s);
 		
 		s = "";
 		for (int i = 0; i < VendorPluginI.activeVendors.size(); i++) {
@@ -837,13 +840,51 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			"_IFD_ignored.json",
 			"_IFD_manifest.json",
 			"_IFD_warnings.txt",
-			"_IFD_fileURLMap.json",
+			"_IFD_errors.txt",
+			"_IFD_fileURLMap.txt",
+			"_IFD_config.js",
+			"_IFD_findingaids.js",
+			
 			"crawler.log",
 			"extractor.log",			
 	};
-	
-	
-	public void createExtractorFilesJSON(boolean isCrawler) {
+		
+	public void setTargetPath(File targetPath) throws IFDException {
+		this.targetPath = targetPath;
+		targetPath.mkdir();
+		for (int i = 0; i < extractorFiles.length; i++) {
+			File f = new File(targetPath, extractorFiles[i]);
+			if (f.exists())
+				f.delete();
+		}
+	}
+
+	public void createExtractorFilesJSON(int nErrors, int nWarnings, boolean isCrawler) {
+		logToSys("");
+		System.err.flush();
+		System.out.flush();
+		if (nErrors == -1)
+			nErrors = errors;
+		if (nWarnings == -1)
+			nWarnings = warnings;
+		if (nWarnings > 0) {
+			try {
+				FAIRSpecUtilities.writeBytesToFile((nWarnings + " warnings\n" + strWarnings).getBytes(),
+						new File(targetPath, "_IFD_warnings.txt"));
+				System.err.println(strWarnings);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if (nErrors > 0) {
+			try {
+				FAIRSpecUtilities.writeBytesToFile((nErrors + " errors\n" + errorLog).getBytes(),
+						new File(targetPath, "_IFD_errors.txt"));
+				System.err.println(errorLog);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		String s = "[";
 		for (int i = 0, pt = 0; i < extractorFiles.length; i++) {
 			String name = extractorFiles[i];

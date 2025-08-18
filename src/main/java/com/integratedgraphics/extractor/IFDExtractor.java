@@ -207,7 +207,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 				+ "\n noLaunch = " + !launchLandingPage //
 				+ "\n skipPubInfo = " + skipPubInfo //
 				+ "\n localSourceArchive = " + localSourceDir //
-				+ "\n targetDir = " + targetDir //
+				+ "\n targetDir = " + targetPath //
 				+ "\n createZippedCollection = " + createZippedCollection; //
 		return s;
 	}
@@ -217,8 +217,8 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 	 */
 	public final String extractAndCreateFindingAid(File ifdExtractScriptFile, String localArchive, File targetPath)
 			throws IOException, IFDException {
-
-		this.targetPath = targetPath;
+		
+		setTargetPath(targetPath);
 
 		// set up the extraction
 
@@ -229,7 +229,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 
 		// now actually do the extraction.
 
-		processPhase2(targetPath);
+		processPhase2();
 		FAIRSpecUtilities.refreshLog();
 		checkStopAfter("2");
 	
@@ -257,25 +257,10 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 				e.printStackTrace();
 			}
 		}
-		if (nWarnings == -1)
-			nWarnings = warnings;
 		if (nErrors == -1)
 			nErrors = errors;
-		if (nWarnings > 0) {
-			try {
-				FAIRSpecUtilities.writeBytesToFile((warnings + nWarnings + " warnings\n" + strWarnings).getBytes(),
-						new File(targetDir + "/_IFD_warnings.txt"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		logToSys("");
-		System.err.flush();
-		System.out.flush();
-		System.err.println(errorLog);
-		System.err.flush();
-		System.out.flush();
-		createExtractorFilesJSON(false);
+		
+		createExtractorFilesJSON(nErrors, nWarnings, false);
 		logToSys("!Extractor.runExtraction flags " + flags);
 		logToSys("!Extractor " + (failed == 0 ? "done" : "failed") + " total=" + n + " failed=" + failed + " errors="
 				+ nErrors + " warnings=" + nWarnings);

@@ -299,7 +299,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 	}
 		
 	private static void writeCDKMoleculePNG(IAtomContainer mol, OutputStream os) throws IOException {
-		BufferedImage bi = CDK.getImageFromCDKMolecule(mol);
+		BufferedImage bi = CDK.getImageFromCDKMolecule(mol, false);
 		ImageIO.write(bi, "png", os);
 	}
 

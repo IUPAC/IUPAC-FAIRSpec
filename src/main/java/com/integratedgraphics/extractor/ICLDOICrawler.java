@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.iupac.fairdata.common.IFDUtil;
 
-import com.integratedgraphics.extractor.DOICrawler;
 import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 
 /**
@@ -42,8 +41,18 @@ import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 		
 		protected DOICrawler crawler;
 
+		private final static String[] defaultIgnoreKeys = {
+				"compound.id",
+				"IFD.property.dataobject.fairspec.comp.description",
+				"IFD.property.dataobject.fairspec.xrd.description", 
+				"IFD.property.dataobject.fairspec.ir.description", 
+				"IFD.Comp.IR", 
+				"IFD.Comp.NMR",
+		};
+
 		public ICLDOICrawler(DOICrawler crawler) {
 			this.crawler = crawler;
+			crawler.setIgnoreKeys(defaultIgnoreKeys);
 		}
 		
 		/**
@@ -84,7 +93,7 @@ import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 				return false;
 			switch (key) {
 			case "References":
-				crawler.log("!!RelatedIdentifier.References value ignored: " + val + " in " + crawler.doiRecord);
+				crawler.log("! RelatedIdentifier.References value ignored: " + val + " in " + crawler.doiRecord);
 				break;
 			case DOICrawler.DATACITE_SUBJECT:
 				switch (val) {
@@ -107,11 +116,22 @@ import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 					crawler.setDataObjectType("ir");
 					break;
 				case "Com":
-					if (val.startsWith("Compound ")) {
-						String id = crawler.newCompound("" + IFDUtil.parsePositiveInt(val.substring(9)));
-						crawler.addAttr(DOICrawler.FAIRSPEC_COMPOUND_ID, id);
-					}
 					break;
+				case "NMR":
+					crawler.setDataObjectType("nmr");
+					break;
+				}
+				int pt = val.toLowerCase().indexOf("compound ");
+				if (pt >= 0) {
+					String id = crawler.newCompound("" + IFDUtil.parsePositiveInt(val.substring(pt + 9).replace('.',' ').trim()));
+					crawler.addAttr(DOICrawler.FAIRSPEC_COMPOUND_ID, id);
+//					String id = val.substring(pt + 9).replace('.', ' ') + " ";
+//					id = id.substring(0, id.indexOf(" "));
+//					id = crawler.newCompound(id);
+//					crawler.addAttr(DOICrawler.FAIRSPEC_COMPOUND_ID, id);
+//					String s = val.substring(pt + 9);
+//					crawler.addAttr(IFDConst.IFD_PROPERTY_LABEL, s);
+					return true;
 				}
 			}
 			return false;

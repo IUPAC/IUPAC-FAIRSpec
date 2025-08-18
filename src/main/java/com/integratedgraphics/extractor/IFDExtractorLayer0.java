@@ -207,11 +207,6 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 
 	protected ArrayList<Object> rootPaths = new ArrayList<>();
 
-	/**
-	 * a required target directory
-	 */
-	protected File targetDir;
-
 	public int getErrorCount() {
 		return errors;
 	}

@@ -246,7 +246,8 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	}
 
 	@Override
-	public boolean isDerived() {		return false;
+	public boolean isDerived() {
+		return false;
 	}
 
 }

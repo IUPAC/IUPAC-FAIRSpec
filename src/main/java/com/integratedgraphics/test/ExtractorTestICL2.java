@@ -22,7 +22,7 @@ public class ExtractorTestICL2 {
 
 		String ifdExtractFile = dir + "IFD-extract-HR.json";
 		String localSourceArchive = dir + "Procter";
-		String targetDir = dir + "icl-procter2";
+		String targetDir = dir + "icl-procter-2025-08";
 
 		String flags = null;
 

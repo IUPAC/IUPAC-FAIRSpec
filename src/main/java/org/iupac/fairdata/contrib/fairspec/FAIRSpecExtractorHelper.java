@@ -445,8 +445,8 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	private void checkAddRepOrSetParam(IFDRepresentableObject<? extends IFDRepresentation> o, String param,
 			String value, String localName, long len) {
 		if (IFDConst.isRepresentation(param)) {
-			findOrAddRepresentation(o, currentResource.getID(), currentOriginPath, currentResource.getRootPath(),
-					localName, null, param).setLength(len);
+			findOrAddRepresentation(null, o, currentResource.getID(), currentOriginPath,
+					currentResource.getRootPath(), localName, null, param).setLength(len);
 		} else {
 			o.setPropertyValue(param, value);
 		}
@@ -555,8 +555,8 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 		IFDStructure struc = (IFDStructure) checkAddNewObject(getStructureCollection(),
 				ClassTypes.Structure, rootPath, IFD_PROPERTY_STRUCTURE_ID, name, localName,
 				null, 0, true);
-		struc.findOrAddRepresentation(currentResource.getID(), originPath, rootPath, localName, null, ifdRepType,
-				FAIRSpecUtilities.mediaTypeFromFileName(localName));
+		struc.findOrAddRepresentation(null, currentResource.getID(), originPath, rootPath, localName, null,
+				ifdRepType, FAIRSpecUtilities.mediaTypeFromFileName(localName));
 		getStructureCollection().add(struc);
 		return struc;
 	}

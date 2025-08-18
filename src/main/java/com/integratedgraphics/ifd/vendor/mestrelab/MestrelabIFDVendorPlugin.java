@@ -365,6 +365,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 
 	@Override
 	public boolean isDerived() {
+		// why this?
 		return true;
 	}
 

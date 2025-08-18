@@ -1257,10 +1257,12 @@
 		var label = (spec.label || "");
 		var desc = (spec.description || "");
 		var s = (spec.doi ? getDOIAnchor("DOI", spec.doi) : "");
+		s += "<div style=width:800px;margin-left:20px;margin-bottom:20px>";
 		if (label)
 			s += (s ? "<br>": "") + label;
 		if (desc)
 			s += (s ? "<br>": "") + desc;
+		s += "</div>";
 		return s;
 	}
 	
@@ -1301,8 +1303,7 @@
 		}
 		var key = toAlphanumeric(type_name) + "_" + ++divId
 		IFD.headers.push([key,name]);
-		return "<a name=\"" + key + "\"><h3>" + type_name + "</h3></a>"
-		+ (false && description ? description + "<p>" : "<p>");
+		return "<a name=\"" + key + "\"><h3>" + type_name + "</h3></a>";
 	}
 
 	var showCompound = function(aidID,id) {
@@ -1513,10 +1514,10 @@
 		if (r.data) {
 			if (r.data.indexOf(";base64") == 0) {
                                 if (type == "png" || "image/png" == r.mediaType) {
-                                        var imgTag = getImageTag((r.ref ? r.ref.localPath : "image.png"),(r.note ? cleanText(r.note) : null), "data:" + r.mediaType + r.data);
+                                        var imgTag = getImageTag((r.ref ? r.ref.localName || r.ref.localPath : "image.png"),(r.note ? cleanText(r.note) : null), "data:" + r.mediaType + r.data);
 					s = addPathForRep(aidID, r.ref, -1, imgTag, null, r.note);
 				} else {
-					s = anchorBase64(r.ref.localPath, r.data, r.mediaType);
+					s = anchorBase64(r.ref);
 				}
 			} else {
 				if (r.data.indexOf(INVALID) >= 0) {
@@ -1552,7 +1553,10 @@
 	
 	clearPDFCache();
 	
-	var anchorBase64 = function(label, sdata, mediaType) {
+	var anchorBase64 = function(ref) {
+		var label = (ref.localName || ref.localPath);
+		var sdata = ref.data;
+		var mediaType = ref.mediaType;
 		mediaType || (mediaType = "application/octet-stream");
 		var s = "<a download=\"" + shortFileName(label) + "\" href=\"data:" + mediaType + sdata + "\">" + label + "</a>";
 		if (mediaType.indexOf("/pdf") >= 0) {
@@ -1706,7 +1710,7 @@
 
         var addPathForRep = function(aidID, ref, len, value, mediaType, note) {
                 ref || (ref = NOREF);
-		var shortName = ref.localName || shortFileName(ref.localPath);
+		var shortName = ref.localName || shortFileName(ref.localPath);//localPath old?
 		var url = ref.url || ref.doi || (ref.localPath ? fileFor(aidID, ref.localPath) : ref.localName);
 		mediaType = null;// nah. Doesn't really add anything || (mediaType = "");
 		var s;

@@ -275,13 +275,10 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * file.
 	 * 
 	 */
-	protected void processPhase2(File targetDir) throws IFDException, IOException {
+	protected void processPhase2() throws IFDException, IOException {
 		if (haveExtracted)
 			throw new IFDException("Only one extraction per instance of Extractor is allowed (for now).");
 		haveExtracted = true;
-		if (targetDir == null)
-			throw new IFDException("The target directory may not be null.");
-		setupTargetDir(targetDir);
 
 		// String s = "test/ok/here/1c.pdf"; // test/**/*.pdf
 		// Pattern p = Pattern.compile("^\\Qtest\\E/(?:[^/]+/)*(.+\\Q.pdf\\E)$");
@@ -293,7 +290,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		if (logging()) {
 			if (localSourceDir != null)
 				log("extractObjects from " + localSourceDir);
-			log("extractObjects to " + targetDir.getAbsolutePath());
+			log("extractObjects to " + targetPath.getAbsolutePath());
 		}
 
 		// Note that some files have multiple objects.
@@ -392,11 +389,11 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			if (extractorResource != currentSource) {
 				currentSource = extractorResource;
 				if (cleanCollectionDir) {
-					File dir = new File(targetDir + "/" + extractorResource.rootPath);
+					File dir = new File(targetPath + "/" + extractorResource.rootPath);
 					log("!Phase 2a cleaning directory " + dir);
 					FileUtils.cleanDirectory(dir);
 				}
-				String source = targetDir + "/" + extractorResource.rootPath;
+				String source = targetPath + "/" + extractorResource.rootPath;
 				if (!rootPaths.contains(source))
 					rootPaths.add(source);
 				// first build the file list
@@ -646,7 +643,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 		if (rezipCachePattern != null && (m = rezipCachePattern.matcher(originPath)).find()) {
 
-			// e.g. exptno/./pdata/procs
+			// e.g. exptno/pdata/1/procs
 
 			VendorPluginI v = phase2aGetVendorForRezip(m);
 			originPath = m.group("path" + v.getIndex());
@@ -1248,8 +1245,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				}
 				IFDRepresentableObject<?> obj = (isStructureRep ? struc : phase2dGetClonedData(spec));
 				linkLocalizedNameToObject(keyPath, null, obj);
-				IFDRepresentation r = obj.findOrAddRepresentation(faHelper.getCurrentSource().getID(), originPath,
-						extractorResource.rootPath, keyPath, data, key, mediaType);
+				IFDRepresentation r = obj.findOrAddRepresentation(null, faHelper.getCurrentSource().getID(),
+						originPath, extractorResource.rootPath, keyPath, data, key, mediaType);
 				if (note != null)
 					r.addNote(note);
 				if (!isInline)
@@ -1673,7 +1670,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @throws IOException
 	 */
 	private InputStream getTopZipStream() throws MalformedURLException, IOException {
-		return (localizedTopLevelZipURL.endsWith("/") ? new DirectoryInputStream(localizedTopLevelZipURL)
+		return (localizedTopLevelZipURL.equals(ExtractorUtils.CRAWLER_NAME) ? crawlerInputStream
+				: localizedTopLevelZipURL.endsWith("/") ? new DirectoryInputStream(localizedTopLevelZipURL)
 				: new URL(localizedTopLevelZipURL).openStream());
 	}
 
@@ -1698,7 +1696,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				log("opening " + localizedTopLevelZipURL);
 			String rootPath = resource.createZipRootPath(zipPath);
 			if (!insitu) {
-				new File(targetDir + "/" + rootPath).mkdir();
+				new File(targetPath + "/" + rootPath).mkdir();
 			}
 			resource.setLists(rootPath, ignoreRegex, acceptRegex);
 
@@ -1797,17 +1795,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			return;
 		log("!Extractor adding " + metadata.size() + " metadata items for " + idKey + "=" + o.getIDorIndex());
 		FAIRSpecExtractorHelper.addProperties(o, metadata);
-	}
-
-	private void setupTargetDir(File dir) {
-		dir.mkdir();
-		new File(dir + "/_IFD_warnings.txt").delete();
-		new File(dir + "/_IFD_rejected.json").delete();
-		new File(dir + "/_IFD_ignored.json").delete();
-		new File(dir + "/_IFD_manifest.json").delete();
-		new File(dir + "/IFD.findingaid.json").delete();
-		new File(dir + "/IFD.collection.zip").delete();
-		this.targetDir = dir;
 	}
 
 	/**
@@ -1914,7 +1901,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @return
 	 */
 	private File getAbsoluteFileTarget(String originPath) {
-		return new File(targetDir + "/" + extractorResource.rootPath + "/" + localizePath(originPath));
+		return new File(targetPath + "/" + extractorResource.rootPath + "/" + localizePath(originPath));
 	}
 
 	/**

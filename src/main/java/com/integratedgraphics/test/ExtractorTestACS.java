@@ -111,7 +111,6 @@ public class ExtractorTestACS extends ExtractorTest {
 				FAIRSpecUtilities.setLogging(targetDir + "/extractor.log");
 
 			extractor.processFlags(args, moreFlags);
-			new File(targetDir).mkdirs();
 			// false for testing and you don't want to mess up _IFD_findingaids.json
 			try {
 				File ifdExtractScriptFile = new File(ifdExtractFile).getAbsoluteFile();
@@ -146,7 +145,7 @@ public class ExtractorTestACS extends ExtractorTest {
 					e.printStackTrace();
 				}
 			}
-			extractor.createExtractorFilesJSON(false);
+			extractor.createExtractorFilesJSON(nErrors, nWarnings, false);
 		}
 		if (extractor != null) {
 			if (createFindingAidJSONList)
@@ -162,11 +161,11 @@ public class ExtractorTestACS extends ExtractorTest {
 			try {
 				if (json != null)
 					PageCreator.buildSite(htmlPath, true, null, false);
+				((FindingAidCreator) extractor).setTargetPath(htmlPath);
+				extractor.finalizeExtraction(json, n, failed, nWarnings, nErrors, sflags);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}		
-			((FindingAidCreator) extractor).setTargetPath(htmlPath);
-			extractor.finalizeExtraction(json, n, failed, nWarnings, nErrors, sflags);
 		}
 		FAIRSpecUtilities.setLogging(null);
 	}
