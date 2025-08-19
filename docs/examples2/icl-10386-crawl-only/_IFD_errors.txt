@@ -1,0 +1,16 @@
+15 errors
+!!URL returns 0 bytes! for 19.mnova at https://data.hpc.imperial.ac.uk/resolve/?doi=11343&file=1
+!!URL returns 0 bytes! for La-Ph complex hmbc.mnova at https://data.hpc.imperial.ac.uk/resolve/?doi=11597&file=2
+!!URL returns 0 bytes! for La-Ph complex hmbc.zip at https://data.hpc.imperial.ac.uk/resolve/?doi=11597&file=1
+!!No data type found for [doiRecord#1840 D.unknown cmpd=49: [IFDReference 1840 >as>null doi:https://doi.org/10.14469/hpc/14300]]null
+!! ERROR: invalid! SMILES could not be interpreted: O=C1N(CC2=CC=C(OC)C=C2)N=CC1>>OC3=CC=NN3CC4=CC=C(OC)C=C4 -- Extractor.addStructureRepresentationsFromProperties  null
+!! ERROR: invalid! SMILES could not be interpreted: (OC5=C(C(OCC)=O2)C=NN5C6=CC=CC=C6)O([H])CC -- Extractor.addStructureRepresentationsFromProperties  null
+!!no data object for 19.mnova https://data.hpc.imperial.ac.uk/resolve/?doi=11343&file=1
+!! ERROR: invalid! InChI could not be generated from [OH2][Ca]12(OC3=C(C(OCC)=O1)C=NN3C4=CC=CC=C4)(OC5=C(C(OCC)=O2)C=NN5C6=CC=CC=C6)O([H])CC.[(20)] -- Extractor.addStructureRepresentationsFromProperties  null
+!! ERROR: invalid! SMILES could not be calculated for Variable attachment points not supported by InChI -- Extractor.addStructureRepresentationsFromProperties  null
+!! ERROR: invalid! SMILES could not be interpreted: Cl[Zr]12(OC3=C(C(OCC)=O1)C=NN3CC4=CC=C(OC)C=C4)([])OC5=C(C(OCC)=O2)C=NN5CC6=CC=C(OC)C=C6.c7cccc7 -- Extractor.addStructureRepresentationsFromProperties  null
+!! ERROR: invalid! SMILES could not be calculated for Multicentre points of attachment not supported by  InChI -- Extractor.addStructureRepresentationsFromProperties  null
+!! ERROR: invalid! SMILES could not be interpreted: [][Zr]12(OC3=C(C(OCC)=O1)C=NN3C4=CC=CC=C4)(O[Zr]5(O=C6OCC)(OC7=C6C=NN7C8=CC=CC=C8)([])OC(N(C9=CC=CC=C9)N=C%10)=C%10C(OCC)=O5)O=C(OCC)C%11=C(O2)N(C%12=CC=CC=C%12)N=C%11.c%13cccc%13.c%14cccc%14 -- Extractor.addStructureRepresentationsFromProperties  null
+!! ERROR: invalid! SMILES could not be calculated for Not supported by  InChI -- Extractor.addStructureRepresentationsFromProperties  null
+!! ERROR: invalid! SMILES could not be calculated for Not supported by InChI -- Extractor.addStructureRepresentationsFromProperties  null
+!! ERROR: invalid! SMILES could not be calculated for InChI not supported -- Extractor.addStructureRepresentationsFromProperties  null

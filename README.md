@@ -92,3 +92,6 @@ If this doesn't work, before you get frustrated, talk with us.
 
 Bob Hanson 
 hansonr@stolaf.edu
+
+
+ICLDOICrawler2.jar 10.14469/hpc/10386 "c:/temp/iupac/crawler2" -insitu -extractspecproperties

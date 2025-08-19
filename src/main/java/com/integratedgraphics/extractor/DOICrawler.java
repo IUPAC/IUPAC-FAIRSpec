@@ -1324,7 +1324,7 @@ public class DOICrawler extends FindingAidCreator {
 		} else {
 			// get fileName, mediaType, and length
 			// note that length may be 0 (unknown)
- 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("HEAD");
 			Map<String, List<String>> map = con.getHeaderFields();
 			mediaType = map.get("Content-Type").get(0);
@@ -1365,15 +1365,21 @@ public class DOICrawler extends FindingAidCreator {
 				String dataType = doiRecord.dataObjectType;
 				rec.dataObjectType = dataType;
 				rec.mediaType = mediaType;
-				if (mediaType != null && mediaType.startsWith("image/"))
-					rec.data = FAIRSpecUtilities.getBytesAndClose(new FileInputStream(localFile));
-				if (downloaded && extractSpecProperties) {
-					crawlerExtractSpecProperties(localFile);
+				if (downloaded) {
+					if (insitu) {
+						if (mediaType != null && mediaType.startsWith("image/")) {
+							rec.data = FAIRSpecUtilities.getBytesAndClose(new FileInputStream(localFile));
+						}
+						localMap.put(surl, localFile);
+					}
+					if (extractSpecProperties) {
+						crawlerExtractSpecProperties(localFile);
+					}
 				}
 				addRecord(rec);
-				localMap.put(surl, localFile);
-				String name = thisCompoundID + "/" + dataType + "/" + pidDescription + localFile.toString().replace('\\', '/');
-				//log("!!!!" + name);
+				String name = thisCompoundID + "/" + dataType + "/" + pidDescription
+						+ localFile.toString().replace('\\', '/');
+				// log("!!!!" + name);
 				if (usingCrawlerInputStream)
 					myInputStream.addFile(name, surl, thisCompoundID, dataType, subdir, pidDescription, localFile, len);
 				totalLength += len;
