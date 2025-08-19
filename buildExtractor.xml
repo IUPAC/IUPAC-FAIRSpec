@@ -56,19 +56,10 @@
 	             optimize="${optimization}" source="1.8" target="1.8">
 	        <classpath refid="project.class.path" />
 	      </javac>
-	      <copy todir="${classes.dir}" >
-	        <fileset dir="src/main/java">
-	          <include name="**/license.txt" />
-	          <include name="**/*.jpg" />
-	          <include name="**/*.gif" />
-	          <include name="**/*.png" />
-	          <include name="**/*.html" />
-	          <include name="**/*.htm" />
-	          <include name="**/*.css" />
-	          <include name="**/*.js" />
-		      <include name="**/*.json" />
-	          <include name="**/*.properties" />
-	          <include name="**/*.txt" />
+	      <echo>copying resources to ${classes.dir}</echo> 
+	      <copy verbose="true" todir="${classes.dir}" >
+	        <fileset dir="src/main/resources">
+	          <include name="**/*" />
 	        </fileset>
 	      </copy>
 	    </target>
@@ -85,9 +76,11 @@
 	    </jar>
 	  	<echo>build/${application}.jar created (unsigned)</echo>
 	  	<copy file="build/${application}.jar" tofile="dist/{application}.jar" />
-	  	<delete includeemptydirs="true">
+
+<!--	  	<delete includeemptydirs="true">
 		      <fileset dir="${appjars.dir}" includes="**/*"/>
 		</delete>
+!-->
 	  </target>
 
   <target name="main" id="main" depends="jar"/>

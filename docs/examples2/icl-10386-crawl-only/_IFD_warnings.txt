@@ -1,0 +1,18 @@
+17 warnings
+! ignoring unknown key IFD.property.dataobject.fairspec.ir.description
+! ignoring unknown key IFD.property.dataobject.fairspec.xrd.description
+! RelatedIdentifier.References value ignored: ccdc.csd.cc2d6rcr in [doiRecord#9 C.xrd cmpd=21: [IFDReference 9 >as>null doi:https://doi.org/10.14469/hpc/11350]]null
+! RelatedIdentifier.References value ignored: 10.1002/chin.200515113 in [doiRecord#322 C cmpd=8: [IFDReference 322 >as>null doi:https://doi.org/10.14469/hpc/11709]]null
+! RelatedIdentifier.References value ignored: 10.14469/hpc/11394 in [doiRecord#444 C.xrd cmpd=39: [IFDReference 444 >as>null doi:https://doi.org/10.14469/hpc/11393]]null
+! RelatedIdentifier.References value ignored: ccdc.csd.cc2d6q7l in [doiRecord#444 C.xrd cmpd=39: [IFDReference 444 >as>null doi:https://doi.org/10.14469/hpc/11393]]null
+! RelatedIdentifier.References value ignored: 10.14469/hpc/11344 in [doiRecord#485 C.ir cmpd=18: [IFDReference 485 >as>null doi:https://doi.org/10.14469/hpc/11516]]null
+! RelatedIdentifier.References value ignored: 10.1002/zaac.202200294 in [doiRecord#502 C.nmr cmpd=5: [IFDReference 502 >as>null doi:https://doi.org/10.14469/hpc/11798]]null
+! RelatedIdentifier.References value ignored: 10.1002/jhet.5570320440 in [doiRecord#550 C cmpd=6: [IFDReference 550 >as>null doi:https://doi.org/10.14469/hpc/11708]]null
+! RelatedIdentifier.References value ignored: 10.1016/S0040-4020(01)89994-4 in [doiRecord#550 C cmpd=6: [IFDReference 550 >as>null doi:https://doi.org/10.14469/hpc/11708]]null
+! ignoring unknown key IFD.property.dataobject.fairspec.comp.description
+! RelatedIdentifier.References value ignored: 10.5281/zenodo.10800685 in [doiRecord#728 ?.nmr cmpd=17: [IFDReference 728 >as>null doi:https://doi.org/10.14469/hpc/11533]]null
+! RelatedIdentifier.References value ignored: 10.6084/m9.figshare.25418224 in [doiRecord#728 ?.nmr cmpd=17: [IFDReference 728 >as>null doi:https://doi.org/10.14469/hpc/11533]]null
+! ignoring unknown key IFD.Comp.IR
+! ignoring unknown key IFD.Comp.NMR
+! RelatedIdentifier.References value ignored: 10.14469/hpc/11334 in [doiRecord#1550 C.xrd cmpd=15: [IFDReference 1550 >as>null doi:https://doi.org/10.14469/hpc/11332]]null
+! RelatedIdentifier.References value ignored: 10.14454/3w3z-sa82 in [doiRecord#1840 ? cmpd=49: [IFDReference 1840 >as>null doi:https://doi.org/10.14469/hpc/14300]]null

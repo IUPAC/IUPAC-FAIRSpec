@@ -1,0 +1,7 @@
+6 warnings
+! RelatedIdentifier.References value ignored: 10.1039/D4SC07744J in [doiRecord#1 T cmpd=null: [IFDReference 1 >as>null doi:https://doi.org/10.14469/hpc/14635]]null
+! RelatedIdentifier.References value ignored: 10.5281/zenodo.14738481 in [doiRecord#421 C.nmr cmpd=37: [IFDReference 421 >as>null doi:https://doi.org/10.14469/hpc/14865]]null
+! RelatedIdentifier.References value ignored: 10.1039/JR9560003006 in [doiRecord#422 C.nmr cmpd=37: [IFDReference 422 >as>null doi:https://doi.org/10.14469/hpc/14730]]null
+! RelatedIdentifier.References value ignored: 10.1149/1.1838719 in [doiRecord#513 C.nmr cmpd=37: [IFDReference 513 >as>null doi:https://doi.org/10.14469/hpc/14837]]null
+! RelatedIdentifier.References value ignored: 10.1002/chem.201104055 in [doiRecord#571 C.nmr cmpd=37: [IFDReference 571 >as>null doi:https://doi.org/10.14469/hpc/14833]]null
+! RelatedIdentifier.References value ignored: 10.1021/acs.joc.3c00426 in [doiRecord#596 C.nmr cmpd=37: [IFDReference 596 >as>null doi:https://doi.org/10.14469/hpc/14842]]null
