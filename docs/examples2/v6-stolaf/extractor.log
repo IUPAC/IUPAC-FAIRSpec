@@ -95,7 +95,7 @@ JME 2015-12-06 Tue Aug 08 10:46:39 GMT-500 2023
 !Jmol Default Van der Waals type for model set to Babel
 !Jmol 14 atoms created
 !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
-!Jmol Time for creating model: 8 ms
+!Jmol Time for creating model: 7 ms
 !Jmol The Resolver thinks Mol
 !Jmol filtering with ;NO3D;NOHYDROGEN;
 !Jmol C1=CC=C(C)C=C1C(N(CC)CC)=O
@@ -109,7 +109,7 @@ JME 2015-12-06 Tue Aug 08 10:46:39 GMT-500 2023
 !Jmol Default Van der Waals type for model set to Babel
 !Jmol 14 atoms created
 !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
-!Jmol Time for creating model: 2 ms
+!Jmol Time for creating model: 1 ms
 Phase 2a checking zip directory: 356 chem-synthesis-summer-a-team1/nmr/Jul27-2023/
 Phase 2a checking zip directory: 357 chem-synthesis-summer-a-team1/nmr/Jul27-2023/1273510/
 Phase 2a checking zip directory: 364 chem-synthesis-summer-a-team1/nmr/Jul27-2023/1273510/pdata/
@@ -141,7 +141,7 @@ JME 2015-12-06 Tue Aug 08 10:57:55 GMT-500 2023
 !Jmol Default Van der Waals type for model set to Babel
 !Jmol 14 atoms created
 !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
-!Jmol Time for creating model: 2 ms
+!Jmol Time for creating model: 1 ms
 !Jmol The Resolver thinks Mol
 !Jmol filtering with ;NO3D;NOHYDROGEN;
 !Jmol C1=CC=C(C)C=C1C(N(CC)CC)=O
@@ -155,7 +155,7 @@ JME 2015-12-06 Tue Aug 08 10:57:55 GMT-500 2023
 !Jmol Default Van der Waals type for model set to Babel
 !Jmol 14 atoms created
 !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
-!Jmol Time for creating model: 2 ms
+!Jmol Time for creating model: 1 ms
 Phase 2a checking zip directory: 509 chem-synthesis-summer-a-team2/
 Phase 2a checking zip directory: 510 chem-synthesis-summer-a-team2/nmr/
 Phase 2a checking zip directory: 511 chem-synthesis-summer-a-team2/nmr/Aug01-2023/
@@ -262,7 +262,7 @@ JME 2015-12-06 Thu Aug 03 12:12:35 GMT-500 2023
 !Jmol Default Van der Waals type for model set to Babel
 !Jmol 16 atoms created
 !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
-!Jmol Time for creating model: 3 ms
+!Jmol Time for creating model: 2 ms
 !Jmol The Resolver thinks Mol
 !Jmol filtering with ;NO3D;NOHYDROGEN;
 !Jmol C1=CC(OC)=CC=C1C#CC2=CC=CC=C2
@@ -276,7 +276,7 @@ JME 2015-12-06 Thu Aug 03 12:12:35 GMT-500 2023
 !Jmol Default Van der Waals type for model set to Babel
 !Jmol 16 atoms created
 !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
-!Jmol Time for creating model: 2 ms
+!Jmol Time for creating model: 1 ms
 Phase 2a checking zip directory: 1233 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1295410/
 Phase 2a checking zip directory: 1241 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1295410/pdata/
 Phase 2a checking zip directory: 1242 chem-synthesis-summer-a-team3/nmr/Aug03-2023/1295410/pdata/1/
@@ -471,7 +471,7 @@ JME 2015-12-06 Tue Jul 11 15:06:23 GMT-500 2023
 !Jmol Default Van der Waals type for model set to Babel
 !Jmol 11 atoms created
 !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
-!Jmol Time for creating model: 0 ms
+!Jmol Time for creating model: 2 ms
 Phase 2a checking zip directory: 2120 Jun15-20234/
 Phase 2a checking zip directory: 2121 Jun15-20234/1203610/
 Phase 2a checking zip directory: 2128 Jun15-20234/1203610/pdata/
@@ -547,7 +547,7 @@ JME 2015-12-06 Tue Jul 11 15:07:41 GMT-500 2023
 !Jmol Default Van der Waals type for model set to Babel
 !Jmol 11 atoms created
 !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
-!Jmol Time for creating model: 0 ms
+!Jmol Time for creating model: 1 ms
 Phase 2a checking zip directory: 2259 Jun20-20231/
 Phase 2a checking zip directory: 2260 Jun20-20231/1210610/
 Phase 2a checking zip directory: 2268 Jun20-20231/1210610/pdata/
@@ -567,7 +567,7 @@ JME 2015-12-06 Tue Jul 11 15:13:09 GMT-500 2023
 !Jmol Default Van der Waals type for model set to Babel
 !Jmol 11 atoms created
 !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
-!Jmol Time for creating model: 0 ms
+!Jmol Time for creating model: 2 ms
 !Jmol The Resolver thinks Mol
 !Jmol filtering with ;NO3D;NOHYDROGEN;
 !Jmol O(C1=CC=C(C(=O)O)C=C1)C
@@ -581,7 +581,7 @@ JME 2015-12-06 Tue Jul 11 15:13:09 GMT-500 2023
 !Jmol Default Van der Waals type for model set to Babel
 !Jmol 11 atoms created
 !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
-!Jmol Time for creating model: 0 ms
+!Jmol Time for creating model: 1 ms
 Phase 2a checking zip directory: 2296 Jun20-20232/
 Phase 2a checking zip directory: 2297 Jun20-20232/1210710/
 Phase 2a checking zip directory: 2305 Jun20-20232/1210710/pdata/
@@ -625,7 +625,7 @@ JME 2015-12-06 Tue Jul 11 15:08:33 GMT-500 2023
 !Jmol Default Van der Waals type for model set to Babel
 !Jmol 11 atoms created
 !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
-!Jmol Time for creating model: 1 ms
+!Jmol Time for creating model: 3 ms
 Phase 2a checking zip directory: 2408 Jun27-20235/
 Phase 2a checking zip directory: 2409 Jun27-20235/1226610/
 Phase 2a checking zip directory: 2416 Jun27-20235/1226610/pdata/
@@ -645,7 +645,7 @@ JME 2015-12-06 Tue Jul 11 15:12:14 GMT-500 2023
 !Jmol Default Van der Waals type for model set to Babel
 !Jmol 11 atoms created
 !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
-!Jmol Time for creating model: 1 ms
+!Jmol Time for creating model: 2 ms
 !Jmol The Resolver thinks Mol
 !Jmol filtering with ;NO3D;NOHYDROGEN;
 !Jmol C1=CC(C=O)=CC=C1N(C)C
@@ -659,7 +659,7 @@ JME 2015-12-06 Tue Jul 11 15:12:14 GMT-500 2023
 !Jmol Default Van der Waals type for model set to Babel
 !Jmol 11 atoms created
 !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
-!Jmol Time for creating model: 1 ms
+!Jmol Time for creating model: 0 ms
 Phase 2a checking zip directory: 2450 Jun27-20235/1226810/
 Phase 2a checking zip directory: 2459 Jun27-20235/1226810/pdata/
 Phase 2a checking zip directory: 2460 Jun27-20235/1226810/pdata/1/
@@ -692,7 +692,7 @@ JME 2015-12-06 Tue Jul 11 14:50:23 GMT-500 2023
 !Jmol Default Van der Waals type for model set to Babel
 !Jmol 10 atoms created
 !Jmol ModelSet: not autobonding; use  forceAutobond=true  to force automatic bond creation
-!Jmol Time for creating model: 2 ms
+!Jmol Time for creating model: 1 ms
 !2a done
 !Phase 2b create IFDObjects from the FAIRSpec-ready collection
 !Phase 2b 
@@ -2867,18 +2867,18 @@ Phase 2c checking zip directory: 2460 Jun27-20235/1226810/pdata/1/
 !SpecData [FAIRSpecNMRData 293 id=Jun15-20236/1203210 size=1 isValid=true] added 
 !SpecData [FAIRSpecNMRData 310 id=Jun27-20235/1226610 size=1 isValid=true] added 
 !SpecData [FAIRSpecNMRData 315 id=Jun27-20235/1226810 size=1 isValid=true] added 
-!Structure [IFDStructure 316 id=Structure_1 size=1 isValid=true] created and associated with [FAIRSpecNMRData 13 id=chem-synthesis-summer-a-team1/nmr/Jul25-2023/1265110 size=0 isValid=false]
-!Structure [IFDStructure 316 id=Structure_1 size=5 isValid=true] found and associated with [FAIRSpecNMRData 17 id=chem-synthesis-summer-a-team1/nmr/Jul27-2023/1274410 size=0 isValid=false]
-!Structure [IFDStructure 320 id=Structure_2 size=1 isValid=true] created and associated with [FAIRSpecNMRData 37 id=chem-synthesis-summer-a-team3/nmr/Aug03-2023/1295310 size=0 isValid=false]
-!Structure [IFDStructure 324 id=Structure_3 size=1 isValid=true] created and associated with [FAIRSpecNMRData 41 id=chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296210 size=0 isValid=false]
+!Structure [IFDStructure 316 id=Structure_1 size=1 isValid=true] created and associated with [FAIRSpecNMRData 109 id=chem-synthesis-summer-a-team1/nmr/Jul25-2023/1265110 size=3 isValid=true]
+!Structure [IFDStructure 316 id=Structure_1 size=5 isValid=true] found and associated with [FAIRSpecNMRData 121 id=chem-synthesis-summer-a-team1/nmr/Jul27-2023/1274410 size=4 isValid=true]
+!Structure [IFDStructure 320 id=Structure_2 size=1 isValid=true] created and associated with [FAIRSpecNMRData 199 id=chem-synthesis-summer-a-team3/nmr/Aug03-2023/1295310 size=5 isValid=true]
+!Structure [IFDStructure 324 id=Structure_3 size=1 isValid=true] created and associated with [FAIRSpecNMRData 215 id=chem-synthesis-summer-a-team3/nmr/Aug03-2023/1296210 size=3 isValid=true]
 !Structure [IFDStructure 328 id=Structure_4 size=1 isValid=true] created and associated with [FAIRSpecNMRData 64 id=Jun15-20232/1203510 size=6 isValid=true]
 !Structure [IFDStructure 332 id=Structure_5 size=1 isValid=true] created and associated with [FAIRSpecNMRData 65 id=Jun15-20233/1203410 size=3 isValid=true]
-!Structure [IFDStructure 328 id=Structure_4 size=5 isValid=true] found and associated with [FAIRSpecNMRData 66 id=Jun15-20234/1203610 size=0 isValid=false]
-!Structure [IFDStructure 332 id=Structure_5 size=5 isValid=true] found and associated with [FAIRSpecNMRData 69 id=Jun15-20236/1203210 size=0 isValid=false]
+!Structure [IFDStructure 328 id=Structure_4 size=5 isValid=true] found and associated with [FAIRSpecNMRData 286 id=Jun15-20234/1203610 size=5 isValid=true]
+!Structure [IFDStructure 332 id=Structure_5 size=5 isValid=true] found and associated with [FAIRSpecNMRData 293 id=Jun15-20236/1203210 size=4 isValid=true]
 !Structure [IFDStructure 336 id=Structure_6 size=1 isValid=true] created and associated with [FAIRSpecNMRData 70 id=Jun20-20231/1210610 size=3 isValid=true]
 !Structure [IFDStructure 332 id=Structure_5 size=5 isValid=true] found and associated with [FAIRSpecNMRData 73 id=Jun20-20236/1210410 size=3 isValid=true]
-!Structure [IFDStructure 340 id=Structure_7 size=1 isValid=true] created and associated with [FAIRSpecNMRData 74 id=Jun27-20235/1226610 size=0 isValid=false]
-!Structure [IFDStructure 344 id=Structure_8 size=1 isValid=true] created and associated with [FAIRSpecNMRData 75 id=Jun27-20235/1226810 size=0 isValid=false]
+!Structure [IFDStructure 340 id=Structure_7 size=1 isValid=true] created and associated with [FAIRSpecNMRData 310 id=Jun27-20235/1226610 size=4 isValid=true]
+!Structure [IFDStructure 344 id=Structure_8 size=1 isValid=true] created and associated with [FAIRSpecNMRData 315 id=Jun27-20235/1226810 size=3 isValid=true]
 !2d #struc=8 #spec=132 #cmpd=8
 !Phase 2e check rejected files and update lists
 Phase 2e checking zip directory: 1 chem-synthesis-summer-a-team1/
@@ -3363,14 +3363,8 @@ Phase 2e checking zip directory: 2459 Jun27-20235/1226810/pdata/
 Phase 2e checking zip directory: 2460 Jun27-20235/1226810/pdata/1/
 !2 #struc=8 #spec=132 #cmpd=8
 !3a #struc=8 #spec=132 #cmpd=8
-! FAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure Structure_1
-! FAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure Structure_2
-! FAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure Structure_3
-! FAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure Structure_7
-! FAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure Structure_8
-!18 objects with no representations removed
-!3b #struc=3 #spec=132 #cmpd=3
-!3c #struc=3 #spec=69 #cmpd=3
+!3b #struc=8 #spec=132 #cmpd=8
+!3c #struc=8 #spec=69 #cmpd=8
 !saved c:\temp\iupac\stolaf-ifd-2025-08\_IFD_manifest.json (312 items)
 !saved c:\temp\iupac\stolaf-ifd-2025-08\_IFD_ignored.json (1 items)
 !FAIRSpecExtractionHelper.dumpSummary extraction complete:
@@ -3421,10 +3415,15 @@ Phase 2e checking zip directory: 2460 Jun27-20235/1226810/pdata/1/
 	[IFDSample 42 id=A6-Exp6A-230615 size=0 isValid=true]
 	[IFDSample 43 id=A5-Ex.6A-230613 size=0 isValid=true]
 ## 44 samples
-	[IFDStructure 0 id=Structure_4 size=5 isValid=true]
-	[IFDStructure 1 id=Structure_5 size=5 isValid=true]
-	[IFDStructure 2 id=Structure_6 size=5 isValid=true]
-## 3 structures
+	[IFDStructure 0 id=Structure_1 size=5 isValid=true]
+	[IFDStructure 1 id=Structure_2 size=5 isValid=true]
+	[IFDStructure 2 id=Structure_3 size=5 isValid=true]
+	[IFDStructure 3 id=Structure_4 size=5 isValid=true]
+	[IFDStructure 4 id=Structure_5 size=5 isValid=true]
+	[IFDStructure 5 id=Structure_6 size=5 isValid=true]
+	[IFDStructure 6 id=Structure_7 size=5 isValid=true]
+	[IFDStructure 7 id=Structure_8 size=5 isValid=true]
+## 8 structures
 	[FAIRSpecNMRData 0 id=chem-synthesis-summer-a-team2/nmr/Aug01-2023/1284810 size=3 isValid=true]
 	[FAIRSpecNMRData 1 id=chem-synthesis-summer-a-team2/nmr/Jul25-2023/1265210 size=3 isValid=true]
 	[FAIRSpecNMRData 2 id=chem-synthesis-summer-a-team3/nmr/Aug07-2023/1297410 size=1 isValid=true]
@@ -3540,18 +3539,23 @@ Phase 2e checking zip directory: 2460 Jun27-20235/1226810/pdata/1/
 	[IFDSampleDataAssociation 309 id=[310  size=2 isValid=true [[42], [8]] ]
 	[IFDSampleDataAssociation 314 id=[315  size=2 isValid=true [[43], [67, 68]] ]
 ## 44 sample-spectra associations
-	[FAIRSpecCompoundAssociation 331 id=[332  size=2 isValid=true [[0], [3]] ]
-	[FAIRSpecCompoundAssociation 335 id=[336  size=2 isValid=true [[1], [4, 8]] ]
-	[FAIRSpecCompoundAssociation 339 id=[340  size=2 isValid=true [[2], [5]] ]
-## 3 compounds
+	[FAIRSpecCompoundAssociation 319 id=[320  size=2 isValid=true [[0], [18, 22]] ]
+	[FAIRSpecCompoundAssociation 323 id=[324  size=2 isValid=true [[1], [40]] ]
+	[FAIRSpecCompoundAssociation 327 id=[328  size=2 isValid=true [[2], [44]] ]
+	[FAIRSpecCompoundAssociation 331 id=[332  size=2 isValid=true [[3], [3, 63]] ]
+	[FAIRSpecCompoundAssociation 335 id=[336  size=2 isValid=true [[4], [4, 66, 8]] ]
+	[FAIRSpecCompoundAssociation 339 id=[340  size=2 isValid=true [[5], [5]] ]
+	[FAIRSpecCompoundAssociation 343 id=[344  size=2 isValid=true [[6], [67]] ]
+	[FAIRSpecCompoundAssociation 347 id=[348  size=2 isValid=true [[7], [68]] ]
+## 8 compounds
 
 !FAIRSpecExtractionHelper.dumpSummary version 0.1.0-beta+2025.07.24
 
 !Extractor.extractAndCreateFindingAid serializing...
-!Extractor serialization done 40 5350 21 ms 504036 bytes
+!Extractor serialization done 113 7753 29 ms 528425 bytes
 !Extractor extracted 312 files (69307131 bytes); ignored 1 files (1296 bytes); rejected 0 files (0 bytes)
 Extractor.runExtraction ok 
-!Extractor.runExtraction time/sec=22.284
+!Extractor.runExtraction time/sec=252.911
 Extractor.runExtraction File c:\temp\iupac\stolaf-ifd-2025-08\_IFD_findingaids.json created 
 Extractor.runExtraction File c:\temp\iupac\stolaf-ifd-2025-08\_IFD_findingaids.js created 
 {"findingaids":["."]}
