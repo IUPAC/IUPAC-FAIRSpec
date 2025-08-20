@@ -25,6 +25,11 @@
 	which can be used both for display and validation. The pages are also available
 	as a <a href=https://github.com/IUPAC/IUPAC-FAIRSpec/tree/main/specs/cdx_cdxml>ZIP file</a>.
 	<br><br>
+	<H2>NOTE</H2>
+	It is important to note that, while the first two demonstrations, from 2021 and 2023, use their own specialized landing pages,
+	<b>all of the other demonstrations use <a href=https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/resources/com/integratedgraphics/html/site/index.htm>identical HTML</a> for their landing page</b>. Only the finding aids are different.
+	
+    <H2>DEMOS</H2>
 	
 	<H3>Demo 2021.1 <a target=_blank name=v1 href="examples/v1-demo/demo.htm">examples/v1-demo</a></H3>
 	<img width=600 src=examples/v1-demo/v1.png>
@@ -40,11 +45,12 @@
 	extracted for metadata. 
 	<br><br>
 	   The page (the link above) provides substructure searching by 
-	   utilizing about 400 Java classes transpiled into JavaScript using the Eclipse java2script transpiler, 
-	   running the SwingJS implementation Java 8. These JavaScript (né Java) classes provide substructure searching for the page using SMILES strings created from MOL, CDX, and CDXML files associated with the spectra in the collection. 
-    Input uses a hybrid JME (<a href=https://github.com/BobHanson/JME-SwingJS>Java Molecular Editor</a>)/OCL (<a href=https://github.com/BobHanson/OCL-SwingJS>OpenChemLib</a>) structure-drawing interface; matching is carried
+	   utilizing about 400 Java classes transpiled into JavaScript using the Eclipse-based <a href=https://github.com/BobHanson/java2script>java2script transpiler</a>, 
+	   running the JavaScript SwingJS implementation of Java 8. These JavaScript (né Java) classes provide substructure searching for the page using SMILES strings created from MOL, CDX, and CDXML files associated with the spectra in the collection. 
+    Input uses a hybrid JME (<a href=https://github.com/BobHanson/JME-SwingJS>Java Molecular Editor</a>)/OCL (<a href=https://github.com/IUPAC/OCL-SwingJS>OpenChemLib</a>) structure-drawing and analysis interface; 
+    matching is carried
     out using a small Jmol-derived smiles processing package, also transpiled to JavaScript from Java. 
-    The Finding Aids are more developed but still only version 0.0.5.
+    The format of the finding aids in this demo is an early (now deprecated) alpha version of the specification, version 0.0.5.
     <br><br>
 	
     <H3>Demo 2024.1 <a target=_blank name=v6-stolaf href="examples2/v6-stolaf/index.htm">examples2/v6-stolaf</a></H3>
@@ -52,29 +58,41 @@
     <br><br>This demonstration features the addition of an IFD_METADATA file within a Bruker dataset to automatically 
     generate IFDSample objects and display spectra by sample as well as by compound. 
         The data are from a summer organic chemistry lab at St. Olaf College.
-        They were working with the remote-access OleNMR system, which assigned them slots in a 120-position BACS autosampler 
-        and placed the sample ID file into the 
-        Bruker directories as part of the online-access portal.
-    
-    The IFD_METADATA file in this case is just a single line:
+        Undergraduate students were assigned the task of determining the structure of an unknown compound. 
+        They used the St. Olaf Bruker Avance 400 NMR instrument, with pre-assigned slots in a 120-position BACS autosampler.  
+        The interface was the remote-access web-based <a href=https://chemapps.stolaf.edu/nmr/>OleNMR</a> system, which iterfaces
+        directly with IconNMR. 
+        The system required entry of a sample ID. 
+        Students were also encouraged (later in the semester) to provide a proposed structure, drawn 
+        using JSME, also within the OleNMR interface. Sample ID and structure (as "structure.mol") were 
+        automatically added to the primary Bruker dataset directory by OleNMR. 
+    <br><br>
+    The IFD_METADATA file in this case is just a single line, for example:
     <pre><code>
     sample_id=A5-Ex.6A-230613
     </code>
     </pre>    
-The metadata extraction and construction
-    of an IUPAC FAIRSpec Data Collection were carried out based on a configuration file that indicated 
+Metadata extraction and construction
+    of an IUPAC FAIRSpec Data Collection and associated IUPAC FAIRSpec Finding Aid were carried out 
+    based on a simple configuration file (<a href=examples2/v6-stolaf/_IFD_extract.json>IFD_extract.json</a>)
+    that indicated, among other things,  
     the source of the originating sample identifiers:
     <pre><code>
      {"FAIRSpec.extractor.related_metadata" : "IFD_METADATA"},
      {"FAIRSpec.extractor.related_metadata_map" : {"sample_id":"IFD.property.dataobject.originating_sample_id"}},
     </code>
     </pre>
+    Thus, these two files, IFD_METADATA and structure.mol, provided all the additional bits of metadata 
+    needed for the extractor program (<a href=https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/test/ExtractorTestSTO.java>ExtractorTestSTO.jar</a>) 
+    to create the <a href=examples2/v6-stolaf/IFD.collection.zip>IUPAC FAIRSpec Data Collection</a>, <a href=examples2/v6-stolaf/IFD.findingaid.json>IUPAC FAIRSpec Finding Aid</a>, and <a href=examples2/v6-stolaf/index.htm>html landing page</a> for this demonstration.
+    
 	<H3>Demo 2025.1 <a target=_blank name=v6-acs href="examples2/v6-acs/index.htm">examples2/v6-acs</a></H3>
 	<img width=600 src=examples2/v6-acs/v6.png>
     <br><br>A much richer demonstration involving advanced finding aids created using
 	<a target=_blank href=https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/test/ExtractorTestACS.java>ExtractorTestACS.java</a>.
-	The extractor generates the web pages from a set of supporting information data sets from ACS FAIRData pilot study, adding the capability to 
-	search for properties of compounds, strutures, and spectra. 
+	The extractor generated fourteen the web pages (thirteen from a set of supporting information datasets from the ACS FAIRData pilot study, and one added from a repository at Cambridge University).
+	It includes the capability to 
+	search for properties of compounds, structures, and spectra. 
 	This demonstration illustrates <a target=_blank href=https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/documents/specifications/IUPAC_FAIRSpec_Specification_draft.pdf>IUPAC FAIRSpec Metadata Object Model Specification, version 0.1.0</a> (2025.08.15). 
 	<br><br>
 	
