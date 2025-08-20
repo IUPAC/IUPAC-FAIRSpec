@@ -192,7 +192,7 @@ import org.iupac.fairdata.common.IFDException;
 @SuppressWarnings("serial")
 public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>, IFDSerializableI {
 
-	public class PropertyMap extends TreeMap<String, IFDProperty> {
+	public static class PropertyMap extends TreeMap<String, IFDProperty> {
 
 		@Override
 		public IFDProperty get(Object key) {
@@ -214,6 +214,10 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			for (String key: keySet()) {
 				put(key, get(key).getClone(null));
 			}
+		}
+
+		public void delete(String key) {
+			super.remove(key);
 		}
 
 	}
@@ -315,7 +319,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * units
 	 * 
 	 */
-	protected Map<String, IFDProperty> htProps = new PropertyMap();
+	protected PropertyMap htProps = new PropertyMap();
 
 	/**
 	 * generic properties that could be anything but are not in the list of known
@@ -343,7 +347,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 */
 	private boolean doSerializeType = true;
 
-	private String myPropertyPrefix;
+	protected String myPropertyPrefix;
 
 	public IFDObject(String label, String type) {
 		set(label, type, Integer.MAX_VALUE);
@@ -409,7 +413,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected void setProperties(String propertyPrefix, String notKey) {
 		myPropertyPrefix = propertyPrefix;
 		IFDConst.setProperties(htProps, propertyPrefix, notKey);
-	}
+	} 
 
 	public Map<String, IFDProperty> getProperties() {
 		return htProps;
@@ -831,7 +835,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	public void setValid(boolean tf) {
 		isValid = tf;
 		if (!tf)
-			System.out.println("IFDO invalidating " + getClass().getName() + " " + (id != null ? id : label != null ? label : description));
+ 			System.out.println("IFDO invalidating " + getClass().getName() + " " + (id != null ? id : label != null ? label : description));
 	}
 	
 	public boolean isValid() {
@@ -862,6 +866,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		clear();
 		return o;
 	}
+	
 	@Override
 	public String toString() {
 		return "[" + getClass().getSimpleName() + " " + index 

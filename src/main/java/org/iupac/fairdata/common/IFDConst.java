@@ -6,13 +6,13 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDProperty;
 
 /**
@@ -72,13 +72,12 @@ public class IFDConst {
 	 * @param notKey         no longer implemented
 	 * @return the map with updated String keys and new IFDProperty object values
 	 */
-	public static Map<String, IFDProperty> setProperties(Map<String, IFDProperty> htProps, String propertyPrefix,
+	public static IFDObject.PropertyMap setProperties(IFDObject.PropertyMap htProps, String propertyPrefix,
 			String notKey) {
 		if (htProps == null)
-			htProps = new Hashtable<String, IFDProperty>();
+			htProps =  new IFDObject.PropertyMap();
 		else {
 			// rename all inherited properties to this subclass name
-			//System.out.println(htProps);
 			Iterator<Entry<String, IFDProperty>> iter = htProps.entrySet().iterator();
 			List<String> removed = new ArrayList<>();
 			while (iter.hasNext()) {
@@ -88,23 +87,22 @@ public class IFDConst {
 					removed.add(key);
 				}
 			}
+			// IFD.property.dataobject.id becomes IFD.property.fairspec.nmr.id
 			for (String key : removed) {
 				String key1 = propertyPrefix + key.substring(key.lastIndexOf("."));
 				IFDProperty p = htProps.get(key).getInherited(key1);				
 				htProps.put(key1, p);
 			}
 			for (String key : removed) {
-				htProps.remove(key);
+				htProps.delete(key);
 			}
 		}
-		propertyPrefix = propertyPrefix.toUpperCase().replace('.', '_');
-		
-		
 		int pt = propertyPrefix.length();
+		String mykey = propertyPrefix.toUpperCase().replace('.', '_');		
 		for (Entry<Object, Object> e : props.entrySet()) {
 			String k = (String) e.getKey();
 
-			if (k.startsWith(propertyPrefix) && k.lastIndexOf(".") == pt) {
+			if (k.startsWith(mykey) && k.lastIndexOf(".") == pt) {
 				// to be continued! -- need units and type
 				String val = trimValue(e.getValue().toString());
 				

@@ -755,18 +755,28 @@ public class FAIRSpecUtilities {
 	 * 
 	 * 
 	 * @param data
+	 * @param ifdRelatedMetadataMap 
 	 * @return List of String[key,value]
 	 */
-	public static ArrayList<IFDProperty> getIFDPropertyList(String data) {
+	public static ArrayList<IFDProperty> getIFDPropertyList(String data, Map<String, String> ifdRelatedMetadataMap) {
 		ArrayList<IFDProperty> list = new ArrayList<>();
 		String[] lines = data.split("\n");
 		for (int i = 0; i < lines.length; i++) {
 			String s = lines[i];
-			int pt;
-			if (s.startsWith("##$IFD."))
+			boolean isJDX = s.startsWith("##$IFD."); 
+			if (isJDX) // earlier idea -- jdx-like; changed this to property file format
 				s = s.substring(3);
-			if (s.startsWith("IFD.") && (pt = s.indexOf("=")) > 0)
-				list.add(new IFDProperty(s.substring(3, pt).trim(), s.substring(pt + 1).trim(), PROPERTY_TYPE.OBJ));
+			int pt = s.indexOf("=");
+			if (pt > 0) {
+        String key = s.substring(0, pt).trim();
+        String value = s.substring(pt + 1).trim();
+        if (ifdRelatedMetadataMap != null) {
+          String ifdKey = ifdRelatedMetadataMap.get(key);
+          if (ifdKey != null)
+            key = ifdKey;
+        }
+        list.add(new IFDProperty(key, value, PROPERTY_TYPE.OBJ));
+			}
 		}
 		return list;
 	}

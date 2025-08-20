@@ -139,7 +139,9 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 * 
 	 * set in phase 1; used in phase 2c
 	 */
-	protected String ifdMetadataFileName = "IFD_METADATA";
+	protected String ifdRelatedMetadataFileName = "/IFD_METADATA";
+
+	protected Map<String, String> ifdRelatedMetadataMap;
 
 	/**
 	 * regex patters for ignoring and accepting files

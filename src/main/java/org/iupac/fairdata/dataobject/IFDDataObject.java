@@ -29,9 +29,16 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 	
 	public IFDDataObject() {
 		super(null, null);
-		setProperties(propertyPrefix, null);
 	}
-	
+
+	/** This adds the IFD.dataObject properties for a any subclass.
+	 * 
+	 */
+	@Override
+	protected void setProperties(String subclassPropertyPrefix, String notKey) {
+		super.setProperties(propertyPrefix, null);
+		super.setProperties(subclassPropertyPrefix, null);
+	}
 
 	@Override
 	public IFDDataObject clone() {
@@ -49,13 +56,20 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 		return IFDConst.IFD_DATAOBJECT_FLAG;
 	};
 	
+	/**
+	 * Turn IFD.dataobject.originating_sample_id into
+	 * IFD.dataobject.fairspec.nmr.originating_sample_id
+	 */
 	@Override
 	public IFDProperty setPropertyValue(String key, Object value) {
-		String prefix = getIFDPropertyPrefix();
-		if (key.startsWith(IFDConst.IFD_PROPERTY_DATAOBJECT_FLAG) && !key.startsWith(prefix)) {
-			key = prefix + key.substring(key.lastIndexOf("."));
+		IFDProperty p = IFDConst.getIFDProperty(htProps, key);
+		if (p == null) {
+			String prefix = getIFDPropertyPrefix();
+			if (key.startsWith(IFDConst.IFD_PROPERTY_DATAOBJECT_FLAG) && !key.startsWith(prefix)) {
+				key = prefix + key.substring(key.lastIndexOf("."));
+			}
 		}
-		return super.setPropertyValue(key, value);			
+		return super.setPropertyValue(key, value);
 	}
 
 
