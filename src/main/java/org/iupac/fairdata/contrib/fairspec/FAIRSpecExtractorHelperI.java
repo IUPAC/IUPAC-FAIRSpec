@@ -47,4 +47,6 @@ public interface FAIRSpecExtractorHelperI extends FAIRSpecFindingAidHelperI {
 	 */
 	String finalizeExtraction(Map<String, Map<String, Object>> htURLReferences);
 
+	String dumpState();
+
 }

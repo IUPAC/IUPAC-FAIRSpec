@@ -62,6 +62,8 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		
 		// Clean up the collection by removing any unmanifested files.
 
+		System.out.println(helper.dumpState());
+		
 		if (insitu) {
 			
 			// grab any remaining representations that should be included 
