@@ -47,6 +47,28 @@
     The Finding Aids are more developed but still only version 0.0.5.
     <br><br>
 	
+    <H3>Demo 2024.1 <a target=_blank name=v6-stolaf href="examples2/v6-stolaf/index.htm">examples2/v6-stolaf</a></H3>
+    <img width=600 src=examples2/v6-stolaf/v6stolaf.png>
+    <br><br>This demonstration features the addition of an IFD_METADATA file within a Bruker dataset to automatically 
+    generate IFDSample objects and display spectra by sample as well as by compound. 
+        The data are from a summer organic chemistry lab at St. Olaf College.
+        They were working with the remote-access OleNMR system, which assigned them slots in a 120-position BACS autosampler 
+        and placed the sample ID file into the 
+        Bruker directories as part of the online-access portal.
+    
+    The IFD_METADATA file in this case is just a single line:
+    <pre><code>
+    sample_id=A5-Ex.6A-230613
+    </code>
+    </pre>    
+The metadata extraction and construction
+    of an IUPAC FAIRSpec Data Collection were carried out based on a configuration file that indicated 
+    the source of the originating sample identifiers:
+    <pre><code>
+     {"FAIRSpec.extractor.related_metadata" : "IFD_METADATA"},
+     {"FAIRSpec.extractor.related_metadata_map" : {"sample_id":"IFD.property.dataobject.originating_sample_id"}},
+    </code>
+    </pre>
 	<H3>Demo 2025.1 <a target=_blank name=v6-acs href="examples2/v6-acs/index.htm">examples2/v6-acs</a></H3>
 	<img width=600 src=examples2/v6-acs/v6.png>
     <br><br>A much richer demonstration involving advanced finding aids created using
@@ -82,7 +104,6 @@
     here there is no stand-alone IUPAC FAIRSpec Data Collection. Instead, the repository itself serves as the IUPAC FAIRSpec Data Collection 
     and is called directly for all referenced digital objects. The 
     finding aid refering to the collection can be located anywhere on the web. 
-    The 
     <br><br>
 
 	<H3>Demo 2025.5 <a name=10386co href="examples2/icl-10386-crawl-only/index.htm">examples2/icl-10386-crawl-only</a></H3>
