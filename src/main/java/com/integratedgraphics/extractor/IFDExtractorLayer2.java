@@ -1178,7 +1178,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			spec = getObjectFromLocalizedName(localizedName, propType);
 			if (spec != null && !spec.isValid()) {
 				// this is a second -- get first
-				// spec = getClonedData(spec);
+				spec = phase2dGetClonedData(spec);
 			}
 
 			if (spec == null && !cloning) {

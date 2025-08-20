@@ -574,6 +574,31 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		associations = null;
 	}
 
+	public String dumpState() {
+		IFDCollectionSet cs = new IFDCollectionSet(null);
+		for (int i = 0; i < objectCollections.length; i++)
+			if (objectCollections[i] != null)
+				cs.add(objectCollections[i]);
+		for (int i = 0; i < associations.length; i++)
+			if (associations[i] != null)
+				cs.add(associations[i]);
+
+		int n = 0;
+		String s = "";
+		for (int i = 0; i < cs.size(); i++) {
+			IFDCollection<IFDObject<?>> c = cs.get(i);
+			int pt = 0;
+			for (Object sd : c) {
+				s += (++pt + "\t" + sd + "\n");
+				n++;
+			}
+			s += "## " + c.size() + " " + c.getIDorIndex() + "\n";
+		}
+		s = "!FAIRSpecExtractionHelper.dumpState\n"
+				+ (n == 0 ? "!FAIRSpecExtractionHelper.dumpSummary no objects?\n" : s);
+		return s;
+	}
+
 
 	public String dumpSummary() {
 		IFDCollectionSet cs = findingAid.getCollectionSet();
