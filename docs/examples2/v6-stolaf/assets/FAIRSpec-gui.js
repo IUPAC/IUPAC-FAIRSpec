@@ -1725,7 +1725,7 @@
 				url = "data:application/octet-stream" + url;
 			var size = getSizeString(len);
 			var info = ((size ? " " + size.substring(1, size.length - 1) : "") + (mediaType ? " " + mediaType : "")).trim();
-			s = "<a target=_blank href=\"" + url + "\">" + shortName + "</a>" + (info ? " (" + info + ")" : "");
+			s = shortLink(url, shortName) + (info ? " (" + info + ")" : "");
 			if (//IFD.resultsMode == IFD.MODE_SPECTRA && 
 					shortName.endsWith(".pdf")) {
 				s +=  getPDFLink(url);
@@ -1736,7 +1736,18 @@
 			s += "<br><span class=warning>" + note + "</span>";
 		return s;
 	}
-	
+
+    var shortLink = function(url, name) {
+    	var s = "<a target=_blank href=\"" + url + "\"";
+    	if (name.length > 60) {
+    		var title = name;
+    		name = name.substring(0,20) + "..." + name.substring(name.length - 30);
+    		s += " tile=\"" + title + "\"";
+    	} 
+    	s += ">" + name + "</a>";
+    	return s;
+    }
+    
 	var addPathRef = function(aidID, path, len) {
 		var url = fileFor(aidID, path);
 		return "<a target=_blank href=\"" + url + "\">" 
