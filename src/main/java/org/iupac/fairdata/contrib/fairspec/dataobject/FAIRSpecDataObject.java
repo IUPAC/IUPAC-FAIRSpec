@@ -32,7 +32,8 @@ public class FAIRSpecDataObject extends IFDDataObject {
 
 	@Override
 	protected String getIFDPropertyPrefix() {
-		return (serializerPropertyPrefix == null ? basePropertyPrefix : serializerPropertyPrefix);
+		return myPropertyPrefix; // this will be ....nmr
+		//(serializerPropertyPrefix == null ? basePropertyPrefix : serializerPropertyPrefix);
 	}
 
 	@Override
@@ -75,7 +76,7 @@ public class FAIRSpecDataObject extends IFDDataObject {
 			o.setExptMethod(ucType);
 			String prefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, o.objectType);
 			prefix = prefix.substring(0, prefix.length() -1 - ucType.length());
-			o.serializerPropertyPrefix = prefix;
+			o.serializerPropertyPrefix = prefix; // IFD.property.fairspec
 			o.setProperties(prefix + "." + type, null);
 			return o;
 		} catch (Exception e) {

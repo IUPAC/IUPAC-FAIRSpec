@@ -195,6 +195,16 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 					}
 					continue;
 				}
+				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_RELATED_METADATA_MAP)) {
+					if (!(o instanceof Map<?,?>))
+						throw new IFDException(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_RELATED_METADATA_MAP + " is not a map");
+					ifdRelatedMetadataMap = new HashMap<>();
+					for (Entry<?, ?> entry : ((Map<?,?>) o).entrySet()) {
+						ifdRelatedMetadataMap.put(entry.getKey().toString(), entry.getValue().toString());
+					}
+					continue;
+				}
+
 				// String values
 
 				String val = o.toString();
@@ -291,7 +301,8 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 					continue;
 				}
 				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_RELATED_METADATA)) {
-					ifdMetadataFileName = val;
+					ifdRelatedMetadataFileName = "/" + val;
+					continue;
 				}
 				if (key.startsWith(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_OPTION_FLAG)
 						|| key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_OPTIONS)) {

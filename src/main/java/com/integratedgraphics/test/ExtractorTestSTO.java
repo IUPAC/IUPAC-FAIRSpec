@@ -18,7 +18,7 @@ public class ExtractorTestSTO {
 		String dir = "c:/temp/iupac/stolaf/";
 		String ifdExtractFile = dir + "IFD-extract.json";
 		String localSourceArchive = null;// dir + "archive.tar.gz";
-		String targetDir = "c:/temp/iupac/stolaf-ifd";
+		String targetDir = "c:/temp/iupac/stolaf-ifd-2025-08";
 
 		String flags = null;
 		

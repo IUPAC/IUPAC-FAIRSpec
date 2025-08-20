@@ -1,0 +1,6 @@
+5 warnings
+! FAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure Structure_1
+! FAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure Structure_2
+! FAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure Structure_3
+! FAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure Structure_7
+! FAIRSpecExtractionHelper.removeStructuresWithNoAssociation removing structure Structure_8

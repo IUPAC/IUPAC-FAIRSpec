@@ -10,6 +10,6 @@
 	<classpathentry kind="lib" path="lib/commons-compress-1.22.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.11.0.jar"/>
 	<classpathentry kind="lib" path="lib/CDK-SwingJS.jar" sourcepath="/cdk-SwingJS/src2/inchixa/src/main/java"/>
-	<classpathentry kind="lib" path="lib/JmolDataD.jar"/>
+	<classpathentry kind="lib" path="lib/JmolDataD.jar" sourcepath="/Jmol-SwingJS/src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

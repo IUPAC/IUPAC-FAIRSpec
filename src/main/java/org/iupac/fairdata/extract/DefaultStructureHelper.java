@@ -73,6 +73,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 	 */
 	@Override
 	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
+System.out.println("DFH " + bytes.length + " " + originPath);
 		this.extractor = extractor;
 		createRepresentation = (extractor != null); 
 		return processStructureRepresentation(originPath, bytes, null, null, createRepresentation, false);

@@ -584,6 +584,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				if (os != null)
 					FAIRSpecUtilities.getLimitedStreamBytes(ais, len, os, false, true);
 				String localizedName = localizePath(originPath);
+				boolean isIFDMetadataFile = zipEntry.getName().endsWith(ifdRelatedMetadataFileName);
 				String type = null;
 				byte[] bytes = null;
 				if (toByteArray) {
@@ -604,28 +605,30 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 						// this is a one-shot file, not a collection.
 						if (logging())
 							log("Phase 2a accepting " + originPath);
-						type = (isStructure && hasStructureFor(bytes) ? IFDProperty.NULL : v.accept(this, originPath, bytes));
-							
-//						if (type == IFDConst.IFD_PROPERTY_FLAG) {
-//							// Q: What triggers this? Nothing?
-//							// could be accepting a metadata file?
-//							addIFDMetadata(new String(bytes));
-//						    // this is now handled in Phase 2c
-//						} else {
-						deferredPropertyList.add(null);
-						this.localizedName = oldLocal;
-						this.originPath = oldOriginPath;
-						if (type == null) {
-							logWarn("Failed to read " + originPath + " (ignored)", v.getClass().getName());
-						} else if (type == IFDProperty.NULL) {
-							lstIgnored.add(originPath, len);
-							logDigitalItemIgnored(originPath, localizedName, "equivalent structure", "phase2a");
-							return;
-						} else if (IFDConst.isStructure(type)
-								|| type.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
-							return;
+						type = (isIFDMetadataFile ? IFDConst.IFD_PROPERTY_FLAG : isStructure && hasStructureFor(bytes) ? IFDProperty.NULL
+								: v.accept(this, originPath, bytes));
+
+						if (type == IFDConst.IFD_PROPERTY_FLAG) {
+							// IFD metadata file
+							// Q: What triggers this? Nothing?
+							// could be accepting a metadata file?
+							addIFDMetadata(new String(bytes));
+							// this is now handled in Phase 2c
+						} else {
+							deferredPropertyList.add(null);
+							this.localizedName = oldLocal;
+							this.originPath = oldOriginPath;
+							if (type == null) {
+								logWarn("Failed to read " + originPath + " (ignored)", v.getClass().getName());
+							} else if (type == IFDProperty.NULL) {
+								lstIgnored.add(originPath, len);
+								logDigitalItemIgnored(originPath, localizedName, "equivalent structure", "phase2a");
+								return;
+							} else if (IFDConst.isStructure(type)
+									|| type.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
+								return;
+							}
 						}
-//						}
 					}
 				} else {
 					len = f.length();
@@ -1009,7 +1012,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			htLocalizedNameToObject.put(localName, obj);
 			boolean isInlineBytes = false;
 			boolean isBytesOnly = false;
-			boolean isIFDMetadataFile = entryName.endsWith("/" + ifdMetadataFileName);
+			boolean isIFDMetadataFile = entryName.endsWith(ifdRelatedMetadataFileName);
 			Object[] typeData = (isIFDMetadataFile ? null : rezipVendor.getExtractTypeInfo(this, baseName, entryName));
 			// return here is [String type, Boolean] where Boolean.TRUE means include bytes
 			// and Boolean.FALSE means don't include file
@@ -1642,7 +1645,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @param data
 	 */
 	private void addIFDMetadata(String data) {
-		addProperties(FAIRSpecUtilities.getIFDPropertyList(data));
+		addProperties(FAIRSpecUtilities.getIFDPropertyList(data, ifdRelatedMetadataMap));
 	}
 
 //	private IFDRepresentableObject<?> getClonedDataSource(IFDRepresentableObject<?> spec) {
