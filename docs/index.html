@@ -112,7 +112,7 @@ Metadata extraction and construction
 	to extract https HEAD information about each data item. This included preferred file name, 
 	media type (such as "image/png"), and file size in bytes. 
 	The program used 
-	to create the IUPAC FAIRSpec Finding Aid was DOICrawler.java, subclassed as ICLDOICrawler2 
+	to create the IUPAC FAIRSpec Finding Aid was DOICrawler.java, subclassed as ICLDOICrawler 
 	in order to handle a few idiocyncracies 
 	of that particular repository. 
     <br><br>	
@@ -149,10 +149,10 @@ Metadata extraction and construction
 	<br><br>
     The sample landing page for the Finding Aid 
 	uses only the information in the DataCite metadata records retrieved from 
-	DataCite by <a href="https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/ICLDOICrawler2.java">ICLDOICrawler2.java</a>,
+	DataCite by <a href="https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/ICLDOICrawler.java">ICLDOICrawler.java</a>,
 	which was initiated using only the DOI string for the main repository page. The command line used was: 
 	<pre>
-	<code>java -jar ICLDOICrawler2.jar "10.14469/hpc/10386" "c:/temp/iupac/crawler2" -insitu</code></pre>
+	<code>java -jar ICLDOICrawler.jar "10.14469/hpc/10386" "c:/temp/iupac/crawler" -insitu</code></pre>
 	For this proof-of-concept, the only files downloaded from the repository
 	were PNG files (the -insitu flag).
 	    The internalization of all PNG images as dataURIs within the IUPAC FAIRSpec Finding Aid allows 
@@ -180,7 +180,7 @@ Metadata extraction and construction
     into a temporary directory in order to extract their metadata.
     The command line used was
     <pre><code>
-       java -jar ICLDOICrawler2.jar "10.14469/hpc/10386" "c:/temp/iupac/crawler2" -insitu -extractspecproperties</code></pre>   
+       java -jar ICLDOICrawler.jar "10.14469/hpc/10386" "c:/temp/iupac/crawler" -insitu -extractSpecProperties</code></pre>   
     The process creates an especially metadata-rich IUPAC FAIRSpec Finding Aid 
     for a repository, in effect converting the repository from a FAIRSpec-ready data collection 
     to an IUPAC FAIRSpec Data Collection.

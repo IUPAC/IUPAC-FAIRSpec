@@ -42,6 +42,8 @@ import com.junrar.rarfile.FileHeader;
  */
 public class ExtractorUtils {
 
+	public static final String CRAWLER_NAME = "CRAWLER.ifdcrawler";
+
 	public static class DoubleString {
 
 		private final String s;
@@ -776,8 +778,6 @@ public class ExtractorUtils {
 		}
 	
 	}
-
-	public static final String CRAWLER_NAME = "CRAWLER.ifdcrawler";
 
 	/**
 	 * A static class to allow for either ZipInputStream or TarArchiveInputStream

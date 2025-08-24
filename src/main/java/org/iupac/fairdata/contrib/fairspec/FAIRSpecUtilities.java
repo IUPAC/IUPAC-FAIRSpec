@@ -966,4 +966,15 @@ public class FAIRSpecUtilities {
 		}
 		return nmrSolventMap;		
 	}
+
+	public static boolean isImageMediaType(String m) {
+		if (m != null)
+			switch (m) {
+			case "image/gif":
+			case "image/png":
+			case "image/jpg":
+				return true;
+			}
+		return false;
+	}
 }
