@@ -6,8 +6,9 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-import com.integratedgraphics.extractor.ExtractorUtils.DoubleString;
 import com.integratedgraphics.ifd.api.VendorPluginI;
+import com.integratedgraphics.ifd.util.VendorUtils;
+import com.integratedgraphics.ifd.util.VendorUtils.DoubleString;
 
 /**
  * An abstract class that underlies all the vendor plugins.
@@ -224,10 +225,10 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	 * @param key
 	 * @return
 	 */
-	protected static DoubleString getDoubleValue(Map<String, String> map, String key) {
+	protected static VendorUtils.DoubleString getDoubleValue(Map<String, String> map, String key) {
 		String f = map.get(key);
 		try {
-			return (f == null ? null : new DoubleString(f));
+			return (f == null ? null : new VendorUtils.DoubleString(f));
 		} catch (NumberFormatException e) {
 			return null;
 		}

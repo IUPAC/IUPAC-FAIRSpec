@@ -1673,7 +1673,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @throws IOException
 	 */
 	private InputStream getTopZipStream() throws MalformedURLException, IOException {
-		return (localizedTopLevelZipURL.equals(ExtractorUtils.CRAWLER_NAME) ? crawlerInputStream
+		return (localizedTopLevelZipURL.equals(FindingAidCreator.CRAWLER_NAME) ? crawlerInputStream
 				: localizedTopLevelZipURL.endsWith("/") ? new DirectoryInputStream(localizedTopLevelZipURL)
 				: new URL(localizedTopLevelZipURL).openStream());
 	}

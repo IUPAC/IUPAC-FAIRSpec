@@ -18,8 +18,7 @@ import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.extractor.IFDExtractor;
-import com.integratedgraphics.extractor.ExtractorUtils.DoubleString;
-import com.integratedgraphics.extractor.ExtractorUtils.FloatString;
+import com.integratedgraphics.ifd.util.VendorUtils;
 import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
 import com.integratedgraphics.ifd.vendor.mestrelab.MNovaMetadataReader.Param;
 
@@ -40,7 +39,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 		private String pngcss;
 		private boolean isJDF;
 		private String nuc1;
-		private DoubleString freq;
+		private VendorUtils.DoubleString freq;
 		private String origin;
 		public int dim = 1;
 
@@ -226,7 +225,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 						// JDF temp is oC not K from MNOVA
 						val = "" +(f + 273.15);
 					}
-					oval = new FloatString(val);
+					oval = new VendorUtils.FloatString(val);
 					break;
 				case "Nucleus":
 					pageGlobals.nuc1 = val;
@@ -235,28 +234,28 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 					}
 					break;
 				case "Spectrometer Frequency":
-					pageGlobals.freq = new DoubleString(val);
+					pageGlobals.freq = new VendorUtils.DoubleString(val);
 					oval = pageGlobals.freq;
 					if (param2 != null) {
-						params.put("Spectrometer Frequency2", new DoubleString(param2.value));
+						params.put("Spectrometer Frequency2", new VendorUtils.DoubleString(param2.value));
 					}
 					break;
 				case "Spectrum Quality":
 					double q = Double.parseDouble(val);
 					if (q != 0)
-						oval = new FloatString(val);
+						oval = new VendorUtils.FloatString(val);
 					break;
 				case "Pulse Width":
 				case "Spectral Width":
 				case "Receiver Gain":
 				case "Relaxation Delay":
-					oval = new FloatString(val);
+					oval = new VendorUtils.FloatString(val);
 					break;
 				case "Acquisition Time":
-					oval = new FloatString(val);
+					oval = new VendorUtils.FloatString(val);
 					break;
 				case "Lowest Frequency":
-					oval = new DoubleString(val);
+					oval = new VendorUtils.DoubleString(val);
 					break;
 				case "Spectral Size":
 					oval = Integer.valueOf(Integer.parseInt(val));

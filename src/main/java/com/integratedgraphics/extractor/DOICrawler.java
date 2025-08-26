@@ -17,7 +17,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -39,8 +38,6 @@ import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
-import org.iupac.fairdata.structure.IFDStructure;
-import org.iupac.fairdata.structure.IFDStructureCollection;
 import org.iupac.fairdata.structure.IFDStructureRepresentation;
 import org.openscience.cdk.interfaces.IAtomContainer;
 
@@ -73,11 +70,11 @@ import swingjs.CDK;
  * 
  * By default three files are created in the output directory:
  * 
- * IFD.findingaid.json   The IUPAC FAIRSpec Finding Aid
+ * IFD.findingaid.json The IUPAC FAIRSpec Finding Aid
  * 
- * _ifd_fileURLMap.txt	 A concise listing of the digital items
+ * _ifd_fileURLMap.txt A concise listing of the digital items
  * 
- * crawler.log           A log of the crawl
+ * crawler.log A log of the crawl
  * 
  * Metadata is cached in the outputDirectory/metadata/ folder
  * 
@@ -90,7 +87,7 @@ public class DOICrawler extends FindingAidCreator {
 	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/DOICrawler.java";
 
 	/**
-	 * Imperial College 
+	 * Imperial College
 	 * 
 	 * https://data.hpc.imperial.ac.uk/resolve/?doi=10386
 	 * 
@@ -105,8 +102,6 @@ public class DOICrawler extends FindingAidCreator {
 	protected static final String DATACITE_REFERENCES = "References";
 	protected static final String DATACITE_RELATEDIDENTIFIER = "relatedidentifier";
 
-	
-	
 	/**
 	 * A class to allow some adjustments. See ICLDOICrawler.
 	 * 
@@ -116,17 +111,18 @@ public class DOICrawler extends FindingAidCreator {
 	protected interface DOICustomizer {
 
 		String customizeSubjectKey(String key);
-		boolean customizeText(String key, String val);
-		boolean ignoreURL(String url);
-		
-	}
 
+		boolean customizeText(String key, String val);
+
+		boolean ignoreURL(String url);
+
+	}
 
 	@SuppressWarnings("serial")
 	protected static class DoiRecord extends TreeMap<String, Object> {
 		static int test;
 		public String dataObjectType;
-		public boolean hasRepresentations; 
+		public boolean hasRepresentations;
 		public String mediaType;
 		public LinkedHashMap<String, List<String>> relatedItems;
 		String compoundID;
@@ -142,7 +138,7 @@ public class DOICrawler extends FindingAidCreator {
 		int thisTest;
 		private File localFile;
 		public String pidDescription;
-		
+
 		DoiRecord(String id, String url, String dirName, String localName, File localFile) {
 			thisTest = ++test;
 			compoundID = id;
@@ -151,8 +147,8 @@ public class DOICrawler extends FindingAidCreator {
 				ifdRef.setDOI(url);
 			else
 				ifdRef.setURL(url);
-			System.out.println("DOIC id="+id + " localFile=" + localFile);
-			this.localFile = localFile;	
+			//System.out.println("DOIC id=" + id + " localFile=" + localFile);
+			this.localFile = localFile;
 		}
 
 		public byte[] getBytes() {
@@ -162,10 +158,10 @@ public class DOICrawler extends FindingAidCreator {
 				s += ">R";
 				break;
 			}
-	    	s += "\t" + ifdRef + (label == null ? "" : "\t" + label);
+			s += "\t" + ifdRef + (label == null ? "" : "\t" + label);
 			return s.getBytes();
 		}
-		
+
 		public String getSortKey(String ckey, String dkey) {
 			if (sortKey == null) {
 				switch (type) {
@@ -174,7 +170,7 @@ public class DOICrawler extends FindingAidCreator {
 				case DOI_DATA:
 					return sortKey = dkey = ckey + "_" + pidPath;
 				case DOI_REP:
-					return sortKey = dkey + "_"+ ifdRef.getLocalName();
+					return sortKey = dkey + "_" + ifdRef.getLocalName();
 				case DOI_TOP:
 					return sortKey = "A_";
 				default:
@@ -186,8 +182,9 @@ public class DOICrawler extends FindingAidCreator {
 
 		@Override
 		public String toString() {
-			return "[doiRecord#" + thisTest + " " + type + (dataObjectType != null ? "." + dataObjectType : "") + " cmpd=" + compoundID + ": " + ifdRef
-					//+ " " + super.toString() 
+			return "[doiRecord#" + thisTest + " " + type + (dataObjectType != null ? "." + dataObjectType : "")
+					+ " cmpd=" + compoundID + ": " + ifdRef
+					// + " " + super.toString()
 					+ "]" + pidDescription;
 		}
 
@@ -207,7 +204,7 @@ public class DOICrawler extends FindingAidCreator {
 				label = val;
 			put(key, val);
 		}
-		
+
 		@Override
 		public Object put(String key, Object val) {
 			if (key.startsWith(FAIRSPEC_DATAOBJECT_FLAG)) {
@@ -253,7 +250,8 @@ public class DOICrawler extends FindingAidCreator {
 				if (isData && isCompoundProp) {
 					// sometimes a collection doubles as a dataset
 				} else if (isStructureProp) {
-					//System.out.println("addProp " + c.getClass().getSimpleName() + " " + key + "=" + value);
+					// System.out.println("addProp " + c.getClass().getSimpleName() + " " + key +
+					// "=" + value);
 					crawler.addStructureRepresentationsFromProperties(key, value);
 				} else {
 					c.setPropertyValue(key, value, compoundID);
@@ -263,13 +261,12 @@ public class DOICrawler extends FindingAidCreator {
 				if (isDOI) {
 					if (!identifier.startsWith("https://"))
 						identifier = DOIInfoExtractor.DOI_ORG + identifier;
-					c.setPropertyValue(IFDConst.IFD_PROPERTY_DOI, identifier);				
+					c.setPropertyValue(IFDConst.IFD_PROPERTY_DOI, identifier);
 				} else {
 					c.setPropertyValue("identifier", identifier);
 				}
 			}
 		}
-
 
 	}
 
@@ -279,6 +276,7 @@ public class DOICrawler extends FindingAidCreator {
 		private DOICustomizer customizer;
 		private boolean skipping;
 		private Stack<Map<String, String>> thisAttrs = new Stack<>();
+
 		public DOIXMLReader(DOICrawler crawler, DOICustomizer customizer, boolean isTop, StringBuffer log) {
 			super(log);
 			// if not isTop, we skip the initial business
@@ -286,7 +284,7 @@ public class DOICrawler extends FindingAidCreator {
 			this.crawler = crawler;
 			this.customizer = customizer;
 		}
-		
+
 		protected Map<String, String> getAttributes(boolean andPop) {
 			return (andPop ? thisAttrs.pop() : thisAttrs.get(thisAttrs.size() - 1));
 		}
@@ -396,12 +394,12 @@ public class DOICrawler extends FindingAidCreator {
 		private void addSubject(Map<String, String> attrs, String s) {
 			// proposed plan:
 			//
-			//			<subjects>
-			//			    <subject 
-			//			subjectScheme="IFD" 
-			//			schemeURI="http://iupac.org/ifd" 
-			//			valueURI="http://iupac.org/ifd/IFD.compound.id">21</subject>
-			//			</subjects>
+			// <subjects>
+			// <subject
+			// subjectScheme="IFD"
+			// schemeURI="http://iupac.org/ifd"
+			// valueURI="http://iupac.org/ifd/IFD.compound.id">21</subject>
+			// </subjects>
 			//
 			String key = attrs.get("subjectscheme");
 			if (key == null) {
@@ -429,10 +427,10 @@ public class DOICrawler extends FindingAidCreator {
 
 		private String customizeSubectKey(String key) {
 			return (customizer == null ? key : customizer.customizeSubjectKey(key));
-		}		
-	
+		}
+
 	}
-	
+
 //	public final static String DATACITE_METADATA = "https://data.datacite.org/application/vnd.datacite.datacite+xml/";
 	public final static String DATACITE_METADATA = "https://api.datacite.org/application/vnd.datacite.datacite+xml/";
 
@@ -440,7 +438,7 @@ public class DOICrawler extends FindingAidCreator {
 
 	public final static String IFD_SCHEME_URI = "http://iupac.org/ifd";
 
-	protected static final String DEFAULT_OUTDIR = ".";//"c:/temp/iupac/crawler";
+	protected static final String DEFAULT_OUTDIR = ".";// "c:/temp/iupac/crawler";
 	protected static final char DOI_COMP = 'C';
 	protected static final char DOI_DATA = 'D';
 	protected static final char DOI_REP = 'R';
@@ -468,7 +466,7 @@ public class DOICrawler extends FindingAidCreator {
 		public int compare(DoiRecord o1, DoiRecord o2) {
 			return (o1.getSortKey(null, null).compareTo(o2.getSortKey(null, null)));
 		}
-		
+
 	};
 
 	protected static String cleanData(String s) {
@@ -499,7 +497,7 @@ public class DOICrawler extends FindingAidCreator {
 	}
 
 	// inputs
-	
+
 	private static String getHeaderAttr(String data, String name) {
 
 		int pt = data.indexOf(name + "=");
@@ -508,28 +506,29 @@ public class DOICrawler extends FindingAidCreator {
 		int pt2 = data.indexOf('\t', pt);
 		return data.substring(pt + name.length() + 1, pt2 > 0 ? pt2 : data.length());
 	}
-	
+
 	private static URL getMetadataURL(String pid) throws MalformedURLException {
 		System.out.println(pid);
 		return new URL(DATACITE_METADATA + pid);
 	}
-	
+
 	private static URL newURL(String s) throws MalformedURLException {
 		s = FAIRSpecUtilities.rep(s, "&amp;", "&");
 		return new URL(s);
 	}
+
 	/**
 	 * the current doiRecord during XML parsing
 	 */
 	public DoiRecord doiRecord;
 
 	// XML parser fields
-	
+
 	protected StringBuffer log = new StringBuffer();
 	protected int xmlDepth;
 
 	// iterative nesting of DOI reference
-	
+
 	private DOICustomizer customizer;
 	private URL dataCiteMetadataURL;
 
@@ -554,13 +553,10 @@ public class DOICrawler extends FindingAidCreator {
 	private String initialDOI;
 	private boolean isSilent = false;
 
-
-	
 	/**
 	 * set true to process NMR datasets for properties.
 	 */
 	protected boolean extractSpecProperties = false;
-	
 
 	private boolean isTop = true;
 
@@ -589,16 +585,16 @@ public class DOICrawler extends FindingAidCreator {
 
 	private IFDObject<?> thisCompound;
 
-	private HashMap<String, File> localMap;
+	//private HashMap<String, File> localMap;
 
 	private Set<String> ifdKeysFound;
 
 	private Set<String> ignoreKeys;
 
 	/**
-	 * set true to create pid descriptions that include IFD property and representation keys;
-	 * this will make messages much more verbose; 
-	 * designed for possibly just using the extractor with myInputStream
+	 * set true to create pid descriptions that include IFD property and
+	 * representation keys; this will make messages much more verbose; designed for
+	 * possibly just using the extractor with myInputStream
 	 */
 	private boolean usingCrawlerInputStream;
 
@@ -606,13 +602,14 @@ public class DOICrawler extends FindingAidCreator {
 
 	protected void setIgnoreKeys(String[] keys) {
 		this.ignoreKeys = new HashSet<>();
-		for (int i = keys.length; -- i >= 0;)
+		for (int i = keys.length; --i >= 0;)
 			ignoreKeys.add(keys[i]);
 	}
 
 	/**
-	 * insitu indicates we want a self-contained finding aid; 
-	 * the landing page will not load repository images in the case of a Crawler
+	 * insitu indicates we want a self-contained finding aid; the landing page will
+	 * not load repository images in the case of a Crawler
+	 * 
 	 * @param args [initialDOI, outputDirectory -insitu]
 	 */
 	public DOICrawler(String[] args) {
@@ -625,7 +622,7 @@ public class DOICrawler extends FindingAidCreator {
 		if (flags.indexOf("-extractspecproperties;") >= 0) {
 			extractSpecProperties = initializePropertyExtraction();
 		}
-		
+
 		if (flags.indexOf("-addifdtypes;") >= 0) {
 			faHelper.setDoIFDTypeSerialization(true);
 		}
@@ -633,27 +630,29 @@ public class DOICrawler extends FindingAidCreator {
 			dataCiteMetadataURL = getMetadataURL(initialDOI);
 		} catch (MalformedURLException e) {
 			addException(e);
-		}		
+		}
 		String outdir = args.length > 1 ? args[1] : DEFAULT_OUTDIR;
 		topDir = new File(outdir);
-		if (insitu)
-			localMap = new HashMap<>();
-	}	
+//		if (insitu)
+//			localMap = new HashMap<>();
+	}
+
 	/**
 	 * For future use in structure file checking.
 	 * 
 	 * @param key
-	 * @param val in the case of a representation, this will be an Object[]
-	 * consisting of [ bytes, fileName, ifdStructureType, standardInchi|?, mediaType ]
+	 * @param val       in the case of a representation, this will be an Object[]
+	 *                  consisting of [ bytes, fileName, ifdStructureType,
+	 *                  standardInchi|?, mediaType ]
 	 * @param isInLine
 	 * @param mediaType
 	 * @param method
 	 */
 	@Override
-	public void addDeferredPropertyOrRepresentation(String key, Object val, 
-			boolean isInLine, String mediaType, String note, String method) {
+	public void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInLine, String mediaType,
+			String note, String method) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public boolean crawl(File topDir, File dataDir, File fileDir) {
@@ -691,8 +690,6 @@ public class DOICrawler extends FindingAidCreator {
 		} catch (IOException e) {
 		}
 		dataDir.mkdirs();
-		if (fileDir != null)
-			fileDir.mkdirs();
 		nextDOI(dataCiteMetadataURL);
 		outputListAndLog(targetPath);
 		createFindingAid();
@@ -721,7 +718,6 @@ public class DOICrawler extends FindingAidCreator {
 		System.out.println("!!!!DOICrawler.newCompound " + id);
 		return id;
 	}
-	
 
 	public void setCustomizer(DOICustomizer customizer) {
 		this.customizer = customizer;
@@ -737,9 +733,9 @@ public class DOICrawler extends FindingAidCreator {
 		if (doiRecord.type == '?')
 			doiRecord.type = doiType;
 	}
-	
+
 	protected void addAttr(String key, String value) {
-		
+
 //		IFD.property.dataobject.fairspec.comp.description
 //		IFD.property.dataobject.fairspec.xrd.description
 //		IFD.property.dataobject.fairspec.ir.description
@@ -798,10 +794,10 @@ public class DOICrawler extends FindingAidCreator {
 				if (inchi == null) {
 					err = inchi = "invalid! InChI could not be generated from " + value;
 				}
-			} 
+			}
 			if (err == null)
 				fixedHInchi = CDK.getInChIFromCDKMolecule(mol, "FixedH");
-			else 
+			else
 				inchi = err;
 			IFDStructureRepresentation ref;
 			if (!value.equals(inchi)) {
@@ -873,12 +869,12 @@ public class DOICrawler extends FindingAidCreator {
 		log.append('\n').append(urlDepth).append(".").append(xmlDepth).append(indent.substring(0, xmlDepth * 2))
 				.append(line);
 	}
-	
+
 	protected void createFindingAid() {
 		String url = DOI_ORG + initialDOI;
 		// add DOI for repository
 		// TODO how do we get the URL of the finding aid into the finding aid?
-		//findingAid.setDOI(url);
+		// findingAid.setDOI(url);
 		findingAid.getCollectionSet().setURL(url);
 		try {
 			DoiRecord rec = doiList.get(0);
@@ -887,9 +883,9 @@ public class DOICrawler extends FindingAidCreator {
 			processDOIURLs(pubdoi == null ? null : pubdoi.toString(), datadoi, faHelper);
 			nestRecords();
 			processRecords(null, doiList);
-			if (insitu) {
-				internalizeAllStructureImages();
-			}
+//			if (insitu) {
+//				internalizeAllStructureImages();
+//			}
 			String aid = faHelper.generateFindingAid(targetPath);
 			if (aid != null && createLandingPage) {
 				buildSite(targetPath);
@@ -900,36 +896,31 @@ public class DOICrawler extends FindingAidCreator {
 		}
 	}
 
-	private void internalizeAllStructureImages() {
-		IFDStructureCollection c = faHelper.getStructureCollection();
-		for (int i = c.size(); --i >= 0;) {
-			IFDStructure s = c.get(i);
-			for (int j = s.size(); --j >= 0;) {
-				IFDStructureRepresentation r = s.get(j);
-				String m = (r.getData() == null ? r.getMediaType() : null);
-				if (m != null) {
-					switch (m) {
-					case "image/gif":
-					case "image/png":
-					case "image/jpg":
-						String key = r.getRef().getURL();
-						System.out.println(key);
-						File localFile = localMap.get(key);
-						if (localFile != null) {
-							try {
-								byte[] bytes = FAIRSpecUtilities.getBytesAndClose(new FileInputStream(localFile));
-								r.setData(bytes);
-							} catch (IOException e) {
-								logErr("Could not open local file " + localFile, "internalizeAllStructureImages");
-								e.printStackTrace();
-							}
-						}
-					}
-				}
-			}
-			
-		}
-	}
+//	private void internalizeAllStructureImages() {
+//		IFDStructureCollection c = faHelper.getStructureCollection();
+//		for (int i = c.size(); --i >= 0;) {
+//			IFDStructure s = c.get(i);
+//			for (int j = s.size(); --j >= 0;) {
+//				IFDStructureRepresentation r = s.get(j);
+//				String m = (r.getData() == null ? r.getMediaType() : null);
+//				if (FAIRSpecUtilities.isImageMediaType(m)) {
+//					String key = r.getRef().getURL();
+//					System.out.println(key);
+//					File localFile = localMap.get(key);
+//					if (localFile != null) {
+//						try {
+//							byte[] bytes = FAIRSpecUtilities.getBytesAndClose(new FileInputStream(localFile));
+//							r.setData(bytes);
+//						} catch (IOException e) {
+//							logErr("Could not open local file " + localFile, "internalizeAllStructureImages");
+//							e.printStackTrace();
+//						}
+//					}
+//				}
+//			}
+//
+//		}
+//	}
 
 	protected boolean customizeText(String key, String val) {
 		switch (key) {
@@ -964,9 +955,9 @@ public class DOICrawler extends FindingAidCreator {
 			// skip main entry
 			addPidDescription(key, value);
 		}
-	
+
 	}
-	
+
 	private void addPidDescription(String key, String value) {
 		if (usingCrawlerInputStream)
 			pidDescription += key + "=" + value.replace('\n', ' ').replace('\r', ' ') + "_;_";
@@ -1017,8 +1008,8 @@ public class DOICrawler extends FindingAidCreator {
 					structureType = DefaultStructureHelper.getType(ext, null, false);
 					if (structureType != null) {
 						String key = rec.localFile.getAbsolutePath();
-						faHelper.createStructureRepresentation(key, rec.ifdRef, rec.data, rec.length,
-								structureType, rec.mediaType);
+						faHelper.createStructureRepresentation(key, rec.ifdRef, rec.data, rec.length, structureType,
+								rec.mediaType);
 					}
 				}
 
@@ -1100,16 +1091,15 @@ public class DOICrawler extends FindingAidCreator {
 		}
 	}
 
-
 	/**
-	 * We could download the files for checking or extracting
-	 * metadata.
+	 * We could download the files for checking or extracting metadata.
 	 * 
 	 * @param url
+	 * @param dir
 	 * @param file
 	 * @throws IOException
 	 */
-	private boolean downloadCheck(URL url, File file) throws IOException {
+	private boolean downloadCheck(URL url, File dir, File file) throws IOException {
 		long modTime = file.lastModified();
 		System.out.println("DOICrawler checking for download of " + file);
 		if (modTime > 0 && modTime < startTime) {
@@ -1118,12 +1108,13 @@ public class DOICrawler extends FindingAidCreator {
 		}
 		String s = file.getName();
 		int pt = s.lastIndexOf(".");
-		if (pt > 0 && FAIRSpecUtilities.isOneOf(s.substring(pt + 1), DOWNLOAD_TYPES)) {			
+		if (pt > 0 && FAIRSpecUtilities.isOneOf(s.substring(pt + 1), DOWNLOAD_TYPES)) {
 			if (modTime > 0) {
 				log("! replacing " + file.getName() + " with " + url);
 			}
 			URLConnection con = url.openConnection();
 			InputStream is = con.getInputStream();
+			dir.mkdirs();		
 			int n = FAIRSpecUtilities.putToFile(FAIRSpecUtilities.getBytesAndClose(is), file);
 			if (n == 0) {
 				log("!!URL returns 0 bytes! for " + file.getName() + " at " + url);
@@ -1141,9 +1132,9 @@ public class DOICrawler extends FindingAidCreator {
 		}
 		return false;
 	}
-	
+
 	// logging
-	
+
 	private void nestRecords() {
 		for (int i = 0; i < doiList.size(); i++) {
 			DoiRecord rec = doiList.get(i);
@@ -1151,7 +1142,7 @@ public class DOICrawler extends FindingAidCreator {
 				while (i + 1 < doiList.size()) {
 					if (doiList.get(i + 1).type == 'C') {
 						break;
-					} 
+					}
 					rec.addItem(doiList.remove(i + 1));
 				}
 			}
@@ -1205,11 +1196,10 @@ public class DOICrawler extends FindingAidCreator {
 			DoiRecord doiRecord = new DoiRecord(thisCompoundID, url, null, null, null);
 			addRecord(doiRecord);
 			if (doi.equals(dataCiteMetadataURL)) {
-				doiRecord.type = DOI_TOP;	
+				doiRecord.type = DOI_TOP;
 			}
 			parseXML(doiRecord, isTop, is);
-			if (doiRecord.type == DOI_DATA && doiRecord.dataObjectType == null 
-					&& doiRecord.hasRepresentations) {
+			if (doiRecord.type == DOI_DATA && doiRecord.dataObjectType == null && doiRecord.hasRepresentations) {
 				doiRecord.dataObjectType = "unknown";
 				log("!!No data type found for " + doiRecord);
 			}
@@ -1246,7 +1236,7 @@ public class DOICrawler extends FindingAidCreator {
 
 	private String getFoundKeysAsString() {
 		String s = "";
-		for (String key: ifdKeysFound) {
+		for (String key : ifdKeysFound) {
 			s += key + "\n";
 		}
 		return s;
@@ -1254,14 +1244,15 @@ public class DOICrawler extends FindingAidCreator {
 
 	/**
 	 * Parse the XML document for desired information.
-	 * @param doiRecord 
+	 * 
+	 * @param doiRecord
 	 * 
 	 * @param content
 	 * @throws Exception
 	 */
 	private void parseXML(DoiRecord doiRecord, boolean isTop, InputStream content) throws Exception {
 		this.doiRecord = doiRecord;
-		doiRecord.relatedItems = new LinkedHashMap<String, List<String>>(); 
+		doiRecord.relatedItems = new LinkedHashMap<String, List<String>>();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(content), "UTF-8"));
 		new DOIXMLReader(this, customizer, isTop, log).parseXML(reader);
 		content.close();
@@ -1280,10 +1271,10 @@ public class DOICrawler extends FindingAidCreator {
 			List<String> list = map.get("URL");
 			if (list != null) {
 				Set<String> fileNames = new HashSet<>();
-				for (int i = list.size(); --i >=0;) {
+				for (int i = list.size(); --i >= 0;) {
 					processRepresentation(subdir, newURL(list.get(i)), fileNames);
 				}
-				//System.out.println(doiRecord);
+				// System.out.println(doiRecord);
 				doiRecord.hasRepresentations = true;
 			}
 			list = map.get("DOI");
@@ -1347,16 +1338,16 @@ public class DOICrawler extends FindingAidCreator {
 		if (fileName != null) {
 			// a simple name, such as "3.mol"
 			if (fileNames.contains(fileName)) {
+				// because within a diretory, only the last-given file 
+				// of a given name is the valid one, at least at ICL
 				log("!skipping duplicate file " + fileName + " for " + subdir);
 			} else {
 				fileNames.add(fileName);
+				File localDir = null;
 				File localFile = null;
-				boolean downloaded = false;
 				if (fileDir != null) {
-					File subDir = new File(fileDir, subdir);
-					subDir.mkdirs();
-					downloaded = downloadCheck(url,
-							localFile = new File(subDir, FAIRSpecUtilities.cleanFileName(fileName)));
+					localDir = new File(fileDir, subdir);
+					localFile = new File(localDir, FAIRSpecUtilities.cleanFileName(fileName));
 				}
 				String surl = url.toString();
 				DoiRecord rec = new DoiRecord(thisCompoundID, surl, null, fileName, localFile);
@@ -1365,12 +1356,13 @@ public class DOICrawler extends FindingAidCreator {
 				String dataType = doiRecord.dataObjectType;
 				rec.dataObjectType = dataType;
 				rec.mediaType = mediaType;
+				boolean insituImage = (insitu && FAIRSpecUtilities.isImageMediaType(mediaType));
+				boolean doDownload = (extractSpecProperties || insituImage);				
+				boolean downloaded = (doDownload && downloadCheck(url, localDir, localFile));
 				if (downloaded) {
-					if (insitu) {
-						if (mediaType != null && mediaType.startsWith("image/")) {
-							rec.data = FAIRSpecUtilities.getBytesAndClose(new FileInputStream(localFile));
-						}
-						localMap.put(surl, localFile);
+					if (insituImage) {
+						rec.data = FAIRSpecUtilities.getBytesAndClose(new FileInputStream(localFile));
+						//localMap.put(surl, localFile);
 					}
 					if (extractSpecProperties) {
 						crawlerExtractSpecProperties(localFile);
@@ -1397,10 +1389,8 @@ public class DOICrawler extends FindingAidCreator {
 	}
 
 	public static void main(String[] args) {
-		if (args.length == 0)
-			ICLDOICrawler.main(args);
-		else 
-			new DOICrawler(args).crawl();
+		// we don't start this on its own right now
+		ICLDOICrawler.main(args);
 	}
 
 }

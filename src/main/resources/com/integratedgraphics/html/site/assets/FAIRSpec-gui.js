@@ -1,5 +1,6 @@
 // ${IUPAC FAIRSpec}/src/html/site/assets/FAIRSpec-gui.js
 // 
+// BH 2025.08.24 adds .png links as well as images
 // BH 2025.08.17 adds FAIRSpecDataCollection resource; checking docs examples
 // BH 2025.07.23 adds zip file link, author orcid link
 // Swagat Malla 2025.05.10 many new features
@@ -1472,7 +1473,7 @@
 	}		
 	
 	var getSizeString = function(n) {
-		if (!n) return "";
+		if (!n  || n < 0) return "";
 		var s = (n > 1000000 ? Math.round(n/100000)/10 + " MB"
 				: n > 1000 ? Math.round(n/100)/10 + " KB"
 						: n + " bytes");
@@ -1507,33 +1508,34 @@
 	}
 
 	var addRepresentationRow = function(isData, aidID, r, type) {
-		var s; 
+		var s = ""; 
+		var isPNG = (type == "png" || "image/png" == r.mediaType);
 		var shead = //"";//
 			// TODO data type xrd is in the wrong place
 		(type == "png" || isData ? "" : "<span class=repname>" + (type = cleanKey(type)) + "</span> ");
+		if (r.ref && (isPNG || !r.data))
+			s = " " + addPathForRep(aidID, r.ref, r.len, null, r.mediaType, r.note);
 		if (r.data) {
 			if (r.data.indexOf(";base64") == 0) {
-                                if (type == "png" || "image/png" == r.mediaType) {
-                                        var imgTag = getImageTag((r.ref ? r.ref.localName || r.ref.localPath : "image.png"),(r.note ? cleanText(r.note) : null), "data:" + r.mediaType + r.data);
-					s = addPathForRep(aidID, r.ref, -1, imgTag, null, r.note);
-				} else {
-					s = anchorBase64(r.ref);
+				if (!isPNG) {
+					s += anchorBase64(r.data, r.ref, r.len);
 				}
 			} else {
 				if (r.data.indexOf(INVALID) >= 0) {
-					s = "<span class='invalid'>" + r.data + "</span>";
+					s += "<span class='invalid'>" + r.data + "</span>";
 				} else if (r.data.length > 30 || type == "inchikey") {
-					s = anchorHide(shead, r.data, r.note);
+					s += anchorHide(shead, r.data, r.note);
 					shead = "";
 				} else {
-					s = r.data;
+					s += r.data;
 				}
 			}
-		} else {
-			s = " " + addPathForRep(aidID, r.ref, r.len, null, r.mediaType, r.note);
 		}
-		s = "<tr><td>" + shead + s + "</td></tr>";
-		return s;
+		if (isPNG) {
+				var imgTag = getImageTag((r.ref ? r.ref.localName || r.ref.localPath : "image.png"),(r.note ? cleanText(r.note) : null), r.data ? "data:" + r.mediaType + r.data : getRef(aidID, r.ref));
+				s += "<br>" + addPathForRep(aidID, r.ref, -1, imgTag, null, r.note);
+		}
+		return "<tr><td>" + shead + s + "</td></tr>";
 	}
 
 	var heads = [];
@@ -1553,12 +1555,12 @@
 	
 	clearPDFCache();
 	
-	var anchorBase64 = function(ref) {
+	var anchorBase64 = function(sdata, ref, len) {
 		var label = (ref.localName || ref.localPath);
-		var sdata = ref.data;
 		var mediaType = ref.mediaType;
 		mediaType || (mediaType = "application/octet-stream");
-		var s = "<a download=\"" + shortFileName(label) + "\" href=\"data:" + mediaType + sdata + "\">" + label + "</a>";
+		var s = "<a download=\"" + shortFileName(label) + "\" href=\"data:" + mediaType + sdata + "\">" + label + "</a>"
+		+ " " + getSizeString(len);
 		if (mediaType.indexOf("/pdf") >= 0) {
 			s += getPDFLink("data:application/pdf" + sdata);
 		}
@@ -1706,22 +1708,23 @@
 			+  " src=\"" + url +"\">";			
 	}
 
-        var NOREF = {"localName":"?"};
+    var NOREF = {"localName":"?"};
 
-        var addPathForRep = function(aidID, ref, len, value, mediaType, note) {
-                ref || (ref = NOREF);
+    var getRef = function(aidID, ref) {
+    	return ref.url || ref.doi || (ref.localPath ? fileFor(aidID, ref.localPath) : ref.localName);    	
+    }
+    
+    var addPathForRep = function(aidID, ref, len, imgTag, mediaType, note) {
+        ref || (ref = NOREF);
 		var shortName = ref.localName || shortFileName(ref.localPath);//localPath old?
-		var url = ref.url || ref.doi || (ref.localPath ? fileFor(aidID, ref.localPath) : ref.localName);
+		var url = getRef(aidID, ref);
 		mediaType = null;// nah. Doesn't really add anything || (mediaType = "");
 		var s;
-		if (value) {
-			s = (url == "?" ? value : "<a target=_blank href=\"" + url + "\">" + value + "</a>");
-			if (value.indexOf("<img") >= 0)
-				return s;
-		} else if (shortName.endsWith(".png")) {
-			return getImageTag(url, null, url); 
+		var isData = url.startsWith(";base64,");
+		if (imgTag) {
+			return (url == "?" ? imgTag : "<a target=_blank href=\"" + url + "\">" + imgTag + "</a>");
 		} else {
-			if (url.startsWith(";base64,"))
+			if (isData)
 				url = "data:application/octet-stream" + url;
 			var size = getSizeString(len);
 			var info = ((size ? " " + size.substring(1, size.length - 1) : "") + (mediaType ? " " + mediaType : "")).trim();

@@ -5,8 +5,6 @@ import java.io.FileInputStream;
 import java.util.Date;
 import java.util.Map;
 
-import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.contrib.fairspec.dataobject.FAIRSpecDataObject;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.ifd.vendor.DefaultVendorPlugin;

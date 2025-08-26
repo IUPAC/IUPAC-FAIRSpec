@@ -77,6 +77,41 @@ public class IFDUtil {
 	}
 
 	/**
+	 * parse very simple positive integers followed by [a-z]*; 
+	 * may have continuance after but not before
+	 * 
+	 * TODO: could check for ' 
+	 * 
+	 * @param substring
+	 * @return
+	 */
+	public static String parsePositiveIntABC(String s) {
+		int n = Math.min(s.length(), 9);
+		int i = -1;
+		int val = 0;
+		boolean haveInt = false;
+		String id = "";
+		while (++i < n) {
+			char c = s.charAt(i);
+			if (!haveInt) {
+				if (c >= '0' && c <= '9') {
+					val = val * 10 + (c - 48);
+					continue;
+				}
+				if (val == 0)
+					return "";
+				id = "" + val;
+				haveInt = true;
+			}
+			if (!(c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')) {
+				break;
+			}
+			id += c;			
+		}
+		return id;
+	}
+
+	/**
 	 * just way simpler code than Character.isDigit(ch);
 	 * 
 	 * @param ch
@@ -92,5 +127,5 @@ public class IFDUtil {
 		int pt = fileName.lastIndexOf("/");
 		return (pt >= 0 ? fileName.substring(pt + 1) : fileName);
 	}
-	
+
 }

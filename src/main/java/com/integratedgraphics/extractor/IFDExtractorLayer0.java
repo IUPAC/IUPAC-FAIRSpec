@@ -6,18 +6,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper.FileList;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelperI;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
 import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
+
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelperI;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 /**
  * A general class for constants, setting the configuration, shared fields,
@@ -48,9 +48,7 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	protected static final int LOG_IGNORED = 1;
 	protected static final int LOG_OUTPUT = 2;
 	protected static final int LOG_REJECTED = 0;
-	protected final static Pattern objectDefPattern = Pattern.compile("\\{([^:]+)::([^}]+)\\}");
 
-	protected final static Pattern pStarDotStar = Pattern.compile("\\*([^|/])\\*");
 	protected final static String SUBST = "=>";
 
 	protected static final String FAIRSPEC_EXTRACTOR_REFERENCES = IFDConst.getProp("FAIRSPEC_EXTRACTOR_REFERENCES");

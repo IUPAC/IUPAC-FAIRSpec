@@ -801,6 +801,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	protected Map<AWrap, IFDStructure> htStructureRepCache;
 
 	protected Set<AWrap> structureCache;
+	public static final String CRAWLER_NAME = "CRAWLER.ifdcrawler";
 
 	protected void cacheStructure(AWrap w, IFDStructure struc) {
 		htStructureRepCache.put(w, struc);
