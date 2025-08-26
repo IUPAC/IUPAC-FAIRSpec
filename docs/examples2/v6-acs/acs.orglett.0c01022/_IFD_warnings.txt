@@ -1,6 +1,0 @@
-======== 7: 5 warnings for c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c01022
-! WARNING: Could not access null -- Extractor.processDOIURLs acs.orglett.0c01022 null
-! InChI could not be created for NMR DATA/product/3h-C.mnova#page1.cdx
-! DefaultStructureHelper WARNING: SMILES could not be created for NMR DATA/product/3h-C.mnova#page1.cdx MF=null
-! InChI could not be created for NMR DATA/product/3h-H.mnova#page1.cdx
-! DefaultStructureHelper WARNING: SMILES could not be created for NMR DATA/product/3h-H.mnova#page1.cdx MF=null

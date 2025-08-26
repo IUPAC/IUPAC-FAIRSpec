@@ -753,10 +753,23 @@
 		IFD.findingAidFile = IFD.findingAidDir + IFD.properties.findingAidFileName;
 		var aid = IFD.cacheGet(aidID);
 		if (aid == null) {
-			$.ajax({url:IFD.findingAidFile, dataType:"json", success:callbackLoaded, error:function(){callbackLoadFailed()}});
+			$.ajax({url:IFD.findingAidFile, dataType:"json", success:callbackLoaded, error:function(){callbackLoadFailed(IFD.findingAidFile)}});
 		} else {
 			loadAid(aid, collection);
 		}
+	}
+
+	var callbackLoaded = function(json) {
+		var aid = json["IUPAC.FAIRSpec.findingAid"];
+		if (aid == null)
+			aid = json["IFD.findingaid"];
+		aid.id || (aid.id = IFD.findingAidID);
+		loadAid(aid);
+	}
+
+	var callbackLoadFailed = function(aidFile) {
+		alert(aidFile + " was not found");
+		return;
 	}
 
 	//external
@@ -867,19 +880,6 @@
 			IFD.properties.aLoading.push(IFD.aidIDs[i]);
 		}
 		IFD.loadSelected(IFD.properties.aLoading);
-	}
-
-	var callbackLoaded = function(json) {
-		var aid = json["IUPAC.FAIRSpec.findingAid"];
-		if (aid == null)
-			aid = json["IFD.findingaid"];
-		aid.id || (aid.id = IFD.findingAidID);
-		loadAid(aid);
-	}
-
-	var callbackLoadFailed = function(x,y,z) {
-		alert([x,y,z]);
-		return;
 	}
 
 	var getField = function(name){
