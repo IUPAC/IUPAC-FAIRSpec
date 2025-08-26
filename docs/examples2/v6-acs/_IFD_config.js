@@ -1,4 +1,4 @@
-// IFD.config.js
+// IFD_config.js
 
 IFD.properties.baseDir =  "https://chemapps.stolaf.edu/iupac/examples2/v6-acs";
 IFD.properties.haveLocalFiles = true; 
