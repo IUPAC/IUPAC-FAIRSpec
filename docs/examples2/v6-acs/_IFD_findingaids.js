@@ -1,4 +1,4 @@
-IFD.findingAids={"findingaids":[
+IFD.findingAids={"findingaids": [
 "./acs.joc.0c00770/IFD.findingaid.json",
 "./acs.orglett.0c00571/IFD.findingaid.json",
 "./acs.orglett.0c00624/IFD.findingaid.json",
