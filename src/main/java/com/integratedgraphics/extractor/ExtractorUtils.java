@@ -37,73 +37,11 @@ import com.junrar.rarfile.FileHeader;
 
 /**
  * A set of static classes for use by MetadataExtractor, primarily
+ * 
  * @author hansonr@stolaf.edu
  *
  */
 public class ExtractorUtils {
-
-	public static final String CRAWLER_NAME = "CRAWLER.ifdcrawler";
-
-	public static class DoubleString {
-
-		private final String s;
-		private final double d;
-		
-		public DoubleString(String val) {
-			this.s = val;
-			this.d = Double.parseDouble(val);
-		}
-
-		@Override
-		public String toString() {
-			return s;
-		}
-
-		public double value() {
-			return d;
-		}
-		
-		@Override
-		public boolean equals(Object o) {
-			return (o != null && s.equals(o.toString()));
-		}
-		
-		@Override
-		public int hashCode() {
-			return s.hashCode();
-		}
-	}
-
-	public static class FloatString {
-
-		private final String s;
-		private final float f;
-		
-		public FloatString(String val) {
-			this.s = val;
-			this.f = Float.parseFloat(val);
-		}
-
-		@Override
-		public String toString() {
-			return s;
-		}
-
-		public float value() {
-			return f;
-		}
-		
-		@Override
-		public boolean equals(Object o) {
-			return (o != null && s.equals(o.toString()));
-		}
-		
-		@Override
-		public int hashCode() {
-			return s.hashCode();
-		}
-
-	}
 
 	/**
 	 * A static class for parsing the object string and using regex to match
@@ -113,9 +51,12 @@ public class ExtractorUtils {
 	 * @author hansonr
 	 *
 	 */
-	
+
 	public static class ObjectParser {
-	
+
+		private final static Pattern pStarDotStar = Pattern.compile("\\*([^|/])\\*");
+		private final static Pattern objectDefPattern = Pattern.compile("\\{([^:]+)::([^}]+)\\}");
+
 		private static final String REGEX_QUOTE = "\\Q";
 		private static final String REGEX_UNQUOTE = "\\E";
 		private static final String REGEX_ANY_NOT_PIPE_OR_DIR = REGEX_UNQUOTE + "[^|/]+" + REGEX_QUOTE;
@@ -124,9 +65,9 @@ public class ExtractorUtils {
 		private static final String REGEX_KV_END = ">" + REGEX_QUOTE;
 		private static final String REGEX_END_PARENS = REGEX_UNQUOTE + ")" + REGEX_QUOTE;
 		private static final String REGEX_EMPTY_QUOTE = REGEX_QUOTE + REGEX_UNQUOTE;
-	
+
 		private static final String RAW_REGEX_TAG = "{regex::";
-	
+
 		private static final char TEMP_RAW_IN_CHAR = '\0'; // --> <
 		private static final char TEMP_RAW_OUT_CHAR = '\1'; // --> >
 		private static final char TEMP_STAR_CHAR = '\2'; // --> *
@@ -135,18 +76,18 @@ public class ExtractorUtils {
 		private static final char TEMP_ANY_SEP_ANY_CHAR = '\5'; // see below
 		private static final char TEMP_ANY_SEP_ANY_CHAR2 = '\6'; // see below
 		private static final char TEMP_IGNORE = '\7'; // \\ removed
-	
+
 		private static final String TEMP_KEYVAL_IN = REGEX_UNQUOTE + "(?" + TEMP_KEYVAL_IN_CHAR;
-	
+
 		private static final String TEMP_KEYVAL_OUT = TEMP_KEYVAL_OUT_CHAR + REGEX_QUOTE;
-	
+
 		/**
 		 * multiple separations by char. for example *-*.zip -->
 		 */
 		private static final String TEMP_ANY_SEP_ANY_GROUPS = REGEX_UNQUOTE + "(" + "[^|/\5]+(?:\6[^|/\5]+)"
 		// + TEMP_STAR_CHAR
 				+ "+" + ")" + REGEX_QUOTE;
-	
+
 		/**
 		 * // /**\/ --> "/\E(?:[^|/]+/)*\Q" [ backslash after two asterisks only for
 		 * this comment ]
@@ -155,33 +96,32 @@ public class ExtractorUtils {
 		 * 
 		 * test/**\/*.zip matches test/xxx.zip or test/bbb/aaa/xxx.zip
 		 */
-		private static final String TEMP_ANY_DIRECTORIES = REGEX_UNQUOTE + "(?:[^|/]+/)" + TEMP_STAR_CHAR
-				+ REGEX_QUOTE;
-	
+		private static final String TEMP_ANY_DIRECTORIES = REGEX_UNQUOTE + "(?:[^|/]+/)" + TEMP_STAR_CHAR + REGEX_QUOTE;
+
 		private static final char BACK_SLASH_IGNORED = '\\';
-	
+
 		private static int parserCount;
-	
+
 		private final int index;
-	
+
 		public int getIndex() {
 			return index;
 		}
-	
+
 		private String sData;
-	
+
 		private Pattern p;
-	
+
 		private List<String> regexList;
-	
+
 		private Map<String, String> keys;
-	
+
 		private ExtractorResource dataSource;
 		private IFDExtractor extractor;
 		private boolean hasData;
 		private List<Object> replacements;
 		private ArrayList<String> keyList;
-	
+
 		/**
 		 * @param sObj
 		 * @throws IFDException
@@ -193,7 +133,7 @@ public class ExtractorUtils {
 			sData = sObj.substring(sObj.charAt(0) == '|' ? 1 : 0);
 			init();
 		}
-		
+
 		/**
 		 * Prepare pattern and match.
 		 * 
@@ -238,26 +178,26 @@ public class ExtractorUtils {
 			// becomes:
 			//
 			// ^(?<id>*)\\Q.zip|\\E(?<IFD0nmr0representation0vendor0dataset>\\k<id>\\Q_\\E(<IFD0nmr0param0expt>*)\\Q/\\E)$
-	
+
 			// so....
-	
+
 			// {regex::[a-z]} is left unchanged and becomes \\E[a-z]\\Q
-	
+
 			String s = protectRegex(null);
-	
+
 			// \ is ignored and removed at the end
 			// it should only be used to break up something like *\-* to be literally a
 			// single *-*, not "any number of "-"
 			s = s.replace(BACK_SLASH_IGNORED, TEMP_IGNORE);
-	
+
 			// **/ becomes \\E(?:[^/]+/)*\\Q
-	
+
 			s = FAIRSpecUtilities.rep(s, "**/", TEMP_ANY_DIRECTORIES);
-	
+
 			Matcher m;
 			// *-* becomes \\E([^-]+(?:-[^-]+)*)\\Q and matches a-b-c
 			if (s.indexOf("*") != s.lastIndexOf("*")) {
-				while ((m = IFDExtractor.pStarDotStar.matcher(s)).find()) {
+				while ((m = pStarDotStar.matcher(s)).find()) {
 					String schar = m.group(1);
 					char c = schar.charAt(0);
 					s = FAIRSpecUtilities.rep(s, "*" + schar + "*",
@@ -266,34 +206,34 @@ public class ExtractorUtils {
 				}
 			}
 			// * becomes \\E.+\\Q
-	
+
 			s = FAIRSpecUtilities.rep(s, "*", REGEX_ANY_NOT_PIPE_OR_DIR);
-	
+
 			// {id=IFD.property.dataobject.label::xxx} becomes \\E(?<id>\\Qxxx\\E)\\Q
 			// {IFD.property.dataobject.label::xxx} becomes
 			// \\E(?<IFD0nmr0param0expt>\\Qxxx\\E)\\Q
 			// <id> becomes \\k<id>
-	
+
 			s = compileIFDDefs(s, true, true);
-	
+
 			// restore '*'
 			s = s.replace(TEMP_STAR_CHAR, '*');
-	
+
 			// restore regex
 			// wrap with quotes and constraints ^\\Q...\\E$
-	
+
 			s = "^" + REGEX_QUOTE + protectRegex(s) + REGEX_UNQUOTE + "$";
-	
+
 			// \\Q\\E in result is removed
-	
+
 			s = FAIRSpecUtilities.rep(s, REGEX_EMPTY_QUOTE, "");
-	
+
 			s = FAIRSpecUtilities.rep(s, "" + TEMP_IGNORE, "");
-	
+
 			extractor.log("!Extractor.ObjectParser pattern: " + s);
 			p = Pattern.compile(s);
 		}
-	
+
 		/**
 		 * Find and regex-ify all {id=IFD.param::value} or {IFD.param::value}.
 		 * 
@@ -304,7 +244,7 @@ public class ExtractorUtils {
 		private String compileIFDDefs(String s, boolean isFull, boolean replaceK) throws IFDException {
 			int pt;
 			while (s.indexOf("::") >= 0) {
-				Matcher m = IFDExtractor.objectDefPattern.matcher(s);
+				Matcher m = objectDefPattern.matcher(s);
 				if (!m.find())
 					break;
 				String param = m.group(1);
@@ -331,7 +271,7 @@ public class ExtractorUtils {
 					s = FAIRSpecUtilities.rep(s, bk, "<" + key + ">");
 				}
 				// escape < and > here
-	
+
 				s = FAIRSpecUtilities.rep(s, pv,
 						(replaceK ? TEMP_KEYVAL_IN + key + TEMP_KEYVAL_OUT : REGEX_KEYDEF_START + key + REGEX_KV_END)
 								+ val + REGEX_END_PARENS);
@@ -344,7 +284,7 @@ public class ExtractorUtils {
 			}
 			return s;
 		}
-	
+
 		/**
 		 * fix up {regex::...} phrases in IFD-extract.json. First pass initialization
 		 * clips out regex sections so that they are not processed by ObjectParser;
@@ -382,7 +322,7 @@ public class ExtractorUtils {
 			}
 			return s;
 		}
-	
+
 		/**
 		 * Process a {key::value} set.
 		 * 
@@ -392,7 +332,7 @@ public class ExtractorUtils {
 		 * @return the value for this key
 		 * @throws IFDException
 		 */
-		protected static String getIFDExtractValue(String sObj, String key, int[] pt) throws IFDException {
+		private static String getIFDExtractValue(String sObj, String key, int[] pt) throws IFDException {
 			key = "{" + key + "::";
 			if (pt == null)
 				pt = new int[1];
@@ -428,7 +368,7 @@ public class ExtractorUtils {
 		public String toString() {
 			return "[ObjectParser " + this.sData + "]";
 		}
-	
+
 		public Matcher match(String origin) throws IFDException {
 			if (replacements != null) {
 				try {
@@ -478,7 +418,7 @@ public class ExtractorUtils {
 			}
 			return keyList;
 		}
-	
+
 	}
 
 	/**
@@ -488,53 +428,53 @@ public class ExtractorUtils {
 	 *
 	 */
 	public static class ArchiveEntry {
-	
+
 		protected String name;
 		protected long size;
-	
-		protected ArchiveEntry(String name, long size) {
+
+		public ArchiveEntry(String name, long size) {
 			this.name = name;
 			this.size = size;
 		}
-	
-		protected ArchiveEntry(ZipEntry ze) {
+
+		public ArchiveEntry(ZipEntry ze) {
 			name = ze.getName();
 			size = ze.getSize();
 		}
-	
-		protected ArchiveEntry(TarArchiveEntry te) {
+
+		public ArchiveEntry(TarArchiveEntry te) {
 			name = te.getName();
 			size = te.getSize();
 		}
-	
-		protected ArchiveEntry(FileHeader fh) {
+
+		public ArchiveEntry(FileHeader fh) {
 			name = fh.getFileName();
 			name = name.replace('\\', '/');
 			if (fh.isDirectory() && !name.endsWith("/"))
 				name += "/";
 			size = fh.getUnpSize();
 		}
-	
-		protected ArchiveEntry(String name) {
+
+		public ArchiveEntry(String name) {
 			this.name = name;
 		}
-	
+
 		public ArchiveEntry() {
 			// in case there is an error
 		}
 
-		protected boolean isDirectory() {
+		public boolean isDirectory() {
 			return name.endsWith("/");
 		}
-	
-		protected String getName() {
+
+		public String getName() {
 			return name;
 		}
-	
-		protected long getSize() {
+
+		public long getSize() {
 			return size;
 		}
-	
+
 		@Override
 		public String toString() {
 			return name;
@@ -542,11 +482,11 @@ public class ExtractorUtils {
 	}
 
 	public static class DirectoryEntry extends ArchiveEntry {
-	
+
 		protected File file;
 		protected boolean isDir;
 		protected BufferedInputStream bis;
-	
+
 		public DirectoryEntry(String name, File file) {
 			super(null, 0);
 			this.file = file;
@@ -554,11 +494,11 @@ public class ExtractorUtils {
 			this.name = name.replace('\\', '/') + (isDir ? "/" : "");
 			size = (isDir ? 0 : file.length());
 		}
-	
+
 		protected BufferedInputStream getInputStream() throws FileNotFoundException {
 			return (bis != null ? bis : isDir ? null : (bis = new BufferedInputStream(new FileInputStream(file))));
 		}
-	
+
 		protected void close() {
 			if (bis != null) {
 				try {
@@ -572,23 +512,23 @@ public class ExtractorUtils {
 	}
 
 	public static class DirIterator implements Iterator<File> {
-	
-		protected File dir;
-		protected File[] list;
-		protected int pt = -1, n;
-		protected DirIterator iter;
-	
+
+		private File dir;
+		private File[] list;
+		private int pt = -1, n;
+		private DirIterator iter;
+
 		DirIterator(File dir) {
 			this.dir = dir;
 			list = dir.listFiles();
 			n = list.length;
 		}
-	
+
 		@Override
 		public boolean hasNext() {
 			return (pt < n || iter != null && iter.hasNext());
 		}
-	
+
 		@Override
 		public File next() {
 			File f;
@@ -617,12 +557,12 @@ public class ExtractorUtils {
 	 *
 	 */
 	public static class DirectoryInputStream extends InputStream {
-	
+
 		File dir;
 		int offset;
 		DirIterator iter;
 		protected DirectoryEntry entry;
-	
+
 		public DirectoryInputStream(String dir) {
 			if (dir.startsWith("file:/"))
 				dir = dir.substring(6);
@@ -630,30 +570,30 @@ public class ExtractorUtils {
 			offset = this.dir.getAbsolutePath().length() + 1;
 			reset();
 		}
-	
+
 		@Override
 		public void reset() {
 			iter = new DirIterator(this.dir);
 			if (iter.hasNext())
 				iter.next(); // skip path itself
 		}
-	
+
 		@Override
 		public int read() throws IOException {
 			return (entry == null ? -1 : entry.getInputStream().read());
 		}
-	
+
 		@Override
 		public int read(byte b[], int off, int len) throws IOException {
 			return (entry == null ? -1 : entry.getInputStream().read(b, off, len));
 		}
-	
+
 		@Override
 		public void close() throws IOException {
 			closeEntry();
 			iter = null;
 		}
-	
+
 		protected ArchiveEntry getNextEntry() throws FileNotFoundException {
 			closeEntry();
 			if (!iter.hasNext())
@@ -662,14 +602,14 @@ public class ExtractorUtils {
 			String name = f.getAbsolutePath().substring(offset);
 			return entry = new DirectoryEntry(name, f);
 		}
-	
+
 		protected void closeEntry() {
 			if (entry != null) {
 				entry.close();
 				entry = null;
 			}
 		}
-	
+
 	}
 
 	/**
@@ -679,12 +619,12 @@ public class ExtractorUtils {
 	 *
 	 */
 	public static class RARInputStream extends InputStream {
-	
+
 		private Archive rar;
 		private List<FileHeader> rarList = new ArrayList<>();
 		private int rarPt = 0;
 		private RARArchiveEntry entry;
-	
+
 		public RARInputStream(InputStream is) throws IOException {
 			try {
 				rar = new Archive(is);
@@ -702,66 +642,66 @@ public class ExtractorUtils {
 				public int compare(FileHeader o1, FileHeader o2) {
 					return o1.getFileName().compareTo(o2.getFileName());
 				}
-				
+
 			});
 			rarList = list;
-			
+
 			reset();
 		}
-	
+
 		@Override
 		public void reset() {
 			rarPt = 0;
 		}
-	
+
 		@Override
 		public int read() throws IOException {
 			return (entry == null ? -1 : entry.getInputStream().read());
 		}
-	
+
 		@Override
 		public int read(byte b[], int off, int len) throws IOException {
 			return (entry == null ? -1 : entry.getInputStream().read(b, off, len));
 		}
-	
+
 		@Override
 		public void close() throws IOException {
 			closeEntry();
 			super.close();
 		}
-	
+
 		protected RARArchiveEntry getNextEntry() throws FileNotFoundException {
 			closeEntry();
 			if (rarPt >= rarList.size())
 				return null;
 			return entry = new RARArchiveEntry(rar, rarList.get(rarPt++));
 		}
-	
+
 		protected void closeEntry() {
 			if (entry != null) {
 				entry.close();
 				entry = null;
 			}
 		}
-	
+
 	}
 
 	static class RARArchiveEntry extends ArchiveEntry {
-	
+
 		private BufferedInputStream is;
 		private FileHeader fh;
 		private Archive rar;
-	
+
 		protected RARArchiveEntry(Archive rar, FileHeader fh) {
 			super(fh);
 			this.rar = rar;
 			this.fh = fh;
 		}
-	
+
 		public void close() {
 			fh = null;
 		}
-	
+
 		public BufferedInputStream getInputStream() throws IOException {
 			if (is == null) {
 				try {
@@ -776,7 +716,7 @@ public class ExtractorUtils {
 			}
 			return is;
 		}
-	
+
 	}
 
 	/**
@@ -791,13 +731,13 @@ public class ExtractorUtils {
 		private DirectoryInputStream dis;
 		private RARInputStream ris;
 		protected InputStream is;
-	
+
 		protected ArchiveInputStream() throws IOException {
 			this(null, null);
 		}
-	
-		ArchiveInputStream(InputStream is, String fname) throws IOException {
-	
+
+		public ArchiveInputStream(InputStream is, String fname) throws IOException {
+
 			if (is instanceof ArchiveInputStream)
 				is = new BufferedInputStream(((ArchiveInputStream) is).getStream());
 			if (is instanceof DirectoryInputStream) {
@@ -808,7 +748,7 @@ public class ExtractorUtils {
 			} else if (is instanceof ZipInputStream) {
 				this.is = is;
 			} else if (ZipUtil.isZipS(is)) {
-				this.is = zis = new ZipInputStream(is);				
+				this.is = zis = new ZipInputStream(is);
 			} else if (ZipUtil.isGzipS(is)) {
 				this.is = tis = ZipUtil.newTarGZInputStream(is);
 			} else if (fname != null && fname.endsWith(".tar")) {
@@ -817,11 +757,20 @@ public class ExtractorUtils {
 				this.is = ris = new RARInputStream(is);
 			}
 		}
-	
-		protected static class CrawlerInputStream extends InputStream {
+
+		/**
+		 * A class to allow crawler-based files to be extracted as though they were a
+		 * zip file. This would allow better extraction of MNova files during crawling.
+		 * 
+		 * not fully implemented
+		 * 
+		 * @author hanso
+		 *
+		 */
+		public static class CrawlerInputStream extends InputStream {
 
 			long len;
-			
+
 			private CrawlerEntry entry;
 
 			private static class CrawlerEntry extends ArchiveEntry {
@@ -836,7 +785,8 @@ public class ExtractorUtils {
 				private String dataType;
 				private String surl;
 
-				public CrawlerEntry(String name, String surl, String compoundID, String dataType, String subdir, String pidDescription, File f, long size) {
+				public CrawlerEntry(String name, String surl, String compoundID, String dataType, String subdir,
+						String pidDescription, File f, long size) {
 					super(null, size);
 					this.dataType = dataType;
 					this.name = name;
@@ -847,27 +797,28 @@ public class ExtractorUtils {
 					this.subdir = subdir;
 					this.pidDescription = pidDescription;
 					this.file = f;
-				}			
+				}
 			}
-			
+
 			private List<CrawlerEntry> fileList = new ArrayList<CrawlerEntry>();
 			private int pt = 0;
 
 			private InputStream is;
-			
-			protected CrawlerInputStream() throws IOException {
+
+			public CrawlerInputStream() throws IOException {
 				super();
 			}
-			
-			protected void addFile(String name, String surl, String dataType, String compoundID, String subdir, String pidDescription, File f, long len) {
+
+			public void addFile(String name, String surl, String dataType, String compoundID, String subdir,
+					String pidDescription, File f, long len) {
 				fileList.add(new CrawlerEntry(name, surl, dataType, compoundID, subdir, pidDescription, f, len));
 				this.len += len;
 			}
-	
+
 			protected long getLength() {
 				return len;
 			}
-			
+
 			@Override
 			public void reset() {
 				pt = 0;
@@ -879,15 +830,15 @@ public class ExtractorUtils {
 					is = null;
 				}
 			}
-			
+
 			protected CrawlerEntry getNextEntry() throws IOException {
 				if (is != null)
 					is.close();
-			    if (pt >= fileList.size())
-			    	return null;
-			    entry = fileList.get(pt++);
-			    is = new FileInputStream(entry.file);
-			    return entry;
+				if (pt >= fileList.size())
+					return null;
+				entry = fileList.get(pt++);
+				is = new FileInputStream(entry.file);
+				return entry;
 			}
 
 			@Override
@@ -896,14 +847,14 @@ public class ExtractorUtils {
 			}
 
 		}
-		
+
 		/**
 		 * Override this method to implement a custom archive reader.
 		 * 
 		 * @return
 		 * @throws IOException
 		 */
-		protected ArchiveEntry getNextEntry() throws IOException {
+		public ArchiveEntry getNextEntry() throws IOException {
 			if (ris != null) {
 				return ris.getNextEntry();
 			}
@@ -913,8 +864,8 @@ public class ExtractorUtils {
 			}
 			if (zis != null) {
 				try {
-				ZipEntry ze = zis.getNextEntry();
-				return (ze == null ? null : new ArchiveEntry(ze));
+					ZipEntry ze = zis.getNextEntry();
+					return (ze == null ? null : new ArchiveEntry(ze));
 				} catch (ZipException e) {
 					return new ArchiveEntry();
 				}
@@ -923,7 +874,7 @@ public class ExtractorUtils {
 				return dis.getNextEntry();
 			return null;
 		}
-	
+
 		@Override
 		public void close() throws IOException {
 			if (dis != null)
@@ -931,30 +882,30 @@ public class ExtractorUtils {
 			if (is != null)
 				is.close();
 		}
-	
-		protected InputStream getStream() {
+
+		public InputStream getStream() {
 			return is;
 		}
-	
+
 		@Override
 		public int read() throws IOException {
 			return is.read();
 		}
-	
+
 		@Override
 		public int read(byte b[], int off, int len) throws IOException {
 			try {
-			return is.read(b, off, len);
+				return is.read(b, off, len);
 			} catch (IOException e) {
 				is.read(b, off, len);
 				throw e;
 			}
 		}
-	
+
 	}
 
 	public static class ExtractorResource {
-		
+
 		public int id, tempID;
 
 		private String source;
@@ -965,7 +916,7 @@ public class ExtractorUtils {
 		public FileList lstManifest;
 		public FileList lstIgnored;
 		public FileList lstAccepted;
-		
+
 		public boolean isDefaultStructurePath;
 
 		public ExtractorResource(int id, String source, boolean isDefaultStructurePath) {
@@ -973,15 +924,15 @@ public class ExtractorUtils {
 			this.source = source;
 			this.isDefaultStructurePath = isDefaultStructurePath;
 		}
-			
+
 		public String getLocalSourceFileName() {
 			return localSourceFile;
 		}
-	
+
 		public void setLocalSourceFileName(String name) {
-		    localSourceFile = name;
+			localSourceFile = name;
 		}
-	
+
 		public void setLists(String rootPath, String ignore, String accept) {
 			if (lstManifest != null)
 				return;
@@ -993,12 +944,12 @@ public class ExtractorUtils {
 			if (accept != null)
 				lstAccepted.setAcceptPattern(accept);
 		}
-	
+
 		@Override
 		public String toString() {
 			return "[ExtractorSource " + getSourceFile() + " => " + rootPath + "]";
 		}
-	
+
 		public String getSourceFile() {
 			return (localSourceFile == null ? source : localSourceFile);
 		}
@@ -1007,7 +958,7 @@ public class ExtractorUtils {
 			localSourceFile = name;
 			tempID = id;
 		}
-		
+
 		public boolean isTempFile() {
 			return tempID > 0;
 		}
@@ -1046,16 +997,16 @@ public class ExtractorUtils {
 	 *
 	 */
 	public static class AWrap {
-	
+
 		private byte[] a;
-	
+
 		public AWrap() {
 		}
-	
+
 		public AWrap(byte[] bytes) {
 			setBytes(bytes);
 		}
-	
+
 		public void setBytes(byte[] bytes) {
 			a = bytes;
 		}
@@ -1065,12 +1016,12 @@ public class ExtractorUtils {
 			AWrap b = (AWrap) o;
 			return Arrays.equals(a, b.a);
 		}
-	
+
 		@Override
 		public int hashCode() {
 			return Arrays.hashCode(a);
 		}
-	
+
 	}
 
 	/**
@@ -1081,31 +1032,31 @@ public class ExtractorUtils {
 	 *
 	 */
 	public static class CacheRepresentation extends IFDRepresentation {
-	
+
 		protected String rezipOrigin;
 		public boolean isMultiple;
 		public boolean isValid = true;
-		
+
 		public CacheRepresentation(IFDReference ifdReference, Object o, long len, String type, String subtype) {
 			super(ifdReference, o, len, type, subtype);
 		}
-	
+
 		public void setRezipOrigin(String path) {
 			rezipOrigin = path;
 		}
-	
+
 		public Object getRezipOrigin() {
 			return rezipOrigin;
 		}
-	
+
 		public void setIsMultiple() {
 			isMultiple = true;
 		}
-	
+
 		public boolean isMultiple() {
 			return isMultiple;
 		}
-	
+
 	}
 
 }

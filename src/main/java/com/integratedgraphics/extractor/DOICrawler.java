@@ -17,7 +17,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -39,8 +38,6 @@ import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDReference;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
-import org.iupac.fairdata.structure.IFDStructure;
-import org.iupac.fairdata.structure.IFDStructureCollection;
 import org.iupac.fairdata.structure.IFDStructureRepresentation;
 import org.openscience.cdk.interfaces.IAtomContainer;
 
@@ -150,7 +147,7 @@ public class DOICrawler extends FindingAidCreator {
 				ifdRef.setDOI(url);
 			else
 				ifdRef.setURL(url);
-			System.out.println("DOIC id=" + id + " localFile=" + localFile);
+			//System.out.println("DOIC id=" + id + " localFile=" + localFile);
 			this.localFile = localFile;
 		}
 

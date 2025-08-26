@@ -138,12 +138,12 @@ import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 			return false;
 		}
 
-	private static boolean debug = false;
+	private static boolean debug = true;
 
 	public static void main(String[] args) {
 		if (debug) {
-			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler"};
-//			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler", "-insitu"};
+//			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler"};
+			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler", "-insitu"};
 //			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler", "-insitu", "-extractSpecProperies"};
 		}
 		if (args.length == 0) {

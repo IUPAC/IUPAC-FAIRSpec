@@ -12,8 +12,9 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-import com.integratedgraphics.extractor.ExtractorUtils.DoubleString;
 import com.integratedgraphics.ifd.api.VendorPluginI;
+import com.integratedgraphics.ifd.util.VendorUtils;
+import com.integratedgraphics.ifd.util.VendorUtils.DoubleString;
 import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
 
 import jspecview.source.JDXReader;
@@ -285,8 +286,8 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			report("##$SFO2", getDoubleValue(map, "##$SFO2"));
 		if (ndim >= 3)
 			report("##$SFO3", getDoubleValue(map, "##$SFO3"));
-		DoubleString bf1 = new DoubleString((String) map.get("##$BF1"));
-		DoubleString bf2 = new DoubleString((String) map.get("##$BF2"));
+		VendorUtils.DoubleString bf1 = new VendorUtils.DoubleString((String) map.get("##$BF1"));
+		VendorUtils.DoubleString bf2 = new VendorUtils.DoubleString((String) map.get("##$BF2"));
 		report("PF", getProtonFrequency(bf1, spec.nuc1, bf2, spec.nuc2));
 		report("NF", getNominalFrequency(bf1, spec.nuc1));
 		report("##$TE", getDoubleValue(map, "##$TE"));
