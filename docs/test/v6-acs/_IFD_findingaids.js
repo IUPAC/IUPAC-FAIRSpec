@@ -1,0 +1,16 @@
+IFD.findingAids={"findingaids": [
+"./acs.joc.0c00770/IFD.findingaid.json",
+"./acs.orglett.0c00571/IFD.findingaid.json",
+"./acs.orglett.0c00624/IFD.findingaid.json",
+"./acs.orglett.0c00755/IFD.findingaid.json",
+"./acs.orglett.0c00788/IFD.findingaid.json",
+"./acs.orglett.0c00874/IFD.findingaid.json",
+"./acs.orglett.0c00967/IFD.findingaid.json",
+"./acs.orglett.0c01022/IFD.findingaid.json",
+"./acs.orglett.0c01043/IFD.findingaid.json",
+"./acs.orglett.0c01153/IFD.findingaid.json",
+"./acs.orglett.0c01197/IFD.findingaid.json",
+"./acs.orglett.0c01277/IFD.findingaid.json",
+"./acs.orglett.0c01297/IFD.findingaid.json",
+"./acs.orgLett.9b02307/IFD.findingaid.json"
+]}
