@@ -1,4 +1,0 @@
-======== 11: 3 warnings for c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c01277
-! WARNING: Could not access null -- Extractor.processDOIURLs acs.orglett.0c01277 null
-! FAIRSpecExtractorHelper association id=HD exchange Rxn 2 ratio 11-89 spec=HD exchange Rxn 2 ratio 11-89 has no associated structure representation 
-! FAIRSpecExtractorHelper association id=HD exchange Rxn 1 ratio 20-80 spec=HD exchange Rxn 1 ratio 20-80 has no associated structure representation 

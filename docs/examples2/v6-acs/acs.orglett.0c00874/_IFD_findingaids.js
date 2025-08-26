@@ -1,2 +1,0 @@
-IFD.findingAids={"findingaids":["."]};
-

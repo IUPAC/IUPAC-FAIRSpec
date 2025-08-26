@@ -1,6 +1,0 @@
-======== 3: 5 warnings for c:/temp/iupac/acs/ifd2025-08/acs.orglett.0c00755
-! WARNING: Could not access null -- Extractor.processDOIURLs acs.orglett.0c00755 null
-! WARNING: digital item ignored, because equivalent structure: 19+19a+18/18.cdxml -- Extractor.phase2a acs.orglett.0c00755 structures
-! WARNING: digital item ignored, because equivalent structure: 19+19a+18/19.cdxml -- Extractor.phase2a acs.orglett.0c00755 structures
-! WARNING: digital item ignored, because equivalent structure: 19.cdxml -- Extractor.phase2a acs.orglett.0c00755 structures
-! FAIRSpecExtractorHelper association id=pre-16 struc=pre-16 has no associated spectrum representation 
