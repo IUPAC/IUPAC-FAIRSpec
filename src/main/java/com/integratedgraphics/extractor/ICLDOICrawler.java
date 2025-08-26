@@ -124,30 +124,24 @@ import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 				}
 				int pt = val.toLowerCase().indexOf("compound ");
 				if (pt >= 0) {
-					String id = crawler.newCompound("" + IFDUtil.parsePositiveInt(val.substring(pt + 9).replace('.',' ').trim()));
+					String id = crawler.newCompound(IFDUtil.parsePositiveIntABC(val.substring(pt + 9).trim()));
 					crawler.addAttr(DOICrawler.FAIRSPEC_COMPOUND_ID, id);
-//					String id = val.substring(pt + 9).replace('.', ' ') + " ";
-//					id = id.substring(0, id.indexOf(" "));
-//					id = crawler.newCompound(id);
-//					crawler.addAttr(DOICrawler.FAIRSPEC_COMPOUND_ID, id);
-//					String s = val.substring(pt + 9);
-//					crawler.addAttr(IFDConst.IFD_PROPERTY_LABEL, s);
 					return true;
 				}
 			}
 			return false;
 		}
 
-	private static boolean debug = true;
+	private static boolean debug = false;
 
 	public static void main(String[] args) {
 		if (debug) {
-//			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler"};
-			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler", "-insitu"};
+			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler"};
+//			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler", "-insitu"};
 //			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler", "-insitu", "-extractSpecProperies"};
 		}
 		if (args.length == 0) {
-			System.out.println("format: java -jar ICLDOICrawler.jar <doi> <outputdir> <options>\nwhere <doi> is like \"10.14469/hpc/14635\",\nand options include one or more of: -insitu, -extractSpecProperties");
+			System.out.println("format: java -jar ICLDOICrawler.jar <doi> <outputdir> <options>\nwhere <doi> is like \"10.14469/hpc/14635\",\nand <options> include one or more of:\n -insitu (to add images to finding aid)\n -extractSpecProperties (download files and carry out metadata extraction)");
 			return;
 		}
 		String strArgs = Arrays.toString(args);
