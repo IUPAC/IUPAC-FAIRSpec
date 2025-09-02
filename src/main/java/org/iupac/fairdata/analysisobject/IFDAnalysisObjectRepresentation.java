@@ -12,8 +12,8 @@ abstract public class IFDAnalysisObjectRepresentation extends IFDRepresentation 
 		return repNames;
 	}
 
-	public IFDAnalysisObjectRepresentation(IFDReference ref, Object data, long len, String type, String subtype) {
-		super(ref, data, len, type, subtype);
+	public IFDAnalysisObjectRepresentation(IFDReference ref, Object data, long len, String type, String mediaType) {
+		super(ref, data, len, type, mediaType);
 	}
 
 }

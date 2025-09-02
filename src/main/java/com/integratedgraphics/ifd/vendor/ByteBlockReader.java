@@ -29,17 +29,17 @@ public class ByteBlockReader {
 	/**
 	 * set to true for debugging
 	 */
-	public static boolean testing = false;
+	public static boolean testing = true;//false;
 
 	/**
 	 * when testing, show integers read
 	 */
-	public static boolean showInts = false;
+	public static boolean showInts = true;
 
 	/**
 	 * when testing, show the characters associated with integers
 	 */
-	public static boolean showChars = false;
+	public static boolean showChars = true;
 
 	/**
 	 * must be able to use available() -- so not http or https

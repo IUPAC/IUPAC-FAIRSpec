@@ -11,10 +11,10 @@ public class IFDStructureRepresentation extends IFDRepresentation {
 	 * @param data
 	 * @param len
 	 * @param ifdStructureType
-	 * @param mediatype
+	 * @param mediaType
 	 */
-	public IFDStructureRepresentation(IFDReference ref, Object data, long len, String ifdStructureType, String mediatype) {
-		super(ref, data, len, ifdStructureType, mediatype);
+	public IFDStructureRepresentation(IFDReference ref, Object data, long len, String ifdStructureType, String mediaType) {
+		super(ref, data, len, ifdStructureType, mediaType);
 	}
 
 	/**

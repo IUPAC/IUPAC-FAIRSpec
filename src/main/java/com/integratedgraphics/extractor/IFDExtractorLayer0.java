@@ -29,14 +29,6 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 abstract class IFDExtractorLayer0 extends FindingAidCreator {
 
 	/**
-	 * a key for the deferredObjectList that flags a structure with a spectrum;
-	 * needs attention, as this was created prior to the idea of a compound
-	 * association, and it presumes there are no such associations.
-	 * 
-	 */
-	public static final String NEW_PAGE_KEY = "*NEW_PAGE*";
-
-	/**
 	 * "." here is the Eclipse project extract/ directory
 	 * 
 	 */

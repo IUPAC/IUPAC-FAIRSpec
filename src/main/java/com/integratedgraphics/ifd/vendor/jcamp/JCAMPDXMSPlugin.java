@@ -54,7 +54,7 @@ public class JCAMPDXMSPlugin extends JCAMPDXIFDVendorPlugin implements JCAMPPlug
 
 	@Override
 	public String getVendorName() {
-		return "JCAMP-DX(MS)";
+		return "JCAMP-DX/MS";
 	}
 
 	@Override

@@ -404,10 +404,10 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		currentStructure = new IFDStructure();
 		if (id != null)
 			currentStructure.setID(id);
-		System.out.println("FAHelper creating structure " + currentStructure);
+		//System.out.println("FAHelper creating structure " + currentStructure);
 		if (thisCompound != null) {
 			thisCompound.addStructure(currentStructure);
-			System.out.println("FAHelper adding new structure to compound " + thisCompound);
+			//System.out.println("FAHelper adding new structure to compound " + thisCompound);
 		}
 		getStructureCollection().add(currentStructure);
 		return currentStructure;
@@ -419,7 +419,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			long len, String ifdStructureType, String mediatype) {
 		if (currentStructure == null)
 			currentStructure = createStructure(null);
-		System.out.println("FAHelper adding structure rep to " + currentStructure + ":" + ref);
+		//System.out.println("FAHelper adding structure rep to " + currentStructure + ":" + ref);
 		IFDStructureRepresentation r = (IFDStructureRepresentation) findOrAddRepresentation(key, currentStructure, null, null, null, ref == null ? null : ref.getLocalName(), data, null);
 		if (data == null) {
 			r.getRef().setDOI(ref.getDOI());
@@ -450,7 +450,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			System.out.println("no data object for " + ref);
 			return null;
 		}
-		System.out.println("FAHelper adding data rep to " + currentDataObject + ":" + ref);
+		//System.out.println("FAHelper adding data rep to " + currentDataObject + ":" + ref);
 		IFDDataObjectRepresentation r = (IFDDataObjectRepresentation) findOrAddRepresentation(null, currentDataObject, null, null, null, ref == null ? null : ref.getLocalName(), data, null);
 		r.setRef(ref);
 		r.setMediaType(mediatype);
@@ -519,15 +519,18 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		if (t == null) {
 			t = new long[3];
 		}
+		System.out.println("FAH.ser1 " + targetDir);
 		t[0] = System.currentTimeMillis();
 		String serializedFindingAid = serializer.serialize(findingAid).toString();
+		System.out.println("FAH.ser2 " + serializedFindingAid.length());
 		t[0] = System.currentTimeMillis() - t[0];
-		
+	
 		if (targetDir == null)
 			return serializedFindingAid;
 		
 		String aidName = "IFD" + IFDConst.IFD_FINDINGAID_FLAG + serializer.getFileExt();
 		String faPath = targetDir.toString().replace('\\', '/') + "/" + aidName;
+		System.out.println("FAH.ser3 " + faPath);
 		FAIRSpecUtilities.writeBytesToFile(serializedFindingAid.getBytes(), new File(faPath));
 		System.out.println("created " + faPath);
 		if (products != null) {
@@ -632,8 +635,11 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	 */
 	@Override
 	public String generateFindingAid(File fileDir) throws IOException {
+		System.out.println("FAH.genFA1");
 		finalizeCollections();
+		System.out.println("FAH.genFA2");
 		finalizeCollectionSet(null);
+		System.out.println("FAH.genFA3");
 		return createSerialization(fileDir, null, null, null);
 	}
 

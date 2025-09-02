@@ -43,8 +43,9 @@
 	  	<delete includeemptydirs="true">
 		      <fileset dir="${appjars.dir}" includes="**/*"/>
 		</delete>
+        <echo>unjar CDK after jmol because JNA-InChI-1.4 in CDK uses old uk.ac.ebi.beam classes</echo>
+        <unjar dest="${appjars.dir}" src="${lib.dir}/${jmol.jar}"/>
         <unjar dest="${appjars.dir}" src="${lib.dir}/${cdk.jar}"/>
-	    <unjar dest="${appjars.dir}" src="${lib.dir}/${jmol.jar}"/>
 		<unjar dest="${appjars.dir}" src="${lib.dir}/${commons-compress.jar}"/>
 		<unjar dest="${appjars.dir}" src="${lib.dir}/${commons-io.jar}"/>
 	  </target>
@@ -67,7 +68,7 @@
 	        </fileset>
 	      </copy>
 	    </target>
-	    
+	     
 
 	  <target name="jar" id="jar"
 	          depends="classes,libjars">
@@ -76,13 +77,16 @@
 	      <fileset dir="${classes.dir}" >
 	        <include name="**/*" />
 	      </fileset>
-	      <fileset dir="${appjars.dir}" includes="**/*"/>
+	      <fileset dir="${appjars.dir}">
+            <include name="**/*" />
+          </fileset>
 	    </jar>
 	  	<echo>build/${application}.jar created (unsigned)</echo>
 	  	<copy file="build/${application}.jar" tofile="dist/${application}.jar" />
-	  	<delete includeemptydirs="true">
+<!--	  	<delete includeemptydirs="true">
 		      <fileset dir="${appjars.dir}" includes="**/*"/>
 		</delete>
+!-->
 	  </target>
 
   <target name="main" id="main" depends="jar"/>

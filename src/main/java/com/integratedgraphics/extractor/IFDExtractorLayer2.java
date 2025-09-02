@@ -39,6 +39,8 @@ import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.dataobject.IFDDataObject;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
+import org.iupac.fairdata.extract.DefaultStructureHelper.StructureData;
+import org.iupac.fairdata.extract.MetadataReceiverI;
 import org.iupac.fairdata.extract.PropertyManagerI;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.structure.IFDStructure;
@@ -190,7 +192,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * a list of properties that vendors have indicated need addition, keyed by the
 	 * zip path for the resource
 	 */
-	private List<Object[]> deferredPropertyList;
+	private List<MetadataReceiverI.DeferredProperty> deferredPropertyList;
 
 	/**
 	 * an insertion pointer into the deferredPropertyList;
@@ -683,7 +685,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	private void addProperties(List<IFDProperty> props) {
 		for (int i = 0, n = props.size(); i < n; i++) {
 			IFDProperty p = props.get(i);
-			addDeferredPropertyOrRepresentation(p.getName(), p.getValue(), false, null, null, null);
+			addDeferredPropertyOrRepresentation(new MetadataReceiverI.DeferredProperty(p.getName(), p.getValue()));
 		}
 	}
 
@@ -957,9 +959,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			if (this.localizedName == null || isMultiple)
 				this.localizedName = localizedName;
 			if (isMultiple) {
-				addDeferredPropertyOrRepresentation(NEW_PAGE_KEY, new Object[] {
-						(obj.getIDorIndex().endsWith("/" + thisDir) ? null : "_" + thisDir), obj, localizedName }, false, null,
-						null, "P2 rezip");
+				addDeferredPropertyOrRepresentation(MetadataReceiverI.DeferredProperty.newPage((obj.getIDorIndex().endsWith("/" + thisDir) ? null : "_" + thisDir), obj, localizedName));
 			}
 		} else {
 			newDir += "/";
@@ -1060,8 +1060,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				typeData[0] = (isBytesOnly ? null : localName);
 				typeData[1] = bytes;
 				// extract this file into the collection
-				addDeferredPropertyOrRepresentation(key, (isBytesOnly || isInlineBytes ? typeData : localName),
-						isInlineBytes || insitu, null, null, "P2c rezipTD");
+				DeferredProperty dp = new DeferredProperty(key, (isBytesOnly || isInlineBytes ? typeData : localName));
+				dp.isInline = (isInlineBytes || insitu);
 			}
 		}
 		rezipVendor.endDataSet();
@@ -1094,7 +1094,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @param m
 	 * @return
 	 */
-	private String phase2cGetParamName(Matcher m) {
+	private String phase2cGetParamName(Matcher m){
 		try {
 			if (cachePatternHasVendors)
 				return m.group("param");
@@ -1123,23 +1123,23 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		String pageCompoundID = null;
 		boolean cloning = false;
 		for (int i = 0, n = deferredPropertyList.size(); i < n; i++) {
-			Object[] a = deferredPropertyList.get(i);
-			if (a == null) {
+			MetadataReceiverI.DeferredProperty dp = deferredPropertyList.get(i);
+			if (dp == null) {
 				sample = null;
 				cloneOriginObject = null;
 				continue;
 			}
 			assoc = null;
-			String originPath = (String) a[0];
-			String localizedName = (String) a[1];
-			String key = (String) a[2];
-			Object value = a[3];
-			boolean isInline = (a[4] == Boolean.TRUE);
+			final String originPath = dp.originPath;//a[0]
+			String localizedName = dp.localizedName;//a[1]
+			final String key = dp.key;//a[2];
+			Object value = dp.value;//a[3];
+			boolean isInline = dp.isInline;//(a[4] == Boolean.TRUE);
 			switch (key) {
 			case NEW_RESOURCE_KEY:
-				initializeResource((ExtractorResource) value, false);
+				initializeResource(dp.resource, false);
 				continue;
-			case NEW_PAGE_KEY:
+			case DeferredProperty.NEW_PAGE_KEY:
 				pageCompoundID = null;
 				thisPageInvalidatedStructureRepKey = null;
 				if (value == IFDProperty.NULL) {
@@ -1155,15 +1155,10 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					pageCompoundID = inferCompoundID((String) value);
 				continue;
 			}
-			boolean isStructureHelperStructureKey = key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY);
-			boolean isRep = IFDConst.isRepresentation(key);
-			boolean isStructureRep = (isRep && IFDConst.isStructure(key));
-			boolean isWritableRepresentation = (isRep && !isInline && value instanceof Object[]);
 			String type = FAIRSpecFindingAidHelper.getObjectTypeForPropertyOrRepresentationKey(key, true);
 			boolean isSample = (type == FAIRSpecFindingAidHelper.ClassTypes.Sample);
-			boolean isStructure = (type == FAIRSpecFindingAidHelper.ClassTypes.Structure);
 			if (isSample) {
-				sample = faHelper.getSampleByName((String) value);
+				sample = faHelper.getSampleByName(dp.sampleName);
 				continue;
 			}
 			// note that MNOVA here would be the same as previous.
@@ -1180,14 +1175,12 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				// this is a second -- get first
 				spec = phase2dGetClonedData(spec);
 			}
-
 			if (spec == null && !cloning) {
-				// if (!isWritableRepresentation) {
 				// just here to notify of an issue
 				logDigitalItemIgnored(originPath, localizedName, "no spec data to associate this structure with", "processDeferredObjectProperties");
 				continue;
-				// }
 			}
+			
 			if (spec instanceof IFDStructure) {
 				struc = (IFDStructure) spec;
 				spec = null;
@@ -1200,17 +1193,19 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				if (label != null && label.startsWith("Structure_"))
 					struc = null;
 			}
+			boolean isRep = IFDConst.isRepresentation(key);
 			if (isRep) {
+				boolean isWritableRepresentation = (!isInline && value instanceof StructureData);
 				// from reportVendor-- Bruker adds this for thumb.png and pdf files.
 				// Mestrec will add #page1.cdx or #page1.mol
 				Object data = null;
-				String mediaType = (String) a[5];
-				String note = (String) a[6];
+				String mediaType = dp.mediaType;//(String) a[5];
+				String note = dp.note;//(String) a[6];
 				if (isWritableRepresentation) {
 					// from DefaultStructureHelper - a PNG version of a CIF file, for example.
-					Object[] oval = (Object[]) value;
-					byte[] bytes = (byte[]) oval[0];
-					String oPath = (String) oval[1];
+					StructureData sd = (StructureData) value;
+					byte[] bytes = sd.bytes;
+					String oPath = sd.originPath;
 					String localName = localizePath(oPath);
 					if (thisPageInvalidatedStructureRepKey != null && localName.startsWith(thisPageInvalidatedStructureRepKey)) {
 						// "NMR DATA/product/3a-H.mnova#page1.cdx.mol"
@@ -1232,16 +1227,17 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				}
 				String keyPath = null;
 				if (isInline) {
-					if (value instanceof Object[]) {
+					if (value instanceof String) {
+						data = value;						
+					} else {
 						keyPath = ((Object[]) value)[0].toString();
 						data = ((Object[]) value)[1];
-					} else {
-						data = value;
 					}
 				} else {
 					keyPath = value.toString();
 				}
 				// note --- not allowing for AnalysisObject or Sample here
+				boolean isStructureRep = (isRep && IFDConst.isStructure(key));
 				if (isStructureRep && struc == null) {
 					struc = helper.addStructureForSpec(extractorResource.rootPath, (IFDDataObject) spec, key,
 							originPath, localizePath(keyPath), null);
@@ -1258,7 +1254,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 
 			// properties only
-			if (cloning && key == NEW_PAGE_KEY) {
+			if (cloning && key == DeferredProperty.NEW_PAGE_KEY) {
 				String newLocalName = null;
 				boolean removeAllRepresentations = false;
 				boolean replaceOld = true;
@@ -1277,15 +1273,15 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 						}
 				} else if (value instanceof Object[]) {
 					// e.g. Bruker created a new object from multiple <n>/ directories
-					a = (Object[]) value;
+					Object[] a = (Object[]) value;
 					value = (String) a[0];
 					IFDDataObject sp = (IFDDataObject) a[1];
+					newLocalName = (String) a[2];
 					removeAllRepresentations = true;
 					replaceOld = sp.isValid(); // will be true first time only
 					specToClone = localSpec = sp;
-					newLocalName = (String) a[2];
 				} else {
-					System.out.println("L2 ???? How can this be??");
+					System.out.println("L2 ? How can this be??");
 				}
 				
 				String idExtension = (String) value;
@@ -1340,18 +1336,22 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				}
 				continue;
 			}
+			boolean isStructureHelperStructureKey = key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY);
 			if (isStructureHelperStructureKey) {
 				// _struc.cdx,png,mol
 				// e.g. extracted xxxx/xxx#page1.mol
-				Object[] oval = (Object[]) value;
-				byte[] bytes = (byte[]) oval[0];
-				String oPath = (String) oval[1];
+				StructureData sd = (StructureData) value;
+				byte[] bytes = sd.bytes;
+				String oPath = sd.originPath;
 				String localName = localizePath(oPath);
-				String ifdRepType = (oval.length > 2 ? (String) oval[2] : null);
-				if (ifdRepType == null)
+				String inchi = sd.standardInChI;
+				String name = null;
+				String ifdRepType = sd.type;
+				if (ifdRepType == null) {
 					ifdRepType = DefaultStructureHelper.getType(key.substring(key.lastIndexOf(".") + 1), bytes, true);
-				String name = (oval.length > 2 ? null : phase2dGetStructureNameFromPath(oPath));
-				String inchi = (oval.length > 3 ? (String) oval[3] : null);
+				} else {
+					name = phase2dGetStructureNameFromPath(oPath);
+				}
 				// use the byte[] for the structure as a unique identifier.
 				AWrap w = new AWrap();
 				struc = getCachedStructure(w, bytes, inchi);
@@ -1409,6 +1409,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				continue;
 			}
 			// just a property
+			boolean isStructure = (type == FAIRSpecFindingAidHelper.ClassTypes.Structure);
 			if (isStructure) {
 				if (struc == null) {
 					logErr("No structure found for " + lastLocal + " " + key, "processDeferredObjectProperies");
@@ -1529,7 +1530,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	public void addProperty(String key, Object val) {
 		if (val != IFDProperty.NULL)
 			log(this.localizedName + " addProperty " + key + "=" + val);
-		addDeferredPropertyOrRepresentation(key, val, false, null, null, "L0 vndaddprop");
+		addDeferredPropertyOrRepresentation(new DeferredProperty(key, val));
 	}
 
 	/**
@@ -1558,31 +1559,28 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 *                  saved only in the finding aid (InChI, SMILES, InChIKey)
 	 */
 	@Override
-	public void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInline, String mediaType,
-			String note, String method) {
-		
-		//System.out.println("L2 adddef >>>" +key + " src=" + method + " " + val);
-		if (key == null) {
+	public void addDeferredPropertyOrRepresentation(DeferredProperty p) {
+		if (p == null) {
 			deferredPropertyList.add(deferredPropertyPointer++, null);
 			return;
 		}
+		p.originPath = originPath;
+		p.localizedName = localizedName;
+		p.resource = extractorResource;
 		deferredPropertyList
-				.add(deferredPropertyPointer++, new Object[] { originPath, localizedName, key, val, Boolean.valueOf(isInline), mediaType, note, method });
-		if (key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
+				.add(deferredPropertyPointer++, p);
+		if (p.key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
 			// Phase 2a has identified a structure before a compound has been established in Phase 2b.
 			// Mestrelab vendor plug-in has found a MOL or SDF file in Phase 2b.
 			
 			// val is Object[] {byte[] bytes, String name}
 			// Pass data to structure property manager in order
 			// to add (by coming right back here) InChI, SMILES, and InChIKey.
-			Object[] oval = (Object[]) val;
-			byte[] bytes = (byte[]) oval[0];
-			String name = (String) oval[1]; // must not be null
-			String type = (oval.length > 2 ? (String) oval[2] : null);
-			String standardInChI = (oval.length > 3 ? (String) oval[3] : null);
-			standardInChI = getStructurePropertyManager().processStructureRepresentation(name, bytes, type, standardInChI, false, true);
+			StructureData sd = (StructureData) p.value;
+			String standardInChI = getStructurePropertyManager().processStructureRepresentation(
+					sd.originPath, sd.bytes, sd.type, sd.standardInChI, false, true);
 			if (standardInChI != null) {
-				oval[3] = standardInChI;
+			  sd.standardInChI = standardInChI;
 			}
 		}
 	}
@@ -1706,11 +1704,10 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		}
 		lstManifest = resource.lstManifest;
 		lstIgnored = resource.lstIgnored;
-		if (faHelper.getCurrentSource() != faHelper.addOrSetSource(resource.getRemoteSource(), resource.rootPath)) {
-			if (isInit)
-				addDeferredPropertyOrRepresentation(NEW_RESOURCE_KEY, resource, false, null, null, null);
-		}
+		boolean addProp = ((faHelper.getCurrentSource() != faHelper.addOrSetSource(resource.getRemoteSource(), resource.rootPath)) && isInit);
 		extractorResource = resource;
+		if (addProp)
+			addDeferredPropertyOrRepresentation(new DeferredProperty(NEW_RESOURCE_KEY, null));
 
 		// only used for logging:
 		thisRootPath = resource.rootPath;

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.MetadataReceiverI;
@@ -219,7 +220,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			return processAudit(map, isProc);
 		}
 		if (isAcqus) {
-			return processAcqus(map);
+			return processAcqus(map, bytes);
 		}
 		if (originPath.endsWith("acqu2s")) {
 			report("DIM", spec.dim = "2D");
@@ -259,10 +260,23 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		return false;
 	}
 
-	private boolean processAcqus(Map<String, String> map) {
+	private boolean processAcqus(Map<String, String> map, byte[] bytes) {
 		String date = map.get("##$DATE");
-		if (date != null)
-			dataObjectLongID = Long.valueOf(date);
+		if (date != null) {
+			setDataObjectTimeID(date, true);
+			date = (bytes.length < 1000 ? null : new String(bytes, 0, 1000));
+			if (date != null) {
+				date = date.substring(date.indexOf("##OWNER") + 1);
+				date = date.substring(date.indexOf("$$ ") + 1);
+				date = date.substring(0, date.indexOf("  ") + 1).trim();
+				date = date.substring(date.lastIndexOf(' ') + 1);
+				setDataObjectLocalTimeOffset(date);
+			}
+			addSpecDateTimeIDs();			
+//			##OWNER= nmrsu
+//			$$ 2023-07-09 15:48:49.632 +0100  nmrsu@CZC7167VR1
+
+		}
 		if (spec.solvent == null) {
 			// procs must have been processed already
 			spec.solvent = processString(map, "##$SOLVENT", null);

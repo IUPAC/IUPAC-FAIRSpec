@@ -11,8 +11,8 @@ import org.iupac.fairdata.core.IFDRepresentation;
  */
 public class IFDSampleRepresentation extends IFDRepresentation {
 
-	public IFDSampleRepresentation(IFDReference ref, Object data, long len, String type, String subtype) {
-		super(ref, data, len, type, subtype);
+	public IFDSampleRepresentation(IFDReference ref, Object data, long len, String type, String mediaType) {
+		super(ref, data, len, type, mediaType);
 	}
 
 }

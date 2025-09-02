@@ -11,7 +11,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.core.IFDProperty;
+import org.iupac.fairdata.extract.MetadataReceiverI.DeferredProperty;
 import org.jmol.api.JmolViewer;
 import org.jmol.util.DefaultLogger;
 import org.jmol.viewer.Viewer;
@@ -38,6 +38,24 @@ public class DefaultStructureHelper implements PropertyManagerI {
 
 	private static final String defaultStructureFilePattern = IFDConst.getProp("IFD_DEFAULT_STRUCTURE_FILE_PATTERN");;
 
+	public static class StructureData {
+		public byte[] bytes;
+		public String originPath;
+		public String type;
+		public String standardInChI;
+		public String mediaType;
+		public String cssData;
+
+		public StructureData(byte[] bytes, String originPath, String type, String standardInChI, String mediaType, String cssData) {
+			this.bytes = bytes;
+			this.originPath = originPath;
+			this.type = type;
+			this.standardInChI = standardInChI;
+			this.mediaType = mediaType;
+			this.cssData = cssData;
+		}
+
+	}
 	/**
 	 * the associated extractor
 	 */
@@ -102,24 +120,24 @@ System.out.println("DFH " + bytes.length + " " + originPath);
 
 	String jmolVersion = null;
 
-	public static final String PNG_FILE_DATA = "_struc.png";
-
-	public static final String MOL_FILE_DATA = "_struc.mol";
-
-	public static final String CDX_FILE_DATA = "_struc.cdx";
-
-	public static final String CDXML_FILE_DATA = "_struc.cdxml";
-
-	public static final String CIF_FILE_DATA = "_struc.cif";
-
-	public static final String CML_FILE_DATA = "_struc.cml";
-
-
 	/**
 	 * create associations using ID rather than index numbers
 	 */
 	
 	public static final String STRUC_FILE_DATA_KEY = "_struc.";
+
+	public static final String PNG_FILE_DATA = STRUC_FILE_DATA_KEY + "png";
+
+	public static final String MOL_FILE_DATA = STRUC_FILE_DATA_KEY + "mol";
+
+	public static final String CDX_FILE_DATA = STRUC_FILE_DATA_KEY + "cdx";
+
+	public static final String CDXML_FILE_DATA = STRUC_FILE_DATA_KEY + "cdxml";
+
+	public static final String CIF_FILE_DATA = STRUC_FILE_DATA_KEY + "cif";
+
+	public static final String CML_FILE_DATA = STRUC_FILE_DATA_KEY + "cml";
+
 
 	private static final String SMILES = IFDConst.getProp("IFD_REP_STRUCTURE.SMILES");
 	private static final String STANDARD_INCHI = IFDConst.getProp("IFD_REP_STRUCTURE.STANDARD_INCHI");
@@ -179,9 +197,9 @@ System.out.println("DFH " + bytes.length + " " + originPath);
 					// target SMILES, not a substructure smiles.
 					// Targets with aromatic atoms must match aromatic atoms exactly
 					extractor
-							.addDeferredPropertyOrRepresentation(stype,
+							.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(stype,
 									getDeferredObject(bytes, originPath, type, standardInChI, IFDConst.getMediaTypesForExtension(ext)),
-									false, null, warning, "Helper.procRep");
+									false, null, warning));
 					return (returnInChI ? standardInChI : stype);
 				}
 				note = (warning == null ? "generated from " + originPath + " by Jmol " + jmolVersion : warning);
@@ -228,9 +246,9 @@ System.out.println("DFH " + bytes.length + " " + originPath);
 						// issue here is that these may be quite unviewable.
 						mol2d = (String) v.evaluateExpression("write('MOL')");
 						if (mol2d != null && mol2d.indexOf("2D") >= 0)
-							extractor.addDeferredPropertyOrRepresentation(IFDConst.IFD_REP_STRUCTURE_MOL_2D,
+							extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(IFDConst.IFD_REP_STRUCTURE_MOL_2D,
 									getDeferredObject(mol2d.getBytes(), originPath + ".mol" , null, standardInChI, null), false,
-									"chemical/x-mdl-molfile", note, null);
+									"chemical/x-mdl-molfile", note));
 					}
 //					if (is2D) {
 //						JMEJmol jme = (JMEJmol) org.jmol.api.Interface.getInterface("jme.JMEJmol", v, "FAIRSpec");
@@ -257,38 +275,35 @@ System.out.println("DFH " + bytes.length + " " + originPath);
 				e.printStackTrace();
 			}
 			if (standardInChI != null && !"?".equals(standardInChI)) {
-				extractor.addDeferredPropertyOrRepresentation(STANDARD_INCHI, standardInChI, true, "chemical/x-inchi",
-						note, null);
+				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(STANDARD_INCHI, standardInChI, true, "chemical/x-inchi",
+						note));
 				if (fixedhInchi != null) {
-					extractor.addDeferredPropertyOrRepresentation(FIXEDH_INCHI, fixedhInchi, true, "chemical/x-inchi",
-							note, null);
+					extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(FIXEDH_INCHI, fixedhInchi, true, "chemical/x-inchi",
+							note));
 				}
 				if (inchiKey != null) {
-					extractor.addDeferredPropertyOrRepresentation(INCHIKEY, inchiKey, true, "chemical/x-inchikey", null,
-							null);
+					extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(INCHIKEY, inchiKey, true, "chemical/x-inchikey", null));
 				}
 			} else {
 				standardInChI = null;
 			}
 			if (smiles != null) {
-				extractor.addDeferredPropertyOrRepresentation(SMILES, smiles, true, "chemical/x-smiles", note, null);
+				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(SMILES, smiles, true, "chemical/x-smiles", note));
 			}
 			// .getFileType(Rdr.getBufferedReader(Rdr.getBIS(bytes), null));
 			if (bytes != null) {
-				extractor.addDeferredPropertyOrRepresentation(IFDConst.IFD_REP_STRUCTURE_PNG,
+				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(IFDConst.IFD_REP_STRUCTURE_PNG,
 						getDeferredObject( bytes, originPath + ".png", IFDConst.IFD_REP_STRUCTURE_PNG, standardInChI, "image/png"),
-						false, "image/png", note, null);
+						false, "image/png", note));
 			}
 			if (molecularFormula != null) {
-				extractor.addDeferredPropertyOrRepresentation(MOLECULAR_FORMULA, molecularFormula, true, null, note,
-						null);
+				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(MOLECULAR_FORMULA, molecularFormula, true, null, note));
 			}
 			if (empiricalFormula != null) {
-				extractor.addDeferredPropertyOrRepresentation(EMPIRICAL_FORMULA, empiricalFormula, true, null, note,
-						null);
+				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(EMPIRICAL_FORMULA, empiricalFormula, true, null, note));
 			}
 			if (cellFormula != null) {
-				extractor.addDeferredPropertyOrRepresentation(CELL_FORMULA, cellFormula, true, null, note, null);
+				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(CELL_FORMULA, cellFormula, true, null, note));
 			}
 		}
 		fileToType.put(originPath, type);
@@ -318,7 +333,7 @@ System.out.println("DFH " + bytes.length + " " + originPath);
 //		mArea.paint(bi.getGraphics());
 //		ImageIO.write(bi, "png", os);
 //	}
-
+	
 	/**
 	 * 
 	 * @param bytes
@@ -328,10 +343,10 @@ System.out.println("DFH " + bytes.length + " " + originPath);
 	 * @param mediaType
 	 * @return
 	 */
-	private static Object[] getDeferredObject(byte[] bytes, String originPath, String type, String standardInChI,
+	private static StructureData getDeferredObject(byte[] bytes, String originPath, String type, String standardInChI,
 			String mediaType) {
-		return new Object[] { bytes, originPath, type, 
-				(standardInChI == null ? "?" : standardInChI), mediaType};
+		return new StructureData(bytes, originPath, type, 
+				(standardInChI == null ? "?" : standardInChI), mediaType, null);
 	}
 
 	/**

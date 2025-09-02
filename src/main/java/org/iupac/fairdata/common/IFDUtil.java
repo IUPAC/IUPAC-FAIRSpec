@@ -17,7 +17,12 @@ public class IFDUtil {
 			return id + "__________";
 		String sval = "" + val;
 		sval = ("0000000000" + sval).substring(sval.length());
-		return id.substring(0, ret[0]) + sval + id.substring(ret[1]);
+		String sval1 = id.substring(ret[1]);
+		int n = sval1.length();
+		if (n < 20)
+			sval1 += "                    ".substring(0, 20 - n);
+		sval = id.substring(0, ret[0]) + sval + sval1;
+		return sval;
 	}
 	
 //	static {
@@ -108,6 +113,8 @@ public class IFDUtil {
 			}
 			id += c;			
 		}
+		if (!haveInt && val > 0)
+			id = "" + val;
 		return id;
 	}
 

@@ -3,7 +3,6 @@ package com.integratedgraphics.ifd.vendor.mestrelab;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,10 +10,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
+import org.iupac.fairdata.extract.DefaultStructureHelper.StructureData;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.extractor.IFDExtractor;
@@ -34,14 +33,16 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 
 	private String mnovaVersion;
 
-	private class Globals {
+	@SuppressWarnings("serial")
+	private static class PageGlobals extends LinkedHashMap<String, Object> {
 		
-		private String pngcss;
-		private boolean isJDF;
+		private String pngcss; // For what??
+		private boolean isJDF; 
 		private String nuc1;
 		private VendorUtils.DoubleString freq;
 		private String origin;
 		public int dim = 1;
+		public long localTimeID;
 
 		private String setOrigin(String val) {
 			origin = FAIRSpecUtilities.rep(val, "\n", " ").trim();
@@ -51,11 +52,9 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 			return origin;
 		}
 	}
-	
-	private Globals pageGlobals = new Globals();
-	
-	private Map<String, Object> params;
 
+	private PageGlobals pageGlobals;
+	
 	private int page = 0;
 
 	private String originPath;
@@ -63,7 +62,8 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	/**
 	 * each page maintains its own set of data to pass back to the extractor
 	 */
-	private List<Map<String, Object>> pageList;
+	private List<PageGlobals> pageList;
+	
 
 	static {
 		String[] keys = { //
@@ -96,7 +96,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 		MNovaMetadataReader reader;
 		try {
 			page = 0;
-			params = null;
+			pageGlobals = null;
 			pageList = new ArrayList<>();
 			reader = new MNovaMetadataReader(this, bytes);
 			this.originPath = originPath;
@@ -111,20 +111,24 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 				int nPages = pageList.size();
 				boolean sendNewPage = (nPages > 1);
 				for (int i = 0; i < nPages; i++) {
-					Map<String, Object> params = pageList.get(i);
+					PageGlobals pageGlobals = pageList.get(i);
 					reportVendor(); // really? Before start of pages? 
-					for (Entry<String, Object> p : params.entrySet()) {
+					for (Entry<String, Object> p : pageGlobals.entrySet()) {
 						String key = p.getKey();
-						boolean isNewPage = key.equals(IFDExtractor.NEW_PAGE_KEY);
+						boolean isNewPage = key.equals(MetadataReceiverI.DeferredProperty.NEW_PAGE_KEY);
 						boolean isSpecialKey = key.startsWith("_");
 						// the only special key we send 
 						if (isSpecialKey ? key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)
 								: sendNewPage || !isNewPage)
 							report(key, p.getValue());
+						if (isNewPage && pageGlobals.localTimeID != 0) {
+							setDataObjectLocalTimeID(pageGlobals.localTimeID);
+							addSpecDateTimeIDs();
+						}							
 					}
 				}
 				close();
-				report(IFDExtractor.NEW_PAGE_KEY, IFDProperty.NULL);
+				report(MetadataReceiverI.DeferredProperty.NEW_PAGE_KEY, IFDProperty.NULL);
 				return getVendorDataSetKey();
 			}
 		} catch (IOException e) {
@@ -135,7 +139,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 
 	@Override
 	public String getVendorName() {
-		return (pageGlobals.origin == null ? "" : pageGlobals.origin + "/") + "Mestrelab";
+		return (pageGlobals == null || pageGlobals.origin == null ? "" : pageGlobals.origin + "/") + "Mestrelab";
 	}
 
 	@Override
@@ -145,14 +149,13 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 
 
 	/**
-	 * Handle the parameters coming from the reader. 
+	 * Handle the parameters coming from the reader.
 	 * 
 	 * @param key
 	 * @param oval
 	 * @param param1
 	 * @param param2
 	 */
-	@SuppressWarnings("deprecation")
 	void addParam(String key, Object oval, Param param1, Param param2) {
 		if (param1 != null)
 			oval = (param1.value == null || param1.value.length() == 0 ? param1.calc : param1.value);
@@ -176,6 +179,8 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 					oval = pageGlobals.setOrigin(val);
 					break;
 				case "Acquisition Date":
+					// unfortunately, this date is not GMT. 
+					// Bruker and JDX from Mestrelab are GMT.
 					// 2022-07-23T17:32:00
 					// same as jdx .longdate (which Bruker does not include)
 					// timestamp from longdate, truncated to the minute
@@ -184,14 +189,8 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 					System.out.println(">>" + originPath);
 					System.out.println(">>" + oval);
 					// 2022-01-25T00:55:28
-					long longDate = Instant.parse(oval.toString() + "Z").toEpochMilli();
-					dataObjectLongID = Long.valueOf(longDate/1000);
-					params.put(FAIRSpecExtractorHelper.SPEC_LONGDATE_ID, new Long(longDate/1000));
-					System.out.println(">>##$DATE=" + longDate/1000);
-					// 1643072128
-					// 2147483647 is the Jan 18, 2038
-					System.out.println(">>" + new Date(longDate).toGMTString());
-					// 25 Jan 2022 00:55:28 GMT
+					// have to use Z here, but it is local time
+					pageGlobals.localTimeID = Instant.parse(oval.toString() + "Z").toEpochMilli() / 1000;
 					break;
 				case "Comment":
 					propName = "TITLE";
@@ -223,21 +222,21 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 					float f = Float.parseFloat(val);
 					if (pageGlobals.isJDF) {
 						// JDF temp is oC not K from MNOVA
-						val = "" +(f + 273.15);
+						val = "" + (f + 273.15);
 					}
 					oval = new VendorUtils.FloatString(val);
 					break;
 				case "Nucleus":
 					pageGlobals.nuc1 = val;
 					if (param2 != null) {
-						params.put("Nucleus2", param2.value);
+						pageGlobals.put("Nucleus2", param2.value);
 					}
 					break;
 				case "Spectrometer Frequency":
 					pageGlobals.freq = new VendorUtils.DoubleString(val);
 					oval = pageGlobals.freq;
 					if (param2 != null) {
-						params.put("Spectrometer Frequency2", new VendorUtils.DoubleString(param2.value));
+						pageGlobals.put("Spectrometer Frequency2", new VendorUtils.DoubleString(param2.value));
 					}
 					break;
 				case "Spectrum Quality":
@@ -273,23 +272,28 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 		}
 		if (oval == null)
 			return;
+		String structureType = null;
 		switch (key) {
 		case DefaultStructureHelper.PNG_FILE_DATA:
-			oval = new Object[] { oval, originPath + "#page" + page + ".png", pageGlobals.pngcss };
+			structureType = ".png";
 			break;
 		case DefaultStructureHelper.CDX_FILE_DATA:
-			oval = new Object[] { oval, originPath + "#page" + page + ".cdx", null, null };
+			structureType = ".cdx";
 			break;
 		case DefaultStructureHelper.CDXML_FILE_DATA:
-			oval = new Object[] { oval, originPath + "#page" + page + ".cdxml", null, null };
+			structureType = ".cdxml";
 			break;
 		case DefaultStructureHelper.MOL_FILE_DATA:
-			oval = new Object[] { oval, originPath + "#page" + page + ".mol", null, null };
+			structureType = ".mol";
 			break;
 		}
-		if (propName != null)
-			params.put(ifdMap.get(propName), oval);
-		params.put(key, oval);
+		if (structureType != null) {
+			oval = new StructureData((byte[]) oval, originPath + "#page" + page + structureType, null, null,
+					FAIRSpecUtilities.mediaTypeFromFileName(structureType), null);
+		} else if (propName != null) {
+			pageGlobals.put(ifdMap.get(propName), oval);
+		}
+		pageGlobals.put(key, oval);
 		System.out.println("----------- MNova page " + page + " " + key + " = " + oval + " was " + key0 + " " + param1
 				+ (param2 == null ? "" : "/ " + param2));
 	}
@@ -306,11 +310,9 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 		this.page = page;
 		finalizeParams();
 		// the reader will be filling in params
-		params = new LinkedHashMap<>();
-		params.put(IFDExtractor.NEW_PAGE_KEY, "_page=" + page);
-		pageGlobals = new Globals();
-		dataObjectLongID = null;
-		pageList.add(params);
+		pageGlobals = new PageGlobals();
+		pageGlobals.put(MetadataReceiverI.DeferredProperty.NEW_PAGE_KEY, "_page=" + page);
+		pageList.add(pageGlobals);
 		System.out.println("MestrelabIFDVendor ------------ page " + page);
 	}
 
@@ -349,13 +351,13 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	private void finalizeParams() {
-		if (params != null && pageGlobals.freq != null) {
+		if (pageGlobals != null && pageGlobals.freq != null) {
 			int f = getNominalFrequency(pageGlobals.freq, pageGlobals.nuc1);
-			params.put("!NF", Integer.valueOf(f));
-			params.put("!DIM", pageGlobals.dim + "D");
-			params.put("mnovaVersion", mnovaVersion);
+			pageGlobals.put("!NF", Integer.valueOf(f));
+			pageGlobals.put("!DIM", pageGlobals.dim + "D");
+			pageGlobals.put("mnovaVersion", mnovaVersion);
 		} 
-		params = null;
+		pageGlobals = null;
 	}
 
 	void setVersion(String mnovaVersion) {

@@ -50,7 +50,7 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader implements NmrMLH
 	public NmrMLJeolAcquStreamReader(byte[] bytes) throws FileNotFoundException, IOException {
 		super(bytes);
 		if (jeolIni == null) {
-			jeolIni = FAIRSpecUtilities.getJSONResource(Acqu.class, "jeol.ini.json");
+			jeolIni = FAIRSpecUtilities.getJSONResource(Acqu.class, "jeol/jeol.ini.json");
 		}
 	}
 
@@ -396,6 +396,7 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader implements NmrMLH
 		int year, month, day;
 
 		//bits: yyyy yyym mmmd dddd tttt tttt tttt tttt
+		//.......3...........2............1............
 		//......1098 7654 3210 9876 5432 1098 7654 3210
 		
 		year = 1990 + (cdt >> 25);

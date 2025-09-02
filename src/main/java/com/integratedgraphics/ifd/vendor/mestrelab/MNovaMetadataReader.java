@@ -1120,7 +1120,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		if (len > 0) {
 			nPNG++;
 			handleFileData(nBlock, DefaultStructureHelper.PNG_FILE_DATA, bytes, readPosition() - len, len, null,
-					IFDConst.IFD_REPRESENTATION_FLAG + "png");
+					null);
 		}
 		seekIn(lastPosition);
 	}
@@ -1377,14 +1377,16 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 */
 	private void test() throws IOException {
 		
-//		extractInts(686811, 3600>>2, "c:/temp/thead");
 		
-		
-		rewindIn();
-
-		testing = true;
-		showInts = false;
-		showChars = true;
+//		
+//		testing = true;
+//		showInts = true;
+//		showChars = true;
+//
+//		rewindIn();
+//		seekIn(24506);
+//		Stack<BlockData> objects = getObjectStack();
+//		testStack(objects);
 
 //		peekIntsAt(2135288-80, 20);
 //		findRef(1984530);
@@ -1392,10 +1394,9 @@ class MNovaMetadataReader extends ByteBlockReader {
 //		checkDoubles(1721418,3,0);
 //
 //		findRef(2135288);
-//		// dumpFileInfo();
-		
-		showInts = false;
-		showChars = false;
+//		dumpFileInfo();
+		showInts = true;
+		showChars = true;
 		testing = false;
 		return;
 	}
@@ -1410,7 +1411,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 
 	static void testAll(String outdir) {
 
-		testFile = testFiles[18];
+		testFile = testFiles[19];
 		createStructureFiles = (testFile != null);
 
 		boolean ok = true;
@@ -1450,6 +1451,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 			/* 16 */ "test/mnova/Substrate_1k.mnova", // Temperature parameter failed 6.1
 			/* 17 */ "test/mnova/Products_3a.mnova", // png failed
 			/* 18 */ "test/mnova/5-H.mnova", // failed
+			/* 19 */ "c:/temp/iupac/henry/Procter/10/10-C/10-C.mnova"
 		};
 
 }

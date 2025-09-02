@@ -43,7 +43,7 @@ import com.integratedgraphics.ifd.api.VendorPluginI;
  */
 public abstract class FindingAidCreator implements MetadataReceiverI {
 
-	public static final String version = "0.1.0-beta+2025.07.24";
+	public static final String version = "0.1.0-beta+2025.09.01";
 	// 2026.07.24 version 0.1.0-beta with FAIRSpec-ready paper
 	// 2025.02.17 version 0.0.7-beta integrates the crawler
 	// 2024.12.02 version 0.0.6 fully refactored, revised; adds creation of landing
@@ -86,7 +86,6 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		VendorPluginI.init();
 	}
 
-	
 	/**
 	 * start-up option to create JSON list for multiple
 	 */
@@ -536,6 +535,8 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	}
 
 	protected void buildSite(File htmlPath) {
+		if (htmlPath == null)
+			htmlPath = targetPath;
 		try {
 			PageCreator.buildSite(htmlPath, true, baseDir, launchLandingPage);
 		} catch (Exception e) {
@@ -801,6 +802,8 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	protected Map<AWrap, IFDStructure> htStructureRepCache;
 
 	protected Set<AWrap> structureCache;
+	public File htmlPath;
+	
 	public static final String CRAWLER_NAME = "CRAWLER.ifdcrawler";
 
 	protected void cacheStructure(AWrap w, IFDStructure struc) {
@@ -886,22 +889,27 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 				e.printStackTrace();
 			}
 		}
+		createExtractorFileJSON();
+	}
+
+	private void createExtractorFileJSON() {
+		File extractorFilePath = (htmlPath == null ? targetPath : htmlPath);
+		boolean useFullPath = (targetPath != htmlPath);
 		String s = "[";
 		for (int i = 0, pt = 0; i < extractorFiles.length; i++) {
 			String name = extractorFiles[i];
 			File f = new File(targetPath, name);
 			if (f.exists()) {
 				s += (pt++ == 0 ? "\n" : ",\n");
-				s += "\"" + name + "\"";
+				s += "\"" + (useFullPath ? "file:///" + f.toString().replace('\\', '/') : name) + "\"";
 			}
 		}
 		s += "\n]";
 		try {
-			writeBytesToFile(s.getBytes(), new File(targetPath, "_IFD_extractor_files.json"));
+			writeBytesToFile(s.getBytes(), new File(extractorFilePath, "_IFD_extractor_files.json"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 

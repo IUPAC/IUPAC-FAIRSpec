@@ -68,6 +68,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 			
 			// grab any remaining representations that should be included 
 			// in the Finding Aid *as well as* in the collection.
+			// also remove all localDir references
 			
 			phase3bUpdateInSitu((IFDCollection<IFDRepresentableObject<?>>) (Object) helper.getStructureCollection());
 			phase3bUpdateInSitu((IFDCollection<IFDRepresentableObject<?>>) (Object) helper.getSpecCollection());
