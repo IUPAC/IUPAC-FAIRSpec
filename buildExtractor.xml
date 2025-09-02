@@ -78,7 +78,7 @@
 	      <fileset dir="${appjars.dir}" includes="**/*"/>
 	    </jar>
 	  	<echo>build/${application}.jar created (unsigned)</echo>
-	  	<copy file="build/${application}.jar" tofile="dist/{application}.jar" />
+	  	<copy file="build/${application}.jar" tofile="dist/${application}.jar" />
 
 <!--	  	<delete includeemptydirs="true">
 		      <fileset dir="${appjars.dir}" includes="**/*"/>
