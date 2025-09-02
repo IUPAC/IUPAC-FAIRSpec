@@ -52,7 +52,7 @@ public class JCAMPDXRAMANPlugin extends JCAMPDXIFDVendorPlugin implements JCAMPP
 
 	@Override
 	public String getVendorName() {
-		return "JCAMP-DX(RAMAN)";
+		return "JCAMP-DX/RAMAN";
 	}
 
 	@Override

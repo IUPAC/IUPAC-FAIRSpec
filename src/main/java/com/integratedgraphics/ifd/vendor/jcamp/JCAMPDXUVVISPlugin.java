@@ -60,7 +60,7 @@ public class JCAMPDXUVVISPlugin extends JCAMPDXIFDVendorPlugin implements JCAMPP
 
 	@Override
 	public String getVendorName() {
-		return "JCAMP-DX(UVVIS)";
+		return "JCAMP-DX/UVVIS";
 	}
 
 	@Override

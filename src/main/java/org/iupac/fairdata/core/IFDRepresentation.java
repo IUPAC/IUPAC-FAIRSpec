@@ -38,6 +38,7 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 		this.ref = ref;
 		setData(data);
 		this.representationType = type;
+		if (ref != null && ref.getLocalName().indexOf("pdf") >= 0)
 		this.mediaType = subtype;
 	}
 
@@ -124,7 +125,7 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 		// check for InChI or SMILES, which have no reference anyway
 		if (data != null && ref == null)
 			return;
-		if (ref.checkInSitu())
+		if (ref.checkInSitu(data != null))
 			data = null;
 	}
 	

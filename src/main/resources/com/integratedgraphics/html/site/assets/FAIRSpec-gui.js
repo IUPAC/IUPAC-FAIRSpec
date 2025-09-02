@@ -992,10 +992,10 @@
 	var setFileListContents = function(aid) {
 		if (aid && !IFD.properties.aLoading && !document.location.host) {
 			// file:/// only
-			$.getJSON(fileFor(aid.id, "_IFD_extractor_files.json"), function(data) {
+			$.getJSON(IFD.properties.findingAidPath + "_IFD_extractor_files.json", function(data) {
 				var s = "";
 				for (var i = 0; i < data.length; i++) {
-					s += addPathRef(aid.id, data[i]) + "<br>";
+					s += addPathRef((data[i].indexOf("file:///") == 0 ? null : aid.id), data[i]) + "<br>";
 				}
 				$("#contents").html(s);
 			});
@@ -1513,12 +1513,14 @@
 		var shead = //"";//
 			// TODO data type xrd is in the wrong place
 		(type == "png" || isData ? "" : "<span class=repname>" + (type = cleanKey(type)) + "</span> ");
-		if (r.ref && (isPNG || !r.data))
+		if (r.ref && (
+				//isPNG || !no! insitu extraction will not create this file, even though a localPath is given. 
+				!r.data))
 			s = " " + addPathForRep(aidID, r.ref, r.len, null, r.mediaType, r.note);
 		if (r.data) {
 			if (r.data.indexOf(";base64") == 0) {
 				if (!isPNG) {
-					s += anchorBase64(r.data, r.ref, r.len);
+					s += anchorBase64(r);
 				}
 			} else {
 				if (r.data.indexOf(INVALID) >= 0) {
@@ -1533,7 +1535,8 @@
 		}
 		if (isPNG) {
 				var imgTag = getImageTag((r.ref ? r.ref.localName || r.ref.localPath : "image.png"),(r.note ? cleanText(r.note) : null), r.data ? "data:" + r.mediaType + r.data : getRef(aidID, r.ref));
-				s += "<br>" + addPathForRep(aidID, r.ref, -1, imgTag, null, r.note);
+				if (imgTag)
+					s += "<br>" + addPathForRep(aidID, r.ref, -1, imgTag, null, r.note);
 		}
 		return "<tr><td>" + shead + s + "</td></tr>";
 	}
@@ -1555,9 +1558,12 @@
 	
 	clearPDFCache();
 	
-	var anchorBase64 = function(sdata, ref, len) {
+	var anchorBase64 = function(r) {
+		var sdata = r.data;
+		var ref = r.ref;
+		var len = r.len;
+		var mediaType = r.mediaType;
 		var label = (ref.localName || ref.localPath);
-		var mediaType = ref.mediaType;
 		mediaType || (mediaType = "application/octet-stream");
 		var s = "<a download=\"" + shortFileName(label) + "\" href=\"data:" + mediaType + sdata + "\">" + label + "</a>"
 		+ " " + getSizeString(len);
@@ -1696,7 +1702,8 @@
 	}
 
 	var getImageTag = function(title, note, url) {
-		if (!IFD.isCrawler && url.indexOf("data:") < 0 && url.indexOf("https://") < 0)
+		if (!IFD.isCrawler && url.indexOf("data:") < 0 
+				&& url.indexOf("https://") < 0 && url.indexOf("./") != 0)
 			return "";
 		divId++;
 		if (note && title && title.indexOf(note) < 0)
@@ -1752,7 +1759,7 @@
     }
     
 	var addPathRef = function(aidID, path, len) {
-		var url = fileFor(aidID, path);
+		var url = (aidID ? fileFor(aidID, path) : path);
 		return "<a target=_blank href=\"" + url + "\">" 
 			+ shortFileName(path) + "</a>" + " " + getSizeString(len);
 	}

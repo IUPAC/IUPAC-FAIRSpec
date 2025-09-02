@@ -16,6 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -134,6 +135,7 @@ public class DOICrawler extends FindingAidCreator {
 		protected List<DoiRecord> itemList;
 		protected String label;
 		protected String sortKey;
+		protected String title;
 
 		int thisTest;
 		private File localFile;
@@ -158,7 +160,7 @@ public class DOICrawler extends FindingAidCreator {
 				s += ">R";
 				break;
 			}
-			s += "\t" + ifdRef + (label == null ? "" : "\t" + label);
+			s += "\t" + ifdRef + (label != null ? "\t" + label : title != null ? "\t" + title : "");
 			return s.getBytes();
 		}
 
@@ -202,6 +204,9 @@ public class DOICrawler extends FindingAidCreator {
 			}
 			if (key.endsWith(".label"))
 				label = val;
+			else if (key == DOICrawler.FAIRSPEC_COMPOUND_ID) {
+				title = "Compound " + val;
+			}
 			put(key, val);
 		}
 
@@ -252,7 +257,7 @@ public class DOICrawler extends FindingAidCreator {
 				} else if (isStructureProp) {
 					// System.out.println("addProp " + c.getClass().getSimpleName() + " " + key +
 					// "=" + value);
-					crawler.addStructureRepresentationsFromProperties(key, value);
+					crawler.addStructureRepresentationsFromProperties(key, value, this);
 				} else {
 					c.setPropertyValue(key, value, compoundID);
 				}
@@ -596,7 +601,7 @@ public class DOICrawler extends FindingAidCreator {
 	 * representation keys; this will make messages much more verbose; designed for
 	 * possibly just using the extractor with myInputStream
 	 */
-	private boolean usingCrawlerInputStream;
+	private boolean usingCrawlerInputStream = false;
 
 	private CrawlerInputStream myInputStream;
 
@@ -613,6 +618,8 @@ public class DOICrawler extends FindingAidCreator {
 	 * @param args [initialDOI, outputDirectory -insitu]
 	 */
 	public DOICrawler(String[] args) {
+		System.out.println("DOICrawler args=" + Arrays.toString(args));
+
 		int arg0 = (args.length > 0 && args[0] == null ? 1 : 0);
 		initialDOI = (args.length == arg0 ? null : args[arg0]);
 		String flags = processFlags(args, "-nozip");
@@ -637,30 +644,6 @@ public class DOICrawler extends FindingAidCreator {
 //			localMap = new HashMap<>();
 	}
 
-	/**
-	 * For future use in structure file checking.
-	 * 
-	 * @param key
-	 * @param val       in the case of a representation, this will be an Object[]
-	 *                  consisting of [ bytes, fileName, ifdStructureType,
-	 *                  standardInchi|?, mediaType ]
-	 * @param isInLine
-	 * @param mediaType
-	 * @param method
-	 */
-	@Override
-	public void addDeferredPropertyOrRepresentation(String key, Object val, boolean isInLine, String mediaType,
-			String note, String method) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public boolean crawl(File topDir, File dataDir, File fileDir) {
-		this.topDir = topDir;
-		this.dataDir = dataDir;
-		this.fileDir = fileDir;
-		return crawl();
-	}
 
 	boolean crawl() {
 		// set extractSpecProperties true to retrieving data files
@@ -762,27 +745,29 @@ public class DOICrawler extends FindingAidCreator {
 	 * 
 	 * @param key
 	 * @param value
+	 * @param doi 
 	 */
-	protected void addStructureRepresentationsFromProperties(String key, Object value) {
+	protected void addStructureRepresentationsFromProperties(String key, Object value, DoiRecord doiRecord) {
 		// structure props found in dataset collection
 		faHelper.createStructureRepresentation(key, null, value, value.toString().length(), key, null);
 		IAtomContainer mol = null;
 		String from = "";
 		String err = null;
+		String doi = doiRecord.ifdRef.getDOI();
 		try {
 			switch (key) {
 			case IFD_SMILES:
 				mol = CDK.getCDKMoleculeFromSmiles(value.toString());
 				from = "from SMILES";
 				if (mol == null) {
-					err = "invalid! SMILES could not be interpreted: " + value;
+					err = "invalid! SMILES could not be interpreted: " + value + " " + doi;
 				}
 				break;
 			case IFD_INCHI:
 				mol = CDK.getCDKMoleculeFromInChI(value.toString(), "fixamide fixacid");
 				from = "from InChI";
 				if (mol == null) {
-					err = "invalid! InChI could not be interpreted: " + value;
+					err = "invalid! InChI could not be interpreted: " + value + " " + doi;
 				}
 				break;
 			default:
@@ -792,7 +777,7 @@ public class DOICrawler extends FindingAidCreator {
 			if (err == null) {
 				inchi = CDK.getInChIFromCDKMolecule(mol, "");
 				if (inchi == null) {
-					err = inchi = "invalid! InChI could not be generated from " + value;
+					err = inchi = "invalid! InChI could not be generated: " + value + " " + doi;
 				}
 			}
 			if (err == null)
@@ -824,7 +809,7 @@ public class DOICrawler extends FindingAidCreator {
 				cdkSmiles = CDK.getSmilesFromCDKMolecule(mol);
 				if (!value.equals(cdkSmiles)) {
 					if (cdkSmiles == null || cdkSmiles.length() == 0) {
-						err = cdkSmiles = "invalid! SMILES could not be calculated for " + value;
+						err = cdkSmiles = "invalid! SMILES could not be calculated: " + value + " " + doi;
 					}
 				}
 				ref = faHelper.createStructureRepresentation(null, null, cdkSmiles, 0, IFD_SMILES, null);
@@ -838,7 +823,7 @@ public class DOICrawler extends FindingAidCreator {
 				logErr(err, "addStructureRepresentationsFromProperties");
 		} catch (Exception e) {
 			e.printStackTrace();
-			log("!!error processing " + value);
+			log("!!error processing: " + value + " " + doi);
 		}
 	}
 
@@ -883,44 +868,16 @@ public class DOICrawler extends FindingAidCreator {
 			processDOIURLs(pubdoi == null ? null : pubdoi.toString(), datadoi, faHelper);
 			nestRecords();
 			processRecords(null, doiList);
-//			if (insitu) {
-//				internalizeAllStructureImages();
-//			}
 			String aid = faHelper.generateFindingAid(targetPath);
 			if (aid != null && createLandingPage) {
-				buildSite(targetPath);
+				buildSite(null);
 			}
 
 		} catch (Throwable e) {
+			e.printStackTrace();
 			addException(e);
 		}
 	}
-
-//	private void internalizeAllStructureImages() {
-//		IFDStructureCollection c = faHelper.getStructureCollection();
-//		for (int i = c.size(); --i >= 0;) {
-//			IFDStructure s = c.get(i);
-//			for (int j = s.size(); --j >= 0;) {
-//				IFDStructureRepresentation r = s.get(j);
-//				String m = (r.getData() == null ? r.getMediaType() : null);
-//				if (FAIRSpecUtilities.isImageMediaType(m)) {
-//					String key = r.getRef().getURL();
-//					System.out.println(key);
-//					File localFile = localMap.get(key);
-//					if (localFile != null) {
-//						try {
-//							byte[] bytes = FAIRSpecUtilities.getBytesAndClose(new FileInputStream(localFile));
-//							r.setData(bytes);
-//						} catch (IOException e) {
-//							logErr("Could not open local file " + localFile, "internalizeAllStructureImages");
-//							e.printStackTrace();
-//						}
-//					}
-//				}
-//			}
-//
-//		}
-//	}
 
 	protected boolean customizeText(String key, String val) {
 		switch (key) {
@@ -1391,6 +1348,12 @@ public class DOICrawler extends FindingAidCreator {
 	public static void main(String[] args) {
 		// we don't start this on its own right now
 		ICLDOICrawler.main(args);
+	}
+
+	@Override
+	public void addDeferredPropertyOrRepresentation(DeferredProperty p) {
+		// n/a
+		
 	}
 
 }

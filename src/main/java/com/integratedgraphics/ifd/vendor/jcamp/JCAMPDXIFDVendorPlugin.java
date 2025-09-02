@@ -62,7 +62,7 @@ public class JCAMPDXIFDVendorPlugin extends DefaultVendorPlugin {
 	    default: 
 	    	return null;
 		}
-		return delegatedPlugin.accept(extractor, null, null);
+		return delegatedPlugin.accept(extractor, originPath, bytes);
 	}
 
 	private DefaultVendorPlugin newJCAMPDXPlugin(String type, Map<String, String> map) {
@@ -95,9 +95,8 @@ public class JCAMPDXIFDVendorPlugin extends DefaultVendorPlugin {
 	
 	public static void main(String[] args) {
 		// from mnova jdx and acqus good to the second
-    	System.out.println(new Date(1643072091L*1000).toGMTString());
-    	// from longdate + 51 sec
-    	System.out.println(new Date(Date.UTC(2022-1900,01-1,25, 00,54,51)).toGMTString());
+//    	System.out.println(new Date(1643072091L*1000).toGMTString());
+//    	System.out.println(new Date(Date.UTC(2022-1900,01-1,25, 00,54,51)).toGMTString());
 		try {
 			Map<String, String> map = JDXReader.getHeaderMap(new FileInputStream("c:/temp/t.jdx"), null);
 			for (String k : map.keySet())

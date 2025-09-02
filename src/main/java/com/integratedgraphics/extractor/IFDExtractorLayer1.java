@@ -61,14 +61,9 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 */
 	protected Map<String, ExtractorUtils.CacheRepresentation> vendorCache;
 
-	protected boolean processPhase1(File ifdExtractScriptFile, String localArchive) throws IOException, IFDException {
-		// first create objects, a List<String>
-		phase1SetLocalSourceDir(localArchive);
-		extractScriptFile = ifdExtractScriptFile;
-		extractScriptFileDir = extractScriptFile.getParent();
-		// Scan data from IFD-extract.json and set up the parsers
-		log("!Extracting " + ifdExtractScriptFile.getAbsolutePath());
-		extractScript = FAIRSpecUtilities.getFileStringData(ifdExtractScriptFile);
+	protected boolean processPhase1() throws IOException, IFDException {
+		log("!Extracting " + extractScriptFile.getAbsolutePath());
+		extractScript = FAIRSpecUtilities.getFileStringData(extractScriptFile);
 		objectParsers = phase1ParseScript(extractScript);
 		if (!processPubURI())
 			return false;
@@ -428,14 +423,6 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 					logWarn(err + " loading " + fileName, "loadFileMetadata");
 			}
 		}
-	}
-
-	private void phase1SetLocalSourceDir(String sourceDir) {
-		if ("-".equals(sourceDir))
-			sourceDir = null;
-		if (sourceDir != null && sourceDir.indexOf("://") < 0)
-			sourceDir = "file:///" + sourceDir.replace('\\', '/');
-		localSourceDir = sourceDir;
 	}
 
 	/**

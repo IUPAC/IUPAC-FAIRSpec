@@ -219,7 +219,8 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	public static final String IFD_PROPERTY_FAIRSPEC_COMPOUND_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			"fairspec.compound.id");
 
-	public static final String SPEC_LONGDATE_ID = "_spec_id_long_date";
+	public static final String TIMESTAMP_GMT = "timestamp_gmt";
+	public static final String TIMESTAMP_LOCAL = "timestamp_local";
 
 
 	/**

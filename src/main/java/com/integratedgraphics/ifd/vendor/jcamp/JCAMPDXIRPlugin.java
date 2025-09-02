@@ -64,7 +64,7 @@ public class JCAMPDXIRPlugin extends JCAMPDXIFDVendorPlugin implements JCAMPPlug
 
 	@Override
 	public String getVendorName() {
-		return "JCAMP-DX(IR)";
+		return "JCAMP-DX/IR";
 	}
 
 	@Override

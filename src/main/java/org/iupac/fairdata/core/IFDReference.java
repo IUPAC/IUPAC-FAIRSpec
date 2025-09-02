@@ -55,7 +55,7 @@ public class IFDReference implements IFDSerializableI {
 	 * 
 	 * @param resourceID provides the resource path, ultimately
 	 * @param originPath the full original path, if it exists, or where it is derived from
-	 * @param localDir without closing "/"
+	 * @param localDir without closing "/"; may be null if this resource is data-only
 	 * @param localName
 	 */
 	public IFDReference(String resourceID, Object originPath, String localDir, String localName) {
@@ -98,8 +98,8 @@ public class IFDReference implements IFDSerializableI {
 		return localDir;
 	}
 
-	public String getLocalPath() {
-		return (localDir == null ? "" : localDir + "/") + localName;
+	private String getLocalPath() {
+		return (localDir == null ? getLocalName() : localDir + "/" + localName);
 	}
 	
 	public String getLocalName() {
@@ -107,6 +107,9 @@ public class IFDReference implements IFDSerializableI {
 	}
 
 	/**
+	 * The -insitu flag is being used. This means that any derived files, including
+	 * ones found within zip files in the collection have no actual file existing.
+	 * 
 	 * Two possibilities:
 	 * 
 	 * origin path contains "|" and so is internal to a zip file:
@@ -115,31 +118,42 @@ public class IFDReference implements IFDSerializableI {
 	 * 
 	 * otherwise:
 	 * 
-	 * keep the data only if the localName is null or the localName's last three
-	 * chars are not the same as the origin path's (indicating a derived file, for
-	 * example, xxx.cdxml and xxx.cdxml.mol)
+	 * keep the data only if the localName is null or the localName's extension is
+	 * not the same as the origin path's (indicating a derived file, for example,
+	 * xxx.cdxml and xxx.cdxml.mol)
 	 * 
 	 * to be run only just before serialization
 	 * 
 	 * @return true if data can be cleared
 	 */
-	public boolean checkInSitu() {
+	boolean checkInSitu(boolean hasData) {
 		if (originPath == null || localName == null)
 			return false;
 		String op = originPath.toString();
-		if (op.indexOf("|") >= 0) {
-			insituExt = "";
-			return false;
-		}
 		int pt = localName.lastIndexOf(".");
 		String ext = (pt >= 0 ? localName.substring(pt) : "");
 		if (pt >= 0 && !op.endsWith(ext)) {
-			insituExt = ext;			
-	 		return false;
+			// will necessarily have data
+			if (!hasData)
+				System.err.println("IFDReference insitu but has no data: " + op);
+			insituExt = ext;
+			localDir = null;
+			return false;
 		}
-		// we can just display the local data
 		insituExt = "";
-		return true;
+		if (op.indexOf("|") < 0) {
+			// we can just display the local data using the origin path;
+			// if there is data, delete it
+			return true;
+		}
+		// within a ZIP file. Had better be data!
+		if (!hasData)
+			System.err.println("IFDReference insitu but has no data: " + op);
+		// clear the local directory so that "localName" is given in the finding aid
+		localDir = null;
+		// set the localName to be the origin path
+		localName = originPath + "";
+		return false;
 	}
 	
 	@Override
@@ -153,7 +167,11 @@ public class IFDReference implements IFDSerializableI {
 		if (url != null)
 			serializer.addAttr("url", url);
 		if (insituExt != null) {
-			serializer.addAttr("localPath", originPath + insituExt);
+			if (localDir == null) {
+				serializer.addAttr("localName", localName);
+			} else {
+				serializer.addAttr("localPath", originPath + "");
+			}
 		} else {
 			if (originPath != null && !originPath.equals(doi) && !originPath.equals(url))
 				serializer.addAttr("originPath", originPath.toString());

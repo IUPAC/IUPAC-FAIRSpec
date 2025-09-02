@@ -1037,8 +1037,8 @@ public class ExtractorUtils {
 		public boolean isMultiple;
 		public boolean isValid = true;
 
-		public CacheRepresentation(IFDReference ifdReference, Object o, long len, String type, String subtype) {
-			super(ifdReference, o, len, type, subtype);
+		public CacheRepresentation(IFDReference ifdReference, Object o, long len, String type, String mediaType) {
+			super(ifdReference, o, len, type, mediaType);
 		}
 
 		public void setRezipOrigin(String path) {

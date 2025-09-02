@@ -24,6 +24,7 @@
  
   <!-- see below for unjar references -->
   <property name="jmol.jar" value="JmolDataD.jar" />
+  <property name="cdk.jar" value="CDK-SwingJS.jar" />
   <property name="commons-io.jar" value="commons-io-2.11.0.jar" />
   <property name="commons-compress.jar" value="commons-compress-1.22.jar" />
 	
@@ -40,7 +41,9 @@
 	  	<delete includeemptydirs="true">
 		      <fileset dir="${appjars.dir}" includes="**/*"/>
 		</delete>
-	    <unjar dest="${appjars.dir}" src="${lib.dir}/${jmol.jar}"/>
+        <echo>unjar CDK after jmol because JNA-InChI-1.4 in CDK uses old uk.ac.ebi.beam classes</echo>
+        <unjar dest="${appjars.dir}" src="${lib.dir}/${jmol.jar}"/>
+        <unjar dest="${appjars.dir}" src="${lib.dir}/${cdk.jar}"/>
 		<unjar dest="${appjars.dir}" src="${lib.dir}/${commons-compress.jar}"/>
 		<unjar dest="${appjars.dir}" src="${lib.dir}/${commons-io.jar}"/>
 	  </target>
@@ -75,7 +78,7 @@
 	      <fileset dir="${appjars.dir}" includes="**/*"/>
 	    </jar>
 	  	<echo>build/${application}.jar created (unsigned)</echo>
-	  	<copy file="build/${application}.jar" tofile="dist/{application}.jar" />
+	  	<copy file="build/${application}.jar" tofile="dist/${application}.jar" />
 
 <!--	  	<delete includeemptydirs="true">
 		      <fileset dir="${appjars.dir}" includes="**/*"/>

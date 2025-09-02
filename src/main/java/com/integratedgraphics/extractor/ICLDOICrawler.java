@@ -136,10 +136,13 @@ import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 
 	public static void main(String[] args) {
 		if (debug) {
-			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler"};
+			args = new String[] {"10.14469/hpc/10386", "c:/temp/iupac/10386" , "-insitu"};
+//			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler"};
 //			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler", "-insitu"};
 //			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler", "-insitu", "-extractSpecProperies"};
 		}
+		
+		
 		if (args.length == 0) {
 			System.out.println("format: java -jar ICLDOICrawler.jar <doi> <outputdir> <options>\nwhere <doi> is like \"10.14469/hpc/14635\",\nand <options> include one or more of:\n -insitu (to add images to finding aid)\n -extractSpecProperties (download files and carry out metadata extraction)");
 			return;

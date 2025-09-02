@@ -8,7 +8,6 @@ import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.ifd.api.VendorPluginI;
 import com.integratedgraphics.ifd.util.VendorUtils;
-import com.integratedgraphics.ifd.util.VendorUtils.DoubleString;
 
 /**
  * An abstract class that underlies all the vendor plugins.
@@ -18,12 +17,6 @@ import com.integratedgraphics.ifd.util.VendorUtils.DoubleString;
  */
 public abstract class DefaultVendorPlugin implements VendorPluginI {
 
-	/**
-	 * A (relatively) unique Long value, probably a time stamp from a DateTime millisecond instance / 1000.
-	 */
-	protected Long dataObjectLongID;
-    
-	
 	/**
 	 * note that as coded, ONLY ONE vendor can use this (Bruker). 
 	 */
@@ -39,6 +32,9 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	 * the extractor calling this plugin, set in startRezipping() or accept()
 	 */
 	protected MetadataReceiverI extractor;
+
+
+	protected String originPath;
 
 	/**
 	 * the regex expression for what entry names are of interest; for example,
@@ -119,6 +115,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 		if (extractor != null) {
 			this.extractor = extractor;
 		}
+		this.originPath = originPath;
 		return getVendorDataSetKey();
 	}
 
@@ -156,6 +153,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	public void endDataSet() {
 		processing = false;
 		this.extractor = null;
+		
 	}
 
 	/**
@@ -176,10 +174,13 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 		if (val == null || extractor == null)
 			return;
 		if (val instanceof Double) {
-			if (Double.isNaN((Double)val))
+			if (Double.isNaN((Double) val))
 				return;
 		} else if (val instanceof String && val != IFDProperty.NULL) {
 			val = ((String) val).trim();
+			if (((String) val).indexOf('\r') >= 0) {
+				val = ((String) val).replace('\r', '\n').replace("\n\n", "\n ");
+			}
 		}
 		extractor.addProperty(key, val);
 	}

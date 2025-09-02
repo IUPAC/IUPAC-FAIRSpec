@@ -215,14 +215,12 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 	/**
 	 * @return the FindingAid as a string
 	 */
-	public final String extractAndCreateFindingAid(File ifdExtractScriptFile, String localArchive, File targetPath)
+	public final String extractAndCreateFindingAid()
 			throws IOException, IFDException {
 		
-		setTargetPath(targetPath);
-
 		// set up the extraction
 
-		processPhase1(ifdExtractScriptFile, localArchive);
+		processPhase1();
 		FAIRSpecUtilities.refreshLog();
 
 		checkStopAfter("1");
@@ -278,21 +276,35 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 
 	public void run(File ifdExtractScriptFile, File targetPath, String localsourceArchive)
 			throws IOException, IFDException {
+		setTargetPath(targetPath);
+		extractScriptFile = ifdExtractScriptFile;
+		// this is the directory that the assets and index.html will be put in
+		extractScriptFileDir = extractScriptFile.getParent();
+		htmlPath = (insitu ? new File(extractScriptFileDir) : targetPath);
+
 		if (assetsOnly && !insitu) {
-			buildSite(targetPath);
+			buildSite(null);
 			return;
 		}
 		
 		log("!Extractor\n ifdExtractScriptFile= " + ifdExtractScriptFile + "\n localsourceArchive = "
-				+ localsourceArchive + "\n targetDir = " + targetPath.getAbsolutePath());
+				+ localsourceArchive + "\n targetDir = " + targetPath.getAbsolutePath());		
 		
-		String serializedFA = extractAndCreateFindingAid(ifdExtractScriptFile, localsourceArchive, targetPath);
+		// first create objects, a List<String>
+		if ("-".equals(localsourceArchive))
+			localsourceArchive = null;
+		if (localsourceArchive != null && localsourceArchive.indexOf("://") < 0)
+			localsourceArchive = "file:///" + localsourceArchive.replace('\\', '/');
+		localSourceDir = localsourceArchive;
+		// Scan data from IFD-extract.json and set up the parsers
+
+		String serializedFA = extractAndCreateFindingAid();
 		if (serializedFA == null) {
 			if (!allowNoPubInfo) {
 				throw new IFDException("Extractor failed");
 			}
 		} else if (createLandingPage) {
-			buildLandingPage(serializedFA, targetPath);
+			buildLandingPage(serializedFA, htmlPath);
 		}
 
 		log("!Extractor extracted " + lstManifest.size() + " files (" + lstManifest.getByteCount() + " bytes)"
@@ -300,9 +312,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 				+ lstRejected.size() + " files (" + lstRejected.getByteCount() + " bytes)");
 	}
 
-	private void buildLandingPage(String serializedFA, File targetPath) throws IOException {
-		String dir = extractScriptFileDir;
-		File htmlPath = (insitu && dir != null ? new File(dir) : targetPath);
+	private void buildLandingPage(String serializedFA, File htmlPath) throws IOException {
 		if (insitu)
 			FAIRSpecUtilities.writeBytesToFile(serializedFA.getBytes(), new File(htmlPath, "IFD.findingaid.json"));
 		buildSite(htmlPath);

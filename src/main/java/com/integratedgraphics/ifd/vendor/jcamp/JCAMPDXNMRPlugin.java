@@ -1,7 +1,9 @@
 package com.integratedgraphics.ifd.vendor.jcamp;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
@@ -51,23 +53,40 @@ public class JCAMPDXNMRPlugin extends NMRVendorPlugin implements JCAMPPlugin {
 	@Override
 	public void setMap(Map<String, String> map) {
 		this.map = map;
-		String date = map.get("##$DATE");
-		if (date != null) {
-			dataObjectLongID = Long.parseLong(date);
-		}
 	}
 
 	@Override
 	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
 		super.accept(extractor, originPath, bytes);
-		// TODO
+		addDates();
 		return getVendorDataSetKey();
 	}
 
 
+	private void addDates() {
+		String date = map.get("##LONGDATE");
+		if (date != null)
+			setDataObjectTimeID(date, false);
+		date = map.get("##$DATE");
+		if (date == null) {
+			date = map.get("acqus");
+			if (date != null) {
+				int pt = date.indexOf("##$DATE=");
+				if (pt > 0) {
+					date = date.substring(pt + 8, date.indexOf('\n', pt)).trim();					
+				}
+			} else {
+				date = null;
+			}
+		}
+		if (date != null)
+			setDataObjectTimeID(date, true);
+		addSpecDateTimeIDs();
+	}
+
 	@Override
 	public String getVendorName() {
-		return "JCAMP-DX(NMR)";
+		return "JCAMP-DX/NMR";
 	}
 
 	@Override
