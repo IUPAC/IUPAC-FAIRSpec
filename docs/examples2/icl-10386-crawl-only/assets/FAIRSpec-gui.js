@@ -1,5 +1,6 @@
 // ${IUPAC FAIRSpec}/src/html/site/assets/FAIRSpec-gui.js
 // 
+// BH 2025.09.04 removes text search if there is not compound label or description text
 // BH 2025.08.24 adds .png links as well as images
 // BH 2025.08.17 adds FAIRSpecDataCollection resource; checking docs examples
 // BH 2025.07.23 adds zip file link, author orcid link
@@ -30,7 +31,7 @@
 	var divId = 0;
 	
 	var dirFor = function(aidID) {
-		return IFD.properties.baseDir + (IFD.findingAidID == '.' ? "" : "/" + aidID);
+		return IFD.properties.baseDir + (IFD.findingAidID == '.' ? "" : "/" + (aidID == '.' ? '' : aidID));
 	}
 	
 	var fileFor = function(aidID, fname) {
@@ -753,10 +754,23 @@
 		IFD.findingAidFile = IFD.findingAidDir + IFD.properties.findingAidFileName;
 		var aid = IFD.cacheGet(aidID);
 		if (aid == null) {
-			$.ajax({url:IFD.findingAidFile, dataType:"json", success:callbackLoaded, error:function(){callbackLoadFailed()}});
+			$.ajax({url:IFD.findingAidFile, dataType:"json", success:callbackLoaded, error:function(){callbackLoadFailed(IFD.findingAidFile)}});
 		} else {
 			loadAid(aid, collection);
 		}
+	}
+
+	var callbackLoaded = function(json) {
+		var aid = json["IUPAC.FAIRSpec.findingAid"];
+		if (aid == null)
+			aid = json["IFD.findingaid"];
+		aid.id || (aid.id = IFD.findingAidID);
+		loadAid(aid);
+	}
+
+	var callbackLoadFailed = function(aidFile) {
+		alert(aidFile + " was not found");
+		return;
 	}
 
 	//external
@@ -869,19 +883,6 @@
 		IFD.loadSelected(IFD.properties.aLoading);
 	}
 
-	var callbackLoaded = function(json) {
-		var aid = json["IUPAC.FAIRSpec.findingAid"];
-		if (aid == null)
-			aid = json["IFD.findingaid"];
-		aid.id || (aid.id = IFD.findingAidID);
-		loadAid(aid);
-	}
-
-	var callbackLoadFailed = function(x,y,z) {
-		alert([x,y,z]);
-		return;
-	}
-
 	var getField = function(name){
 		var search = "&"+document.location.search.substring(1)+"&" + name + "=";
 		search = search.split("&" + name + "=")[1];
@@ -992,10 +993,10 @@
 	var setFileListContents = function(aid) {
 		if (aid && !IFD.properties.aLoading && !document.location.host) {
 			// file:/// only
-			$.getJSON(fileFor(aid.id, "_IFD_extractor_files.json"), function(data) {
+			$.getJSON(IFD.properties.findingAidPath + "_IFD_extractor_files.json", function(data) {
 				var s = "";
 				for (var i = 0; i < data.length; i++) {
-					s += addPathRef(aid.id, data[i]) + "<br>";
+					s += addPathRef((data[i].indexOf("file:///") == 0 ? null : aid.id), data[i]) + "<br>";
 				}
 				$("#contents").html(s);
 			});
@@ -1050,11 +1051,13 @@
 			aidID || (aidID = "");
 			s += "<h3>Search</h3>";
 			s += `<a href="javascript:IFD.showJSMESearch('${aidID}')">substructure</a>`;
-			s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.doTextSearch('${aidID}')">text</a>`;
+			if (IFD.hasSearchableText(aidID)) {
+				s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.doTextSearch('${aidID}')">text</a>`;
+				s += `&nbsp;<input type="checkbox" id="highlightToggle" name="highlight"> <label for = "highlightToggle"> enable highlight </label>`;
+			}
 			s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.createPropertySearchForm('${aidID}')">properties</a>`;
 			s += `<div id=${MAIN_SEARCH_TEXT} style="display:none"></div>`;
 			s +=  buildSearchPropertyDiv(); 
-			s += `&nbsp;<input type="checkbox" id="highlightToggle" name="highlight"> <label for = "highlightToggle"> enable highlight </label>`;
 			setMain(s);
 	
 		showMain();
@@ -1159,11 +1162,14 @@
 			var isDataOrigin = !isNaN(id);
 			if (!isDataOrigin || ref.indexOf("http") == 0) {
 				// could be FAIRSpecDataCollection
+				var path = (IFD.findingAidDir || IFD.properties.findingAidPath);
 				if (isRelative && IFD.findingAidDir != "./")
-					ref = (IFD.findingAidDir || IFD.properties.findingAidPath) + ref;
+					ref = path + ref;
 				if (ref.startsWith(".."))
 					ref = ref.substring(1);
 				ref = ref.replace('/./', '/');
+				if (ref.startsWith("./"))
+					ref = ref.substring(2);
 				var size = getSizeString(r.len);
 				ref = "<a target=_blank href=\"" + ref + "\">" + ref + (size ? " " + size:"") + "</a>"
 				s += "<tr><td>" + (isDataOrigin ? "Data&nbsp;Origin" : id) 
@@ -1473,7 +1479,7 @@
 	}		
 	
 	var getSizeString = function(n) {
-		if (!n) return "";
+		if (!n  || n < 0) return "";
 		var s = (n > 1000000 ? Math.round(n/100000)/10 + " MB"
 				: n > 1000 ? Math.round(n/100)/10 + " KB"
 						: n + " bytes");
@@ -1513,12 +1519,14 @@
 		var shead = //"";//
 			// TODO data type xrd is in the wrong place
 		(type == "png" || isData ? "" : "<span class=repname>" + (type = cleanKey(type)) + "</span> ");
-		if (r.ref)
+		if (r.ref && (
+				//isPNG || !no! insitu extraction will not create this file, even though a localPath is given. 
+				!r.data))
 			s = " " + addPathForRep(aidID, r.ref, r.len, null, r.mediaType, r.note);
 		if (r.data) {
 			if (r.data.indexOf(";base64") == 0) {
 				if (!isPNG) {
-					s += anchorBase64(r.ref);
+					s += anchorBase64(r);
 				}
 			} else {
 				if (r.data.indexOf(INVALID) >= 0) {
@@ -1532,8 +1540,9 @@
 			}
 		}
 		if (isPNG) {
-				var imgTag = getImageTag((r.ref ? r.ref.localName || r.ref.localPath : "image.png"),(r.note ? cleanText(r.note) : null), r.data ? "data:" + r.mediaType + r.data : getRef(r.ref));
-				s += "<br>" + addPathForRep(aidID, r.ref, -1, imgTag, null, r.note);
+				var imgTag = getImageTag((r.ref ? r.ref.localName || r.ref.localPath : "image.png"),(r.note ? cleanText(r.note) : null), r.data ? "data:" + r.mediaType + r.data : getRef(aidID, r.ref));
+				if (imgTag)
+					s += "<br>" + addPathForRep(aidID, r.ref, -1, imgTag, null, r.note);
 		}
 		return "<tr><td>" + shead + s + "</td></tr>";
 	}
@@ -1555,12 +1564,15 @@
 	
 	clearPDFCache();
 	
-	var anchorBase64 = function(ref) {
+	var anchorBase64 = function(r) {
+		var sdata = r.data;
+		var ref = r.ref;
+		var len = r.len;
+		var mediaType = r.mediaType;
 		var label = (ref.localName || ref.localPath);
-		var sdata = ref.data;
-		var mediaType = ref.mediaType;
 		mediaType || (mediaType = "application/octet-stream");
-		var s = "<a download=\"" + shortFileName(label) + "\" href=\"data:" + mediaType + sdata + "\">" + label + "</a>";
+		var s = "<a download=\"" + shortFileName(label) + "\" href=\"data:" + mediaType + sdata + "\">" + label + "</a>"
+		+ " " + getSizeString(len);
 		if (mediaType.indexOf("/pdf") >= 0) {
 			s += getPDFLink("data:application/pdf" + sdata);
 		}
@@ -1696,7 +1708,8 @@
 	}
 
 	var getImageTag = function(title, note, url) {
-		if (!IFD.isCrawler && url.indexOf("data:") < 0 && url.indexOf("https://") < 0)
+		if (!IFD.isCrawler && url.indexOf("data:") < 0 
+				&& url.indexOf("https://") < 0 && url.indexOf("./") != 0)
 			return "";
 		divId++;
 		if (note && title && title.indexOf(note) < 0)
@@ -1710,14 +1723,14 @@
 
     var NOREF = {"localName":"?"};
 
-    var getRef = function(ref) {
+    var getRef = function(aidID, ref) {
     	return ref.url || ref.doi || (ref.localPath ? fileFor(aidID, ref.localPath) : ref.localName);    	
     }
     
     var addPathForRep = function(aidID, ref, len, imgTag, mediaType, note) {
         ref || (ref = NOREF);
 		var shortName = ref.localName || shortFileName(ref.localPath);//localPath old?
-		var url = getRef(ref);
+		var url = getRef(aidID, ref);
 		mediaType = null;// nah. Doesn't really add anything || (mediaType = "");
 		var s;
 		var isData = url.startsWith(";base64,");
@@ -1752,7 +1765,7 @@
     }
     
 	var addPathRef = function(aidID, path, len) {
-		var url = fileFor(aidID, path);
+		var url = (aidID ? fileFor(aidID, path) : path);
 		return "<a target=_blank href=\"" + url + "\">" 
 			+ shortFileName(path) + "</a>" + " " + getSizeString(len);
 	}

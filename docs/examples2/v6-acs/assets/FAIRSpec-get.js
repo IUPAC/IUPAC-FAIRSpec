@@ -114,23 +114,28 @@ IFD.getPropertyMap = function(aidID, searchType, nKeyType, map){
 }
 
 
+IFD.hasSearchableText = function(aidID) {
+	return IFD.getCompoundIndexesForText(aidID, null);
+}
+
 IFD.getCompoundIndexesForText = function(aidID, text) {
 	var compounds = IFD.getCollection(aidID).compounds;
 	var keys = IFD.getCompoundCollectionKeys();
 	var ids = [];
-	text = text.toLowerCase();
+	text && (text = text.toLowerCase());
 	var citems = IFD.items[aidID].compounds;
 	for (var i = 0; i < citems.length; i++) {
 		var assoc = compounds[citems[i]];
-		var found = false;
-		while (!found) {
-			found = testText(assoc.label + "|" + assoc.description + "|", text);
-			break;
+		if (assoc._text || assoc.label || assoc.description) {
+			if (!text)
+				return true;
+			assoc._text || (assoc._text = (assoc.label ? assoc.label + "|" : "")
+					+ "|" +  (assoc.description ? assoc.description + "|" : ""));
+			if (testText(assoc._text, text))
+				ids.push(citems[i]);
 		}
-		if (found)
-			ids.push(citems[i]);
 	}
-	return ids;
+	return text && ids;
 }
 
 var testText = function(s, text) {
@@ -198,7 +203,8 @@ IFD.getIDs = function(map) {
 		// actual map
 		for (var id in map) {
 			ids.push(id);
-		}		
+		}
+		sortIDs(ids);
 	} else {
 		// array
 		for (var id = 0; id < map.length; id++) {
@@ -207,6 +213,63 @@ IFD.getIDs = function(map) {
 	}
 	return ids;
 }
+
+var sortIDs = function(ids) {
+	var a = [];
+	for (i = 0; i < ids.length; i++) {
+		a[i] = [getSortKey(ids[i]), ids[i]];
+	}
+	a.sort(idSorter);
+	for (i = 0; i < ids.length; i++) {
+		ids[i] = a[i][1];
+	}
+}
+
+var getSortKey = function(id) {
+  var ret = new Array(2);
+  id = id.toUpperCase();
+  var val = getBestNumber(id, ret);
+  if (val == 0)
+    return id + "__________";
+  var sval = "" + val;
+  sval = ("0000000000" + sval).substring(sval.length);
+  return id.substring(0, ret[0]) + sval + id.substring(ret[1]);
+}
+
+////	TESTING__________
+////	COMPOUND 0000000033
+////	COMPOUND 0000000033A
+////	0000000015B
+////	0000000015C
+//}
+
+  var getBestNumber = function(id, ret) {
+	var pt1 = -1, n = id.length;
+	var val = 0;
+	for (var i = 0; i < n; i++) {
+		var c = id.charCodeAt(i);
+		if (c >= 48 && c <= 57) {
+			if (pt1 < 0)
+				pt1 = i;
+			val = val * 10 + (c - 48);
+		} else {
+			if (pt1 >= 0) {
+				n = i;
+				break;
+			}
+		}
+	}
+	ret[0] = pt1;
+	ret[1] = n;
+	return val;
+}
+
+
+var idSorter = function(a, b) {
+	return (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0);	
+}
+
+
 
 // samples --- associated via originating_sample property of a spectrum -- 1 sample : N spectra
 // structures --- associated with spectra as "compounds" -- N structures : N' spectra
