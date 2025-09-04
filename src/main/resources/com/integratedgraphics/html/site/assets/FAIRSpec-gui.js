@@ -1,5 +1,6 @@
 // ${IUPAC FAIRSpec}/src/html/site/assets/FAIRSpec-gui.js
 // 
+// BH 2025.09.04 removes text search if there is not compound label or description text
 // BH 2025.08.24 adds .png links as well as images
 // BH 2025.08.17 adds FAIRSpecDataCollection resource; checking docs examples
 // BH 2025.07.23 adds zip file link, author orcid link
@@ -30,7 +31,7 @@
 	var divId = 0;
 	
 	var dirFor = function(aidID) {
-		return IFD.properties.baseDir + (IFD.findingAidID == '.' ? "" : "/" + aidID);
+		return IFD.properties.baseDir + (IFD.findingAidID == '.' ? "" : "/" + (aidID == '.' ? '' : aidID));
 	}
 	
 	var fileFor = function(aidID, fname) {
@@ -1050,11 +1051,13 @@
 			aidID || (aidID = "");
 			s += "<h3>Search</h3>";
 			s += `<a href="javascript:IFD.showJSMESearch('${aidID}')">substructure</a>`;
-			s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.doTextSearch('${aidID}')">text</a>`;
+			if (IFD.hasSearchableText(aidID)) {
+				s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.doTextSearch('${aidID}')">text</a>`;
+				s += `&nbsp;<input type="checkbox" id="highlightToggle" name="highlight"> <label for = "highlightToggle"> enable highlight </label>`;
+			}
 			s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.createPropertySearchForm('${aidID}')">properties</a>`;
 			s += `<div id=${MAIN_SEARCH_TEXT} style="display:none"></div>`;
 			s +=  buildSearchPropertyDiv(); 
-			s += `&nbsp;<input type="checkbox" id="highlightToggle" name="highlight"> <label for = "highlightToggle"> enable highlight </label>`;
 			setMain(s);
 	
 		showMain();
@@ -1159,11 +1162,14 @@
 			var isDataOrigin = !isNaN(id);
 			if (!isDataOrigin || ref.indexOf("http") == 0) {
 				// could be FAIRSpecDataCollection
+				var path = (IFD.findingAidDir || IFD.properties.findingAidPath);
 				if (isRelative && IFD.findingAidDir != "./")
-					ref = (IFD.findingAidDir || IFD.properties.findingAidPath) + ref;
+					ref = path + ref;
 				if (ref.startsWith(".."))
 					ref = ref.substring(1);
 				ref = ref.replace('/./', '/');
+				if (ref.startsWith("./"))
+					ref = ref.substring(2);
 				var size = getSizeString(r.len);
 				ref = "<a target=_blank href=\"" + ref + "\">" + ref + (size ? " " + size:"") + "</a>"
 				s += "<tr><td>" + (isDataOrigin ? "Data&nbsp;Origin" : id) 

@@ -114,23 +114,28 @@ IFD.getPropertyMap = function(aidID, searchType, nKeyType, map){
 }
 
 
+IFD.hasSearchableText = function(aidID) {
+	return IFD.getCompoundIndexesForText(aidID, null);
+}
+
 IFD.getCompoundIndexesForText = function(aidID, text) {
 	var compounds = IFD.getCollection(aidID).compounds;
 	var keys = IFD.getCompoundCollectionKeys();
 	var ids = [];
-	text = text.toLowerCase();
+	text && (text = text.toLowerCase());
 	var citems = IFD.items[aidID].compounds;
 	for (var i = 0; i < citems.length; i++) {
 		var assoc = compounds[citems[i]];
-		var found = false;
-		while (!found) {
-			found = testText(assoc.label + "|" + assoc.description + "|", text);
-			break;
+		if (assoc._text || assoc.label || assoc.description) {
+			if (!text)
+				return true;
+			assoc._text || (assoc._text = (assoc.label ? assoc.label + "|" : "")
+					+ "|" +  (assoc.description ? assoc.description + "|" : ""));
+			if (testText(assoc._text, text))
+				ids.push(citems[i]);
 		}
-		if (found)
-			ids.push(citems[i]);
 	}
-	return ids;
+	return text && ids;
 }
 
 var testText = function(s, text) {
