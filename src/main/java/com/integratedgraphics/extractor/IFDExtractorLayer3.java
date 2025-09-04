@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
@@ -23,6 +25,7 @@ import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 
+import com.integratedgraphics.extractor.ExtractorUtils.ArchiveEntry;
 import com.integratedgraphics.extractor.ExtractorUtils.CacheRepresentation;
 import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
 
@@ -46,6 +49,8 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	private List<FileList> rootLists;
 
 	private String resourceList;
+
+	private String contentsFile = "c:/temp/t.xls";
 
 	@SuppressWarnings("unchecked")
 	protected String processPhase3() throws IFDException, IOException {
@@ -81,6 +86,11 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		phase3cCheckForDuplicateSpecData();
 		helper.removeInvalidData();
 		checkStopAfter("3c");
+		
+		if (contentsFile != null) {
+			writeContents();
+		}
+		
 
 		// Write the _IFD_manifest.json, _IFD_ignored.json and _IFD_extract.json files.
 
@@ -95,6 +105,24 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 
 		String serializedFA = phase3SerializeFindingAid();
 		return serializedFA;
+	}
+
+	private void writeContents() {
+		StringBuilder sb = new StringBuilder();
+		 for (String k : htArchiveContents.keySet()) {
+			 sb.append(k).append('\n');
+			 Map<String, ArchiveEntry> map = htArchiveContents.get(k);
+			 for ( Entry<String, ArchiveEntry> e : map.entrySet()) {
+				 String s = e.getKey().replace('/', '\t').replaceAll("\\|", "\t|\t");
+				 sb.append(s).append('\n');
+			 }
+		 }
+
+		 try {
+			writeBytesToFile(sb.toString().getBytes(), new File(contentsFile));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void phase3bUpdateInSitu(IFDCollection<IFDRepresentableObject<?>> c) {

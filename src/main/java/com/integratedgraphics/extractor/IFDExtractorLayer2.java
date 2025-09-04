@@ -271,7 +271,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * structure and an object
 	 */
 	private boolean allowMultipleObjectsForRepresentations = true;
-	
+
 	/**
 	 * The main extraction phase. Find and extract all objects of interest from a ZIP
 	 * file.
@@ -305,7 +305,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		// Each of phases 2a, 2b, 2c, and 2d iterate over these records.
 		
 
-		Map<String, Map<String, ArchiveEntry>> htArchiveContents = new LinkedHashMap<>();
 
 		// Phase 2a
 
@@ -319,6 +318,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		// The finding aid objects themselves are not created yet. 
 		//
 		phase2aIterate(htArchiveContents);
+		
+		
 		
 		checkStopAfter("2a");
 
@@ -451,7 +452,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			n++;
 			nextEntry = null;
 			String name = zipEntry.getName();
-			System.out.println(">>>>" + name);
+			//System.out.println(">>>>" + name);
 			if (name == null)
 				continue;
 			boolean isDir = zipEntry.isDirectory();
