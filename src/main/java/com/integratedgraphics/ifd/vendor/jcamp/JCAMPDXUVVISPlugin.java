@@ -1,16 +1,8 @@
 package com.integratedgraphics.ifd.vendor.jcamp;
 
-import java.util.Map;
-
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-import com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXIFDVendorPlugin.JCAMPPlugin;
-
-public class JCAMPDXUVVISPlugin extends JCAMPDXIFDVendorPlugin implements JCAMPPlugin {
-
-	protected final static String IFD_REP_DATAOBJECT_FAIRSPEC_UVVIS_VENDOR_DATASET = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_UVVIS.VENDOR_DATASET");
-    protected final static String IFD_PROPERTY_DATAOBJECT_FAIRSPEC_UVVIS_INSTR_MANUFACTURER_NAME = getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_UVVIS.INSTR_MANUFACTURER_NAME");
-
+public class JCAMPDXUVVISPlugin extends JCAMPDXIFDVendorPlugin {
 
 //			##TITLE=Aquation of trans-[Co(en)2Cl2]...
 //			##DATATYPE=UV/VIS SPECTRUM
@@ -39,18 +31,13 @@ public class JCAMPDXUVVISPlugin extends JCAMPDXIFDVendorPlugin implements JCAMPP
 //			##XYDATA=<data>
 
 	static {
-		register(com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXNMRPlugin.class);
+		register(com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXUVVISPlugin.class);
 	}
 
 	public JCAMPDXUVVISPlugin() {
+		setJCAMPType("UVVIS");
 	}
 	
-	@Override
-	public void setMap(Map<String, String> map) {
-		this.map = map;
-	}
-
-
 	@Override
 	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
 		super.accept(extractor, originPath, bytes);
@@ -58,18 +45,4 @@ public class JCAMPDXUVVISPlugin extends JCAMPDXIFDVendorPlugin implements JCAMPP
 		return getVendorDataSetKey();
 	}
 
-	@Override
-	public String getVendorName() {
-		return "JCAMP-DX/UVVIS";
-	}
-
-	@Override
-	public String getVendorDataSetKey() {
-		return IFD_REP_DATAOBJECT_FAIRSPEC_UVVIS_VENDOR_DATASET;
-	}
-
-    @Override
-	public void reportVendor() {
-		addProperty(IFD_PROPERTY_DATAOBJECT_FAIRSPEC_UVVIS_INSTR_MANUFACTURER_NAME, getVendorName());
-	}
 }

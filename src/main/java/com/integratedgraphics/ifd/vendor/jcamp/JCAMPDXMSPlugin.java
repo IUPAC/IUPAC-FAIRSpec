@@ -1,15 +1,8 @@
 package com.integratedgraphics.ifd.vendor.jcamp;
 
-import java.util.Map;
-
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-import com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXIFDVendorPlugin.JCAMPPlugin;
-
-public class JCAMPDXMSPlugin extends JCAMPDXIFDVendorPlugin implements JCAMPPlugin {
-
-	protected final static String IFD_REP_DATAOBJECT_FAIRSPEC_MS_VENDOR_DATASET = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_MS.VENDOR_DATASET");
-    protected final static String IFD_PROPERTY_DATAOBJECT_FAIRSPEC_MS_INSTR_MANUFACTURER_NAME = getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_MS.INSTR_MANUFACTURER_NAME");
+public class JCAMPDXMSPlugin extends JCAMPDXIFDVendorPlugin {
 
 //			##TITLE=$$ Begin of the data block
 //			##JCAMP-DX=5.00 $$ ACD/Spectrus 2012 v 14.01
@@ -38,13 +31,9 @@ public class JCAMPDXMSPlugin extends JCAMPDXIFDVendorPlugin implements JCAMPPlug
 	}
 
 	public JCAMPDXMSPlugin() {
+		setJCAMPType("MS");
 	}
 	
-	@Override
-	public void setMap(Map<String, String> map) {
-		this.map = map;
-	}
-
 	@Override
 	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
 		super.accept(extractor, originPath, bytes);
@@ -52,18 +41,4 @@ public class JCAMPDXMSPlugin extends JCAMPDXIFDVendorPlugin implements JCAMPPlug
 		return getVendorDataSetKey();
 	}
 
-	@Override
-	public String getVendorName() {
-		return "JCAMP-DX/MS";
-	}
-
-	@Override
-	public String getVendorDataSetKey() {
-		return IFD_REP_DATAOBJECT_FAIRSPEC_MS_VENDOR_DATASET;
-	}
-
-    @Override
-	public void reportVendor() {
-		addProperty(IFD_PROPERTY_DATAOBJECT_FAIRSPEC_MS_INSTR_MANUFACTURER_NAME, getVendorName());
-	}
 }

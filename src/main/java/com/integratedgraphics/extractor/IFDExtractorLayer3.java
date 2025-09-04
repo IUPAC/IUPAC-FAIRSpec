@@ -242,7 +242,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 				String path = r.getRef().getOriginPath().toString();
 				if (r.isValid) {
 					logDigitalItemIgnored(path, ckey, "it was never associated with an object",
-							"addCachedRepresentationsToObjects");
+							"phase 3a addCachedRepresentationsToObjects");
 					try {
 						addFileToFileLists(path, LOG_IGNORED, r.getLength(), null);
 					} catch (IOException e) {

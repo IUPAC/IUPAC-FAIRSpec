@@ -37,6 +37,12 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	protected String originPath;
 
 	/**
+	 * possibly useful, as for example JCAMP-DX
+	 */
+	protected Map<String, String> map;
+
+	
+	/**
 	 * the regex expression for what entry names are of interest; for example,
 	 * "\\.jdf$" meaning "ending in .jdf"
 	 */
@@ -250,6 +256,10 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	@Override
 	public boolean isDerived() {
 		return false;
+	}
+
+	public void setMap(Map<String, String> map) {
+		this.map = map;
 	}
 
 }

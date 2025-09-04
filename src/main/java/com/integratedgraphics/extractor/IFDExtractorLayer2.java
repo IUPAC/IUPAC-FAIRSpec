@@ -451,7 +451,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			n++;
 			nextEntry = null;
 			String name = zipEntry.getName();
-//			System.out.println(">>>>" + name);
+			System.out.println(">>>>" + name);
 			if (name == null)
 				continue;
 			boolean isDir = zipEntry.isDirectory();
@@ -624,7 +624,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 								logWarn("Failed to read " + originPath + " (ignored)", v.getClass().getName());
 							} else if (type == IFDProperty.NULL) {
 								lstIgnored.add(originPath, len);
-								logDigitalItemIgnored(originPath, localizedName, "equivalent structure", "phase2a");
+								logDigitalItemIgnored(originPath, localizedName, "phase 2a equivalent structure", "phase2a");
 								return;
 							} else if (IFDConst.isStructure(type)
 									|| type.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
@@ -676,7 +676,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					}
 				}
 				rezipCache.add(rep);
-				log("!rezip pattern found " + originPath + " " + rep);
+ 				log("!rezip pattern found " + originPath + " " + rep);
 			}
 		}
 
@@ -895,7 +895,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		// xxx.zip/zzz/2/pdata --> xxx_1.zip/2/pdata (ICL; localname xxx.zip)
 
 		String entryName = entry.getName();
-		String dirName = (entry.isDirectory() ? entryName : entryName.substring(0, entryName.lastIndexOf('/') + 1));
+		boolean isDir = (entry.isDirectory());
+		String dirName = (isDir ? entryName : entryName.substring(0, entryName.lastIndexOf('/') + 1));
 		// dirName = 63/ ok
 		// or
 		// dirName = testing/63/ ok
@@ -918,22 +919,30 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		Matcher m = null;
 		String localizedName = localizePath(oPath);
 		String lNameForObj = localizedName;
-		// at this point, there is no object??
+		// look for the object associated with this path
 		// 8f/HBMC.zip|HMBC/250/ will be under HMBC.zip
 		IFDRepresentableObject<?> obj = getObjectFromLocalizedName(lNameForObj, IFDConst.IFD_DATAOBJECT_FLAG);
 		if (obj == null) {
-			String name;
-			if (baseName.endsWith("|")) {
-				// was a zip file
-				name = baseName.substring(0, baseName.length() - 1);
-			} else {
-				// was a directory
-				name = parent + "/";
-			}
-
-			obj = getObjectFromLocalizedName(localizePath(name), IFDConst.IFD_DATAOBJECT_FLAG);
+			// another possibility is that this is a directory in the top-level zip file or directory.
+			// Compounds.zip|spectra/co011/NMR/1/ will be just the entry name
+			obj = getObjectFromLocalizedName(localizePath(entryName), IFDConst.IFD_DATAOBJECT_FLAG);
 			if (obj == null) {
-				throw new IFDException("phase2cRezipEntry could not find object for " + lNameForObj);
+				String name;
+				if (baseName.endsWith("|")) {
+					// was a zip file
+					name = baseName.substring(0, baseName.length() - 1);
+				} else {
+					// was a directory
+					name = parent + "/";
+				}
+
+				obj = getObjectFromLocalizedName(localizePath(name), IFDConst.IFD_DATAOBJECT_FLAG);
+				if (obj == null) {
+					log("! phase2cRezipEntry could not find object for " + lNameForObj 
+							+ "\n REASON: " + extractScriptFile 
+							+ " does not catch this recognized " + rezipVendor.getVendorName() + " pattern"
+							+"\n ignoring this dataset");
+				}
 			}
 		}
 		String basePath = baseName + (parent == null ? "" : parent);
@@ -958,7 +967,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 			if (this.localizedName == null || isMultiple)
 				this.localizedName = localizedName;
-			if (isMultiple) {
+			if (isMultiple && obj != null) {
 				addDeferredPropertyOrRepresentation(MetadataReceiverI.DeferredProperty.newPage((obj.getIDorIndex().endsWith("/" + thisDir) ? null : "_" + thisDir), obj, localizedName));
 			}
 		} else {
@@ -980,7 +989,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			log("!" + msg);
 		}
 		localizedName = localizePath(oPath);
-		htLocalizedNameToObject.put(localizedName, obj);
+		if (obj != null)
+			htLocalizedNameToObject.put(localizedName, obj);
 		this.localizedName = localizedName;
 		File outFile = getAbsoluteFileTarget(oPath);
 		log("!Extractor Phase 2c rezipping " + baseName + entry + " as " + outFile);
@@ -992,7 +1002,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			firstEntry = null;
 			entryName = entry.getName();
 			String entryPath = baseName + entryName;
-			boolean isDir = entry.isDirectory();
+			isDir = entry.isDirectory();
 			if (lstRejected.accept(entryPath)) {
 				if (!lstRejected.contains(entryPath))
 					addFileToFileLists(entryPath, LOG_REJECTED, entry.getSize(), null);
@@ -1177,7 +1187,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 			if (spec == null && !cloning) {
 				// just here to notify of an issue
-				logDigitalItemIgnored(originPath, localizedName, "no spec data to associate this structure with", "processDeferredObjectProperties");
+				logDigitalItemIgnored(originPath, localizedName, "phase 2d no spec data to associate this structure with", "processDeferredObjectProperties");
 				continue;
 			}
 			

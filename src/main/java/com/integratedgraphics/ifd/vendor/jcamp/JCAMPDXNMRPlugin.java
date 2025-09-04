@@ -1,15 +1,10 @@
 package com.integratedgraphics.ifd.vendor.jcamp;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
-import com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXIFDVendorPlugin.JCAMPPlugin;
 
-public class JCAMPDXNMRPlugin extends NMRVendorPlugin implements JCAMPPlugin {
+public class JCAMPDXNMRPlugin extends NMRVendorPlugin {
 
 	protected final static String IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR.VENDOR_DATASET");
     protected final static String IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_MANUFACTURER_NAME = getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_MANUFACTURER_NAME");
@@ -44,17 +39,9 @@ public class JCAMPDXNMRPlugin extends NMRVendorPlugin implements JCAMPPlugin {
 		register(com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXNMRPlugin.class);
 	}
 
-    Map<String, String> map;
-
-    
 	public JCAMPDXNMRPlugin() {
 	}
 	
-	@Override
-	public void setMap(Map<String, String> map) {
-		this.map = map;
-	}
-
 	@Override
 	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
 		super.accept(extractor, originPath, bytes);

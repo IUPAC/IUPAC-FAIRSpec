@@ -182,7 +182,7 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 				setDataObjectLocalTimeID(l);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("NMRVendorPlugin could not parse " + date + " (ignored) should be of form YYYY/MM/DD [HH:MM:SS[.SSSS] [±UUUU]]");
 		}
 	}
 
@@ -199,6 +199,7 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 	protected void setDateIDs() {
 		if (dataObjectLocalTimeOffset == null)
 			return;
+		try {
 		int offset = Integer.parseInt(dataObjectLocalTimeOffset.replace('+', ' ').replace("30", "50").trim()) * 36;
 		// dataObjectLongID;
 		// +0100 => 100 > 3600 s
@@ -209,6 +210,9 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 			dataObjectLocalTimeID = new Long((dataObjectGMTTimeID + offset));
 		}		
 		System.out.println(">>>" + originPath + " " + dataObjectGMTTimeID + " " + dataObjectLocalTimeID);
+		} catch (Exception e) {
+			System.err.println("NMRVEndorPlugin could not parse offset " + dataObjectLocalTimeOffset);
+		}
 	}
 
 }
