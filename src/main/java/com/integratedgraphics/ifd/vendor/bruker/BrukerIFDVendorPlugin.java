@@ -8,14 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.ifd.api.VendorPluginI;
 import com.integratedgraphics.ifd.util.VendorUtils;
-import com.integratedgraphics.ifd.util.VendorUtils.DoubleString;
 import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
 
 import jspecview.source.JDXReader;
@@ -103,12 +101,19 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	/**
-	 * Require an unsigned integer, and if that is not there, replace the directory
-	 * name with "1".
+	 * Require an unsigned integer
+	 * 
+	 * @return the numerical directory if the path ends in /nn or /nn/, otherwise null
 	 */
 	@Override
-	public String getRezipPrefix(String dirName) {
-		return (isUnsignedInteger(dirName) ? null : "1");
+	public String getRezipPrefix(String path) {
+		path = path.replace('|', '/');
+		if (path.indexOf('/') >= 0) {
+			int pt1 = path.length() - (path.endsWith("/") ? 1 : 0);
+			int pt0 = path.lastIndexOf('/', pt1 - 1);
+			path = path.substring(pt0 + 1, pt1);
+		}				
+		return (isUnsignedInteger(path) ? path : null);
 	}
 
 	/**
@@ -179,15 +184,17 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	 * @return
 	 */
 	private boolean readBrukerParameterFileJDX(String originPath, byte[] bytes, boolean isFlush) {
-
-		boolean isAcqus = originPath.endsWith("acqus");
+		int pt = originPath.lastIndexOf('/');
+		String fname = originPath.substring(pt + 1);
+		System.out.println("Bruker plugin processing " + fname);
+		boolean isAcqus = fname.equals("acqus");
 		if (!isAcqus && !isFlush && spec.originCache != null) {
 			spec.originCache.push(originPath);
 			spec.originCache.push(bytes);
 			return true;
 		}
 
-		if (originPath.endsWith("title")) {
+		if (fname.equals("title")) {
 			report("TITLE", new String(bytes));
 			return true;
 		}
@@ -199,7 +206,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 			e.printStackTrace();
 			return false;
 		}
-		if (originPath.endsWith("procs")) {
+		if (fname.equals("procs")) {
 			// this will be processed after acqus
 			// solvent in procs overrides solvent in acqu or acqus
 			// case acs.joc.0c0070|22567817 SREGLIST <13C.CDCl3> but ACQUS is acetone??
@@ -216,13 +223,13 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 		return true;
 	}
 		boolean isProc = false;
-		if (originPath.indexOf("audita.txt") >= 0 || (isProc = originPath.indexOf("auditp.txt") >= 0)) {
+		if (fname.equals("audita.txt") || (isProc = fname.equals("auditp.txt"))) {
 			return processAudit(map, isProc);
 		}
 		if (isAcqus) {
 			return processAcqus(map, bytes);
 		}
-		if (originPath.endsWith("acqu2s")) {
+		if (fname.equals("acqu2s")) {
 			report("DIM", spec.dim = "2D");
 			return true;
 		}

@@ -84,6 +84,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		checkStopAfter("3b");
 
 		phase3cCheckForDuplicateSpecData();
+		checkStopAfter("3c1");
 		helper.removeInvalidData();
 		checkStopAfter("3c");
 		
@@ -266,6 +267,9 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		for (String ckey : vendorCache.keySet()) {
 			CacheRepresentation r = vendorCache.get(ckey);
 			IFDRepresentableObject<?> obj = getObjectFromLocalizedName(ckey, null);
+			if (obj == null) {
+				obj = getCloned(obj);
+			}
 			if (obj == null || !r.isValid) {
 				String path = r.getRef().getOriginPath().toString();
 				if (r.isValid) {

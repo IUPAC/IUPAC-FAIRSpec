@@ -1047,30 +1047,34 @@
 		if(highlight_div){
 			highlight_div.remove();
 		}
-			var s = "";
-			aidID || (aidID = "");
-			s += "<h3>Search</h3>";
-			s += `<a href="javascript:IFD.showJSMESearch('${aidID}')">substructure</a>`;
-			if (IFD.hasSearchableText(aidID)) {
-				s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.doTextSearch('${aidID}')">text</a>`;
-				s += `&nbsp;<input type="checkbox" id="highlightToggle" name="highlight"> <label for = "highlightToggle"> enable highlight </label>`;
-			}
-			s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.createPropertySearchForm('${aidID}')">properties</a>`;
-			s += `<div id=${MAIN_SEARCH_TEXT} style="display:none"></div>`;
-			s +=  buildSearchPropertyDiv(); 
-			setMain(s);
-	
+		
+		var haveStructures = !!IFD.getCollection(aidID).structures;
+		var haveSpectra = !!IFD.getCollection(aidID).spectra;
+		var s = "";
+		aidID || (aidID = "");
+		s += "<h3>Search</h3>";
+		s += `<a href="javascript:IFD.showJSMESearch('${aidID}')">substructure</a>`;
+		if (IFD.hasSearchableText(aidID)) {
+			s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.doTextSearch('${aidID}')">text</a>`;
+			s += `&nbsp;<input type="checkbox" id="highlightToggle" name="highlight"> <label for = "highlightToggle"> enable highlight </label>`;
+		}
+		s += `&nbsp;&nbsp;&nbsp;<a href="javascript:IFD.createPropertySearchForm('${aidID}')">properties</a>`;
+		s += `<div id=${MAIN_SEARCH_TEXT} style="display:none"></div>`;
+		s +=  buildSearchPropertyDiv(haveStructures, haveSpectra); 
+		setMain(s);	
 		showMain();
 	}
 
-	var buildSearchPropertyDiv = function(){
+	var buildSearchPropertyDiv = function(haveStructures, haveSpectra){
 		s = 	`<div id=${MAIN_SEARCH_PROP} style="display:none">`
 		s += 	`<form id = propertySearch>`
 		s += 	`<input id = "searchProp_Compounds" type = "radio" name = "searchPropOption" value = "${IFD.MODE_COMPOUNDS}"> 
 					<label for = "searchProp_Compounds">compounds</label>&nbsp;&nbsp;&nbsp;`
-		s += 	`<input id = "searchProp_Structures" type = "radio" name = "searchPropOption" value = "${IFD.MODE_STRUCTURES}">
+		if (haveStructures)	
+			s += `<input id = "searchProp_Structures" type = "radio" name = "searchPropOption" value = "${IFD.MODE_STRUCTURES}">
 					<label for = "searchProp_Structures">structures</label>&nbsp;&nbsp;&nbsp;`		
-		s += 	`<input id = "searchProp_Spectra" type = "radio" name = "searchPropOption" value = "${IFD.MODE_SPECTRA}">
+		if (haveSpectra)
+			s += `<input id = "searchProp_Spectra" type = "radio" name = "searchPropOption" value = "${IFD.MODE_SPECTRA}">
 					<label for = "searchProp_Spectra">spectra</label>&nbsp;&nbsp;&nbsp;`
 		s += 	"<span id=searchTop style='visibility:hidden'><input type=submit value=search></span>"
 		s +=	`<hr>`
@@ -1224,9 +1228,12 @@
 		var specids = IFD.getSpectrumIDsForSample(aidID, id);
 		var structureIDs = IFD.getStructureIDsForSpectra(aidID,specids);
 		var s = getHeader("Sample/s", "Sample " + id); 
-		s += showCompoundStructures(aidID,structureIDs, false);
-		var smiles = IFD.getSmilesForStructureID(aidID, structureIDs[0]);
-		s += showCompoundSpectra(aidID,specids,smiles,true,false);
+		if (structureIDs.length)
+			s += showCompoundStructures(aidID,structureIDs, false);
+		if (specids.length) {
+			var smiles = IFD.getSmilesForStructureID(aidID, structureIDs[0]);
+			s += showCompoundSpectra(aidID,specids,smiles,true,false);
+		}
 		s += "<hr style='color:red'>";
 		return s;
 	}
@@ -1289,8 +1296,11 @@
 		if (title)
 			s += "<td>&nbsp;&nbsp;</td><td><b>" + title + "</b></td>"
 		s += "</tr></table>";
-		var smiles = IFD.getSmilesForStructureID(aidID, structureIDs[0]);
-		s += showCompoundStructures(aidID,structureIDs, false);
+		var smiles = null;
+		if (structureIDs.length) {
+			smiles = IFD.getSmilesForStructureID(aidID, structureIDs[0]);
+			s += showCompoundStructures(aidID,structureIDs, false);
+		}
 		s += showCompoundSpectra(aidID,[id],smiles,false, isAll);
 		s += "<hr style='color:blue'>";
 		return s;
@@ -1325,10 +1335,14 @@
 		s += getSpecialText(cmpd);
 		s += "<table>" + addPropertyRows("",props, null, false) + "</table>"
 		s += "<table>" + addPropertyRows("",params, null, false) + "</table>"
-
-		s += showCompoundStructures(aidID,structureIDs, false);
-		var smiles = IFD.getSmilesForStructureID(aidID, structureIDs[0]);
-		s += showCompoundSpectra(aidID,spectraIDs,smiles,false,false);
+		var smiles = null;
+		if (structureIDs.length) {
+			s += showCompoundStructures(aidID,structureIDs, false);
+			smiles = IFD.getSmilesForStructureID(aidID, structureIDs[0]);
+		}
+		if (spectraIDs.length) {
+			s += showCompoundSpectra(aidID,spectraIDs,smiles,false,false);
+		}
 		s += "<hr style='color:red'>";
 		return s;
 	}
