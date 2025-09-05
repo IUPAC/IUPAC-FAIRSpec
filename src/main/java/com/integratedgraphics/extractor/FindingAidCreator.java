@@ -119,7 +119,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	protected boolean skipPubInfo = false;
 
 	/**
-	 * set to true add the source metadata from Crossref or DataCite
+	 * set to true add the COMPLETE source metadata from Crossref or DataCite
 	 */
 	protected boolean addPublicationMetadata = false;
 

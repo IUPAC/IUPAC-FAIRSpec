@@ -2,7 +2,6 @@ package com.integratedgraphics.ifd.vendor.jcamp;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
-import java.util.Date;
 import java.util.Map;
 
 import org.iupac.fairdata.extract.MetadataReceiverI;
@@ -13,25 +12,38 @@ import jspecview.source.JDXReader;
 
 public class JCAMPDXIFDVendorPlugin extends DefaultVendorPlugin {
 
-	interface JCAMPPlugin {
-		void setMap(Map<String, String> map);
-	}
-	
-	private DefaultVendorPlugin delegatedPlugin;
-	
+	protected final static String IFD_REP_DATAOBJECT_FAIRSPEC_UNKNOWN_VENDOR_DATASET = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_UNKNOWN.VENDOR_DATASET");
+    protected final static String IFD_PROPERTY_DATAOBJECT_FAIRSPEC_UNKNOWN_INSTR_MANUFACTURER_NAME = getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_UNKNOWN.INSTR_MANUFACTURER_NAME");
+    
 	static {
 		register(com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXIFDVendorPlugin.class);
 	}
 
+	private DefaultVendorPlugin delegatedPlugin;
+	
+	protected String datasetKey;
+	protected String vendorKey;
+
+	private String jcampType;
+	
 	public JCAMPDXIFDVendorPlugin() {
 		paramRegex = "\\.jdx$|\\.dx$";
+		datasetKey = IFD_REP_DATAOBJECT_FAIRSPEC_UNKNOWN_VENDOR_DATASET;
+		vendorKey = IFD_PROPERTY_DATAOBJECT_FAIRSPEC_UNKNOWN_INSTR_MANUFACTURER_NAME;
+		jcampType = null;
 	}
 
-	protected Map<String, String> map;
-	
+	protected void setJCAMPType(String type) {
+		jcampType = type;
+		datasetKey = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_" + type + ".VENDOR_DATASET");
+	    vendorKey = getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_" + type + ".INSTR_MANUFACTURER_NAME");
+	}
+
 	@Override
 	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
 		super.accept(extractor, originPath, bytes);
+		if (jcampType != null)
+	        return null;
 		Map<String, String> map = null;
 		try {
 			map = JDXReader.getHeaderMap(new ByteArrayInputStream(bytes), null);
@@ -48,6 +60,10 @@ public class JCAMPDXIFDVendorPlugin extends DefaultVendorPlugin {
 			delegatedPlugin = newJCAMPDXPlugin("NMR", map);
 			break;
 		case "IR SPECTRUM":
+			// nonstandard
+			System.out.println("JCAMPDIX????'IR' SPECTRUM");
+			//$FALL-THROUGH$
+		case "INFRARED SPECTRUM":
 			delegatedPlugin = newJCAMPDXPlugin("IR", map);
 			break;
 		case "MASS SPECTRUM":
@@ -60,37 +76,50 @@ public class JCAMPDXIFDVendorPlugin extends DefaultVendorPlugin {
 			delegatedPlugin = newJCAMPDXPlugin("RAMAN", map);
 			break;
 	    default: 
-	    	return null;
+			System.out.println("JCAMPDIX???? " + dataType);
+			this.map = map;
 		}
-		return delegatedPlugin.accept(extractor, originPath, bytes);
+		if (delegatedPlugin != null)
+			return delegatedPlugin.accept(extractor, originPath, bytes);
+		return processJCAMP();
+	}
+
+	protected String processJCAMP() {
+		// anything to do?
+		return getVendorDataSetKey();
 	}
 
 	private DefaultVendorPlugin newJCAMPDXPlugin(String type, Map<String, String> map) {
 		String className = JCAMPDXIFDVendorPlugin.class.getName();
 		className = className.substring(0, className.lastIndexOf(".") + 1) + "JCAMPDX" + type + "Plugin";
+		DefaultVendorPlugin o = null;
 		try {
-			DefaultVendorPlugin o = (DefaultVendorPlugin) Class.forName(className).newInstance();
-			((JCAMPPlugin) o).setMap(map);
-			return o;
+			o = (DefaultVendorPlugin) Class.forName(className).newInstance();
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			System.out.println("JCAMPDXIFDPlugin class not found: " + className);
+			o = this;
 		}
+		o.setMap(map);
+		return o;
 	}
 
 	@Override
 	public String getVendorName() {
-		return (delegatedPlugin == this ? "JCAMP-DX" : delegatedPlugin.getVendorName());
+		return (delegatedPlugin == null ? "JCAMP-DX" + (jcampType == null ? "" : "/" + jcampType) 
+				: delegatedPlugin.getVendorName());
 	}
 
 	@Override
 	public String getVendorDataSetKey() {
-		return (delegatedPlugin == null ? null : delegatedPlugin.getVendorDataSetKey());
+		return (delegatedPlugin == null ? datasetKey : delegatedPlugin.getVendorDataSetKey());
 	}
 	
 	@Override
 	public void reportVendor() {
-		delegatedPlugin.reportVendor();
+		if (delegatedPlugin == null)
+			addProperty(vendorKey, getVendorName());
+		else 
+			delegatedPlugin.reportVendor();
 	}
 	
 	public static void main(String[] args) {
@@ -107,5 +136,4 @@ public class JCAMPDXIFDVendorPlugin extends DefaultVendorPlugin {
 		System.out.println("done");
 	}
 
-	
 }

@@ -31,15 +31,15 @@ public abstract class IFDRepresentation implements IFDSerializableI {
 	 * @param data
 	 * @param len
 	 * @param type
-	 * @param subtype
+	 * @param mediaType
 	 */
-	public IFDRepresentation(IFDReference ref, Object data, long len, String type, String subtype) {
+	public IFDRepresentation(IFDReference ref, Object data, long len, String type, String mediaType) {
 		//this.test = staticTest++;
 		this.ref = ref;
 		setData(data);
 		this.representationType = type;
-		if (ref != null && ref.getLocalName().indexOf("pdf") >= 0)
-		this.mediaType = subtype;
+//		if (ref != null && ref.getLocalName().indexOf("pdf") >= 0)
+		this.mediaType = mediaType;
 	}
 
 	public IFDRepresentation(IFDRepresentation rep) {

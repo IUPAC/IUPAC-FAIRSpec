@@ -15,6 +15,7 @@ import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -127,6 +128,7 @@ public class FAIRSpecUtilities {
 		try {
 			if (fname == null || refresh) {
 				if (logStream != null) {
+					logStream.write((new Date() + "\n").getBytes());
 					logStream.close();
 					logStream = null;
 				}
@@ -137,6 +139,7 @@ public class FAIRSpecUtilities {
 			if (!refresh)
 				logFile = fname;
 			logStream = new FileOutputStream(logFile, refresh);
+			logStream.write((new Date() + "\n").getBytes());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

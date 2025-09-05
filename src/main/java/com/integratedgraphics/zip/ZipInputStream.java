@@ -46,6 +46,10 @@ import swingjs.jzlib.InflaterInputStream;
  * improper ZIP construction for zero-length files. Incorporates package-only
  * constants from java.util.zip package.
  * 
+ * This continuing saga involves ZIP files with 24-byte data descriptions (!?)
+ * and empty data blocks for 0-length Bruker title files (from nmrXiv).
+ * Both Windows Explorer and 7-Zip complain about these files.
+ * 
  * 
  * @author David Connelly
  */
@@ -340,8 +344,14 @@ public class ZipInputStream extends InflaterInputStream {
 			return null;
 		}
 		if (get32(tmpbuf, 0) != LOCSIG) {
-			return null;
+			System.arraycopy(tmpbuf, 8, tmpbuf, 0, 22);
+			readFully(tmpbuf, 22, 8);
+			if (get32(tmpbuf, 0) != LOCSIG) {
+				// end of file PK 01 02
+				return null;
+			}
 		}
+		
 		// get flag first, we need check EFS.
 		flag = get16(tmpbuf, LOCFLG);
 		// get the entry name and create the ZipEntry first
@@ -401,6 +411,16 @@ public class ZipInputStream extends InflaterInputStream {
 					}
 					off += (sz + 4);
 				}
+			} else {
+				// check for NFDI 0-length file
+				readFully(tmpbuf, 0, 4);
+				boolean isEmptyFile = (get32(tmpbuf, 0) == EXTSIG); 
+				unread(tmpbuf, 4, 4);
+				if (isEmptyFile) {
+					e.setSize(0);
+					eof = true;
+					return e;
+				}
 			}
 		}
 		eof = false;
@@ -456,6 +476,7 @@ public class ZipInputStream extends InflaterInputStream {
 					e.setSize(get64(tmpbuf, ZIP64_EXTLEN));
 				}
 			} else {
+				java.util.zip.ZipInputStream x;
 				readFully(tmpbuf, 0, EXTHDR);
 				long sig = get32(tmpbuf, 0);
 				if (sig != EXTSIG) { // no EXTSIG present
@@ -463,15 +484,19 @@ public class ZipInputStream extends InflaterInputStream {
 					e.setCompressedSize(get32(tmpbuf, EXTSIZ - EXTCRC));
 					e.setSize(get32(tmpbuf, EXTLEN - EXTCRC));
 					unread(tmpbuf, EXTHDR - 1, EXTCRC);
-				} else {
+				} else { // zip64
 					e.setCrc(get32(tmpbuf, EXTCRC));
 					e.setCompressedSize(get32(tmpbuf, EXTSIZ));
 					e.setSize(get32(tmpbuf, EXTLEN));
+					readFully(tmpbuf, 0, 8); // BH			
 				}
 			}
 		}
 		if (e.getSize() != inflater.getTotalOutL()) {
-			throw new ZipException(
+			if (e.getSize() == 0) // BH
+				e.setSize(inflater.getTotalOutL());
+			else
+				throw new ZipException(
 					"invalid entry size (expected " + e.getSize() + " but got " + inflater.getTotalOutL() + " bytes)");
 		}
 		if (e.getCompressedSize() != inflater.getTotalInL()) {

@@ -133,6 +133,4 @@ public interface VendorPluginI extends PropertyManagerI {
 
 	Object[] getExtractTypeInfo(MetadataReceiverI extractor, String baseName, String entryName);
 
-//	void processVendorFile(String zipName);
-
 }

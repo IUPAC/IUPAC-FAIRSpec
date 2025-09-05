@@ -64,13 +64,14 @@ public class FAIRSpecDataObject extends IFDDataObject {
 		// backward compatibility:
 		//
 		if (key == null)
-			key = "unknown";
+			key = ".unknown";
 		String type = key.substring(key.lastIndexOf(".") + 1);
 		String ucType = type.toUpperCase();
 		String className = FAIRSpecDataObject.class.getName();
 		className = className.substring(0, className.lastIndexOf(".") + 1) + type + ".FAIRSpec" + ucType + "Data";
+		FAIRSpecDataObject o = null;
 		try {
-			FAIRSpecDataObject o = (FAIRSpecDataObject) Class.forName(className).newInstance();
+			o = (FAIRSpecDataObject) Class.forName(className).newInstance();
 			// properties are loaded based on subtype
 			o.objectType = IFDConst.getProp("DATAOBJECT_FAIRSPEC_" + ucType + "_FLAG");
 			o.setExptMethod(ucType);
@@ -80,8 +81,8 @@ public class FAIRSpecDataObject extends IFDDataObject {
 			o.setProperties(prefix + "." + type, null);
 			return o;
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			System.err.println("FAIRSpecDataObject creating 'unknown' type for " + className);
+			return createFAIRSpecObject(null);
 		}
 	}
 

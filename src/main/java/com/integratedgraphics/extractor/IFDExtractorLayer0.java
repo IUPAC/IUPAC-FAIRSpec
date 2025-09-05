@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper.FileList;
 
+import com.integratedgraphics.extractor.ExtractorUtils.ArchiveEntry;
 import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
 import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
 
@@ -49,8 +51,9 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 * debugging help
 	 */
 	protected String stopAfter;
+	protected Map<String, Map<String, ArchiveEntry>> htArchiveContents = new LinkedHashMap<>();
 
-	/**
+	/**_I
 	 * debugging help, from -stopafter:xx flag
 	 * 
 	 * where xx is 1,2,2a,2b,2c,2d,3a,3b,3c
