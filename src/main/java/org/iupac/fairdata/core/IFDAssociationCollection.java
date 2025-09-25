@@ -16,7 +16,7 @@ import org.iupac.fairdata.api.IFDSerializerI;
  *
  */
 @SuppressWarnings("serial")
-public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
+public abstract class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 
 	protected boolean byID;
 
@@ -88,6 +88,7 @@ public class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 	}
 
 	protected String getDefaultName(int i) {
+	    // must be defined by subclass 
 		return null;
 	}
 

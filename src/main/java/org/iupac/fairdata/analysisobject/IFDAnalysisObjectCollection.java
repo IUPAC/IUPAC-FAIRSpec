@@ -5,7 +5,7 @@ import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 
 /**
- * A collection of IFDSample objects.
+ * A collection of IFDAnalysisObject objects.
  * 
  * @author hansonr
  *

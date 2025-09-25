@@ -21,7 +21,7 @@ import org.iupac.fairdata.common.IFDException;
  *
  */
 @SuppressWarnings("serial")
-public class IFDAssociation extends IFDCollection<IFDCollection<? extends IFDObject<?>>> implements Comparable<IFDAssociation> {
+public abstract class IFDAssociation extends IFDCollection<IFDCollection<? extends IFDObject<?>>> implements Comparable<IFDAssociation> {
 
 	protected boolean byID;
 

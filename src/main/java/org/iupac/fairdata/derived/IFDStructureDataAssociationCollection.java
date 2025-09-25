@@ -37,7 +37,7 @@ public class IFDStructureDataAssociationCollection extends IFDAssociationCollect
 	
 	@Override
 	protected String getDefaultName(int i) {
-		return (i == 0 ? "structures" : "data");
+		return IFDStructureDataAssociation.getItemName(i);
 	}
-	
+
 }

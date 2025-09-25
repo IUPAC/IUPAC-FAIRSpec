@@ -7,7 +7,7 @@ import org.iupac.fairdata.core.IFDRepresentation;
 
 /**
  * An IFDAnalysisObject is an IFDRepresentableObject that provides
- * representations for an IFSAnalysisI. 
+ * representations for an IFDAnalysisI. 
  * 
  * 
  * @author hansonr
@@ -21,6 +21,10 @@ public abstract class IFDAnalysisObject extends IFDRepresentableObject<IFDAnalys
 	@Override
 	protected String getIFDPropertyPrefix() {
 		return propertyPrefix;
+	}
+
+	public IFDAnalysisObject() {
+		super(null, null);
 	}
 
 	public IFDAnalysisObject(String label, String type) {
