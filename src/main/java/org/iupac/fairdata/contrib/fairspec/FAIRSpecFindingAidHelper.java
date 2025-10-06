@@ -26,7 +26,7 @@ import org.iupac.fairdata.derived.IFDSampleDataAssociation;
 import org.iupac.fairdata.derived.IFDSampleDataAssociationCollection;
 import org.iupac.fairdata.derived.IFDSampleStructureAssociation;
 import org.iupac.fairdata.derived.IFDSampleStructureAssociationCollection;
-import org.iupac.fairdata.derived.IFDStructureDataAnalysisCollection;
+import org.iupac.fairdata.derived.IFDStructureDataAnalysisAssociationCollection;
 import org.iupac.fairdata.derived.IFDStructureDataAssociation;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.sample.IFDSampleCollection;
@@ -116,7 +116,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	protected IFDStructureCollection structureCollection;
 	protected IFDDataObjectCollection dataObjectCollection;
 	protected FAIRSpecCompoundCollection compoundCollection;
-	protected IFDStructureDataAnalysisCollection structureDataAnalysisCollection;
+	protected IFDStructureDataAnalysisAssociationCollection structureDataAnalysisCollection;
 	protected IFDSampleCollection sampleCollection;
 	protected IFDSampleDataAssociationCollection sampleDataCollection;
 	protected IFDSampleStructureAssociationCollection sampleStructureCollection;
@@ -390,9 +390,9 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		return compoundCollection;
 	}
 
-	public IFDStructureDataAnalysisCollection getStructureDataAnalysisCollection() {
+	public IFDStructureDataAnalysisAssociationCollection getStructureDataAnalysisCollection() {
 		if (structureDataAnalysisCollection == null)
-			associations[STRUCTURE_DATA_ANALYSIS_COLLECTION] = structureDataAnalysisCollection = new IFDStructureDataAnalysisCollection(
+			associations[STRUCTURE_DATA_ANALYSIS_COLLECTION] = structureDataAnalysisCollection = new IFDStructureDataAnalysisAssociationCollection(
 					byId);
 		structureDataAnalysisCollection.setID("structure-spectra-analyses");
 		return structureDataAnalysisCollection;

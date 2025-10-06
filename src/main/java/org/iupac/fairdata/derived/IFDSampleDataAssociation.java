@@ -95,6 +95,16 @@ public class IFDSampleDataAssociation extends IFDAssociation {
 		return getDataObjectCollection().add(data);
 	}
 
+	public static String getItemName(int i) {
+		switch (i) {
+		case ITEM_SAMPLE:
+			return "samples";
+		case ITEM_DATA:
+			return "data";
+		default:
+			return null;
+		}
+	}
 
 
 }

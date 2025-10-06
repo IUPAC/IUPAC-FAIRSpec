@@ -35,8 +35,7 @@ public class IFDSampleStructureAssociationCollection extends IFDAssociationColle
 
 	@Override
 	protected String getDefaultName(int i) {
-		return (i == 0 ? "samples" : "structures");
+		return IFDSampleDataAssociation.getItemName(i);
 	}
-
 
 }

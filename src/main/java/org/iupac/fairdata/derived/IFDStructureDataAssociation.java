@@ -90,5 +90,16 @@ public class IFDStructureDataAssociation extends IFDAssociation {
 		return (ss.get(ITEM_STRUC).equals(get(ITEM_STRUC)) && ss.get(ITEM_DATA).equals(get(ITEM_DATA)));
 	}
 
+	public static String getItemName(int i) {
+		switch (i) {
+		case ITEM_STRUC:
+			return "structures";
+		case ITEM_DATA:
+			return "data";
+		default:
+			return null;
+		}
+	}
+
 
 }
