@@ -9,9 +9,9 @@ import org.nmrml.parser.Acqu;
 
 import com.integratedgraphics.ifd.util.VendorUtils;
 import com.integratedgraphics.ifd.util.VendorUtils.DoubleString;
-import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
-import com.integratedgraphics.ifd.vendor.jeol.NmrMLJeolAcquStreamReader;
-import com.integratedgraphics.ifd.vendor.varian.NmrMLVarianAcquStreamReader;
+import com.integratedgraphics.ifd.dataobject.NMRVendorPlugin;
+import com.integratedgraphics.ifd.dataobject.jeol.NmrMLJeolAcquStreamReader;
+import com.integratedgraphics.ifd.dataobject.varian.NmrMLVarianAcquStreamReader;
 
 public class NmrMLConverterTest {
 

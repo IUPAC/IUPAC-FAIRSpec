@@ -55,7 +55,7 @@ import com.integratedgraphics.extractor.ExtractorUtils.CacheRepresentation;
 import com.integratedgraphics.extractor.ExtractorUtils.DirectoryInputStream;
 import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
 import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
-import com.integratedgraphics.ifd.api.VendorPluginI;
+import com.integratedgraphics.ifd.api.DataObjectVendorPluginI;
 
 /**
  * Phase 2: Carry out the actual extraction of metadata.
@@ -77,7 +77,7 @@ import com.integratedgraphics.ifd.api.VendorPluginI;
  * 
  * This pass generates the ordered map of the archive contents, by resource, for
  * use in the next phases. During this initial phase, the CollectionSet is not
- * built.
+ * built, and digital item bytes are not checked. Only the filenames are checked.
  * 
  * Process files in the FAIRSpec-ready collection, extracting metadata and
  * representations, but do not create any Finding Aid objects or collections.
@@ -242,7 +242,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	/**
 	 * vendor association with this rezipping
 	 */
-	private VendorPluginI currentRezipVendor;
+	private DataObjectVendorPluginI currentRezipVendor;
 
 	/**
 	 * last path to this rezip top-level resource
@@ -587,11 +587,12 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @param originPath path to this entry including | and / but not rootPath
 	 * @param ais
 	 * @param zipEntry
+	 * @param accepted file name has been accepted by lstAccepted
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
 	private void phase2aProcessEntry(String baseOriginPath, String originPath, InputStream ais, ArchiveEntry zipEntry,
-			boolean accept) throws FileNotFoundException, IOException {
+			boolean accepted) throws FileNotFoundException, IOException {
 		long len = zipEntry.getSize();
 		Matcher m = null;
 
@@ -600,7 +601,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		// "param" appears if a vendor has flagged these files for parameter extraction.
 
 		boolean isFound = false;
-		if (vendorCachePattern != null && (isFound = (m = vendorCachePattern.matcher(originPath)).find()) || accept) {
+		if (vendorCachePattern != null && (isFound = (m = vendorCachePattern.matcher(originPath)).find()) || accepted) {
 
 			PropertyManagerI v = (isFound ? getPropertyManager(m, true, true) : null);
 			boolean doCheck = (v != null);
@@ -691,7 +692,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 			// e.g. exptno/pdata/1/procs
 
-			VendorPluginI v = phase2aGetVendorForRezip(m);
+			DataObjectVendorPluginI v = phase2aGetVendorForRezip(m);
 			originPath = m.group("path" + v.getIndex());
 			if (originPath.equals(lastRezipPath)) {
 				if (logging())
@@ -735,11 +736,11 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @param m
 	 * @return
 	 */
-	private VendorPluginI phase2aGetVendorForRezip(Matcher m) {
+	private DataObjectVendorPluginI phase2aGetVendorForRezip(Matcher m) {
 		for (int i = bsRezipVendors.nextSetBit(0); i >= 0; i = bsRezipVendors.nextSetBit(i + 1)) {
 			String ret = m.group("rezip" + i);
 			if (ret != null && ret.length() > 0) {
-				return VendorPluginI.activeVendors.get(i).vendor;
+				return DataObjectVendorPluginI.activeVendors.get(i).vendor;
 			}
 		}
 		return null;
@@ -770,7 +771,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * The parser specifically looks for Matcher groups, regex (?<xxxx>...), that
 	 * have been created by the ObjectParser from an object line such as:
 	 * 
-	 * {IFD.representation.spec.nmr.vendor.dataset::{IFD.property.sample.label::*-*}-{IFD.property.dataobject.label::*}.jdf}
+	 * {IFD.representation.spec.nmr.dataobject.dataset::{IFD.property.sample.label::*-*}-{IFD.property.dataobject.label::*}.jdf}
 	 *
 	 * 
 	 * 
@@ -888,7 +889,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		} else {
 			Object path = (currentRezipRepresentation = rezipCache.remove(0)).getRef().getOriginPath();
 			currentRezipPath = (String) path;
-			currentRezipVendor = (VendorPluginI) currentRezipRepresentation.getData();
+			currentRezipVendor = (DataObjectVendorPluginI) currentRezipRepresentation.getData();
 		}
 	}
 
@@ -916,7 +917,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @throws IFDException
 	 */
 	private ArchiveEntry phase2cRezipEntry(String baseName, String originPath, ArchiveInputStream ais, ArchiveEntry entry,
-			ArchiveEntry firstEntry, VendorPluginI rezipVendor) throws IOException, IFDException {
+			ArchiveEntry firstEntry, DataObjectVendorPluginI rezipVendor) throws IOException, IFDException {
 
 		// originPath points to the directory containing pdata
 

@@ -101,7 +101,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		// {"data":"{IFD.property.collectionset.source.data.uri::https://ndownloader.figshare.com/files/{figshareid}}"},
 		//
 		// {"path":"{data}|FID for Publication/{id=IFD.property.sample.label::*}.zip|"},
-		// {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor.dataset::{IFD.property.label::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
+		// {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.dataobject.dataset::{IFD.property.label::<id>/{xpt=::*}}.zip|{xpt}/*/}"},
 		// {"FAIRSpec.extractor.object":"{path}<id>/{IFD.representation.structure.mol.2d::<id>.mol}"},
 		// {"FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.hrms.document::{IFD.property.label::<id>/HRMS.zip|**/*}.pdf}"}
 		// ]}

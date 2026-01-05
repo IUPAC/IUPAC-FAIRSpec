@@ -1,19 +1,19 @@
-package com.integratedgraphics.ifd.vendor.jeol;
+package com.integratedgraphics.ifd.dataobject.jeol;
 
 import java.io.IOException;
 
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-import com.integratedgraphics.ifd.vendor.nmrml.NmrMLIFDVendorPlugin;
+import com.integratedgraphics.ifd.dataobject.nmrml.NmrMLDataObjectVendorPlugin;
 
-public class JeolIFDVendorPlugin extends NmrMLIFDVendorPlugin {
+public class JeolDataObjectVendorPlugin extends NmrMLDataObjectVendorPlugin {
 
 	static {
-		register(com.integratedgraphics.ifd.vendor.jeol.JeolIFDVendorPlugin.class);
+		register(com.integratedgraphics.ifd.dataobject.jeol.JeolDataObjectVendorPlugin.class);
 	}
 
 
-	public JeolIFDVendorPlugin() {
+	public JeolDataObjectVendorPlugin() {
 		paramRegex = "\\.jdf$";
 	}
 

@@ -1,8 +1,8 @@
-package com.integratedgraphics.ifd.vendor.jcamp;
+package com.integratedgraphics.ifd.dataobject.jcamp;
 
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
+import com.integratedgraphics.ifd.dataobject.NMRVendorPlugin;
 
 public class JCAMPDXNMRPlugin extends NMRVendorPlugin {
 
@@ -36,7 +36,7 @@ public class JCAMPDXNMRPlugin extends NMRVendorPlugin {
 //			##XYDATA=<data>
 
 	static {
-		register(com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXNMRPlugin.class);
+		register(com.integratedgraphics.ifd.dataobject.jcamp.JCAMPDXNMRPlugin.class);
 	}
 
 	public JCAMPDXNMRPlugin() {

@@ -1,4 +1,4 @@
-package com.integratedgraphics.ifd.vendor.nmrml;
+package com.integratedgraphics.ifd.dataobject.nmrml;
 
 public interface NmrMLHeader {
 	

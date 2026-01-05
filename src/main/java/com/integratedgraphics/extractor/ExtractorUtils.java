@@ -167,13 +167,13 @@ public class ExtractorUtils {
 			//
 			// {IFD.property.dataobject.label::*} becomes \\E(?<IFD0nmr0param0expt>.+)\\Q
 			//
-			// {IFD.representation.spec.nmr.vendor.dataset::{IFD.property.sample.label::*-*}-{IFD.property.dataobject.label::*}.jdf}
+			// {IFD.representation.spec.nmr.dataobject.dataset::{IFD.property.sample.label::*-*}-{IFD.property.dataobject.label::*}.jdf}
 			//
 			// becomes:
 			//
 			// ^(?<IFD0nmr0representation0vendor0dataset>(?<IFD0structure0param0compound0id>([^-](?:-[^-]+)*))\\Q-\\E(?<IFD0nmr0param0expt>.+)\\Q.jdf\\E)$
 			//
-			// {id=IFD.property.sample.label::*}.zip|{IFD.representation.spec.nmr.vendor.dataset::{id}_{IFD.property.dataobject.label::*}/}
+			// {id=IFD.property.sample.label::*}.zip|{IFD.representation.spec.nmr.dataobject.dataset::{id}_{IFD.property.dataobject.label::*}/}
 			//
 			// becomes:
 			//

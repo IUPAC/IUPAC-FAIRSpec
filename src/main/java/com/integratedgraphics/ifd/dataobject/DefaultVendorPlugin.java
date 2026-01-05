@@ -1,4 +1,4 @@
-package com.integratedgraphics.ifd.vendor;
+package com.integratedgraphics.ifd.dataobject;
 
 import java.util.Map;
 
@@ -6,7 +6,7 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-import com.integratedgraphics.ifd.api.VendorPluginI;
+import com.integratedgraphics.ifd.api.DataObjectVendorPluginI;
 import com.integratedgraphics.ifd.util.VendorUtils;
 
 /**
@@ -15,7 +15,7 @@ import com.integratedgraphics.ifd.util.VendorUtils;
  * @author hansonr
  *
  */
-public abstract class DefaultVendorPlugin implements VendorPluginI {
+public abstract class DefaultVendorPlugin implements DataObjectVendorPluginI {
 
 	/**
 	 * note that as coded, ONLY ONE vendor can use this (Bruker). 
@@ -23,7 +23,7 @@ public abstract class DefaultVendorPlugin implements VendorPluginI {
 	private static final String rezipPathHeader = "^(?<path#>.+(?:/|\\|)(?<dir#>[^/]+)(?:/|\\|))";
 
 	protected static void register(Class<? extends DefaultVendorPlugin> c) {
-		VendorPluginI.registerIFDVendorPlugin(c);
+		DataObjectVendorPluginI.registerDataObjectVendorPlugin(c);
 	}
 
     abstract public void reportVendor();

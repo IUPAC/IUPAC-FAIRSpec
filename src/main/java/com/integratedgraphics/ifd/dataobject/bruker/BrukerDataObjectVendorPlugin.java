@@ -1,4 +1,4 @@
-package com.integratedgraphics.ifd.vendor.bruker;
+package com.integratedgraphics.ifd.dataobject.bruker;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -12,16 +12,16 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-import com.integratedgraphics.ifd.api.VendorPluginI;
+import com.integratedgraphics.ifd.api.DataObjectVendorPluginI;
 import com.integratedgraphics.ifd.util.VendorUtils;
-import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
+import com.integratedgraphics.ifd.dataobject.NMRVendorPlugin;
 
 import jspecview.source.JDXReader;
 
-public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
+public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 
 	static {
-		register(com.integratedgraphics.ifd.vendor.bruker.BrukerIFDVendorPlugin.class);
+		register(com.integratedgraphics.ifd.dataobject.bruker.BrukerDataObjectVendorPlugin.class);
 	}
 
 	// public final static String defaultRezipIgnorePattern = "\\.mnova$";
@@ -29,7 +29,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	private final static Map<String, String> ifdMap = new HashMap<>();
 
 	static {
-		// order here is not significant; keys without the JCAMP vendor prefix are
+		// order here is not significant; keys without the JCAMP vendor prefix ##$ are
 		// derived, not the value itself
 		String[] keys = { //
 				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_DIMENSION"), //prop
@@ -87,7 +87,7 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	
 	private Globals spec;
 	
-	public BrukerIFDVendorPlugin() {
+	public BrukerDataObjectVendorPlugin() {
 		super();
 		spec = new Globals();
 		// files of interest; procs is just for solvent
@@ -120,9 +120,6 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	 * .mnova files will be extracted by the mestrelab plugin. They should not be
 	 * left in the Bruker dataset.
 	 */
-
-	private static String IMAGE = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR.SPECTRUM_IMAGE");
-	private static String PDF = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR.SPECTRUM_DOCUMENT");
 
 	@Override
 	public Object[] getExtractTypeInfo(MetadataReceiverI extractor, String baseName, String entryName) {
@@ -388,12 +385,12 @@ public class BrukerIFDVendorPlugin extends NMRVendorPlugin {
 	}
 
 	private static void test(String originPath) {
-		VendorPluginI.init();
+		DataObjectVendorPluginI.init();
 		System.out.println("====================" + originPath);
 		try {
 			String filename = new File(originPath).getAbsolutePath();
 			byte[] bytes = FAIRSpecUtilities.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
-			new BrukerIFDVendorPlugin().accept(null, filename, bytes);
+			new BrukerDataObjectVendorPlugin().accept(null, filename, bytes);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

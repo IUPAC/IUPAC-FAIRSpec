@@ -1,8 +1,8 @@
-package com.integratedgraphics.ifd.vendor.jcamp;
+package com.integratedgraphics.ifd.dataobject.jcamp;
 
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-public class JCAMPDXUVVISPlugin extends JCAMPDXIFDVendorPlugin {
+public class JCAMPDXUVVISPlugin extends JCAMPDXDataObjectVendorPlugin {
 
 //			##TITLE=Aquation of trans-[Co(en)2Cl2]...
 //			##DATATYPE=UV/VIS SPECTRUM
@@ -31,7 +31,7 @@ public class JCAMPDXUVVISPlugin extends JCAMPDXIFDVendorPlugin {
 //			##XYDATA=<data>
 
 	static {
-		register(com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXUVVISPlugin.class);
+		register(com.integratedgraphics.ifd.dataobject.jcamp.JCAMPDXUVVISPlugin.class);
 	}
 
 	public JCAMPDXUVVISPlugin() {

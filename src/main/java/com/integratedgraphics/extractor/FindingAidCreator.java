@@ -32,7 +32,8 @@ import com.integratedgraphics.extractor.ExtractorUtils.AWrap;
 import com.integratedgraphics.extractor.ExtractorUtils.ArchiveEntry;
 import com.integratedgraphics.extractor.ExtractorUtils.ArchiveInputStream;
 import com.integratedgraphics.html.PageCreator;
-import com.integratedgraphics.ifd.api.VendorPluginI;
+import com.integratedgraphics.ifd.api.AnalysisObjectPluginI;
+import com.integratedgraphics.ifd.api.DataObjectVendorPluginI;
 
 /**
  * This abstract class backs MetadataExtractor and DOICrawler,
@@ -83,7 +84,8 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 
 	static {
 		FAIRSpecFindingAid.loadProperties();
-		VendorPluginI.init();
+		DataObjectVendorPluginI.init();
+		AnalysisObjectPluginI.init();
 	}
 
 	/**
@@ -621,7 +623,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		for (int i = bs.nextSetBit(0); i >= 0; i = bs.nextSetBit(i + 1)) {
 			String ret = m.group(group + i);
 			if (ret != null && ret.length() > 0) {
-				return VendorPluginI.activeVendors.get(i).vendor;
+				return DataObjectVendorPluginI.activeVendors.get(i).vendor;
 			}
 		}
 		return null;
@@ -637,14 +639,14 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		if (vendorCachePattern == null)
 			return;
 		System.out.println("FAC.extractSpecProp " + f.getName());
-		VendorPluginI vendor = null;
+		DataObjectVendorPluginI vendor = null;
 		String localPath = f.getAbsolutePath();
 		ArchiveInputStream ais = null;
 		try {
 			if (!FAIRSpecUtilities.isZip(localPath)){
 				Matcher m = vendorCachePattern.matcher(localPath);
 				if (m.find()) {
-					vendor = (VendorPluginI) getPropertyManager(m, false, true);
+					vendor = (DataObjectVendorPluginI) getPropertyManager(m, false, true);
 					if (vendor == null || vendor.isDerived())
 						return;
 					byte[] bytes = FAIRSpecUtilities.getBytesAndClose(new FileInputStream(f));
@@ -693,7 +695,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	 * @param localPath
 	 * @return vendor PropertyManagerI
 	 */
-	private VendorPluginI crawlerGetVendorForZipFile(String localPath) {
+	private DataObjectVendorPluginI crawlerGetVendorForZipFile(String localPath) {
 		ArchiveInputStream ais = null;
 		try {
 			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(localPath));
@@ -708,7 +710,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 				name = "zip|" + name;
 				Matcher m = rezipCachePattern.matcher(name);
 				if (m.find())
-					return (VendorPluginI) getPropertyManager(m, false, false);
+					return (DataObjectVendorPluginI) getPropertyManager(m, false, false);
 			}
 			return null;
 		} catch (IOException e) {
@@ -765,8 +767,8 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		}
 		cachePatternHasStructures = (sp.indexOf("<struc>") >= 0);
 		String s = "";
-		for (int i = 0; i < VendorPluginI.activeVendors.size(); i++) {
-			String cp = VendorPluginI.activeVendors.get(i).vcache;
+		for (int i = 0; i < DataObjectVendorPluginI.activeVendors.size(); i++) {
+			String cp = DataObjectVendorPluginI.activeVendors.get(i).vcache;
 			if (cp != null) {
 				bsPropertyVendors.set(i);
 				s += "|" + cp;
@@ -787,8 +789,8 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		vendorCachePattern = Pattern.compile(s);
 		
 		s = "";
-		for (int i = 0; i < VendorPluginI.activeVendors.size(); i++) {
-			String cp = VendorPluginI.activeVendors.get(i).vrezip;
+		for (int i = 0; i < DataObjectVendorPluginI.activeVendors.size(); i++) {
+			String cp = DataObjectVendorPluginI.activeVendors.get(i).vrezip;
 			if (cp != null) {
 				bsRezipVendors.set(i);
 				s = s + "|" + cp;

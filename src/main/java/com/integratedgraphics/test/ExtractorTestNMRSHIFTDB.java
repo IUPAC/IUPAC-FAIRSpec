@@ -43,59 +43,118 @@ public class ExtractorTestNMRSHIFTDB extends FindingAidCreator {
 //		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir, null, flags);
 	}
 
-	private final static String mainTemplate = "https://nmrshiftdb.nmr.uni-koeln.de/portal/js_pane/P-Results?nmrshiftdbaction=showDetailsFromHome&molNumber=MOLNUMBER&showoutertab=0_1";
+	private final static String base = "https://nmrshiftdb.nmr.uni-koeln.de/";
+	private final static String mainTemplate = base + "portal/js_pane/P-Results?nmrshiftdbaction=showDetailsFromHome&molNumber=MOLNUMBER&showoutertab=0_1";
 	private final static String specImageTemplate = "https://nmrshiftdb.nmr.uni-koeln.de/images/spectra/original/$SPECID.png";
 	private final static String moleculeImageTemplate = "https://nmrshiftdb.nmr.uni-koeln.de/images/molecules/large/$MOLNUMBER_$SPECID.jpeg";
 
 	private final static String molDownloadTemplate = "https://nmrshiftdb.nmr.uni-koeln.de/download/NmrshiftdbServlet/$MOLNUMBER.$FORMAT?spectrumid=$SPECID&nmrshiftdbaction=exportmol&shownumbers=false&format=$FORMAT";
 	private final static String specDownloadTemplate = "https://nmrshiftdb.nmr.uni-koeln.de/download/NmrshiftdbServlet/$FILENAME?spectrumid=$SPECID&nmrshiftdbaction=exportspec&format=$FORMAT";
+	private final static String datasetDownloadTemplate = "https://nmrshiftdb.nmr.uni-koeln.de/download/NmrshiftdbServlet/$FILENAME?spectrumid=$SPECID&nmrshiftdbaction=exportdataset&format=$FORMAT";
 
 	private static void scrapeNMRShiftDB(String dir, String string) {
 		String molNumber = "20182362";
 		File filesDir = new File(dir + molNumber, "files");
 		File dataDir = new File(dir + molNumber, "data");
+		Map<String, String> molProperties;
 		try {
 			String source = mainTemplate.replaceFirst("MOLNUMBER", molNumber);
-			String data = getSourceData(source, filesDir, "index.html", true);
-			getSpectra(molNumber, source, filesDir, dataDir, data);
+			String data = getSourceData(source, filesDir, "index.html", null, true);
+			molProperties = getSpectra(molNumber, source, filesDir, dataDir, data);
+		    String firstSpecID = molProperties.remove("#SPECID");
+		    int pt = data.indexOf("highlightTitleStyleClass");
+		    String tabName = null;
+		    if (pt > 0) {
+		    	molProperties.put("IFD.property.colllectionset.name",  molNumber + "-" + tabName);
+		    	tabName = getField(data, pt, ">", "<");
+		    }    	    		
+		    pt = data.indexOf("DOI for this dataset:");
+		    if (pt > 0) {
+		    	pt = data.lastIndexOf("<a href", pt);
+		    	getDataSetData(molNumber, dataDir, data.substring(pt), firstSpecID, molProperties);
+		    }
+
+			writeMetadata(dataDir, molProperties);
 			System.out.println("done");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private static void getSpectra(String molnumber, String source, File filesDir, File molDataDir, String data) throws IOException {
-		String[] spectra = data.split("a name=\"spectrum");
-		System.out.println(data.indexOf("double"));
-		for (int i = 1; i < spectra.length; i++) {
-			String spec = spectra[i];
-			String name = spec.substring(0, spec.indexOf('"'));
-			File specdir = new File(filesDir, name);
-			File specDataDir = new File(molDataDir, name);			
-			String imageSource = specImageTemplate.replace("$SPECID", name);
-			getSourceData(imageSource, specDataDir, name + ".png", false);
-			imageSource = moleculeImageTemplate.replace("$MOLNUMBER", molnumber).replace("$SPECID", name);
-			getSourceData(imageSource, molDataDir, molnumber + ".jpeg", false);
-			getTabData(molnumber, source, molDataDir, specdir, specDataDir, spec, name);
+	private static void getDataSetData(String molNumber, File molDataDir, String data, String firstSpecID, Map<String, String> molProperties) throws IOException {
+    	//   <a href="molecule/20182362/dataset/Classics+in+Spectroscopy_Chloroform-D1+%28CDCl3%29" 
+		//     onclick="return showlink('molecule/20182362/dataset/Classics+in+Spectroscopy_Chloroform-D1+%28CDCl3%29');">
+		//     Copy dataset link</a><br>		    	
+		//   DOI for this dataset: 10.18716/nmrshiftdb2/20182362/classics_in_spectroscopy_cdcl3
+		//   <br>...
+		String href = getField(data, 0, "\"", "\"");
+		String doi = getField(data, 0, "DOI for this dataset:", "<");
+		System.out.println(href + "==" + doi);
+		if (href != null) {
+			href = base + href;
+			molProperties.put("IFD.property.collectionset.url", href);
 		}
+		if (doi != null)
+			molProperties.put("IFD.property.collectionset.doi", doi);
+		getDownloadData(molNumber, molDataDir, null, data, firstSpecID);
+
 	}
 
-	private static void getTabData(String molnumber, String source, File molDataDir, File specFileDir, File specDataDir, String spec, String specID) throws IOException {
+	private static String getField(String data, int i, String s0, String s1) {
+		boolean isLast = (i < 0);
+		i = (i < 0 ? data.lastIndexOf(s0) :	data.indexOf(s0, i));
+		if (i < 0)
+			return null;
+		String s = data.substring(i + s0.length());
+		i = (isLast ? s.lastIndexOf(s1) : s.indexOf(s1));
+		s = (i < 0 ? null : s.substring(0, i).trim());
+		return s;
+	}
+
+	private static Map<String, String> getSpectra(String molnumber, String source, File filesDir, File molDataDir, String data) throws IOException {
+		
+		
+		
+		String[] spectra = data.split("a name=\"spectrum");
+		System.out.println(data.indexOf("double"));
+		Map<String, String> molProperties = null;
+		for (int i = 1; i < spectra.length; i++) {
+			String spec = spectra[i];
+			String specID = spec.substring(0, spec.indexOf('"'));
+			File specdir = new File(filesDir, specID);
+			File specDataDir = new File(molDataDir, specID);			
+			String imageSource = specImageTemplate.replace("$SPECID", specID);
+			getSourceData(imageSource, specDataDir, specID + ".png", null, false);
+			imageSource = moleculeImageTemplate.replace("$MOLNUMBER", molnumber).replace("$SPECID", specID);
+			getSourceData(imageSource, molDataDir, molnumber + ".jpeg", null, false);
+			Map<String, String> m = getTabData(molnumber, source, molDataDir, specdir, specDataDir, spec, specID);
+			if (molProperties == null) {
+				molProperties = m;
+				molProperties.put("#SPECID", specID);
+			}
+			if (m != null && !m.isEmpty() && !molProperties.equals(m)) {
+				System.out.println("???? " + m + "!=\n" + molProperties);
+			}
+		}
+		return molProperties;
+	}
+
+	private static Map<String, String> getTabData(String molnumber, String source, File molDataDir, File specFileDir, File specDataDir, String spec, String specID) throws IOException {
 		String[] lines = spec.split("\n");
+		Map<String, String> molData = null;
 		for (int i = 0; i < lines.length; i++) {
-			String line = lines[i];
-			int pt = line.indexOf("&tab=");
-			if (pt >= 0) {
-				String tab = line.substring(pt + 1, line.indexOf("#", pt));
-				String data = getSourceData(source + "&" + tab, specFileDir, tab.replace('=', '_') + ".htm", true);
+			String tab = getField(lines[i], 0, "&tab=", "#");
+			if (tab != null) {
+				String data = getSourceData(source + "&tab=" + tab, specFileDir, "tab_" + tab + ".htm", null, true);
 				data = getSpecData(data, specID);
 				if (tab.endsWith("_1")) {
-					getAdditionalData(molnumber, source, molDataDir, specDataDir, data, specID);
+					molData = getAdditionalData(molnumber, molDataDir, specDataDir, data, specID);
 				} else if (tab.endsWith("_2")) {
-					getDownloadData(molnumber, source, molDataDir, specDataDir, data, specID);
+					getDownloadData(molnumber, molDataDir, specDataDir, data, specID);
 				}
 			}
 		}
+		return molData;
 	}
 	
 	private static String getSpecData(String data, String specID) {
@@ -109,7 +168,7 @@ public class ExtractorTestNMRSHIFTDB extends FindingAidCreator {
 		return null;
 	}
 
-	private static void getAdditionalData(String molnumber, String source, File molDataDir, File specDataDir, String spec, String specID) throws IOException {
+	private static Map<String, String> getAdditionalData(String molnumber, File molDataDir, File specDataDir, String spec, String specID) throws IOException {
 		String[] tables = spec.split("<table");
 		for (int i = 0; i < tables.length; i++) {
 			String table = tables[i];
@@ -117,45 +176,53 @@ public class ExtractorTestNMRSHIFTDB extends FindingAidCreator {
 				int pt = table.indexOf(specID);
 				Map<String, String> molData = new TreeMap<String, String>();
 				extractMoleculeMetadata(molnumber, molDataDir, table.substring(0, pt), molData);
-				writeMetadata(molDataDir, molData);
 				Map<String, String> specData = new TreeMap<String, String>();
 				extractSpectraMetadata(molnumber, specDataDir, table.substring(pt), specID, specData);
 				writeMetadata(specDataDir, specData);				
-				return;
+				return molData;
 			}
 		}
+		return null;
 	}
 
-	private static void getDownloadData(String molnumber, String source, File molDataDir, File specDataDir, String data, String specID) throws IOException {
+	private static void getDownloadData(String molnumber, File molDataDir, File specDataDir, String data,
+			String specID) throws IOException {
+		String fname = getField(data, 0, "var filename=\"", "\"");
 		String[] forms = data.split("<form");
 		for (int i = 1; i < forms.length; i++) {
 			String form = forms[i];
 			String[] options = getHTMLOptions(form);
 			if (form.indexOf("\"exportspec") >= 0) {
-				int pt1 = data.indexOf("var filename");//="40018612_13C.";
-				int pt = data.indexOf('"', pt1) + 1;
-				pt1 = data.indexOf('"', pt);
-			    String fname = data.substring(pt, pt1);
-			    if (fname.length() < 0)
-			    	continue;
+				if (fname == null)
+					continue;
+				//<option value="rawdata">Raw data</option>
+				//<option value="svg">svg</option>
+				//<option value="jpeg">jpeg</option>
+				//<option value="png">png</option>
+				//<option value="tiff">tiff</option>
+				//<option value="jcamppeaks">jcamp-dx (peaks only)</option>
+				//<option value="txt">ascii table</option>
+				//<option value="cml">cml code</option>
+				//<option value="originalimage">image (original spectrum, png)</option>				
 				for (int j = 1; j < options.length; j++) {
 					String filename = fname;
 					String opt = options[j];
+					String ext = null;
 					switch (opt) {
 					case "rawdata":
-						filename += "zip";
+						ext = "zip";
 						break;
 					case "pdforig":
-						filename += "pdf";
+						ext = "pdf";
 						break;
 					case "jcamppeaks":
-						filename += "jcamp";
+						ext = "jcamp";
 						break;
 					case "asciitable":
-						filename += "tab";
+						ext = "tab";
 						break;
 					case "originalimage":
-						filename += "png";
+						ext = "png";
 						break;
 					case "svg":
 					case "jpeg":
@@ -164,22 +231,21 @@ public class ExtractorTestNMRSHIFTDB extends FindingAidCreator {
 					case "txt":
 					case "cml":
 					default:
-						filename += opt;
+						ext = opt;
 						break;
 					}
-					String url = specDownloadTemplate
-							.replace("$SPECID", specID)
-							.replace("$FILENAME", filename)
+					filename += ext;
+					String url = specDownloadTemplate.replace("$SPECID", specID).replace("$FILENAME", filename)
 							.replace("$FORMAT", opt);
-					getSourceData(url, specDataDir, filename, false);
+					getSourceData(url, specDataDir, filename, null, false);
 				}
 //				private final static String specDownloadTemplate = "https://nmrshiftdb.nmr.uni-koeln.de/download/NmrshiftdbServlet/$FILENAME?spectrumid=$SPECID&nmrshiftdbaction=exportspec&lastsearchtype=test";
 //				  }else{
 //				    filename=filename+document.exportspec23.format.value;
 //				  }
-				
+
 			} else if (form.indexOf("\"molexport") >= 0) {
-				
+
 //				<form action="" method="post" target="_new" name="molexport92">
 //				Get this molecule as 
 //				<select name="format" size="1">
@@ -193,7 +259,6 @@ public class ExtractorTestNMRSHIFTDB extends FindingAidCreator {
 //				 file 
 //				<input type="submit" value="Request" onClick="exportMol92()">
 //			</form>
-				String filename = null;
 				for (int j = 1; j < options.length; j++) {
 					String opt = options[j];
 					switch (opt) {
@@ -207,9 +272,38 @@ public class ExtractorTestNMRSHIFTDB extends FindingAidCreator {
 					default:
 						continue;
 					}
-					filename = molnumber + "." + opt;
-					String url = molDownloadTemplate.replace("$MOLNUMBER", molnumber).replace("$SPECID", specID).replace("$FORMAT", opt);
-					getSourceData(url, molDataDir, filename, false);
+					String filename = molnumber + "." + opt;
+					String url = molDownloadTemplate
+							.replace("$MOLNUMBER", molnumber)
+							.replace("$SPECID", specID)
+							.replace("$FORMAT", opt);
+					getSourceData(url, molDataDir, filename, null, false);
+				}
+			} else if (form.indexOf("\"datasetexport") >= 0) {
+//				<option value="nmredata.zip">NMR record</option>
+//				<option value="nmredata.sd">NMReDATA</option>
+//				<option value="cml">cml</option>
+//				<option value="pdf">Report</option>
+				String hack = null;
+				for (int j = 1; j < options.length; j++) {
+					String opt = options[j];
+					switch (opt) {
+					case "nmredata.sd":
+						hack = "nmredata";
+						break;
+					case "nmredata.zip":
+					case "cml":
+					case "pdf":
+						break;
+					default:
+						continue;
+					}
+					String filename = molnumber + ".dataset." + opt;
+					String url = datasetDownloadTemplate
+							.replace("$FILENAME", filename)
+							.replace("$SPECID", specID)
+							.replace("$FORMAT", opt);
+					getSourceData(url, molDataDir, filename, "nmredata", false);
 				}
 			}
 		}
@@ -218,8 +312,7 @@ public class ExtractorTestNMRSHIFTDB extends FindingAidCreator {
 	private static String[] getHTMLOptions(String form) {
 		String[] opts = form.split("<option");
 		for (int j = 1; j < opts.length; j++) {
-			int pt = opts[j].indexOf("value=\"");
-			opts[j] = opts[j].substring(pt + 7, opts[j].indexOf("\"", pt + 7));
+			opts[j] = getField(opts[j], 0, "value=\"", "\"");
 		}
 		return opts;
 	}
@@ -250,16 +343,11 @@ public class ExtractorTestNMRSHIFTDB extends FindingAidCreator {
 				if (val.indexOf("<ul>") >= 0) {
 					// chemical name(s)
 					String[] list = val.split("<li");
-					for (int j = 1; j < list.length; j++) {
-						
-						String item = list[j];
-						int pt = item.indexOf('>');
-						item = item.substring(pt + 1, item.indexOf("</li>"));
-						pt = item.lastIndexOf('(');
-						key = item.substring(pt + 1, item.lastIndexOf(')')).trim();
-						pt = item.indexOf('\'');
-						int pt1 = item.indexOf(pt < 0 ? '(' : '\'', pt + 1);
-						val = item.substring(pt + 1, pt1).trim();
+					for (int j = 1; j < list.length; j++) {					
+						String item = getField(list[j], 0, ">", "</li>");
+						key = getField(item, -1, "(", ")");
+						key = checkHack("key", key);
+						val = getField(list[j], 0, "'", "'");
 						addKeyValue(key, val, molData);
 					}
 					continue;
@@ -270,6 +358,38 @@ public class ExtractorTestNMRSHIFTDB extends FindingAidCreator {
 				addKeyValue(key, val, molData);
 			}
 		}
+	}
+
+	private static String checkHack(String hack, String s) {
+		int pt = -1;
+		switch (hack) {
+		case "inchi":
+//			capitalization issue
+//			... (truncated)</a> (INChI)
+			if (s.equalsIgnoreCase("inchi"))
+				s = "InChI";
+			break;
+		case "nmredata":			
+
+//			duplication of value
+//			> <NMREDATA_2D_1H_NJ_1H#2>
+//			Spectrum_Location=https://nmrshiftdb.nmr.uni-koeln.de/portal/../download/NmrshiftdbServlet/40018635_J-resolved.zip?spectrumid=40018635&nmrshiftdbaction=exportspec&format=rawdatadownload/NmrshiftdbServlet/40018633_H,H-NOESY.zip?spectrumid=40018633&nmrshiftdbaction=exportspec&format=rawdata\
+			while ((pt = s.indexOf("rawdatadownload", pt + 1)) > 0) {
+				int pt0 = s.lastIndexOf("download", pt);
+				s = s.substring(0, pt0) + s.substring(pt + 7);
+				String specid = getField(s, pt0, "spectrumid=", "&");
+				pt = s.indexOf('\\', pt);
+				s = s.substring(0, pt) + "\\\nSpectrum_location=./" + specid + s.substring(pt);
+			}
+			//$FALL-THROUGH$
+		case "up-directory":
+			// 
+			while ((pt = s.indexOf("/../")) > 0) {
+				int pt0 = s.lastIndexOf("/", pt - 1);
+				s = s.substring(0, pt0) + s.substring(pt + 3);
+			}
+		}
+		return s;
 	}
 
 	private static void extractSpectraMetadata(String molnumber, File specDataDir, String data, String specID, Map<String, String> specData) {
@@ -286,7 +406,7 @@ public class ExtractorTestNMRSHIFTDB extends FindingAidCreator {
 	}
 
 	private static void addKeyValue(String key, String val, Map<String, String> map) {
-		if (val.length() > 0) {
+		if (val != null && val.length() > 0) {
 			System.out.println(key + "=" + val);
 			map.put(key, val);
 		}
@@ -328,7 +448,7 @@ public class ExtractorTestNMRSHIFTDB extends FindingAidCreator {
 		return cell;
 	}
 
-	private static String getSourceData(String source, File filesDir, String fileName, boolean returnString) throws IOException {
+	private static String getSourceData(String source, File filesDir, String fileName, String hack, boolean returnString) throws IOException {
 		System.out.println("checking " + source);
 		File localFile = new File(filesDir, fileName);
 		if (localFile.exists()) {
@@ -345,6 +465,9 @@ public class ExtractorTestNMRSHIFTDB extends FindingAidCreator {
 		if (bytes.length == 0) {
 			System.out.println("NO DATA");
 			return null;
+		}
+		if (hack != null) {
+			bytes = checkHack("nmredata", new String(bytes)).getBytes();
 		}
 		FAIRSpecUtilities.putToFile(bytes, localFile);
 		System.out.println("saved " + bytes.length + " bytes to " + localFile);

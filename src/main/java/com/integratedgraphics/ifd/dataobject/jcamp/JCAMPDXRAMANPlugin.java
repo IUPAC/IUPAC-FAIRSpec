@@ -1,8 +1,8 @@
-package com.integratedgraphics.ifd.vendor.jcamp;
+package com.integratedgraphics.ifd.dataobject.jcamp;
 
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-public class JCAMPDXRAMANPlugin extends JCAMPDXIFDVendorPlugin {
+public class JCAMPDXRAMANPlugin extends JCAMPDXDataObjectVendorPlugin {
 
 //			##TITLE= ethanolamine
 //			##JCAMP-DX= 5.01
@@ -24,7 +24,7 @@ public class JCAMPDXRAMANPlugin extends JCAMPDXIFDVendorPlugin {
 
 	
 	static {
-		register(com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXRAMANPlugin.class);
+		register(com.integratedgraphics.ifd.dataobject.jcamp.JCAMPDXRAMANPlugin.class);
 	}
 
 	public JCAMPDXRAMANPlugin() {

@@ -1,4 +1,4 @@
-package com.integratedgraphics.ifd.vendor.nmrml;
+package com.integratedgraphics.ifd.dataobject.nmrml;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,9 +8,9 @@ import org.nmrml.parser.Acqu;
 
 import com.integratedgraphics.ifd.util.VendorUtils;
 import com.integratedgraphics.ifd.util.VendorUtils.DoubleString;
-import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
+import com.integratedgraphics.ifd.dataobject.NMRVendorPlugin;
 
-public abstract class NmrMLIFDVendorPlugin extends NMRVendorPlugin {
+public abstract class NmrMLDataObjectVendorPlugin extends NMRVendorPlugin {
 
 	private static Map<String, String> ifdMap = new HashMap<>();
 

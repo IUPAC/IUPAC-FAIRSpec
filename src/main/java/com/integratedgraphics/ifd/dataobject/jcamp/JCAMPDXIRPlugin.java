@@ -1,8 +1,8 @@
-package com.integratedgraphics.ifd.vendor.jcamp;
+package com.integratedgraphics.ifd.dataobject.jcamp;
 
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-public class JCAMPDXIRPlugin extends JCAMPDXIFDVendorPlugin {
+public class JCAMPDXIRPlugin extends JCAMPDXDataObjectVendorPlugin {
 	
 //			##TITLE= Compound file, contains several data records
 //			##JCAMP-DX= 5.0
@@ -35,7 +35,7 @@ public class JCAMPDXIRPlugin extends JCAMPDXIFDVendorPlugin {
 //			##XYDATA=(X++(Y..Y))
 
 	static {
-		register(com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXIRPlugin.class);
+		register(com.integratedgraphics.ifd.dataobject.jcamp.JCAMPDXIRPlugin.class);
 	}
 
 	public JCAMPDXIRPlugin() {

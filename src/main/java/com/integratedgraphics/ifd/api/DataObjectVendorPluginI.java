@@ -12,16 +12,18 @@ import org.iupac.fairdata.extract.PropertyManagerI;
 import com.integratedgraphics.extractor.IFDExtractor;
 
 /**
- * A clas that implements IFDVendorPluginI extends the ability of an
- * IFDMetadataReceiverI class to extract data and metadata from a dataset.
+ * A class that implements DataObjectVendorPluginI extends the ability of an
+ * IFDMetadataReceiverI class to extract data and metadata from an IFDDataObject
+ * representation.
  * 
  * After statically (i.e. automatically upon the first time an instance of the
  * class is created) registering with
- * IFDVendorPluginI.registerAdapter(IFDParamAdapterI), IFDExporterI will query
+ * DataObjectVendorPluginI.registerDataObjectVendorPlugin(DataObjectVendorPluginI), 
+ * this class will query
  * the plugin for regex.Pattern values that it will recognize for given
  * ObjectType values.
  * 
- * During extraction, the IFDVendorPluginI class will be checked every time
+ * During extraction, the DataObjectVendorPluginI class will be checked every time
  * there is a file that gives a match in its name.
  * 
  * By accepting a data block either by reading its bytes or by recognizing a
@@ -29,26 +31,26 @@ import com.integratedgraphics.extractor.IFDExtractor;
  * property fields with values found in
  * org.iupac.fairdata.common.fairdata.properties (Or, for that matter, do
  * anything else it wants, including create new files from the data, since it
- * will have access to both the IFDMetadataReceiverI and IFDVendorPluginI instances
- * once it accepts.)
+ * will have access to both the IFDMetadataReceiverI and DataObjectVendorPluginI
+ * instances once it accepts.)
  * 
  * @author hansonr
  *
  */
-public interface VendorPluginI extends PropertyManagerI {
+public interface DataObjectVendorPluginI extends PropertyManagerI {
 	
-	public static List<VendorPluginI> vendorPlugins = new ArrayList<>();
+	public static List<DataObjectVendorPluginI> plugins = new ArrayList<>();
 
-	public final static List<VendorInfo> activeVendors = new ArrayList<VendorInfo>();
+	public final static List<DataObjectVendorInfo> activeVendors = new ArrayList<DataObjectVendorInfo>();
 
-	public static class VendorInfo {
+	public static class DataObjectVendorInfo {
 		
-		final public VendorPluginI vendor;
+		final public DataObjectVendorPluginI vendor;
 		final public int index;
 		final public String vrezip;
 		final public String vcache;
 
-		private VendorInfo(VendorPluginI vendor, int index) {
+		private DataObjectVendorInfo(DataObjectVendorPluginI vendor, int index) {
 			this.vendor = vendor;
 			this.index = index;
 			vendor.setIndex(index);
@@ -71,17 +73,17 @@ public interface VendorPluginI extends PropertyManagerI {
 			return;
 		}
 		@SuppressWarnings("unchecked")
-		List<Object> knownVendors = (List<Object>) vendors.get("knownVendors");
+		List<Object> knownVendors = (List<Object>) vendors.get("knownDataObjectVendors");
 		for (int i = 0, n = knownVendors.size(); i < n; i++) {
 			String sv = (String) knownVendors.get(i);
-			VendorPluginI v;
+			DataObjectVendorPluginI v;
 			try {
-				v = (VendorPluginI) Class.forName(sv).getDeclaredConstructor().newInstance();
+				v = (DataObjectVendorPluginI) Class.forName(sv).getDeclaredConstructor().newInstance();
 				if (v.isEnabled()) {
 					addVendor(v);
 				}
 			} catch (Exception e) {
-				System.err.println("! IFDVendorPluginI Trying to instatiation of " + sv + " failed.");
+				System.err.println("! DataObjectVendorPluginI Trying to instatiation of " + sv + " failed.");
 				e.printStackTrace(System.err);
 			}
 		}
@@ -92,9 +94,9 @@ public interface VendorPluginI extends PropertyManagerI {
 	 * 
 	 * @param v
 	 */
-	public static void addVendor(VendorPluginI v) {
-		activeVendors.add(new VendorInfo(v, activeVendors.size()));
-		System.out.println("! IFDVendorPluginI vendorPlugin " + v.getClass().getName() + " active");
+	public static void addVendor(DataObjectVendorPluginI v) {
+		activeVendors.add(new DataObjectVendorInfo(v, activeVendors.size()));
+		System.out.println("! DataObjectVendorPluginI vendorPlugin " + v.getClass().getName() + " active");
 	}
 
 	/**
@@ -102,11 +104,11 @@ public interface VendorPluginI extends PropertyManagerI {
 	 * 
 	 * @param plugin
 	 */
-	static void registerIFDVendorPlugin(Class<? extends VendorPluginI> plugin) {
+	static void registerDataObjectVendorPlugin(Class<? extends DataObjectVendorPluginI> plugin) {
 		try {
-			VendorPluginI v = plugin.getDeclaredConstructor().newInstance();
-			vendorPlugins.add(v);
-			System.out.println("! IFDVendorPluginI vendorPlugin " + plugin + " registered");
+			DataObjectVendorPluginI v = plugin.getDeclaredConstructor().newInstance();
+			plugins.add(v);
+			System.out.println("! DataObjectVendorPluginI vendorPlugin " + plugin + " registered");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

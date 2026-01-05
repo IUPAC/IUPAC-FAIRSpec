@@ -1,4 +1,4 @@
-package com.integratedgraphics.ifd.vendor.jeol;
+package com.integratedgraphics.ifd.dataobject.jeol;
 
 /*
  * derived from NmrMLJeolAcquReader
@@ -20,8 +20,8 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.nmrml.parser.Acqu;
 import org.nmrml.parser.jeol.JeolParameter;
 
-import com.integratedgraphics.ifd.vendor.ByteBlockReader;
-import com.integratedgraphics.ifd.vendor.nmrml.NmrMLHeader;
+import com.integratedgraphics.ifd.dataobject.ByteBlockReader;
+import com.integratedgraphics.ifd.dataobject.nmrml.NmrMLHeader;
 
 /**
  * Reader for Jeol JDF file

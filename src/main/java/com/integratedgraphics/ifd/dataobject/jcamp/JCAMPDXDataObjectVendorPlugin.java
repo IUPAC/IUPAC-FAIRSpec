@@ -1,4 +1,4 @@
-package com.integratedgraphics.ifd.vendor.jcamp;
+package com.integratedgraphics.ifd.dataobject.jcamp;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
@@ -6,17 +6,17 @@ import java.util.Map;
 
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-import com.integratedgraphics.ifd.vendor.DefaultVendorPlugin;
+import com.integratedgraphics.ifd.dataobject.DefaultVendorPlugin;
 
 import jspecview.source.JDXReader;
 
-public class JCAMPDXIFDVendorPlugin extends DefaultVendorPlugin {
+public class JCAMPDXDataObjectVendorPlugin extends DefaultVendorPlugin {
 
 	protected final static String IFD_REP_DATAOBJECT_FAIRSPEC_UNKNOWN_VENDOR_DATASET = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_UNKNOWN.VENDOR_DATASET");
     protected final static String IFD_PROPERTY_DATAOBJECT_FAIRSPEC_UNKNOWN_INSTR_MANUFACTURER_NAME = getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_UNKNOWN.INSTR_MANUFACTURER_NAME");
     
 	static {
-		register(com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXIFDVendorPlugin.class);
+		register(com.integratedgraphics.ifd.dataobject.jcamp.JCAMPDXDataObjectVendorPlugin.class);
 	}
 
 	private DefaultVendorPlugin delegatedPlugin;
@@ -26,7 +26,7 @@ public class JCAMPDXIFDVendorPlugin extends DefaultVendorPlugin {
 
 	private String jcampType;
 	
-	public JCAMPDXIFDVendorPlugin() {
+	public JCAMPDXDataObjectVendorPlugin() {
 		paramRegex = "\\.jdx$|\\.dx$";
 		datasetKey = IFD_REP_DATAOBJECT_FAIRSPEC_UNKNOWN_VENDOR_DATASET;
 		vendorKey = IFD_PROPERTY_DATAOBJECT_FAIRSPEC_UNKNOWN_INSTR_MANUFACTURER_NAME;
@@ -90,7 +90,7 @@ public class JCAMPDXIFDVendorPlugin extends DefaultVendorPlugin {
 	}
 
 	private DefaultVendorPlugin newJCAMPDXPlugin(String type, Map<String, String> map) {
-		String className = JCAMPDXIFDVendorPlugin.class.getName();
+		String className = JCAMPDXDataObjectVendorPlugin.class.getName();
 		className = className.substring(0, className.lastIndexOf(".") + 1) + "JCAMPDX" + type + "Plugin";
 		DefaultVendorPlugin o = null;
 		try {

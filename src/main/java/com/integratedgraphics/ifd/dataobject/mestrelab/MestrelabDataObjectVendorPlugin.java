@@ -1,4 +1,4 @@
-package com.integratedgraphics.ifd.vendor.mestrelab;
+package com.integratedgraphics.ifd.dataobject.mestrelab;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -18,13 +18,13 @@ import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.extractor.IFDExtractor;
 import com.integratedgraphics.ifd.util.VendorUtils;
-import com.integratedgraphics.ifd.vendor.NMRVendorPlugin;
-import com.integratedgraphics.ifd.vendor.mestrelab.MNovaMetadataReader.Param;
+import com.integratedgraphics.ifd.dataobject.NMRVendorPlugin;
+import com.integratedgraphics.ifd.dataobject.mestrelab.MNovaMetadataReader.Param;
 
-public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
+public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 
 	static {
-		register(com.integratedgraphics.ifd.vendor.mestrelab.MestrelabIFDVendorPlugin.class);
+		register(com.integratedgraphics.ifd.dataobject.mestrelab.MestrelabDataObjectVendorPlugin.class);
 	}
 
 	private static Map<String, String> ifdMap = new HashMap<>();
@@ -86,7 +86,7 @@ public class MestrelabIFDVendorPlugin extends NMRVendorPlugin {
 			ifdMap.put(keys[i++], keys[i++]);
 	}
 
-	public MestrelabIFDVendorPlugin() {
+	public MestrelabDataObjectVendorPlugin() {
 		paramRegex = "\\.mnova[^/]*$";
 	}
 

@@ -81,27 +81,9 @@
 			"collectionSet": {
 				"class": {
 					"$ref": "#/$defs/class_collectionSet"
-        "schema": {
-          	"type": "string",
-           	"const": "https://iupac.github.io/IUPAC-FAIRSpec/schema/fairspec.findingaid.schema.0.1.0.json"
-		},
-			"properties": {
-				"ifdType": {
-					"description": "specific declaration of the IUPAC FAIRSpec Metadata Model class",
-					"type": "string",
-					"enum": [
-						"org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid"
-					],
-					"default": "org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid"
-				},
-				"ifdTypeExtends": {
-					"description": "specific declaration of the core IUPAC FAIRSpec Metadata Model superclass",
-					"type": "string",
-					"enum": [
-						"org.iupac.fairdata.core.IFDFindingAid"
-					],
-					"default": "org.iupac.fairdata.core.IFDFindingAid"
-				}
+                },
+                "TODO": {
+                }
 			}
 		},
 		"contents.samples": {

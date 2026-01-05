@@ -1,4 +1,4 @@
-package com.integratedgraphics.ifd.vendor;
+package com.integratedgraphics.ifd.dataobject;
 
 import java.util.Date;
 import java.util.List;
@@ -20,6 +20,9 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 			"IFD_REP_DATAOBJECT_FAIRSPEC_NMR.VENDOR_DATASET");
 	protected final static String IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_MANUFACTURER_NAME = getProp(
 			"IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_MANUFACTURER_NAME");
+
+	protected static String IMAGE = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR.SPECTRUM_IMAGE");
+	protected static String PDF = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR.SPECTRUM_DOCUMENT");
 
 	private static Map<String, List<String>> solventMap;
 	private static List<String> solventKeyList;

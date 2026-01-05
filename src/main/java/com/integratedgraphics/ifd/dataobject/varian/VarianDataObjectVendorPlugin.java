@@ -1,16 +1,16 @@
-package com.integratedgraphics.ifd.vendor.varian;
+package com.integratedgraphics.ifd.dataobject.varian;
 
 import java.io.ByteArrayInputStream;
 
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-import com.integratedgraphics.ifd.vendor.nmrml.NmrMLIFDVendorPlugin;
+import com.integratedgraphics.ifd.dataobject.nmrml.NmrMLDataObjectVendorPlugin;
 
 
-public class VarianIFDVendorPlugin extends NmrMLIFDVendorPlugin {
+public class VarianDataObjectVendorPlugin extends NmrMLDataObjectVendorPlugin {
 
 	static {
-		register(com.integratedgraphics.ifd.vendor.varian.VarianIFDVendorPlugin.class);
+		register(com.integratedgraphics.ifd.dataobject.varian.VarianDataObjectVendorPlugin.class);
 	}
 
 	@Override

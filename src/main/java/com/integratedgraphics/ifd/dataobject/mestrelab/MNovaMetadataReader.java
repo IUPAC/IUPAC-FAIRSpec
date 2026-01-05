@@ -1,4 +1,4 @@
-package com.integratedgraphics.ifd.vendor.mestrelab;
+package com.integratedgraphics.ifd.dataobject.mestrelab;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,7 +16,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 
-import com.integratedgraphics.ifd.vendor.ByteBlockReader;
+import com.integratedgraphics.ifd.dataobject.ByteBlockReader;
 
 /**
  * A rough MestReNova file reader that can deliver metadata only (including MOL,
@@ -268,7 +268,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 
 	private static final int minBlockLengthForStructureData = 50;
 
-	private MestrelabIFDVendorPlugin plugin;
+	private MestrelabDataObjectVendorPlugin plugin;
 
 	public String mnovaVersion;
 	public int mnovaVersionNumber;
@@ -289,7 +289,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		super(bytes);
 	}
 
-	MNovaMetadataReader(MestrelabIFDVendorPlugin mestrelabIFDVendorPlugin, byte[] bytes) throws IOException {
+	MNovaMetadataReader(MestrelabDataObjectVendorPlugin mestrelabIFDVendorPlugin, byte[] bytes) throws IOException {
 		super(bytes);
 		this.plugin = mestrelabIFDVendorPlugin;
 	}

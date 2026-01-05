@@ -1,8 +1,8 @@
-package com.integratedgraphics.ifd.vendor.jcamp;
+package com.integratedgraphics.ifd.dataobject.jcamp;
 
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-public class JCAMPDXMSPlugin extends JCAMPDXIFDVendorPlugin {
+public class JCAMPDXMSPlugin extends JCAMPDXDataObjectVendorPlugin {
 
 //			##TITLE=$$ Begin of the data block
 //			##JCAMP-DX=5.00 $$ ACD/Spectrus 2012 v 14.01
@@ -27,7 +27,7 @@ public class JCAMPDXMSPlugin extends JCAMPDXIFDVendorPlugin {
 //			##PEAK TABLE=(XY..XY)
 	
 	static {
-		register(com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXMSPlugin.class);
+		register(com.integratedgraphics.ifd.dataobject.jcamp.JCAMPDXMSPlugin.class);
 	}
 
 	public JCAMPDXMSPlugin() {

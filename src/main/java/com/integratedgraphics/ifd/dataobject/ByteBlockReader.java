@@ -1,4 +1,4 @@
-package com.integratedgraphics.ifd.vendor;
+package com.integratedgraphics.ifd.dataobject;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;

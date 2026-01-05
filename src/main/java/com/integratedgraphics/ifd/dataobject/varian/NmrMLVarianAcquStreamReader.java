@@ -2,7 +2,7 @@
  * CC-BY 4.0
  */
 
-package com.integratedgraphics.ifd.vendor.varian;
+package com.integratedgraphics.ifd.dataobject.varian;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 import org.nmrml.parser.Acqu;
 
-import com.integratedgraphics.ifd.vendor.nmrml.NmrMLHeader;
+import com.integratedgraphics.ifd.dataobject.nmrml.NmrMLHeader;
 
 /**
  * Reader for Varian's propar files
