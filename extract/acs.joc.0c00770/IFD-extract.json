@@ -62,7 +62,7 @@
  {"IFD.property.collectionset.source_repository_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
 
 
- {"cmpd":"{id=IFD.property.fairspec.compound.id::*}.zip|"},
+ {"cmpd":"*.zip|"},
  "The{cmpd} shortcut will be used at the start of each extractor object definition, below.",
  " this reads: 'retrieve the compound identifier XXX from the name of the zip file'",
  " note that the pipe symbol '|' means 'continue with the file path within the zip file'",
@@ -71,10 +71,10 @@
  "just two extractor objects",
  " note that the mnova check must come before the generic zip directory / check, because *.mnova is in the vendor list for Mestrec, and some of these Bruker files have mnova files within them",
  
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*.mnova}}"},
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{id=IFD.property.fairspec.compound.id::*}.mnova}}"},
  " matches file path: 1.mnova and assigns '1.mnova' to the nmr data object identifier",
  
- {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*}/}"},
+ {"FAIRSpec.extractor.object":"{cmpd}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{id=IFD.property.fairspec.compound.id::*^_}_*}/}"},
  " matches file path: 1.zip|1_13C/... and assigns '1_13C' to the nmr data object identifier",
  
  "--the extractor configuration adds a search of a structure/ directory"

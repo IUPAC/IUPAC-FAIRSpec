@@ -194,17 +194,6 @@ public class ExtractorUtils {
 
 			s = FAIRSpecUtilities.rep(s, "**/", TEMP_ANY_DIRECTORIES);
 
-			Matcher m;
-			// *-* becomes \\E([^-]+(?:-[^-]+)*)\\Q and matches a-b-c
-			if (s.indexOf("*") != s.lastIndexOf("*")) {
-				while ((m = pStarDotStar.matcher(s)).find()) {
-					String schar = m.group(1);
-					char c = schar.charAt(0);
-					s = FAIRSpecUtilities.rep(s, "*" + schar + "*",
-							TEMP_ANY_SEP_ANY_GROUPS.replaceAll("" + TEMP_ANY_SEP_ANY_CHAR2, "\\\\Q" + c + "\\\\E")
-									.replace(TEMP_ANY_SEP_ANY_CHAR, c));
-				}
-			}
 			// * becomes \\E.+\\Q
 
 			s = FAIRSpecUtilities.rep(s, "*", REGEX_ANY_NOT_PIPE_OR_DIR);
@@ -214,6 +203,11 @@ public class ExtractorUtils {
 			// \\E(?<IFD0nmr0param0expt>\\Qxxx\\E)\\Q
 			// <id> becomes \\k<id>
 
+			int pt = -1;
+			while ((pt = s.indexOf("]+\\Q^")) >= 0) {
+				char c = s.charAt(pt + 5);
+				s = s.substring(0, pt) + c + "]+\\Q" + s.substring(pt + 6);
+			}
 			s = compileIFDDefs(s, true, true);
 
 			// restore '*'

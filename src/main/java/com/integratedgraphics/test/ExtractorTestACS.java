@@ -235,8 +235,8 @@ public class ExtractorTestACS extends ExtractorTest {
 	public static void main(String[] args) {
 		// args[] may override localSourceArchive as ars[1] 
 		// and testDir as args[2]; args[0] is ignored;
-		int first = 7; // first test to run
-		int last = 7; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
+		int first = 4; // first test to run
+		int last = 4; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
 					  // file test
 		String findACSID = null;//"1022" to ignore first/last;
 		String flags = null;//"-assetsOnly"; // "-datacitedown"
@@ -247,7 +247,7 @@ public class ExtractorTestACS extends ExtractorTest {
 		 */
 		String localSourceArchive = "c:/temp/iupac/acs/zip";//-";
 		
-		String targetDir = "c:/temp/iupac/test";//acs/ifd2025-08";
+		String targetDir = "c:/temp/iupac/test2026";//acs/ifd2025-08";
 		args = setSourceTargetArgs(args, null, localSourceArchive, targetDir, flags);
 		boolean createFindingAidJSONList = true;
 		runACSExtractionTest(args, findACSID, first, last, createFindingAidJSONList);
