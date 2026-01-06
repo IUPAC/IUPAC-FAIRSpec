@@ -42,6 +42,8 @@ import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 		
 		protected DOICrawler crawler;
 
+		private String id;
+
 		private final static String[] defaultIgnoreKeys = {
 				"compound.id",
 				"IFD.property.dataobject.fairspec.comp.description",
@@ -97,6 +99,10 @@ import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 				crawler.log("! RelatedIdentifier.References value ignored: " + val + " in " + crawler.doiRecord);
 				break;
 			case DOICrawler.DATACITE_SUBJECT:
+				if(id != null) {					;
+					crawler.addAttr(DOICrawler.FAIRSPEC_COMPOUND_ID, crawler.newCompound(id));
+					id = null;
+				}
 				switch (val) {
 				// from ccdc DOI
 				case "Crystal Structure":
@@ -124,11 +130,10 @@ import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 				}
 				int pt = val.toLowerCase().indexOf("compound ");
 				if (pt >= 0) {
-					String id = crawler.newCompound(IFDUtil.parsePositiveIntABC(val.substring(pt + 9).trim()));
-					crawler.addAttr(DOICrawler.FAIRSPEC_COMPOUND_ID, id);
+					id = IFDUtil.parsePositiveIntABC(val.substring(pt + 9).trim());
 					return true;
 				}
-			}
+			}	
 			return false;
 		}
 
@@ -136,9 +141,9 @@ import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 
 	public static void main(String[] args) {
 		if (debug) {
-			args = new String[] {"10.14469/hpc/6757", "c:/temp/iupac/06757", "-downloadall", "-extractSpecProperties"};
+//			args = new String[] {"10.14469/hpc/6757", "c:/temp/iupac/06757", "-downloadall", "-extractSpecProperties"};
 //			args = new String[] {"10.14469/hpc/10386", "c:/temp/iupac/10386" , "-insitu"};
-//			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler"};
+			args = new String[] { "10.14469/hpc/14635", "/Users/faynguyen03/Documents/Interim26Intern"};
 //			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler", "-insitu"};
 //			args = new String[] { "10.14469/hpc/14635", "c:/temp/iupac/crawler", "-insitu", "-extractSpecProperies"};
 		}

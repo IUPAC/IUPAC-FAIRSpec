@@ -407,9 +407,8 @@ public class DOICrawler extends FindingAidCreator {
 			// </subjects>
 			//
 			String key = attrs.get("subjectscheme");
-			if (key == null) {
-				crawler.customizeText(DATACITE_SUBJECT, s);
-			} else {
+			crawler.customizeText(DATACITE_SUBJECT, s);
+			if (key != null) {
 				switch (key) {
 				case FAIRDATA_SUBJECT_SCHEME:
 					key = attrs.get("valueuri");
