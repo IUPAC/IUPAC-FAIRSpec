@@ -101,7 +101,7 @@ public class DOIInfoExtractor {
 			title = title.substring(1, title.length() - 1);
 		}
 		put(info,"title", title);
-		String doi = (String) getObject(message, "DOI");
+		String doi = ((String) getObject(message, "DOI")).toLowerCase();
 		List<Object> author = getList(message, "author");
 		String s = "";
 		if (author != null)
@@ -138,7 +138,7 @@ public class DOIInfoExtractor {
 		if (s.length() > 0) {
 			put(info,"dataCreators", s.substring(2));
 		}
-		String doi = getValue(crossCite, "doi", "");
+		String doi = getValue(crossCite, "doi", "").toLowerCase();
 		put(info,"dataDoi", doi);			
 		put(info,"dataDoiLink", "https://doi.org/" + doi);
 		put(info,"dataUrl", getValue(crossCite, "url", ""));

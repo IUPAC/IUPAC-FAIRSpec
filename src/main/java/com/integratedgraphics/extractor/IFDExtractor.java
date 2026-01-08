@@ -153,6 +153,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 			throw new NullPointerException("No IFD-extract.json or test set?");
 		if (targetDir == null)
 			targetDir = "site";
+		
 		FAIRSpecUtilities.setLogging(targetDir + "/extractor.log");
 		int failed = 0;
 		logToSys("Extractor.runExtraction output to " + new File(targetDir).getAbsolutePath());

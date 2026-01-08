@@ -286,7 +286,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 		// String s = "test/ok/here/1c.pdf"; // test/**/*.pdf
 		// Pattern p = Pattern.compile("^\\Qtest\\E/(?:[^/]+/)*(.+\\Q.pdf\\E)$");
-		// Matcher m = p.matcher(s);
+		// Matcher m = p.mat 	cher(s);
 		// log(m.find() ? m.groupCount() + " " + m.group(0) + " -- " + m.group(1) : "");
 
 		log("=====");
@@ -415,7 +415,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					if (len > 0)
 						faHelper.setCurrentResourceByteLength(len);
 					zipFileMap = phase2ReadFAIRSpecReadyCollectionIteratively(is, "", PHASE_2A,
-							new LinkedHashMap<String, ArchiveEntry>());
+							new LinkedHashMap<String, ArchiveEntry>(), 0);
 					contents.put(localizedTopLevelZipURL, zipFileMap);
 				}
 			}
@@ -439,11 +439,11 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 */
 
 	private Map<String, ArchiveEntry> phase2ReadFAIRSpecReadyCollectionIteratively(InputStream is, String baseOriginPath,
-			String phase, Map<String, ArchiveEntry> originToEntryMap) throws IOException, IFDException {
+			String phase, Map<String, ArchiveEntry> originToEntryMap, int level) throws IOException, IFDException {
 		if (debugging && baseOriginPath.length() > 0)
 			log("! opening " + baseOriginPath);
 		boolean isTopLevel = (baseOriginPath.length() == 0);
-		ArchiveInputStream ais = new ArchiveInputStream(is, isTopLevel ? extractorResource.getSourceFile() : null);
+		ArchiveInputStream ais = new ArchiveInputStream(is, isTopLevel ? extractorResource.getSourceFile() : null, level);
 		ArchiveEntry zipEntry = null;
 		ArchiveEntry nextEntry = null;
 		ArchiveEntry firstFileEntry = null;
@@ -458,6 +458,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			n++;
 			nextEntry = null;
 			String name = zipEntry.getName();
+			System.out.println(name);
 			if (name == null)
 				continue;
 			boolean isDir = zipEntry.isDirectory();
@@ -477,7 +478,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			lookingForDirectories = (dirPt >= 0 && zipEntry != firstFileEntry);
 			if (lookingForDirectories) {
 				if (isDir) {
-					dirPt = firstFileName.indexOf('/', dirPt + 1);				
+					dirPt = (firstFileName == null ? -1: firstFileName.indexOf('/', dirPt + 1));				
 					// still cycling or this is fine
 					// set up for next
 					if (dirPt > 0) {
@@ -541,7 +542,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 			if (FAIRSpecUtilities.isZip(oPath)) {
 				// iteratively check zip files if not in the final checking phase
-				phase2ReadFAIRSpecReadyCollectionIteratively(ais, oPath + "|", phase, originToEntryMap);
+				phase2ReadFAIRSpecReadyCollectionIteratively(ais, oPath + "|", phase, originToEntryMap, level + 1);
 			} else {
 				switch (phase) {
 				case PHASE_2A:
@@ -873,7 +874,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		while (iter.hasNext()) {
 			ObjectParser parser = nextParser(iter);
 			if (parser.hasData())
-				phase2ReadFAIRSpecReadyCollectionIteratively(getTopZipStream(), "", PHASE_2C, null);
+				phase2ReadFAIRSpecReadyCollectionIteratively(getTopZipStream(), "", PHASE_2C, null, 0);
 		}
 	}
 
@@ -1552,7 +1553,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		ParserIterator iter = new ParserIterator();
 		while (iter.hasNext()) {
 			nextParser(iter);
-			phase2ReadFAIRSpecReadyCollectionIteratively(getTopZipStream(), "", PHASE_2E, null);
+			phase2ReadFAIRSpecReadyCollectionIteratively(getTopZipStream(), "", PHASE_2E, null, 0);
 		}
 	}
 

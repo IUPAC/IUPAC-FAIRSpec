@@ -267,7 +267,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		for (String ckey : vendorCache.keySet()) {
 			CacheRepresentation r = vendorCache.get(ckey);
 			IFDRepresentableObject<?> obj = getObjectFromLocalizedName(ckey, null);
-			if (obj == null) {
+			if (obj != null) {
 				obj = getCloned(obj);
 			}
 			if (obj == null || !r.isValid) {

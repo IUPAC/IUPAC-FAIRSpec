@@ -358,7 +358,7 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader implements NmrMLH
 
 		/* Group Delay = 0 */
 		acquisition.setDspGroupDelay(0.0);
-		if (orders.length > 0 && factors.length > 0) {
+		if (orders != null && factors != null && orders.length > 0 && factors.length > 0) {
 			double GroupDelay = 0;
 			int nbo = orders[0];
 			for (int k = 0; k < nbo; k++) {

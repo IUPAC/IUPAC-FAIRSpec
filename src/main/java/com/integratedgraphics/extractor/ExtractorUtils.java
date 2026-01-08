@@ -6,11 +6,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
 
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
@@ -713,6 +716,9 @@ public class ExtractorUtils {
 
 	}
 
+	private boolean useZF;
+	
+	
 	/**
 	 * A static class to allow for either ZipInputStream or TarArchiveInputStream
 	 * 
@@ -725,13 +731,15 @@ public class ExtractorUtils {
 		private DirectoryInputStream dis;
 		private RARInputStream ris;
 		protected InputStream is;
-
+		private int level;
+		private Enumeration<? extends ZipEntry> zfenum;
+		private ZipFile zf;
 		protected ArchiveInputStream() throws IOException {
-			this(null, null);
+			this(null, null, -1);
 		}
 
-		public ArchiveInputStream(InputStream is, String fname) throws IOException {
-
+		public ArchiveInputStream(InputStream is, String fname, int level) throws IOException {
+			this.level = level;
 			if (is instanceof ArchiveInputStream)
 				is = new BufferedInputStream(((ArchiveInputStream) is).getStream());
 			if (is instanceof DirectoryInputStream) {
@@ -742,7 +750,18 @@ public class ExtractorUtils {
 			} else if (is instanceof ZipInputStream) {
 				this.is = is;
 			} else if (ZipUtil.isZipS(is)) {
-				this.is = zis = new ZipInputStream(is);
+				if (level >= 0) {
+					if (fname == null) {
+						fname = "temp" + level + ".zip";
+			    		FileOutputStream fos = new FileOutputStream(fname);
+			    		FAIRSpecUtilities.getLimitedStreamBytes(is, -1, fos, false, true);	
+					} else if (fname.startsWith("file:///"))
+						fname = fname.substring(8);
+		    		zf = new ZipFile(fname);
+		    		zfenum = zf.entries();
+				} else {
+					this.is = zis = new ZipInputStream(is);
+				}
 			} else if (ZipUtil.isGzipS(is)) {
 				this.is = tis = ZipUtil.newTarGZInputStream(is);
 			} else if (fname != null && fname.endsWith(".tar")) {
@@ -864,6 +883,17 @@ public class ExtractorUtils {
 					return new ArchiveEntry();
 				}
 			}
+			if (zfenum != null) {
+				try {
+					ZipEntry ze = (zfenum.hasMoreElements() ? zfenum.nextElement() : null); 
+					if (ze == null)
+				      return null;
+					is = zf.getInputStream(ze);					
+					return new ArchiveEntry(ze);
+				} catch (Exception e) {
+					return new ArchiveEntry();
+				}
+			}
 			if (dis != null)
 				return dis.getNextEntry();
 			return null;
@@ -875,6 +905,8 @@ public class ExtractorUtils {
 				dis.close();
 			if (is != null)
 				is.close();
+			if (zf != null)
+				zf.close();
 		}
 
 		public InputStream getStream() {

@@ -98,7 +98,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	public boolean launchLandingPage = true;
 
 
-	protected boolean debugging = false;
+	protected boolean debugging = true;
 	public boolean readOnly = false;
 
 	final protected boolean isByID = true; // forcing
@@ -660,7 +660,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 				return;
 			vendor.initializeDataSet(this);
 			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(localPath));
-			ais = new ArchiveInputStream(bis, null);
+			ais = new ArchiveInputStream(bis, null, -1);
 			ArchiveEntry zipEntry = null;
 			while ((zipEntry = ais.getNextEntry()) != null) {
 				String name = zipEntry.getName();
@@ -699,7 +699,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		ArchiveInputStream ais = null;
 		try {
 			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(localPath));
-			ais = new ArchiveInputStream(bis, null);
+			ais = new ArchiveInputStream(bis, null, -1);
 			ArchiveEntry zipEntry = null;
 			while ((zipEntry = ais.getNextEntry()) != null) {
 				String name = zipEntry.getName();
