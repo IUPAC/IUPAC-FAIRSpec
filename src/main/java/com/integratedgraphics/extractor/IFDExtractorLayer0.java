@@ -53,6 +53,7 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	protected String stopAfter;
 	protected Map<String, Map<String, ArchiveEntry>> htArchiveContents = new LinkedHashMap<>();
 
+
 	/**_I
 	 * debugging help, from -stopafter:xx flag
 	 * 

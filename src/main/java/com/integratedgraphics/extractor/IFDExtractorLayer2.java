@@ -169,6 +169,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	private final static String PHASE_2D = "2d";
 	private final static String PHASE_2E = "2e";
 
+	
 	/**
 	 * list of files extracted
 	 */

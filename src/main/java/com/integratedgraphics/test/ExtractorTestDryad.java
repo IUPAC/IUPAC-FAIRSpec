@@ -9,6 +9,7 @@ import java.util.zip.ZipFile;
 
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
+import com.integratedgraphics.extractor.ExtractorUtils;
 import com.integratedgraphics.extractor.IFDExtractor;
 
 /**
@@ -34,10 +35,10 @@ public class ExtractorTestDryad {
 		else 
 			dryadid = args[0];
 		
-		String tempdir = "c:/temp/dryad/";
+		String tempDir = "c:/temp/dryad/";
 		String ifdExtractFile = "./extract/dryad/" + dryadid + "/IFD-extract.json";
-		String localSourceArchive = tempdir + dryadid + "/dataset.zip";
-		String targetDir = tempdir + dryadid + "_out/";
+		String localSourceArchive = tempDir + dryadid + "/dataset.zip";
+		String targetDir = tempDir + dryadid + "_out/";
 		String flags = null;
 		
 		
@@ -49,7 +50,14 @@ public class ExtractorTestDryad {
 //		}
 		
 		
+		tempDir = ExtractorUtils.setTempDir(tempDir);
+		ExtractorUtils.useZipFile(true);
+		
 		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir, null, flags);
+		
+		int n = ExtractorUtils.clearTempFiles();
+		System.out.println(n + " temp files cleared");
+		
 	}
 
 	private static void dumpZipFile(String file, int level) throws IOException {

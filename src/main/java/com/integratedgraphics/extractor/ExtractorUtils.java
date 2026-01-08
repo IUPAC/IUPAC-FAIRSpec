@@ -716,8 +716,41 @@ public class ExtractorUtils {
 
 	}
 
-	private boolean useZF;
+	/**
+	 * for ZipFile creation
+	 */
+
+	private static String tempDir = "c:/temp/";
+
+	public static String setTempDir(String dir) {
+		if (!dir.endsWith("/"))
+			dir += "/";
+		tempDir = dir;
+		return new File(tempDir).getAbsolutePath();
+	}
+	/**
+	 * optionally disable ZipFile creation in Layer 2 for testing
+	 */
+
+	private static boolean useZipFile = true;
+
+	public static void useZipFile(boolean tf) {
+		useZipFile = tf;
+	}
 	
+	private static int maxLevel = 0;
+
+	public static int clearTempFiles() {
+		for (int i = 1; i <= maxLevel; i++) {
+			File f = new File(tempDir + "temp" + i + ".zip");
+			if (f.exists())
+				f.delete();
+		}
+		int ret = maxLevel;
+		maxLevel = 0;
+		return ret;
+	}
+
 	
 	/**
 	 * A static class to allow for either ZipInputStream or TarArchiveInputStream
@@ -731,7 +764,6 @@ public class ExtractorUtils {
 		private DirectoryInputStream dis;
 		private RARInputStream ris;
 		protected InputStream is;
-		private int level;
 		private Enumeration<? extends ZipEntry> zfenum;
 		private ZipFile zf;
 		protected ArchiveInputStream() throws IOException {
@@ -739,7 +771,6 @@ public class ExtractorUtils {
 		}
 
 		public ArchiveInputStream(InputStream is, String fname, int level) throws IOException {
-			this.level = level;
 			if (is instanceof ArchiveInputStream)
 				is = new BufferedInputStream(((ArchiveInputStream) is).getStream());
 			if (is instanceof DirectoryInputStream) {
@@ -750,9 +781,11 @@ public class ExtractorUtils {
 			} else if (is instanceof ZipInputStream) {
 				this.is = is;
 			} else if (ZipUtil.isZipS(is)) {
-				if (level >= 0) {
+				if (useZipFile && level >= 0) {
 					if (fname == null) {
-						fname = "temp" + level + ".zip";
+						if (maxLevel < level)
+							maxLevel = level;
+						fname = tempDir + "temp" + level + ".zip";
 			    		FileOutputStream fos = new FileOutputStream(fname);
 			    		FAIRSpecUtilities.getLimitedStreamBytes(is, -1, fos, false, true);	
 					} else if (fname.startsWith("file:///"))
