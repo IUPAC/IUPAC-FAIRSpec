@@ -98,7 +98,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	public boolean launchLandingPage = true;
 
 
-	protected boolean debugging = true;
+	protected boolean debugging = false;
 	public boolean readOnly = false;
 
 	final protected boolean isByID = true; // forcing

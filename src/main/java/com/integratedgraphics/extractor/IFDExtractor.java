@@ -188,7 +188,9 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 			}
 		}
 		finalizeExtraction(json, 1, failed, -1, -1, flags);
-		FAIRSpecUtilities.setLogging(null);
+		int n = ExtractorUtils.clearTempFiles();
+		log("!" + n + " temp files cleared");
+		FAIRSpecUtilities.setLogging(null);		
 	}
 
 	@Override

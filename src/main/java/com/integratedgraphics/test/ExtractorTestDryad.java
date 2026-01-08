@@ -55,9 +55,6 @@ public class ExtractorTestDryad {
 		
 		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir, null, flags);
 		
-		int n = ExtractorUtils.clearTempFiles();
-		System.out.println(n + " temp files cleared");
-		
 	}
 
 	private static void dumpZipFile(String file, int level) throws IOException {

@@ -24,6 +24,18 @@
  {"FAIRSpec.extractor.object":
   "{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}/*/*.mnova}}"},
 
+ "Spectra.zip|Spectra",
+ {"path":"*.zip|*/*/"},
+
+ {"ifdObject_HRMS_Compound":"{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::HRMS for Publication/{IFD.property.fairspec.compound.id::"},
+ "5q.png",
+ {"FAIRSpec.extractor.object":
+ "{path}{ifdObject_HRMS_Compound}*}.png}}"},
+ {"FAIRSpec.extractor.object":
+ "{path}{ifdObject_HRMS_Compound}*}.pdf}}"},
+
+
+
  
  ""
 ]}
