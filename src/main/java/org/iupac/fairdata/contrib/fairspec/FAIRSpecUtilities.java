@@ -333,6 +333,7 @@ public class FAIRSpecUtilities {
 			if (!newName.equals(name))
 				s = rep(s, name, newName);
 		}
+		System.out.println("" + s);
 		return s;
 	}
 

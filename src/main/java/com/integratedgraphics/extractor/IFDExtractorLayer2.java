@@ -274,6 +274,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * structure and an object
 	 */
 	private boolean allowMultipleObjectsForRepresentations = true;
+	private String thisCompoundDirID;
+	private String thisStructureDirID;
 
 	/**
 	 * The main extraction phase. Find and extract all objects of interest from a ZIP
@@ -439,12 +441,14 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @throws IFDException
 	 */
 
-	private Map<String, ArchiveEntry> phase2ReadFAIRSpecReadyCollectionIteratively(InputStream is, String baseOriginPath,
-			String phase, Map<String, ArchiveEntry> originToEntryMap, int level) throws IOException, IFDException {
+	private Map<String, ArchiveEntry> phase2ReadFAIRSpecReadyCollectionIteratively(InputStream is,
+			String baseOriginPath, String phase, Map<String, ArchiveEntry> originToEntryMap, int level)
+			throws IOException, IFDException {
 		if (debugging && baseOriginPath.length() > 0)
 			log("! opening " + baseOriginPath);
 		boolean isTopLevel = (baseOriginPath.length() == 0);
-		ArchiveInputStream ais = new ArchiveInputStream(is, isTopLevel ? extractorResource.getSourceFile() : null, level);
+		ArchiveInputStream ais = new ArchiveInputStream(is, isTopLevel ? extractorResource.getSourceFile() : null,
+				level);
 		ArchiveEntry zipEntry = null;
 		ArchiveEntry nextEntry = null;
 		ArchiveEntry firstFileEntry = null;
@@ -479,18 +483,18 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			lookingForDirectories = (dirPt >= 0 && zipEntry != firstFileEntry);
 			if (lookingForDirectories) {
 				if (isDir) {
-					dirPt = (firstFileName == null ? -1: firstFileName.indexOf('/', dirPt + 1));				
+					dirPt = (firstFileName == null ? -1 : firstFileName.indexOf('/', dirPt + 1));
 					// still cycling or this is fine
 					// set up for next
 					if (dirPt > 0) {
-					  String dirName = firstFileName.substring(0, dirPt + 1);
-					  nextEntry = new ArchiveEntry(dirName);
+						String dirName = firstFileName.substring(0, dirPt + 1);
+						nextEntry = new ArchiveEntry(dirName);
 					} else {
-					  nextEntry = null;	
+						nextEntry = null;
 					}
 				} else {
 					haveDirs = false;
-					// first time only and not a directory; 
+					// first time only and not a directory;
 					// a/b/c/d...
 					dirPt = name.indexOf('/', dirPt + 1);
 					if (dirPt > 0) {
@@ -501,7 +505,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 						// set to first directory
 						nextEntry = new ArchiveEntry(firstFileName.substring(0, dirPt + 1));
 						continue;
-					}	
+					}
 				}
 			}
 			String oPath = baseOriginPath + name;
@@ -509,19 +513,21 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			if (!isDir) {
 				dirPt = -1;
 				firstFileEntry = null;
-				if (zipEntry.getSize() == 0) {
+				if (zipEntry.getSize() == 0)
 					continue;
 			}
 			if (isDir) {
+				if (haveDirParser)
+					checkCompoundStructureDir(baseOriginPath + name);
 				if (logging())
 					log("Phase " + phase + " checking zip directory: " + n + " " + oPath);
 			} else if (lstRejected.accept(oPath)) {
-					// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX,
-					// acs.joc.0c00770/22567817
-					if (phase == PHASE_2A)
-						addFileToFileLists(oPath, LOG_REJECTED, zipEntry.getSize(), null);
-					continue;
-				}
+				// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX,
+				// acs.joc.0c00770/22567817
+				if (phase == PHASE_2A)
+					addFileToFileLists(oPath, LOG_REJECTED, zipEntry.getSize(), null);
+				continue;
+			} else {
 				if (phase == PHASE_2A && lstAccepted.accept(oPath)) {
 					addFileToFileLists(oPath, LOG_ACCEPTED, zipEntry.getSize(), null);
 					accepted = true;
@@ -579,6 +585,27 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		if (isTopLevel)
 			ais.close();
 		return originToEntryMap;
+	}
+
+	private void checkCompoundStructureDir(String dir) throws IFDException {
+		int len = dir.length();
+		if (compoundDirParser != null) {
+			if (compoundDirParser.match(dir).find()) {
+				int pt = dir.lastIndexOf("/", len - 2);
+				thisCompoundDirID = dir.substring(pt, len - 1);			
+				if (structureDirParser == compoundDirParser) {
+					thisStructureDirID = thisCompoundDirID;
+					return;
+				}
+			}
+		}
+		if (structureDirParser != null) {
+			if (structureDirParser.match(dir).find()) {
+				int pt = dir.lastIndexOf("/", len - 2);
+				thisStructureDirID = dir.substring(pt, len - 1);			
+			}
+		}
+		
 	}
 
 	/**
@@ -790,11 +817,10 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	private IFDObject<?> phase2bAddIFDObjectsForName(ObjectParser parser, List<String> keyList, String originPath,
 			String localizedName, long len) throws IFDException, IOException {
 		Matcher m = parser.match(originPath);
-		System.out.println(originPath + "\n" + parser);
 		if (!m.find()) {
 			return null;
 		}
-		System.out.println(originPath + " OK");
+		System.out.println(originPath + " found");
 		helper.beginAddingObjects(originPath);
 		if (debugging)
 			log("adding IFDObjects for " + originPath);
@@ -1172,6 +1198,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		String pageCompoundID = null;
 		boolean cloning = false;
 		for (int i = 0, n = deferredPropertyList.size(); i < n; i++) {
+			if (i == 27)
+				System.out.println("L2 ???");
 			MetadataReceiverI.DeferredProperty dp = deferredPropertyList.get(i);
 			if (dp == null) {
 				sample = null;

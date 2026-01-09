@@ -13,19 +13,26 @@
  {"IFD.property.collectionset.source_data_doi":"https://doi.org/10.5061/dryad.{dryadID}"},
  {"IFD.property.collectionset.source_data_uri":"https://doi.org/10.5061/dryad.{dryadID}"},
 
+ {"FAIRSpec.extractor.replacements":[
+    ["Structure of compound", ""]
+    ]},
+                
+
+
  "FID for Publication.zip|FID for Publication/",
  {"path":"*.zip|*/"},
+ {"#FAIRSpec.extractor.compound_id_dir":"{path}*/"},
+ {"#FAIRSpec.extractor.structure_id_dir":"{path}*/"},
+ {"#FAIRSpec.extractor.object":"{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::*/*}/}"},
+ 
+ {"FAIRSpec.extractor.object":
+ "{path}{IFD.representation.structure.mol::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}.mol}"},
+
 
 "13/19F",
  {"FAIRSpec.extractor.object":
  "{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}/*}/}"},
  
- {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.mol::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}.mol}"},
-
- "13/19F/2Hxxx.mnova",
- {"FAIRSpec.extractor.object":
-  "{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}/*/*.mnova}}"},
-
  
 
 

@@ -136,6 +136,13 @@ public class ExtractorUtils {
 			sData = sObj.substring(sObj.charAt(0) == '|' ? 1 : 0);
 			init();
 		}
+		
+		@Override
+		public boolean equals(Object o) {
+			return (o instanceof ObjectParser
+					&& ((ObjectParser)o).sData.equals(sData) 
+					&& ((ObjectParser)o).dataSource.equals(dataSource));
+		}
 
 		/**
 		 * Prepare pattern and match.

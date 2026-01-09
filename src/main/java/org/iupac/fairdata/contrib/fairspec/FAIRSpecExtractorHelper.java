@@ -75,6 +75,12 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 			.getProp("FAIRSPEC_EXTRACTOR_RELATED_METADATA_MAP");
 	public static final String FAIRSPEC_EXTRACTOR_LOCAL_SOURCE_FILE = IFDConst
 			.getProp("FAIRSPEC_EXTRACTOR_LOCAL_SOURCE_FILE");
+	public static final String FAIRSPEC_EXTRACTOR_COMPOUND_ID_DIR = IFDConst
+			.getProp("FAIRSPEC_EXTRACTOR_COMPOUND_ID_DIR");
+	public static final String FAIRSPEC_EXTRACTOR_STRUCTURE_ID_DIR = IFDConst
+			.getProp("FAIRSPEC_EXTRACTOR_STRUCTURE_ID_DIR");
+
+	
 	public static final String EXIT = "EXIT";
 
 	/**

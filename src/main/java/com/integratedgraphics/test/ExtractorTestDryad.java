@@ -31,7 +31,12 @@ public class ExtractorTestDryad {
 
 		
 		if (args.length == 0)
-			dryadid = "3tx95x6sq";
+		//	dryadid = "f7m0cfz7t";
+		//	dryadid = "ghx3ffc2d";
+		//	dryadid = "v6wwpzh7x";
+		//	dryadid = "3tx95x6sq";
+		//  dryadid = "2bvq83c2q";
+		dryadid = "mcvdnckbb";
 		else 
 			dryadid = args[0];
 		
