@@ -182,6 +182,23 @@
                     "type": "integer"
                 }
             }
+         },
+		"class_findingAid": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"additionalProperties": false,
+			"properties": {
+				"ifdType": {
+					"type": "string",
+					"const": "org.iupac.fairdata.core.findingAid?" 
+				},
+				"ifdTypeExtends": {
+					"type": "string",
+					"const": "org.iupac.fairdata.core.IFDCollection?"
+				}
+			}
         },
 		"class_collectionSet": {
 			"required": [

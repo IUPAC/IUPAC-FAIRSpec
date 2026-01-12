@@ -15,7 +15,9 @@
 
  "FID for Publication.zip|FID for Publication/",
  {"path":"*.zip|*/"},
-
+ {"FAIRSpec.extractor.replacements":[
+ ["Structure of compound ", ""]
+ ]},
 "13/19F",
  {"FAIRSpec.extractor.object":
  "{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::*}/*}/}"},
