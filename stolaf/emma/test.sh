@@ -5,7 +5,7 @@ cd c:/temp/dryad
 ls
 pwd
 
-cd mcvdnckbb
+cd 3tx95x6sq
 ls
 pwd
 
@@ -23,7 +23,23 @@ cd test2
 
 for file in *.zip; do
 	unzip "$file"
+	echo "$file"
+	echo "hi"
+	filename=$(basename "$file" .zip)
+	if [ -d "$filename" ]; then
+    echo "'$filename' is a directory."
+    pwd
+    cd "$filename"
+    pwd
+    for file_nextlayer in *.zip; do
+      unzip "$file_nextlayer"
+    done
+
+  else
+    echo "'$filename' is not a directory (or does not exist)."
+  fi
 done
+
 
 ls
 pwd
@@ -35,7 +51,7 @@ fi
 
 echo "File List" > file_list.txt
 
-OUTPUT_FILE="file_list_mcvdnckbb.txt"
+OUTPUT_FILE="file_list_3tx95x6sq.txt"
 echo $OUTPUT_FILE
 
 find "$1" -print > "$OUTPUT_FILE"

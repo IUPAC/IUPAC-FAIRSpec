@@ -89,16 +89,25 @@ def contains_experiment_token(name):
     n = name.lower()
     return any(k in n for k in EXPERIMENT_KEYWORDS)
   
+def contains_experiment_token_twice(name):
+    n = name.lower()
+    pattern = r"\b(" + "|".join(EXPERIMENT_KEYWORDS) + r")\b"
+    matches = re.findall(pattern, n)
+    
+    return len(matches) >= 2
+    #return any(k in n for k in EXPERIMENT_KEYWORDS)
+  
 def is_pure_experiment_folder(name):
     """
     Folder is mostly an experiment name (not a compound).
     """
     n = name.lower()
     return (
-        contains_experiment_token(n)
-        and len(n.split()) <= 3
+        contains_experiment_token(n) and
+        not contains_experiment_token_twice(n)
+        #and len(n.split()) <= 3
     )
-  
+   
 def label_in_path(label, path_text):
     label_norm = re.sub(r"[\s\-_]+", "", label.lower())
     path_norm = re.sub(r"[\s\-_]+", "", path_text.lower())
@@ -277,6 +286,26 @@ df["structural_candidate"] = df["parts"].apply(get_relative_positions)
 df["path_token_counts"] = df["parts"].apply(path_token_counts)
 
 
+def choose_deepest_adjacent_compound(parts, compound_candidates):
+    """
+    If two compound candidates appear next to each other in the path,
+    choose the second one and invalidate the first.
+    """
+    candidate_set = set(compound_candidates)
+
+    for i in range(len(parts) - 1):
+        a, b = parts[i], parts[i + 1]
+
+        if a in candidate_set and b in candidate_set:
+            print(
+                f"[RULE] Adjacent compound folders detected: "
+                f"'{a}' -> '{b}'. "
+                f"Selecting '{b}', invalidating '{a}'."
+            )
+            return b, a  # chosen, invalidated
+
+    return None, None
+  
 
 def has_clean_parent(candidate, parts):
     """
@@ -373,6 +402,11 @@ def clean_parent_of_experiment(parts, candidates):
             return parent
     return None
 
+# I'm adding this in to try to get 1h when there is an 1h 1H NMR folder
+
+def clean_parent_of_experiment_with_experiment_token(parts, candidates):
+  return None
+
 
 """"
 def choose_weak_label(row, min_freq=5, max_frac=0.5):
@@ -396,6 +430,10 @@ def choose_weak_label(row, min_freq=5, max_frac=0.5):
 def choose_weak_label(row, min_freq=3, max_frac=0.5):
     parts = row["parts"]
     candidates = row["compound_candidates"]
+    
+    chosen, invalidated = choose_deepest_adjacent_compound(parts, candidates)
+    if chosen:
+        return chosen
 
     # STRONG RULE: clean parent of experiment wins
     parent = clean_parent_of_experiment(parts, candidates)
@@ -418,6 +456,14 @@ def choose_weak_label(row, min_freq=3, max_frac=0.5):
             candidate_freq[c] >= min_freq and
             candidate_freq[c] / TOTAL_PATHS <= max_frac and
             not contains_experiment_token(c)
+        ):
+            return c
+        # I'm trying to add this chunk
+        elif (
+            candidate_freq[c] >= min_freq and
+            candidate_freq[c] / TOTAL_PATHS <= max_frac and
+            contains_experiment_token(c) and
+            not contains_experiment_token_twice(c)
         ):
             return c
 
@@ -693,8 +739,8 @@ df.to_csv("parsed_pathsb.csv", index=False)
 
 print("\nDone.")
 print("Outputs written:")
-print(" - parsed_paths.csv")
-print(" - predicted_compounds.csv")
+print(" - parsed_pathsb.csv")
+print(" - predicted_compoundsb.csv")
 
 
 print(labeled_df["compound_label"].value_counts().head(20))
@@ -711,5 +757,13 @@ print(labeled_df["compound_label"].unique())
 for compound in labeled_df["compound_label"].unique():
   print(compound)
   
+  
+  
+# adding this on my own
+
+
+
+  
+
 
 
