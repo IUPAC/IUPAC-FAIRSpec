@@ -10,7 +10,7 @@ from sklearn.pipeline import Pipeline
 
 # Read file paths
 
-with open("file_list_3tx95x6sq.txt", "r") as f:
+with open("file_list_f7m0cfz7t.txt", "r") as f:
     paths = [line.strip() for line in f if line.strip()]
 
 path_parts = [list(Path(p).parts) for p in paths]
@@ -452,7 +452,7 @@ print("\nOccurrence count per row:")
 print(occurrence_per_row)
 
 # Filter the original DataFrame for rows where the count is greater than or equal to the average
-df = df[occurrence_per_row >= class_name_average- (class_name_average/4)]
+df = df[occurrence_per_row >= class_name_average- (class_name_average/2)]
 
 print("\nFiltered DataFrame (categories with >= average occurrences):")
 print(df)
@@ -479,29 +479,205 @@ print(df_filtered["compound_label"])
 print(df_filtered["compound_label"].unique())
 
 
+with pd.option_context('display.max_rows', 20, 'display.max_columns', None):
+    print(df_filtered)
+
+
+# PART TWO STARTS HERE
+
+print(df["path_text"])
+
+def count_slashes_before(row, path_col, compound_col):
+  path = str(row[path_col]).replace('\\', '/')
+  compound = str(row[compound_col])
+  print(compound)
+  idx = path.lower().find(compound.lower())
+  if idx == -1:
+    return None
+    
+  return path[:idx].count('/')
+
+
+df['slashes_before'] = df.apply(
+    lambda row: count_slashes_before(row, 'path_text','compound_label'),
+    axis=1
+)
+
+print(df[['path_text', 'compound_label', 'slashes_before']])
+    
+  
+print(df['slashes_before'].unique())
+
+matches_list = df['path_text'].str.findall(r".*/.*/.*/ 5r")
+print("\nList of matches for each row:")
+print(matches_list)
+
+print(df['path_text'])
+
+#for path in paths:
+#  if re.search(r"\.zip$", path):
+#    print(path)
+    
+    
+pattern = r"([^/]+)\.zip$"
+zipped_filenames = [re.search(pattern, p).group(1) for p in paths if re.search(pattern, p)]
+print(zipped_filenames)
+    
+# trying next step
+
+print(df["slashes_before"])
 
 """
-compound_contenders = df_filtered["compound_label"].unique()
-print(paths)
-
-print(df)
-
-
-for row in df["parts"]:
-  print(row)
-  for compound_contender in compound_contenders:
-    if compound_contender in row:
-      print(compound_contender)
-      
-      
-print(get_relative_positions(df["parts"]))
-
-print(df["structural_candidate"])
-
-for i in df["structural_candidate"]:
-  if i != {}:
-    print(i)
-
+def get_filepaths_to_compounds():
+  for slashes in df["slashes_before"].unique():
+    for i, folder in enumerate(path_parts):
+      print(f"List {i}: {folder}")
+      if len(folder) > slashes:
+          print(f"  Index 2: {folder[slashes]}")
+          if folder[slashes] in df["compound_label"].unique():
+            print( folder[0:slashes+1])
+            return folder[0:slashes+1]
 """
 
-#print(candidate_freq)
+
+
+def get_filepaths_to_compounds(df, path_parts):
+    extracted_data = []
+    
+    valid_labels = set(df["compound_label"].unique())
+    unique_slashes = df["slashes_before"].unique()
+
+    for slashes in unique_slashes:
+        for folder in path_parts:
+            # check if the folder list is long enough to reach the compound index
+            if len(folder) > slashes:
+                potential_compound = folder[slashes]
+                
+                # If this index contains an identified compound
+                if potential_compound in valid_labels:
+                    full_path = folder[0:slashes+1]
+                    extracted_data.append({
+                        "compound_path": full_path,
+                        "identified_compound": potential_compound
+                    })
+
+    # Create the new DataFrame
+    new_df = pd.DataFrame(extracted_data)
+    return new_df
+  
+new_df = get_filepaths_to_compounds(df, path_parts)
+print(new_df)
+
+
+
+# trying to create the regex
+
+def create_path_pattern(compound_path_list, zipped_list):
+    transformed_parts = []
+    
+    for part in compound_path_list:
+        # if the folder name is in our zip list, add .zip extension
+        if part == "..":
+          continue
+        if part == "test2":
+          continue
+        if part in zipped_list:
+            transformed_parts.append(f"{part}.zip|{part}")
+        else:
+            transformed_parts.append(part)
+    
+    base_path = "/".join(transformed_parts).strip("/")
+    return f"{base_path}/" if base_path else ""
+  
+  
+  
+unique_paths = new_df["compound_path"].drop_duplicates()
+
+
+file_content = [
+  "Path to Compounds\n",
+]
+
+
+path_to_compounds = []
+for path_list in unique_paths:
+    base_path = create_path_pattern(path_list, zipped_filenames)
+    print(base_path)
+    file_content.append(base_path)
+    file_content.append("\n")
+    path_to_compounds.append(base_path)
+
+
+# try to do maybe the estimated path
+
+def mask_filenames(input_list):
+    output = []
+    for entry in input_list:
+
+        parts = re.split(r'([|/])', entry)
+        
+        masked_parts = []
+        for part in parts:
+            if not part:
+                continue
+            if part in ['|', '/']:
+                masked_parts.append(part)
+            elif part.endswith('.zip'):
+                masked_parts.append('*.zip')
+            else:
+                masked_parts.append('*')
+        
+        output.append("".join(masked_parts))
+    return output
+
+result = mask_filenames(path_to_compounds)
+print(result)
+
+print(set(result))
+
+file_content.append("\nPossible file path: \n")
+file_content.append(str(set(result)))
+
+
+# get the contents of each compound
+# get filepaths after compounds
+def get_filepaths_after_compounds(df, path_parts):
+    extracted_data = []
+  
+    valid_labels = set(df["compound_label"].unique())
+    unique_slashes = df["slashes_before"].unique()
+
+    for slashes in unique_slashes:
+        for folder in path_parts:
+           
+            if len(folder) > slashes:
+                potential_compound = folder[slashes]
+
+                if potential_compound in valid_labels:
+
+                    full_path = folder[slashes:]
+                    # Store as a dictionary for the new DataFrame
+                    extracted_data.append({
+                        "compound_path": full_path,
+                        "identified_compound": potential_compound
+                    })
+
+    new_df = pd.DataFrame(extracted_data)
+    return new_df
+  
+diff_df = get_filepaths_after_compounds(df, path_parts)
+print(diff_df)
+IMPORTANT_FILES = [
+  ".mol", ".jdf"
+]
+for file_type in diff_df["compound_path"]:
+  print(file_type[len(file_type)-1])
+  if any(keyword in file_type[len(file_type)-1] for keyword in IMPORTANT_FILES):
+    file_content.append("\n")
+    file_content.append(file_type[0])
+    file_content.append("\n")
+    file_content.append(file_type[len(file_type)-1])
+    file_content.append("\n")
+
+with open("extractor_f7m0cfz7t.txt", "w") as file:
+  file.writelines(file_content)
