@@ -35,6 +35,23 @@ import com.integratedgraphics.html.PageCreator;
 import com.integratedgraphics.ifd.api.AnalysisObjectPluginI;
 import com.integratedgraphics.ifd.api.DataObjectVendorPluginI;
 
+// Apache Commons CLI to handle CLI commands
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.OptionGroup;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.PosixParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.MissingOptionException;
+
+import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+
+import com.integratedgraphics.extractor.IFDExtractor;
+import com.integratedgraphics.extractor.DOICrawler;
+
 /**
  * This abstract class backs MetadataExtractor and DOICrawler,
  * both of which create finding aids. 
@@ -44,6 +61,406 @@ import com.integratedgraphics.ifd.api.DataObjectVendorPluginI;
  */
 public abstract class FindingAidCreator implements MetadataReceiverI {
 
+	protected static class CLI {
+		private String doi = null;
+		private String targetDir = null;
+		private String localSourceArchivePath = null;
+		private String source = "dryad";
+		private boolean crawler = false;
+		private boolean continueProgram = false;
+		private List<String> extractorFlagList = new ArrayList<>();
+		
+		private Options getOptions() {
+		    Options options = new Options();
+		  	
+		    //help -h
+		    OptionBuilder.withLongOpt("help");
+			OptionBuilder.withDescription("Get help for commands.");
+		    options.addOption(OptionBuilder.create("h"));
+		    
+		    //Required options
+		    //DOI -o
+		    OptionBuilder.withLongOpt("doi");
+			OptionBuilder.withDescription("DOI/Identifier.");
+			OptionBuilder.isRequired();
+			OptionBuilder.hasArg(true);
+			OptionBuilder.withArgName("DOI");
+			options.addOption(OptionBuilder.create("o"));
+			
+			//targetDirectory -T
+		    OptionBuilder.withLongOpt("targetDir");
+			OptionBuilder.withDescription("Target output directory for the finding aid");
+			OptionBuilder.isRequired();
+			OptionBuilder.hasArg(true);
+			OptionBuilder.withArgName("TARGET_DIR");
+			options.addOption(OptionBuilder.create("T"));
+			
+			//test -test
+			OptionBuilder.withLongOpt("test");
+			OptionBuilder.withDescription("For testing purpose (SOURCE arg: dryad/acs/icl)");
+			OptionBuilder.isRequired();
+			OptionBuilder.hasArg(true);
+			OptionBuilder.withArgName("SOURCE");
+			options.addOption(OptionBuilder.create("test"));
+		    
+			//Optional options
+			
+			//assetsonly -a
+			OptionBuilder.withLongOpt("assetsOnly");
+			OptionBuilder.withDescription("Asset Only");
+		    options.addOption(OptionBuilder.create("a"));
+		    
+		    //addPublicationMetadata -A
+		    OptionBuilder.withLongOpt("addPublicationMetadata");
+			OptionBuilder.withDescription("Include ALL Crossref or DataCiteOnly for post-publication-related collections; in metadata.");
+		    options.addOption(OptionBuilder.create("A"));
+		    
+		    //byID -B
+		    OptionBuilder.withLongOpt("byID");
+			OptionBuilder.withDescription("Order compounds by ID, not by index; overrides IFD_extract.json setting");
+		    options.addOption(OptionBuilder.create("B"));
+		    
+		    //noclean -c
+		    OptionBuilder.withLongOpt("noClean");
+			OptionBuilder.withDescription("Don't empty the destination collection directory before extraction; allows additional files to be zipped");
+		    options.addOption(OptionBuilder.create("c"));
+		    
+		    //dataciteDown -C
+		    OptionBuilder.withLongOpt("dataciteDown");
+			OptionBuilder.withDescription("Only for post-publication-related collections.");
+		    options.addOption(OptionBuilder.create("C"));
+		    
+		    //debugging -D
+		    OptionBuilder.withLongOpt("debugging");
+			OptionBuilder.withDescription("This will print out all debugging messages");
+		    options.addOption(OptionBuilder.create("D"));
+		    
+		    //embedpdf -E
+		    OptionBuilder.withLongOpt("embedPdf");
+			OptionBuilder.withDescription("Loads PDF documents into finding aids for cross-domain viewing of specta");
+		    options.addOption(OptionBuilder.create("E"));
+		    
+		    //findingAidOnly -F
+		    OptionBuilder.withLongOpt("findingAidOnly");
+			OptionBuilder.withDescription("Only create a finding aid");
+		    options.addOption(OptionBuilder.create("F"));
+		    
+		    //nolandingPage -g
+		    OptionBuilder.withLongOpt("noLandingPage");
+			OptionBuilder.withDescription("Don't create a landing page");
+		    options.addOption(OptionBuilder.create("g"));
+		    
+		    //noignored -i
+		    OptionBuilder.withLongOpt("noIgnored");
+			OptionBuilder.withDescription("Don't include ignored files -- treat them as REJECTED");
+		    options.addOption(OptionBuilder.create("i"));
+		    
+		    //nolaunch -l
+		    OptionBuilder.withLongOpt("noLaunch");
+			OptionBuilder.withDescription("Don't launch the landing page");
+		    options.addOption(OptionBuilder.create("l"));
+		    
+		    //insitu -N
+		    OptionBuilder.withLongOpt("insitu");
+			OptionBuilder.withDescription("Setting insitu true generates an entirely self-contained finding aid, without local files and any rezipping in the origin directory.");
+		    options.addOption(OptionBuilder.create("N"));  
+		    
+		    //readonly -O
+		    OptionBuilder.withLongOpt("readOnly");
+			OptionBuilder.withDescription("Just create a log file");
+		    options.addOption(OptionBuilder.create("O"));
+		    
+		    //Group for public information
+		    OptionGroup pubInfoGroup = new OptionGroup();
+		    
+		    //requirePubInfo -I
+		    OptionBuilder.withLongOpt("requirePubInfo");
+			OptionBuilder.withDescription("Throw an error is datacite cannot be reached; post-publication-related collections only");
+		    pubInfoGroup.addOption(OptionBuilder.create("I"));
+		    
+		    //nopubinfo -p
+		    OptionBuilder.withLongOpt("noPubInfo");
+			OptionBuilder.withDescription("Ignore all publication info");
+			pubInfoGroup.addOption(OptionBuilder.create("p"));
+			
+			pubInfoGroup.setRequired(false);
+			options.addOptionGroup(pubInfoGroup);
+		    
+			//extractspecproperties -P
+			OptionBuilder.withLongOpt("extractSpecProperties");
+			OptionBuilder.withDescription("For crawler: Extract spectra properties");	
+		    options.addOption(OptionBuilder.create("P"));
+			
+		    //debugReadonly -R
+		    OptionBuilder.withLongOpt("debugReadonly");
+			OptionBuilder.withDescription("Readonly, no publication metadata");	
+		    options.addOption(OptionBuilder.create("R"));
+		    
+		    //nostopOnFailure -s
+		    OptionBuilder.withLongOpt("noStopOnFailure");
+			OptionBuilder.withDescription("Continue if there is an error");
+		    options.addOption(OptionBuilder.create("s"));
+		    
+		    //localSourceArchive -S
+		    OptionBuilder.withLongOpt("localSource");
+			OptionBuilder.withDescription("Local Source Archive");
+			OptionBuilder.hasArg(true);
+			OptionBuilder.withArgName("LOCAL_SOURCE_PATH");
+			options.addOption(OptionBuilder.create("S"));
+			
+		    //nodownload -x
+		    OptionBuilder.withLongOpt("noDownload");
+			OptionBuilder.withDescription("For crawler only: do not download files from the repository");
+		    options.addOption(OptionBuilder.create("x")); 
+		    
+		    //crawl -W
+		    OptionBuilder.withLongOpt("crawler");
+			OptionBuilder.withDescription("Run the crawler");
+		    options.addOption(OptionBuilder.create("W")); 
+		    
+		    //addifdtypes -Y
+		    OptionBuilder.withLongOpt("addIfdTypes");
+			OptionBuilder.withDescription("Add IFD Types");
+		    options.addOption(OptionBuilder.create("Y")); 
+		    
+		    //nozip -z
+		    OptionBuilder.withLongOpt("noZip");
+			OptionBuilder.withDescription("Don't zip up the target directory");
+		    options.addOption(OptionBuilder.create("z"));
+		      
+		    return options;
+		}
+		
+		private void checkOptions(CommandLine line, Options options) {
+			if(line.hasOption("h")) {
+				helpManual(options);
+				return;
+			}
+		
+			this.doi = line.getOptionValue("o");
+			
+			this.targetDir = line.getOptionValue("T");
+			
+			if(line.hasOption("S")) {
+				this.localSourceArchivePath = line.getOptionValue("S");
+			}
+			
+			if (line.hasOption("W")) {
+				if(!line.getOptionValue("test").toLowerCase().equals("icl")) {
+					throw new RuntimeException("Error: Crawler only works with ICL.");
+				}
+				this.crawler = true;
+			}
+				
+			if (line.hasOption("test")) {
+			    String dataSource = line.getOptionValue("test").toLowerCase(); 
+		
+			    if (!(dataSource.equals("dryad") || dataSource.equals("acs") || dataSource.equals("icl"))) {
+			        System.err.print("Error: Invalid source '" + dataSource + "'.");
+			    	throw new RuntimeException("Error: Invalid source '" + dataSource + "'.");
+			    }
+			    if (dataSource.equals("icl") && !this.crawler) {
+			    	System.err.print("Error: This source only works with crawler.");
+			    	throw new RuntimeException("Error: This source only works with crawler.");
+			    }  
+			    if (dataSource.equals("dryad") && !line.hasOption("S")) {
+			    	System.err.print("Error: Require dryad dataset local source archive.");
+			    	throw new RuntimeException("Error: Require dryad dataset local source archive.");
+			    }
+			    this.source = dataSource;
+			}
+			
+			if(line.hasOption("a")) {
+				extractorFlagList.add("-assetonly");
+			}
+			
+			if(line.hasOption("A")) {
+				extractorFlagList.add("-addpublicationmetadata");
+			}
+			
+			if(line.hasOption("B")) {
+				extractorFlagList.add("-byid");
+			}
+			
+			if(line.hasOption("c")) {
+				extractorFlagList.add("-noclean");
+			}
+			
+			if(line.hasOption("C")) {
+				extractorFlagList.add("-datacitedown");
+			}
+			
+			if(line.hasOption("D")) {
+				extractorFlagList.add("-debugging");
+			}
+			
+			if(line.hasOption("E")) {
+				extractorFlagList.add("-embedpdf");
+			}
+			
+			if(line.hasOption("F")) {
+				extractorFlagList.add("-findingaidonly");
+			}
+			
+			if(line.hasOption("i")) {
+				extractorFlagList.add("-noignored");
+			}
+			
+			if(line.hasOption("p")) {
+				extractorFlagList.add("-nopubinfo");
+			}
+			
+			if(line.hasOption("N")) {
+				extractorFlagList.add("-insitu");
+			}
+			
+			if(line.hasOption("l")) {
+				extractorFlagList.add("-nolaunch");
+			}
+			
+			if(line.hasOption("O")) {
+				extractorFlagList.add("-readonly");
+			}
+			
+			if(line.hasOption("g")) {
+				extractorFlagList.add("-nolandingpage");
+			}
+			
+			if(line.hasOption("R")) {
+				extractorFlagList.add("-readonly");
+			}
+			
+			if(line.hasOption("I")) {
+				extractorFlagList.add("-requirepubinfo");
+			}
+			
+			if(line.hasOption("s")) {
+				extractorFlagList.add("-nostoponfailure");
+			}
+			
+			if(line.hasOption("P")) {
+				if (line.hasOption("W")) {
+					extractorFlagList.add("-extractspecproperties");
+				}
+			}
+			
+			if(line.hasOption("Y")) {
+				extractorFlagList.add("-addifdtypes");
+			}
+			
+			if(line.hasOption("x")) {
+				if (line.hasOption("W")) {
+					extractorFlagList.add("-nodownload");
+				}
+			}
+			
+			if(line.hasOption("z")) {
+				extractorFlagList.add("-nozip");
+			}
+		}
+		
+		// print out the help manuals
+		private void helpManual(Options options) {
+			String header = "\nIFDExtractor CLI manual" 	
+					+ "\nCrawler: java -jar ExtractorCLI.jar -W -test icl -T <TARGET_DIR> -o \"10.14469/hpc/XXXXX\" [other flags]\n"
+					+ "Dryad: java -jar ExtractorCLI.jar -test dryad -T <TARGET_DIR> -S <LOCAL_SOURCE_ARCHIVE> -o \"12345\"\n"
+					+ "ACS: java -jar ExtractorCLI.jar -test acs -T <TARGET_DIR> -S <LOCAL_SOURCE_ARCHIVE> -o 10.14469/hpc/XXXXX\n"
+					+ "Manual: java -jar ExtractorCLI.jar -h/--help\n";
+			String footer = "\nPlease report issues at https://github.com/IUPAC/IUPAC-FAIRSpec/issues";
+
+			HelpFormatter formatter = new HelpFormatter();
+			formatter.printHelp("IFDExtractor", header, options, footer, true);
+		}
+		
+		private boolean parseCommandLine(String[] args) {
+			Options options = getOptions();
+			//No arguments 
+			if (args.length == 0) {
+				System.out.println("Please include required arguments");
+				helpManual(options);
+				return false;
+			}
+			//Argument for manual
+			if (args.length == 1) {
+				if (args[0].equals("-h") || args[0].equals("--help")) {
+					helpManual(options);
+					return false;
+				}
+				else {
+					System.out.println("Please include required arguments");
+					helpManual(options);
+					return false;
+				}
+			}
+			
+			CommandLineParser parser = new PosixParser();
+	        CommandLine line = null;
+	        
+			try {
+				line = parser.parse(options, args);
+				checkOptions(line, options);
+				return true;
+			}
+			catch (MissingOptionException e) {
+				// Handle cases where the required options are not provided
+	            System.err.println("Error parsing arguments: " + e.getMessage());
+	            return false;
+			}
+			catch (ParseException e) {
+	            // Handle cases where the input doesn't match the defined options
+	            System.err.println("Error parsing arguments: " + e.getMessage());
+	            return false;
+	        }
+		}
+		
+		protected void runCLI(String[] args) {
+			
+			this.continueProgram = this.parseCommandLine(args);
+			
+			//If it prints out the manual, stop the program
+			if (!continueProgram) return;
+			String extractorFlagString = String.join(" ", this.extractorFlagList);
+			
+			//Include slash at the end of the output directory
+			String targetPath = this.targetDir;
+			if(!targetPath.endsWith("/")) {
+				targetPath += "/";
+			}
+			//Special case with crawler
+			if(this.source.equals("icl") && this.crawler) {
+				List<String> crawlerArgs = new ArrayList<String>();
+				crawlerArgs.add(this.doi);
+				crawlerArgs.add(targetPath);
+				for (String arg: this.extractorFlagList) {
+					crawlerArgs.add(arg);
+				}
+				DOICrawler crawler = new DOICrawler(crawlerArgs.toArray(new String[0]));
+				crawler.setCustomizer(new ICLDOICrawler(crawler));
+				crawler.crawl();
+				return;
+			}
+			
+			targetPath += this.doi + "_out/";
+			
+			//Handle the extract file path
+			String ifdExtractFilePath = "extract/";
+			
+			if(this.source.equals("dryad")) {
+				ifdExtractFilePath += "dryad/" + this.doi;	
+			}
+			//for acs include the whole doi acs.*.XXXXX
+			else if(this.source.equals("acs")) {
+				ifdExtractFilePath += this.doi;
+				this.localSourceArchivePath = null;
+			}
+			else return;
+			
+			ifdExtractFilePath += "/IFD-extract.json";
+			new IFDExtractor().runExtraction(ifdExtractFilePath, this.localSourceArchivePath, targetPath, null, extractorFlagString);
+			return;
+		}
+	}
+	
 	public static final String version = "0.1.0-beta+2025.09.01";
 	// 2026.07.24 version 0.1.0-beta with FAIRSpec-ready paper
 	// 2025.02.17 version 0.0.7-beta integrates the crawler

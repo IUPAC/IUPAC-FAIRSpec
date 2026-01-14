@@ -643,8 +643,7 @@ public class DOICrawler extends FindingAidCreator {
 //			localMap = new HashMap<>();
 	}
 
-
-	boolean crawl() {
+	public boolean crawl() {
 		// set extractSpecProperties true to retrieving data files
 		// otherwise, URLs are just touched using the "head" option in https
 		faId = initialDOI.replace('/', '_');
