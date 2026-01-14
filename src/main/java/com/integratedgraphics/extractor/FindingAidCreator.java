@@ -443,14 +443,14 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			targetPath += this.doi + "_out/";
 			
 			//Handle the extract file path
-			String ifdExtractFilePath = "extract/";
+			String ifdExtractFilePath = null;
 			
 			if(this.source.equals("dryad")) {
-				ifdExtractFilePath += "dryad/" + this.doi;	
+				ifdExtractFilePath = "./extract/dryad/" + this.doi;	
 			}
 			//for acs include the whole doi acs.*.XXXXX
 			else if(this.source.equals("acs")) {
-				ifdExtractFilePath += this.doi;
+				ifdExtractFilePath = "./extract/" + this.doi;
 				this.localSourceArchivePath = null;
 			}
 			else return;
