@@ -235,8 +235,8 @@ public class ExtractorTestACS extends ExtractorTest {
 	public static void main(String[] args) {
 		// args[] may override localSourceArchive as ars[1] 
 		// and testDir as args[2]; args[0] is ignored;
-		int first = 11; // first test to run
-		int last = 11; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
+		int first = 5; // first test to run
+		int last = 5; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
 					  // file test
 		String findACSID = null;//"1022" to ignore first/last;
 		String flags = null;//"-assetsOnly"; // "-datacitedown"
