@@ -875,14 +875,27 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			datadoi = (String) faHelper.getFindingAid()
 					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI);
 		// then check for a data URI (nonstandard, but possible)
-		if (datadoi == null)
+		if (datadoi == null) {
 			datadoi = (String) faHelper.getFindingAid()
 					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI);
+			if (datadoi != null)
+				logWarn(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI + " not found; trying "
+						+ IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI + "=" + datadoi
+						, "processPubURI");
+
+				
+		}
 		String pubdoi = (String) faHelper.getFindingAid()
 				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_DOI);
-		if (pubdoi == null)
+		if (pubdoi == null) {
 			pubdoi = (String) faHelper.getFindingAid()
 					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI);
+			if (pubdoi != null)
+				logWarn(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_DOI + " not found; trying "
+						+ IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI + "=" + pubdoi
+						, "processPubURI");
+			
+		}
 		return processDOIURLs(pubdoi, datadoi, faHelper);
 	}
 
@@ -903,19 +916,19 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 
 	protected void logNote(String msg, String method) {
 		msg = "!NOTE: " + msg + " -- Extractor." + method + " " + ifdid + " "
-				+ thisRootPath;
+				+ (thisRootPath == null ? "" : thisRootPath);
 		log(msg);
 	}
 
 	protected void logWarn(String msg, String method) {
 		msg = "! WARNING: " + msg + " -- Extractor." + method + " " + ifdid + " "
-				+ thisRootPath;
+				+ (thisRootPath == null ? "" : thisRootPath);
 		log(msg);
 	}
 
 	public void logErr(String msg, String method) {
 		msg = "!! ERROR: " + msg + " -- Extractor." + method + " " + ifdid + " "
-				+ thisRootPath;
+				+ (thisRootPath == null ? "" : thisRootPath);
 		log(msg);
 	}
 

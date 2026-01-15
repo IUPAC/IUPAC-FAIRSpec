@@ -577,6 +577,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		associations = null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public String dumpState() {
 		IFDCollectionSet cs = new IFDCollectionSet(null);
 		for (int i = 0; i < objectCollections.length; i++)

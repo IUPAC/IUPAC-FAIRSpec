@@ -1018,6 +1018,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				System.out.println("isMultiple!!" + currentRezipRepresentation);
 			} else if (parent == null) {
 				originPath = basePath.substring(0, basePath.length() - 1);
+			} else {
+				obj = helper.cloneData((IFDDataObject) obj, "_" + thisDir, true);
 			}
 			if (originPath.endsWith(".zip")) {
 				if (lenOffset > 0) {
@@ -1137,6 +1139,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				// extract this file into the collection
 				DeferredProperty dp = new DeferredProperty(key, (isBytesOnly || isInlineBytes ? typeData : localName));
 				dp.isInline = (isInlineBytes || insitu);
+				addDeferredPropertyOrRepresentation(dp);
 			}
 		}
 		rezipVendor.endDataSet();
