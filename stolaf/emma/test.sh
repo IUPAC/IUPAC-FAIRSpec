@@ -5,7 +5,7 @@ cd c:/temp/dryad
 ls
 pwd
 
-cd ghx3ffc2d
+cd v6wwpzh7x
 ls
 pwd
 
@@ -21,24 +21,46 @@ unzip dataset.zip -d test2
 
 cd test2
 
-for file in *.zip; do
-	unzip "$file"
-	echo "$file"
-	echo "hi"
-	filename=$(basename "$file" .zip)
-	if [ -d "$filename" ]; then
-    echo "'$filename' is a directory."
-    pwd
-    cd "$filename"
-    pwd
-    for file_nextlayer in *.zip; do
-      unzip "$file_nextlayer"
-    done
+# I THINK THIS RECURSIVE LOOP IS FIXED
 
-  else
-    echo "'$filename' is not a directory (or does not exist)."
-  fi
-done
+unzip_files() {
+    for file in *.zip; do
+    	unzip "$file"
+      echo "$file"
+    	filename=$(basename "$file" .zip)
+    	echo "FILENAME: $filename"
+    	if [ -d "$filename" ]; then
+        echo "'$filename' is a directory."
+        pwd
+        cd "$filename"
+        pwd
+        unzip_files
+    
+      else
+        echo "'$filename' is not a directory (or does not exist)."
+      fi
+    done
+}
+
+unzip_files
+
+#for file in *.zip; do
+#	unzip "$file"
+#  echo "$file"
+#	filename=$(basename "$file" .zip)
+#	if [ -d "$filename" ]; then
+#    echo "'$filename' is a directory."
+#    pwd
+#    cd "$filename"
+#    pwd
+#    for file_nextlayer in *.zip; do
+#      unzip "$file_nextlayer"
+#    done
+
+#  else
+#    echo "'$filename' is not a directory (or does not exist)."
+#  fi
+#done
 
 
 ls
@@ -51,7 +73,7 @@ fi
 
 echo "File List" > file_list.txt
 
-OUTPUT_FILE="file_list_ghx3ffc2d.txt"
+OUTPUT_FILE="file_list_v6wwpzh7x.txt"
 echo $OUTPUT_FILE
 
 find "$1" -print > "$OUTPUT_FILE"

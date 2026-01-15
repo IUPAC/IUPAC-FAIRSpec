@@ -10,7 +10,7 @@ from sklearn.pipeline import Pipeline
 
 # Read file paths
 
-with open("file_list_f7m0cfz7t.txt", "r") as f:
+with open("file_list_v6wwpzh7x.txt", "r") as f:
     paths = [line.strip() for line in f if line.strip()]
 
 path_parts = [list(Path(p).parts) for p in paths]
@@ -520,9 +520,23 @@ print(df['path_text'])
     
     
 pattern = r"([^/]+)\.zip$"
-zipped_filenames = [re.search(pattern, p).group(1) for p in paths if re.search(pattern, p)]
-print(zipped_filenames)
+#zipped_filenames = [re.search(pattern, p).group(1) for p in paths if re.search(pattern, p)]
+#print(zipped_filenames)
     
+zipped_filenames = []
+for p in paths:
+    match = re.search(pattern, p)
+    if match:
+        name = match.group(1)
+        zipped_filenames.append(f"{name}")
+        if "_" in name:
+            zipped_filenames.append(f"{name.replace('_', ' ')}")
+        elif " " in name:
+            zipped_filenames.append(f"{name.replace(' ', '_')}")
+
+zipped_filenames = list(dict.fromkeys(zipped_filenames))    
+print(zipped_filenames)
+
 # trying next step
 
 print(df["slashes_before"])
@@ -576,6 +590,8 @@ def create_path_pattern(compound_path_list, zipped_list):
     transformed_parts = []
     
     for part in compound_path_list:
+        print(part)
+        print(zipped_list)
         # if the folder name is in our zip list, add .zip extension
         if part == "..":
           continue
@@ -671,13 +687,118 @@ IMPORTANT_FILES = [
   ".mol", ".jdf"
 ]
 for file_type in diff_df["compound_path"]:
-  print(file_type[len(file_type)-1])
+  #print(file_type[len(file_type)-1])
   if any(keyword in file_type[len(file_type)-1] for keyword in IMPORTANT_FILES):
     file_content.append("\n")
     file_content.append(file_type[0])
     file_content.append("\n")
     file_content.append(file_type[len(file_type)-1])
     file_content.append("\n")
+    
+    
+# creating the df of all of the information
 
-with open("extractor_f7m0cfz7t.txt", "w") as file:
+final_df = df["compound_label"].unique()
+final_df = pd.DataFrame(final_df, columns=['compound'])
+print(final_df)
+
+print("identifying")
+    
+# identifying if there are test folders within compound folders
+
+#print(diff_df["compound_path"])
+
+#for file_path in diff_df["compound_path"]:
+#  if len(file_path) > 2:
+#    test_folder = file_path[1]
+    
+test_folder_map = {}
+
+for _, row in diff_df.iterrows():
+    path_parts = row["compound_path"]
+    compound = row["identified_compound"]
+    
+    # Check if there is a folder inside the compound folder
+    # If compound is at index 3, the test folder is at index 4
+    if len(path_parts) > 2:
+        folder_name = path_parts[1]
+        
+        if compound not in test_folder_map:
+            test_folder_map[compound] = set()
+        test_folder_map[compound].add(folder_name)
+
+# 3. Map the discovered folders back to final_df as a list
+final_df['test_folders'] = final_df['compound'].map(
+    lambda x: list(test_folder_map.get(x, []))
+)
+
+
+
+
+
+def list_useful_files(diff_df):
+    # Dictionary to store files: {compound: {test_folder: [files]}}
+    useful_file_map = {}
+
+    useful_extensions = ('.mol', '.jdf' ,'.mnova', 'fid', 'pdata')
+
+    for _, row in diff_df.iterrows():
+        path_parts = row["compound_path"]
+        compound = row["identified_compound"]
+        if len(path_parts) > 2:
+            test_folder = path_parts[1]
+            
+            for file_index in range(len(path_parts)-1):
+              filename = path_parts[file_index+1]
+              
+              # Filter for useful files
+              if filename.lower().endswith(useful_extensions):
+                  if compound not in useful_file_map:
+                      useful_file_map[compound] = {}
+                 
+                  if test_folder not in useful_file_map[compound]:
+                      useful_file_map[compound][test_folder] = []
+                  
+                  if filename not in useful_file_map[compound][test_folder]:
+                    useful_file_map[compound][test_folder].append(filename)
+          
+                  continue
+        else:
+          test_folder = "NA"
+          for file_index in range(len(path_parts)-1):
+            filename = path_parts[file_index+1]
+            if filename.lower().endswith(useful_extensions):
+                  if compound not in useful_file_map:
+                      useful_file_map[compound] = {}
+                  if test_folder not in useful_file_map[compound]:
+                      useful_file_map[compound][test_folder] = []
+                  
+                  if filename not in useful_file_map[compound][test_folder]:
+                    useful_file_map[compound][test_folder].append(filename)
+                    
+                  continue
+            
+            
+    return useful_file_map
+
+# Execute and add to your final_df
+useful_files = list_useful_files(diff_df)
+final_df['useful_files'] = final_df['compound'].map(lambda x: useful_files.get(x, {}))
+
+print(final_df[['compound', 'useful_files']])
+
+
+
+print(final_df)   
+
+
+final_df.to_csv('output_v6wwpzh7x.csv', index=False)
+    
+final_df.to_json('output_v6wwpzh7x.json', indent=4)
+    
+    
+
+with open("extractor_v6wwpzh7x.txt", "w") as file:
   file.writelines(file_content)
+  
+
