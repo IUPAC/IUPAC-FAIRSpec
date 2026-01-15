@@ -361,11 +361,11 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		
 		// print out the help manuals
 		private void helpManual(Options options) {
-			String header = "\nIFDExtractor CLI manual" 	
-					+ "\nCrawler: java -jar ExtractorCLI.jar -W -test icl -T <TARGET_DIR> -o \"10.14469/hpc/XXXXX\" [other flags]\n"
-					+ "Dryad: java -jar ExtractorCLI.jar -test dryad -T <TARGET_DIR> -S <LOCAL_SOURCE_ARCHIVE> -o \"12345\"\n"
-					+ "ACS: java -jar ExtractorCLI.jar -test acs -T <TARGET_DIR> -S <LOCAL_SOURCE_ARCHIVE> -o 10.14469/hpc/XXXXX\n"
-					+ "Manual: java -jar ExtractorCLI.jar -h/--help\n";
+			String header = "\nIFDExtractor CLI manual\n\\n" 	
+					+ "Crawler: java -jar IFDExtractor.jar -W -test icl -T <TARGET_DIR> -o \"10.14469/hpc/XXXXX\" [other flags]\n\n\n"
+					+ "Dryad: java -jar IFDExtractor.jar -test dryad -T <TARGET_DIR> -S <LOCAL_SOURCE_ARCHIVE> -o \"12345\"\n\n\n"
+					+ "ACS: java -jar IFDExtractor.jar -test acs -T <TARGET_DIR> -S <LOCAL_SOURCE_ARCHIVE> -o 10.14469/hpc/XXXXX\n\n\n"
+					+ "Manual: java -jar IFDExtractor.jar -h/--help\nOptions list:\n\n\n";
 			String footer = "\nPlease report issues at https://github.com/IUPAC/IUPAC-FAIRSpec/issues";
 
 			HelpFormatter formatter = new HelpFormatter();
@@ -440,22 +440,45 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 				return;
 			}
 			
-			targetPath += this.doi + "_out/";
+			targetPath += this.doi.toLowerCase() + "_out/";
 			
 			//Handle the extract file path
 			String ifdExtractFilePath = null;
 			
 			if(this.source.equals("dryad")) {
-				ifdExtractFilePath = "./extract/dryad/" + this.doi;	
+				ifdExtractFilePath = "./extract/dryad/" + this.doi + "/IFD-extract.json";	
 			}
 			//for acs include the whole doi acs.*.XXXXX
 			else if(this.source.equals("acs")) {
-				ifdExtractFilePath = "./extract/" + this.doi;
+				ifdExtractFilePath = "./extract/" + this.doi + "/IFD-extract.json";
+				IFDExtractor extractor = new IFDExtractor();
+				extractor.processFlags(this.extractorFlagList.toArray(new String[0]), "");
+				//Exception handling
+				switch(this.doi) {
+					case "acs.orgLett.9b02307":
+						if (this.localSourceArchivePath == null) {
+							System.err.println("Download NMR.rar from https://www.repository.cam.ac.uk/bitstreams/983933fe-6c07-4793-bf32-0d715d2d9087/download,\nrename it into acs.orglett.9b02307.NMR.rar,\nand pass the path of the folder containing this RAR file to the flag -S.");
+							return;
+						}
+						this.localSourceArchivePath = new File(this.localSourceArchivePath).getAbsolutePath();
+						try {
+							new IFDExtractor().run(new File(ifdExtractFilePath).getAbsoluteFile(), new File(targetPath).getAbsoluteFile(), this.localSourceArchivePath);
+						} catch (IOException e) {
+							System.err.println("Error: " + e.getMessage());
+							return;
+						} catch (IFDException e) {
+							System.err.println("Error: " + e.getMessage());
+							return;
+						}
+						return;
+					default:
+						this.localSourceArchivePath = null;
+						break;
+				}
 				this.localSourceArchivePath = null;
 			}
 			else return;
 			
-			ifdExtractFilePath += "/IFD-extract.json";
 			new IFDExtractor().runExtraction(ifdExtractFilePath, this.localSourceArchivePath, targetPath, null, extractorFlagString);
 			return;
 		}
