@@ -1,0 +1,32 @@
+Path to Compounds
+mdaongolideB2.zip|mdaongolideB2/
+madangolide1.zip|madangolide1/
+
+Possible file path: 
+{'*.zip|*/'}
+mdaongolideB2
+madangolideB_HMBC_2-1.jdf
+
+mdaongolideB2
+madangolideB_COSY-1-1.jdf
+
+mdaongolideB2
+madangolideB_NOESY-1.jdf
+
+mdaongolideB2
+madangolideB_13C-1.jdf
+
+mdaongolideB2
+madangolideB_1H-1-1.jdf
+
+mdaongolideB2
+madangolideB_HMQC-1.jdf
+
+mdaongolideB2
+madangolideB.mol
+
+madangolide1
+madangolide.mol
+
+madangolide1
+madangolide_1H-1-1.jdf

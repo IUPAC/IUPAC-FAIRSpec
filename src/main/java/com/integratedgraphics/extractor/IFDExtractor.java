@@ -53,6 +53,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
  * 
  * ... MNova metadata references page number in file using #page=
  * 
+ * ... allow CLI command
  * 
  * See superclasses for more information
  * 
@@ -69,8 +70,6 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 	// make sense that that manifests are cleared?
 
 	// TODO: update GitHub README.md
-
-
 
 	private static final String debugFlags = "-stopAfter=end";
 
@@ -320,7 +319,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 			FAIRSpecUtilities.writeBytesToFile(serializedFA.getBytes(), new File(htmlPath, "IFD.findingaid.json"));
 		buildSite(htmlPath);
 	}
-
+	
 	/**
 	 * Minimal command-line interface for now. There are several flags set from
 	 * ExtractorTest. Right now these are not included in the options, and we also
@@ -332,19 +331,12 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 	 * 
 	 */
 	public static void main(String[] args) {
-
 		if (args.length == 0) {
-			System.out.println(getCommandLineHelp());
+			System.err.println("Require at least one variable");
 			return;
 		}
-		if (args[0].equals("-doi")) {
-			// entry point for DOICrawler
-			args[0] = null;
-			DOICrawler.main(args);
-			return;
-		}
-		// just run one IFD-extract.json
-		new IFDExtractor().runExtraction(args);
+		CLI cmd = new CLI();
+		cmd.runCLI(args);
 	}
 
 }

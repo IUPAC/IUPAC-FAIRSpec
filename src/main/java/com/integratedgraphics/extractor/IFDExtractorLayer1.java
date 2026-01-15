@@ -500,6 +500,8 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 
 		if (sUrl.indexOf("//") < 0 && !sUrl.startsWith("file:/"))
 			sUrl = "file:/" + sUrl;
+		if (sUrl.startsWith("file://") && !sUrl.startsWith("file:///"))
+			sUrl = "file:///" + sUrl.substring(7);
 		return sUrl;
 	}
 

@@ -5,7 +5,7 @@ cd c:/temp/dryad
 ls
 pwd
 
-cd 3tx95x6sq
+cd ghx3ffc2d
 ls
 pwd
 
@@ -51,7 +51,7 @@ fi
 
 echo "File List" > file_list.txt
 
-OUTPUT_FILE="file_list_3tx95x6sq.txt"
+OUTPUT_FILE="file_list_ghx3ffc2d.txt"
 echo $OUTPUT_FILE
 
 find "$1" -print > "$OUTPUT_FILE"
