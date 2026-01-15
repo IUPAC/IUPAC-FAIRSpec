@@ -217,7 +217,7 @@ public class ExtractorTestACS extends ExtractorTest {
 /*2*/		"./extract/acs.orglett.0c00624/IFD-extract.json#21947274",   // 2 -- struc/ added; 1143 files; MANY bruker dirs
 /*3*/		"./extract/acs.orglett.0c00755/IFD-extract.json#22150197",  // 3 -- LARGE MANY bruker dirs
 /*4*/		"./extract/acs.orglett.0c00788/IFD-extract.json#22125318",   // 4 -- jeol jdfs
-/*5*/		"./extract/acs.orglett.0c00874/IFD-extract.json#22233351",   // 5 -- bruker dirs
+/*5*/		"./extract/acs.orglett.0c00874/IFD-extract.json#22233351",   // 5 -- bruker dirs with multiple /n/ folders
 /*6*/		"./extract/acs.orglett.0c00967/IFD-extract.json#22111341",   // 6 -- bruker dirs + jeol jdfs
 
 /*7*/		"./extract/acs.orglett.0c01022/IFD-extract.json#22195341",   // 7 -- many mnovas with CDX files
@@ -235,8 +235,8 @@ public class ExtractorTestACS extends ExtractorTest {
 	public static void main(String[] args) {
 		// args[] may override localSourceArchive as ars[1] 
 		// and testDir as args[2]; args[0] is ignored;
-		int first = 4; // first test to run
-		int last = 4; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
+		int first = 11; // first test to run
+		int last = 11; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
 					  // file test
 		String findACSID = null;//"1022" to ignore first/last;
 		String flags = null;//"-assetsOnly"; // "-datacitedown"
