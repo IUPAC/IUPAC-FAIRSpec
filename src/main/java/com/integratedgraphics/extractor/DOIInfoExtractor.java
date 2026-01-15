@@ -54,10 +54,10 @@ public class DOIInfoExtractor {
 		String url = null;
 		url = getMetadataUrl(uri, agency);
 		if (url == null) {
-			System.out.println("PubInfoExtractor: unknown type " + agency + " should be one of '"+ DATACITE + "' or '" + CROSSREF + "' for " + uri);
+			System.out.println("DOIInfoExtractor: unknown type " + agency + " should be one of '"+ DATACITE + "' or '" + CROSSREF + "' for " + uri);
 			return null;
 		}
-		System.out.println("PubInfoExtractor: " + url);
+		System.out.println("DOIInfoExtractor: " + url);
 		Map<String, Object> info = null;
 		try {
 			Map<String, Object> metadata = new JSJSONParser().parseMap(FAIRSpecUtilities.getURLContentsAsString(url), false);
