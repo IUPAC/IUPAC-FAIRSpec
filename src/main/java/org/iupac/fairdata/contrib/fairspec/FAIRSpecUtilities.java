@@ -1,5 +1,6 @@
 package org.iupac.fairdata.contrib.fairspec;
 
+import java.awt.Desktop;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -865,19 +866,22 @@ public class FAIRSpecUtilities {
 				|| name.endsWith("tar.gz") || name.endsWith(".ifdcrawler");
 	}
 
-	/**
-	 * Simple Java method of displaying a page in the default browser.
-	 * 
-	 * @param url
-	 * @throws Exception
-	 */
 	public static void showUrl(String url) throws Exception {
-		Class<?> c = Class.forName("java.awt.Desktop");
-		Method getDesktop = c.getMethod("getDesktop", new Class[] {});
-		Object deskTop = getDesktop.invoke(null, new Object[] {});
-		Method browse = c.getMethod("browse", new Class[] { URI.class });
-		Object arguments[] = { new URI(url) };
-		browse.invoke(deskTop, arguments);
+		try {
+			// windows (or mac?)
+			if (Desktop.isDesktopSupported()) {
+				Desktop.getDesktop().browse(new URI(url));
+				return;
+			}
+		} catch (Exception e) {
+		}
+		try {
+			// mac
+			Runtime.getRuntime().exec("open " + url);
+			return;
+		} catch (Exception e) {
+		}
+		Runtime.getRuntime().exec("xdg-open " + url);
 	}
 
 	public static String toJSON(StringBuffer sb, String[] list, String rootPath, boolean withBrackets) {
