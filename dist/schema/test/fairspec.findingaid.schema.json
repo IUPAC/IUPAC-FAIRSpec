@@ -1,10 +1,10 @@
 {
-	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$schema": "http://json-schema.org/draft-07/schema#",
 	"$id": "https://iupac.github.io/IUPAC-FAIRSpec/schema/fairspec.findingaid.schema.0.1.0.json",
 	"required": [
 		"IUPAC.FAIRSpec.findingAid"
 	],
-	"additionalProperties": false,
+	"unevaluatedProperties": false,
 	"properties": {
 		"IUPAC.FAIRSpec.findingAid": {
 			"description": "primary and only key in this object, marking the finding aid as an IUPAC FAIRSpec Finding Aid and serving as a 'magic number' at the start of the byte data",
@@ -43,79 +43,6 @@
 					"description": "contents of this finding aid",
 					"type": "object",
 					"properties": {
-						"relatedCount": {
-							"description": "count of items related to this finding aid",
-							"type": "integer"
-						},
-						"resources": {
-							"type": "object",
-							"required": [
-								"1",
-								"FAIRSpecDataCollections"
-							],
-							"properties": {
-								"1": {
-									"ref": {
-										"type": "string"
-									},
-									"len": {
-										"type": "integer"
-									},
-									"FAIRSpec Data Collection": {
-										"ref": {
-											"type": "string"
-										},
-										"len": {
-											"type": "integer"
-										}
-									}
-								}
-							}
-						},
-						"relatedItems": {
-							"type": "object",
-							"required": [
-								"title",
-								"author",
-								"doi",
-								"doiLink",
-								"irl",
-								"metadataSource"
-							],
-							"properties": {
-								"title": {
-									"type": "string"
-								},
-								"author": {
-									"type": "string"
-								},
-								"doi": {
-									"type": "string",
-									"description": "A full DOI reference to this digital object, including the protocal and host; generally to an HTML landing page describing this object"
-								},
-								"doiLink": {
-									"type": "string"
-								},
-								"dataUrl": {
-									"type": "string"
-								},
-								"metadataSource": {
-									"type": "object",
-									"properties": {
-										"registrationAgency": {
-											"type": "string"
-										},
-										"MetadataURl": {
-											"type": "string"
-										}
-									}
-								}
-							}
-						},
-						"resourceCount": {
-							"description": "count of resources referenced in this finding aid",
-							"type": "integer"
-						},
 						"collections": {
 							"type": "array",
 							"items": {
@@ -138,427 +65,499 @@
 									}
 								]
 							}
+						},
+						"relatedCount": {
+							"description": "count of items related to this finding aid",
+							"type": "integer"
+						},
+						"resourceCount": {
+							"description": "count of resources referenced in this finding aid",
+							"type": "integer"
 						}
 					}
 				},
-				"collectionSet": {
-					"class": {
-						"$ref": "#/$defs/def_class_collectionSet"
-					},
-					"itemsById": {
+				"relatedItems": {
+					"type": "array",
+					"items": {
 						"type": "object",
+						"unevaluatedProperties": false,
 						"properties": {
-							"spectra": {
+							"title": {
+								"type": "string"
+							},
+							"authors": {
+								"type": "string"
+							},
+							"doi": {
+								"type": "string",
+								"description": "A full DOI reference to this digital object, including the protocal and host; generally to an HTML landing page describing this object"
+							},
+							"doiLink": {
+								"type": "string"
+							},
+							"url": {
+								"type": "string"
+							},
+							"dataTitle": {
+								"type": "string"
+							},
+							"dataCreators": {
+								"type": "string"
+							},
+							"dataDoi": {
+								"type": "string",
+								"description": "A full DOI reference to this digital object, including the protocal and host; generally to an HTML landing page describing this object"
+							},
+							"dataDoiLink": {
+								"type": "string"
+							},
+							"dataUrl": {
+								"type": "string"
+							},
+							"metadataSource": {
 								"type": "object",
-								"required": [
-									"itemType",
-									"itemTypeExtends",
-									"itemsById"
-								],
 								"properties": {
-									"itemType": {
+									"registrationAgency": {
 										"type": "string"
 									},
-									"itemTypeExtends": {
+									"metadataUrl": {
 										"type": "string"
-									},
-									"itemsById": {
-										"type": "object",
-										"properties": {
-											"^.+": {
-												"type": "object",
-												"properties": {
-													"note": {
-														"type": "string",
-														"description": ""
-													},
-													"timestamp": {
-														"description": "date and time of creation ISO 8601 date+time (UTC), for example: 2025-04-17T18:55Z",
-														"type": "string"
-													},
-													"propertyPrefix": {
-														"type": "string",
-														"description": ""
-													},
-													"ifdProperties": {
-														"$ref": "#/$def/def_IFDSpecProperties"
-													},
-													"attributes": {
-														"description": "an optional set of key/value pairs that are not part of the IUPAC FAIRData standard or its extension. Characters of the keys must be one of[A-Za-z0-9_] or the space character and must be trimmed of any space character",
-														"type": "object",
-														"properties": {
-															"^[A-Za-z0-9_]+([ ][A-Za-z0-9_]+)*": {
-																"type": [
-																	"string",
-																	"number"
-																]
-															}
-														},
-														"exptMethod": {
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"collectionSet": {
+			"type": "object",
+			"properties": {
+				"class": {
+					"$ref": "#/$defs/def_class_collectionSet"
+				},
+				"itemsById": {
+					"type": "object",
+					"properties": {
+						"spectra": {
+							"type": "object",
+							"required": [
+								"itemType",
+								"itemTypeExtends",
+								"itemsById"
+							],
+							"properties": {
+								"itemType": {
+									"type": "string"
+								},
+								"itemTypeExtends": {
+									"type": "string"
+								},
+								"itemsById": {
+									"type": "object",
+									"patternProperties": {
+										"^.+": {
+											"type": "object",
+											"properties": {
+												"note": {
+													"description": "",
+													"type": "string"
+												},
+												"timestamp": {
+													"description": "date and time of creation ISO 8601 date+time (UTC), for example: 2025-04-17T18:55Z",
+													"type": "string"
+												},
+												"propertyPrefix": {
+													"description": "",
+													"type": "string"
+												},
+												"ifdProperties": {
+													"$ref": "#/$defs/def_IFDSpecProperties"
+												},
+												"attributes": {
+													"description": "an optional set of key/value pairs that are not part of the IUPAC FAIRData standard or its extension. Characters of the keys must be one of[A-Za-z0-9_] or the space character and must be trimmed of any space character",
+													"type": "object",
+													"patternProperties": {
+														"^[A-Za-z0-9_]+([ ][A-Za-z0-9_]+)*": {
+															"type": [
+																"string",
+																"number"
+															]
+														}
+													}
+												},
+												"exptMethod": {
+													"type": "string"
+												},
+												"representations": {
+													"type": "object",
+													"properties": {
+														"representationType": {
 															"type": "string"
 														},
-														"representations": {
+														"mediaType": {
+															"type": "string"
+														},
+														"len": {
+															"type": "integer"
+														},
+														"ref": {
+															"type": "object",
 															"properties": {
-																"representationType": {
+																"resourceID": {
 																	"type": "string"
 																},
-																"mediaType": {
+																"originPath": {
 																	"type": "string"
 																},
-																"len": {
-																	"type": "integer"
-																},
-																"ref": {
-																	"properties": {
-																		"resourceID": {
-																			"type": "integer"
-																		},
-																		"originPath": {
-																			"type": "string"
-																		},
-																		"localPath": {
-																			"type": "integer"
-																		}
-																	}
+																"localPath": {
+																	"type": "string"
 																}
 															}
 														}
 													}
 												}
-											},
-											"TODO": {
 											}
-										}
-									}
-								}
-							},
-							"$defs": {
-								"def_IFDRepresentations": {
-									"type": "object",
-									"properties": {
-										"data": {
-											"type": [
-												"string",
-												"byte"
-											],
-											"description": "When the representation is suitably small in terms of bytes, the FA can be  serialized directly as a simple string in the form of SMILES or InChi"
 										},
-										"idfType": {
-											"type": "string",
-											"pattern": "IFD.representation"
-										},
-										"key": {
-											"type": "string",
-											"pattern": "^[a-zA-Z0-9_+\\-/*.,()\\[\\]]+([ ][a-zA-Z0-9_+\\-/*.,()\\[\\]]+)*$"
-										},
-										"len": {
-											"type": "integer"
-										},
-										"mediaType": {
+										"TODO": {
 											"type": "string"
-										},
-										"class": {
-											"$ref": "#/$defs/def_IDFRepresentation"
-										},
-										"count": {
-											"type": "integer"
 										}
 									}
-								},
-								"def_IFDSpecProperties": {
-									"type": "object",
-									"description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
-									"properties": {
-										"nmr.expt_dimension": {
-											"enum": [
-												"1D",
-												"2D"
-											]
-										}
-									}
-								},
-								"def_IFDAttribute": {
-									"type": "object",
-									"properties": {
-										"name": {
-											"type": "string",
-											"pattern": "^[a-zA-Z0-9_+\\-/*.,()\\[\\]]+([ ][a-zA-Z0-9_+\\-/*.,()\\[\\]]+)*$"
-										},
-										"value": {
-											"type": "string"
-										},
-										"class": {
-											"$ref": "#/$def/def_IFDAttribute"
-										},
-										"count": {
-											"type": "integer"
-										}
-									}
-								},
-								"def_contents.dataObject": {
-									"type": "object",
-									"required": [
-										"id",
-										"count"
-									],
-									"properties": {
-										"id": {
-											"type": "string",
-											"enum": [
-												"dataObject"
-											]
-										},
-										"class": {
-											"$ref": "#/$defs/def_class_dataObject"
-										},
-										"count": {
-											"type": "integer"
-										}
-									}
-								},
-								"def_contents.samples": {
-									"type": "object",
-									"required": [
-										"id",
-										"count"
-									],
-									"properties": {
-										"id": {
-											"type": "string",
-											"enum": [
-												"samples"
-											]
-										},
-										"class": {
-											"$ref": "#/$defs/def_class_samples"
-										},
-										"count": {
-											"type": "integer"
-										}
-									}
-								},
-								"def_contents.structures": {
-									"type": "object",
-									"required": [
-										"id",
-										"count"
-									],
-									"properties": {
-										"id": {
-											"type": "string",
-											"const": "structures"
-										},
-										"class": {
-											"$ref": "#/$defs/def_class_structures"
-										},
-										"count": {
-											"type": "integer"
-										}
-									}
-								},
-								"def_contents.spectra": {
-									"type": "object",
-									"required": [
-										"id",
-										"count"
-									],
-									"properties": {
-										"id": {
-											"type": "string",
-											"const": "spectra"
-										},
-										"class": {
-											"$ref": "#/$defs/def_class_spectra"
-										},
-										"count": {
-											"type": "integer"
-										}
-									}
-								},
-								"def_contents.compounds": {
-									"type": "object",
-									"required": [
-										"id",
-										"count"
-									],
-									"properties": {
-										"id": {
-											"type": "string",
-											"const": "compounds"
-										},
-										"class": {
-											"$ref": "#/$defs/def_class_compounds"
-										},
-										"count": {
-											"type": "integer"
-										}
-									}
-								},
-								"def_contents.analyses": {
-									"type": "object",
-									"required": [
-										"id",
-										"count"
-									],
-									"properties": {
-										"id": {
-											"type": "string",
-											"const": "analyses"
-										},
-										"class": {
-											"$ref": "#/$defs/def_class_analyses"
-										},
-										"count": {
-											"type": "integer"
-										}
-									}
-								},
-								"def_class_findingAid": {
-									"required": [
-										"ifdType",
-										"ifdTypeExtends"
-									],
-									"additionalProperties": false,
-									"properties": {
-										"ifdType": {
-											"type": "string",
-											"const": "org.iupac.fairdata.core.IFDCollectionSet?"
-										},
-										"ifdTypeExtends": {
-											"type": "string",
-											"const": "org.iupac.fairdata.core.IFDCollection?"
-										}
-									}
-								},
-								"def_class_dataObject": {
-									"required": [
-										"ifdType",
-										"ifdTypeExtends"
-									],
-									"additionalProperties": false,
-									"properties": {
-										"ifdType": {
-											"type": "string",
-											"const": "org.iupac.fairdata.core.IFDCollectionSet?"
-										},
-										"ifdTypeExtends": {
-											"type": "string",
-											"const": "org.iupac.fairdata.core.IFDCollection?"
-										}
-									}
-								},
-								"def_class_collectionSet": {
-									"required": [
-										"ifdType",
-										"ifdTypeExtends"
-									],
-									"additionalProperties": false,
-									"properties": {
-										"ifdType": {
-											"type": "string",
-											"const": "org.iupac.fairdata.core.IFDCollectionSet"
-										},
-										"ifdTypeExtends": {
-											"type": "string",
-											"const": "org.iupac.fairdata.core.IFDCollection"
-										}
-									}
-								},
-								"def_class_samples": {
-									"required": [
-										"ifdType",
-										"ifdTypeExtends"
-									],
-									"additionalProperties": false,
-									"properties": {
-										"ifdType": {
-											"type": "string",
-											"const": "org.iupac.fairdata.sample.IFDSampleCollection"
-										},
-										"ifdTypeExtends": {
-											"type": "string",
-											"const": "org.iupac.fairdata.core.IFDCollection"
-										}
-									}
-								},
-								"def_class_structures": {
-									"required": [
-										"ifdType",
-										"ifdTypeExtends"
-									],
-									"additionalProperties": false,
-									"properties": {
-										"ifdType": {
-											"type": "string",
-											"const": "org.iupac.fairdata.structure.IFDStructureCollection"
-										},
-										"ifdTypeExtends": {
-											"type": "string",
-											"const": "org.iupac.fairdata.core.IFDCollection"
-										}
-									}
-								},
-								"def_class_spectra": {
-									"required": [
-										"ifdType",
-										"ifdTypeExtends"
-									],
-									"additionalProperties": false,
-									"properties": {
-										"ifdType": {
-											"type": "string",
-											"const": "org.iupac.fairdata.dataobject.IFDDataObjectCollection"
-										},
-										"ifdTypeExtends": {
-											"type": "string",
-											"const": "org.iupac.fairdata.core.IFDCollection"
-										}
-									}
-								},
-								"def_class_compounds": {
-									"required": [
-										"ifdType",
-										"ifdTypeExtends"
-									],
-									"additionalProperties": false,
-									"properties": {
-										"ifdType": {
-											"type": "string",
-											"const": "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection"
-										},
-										"ifdTypeExtends": {
-											"type": "string",
-											"const": "org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;org.iupac.fairdata.core.IFDAssociationCollection"
-										}
-									}
-								},
-								"def_class_analyses": {
-									"required": [
-										"ifdType",
-										"ifdTypeExtends"
-									],
-									"additionalProperties": false,
-									"properties": {
-										"ifdType": {
-											"type": "string",
-											"const": "org.iupac.fairdata.analysisobject.IFDAnalysisObjectCollection"
-										},
-										"ifdTypeExtends": {
-											"type": "string",
-											"const": "org.iupac.fairdata.core.IFDCollection"
-										}
-									}
-								},
-								"def_field_id": {
-									"description": "an optional unique identifier, for example, a compound number such as 38b or a DOI such as 10.14469/hpc/14635 must not start nor end in a space character",
-									"type": "string",
-									"pattern": "^[a-zA-Z0-9_+\\-/*.,()\\[\\]]+([ ][a-zA-Z0-9_+\\-/*.,()\\[\\]]+)*$"
-								},
-								"def_schema": {
-									"description": "this is a description",
-									"type": "string",
-									"pattern": "?"
 								}
 							}
 						}
 					}
+				}
+			}
+		}
+	},
+	"$defs": {
+		"def_IFDRepresentations": {
+			"type": "object",
+			"properties": {
+				"data": {
+					"type": [
+						"string",
+						"byte"
+					],
+					"description": "When the representation is suitably small in terms of bytes, the FA can be  serialized directly as a simple string in the form of SMILES or InChi"
+				},
+				"idfType": {
+					"enum": [
+						"IFD.representation"
+					]
+				},
+				"key": {
+					"type": "string",
+					"pattern": "^[a-zA-Z0-9_+\\-/*.,()\\[\\]]+([ ][a-zA-Z0-9_+\\-/*.,()\\[\\]]+)*$"
+				},
+				"len": {
+					"type": "integer"
+				},
+				"mediaType": {
+					"type": "string"
+				},
+				"class": {
+					"$ref": "#/$defs/def_IDFRepresentation"
+				},
+				"count": {
+					"type": "integer"
+				}
+			}
+		},
+		"def_IFDSpecProperties": {
+			"type": "object",
+			"description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
+			"properties": {
+				"nmr.expt_dimension": {
+					"enum": [
+						"1D",
+						"2D"
+					]
+				}
+			}
+		},
+		"def_IFDAttribute": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"pattern": "^[a-zA-Z0-9_+\\-/*.,()\\[\\]]+([ ][a-zA-Z0-9_+\\-/*.,()\\[\\]]+)*$"
+				},
+				"value": {
+					"type": "string"
+				},
+				"class": {
+					"$ref": "#/$def/def_IFDAttribute"
+				},
+				"count": {
+					"type": "integer"
+				}
+			}
+		},
+		"def_contents.dataObject": {
+			"type": "object",
+			"required": [
+				"id",
+				"count"
+			],
+			"properties": {
+				"id": {
+					"type": "string",
+					"enum": [
+						"dataObject"
+					]
+				},
+				"class": {
+					"$ref": "#/$defs/def_class_dataObject"
+				},
+				"count": {
+					"type": "integer"
+				}
+			}
+		},
+		"def_contents.samples": {
+			"type": "object",
+			"required": [
+				"id",
+				"count"
+			],
+			"properties": {
+				"id": {
+					"type": "string",
+					"enum": [
+						"samples"
+					]
+				},
+				"class": {
+					"$ref": "#/$defs/def_class_samples"
+				},
+				"count": {
+					"type": "integer"
+				}
+			}
+		},
+		"def_contents.structures": {
+			"type": "object",
+			"required": [
+				"id",
+				"count"
+			],
+			"properties": {
+				"id": {
+					"type": "string",
+					"const": "structures"
+				},
+				"class": {
+					"$ref": "#/$defs/def_class_structures"
+				},
+				"count": {
+					"type": "integer"
+				}
+			}
+		},
+		"def_contents.spectra": {
+			"type": "object",
+			"required": [
+				"id",
+				"count"
+			],
+			"properties": {
+				"id": {
+					"type": "string",
+					"const": "spectra"
+				},
+				"class": {
+					"$ref": "#/$defs/def_class_spectra"
+				},
+				"count": {
+					"type": "integer"
+				}
+			}
+		},
+		"def_contents.compounds": {
+			"type": "object",
+			"required": [
+				"id",
+				"count"
+			],
+			"properties": {
+				"id": {
+					"type": "string",
+					"const": "compounds"
+				},
+				"class": {
+					"$ref": "#/$defs/def_class_compounds"
+				},
+				"count": {
+					"type": "integer"
+				}
+			}
+		},
+		"def_contents.analyses": {
+			"type": "object",
+			"required": [
+				"id",
+				"count"
+			],
+			"properties": {
+				"id": {
+					"type": "string",
+					"const": "analyses"
+				},
+				"class": {
+					"$ref": "#/$defs/def_class_analyses"
+				},
+				"count": {
+					"type": "integer"
+				}
+			}
+		},
+		"def_class_findingAid": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"unevaluatedProperties": false,
+			"properties": {
+				"ifdType": {
+					"type": "string",
+					"const": "org.iupac.fairdata.core.IFDCollectionSet?"
+				},
+				"ifdTypeExtends": {
+					"type": "string",
+					"const": "org.iupac.fairdata.core.IFDCollection?"
+				}
+			}
+		},
+		"def_class_dataObject": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"unevaluatedProperties": false,
+			"properties": {
+				"ifdType": {
+					"type": "string",
+					"const": "org.iupac.fairdata.core.IFDCollectionSet?"
+				},
+				"ifdTypeExtends": {
+					"type": "string",
+					"const": "org.iupac.fairdata.core.IFDCollection?"
+				}
+			}
+		},
+		"def_class_collectionSet": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"unevaluatedProperties": false,
+			"properties": {
+				"ifdType": {
+					"type": "string",
+					"const": "org.iupac.fairdata.core.IFDCollectionSet"
+				},
+				"ifdTypeExtends": {
+					"type": "string",
+					"const": "org.iupac.fairdata.core.IFDCollection"
+				}
+			}
+		},
+		"def_class_samples": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"unevaluatedProperties": false,
+			"properties": {
+				"ifdType": {
+					"type": "string",
+					"const": "org.iupac.fairdata.sample.IFDSampleCollection"
+				},
+				"ifdTypeExtends": {
+					"type": "string",
+					"const": "org.iupac.fairdata.core.IFDCollection"
+				}
+			}
+		},
+		"def_class_structures": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"unevaluatedProperties": false,
+			"properties": {
+				"ifdType": {
+					"type": "string",
+					"const": "org.iupac.fairdata.structure.IFDStructureCollection"
+				},
+				"ifdTypeExtends": {
+					"type": "string",
+					"const": "org.iupac.fairdata.core.IFDCollection"
+				}
+			}
+		},
+		"def_class_spectra": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"unevaluatedProperties": false,
+			"properties": {
+				"ifdType": {
+					"type": "string",
+					"const": "org.iupac.fairdata.dataobject.IFDDataObjectCollection"
+				},
+				"ifdTypeExtends": {
+					"type": "string",
+					"const": "org.iupac.fairdata.core.IFDCollection"
+				}
+			}
+		},
+		"def_class_compounds": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"unevaluatedProperties": false,
+			"properties": {
+				"ifdType": {
+					"type": "string",
+					"const": "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection"
+				},
+				"ifdTypeExtends": {
+					"type": "string",
+					"const": "org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;org.iupac.fairdata.core.IFDAssociationCollection"
+				}
+			}
+		},
+		"def_class_analyses": {
+			"required": [
+				"ifdType",
+				"ifdTypeExtends"
+			],
+			"unevaluatedProperties": false,
+			"properties": {
+				"ifdType": {
+					"type": "string",
+					"const": "org.iupac.fairdata.analysisobject.IFDAnalysisObjectCollection"
+				},
+				"ifdTypeExtends": {
+					"type": "string",
+					"const": "org.iupac.fairdata.core.IFDCollection"
+				}
+			}
+		},
+		"def_field_id": {
+			"description": "an optional unique identifier, for example, a compound number such as 38b or a DOI such as 10.14469/hpc/14635 must not start nor end in a space character",
+			"type": "string",
+			"pattern": "^[a-zA-Z0-9_+\\-/*.,()\\[\\]]+([ ][a-zA-Z0-9_+\\-/*.,()\\[\\]]+)*$"
+		},
+		"def_schema": {
+			"description": "this is a description",
+			"type": "string",
+			"pattern": "^.*"
+		}
+	}
+}
