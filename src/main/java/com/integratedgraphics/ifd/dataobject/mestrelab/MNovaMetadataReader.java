@@ -20,7 +20,7 @@ import com.integratedgraphics.ifd.dataobject.ByteBlockReader;
 
 /**
  * A rough MestReNova file reader that can deliver metadata only (including MOL,
- * CDX, and PNG files).
+ * CDX, and PNG files) as well as properties.
  * 
  * DISCLAIMER: I have not seen any MestReNova code, so I am guessing here. It
  * would be terrific if Mestrelabs would sign on to this project and provide

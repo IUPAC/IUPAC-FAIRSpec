@@ -195,6 +195,9 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 */
 	protected List<ObjectParser> objectParsers;
 
+	protected ObjectParser compoundDirParser, structureDirParser;
+	protected boolean haveDirParser;
+	
 	/**
 	 * working origin path while checking zip files
 	 * 

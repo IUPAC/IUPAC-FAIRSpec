@@ -559,6 +559,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	@Override
 	public void setID(String id) {
+		if (id != null && id.endsWith("/"))
+			id = id.substring(0, id.length() - 1);
 		this.id = id;
 	}
 

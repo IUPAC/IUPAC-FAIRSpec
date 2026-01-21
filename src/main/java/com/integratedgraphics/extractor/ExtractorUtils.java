@@ -136,6 +136,13 @@ public class ExtractorUtils {
 			sData = sObj.substring(sObj.charAt(0) == '|' ? 1 : 0);
 			init();
 		}
+		
+		@Override
+		public boolean equals(Object o) {
+			return (o instanceof ObjectParser
+					&& ((ObjectParser)o).sData.equals(sData) 
+					&& ((ObjectParser)o).dataSource.equals(dataSource));
+		}
 
 		/**
 		 * Prepare pattern and match.
@@ -1092,9 +1099,8 @@ public class ExtractorUtils {
 	 */
 	public static class CacheRepresentation extends IFDRepresentation {
 
-		protected String rezipOrigin;
-		public boolean isMultiple;
-		public boolean isValid = true;
+		private String rezipOrigin;
+		boolean isValid = true;
 
 		public CacheRepresentation(IFDReference ifdReference, Object o, long len, String type, String mediaType) {
 			super(ifdReference, o, len, type, mediaType);
@@ -1106,14 +1112,6 @@ public class ExtractorUtils {
 
 		public Object getRezipOrigin() {
 			return rezipOrigin;
-		}
-
-		public void setIsMultiple() {
-			isMultiple = true;
-		}
-
-		public boolean isMultiple() {
-			return isMultiple;
 		}
 
 	}

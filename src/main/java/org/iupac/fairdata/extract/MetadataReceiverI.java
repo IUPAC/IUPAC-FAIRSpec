@@ -58,6 +58,10 @@ public interface MetadataReceiverI {
 			dp.note = note;
 			return dp;
 		}
+		
+		public String toString() {
+			return "[DP " + key + " : " + value + "]";
+		}
 	}
 
 	String getVersion();

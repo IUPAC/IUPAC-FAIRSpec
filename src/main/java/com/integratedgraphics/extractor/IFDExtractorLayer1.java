@@ -64,7 +64,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	protected boolean processPhase1() throws IOException, IFDException {
 		log("!Extracting " + extractScriptFile.getAbsolutePath());
 		extractScript = FAIRSpecUtilities.getFileStringData(extractScriptFile);
-		objectParsers = phase1ParseScript(extractScript);
+		phase1ParseScript(extractScript);
 		if (!processPubURI())
 			return false;
 		initializePropertyExtraction();
@@ -82,7 +82,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 * @throws MalformedURLException 
 	 */
 	@SuppressWarnings("unchecked")
-	private List<ObjectParser> phase1GetObjectParsers(List<Object> jsonArray) throws IFDException, MalformedURLException, IOException {
+	private void phase1GetObjectParsers(List<Object> jsonArray) throws IFDException, MalformedURLException, IOException {
 
 		// input:
 
@@ -108,12 +108,15 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 
 		List<String> keys = new ArrayList<>();
 		List<String> values = new ArrayList<>();
-		List<ObjectParser> parsers = new ArrayList<>();
+		List<ObjectParser> parsers = new ArrayList<>();		
 		List<Object> ignored = new ArrayList<>();
 		List<Object> rejected = new ArrayList<>();
 		List<Object> accepted = new ArrayList<>();
 		ExtractorResource source = null;
 		String repositoryURI = null;
+		compoundDirParser = null;
+		structureDirParser = null;
+		haveDirParser = false;
 		boolean isDefaultStructurePath = false;
 		List<Object> replacements = null;
 
@@ -290,9 +293,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 						throw new IFDException(
 								IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI + " was not set before " + val);
 					}
-					ObjectParser parser = newObjectParser(source, val);
-					parser.setReplacements(replacements);
-					parsers.add(parser);
+					parsers.add(newObjectParser(source, val, replacements));
 					continue;
 				}
 				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_RELATED_METADATA)) {
@@ -302,6 +303,20 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 				if (key.startsWith(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_OPTION_FLAG)
 						|| key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_OPTIONS)) {
 					setExtractorOption(key, val);
+					continue;
+				}
+				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_COMPOUND_ID_DIR)) {
+					compoundDirParser = newObjectParser(source, val, replacements);
+					if (structureDirParser != null && structureDirParser.equals(structureDirParser))
+						compoundDirParser = structureDirParser;
+					haveDirParser = true;
+					continue;
+				}
+				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_STRUCTURE_ID_DIR)) {
+					structureDirParser = newObjectParser(source, val, replacements);
+					if (compoundDirParser != null && compoundDirParser.equals(structureDirParser))
+						structureDirParser = compoundDirParser;
+					haveDirParser = true;
 					continue;
 				}
 				if (key.startsWith(IFDConst.IFD_PROPERTY_FLAG)) {
@@ -319,7 +334,11 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 				}
 
 				// custom definition
-				keys.add(0, "{" + (keyDef == null ? key : keyDef) + "}");
+				if (keyDef != null)
+					key = keyDef;
+				if (!key.endsWith(":"))
+					key = "{" + key + "}";
+				keys.add(0, key);
 				values.add(0, val);
 			}
 		}
@@ -352,7 +371,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		} else {
 			ignoreRegex = null;
 		}
-		return parsers;
+		objectParsers = parsers;
 	}
 	
 	/**
@@ -365,7 +384,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 * @throws IFDException
 	 */
 	@SuppressWarnings("unchecked")
-	private List<ObjectParser> phase1ParseScript(String script) throws IOException, IFDException {
+	private void phase1ParseScript(String script) throws IOException, IFDException {
 		if (faHelper != null)
 			throw new IFDException("Only one finding aid per instance of Extractor is allowed (for now).");
 
@@ -384,7 +403,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 				scripts.addAll(defaultScripts);
 			}
 		}
-		List<ObjectParser> objectParsers = phase1GetObjectParsers(scripts);
+		phase1GetObjectParsers(scripts);
 		if (logging())
 			log(objectParsers.size() + " extractor regex strings");
 
@@ -392,8 +411,6 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 				+ faHelper.getFindingAid().getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_NAME)
 				+ " at "
 				+ faHelper.getFindingAid().getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_URI));
-
-		return objectParsers;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -431,11 +448,14 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 * 
 	 * @param source
 	 * @param sObj
+	 * @param replacements 
 	 * @return
 	 * @throws IFDException
 	 */
-	private ObjectParser newObjectParser(ExtractorResource source, String sObj) throws IFDException {
-		return new ObjectParser((IFDExtractor) this, source, sObj);
+	private ObjectParser newObjectParser(ExtractorResource source, String sObj, List<Object> replacements) throws IFDException {
+		ObjectParser p = new ObjectParser((IFDExtractor) this, source, sObj);
+		p.setReplacements(replacements);
+		return p;
 	}
 
 	protected String toAbsolutePath(String fname) {
@@ -480,6 +500,8 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 
 		if (sUrl.indexOf("//") < 0 && !sUrl.startsWith("file:/"))
 			sUrl = "file:/" + sUrl;
+		if (sUrl.startsWith("file://") && !sUrl.startsWith("file:///"))
+			sUrl = "file:///" + sUrl.substring(7);
 		return sUrl;
 	}
 

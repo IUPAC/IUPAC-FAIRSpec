@@ -1,0 +1,14 @@
+Path to Compounds
+Compound S13/
+Compound S14/
+Compound 5/
+Compound 4/
+Compound 3/
+Compound 12/
+Compound 6/
+Compound 7/
+Compound 10/
+Compound 11/
+
+Possible file path: 
+{'*/'}
