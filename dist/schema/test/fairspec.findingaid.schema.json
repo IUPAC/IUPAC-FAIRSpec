@@ -4,7 +4,7 @@
 	"required": [
 		"IUPAC.FAIRSpec.findingAid"
 	],
-	"additionalProperties": false,
+	"unevaluatedProperties": false,
 	"properties": {
 		"IUPAC.FAIRSpec.findingAid": {
 			"description": "primary and only key in this object, marking the finding aid as an IUPAC FAIRSpec Finding Aid and serving as a 'magic number' at the start of the byte data",
@@ -418,7 +418,7 @@
 				"ifdType",
 				"ifdTypeExtends"
 			],
-			"additionalProperties": false,
+			"unevaluatedProperties": false,
 			"properties": {
 				"ifdType": {
 					"type": "string",
@@ -435,7 +435,7 @@
 				"ifdType",
 				"ifdTypeExtends"
 			],
-			"additionalProperties": false,
+			"unevaluatedProperties": false,
 			"properties": {
 				"ifdType": {
 					"type": "string",
@@ -452,7 +452,7 @@
 				"ifdType",
 				"ifdTypeExtends"
 			],
-			"additionalProperties": false,
+			"unevaluatedProperties": false,
 			"properties": {
 				"ifdType": {
 					"type": "string",
@@ -469,7 +469,7 @@
 				"ifdType",
 				"ifdTypeExtends"
 			],
-			"additionalProperties": false,
+			"unevaluatedProperties": false,
 			"properties": {
 				"ifdType": {
 					"type": "string",
@@ -486,7 +486,7 @@
 				"ifdType",
 				"ifdTypeExtends"
 			],
-			"additionalProperties": false,
+			"unevaluatedProperties": false,
 			"properties": {
 				"ifdType": {
 					"type": "string",
@@ -503,7 +503,7 @@
 				"ifdType",
 				"ifdTypeExtends"
 			],
-			"additionalProperties": false,
+			"unevaluatedProperties": false,
 			"properties": {
 				"ifdType": {
 					"type": "string",
@@ -520,7 +520,7 @@
 				"ifdType",
 				"ifdTypeExtends"
 			],
-			"additionalProperties": false,
+			"unevaluatedProperties": false,
 			"properties": {
 				"ifdType": {
 					"type": "string",
@@ -537,7 +537,7 @@
 				"ifdType",
 				"ifdTypeExtends"
 			],
-			"additionalProperties": false,
+			"unevaluatedProperties": false,
 			"properties": {
 				"ifdType": {
 					"type": "string",
