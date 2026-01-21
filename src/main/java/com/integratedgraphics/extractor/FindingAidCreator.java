@@ -78,6 +78,11 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			OptionBuilder.withDescription("Get help for commands.");
 		    options.addOption(OptionBuilder.create("h"));
 		    
+		    //version -v
+		    OptionBuilder.withLongOpt("version");
+		    OptionBuilder.withDescription("Get the current version of the IFD Extractor.");
+		    options.addOption(OptionBuilder.create("v"));
+		    
 		    //Required options
 		    //DOI -o
 		    OptionBuilder.withLongOpt("doi");
@@ -361,10 +366,10 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		
 		// print out the help manuals
 		private void helpManual(Options options) {
-			String header = "\nIFDExtractor CLI manual\n\\n" 	
-					+ "Crawler: java -jar IFDExtractor.jar -W -test icl -T <TARGET_DIR> -o \"10.14469/hpc/XXXXX\" [other flags]\n\n\n"
-					+ "Dryad: java -jar IFDExtractor.jar -test dryad -T <TARGET_DIR> -S <LOCAL_SOURCE_ARCHIVE> -o \"12345\"\n\n\n"
-					+ "ACS: java -jar IFDExtractor.jar -test acs -T <TARGET_DIR> -S <LOCAL_SOURCE_ARCHIVE> -o 10.14469/hpc/XXXXX\n\n\n"
+			String header = "\nFAIRSPec Finding Aid CLI manual version " +  version + "\n" 	
+					+ "Crawler: java -jar IFDExtractor.jar -W -test icl -T <TARGET_DIR> -o \"10.14469/hpc/XXXXX\" [other flags]\n"
+					+ "Dryad: java -jar IFDExtractor.jar -test dryad -T <TARGET_DIR> -S <LOCAL_SOURCE_ARCHIVE> -o \"12345\"\n"
+					+ "ACS: java -jar IFDExtractor.jar -test acs -T <TARGET_DIR> -S <LOCAL_SOURCE_ARCHIVE> -o 10.14469/hpc/XXXXX\n"
 					+ "Manual: java -jar IFDExtractor.jar -h/--help\nOptions list:\n\n\n";
 			String footer = "\nPlease report issues at https://github.com/IUPAC/IUPAC-FAIRSpec/issues";
 
@@ -384,6 +389,10 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			if (args.length == 1) {
 				if (args[0].equals("-h") || args[0].equals("--help")) {
 					helpManual(options);
+					return false;
+				}
+				else if (args[0].equals("-v") || args[0].equals("--version")) {
+					System.out.println("Finding Aid Creator version " + version);
 					return false;
 				}
 				else {
