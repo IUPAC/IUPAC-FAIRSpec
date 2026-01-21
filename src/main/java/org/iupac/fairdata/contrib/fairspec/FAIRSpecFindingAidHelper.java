@@ -519,10 +519,10 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		if (t == null) {
 			t = new long[3];
 		}
-		System.out.println("FAH.ser1 " + targetDir);
+		//System.out.println("FAH.ser1 " + targetDir);
 		t[0] = System.currentTimeMillis();
 		String serializedFindingAid = serializer.serialize(findingAid).toString();
-		System.out.println("FAH.ser2 " + serializedFindingAid.length());
+		//System.out.println("FAH.ser2 " + serializedFindingAid.length());
 		t[0] = System.currentTimeMillis() - t[0];
 	
 		if (targetDir == null)
@@ -530,7 +530,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		
 		String aidName = "IFD" + IFDConst.IFD_FINDINGAID_FLAG + serializer.getFileExt();
 		String faPath = targetDir.toString().replace('\\', '/') + "/" + aidName;
-		System.out.println("FAH.ser3 " + faPath);
+		//System.out.println("FAH.ser3 " + faPath);
 		FAIRSpecUtilities.writeBytesToFile(serializedFindingAid.getBytes(), new File(faPath));
 		System.out.println("created " + faPath);
 		if (products != null) {
