@@ -53,7 +53,7 @@ public class JCAMPDXNMRPlugin extends NMRVendorPlugin {
 	private void addDates() {
 		String date = map.get("##LONGDATE");
 		if (date != null)
-			setDataObjectTimeID(date, false);
+			setDataObjectTimestamp(date, false);
 		date = map.get("##$DATE");
 		if (date == null) {
 			date = map.get("acqus");
@@ -67,8 +67,8 @@ public class JCAMPDXNMRPlugin extends NMRVendorPlugin {
 			}
 		}
 		if (date != null)
-			setDataObjectTimeID(date, true);
-		addSpecDateTimeIDs();
+			setDataObjectTimestamp(date, true);
+		addSpecDateTimes();
 	}
 
 	@Override

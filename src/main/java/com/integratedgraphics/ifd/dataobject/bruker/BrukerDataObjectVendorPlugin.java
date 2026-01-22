@@ -46,8 +46,8 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 				"NF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_NOMINAL_FREQ"), //prop
 				"PF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_PROTON_FREQ"), //prop
 				"##$PROBHD", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_PROBE_TYPE"), //prop
-				"TIMESTAMP", getProp("IFD_PROPERTY_DATAOBJECT.TIMESTAMP"), // prop
-				"PROC_TIMESTAMP", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.PROC_TIMESTAMP"), // prop
+				"ACQU_DATE_TIME", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_DATE_TIME_ACQUIRED"), // prop
+				"PROC_DATE_TIME", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_DATE_TIME_PROCESSED"), // prop
 		};
 		for (int i = 0; i < keys.length;)
 			ifdMap.put(keys[i++], keys[i++]);
@@ -254,7 +254,7 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 					}
 					timestamp = timestamp.substring(0, 10) + "T" + timestamp.substring(11, 19) + off;
 					ZonedDateTime d = ZonedDateTime.parse(timestamp);
-					addProperty(ifdMap.get(isProc ? "PROC_TIMESTAMP" : "TIMESTAMP"), d.toString());
+					addProperty(ifdMap.get(isProc ? "PROC_DATE_TIME" : "ACQU_DATE_TIME"), d.toString());
 				}
 				return true;
 			} catch (Exception e) {
@@ -267,7 +267,7 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 	private boolean processAcqus(Map<String, String> map, byte[] bytes) {
 		String date = map.get("##$DATE");
 		if (date != null) {
-			setDataObjectTimeID(date, true);
+			setDataObjectTimestamp(date, true);
 			date = (bytes.length < 1000 ? null : new String(bytes, 0, 1000));
 			if (date != null) {
 				date = date.substring(date.indexOf("##OWNER") + 1);
@@ -276,7 +276,7 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 				date = date.substring(date.lastIndexOf(' ') + 1);
 				setDataObjectLocalTimeOffset(date);
 			}
-			addSpecDateTimeIDs();			
+			addSpecDateTimes();			
 //			##OWNER= nmrsu
 //			$$ 2023-07-09 15:48:49.632 +0100  nmrsu@CZC7167VR1
 

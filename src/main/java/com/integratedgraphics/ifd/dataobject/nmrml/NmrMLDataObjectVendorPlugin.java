@@ -6,9 +6,8 @@ import java.util.Map;
 import org.iupac.fairdata.common.IFDConst;
 import org.nmrml.parser.Acqu;
 
-import com.integratedgraphics.ifd.util.VendorUtils;
-import com.integratedgraphics.ifd.util.VendorUtils.DoubleString;
 import com.integratedgraphics.ifd.dataobject.NMRVendorPlugin;
+import com.integratedgraphics.ifd.util.VendorUtils;
 
 public abstract class NmrMLDataObjectVendorPlugin extends NMRVendorPlugin {
 
@@ -27,7 +26,7 @@ public abstract class NmrMLDataObjectVendorPlugin extends NMRVendorPlugin {
 				"NF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_NOMINAL_FREQ"), //prop
 				"PROBE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_PROBE_TYPE"), //prop
 				"TEMPERATURE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_THERMODYNAMIC_TEMPERATURE"), //prop
-				"TIMESTAMP", IFDConst.IFD_PROPERTY_DATAOBJECT_TIMESTAMP,
+				"TIMESTAMP", IFDConst.IFD_PROPERTY_TIMESTAMP,
 				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_TITLE"), //prop
 		};
 

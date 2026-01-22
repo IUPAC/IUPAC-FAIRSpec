@@ -17,9 +17,9 @@ import org.iupac.fairdata.extract.DefaultStructureHelper.StructureData;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.extractor.IFDExtractor;
-import com.integratedgraphics.ifd.util.VendorUtils;
 import com.integratedgraphics.ifd.dataobject.NMRVendorPlugin;
 import com.integratedgraphics.ifd.dataobject.mestrelab.MNovaMetadataReader.Param;
+import com.integratedgraphics.ifd.util.VendorUtils;
 
 public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 
@@ -36,13 +36,13 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 	@SuppressWarnings("serial")
 	private static class PageGlobals extends LinkedHashMap<String, Object> {
 		
-		private String pngcss; // For what??
+		private String pngcss; // For what?? dimensions?
 		private boolean isJDF; 
 		private String nuc1;
 		private VendorUtils.DoubleString freq;
 		private String origin;
 		public int dim = 1;
-		public long localTimeID;
+		public long localTimestamp;
 
 		private String setOrigin(String val) {
 			origin = FAIRSpecUtilities.rep(val, "\n", " ").trim();
@@ -79,7 +79,7 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 				"Nucleus2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_2"), //prop
 				"Nucleus3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_3"), //prop
 				"NF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_NOMINAL_FREQ"), //prop
-				"TIMESTAMP", IFDConst.IFD_PROPERTY_DATAOBJECT_TIMESTAMP, //prop
+				"ACQU_DATE_TIME", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_DATE_TIME_ACQUIRED"), //prop
 		};
 
 		for (int i = 0; i < keys.length;)
@@ -121,9 +121,9 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 						if (isSpecialKey ? key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)
 								: sendNewPage || !isNewPage)
 							report(key, p.getValue());
-						if (isNewPage && pageGlobals.localTimeID != 0) {
-							setDataObjectLocalTimeID(pageGlobals.localTimeID);
-							addSpecDateTimeIDs();
+						if (isNewPage && pageGlobals.localTimestamp != 0) {
+							setDataObjectLocalTimeID(pageGlobals.localTimestamp);
+							addSpecDateTimes();
 						}							
 					}
 				}
@@ -179,18 +179,16 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 					oval = pageGlobals.setOrigin(val);
 					break;
 				case "Acquisition Date":
-					// unfortunately, this date is not GMT. 
+					// unfortunately, this date is not GMT, and no time zone offset is included. 
 					// Bruker and JDX from Mestrelab are GMT.
 					// 2022-07-23T17:32:00
 					// same as jdx .longdate (which Bruker does not include)
 					// timestamp from longdate, truncated to the minute
-					propName = "TIMESTAMP";
+					propName = "ACQU_DATE_TIME";
 					oval = FAIRSpecUtilities.rep(val, "\n", " ").trim();
-					System.out.println(">>" + originPath);
-					System.out.println(">>" + oval);
 					// 2022-01-25T00:55:28
 					// have to use Z here, but it is local time
-					pageGlobals.localTimeID = Instant.parse(oval.toString() + "Z").toEpochMilli() / 1000;
+					pageGlobals.localTimestamp = Instant.parse(oval.toString() + "Z").toEpochMilli() / 1000;
 					break;
 				case "Comment":
 					propName = "TITLE";

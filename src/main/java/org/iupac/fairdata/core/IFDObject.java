@@ -491,6 +491,25 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected String getPropertyPrefixForSerialization() {
 		return getIFDPropertyPrefix();
 	}
+	
+	private String myPropLABEL;
+	private String myPropID;
+	private String myPropDESC;
+	private String myPropNOTE;
+	private String myPropTIMESTAMP;
+	private String myPropDOI;
+	private String myPropURL;
+	
+	private void setPrefixes() {
+		String myPropertyPrefix = getIFDPropertyPrefix();
+		myPropLABEL = myPropertyPrefix + IFDConst.IFD_LABEL_FLAG;
+		myPropID = myPropertyPrefix + IFDConst.IFD_ID_FLAG;
+		myPropDESC = myPropertyPrefix + IFDConst.IFD_DESCRIPTION_FLAG;
+		myPropNOTE = myPropertyPrefix + IFDConst.IFD_NOTE_FLAG;
+		myPropTIMESTAMP = myPropertyPrefix + IFDConst.IFD_TIMESTAMP_FLAG;
+		myPropDOI = myPropertyPrefix + IFDConst.IFD_DOI_FLAG;
+		myPropURL = myPropertyPrefix + IFDConst.IFD_URL_FLAG;
+	}
 
 	/**
 	 * label, id, description, and note are special values that will not be included
@@ -501,32 +520,33 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * @return
 	 */
 	private boolean checkSpecialProperties(String key, Object value) {
-		String myPropertyPrefix = getIFDPropertyPrefix();
-		if (key.equals(IFDConst.IFD_PROPERTY_LABEL) || key.equals(myPropertyPrefix + IFDConst.IFD_LABEL_FLAG)) {
+		if (myPropLABEL == null)
+			setPrefixes();
+		if (key.equals(IFDConst.IFD_PROPERTY_LABEL) || key.equals(myPropLABEL)) {
 			setLabel(value.toString());
 			return true;
 		} 
-		if (key.equals(IFDConst.IFD_PROPERTY_ID) || key.equals(myPropertyPrefix + IFDConst.IFD_ID_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_ID) || key.equals(myPropID)) {
 			setID(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_PROPERTY_DESCRIPTION) || key.equals(myPropertyPrefix + IFDConst.IFD_DESCRIPTION_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_DESCRIPTION) || key.equals(myPropDESC)) {
 			setDescription(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_PROPERTY_NOTE) || key.equals(myPropertyPrefix + IFDConst.IFD_NOTE_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_NOTE) || key.equals(myPropNOTE)) {
 			addNote(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_PROPERTY_TIMESTAMP) || key.equals(myPropertyPrefix + IFDConst.IFD_TIMESTAMP_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_TIMESTAMP) || key.equals(myPropTIMESTAMP)) {
 			setTimestamp(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_PROPERTY_DOI) || key.equals(myPropertyPrefix + IFDConst.IFD_DOI_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_DOI) || key.equals(myPropDOI)) {
 			setDOI(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_PROPERTY_URL) || key.equals(myPropertyPrefix + IFDConst.IFD_URL_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_URL) || key.equals(myPropURL)) {
 			setURL(value.toString());
 			return true;
 		}
