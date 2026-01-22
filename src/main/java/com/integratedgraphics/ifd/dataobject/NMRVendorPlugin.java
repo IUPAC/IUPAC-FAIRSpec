@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDProperty;
@@ -26,7 +27,7 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 
 	private static Map<String, List<String>> solventMap;
 	private static List<String> solventKeyList;
-	protected Long dataObjectGMTTimeID, dataObjectLocalTimeID;
+	protected Long dataObjectGMTTimestamp, dataObjectLocalTimestamp;
 	private String dataObjectLocalTimeOffset;
 
 	protected NMRVendorPlugin() {
@@ -35,7 +36,7 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 
 	@Override
 	public void endDataSet() {
-		dataObjectLocalTimeID = dataObjectGMTTimeID = null;
+		dataObjectLocalTimestamp = dataObjectGMTTimestamp = null;
 		dataObjectLocalTimeOffset = null;
 		super.endDataSet();
 	}
@@ -141,12 +142,12 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 
 	protected void setDataObjectGMTTimeID(long dateTimeSec) {
 		//System.out.println(">>> dateGMT " + dateTimeSec + " is " + timeToString(dateTimeSec));
-		dataObjectGMTTimeID = Long.valueOf(dateTimeSec);
+		dataObjectGMTTimestamp = Long.valueOf(dateTimeSec);
 	}
 
 	protected void setDataObjectLocalTimeID(long dateTimeSec) {
 		//System.out.println(">>> dateLOC " + dateTimeSec + " is " + timeToString(dateTimeSec));
-		dataObjectLocalTimeID = Long.valueOf(dateTimeSec);
+		dataObjectLocalTimestamp = Long.valueOf(dateTimeSec);
 	}
 
 	/**
@@ -164,8 +165,13 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 //		System.out.println(new Date("07/09/2023 15:50:10 GMT").toGMTString());
 //		System.out.println(new Date(new Date("2023/07/09 15:50:10 GMT").toInstant().toEpochMilli()).toGMTString());
 //	}
+	/**
+	 * date may be long or some sort of date. We will save the long number for GMT timestamp if we can get it
+	 * @param date
+	 * @param isGMT
+	 */
 	@SuppressWarnings("deprecation")
-	protected void setDataObjectTimeID(String date, boolean isGMT) {
+	protected void setDataObjectTimestamp(String date, boolean isGMT) {
 		if (date == null)
 			return;
 		try {
@@ -189,13 +195,19 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 		}
 	}
 
-	protected void addSpecDateTimeIDs() {
+	protected void addSpecDateTimes() {
 		setDateIDs();
-		if (dataObjectGMTTimeID != null) {
-			addProperty(FAIRSpecExtractorHelper.TIMESTAMP_GMT + "_" + getVendorName(), dataObjectGMTTimeID + "=" + timeToString(dataObjectGMTTimeID));
+		long timestamp = 0;
+		if (dataObjectLocalTimestamp != null) {
+			addProperty(FAIRSpecExtractorHelper.TIME_LOCAL + "_" + getVendorName(), timeToString(dataObjectLocalTimestamp));
+			timestamp = dataObjectLocalTimestamp;
 		}
-		if (dataObjectLocalTimeID != null) {
-			addProperty(FAIRSpecExtractorHelper.TIMESTAMP_LOCAL + "_" + getVendorName(), dataObjectLocalTimeID + "=" + timeToString(dataObjectLocalTimeID));
+		if (dataObjectGMTTimestamp != null) {
+			addProperty(FAIRSpecExtractorHelper.DATE_TIME_GMT + "_" + getVendorName(), timeToString(dataObjectGMTTimestamp));
+			timestamp = dataObjectGMTTimestamp;
+		}
+		if (timestamp > 0) {
+			addProperty(IFDConst.IFD_PROPERTY_TIMESTAMP, Long.valueOf(timestamp));
 		}
 	}
 
@@ -206,11 +218,11 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 		int offset = Integer.parseInt(dataObjectLocalTimeOffset.replace('+', ' ').replace("30", "50").trim()) * 36;
 		// dataObjectLongID;
 		// +0100 => 100 > 3600 s
-		if (dataObjectGMTTimeID == null && dataObjectLocalTimeID != null) {
-			dataObjectGMTTimeID = new Long((dataObjectLocalTimeID - offset));
+		if (dataObjectGMTTimestamp == null && dataObjectLocalTimestamp != null) {
+			dataObjectGMTTimestamp = new Long((dataObjectLocalTimestamp - offset));
 		}
-		if (dataObjectLocalTimeID == null && dataObjectGMTTimeID != null) {
-			dataObjectLocalTimeID = new Long((dataObjectGMTTimeID + offset));
+		if (dataObjectLocalTimestamp == null && dataObjectGMTTimestamp != null) {
+			dataObjectLocalTimestamp = new Long((dataObjectGMTTimestamp + offset));
 		}		
 		//System.out.println(">>>" + originPath + " " + dataObjectGMTTimeID + " " + dataObjectLocalTimeID);
 		} catch (Exception e) {
