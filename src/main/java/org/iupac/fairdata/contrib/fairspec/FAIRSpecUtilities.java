@@ -865,8 +865,33 @@ public class FAIRSpecUtilities {
 		return name.endsWith(".zip") || name.endsWith(".tgz") || name.endsWith(".tar") || name.endsWith(".rar")
 				|| name.endsWith("tar.gz") || name.endsWith(".ifdcrawler");
 	}
-
+	 
 	public static void showUrl(String url) throws Exception {
+		//Get the name of the OS running on the machine
+		String os = System.getProperty("os.name").toLowerCase();
+		
+		File file = new File(url);
+		if (!file.exists()) {
+            System.err.println("File not found: " + url);
+            return;
+        }
+       
+		try {
+			if (os.contains("win") || os.contains("nix") || os.contains("nux")) {
+				if (Desktop.isDesktopSupported()) {
+					Desktop.getDesktop().browse(new URI(url));
+					return;
+				}
+			} else if (os.contains("mac")) {
+				Runtime.getRuntime().exec(new String[]{"open", "-na", "Google Chrome", "--args", "--user-data-dir=/tmp/chrome_dev_test", "--allow-file-access-from-files", new File(url).toURI().toString()});
+				System.out.println("OS: Open the website " + file.toURI().toString());
+				return;
+            }
+		}
+		catch (Error e){
+			System.err.println("Failed to open browser: " + e.getMessage());
+		}
+		/*
 		try {
 			// windows (or mac?)
 			if (Desktop.isDesktopSupported()) {
@@ -882,6 +907,7 @@ public class FAIRSpecUtilities {
 		} catch (Exception e) {
 		}
 		Runtime.getRuntime().exec("xdg-open " + url);
+		*/
 	}
 
 	public static String toJSON(StringBuffer sb, String[] list, String rootPath, boolean withBrackets) {
