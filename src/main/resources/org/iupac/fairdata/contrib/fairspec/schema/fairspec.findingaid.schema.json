@@ -307,7 +307,35 @@
       "type": "object",
       "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
       "properties": {
-        "_$IFD.property.dataobject/fairspec$_": { "type" : "string"}
+        
+"originating_sample_id":{"type" : "string"},
+"ir.instr_manufacturer_name":{"type" : "string"},
+"ms.instr_manufacturer_name":{"type" : "string"},
+"nmr.expt_date_time_acquired":{"type" : "string"},
+"nmr.expt_date_time_processed":{"type" : "string"},
+"nmr.expt_description":{"type" : "string"},
+"nmr.expt_dimension":{"type" : "string"},
+"nmr.expt_id":{"type" : "string"},
+"nmr.expt_nucl1":{"type" : "string"},
+"nmr.expt_nucl2":{"type" : "string"},
+"nmr.expt_nucl3":{"type" : "string"},
+"nmr.expt_offset_freq1":{"type" : "string"},
+"nmr.expt_offset_freq2":{"type" : "string"},
+"nmr.expt_offset_freq3":{"type" : "string"},
+"nmr.expt_pulse_program":{"type" : "string"},
+"nmr.expt_solvent":{"type" : "string"},
+"nmr.expt_solvent_common_name":{"type" : "string"},
+"nmr.expt_solvent_InChI":{"type" : "string"},
+"nmr.expt_solvent_InChIKey":{"type" : "string"},
+"nmr.expt_thermodynamic_temperature":{"type" : "string"},
+"nmr.expt_title":{"type" : "string"},
+"nmr.instr_manufacturer_name":{"type" : "string"},
+"nmr.instr_nominal_freq":{"type" : "string"},
+"nmr.instr_probe_type":{"type" : "string"},
+"nmr.instr_proton_freq":{"type" : "string"},
+"raman.instr_manufacturer_name":{"type" : "string"},
+"uvvis.instr_manufacturer_name":{"type" : "string"}
+
       }
     },
     "def_IFDAttribute": {
