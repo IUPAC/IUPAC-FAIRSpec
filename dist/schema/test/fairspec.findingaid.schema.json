@@ -301,6 +301,101 @@
                       }
                     }
                   }
+                },
+                "structures": {
+                  "type": "object",
+                  "required": [
+                    "itemType",
+                    "itemTypeExtends",
+                    "itemsById"
+                  ],
+                  "properties": {
+                    "ifdProperties": {
+                      "type": "object",
+                      "properties": {
+                        "_$IFD.property.structure$_": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "itemType": {
+                      "type": "string"
+                    },
+                    "itemTypeExtends": {
+                      "type": "string"
+                    },
+                    "itemsById": {
+                      "type": "object",
+                      "patternProperties": {
+                        "^.+": {
+                          "type": "object",
+                          "properties": {
+                            "note": {
+                              "description": "",
+                              "type": "string"
+                            },
+                            "timestamp": {
+                              "description": "date and time of creation ISO 8601 date+time (UTC), for example: 2025-04-17T18:55Z",
+                              "type": "string"
+                            },
+                            "propertyPrefix": {
+                              "description": "",
+                              "type": "string"
+                            },
+                            "ifdProperties": {
+                              "$ref": "#/$defs/def_IFDSpecProperties"
+                            },
+                            "attributes": {
+                              "description": "an optional set of key/value pairs that are not part of the IUPAC FAIRData standard or its extension. Characters of the keys must be one of[A-Za-z0-9_] or the space character and must be trimmed of any space character",
+                              "type": "object",
+                              "patternProperties": {
+                                "^[A-Za-z0-9_]+([ ][A-Za-z0-9_]+)*": {
+                                  "type": [
+                                    "string",
+                                    "number"
+                                  ]
+                                }
+                              }
+                            },
+                            "exptMethod": {
+                              "type": "string"
+                            },
+                            "representations": {
+                              "type": "object",
+                              "properties": {
+                                "representationType": {
+                                  "type": "string"
+                                },
+                                "mediaType": {
+                                  "type": "string"
+                                },
+                                "len": {
+                                  "type": "integer"
+                                },
+                                "ref": {
+                                  "type": "object",
+                                  "properties": {
+                                    "resourceID": {
+                                      "type": "string"
+                                    },
+                                    "originPath": {
+                                      "type": "string"
+                                    },
+                                    "localPath": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "TODO": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -385,7 +480,7 @@
         "authors": {
           "type": "string"
         },
-        "Doi": {
+        "doi": {
           "type": "string"
         },
         "doiLink": {
