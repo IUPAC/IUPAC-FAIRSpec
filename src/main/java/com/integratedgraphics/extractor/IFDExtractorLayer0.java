@@ -20,6 +20,7 @@ import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+import org.iupac.fairdata.core.IFDObject;
 
 /**
  * A general class for constants, setting the configuration, shared fields,
@@ -52,7 +53,8 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 */
 	protected String stopAfter;
 	protected Map<String, Map<String, ArchiveEntry>> htArchiveContents = new LinkedHashMap<>();
-
+	
+	protected Map<Long, ArrayList<IFDObject<?>>> timestampSpectraObjectHashMap = new HashMap<>();
 
 	/**_I
 	 * debugging help, from -stopafter:xx flag

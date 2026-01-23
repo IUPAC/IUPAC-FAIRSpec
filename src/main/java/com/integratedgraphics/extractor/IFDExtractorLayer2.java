@@ -178,7 +178,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	protected FileList lstManifest;
 
 	/**
-	 * the resource currrently being processed in Phase 2 or 3.
+	 * the resource currently being processed in Phase 2 or 3.
 	 * 
 	 */
 	protected ExtractorResource extractorResource;
@@ -279,7 +279,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	private String thisCompoundDirID;
 	private String thisStructureDirID;
 	private String lastLocalClonedParent;
-
+	
 	/**
 	 * The main extraction phase. Find and extract all objects of interest from a
 	 * ZIP file.
@@ -1592,9 +1592,37 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	protected IFDRepresentableObject<?> getCloned(IFDRepresentableObject<?> oldSpec) {
 		return htCloneMap.get(oldSpec.getIDorIndex());
 	}
-
+	
+	private long getThirtyMinuteOffset (String unixSecondTimeStampStr) {
+		long unixSecondTimeStamp;
+		try {
+			unixSecondTimeStamp = Long.parseLong(unixSecondTimeStampStr);
+        } catch (NumberFormatException e) {
+            System.err.println("Error parsing the string to long for Unix Second: " + e.getMessage());
+            return 0;
+        }
+		return unixSecondTimeStamp % 1800;
+	}
+	
+	private void addSpectraToTimeStampHashMap(IFDObject<?> obj) {
+		long timeStamp = getThirtyMinuteOffset(obj.getTimestamp());
+		ArrayList<IFDObject<?>> objList = this.timestampSpectraObjectHashMap.get(timeStamp);
+	    if (objList == null) {
+	    	objList = new ArrayList<>();
+	    	objList.add(obj);
+	    	this.timestampSpectraObjectHashMap.put(timeStamp, objList);
+	    }
+	    else {
+	    	 objList.add(obj);
+	    }
+		return;
+	}
+	
 	private void phase2dSetPropertyIfNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath) {
 		Object currentValue = faHelper.setPropertyValueNotAlreadySet(obj, key, value, originPath);
+		if(key == IFDConst.IFD_PROPERTY_TIMESTAMP) {
+			addSpectraToTimeStampHashMap(obj);
+		}
 		if (currentValue != null && !currentValue.equals(value)) {
 			String msg = originPath + " property " + key + " can't set value '" + value + "', as it is already set to '"
 					+ currentValue + "' from " + obj.getPropertySource(key) + " for " + obj;
@@ -1647,6 +1675,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	public void addProperty(String key, Object val) {
 		if (val != IFDProperty.NULL)
 			log(this.localizedName + " addProperty " + key + "=" + val);
+		System.out.println(String.format("%s:%s", key, val.toString()));
 		addDeferredPropertyOrRepresentation(new DeferredProperty(key, val));
 	}
 
