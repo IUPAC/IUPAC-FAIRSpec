@@ -135,7 +135,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		    
 		    //embedpdf -E
 		    OptionBuilder.withLongOpt("embedPdf");
-			OptionBuilder.withDescription("Loads PDF documents into finding aids for cross-domain viewing of specta");
+			OptionBuilder.withDescription("Loads PDF documents into finding aids for cross-domain viewing of spectra");
 		    options.addOption(OptionBuilder.create("E"));
 		    
 		    //findingAidOnly -F
