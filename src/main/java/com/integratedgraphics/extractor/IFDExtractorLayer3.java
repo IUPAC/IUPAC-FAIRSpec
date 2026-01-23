@@ -190,43 +190,6 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 			
 			log("!phase 3c timestamp check merged " + timestampRemovalCount + "data objects");
 		}
-	
-		
-//		BitSet bs = new BitSet();
-//		FAIRSpecCompoundCollection ssc = faHelper.getCompoundCollection();
-//		boolean isFound = false;
-//		boolean doRemove = false;
-//		int n = 0;
-//		// wondering where these duplicates come from.
-//		Map<Integer, IFDObject<?>> map = new HashMap<>();
-//		for (IFDAssociation assoc : ssc) {
-//			IFDDataObjectCollection c = ((FAIRSpecCompoundAssociation) assoc).getDataObjectCollection();
-//			List<Object> found = new ArrayList<>();
-//			for (IFDRepresentableObject<?> spec : c) {
-//				int i = spec.getIndex();
-//				if (bs.get(i)) {
-//					found.add((IFDDataObject) spec);
-//					log("! Extractor found duplicate DataObject reference " + spec + " for " + assoc.getFirstObj1()
-//							+ " in " + assoc + " and " + map.get(i) + " template order needs changing? ");
-//					isFound = true;
-//				} else {
-//					bs.set(i);
-//					map.put(i, assoc);
-//				}
-//			}
-//			n += found.size();
-//			if (found.size() > 0) {
-//				// log("!! Extractor found the same DataObject ID in : " + found.size());
-//				// BH not removing these for now.
-//				if (doRemove)
-//					c.removeAll(found);
-//			}
-//		}
-//		if (isFound && doRemove) {
-//			n += helper.removeStructuresWithNoAssociations();
-//			if (n > 0)
-//				log("! " + n + " objects removed");
-//		}
 	}
 
 	/**
