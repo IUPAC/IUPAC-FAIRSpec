@@ -274,12 +274,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected String id;
 
 	/**
-	 * an identifyable time stamp 
-	 * 
-	 */
-	private String timestamp;
-
-	/**
 	 * an arbitrary description to provide some sort of context
 	 */
 	protected String description;
@@ -432,7 +426,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 */
 	public IFDProperty setPropertyValue(String key, Object value) {
 		// check for .representation., which is not stored in the object.
-		if (IFDConst.isRepresentation(key) || checkSpecialProperties(key, value)) {
+		if (IFDConst.isRepresentation(key) || checkFieldProperties(key, value)) {
 			return null;
 		}
 		// check for a known property
@@ -492,21 +486,19 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return getIFDPropertyPrefix();
 	}
 	
-	private String myPropLABEL;
-	private String myPropID;
-	private String myPropDESC;
-	private String myPropNOTE;
-	private String myPropTIMESTAMP;
-	private String myPropDOI;
-	private String myPropURL;
+	protected String myPropLABEL;
+	protected String myPropID;
+	protected String myPropDESC;
+	protected String myPropNOTE;
+	protected String myPropDOI;
+	protected String myPropURL;
 	
-	private void setPrefixes() {
+	protected void setPrefixes() {
 		String myPropertyPrefix = getIFDPropertyPrefix();
 		myPropLABEL = myPropertyPrefix + IFDConst.IFD_LABEL_FLAG;
 		myPropID = myPropertyPrefix + IFDConst.IFD_ID_FLAG;
 		myPropDESC = myPropertyPrefix + IFDConst.IFD_DESCRIPTION_FLAG;
 		myPropNOTE = myPropertyPrefix + IFDConst.IFD_NOTE_FLAG;
-		myPropTIMESTAMP = myPropertyPrefix + IFDConst.IFD_TIMESTAMP_FLAG;
 		myPropDOI = myPropertyPrefix + IFDConst.IFD_DOI_FLAG;
 		myPropURL = myPropertyPrefix + IFDConst.IFD_URL_FLAG;
 	}
@@ -519,34 +511,30 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * @param value
 	 * @return
 	 */
-	private boolean checkSpecialProperties(String key, Object value) {
+	protected boolean checkFieldProperties(String key, Object value) {
 		if (myPropLABEL == null)
 			setPrefixes();
-		if (key.equals(IFDConst.IFD_PROPERTY_LABEL) || key.equals(myPropLABEL)) {
+		if (key.equals(IFDConst.IFD_FIELD_PROPERTY_LABEL) || key.equals(myPropLABEL)) {
 			setLabel(value.toString());
 			return true;
 		} 
-		if (key.equals(IFDConst.IFD_PROPERTY_ID) || key.equals(myPropID)) {
+		if (key.equals(IFDConst.IFD_FIELD_PROPERTY_ID) || key.equals(myPropID)) {
 			setID(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_PROPERTY_DESCRIPTION) || key.equals(myPropDESC)) {
+		if (key.equals(IFDConst.IFD_FIELD_PROPERTY_DESCRIPTION) || key.equals(myPropDESC)) {
 			setDescription(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_PROPERTY_NOTE) || key.equals(myPropNOTE)) {
+		if (key.equals(IFDConst.IFD_FIELD_PROPERTY_NOTE) || key.equals(myPropNOTE)) {
 			addNote(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_PROPERTY_TIMESTAMP) || key.equals(myPropTIMESTAMP)) {
-			setTimestamp(value.toString());
-			return true;
-		}
-		if (key.equals(IFDConst.IFD_PROPERTY_DOI) || key.equals(myPropDOI)) {
+		if (key.equals(IFDConst.IFD_FIELD_PROPERTY_DOI) || key.equals(myPropDOI)) {
 			setDOI(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_PROPERTY_URL) || key.equals(myPropURL)) {
+		if (key.equals(IFDConst.IFD_FIELD_PROPERTY_URL) || key.equals(myPropURL)) {
 			setURL(value.toString());
 			return true;
 		}
@@ -613,12 +601,12 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	
 	@Override
 	public String getTimestamp() {
-		return timestamp;
+		return null;
 	}
 
 	@Override
 	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
+		// IFDDataObject only
 	}
 
 	@Override
@@ -747,7 +735,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		serializer.addAttr("label", getLabel());
 		serializer.addAttr("note", getNote());
 		serializer.addAttr("description", getDescription());
-		serializer.addAttr("timestamp", getTimestamp());
 		serializer.addAttr("doi", doi);
 		if (doi == null || url != null && !doi.equals(url))
 			serializer.addAttr("url", url);

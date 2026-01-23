@@ -1,5 +1,6 @@
 package org.iupac.fairdata.dataobject;
 
+import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.core.IFDRepresentableObject;
@@ -86,6 +87,48 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 	
 	public boolean isReplaced() {
 		return replaced;
+	}
+
+	/**
+	 * an identifyable time stamp 
+	 * 
+	 */
+	private String timestamp;
+
+	@Override
+	public String getTimestamp() {
+		return timestamp;
+	}
+
+	@Override
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	protected String myPropTIMESTAMP;
+	
+	@Override
+	protected void setPrefixes() {
+		super.setPrefixes();
+		myPropTIMESTAMP = myPropertyPrefix + IFDConst.IFD_TIMESTAMP_FLAG;
+	}	
+	
+	@Override
+	protected boolean checkFieldProperties(String key, Object value) {
+		if (super.checkFieldProperties(key, value))
+			return true;
+		if (key.equals(myPropTIMESTAMP)) {
+			setTimestamp(value.toString());
+			return true;
+		}
+		return false;
+	}
+
+	
+	@Override
+	protected void serializeTop(IFDSerializerI serializer) {
+		super.serializeTop(serializer);
+		serializer.addAttr("timestamp", getTimestamp());
 	}
 
 }

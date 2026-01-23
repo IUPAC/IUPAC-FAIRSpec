@@ -32,14 +32,21 @@ public class IFDConst {
 	}
 
 	public static String getProp(String key) {
-		String s = props.getProperty(key.toUpperCase()
-				//.replace('.', '_')
-				);
+		String s = props.getProperty(key.toUpperCase());
 		if (s == null) {
 			System.err.println("IFDConst Property " + key + " was not found");
 			s = key;
+		} else {
+			// schema #
+			int pt = s.indexOf("#");
+			if (pt >= 0)
+				s = s.substring(0, pt);
 		}
 		return s.trim();
+	}
+
+	public static Properties getAllProperties() {
+		return props;
 	}
 
 	public static void addProperties(String propertyFile) {
@@ -75,7 +82,7 @@ public class IFDConst {
 	public static IFDObject.PropertyMap setProperties(IFDObject.PropertyMap htProps, String propertyPrefix,
 			String notKey) {
 		if (htProps == null)
-			htProps =  new IFDObject.PropertyMap();
+			htProps = new IFDObject.PropertyMap();
 		else {
 			// rename all inherited properties to this subclass name
 			Iterator<Entry<String, IFDProperty>> iter = htProps.entrySet().iterator();
@@ -90,7 +97,7 @@ public class IFDConst {
 			// IFD.property.dataobject.id becomes IFD.property.fairspec.nmr.id
 			for (String key : removed) {
 				String key1 = propertyPrefix + key.substring(key.lastIndexOf("."));
-				IFDProperty p = htProps.get(key).getInherited(key1);				
+				IFDProperty p = htProps.get(key).getInherited(key1);
 				htProps.put(key1, p);
 			}
 			for (String key : removed) {
@@ -98,14 +105,14 @@ public class IFDConst {
 			}
 		}
 		int pt = propertyPrefix.length();
-		String mykey = propertyPrefix.toUpperCase().replace('.', '_');		
+		String mykey = propertyPrefix.toUpperCase().replace('.', '_');
 		for (Entry<Object, Object> e : props.entrySet()) {
 			String k = (String) e.getKey();
 
 			if (k.startsWith(mykey) && k.lastIndexOf(".") == pt) {
 				// to be continued! -- need units and type
 				String val = trimValue(e.getValue().toString());
-				
+
 				if (!k.endsWith("_FLAG")) {
 					htProps.put(val, new IFDProperty(val, null, null, null));
 				}
@@ -168,19 +175,13 @@ public class IFDConst {
 	public static final String IFD_DOI_FLAG = getProp("IFD_DOI_FLAG");
 	public static final String IFD_URL_FLAG = getProp("IFD_URL_FLAG");
 
-	public static final String IFD_PROPERTY_LABEL = concat(IFD_PROPERTY_FLAG, IFD_LABEL_FLAG);
-	public static final String IFD_PROPERTY_ID = concat(IFD_PROPERTY_FLAG, IFD_ID_FLAG);
-	public static final String IFD_PROPERTY_NOTE = concat(IFD_PROPERTY_FLAG, IFD_NOTE_FLAG);
-	public static final String IFD_PROPERTY_TIMESTAMP = concat(IFD_PROPERTY_FLAG, IFD_TIMESTAMP_FLAG);
-	public static final String IFD_PROPERTY_DESCRIPTION = concat(IFD_PROPERTY_FLAG, IFD_DESCRIPTION_FLAG);
-	public static final String IFD_PROPERTY_DOI = concat(IFD_PROPERTY_FLAG, IFD_DOI_FLAG);
-	public static final String IFD_PROPERTY_URL = concat(IFD_PROPERTY_FLAG, IFD_URL_FLAG);
+	public static final String IFD_FIELD_PROPERTY_LABEL = concat(IFD_PROPERTY_FLAG, IFD_LABEL_FLAG);
+	public static final String IFD_FIELD_PROPERTY_ID = concat(IFD_PROPERTY_FLAG, IFD_ID_FLAG);
+	public static final String IFD_FIELD_PROPERTY_NOTE = concat(IFD_PROPERTY_FLAG, IFD_NOTE_FLAG);
+	public static final String IFD_FIELD_PROPERTY_DESCRIPTION = concat(IFD_PROPERTY_FLAG, IFD_DESCRIPTION_FLAG);
+	public static final String IFD_FIELD_PROPERTY_DOI = concat(IFD_PROPERTY_FLAG, IFD_DOI_FLAG);
+	public static final String IFD_FIELD_PROPERTY_URL = concat(IFD_PROPERTY_FLAG, IFD_URL_FLAG);
 
-	
-
-
-	
-	
 	public static final String IFD_FINDINGAID = getProp("IFD_FINDINGAID");
 
 	public static final String IFD_PROPERTY_COLLECTIONSET_BYID = IFDConst.getProp("IFD_PROPERTY_COLLECTIONSET.BYID");
@@ -211,13 +212,10 @@ public class IFDConst {
 	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_DOI = getProp(
 			"IFD_PROPERTY_COLLECTIONSET.SOURCE_PUBLICATION_DOI");
 
-	public static final String IFD_PROPERTY_FINDINGAID_ID = concat(IFD_PROPERTY_FLAG, IFD_FINDINGAID_FLAG,
-			IFD_ID_FLAG);
+	public static final String IFD_PROPERTY_FINDINGAID_ID = concat(IFD_PROPERTY_FLAG, IFD_FINDINGAID_FLAG, IFD_ID_FLAG);
 
-	public static final String IFD_PROPERTY_STRUCTURE_ID = concat(IFD_PROPERTY_FLAG, IFD_STRUCTURE_FLAG,
-			IFD_ID_FLAG);
-	public static final String IFD_PROPERTY_SAMPLE_ID = concat(IFD_PROPERTY_FLAG, IFD_SAMPLE_FLAG,
-			IFD_ID_FLAG);
+	public static final String IFD_PROPERTY_STRUCTURE_ID = concat(IFD_PROPERTY_FLAG, IFD_STRUCTURE_FLAG, IFD_ID_FLAG);
+	public static final String IFD_PROPERTY_SAMPLE_ID = concat(IFD_PROPERTY_FLAG, IFD_SAMPLE_FLAG, IFD_ID_FLAG);
 	public static final String IFD_REP_STRUCTURE_MOL = getProp("IFD_REP_STRUCTURE.MOL");
 	public static final String IFD_REP_STRUCTURE_MOL_2D = getProp("IFD_REP_STRUCTURE.MOL_2D");
 	public static final String IFD_REP_STRUCTURE_MOL_3D = getProp("IFD_REP_STRUCTURE.MOL_3D");
@@ -234,11 +232,23 @@ public class IFDConst {
 	public static final String IFD_STRUCTUREDATA_ASSOCIATION_FLAG = getProp("IFD_STRUCTUREDATA_ASSOCIATION_FLAG");
 	public static final String IFD_SAMPLEDATA_ASSOCIATION_FLAG = getProp("IFD_SAMPLEDATA_ASSOCIATION_FLAG");
 	public static final String IFD_SAMPLESTRUCTURE_ASSOCIATION_FLAG = getProp("IFD_SAMPLESTRUCTURE_ASSOCIATION_FLAG");
-	public static final String IFD_STRUCTUREDATAANALYSIS_ASSOCIATION_FLAG = getProp("IFD_STRUCTUREDATAANALYSIS_ASSOCIATION_FLAG");
+	public static final String IFD_STRUCTUREDATAANALYSIS_ASSOCIATION_FLAG = getProp(
+			"IFD_STRUCTUREDATAANALYSIS_ASSOCIATION_FLAG");
 
 	public static final String IFD_PROPERTY_DATAOBJECT_FLAG = concat(IFDConst.IFD_PROPERTY_FLAG, IFD_DATAOBJECT_FLAG);
-	public static final String IFD_PROPERTY_DATAOBJECT_NOTE = concat(IFD_PROPERTY_DATAOBJECT_FLAG, IFD_NOTE_FLAG);
+	public static final String IFD_FIELD_PROPERTY_DATAOBJECT_NOTE = concat(IFD_PROPERTY_DATAOBJECT_FLAG, IFD_NOTE_FLAG);
+	public static final String IFD_FIELD_PROPERTY_DATAOBJECT_TIMESTAMP = concat(IFD_PROPERTY_DATAOBJECT_FLAG, IFD_TIMESTAMP_FLAG);
 	public static final String IFD_PROPERTY_DATAOBJECT_ORIGINATING_SAMPLE_ID = "IFD_PROPERTY_DATAOBJECT.ORIGINATING_SAMPLE_ID";
+
+	public static final String IFD_OBJECT_FIELDS = //
+			";" + IFD_FIELD_PROPERTY_LABEL // 
+			+ ";" + IFD_FIELD_PROPERTY_ID //
+			+ ";" + IFD_FIELD_PROPERTY_NOTE //
+			+ ";" + IFD_FIELD_PROPERTY_DATAOBJECT_TIMESTAMP //
+			+ ";" + IFD_FIELD_PROPERTY_DESCRIPTION //
+			+ ";" + IFD_FIELD_PROPERTY_DOI //
+			+ ";" + IFD_FIELD_PROPERTY_URL + ";";
+
 	public static String getVersion() {
 		return "IFD " + IFD_VERSION;
 	}
@@ -282,7 +292,8 @@ public class IFDConst {
 	public static boolean checkPropOrRep(String key, String type) {
 		if (key == null || type == null)
 			return false;
-		String prefix = (isIFDProperty(key) ? IFD_PROPERTY_FLAG : isRepresentation(key) ? IFD_REPRESENTATION_FLAG : null);
+		String prefix = (isIFDProperty(key) ? IFD_PROPERTY_FLAG
+				: isRepresentation(key) ? IFD_REPRESENTATION_FLAG : null);
 		return (prefix != null && key.indexOf(type) == prefix.length() - 1);
 	}
 

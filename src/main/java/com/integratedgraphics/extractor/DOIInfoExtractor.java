@@ -94,7 +94,7 @@ public class DOIInfoExtractor {
 	 */
 	@SuppressWarnings("unchecked")
 	public static void extractCrossRefInfo(Map<String, Object> info, Map<String, Object> json) {
-		info.clear();
+		put(info,"type", "publication");
 		Map<String, Object> message = getMap(json, "message");
 		String title = (String) getValue(message, "title", null);
 		if (title != null && title.startsWith("[") && title.endsWith("]")) {
@@ -127,7 +127,8 @@ public class DOIInfoExtractor {
 	 */
 	@SuppressWarnings("unchecked")
 	public static void extractCrossCiteInfo(Map<String, Object> info, Map<String, Object> crossCite) {
-		put(info,"dataTitle",  ((Map<String, Object>)getList(crossCite, "titles").get(0)).get("title"));
+		put(info,"type", "dataset");
+		put(info,"title",  ((Map<String, Object>)getList(crossCite, "titles").get(0)).get("title"));
 		String s = "";		
 		List<Object> creators = getList(crossCite, "creators");
 		for (int i = 0; i < creators.size(); i++) {
@@ -136,16 +137,16 @@ public class DOIInfoExtractor {
 			s += ", " + name.trim();
 		}
 		if (s.length() > 0) {
-			put(info,"dataCreators", s.substring(2));
+			put(info,"authors", s.substring(2));
 		}
 		String doi = getValue(crossCite, "doi", "").toLowerCase();
-		put(info,"dataDoi", doi);			
-		put(info,"dataDoiLink", "https://doi.org/" + doi);
-		put(info,"dataUrl", getValue(crossCite, "url", ""));
+		put(info,"doi", doi);			
+		put(info,"doiLink", "https://doi.org/" + doi);
+		put(info,"url", getValue(crossCite, "url", ""));
 	}
 
-
 	private static void put(Map<String, Object> info, String key, Object value) {
+
 		if (value != null)
 			info.put(key, value);
 	}

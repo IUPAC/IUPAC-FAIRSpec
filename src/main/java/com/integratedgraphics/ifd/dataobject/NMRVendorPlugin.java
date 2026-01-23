@@ -207,7 +207,7 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 			timestamp = dataObjectGMTTimestamp;
 		}
 		if (timestamp > 0) {
-			addProperty(IFDConst.IFD_PROPERTY_TIMESTAMP, Long.valueOf(timestamp));
+			addProperty(IFDConst.IFD_FIELD_PROPERTY_DATAOBJECT_TIMESTAMP, Long.valueOf(timestamp));
 		}
 	}
 

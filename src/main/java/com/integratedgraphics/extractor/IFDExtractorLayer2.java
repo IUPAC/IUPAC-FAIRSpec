@@ -1061,7 +1061,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				this.localizedName = localizedName;
 			String msg = "Extractor correcting " + rezipVendor.getVendorName() + " directory name to " + localizedName
 					+ "|" + newDir;
-			addProperty(IFDConst.IFD_PROPERTY_DATAOBJECT_NOTE, msg);
+			addProperty(IFDConst.IFD_FIELD_PROPERTY_DATAOBJECT_NOTE, msg);
 			log("!" + msg);
 		}
 		localizedName = localizePath(originPath);
@@ -1620,7 +1620,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	
 	private void phase2dSetPropertyIfNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath) {
 		Object currentValue = faHelper.setPropertyValueNotAlreadySet(obj, key, value, originPath);
-		if(key == IFDConst.IFD_PROPERTY_TIMESTAMP) {
+		if(key == IFDConst.IFD_FIELD_PROPERTY_DATAOBJECT_TIMESTAMP) {
 			addSpectraToTimeStampHashMap(obj);
 		}
 		if (currentValue != null && !currentValue.equals(value)) {

@@ -321,7 +321,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		}
 		currentAssociation = thisCompound = c;
 		if (id != null)
-			c.setPropertyValue(IFDConst.IFD_PROPERTY_ID, id);
+			c.setPropertyValue(IFDConst.IFD_FIELD_PROPERTY_ID, id);
 		getCompoundCollection().add(c);
 		return c;
 	}

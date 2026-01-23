@@ -331,7 +331,7 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 		String k = ifdMap.get(isDerived ? key.substring(1) : key);
 		// TODO? but not all keys are like this key = "MNova_" + key;
 		if (k == null && key.equals("Page_Header")) {
-			addProperty(IFDConst.IFD_PROPERTY_DESCRIPTION, val);
+			addProperty(IFDConst.IFD_FIELD_PROPERTY_DESCRIPTION, val);
 			addProperty(IFDExtractor.PAGE_ID_PROPERTY_SOURCE, val);
 		}
 		// SM and DIM are derived

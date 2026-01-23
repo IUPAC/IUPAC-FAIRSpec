@@ -15,6 +15,16 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.MissingOptionException;
+// Apache Commons CLI to handle CLI commands
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.OptionGroup;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.PosixParser;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
@@ -34,23 +44,6 @@ import com.integratedgraphics.extractor.ExtractorUtils.ArchiveInputStream;
 import com.integratedgraphics.html.PageCreator;
 import com.integratedgraphics.ifd.api.AnalysisObjectPluginI;
 import com.integratedgraphics.ifd.api.DataObjectVendorPluginI;
-
-// Apache Commons CLI to handle CLI commands
-import org.apache.commons.cli.OptionBuilder;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.OptionGroup;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.PosixParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.MissingOptionException;
-
-import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-
-import com.integratedgraphics.extractor.IFDExtractor;
-import com.integratedgraphics.extractor.DOICrawler;
 
 /**
  * This abstract class backs MetadataExtractor and DOICrawler,
