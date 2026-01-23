@@ -135,32 +135,38 @@
           }
         },
         "resources": {
+          "required": [
+            "1"
+          ],
           "type": "object",
-          "items": {
-            "type": "object",
-            "unevaluatedProperties": false,
-            "properties": {
-              "unevaluatedProperties": false,
-              "1": {
-                "type": "object",
-                "properties": {
-                  "ref": {
-                    "type": "string"
-                  },
-                  "len": {
-                    "type": "string"
-                  }
+          "properties": {
+            "1": {
+              "type": "object",
+              "required": [
+                "ref",
+                "len"
+              ],
+              "properties": {
+                "ref": {
+                  "type": "string"
+                },
+                "len": {
+                  "type": "number"
                 }
-              },
-              "FAIRSpecDataCollection": {
-                "type": "object",
-                "properties": {
-                  "ref": {
-                    "type": "string"
-                  },
-                  "len": {
-                    "type": "string"
-                  }
+              }
+            },
+            "FAIRSpecDataCollection": {
+              "type": "object",
+              "required": [
+                "ref",
+                "len"
+              ],
+              "properties": {
+                "ref": {
+                  "type": "string"
+                },
+                "len": {
+                  "type": "number"
                 }
               }
             }
