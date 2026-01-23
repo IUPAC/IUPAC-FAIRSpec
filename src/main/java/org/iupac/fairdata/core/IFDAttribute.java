@@ -63,12 +63,12 @@ public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> 
 
 
 	
-	public static void add(List<IFDAttribute> params, String name, Object value) {
+	public static void add(List<IFDAttribute> attributes, String name, Object value) {
 		if (value == null || name == null)
 			return;
 		IFDAttribute p = null;
-		for (int i = params.size(); --i >= 0;) {
-			p = params.get(i);
+		for (int i = attributes.size(); --i >= 0;) {
+			p = attributes.get(i);
 			if (p.name.equals(name))  {
 				if (p.values != null ? p.values.contains(value)
 						: p.value.equals(value))
@@ -82,7 +82,7 @@ public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> 
 				return;
 			}
 		}
-		params.add(new IFDAttribute(name, value));
+		attributes.add(new IFDAttribute(name, value));
 	}
 
 	public static void remove(List<IFDAttribute> params, String name) {
@@ -168,5 +168,14 @@ public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> 
 	@Override
 	public String toString() {
 		return (getValue() == null ? "" : "[IFDParam " + name + "=" + value + "]");
+	}
+
+
+	public static void mergeAll(List<IFDAttribute> attFrom, List<IFDAttribute> attrTo) {		
+		for (int i = 0, n = attFrom.size(); i < n; i++) {
+			IFDAttribute a = attFrom.get(i);
+			IFDAttribute.add(attrTo, a.getName(), a.getValue());
+		}
+		
 	}
 }

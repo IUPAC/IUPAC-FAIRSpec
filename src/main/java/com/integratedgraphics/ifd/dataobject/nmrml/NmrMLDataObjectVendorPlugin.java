@@ -28,6 +28,8 @@ public abstract class NmrMLDataObjectVendorPlugin extends NMRVendorPlugin {
 				"TEMPERATURE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_THERMODYNAMIC_TEMPERATURE"), //prop
 				"TIMESTAMP", IFDConst.IFD_FIELD_PROPERTY_DATAOBJECT_TIMESTAMP,
 				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_TITLE"), //prop
+				"ACQU_DATE_TIME", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_DATE_TIME_ACQUIRED"), // prop
+
 		};
 
 		for (int i = 0; i < keys.length;)
@@ -56,7 +58,8 @@ public abstract class NmrMLDataObjectVendorPlugin extends NMRVendorPlugin {
 		report("TEMPERATURE", acq.getTemperature());
 		report("PP", acq.getPulseProgram());
 		report("PROBE", acq.getProbehead());
-		report("TIMESTAMP", header.getCreationTime());
+		setDataObjectTimestamp(header.getCreationTime(), false); // unknown if this is GMT or not
+	    addSpecDateTimes();
 		addProperty("Comment", header.getComment());
 		addProperty("Title", header.getTitle());
 		report("TITLE", header.getTitle());

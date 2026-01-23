@@ -1531,7 +1531,11 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				if (key.equals(FAIRSpecExtractorHelper.DATAOBJECT_ORIGINATING_SAMPLE_ID)) {
 					helper.addSpecOriginatingSampleRef(extractorResource.rootPath, localSpec, (String) value);
 				}
+				if(key == IFDConst.IFD_FIELD_PROPERTY_DATAOBJECT_TIMESTAMP) {
+					phase2AddSpectraToTimeStampHashMap(localSpec, (Long) value);
+				}
 				phase2dSetPropertyIfNotAlreadySet(localSpec, key, value, originPath);
+
 			}
 		}
 		if (assoc == null) {
@@ -1593,36 +1597,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		return htCloneMap.get(oldSpec.getIDorIndex());
 	}
 	
-	private long getThirtyMinuteOffset (String unixSecondTimeStampStr) {
-		long unixSecondTimeStamp;
-		try {
-			unixSecondTimeStamp = Long.parseLong(unixSecondTimeStampStr);
-        } catch (NumberFormatException e) {
-            System.err.println("Error parsing the string to long for Unix Second: " + e.getMessage());
-            return 0;
-        }
-		return unixSecondTimeStamp % 1800;
-	}
-	
-	private void addSpectraToTimeStampHashMap(IFDObject<?> obj) {
-		long timeStamp = getThirtyMinuteOffset(obj.getTimestamp());
-		ArrayList<IFDObject<?>> objList = this.timestampSpectraObjectHashMap.get(timeStamp);
-	    if (objList == null) {
-	    	objList = new ArrayList<>();
-	    	objList.add(obj);
-	    	this.timestampSpectraObjectHashMap.put(timeStamp, objList);
-	    }
-	    else {
-	    	 objList.add(obj);
-	    }
-		return;
-	}
-	
 	private void phase2dSetPropertyIfNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath) {
 		Object currentValue = faHelper.setPropertyValueNotAlreadySet(obj, key, value, originPath);
-		if(key == IFDConst.IFD_FIELD_PROPERTY_DATAOBJECT_TIMESTAMP) {
-			addSpectraToTimeStampHashMap(obj);
-		}
 		if (currentValue != null && !currentValue.equals(value)) {
 			String msg = originPath + " property " + key + " can't set value '" + value + "', as it is already set to '"
 					+ currentValue + "' from " + obj.getPropertySource(key) + " for " + obj;
@@ -1634,6 +1610,26 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 			}
 		}
+	}
+	
+	/**
+	 * Use a 30-minute hash to group spectra into initial bins. Later, we will check
+	 * more carefully.
+	 * 
+	 * @param obj
+	 * @param time
+	 * @return
+	 */
+	protected IFDDataObject phase2AddSpectraToTimeStampHashMap(IFDDataObject obj, Long time) {
+		Integer timeStamp = Integer.valueOf((int) (time % 1800)); // 30-min intervals	
+		if (timestampSpectraObjectHashMap == null) 
+			timestampSpectraObjectHashMap = new HashMap<>();
+		ArrayList<IFDDataObject> objList = timestampSpectraObjectHashMap.get(timeStamp);
+	    if (objList == null) {
+	    	timestampSpectraObjectHashMap.put(timeStamp, objList = new ArrayList<>());
+	    }
+	    objList.add(obj);
+	    return obj;
 	}
 
 	private void phase2eIterate() throws MalformedURLException, IOException, IFDException {

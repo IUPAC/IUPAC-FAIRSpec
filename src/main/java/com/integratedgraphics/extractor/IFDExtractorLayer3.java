@@ -16,6 +16,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundAssociation;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper.FileList;
 import org.iupac.fairdata.core.IFDAssociation;
+import org.iupac.fairdata.core.IFDAttribute;
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDRepresentableObject;
@@ -51,6 +52,8 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	private String resourceList;
 
 	private String contentsFile = "c:/temp/t.xls";
+
+	private int timestampRemovalCount;
 
 	@SuppressWarnings("unchecked")
 	protected String processPhase3() throws IFDException, IOException {
@@ -151,52 +154,78 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	}
 
 	/**
-	 * Look for spectra with identical labels, and remove duplicates.
+	 * Look for spectra with identical time stamps mod 1800 (30 minutes).
 	 * 
 	 * If a structure has lost all its associations, remove it.
-	 * 
-	 * This is experimental. For now, these are NOT ACTUALLY REMOVED. (Issues were
-	 * found with same-named PDF files that were embedded in different Bruker
-	 * directories but had the same name, which was being assigned the ID
 	 * 
 	 * 
 	 */
 	private void phase3cCheckForDuplicateSpecData() {
-		BitSet bs = new BitSet();
-		FAIRSpecCompoundCollection ssc = faHelper.getCompoundCollection();
-		boolean isFound = false;
-		boolean doRemove = false;
-		int n = 0;
-		// wondering where these duplicates come from.
-		Map<Integer, IFDObject<?>> map = new HashMap<>();
-		for (IFDAssociation assoc : ssc) {
-			IFDDataObjectCollection c = ((FAIRSpecCompoundAssociation) assoc).getDataObjectCollection();
-			List<Object> found = new ArrayList<>();
-			for (IFDRepresentableObject<?> spec : c) {
-				int i = spec.getIndex();
-				if (bs.get(i)) {
-					found.add((IFDDataObject) spec);
-					log("! Extractor found duplicate DataObject reference " + spec + " for " + assoc.getFirstObj1()
-							+ " in " + assoc + " and " + map.get(i) + " template order needs changing? ");
-					isFound = true;
-				} else {
-					bs.set(i);
-					map.put(i, assoc);
+		timestampRemovalCount = 0;
+		if (timestampSpectraObjectHashMap == null) 
+			return;
+		for (Entry<Integer, ArrayList<IFDDataObject>> e : 		 
+			timestampSpectraObjectHashMap.entrySet()) {
+			List<IFDDataObject> list = e.getValue();
+			int n = list.size();
+			if (n < 2)
+				continue;
+			for (int i = 0; i < list.size(); i++) {
+				IFDDataObject o1 = list.get(i);
+				for (int j = i + 1; j < list.size(); j++) {
+					IFDDataObject o2 = list.get(j);
+					if (helper.areDataObjectsIdentical(o1, o2)) {
+						helper.mergeDataObjects(o2, o1);
+						list.remove(o2);
+						--j;
+						log("!phase 3c timestamp duplicate objects merged: " + o2.getID() + " -> " + o1.getID());
+						timestampRemovalCount++;
+					} else {
+//						System.out.println(i + " " + j + " notEquiv" + "\n" + o1 + o1.getTimestampDate() + "\n" + o2 + o2.getTimestampDate());
+					}
+					
 				}
 			}
-			n += found.size();
-			if (found.size() > 0) {
-				// log("!! Extractor found the same DataObject ID in : " + found.size());
-				// BH not removing these for now.
-				if (doRemove)
-					c.removeAll(found);
-			}
+			
+			log("!phase 3c timestamp check merged " + timestampRemovalCount + "data objects");
 		}
-		if (isFound && doRemove) {
-			n += helper.removeStructuresWithNoAssociations();
-			if (n > 0)
-				log("! " + n + " objects removed");
-		}
+	
+		
+//		BitSet bs = new BitSet();
+//		FAIRSpecCompoundCollection ssc = faHelper.getCompoundCollection();
+//		boolean isFound = false;
+//		boolean doRemove = false;
+//		int n = 0;
+//		// wondering where these duplicates come from.
+//		Map<Integer, IFDObject<?>> map = new HashMap<>();
+//		for (IFDAssociation assoc : ssc) {
+//			IFDDataObjectCollection c = ((FAIRSpecCompoundAssociation) assoc).getDataObjectCollection();
+//			List<Object> found = new ArrayList<>();
+//			for (IFDRepresentableObject<?> spec : c) {
+//				int i = spec.getIndex();
+//				if (bs.get(i)) {
+//					found.add((IFDDataObject) spec);
+//					log("! Extractor found duplicate DataObject reference " + spec + " for " + assoc.getFirstObj1()
+//							+ " in " + assoc + " and " + map.get(i) + " template order needs changing? ");
+//					isFound = true;
+//				} else {
+//					bs.set(i);
+//					map.put(i, assoc);
+//				}
+//			}
+//			n += found.size();
+//			if (found.size() > 0) {
+//				// log("!! Extractor found the same DataObject ID in : " + found.size());
+//				// BH not removing these for now.
+//				if (doRemove)
+//					c.removeAll(found);
+//			}
+//		}
+//		if (isFound && doRemove) {
+//			n += helper.removeStructuresWithNoAssociations();
+//			if (n > 0)
+//				log("! " + n + " objects removed");
+//		}
 	}
 
 	/**

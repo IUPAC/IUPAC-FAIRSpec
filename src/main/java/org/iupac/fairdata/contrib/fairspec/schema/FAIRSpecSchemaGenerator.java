@@ -13,6 +13,8 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -222,6 +224,10 @@ public class FAIRSpecSchemaGenerator {
 	}
 	
 	public final static void main(String[] args) {
+		// this is the way to convert back and forth from long to date:
+		//System.out.println(Instant.ofEpochSecond(1717948362));
+		//System.out.println(Instant.ofEpochSecond(OffsetDateTime.parse("2024-06-09T23:52:42+08:00").toInstant().toEpochMilli()/1000));
+		//System.out.println(Instant.parse("2024-06-09T23:52:42Z").toEpochMilli()/1000);
 		String schemaTemplateFile = null;
 		String schemaOutputDir = null;
 		try {

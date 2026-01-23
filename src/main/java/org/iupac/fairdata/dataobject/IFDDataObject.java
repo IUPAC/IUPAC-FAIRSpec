@@ -1,5 +1,7 @@
 package org.iupac.fairdata.dataobject;
 
+import java.time.Instant;
+
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.core.IFDProperty;
@@ -93,16 +95,18 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 	 * an identifyable time stamp 
 	 * 
 	 */
-	private String timestamp;
+	private Long timestamp;
 
-	@Override
-	public String getTimestamp() {
+	public Long getTimestamp() {
 		return timestamp;
 	}
 
-	@Override
-	public void setTimestamp(String timestamp) {
+	public void setTimestamp(Long timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public String getTimestampDate() {
+		return (timestamp == null ? "" : Instant.ofEpochSecond(timestamp.longValue()).toString());
 	}
 
 	protected String myPropTIMESTAMP;
@@ -118,7 +122,7 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 		if (super.checkFieldProperties(key, value))
 			return true;
 		if (key.equals(myPropTIMESTAMP)) {
-			setTimestamp(value.toString());
+			setTimestamp((Long) value);
 			return true;
 		}
 		return false;
@@ -128,7 +132,9 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 	@Override
 	protected void serializeTop(IFDSerializerI serializer) {
 		super.serializeTop(serializer);
-		serializer.addAttr("timestamp", getTimestamp());
+		if (!isValid)
+			System.out.println("???");
+		serializer.addAttrInt("timestamp", getTimestamp());
 	}
 
 }

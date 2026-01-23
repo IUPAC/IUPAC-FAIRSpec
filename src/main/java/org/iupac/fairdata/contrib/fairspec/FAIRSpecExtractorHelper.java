@@ -1,19 +1,24 @@
 package org.iupac.fairdata.contrib.fairspec;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.dataobject.FAIRSpecDataObject;
 import org.iupac.fairdata.core.IFDAssociation;
+import org.iupac.fairdata.core.IFDAttribute;
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDObject;
+import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.dataobject.IFDDataObject;
@@ -770,6 +775,54 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 		sb.append("]\n");
 		sb.append("}\n");
 		return sb.toString();
+	}
+
+	@Override
+	public boolean areDataObjectsIdentical(IFDDataObject o1, IFDDataObject o2) {
+		long t1 = o1.getTimestamp().longValue();
+		long t2 = o2.getTimestamp().longValue();
+		if (Math.abs(t2 - t1) > 86400) // within a day, but may not both be Z
+			return false;
+		Map<String, IFDProperty> props1 = o1.getProperties();
+		Map<String, IFDProperty> props2 = o2.getProperties();
+		
+		for (Entry<String, IFDProperty> e : props1.entrySet()) {
+			String key = e.getKey();
+			Object v1 = e.getValue().getValue();
+			// skip date and manufaturer
+			if (v1 == null || key.indexOf("_date_") >= 0 || 
+					key.indexOf("_manufacturer_") >= 0) {
+				System.out.println(key + " " + v1);
+				continue;
+			}
+			IFDProperty p2 = props2.get(key);
+			Object v2;
+			if (p2 != null && (v2 = p2.getValue()) != null) {
+				if (!v1.equals(v2)) {
+					return false;
+				}
+			}			
+		}
+		return true;
+	}
+
+	/**
+	 * Merge object objFrom into objTo
+	 * @param objFrom
+	 * @param objTo
+	 */
+	@Override
+	public void mergeDataObjects(IFDDataObject objFrom, IFDDataObject objTo) {
+		// 1. merge attributes
+		// 2. merge representations
+		// 3. mark dup as invalid
+		// do NOT transfer IFDProperties, just represntations and attributes
+		// only transfer attributes that are non-existant
+		IFDAttribute.mergeAll(objFrom.getAttributes(), objTo.getAttributes());
+		for (int i = 0, n = objFrom.size(); i < n; i++) {
+			objTo.add(objFrom.get(i));
+		}
+		objFrom.setValid(false);
 	}
 
 }

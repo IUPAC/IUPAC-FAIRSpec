@@ -1,5 +1,6 @@
 package com.integratedgraphics.ifd.dataobject;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -176,13 +177,17 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 			return;
 		try {
 			long l;
+			int pt = date.indexOf('.');
+			if (pt >= 0) { // remove .000 ms
+				date = date.substring(0, pt);
+			}
 			if (date.indexOf("/") >= 0) {
-				int pt = date.indexOf('.');
-				if (pt >= 0) { // remove .000 ms
-					date = date.substring(0, pt);
-				}
 				l = new Date(date + " GMT").toInstant().toEpochMilli() / 1000;
-			} else {
+			} else if (date.indexOf("T") >= 0){
+				if (!date.endsWith("Z"))
+					date += "Z";
+				l = Instant.parse(date).toEpochMilli() / 1000;				
+			} else { 
 				l = Long.parseLong(date);
 			}
 			if (isGMT) {
@@ -190,6 +195,7 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 			} else {
 				setDataObjectLocalTimeID(l);
 			}
+			System.out.println("NVP " + l + " " + Instant.ofEpochSecond(l));
 		} catch (Exception e) {
 			System.err.println("NMRVendorPlugin could not parse " + date + " (ignored) should be of form YYYY/MM/DD [HH:MM:SS[.SSSS] [±UUUU]]");
 		}

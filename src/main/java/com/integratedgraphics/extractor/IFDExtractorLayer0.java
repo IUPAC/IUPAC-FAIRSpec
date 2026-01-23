@@ -12,15 +12,14 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper.FileList;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelperI;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+import org.iupac.fairdata.dataobject.IFDDataObject;
 
 import com.integratedgraphics.extractor.ExtractorUtils.ArchiveEntry;
 import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
 import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
-
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelperI;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-import org.iupac.fairdata.core.IFDObject;
 
 /**
  * A general class for constants, setting the configuration, shared fields,
@@ -54,8 +53,6 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	protected String stopAfter;
 	protected Map<String, Map<String, ArchiveEntry>> htArchiveContents = new LinkedHashMap<>();
 	
-	protected Map<Long, ArrayList<IFDObject<?>>> timestampSpectraObjectHashMap = new HashMap<>();
-
 	/**_I
 	 * debugging help, from -stopafter:xx flag
 	 * 
@@ -86,6 +83,16 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 * set in phase 1; used in phase 3
 	 */
 	protected Map<String, Map<String, Object>> htURLReferences;
+
+
+	/**
+	 * track the timestamp of a data object mod 1800, thus the remainder of 30 minute time zones.
+	 * The object will retain the full time as a Long, but this allows for comparisons 
+	 * of unknown time zones.
+	 */
+	protected Map<Integer, ArrayList<IFDDataObject>> timestampSpectraObjectHashMap;
+
+
 
 	/**
 	 * the IFD-extract.json script

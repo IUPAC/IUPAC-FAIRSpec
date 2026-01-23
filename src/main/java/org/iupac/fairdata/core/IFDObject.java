@@ -600,16 +600,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	}
 	
 	@Override
-	public String getTimestamp() {
-		return null;
-	}
-
-	@Override
-	public void setTimestamp(String timestamp) {
-		// IFDDataObject only
-	}
-
-	@Override
 	public String getDescription() {
 		return description;
 	}
