@@ -189,6 +189,14 @@
                     "itemsById"
                   ],
                   "properties": {
+                    "ifdProperties": {
+                      "type": "object",
+                      "properties": {
+                        "_IFD.property.database/fairspec$_": {
+                          "type": "string"
+                        }
+                      }
+                    },
                     "itemType": {
                       "type": "string"
                     },
