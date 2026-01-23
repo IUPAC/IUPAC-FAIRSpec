@@ -154,9 +154,10 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	}
 
 	/**
-	 * Look for spectra with identical time stamps mod 1800 (30 minutes).
-	 * 
-	 * If a structure has lost all its associations, remove it.
+	 * Look for spectra with identical timestamps mod 1800 (30 minutes).
+	 * Some of these will be valid differences, so we now check to see
+	 * if they are truly identical, and if so, we merge the second (which will be MNova)
+	 * into the first (Bruker) as simply another representation, not a new spectrum.
 	 * 
 	 * 
 	 */
