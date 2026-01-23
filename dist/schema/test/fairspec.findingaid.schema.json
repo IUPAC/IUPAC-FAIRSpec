@@ -174,9 +174,35 @@
         },
         "collectionSet": {
           "type": "object",
+          "required": [
+            "propertyPrefix",
+            "resourceID",
+            "ifdProperties",
+            "itemsByID"
+          ],
           "properties": {
             "class": {
               "$ref": "#/$defs/def_class_collectionSet"
+            },
+            "propertiesPrefix": {
+              "type": "string"
+            },
+            "resourceID": {
+              "type": "string"
+            },
+            "idfProperties": {
+              "type": "object"
+            },
+            "properties": {
+              "source_data_doi": {
+                "type": "string"
+              },
+              "source_data_uri": {
+                "type": "string"
+              },
+              "source_publication_doi": {
+                "type": "string"
+              }
             },
             "itemsById": {
               "type": "object",
@@ -192,7 +218,7 @@
                     "ifdProperties": {
                       "type": "object",
                       "properties": {
-                        "_IFD.property.database/fairspec$_": {
+                        "_$IFD.property.database/fairspec$_": {
                           "type": "string"
                         }
                       }
