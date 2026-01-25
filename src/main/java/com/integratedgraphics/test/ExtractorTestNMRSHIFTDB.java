@@ -10,7 +10,7 @@ import java.util.TreeMap;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 import com.integratedgraphics.extractor.FindingAidCreator;
-import com.integratedgraphics.extractor.IFDExtractor;
+import com.integratedgraphics.extractor.IFDExtractorImpl;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson

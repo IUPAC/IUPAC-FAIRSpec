@@ -324,10 +324,11 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 							|| key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_ID)) {
 						faHelper.getFindingAid().setID(ifdid = val);
 					}
-					if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID)) {
-						setExtractorOption(key, val);
-						continue;
-					}
+//					if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_FIELD_BYID)) {
+//						log("!byID flag is deprecated; always true");
+//						setExtractorOption(key, val);
+//						continue;
+//					}
 					faHelper.getFindingAid().setPropertyValue(key, val);
 					if (keyDef == null)
 						continue;
@@ -453,7 +454,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 * @throws IFDException
 	 */
 	private ObjectParser newObjectParser(ExtractorResource source, String sObj, List<Object> replacements) throws IFDException {
-		ObjectParser p = new ObjectParser((IFDExtractor) this, source, sObj);
+		ObjectParser p = new ObjectParser((IFDExtractorImpl) this, source, sObj);
 		p.setReplacements(replacements);
 		return p;
 	}

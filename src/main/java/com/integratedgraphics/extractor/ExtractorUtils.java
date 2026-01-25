@@ -120,7 +120,7 @@ public class ExtractorUtils {
 		private Map<String, String> keys;
 
 		private ExtractorResource dataSource;
-		private IFDExtractor extractor;
+		private IFDExtractorImpl extractor;
 		private boolean hasData;
 		private List<Object> replacements;
 		private ArrayList<String> keyList;
@@ -129,7 +129,7 @@ public class ExtractorUtils {
 		 * @param sObj
 		 * @throws IFDException
 		 */
-		public ObjectParser(IFDExtractor extractor, ExtractorResource resource, String sObj) throws IFDException {
+		public ObjectParser(IFDExtractorImpl extractor, ExtractorResource resource, String sObj) throws IFDException {
 			this.extractor = extractor;
 			index = parserCount++;
 			dataSource = resource;

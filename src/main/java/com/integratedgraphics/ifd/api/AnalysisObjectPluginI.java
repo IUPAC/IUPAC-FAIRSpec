@@ -9,7 +9,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 import org.iupac.fairdata.extract.PropertyManagerI;
 
-import com.integratedgraphics.extractor.IFDExtractor;
+import com.integratedgraphics.extractor.IFDExtractorImpl;
 
 /**
  * A class that implements AnalysisObjectPluginI extends the ability of an
@@ -64,7 +64,7 @@ public interface AnalysisObjectPluginI extends PropertyManagerI {
 			return;
 		Map<String, Object> Standards = null;
 		try {
-			Standards = FAIRSpecUtilities.getJSONResource(IFDExtractor.class, "extractor.config.json");
+			Standards = FAIRSpecUtilities.getJSONResource(IFDExtractorImpl.class, "extractor.config.json");
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;

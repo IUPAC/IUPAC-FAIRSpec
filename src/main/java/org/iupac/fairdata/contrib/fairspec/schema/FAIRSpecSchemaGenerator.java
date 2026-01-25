@@ -205,7 +205,8 @@ public class FAIRSpecSchemaGenerator {
 
 	private static String trim(String val) {
 		int pt = val.indexOf("#");
-		return (pt < 0 ? val : val.substring(0, pt)).trim();
+		return (pt < 0 ? val : 
+			val.substring(0, pt)).trim();
 	}
 
 	private String addRep(String var, String val, String subtype) {

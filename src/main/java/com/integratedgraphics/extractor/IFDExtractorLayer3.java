@@ -3,26 +3,17 @@ package com.integratedgraphics.extractor;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundAssociation;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper.FileList;
-import org.iupac.fairdata.core.IFDAssociation;
-import org.iupac.fairdata.core.IFDAttribute;
 import org.iupac.fairdata.core.IFDCollection;
-import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.dataobject.IFDDataObject;
-import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 
@@ -143,7 +134,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	 * @return a serializer
 	 */
 	private IFDSerializerI getSerializer() {
-		return new IFDDefaultJSONSerializer(isByID);
+		return new IFDDefaultJSONSerializer(true);//isByID);
 	}
 
 	private void outputListJSON(String name, File file) throws IOException {

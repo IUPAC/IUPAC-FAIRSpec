@@ -10,7 +10,7 @@ import java.util.zip.ZipFile;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 import com.integratedgraphics.extractor.ExtractorUtils;
-import com.integratedgraphics.extractor.IFDExtractor;
+import com.integratedgraphics.extractor.IFDExtractorImpl;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
@@ -31,12 +31,12 @@ public class ExtractorTestDryad {
 
 		
 		if (args.length == 0)
-		//	dryadid = "f7m0cfz7t";
-		//	dryadid = "ghx3ffc2d";
-		//	dryadid = "v6wwpzh7x";
-		//	dryadid = "3tx95x6sq";
-		//  dryadid = "2bvq83c2q";
-		dryadid = "mcvdnckbb";
+		//	dryadid = "f7m0cfz7t"; // 2 madangolide jdk files
+		//	dryadid = "ghx3ffc2d"; // 20 spectra in Bruker directories xxx/pdata 
+		//	dryadid = "v6wwpzh7x"; // Bruker directories, no /n/; no structures
+		//	dryadid = "3tx95x6sq"; // mnova 2H吡喃 with conflicting types in a Bruker directory
+		//  dryadid = "2bvq83c2q"; // lots of Bruker spectra in ZIP files
+		  dryadid = "mcvdnckbb";     // 216 Bruker+MNova spectra in ZIP files; some Mnova local times in US, others in China
 		else 
 			dryadid = args[0];
 		
@@ -58,7 +58,7 @@ public class ExtractorTestDryad {
 		tempDir = ExtractorUtils.setTempDir(tempDir);
 		ExtractorUtils.useZipFile(true);
 		
-		new IFDExtractor().runExtraction(ifdExtractFile, localSourceArchive, targetDir, null, flags);
+		new IFDExtractorImpl().runExtraction(ifdExtractFile, localSourceArchive, targetDir, null, flags);
 		
 	}
 

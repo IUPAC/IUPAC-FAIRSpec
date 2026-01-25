@@ -1253,7 +1253,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				}
 				cloning = true;
 				break;
-			case IFDExtractor.PAGE_ID_PROPERTY_SOURCE:
+			case IFDExtractorImpl.PAGE_ID_PROPERTY_SOURCE:
 				if (pageCompoundID == null)
 					pageCompoundID = inferCompoundID((String) value);
 				continue;

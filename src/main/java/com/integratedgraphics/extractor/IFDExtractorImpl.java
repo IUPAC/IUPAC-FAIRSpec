@@ -2,8 +2,17 @@ package com.integratedgraphics.extractor;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.OptionGroup;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.PosixParser;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
@@ -60,10 +69,8 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
  * @author hansonr
  *
  */
-public class IFDExtractor extends IFDExtractorLayer3 {
+public class IFDExtractorImpl extends IFDExtractorLayer3 {
 
-	// TODO spectrum fingerprint
-	
 	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/IFDExtractor.java";
 
 	// TODO: test rootpath and file lists for case with two root paths -- does it
@@ -86,7 +93,6 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 				+ "\n" + "[extractorFlags] are one or more of:" //
 				+ "\n" //
 				+ "\n-addPublicationMetadata (only for post-publication-related collections; include ALL Crossref or DataCite metadata)" //
-				+ "\n-byID (order compounds by ID, not by index; overrides IFD_extract.json setting)"
 				+ "\n-dataciteDown (only for post-publication-related collections)" //
 				+ "\n-debugging (lots of messages)" //
 				+ "\n-debugReadonly (readonly, no publicationmetadata)" //
@@ -99,9 +105,8 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 				+ "\n-nostopOnFailure (continue if there is an error)" //
 				+ "\n-nozip (don't zip up the target directory)" //
 				+ "\n-readonly (just create a log file)" //
-				+ "\n-requirePubInfo (throw an error is datacite cannot be reached; post-publication-related collections only)"				
-				+ "\n" + "\nor, to run the DOICrawler:"
-				+ "\n" //
+				+ "\n-requirePubInfo (throw an error is datacite cannot be reached; post-publication-related collections only)"
+				+ "\n" + "\nor, to run the DOICrawler:" + "\n" //
 				+ "\n" + "\njava -jar IFDExtractor.jar -doi [DOI] [targetDir] [crawlerFlags]" //
 				+ "\n" + "\nwhere" //
 				+ "\n" //
@@ -111,21 +116,22 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 				+ "\n" + "and [crawlerFlags] as above and also optionally:" //
 				+ "\n" //
 				+ "\n-download (additionally download files from the repository)" //
-				;
+		;
 	}
 
-	public IFDExtractor() {
+	public IFDExtractorImpl() {
 		initializeExtractor();
 	}
 
-	public void runExtraction(String ifdExtractFile, String localSourceArchive, String targetDir, String baseDir, String flags) {
+	public void runExtraction(String ifdExtractFile, String localSourceArchive, String targetDir, String baseDir,
+			String flags) {
 		runExtraction(new String[] { ifdExtractFile, localSourceArchive, targetDir, baseDir, flags });
 	}
 
 	public void runExtraction(String[] args) {
 
 		System.out.println(Arrays.toString(args));
-	    processFlags(args, debugFlags);
+		processFlags(args, debugFlags);
 		String localSourceArchive = null;
 		String targetDir = null;
 		String ifdExtractJSONFilename;
@@ -152,7 +158,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 			throw new NullPointerException("No IFD-extract.json or test set?");
 		if (targetDir == null)
 			targetDir = "site";
-		
+
 		FAIRSpecUtilities.setLogging(targetDir + "/extractor.log");
 		int failed = 0;
 		logToSys("Extractor.runExtraction output to " + new File(targetDir).getAbsolutePath());
@@ -189,7 +195,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		finalizeExtraction(json, 1, failed, -1, -1, flags);
 		int n = ExtractorUtils.clearTempFiles();
 		log("!" + n + " temp files cleared");
-		FAIRSpecUtilities.setLogging(null);		
+		FAIRSpecUtilities.setLogging(null);
 	}
 
 	@Override
@@ -217,9 +223,8 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 	/**
 	 * @return the FindingAid as a string
 	 */
-	public final String extractAndCreateFindingAid()
-			throws IOException, IFDException {
-		
+	public final String extractAndCreateFindingAid() throws IOException, IFDException {
+
 		// set up the extraction
 
 		processPhase1();
@@ -232,7 +237,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		processPhase2();
 		FAIRSpecUtilities.refreshLog();
 		checkStopAfter("2");
-	
+
 		// finish up all processing
 		return processPhase3();
 	}
@@ -241,7 +246,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		if (failed == 0) {
 			try {
 				if (json != null) {
-					String dir = targetPath.getAbsolutePath().replace('\\','/');
+					String dir = targetPath.getAbsolutePath().replace('\\', '/');
 					// TODO the problem is here. We have abolute paths.
 					String s = FAIRSpecUtilities.rep(json, dir + "/", "./");
 					File f = new File(dir + "/_IFD_findingaids.json");
@@ -259,7 +264,7 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		}
 		if (nErrors == -1)
 			nErrors = errors;
-		
+
 		createExtractorFilesJSON(nErrors, nWarnings, false);
 		logToSys("!Extractor.runExtraction flags " + flags);
 		logToSys("!Extractor " + (failed == 0 ? "done" : "failed") + " total=" + n + " failed=" + failed + " errors="
@@ -288,10 +293,10 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 			buildSite(null);
 			return;
 		}
-		
+
 		log("!Extractor\n ifdExtractScriptFile= " + ifdExtractScriptFile + "\n localsourceArchive = "
-				+ localsourceArchive + "\n targetDir = " + targetPath.getAbsolutePath());		
-		
+				+ localsourceArchive + "\n targetDir = " + targetPath.getAbsolutePath());
+
 		// first create objects, a List<String>
 		if ("-".equals(localsourceArchive))
 			localsourceArchive = null;
@@ -318,25 +323,6 @@ public class IFDExtractor extends IFDExtractorLayer3 {
 		if (insitu)
 			FAIRSpecUtilities.writeBytesToFile(serializedFA.getBytes(), new File(htmlPath, "IFD.findingaid.json"));
 		buildSite(htmlPath);
-	}
-	
-	/**
-	 * Minimal command-line interface for now. There are several flags set from
-	 * ExtractorTest. Right now these are not included in the options, and we also
-	 * need to use proper -x or --xxxx flags.
-	 * 
-	 * Just haven't implemented that yet.
-	 * 
-	 * @param args [0] extractionFile.json, [1] sourcePath, [2] targetDir
-	 * 
-	 */
-	public static void main(String[] args) {
-		if (args.length == 0) {
-			System.err.println("Require at least one variable");
-			return;
-		}
-		CLI cmd = new CLI();
-		cmd.runCLI(args);
 	}
 
 }

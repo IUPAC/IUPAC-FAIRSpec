@@ -7,7 +7,7 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 import com.integratedgraphics.extractor.FindingAidCreator;
-import com.integratedgraphics.extractor.IFDExtractor;
+import com.integratedgraphics.extractor.IFDExtractorImpl;
 import com.integratedgraphics.html.PageCreator;
 
 /**
@@ -68,7 +68,7 @@ public class ExtractorTestACS extends ExtractorTest {
 		int nWarnings = 0;
 		int nErrors = 0;
 		String warnings = "";
-		IFDExtractor extractor = null;
+		IFDExtractorImpl extractor = null;
 		String sflags = null;
 		String targetDir0 = targetDir;
 		// ./extract/ should be in the main Eclipse project directory.
@@ -78,7 +78,7 @@ public class ExtractorTestACS extends ExtractorTest {
 			String extractInfo = acsTestSet[i];
 			if (findACSID != null && !extractInfo.contains(findACSID))
 				continue;
-			extractor = new IFDExtractor();
+			extractor = new IFDExtractorImpl();
 			extractor.logToSys("Extractor.runExtractionTest output to " + new File(targetDir).getAbsolutePath());
 			extractor.logToSys("Extractor.runExtraction " + i + " " + extractInfo);
 			String ifdExtractFile;
@@ -235,8 +235,8 @@ public class ExtractorTestACS extends ExtractorTest {
 	public static void main(String[] args) {
 		// args[] may override localSourceArchive as ars[1] 
 		// and testDir as args[2]; args[0] is ignored;
-		int first = 5; // first test to run
-		int last = 5; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
+		int first = 12; // first test to run
+		int last = 12; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
 					  // file test
 		String findACSID = null;//"1022" to ignore first/last;
 		String flags = null;//"-assetsOnly"; // "-datacitedown"

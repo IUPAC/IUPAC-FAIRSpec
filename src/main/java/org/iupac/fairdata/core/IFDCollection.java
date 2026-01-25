@@ -167,7 +167,7 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 			if (!isSorted) 
 				sortList();
 			
-			serializer.addCollection(byid ? "itemsByID" : "items", this, byid);
+			serializer.addCollection(byid ? "itemsByID" : "items", this);//, byid);
 		}
 		if (haveCommonClass) {
 			for (int i = size(); --i >= 0;) {
