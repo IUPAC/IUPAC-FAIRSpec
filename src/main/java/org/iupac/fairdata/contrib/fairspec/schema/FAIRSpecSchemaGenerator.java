@@ -191,16 +191,21 @@ public class FAIRSpecSchemaGenerator {
 
 	private String addProperty(String var, String val, String subtype) {
 		int ptKey = val.indexOf(var);
-		int ptSchema = val.indexOf("|");
-		String key = (ptSchema < 0 ? val : val.substring(0, ptSchema));
+		int ptSchema = val.indexOf("#|");
+		String key = trim(val);
 		// property.dataobject.fairspec
 		// IFD.property.dataobject.fairspec.nmr.expt_dimension
 		// pick up also the "." after the find
 		key = key.substring(ptKey + var.length() + 1);
 		if (subtype != null && key.startsWith(subtype))
 			key = key.substring(subtype.length() + 1);
-		String schema = (ptSchema > 0 ? val.substring(ptSchema + 1) : TYPE_STRING);
+		String schema = (ptSchema > 0 ? val.substring(ptSchema + 2).trim() : TYPE_STRING);
 		return "\"" + key + "\":{" + schema + "}";
+	}
+
+	private static String trim(String val) {
+		int pt = val.indexOf("#");
+		return (pt < 0 ? val : val.substring(0, pt)).trim();
 	}
 
 	private String addRep(String var, String val, String subtype) {

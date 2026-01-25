@@ -352,6 +352,7 @@ public class IFDConst {
 	}
 
 	private static String trimValue(String val) {
+		// comment or validation code
 		int pt = val.indexOf("#");
 		if (pt >= 0)
 			val = val.substring(0, pt);
