@@ -132,9 +132,8 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 	@Override
 	protected void serializeTop(IFDSerializerI serializer) {
 		super.serializeTop(serializer);
-		if (!isValid)
-			System.out.println("???");
-		serializer.addAttrInt("timestamp", getTimestamp());
+		if (timestamp != null)
+			serializer.addAttrInt("timestamp", timestamp);
 	}
 
 }

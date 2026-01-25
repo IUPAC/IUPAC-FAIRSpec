@@ -15,7 +15,7 @@ import org.iupac.fairdata.structure.IFDStructure;
  *
  */
 @SuppressWarnings("serial")
-public class FAIRSpecAnalysisCollection extends IFDStructureDataAnalysisAssociationCollection {
+public class FAIRSpecAnalysisCollection extends IFDStructureDataAnalysisAssociationCollection	 {
 
 	protected FAIRSpecAnalysisCollection(boolean byID) {
 		super(byID);

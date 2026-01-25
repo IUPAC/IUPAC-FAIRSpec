@@ -223,7 +223,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	}
 	protected static int indexCount;
 
-	protected static boolean doTypeSerialization;
+	protected static boolean doTypeSerialization = true;
 
 	/**
 	 * a unique identifier for debugging

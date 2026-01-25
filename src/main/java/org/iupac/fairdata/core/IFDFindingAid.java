@@ -180,6 +180,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 			if (id != null && id.length() > 0)
 				serializer.addAttr("id", getID());
 			serializer.addObject("version", getVersion());
+			serializer.addObject("schema", getSchemaVersion());
 			serializer.addObject("created", df.format(date));
 			if (getCreator() != null)
 				serializer.addObject("createdBy", getCreator());
@@ -205,6 +206,10 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 			addTopKey(serializer);
 			serializing = false;
 		}
+	}
+
+	public static String getSchemaVersion() {
+		return IFDConst.getProp("FAIRSPEC_SCHEMA_VERSION");
 	}
 
 	protected void addTopKey(IFDSerializerI serializer) {
