@@ -38,18 +38,18 @@ PARENT_DIRECTORY={YOUR_LOCAL_DIRECTORY_TO_STORE_DOWLOAD_FILE_INCLUDING_SLASH_AT_
 |  | -v | version |  |Get the current version of the FindingAidCreator |  | 
 | [X] | -T | targetDir | <TARGET_DIR> | Target output directory for the finding aid | |
 | [X] | -test | test | <SOURCE> | | dryad/icl/acs | 
-| [X] | -o | doi | <DOI>| DOI/Identifier ||
+| [X] | -D | doi | <DOI>| DOI/Identifier ||
 |  | -a | assetOnly | | Asset Only ||
 |  | -A | addPublicationMetadata | |Include ALL Crossref or DataCiteOnly for post-publication-related collections; in metadata. ||
-|  | -B | byID | |  Order compounds by ID, not by index; overrides IFD_extract.json setting||
 |  | -c | noClean | |Don't empty the destination collection directory before extraction; allows additional files to be zipped ||
 |  | -C | dataciteDonw | |Only for post-publication-related collections.||
-|  | -D | debugging | | This will print out all debugging messages ||
+|  | -debug | debugging | | This will print out all debugging messages ||
 |  | -E | embedPdf | | Loads PDF documents into finding aids for cross-domain viewing of spectra ||
 |  | -F | findingAidOnly | | Only create a finding aid ||
 |  | -g | noLandingPage | | Don't create a landing page ||
 |  | -i | noIgnored | | Don't include ignored files -- treat them as REJECTED ||
 |  | -I | requiredPubInfo | | Throw an error is datacite cannot be reached; post-publication-related collections only ||
+|  | -l | noLaunch | | Don't launch the landing page ||
 |  | -N | insitu | | Setting insitu true generates an entirely self-contained finding aid, without local files and any rezipping in the origin directory. ||
 |  | -l | noLaunch | | Don't launch the landing page on browser when finished ||
 |  | -O | readOnly | | Just create a log file ||
@@ -61,6 +61,7 @@ PARENT_DIRECTORY={YOUR_LOCAL_DIRECTORY_TO_STORE_DOWLOAD_FILE_INCLUDING_SLASH_AT_
 |  | -W | crawler | | Run the crawler | include -test icl|
 |  | -Y | addIfdTypes | |Add IFD Types ||
 |  | -x | noDownload | | Do not download files from the repository | For crawler only|
+|  | -X | IFDExtractFile | | Input IFD-extract.json configuration file, if used | |
 |  | -z | noZip | | Don't zip up the target directory ||
 
 ## Use the Debug Interface
@@ -75,7 +76,7 @@ PARENT_DIRECTORY={YOUR_LOCAL_DIRECTORY_TO_STORE_DOWLOAD_FILE_INCLUDING_SLASH_AT_
 
 3. Set the configuration for the test 
 
-![Set the name for the test as CLI_Test and choose the main class com.integratedgraphics.extractor.IFDExtractor](CLI3.png)
+![Set the name for the test as CLI_Test and choose the main class com.integratedgraphics.extractor.IFDExtractor0](CLI3.png)
 
 4. Argument choices:
 
@@ -89,17 +90,17 @@ The console displays:
 
 - Dryad: 
 
-`-test dryad -T c:/temp/dryad/ -S c:/temp/dryad/mcvdnckbb/dataset.zip -o mcvdnckbb -g -l`
+`-test dryad -debug -T c:/temp/dryad/ -S c:/temp/dryad/mcvdnckbb/dataset.zip -D mcvdnckbb`
 
 - ACS: 
 
-`-test acs -T c:/temp/acs/ -o acs.orglett.0c00874 -F`
+`-test acs -debug -T c:/temp/acs/ -D acs.orglett.0c00874`
 
 Don't need to include the local source since the extractor will fetch the data from online sources.
 
 - ICL: 
 
-`-W -test icl -T c:/temp/icl/ -o 10.14469/hpc/1463`
+`-W -test icl -debug -T c:/temp/icl/ -o 10.14469/hpc/1463 X ./src/main/resources/com/integratedgraphics/extractor/extract/ImperialCollege/IFD-extract.json`
 
 ![Set arguments for crawler](CLI6.png)
 
