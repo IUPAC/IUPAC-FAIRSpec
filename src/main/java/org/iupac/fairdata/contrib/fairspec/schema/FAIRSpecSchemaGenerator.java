@@ -1,6 +1,7 @@
 package org.iupac.fairdata.contrib.fairspec.schema;
 
 import java.io.File;
+import java.net.URL;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -38,12 +39,16 @@ public class FAIRSpecSchemaGenerator {
 
 	private FAIRSpecSchemaGenerator(String schemaTemplateFile, String schemaOutputDir) throws Exception {
 		String schemaTemplate;
-		if (schemaTemplateFile == null)
+		if (schemaTemplateFile == null) {
+			URL url = getClass().getResource("fairspecSchemaTemplate.json");
+			schemaTemplateFile = url.toString().substring(6).replace('\\', '/').replace("/bin/", "/src/main/resources/");
 			schemaTemplate = FAIRSpecUtilities.getResource(getClass(), "fairspecSchemaTemplate.json");
-		else
+		} else {
 			schemaTemplate = FAIRSpecUtilities.getFileStringData(new File(schemaTemplateFile));
-		if (schemaOutputDir == null)
-			throw new RuntimeException("schemaOutputDir must not be null");	
+		}
+		if (schemaOutputDir == null) {
+			schemaOutputDir = new File(schemaTemplateFile).getParent();
+		}
 		new File(schemaOutputDir + "/").mkdirs();
 		String schema = generateSchema(schemaTemplate);
 		File f = new File(schemaOutputDir, "fairspec.findingaid.schema.json");
@@ -252,8 +257,6 @@ public class FAIRSpecSchemaGenerator {
 					return;
 				}
 			}
-			if (schemaOutputDir == null)
-				schemaOutputDir = "c:/temp/schema/";
 			new FAIRSpecSchemaGenerator(schemaTemplateFile, schemaOutputDir);
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
