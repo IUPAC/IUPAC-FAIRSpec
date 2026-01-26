@@ -31,14 +31,14 @@
             },
             "schema": {
               "description": "the schema used to create this IUPAC FAIRSpec Finding Aid",
-              "const": "fairspec.schema-0.1.2-beta+2026.01.24.json"
+              "const": "fairspec.schema-0.1.2-beta+2026.01.25.json"
             },
             "id": {
               "$ref": "#/$defs/def_field_id"
             },
             "version": {
               "description": "the version of this IFD Finding Aid,for example : IFD 0.0.5-alpha+2024.11.04;FAIRSpec 0.0.5-alpha+2024.11.04",
-              "const": "IFD 0.1.1-beta+2025.09.24;FAIRSpec 0.1.2-beta+2026.01.24"
+              "const": "IFD 0.1.2-beta+2026.01.25;FAIRSpec 0.1.2-beta+2026.01.25"
             },
             "created": {
               "description": "date and time of creation ISO 8601 date+time (UTC), for example: 2025-04-17T18:55Z",
