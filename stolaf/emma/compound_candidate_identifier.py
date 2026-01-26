@@ -1,3 +1,9 @@
+# NOTES ABOUT THINGS I CAN MAYBE REMOVE
+# labeled_df might be useless
+#       ok this one might be used earlier, but could prob change the name to stream line it
+# might not need new_df
+
+
 import pandas as pd
 from pathlib import Path
 from collections import Counter
@@ -8,11 +14,9 @@ import numpy as np
 
 # command line arguments
 dataset_DOI = sys.argv[1]
-#print(f"dataset DOI: {dataset_DOI}")
 
 # Read file paths
 filename = f"file_list_{dataset_DOI}.txt"
-#print(filename)
 
 with open(filename, "r") as f:
     paths = [line.strip() for line in f if line.strip()]
@@ -32,7 +36,6 @@ TOTAL_PATHS = len(df)
 #print("=============df path text========")
 #print(df["path_text"])
 # ==============================================
-
 
 # Domain knowledge
 
@@ -75,34 +78,24 @@ def is_file_like(name):
         or any(n.endswith(ext) for ext in FILE_EXTENSIONS)
     )
 
-  
 def contains_experiment_token(name):
     n = name.lower()
     return any(k in n for k in EXPERIMENT_KEYWORDS)
 
    
 def is_pure_experiment_folder(name):
-    """
-    True if the folder name represents ONLY an experiment,
-    not a compound-experiment hybrid.
-    """
+    # True if the folder name represents ONLY an experiment, not a compound-experiment hybrid.
     n = name.lower().strip()
 
-    # Must contain an experiment token
     if not contains_experiment_token(n):
         return False
 
-    # Remove experiment tokens and junk
     cleaned = n
     for k in EXPERIMENT_KEYWORDS:
         cleaned = cleaned.replace(k, "")
 
     cleaned = re.sub(r"[^a-z0-9]+", "", cleaned)
-
-    # If nothing meaningful remains, it's a pure experiment folder
     return len(cleaned) == 0   
-   
-
 
 def is_basic_candidate(folder):
     f = folder.strip()
@@ -143,8 +136,8 @@ GLOBAL_FOLDERS = {
 }
 
 #print("\nDetected GLOBAL folders (excluded):")
-for g in sorted(GLOBAL_FOLDERS):
-    print(" ", g)
+#for g in sorted(GLOBAL_FOLDERS):
+#    print(" ", g)
 
 def is_candidate(folder):
     if is_file_like(folder):
@@ -173,8 +166,6 @@ df["compound_candidates"] = df["parts"].apply(
 #print(df["compound_candidates"])
 # ==============================================
 
-
-
 # Structural data with pdata folder
 def get_relative_positions(parts):
     if "pdata" not in parts:
@@ -188,33 +179,20 @@ df["structural_candidate"] = df["parts"].apply(get_relative_positions)
 
 
 def normalize_name(s):
-    """Normalize for loose matching (1i, 1i_, 1i-1 → 1i)"""
+    # Normalize for loose matching (1i, 1i_, 1i-1 → 1i)
     return re.sub(r'[^a-z0-9]', '', s.lower())
 
 
 def parent_of_matching_jdf(parts, candidates):
-    
-    #Return candidate folder that contains a .jdf file whose name
-    #loosely matches the folder name.
-    
+    # Return candidate folder that contains a .jdf file whose name
+    # loosely matches the folder name.
     for i in range(len(parts) - 1):
         parent = parts[i]
         child = parts[i + 1]
-
-        if (
-            #parent in candidates
-            child.lower().endswith(".jdf")
-            #and not is_file_like(parent)
-        ):
-            #parent_norm = normalize_name(parent)
-            #jdf_base = normalize_name(child.replace(".jdf", ""))
-
-            # allow 1i / 1i_.jdf, 1i-1.jdf, etc.
-            #if any(parent_norm in item for item in jdf_base):
+        if (child.lower().endswith(".jdf")):
           return parent
 
     return None
-
 
 # Weak labeling (safe version)
 
@@ -222,10 +200,6 @@ def clean_parent_of_experiment(parts, candidates):
     for i in range(len(parts) - 1):
         parent = parts[i]
         child = parts[i + 1]
-        #if range(len(parts)-i > 2):
-        #  grandchild = parts[i + 2]
-        #  if special_case_folder(child, grandchild):
-        #   return None
 
         if (
             parent in candidates
@@ -240,22 +214,12 @@ def clean_parent_of_experiment(parts, candidates):
 def choose_weak_label(row, order, min_freq=3, max_frac=0.5):
     parts = row["parts"]
     candidates = row["compound_candidates"]
-    #print("LOOOOOKKKKKKKKK")
-    
-    
     parent = clean_parent_of_experiment(parts, candidates)
     jdf_parent = parent_of_matching_jdf(parts, candidates)
-    
-    
-    #print(candidates)
-    #print(parts)
-    
-    #print("JDF PARENT")
-    #print(jdf_parent)
+
     if parent and not is_file_like(parent):
         return parent
 
-    #jdf_parent = parent_of_matching_jdf(parts, candidates)
     if jdf_parent != None:
       print(jdf_parent)
       return jdf_parent
@@ -283,23 +247,15 @@ def choose_weak_label(row, order, min_freq=3, max_frac=0.5):
 
     return None
 
-
-
 df["compound_label"] = df.apply(choose_weak_label, axis=1, order=1)
-
-print(df["compound_label"].unique())
-
-
-
 labeled_df = df.dropna(subset=["compound_label"]).copy()
-
-#print(f"\nWeakly labeled rows: {len(labeled_df)} / {TOTAL_PATHS}")
-#print("Top labels:")
-#print(labeled_df["compound_label"].value_counts().head())
 
 
 # ==================== TEST ====================
 #print("~~~~~~~~~~~~~~~~Weak Labeling~~~~~~~~~~~~~~~~")
+
+#print(f"\nWeakly labeled rows: {len(labeled_df)} / {TOTAL_PATHS}")
+#print("Top labels:")
 
 #print("=============df compound label========")
 #print(df["compound_label"])
@@ -309,117 +265,35 @@ labeled_df = df.dropna(subset=["compound_label"]).copy()
 
 # ==============================================
 
-
-
-
-n_classes = labeled_df["compound_label"].nunique()
-
-
-# ==================== TEST ====================
-#print("~~~~~~~~~~~~~~~~TRAIN ML MODEL~~~~~~~~~~~~~~~~")
-
-#print("=============n classes========")
-#print(n_classes)
-
-#print("=============n class names========")
-#print(labeled_df["compound_label"].unique())
-
-# ==============================================
-
-
-# Extra thing I'm writing
-
-class_name_counts = labeled_df["compound_label"].value_counts()
-class_name_average = class_name_counts.mean()
-
+class_name_average = labeled_df["compound_label"].value_counts().mean()
 occurrence_per_row = df.groupby('compound_label')['compound_label'].transform('count')
-print("\nOccurrence count per row:")
-print(occurrence_per_row)
 
 # Filter the original DataFrame for rows where the count is greater than or equal to the average
-print("BEFORE")
-print(df["compound_label"].unique())
-
-df = df[occurrence_per_row >= class_name_average- (class_name_average/.75)]
-print("AFTER")
-print(df["compound_label"].unique())
-
-print("\nFiltered DataFrame (categories with >= average occurrences):")
-
-
-print(labeled_df["compound_label"].unique())
-
-#print(labeled_df["compound_label"])
-
-
-
-# this logic is not sound proof at all
+df = df[occurrence_per_row >= class_name_average - (class_name_average/.75)]
 
 to_remove = [
     '1H', '13C Jmod', 'HSQC', 'COSY', '13C'
 ]
 
-# Keep rows where the value is NOT in the list
-df_filtered = labeled_df[~labeled_df["compound_label"].isin(to_remove)]
-
-
-#print(df_filtered)
-#print(df_filtered["compound_label"])
-#print(df_filtered["compound_label"].unique())
-
-
-#with pd.option_context('display.max_rows', 20, 'display.max_columns', None):
-#    print(df_filtered)
-
 
 # PART TWO STARTS HERE
-
-#print(df["path_text"])
 
 def count_slashes_before(row, path_col, compound_col):
   path = str(row[path_col]).replace('\\', '/')
   compound = str(row[compound_col])
-  #print(compound)
   idx = path.lower().find(compound.lower())
   if idx == -1:
     return None
     
   return path[:idx].count('/')
 
-
 df['slashes_before'] = df.apply(
     lambda row: count_slashes_before(row, 'path_text','compound_label'),
     axis=1
 )
 
-#print(df[['path_text', 'compound_label', 'slashes_before']])
-    
-  
-#print(df['slashes_before'].unique())
 
-matches_list = df['path_text'].str.findall(r".*/.*/.*/ 5r")
-#print("\nList of matches for each row:")
-#print(matches_list)
 
-#print(df['path_text'])
-
-    
-pattern = r"([^/]+)\.zip$"
-
-    
-zipped_filenames = []
-for p in paths:
-    match = re.search(pattern, p)
-    if match:
-        name = match.group(1)
-        zipped_filenames.append(f"{name}")
-        if "_" in name:
-            zipped_filenames.append(f"{name.replace('_', ' ')}")
-        elif " " in name:
-            zipped_filenames.append(f"{name.replace(' ', '_')}")
-
-zipped_filenames = list(dict.fromkeys(zipped_filenames))    
-#print(zipped_filenames)
 
 # trying next step
 
@@ -458,79 +332,17 @@ print(new_df["identified_compound"].unique())
 
 
 
-
-
-
-
-# trying to create the regex
-
-def create_path_pattern(compound_path_list, zipped_list):
-    transformed_parts = []
-    
-    for part in compound_path_list:
-        #print(part)
-        #print(zipped_list)
-        # if the folder name is in our zip list, add .zip extension
-        if part == "..":
-          continue
-        if part == "test2":
-          continue
-        if part in zipped_list:
-            transformed_parts.append(f"{part}.zip|{part}")
-        else:
-            transformed_parts.append(part)
-    
-    base_path = "/".join(transformed_parts).strip("/")
-    return f"{base_path}/" if base_path else ""
-  
-  
-  
-unique_paths = new_df["compound_path"].drop_duplicates()
-
-
 file_content = [
   "Path to Compounds\n",
 ]
 
 
-path_to_compounds = []
-for path_list in unique_paths:
-    base_path = create_path_pattern(path_list, zipped_filenames)
-    #print(base_path)
-    file_content.append(base_path)
-    file_content.append("\n")
-    path_to_compounds.append(base_path)
 
-
-# try to do maybe the estimated path
-
-def mask_filenames(input_list):
-    output = []
-    for entry in input_list:
-
-        parts = re.split(r'([|/])', entry)
-        
-        masked_parts = []
-        for part in parts:
-            if not part:
-                continue
-            if part in ['|', '/']:
-                masked_parts.append(part)
-            elif part.endswith('.zip'):
-                masked_parts.append('*.zip')
-            else:
-                masked_parts.append('*')
-        
-        output.append("".join(masked_parts))
-    return output
-
-result = mask_filenames(path_to_compounds)
 #print(result)
 
 #print(set(result))
 
-file_content.append("\nPossible file path: \n")
-file_content.append(str(set(result)))
+
 
 
 # get the contents of each compound
@@ -653,7 +465,7 @@ def list_useful_files(diff_df):
     # Dictionary to store files: {compound: {test_folder: [files]}}
     useful_file_map = {}
 
-    useful_extensions = ('.mol', '.jdf' ,'.mnova', 'fid', 'pdata', '1r')
+    useful_extensions = ('.mol', '.jdf' ,'.mnova', 'fid', 'pdata', '1r', 'acqu')
 
     for _, row in diff_df.iterrows():
         path_parts = row["compound_path"]
@@ -965,9 +777,9 @@ def add_compound(final_df, diff_df, compound):
 
     compound_rows = diff_df[diff_df["parts"].apply(lambda x: compound in x)]
   
-    print("COMPOUND ROWS")
-    print(compound_rows)
-    print(diff_df)
+    #print("COMPOUND ROWS")
+    #print(compound_rows)
+    #print(diff_df)
     # should probably filter out global folders
     
     all_paths = []
@@ -990,11 +802,11 @@ def add_compound(final_df, diff_df, compound):
       
     
     test_folders = map_test_folders_for_compound(df, final_df, compound)
-    print(test_folders)
+    #print(test_folders)
     pdata_paths =[]
     filtered_df_regex = diff_df[diff_df['parts'].apply(lambda x: x[-1] == "pdata")]
     #filtered_df_regex['my_string'] = filtered_df_regex['parts'].str.join('/')
-    print(filtered_df_regex)
+    #print(filtered_df_regex)
     for row in filtered_df_regex['parts']:
       idx = 0
       for i in row:
@@ -1005,10 +817,10 @@ def add_compound(final_df, diff_df, compound):
           pdata_paths.append(new_path)
           print(pdata_paths)
         continue
-    print(pdata_paths)
+    #print(pdata_paths)
 
     compound_df = pd.DataFrame({"compound_path": new_data, "identified_compound": compound})
-    print(compound_df)
+    #print(compound_df)
 
     useful_files = list_useful_files(compound_df)
     print(useful_files)
@@ -1035,7 +847,7 @@ def rebuild_compound(final_df, diff_df, compound):
 final_df = add_parent_folder_column(final_df, df)
 
 compounds_to_be_added = set(final_df[final_df['is_experiment'] == True]['parent_folder'])
-print(compounds_to_be_added)
+#print(compounds_to_be_added)
 
 
 final_df = final_df[~final_df['is_experiment']]
@@ -1052,9 +864,95 @@ final_df.to_csv(f'output_{dataset_DOI}.csv', index=False)
 
 # converting the file output to the TSV file
 
-print("HIIIII")
-with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-  print(final_df)
+#print("HIIIII")
+#with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+#  print(final_df)
+
+
+# adding the tech row
+final_df["tech"] = "NA"
+for row in final_df["pdata_path"]:
+  if len(row) > 0:
+    if "pdata" in row[0]:
+      final_df["tech"] = "NMR"
+
+# creating the spectral ID column
+df_to_tsv = final_df
+
+
+
+#df_exploded = final_df.explode('test_folders')
+
+#with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+#  print(df_exploded)
+  
+#df_exploded = df_exploded[["compound_name", "tech", "compound", "test_folders", "useful_files"]]
+
+
+#df_exploded["spectra_ID"] = df_exploded["compound_name"] + ' ' + df_exploded["test_folders"]
+  
+  
+df_exploded = (
+    final_df.assign(useful_files=final_df['useful_files'].map(lambda d: list(d.items())))
+    .explode('useful_files')
+    .assign(Key=lambda x: x['useful_files'].str.get(0),
+            Value=lambda x: x['useful_files'].str.get(1))
+    .drop(columns='useful_files')
+    .reset_index(drop=True)
+)
+
+#print("\nExploded DataFrame:")
+#print(df_exploded)
+
+df_exploded = df_exploded.rename(columns={'Key': 'test_folder', 'Value': 'important_file'})
+
+df_exploded = df_exploded[["compound_name", "tech", "compound", "test_folder", "important_file"]]
+
+df_exploded["spectra_ID"] = df_exploded["compound_name"] + ' ' + df_exploded["test_folder"]
+
+  
+df_exploded = df_exploded.explode('important_file')  
 
 
   
+# now just need to make the file path output
+
+
+#print(df["path_text"])
+
+
+#things needed to be true to include the file path
+#   the file stream must end with df_exploded["important_file"]
+#   the file stream must contain df_exploded["compond"]
+#   the file stream must contain df_exploded["test_folders"]
+
+
+def find_matching_path(row, paths_list):
+    for path in paths_list:
+        # Rules: ends with important_file AND contains compound AND contains test_folders
+        if (path.endswith(str(row['important_file'])) and 
+            str(row['compound']) in path and 
+            str(row['test_folder']) in path):
+            return path
+        elif (path.endswith(str(row['important_file'])) and
+              str(row['compound']) in path and
+              str(row['test_folder']) == "NA"):
+              return path
+    return None
+
+
+df['path_text'] = df['path_text'].apply(lambda x: x[13:])
+paths_list = df['path_text'].tolist()
+
+df_exploded['matched_path'] = df_exploded.apply(
+    lambda row: find_matching_path(row, paths_list), axis=1
+)
+
+
+
+df_exploded.to_csv(f'final_output_{dataset_DOI}.tsv', index=False, sep='\t')
+
+
+
+
+
