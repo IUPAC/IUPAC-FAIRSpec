@@ -5,7 +5,7 @@ cd c:/temp/dryad
 ls
 pwd
 
-cd v6wwpzh7x
+cd 2bvq83c2q
 ls
 pwd
 
@@ -29,6 +29,7 @@ unzip_files() {
       echo "$file"
     	filename=$(basename "$file" .zip)
     	echo "FILENAME: $filename"
+      # might need to add some renaming concept to fix the randomly named zip files
     	if [ -d "$filename" ]; then
         echo "'$filename' is a directory."
         pwd
@@ -62,6 +63,12 @@ unzip_files
 #  fi
 #done
 
+# add functionality
+# if there is a __MACXOS folder, just delete that folder. it's weird
+pwd
+ls
+rm -r __MACOSX
+
 
 ls
 pwd
@@ -73,10 +80,15 @@ fi
 
 echo "File List" > file_list.txt
 
-OUTPUT_FILE="file_list_v6wwpzh7x.txt"
+
+
+OUTPUT_FILE="file_list_2bvq83c2q.txt"
 echo $OUTPUT_FILE
 
 find "$1" -print > "$OUTPUT_FILE"
+
+mv "$OUTPUT_FILE" ../../../../../stolaf/emma
+pwd
 
 echo "All file paths starting from '$1' have been saved to '$OUTPUT_FILE'."
 
