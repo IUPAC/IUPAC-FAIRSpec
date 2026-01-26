@@ -133,7 +133,7 @@
                               "type": "integer"
                             }
                           },
-                          "$comment" : "END def_contents.spectra"
+                          "$comment" : "END contents.spectra"
                       },
                       {
                         "type": "object",
@@ -159,7 +159,7 @@
                               "type": "integer"
                             }
                           },
-                          "$comment" : "END def_contents.compounds"
+                          "$comment" : "END contents.compounds"
                       },
                       {
                         "type": "object",
@@ -185,7 +185,7 @@
                               "type": "integer"
                             }
                           },
-                          "$comment" : "END def_contents.analyses"
+                          "$comment" : "END contents.analyses"
                       }
                       ]
                   }
@@ -280,36 +280,51 @@
               "$comment" : "END resources"
             },
             "collectionSet": {
-              "type": "object",
-              "required": [
-                "resourceID",
-                "propertyPrefix",
-                "ifdProperties",
-                "itemsByID"
-                ],
+              "unevaluatedProperties": false,
+              "$ref": "#/$defs/def_collectionSet"
+            },
+            "$comment" : "END properties"
+          },
+          "$comment" : "END IUPAC.FAIRSpec.findingAid"
+      },
+      "$comment" : "END properties"
+    },
+    "$defs": {
+      "def_field_id": {
+        "$comment" : "actually this does not work",
+        "description": "an optional unique identifier, for example, a compound number such as 38b or a DOI such as 10.14469/hpc/14635 must not start nor end in a space character",
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9_+\\-/*.,()\\[\\]]+([ ][a-zA-Z0-9_+\\-/*.,()\\[\\]]+)*$"
+      },      
+   	  "def_collectionSet" : {
+          "type": "object",
+          "required": [
+            "resourceID",
+            "propertyPrefix",
+            "ifdProperties",
+            "itemsByID"
+            ],
+            "properties": {
+              "ifdType": {
+                "type": "string",
+                "const": "org.iupac.fairdata.core.IFDCollectionSet"
+              },
+              "ifdTypeExtends": {
+                "type": "string",
+                "const": "org.iupac.fairdata.core.IFDCollection"
+              },
+              "resourceID": {
+                "type": "string"
+              },
+              "propertyPrefix": {
+                "type": "string"
+              },
+              "ifdProperties": {
+                "type": "object",
+                "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
                 "unevaluatedProperties": false,
                 "properties": {
-                  "ifdType": {
-                    "type": "string",
-                    "const": "org.iupac.fairdata.core.IFDCollectionSet"
-                  },
-                  "ifdTypeExtends": {
-                    "type": "string",
-                    "const": "org.iupac.fairdata.core.IFDCollection"
-                  },
-                  "resourceID": {
-                    "type": "string"
-                  },
-                  "propertyPrefix": {
-                    "type": "string"
-                  },
-                  "ifdProperties": {
-                    "type": "object",
-                    "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
-                    "unevaluatedProperties": false,
-                    "properties": {
-                      
-"byid":{"type" : "string"},
+                  
 "len":{"type" : "string"},
 "ref":{"type" : "string"},
 "source_data_doi":{"type" : "string"},
@@ -323,205 +338,177 @@
 "source_repository_doi":{"type" : "string"},
 "source_repository_uri":{"type" : "string"}
 
-                    }
-                  },
-                  "itemsByID": {
-                    "type": "object",
+                }
+              },
+              "itemsByID": {
+                "type": "object",
+                "properties": {                      
+                  "samples": {
                     "unevaluatedProperties": false,
-                    "properties": {                      
-                      "samples": {
-                        "$ref": "#/$defs/def_samples"
+                    "$ref": "#/$defs/def_samples"
+                  },
+                  "structures": {
+                    "unevaluatedProperties": false,
+                    "$ref": "#/$defs/def_structures"
+                  },
+                  "spectra": {
+                      "unevaluatedProperties": false,
+                      "$ref": "#/$defs/def_spectra"
+                  },
+                  "compounds": {
+                      "unevaluatedProperties": false,
+                      "$ref": "#/$defs/def_compounds"
+                  },
+                  "analyses": {
+                    "$ref": "#/$defs/def_analyses"
+                  }
+                },
+                "$comment" : "END properties"
+              },
+              "$comment" : "END itemsByID"
+            },
+            "$comment" : "END collectionSet"
+      },
+      "def_structures": {
+          "type": "object",
+          "required": [
+            "itemsByID"
+            ],
+            "properties": {
+              "ifdType": {
+                "type": "string",
+                "const": "org.iupac.fairdata.structure.IFDStructureCollection"
+              },
+              "ifdTypeExtends": {
+                "type": "string",
+                "const": "org.iupac.fairdata.core.IFDCollection"
+              },
+              "itemType": {
+                "type": "string",
+                "const": "org.iupac.fairdata.structure.IFDStructure"
+              },
+              "itemTypeExtends": {
+                "type": "string",
+                "const": "org.iupac.fairdata.core.IFDRepresentableObject"
+              },
+              "itemsByID": {
+                "type": "object",   
+                "unevaluatedProperties": false,
+                "patternProperties": {
+                  "^.+" : {
+                    "type":"object",
+                    "unevaluatedProperties": false,
+                    "properties": {
+                      "note": {
+                        "description": "",
+                        "type": "string"
                       },
-                      "structures": {
+                      "propertyPrefix": {
+                        "description": "The prefix to add to all IFDProperty keys in this block",
+                        "const": "IFD.property.structure"
+                      },
+                      "ifdProperties": {
                         "type": "object",
-                        "required": [
-                          "itemsByID"
-                          ],
-                          "unevaluatedProperties": false,
-                          "properties": {
-                            "ifdType": {
-                              "type": "string",
-                              "const": "org.iupac.fairdata.structure.IFDStructureCollection"
-                            },
-                            "ifdTypeExtends": {
-                              "type": "string",
-                              "const": "org.iupac.fairdata.core.IFDCollection"
-                            },
-                            "itemType": {
-                              "type": "string",
-                              "const": "org.iupac.fairdata.structure.IFDStructure"
-                            },
-                            "itemTypeExtends": {
-                              "type": "string",
-                              "const": "org.iupac.fairdata.core.IFDRepresentableObject"
-                            },
-                            "itemsByID": {
-                              "type": "object",   
-                              "unevaluatedProperties": false,
-                              "patternProperties": {
-                                "^.+" : {
-                                  "type":"object",
-                                  "unevaluatedProperties": false,
-                                  "properties": {
-                                    "note": {
-                                      "description": "",
-                                      "type": "string"
-                                    },
-                                    "propertyPrefix": {
-                                      "description": "The prefix to add to all IFDProperty keys in this block",
-                                      "const": "IFD.property.structure"
-                                    },
-                                    "ifdProperties": {
-                                      "type": "object",
-                                      "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
-                                      "unevaluatedProperties": false,
-                                      "properties": {
-                                        
+                        "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
+                        "unevaluatedProperties": false,
+                        "properties": {
+                          
 "cell_formula":{"type" : "string"},
 "empirical_formula":{"type" : "string"},
 "inchikey":{"type" : "string"},
 "molecular_formula":{"type" : "string"}
 
-                                      }
-                                    },
-                                    "attributes": {
-                                      "description": "an optional set of key/value pairs that are not part of the IUPAC FAIRData standard or its extension. Characters of the keys must be one of[A-Za-z0-9_] or the space character and must be trimmed of any space character",
-                                      "type": "object",
-                                      "unevaluatedProperties": false,
-                                      "patternProperties": {
-                                        "^[A-Za-z0-9_]+([ ][A-Za-z0-9_]+)*": {
-                                          "type": [
-                                            "string",
-                                            "number"
-                                            ]
-                                        }
-                                      },
-                                      "$comment" : "END attributes"
-                                    },
-                                    "representations": {
-                                      "type": "array",
-                                      "items" : {
-                                        "type": "object",
-                                        "unevaluatedProperties": false,
-                                        "properties": {
-                                          "ifdType" : {
-                                            "type": "string"
-                                          },
-                                          "ifdTypeExtends" : {
-                                            "type": "string"
-                                          },
-                                          "representationType": {
-                                            "type": "string"
-                                          },
-                                          "mediaType": {
-                                            "type": "string"
-                                          },
-                                          "len": {
-                                            "type": "integer"
-                                          },
-                                          "note": {
-                                            "type": "string"
-                                          },
-                                          "data": {
-                                            "description": "a string of data such as a SMILES, or a BASE-64-encoded string starting with ';base64,'",
-                                            "type": "string"
-                                          },
-                                          "ref": {
-                                            "type": "object",
-                                            "unevaluatedProperties": false,
-                                            "properties": {
-                                              "ifdType" : {
-                                                "const" : "org.iupac.fairdata.core.IFDReference"
-                                              },
-                                              "ifdTypeExtends" : {
-                                                "const" : ""
-                                              },
-                                              "resourceID": {
-                                                "type": "string"
-                                              },
-                                              "originPath": {
-                                                "type": "string"
-                                              },
-                                              "localPath": {
-                                                "type": "string"
-                                              },
-                                              "$comment" : "END properties"
-                                            }
-                                          },
-                                          "$comment" : "END properties"
-                                        },
-                                        "$comment" : "END items"
-
-                                      },
-                                      "$comment" : "END representations"
-
-                                    },
-                                    "$comment" : "END properties"
-                                  },
-
-                                  "$comment" : "END patternProperty"
-                                },
-
-                                "$comment" : "END patternProperties"
-                              },
-
-                              "$comment" : "END itemsByID"
-                            },
-                            "$comment" : "END properties"
-                          },
-
-                          "$comment" : "end structures"
+                        }
                       },
-                      "spectra": {
-                        "type": "object",
-                        "required": [
-                          "itemsByID"
-                          ],
+                      "attributes": {           	
                           "unevaluatedProperties": false,
-                          "properties": {
-                            "ifdType": {
-                              "type": "string",
-                              "const": "org.iupac.fairdata.dataobject.IFDDataObjectCollection"
-                            },
-                            "ifdTypeExtends": {
-                              "type": "string",
-                              "const": "org.iupac.fairdata.core.IFDCollection"
-                            },
-                            "itemType": {
-                              "type": "string",
-                              "$comment": "^org.iupac.fairdata\\.contrib\\.fairspec\\.dataobject\\.*"  
-                            },
-                            "itemTypeExtends": {
-                              "type": "string",
-                              "$comment": "org\\.iupac\\.fairdata\\.contrib\\.fairspec\\.dataobject\\.FAIRSpecDataObject;org\\.iupac\\.fairdata\\.dataobject\\.IFDDataObject;org\\.iupac\\.fairdata\\.core\\.IFDRepresentableObject"
-                            },
-                            "itemsByID": {
-                              "type": "object",   
-                              "unevaluatedProperties": false,
-                              "patternProperties": {
-                                "^.+" : {
-                                  "type": "object",
-                                  "unevaluatedProperties": false,
-                                  "properties": {
-                                    "note": {
-                                      "description": "a processing note created by the creator of the finding aid",
-                                      "type": "string"
-                                    },
-                                    "timestamp": {
-                                      "description": "date and time of creation ISO 8601 date+time (UTC), for example: 2025-04-17T18:55Z",
-                                      "type": "integer"
-                                    },
-                                    "propertyPrefix": {
-                                      "description": "The prefix to add to all IFDProperty keys in this block",
-                                      "type": "string",
-                                      "const": "IFD.property.dataobject.fairspec"
-                                    },
-                                    "ifdProperties": {
-                                      "type": "object",
-                                      "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
-                                      "unevaluatedProperties": false,
-                                      "properties": {
-                                        
+                          "$ref": "#/$defs/def_attributes"                          
+                      },
+                      "representations": {
+                          "type": "array",
+                          "items" : {
+                            "unevaluatedProperties": false,
+                            "$ref": "#/$defs/def_representationItem"                          
+                          },
+                          "$comment" : "END representations"
+                      },
+                      "$comment" : "END properties"
+                    },
+
+                    "$comment" : "END patternProperty"
+                  },
+
+                  "$comment" : "END patternProperties"
+                },
+
+                "$comment" : "END itemsByID"
+              },
+              "$comment" : "END properties"
+            },
+
+            "$comment" : "end structures"
+      },
+      "def_spectra" : {
+      "type": "object",
+      "required": [
+        "itemsByID"
+        ],
+        "properties": {
+          "ifdType": {
+            "type": "string",
+            "const": "org.iupac.fairdata.dataobject.IFDDataObjectCollection"
+          },
+          "ifdTypeExtends": {
+            "type": "string",
+            "const": "org.iupac.fairdata.core.IFDCollection"
+          },
+          "itemType": {
+            "type": "string",
+            "$comment": "^org.iupac.fairdata\\.contrib\\.fairspec\\.dataobject\\.*"  
+          },
+          "itemTypeExtends": {
+            "type": "string",
+            "$comment": "org\\.iupac\\.fairdata\\.contrib\\.fairspec\\.dataobject\\.FAIRSpecDataObject;org\\.iupac\\.fairdata\\.dataobject\\.IFDDataObject;org\\.iupac\\.fairdata\\.core\\.IFDRepresentableObject"
+          },
+          "itemsByID": {
+            "type": "object",   
+            "unevaluatedProperties": false,
+            "patternProperties": {
+              "^.+" : {
+                  "unevaluatedProperties": false,
+                  "$ref": "#/$defs/def_spectrum"                          
+              },
+              "$comment" : "END patternProperties"
+            },
+
+            "$comment" : "END itemsByID"
+          },
+          "$comment" : "END properties"
+        },
+        "$comment" : "END spectra"       
+      },
+      "def_spectrum" : {
+          "type": "object",
+          "properties": {
+            "note": {
+              "description": "a processing note created by the creator of the finding aid",
+              "type": "string"
+            },
+            "timestamp": {
+              "description": "date and time of creation ISO 8601 date+time (UTC), for example: 2025-04-17T18:55Z",
+              "type": "integer"
+            },
+            "propertyPrefix": {
+              "description": "The prefix to add to all IFDProperty keys in this block",
+              "type": "string",
+              "const": "IFD.property.dataobject.fairspec"
+            },
+            "ifdProperties": {
+              "type": "object",
+              "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
+              "unevaluatedProperties": false,
+              "properties": {
+                
 "originating_sample_id":{"type" : "string"},
 "ir.instr_manufacturer_name":{"type" : "string"},
 "ms.instr_manufacturer_name":{"type" : "string"},
@@ -550,206 +537,170 @@
 "raman.instr_manufacturer_name":{"type" : "string"},
 "uvvis.instr_manufacturer_name":{"type" : "string"}
 
-                                      }
-                                    },
-                                    "attributes": {
-                                      "description": "an optional set of key/value pairs that are not part of the IUPAC FAIRData standard or its extension. Characters of the keys must be one of[A-Za-z0-9_] or the space character and must be trimmed of any space character",
-                                      "type": "object",
-                                      "unevaluatedProperties": false,
-                                      "patternProperties": {
-                                        "^[A-Za-z0-9_]+([ ][A-Za-z0-9_]+)*": {
-                                          "type": [
-                                            "string",
-                                            "number"
-                                            ]
-                                        }
-                                      },
-                                      "$comment" : "END attributes"
-                                    },
-                                    "exptMethod": {
-                                      "type": "string"
-                                    },
-                                    "representations": {
-                                      "type": "array",
-                                      "items" : {
-                                        "type": "object",
-                                        "unevaluatedProperties": false,
-                                        "properties": {
-                                          "ifdType" : {
-                                            "type": "string"
-                                          },
-                                          "ifdTypeExtends" : {
-                                            "type": "string"
-                                          },
-                                          "representationType": {
-                                            "type": "string"
-                                          },
-                                          "mediaType": {
-                                            "type": "string"
-                                          },
-                                          "len": {
-                                            "type": "integer"
-                                          },
-                                          "note": {
-                                            "type": "string"
-                                          },
-                                          "data": {
-                                            "description": "a string of data such as a SMILES, or a BASE-64-encoded string starting with ';base64,'",
-                                            "type": "string"
-                                          },
-                                          "ref": {
-                                            "type": "object",
-                                            "unevaluatedProperties": false,
-                                            "properties": {
-                                              "ifdType" : {
-                                                "const" : "org.iupac.fairdata.core.IFDReference"
-                                              },
-                                              "ifdTypeExtends" : {
-                                                "const" : ""
-                                              },
-                                              "resourceID": {
-                                                "type": "string"
-                                              },
-                                              "originPath": {
-                                                "type": "string"
-                                              },
-                                              "localPath": {
-                                                "type": "string"
-                                              },
-                                              "$comment" : "END properties"
-                                            }
-                                          },
-                                          "$comment" : "END properties"
-                                        }
-                                      },
-                                      "$comment" : "END representations"
-
-                                    },
-                                    "$comment" : "END properties"
-                                  },
-                                  "$comment" : "END patternProperty"
-                                },
-
-                                "$comment" : "END patternProperties"
-                              },
-
-                              "$comment" : "END itemsByID"
-                            },
-                            "$comment" : "END properties"
-                          },
-                          "$comment" : "END spectra"       
-                      },                  
-                      "compounds": {
-                        "type": "object",
-                        "required": [
-                          "itemsByID"
-                          ],
-                          "unevaluatedProperties": false,
-                          "properties": {
-                            "ifdType": {
-                              "type": "string",
-                              "const": "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection"
-                            },
-                            "ifdTypeExtends": {
-                              "type": "string",
-                              "const": "org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;org.iupac.fairdata.core.IFDAssociationCollection"
-                            },                
-                            "itemType": {
-                              "type": "string",
-                              "const": "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundAssociation"
-                            },
-                            "itemTypeExtends": {
-                              "type": "string",
-                              "const": "org.iupac.fairdata.derived.IFDStructureDataAssociation;org.iupac.fairdata.core.IFDAssociation"
-                            },                
-                            "itemsByID": {
-                              "type": "object",
-                              "unevaluatedProperties": false,
-                              "patternProperties": {
-                                "^.+" : {
-                                  "type": "object",
-                                  "unevaluatedProperties": false,
-                                  "properties": {
-                                    "ifdProperties": {
-                                      "type": "object",
-                                      "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
-                                      "unevaluatedProperties": false,
-                                      "properties": {
-                                        
-"chirality":{"type" : "string"}
-
-                                      }
-                                    },
-                                    "attributes": {
-                                      "description": "an optional set of key/value pairs that are not part of the IUPAC FAIRData standard or its extension. Characters of the keys must be one of[A-Za-z0-9_] or the space character and must be trimmed of any space character",
-                                      "type": "object",
-                                      "unevaluatedProperties": false,
-                                      "patternProperties": {
-                                        "^[A-Za-z0-9_]+([ ][A-Za-z0-9_]+)*": {
-                                          "type": [
-                                            "string",
-                                            "number"
-                                            ]
-                                        }
-                                      },
-                                      "$comment" : "END attributes"
-                                    },
-                                    "itemsByID": {
-                                      "type": "object",
-                                      "unevaluatedProperties": false,
-                                      "properties": {
-                                        "structures" :{
-                                          "type": "array",
-                                          "items": {
-                                            "$ref": "#/$defs/def_field_id"
-                                          }
-                                        },
-                                        "spectra" :{
-                                          "type": "array",
-                                          "items": {
-                                            "$ref": "#/$defs/def_field_id"
-                                          }
-                                        },
-                                        "$comment" : "END properties"
-                                      },
-                                      "$comment" : "END itemsByID"
-                                    },
-                                    "$comment" : "END properties"
-                                  },
-                                  "$comment" : "END patternProperty"
-                                },
-
-                                "$comment" : "END patternProperties"
-                              },
-                              "$comment" : "END itemsByID"
-                            },
-                            "$comment" : "END properties"
-                          },
-                          "$comment" : "END compounds"
-                      },                
-                      "analyses": {
-                        "$ref": "#/$defs/def_analyses"
-                      }
-                    },
-                    "$comment" : "END itemsByID"
-                  },
-                  "$comment" : "END properties"
+              }
+            },
+            "attributes": {           	
+              "unevaluatedProperties": false,
+              "$ref": "#/$defs/def_attributes"                          
+            },
+            "exptMethod": {
+              "type": "string"
+            },
+            "representations": {
+                "type": "array",
+                "items" : {
+                  "unevaluatedProperties": false,
+                  "$ref": "#/$defs/def_representationItem"                          
                 },
-
-                "$comment" : "END collectionSet"
+                "$comment" : "END representations"
             },
             "$comment" : "END properties"
           },
-          "$comment" : "END IUPAC.FAIRSpec.findingAid"
+          "$comment" : "END patternProperty"    	  
       },
-      "$comment" : "END properties"
-    },
-    "$defs": {
-      "def_field_id": {
-        "$comment" : "actually this does not work",
-        "description": "an optional unique identifier, for example, a compound number such as 38b or a DOI such as 10.14469/hpc/14635 must not start nor end in a space character",
-        "type": "string",
-        "pattern": "^[a-zA-Z0-9_+\\-/*.,()\\[\\]]+([ ][a-zA-Z0-9_+\\-/*.,()\\[\\]]+)*$"
+      "def_compounds" : {
+          "type": "object",
+          "required": [
+            "itemsByID"
+            ],
+            "unevaluatedProperties": false,
+            "properties": {
+              "ifdType": {
+                "type": "string",
+                "const": "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection"
+              },
+              "ifdTypeExtends": {
+                "type": "string",
+                "const": "org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;org.iupac.fairdata.core.IFDAssociationCollection"
+              },                
+              "itemType": {
+                "type": "string",
+                "const": "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundAssociation"
+              },
+              "itemTypeExtends": {
+                "type": "string",
+                "const": "org.iupac.fairdata.derived.IFDStructureDataAssociation;org.iupac.fairdata.core.IFDAssociation"
+              },                
+              "itemsByID": {
+                "unevaluatedProperties": false,
+                "$ref": "#/$defs/def_compoundItem"                       
+              },
+              "$comment" : "END properties"
+            },
+            "$comment" : "END compounds"
+        },
+      "def_compoundItem" : {
+          "type": "object",
+          "patternProperties": {
+            "^.+" : {
+              "type": "object",
+              "unevaluatedProperties": false,
+              "properties": {
+                "ifdProperties": {
+                  "type": "object",
+                  "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
+                  "unevaluatedProperties": false,
+                  "properties": {
+                    
+"chirality":{"type" : "string"}
+
+                  }
+                },
+                "attributes": {           	
+                    "unevaluatedProperties": false,
+                    "$ref": "#/$defs/def_attributes"                          
+                },
+                "itemsByID": {
+                  "type": "object",
+                  "unevaluatedProperties": false,
+                  "properties": {
+                    "structures" :{
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/def_field_id"
+                      }
+                    },
+                    "spectra" :{
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/def_field_id"
+                      }
+                    },
+                    "$comment" : "END properties"
+                  },
+                  "$comment" : "END itemsByID"
+                },
+                "$comment" : "END properties"
+              },
+              "$comment" : "END patternProperty"
+            },
+            "$comment" : "END patternProperties"
+          },
+          "$comment" : "END compoundItem"
+      },
+      "def_attributes" : {
+          "type": "object",
+          "description": "an optional set of key/value pairs that are not part of the IUPAC FAIRData standard or its extension. Characters of the keys must be one of[A-Za-z0-9_] or the space character and must be trimmed of any space character",
+          "patternProperties": {
+            "^[A-Za-z0-9_]+([ ][A-Za-z0-9_]+)*": {
+              "type": [
+                "string",
+                "number"
+                ]
+            }
+          },
+          "$comment" : "END attributes"
+      },
+      "def_representationItem" : {
+    	  	"type": "object",
+            "properties": {
+              "ifdType" : {
+                "type": "string"
+              },
+              "ifdTypeExtends" : {
+                "type": "string"
+              },
+              "representationType": {
+                "type": "string"
+              },
+              "mediaType": {
+                "type": "string"
+              },
+              "len": {
+                "type": "integer"
+              },
+              "note": {
+                "type": "string"
+              },
+              "data": {
+                "description": "a string of data such as a SMILES, or a BASE-64-encoded string starting with ';base64,'",
+                "type": "string"
+              },
+              "ref": {
+                "type": "object",
+                "unevaluatedProperties": false,
+                "properties": {
+                  "ifdType" : {
+                    "const" : "org.iupac.fairdata.core.IFDReference"
+                  },
+                  "ifdTypeExtends" : {
+                    "const" : ""
+                  },
+                  "resourceID": {
+                    "type": "string"
+                  },
+                  "originPath": {
+                    "type": "string"
+                  },
+                  "localPath": {
+                    "type": "string"
+                  },
+                  "$comment" : "END properties"
+                }
+              },
+              "$comment" : "END properties"
+            },
+            "$comment" : "END items"
       },
       "$comment" : "END $defs"
     },
