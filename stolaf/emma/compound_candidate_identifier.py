@@ -193,10 +193,10 @@ def normalize_name(s):
 
 
 def parent_of_matching_jdf(parts, candidates):
-    """
-    Return candidate folder that contains a .jdf file whose name
-    loosely matches the folder name.
-    """
+    
+    #Return candidate folder that contains a .jdf file whose name
+    #loosely matches the folder name.
+    
     for i in range(len(parts) - 1):
         parent = parts[i]
         child = parts[i + 1]
@@ -1049,6 +1049,12 @@ final_df.to_csv(f'output_{dataset_DOI}.csv', index=False)
 
 
 
+
+# converting the file output to the TSV file
+
+print("HIIIII")
+with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+  print(final_df)
 
 
   
