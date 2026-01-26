@@ -395,11 +395,11 @@ class IFDExtractor {
 					+ "--test dryad " //
 					+ "--targetDir <TARGET_DIR> " //
 					+ "--localSource <LOCAL_SOURCE_ARCHIVE> " //
-					+ "--DOI \"2bvq83c2q\" " //
+					+ "--DOI 2bvq83c2q " //
 					+ "\n" //
 					+ "ACS: java -jar IFDExtractor.jar " //
 					+ "--test acs " //
-					+ "--DOI 10.14469/hpc/XXXXX " //
+					+ "--DOI acs.joc.0c00770 " //
 					+ "--targetDir <TARGET_DIR> " //
 					+ "--localSource <LOCAL_SOURCE_ARCHIVE>" //
 					+ "\n" //
@@ -483,12 +483,12 @@ class IFDExtractor {
 		switch (cliSource == null ? "" : cliSource) {
 		case "dryad":
 			if (ifdExtractFilePath == null)
-				ifdExtractFilePath = "$RESOURCEDIR$/extract/dryad/" + cliDOI + "/IFD-extract.json";
+				ifdExtractFilePath = "./extract/dryad/" + cliDOI + "/IFD-extract.json";
 			break;
 		case "acs":
 			// for acs include the whole doi acs.*.XXXXX
 			if (ifdExtractFilePath == null) {
-				ifdExtractFilePath = "extract/" + cliDOI + "/IFD-extract.json";
+				ifdExtractFilePath = "./extract/" + cliDOI + "/IFD-extract.json";
 			}
 			// Exception handling
 			switch (cliDOI) {
@@ -521,13 +521,10 @@ class IFDExtractor {
 	}
 
 	/**
-	 * Minimal command-line interface for now. There are several flags set from
-	 * ExtractorTest. Right now these are not included in the options, and we also
-	 * need to use proper -x or --xxxx flags.
+	 * See above for explanation of parameters and options. 
 	 * 
-	 * Just haven't implemented that yet.
-	 * 
-	 * @param args [0] extractionFile.json, [1] sourcePath, [2] targetDir
+	 * There is no general API for creating finding aids. This interface is 
+	 * primarily for in-house testing.
 	 * 
 	 */
 	private static void loadExtractor(String[] args) {
