@@ -120,7 +120,7 @@ public class ExtractorUtils {
 		private Map<String, String> keys;
 
 		private ExtractorResource dataSource;
-		private IFDExtractorImpl extractor;
+		private IFDExtractorMain extractor;
 		private boolean hasData;
 		private List<Object> replacements;
 		private ArrayList<String> keyList;
@@ -129,7 +129,7 @@ public class ExtractorUtils {
 		 * @param sObj
 		 * @throws IFDException
 		 */
-		public ObjectParser(IFDExtractorImpl extractor, ExtractorResource resource, String sObj) throws IFDException {
+		public ObjectParser(IFDExtractorMain extractor, ExtractorResource resource, String sObj) throws IFDException {
 			this.extractor = extractor;
 			index = parserCount++;
 			dataSource = resource;
@@ -1115,5 +1115,22 @@ public class ExtractorUtils {
 		}
 
 	}
+
+	
+	public static File getJarFile(Class<?> classInJar) throws Exception {
+		java.security.CodeSource codeSource = classInJar.getProtectionDomain().getCodeSource();
+		File jarFile = null;
+		if (codeSource.getLocation() != null) {
+//      jarFile = new File(codeSource.getLocation().getPath());
+			jarFile = new File(codeSource.getLocation().toURI());
+		} else {
+			String path = classInJar.getResource(classInJar.getSimpleName() + ".class").getPath(); //$NON-NLS-1$
+			String jarFilePath = path.substring(path.indexOf(":") + 1, path.indexOf("!")); //$NON-NLS-1$ //$NON-NLS-2$
+			jarFilePath = java.net.URLDecoder.decode(jarFilePath, "UTF-8"); //$NON-NLS-1$
+			jarFile = new File(jarFilePath);
+		}
+		return jarFile;
+	}
+
 
 }

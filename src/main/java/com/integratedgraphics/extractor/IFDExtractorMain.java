@@ -2,17 +2,8 @@ package com.integratedgraphics.extractor;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.OptionBuilder;
-import org.apache.commons.cli.OptionGroup;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.PosixParser;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
@@ -69,7 +60,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
  * @author hansonr
  *
  */
-public class IFDExtractorImpl extends IFDExtractorLayer3 {
+public class IFDExtractorMain extends IFDExtractorLayer3 {
 
 	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/IFDExtractor.java";
 
@@ -78,48 +69,50 @@ public class IFDExtractorImpl extends IFDExtractorLayer3 {
 
 	// TODO: update GitHub README.md
 
-	private static final String debugFlags = "-stopAfter=end";
+	private static final String debugFlags = "-sttxEnuropAfter=end";
 
 	public static final String PAGE_ID_PROPERTY_SOURCE = "*idf.property.compound.id.source*";
 
-	protected static String getCommandLineHelp() {
-		return "\nformat: java -jar IFDExtractor.jar [IFD-extract.json] [localSourceArchive] [targetDir] [extractorFlags]" //
-				+ "\n" + "\nwhere" //
-				+ "\n" //
-				+ "\n[IFD-extract.json] is the IFD extraction template for this collection" //
-				+ "\n[localSourceArchive] is the source .zip, .tar.gz, .tar, .tgz, or .rar file" //
-				+ "\n[targetDir] is the target directory for the collection (which you are responsible to empty first)" //
-				+ "\n" //
-				+ "\n" + "[extractorFlags] are one or more of:" //
-				+ "\n" //
-				+ "\n-addPublicationMetadata (only for post-publication-related collections; include ALL Crossref or DataCite metadata)" //
-				+ "\n-dataciteDown (only for post-publication-related collections)" //
-				+ "\n-debugging (lots of messages)" //
-				+ "\n-debugReadonly (readonly, no publicationmetadata)" //
-				+ "\n-findingAidOnly (only create a finding aid)" //
-				+ "\n-nolaunch (don't launch the landing page)" //
-				+ "\n-noclean (don't empty the destination collection directory before extraction; allows additional files to be zipped)" //
-				+ "\n-noignored (don't include ignored files -- treat them as REJECTED)" //
-				+ "\n-nolandingPage (don't create a landing page)" //
-				+ "\n-nopubinfo (ignore all publication info)" //
-				+ "\n-nostopOnFailure (continue if there is an error)" //
-				+ "\n-nozip (don't zip up the target directory)" //
-				+ "\n-readonly (just create a log file)" //
-				+ "\n-requirePubInfo (throw an error is datacite cannot be reached; post-publication-related collections only)"
-				+ "\n" + "\nor, to run the DOICrawler:" + "\n" //
-				+ "\n" + "\njava -jar IFDExtractor.jar -doi [DOI] [targetDir] [crawlerFlags]" //
-				+ "\n" + "\nwhere" //
-				+ "\n" //
-				+ "\n[DOI] is a Document Object Identifier such as 10.14469/hpc/10386" //
-				+ "\n[targetDir] is the target directory for the output" //
-				+ "\n" //
-				+ "\n" + "and [crawlerFlags] as above and also optionally:" //
-				+ "\n" //
-				+ "\n-download (additionally download files from the repository)" //
-		;
-	}
+// not avaialable -- see IFDExtractor
+//	
+//	protected static String getCommandLineHelp() {
+//		return "\nformat: java -jar IFDExtractor.jar [IFD-extract.json] [localSourceArchive] [targetDir] [extractorFlags]" //
+//				+ "\n" + "\nwhere" //
+//				+ "\n" //
+//				+ "\n[IFD-extract.json] is the IFD extraction template for this collection" //
+//				+ "\n[localSourceArchive] is the source .zip, .tar.gz, .tar, .tgz, or .rar file" //
+//				+ "\n[targetDir] is the target directory for the collection (which you are responsible to empty first)" //
+//				+ "\n" //
+//				+ "\n" + "[extractorFlags] are one or more of:" //
+//				+ "\n" //
+//				+ "\n-addPublicationMetadata (only for post-publication-related collections; include ALL Crossref or DataCite metadata)" //
+//				+ "\n-dataciteDown (only for post-publication-related collections)" //
+//				+ "\n-debugging (lots of messages)" //
+//				+ "\n-debugReadonly (readonly, no publicationmetadata)" //
+//				+ "\n-findingAidOnly (only create a finding aid)" //
+//				+ "\n-nolaunch (don't launch the landing page)" //
+//				+ "\n-noclean (don't empty the destination collection directory before extraction; allows additional files to be zipped)" //
+//				+ "\n-noignored (don't include ignored files -- treat them as REJECTED)" //
+//				+ "\n-nolandingPage (don't create a landing page)" //
+//				+ "\n-nopubinfo (ignore all publication info)" //
+//				+ "\n-nostopOnFailure (continue if there is an error)" //
+//				+ "\n-nozip (don't zip up the target directory)" //
+//				+ "\n-readonly (just create a log file)" //
+//				+ "\n-requirePubInfo (throw an error is datacite cannot be reached; post-publication-related collections only)"
+//				+ "\n" + "\nor, to run the DOICrawler:" + "\n" //
+//				+ "\n" + "\njava -jar IFDExtractor.jar -doi [DOI] [targetDir] [crawlerFlags]" //
+//				+ "\n" + "\nwhere" //
+//				+ "\n" //
+//				+ "\n[DOI] is a Document Object Identifier such as 10.14469/hpc/10386" //
+//				+ "\n[targetDir] is the target directory for the output" //
+//				+ "\n" //
+//				+ "\n" + "and [crawlerFlags] as above and also optionally:" //
+//				+ "\n" //
+//				+ "\n-download (additionally download files from the repository)" //
+//		;
+//	}
 
-	public IFDExtractorImpl() {
+	public IFDExtractorMain() {
 		initializeExtractor();
 	}
 
@@ -278,7 +271,7 @@ public class IFDExtractorImpl extends IFDExtractorLayer3 {
 
 	@Override
 	public String getVersion() {
-		return version;
+		return IFDExtractor.version;
 	}
 
 	public void run(File ifdExtractScriptFile, File targetPath, String localsourceArchive)

@@ -235,7 +235,7 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 
 	private void setConfiguration() {
 		try {
-			config = FAIRSpecUtilities.getJSONResource(IFDExtractorImpl.class, "extractor.config.json");
+			config = FAIRSpecUtilities.getJSONResource(IFDExtractorMain.class, "extractor.config.json");
 		} catch (IOException e) {
 			e.printStackTrace();
 			return;

@@ -671,6 +671,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	public IFDDataObject cloneData(IFDDataObject localSpec, String idExtension, boolean andReplace) {
 		// this will invalidate localSpec -- 1.mnova, for example.
 		// TODO clean out invalidated data
+		System.out.println(localSpec.getID() + " " + idExtension);
 		IFDDataObject data = getSpecCollection().cloneData(localSpec, idExtension, andReplace);
 		if (compoundCollection != null) {
 			for (IFDAssociation a : compoundCollection) {
@@ -781,6 +782,10 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	public boolean areDataObjectsIdentical(IFDDataObject o1, IFDDataObject o2) {
 		long t1 = o1.getTimestamp().longValue();
 		long t2 = o2.getTimestamp().longValue();
+		
+		System.out.println(o1.toString() + t1);
+		System.out.println(o2.toString() + t2);
+
 		if (Math.abs(t2 - t1) > 86400) // within a day, but may not both be Z
 			return false;
 		Map<String, IFDProperty> props1 = o1.getProperties();
@@ -819,6 +824,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 		// do NOT transfer IFDProperties, just represntations and attributes
 		// only transfer attributes that are non-existant
 		IFDAttribute.mergeAll(objFrom.getAttributes(), objTo.getAttributes());
+		System.out.println("!FSEH Merging " + objFrom + " into " + objTo);
 		for (int i = 0, n = objFrom.size(); i < n; i++) {
 			objTo.add(objFrom.get(i));
 		}

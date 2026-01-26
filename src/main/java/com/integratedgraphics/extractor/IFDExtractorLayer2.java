@@ -457,12 +457,9 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			n++;
 			nextEntry = null;
 			String name = zipEntry.getName();
-			System.out.println(name);
 			if (name == null)
 				continue;
 			boolean isDir = zipEntry.isDirectory();
-			if (phase == PHASE_2C)
-				System.out.println(">>>>" + baseOriginPath + name);
 			if (!isDir && !haveDirs) {
 				// a zip file with no directories will need to be checked repeatedly
 				int pt = name.lastIndexOf('/');
@@ -964,8 +961,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		// xxx.zip/zzz/2/pdata --> xxx_1.zip/2/pdata (ICL; localname xxx.zip)
 
 		String entryName = entry.getName();
-		if (entryName.equals("1a-1B/1 A/1A 13C NMR/5/"))
-			System.out.println("??????");
 			
 		boolean isDir = (entry.isDirectory());
 		String dirName = (isDir ? entryName : entryName.substring(0, entryName.lastIndexOf('/') + 1));
@@ -1253,7 +1248,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				}
 				cloning = true;
 				break;
-			case IFDExtractorImpl.PAGE_ID_PROPERTY_SOURCE:
+			case IFDExtractorMain.PAGE_ID_PROPERTY_SOURCE:
 				if (pageCompoundID == null)
 					pageCompoundID = inferCompoundID((String) value);
 				continue;

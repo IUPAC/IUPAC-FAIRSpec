@@ -192,7 +192,8 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 		}
 
 		if (fname.equals("title")) {
-			report("TITLE", new String(bytes));
+			String s = new String(bytes);
+			report("TITLE", s.replace('\n',' '));
 			return true;
 		}
 		Map<String, String> map = null;

@@ -1,6 +1,6 @@
 package com.integratedgraphics.test;
 
-import com.integratedgraphics.extractor.IFDExtractorImpl;
+import com.integratedgraphics.extractor.IFDExtractorMain;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
@@ -15,7 +15,7 @@ import com.integratedgraphics.extractor.IFDExtractorImpl;
 public class ExtractorTest {
 
 	public static void main(String[] args) {
-		new IFDExtractorImpl().runExtraction(args);
+		new IFDExtractorMain().runExtraction(args);
 	}
 
 }

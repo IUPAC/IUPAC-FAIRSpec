@@ -3,6 +3,11 @@ package com.integratedgraphics.extractor;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -63,7 +68,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 
 	protected boolean processPhase1() throws IOException, IFDException {
 		log("!Extracting " + extractScriptFile.getAbsolutePath());
-		extractScript = FAIRSpecUtilities.getFileStringData(extractScriptFile);
+		extractScript = getFileStringData(extractScriptFile);
 		phase1ParseScript(extractScript);
 		if (!processPubURI())
 			return false;
@@ -71,6 +76,44 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		vendorCache = new LinkedHashMap<String, ExtractorUtils.CacheRepresentation>();
 		return true;
 	}
+
+	protected boolean useJarResource;
+	private String getFileStringData(File f) throws IOException {
+		if (useJarResource || !f.exists()) {
+			String path = f.getAbsolutePath().replace('\\', '/');
+			int ptThis = path.indexOf("/./");
+			if (ptThis >= 0) {
+				path = path.substring(ptThis + 3);
+				byte[] data = FAIRSpecUtilities.getResourceBytes(getClass(), path);
+				if (data == null)
+					throw new IOException("File " + f + " could not be found");
+				useJarResource = true;
+				return new String(data);
+			}
+		}
+		return FAIRSpecUtilities.getFileStringData(f);
+	}
+	
+	private String checkResourcePath(String path) {
+		int ptThis = path.indexOf("/./");
+		if (ptThis >= 0) {
+			path = path.substring(ptThis + 3, path.length() - 1);
+			 URL resourceUrl = getClass().getResource(path);
+			 if (resourceUrl != null) {
+				 try {
+					Path ppath = Paths.get(resourceUrl.toURI());
+					if (Files.isDirectory(ppath)) {
+						System.out.println("scanning directory " + ppath);
+						return "file:///" + ppath.toString().replace('\\', '/') + "/";
+					}
+				} catch (URISyntaxException e) {
+				}
+			 }
+		}
+		// probably a JAR file. We could of course handle this as a ZIP file.
+		return null;
+	}
+
 
 	/**
 	 * Make all variable substitutions in IFD-extract.js.
@@ -262,17 +305,26 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 					String local = localizeURL(val);
 					boolean isFoundLocal = (local.startsWith("file:/") && new File(local.substring(6)).exists()); 
 					if (isFoundLocal) {
-						localSourceFile = localizeURL(val);
+						localSourceFile = local;
 					} else {
 						source = null;
 						isDefaultStructurePath = isDefaultStructurePath(val);
-						String msg = "local source directory does not exist (ignored): " + val;
-						if (isDefaultStructurePath)
-							logNote(msg, "phase1CheckSource");
-						else
-							logWarn(msg, "phase1CheckSource");
-						if (isDefaultStructurePath)
-							continue;
+						if (isDefaultStructurePath) {
+							// try resources
+							local = checkResourcePath(local);
+						}
+						if (local == null) {
+							String msg = "local source directory does not exist (ignored): " + val;
+							if (isDefaultStructurePath)
+								logNote(msg, "phase1CheckSource");
+							else
+								logWarn(msg, "phase1CheckSource");
+							if (isDefaultStructurePath)
+								continue;
+						} else {
+							val = local;
+							localSourceFile = localizeURL(val);
+						}
 					}
 					source = htResources.get(val);
 					if (source == null) {
@@ -307,7 +359,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 				}
 				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_COMPOUND_ID_DIR)) {
 					compoundDirParser = newObjectParser(source, val, replacements);
-					if (structureDirParser != null && structureDirParser.equals(structureDirParser))
+					if (structureDirParser != null && structureDirParser.equals(compoundDirParser))
 						compoundDirParser = structureDirParser;
 					haveDirParser = true;
 					continue;
@@ -375,6 +427,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		objectParsers = parsers;
 	}
 	
+
 	/**
 	 * Parse the script form an IFD-extract.js JSON file starting with the creation
 	 * of a Map by JSJSONParser.
@@ -454,7 +507,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 * @throws IFDException
 	 */
 	private ObjectParser newObjectParser(ExtractorResource source, String sObj, List<Object> replacements) throws IFDException {
-		ObjectParser p = new ObjectParser((IFDExtractorImpl) this, source, sObj);
+		ObjectParser p = new ObjectParser((IFDExtractorMain) this, source, sObj);
 		p.setReplacements(replacements);
 		return p;
 	}
@@ -481,7 +534,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 //				sUrl = localSourceDir + "/" + localSourceFile;
 		} else {
 			boolean isRelative = sUrl != null && (sUrl.startsWith("./") || sUrl.indexOf("/./") >= 0);
-			if (!isRelative && localSourceDir != null) {
+			if (!isRelative && !sUrl.startsWith("file:///") && localSourceDir != null) {
 				if (FAIRSpecUtilities.isZip(localSourceDir)) {
 					sUrl = localSourceDir;
 				} else if (localSourceDir.endsWith("/*")) {

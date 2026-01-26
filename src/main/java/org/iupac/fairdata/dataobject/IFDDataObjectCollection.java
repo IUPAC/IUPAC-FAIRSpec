@@ -39,6 +39,11 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 			String oldid = (data.getID() == null ? "" : data.getID());
 			if (oldid.endsWith("/"))
 				oldid = oldid.substring(0, oldid.length() - 1);
+			if (newID.startsWith("_page")) {
+				int pt = oldid.lastIndexOf("_page");
+				if (pt >= 0)
+					oldid = oldid.substring(0, pt);
+			}
 			newData.setID(oldid + newID);
 		}
 		if (andReplace) {

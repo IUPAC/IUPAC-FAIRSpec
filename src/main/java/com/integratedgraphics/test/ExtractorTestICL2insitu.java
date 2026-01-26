@@ -1,6 +1,6 @@
 package com.integratedgraphics.test;
 
-import com.integratedgraphics.extractor.IFDExtractorImpl;
+import com.integratedgraphics.extractor.IFDExtractorMain;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
@@ -23,7 +23,7 @@ public class ExtractorTestICL2insitu {
 
 		String flags = "-insitu";
 
-		new IFDExtractorImpl().runExtraction(ifdExtractFile, localSourceArchive, targetDir, baseDir, flags);
+		new IFDExtractorMain().runExtraction(ifdExtractFile, localSourceArchive, targetDir, baseDir, flags);
 	}
 
 }

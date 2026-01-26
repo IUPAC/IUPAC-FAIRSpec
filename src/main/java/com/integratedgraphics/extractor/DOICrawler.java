@@ -690,7 +690,7 @@ public class DOICrawler extends FindingAidCreator {
 
 	@Override
 	public String getVersion() {
-		return "DoiCrawler " + version;
+		return "DoiCrawler " + IFDExtractor.version;
 	}
 
 	public String newCompound(String id) {

@@ -16,7 +16,7 @@ import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.extract.DefaultStructureHelper.StructureData;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-import com.integratedgraphics.extractor.IFDExtractorImpl;
+import com.integratedgraphics.extractor.IFDExtractorMain;
 import com.integratedgraphics.ifd.dataobject.NMRVendorPlugin;
 import com.integratedgraphics.ifd.dataobject.mestrelab.MNovaMetadataReader.Param;
 import com.integratedgraphics.ifd.util.VendorUtils;
@@ -332,7 +332,7 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 		// TODO? but not all keys are like this key = "MNova_" + key;
 		if (k == null && key.equals("Page_Header")) {
 			addProperty(IFDConst.IFD_FIELD_PROPERTY_DESCRIPTION, val);
-			addProperty(IFDExtractorImpl.PAGE_ID_PROPERTY_SOURCE, val);
+			addProperty(IFDExtractorMain.PAGE_ID_PROPERTY_SOURCE, val);
 		}
 		// SM and DIM are derived
 		if (!isDerived)

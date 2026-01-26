@@ -7,7 +7,7 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 import com.integratedgraphics.extractor.FindingAidCreator;
-import com.integratedgraphics.extractor.IFDExtractorImpl;
+import com.integratedgraphics.extractor.IFDExtractorMain;
 import com.integratedgraphics.html.PageCreator;
 
 /**
@@ -52,7 +52,7 @@ public class ExtractorTestACS extends ExtractorTest {
 	 * @param last
 	 * @param createFindingAidJSONList
 	 */
-	private static void runACSExtractionTest(String[] args,
+     static void runACSExtractionTest(String[] args,
 			String findACSID, int first, int last, boolean createFindingAidJSONList) {
 		String localSourceArchive = args[1];
 		String targetDir = args[2];
@@ -68,7 +68,7 @@ public class ExtractorTestACS extends ExtractorTest {
 		int nWarnings = 0;
 		int nErrors = 0;
 		String warnings = "";
-		IFDExtractorImpl extractor = null;
+		IFDExtractorMain extractor = null;
 		String sflags = null;
 		String targetDir0 = targetDir;
 		// ./extract/ should be in the main Eclipse project directory.
@@ -78,7 +78,7 @@ public class ExtractorTestACS extends ExtractorTest {
 			String extractInfo = acsTestSet[i];
 			if (findACSID != null && !extractInfo.contains(findACSID))
 				continue;
-			extractor = new IFDExtractorImpl();
+			extractor = new IFDExtractorMain();
 			extractor.logToSys("Extractor.runExtractionTest output to " + new File(targetDir).getAbsolutePath());
 			extractor.logToSys("Extractor.runExtraction " + i + " " + extractInfo);
 			String ifdExtractFile;
@@ -237,10 +237,13 @@ public class ExtractorTestACS extends ExtractorTest {
 		// and testDir as args[2]; args[0] is ignored;
 		int first = 12; // first test to run
 		int last = 12; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
+		run(args, first, last);
+	}
+
+	private static void run(String[] args, int first, int last) {
 					  // file test
 		String findACSID = null;//"1022" to ignore first/last;
 		String flags = null;//"-assetsOnly"; // "-datacitedown"
-		
 		/**
 		 * a local dir if you have already downloaded the zip files, otherwise null to
 		 * download from FigShare;
@@ -251,6 +254,21 @@ public class ExtractorTestACS extends ExtractorTest {
 		args = setSourceTargetArgs(args, null, localSourceArchive, targetDir, flags);
 		boolean createFindingAidJSONList = true;
 		runACSExtractionTest(args, findACSID, first, last, createFindingAidJSONList);
+	}
+
+	/**
+	 * Run the --DOI parameter if in the form [i,j] where i >= 0 andj <= 13
+	 * @param firstLast
+	 */
+	public static void runSet(String firstLast) {
+		int pt =  firstLast.indexOf('[');
+		if (pt >= 0) {
+			String[] a = firstLast.substring(pt+1, firstLast.indexOf("]")).split(",");
+			int first = Integer.parseInt(a[0]);
+			int last = Integer.parseInt(a[1]);
+			run(null, first, last);
+		}
+		
 	}
 
 }

@@ -12,62 +12,59 @@ import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
 
+import com.integratedgraphics.test.ExtractorTestACS;
+
 
 /**
- * Copyright 2021-2024 Integrated Graphics and Robert M. Hanson
+ * This class interprets command line options and starts the appropriate program. 
+ * The primary subclass of FindingAidCreator is now IFDExtractorMain. By removing
+ * this loader class from that stack, we allow a cleaner, faster loading from the 
+ * command line and can generate less extraneous output. 
  * 
- * A class to handle the extraction of objects from a "raw" dataset by
- * processing the full paths within a ZIP file as directed by an extraction
- * template (from the extract/ folder for the test)
- * 
- * following the sequence:
- * 
- * initialize(ifdExtractScriptFile)
- * 
- * setLocalSourceDir(sourceDir)
- * 
- * setCachePattern(pattern)
- * 
- * setRezipCachePattern(pattern)
- * 
- * extractObjects(targetDir);
- * 
- * Features:
- * 
- * 
- * ... uses template-directed processing of full file paths
- * 
- * ... metadata property information is from
- * org.iupac.common.fairspec.properties
- * 
- * ... allows for an XLSX or OpenSheets file that contains additional metadata
- * 
- * ... creates IFDFAIRSpecFindingAid objects ready for serialization
- * 
- * ... serializes using org.iupac.util.IFDDefaultJSONSerializer
- * 
- * ... zip files are processed recursively
- * 
- * ... zip files other than Bruker directories are unpacked
- * 
- * ... "broken" Bruker directories (those without a simple integer root path)
- * are corrected.
- * 
- * ... binary MNova files are scanned for metadata, PNG, and MOL files (only,
- * not spectra)
- * 
- * ... MNova metadata references page number in file using #page=
- * 
- * ... allow CLI command
- * 
- * See superclasses for more information
- * 
- * @author hansonr
+ * @author Fay Nguyen
  *
  */
-public class IFDExtractor0 {
+class IFDExtractor {
 
-	protected static class CLI {
+	public static final String version = "0.1.2-beta+2026.01.25";
+	// 2026.01.25 version 0.1.2-beta refactored and much improved; adds CLI and timestamp-merging of NMR data
+	// 2025.07.24 version 0.1.0-beta with FAIRSpec-ready paper
+	// 2025.02.17 version 0.0.7-beta integrates the crawler
+	// 2024.12.02 version 0.0.6 fully refactored, revised; adds creation of landing
+	// page and -nolandingpage -nolaunch flags
+	// 2024.11.03 version 0.0.6 adding support for DOICrawler
+	// 2024.05.28 version 0.0.5 moved to com.integratedgraphics.extractor.Extractor
+	// 2023.01.09 version 0.0.4 adds MNova_Page_Header parameter
+	// 2023.01.07 version 0.0.4 adds CDX reading by Jmol
+	// 2023.01.01 version 0.0.4 accepts structures automatically from ./structures/
+	// and ./structures.zip
+	// 2022.12.30 version 0.0.4 ACS 0-7 with structures; fixing rezip issue of
+	// Bruker files placed in _IFD.ignored.json
+	// 2022.12.29 version 0.0.4 ACS 0-4 with structures; fixing *-* Regex for ACS#4
+	// acs.orglett.0c00788
+	// 2022.12.27 version 0.0.4 ACS 0-2 working
+	// 2022.12.27 version 0.0.4 introduces FAIRSpecCompoundAssociation
+	// 2022.12.23 version 0.0.4 fixes from ACS testing, Bruker directories with
+	// multiple numbered subdirectories adds "-<n>" to the id
+	// 2022.12.14 version 0.0.4 allows for local directory parsing (no zip or
+	// tar.gz)
+	// 2022.12.13 verison 0.0.4 adds "EXIT" and comment-only "..." for
+	// IFD-extract.json
+	// 2022.12.10 version 0.0.4 adds CDXML reading by Jmol and conversion of CIF to
+	// PNG along with Jmol 15.2.82 fixes for V3000 and XmlChemDrawReader
+	// 2022.12.01 version 0.0.4 fixes multi-page MNova with compound association
+	// (ACS 22567817#./extract/acs.joc.0c00770)
+	// 2022.11.29 version 0.0.4 allows for a representation to be both a structure
+	// and a data object
+	// 2022.11.27 version 0.0.4 adds parameters from a Metadata file as XLSX or ODS
+	// 2022.11.23 version 0.0.3 fixes missing properties in NMR; upgrades to
+	// double-precision Jmol-SwingJS JmolDataD.jar
+	// 2022.11.21 version 0.0.3 fixes minor details; ICL.v6, ACS.0, ACS.5 working
+	// adds command-line arguments, distinguishes REJECTED and IGNORED
+	// 2022.11.17 version 0.0.3 allows associations "byID"
+	// 2022.11.14 version 0.0.3 "compound identifier" as organizing association
+	// 2022.06.09 MNovaMetadataReader CDX export fails due to buffer pointer error.
+	
 
 		List<String> cliExtractorFlagList = new ArrayList<>();
 
@@ -90,7 +87,7 @@ public class IFDExtractor0 {
 			options.addOption(OptionBuilder.create("h"));
 
 			// version -v
-			OptionBuilder.withLongOpt("version");
+		OptionBuilder.withLongOpt("version");
 			OptionBuilder.withDescription("Get the current version of the IFD Extractor.");
 			options.addOption(OptionBuilder.create("v"));
 
@@ -266,7 +263,7 @@ public class IFDExtractor0 {
 
 			// file options
 
-			cliDOI = line.getOptionValue("o");
+			cliDOI = line.getOptionValue("D");
 			cliTargetDir = line.getOptionValue("T");
 			if (line.hasOption("X")) {
 				cliExtractFilePath = line.getOptionValue("X");
@@ -289,24 +286,24 @@ public class IFDExtractor0 {
 				}
 			}
 			if (testCase != null) {
+				if (cliDOI == null) {
+					throw new RuntimeException("Test cases require a DOI using --doi or -D");
+				}
 				switch (testCase) {
 				case "acs":
 					break;
 				case "dryad":
 					if (!line.hasOption("S")) {
-						System.err.print("Error: Require dryad dataset local source archive using --localSource.");
 						throw new RuntimeException(
 								"Error: Require dryad dataset local source archive using --localSource.");
 					}
 					break;
 				case "icl":
 					if (!cliIsCrawler) {
-						System.err.print("Error: The ICL source only works with --crawler.");
-						throw new RuntimeException("Error: This source only works with crawler.");
+						throw new RuntimeException("Error: This source only works with --crawler.");
 					}
 					break;
 				default:
-					System.err.print("Error: Invalid source: " + testCase);
 					throw new RuntimeException("Error: Invalid source: " + testCase);
 				}
 				cliSource = testCase;
@@ -331,7 +328,7 @@ public class IFDExtractor0 {
 			if (line.hasOption("C")) {
 				cliExtractorFlagList.add("-datacitedown");
 			}
-			if (line.hasOption("D")) {
+			if (line.hasOption("debug")) {
 				cliExtractorFlagList.add("-debugging");
 			}
 			if (line.hasOption("E")) {
@@ -383,11 +380,32 @@ public class IFDExtractor0 {
 
 		// print out the help manuals
 		private void helpManual(Options options) {
-			String header = "\nFAIRSPec Finding Aid CLI manual version " + FindingAidCreator.version + "\n" //
-					+ "Crawler: java -jar IFDExtractor.jar -W -test icl -T <TARGET_DIR> -o \"10.14469/hpc/XXXXX\" [other flags]\n" //
-					+ "Dryad: java -jar IFDExtractor.jar -test dryad -T <TARGET_DIR> -S <LOCAL_SOURCE_ARCHIVE> -o \"12345\"\n" //
-					+ "ACS: java -jar IFDExtractor.jar -test acs -T <TARGET_DIR> -S <LOCAL_SOURCE_ARCHIVE> -o 10.14469/hpc/XXXXX\n" //
-					+ "Manual: java -jar IFDExtractor.jar -h/--help\nOptions list:\n\n\n"; //
+			String header = "\nFAIRSPec Finding Aid CLI manual version " + version + "\n" //
+					+ "Using IFD-extract.json: java -jar IFDExtractor.jar " //
+					+ "--IFDExtractFile <IFD-extract.json file>" //
+					+ "--targetDir <TARGET_DIR>" //
+					+ "\n" //
+					+ "Crawler: java -jar IFDExtractor.jar --crawler " //
+					+ "--test icl " //
+					+ "--DOI \"10.14469/hpc/XXXXX\" " //
+					+ "--targetDir <TARGET_DIR> " //
+					+ "[additional flags] " //
+					+ "\n" //
+					+ "Dryad: java -jar IFDExtractor.jar " //
+					+ "--test dryad " //
+					+ "--targetDir <TARGET_DIR> " //
+					+ "--localSource <LOCAL_SOURCE_ARCHIVE> " //
+					+ "--DOI \"2bvq83c2q\" " //
+					+ "\n" //
+					+ "ACS: java -jar IFDExtractor.jar " //
+					+ "--test acs " //
+					+ "--DOI 10.14469/hpc/XXXXX " //
+					+ "--targetDir <TARGET_DIR> " //
+					+ "--localSource <LOCAL_SOURCE_ARCHIVE>" //
+					+ "\n" //
+					+ "Manual: java -jar IFDExtractor.jar " //
+					+ "--help\n" //
+					+ "Options list:\n\n\n"; //
 			String footer = "\nPlease report issues at https://github.com/IUPAC/IUPAC-FAIRSpec/issues";
 			HelpFormatter formatter = new HelpFormatter();
 			formatter.printHelp("IFDExtractor", header, options, footer, true);
@@ -407,7 +425,7 @@ public class IFDExtractor0 {
 					helpManual(options);
 					return false;
 				} else if (args[0].equals("-v") || args[0].equals("--version")) {
-					System.out.println("Finding Aid Creator version " + FindingAidCreator.version);
+					System.out.println("IFDExractor version " + version);
 					return false;
 				} else {
 					System.out.println("Please include required arguments");
@@ -429,24 +447,22 @@ public class IFDExtractor0 {
 			}
 		}
 
-	}
+	private void load() throws Exception {
 
-	private static void runCLI(CLI cli) throws Exception {
-
-		String ifdExtractFilePath = cli.cliExtractFilePath; // -X option
-		String localArchivePath = cli.cliLocalSourceArchivePath; // -S option
-		String targetDir = cli.cliTargetDir; // -T option
+		String ifdExtractFilePath = cliExtractFilePath; // -X option
+		String localArchivePath = cliLocalSourceArchivePath; // -S option
+		String targetDir = cliTargetDir; // -T option
 
 		// Include slash at the end of the output directory
 		if (!targetDir.endsWith("/")) {
 			targetDir += "/";
 		}
 		// Special case with crawler
-		if (cli.cliIsCrawler && cli.cliSource.equals("icl")) {
+		if (cliIsCrawler && cliSource.equals("icl")) {
 			List<String> crawlerArgs = new ArrayList<String>();
-			crawlerArgs.add(cli.cliDOI);
+			crawlerArgs.add(cliDOI);
 			crawlerArgs.add(targetDir);
-			for (String arg : cli.cliExtractorFlagList) {
+			for (String arg : cliExtractorFlagList) {
 				crawlerArgs.add(arg);
 			}
 			DOICrawler crawler = new DOICrawler(crawlerArgs.toArray(new String[0]));
@@ -455,7 +471,8 @@ public class IFDExtractor0 {
 			return;
 		}
 
-		targetDir += cli.cliDOI.toLowerCase() + "_out/";
+		if (cliDOI != null)
+			targetDir += cliDOI.toLowerCase() + "_out/";
 
 		// Handle the extract file path
 		
@@ -463,29 +480,32 @@ public class IFDExtractor0 {
 		
 		// note that "./" now stands for the RESOURCE in com/integrategraphics/extractor/
 
-		switch (cli.cliSource) {
+		switch (cliSource == null ? "" : cliSource) {
 		case "dryad":
 			if (ifdExtractFilePath == null)
-				ifdExtractFilePath = "./extract/dryad/" + cli.cliDOI + "/IFD-extract.json";
+				ifdExtractFilePath = "$RESOURCEDIR$/extract/dryad/" + cliDOI + "/IFD-extract.json";
 			break;
 		case "acs":
 			// for acs include the whole doi acs.*.XXXXX
-			if (ifdExtractFilePath == null)
-				ifdExtractFilePath = "./extract/" + cli.cliDOI + "/IFD-extract.json";
-			IFDExtractorImpl extractor = new IFDExtractorImpl();
-			extractor.processFlags(cli.cliExtractorFlagList.toArray(new String[0]), "");
+			if (ifdExtractFilePath == null) {
+				ifdExtractFilePath = "extract/" + cliDOI + "/IFD-extract.json";
+			}
 			// Exception handling
-			switch (cli.cliDOI) {
+			switch (cliDOI) {
 			case "acs.orgLett9b02307":
 				if (localArchivePath == null) {
 					throw new RuntimeException(
 							"Download NMR.rar from https://www.repository.cam.ac.uk/bitstreams/983933fe-6c07-4793-bf32-0d715d2d9087/download,\nrename it into acs.orglett.9b02307.NMR.rar,\nand pass the path of the folder containing this RAR file to the flag -S.");
 				}
 				localArchivePath = new File(localArchivePath).getAbsolutePath();
-				new IFDExtractorImpl().run(new File(ifdExtractFilePath).getAbsoluteFile(),
+				new IFDExtractorMain().run(new File(ifdExtractFilePath).getAbsoluteFile(),
 						new File(targetDir).getAbsoluteFile(), localArchivePath);
 				return;
 			default:
+				if (cliDOI.startsWith("[")) {
+						ExtractorTestACS.runSet(cliDOI);
+						return;
+				}
 				break;
 			}
 			break;
@@ -493,8 +513,8 @@ public class IFDExtractor0 {
 			break;
 		}
 		if (ifdExtractFilePath != null) {
-			new IFDExtractorImpl().runExtraction(ifdExtractFilePath, localArchivePath, targetDir, null,
-					String.join(" ", cli.cliExtractorFlagList));
+			new IFDExtractorMain().runExtraction(ifdExtractFilePath, localArchivePath, targetDir, null,
+					String.join(" ", cliExtractorFlagList));
 		}
 
 		// shouldn't we continue here?
@@ -510,20 +530,23 @@ public class IFDExtractor0 {
 	 * @param args [0] extractionFile.json, [1] sourcePath, [2] targetDir
 	 * 
 	 */
-	public static void main(String[] args) {
+	private static void loadExtractor(String[] args) {
 		if (args.length == 0) {
 			System.err.println("Require at least one variable");
 			return;
 		}
-		IFDExtractor0.CLI cli = new IFDExtractor0.CLI();
 		try {
+			IFDExtractor loader = new IFDExtractor();
 			// If it just prints out the help or header, quit
-			if (cli.parseCommandLine(args))
-				runCLI(cli);
+			if (loader.parseCommandLine(args))
+				loader.load();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	public static void main(String[] args) {
+		loadExtractor(args);
+	}
 
 }
