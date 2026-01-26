@@ -134,7 +134,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	 * @return a serializer
 	 */
 	private IFDSerializerI getSerializer() {
-		return new IFDDefaultJSONSerializer(true);//isByID);
+		return new IFDDefaultJSONSerializer();
 	}
 
 	private void outputListJSON(String name, File file) throws IOException {

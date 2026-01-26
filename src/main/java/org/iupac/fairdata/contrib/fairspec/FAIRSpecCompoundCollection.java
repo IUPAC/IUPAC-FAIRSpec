@@ -15,8 +15,8 @@ import org.iupac.fairdata.structure.IFDStructure;
 @SuppressWarnings("serial")
 public class FAIRSpecCompoundCollection extends IFDStructureDataAssociationCollection {
 
-	protected FAIRSpecCompoundCollection(boolean byID) {
-		super(byID);
+	protected FAIRSpecCompoundCollection() {
+		super();
 	}
 
 	@Override
@@ -27,7 +27,6 @@ public class FAIRSpecCompoundCollection extends IFDStructureDataAssociationColle
 		} else if (!ca.getDataObjectCollection().contains(data)) {
 			ca.addDataObject(data);
 		}
-		ca.setByID(byID);
 		return ca;
 	}
 

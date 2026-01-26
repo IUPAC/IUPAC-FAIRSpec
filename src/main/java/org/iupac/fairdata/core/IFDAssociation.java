@@ -23,38 +23,7 @@ import org.iupac.fairdata.common.IFDException;
 @SuppressWarnings("serial")
 public abstract class IFDAssociation extends IFDCollection<IFDCollection<? extends IFDObject<?>>> implements Comparable<IFDAssociation> {
 
-	protected boolean byID;
-
-	int intID = -1;
-
 	private List<String> typeList;
-
-	/**
-	 * From IFDAssociationCollection to pass on this information
-	 * 
-	 * @param b
-	 */
-	public void setByID(boolean b) {
-		byID = b;
-		checkIntID();
-	}
-
-		
-	private void checkIntID() {
-		if (byID && id != null && intID < 0) {
-			intID = 0;
-			for (int i = 0, n = id.length(); i < n; i++) {
-				char c = id.charAt(i);
-				if (c >= '0' && c <= '9') {
-					intID = intID * 10 + ((int) (c - '0'));
-				} else {
-					intID = 0;
-					break;
-				}
-			}
-		}
-	}
-
 
 	@SafeVarargs
 	protected IFDAssociation(String type, IFDCollection<IFDObject<?>>... collections) throws IFDException {
@@ -68,10 +37,6 @@ public abstract class IFDAssociation extends IFDCollection<IFDCollection<? exten
 	@Override
 	public void setID(String id) {
 		super.setID(id);
-		if (byID) {
-			intID = -1;
-			checkIntID();
-		}
 	}
 
 	/**
@@ -131,7 +96,7 @@ public abstract class IFDAssociation extends IFDCollection<IFDCollection<? exten
 	}
 
 	/**
-	 * Set the type list ["structures", "spectra"] for serialization if byID.
+	 * Set the type list ["structures", "spectra"].
 	 * 
 	 * @param list
 	 */
@@ -159,10 +124,10 @@ public abstract class IFDAssociation extends IFDCollection<IFDCollection<? exten
 	
 	@Override
 	public int compareTo(IFDAssociation o) {
-		if (!byID || id == null || o.id == null)
+		if (id == null || o.id == null)
 			return Integer.compare(index, o.index);
-		if (intID > 0 && o.intID > 0)
-				return Integer.compare(intID, o.intID);
+//		if (intID > 0 && o.intID > 0)
+//				return Integer.compare(intID, o.intID);
 		return id.compareTo(o.getID());
 	}
 
@@ -171,11 +136,7 @@ public abstract class IFDAssociation extends IFDCollection<IFDCollection<? exten
 		// this class should serialize as a raw list of lists, without {....}
 		if (size() == 0)
 			return;
-		if (byID) {
-			serializer.addObject("itemsByID", getMyIDList());
-		} else {
-			serializer.addObject("items", getMyIndexList());			
-		}
+		serializer.addObject("itemsByID", getMyIDList());
 	}
 	
 	@Override

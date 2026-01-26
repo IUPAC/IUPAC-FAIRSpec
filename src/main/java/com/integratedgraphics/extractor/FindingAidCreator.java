@@ -65,7 +65,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 
 //	final protected boolean isByID = true; // forcing
 
-    final protected boolean isByIDSet = true;
+//    final protected boolean isByIDSet = true;
 
 	/**
 	 * set true to only create finding aides, not extract file data

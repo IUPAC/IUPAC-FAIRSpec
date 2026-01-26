@@ -376,11 +376,10 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 							|| key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_ID)) {
 						faHelper.getFindingAid().setID(ifdid = val);
 					}
-//					if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_FIELD_BYID)) {
-//						log("!byID flag is deprecated; always true");
-//						setExtractorOption(key, val);
-//						continue;
-//					}
+					if (key.indexOf(".byid") >=0) {
+						log("!byID flag is deprecated; always true: ");
+						continue;
+					}
 					faHelper.getFindingAid().setPropertyValue(key, val);
 					if (keyDef == null)
 						continue;

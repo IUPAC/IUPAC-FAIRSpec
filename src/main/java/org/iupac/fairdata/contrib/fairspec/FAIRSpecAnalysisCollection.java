@@ -17,15 +17,14 @@ import org.iupac.fairdata.structure.IFDStructure;
 @SuppressWarnings("serial")
 public class FAIRSpecAnalysisCollection extends IFDStructureDataAnalysisAssociationCollection	 {
 
-	protected FAIRSpecAnalysisCollection(boolean byID) {
-		super(byID);
+	protected FAIRSpecAnalysisCollection() {
+		super();
 	}
 
 	@Override
 	public FAIRSpecAnalysisAssociation addAssociation(IFDStructure struc, IFDDataObject data, IFDAnalysisObject analysis) throws IFDException {
 		FAIRSpecAnalysisAssociation ca = newAssociation(struc, data, analysis);
 			add(ca);
-		ca.setByID(byID);
 		return ca;
 	}
 

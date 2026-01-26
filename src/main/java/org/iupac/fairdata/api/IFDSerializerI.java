@@ -13,7 +13,7 @@ public interface IFDSerializerI {
 
 	void addAttrInt(String key, long ival);
 
-	void addCollection(String key, IFDCollection<? extends IFDObject<?>> collection);//, boolean byID);
+	void addCollection(String key, IFDCollection<? extends IFDObject<?>> collection);
 
 	void addList(String key, List<?> value);
 

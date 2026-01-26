@@ -14,8 +14,8 @@ import org.iupac.fairdata.structure.IFDStructure;
 @SuppressWarnings({ "serial" })
 public class IFDSampleStructureAssociationCollection extends IFDAssociationCollection {
 
-	public IFDSampleStructureAssociationCollection(boolean byID) {
-		super(null, null, byID);
+	public IFDSampleStructureAssociationCollection() {
+		super(null, null);
 	}
 
 	public IFDSampleStructureAssociation addAssociation(IFDSample sample, IFDStructure structure) throws IFDException {
@@ -25,7 +25,6 @@ public class IFDSampleStructureAssociationCollection extends IFDAssociationColle
 		} else if (!ssa.getStructureCollection().contains(structure)) {
 			ssa.getStructureCollection().add(structure);
 		}
-		ssa.setByID(byID);
 		return ssa;
 	}
 

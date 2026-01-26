@@ -341,7 +341,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 			return currentStructure;
 		case ClassTypes.DataObject:
 			if (currentDataObject == null) {
-				if (IFDConst.isID(param) && byId) {
+				if (IFDConst.isID(param)) {
 					currentDataObject = (IFDDataObject) checkAddNewObject(getSpecCollection(), type, rootPath, param,
 							value, localizedName, currentOriginPath, len, false);
 					if (currentDataObject != null)

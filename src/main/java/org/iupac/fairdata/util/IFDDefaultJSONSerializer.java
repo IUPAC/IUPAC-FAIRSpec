@@ -19,14 +19,7 @@ import org.iupac.fairdata.core.IFDObject;
  */
 public class IFDDefaultJSONSerializer implements IFDSerializerI {
 
-	/**
-	 * Everything is "byID" now. This was an early idea to allow arrays or hashmap for the lists, 
-	 * but it proved too complicated, and the array indexes in Compounds were just too opaque.
-	 * 
-	 * @param byIDIgnored
-	 */
-	public IFDDefaultJSONSerializer(boolean byIDIgnored) {
-		// deprecated
+	public IFDDefaultJSONSerializer() {
 	} 
 
 	private Obj thisObj;
@@ -111,11 +104,7 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 	}
 	
 	@Override
-	public void addCollection(String key, IFDCollection<? extends IFDObject<?>> list) {//, boolean byID) {
-//		if (!byID) {
-//			addList(key, list);
-//			return;
-//		}
+	public void addCollection(String key, IFDCollection<? extends IFDObject<?>> list) {
 		thisObj.appendKey(key);
 		String sep = "";
 		thisObj.append("{");

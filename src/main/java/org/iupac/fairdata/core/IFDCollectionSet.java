@@ -22,7 +22,6 @@ import org.iupac.fairdata.common.IFDConst;
 public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>> {
 
 	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_COLLECTIONSET_FLAG);
-	//private boolean byID = true; // making byID the default for IFDCollectionSet
 	private IFDResource resource;
 	
 	@Override
@@ -38,10 +37,6 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 		super(label, type);
 		setProperties(propertyPrefix, null);
 	}
-	
-//	public void setById(boolean b) {
-//		byID = b;
-//	}
 	
 	public void setResource(IFDResource resource) {
 		this.resource = resource;
@@ -93,7 +88,6 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 		if (resource != null) {
 			serializer.addAttr("resourceID", resource.getID());
 		}
-		// always true serializer.addAttrBoolean("byID", byID);
 	}
 
 	@Override
@@ -112,10 +106,8 @@ public class IFDCollectionSet extends IFDCollection<IFDCollection<IFDObject<?>>>
 		}
 		if (list.size() > 0)
 			serializer.addCollection(
-					//(byID ? 
 					"itemsByID"
-					//: "items")
-					, list);//, byID);
+					, list);
 	}
 
 	public void getContents(Map<String, Object> map) {

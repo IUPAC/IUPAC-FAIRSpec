@@ -1352,7 +1352,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 			rdr.process();
 			System.out.println("MNova file closed for " + filename);
 			if (rdr.reportData != null) {
-				IFDDefaultJSONSerializer serializer = new IFDDefaultJSONSerializer(false);
+				IFDDefaultJSONSerializer serializer = new IFDDefaultJSONSerializer();
 				serializer.openObject();
 				serializer.addObject("MNova.metadata", rdr.reportData);
 				String json = serializer.closeObject();

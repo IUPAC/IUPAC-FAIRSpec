@@ -299,7 +299,6 @@
    	  "def_collectionSet" : {
           "type": "object",
           "required": [
-            "resourceID",
             "propertyPrefix",
             "ifdProperties",
             "itemsByID"
@@ -540,8 +539,8 @@
               }
             },
             "attributes": {           	
-              "unevaluatedProperties": false,
-              "$ref": "#/$defs/def_attributes"                          
+                "unevaluatedProperties": false,
+                "$ref": "#/$defs/def_attributes"                          
             },
             "exptMethod": {
               "type": "string"
@@ -563,7 +562,6 @@
           "required": [
             "itemsByID"
             ],
-            "unevaluatedProperties": false,
             "properties": {
               "ifdType": {
                 "type": "string",
