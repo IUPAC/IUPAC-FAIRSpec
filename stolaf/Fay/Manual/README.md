@@ -76,7 +76,7 @@ PARENT_DIRECTORY={YOUR_LOCAL_DIRECTORY_TO_STORE_DOWLOAD_FILE_INCLUDING_SLASH_AT_
 
 3. Set the configuration for the test 
 
-![Set the name for the test as CLI_Test and choose the main class com.integratedgraphics.extractor.IFDExtractor0](CLI3.png)
+![Set the name for the test as CLI_Test and choose the main class com.integratedgraphics.extractor.IFDExtractor](CLI3.png)
 
 4. Argument choices:
 
