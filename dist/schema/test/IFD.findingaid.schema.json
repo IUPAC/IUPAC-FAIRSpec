@@ -602,6 +602,14 @@
     "def_structure": {
       "type": "object",
       "properties": {
+        "ifdType": {
+          "type": "string",
+          "const": "org.iupac.fairdata.structure.IFDStructure"
+        },
+        "ifdTypeExtends": {
+          "type": "string",
+          "const": "org.iupac.fairdata.core.IFDRepresentableObject"
+        },
         "note": {
           "description": "",
           "type": "string"
