@@ -26,7 +26,7 @@ import com.integratedgraphics.test.ExtractorTestACS;
  */
 class IFDExtractor {
 
-	public static final String version = "0.1.2-beta+2026.01.25";
+	public static final String version = "0.1.2+2026.01.25";
 	// 2026.01.25 version 0.1.2-beta refactored and much improved; adds CLI and timestamp-merging of NMR data
 	// 2025.07.24 version 0.1.0-beta with FAIRSpec-ready paper
 	// 2025.02.17 version 0.0.7-beta integrates the crawler

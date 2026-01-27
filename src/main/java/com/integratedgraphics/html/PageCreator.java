@@ -3,6 +3,7 @@ package com.integratedgraphics.html;
 import java.io.File;
 
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+import org.iupac.fairdata.contrib.fairspec.schema.FAIRSpecSchemaGenerator;
 
 /**
  * Create a test site for a finding aid. Just transfers files from site/* and optionally launch it.
@@ -18,6 +19,7 @@ public class PageCreator {
 	
 	private final static String ifdConfigJS = "_IFD_config.js";
 	private final static String ifdFindingAidsJS = "_IFD_findingaids.js";
+	public final static String ifdFindingAidSchema = FAIRSpecSchemaGenerator.IDF_SCHEMA_FILE;
 
 	private final static String[] files = {
 			"assets/core_fairspec.z.js",
@@ -29,17 +31,22 @@ public class PageCreator {
 			"assets/spinner.gif",
 			ifdConfigJS,
 			ifdFindingAidsJS,
+			ifdFindingAidSchema,
 			"index.htm",
 	};
 
-	public static void buildSite(File htmlPath, boolean isLocal, String baseDir, boolean doLaunch) throws Exception {
+	public static void buildSite(File htmlPath, boolean isLocal, String baseDir, String schema, boolean doLaunch) throws Exception {
 		if (htmlPath == null)
 			return;
 		new File(htmlPath, "assets").mkdirs();
 		for (int i = files.length; --i >= 0;) {
-			byte[] bytes = FAIRSpecUtilities.getResourceBytes(PageCreator.class, "site/" + files[i]);
+			byte[] bytes = (files[i] == ifdFindingAidSchema ? null : FAIRSpecUtilities.getResourceBytes(PageCreator.class, "site/" + files[i]));
 			String sbytes = null;
-			if (files[i] == ifdConfigJS) {
+			if (files[i] == ifdFindingAidSchema) {
+				if (schema == null)
+					continue;
+				sbytes = schema;
+			}else if (files[i] == ifdConfigJS) {
 				if (!isLocal)
 					sbytes = new String(bytes).replace("true", "false");
 				if (baseDir != null) {
@@ -69,7 +76,7 @@ public class PageCreator {
 
 	public final static void main(String[] args) {
 		try {
-			PageCreator.buildSite(new File("C:/temp/tpc"), true, null, true);
+			PageCreator.buildSite(new File("C:/temp/tpc"), true, null, null, true);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -159,7 +159,7 @@ public class ExtractorTestACS extends ExtractorTest {
 			File htmlPath = new File(targetDir0);
 			try {
 				if (json != null)
-					PageCreator.buildSite(htmlPath, true, null, false);
+					extractor.buildSite(htmlPath, null, false);
 				((FindingAidCreator) extractor).setTargetPath(htmlPath);
 				extractor.finalizeExtraction(json, n, failed, nWarnings, nErrors, sflags);
 			} catch (Exception e) {

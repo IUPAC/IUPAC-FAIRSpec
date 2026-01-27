@@ -868,7 +868,7 @@ public class DOICrawler extends FindingAidCreator {
 			processRecords(null, doiList);
 			String aid = faHelper.generateFindingAid(targetPath);
 			if (aid != null && createLandingPage) {
-				buildSite(null);
+				buildSite(null, baseDir, launchLandingPage);
 			}
 
 		} catch (Throwable e) {

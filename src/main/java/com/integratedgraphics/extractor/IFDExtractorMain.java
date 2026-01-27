@@ -283,7 +283,7 @@ public class IFDExtractorMain extends IFDExtractorLayer3 {
 		htmlPath = (insitu ? new File(extractScriptFileDir) : targetPath);
 
 		if (assetsOnly && !insitu) {
-			buildSite(null);
+			buildSite(null, baseDir, launchLandingPage);
 			return;
 		}
 
@@ -315,7 +315,7 @@ public class IFDExtractorMain extends IFDExtractorLayer3 {
 	private void buildLandingPage(String serializedFA, File htmlPath) throws IOException {
 		if (insitu)
 			FAIRSpecUtilities.writeBytesToFile(serializedFA.getBytes(), new File(htmlPath, "IFD.findingaid.json"));
-		buildSite(htmlPath);
+		buildSite(htmlPath, baseDir, launchLandingPage);
 	}
 
 }

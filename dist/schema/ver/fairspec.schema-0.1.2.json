@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft/2020-12/schema#",
-  "$id": "https://iupac.github.io/IUPAC-FAIRSpec/schema/fairspec.findingaid.schema.0.1.0.json",
+  "$id": "https://iupac.github.io/IUPAC-FAIRSpec/schema/fairspec.schema.0.1.2.json",
 
   "required": [
     "IUPAC.FAIRSpec.findingAid"
@@ -31,14 +31,14 @@
             },
             "schema": {
               "description": "the schema used to create this IUPAC FAIRSpec Finding Aid",
-              "const": "fairspec.schema-0.1.2-beta+2026.01.25.json"
+              "const": "https://iupac.github.io/IUPAC-FAIRSpec/schema/fairspec.schema.0.1.2.json"
             },
             "id": {
               "$ref": "#/$defs/def_field_id"
             },
             "version": {
               "description": "the version of this IFD Finding Aid,for example : IFD 0.0.5-alpha+2024.11.04;FAIRSpec 0.0.5-alpha+2024.11.04",
-              "const": "IFD 0.1.2-beta+2026.01.25;FAIRSpec 0.1.2-beta+2026.01.25"
+              "const": "IFD 0.1.2+2026.01.25;FAIRSpec 0.1.2+2026.01.25"
             },
             "created": {
               "description": "date and time of creation ISO 8601 date+time (UTC), for example: 2025-04-17T18:55Z",
@@ -80,8 +80,7 @@
                             "count": {
                               "type": "integer"
                             }
-                          },
-                          "$comment" : "END contents.samples"
+                          }
                       },
                       {
                         "type": "object",
@@ -106,8 +105,7 @@
                             "count": {
                               "type": "integer"
                             }
-                          },
-                          "$comment" : "END def_contents.structures"
+                          }
                       },
                       {
                         "type": "object",
@@ -122,7 +120,7 @@
                               "const": "org.iupac.fairdata.dataobject.IFDDataObjectCollection"
                             },
                             "ifdTypeExtends": {
-                              "type": "string",
+                              "type": "string",                              
                               "const": "org.iupac.fairdata.core.IFDCollection"
                             },
                             "id": {
@@ -132,8 +130,7 @@
                             "count": {
                               "type": "integer"
                             }
-                          },
-                          "$comment" : "END contents.spectra"
+                          }
                       },
                       {
                         "type": "object",
@@ -158,8 +155,7 @@
                             "count": {
                               "type": "integer"
                             }
-                          },
-                          "$comment" : "END contents.compounds"
+                          }
                       },
                       {
                         "type": "object",
@@ -184,8 +180,7 @@
                             "count": {
                               "type": "integer"
                             }
-                          },
-                          "$comment" : "END contents.analyses"
+                          }
                       }
                       ]
                   }
@@ -198,8 +193,7 @@
                   "description": "count of resources referenced in this finding aid",
                   "type": "integer"
                 }
-              },
-              "$comment" : "END contents"
+              }
             },
             "relatedItems": {
               "type": "array",
@@ -242,12 +236,9 @@
                         "type": "string"
                       }
                     }
-                  },
-                  "$comment" : "END properties"
-                },
-                "$comment" : "END items"
-              },
-              "$comment" : "END relatedItems"
+                  }
+                }
+              }
             },
             "resources": {
               "type": "object",
@@ -270,28 +261,20 @@
                       },
                       "len": {
                         "type": "number"
-                      },
-                      "$comment" : "END properties"
-                    },
-                    "$comment" : "END patternProperty"
-                },
-                "$comment" : "END patternProperties"
-              },
-              "$comment" : "END resources"
+                      }
+                    }
+                }
+              }
             },
             "collectionSet": {
               "unevaluatedProperties": false,
               "$ref": "#/$defs/def_collectionSet"
-            },
-            "$comment" : "END properties"
-          },
-          "$comment" : "END IUPAC.FAIRSpec.findingAid"
-      },
-      "$comment" : "END properties"
+            }
+          }
+      }
     },
     "$defs": {
       "def_field_id": {
-        "$comment" : "actually this does not work",
         "description": "an optional unique identifier, for example, a compound number such as 38b or a DOI such as 10.14469/hpc/14635 must not start nor end in a space character",
         "type": "string",
         "pattern": "^[a-zA-Z0-9_+\\-/*.,()\\[\\]]+([ ][a-zA-Z0-9_+\\-/*.,()\\[\\]]+)*$"
@@ -324,8 +307,6 @@
                 "unevaluatedProperties": false,
                 "properties": {
                   
-"len":{"type" : "string"},
-"ref":{"type" : "string"},
 "source_data_doi":{"type" : "string"},
 "source_data_dois":{"type" : "string"},
 "source_data_license_name":{"type" : "string"},
@@ -361,12 +342,9 @@
                   "analyses": {
                     "$ref": "#/$defs/def_analyses"
                   }
-                },
-                "$comment" : "END properties"
-              },
-              "$comment" : "END itemsByID"
-            },
-            "$comment" : "END collectionSet"
+                }
+              }
+            }
       },
       "def_structures": {
           "type": "object",
@@ -428,24 +406,13 @@
                           "items" : {
                             "unevaluatedProperties": false,
                             "$ref": "#/$defs/def_representationItem"                          
-                          },
-                          "$comment" : "END representations"
-                      },
-                      "$comment" : "END properties"
-                    },
-
-                    "$comment" : "END patternProperty"
-                  },
-
-                  "$comment" : "END patternProperties"
-                },
-
-                "$comment" : "END itemsByID"
-              },
-              "$comment" : "END properties"
-            },
-
-            "$comment" : "end structures"
+                          }
+                      }
+                    }
+                  }
+                }
+              }
+            }
       },
       "def_spectra" : {
       "type": "object",
@@ -462,12 +429,10 @@
             "const": "org.iupac.fairdata.core.IFDCollection"
           },
           "itemType": {
-            "type": "string",
-            "$comment": "^org.iupac.fairdata\\.contrib\\.fairspec\\.dataobject\\.*"  
+            "type": "string"
           },
           "itemTypeExtends": {
-            "type": "string",
-            "$comment": "org\\.iupac\\.fairdata\\.contrib\\.fairspec\\.dataobject\\.FAIRSpecDataObject;org\\.iupac\\.fairdata\\.dataobject\\.IFDDataObject;org\\.iupac\\.fairdata\\.core\\.IFDRepresentableObject"
+            "type": "string"
           },
           "itemsByID": {
             "type": "object",   
@@ -476,15 +441,10 @@
               "^.+" : {
                   "unevaluatedProperties": false,
                   "$ref": "#/$defs/def_spectrum"                          
-              },
-              "$comment" : "END patternProperties"
-            },
-
-            "$comment" : "END itemsByID"
-          },
-          "$comment" : "END properties"
-        },
-        "$comment" : "END spectra"       
+              }
+            }
+          }
+        }
       },
       "def_spectrum" : {
           "type": "object",
@@ -508,7 +468,6 @@
               "unevaluatedProperties": false,
               "properties": {
                 
-"originating_sample_id":{"type" : "string"},
 "ir.instr_manufacturer_name":{"type" : "string"},
 "ms.instr_manufacturer_name":{"type" : "string"},
 "nmr.expt_date_time_acquired":{"type" : "string"},
@@ -550,12 +509,9 @@
                 "items" : {
                   "unevaluatedProperties": false,
                   "$ref": "#/$defs/def_representationItem"                          
-                },
-                "$comment" : "END representations"
-            },
-            "$comment" : "END properties"
-          },
-          "$comment" : "END patternProperty"    	  
+                }
+            }
+          }
       },
       "def_compounds" : {
           "type": "object",
@@ -582,10 +538,8 @@
               "itemsByID": {
                 "unevaluatedProperties": false,
                 "$ref": "#/$defs/def_compoundItem"                       
-              },
-              "$comment" : "END properties"
-            },
-            "$comment" : "END compounds"
+              }
+            }
         },
       "def_compoundItem" : {
           "type": "object",
@@ -623,18 +577,12 @@
                       "items": {
                         "$ref": "#/$defs/def_field_id"
                       }
-                    },
-                    "$comment" : "END properties"
-                  },
-                  "$comment" : "END itemsByID"
-                },
-                "$comment" : "END properties"
-              },
-              "$comment" : "END patternProperty"
-            },
-            "$comment" : "END patternProperties"
-          },
-          "$comment" : "END compoundItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
       },
       "def_attributes" : {
           "type": "object",
@@ -646,8 +594,7 @@
                 "number"
                 ]
             }
-          },
-          "$comment" : "END attributes"
+          }
       },
       "def_representationItem" : {
     	  	"type": "object",
@@ -692,16 +639,15 @@
                   },
                   "localPath": {
                     "type": "string"
-                  },
-                  "$comment" : "END properties"
+                  }
                 }
-              },
-              "$comment" : "END properties"
-            },
-            "$comment" : "END items"
+              }
+            }
       },
-      "$comment" : "END $defs"
-    },
-    "$comment" : "END"
+      "def_samples": {
+      },
+      "def_analyses": {
+      }
+    }
 
 }

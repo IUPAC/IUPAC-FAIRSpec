@@ -23,6 +23,12 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
  */
 public class FAIRSpecSchemaGenerator {
 
+	public static final String IDF_SCHEMA_FILE = "IFD.findingaid.schema.json";
+
+	private static final String SCHEMA_TEMPLATE_FILE = "fairspecSchemaTemplate.json";
+
+	private static final String schemaRoot = "https://iupac.github.io/IUPAC-FAIRSpec/schema/fairspec.schema.";
+
 	private static final int COMMENT = -1;
 	private static final int IGNORE = 0;
 	private static final int VALUE = 1;
@@ -30,19 +36,29 @@ public class FAIRSpecSchemaGenerator {
 	private static final int REPRESENTATION = 3;
 	private static final String TYPE_STRING = "\"type\" : \"string\"";
 
+
 	private static boolean debugging = true;
 
 	
-	Map<String, String> mapProps;
-	Map<String, String> mapReps;
-	Map<String, String> mapValues;
+	private Map<String, String> mapProps;
+	private Map<String, String> mapReps;
+	private Map<String, String> mapValues;
+
+	public static String getSchemaURI(String pval) {
+		if (pval == null)
+			pval = IFDConst.getProp("FAIRSPEC_VERSION");
+		int pt = pval.indexOf("+");
+		if (pt > 0)
+			pval = pval.substring(0, pt);
+		return schemaRoot +  pval + ".json";
+	}
 
 	private FAIRSpecSchemaGenerator(String schemaTemplateFile, String schemaOutputDir) throws Exception {
 		String schemaTemplate;
 		if (schemaTemplateFile == null) {
-			URL url = getClass().getResource("fairspecSchemaTemplate.json");
+			URL url = getClass().getResource(SCHEMA_TEMPLATE_FILE);
 			schemaTemplateFile = url.toString().substring(6).replace('\\', '/').replace("/bin/", "/src/main/resources/");
-			schemaTemplate = FAIRSpecUtilities.getResource(getClass(), "fairspecSchemaTemplate.json");
+			schemaTemplate = FAIRSpecUtilities.getResource(getClass(), SCHEMA_TEMPLATE_FILE);
 		} else {
 			schemaTemplate = FAIRSpecUtilities.getFileStringData(new File(schemaTemplateFile));
 		}
@@ -50,8 +66,8 @@ public class FAIRSpecSchemaGenerator {
 			schemaOutputDir = new File(schemaTemplateFile).getParent();
 		}
 		new File(schemaOutputDir + "/").mkdirs();
-		String schema = generateSchema(schemaTemplate);
-		File f = new File(schemaOutputDir, "fairspec.findingaid.schema.json");
+		String schema = stripComments(generateSchema(schemaTemplate));
+		File f = new File(schemaOutputDir, IDF_SCHEMA_FILE);
 		FAIRSpecUtilities.putToFile(schema.getBytes(), f);
 		
 		System.out.println("done " + f.getAbsolutePath());
@@ -61,8 +77,8 @@ public class FAIRSpecSchemaGenerator {
 	private String generateSchema(String schemaTemplate) {
 		FAIRSpecFindingAid.loadProperties();
 		getMaps();
-		int pt;
-		while ((pt = schemaTemplate.indexOf("_$")) >= 0) {
+		int pt = 0;
+		while ((pt = schemaTemplate.indexOf("_$", pt)) >= 0) {
 			int pt1 = schemaTemplate.indexOf("$_", pt + 2);
 			String schemaVariable = schemaTemplate.substring(pt + 2, pt1);
 			Map<String, String> map;
@@ -97,7 +113,7 @@ public class FAIRSpecSchemaGenerator {
 				// "_$IFD.property...$_" : {"type":"string"}
 				// "_$IFD.representation...$_" : {"type":"string"}
 				pt1 = schemaTemplate.indexOf("}", pt1) + 1;
-				pt--; // "
+				pt--;
 				break;
 			case VALUE:
 				// ..._$XXXX$_...
@@ -105,6 +121,7 @@ public class FAIRSpecSchemaGenerator {
 				break;
 			}			
 			schemaTemplate = schemaTemplate.substring(0, pt) + s + schemaTemplate.substring(pt1);
+			pt += s.length();
 		}
 		return schemaTemplate;
 	}
@@ -122,8 +139,9 @@ public class FAIRSpecSchemaGenerator {
 		  case IGNORE:
 			  break;
 		  case PROPERTY:
-			  if (IFDConst.IFD_OBJECT_FIELDS.indexOf(";" + val + ";") < 0)
+			  if (IFDConst.IFD_OBJECT_FIELDS.indexOf(";" + val + ";") < 0) {
 				  mapProps.put(key, val);
+			  }
 			  break;
 		  case REPRESENTATION:
 			  mapReps.put(key, val);
@@ -140,7 +158,7 @@ public class FAIRSpecSchemaGenerator {
 		}
 	}
 
-	private void dumpMap(Map<String, String> map, int type) {
+	private static void dumpMap(Map<String, String> map, int type) {
 		String pre = (type == PROPERTY ? "P " : type == REPRESENTATION ? "R " : "V ");
 		for (Entry<String, String> e : map.entrySet()) {
 			System.out.println(pre + " " + e.getKey() + " = " + e.getValue());
@@ -149,7 +167,7 @@ public class FAIRSpecSchemaGenerator {
 	
 	private static int getJavaPropertyType(String key, String val) {
 		boolean isFlag = (val.startsWith(".") || val.endsWith("."));
-		if (isFlag || key.indexOf("_EXTRACTOR_") >= 0)
+		if (isFlag || key.indexOf("_EXTRACTOR_") >= 0 || key.indexOf(".FIELD_") >= 0)
 			return IGNORE;
 		if (key.indexOf("_PROPERTY_") >= 0)
 			return PROPERTY;
@@ -163,10 +181,20 @@ public class FAIRSpecSchemaGenerator {
 				: var.indexOf(".representation.") >= 0 ? REPRESENTATION : VALUE);
 	}
 
-	private String fillValue(String schemaVariable, int type, Map<String, String> map) {
+	private static String fillValue(String schemaVariable, int type, Map<String, String> map) {
 		String s = "";
 		if (map == null)
 			return s;
+		if (type == VALUE) {
+			boolean isSchemaJSON = schemaVariable.equals("FAIRSPEC_SCHEMA_JSON");
+			String pval = map.get(isSchemaJSON ? "FAIRSPEC_VERSION" : schemaVariable);
+			if (pval == null)
+				throw new RuntimeException("value was not found :" + schemaVariable);
+			if (isSchemaJSON) {
+				pval = getSchemaURI(pval);
+			}
+			return pval;
+		}
 		int ptSubtype = schemaVariable.indexOf('/');
 		String subtype = (ptSubtype < 0 ? null : schemaVariable.substring(ptSubtype + 1));
 		if (ptSubtype > 0) {
@@ -174,27 +202,21 @@ public class FAIRSpecSchemaGenerator {
 		}
 		for (Entry<String, String> e : map.entrySet()) {
 			String pval = e.getValue();
-			String pkey = (type == VALUE ? e.getKey() : pval);
-			if (pkey.indexOf(schemaVariable) >= 0) {
+			if (pval.indexOf(schemaVariable) >= 0) {
 				switch (type) {
 				case PROPERTY:
-					s += addProperty(schemaVariable, pval, subtype) + ",\n";
+					s += addProperty(schemaVariable, pval, subtype);
 					break;
 				case REPRESENTATION:
-					s += addRep(schemaVariable, pval, subtype) + ",\n";
+					s += addRep(schemaVariable, pval, subtype);
 					break;
-				case VALUE:
-					return e.getValue();
 				}
 			}
-		}
-		if (type == VALUE) {
-		   throw new RuntimeException("value was not found :" + schemaVariable);
 		}
 		return (s.length() == 0 ? "" : "\n" + s.substring(0, s.length() - 2) + "\n");
 	}
 
-	private String addProperty(String var, String val, String subtype) {
+	private static String addProperty(String var, String val, String subtype) {
 		int ptKey = val.indexOf(var);
 		int ptSchema = val.indexOf("#|");
 		String key = trim(val);
@@ -205,7 +227,7 @@ public class FAIRSpecSchemaGenerator {
 		if (subtype != null && key.startsWith(subtype))
 			key = key.substring(subtype.length() + 1);
 		String schema = (ptSchema > 0 ? val.substring(ptSchema + 2).trim() : TYPE_STRING);
-		return "\"" + key + "\":{" + schema + "}";
+		return "\"" + key + "\":{" + schema + "},\n";
 	}
 
 	private static String trim(String val) {
@@ -214,7 +236,7 @@ public class FAIRSpecSchemaGenerator {
 			val.substring(0, pt)).trim();
 	}
 
-	private String addRep(String var, String val, String subtype) {
+	private static String addRep(String var, String val, String subtype) {
 		// val: IFD.representation.dataobject.fairspec.ir.spectrum_peaklist
 		var = var.substring(4); // remove rep.
 		int ptSchema = val.indexOf("|");
@@ -225,7 +247,7 @@ public class FAIRSpecSchemaGenerator {
 		if (subtype != null && key.startsWith(subtype))
 			key = key.substring(subtype.length() + 1);
 		String schema = (ptSchema > 0 ? val.substring(ptSchema + 1) : TYPE_STRING);		
-		return "\"" + key + "\":{" + schema + "}";
+		return "\"" + key + "\":{" + schema + "},\n";
 	}
 	
 	public final static void main(String[] args) {
@@ -263,4 +285,18 @@ public class FAIRSpecSchemaGenerator {
 			System.err.println("failed");
 		}
 	}
+	
+	private static String stripComments(String schema) {
+		schema = schema.replaceAll("\r\n", "\n");
+		int pt = 0;
+		while ((pt = schema.indexOf("\"$comment")) >= 0) {
+			int pt0 = schema.lastIndexOf('\n', pt);
+			if (schema.charAt(pt0 -1) == ',')
+				pt0--;
+			schema = schema.substring(0, pt0) + schema.substring(schema.indexOf('\n', pt));
+		}
+		return schema;
+	}
+
+
 }

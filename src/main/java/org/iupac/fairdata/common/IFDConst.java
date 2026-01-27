@@ -184,9 +184,10 @@ public class IFDConst {
 
 	public static final String IFD_FINDINGAID = getProp("IFD_FINDINGAID");
 
-//	public static final String IFD_PROPERTY_COLLECTIONSET_FIELD_BYID = IFDConst.getProp("IFD_PROPERTY_COLLECTIONSET.FIELD_BYID");
-	public static final String IFD_PROPERTY_COLLECTIONSET_FIELD_REF = getProp("IFD_PROPERTY_COLLECTIONSET.FIELD_REF");
-	public static final String IFD_PROPERTY_COLLECTIONSET_FIELD_LEN = getProp("IFD_PROPERTY_COLLECTIONSET.FIELD_LEN");
+// deprecated -- byid is always TRUE, and len and ref are replaced by resourceID	
+//	public static final String IFD_PROPERTY_COLLECTIONSET_BYID = IFDConst.getProp("IFD_PROPERTY_COLLECTIONSET.BYID");
+//	public static final String IFD_PROPERTY_COLLECTIONSET_REF = getProp("IFD_PROPERTY_COLLECTIONSET.REF");
+//	public static final String IFD_PROPERTY_COLLECTIONSET_LEN = getProp("IFD_PROPERTY_COLLECTIONSET.LEN");
 
 	public static final String IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_NAME = getProp(
 			"IFD_PROPERTY_COLLECTIONSET.SOURCE_DATA_LICENSE_NAME");

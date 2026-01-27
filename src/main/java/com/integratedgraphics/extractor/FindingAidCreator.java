@@ -21,6 +21,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+import org.iupac.fairdata.contrib.fairspec.schema.FAIRSpecSchemaGenerator;
 import org.iupac.fairdata.core.IFDFindingAid;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
@@ -499,13 +500,13 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		return getHelper().getFindingAid();
 	}
 
-	protected void buildSite(File htmlPath) {
+	public void buildSite(File htmlPath, String baseDir, boolean launchLandingPage) {
 		if (htmlPath == null)
 			htmlPath = targetPath;
 		try {
-			PageCreator.buildSite(htmlPath, true, baseDir, launchLandingPage);
+			String schema = FAIRSpecUtilities.getResource(FAIRSpecSchemaGenerator.class, FAIRSpecSchemaGenerator.IDF_SCHEMA_FILE);
+			PageCreator.buildSite(htmlPath, true, baseDir, schema, launchLandingPage);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -813,7 +814,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			"_IFD_fileURLMap.txt",
 			"_IFD_config.js",
 			"_IFD_findingaids.js",
-			
+			FAIRSpecSchemaGenerator.IDF_SCHEMA_FILE,		
 			"crawler.log",
 			"extractor.log",			
 	};
