@@ -601,6 +601,11 @@
     },
     "def_structure": {
       "type": "object",
+      "required": [
+        "propertyPrefix",
+        "ifdProperties",
+        "representations"
+      ],
       "properties": {
         "ifdType": {
           "type": "string",
