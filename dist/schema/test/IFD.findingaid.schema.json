@@ -279,7 +279,7 @@
         "type": "string",
         "pattern": "^[a-zA-Z0-9_+\\-/*.,()\\[\\]]+([ ][a-zA-Z0-9_+\\-/*.,()\\[\\]]+)*$"
       },      
-      "def_collectionSet" : {
+   	  "def_collectionSet" : {
           "type": "object",
           "required": [
             "propertyPrefix",
@@ -397,7 +397,7 @@
 
                         }
                       },
-                      "attributes": {               
+                      "attributes": {           	
                           "unevaluatedProperties": false,
                           "$ref": "#/$defs/def_attributes"                          
                       },
@@ -497,7 +497,7 @@
 
               }
             },
-            "attributes": {             
+            "attributes": {           	
                 "unevaluatedProperties": false,
                 "$ref": "#/$defs/def_attributes"                          
             },
@@ -558,7 +558,7 @@
 
                   }
                 },
-                "attributes": {             
+                "attributes": {           	
                     "unevaluatedProperties": false,
                     "$ref": "#/$defs/def_attributes"                          
                 },
@@ -597,7 +597,7 @@
           }
       },
       "def_representationItem" : {
-            "type": "object",
+    	  	"type": "object",
             "properties": {
               "ifdType" : {
                 "type": "string"
