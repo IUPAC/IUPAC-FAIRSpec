@@ -503,7 +503,7 @@ class IFDExtractor {
 				return;
 			default:
 				if (cliDOI.startsWith("[")) {
-						ExtractorTestACS.runSet(cliDOI);
+						ExtractorTestACS.runSet(cliDOI, localArchivePath, targetDir);
 						return;
 				}
 				break;

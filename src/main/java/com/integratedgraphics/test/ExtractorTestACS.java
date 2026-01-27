@@ -180,7 +180,7 @@ public class ExtractorTestACS extends ExtractorTest {
 	 */
 	protected static String[] setSourceTargetArgs(String[] args, String ifdExtractJSONFilename, String localSourceArchive, String targetDir, String flags) {
 		if (args == null)
-			args = new String[0];
+			args = new String[4];
 		String[] a = new String[Math.max(4,  args.length)];
 		a[0] = (args.length < 1 || args[0] == null ? ifdExtractJSONFilename : args[0]);
 		a[1] = (args.length < 2 || args[1] == null ? localSourceArchive : args[1]);
@@ -237,10 +237,10 @@ public class ExtractorTestACS extends ExtractorTest {
 		// and testDir as args[2]; args[0] is ignored;
 		int first = 12; // first test to run
 		int last = 12; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
-		run(args, first, last);
+		run(args, first, last, null, null);
 	}
 
-	private static void run(String[] args, int first, int last) {
+	private static void run(String[] args, int first, int last, String localSourceArchive, String targetDir) {
 					  // file test
 		String findACSID = null;//"1022" to ignore first/last;
 		String flags = null;//"-assetsOnly"; // "-datacitedown"
@@ -248,9 +248,12 @@ public class ExtractorTestACS extends ExtractorTest {
 		 * a local dir if you have already downloaded the zip files, otherwise null to
 		 * download from FigShare;
 		 */
-		String localSourceArchive = "c:/temp/iupac/acs/zip";//-";
-		
-		String targetDir = "c:/temp/iupac/test2026";//acs/ifd2025-08";
+		if (args ==  null) {
+			args = new String[4];
+		} else {
+			localSourceArchive = "c:/temp/iupac/acs/zip";//-";
+			targetDir = "c:/temp/iupac/test2026";//);//acs/ifd2025-08";
+		}
 		args = setSourceTargetArgs(args, null, localSourceArchive, targetDir, flags);
 		boolean createFindingAidJSONList = true;
 		runACSExtractionTest(args, findACSID, first, last, createFindingAidJSONList);
@@ -260,13 +263,14 @@ public class ExtractorTestACS extends ExtractorTest {
 	 * Run the --DOI parameter if in the form [i,j] where i >= 0 andj <= 13
 	 * @param firstLast
 	 */
-	public static void runSet(String firstLast) {
+	public static void runSet(String firstLast, String localSourceArchive, String targetDir) {
 		int pt =  firstLast.indexOf('[');
+		targetDir = targetDir.replace('[', '_').replace(']','_').replace('\\', '/');
 		if (pt >= 0) {
 			String[] a = firstLast.substring(pt+1, firstLast.indexOf("]")).split(",");
 			int first = Integer.parseInt(a[0]);
 			int last = Integer.parseInt(a[1]);
-			run(null, first, last);
+			run(null, first, last, localSourceArchive, targetDir);
 		}
 		
 	}
