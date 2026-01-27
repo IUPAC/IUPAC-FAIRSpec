@@ -357,14 +357,14 @@
               "$ref": "#/$defs/def_compounds"
             },
             "analyses": {
-              "unevaluatedProperties": false,
+                "unevaluatedProperties": false,
               "$ref": "#/$defs/def_analyses"
             }
           }
         }
       }
     },
-    "def_structures": {
+"def_structures": {
       "type": "object",
       "required": [
         "itemsByID"
@@ -391,8 +391,8 @@
           "unevaluatedProperties": false,
           "patternProperties": {
             "^.+": {
-              "unevaluatedProperties": false,
-              "$ref": "#/$defs/def_structure"
+                "unevaluatedProperties": false,
+                "$ref": "#/$defs/def_structure"
             }
           }
         }
@@ -601,43 +601,32 @@
     },
     "def_structure": {
       "type": "object",
+      "required": [
+        "itemsByID"
+      ],
       "properties": {
-        "note": {
-          "description": "",
+        "ifdType": {
+          "type": "string",
+          "const": "org.iupac.fairdata.dataobject.IFDDataObjectCollection"
+        },
+        "ifdTypeExtends": {
+          "type": "string",
+          "const": "org.iupac.fairdata.core.IFDCollection"
+        },
+        "itemType": {
           "type": "string"
         },
-        "propertyPrefix": {
-          "description": "The prefix to add to all IFDProperty keys in this block",
-          "const": "IFD.property.structure"
+        "itemTypeExtends": {
+          "type": "string"
         },
-        "ifdProperties": {
+        "itemsByID": {
           "type": "object",
-          "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
           "unevaluatedProperties": false,
-          "properties": {
-            "cell_formula": {
-              "type": "string"
-            },
-            "empirical_formula": {
-              "type": "string"
-            },
-            "inchikey": {
-              "type": "string"
-            },
-            "molecular_formula": {
-              "type": "string"
+          "patternProperties": {
+            "^.+": {
+              "unevaluatedProperties": false,
+              "$ref": "#/$defs/def_spectrum"
             }
-          }
-        },
-        "attributes": {
-          "unevaluatedProperties": false,
-          "$ref": "#/$defs/def_attributes"
-        },
-        "representations": {
-          "type": "array",
-          "items": {
-            "unevaluatedProperties": false,
-            "$ref": "#/$defs/def_representationItem"
           }
         }
       }
