@@ -29,6 +29,7 @@ public class PageCreator {
 			"assets/FAIRSpec-gui.js",
 			"assets/FAIRSpec-swingjs.js",
 			"assets/spinner.gif",
+			"assets/iupac_logo.png",
 			ifdConfigJS,
 			ifdFindingAidsJS,
 			ifdFindingAidSchema,
