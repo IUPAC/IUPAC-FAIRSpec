@@ -461,6 +461,18 @@
               "type": "string",
               "const": "IFD.property.dataobject.fairspec"
             },
+            "expt_id": {
+                "type": "string"
+              },
+              "expt_originating_sample_id": {
+                  "type": "string"
+                },
+            "expt_title": {
+                "type": "string"
+              },
+              "instr_manufacturer_name": {
+                  "type": "string"
+                },
             "ifdProperties": {
               "type": "object",
               "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
