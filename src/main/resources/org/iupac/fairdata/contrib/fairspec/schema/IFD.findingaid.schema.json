@@ -244,7 +244,7 @@
               "type": "object",
               "unevaluatedProperties": false,
               "patternProperties": {
-                "^[A-Za-z0-9_]+([ ][A-Za-z0-9_]+)*": {
+                "^[A-Za-z0-9_=]+([ ][A-Za-z0-9_=]+)*": {
                   "type": "object",
                   "required": [
                     "ref",
@@ -277,7 +277,7 @@
       "def_field_id": {
         "description": "an optional unique identifier, for example, a compound number such as 38b or a DOI such as 10.14469/hpc/14635 must not start nor end in a space character",
         "type": "string",
-        "pattern": "^[a-zA-Z0-9_+\\-/*.,()\\[\\]]+([ ][a-zA-Z0-9_+\\-/*.,()\\[\\]]+)*$"
+        "pattern": "^[a-zA-Z0-9_+\\-/*.,=()\\[\\]]+([ ][a-zA-Z0-9_+\\-/*.,=()\\[\\]]+)*$"
       },      
    	  "def_collectionSet" : {
           "type": "object",
@@ -468,13 +468,10 @@
               "unevaluatedProperties": false,
               "properties": {
                 
-"ir.instr_manufacturer_name":{"type" : "string"},
-"ms.instr_manufacturer_name":{"type" : "string"},
 "nmr.expt_date_time_acquired":{"type" : "string"},
 "nmr.expt_date_time_processed":{"type" : "string"},
 "nmr.expt_description":{"type" : "string"},
 "nmr.expt_dimension":{"type" : "string"},
-"nmr.expt_id":{"type" : "string"},
 "nmr.expt_nucl1":{"type" : "string"},
 "nmr.expt_nucl2":{"type" : "string"},
 "nmr.expt_nucl3":{"type" : "string"},
@@ -487,13 +484,9 @@
 "nmr.expt_solvent_InChI":{"type" : "string"},
 "nmr.expt_solvent_InChIKey":{"type" : "string"},
 "nmr.expt_thermodynamic_temperature":{"type":"number"},
-"nmr.expt_title":{"type" : "string"},
-"nmr.instr_manufacturer_name":{"type" : "string"},
 "nmr.instr_nominal_freq":{"type":"number"},
 "nmr.instr_probe_type":{"type" : "string"},
-"nmr.instr_proton_freq":{"type":"number"},
-"raman.instr_manufacturer_name":{"type" : "string"},
-"uvvis.instr_manufacturer_name":{"type" : "string"}
+"nmr.instr_proton_freq":{"type":"number"}
 
               }
             },
@@ -588,7 +581,7 @@
           "type": "object",
           "description": "an optional set of key/value pairs that are not part of the IUPAC FAIRData standard or its extension. Characters of the keys must be one of[A-Za-z0-9_] or the space character and must be trimmed of any space character",
           "patternProperties": {
-            "^[A-Za-z0-9_]+([ ][A-Za-z0-9_]+)*": {
+            "^[A-Za-z0-9_=]+([ ][A-Za-z0-9_=]+)*": {
               "type": [
                 "string",
                 "number"

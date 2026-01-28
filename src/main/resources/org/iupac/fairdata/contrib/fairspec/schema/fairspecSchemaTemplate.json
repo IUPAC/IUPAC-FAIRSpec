@@ -271,7 +271,7 @@
               "_$comment$_":"BH 2024.01.24 generalized",
               "unevaluatedProperties": false,
               "patternProperties": {
-                "^[A-Za-z0-9_]+([ ][A-Za-z0-9_]+)*": {
+                "^[A-Za-z0-9_=]+([ ][A-Za-z0-9_=]+)*": {
                   "type": "object",
                   "required": [
                     "ref",
@@ -312,7 +312,7 @@
         "$comment" : "actually this does not work",
         "description": "an optional unique identifier, for example, a compound number such as 38b or a DOI such as 10.14469/hpc/14635 must not start nor end in a space character",
         "type": "string",
-        "pattern": "^[a-zA-Z0-9_+\\-/*.,()\\[\\]]+([ ][a-zA-Z0-9_+\\-/*.,()\\[\\]]+)*$"
+        "pattern": "^[a-zA-Z0-9_+\\-/*.,=()\\[\\]]+([ ][a-zA-Z0-9_+\\-/*.,=()\\[\\]]+)*$"
       },      
    	  "def_collectionSet" : {
           "type": "object",
@@ -605,7 +605,7 @@
           "type": "object",
           "description": "an optional set of key/value pairs that are not part of the IUPAC FAIRData standard or its extension. Characters of the keys must be one of[A-Za-z0-9_] or the space character and must be trimmed of any space character",
           "patternProperties": {
-            "^[A-Za-z0-9_]+([ ][A-Za-z0-9_]+)*": {
+            "^[A-Za-z0-9_=]+([ ][A-Za-z0-9_=]+)*": {
               "type": [
                 "string",
                 "number"
