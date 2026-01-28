@@ -5,7 +5,7 @@ cd c:/temp/dryad
 ls
 pwd
 
-cd 2bvq83c2q
+cd mpg4f4rcj
 ls
 pwd
 
@@ -25,9 +25,11 @@ cd test2
 
 unzip_files() {
     for file in *.zip; do
-    	unzip "$file"
+      filename="${file}.."
+    	unzip "$file" -d "$filename"
       echo "$file"
-    	filename=$(basename "$file" .zip)
+    	#filename=$(basename "$file" .zip)
+    	
     	echo "FILENAME: $filename"
       # might need to add some renaming concept to fix the randomly named zip files
     	if [ -d "$filename" ]; then
@@ -39,6 +41,7 @@ unzip_files() {
     
       else
         echo "'$filename' is not a directory (or does not exist)."
+        cd .. # might have to reevaluate this line
       fi
     done
 }
@@ -68,6 +71,8 @@ unzip_files
 pwd
 ls
 rm -r __MACOSX
+rm -r */__MACOSX
+
 
 
 ls
@@ -82,7 +87,7 @@ echo "File List" > file_list.txt
 
 
 
-OUTPUT_FILE="file_list_2bvq83c2q.txt"
+OUTPUT_FILE="file_list_mpg4f4rcj.txt"
 echo $OUTPUT_FILE
 
 find "$1" -print > "$OUTPUT_FILE"
