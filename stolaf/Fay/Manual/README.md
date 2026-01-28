@@ -107,3 +107,78 @@ Don't need to include the local source since the extractor will fetch the data f
 This will generate two folders 
 
 ![Folders generated from the extractor](CLI7.png)
+
+## Run from terminal
+
+### Create the IFDExtractor.jar file
+
+- Create `bin` folder in `IUPAC-FAIRSpec`
+
+```
+rm -rf bin
+# Compile all the .java files
+javac -d bin -cp "lib/*" src/**/*.java
+# Merge resources into the bin folder
+# Don't include the resource files in this
+# By using the trailing slash (src/main/resources/), rsync copies the 
+# contents (packages/files) directly into bin, effectively merging them.
+# rsync -av --exclude="*.java" src/main/resources/ bin/
+```
+
+- Create a `manifest.txt` file in the `./IUPAC-FAIRSPEC/` folder containing (always have a new line at the end):
+
+```
+Main-Class: com.integratedgraphics.extractor.IFDExtractor
+Class-Path: ../bin/ ../lib/commons-compress-1.22.jar ../lib/commons-io-2.11.0.jar ../lib/CDK-SwingJS.jar ../lib/JmolDataD.jar ../src/main/resources/
+
+```
+
+- Generate a `IFDExtractor.jar` file in `dist`:
+
+```
+rm -rf dist/IFDExtractor.jar 
+jar cvfm dist/IFDExtractor.jar dist/manifest.txt -C bin .
+```
+
+### Run the class `IFDExtractor`:
+
+- Run `IFDExtractor.class` with dependencies
+
+```
+# MacOS separates path by :, Windows separates by ;
+# Version
+java -cp "bin:lib/*:" com.integratedgraphics.extractor.IFDExtractor -v
+
+# Manual
+java -cp "bin:lib/*:" com.integratedgraphics.extractor.IFDExtractor -h
+
+# Run the extractor
+java -cp "./bin:./lib/commons-compress-1.22.jar:./lib/commons-io-2.11.0.jar:./lib/CDK-SwingJS.jar:./lib/JmolDataD.jar" com.integratedgraphics.extractor.IFDExtractor -test dryad -T c:/temp/dryad/ -S c:/temp/dryad/mcvdnckbb/dataset.zip -D mcvdnckbb -debug
+
+java -cp "./bin:./lib/commons-compress-1.22.jar:./lib/commons-io-2.11.0.jar:./lib/CDK-SwingJS.jar:./lib/JmolDataD.jar" com.integratedgraphics.extractor.IFDExtractor -test acs -T c:/temp/acs/ -D acs.joc.0c00770
+java -cp "./bin:./lib/*.jar" com.integratedgraphics.extractor.IFDExtractor -test acs -T c:/temp/acs/ -D acs.joc.0c00770
+
+jar --create --file extractor.jar --main-class com.integratedgraphics.extractor.IFDExtractor -C bin .
+java -cp "extractor.jar:./lib/commons-compress-1.22.jar:./lib/commons-io-2.11.0.jar:./lib/CDK-SwingJS.jar:./lib/JmolDataD.jar" com.integratedgraphics.extractor.IFDExtractor -test acs -T c:/temp/acs/ -D acs.joc.0c00770
+```
+
+- Run `IFDExtractor.jar` (already including dependencies)
+
+```
+# In IUPAC-FAIRSPEC root directory
+# Manual
+java -jar dist/IFDExtractor.jar -h
+
+# Version
+java -jar dist/IFDExtractor.jar -v
+
+# Run the extractor
+
+java -jar dist/IFDExtractor.jar -W -test icl -T c:/temp/icl/ -D 10.14469/hpc/14635 -X src/main/resources/com/integratedgraphics/extractor/extract/ImperialCollege/IFD-extract.json
+
+java -jar dist/IFDExtractor.jar -test dryad -T c:/temp/dryad/ -S c:/temp/dryad/f7m0cfz7t/dataset.zip -D f7m0cfz7t
+
+java -jar dist/IFDExtractor.jar -test dryad -T c:/temp/dryad/ -S c:/temp/dryad/mcvdnckbb/dataset.zip -D mcvdnckbb
+
+java -jar dist/IFDExtractor.jar -test acs -T c:/temp/acs/ -D acs.joc.0c00770
+```
