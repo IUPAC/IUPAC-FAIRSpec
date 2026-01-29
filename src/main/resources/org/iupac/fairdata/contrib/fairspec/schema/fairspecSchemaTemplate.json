@@ -357,6 +357,10 @@
                 "_$IFD.property.collectionset$_": { "type": "string" }
               }
             },
+            "attributes": {             
+                "unevaluatedProperties": false,
+                "$ref": "#/$defs/def_attributes"                          
+              },
             "itemsByID": {
               "type": "object",
               "properties": {                      

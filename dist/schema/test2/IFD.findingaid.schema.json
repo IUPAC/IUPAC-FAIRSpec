@@ -333,6 +333,10 @@
 
               }
             },
+            "attributes": {             
+                "unevaluatedProperties": false,
+                "$ref": "#/$defs/def_attributes"                          
+              },
             "itemsByID": {
               "type": "object",
               "properties": {                      
