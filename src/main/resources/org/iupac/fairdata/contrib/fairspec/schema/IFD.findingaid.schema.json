@@ -569,6 +569,7 @@
 "nmr.expt_date_time_processed":{"type" : "string"},
 "nmr.expt_description":{"type" : "string"},
 "nmr.expt_dimension":{"type" : "string"},
+"nmr.expt_id":{"type" : "string"},
 "nmr.expt_nucl1":{"type" : "string"},
 "nmr.expt_nucl2":{"type" : "string"},
 "nmr.expt_nucl3":{"type" : "string"},
