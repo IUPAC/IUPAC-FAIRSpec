@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.core.Attribute;
 import org.nmrml.parser.Acqu;
 
 import com.integratedgraphics.ifd.dataobject.NMRVendorPlugin;
-import com.integratedgraphics.ifd.util.VendorUtils;
 
 public abstract class NmrMLDataObjectVendorPlugin extends NMRVendorPlugin {
 
@@ -53,7 +53,7 @@ public abstract class NmrMLDataObjectVendorPlugin extends NMRVendorPlugin {
 		report("F1", freq);
  		String nuc = fixNucleus(acq.getObservedNucleus());
 		report("N1", nuc);
-		report("NF", getNominalFrequency(new VendorUtils.DoubleString("" + freq), nuc));
+		report("NF", getNominalFrequency(new Attribute.DoubleString("" + freq), nuc));
 		reportSolvent(acq.getSolvent());
 		report("TEMPERATURE", acq.getTemperature());
 		report("PP", acq.getPulseProgram());

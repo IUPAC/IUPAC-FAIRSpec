@@ -12,7 +12,7 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.dataobject.FAIRSpecDataObject;
 import org.iupac.fairdata.core.IFDAssociation;
-import org.iupac.fairdata.core.IFDAttribute;
+import org.iupac.fairdata.core.Attribute;
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDRepresentableObject;
@@ -789,7 +789,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 		// 3. mark dup as invalid
 		// do NOT transfer IFDProperties, just represntations and attributes
 		// only transfer attributes that are non-existant
-		IFDAttribute.mergeAll(objFrom.getAttributes(), objTo.getAttributes());
+		Attribute.mergeAll(objFrom.getAttributes(), objTo.getAttributes());
 		System.out.println("!FSEH Merging " + objFrom + " into " + objTo);
 		for (int i = 0, n = objFrom.size(); i < n; i++) {
 			objTo.add(objFrom.get(i));

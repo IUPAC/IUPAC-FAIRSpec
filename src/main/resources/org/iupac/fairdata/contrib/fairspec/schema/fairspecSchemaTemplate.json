@@ -316,11 +316,25 @@
       "def_collectionSet" : {
         "type": "object",
         "required": [
-          "propertyPrefix",
-          "ifdProperties",
           "itemsByID"
           ],
           "properties": {
+              "note": {
+                  "description": "a processing note created by the creator of the finding aid",
+                  "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "doi": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
             "ifdType": {
               "type": "string",
               "const": "org.iupac.fairdata.core.IFDCollectionSet"
@@ -379,6 +393,22 @@
           "itemsByID"
           ],
           "properties": {
+              "note": {
+                  "description": "a processing note created by the creator of the finding aid",
+                  "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "doi": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
             "ifdType": {
               "type": "string",
               "const": "org.iupac.fairdata.structure.IFDStructureCollection"
@@ -414,11 +444,25 @@
       "def_structure": {
         "type":"object",
         "required": [
-          "propertyPrefix",
-          "ifdProperties",
           "representations"
           ],
           "properties": {
+              "note": {
+                  "description": "a processing note created by the creator of the finding aid",
+                  "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "doi": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
             "ifdType": {
               "type": "string",
               "const": "org.iupac.fairdata.structure.IFDStructure"
@@ -426,10 +470,6 @@
             "ifdTypeExtends": {
               "type": "string",
               "const": "org.iupac.fairdata.core.IFDRepresentableObject"
-            },
-            "note": {
-              "description": "",
-              "type": "string"
             },
             "propertyPrefix": {
               "description": "The prefix to add to all IFDProperty keys in this block",
@@ -464,6 +504,22 @@
           "itemsByID"
           ],
           "properties": {
+              "note": {
+                  "description": "a processing note created by the creator of the finding aid",
+                  "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "doi": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
             "ifdType": {
               "type": "string",
               "const": "org.iupac.fairdata.dataobject.IFDDataObjectCollection"
@@ -498,11 +554,26 @@
       },
       "def_spectrum" : {
         "type": "object",
+        "required": [
+            "representations"
+            ],
         "properties": {
           "note": {
             "description": "a processing note created by the creator of the finding aid",
             "type": "string"
           },
+          "label": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "doi": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
           "expt_timestamp": {
             "description": "date and time of creation ISO 8601 date+time (UTC), for example: 2025-04-17T18:55Z",
             "type": "integer"
