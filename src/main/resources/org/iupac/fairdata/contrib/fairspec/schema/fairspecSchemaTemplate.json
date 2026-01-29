@@ -703,7 +703,8 @@
           "^\\S+([ ]\\S+)*": {
             "type": [
               "string",
-              "number"
+              "number",
+              "array"
               ]
           }
         },
