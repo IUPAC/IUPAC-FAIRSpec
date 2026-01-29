@@ -91,6 +91,9 @@ all_initial_candidates = [
     c for sublist in df["initial_candidates"] for c in sublist
 ]
 
+# print initial candidates
+print(f"\n\nAll initial compound candidates: \n {set(all_initial_candidates)}\n")
+
 candidate_freq = Counter(all_initial_candidates)
 GLOBAL_THRESHOLD = 0.8  # appears in ≥80% of paths
 
@@ -98,6 +101,9 @@ GLOBAL_FOLDERS = {
     folder for folder, count in candidate_freq.items()
     if count / TOTAL_PATHS >= GLOBAL_THRESHOLD
 }
+
+# print global folders
+print(f"Identified global folders: \n {GLOBAL_FOLDERS}\n")
 
 def is_candidate(folder):
     if is_file_like(folder):
@@ -250,7 +256,7 @@ def list_useful_files(diff_df):
     useful_file_map = {}
 
     # NOTE: useful_extensions can be altered to find any files of interest
-    useful_extensions = ('.mol', '.jdf' ,'.mnova', 'fid', 'pdata', '1r', 'acqu', '2rr', '2ri', '2ir', '2ii', 'ser', 'acqu2s')
+    useful_extensions = ('.mol', '.jdf' ,'.mnova', 'fid', 'pdata', '1r', 'acqu', '2rr', '2ri', '2ir', '2ii', 'ser', 'acqu2s', '.pdf', '.png')
 
     for _, row in diff_df.iterrows():
         path_parts = row["compound_path"]
@@ -479,6 +485,9 @@ final_df = final_df.drop(columns=['parent_folder'])
 
 for compound in compounds_to_be_added:
   final_df = add_compound(final_df, df, compound)
+  
+# final identified compounds
+print(f"\nFinal identified compounds:\n {final_df['compound'].unique()} \n\n Final number of identified compounds:{final_df['compound'].nunique()}\n")
 
 # create the final csv after the second run through
 final_df.to_csv(f'output_{dataset_DOI}.csv', index=False)
@@ -488,7 +497,6 @@ final_df.to_csv(f'output_{dataset_DOI}.csv', index=False)
 final_df["tech"] = "NA"
 mask = final_df["pdata_path"].apply(lambda row: len(row) > 0 and ("pdata" in row[0]))
 final_df.loc[mask, "tech"] = "NMR"
-
 
 # creating the spectral ID column
 df_to_tsv = final_df
@@ -568,14 +576,20 @@ for folder, files in folder_map.items():
     if len(files) > 0 and (match_count / len(files)) > 0.5:
         df_exploded = df_exploded[df_exploded["compound"] != folder[2:len(folder)-1]].reset_index(drop=True)
         
+        # NOTE: There is a current error in if the pdf name includes a compound in there, even if the compound is not the intended compound
+        # HOWEVER: the row turns out funky and would be easy to not include
         for f_path, comp in folder_matches:
             template = df_exploded[df_exploded["compound"] == comp].iloc[0].to_dict()
             template["important_file"] = f_path.name
             template["matched_path"] = str(f_path)
             template["spectra_ID"] = "HRMS" # could change later
             template["test_folder"] = "NA"
-            
-            new_rows.append(template)
+
+            # trying to fix the error here
+            if template["matched_path"] != "":
+              new_rows.append(template)
+            else:
+              continue
 
 # adds new rows
 if new_rows:
@@ -591,3 +605,6 @@ df_exploded = df_exploded.drop('matched_path', axis=1)
 
 # write file to TSV
 df_exploded.to_csv(f'final_output_{dataset_DOI}.tsv', index=False, sep='\t')
+
+# print output info to terminal
+print(f"Final Output: \n \t final_output_{dataset_DOI}.tsv \n\t output_{dataset_DOI}.csv \n\t file_list_{dataset_DOI}.txt\n")
