@@ -415,7 +415,6 @@ class IFDExtractor {
 			Options options = getOptions();
 			// No arguments
 			if (args.length == 0) {
-				System.out.println("Please include required arguments");
 				helpManual(options);
 				return false;
 			}
@@ -528,10 +527,6 @@ class IFDExtractor {
 	 * 
 	 */
 	private static void loadExtractor(String[] args) {
-		if (args.length == 0) {
-			System.err.println("Require at least one variable");
-			return;
-		}
 		try {
 			IFDExtractor loader = new IFDExtractor();
 			// If it just prints out the help or header, quit
