@@ -527,10 +527,10 @@
         "required": [
             "representations"
             ],
-            "itemType": {
+            "ifdType": {
                 "type": "string"
               },
-              "itemTypeExtends": {
+              "ifdTypeExtends": {
                 "type": "string"
               },
         "properties": {

@@ -561,11 +561,11 @@
         "required": [
             "representations"
             ],
-            "itemType": {
+            "ifdType": {
                 "type": "string",
                 "$comment": "^org.iupac.fairdata\\.contrib\\.fairspec\\.dataobject\\.*"  
               },
-              "itemTypeExtends": {
+              "ifdTypeExtends": {
                 "type": "string",
                 "$comment": "org\\.iupac\\.fairdata\\.contrib\\.fairspec\\.dataobject\\.FAIRSpecDataObject;org\\.iupac\\.fairdata\\.dataobject\\.IFDDataObject;org\\.iupac\\.fairdata\\.core\\.IFDRepresentableObject"
               },
