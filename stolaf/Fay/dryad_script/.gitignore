@@ -1,4 +1,0 @@
-.env
-.token_cache.json
-*.log
-.DS_Store
