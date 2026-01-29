@@ -3,7 +3,7 @@ package com.integratedgraphics.ifd.dataobject;
 import java.util.Map;
 
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.core.Attribute;
+import org.iupac.fairdata.core.IFDAttribute;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
@@ -232,10 +232,10 @@ public abstract class DefaultVendorPlugin implements DataObjectVendorPluginI {
 	 * @param key
 	 * @return
 	 */
-	protected static Attribute.DoubleString getDoubleValue(Map<String, String> map, String key) {
+	protected static IFDAttribute.DoubleString getDoubleValue(Map<String, String> map, String key) {
 		String f = map.get(key);
 		try {
-			return (f == null ? null : new Attribute.DoubleString(f));
+			return (f == null ? null : new IFDAttribute.DoubleString(f));
 		} catch (NumberFormatException e) {
 			return null;
 		}

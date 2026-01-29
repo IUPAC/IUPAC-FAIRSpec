@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-import org.iupac.fairdata.core.Attribute;
+import org.iupac.fairdata.core.IFDAttribute;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.extract.DefaultStructureHelper.StructureData;
@@ -39,7 +39,7 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 		private String pngcss; // For what?? dimensions?
 		private boolean isJDF; 
 		private String nuc1;
-		private Attribute.DoubleString freq;
+		private IFDAttribute.DoubleString freq;
 		private String origin;
 		public int dim = 1;
 		public long localTimestamp;
@@ -222,7 +222,7 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 						// JDF temp is oC not K from MNOVA
 						val = "" + (f + 273.15);
 					}
-					oval = new Attribute.FloatString(val);
+					oval = new IFDAttribute.FloatString(val);
 					break;
 				case "Nucleus":
 					pageGlobals.nuc1 = val;
@@ -231,28 +231,28 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 					}
 					break;
 				case "Spectrometer Frequency":
-					pageGlobals.freq = new Attribute.DoubleString(val);
+					pageGlobals.freq = new IFDAttribute.DoubleString(val);
 					oval = pageGlobals.freq;
 					if (param2 != null) {
-						pageGlobals.put("Spectrometer Frequency2", new Attribute.DoubleString(param2.value));
+						pageGlobals.put("Spectrometer Frequency2", new IFDAttribute.DoubleString(param2.value));
 					}
 					break;
 				case "Spectrum Quality":
 					double q = Double.parseDouble(val);
 					if (q != 0)
-						oval = new Attribute.FloatString(val);
+						oval = new IFDAttribute.FloatString(val);
 					break;
 				case "Pulse Width":
 				case "Spectral Width":
 				case "Receiver Gain":
 				case "Relaxation Delay":
-					oval = new Attribute.FloatString(val);
+					oval = new IFDAttribute.FloatString(val);
 					break;
 				case "Acquisition Time":
-					oval = new Attribute.FloatString(val);
+					oval = new IFDAttribute.FloatString(val);
 					break;
 				case "Lowest Frequency":
-					oval = new Attribute.DoubleString(val);
+					oval = new IFDAttribute.DoubleString(val);
 					break;
 				case "Spectral Size":
 					oval = Integer.valueOf(Integer.parseInt(val));
