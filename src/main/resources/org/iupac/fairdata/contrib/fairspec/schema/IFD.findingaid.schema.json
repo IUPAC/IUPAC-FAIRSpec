@@ -610,6 +610,22 @@
           "itemsByID"
           ],
           "properties": {
+              "note": {
+                  "description": "a processing note created by the creator of the finding aid",
+                  "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "doi": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
             "ifdType": {
               "type": "string",
               "const": "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection"
@@ -639,6 +655,22 @@
             "type": "object",
             "unevaluatedProperties": false,
             "properties": {
+                "note": {
+                    "description": "a processing note created by the creator of the finding aid",
+                    "type": "string"
+                  },
+                  "label": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "doi": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
               "ifdProperties": {
                 "type": "object",
                 "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
