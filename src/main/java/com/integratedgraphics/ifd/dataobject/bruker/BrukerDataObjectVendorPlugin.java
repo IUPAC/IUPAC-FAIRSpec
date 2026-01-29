@@ -372,6 +372,8 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 	 * @param val if null, this property is removed
 	 */
 	private void report(String key, Object val) {
+		if ("$TE".equals(val))
+			System.out.println("?????");
 		addProperty(ifdMap.get(key), val);
 	}
 

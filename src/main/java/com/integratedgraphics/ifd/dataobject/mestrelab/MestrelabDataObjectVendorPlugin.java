@@ -265,6 +265,7 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 					break;
 				}
 			} catch (NumberFormatException e) {
+				oval = null;
 				e.printStackTrace();
 			}
 		}
