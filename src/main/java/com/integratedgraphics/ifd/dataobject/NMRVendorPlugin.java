@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-import org.iupac.fairdata.core.Attribute;
+import org.iupac.fairdata.core.IFDAttribute;
 import org.iupac.fairdata.core.IFDProperty;
 
 import jspecview.source.JDXDataObject;
@@ -76,7 +76,7 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 	 * @param nuc  if null, just do the century cleaning
 	 * @return
 	 */
-	public static int getNominalFrequency(Attribute.DoubleString freq, String nuc) {
+	public static int getNominalFrequency(IFDAttribute.DoubleString freq, String nuc) {
 		return JDXDataObject.getNominalSpecFreq(nuc, freq.value());
 	}
 
@@ -88,15 +88,15 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 	 * @param nuc  must not be null
 	 * @return
 	 */
-	public static Attribute.DoubleString getProtonFrequency(Attribute.DoubleString freq1, String nuc1,
-			Attribute.DoubleString freq2, String nuc2) {
+	public static IFDAttribute.DoubleString getProtonFrequency(IFDAttribute.DoubleString freq1, String nuc1,
+			IFDAttribute.DoubleString freq2, String nuc2) {
 		if (nuc1 == null)
 			return null;
 		if ("1H".equals(nuc1))
 			return freq1;
 		if ("1H".equals(nuc2))
 			return freq2;
-		return new Attribute.DoubleString("" + JDXDataObject.getProtonFreq(nuc1, freq1.value()));
+		return new IFDAttribute.DoubleString("" + JDXDataObject.getProtonFreq(nuc1, freq1.value()));
 	}
 
 	final static String nmrSolvent = getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_SOLVENT");

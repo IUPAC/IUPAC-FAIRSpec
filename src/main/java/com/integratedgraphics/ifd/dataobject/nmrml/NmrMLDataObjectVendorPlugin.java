@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.core.Attribute;
+import org.iupac.fairdata.core.IFDAttribute;
 import org.nmrml.parser.Acqu;
 
 import com.integratedgraphics.ifd.dataobject.NMRVendorPlugin;
@@ -53,7 +53,7 @@ public abstract class NmrMLDataObjectVendorPlugin extends NMRVendorPlugin {
 		report("F1", freq);
  		String nuc = fixNucleus(acq.getObservedNucleus());
 		report("N1", nuc);
-		report("NF", getNominalFrequency(new Attribute.DoubleString("" + freq), nuc));
+		report("NF", getNominalFrequency(new IFDAttribute.DoubleString("" + freq), nuc));
 		reportSolvent(acq.getSolvent());
 		report("TEMPERATURE", acq.getTemperature());
 		report("PP", acq.getPulseProgram());

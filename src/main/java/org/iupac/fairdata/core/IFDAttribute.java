@@ -33,7 +33,7 @@ import org.iupac.fairdata.api.IFDSerializerI;
  * @author hansonr
  *
  */
-public class Attribute implements IFDSerializableI, Comparable<Attribute> {
+public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> {
 
 	public interface NumberString {
 	  // a tag only	
@@ -107,19 +107,19 @@ public class Attribute implements IFDSerializableI, Comparable<Attribute> {
 	private List<Object> values;
     private boolean isString;
 
-	public Attribute(String name, String value) {
+	public IFDAttribute(String name, String value) {
 		this.name = name;
 		this.value = value;
 		isString = true;
 	}
 
-	public Attribute(String name, Number value) {
+	public IFDAttribute(String name, Number value) {
 		this.name = name;
 		this.value = value;
 	}
 
 
-	public Attribute(String name, NumberString value) {
+	public IFDAttribute(String name, NumberString value) {
 		this.name = name;
 		this.value = value;
 	}
@@ -154,14 +154,14 @@ public class Attribute implements IFDSerializableI, Comparable<Attribute> {
 	}
 
 
-	 public static void add(List<Attribute> attributes, String name, Object value) {
+	 public static void add(List<IFDAttribute> attributes, String name, Object value) {
 		if (value == null || name == null)
 			return;
 		boolean isString = value instanceof String;
 		boolean isNumber = !isString && value instanceof Number;
 		if (!isString && !isNumber && !(value instanceof NumberString))
 			throw new RuntimeException("Attributes must be either String or Number adding " + value + " type " + value.getClass().getName());
-		Attribute p = null;
+		IFDAttribute p = null;
 		for (int i = attributes.size(); --i >= 0;) {
 			p = attributes.get(i);
 			if (p.name.equals(name))  {
@@ -181,12 +181,12 @@ public class Attribute implements IFDSerializableI, Comparable<Attribute> {
 			}
 		}
 		attributes.add(isString 
-				? new Attribute(name, (String) value) 
-						: isNumber ? new Attribute(name, (Number) value)
-								: new Attribute(name, (NumberString) value));
+				? new IFDAttribute(name, (String) value) 
+						: isNumber ? new IFDAttribute(name, (Number) value)
+								: new IFDAttribute(name, (NumberString) value));
 	}
 
-	public static void remove(List<Attribute> params, String name) {
+	public static void remove(List<IFDAttribute> params, String name) {
 		if (name == null)
 			return;
 		for (int i = params.size(); --i >= 0;) {
@@ -205,12 +205,12 @@ public class Attribute implements IFDSerializableI, Comparable<Attribute> {
 	 * @param value
 	 * @return
 	 */
-	public static boolean remove(List<Attribute> params, String name, Object value) {
+	public static boolean remove(List<IFDAttribute> params, String name, Object value) {
 		if (name == null)
 			return false;
 		for (int i = params.size(); --i >= 0;) {
 			if (params.get(i).name.equals(name)) {
-				Attribute p = params.get(i);
+				IFDAttribute p = params.get(i);
 				if (value == null || value.equals(p.value)) {
 					params.remove(i);
 					return true;
@@ -236,7 +236,7 @@ public class Attribute implements IFDSerializableI, Comparable<Attribute> {
 
 
 	@Override
-	public int compareTo(Attribute o) {
+	public int compareTo(IFDAttribute o) {
 		return (name.compareTo(o.getName()));
 	}
 
@@ -272,10 +272,10 @@ public class Attribute implements IFDSerializableI, Comparable<Attribute> {
 	}
 
 
-	public static void mergeAll(List<Attribute> attFrom, List<Attribute> attrTo) {		
+	public static void mergeAll(List<IFDAttribute> attFrom, List<IFDAttribute> attrTo) {		
 		for (int i = 0, n = attFrom.size(); i < n; i++) {
-			Attribute a = attFrom.get(i);
-			Attribute.add(attrTo, a.getName(), a.getValue());
+			IFDAttribute a = attFrom.get(i);
+			IFDAttribute.add(attrTo, a.getName(), a.getValue());
 		}
 		
 	}

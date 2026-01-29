@@ -5,8 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-import org.iupac.fairdata.core.Attribute;
-import org.iupac.fairdata.core.Attribute.DoubleString;
+import org.iupac.fairdata.core.IFDAttribute;
+import org.iupac.fairdata.core.IFDAttribute.DoubleString;
 import org.nmrml.parser.Acqu;
 
 import com.integratedgraphics.ifd.dataobject.NMRVendorPlugin;
@@ -59,7 +59,7 @@ public class NmrMLConverterTest {
 		String nuc = acq.getObservedNucleus();
 		nuc = NMRVendorPlugin.fixNucleus(nuc);
 		report("N1", nuc);
-		int nominalFreq = NMRVendorPlugin.getNominalFrequency(new Attribute.DoubleString("" + freq), nuc);
+		int nominalFreq = NMRVendorPlugin.getNominalFrequency(new IFDAttribute.DoubleString("" + freq), nuc);
 		report("SF", nominalFreq);
 		String solvent = acq.getSolvent();
 		report("SOLVENT", solvent);
