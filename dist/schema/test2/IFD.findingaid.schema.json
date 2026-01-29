@@ -284,22 +284,22 @@
           "itemsByID"
           ],
           "properties": {
-              "note": {
-                  "description": "a processing note created by the creator of the finding aid",
-                  "type": "string"
-                },
-                "label": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "doi": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
+            "note": {
+              "description": "a processing note created by the creator of the finding aid",
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "doi": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
             "ifdType": {
               "type": "string",
               "const": "org.iupac.fairdata.core.IFDCollectionSet"
@@ -334,9 +334,9 @@
               }
             },
             "attributes": {             
-                "unevaluatedProperties": false,
-                "$ref": "#/$defs/def_attributes"                          
-              },
+              "unevaluatedProperties": false,
+              "$ref": "#/$defs/def_attributes"                          
+            },
             "itemsByID": {
               "type": "object",
               "properties": {                      
@@ -370,22 +370,22 @@
           "itemsByID"
           ],
           "properties": {
-              "note": {
-                  "description": "a processing note created by the creator of the finding aid",
-                  "type": "string"
-                },
-                "label": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "doi": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
+            "note": {
+              "description": "a processing note created by the creator of the finding aid",
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "doi": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
             "ifdType": {
               "type": "string",
               "const": "org.iupac.fairdata.structure.IFDStructureCollection"
@@ -420,22 +420,22 @@
           "representations"
           ],
           "properties": {
-              "note": {
-                  "description": "a processing note created by the creator of the finding aid",
-                  "type": "string"
-                },
-                "label": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "doi": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
+            "note": {
+              "description": "a processing note created by the creator of the finding aid",
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "doi": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
             "ifdType": {
               "type": "string",
               "const": "org.iupac.fairdata.structure.IFDStructure"
@@ -480,22 +480,22 @@
           "itemsByID"
           ],
           "properties": {
-              "note": {
-                  "description": "a processing note created by the creator of the finding aid",
-                  "type": "string"
-                },
-                "label": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "doi": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
+            "note": {
+              "description": "a processing note created by the creator of the finding aid",
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "doi": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
             "ifdType": {
               "type": "string",
               "const": "org.iupac.fairdata.dataobject.IFDDataObjectCollection"
@@ -525,20 +525,20 @@
       "def_spectrum" : {
         "type": "object",
         "required": [
-            "representations"
-            ],
+          "representations"
+          ],
+          "properties": {
             "ifdType": {
-                "type": "string"
-              },
-              "ifdTypeExtends": {
-                "type": "string"
-              },
-        "properties": {
-          "note": {
-            "description": "a processing note created by the creator of the finding aid",
-            "type": "string"
-          },
-          "label": {
+              "type": "string"
+            },
+            "ifdTypeExtends": {
+              "type": "string"
+            },
+            "note": {
+              "description": "a processing note created by the creator of the finding aid",
+              "type": "string"
+            },
+            "label": {
               "type": "string"
             },
             "description": {
@@ -550,30 +550,30 @@
             "url": {
               "type": "string"
             },
-          "expt_timestamp": {
-            "description": "date and time of creation ISO 8601 date+time (UTC), for example: 2025-04-17T18:55Z",
-            "type": "integer"
-          },
-          "expt_originating_sample_id": {
-            "type": "string"
-          },
-          "expt_title": {
-            "type": "string"
-          },
-          "instr_manufacturer_name": {
-            "type": "string"
-          },
-          "propertyPrefix": {
-            "description": "The prefix to add to all IFDProperty keys in this block",
-            "type": "string",
-            "const": "IFD.property.dataobject.fairspec"
-          },
-          "ifdProperties": {
-            "type": "object",
-            "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
-            "unevaluatedProperties": false,
-            "properties": {
-              
+            "expt_timestamp": {
+              "description": "date and time of creation ISO 8601 date+time (UTC), for example: 2025-04-17T18:55Z",
+              "type": "integer"
+            },
+            "expt_originating_sample_id": {
+              "type": "string"
+            },
+            "expt_title": {
+              "type": "string"
+            },
+            "instr_manufacturer_name": {
+              "type": "string"
+            },
+            "propertyPrefix": {
+              "description": "The prefix to add to all IFDProperty keys in this block",
+              "type": "string",
+              "const": "IFD.property.dataobject.fairspec"
+            },
+            "ifdProperties": {
+              "type": "object",
+              "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
+              "unevaluatedProperties": false,
+              "properties": {
+                
 "expt_originating_sample_id":{"type" : "string"},
 "nmr.expt_date_time_acquired":{"type" : "string"},
 "nmr.expt_date_time_processed":{"type" : "string"},
@@ -596,23 +596,23 @@
 "nmr.instr_probe_type":{"type" : "string"},
 "nmr.instr_proton_freq":{"type":"number"}
 
-            }
-          },
-          "attributes": {             
-            "unevaluatedProperties": false,
-            "$ref": "#/$defs/def_attributes"                          
-          },
-          "exptMethod": {
-            "type": "string"
-          },
-          "representations": {
-            "type": "array",
-            "items" : {
+              }
+            },
+            "attributes": {             
               "unevaluatedProperties": false,
-              "$ref": "#/$defs/def_representation"                          
+              "$ref": "#/$defs/def_attributes"                          
+            },
+            "exptMethod": {
+              "type": "string"
+            },
+            "representations": {
+              "type": "array",
+              "items" : {
+                "unevaluatedProperties": false,
+                "$ref": "#/$defs/def_representation"                          
+              }
             }
           }
-        }
       },
       "def_compounds" : {
         "type": "object",
@@ -620,22 +620,22 @@
           "itemsByID"
           ],
           "properties": {
-              "note": {
-                  "description": "a processing note created by the creator of the finding aid",
-                  "type": "string"
-                },
-                "label": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "doi": {
-                    "type": "string"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
+            "note": {
+              "description": "a processing note created by the creator of the finding aid",
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "doi": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            },
             "ifdType": {
               "type": "string",
               "const": "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection"
@@ -665,22 +665,22 @@
             "type": "object",
             "unevaluatedProperties": false,
             "properties": {
-                "note": {
-                    "description": "a processing note created by the creator of the finding aid",
-                    "type": "string"
-                  },
-                  "label": {
-                      "type": "string"
-                    },
-                    "description": {
-                      "type": "string"
-                    },
-                    "doi": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
+              "note": {
+                "description": "a processing note created by the creator of the finding aid",
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "doi": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
               "ifdProperties": {
                 "type": "object",
                 "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
