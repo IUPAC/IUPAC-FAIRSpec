@@ -135,7 +135,7 @@ IUPAC_DIRECTORY="/Users/xxxxx/Documents/IUPAC-FAIRSpec/"
 
 - Direct to `.IUPAC-FAIRSPEC` folder
 
-- Get the version: `ava -jar dist/IFDExtractor.jar -v`
+- Get the version: `java -jar dist/IFDExtractor.jar -v`
 
 - Get the manual: `java -jar dist/IFDExtractor.jar -v`
 
