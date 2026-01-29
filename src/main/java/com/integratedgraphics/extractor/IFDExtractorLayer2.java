@@ -1056,7 +1056,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				this.localizedName = localizedName;
 			String msg = "Extractor correcting " + rezipVendor.getVendorName() + " directory name to " + localizedName
 					+ "|" + newDir;
-			addProperty(IFDConst.IFD_FIELD_PROPERTY_DATAOBJECT_NOTE, msg);
+			addProperty(IFDConst.IFD_PROPERTY_NOTE, msg);
 			log("!" + msg);
 		}
 		localizedName = localizePath(originPath);
@@ -1229,6 +1229,10 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 			assoc = null;
 			final String originPath = dp.originPath;// a[0]
+			
+			if (originPath != null && originPath.indexOf(".cdxml") >= 0)
+				System.out.println("???" + originPath + dp.key + " " + dp.value);
+			
 			String localizedName = dp.localizedName;// a[1]
 			final String key = dp.key;// a[2];
 			Object value = dp.value;// a[3];
@@ -1526,7 +1530,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				if (key.equals(FAIRSpecExtractorHelper.DATAOBJECT_ORIGINATING_SAMPLE_ID)) {
 					helper.addSpecOriginatingSampleRef(extractorResource.rootPath, localSpec, (String) value);
 				}
-				if(key == IFDConst.IFD_FIELD_PROPERTY_DATAOBJECT_TIMESTAMP) {
+				if(key == IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_TIMESTAMP) {
 					phase2AddSpectraToTimeStampHashMap(localSpec, (Long) value);
 				}
 				phase2dSetPropertyIfNotAlreadySet(localSpec, key, value, originPath);
@@ -1768,6 +1772,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		CacheRepresentation rep = new CacheRepresentation(new IFDReference(faHelper.getCurrentSource().getID(),
 				originPath, extractorResource.rootPath, localizedName), null, 0, null, null);
 		rep.isValid = false;
+		logWarn("Dublicate structure " + originPath + " ignored! Found: " + struc, "invalidateCachedRepresentation");
 		vendorCache.put(localizedName, rep);
 	}
 

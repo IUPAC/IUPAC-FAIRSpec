@@ -38,6 +38,8 @@ import com.junrar.Archive;
 import com.junrar.exception.RarException;
 import com.junrar.rarfile.FileHeader;
 
+import javajs.util.Rdr;
+
 /**
  * A set of static classes for use by MetadataExtractor, primarily
  * 
@@ -806,7 +808,8 @@ public class ExtractorUtils {
 				this.is = tis = ZipUtil.newTarGZInputStream(is);
 			} else if (fname != null && fname.endsWith(".tar")) {
 				this.is = tis = ZipUtil.newTarInputStream(is);
-			} else if (fname != null && fname.endsWith(".rar")) {
+			} else if (fname != null && (fname.endsWith(".rar")
+					|| ZipUtil.isRAR(is))) {
 				this.is = ris = new RARInputStream(is);
 			}
 		}

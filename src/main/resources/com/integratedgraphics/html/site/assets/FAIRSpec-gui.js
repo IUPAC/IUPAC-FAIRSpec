@@ -1292,13 +1292,11 @@
 			+ (sampleID ? "&nbsp;&nbsp;&nbsp; sample " + sampleID : "")
 			+ "</h3>"
 			+ "</td>"; 
-		// new 0.2.0 finding aid has expt_title, expt_id, expt_originating_sample_id, expt_timestamp, and instr_manufacturer_name
+		// new 0.1.3 finding aid has expt_title, expt_originating_sample_id, expt_timestamp, and instr_manufacturer_name
 		var expt_title = (spec.expt_title || getObjectProperty(spec, method + ".expt_title"));
-		var expt_id = (spec.expt_id);
-		if (expt_title || expt_id)
+		if (expt_title)
 			s += "<td>&nbsp;&nbsp;</td><td>"
 				+ "<b> <span title='IFD.dataobject.expt_title'>" + expt_title + "</span></b>"
-				+ (expt_id ? "<br><span title='IFD.dataobject.expt_id'>" + expt_id + "</span>": "")
 				+"</td>"
 		s += "</tr></table>";
 		var smiles = null;

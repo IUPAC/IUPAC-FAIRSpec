@@ -514,27 +514,27 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected boolean checkFieldProperties(String key, Object value) {
 		if (myPropLABEL == null)
 			setPrefixes();
-		if (key.equals(IFDConst.IFD_FIELD_PROPERTY_LABEL) || key.equals(myPropLABEL)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_LABEL) || key.equals(myPropLABEL)) {
 			setLabel(value.toString());
 			return true;
 		} 
-		if (key.equals(IFDConst.IFD_FIELD_PROPERTY_ID) || key.equals(myPropID)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_ID) || key.equals(myPropID)) {
 			setID(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_FIELD_PROPERTY_DESCRIPTION) || key.equals(myPropDESC)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_DESCRIPTION) || key.equals(myPropDESC)) {
 			setDescription(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_FIELD_PROPERTY_NOTE) || key.equals(myPropNOTE)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_NOTE) || key.equals(myPropNOTE)) {
 			addNote(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_FIELD_PROPERTY_DOI) || key.equals(myPropDOI)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_DOI) || key.equals(myPropDOI)) {
 			setDOI(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_FIELD_PROPERTY_URL) || key.equals(myPropURL)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_URL) || key.equals(myPropURL)) {
 			setURL(value.toString());
 			return true;
 		}

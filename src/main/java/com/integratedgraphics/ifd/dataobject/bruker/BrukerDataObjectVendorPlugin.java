@@ -39,7 +39,7 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 				"##$NUC1", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_1"), //prop
 				"##$NUC2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_2"), //prop
 				"##$NUC3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_NUCL_3"), //prop
-				"##$EXP", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_ID"),
+				"##$EXP", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_ID"), //prop
 				"##$PULPROG", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_PULSE_PROGRAM"), //prop
 				"##$TE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_THERMODYNAMIC_TEMPERATURE"), //prop
 				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_TITLE"), //prop
@@ -311,7 +311,9 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 		report("NF", getNominalFrequency(bf1, spec.nuc1));
 		report("##$TE", getDoubleValue(map, "##$TE"));
 		processString(map, "##$PULPROG", null);
-		processString(map, "##$EXP", null);
+		String exp = processString(map, "##$EXP", null);
+		if (exp == null || exp.length() == 0)
+			System.out.println("??" + exp + " " + originPath);
 //		report("DIM", spec.dim = "1D");
 		if (spec.probeHead == null) {
 			spec.probeHead = processString(map, "##$PROBHD", null);

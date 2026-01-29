@@ -266,7 +266,7 @@ public class DOICrawler extends FindingAidCreator {
 				if (isDOI) {
 					if (!identifier.startsWith("https://"))
 						identifier = DOIInfoExtractor.DOI_ORG + identifier;
-					c.setPropertyValue(IFDConst.IFD_FIELD_PROPERTY_DOI, identifier);
+					c.setPropertyValue(IFDConst.IFD_PROPERTY_DOI, identifier);
 				} else {
 					c.setPropertyValue("identifier", identifier);
 				}
@@ -302,13 +302,13 @@ public class DOICrawler extends FindingAidCreator {
 			switch (localName) {
 			case DATACITE_DESCRIPTION:
 				if (s.length() > 0 && !crawler.customizeText(DATACITE_DESCRIPTION, s)) {
-					crawler.addAttr(IFDConst.IFD_FIELD_PROPERTY_DESCRIPTION, s);
+					crawler.addAttr(IFDConst.IFD_PROPERTY_DESCRIPTION, s);
 				}
 				break;
 			case DATACITE_TITLE:
 				if (s.length() > 0) {
 					if (!crawler.customizeText(DATACITE_TITLE, s)) {
-						crawler.addAttr(IFDConst.IFD_FIELD_PROPERTY_LABEL, s);
+						crawler.addAttr(IFDConst.IFD_PROPERTY_LABEL, s);
 					}
 				}
 				break;

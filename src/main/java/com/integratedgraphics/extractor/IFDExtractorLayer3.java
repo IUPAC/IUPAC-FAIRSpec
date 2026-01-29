@@ -166,14 +166,11 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 				IFDDataObject o1 = list.get(i);
 				for (int j = i + 1; j < list.size(); j++) {
 					IFDDataObject o2 = list.get(j);
-					if (helper.areDataObjectsIdentical(o1, o2)) {
-						helper.mergeDataObjects(o2, o1);
+					if (helper.mergeDataObjectsIfMatching(o2, o1)) {
 						list.remove(o2);
 						--j;
 						log("!phase 3c timestamp duplicate objects merged: " + o2.getID() + " -> " + o1.getID());
 						timestampRemovalCount++;
-					} else {
-//						System.out.println(i + " " + j + " notEquiv" + "\n" + o1 + o1.getTimestampDate() + "\n" + o2 + o2.getTimestampDate());
 					}
 					
 				}

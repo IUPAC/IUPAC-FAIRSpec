@@ -45,6 +45,11 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		public String standardInChI;
 		public String mediaType;
 		public String cssData;
+		
+		@Override
+		public String toString() {
+			return "[SD " + bytes.length + " " + originPath + " " + mediaType + " " + standardInChI + "]";
+		}
 
 		public StructureData(byte[] bytes, String originPath, String type, String standardInChI, String mediaType, String cssData) {
 			this.bytes = bytes;
@@ -188,6 +193,7 @@ System.out.println("DFH " + bytes.length + " " + originPath);
 					standardInChI = v.getInchi(atoms, null, null);
 				if (standardInChI == null)
 					extractor.log("! InChI could not be created for " + originPath);
+				System.out.println(originPath + " ???? " + standardInChI);
 				if (isEmbedded) {
 					// add the representation
 					String stype = (isCIF ? CIF_FILE_DATA

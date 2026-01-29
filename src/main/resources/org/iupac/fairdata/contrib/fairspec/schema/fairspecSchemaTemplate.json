@@ -271,7 +271,7 @@
               "_$comment$_":"BH 2024.01.24 generalized",
               "unevaluatedProperties": false,
               "patternProperties": {
-                "^[A-Za-z0-9_=]+([ ][A-Za-z0-9_=]+)*": {
+                "^\\S+([ ]\\S+)*": {
                   "type": "object",
                   "required": [
                     "ref"
@@ -311,378 +311,401 @@
         "$comment" : "actually this does not work",
         "description": "an optional unique identifier, for example, a compound number such as 38b or a DOI such as 10.14469/hpc/14635 must not start nor end in a space character",
         "type": "string",
-        "pattern": "^[a-zA-Z0-9_+\\-/*.,=()\\[\\]]+([ ][a-zA-Z0-9_+\\-/*.,=()\\[\\]]+)*$"
+        "pattern": "^\\S+([ ]\\S+)*"
       },      
-   	  "def_collectionSet" : {
-          "type": "object",
-          "required": [
-            "propertyPrefix",
-            "ifdProperties",
-            "itemsByID"
-            ],
-            "properties": {
-              "ifdType": {
-                "type": "string",
-                "const": "org.iupac.fairdata.core.IFDCollectionSet"
-              },
-              "ifdTypeExtends": {
-                "type": "string",
-                "const": "org.iupac.fairdata.core.IFDCollection"
-              },
-              "resourceID": {
-                "type": "string"
-              },
-              "propertyPrefix": {
-                "type": "string"
-              },
-              "ifdProperties": {
-                "type": "object",
-                "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
-                "unevaluatedProperties": false,
-                "properties": {
-                  "_$IFD.property.collectionset$_": { "type": "string" }
-                }
-              },
-              "itemsByID": {
-                "type": "object",
-                "properties": {                      
-                  "samples": {
-                    "unevaluatedProperties": false,
-                    "$ref": "#/$defs/def_samples"
-                  },
-                  "structures": {
-                    "unevaluatedProperties": false,
-                    "$ref": "#/$defs/def_structures"
-                  },
-                  "spectra": {
-                      "unevaluatedProperties": false,
-                      "$ref": "#/$defs/def_spectra"
-                  },
-                  "compounds": {
-                      "unevaluatedProperties": false,
-                      "$ref": "#/$defs/def_compounds"
-                  },
-                  "analyses": {
-                    "$ref": "#/$defs/def_analyses"
-                  }
-                },
-                "$comment" : "END properties"
-              },
-              "$comment" : "END itemsByID"
-            },
-            "$comment" : "END collectionSet"
-      },
-      "def_structures": {
-          "type": "object",
-          "required": [
-            "itemsByID"
-            ],
-            "properties": {
-              "ifdType": {
-                "type": "string",
-                "const": "org.iupac.fairdata.structure.IFDStructureCollection"
-              },
-              "ifdTypeExtends": {
-                "type": "string",
-                "const": "org.iupac.fairdata.core.IFDCollection"
-              },
-              "itemType": {
-                "type": "string",
-                "const": "org.iupac.fairdata.structure.IFDStructure"
-              },
-              "itemTypeExtends": {
-                "type": "string",
-                "const": "org.iupac.fairdata.core.IFDRepresentableObject"
-              },
-              "itemsByID": {
-                "type": "object",   
-                "unevaluatedProperties": false,
-                "patternProperties": {
-                  "^.+" : {
-                    "type":"object",
-                    "unevaluatedProperties": false,
-                    "properties": {
-                      "note": {
-                        "description": "",
-                        "type": "string"
-                      },
-                      "propertyPrefix": {
-                        "description": "The prefix to add to all IFDProperty keys in this block",
-                        "const": "IFD.property.structure"
-                      },
-                      "ifdProperties": {
-                        "type": "object",
-                        "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
-                        "unevaluatedProperties": false,
-                        "properties": {
-                          "_$IFD.property.structure$_": { "type" : "string"}
-                        }
-                      },
-                      "attributes": {           	
-                          "unevaluatedProperties": false,
-                          "$ref": "#/$defs/def_attributes"                          
-                      },
-                      "representations": {
-                          "type": "array",
-                          "items" : {
-                            "unevaluatedProperties": false,
-                            "$ref": "#/$defs/def_representationItem"                          
-                          },
-                          "$comment" : "END representations"
-                      },
-                      "$comment" : "END properties"
-                    },
-                    "$comment" : "END patternProperty"
-                  },
-                  "$comment" : "END patternProperties"
-                },
-                "$comment" : "END itemsByID"
-              },
-              "$comment" : "END properties"
-            },
-            "$comment" : "end structures"
-      },
-      "def_spectra" : {
-      "type": "object",
-      "required": [
-        "itemsByID"
-        ],
-        "properties": {
-          "ifdType": {
-            "type": "string",
-            "const": "org.iupac.fairdata.dataobject.IFDDataObjectCollection"
-          },
-          "ifdTypeExtends": {
-            "type": "string",
-            "const": "org.iupac.fairdata.core.IFDCollection"
-          },
-          "itemType": {
-            "type": "string",
-            "$comment": "^org.iupac.fairdata\\.contrib\\.fairspec\\.dataobject\\.*"  
-          },
-          "itemTypeExtends": {
-            "type": "string",
-            "$comment": "org\\.iupac\\.fairdata\\.contrib\\.fairspec\\.dataobject\\.FAIRSpecDataObject;org\\.iupac\\.fairdata\\.dataobject\\.IFDDataObject;org\\.iupac\\.fairdata\\.core\\.IFDRepresentableObject"
-          },
-          "itemsByID": {
-            "type": "object",   
-            "unevaluatedProperties": false,
-            "patternProperties": {
-              "^.+" : {
-                  "unevaluatedProperties": false,
-                  "$ref": "#/$defs/def_spectrum"                          
-              },
-              "$comment" : "END patternProperties"
-            },
-            "$comment" : "END itemsByID"
-          },
-          "$comment" : "END properties"
-        },
-        "$comment" : "END spectra"       
-      },
-      "def_spectrum" : {
-          "type": "object",
+      "def_collectionSet" : {
+        "type": "object",
+        "required": [
+          "propertyPrefix",
+          "ifdProperties",
+          "itemsByID"
+          ],
           "properties": {
-            "note": {
-              "description": "a processing note created by the creator of the finding aid",
+            "ifdType": {
+              "type": "string",
+              "const": "org.iupac.fairdata.core.IFDCollectionSet"
+            },
+            "ifdTypeExtends": {
+              "type": "string",
+              "const": "org.iupac.fairdata.core.IFDCollection"
+            },
+            "resourceID": {
               "type": "string"
             },
-            "timestamp": {
-              "description": "date and time of creation ISO 8601 date+time (UTC), for example: 2025-04-17T18:55Z",
-              "type": "integer"
-            },
             "propertyPrefix": {
-              "description": "The prefix to add to all IFDProperty keys in this block",
-              "type": "string",
-              "const": "IFD.property.dataobject.fairspec"
+              "type": "string"
             },
-            "expt_id": {
-                "type": "string"
-              },
-              "expt_originating_sample_id": {
-                  "type": "string"
-                },
-            "expt_title": {
-                "type": "string"
-              },
-              "instr_manufacturer_name": {
-                  "type": "string"
-                },
             "ifdProperties": {
               "type": "object",
               "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
               "unevaluatedProperties": false,
               "properties": {
-                "_$IFD.property.dataobject/fairspec$_": { "type" : "string"}
+                "_$IFD.property.collectionset$_": { "type": "string" }
               }
             },
-            "attributes": {           	
-                "unevaluatedProperties": false,
-                "$ref": "#/$defs/def_attributes"                          
-            },
-            "exptMethod": {
-              "type": "string"
-            },
-            "representations": {
-                "type": "array",
-                "items" : {
-                  "unevaluatedProperties": false,
-                  "$ref": "#/$defs/def_representationItem"                          
-                },
-                "$comment" : "END representations"
-            },
-            "$comment" : "END properties"
-          },
-          "$comment" : "END patternProperty"    	  
-      },
-      "def_compounds" : {
-          "type": "object",
-          "required": [
-            "itemsByID"
-            ],
-            "properties": {
-              "ifdType": {
-                "type": "string",
-                "const": "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection"
-              },
-              "ifdTypeExtends": {
-                "type": "string",
-                "const": "org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;org.iupac.fairdata.core.IFDAssociationCollection"
-              },                
-              "itemType": {
-                "type": "string",
-                "const": "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundAssociation"
-              },
-              "itemTypeExtends": {
-                "type": "string",
-                "const": "org.iupac.fairdata.derived.IFDStructureDataAssociation;org.iupac.fairdata.core.IFDAssociation"
-              },                
-              "itemsByID": {
-                "unevaluatedProperties": false,
-                "$ref": "#/$defs/def_compoundItem"                       
-              },
-              "$comment" : "END properties"
-            },
-            "$comment" : "END compounds"
-        },
-      "def_compoundItem" : {
-          "type": "object",
-          "patternProperties": {
-            "^.+" : {
+            "itemsByID": {
               "type": "object",
-              "unevaluatedProperties": false,
-              "properties": {
-                "ifdProperties": {
-                  "type": "object",
-                  "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
+              "properties": {                      
+                "samples": {
                   "unevaluatedProperties": false,
-                  "properties": {
-                    "_$IFD.property.association.fairspec.compound$_": { "type" : "string"}
-                  }
+                  "$ref": "#/$defs/def_samples"
                 },
-                "attributes": {           	
-                    "unevaluatedProperties": false,
-                    "$ref": "#/$defs/def_attributes"                          
-                },
-                "itemsByID": {
-                  "type": "object",
+                "structures": {
                   "unevaluatedProperties": false,
-                  "properties": {
-                    "structures" :{
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/$defs/def_field_id"
-                      }
-                    },
-                    "spectra" :{
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/$defs/def_field_id"
-                      }
-                    },
-                    "$comment" : "END properties"
-                  },
-                  "$comment" : "END itemsByID"
+                  "$ref": "#/$defs/def_structures"
                 },
-                "$comment" : "END properties"
-              },
-              "$comment" : "END patternProperty"
-            },
-            "$comment" : "END patternProperties"
-          },
-          "$comment" : "END compoundItem"
-      },
-      "def_attributes" : {
-          "type": "object",
-          "description": "an optional set of key/value pairs that are not part of the IUPAC FAIRData standard or its extension. Characters of the keys must be one of[A-Za-z0-9_] or the space character and must be trimmed of any space character",
-          "patternProperties": {
-            "^[A-Za-z0-9_=]+([ ][A-Za-z0-9_=]+)*": {
-              "type": [
-                "string",
-                "number"
-                ]
-            }
-          },
-          "$comment" : "END attributes"
-      },
-      "def_representationItem" : {
-    	  	"type": "object",
-            "properties": {
-              "ifdType" : {
-                "type": "string"
-              },
-              "ifdTypeExtends" : {
-                "type": "string"
-              },
-              "representationType": {
-                "type": "string"
-              },
-              "mediaType": {
-                "type": "string"
-              },
-              "len": {
-                "type": "integer"
-              },
-              "note": {
-                "type": "string"
-              },
-              "data": {
-                "description": "a string of data such as a SMILES, or a BASE-64-encoded string starting with ';base64,'",
-                "type": "string"
-              },
-              "ref": {
-                "type": "object",
-                "unevaluatedProperties": false,
-                "properties": {
-                  "ifdType" : {
-                    "const" : "org.iupac.fairdata.core.IFDReference"
-                  },
-                  "ifdTypeExtends" : {
-                    "const" : ""
-                  },
-                  "resourceID": {
-                    "type": "string"
-                  },
-                  "originPath": {
-                    "type": "string"
-                  },
-                  "localPath": {
-                    "type": "string"
-                  },
-                  "$comment" : "END properties"
+                "spectra": {
+                  "unevaluatedProperties": false,
+                  "$ref": "#/$defs/def_spectra"
+                },
+                "compounds": {
+                  "unevaluatedProperties": false,
+                  "$ref": "#/$defs/def_compounds"
+                },
+                "analyses": {
+                  "unevaluatedProperties": false,
+                  "$ref": "#/$defs/def_analyses"
                 }
               },
               "$comment" : "END properties"
             },
-            "$comment" : "END items"
+            "$comment" : "END itemsByID"
+          },
+          "$comment" : "END collectionSet"
+      },
+      "def_structures": {
+        "type": "object",
+        "required": [
+          "itemsByID"
+          ],
+          "properties": {
+            "ifdType": {
+              "type": "string",
+              "const": "org.iupac.fairdata.structure.IFDStructureCollection"
+            },
+            "ifdTypeExtends": {
+              "type": "string",
+              "const": "org.iupac.fairdata.core.IFDCollection"
+            },
+            "itemType": {
+              "type": "string",
+              "const": "org.iupac.fairdata.structure.IFDStructure"
+            },
+            "itemTypeExtends": {
+              "type": "string",
+              "const": "org.iupac.fairdata.core.IFDRepresentableObject"
+            },
+            "itemsByID": {
+              "type": "object",   
+              "unevaluatedProperties": false,
+              "patternProperties": {
+                "^\\S+([ ]\\S+)*" : {
+                  "unevaluatedProperties": false,
+                  "$ref": "#/$defs/def_structure"
+                },
+                "$comment" : "END patternProperties"
+              },
+              "$comment" : "END itemsByID"
+            },
+            "$comment" : "END properties"
+          },
+          "$comment" : "end structures"
+      },
+      "def_structure": {
+        "type":"object",
+        "required": [
+          "propertyPrefix",
+          "ifdProperties",
+          "representations"
+          ],
+          "properties": {
+            "ifdType": {
+              "type": "string",
+              "const": "org.iupac.fairdata.structure.IFDStructure"
+            },
+            "ifdTypeExtends": {
+              "type": "string",
+              "const": "org.iupac.fairdata.core.IFDRepresentableObject"
+            },
+            "note": {
+              "description": "",
+              "type": "string"
+            },
+            "propertyPrefix": {
+              "description": "The prefix to add to all IFDProperty keys in this block",
+              "const": "IFD.property.structure"
+            },
+            "ifdProperties": {
+              "type": "object",
+              "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
+              "unevaluatedProperties": false,
+              "properties": {
+                "_$IFD.property.structure$_": { "type" : "string"}
+              }
+            },
+            "attributes": {             
+              "unevaluatedProperties": false,
+              "$ref": "#/$defs/def_attributes"                          
+            },
+            "representations": {
+              "type": "array",
+              "items" : {
+                "unevaluatedProperties": false,
+                "$ref": "#/$defs/def_representation"                          
+              },
+              "$comment" : "END representations"
+            },
+            "$comment" : "END properties"
+          }
+      },      
+      "def_spectra" : {
+        "type": "object",
+        "required": [
+          "itemsByID"
+          ],
+          "properties": {
+            "ifdType": {
+              "type": "string",
+              "const": "org.iupac.fairdata.dataobject.IFDDataObjectCollection"
+            },
+            "ifdTypeExtends": {
+              "type": "string",
+              "const": "org.iupac.fairdata.core.IFDCollection"
+            },
+            "itemType": {
+              "type": "string",
+              "$comment": "^org.iupac.fairdata\\.contrib\\.fairspec\\.dataobject\\.*"  
+            },
+            "itemTypeExtends": {
+              "type": "string",
+              "$comment": "org\\.iupac\\.fairdata\\.contrib\\.fairspec\\.dataobject\\.FAIRSpecDataObject;org\\.iupac\\.fairdata\\.dataobject\\.IFDDataObject;org\\.iupac\\.fairdata\\.core\\.IFDRepresentableObject"
+            },
+            "itemsByID": {
+              "type": "object",   
+              "unevaluatedProperties": false,
+              "patternProperties": {
+                "^\\S+([ ]\\S+)*" : {
+                  "unevaluatedProperties": false,
+                  "$ref": "#/$defs/def_spectrum"                          
+                },
+                "$comment" : "END patternProperties"
+              },
+              "$comment" : "END itemsByID"
+            },
+            "$comment" : "END properties"
+          },
+          "$comment" : "END spectra"       
+      },
+      "def_spectrum" : {
+        "type": "object",
+        "properties": {
+          "note": {
+            "description": "a processing note created by the creator of the finding aid",
+            "type": "string"
+          },
+          "expt_timestamp": {
+            "description": "date and time of creation ISO 8601 date+time (UTC), for example: 2025-04-17T18:55Z",
+            "type": "integer"
+          },
+          "expt_originating_sample_id": {
+            "type": "string"
+          },
+          "expt_title": {
+            "type": "string"
+          },
+          "instr_manufacturer_name": {
+            "type": "string"
+          },
+          "propertyPrefix": {
+            "description": "The prefix to add to all IFDProperty keys in this block",
+            "type": "string",
+            "const": "IFD.property.dataobject.fairspec"
+          },
+          "ifdProperties": {
+            "type": "object",
+            "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
+            "unevaluatedProperties": false,
+            "properties": {
+              "_$IFD.property.dataobject/fairspec$_": { "type" : "string"}
+            }
+          },
+          "attributes": {             
+            "unevaluatedProperties": false,
+            "$ref": "#/$defs/def_attributes"                          
+          },
+          "exptMethod": {
+            "type": "string"
+          },
+          "representations": {
+            "type": "array",
+            "items" : {
+              "unevaluatedProperties": false,
+              "$ref": "#/$defs/def_representation"                          
+            },
+            "$comment" : "END representations"
+          },
+          "$comment" : "END properties"
+        },
+        "$comment" : "END patternProperty"        
+      },
+      "def_compounds" : {
+        "type": "object",
+        "required": [
+          "itemsByID"
+          ],
+          "properties": {
+            "ifdType": {
+              "type": "string",
+              "const": "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection"
+            },
+            "ifdTypeExtends": {
+              "type": "string",
+              "const": "org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;org.iupac.fairdata.core.IFDAssociationCollection"
+            },                
+            "itemType": {
+              "type": "string",
+              "const": "org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundAssociation"
+            },
+            "itemTypeExtends": {
+              "type": "string",
+              "const": "org.iupac.fairdata.derived.IFDStructureDataAssociation;org.iupac.fairdata.core.IFDAssociation"
+            },                
+            "itemsByID": {
+              "unevaluatedProperties": false,
+              "$ref": "#/$defs/def_compound"                       
+            },
+            "$comment" : "END properties"
+          },
+          "$comment" : "END compounds"
+      },
+      "def_compound" : {
+        "type": "object",
+        "patternProperties": {
+          "^\\S+([ ]\\S+)*" : {
+            "type": "object",
+            "unevaluatedProperties": false,
+            "properties": {
+              "ifdProperties": {
+                "type": "object",
+                "description": "Each entry is a name of a defined property, starting with 'IFD.property.' and continuing with a dot-seperated set of qualifiers that consist only of lower-case or digit a-z0-9 characters. Only the part of this name following the 'propertyPrefix' value is given here.",
+                "unevaluatedProperties": false,
+                "properties": {
+                  "_$IFD.property.association.fairspec.compound$_": { "type" : "string"}
+                }
+              },
+              "attributes": {             
+                "unevaluatedProperties": false,
+                "$ref": "#/$defs/def_attributes"                          
+              },
+              "itemsByID": {
+                "type": "object",
+                "unevaluatedProperties": false,
+                "properties": {
+                  "structures" :{
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/def_field_id"
+                    }
+                  },
+                  "spectra" :{
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/def_field_id"
+                    }
+                  },
+                  "$comment" : "END properties"
+                },
+                "$comment" : "END itemsByID"
+              },
+              "$comment" : "END properties"
+            },
+            "$comment" : "END patternProperty"
+          },
+          "$comment" : "END patternProperties"
+        },
+        "$comment" : "END compound"
+      },
+      "def_attributes" : {
+        "type": "object",
+        "description": "an optional set of key/value pairs that are not part of the IUPAC FAIRData standard or its extension. Characters of the keys must be one of[A-Za-z0-9_] or the space character and must be trimmed of any space character",
+        "patternProperties": {
+          "^\\S+([ ]\\S+)*": {
+            "type": [
+              "string",
+              "number"
+              ]
+          }
+        },
+        "$comment" : "END attributes"
+      },
+      "def_representation" : {
+        "type": "object",
+        "properties": {
+          "ifdType" : {
+            "type": "string"
+          },
+          "ifdTypeExtends" : {
+            "type": "string"
+          },
+          "representationType": {
+            "type": "string"
+          },
+          "mediaType": {
+            "type": "string"
+          },
+          "len": {
+            "type": "integer"
+          },
+          "note": {
+            "type": "string"
+          },
+          "data": {
+            "description": "a string of data such as a SMILES, or a BASE-64-encoded string starting with ';base64,'",
+            "type": "string"
+          },
+          "ref": {
+            "type": "object",
+            "unevaluatedProperties": false,
+            "properties": {
+              "ifdType" : {
+                "const" : "org.iupac.fairdata.core.IFDReference"
+              },
+              "ifdTypeExtends" : {
+                "const" : ""
+              },
+              "resourceID": {
+                "type": "string"
+              },
+              "originPath": {
+                "type": "string"
+              },
+              "localPath": {
+                "type": "string"
+              },
+              "localName": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "doi": {
+                "type": "string"
+              },
+              "$comment" : "END properties"
+            },
+            "$comment" : "END ref"
+          },
+          "$comment" : "END properties"
+        },
+        "$comment" : "END representation"
       },
       "def_samples": {
-    	  "$comment", "TODO"
+        "$comment": "TODO"
       },
       "def_analyses": {
-    	  "$comment", "TODO"
-      }
-     "$comment" : "END $defs"
+        "$comment": "TODO"
+      },
+      "$comment" : "END $defs"
     },
     "$comment" : "END"
 

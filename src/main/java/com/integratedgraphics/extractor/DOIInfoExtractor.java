@@ -54,7 +54,7 @@ public class DOIInfoExtractor {
 		String url = null;
 		url = getMetadataUrl(uri, agency);
 		if (url == null) {
-			System.out.println("DOIInfoExtractor: unknown type " + agency + " should be one of '"+ DATACITE + "' or '" + CROSSREF + "' for " + uri);
+			System.out.println("DOIInfoExtractor: no metadata found at " + agency + " for " + uri);
 			return null;
 		}
 		System.out.println("DOIInfoExtractor: " + url);

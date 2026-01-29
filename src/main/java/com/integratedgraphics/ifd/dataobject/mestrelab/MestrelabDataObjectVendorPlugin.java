@@ -71,7 +71,7 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 				"Probe", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_PROBE_TYPE"), //prop
 				"Temperature", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_THERMODYNAMIC_TEMPERATURE"), //prop
 				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_DIMENSION"), //prop
-				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_TITLE"), //prop
+				"TITLE", getProp(IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_TITLE), //prop
 				"Spectrometer Frequency", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_1"), //prop
 				"Spectrometer Frequency2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_2"), //prop
 				"Spectrometer Frequency3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_3"), //prop
@@ -331,7 +331,7 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 		String k = ifdMap.get(isDerived ? key.substring(1) : key);
 		// TODO? but not all keys are like this key = "MNova_" + key;
 		if (k == null && key.equals("Page_Header")) {
-			addProperty(IFDConst.IFD_FIELD_PROPERTY_DESCRIPTION, val);
+			addProperty(IFDConst.IFD_PROPERTY_DESCRIPTION, val);
 			addProperty(IFDExtractorMain.PAGE_ID_PROPERTY_SOURCE, val);
 		}
 		// SM and DIM are derived

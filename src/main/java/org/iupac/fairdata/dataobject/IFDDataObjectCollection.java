@@ -1,5 +1,8 @@
 package org.iupac.fairdata.dataobject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 

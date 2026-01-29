@@ -151,16 +151,9 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 	@Override
 	protected void serializeList(IFDSerializerI serializer) {
 		if (size() > 0) {
-			int i;
-			for (i = size(); --i >= 0;) {
-				if (get(i).getID() == null) {
-					break;
-				}
-			}
-			if (i >= 0) {
-				for (i = size(); --i >= 0;) {
-					get(i).setID("[" + (i + 1) + "]");
-				}
+			boolean haveIDs = checkAllHaveIDs();
+			if (!haveIDs && !setIDsFromIndexes()) {
+				isSorted = true;
 			}
 			
 			if (!isSorted) 
@@ -173,6 +166,26 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 				get(i).setSerializeType(true);
 			}
 		}
+	}
+
+	/**
+	 * Set IDs from indexes if no ides
+	 * @return true if now sorted
+	 */
+	protected boolean setIDsFromIndexes() {
+		for (int i = size(); --i >= 0;) {
+			get(i).setID("[" + (i + 1) + "]");
+		}
+		return true;
+	}
+
+	protected boolean checkAllHaveIDs() {
+		for (int i = size(); --i >= 0;) {
+			if (get(i).getID() == null) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public T getObjectByID(String value) {

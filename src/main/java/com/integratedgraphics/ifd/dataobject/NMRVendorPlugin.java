@@ -20,8 +20,6 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 
 	protected final static String IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET = getProp(
 			"IFD_REP_DATAOBJECT_FAIRSPEC_NMR.VENDOR_DATASET");
-	protected final static String IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_MANUFACTURER_NAME = getProp(
-			"IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_MANUFACTURER_NAME");
 
 	protected static String IMAGE = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR.SPECTRUM_IMAGE");
 	protected static String PDF = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_NMR.SPECTRUM_DOCUMENT");
@@ -44,7 +42,7 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 	
 	@Override
 	public void reportVendor() {
-		addProperty(IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR_INSTR_MANUFACTURER_NAME, getVendorName());
+		addProperty(IFDConst.IFD_PROPERTY_DATAOBJECT_INSTR_MANUFACTURER_NAME, getVendorName());
 	}
 
 	private static Pattern nucPat = Pattern.compile("(^[^\\d]*)(\\d+)([^\\d]*)$");
@@ -213,7 +211,7 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 			timestamp = dataObjectGMTTimestamp;
 		}
 		if (timestamp > 0) {
-			addProperty(IFDConst.IFD_FIELD_PROPERTY_DATAOBJECT_TIMESTAMP, Long.valueOf(timestamp));
+			addProperty(IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_TIMESTAMP, Long.valueOf(timestamp));
 		}
 	}
 

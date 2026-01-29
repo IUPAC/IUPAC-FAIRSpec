@@ -1,14 +1,11 @@
 package org.iupac.fairdata.contrib.fairspec;
 
 import java.io.IOException;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
 import org.iupac.fairdata.common.IFDConst;
@@ -18,7 +15,6 @@ import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDAttribute;
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDObject;
-import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.dataobject.IFDDataObject;
@@ -217,7 +213,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	public static final String DATAOBJECT_FAIRSPEC_FLAG = IFDConst.getProp("DATAOBJECT_FAIRSPEC_FLAG");
 
 	public static final String DATAOBJECT_ORIGINATING_SAMPLE_ID = IFDConst
-			.getProp(IFDConst.IFD_PROPERTY_DATAOBJECT_ORIGINATING_SAMPLE_ID);
+			.getProp(IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_ORIGINATING_SAMPLE_ID);
 
 	private static final String IFD_PROPERTY_SAMPLE_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			IFDConst.IFD_SAMPLE_FLAG, IFDConst.IFD_ID_FLAG);
@@ -778,46 +774,16 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 		return sb.toString();
 	}
 
-	@Override
-	public boolean areDataObjectsIdentical(IFDDataObject o1, IFDDataObject o2) {
-		long t1 = o1.getTimestamp().longValue();
-		long t2 = o2.getTimestamp().longValue();
-		
-		System.out.println(o1.toString() + t1);
-		System.out.println(o2.toString() + t2);
-
-		if (Math.abs(t2 - t1) > 86400) // within a day, but may not both be Z
-			return false;
-		Map<String, IFDProperty> props1 = o1.getProperties();
-		Map<String, IFDProperty> props2 = o2.getProperties();
-		
-		for (Entry<String, IFDProperty> e : props1.entrySet()) {
-			String key = e.getKey();
-			Object v1 = e.getValue().getValue();
-			// skip date and manufaturer
-			if (v1 == null || key.indexOf("_date_") >= 0 || 
-					key.indexOf("_manufacturer_") >= 0) {
-				System.out.println(key + " " + v1);
-				continue;
-			}
-			IFDProperty p2 = props2.get(key);
-			Object v2;
-			if (p2 != null && (v2 = p2.getValue()) != null) {
-				if (!v1.equals(v2)) {
-					return false;
-				}
-			}			
-		}
-		return true;
-	}
-
 	/**
-	 * Merge object objFrom into objTo
+	 * Merge object objFrom into objTo if they are found to be identical
 	 * @param objFrom
 	 * @param objTo
+	 * @return true if objects were identical
 	 */
 	@Override
-	public void mergeDataObjects(IFDDataObject objFrom, IFDDataObject objTo) {
+	public boolean mergeDataObjectsIfMatching(IFDDataObject objFrom, IFDDataObject objTo) {
+		if (!IFDDataObject.areIdentical(objFrom, objTo))
+			return false;
 		// 1. merge attributes
 		// 2. merge representations
 		// 3. mark dup as invalid
@@ -829,6 +795,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 			objTo.add(objFrom.get(i));
 		}
 		objFrom.setValid(false);
+		return true;
 	}
 
 }
