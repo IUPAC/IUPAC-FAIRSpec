@@ -561,6 +561,14 @@
         "required": [
             "representations"
             ],
+            "itemType": {
+                "type": "string",
+                "$comment": "^org.iupac.fairdata\\.contrib\\.fairspec\\.dataobject\\.*"  
+              },
+              "itemTypeExtends": {
+                "type": "string",
+                "$comment": "org\\.iupac\\.fairdata\\.contrib\\.fairspec\\.dataobject\\.FAIRSpecDataObject;org\\.iupac\\.fairdata\\.dataobject\\.IFDDataObject;org\\.iupac\\.fairdata\\.core\\.IFDRepresentableObject"
+              },
         "properties": {
           "note": {
             "description": "a processing note created by the creator of the finding aid",

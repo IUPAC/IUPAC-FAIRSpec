@@ -527,6 +527,12 @@
         "required": [
             "representations"
             ],
+            "itemType": {
+                "type": "string"
+              },
+              "itemTypeExtends": {
+                "type": "string"
+              },
         "properties": {
           "note": {
             "description": "a processing note created by the creator of the finding aid",
