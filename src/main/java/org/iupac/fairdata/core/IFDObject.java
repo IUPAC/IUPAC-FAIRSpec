@@ -319,7 +319,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * generic properties that could be anything but are not in the list of known
 	 * properties
 	 */
-	protected List<IFDAttribute> attributes = new ArrayList<>();
+	protected List<Attribute> attributes = new ArrayList<>();
 
 	/**
 	 * the maximum number of items allowed in this list; may be 0
@@ -413,7 +413,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		return htProps;
 	}
 
-	public final List<IFDAttribute> getAttributes() {
+	public final List<Attribute> getAttributes() {
 		return attributes;
 	}
 
@@ -439,9 +439,9 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		// add/remove parameter
 		key = fixAttributeKey(key);
 		if (value == null || value.equals(IFDProperty.NULL))
-			IFDAttribute.remove(attributes, key);
+			Attribute.remove(attributes, key);
 		else
-			IFDAttribute.add(attributes, key, value);
+			Attribute.add(attributes, key, value);
 		return null;
 	}
 
@@ -751,7 +751,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		}
 		if (attributes.size() > 0) {
 			Map<String, Object> map = new TreeMap<>();
-			for (IFDAttribute p : attributes) {
+			for (Attribute p : attributes) {
 				Object val = p.getValue();
 				if (val != null && val != "") {
 					map.put(p.getName(), val);
@@ -887,7 +887,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	public String getAttribute(String key) {
 		for (int i = attributes.size(); --i >= 0;) {
-			IFDAttribute a = attributes.get(i);
+			Attribute a = attributes.get(i);
 			if (key.equals(a.getName())) {
 				return a.getValue().toString();
 			}

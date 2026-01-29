@@ -264,6 +264,7 @@ public class ExtractorTestACS extends ExtractorTest {
 	 * @param firstLast
 	 */
 	public static void runSet(String firstLast, String localSourceArchive, String targetDir) {
+		firstLast = firstLast.replace('-', ',');
 		int pt =  firstLast.indexOf('[');
 		targetDir = targetDir.replace('[', '_').replace(']','_').replace('\\', '/');
 		if (pt >= 0) {
