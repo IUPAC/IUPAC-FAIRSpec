@@ -549,9 +549,7 @@ class IFDExtractor {
     }
 
 	/**
-	 *  
-	 * If 
-	 * 
+	 * If the syntax has -schema flag, run schema validation on the finding aid generated
 	 */
 	private void schemaValidation(String targetDir) throws IOException{
 		// Check whether the target directory exists
@@ -560,10 +558,12 @@ class IFDExtractor {
 			System.err.printf("The folder %s does not exist or is not a directory.\n", outputFolderPath);
 			return;
 		}
-		// 
+
+		// Designated names for the schema validation logs
 		String successLogName = this.cliDOI + "_schema_valid.txt";
 		String errorLogName = this.cliDOI + "_schema_valid_error.txt";
 		
+		// Check whether the finding aid and finding aid schema generated properly
 		Path findingAidPath = Paths.get(outputFolderPath + "/IFD.findingaid.json");
 		Path findingAidSchemaPath = Paths.get(outputFolderPath + "/IFD.findingaid.schema.json");
 		if (!Files.exists(findingAidPath)){
@@ -574,6 +574,8 @@ class IFDExtractor {
 			System.err.printf("The file %s does not exist in the folder %s.\n", findingAidSchemaPath.getFileName(), outputFolderPath);
 			return;
 		}
+
+		// Syntax to run check-jsonschema (Required: Python and check-jsonschema library)
 		List<String> command = new ArrayList<>();
         command.add("check-jsonschema");
         command.add("--verbose");
@@ -584,6 +586,7 @@ class IFDExtractor {
         command.add("text");
 
 		try {
+			// Run the schema validation
             ProcessBuilder builder = new ProcessBuilder(command);
             builder.redirectErrorStream(true); 
             
@@ -597,6 +600,7 @@ class IFDExtractor {
                 output.append(line).append("\n");
             }
 
+			// Retrieve the exit code to check whether the finding aid is valid or not
             int exitCode = process.waitFor();
 			
 			Path errorLogPath =  Paths.get(outputFolderPath + "/" + errorLogName);
