@@ -1,6 +1,15 @@
 package com.integratedgraphics.extractor;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +78,7 @@ class IFDExtractor {
 		List<String> cliExtractorFlagList = new ArrayList<>();
 
 		boolean cliIsCrawler = false;
+		boolean runningSchemaValidation = false;
 
 		String cliLocalSourceArchivePath = null;
 
@@ -87,7 +97,7 @@ class IFDExtractor {
 			options.addOption(OptionBuilder.create("h"));
 
 			// version -v
-		OptionBuilder.withLongOpt("version");
+			OptionBuilder.withLongOpt("version");
 			OptionBuilder.withDescription("Get the current version of the IFD Extractor.");
 			options.addOption(OptionBuilder.create("v"));
 
@@ -111,6 +121,11 @@ class IFDExtractor {
 			// -debug 
 			OptionBuilder.withLongOpt("debug");
 			OptionBuilder.withDescription("This will print out all debugging messages");
+			options.addOption(OptionBuilder.create(null));
+
+			// -schema 
+			OptionBuilder.withLongOpt("schema");
+			OptionBuilder.withDescription("This will run the schema validation");
 			options.addOption(OptionBuilder.create(null));
 
 			// Optional options
@@ -376,6 +391,9 @@ class IFDExtractor {
 			if (line.hasOption("z")) {
 				cliExtractorFlagList.add("-nozip");
 			}
+			if (line.hasOption("schema")) {
+				runningSchemaValidation = true;
+			}
 		}
 
 		// print out the help manuals
@@ -467,6 +485,9 @@ class IFDExtractor {
 			DOICrawler crawler = new DOICrawler(crawlerArgs.toArray(new String[0]));
 			crawler.setCustomizer(new ICLDOICrawler(crawler));
 			crawler.crawl();
+			if (runningSchemaValidation){
+				schemaValidation(targetDir);
+			}
 			return;
 		}
 
@@ -515,8 +536,93 @@ class IFDExtractor {
 			new IFDExtractorMain().runExtraction(ifdExtractFilePath, localArchivePath, targetDir, null,
 					String.join(" ", cliExtractorFlagList));
 		}
-
 		// shouldn't we continue here?
+		if (runningSchemaValidation){
+			schemaValidation(targetDir);
+		}
+	}
+
+	private static void saveToFile(Path filePath, String content) throws IOException {
+        try (FileWriter writer = new FileWriter(new File(filePath.toString()))) {
+            writer.write(content);
+        }
+    }
+
+	/**
+	 *  
+	 * If 
+	 * 
+	 */
+	private void schemaValidation(String targetDir) throws IOException{
+		// Check whether the target directory exists
+		Path outputFolderPath = Paths.get(targetDir).toAbsolutePath();
+		if (!Files.isDirectory(outputFolderPath)){
+			System.err.printf("The folder %s does not exist or is not a directory.\n", outputFolderPath);
+			return;
+		}
+		// 
+		String successLogName = this.cliDOI + "_schema_valid.txt";
+		String errorLogName = this.cliDOI + "_schema_valid_error.txt";
+		
+		Path findingAidPath = Paths.get(outputFolderPath + "/IFD.findingaid.json");
+		Path findingAidSchemaPath = Paths.get(outputFolderPath + "/IFD.findingaid.schema.json");
+		if (!Files.exists(findingAidPath)){
+			System.err.printf("The file %s does not exist in the folder %s.\n", findingAidPath.getFileName(), outputFolderPath);
+			return;
+		}
+		if (!Files.exists(findingAidSchemaPath)){
+			System.err.printf("The file %s does not exist in the folder %s.\n", findingAidSchemaPath.getFileName(), outputFolderPath);
+			return;
+		}
+		List<String> command = new ArrayList<>();
+        command.add("check-jsonschema");
+        command.add("--verbose");
+        command.add("--schemafile");
+        command.add(findingAidSchemaPath.toString());
+        command.add(findingAidPath.toString());
+        command.add("-o");
+        command.add("text");
+
+		try {
+            ProcessBuilder builder = new ProcessBuilder(command);
+            builder.redirectErrorStream(true); 
+            
+            Process process = builder.start();
+			
+			String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            StringBuilder output = new StringBuilder();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line).append("\n");
+            }
+
+            int exitCode = process.waitFor();
+			
+			Path errorLogPath =  Paths.get(outputFolderPath + "/" + errorLogName);
+			if (Files.exists(errorLogPath)){
+				Files.delete(errorLogPath);
+			}
+			Path successLogPath =  Paths.get(outputFolderPath + "/" + successLogName);
+			if (Files.exists(successLogPath)){
+				Files.delete(successLogPath);
+			}
+            if (exitCode == 0) {
+				Files.createFile(successLogPath);
+				saveToFile(successLogPath, "Schema validation run on: " + timeStamp + "\n");
+                saveToFile(successLogPath, output.toString());
+				System.out.printf("Validation SUCCESSFUL for %s\n", targetDir);
+            } else {
+				
+				Files.createFile(errorLogPath);
+				saveToFile(errorLogPath, "Schema validation run on: " + timeStamp + "\n");
+                saveToFile(errorLogPath, output.toString());
+				System.out.printf("Validation FAILED for %s\n", targetDir);
+            }
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
 	}
 
 	/**

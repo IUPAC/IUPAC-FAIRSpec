@@ -43,8 +43,8 @@ unzip_recursive() {
 }
 
 # Absolute path to the folder that stores this script for future reference
-script_root_path=$PWD
-
+script_root_path="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cd $script_root_path
 # Ask the user to input the DOI for the Dryad dataset they want to work on
 read -p "Please enter the DOI of the Dryad set you want to work on: " doi
 
