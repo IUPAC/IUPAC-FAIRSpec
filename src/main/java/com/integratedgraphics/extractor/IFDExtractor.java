@@ -543,7 +543,7 @@ class IFDExtractor {
 	}
 
 	private static void saveToFile(Path filePath, String content) throws IOException {
-        try (FileWriter writer = new FileWriter(new File(filePath.toString()))) {
+        try (FileWriter writer = new FileWriter(new File(filePath.toString()), true)) {
             writer.write(content);
         }
     }
@@ -617,7 +617,6 @@ class IFDExtractor {
                 saveToFile(successLogPath, output.toString());
 				System.out.printf("Validation SUCCESSFUL for %s\n", targetDir);
             } else {
-				
 				Files.createFile(errorLogPath);
 				saveToFile(errorLogPath, "Schema validation run on: " + timeStamp + "\n");
                 saveToFile(errorLogPath, output.toString());
