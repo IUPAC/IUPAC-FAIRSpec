@@ -5,7 +5,7 @@ cd c:/temp/dryad
 ls
 pwd
 
-cd 0c01297
+cd 612jm64gh
 ls
 pwd
 
@@ -113,7 +113,7 @@ echo "File List" > file_list.txt
 
 
 
-OUTPUT_FILE="file_list_0c01297.txt"
+OUTPUT_FILE="file_list_612jm64gh.txt"
 echo $OUTPUT_FILE
 
 find "$1" -print > "$OUTPUT_FILE"

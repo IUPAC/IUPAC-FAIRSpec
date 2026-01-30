@@ -71,7 +71,7 @@ def is_pure_experiment_folder(name):
         cleaned = cleaned.replace(k, "")
     cleaned = re.sub(r"[^a-z0-9]+", "", cleaned)
     return len(cleaned) == 0   
-
+  
 def is_basic_candidate(folder):
     f = folder.strip()
     if is_file_like(f):
@@ -602,6 +602,56 @@ df_exploded['full_matched_path'] = df_exploded.apply(
 
 # drop matched_path (not needed for intended output)
 df_exploded = df_exploded.drop('matched_path', axis=1)
+
+# last check: if identified compound contains way more folders than other identified compounds
+def promote_child_compounds(df_exploded, multiplier=5, min_children=6):
+    df = df_exploded.copy()
+    row_counts = df.groupby("compound").size()
+    if len(row_counts) == 0:
+        return df
+
+    median_rows = row_counts.median()
+
+    # count number of distinct test folders per compound
+    child_counts = df.groupby("compound")["test_folder"].nunique()
+
+    # identify parent-like folders
+    suspicious = row_counts[
+        (row_counts > median_rows * multiplier) &
+        (child_counts >= min_children)
+    ].index.tolist()
+
+    if not suspicious:
+        return df
+
+    print("Some identified compounds are likely parent folders.")
+    print("Promoting children of parent-like compounds:", suspicious)
+    print("\n")
+    
+    new_rows = []
+    for parent in suspicious:
+        parent_rows = df[df["compound"] == parent]
+
+        # each test_folder becomes a new compound
+        for child, group in parent_rows.groupby("test_folder"):
+            if child == "NA" or pd.isna(child):
+                continue
+            child_group = group.copy()
+            child_group["compound"] = child
+            child_group["compound_name"] = child
+            child_group["spectra_ID"] = child_group["compound_name"] + " " + child_group["test_folder"]
+            new_rows.append(child_group)
+
+    # remove original parent compound rows
+    df = df[~df["compound"].isin(suspicious)]
+
+    # add corrected child-compound rows
+    if new_rows:
+        df = pd.concat([df] + new_rows, ignore_index=True)
+    print(f"Final identified compounds:\n {df['compound'].unique()} \n\n Final number of identified compounds: {df['compound'].nunique()}\n")
+    return df
+
+df_exploded = promote_child_compounds(df_exploded, multiplier=4, min_children=6)
 
 # write file to TSV
 df_exploded.to_csv(f'final_output_{dataset_DOI}.tsv', index=False, sep='\t')
