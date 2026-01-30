@@ -1,8 +1,11 @@
 # !/bin/bash
 
 # Absolute path to the IUPAC-FAIRSPEC directory
-IUPAC_DIRECTORY="/Users/faynguyen03/Documents/IUPAC-FAIRSpec/" 
-cd $IUPAC_DIRECTORY
+
+SCRIPT_PATH="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+DEV_LINUX_DIRECTORY="$(dirname "$SCRIPT_PATH")"
+IUPAC_DIRECTORY=$(dirname "$DEV_LINUX_DIRECTORY")
+cd "$IUPAC_DIRECTORY"
 
 rm -rf bin
 javac -d bin -target 1.8 -source 1.8 -cp "lib/*" $(find src -name "*.java")

@@ -1,8 +1,9 @@
 # !/bin/bash
 
 # Absolute path to the IUPAC-FAIRSPEC directory
-IUPAC_DIRECTORY="/Users/faynguyen03/Documents/IUPAC-FAIRSpec/" 
-cd $IUPAC_DIRECTORY
+SCRIPT_PATH="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+IUPAC_DIRECTORY="$(dirname "$SCRIPT_PATH")"
+cd "$IUPAC_DIRECTORY"
 
 read -p "Input the path (absolute/relative) to the parent folder you want to store the output " path
 
@@ -43,12 +44,12 @@ acs_doi=(
     )
 
 for doi in "${acs_doi[@]}"; do
-    java -jar "dist/IFDExtractor.jar" -test "acs" -T "${path}/acs/" -D "${doi}"
+    java -jar "dist/IFDExtractor.jar" -test "acs" -T "${path}/acs/" -D "${doi}" -schema 
     echo "SUCCESSFULLY GENERATE THE FINDING AID FOR ${doi}"
 done
 
 for doi in "${icl_doi[@]}"; do
-    java -jar "dist/IFDExtractor.jar" -W -test "icl" -T "${path}/icl/" -D "${doi}" -X "src/main/resources/com/integratedgraphics/extractor/extract/ImperialCollege/IFD-extract.json -N"
+    java -jar "dist/IFDExtractor.jar" -W -test "icl" -T "${path}/icl/" -D "${doi}" -X "src/main/resources/com/integratedgraphics/extractor/extract/ImperialCollege/IFD-extract.json -N" -schema
     echo "SUCCESSFULLY GENERATE THE FINDING AID FOR ${doi}"
 done
 
@@ -60,7 +61,7 @@ if [[ ! -d "${dryad_path}" ]]; then
 fi
 
 for doi in "${dryad_doi[@]}"; do
-    java -jar "dist/IFDExtractor.jar" -test "dryad" -T "${path}/dryad/" -S "${dryad_path}/${doi}/dataset.zip" -D "${doi}"
+    java -jar "dist/IFDExtractor.jar" -test "dryad" -T "${path}/dryad/" -S "${dryad_path}/${doi}/dataset.zip" -D "${doi}" -schema
     echo "SUCCESSFULLY GENERATE THE FINDING AID FOR ${doi}"
 done
 

@@ -13,7 +13,7 @@
 |  | -A | addPublicationMetadata | |Include ALL Crossref or DataCiteOnly for post-publication-related collections; in metadata. ||
 |  | -c | noClean | |Don't empty the destination collection directory before extraction; allows additional files to be zipped ||
 |  | -C | dataciteDonw | |Only for post-publication-related collections.||
-|  | -debug | debugging | | This will print out all debugging messages ||
+|  | -debug | debug | | This will print out all debugging messages ||
 |  | -E | embedPdf | | Loads PDF documents into finding aids for cross-domain viewing of spectra ||
 |  | -F | findingAidOnly | | Only create a finding aid ||
 |  | -g | noLandingPage | | Don't create a landing page ||
@@ -33,6 +33,7 @@
 |  | -x | noDownload | | Do not download files from the repository | For crawler only|
 |  | -X | IFDExtractFile | | Input IFD-extract.json configuration file, if used | |
 |  | -z | noZip | | Don't zip up the target directory ||
+|  | -schema | schema | | Validate the generated finding aid (only working with the terminal) ||
 
 ## Requirement:
 
@@ -124,11 +125,7 @@ Class-Path: ../bin/ ../lib/commons-compress-1.22.jar ../lib/commons-io-2.11.0.ja
 jar cvfm dist/IFDExtractor.jar dist/manifest.txt -C bin .
 ```
 
-- You can run the script `cli_macos_terminal` to automate this process. Remember to change the absolute path to your IUPAC directory accordingly
-
-```
-IUPAC_DIRECTORY="/Users/xxxxx/Documents/IUPAC-FAIRSpec/" 
-```
+- You can run the script `cli_generating_jar_terminal.sh` (works for both Windows and macOS) to automate this process.
 
 
 ### Run the `IFDExtractor.jar` on terminal:
@@ -144,3 +141,11 @@ IUPAC_DIRECTORY="/Users/xxxxx/Documents/IUPAC-FAIRSpec/"
 - Run the extractor on an ACS dataset: `java -jar dist/IFDExtractor.jar -test acs -T c:/temp/acs/ -D acs.joc.0c00770`
 
 - Run the crawler on an ICL dataset: `java -jar dist/IFDExtractor.jar -W -test icl -T c:/temp/icl/ -D 10.14469/hpc/14635 -X src/main/resources/com/integratedgraphics/extractor/extract/ImperialCollege/IFD-extract.json`
+
+- Automatically validate the finding aid after generating with `-schema` flag: `java -jar dist/IFDExtractor.jar -test acs -T c:/temp/acs/ -D acs.joc.0c00770 -schema` 
+
+> **Note:**
+> You must install the library `check-jsonschema` via `pip` (Python) to use this flag
+>```
+>pip install check-jsonschema
+>```
