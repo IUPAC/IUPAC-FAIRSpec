@@ -223,7 +223,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	}
 	protected static int indexCount;
 
-	protected static boolean doTypeSerialization;
+	protected static boolean doTypeSerialization = true;
 
 	/**
 	 * a unique identifier for debugging
@@ -274,12 +274,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected String id;
 
 	/**
-	 * an identifyable time stamp 
-	 * 
-	 */
-	private String timestamp;
-
-	/**
 	 * an arbitrary description to provide some sort of context
 	 */
 	protected String description;
@@ -319,7 +313,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * units
 	 * 
 	 */
-	protected PropertyMap htProps = new PropertyMap();
+	protected PropertyMap ifdProperties = new PropertyMap();
 
 	/**
 	 * generic properties that could be anything but are not in the list of known
@@ -412,11 +406,11 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 */
 	protected void setProperties(String propertyPrefix, String notKey) {
 		myPropertyPrefix = propertyPrefix;
-		IFDConst.setProperties(htProps, propertyPrefix, notKey);
+		IFDConst.setProperties(ifdProperties, propertyPrefix, notKey);
 	} 
 
 	public Map<String, IFDProperty> getProperties() {
-		return htProps;
+		return ifdProperties;
 	}
 
 	public final List<IFDAttribute> getAttributes() {
@@ -432,14 +426,14 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 */
 	public IFDProperty setPropertyValue(String key, Object value) {
 		// check for .representation., which is not stored in the object.
-		if (IFDConst.isRepresentation(key) || checkSpecialProperties(key, value)) {
+		if (IFDConst.isRepresentation(key) || checkFieldProperties(key, value)) {
 			return null;
 		}
 		// check for a known property
-		IFDProperty p = IFDConst.getIFDProperty(htProps, key);
+		IFDProperty p = IFDConst.getIFDProperty(ifdProperties, key);
 		if (p != null) {
 			hasProperty = true;
-			htProps.put(key, p = p.getClone(value));
+			ifdProperties.put(key, p = p.getClone(value));
 			return p;
 		}
 		// add/remove parameter
@@ -467,7 +461,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	
 	
 	public String getPropertySource(String key) {
-		IFDProperty p = htProps.get(key);
+		IFDProperty p = ifdProperties.get(key);
 		return (p == null ? null : p.getSource());
 	}
 	
@@ -491,6 +485,23 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	protected String getPropertyPrefixForSerialization() {
 		return getIFDPropertyPrefix();
 	}
+	
+	protected String myPropLABEL;
+	protected String myPropID;
+	protected String myPropDESC;
+	protected String myPropNOTE;
+	protected String myPropDOI;
+	protected String myPropURL;
+	
+	protected void setPrefixes() {
+		String myPropertyPrefix = getIFDPropertyPrefix();
+		myPropLABEL = myPropertyPrefix + IFDConst.IFD_LABEL_FLAG;
+		myPropID = myPropertyPrefix + IFDConst.IFD_ID_FLAG;
+		myPropDESC = myPropertyPrefix + IFDConst.IFD_DESCRIPTION_FLAG;
+		myPropNOTE = myPropertyPrefix + IFDConst.IFD_NOTE_FLAG;
+		myPropDOI = myPropertyPrefix + IFDConst.IFD_DOI_FLAG;
+		myPropURL = myPropertyPrefix + IFDConst.IFD_URL_FLAG;
+	}
 
 	/**
 	 * label, id, description, and note are special values that will not be included
@@ -500,33 +511,30 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * @param value
 	 * @return
 	 */
-	private boolean checkSpecialProperties(String key, Object value) {
-		String myPropertyPrefix = getIFDPropertyPrefix();
-		if (key.equals(IFDConst.IFD_PROPERTY_LABEL) || key.equals(myPropertyPrefix + IFDConst.IFD_LABEL_FLAG)) {
+	protected boolean checkFieldProperties(String key, Object value) {
+		if (myPropLABEL == null)
+			setPrefixes();
+		if (key.equals(IFDConst.IFD_PROPERTY_LABEL) || key.equals(myPropLABEL)) {
 			setLabel(value.toString());
 			return true;
 		} 
-		if (key.equals(IFDConst.IFD_PROPERTY_ID) || key.equals(myPropertyPrefix + IFDConst.IFD_ID_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_ID) || key.equals(myPropID)) {
 			setID(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_PROPERTY_DESCRIPTION) || key.equals(myPropertyPrefix + IFDConst.IFD_DESCRIPTION_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_DESCRIPTION) || key.equals(myPropDESC)) {
 			setDescription(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_PROPERTY_NOTE) || key.equals(myPropertyPrefix + IFDConst.IFD_NOTE_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_NOTE) || key.equals(myPropNOTE)) {
 			addNote(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_PROPERTY_TIMESTAMP) || key.equals(myPropertyPrefix + IFDConst.IFD_TIMESTAMP_FLAG)) {
-			setTimestamp(value.toString());
-			return true;
-		}
-		if (key.equals(IFDConst.IFD_PROPERTY_DOI) || key.equals(myPropertyPrefix + IFDConst.IFD_DOI_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_DOI) || key.equals(myPropDOI)) {
 			setDOI(value.toString());
 			return true;
 		}
-		if (key.equals(IFDConst.IFD_PROPERTY_URL) || key.equals(myPropertyPrefix + IFDConst.IFD_URL_FLAG)) {
+		if (key.equals(IFDConst.IFD_PROPERTY_URL) || key.equals(myPropURL)) {
 			setURL(value.toString());
 			return true;
 		}
@@ -534,7 +542,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	}
 
 	public Object getPropertyValue(String key) {
-		IFDProperty p = htProps.get(key);
+		IFDProperty p = ifdProperties.get(key);
 		return (p ==  null ? null : p.getValue());
 	}
 
@@ -559,6 +567,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 
 	@Override
 	public void setID(String id) {
+		if (id != null && id.endsWith("/"))
+			id = id.substring(0, id.length() - 1);
 		this.id = id;
 	}
 
@@ -589,16 +599,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			this.note += ";\n" + note;
 	}
 	
-	@Override
-	public String getTimestamp() {
-		return timestamp;
-	}
-
-	@Override
-	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
-	}
-
 	@Override
 	public String getDescription() {
 		return description;
@@ -725,7 +725,6 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		serializer.addAttr("label", getLabel());
 		serializer.addAttr("note", getNote());
 		serializer.addAttr("description", getDescription());
-		serializer.addAttr("timestamp", getTimestamp());
 		serializer.addAttr("doi", doi);
 		if (doi == null || url != null && !doi.equals(url))
 			serializer.addAttr("url", url);
@@ -739,7 +738,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			Map<String, Object> map = new TreeMap<>();
 			String propPrefix = getPropertyPrefixForSerialization() + '.';
 			int prefixLength = propPrefix.length();
-			for (Entry<String, IFDProperty> e : htProps.entrySet()) {
+			for (Entry<String, IFDProperty> e : ifdProperties.entrySet()) {
 				Object val = e.getValue().getValue();
 				if (val != null) {
 					String key = e.getKey();
@@ -854,9 +853,9 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		o.index = indexCount++;
 		// o.id must be adjusted later
 		o.attributes = new ArrayList<>();
-		o.htProps = new PropertyMap();
+		o.ifdProperties = new PropertyMap();
 		o.setProperties(myPropertyPrefix, null);
-		for (Entry<String, IFDProperty> p : htProps.entrySet()) {
+		for (Entry<String, IFDProperty> p : ifdProperties.entrySet()) {
 			Object val = p.getValue().getValue();
 			if (val != null)
 				o.setPropertyValue(p.getKey(), val);

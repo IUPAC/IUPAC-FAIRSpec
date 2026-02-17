@@ -55,7 +55,7 @@ import com.integratedgraphics.extractor.ExtractorUtils.CacheRepresentation;
 import com.integratedgraphics.extractor.ExtractorUtils.DirectoryInputStream;
 import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
 import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
-import com.integratedgraphics.ifd.api.VendorPluginI;
+import com.integratedgraphics.ifd.api.DataObjectVendorPluginI;
 
 /**
  * Phase 2: Carry out the actual extraction of metadata.
@@ -77,18 +77,21 @@ import com.integratedgraphics.ifd.api.VendorPluginI;
  * 
  * This pass generates the ordered map of the archive contents, by resource, for
  * use in the next phases. During this initial phase, the CollectionSet is not
- * built.
+ * built, and digital item bytes are not checked. Only the filenames are
+ * checked.
  * 
  * Process files in the FAIRSpec-ready collection, extracting metadata and
  * representations, but do not create any Finding Aid objects or collections.
  * 
  * Scan zip entries or directories for representations of structures and
- * spectral data, extracting representations such as MOL, JDX, PDF, embedded MNova.
+ * spectral data, extracting representations such as MOL, JDX, PDF, embedded
+ * MNova.
  * 
  * Some file structures need to be fixed. Specifically, the name of the Bruker
  * directory containing acqu must be a simple integer, or the dataset cannot be
  * read back into TopSpin. Not all authors realize this. So we flag those for
- * fixing. These datasets are identified here, but they are not (re)zipped until Phase 2c. 
+ * fixing. These datasets are identified here, but they are not (re)zipped until
+ * Phase 2c.
  * 
  * Files may come from more than one source (two FigShare ZIP files, for
  * example).
@@ -175,7 +178,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	protected FileList lstManifest;
 
 	/**
-	 * the resource currrently being processed in Phase 2 or 3.
+	 * the resource currently being processed in Phase 2 or 3.
 	 * 
 	 */
 	protected ExtractorResource extractorResource;
@@ -186,7 +189,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	private Map<String, IFDRepresentableObject<?>> htLocalizedNameToObject = new LinkedHashMap<>();
 
 	/**
-	 * retrieves a clone data source or a cloned object from an id 
+	 * retrieves a clone data source or a cloned object from an id
 	 */
 	protected Map<String, IFDRepresentableObject<?>> htCloneMap = new HashMap<>();
 
@@ -197,8 +200,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	private List<MetadataReceiverI.DeferredProperty> deferredPropertyList;
 
 	/**
-	 * an insertion pointer into the deferredPropertyList;
-	 * reset to 0 after Phase 2b.
+	 * an insertion pointer into the deferredPropertyList; reset to 0 after Phase
+	 * 2b.
 	 */
 	private int deferredPropertyPointer;
 
@@ -242,7 +245,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	/**
 	 * vendor association with this rezipping
 	 */
-	private VendorPluginI currentRezipVendor;
+	private DataObjectVendorPluginI currentRezipVendor;
 
 	/**
 	 * last path to this rezip top-level resource
@@ -273,10 +276,13 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * structure and an object
 	 */
 	private boolean allowMultipleObjectsForRepresentations = true;
-
+	private String thisCompoundDirID;
+	private String thisStructureDirID;
+	private String lastLocalClonedParent;
+	
 	/**
-	 * The main extraction phase. Find and extract all objects of interest from a ZIP
-	 * file.
+	 * The main extraction phase. Find and extract all objects of interest from a
+	 * ZIP file.
 	 * 
 	 */
 	protected void processPhase2() throws IFDException, IOException {
@@ -286,7 +292,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 		// String s = "test/ok/here/1c.pdf"; // test/**/*.pdf
 		// Pattern p = Pattern.compile("^\\Qtest\\E/(?:[^/]+/)*(.+\\Q.pdf\\E)$");
-		// Matcher m = p.matcher(s);
+		// Matcher m = p.mat cher(s);
 		// log(m.find() ? m.groupCount() + " " + m.group(0) + " -- " + m.group(1) : "");
 
 		log("=====");
@@ -305,8 +311,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		// There is one parser created for each of the IFD-extract.json
 		// "FAIRSpec.extractor.object" records.
 		// Each of phases 2a, 2b, 2c, and 2d iterate over these records.
-		
-
 
 		// Phase 2a
 
@@ -315,36 +319,30 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		// Create the IUPAC FAIRSpec Data Collection.
 		//
 		// Extract all metadata and embedded representations,
-		// saving them for later proccessing as "deferred". 
-		// 
-		// The finding aid objects themselves are not created yet. 
+		// saving them for later proccessing as "deferred".
+		//
+		// The finding aid objects themselves are not created yet.
 		//
 		phase2aIterate(htArchiveContents);
-		
-		
-		
+
 		checkStopAfter(PHASE_2A);
 
 		// Phase 2b
 
 		log("!Phase 2b create IFDObjects from the FAIRSpec-ready collection");
-		
 
 		// Now run through the FAIRSpec-ready collection again, this time
 		// creating objects in the Finding Aid.
 		//
 		// This will also add metadata from a spreadsheet file.
 
-
 		phase2bIterate(htArchiveContents);
 
 		checkStopAfter(PHASE_2B);
 
-
 		// Phase 2c
 
 		log("!Phase 2c process all rezippable datasets and create their IUPAC FAIRSpec Data Collection");
-		
 
 		// All objects have been created.
 
@@ -362,22 +360,21 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 		checkStopAfter(PHASE_2C);
 
-
 		// Phase 2d
 
 		log("!Phase 2d process all deferred object properties");
-		
+
 		phase2dProcessDeferredObjectProperties(null);
 
 		checkStopAfter(PHASE_2D);
 
-
 		// Phase 2e
 
-		// ensure that all files in the FAIRSpec-ready collection have been processed, or flag them as rejected or ignored
-		
+		// ensure that all files in the FAIRSpec-ready collection have been processed,
+		// or flag them as rejected or ignored
+
 		log("!Phase 2e check rejected files and update lists");
-		
+
 		phase2eIterate();
 
 		return;
@@ -415,7 +412,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					if (len > 0)
 						faHelper.setCurrentResourceByteLength(len);
 					zipFileMap = phase2ReadFAIRSpecReadyCollectionIteratively(is, "", PHASE_2A,
-							new LinkedHashMap<String, ArchiveEntry>());
+							new LinkedHashMap<String, ArchiveEntry>(), 0);
 					contents.put(localizedTopLevelZipURL, zipFileMap);
 				}
 			}
@@ -438,12 +435,14 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @throws IFDException
 	 */
 
-	private Map<String, ArchiveEntry> phase2ReadFAIRSpecReadyCollectionIteratively(InputStream is, String baseOriginPath,
-			String phase, Map<String, ArchiveEntry> originToEntryMap) throws IOException, IFDException {
+	private Map<String, ArchiveEntry> phase2ReadFAIRSpecReadyCollectionIteratively(InputStream is,
+			String baseOriginPath, String phase, Map<String, ArchiveEntry> originToEntryMap, int level)
+			throws IOException, IFDException {
 		if (debugging && baseOriginPath.length() > 0)
 			log("! opening " + baseOriginPath);
 		boolean isTopLevel = (baseOriginPath.length() == 0);
-		ArchiveInputStream ais = new ArchiveInputStream(is, isTopLevel ? extractorResource.getSourceFile() : null);
+		ArchiveInputStream ais = new ArchiveInputStream(is, isTopLevel ? extractorResource.getSourceFile() : null,
+				level);
 		ArchiveEntry zipEntry = null;
 		ArchiveEntry nextEntry = null;
 		ArchiveEntry firstFileEntry = null;
@@ -461,8 +460,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			if (name == null)
 				continue;
 			boolean isDir = zipEntry.isDirectory();
-			if (phase == PHASE_2C)
-				System.out.println(">>>>" + baseOriginPath + name);
 			if (!isDir && !haveDirs) {
 				// a zip file with no directories will need to be checked repeatedly
 				int pt = name.lastIndexOf('/');
@@ -477,18 +474,18 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			lookingForDirectories = (dirPt >= 0 && zipEntry != firstFileEntry);
 			if (lookingForDirectories) {
 				if (isDir) {
-					dirPt = firstFileName.indexOf('/', dirPt + 1);				
+					dirPt = (firstFileName == null ? -1 : firstFileName.indexOf('/', dirPt + 1));
 					// still cycling or this is fine
 					// set up for next
 					if (dirPt > 0) {
-					  String dirName = firstFileName.substring(0, dirPt + 1);
-					  nextEntry = new ArchiveEntry(dirName);
+						String dirName = firstFileName.substring(0, dirPt + 1);
+						nextEntry = new ArchiveEntry(dirName);
 					} else {
-					  nextEntry = null;	
+						nextEntry = null;
 					}
 				} else {
 					haveDirs = false;
-					// first time only and not a directory; 
+					// first time only and not a directory;
 					// a/b/c/d...
 					dirPt = name.indexOf('/', dirPt + 1);
 					if (dirPt > 0) {
@@ -499,7 +496,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 						// set to first directory
 						nextEntry = new ArchiveEntry(firstFileName.substring(0, dirPt + 1));
 						continue;
-					}	
+					}
 				}
 			}
 			String oPath = baseOriginPath + name;
@@ -507,19 +504,21 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			if (!isDir) {
 				dirPt = -1;
 				firstFileEntry = null;
-				if (zipEntry.getSize() == 0) {
+				if (zipEntry.getSize() == 0)
 					continue;
 			}
 			if (isDir) {
+				if (haveDirParser)
+					checkCompoundStructureDir(baseOriginPath + name);
 				if (logging())
 					log("Phase " + phase + " checking zip directory: " + n + " " + oPath);
 			} else if (lstRejected.accept(oPath)) {
-					// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX,
-					// acs.joc.0c00770/22567817
-					if (phase == PHASE_2A)
-						addFileToFileLists(oPath, LOG_REJECTED, zipEntry.getSize(), null);
-					continue;
-				}
+				// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX,
+				// acs.joc.0c00770/22567817
+				if (phase == PHASE_2A)
+					addFileToFileLists(oPath, LOG_REJECTED, zipEntry.getSize(), null);
+				continue;
+			} else {
 				if (phase == PHASE_2A && lstAccepted.accept(oPath)) {
 					addFileToFileLists(oPath, LOG_ACCEPTED, zipEntry.getSize(), null);
 					accepted = true;
@@ -541,7 +540,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 			if (FAIRSpecUtilities.isZip(oPath)) {
 				// iteratively check zip files if not in the final checking phase
-				phase2ReadFAIRSpecReadyCollectionIteratively(ais, oPath + "|", phase, originToEntryMap);
+				phase2ReadFAIRSpecReadyCollectionIteratively(ais, oPath + "|", phase, originToEntryMap, level + 1);
 			} else {
 				switch (phase) {
 				case PHASE_2A:
@@ -579,6 +578,27 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		return originToEntryMap;
 	}
 
+	private void checkCompoundStructureDir(String dir) throws IFDException {
+		int len = dir.length();
+		if (compoundDirParser != null) {
+			if (compoundDirParser.match(dir).find()) {
+				int pt = dir.lastIndexOf("/", len - 2);
+				thisCompoundDirID = dir.substring(pt, len - 1);
+				if (structureDirParser == compoundDirParser) {
+					thisStructureDirID = thisCompoundDirID;
+					return;
+				}
+			}
+		}
+		if (structureDirParser != null) {
+			if (structureDirParser.match(dir).find()) {
+				int pt = dir.lastIndexOf("/", len - 2);
+				thisStructureDirID = dir.substring(pt, len - 1);
+			}
+		}
+
+	}
+
 	/**
 	 * Phase 2a check to see what should be done with a zip entry. We can extract it
 	 * or ignore it; and we can check it to sees if it is the trigger for extracting
@@ -587,11 +607,12 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @param originPath path to this entry including | and / but not rootPath
 	 * @param ais
 	 * @param zipEntry
+	 * @param accepted   file name has been accepted by lstAccepted
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
 	private void phase2aProcessEntry(String baseOriginPath, String originPath, InputStream ais, ArchiveEntry zipEntry,
-			boolean accept) throws FileNotFoundException, IOException {
+			boolean accepted) throws FileNotFoundException, IOException {
 		long len = zipEntry.getSize();
 		Matcher m = null;
 
@@ -600,7 +621,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		// "param" appears if a vendor has flagged these files for parameter extraction.
 
 		boolean isFound = false;
-		if (vendorCachePattern != null && (isFound = (m = vendorCachePattern.matcher(originPath)).find()) || accept) {
+		if (vendorCachePattern != null && (isFound = (m = vendorCachePattern.matcher(originPath)).find()) || accepted) {
 
 			PropertyManagerI v = (isFound ? getPropertyManager(m, true, true) : null);
 			boolean doCheck = (v != null);
@@ -644,8 +665,9 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 						// this is a one-shot file, not a collection.
 						if (logging())
 							log("Phase 2a accepting " + originPath);
-						type = (isIFDMetadataFile ? IFDConst.IFD_PROPERTY_FLAG : isStructure && hasStructureFor(bytes) ? IFDProperty.NULL
-								: v.accept(this, originPath, bytes));
+						type = (isIFDMetadataFile ? IFDConst.IFD_PROPERTY_FLAG
+								: isStructure && hasStructureFor(bytes) ? IFDProperty.NULL
+										: v.accept(this, originPath, bytes));
 
 						if (type == IFDConst.IFD_PROPERTY_FLAG) {
 							// IFD metadata file
@@ -661,7 +683,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 								logWarn("Failed to read " + originPath + " (ignored)", v.getClass().getName());
 							} else if (type == IFDProperty.NULL) {
 								lstIgnored.add(originPath, len);
-								logDigitalItemIgnored(originPath, localizedName, "phase 2a equivalent structure", "phase2a");
+								logDigitalItemIgnored(originPath, localizedName, "phase 2a equivalent structure",
+										"phase2a");
 								return;
 							} else if (IFDConst.isStructure(type)
 									|| type.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
@@ -675,9 +698,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				}
 				if (doWrite)
 					writeOriginToCollection(originPath, bytes, len);
-				addFileAndCacheRepresentation(originPath, localizedName, 
-						embedOnly || embeddableImage ? bytes : null, len, 
-						type, ext, null);
+				addFileAndCacheRepresentation(originPath, localizedName, embedOnly || embeddableImage ? bytes : null,
+						len, type, ext, null);
 			}
 		}
 
@@ -691,33 +713,40 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 			// e.g. exptno/pdata/1/procs
 
-			VendorPluginI v = phase2aGetVendorForRezip(m);
+			DataObjectVendorPluginI v = phase2aGetVendorForRezip(m);
 			originPath = m.group("path" + v.getIndex());
 			if (originPath.equals(lastRezipPath)) {
+				// e.g. exptno/pdata/1/procs
+				// e.g. exptno/pdata/999/procs
 				if (logging())
-					log("duplicate path " + originPath);
+					log("duplicate path (pdata/n, pdata/m)" + originPath);
 			} else {
 				lastRezipPath = originPath;
-				String localPath = localizePath(originPath);
-				CacheRepresentation rep = new CacheRepresentation(new IFDReference(faHelper.getCurrentSource().getID(),
-						originPath, extractorResource.rootPath, localPath), v, len, null, "application/zip");
-				// if this is a zip file, the data object will have been set to xxx.zip
-				// but we need this to be
 				String validDir = v.getRezipPrefix(originPath);
-				String basePath = ( validDir != null ? originPath : baseOriginPath.endsWith("|")
-						? baseOriginPath.substring(0, baseOriginPath.length() - 1)
-						: new File(originPath).getParent() + "/");
+				String basePath = (validDir != null ? originPath
+						: baseOriginPath.endsWith("|") && isTopZipDir(originPath)
+								? baseOriginPath.substring(0, baseOriginPath.length() - 1)
+								: getFileParent(originPath) + "/");
+				String newZipPath = (validDir == null ? originPath + "1/" : originPath);
+				String newParentPath = getFileParent(originPath);
+				String localPath = localizePath(newZipPath);
+				CacheRepresentation rep = new CacheRepresentation(new IFDReference(faHelper.getCurrentSource().getID(), originPath, extractorResource.rootPath,
+						localPath),
+						v,
+						len, null, "application/zip");
+				// if this is a zip file, the data object will have been set to xxx.zip
+				// but later we might give this up
 				rep.setRezipOrigin(basePath);
-				if (validDir == null && rezipCache.size() > 0) {
-					CacheRepresentation r = rezipCache.get(rezipCache.size() - 1);
-					rep.setIsMultiple();
-					r.setIsMultiple();
-				}
- 				log("!rezip pattern found " + originPath + " " + rep);
+				log("!rezip pattern found " + originPath + " as \n" + rep.getRef().getLocalName());
 				rezipCache.add(rep);
 			}
 		}
 
+	}
+
+	private static boolean isTopZipDir(String originPath) {
+		int ptzip = originPath.lastIndexOf('|');
+		return (ptzip >= 0 && originPath.indexOf('/', ptzip + 1) < 0);
 	}
 
 	private void addProperties(List<IFDProperty> props) {
@@ -735,28 +764,29 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @param m
 	 * @return
 	 */
-	private VendorPluginI phase2aGetVendorForRezip(Matcher m) {
+	private DataObjectVendorPluginI phase2aGetVendorForRezip(Matcher m) {
 		for (int i = bsRezipVendors.nextSetBit(0); i >= 0; i = bsRezipVendors.nextSetBit(i + 1)) {
 			String ret = m.group("rezip" + i);
 			if (ret != null && ret.length() > 0) {
-				return VendorPluginI.activeVendors.get(i).vendor;
+				return DataObjectVendorPluginI.activeVendors.get(i).vendor;
 			}
 		}
 		return null;
 	}
 
-	private void phase2bIterate(Map<String, Map<String, ArchiveEntry>> htArchiveContents) throws IOException, IFDException {
+	private void phase2bIterate(Map<String, Map<String, ArchiveEntry>> htArchiveContents)
+			throws IOException, IFDException {
 		ParserIterator iter = new ParserIterator();
 		while (iter.hasNext()) {
 			ObjectParser parser = nextParser(iter);
-  
+
 			log("!Phase 2b \n" + localizedTopLevelZipURL + "\n" + parser.getStringData());
 
 			phase2bParseZipFileNamesForObjects(parser, htArchiveContents.get(localizedTopLevelZipURL));
 			// what exactly is the ifdObjectCount?
 //			if (logging())
 //				log("!Phase 2b found " + ifdObjectCount + " IFD objects");
-		}	
+		}
 //		return true;//(ifdObjectCount != 0);
 	}
 
@@ -770,7 +800,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * The parser specifically looks for Matcher groups, regex (?<xxxx>...), that
 	 * have been created by the ObjectParser from an object line such as:
 	 * 
-	 * {IFD.representation.spec.nmr.vendor.dataset::{IFD.property.sample.label::*-*}-{IFD.property.dataobject.label::*}.jdf}
+	 * {IFD.representation.spec.nmr.dataobject.dataset::{IFD.property.sample.label::*-*}-{IFD.property.dataobject.label::*}.jdf}
 	 *
 	 * 
 	 * 
@@ -787,11 +817,10 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	private IFDObject<?> phase2bAddIFDObjectsForName(ObjectParser parser, List<String> keyList, String originPath,
 			String localizedName, long len) throws IFDException, IOException {
 		Matcher m = parser.match(originPath);
-		System.out.println(originPath + "\n" + parser);
 		if (!m.find()) {
 			return null;
 		}
-		System.out.println(originPath + " OK");
+		System.out.println(originPath + " found");
 		helper.beginAddingObjects(originPath);
 		if (debugging)
 			log("adding IFDObjects for " + originPath);
@@ -836,18 +865,18 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @param zipFileMap
 	 * @return true if have spectra objects
 	 * @throws IOException
-	 * @throws IFDException 
+	 * @throws IFDException
 	 */
 	private void phase2bParseZipFileNamesForObjects(ObjectParser parser, Map<String, ArchiveEntry> zipFileMap)
 			throws IOException, IFDException {
-		
+
 		List<String> keyList = parser.getKeyList();
-		//System.out.println("EXL2b " + keyList);
-		// for example, {compound=IFD.property.fairspec.compound.id::*}/{IFD.representation.structure.cdxml::{IFD.property.structure.id::*}.cdxml}
+		// System.out.println("EXL2b " + keyList);
+		// for example,
+		// {compound=IFD.property.fairspec.compound.id::*}/{IFD.representation.structure.cdxml::{IFD.property.structure.id::*}.cdxml}
 		// produces three keys:
 		//
 		// [compound, IFD0representation0structure0cdxml, IFD0property0structure0id]
-		
 
 		// next, we process those names
 		for (Entry<String, ArchiveEntry> e : zipFileMap.entrySet()) {
@@ -859,7 +888,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					|| lstIgnored.contains(originPath))
 				continue;
 			ArchiveEntry zipEntry = e.getValue();
-			long len = zipEntry.getSize();			
+			long len = zipEntry.getSize();
 			IFDObject<?> obj = phase2bAddIFDObjectsForName(parser, keyList, originPath, localizedName, len);
 			if (obj instanceof IFDRepresentableObject) {
 				addFileToFileLists(originPath, LOG_OUTPUT, len, null);
@@ -872,7 +901,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		while (iter.hasNext()) {
 			ObjectParser parser = nextParser(iter);
 			if (parser.hasData())
-				phase2ReadFAIRSpecReadyCollectionIteratively(getTopZipStream(), "", PHASE_2C, null);
+				phase2ReadFAIRSpecReadyCollectionIteratively(getTopZipStream(), "", PHASE_2C, null, 0);
 		}
 	}
 
@@ -888,7 +917,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		} else {
 			Object path = (currentRezipRepresentation = rezipCache.remove(0)).getRef().getOriginPath();
 			currentRezipPath = (String) path;
-			currentRezipVendor = (VendorPluginI) currentRezipRepresentation.getData();
+			currentRezipVendor = (DataObjectVendorPluginI) currentRezipRepresentation.getData();
 		}
 	}
 
@@ -906,7 +935,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * most likely already passed by one or more files associated with this
 	 * rezipping project.
 	 * 
-	 * @param baseName xxxx.zip|
+	 * @param baseName   xxxx.zip|
 	 * @param originPath
 	 * @param ais
 	 * @param entry
@@ -915,8 +944,9 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @throws IOException
 	 * @throws IFDException
 	 */
-	private ArchiveEntry phase2cRezipEntry(String baseName, String originPath, ArchiveInputStream ais, ArchiveEntry entry,
-			ArchiveEntry firstEntry, VendorPluginI rezipVendor) throws IOException, IFDException {
+	private ArchiveEntry phase2cRezipEntry(String baseName, String originPath, ArchiveInputStream ais,
+			ArchiveEntry entry, ArchiveEntry firstEntry, DataObjectVendorPluginI rezipVendor)
+			throws IOException, IFDException {
 
 		// originPath points to the directory containing pdata
 
@@ -931,6 +961,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		// xxx.zip/zzz/2/pdata --> xxx_1.zip/2/pdata (ICL; localname xxx.zip)
 
 		String entryName = entry.getName();
+			
 		boolean isDir = (entry.isDirectory());
 		String dirName = (isDir ? entryName : entryName.substring(0, entryName.lastIndexOf('/') + 1));
 		// dirName = 63/ ok
@@ -945,12 +976,13 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 //		nn/ directories - in which case we need to 
 //		generate the directory as xxx.zip..testing_63.zip or
 //		maybe do this ALWAYS? Just on second event? 
-
-		String parent = new File(entryName).getParent();
+		String parent = getFileParent(entryName);
 		int lenOffset = (parent == null ? 0 : parent.length() + 1);
 		// because Bruker directories must start with a number
 		// xxx/1/ is OK
-		String thisDir = dirName.substring(lenOffset, dirName.length() - 1);
+		// yyy.zzip|xxx/ 
+		int pt = dirName.length() - 1;
+		String thisDir = (lenOffset < pt ? dirName.substring(lenOffset, pt) : "");
 		String newDir = rezipVendor.getRezipPrefix(dirName);
 		Matcher m = null;
 		String localizedName = localizePath(originPath);
@@ -959,36 +991,42 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		// 8f/HBMC.zip|HMBC/250/ will be under HMBC.zip
 		IFDRepresentableObject<?> obj = getObjectFromLocalizedName(lNameForObj, IFDConst.IFD_DATAOBJECT_FLAG);
 		if (obj == null) {
-			// another possibility is that this is a directory in the top-level zip file or directory.
+			// another possibility is that this is a directory in the top-level zip file or
+			// directory.
 			// Compounds.zip|spectra/co011/NMR/1/ will be just the entry name
 			obj = getObjectFromLocalizedName(localizePath(entryName), IFDConst.IFD_DATAOBJECT_FLAG);
 			if (obj == null) {
-				String name;
-				if (baseName.endsWith("|")) {
-					// was a zip file
-					name = baseName.substring(0, baseName.length() - 1);
-				} else {
+				if (isDir) {
 					// was a directory
-					name = parent + "/";
+					obj = getObjectFromLocalizedName(localizePath(getFileParent(originPath) + "/"), IFDConst.IFD_DATAOBJECT_FLAG);
 				}
-
-				obj = getObjectFromLocalizedName(localizePath(name), IFDConst.IFD_DATAOBJECT_FLAG);
-				if (obj == null) {
-					log("! phase2cRezipEntry could not find object for " + lNameForObj 
-							+ "\n REASON: " + extractScriptFile 
-							+ " does not catch this recognized " + rezipVendor.getVendorName() + " pattern"
-							+"\n ignoring this dataset");
+				if (obj == null && baseName.endsWith("|")) {
+					// was a zip file
+					obj = getObjectFromLocalizedName(localizePath(baseName.substring(0, baseName.length() - 1)), IFDConst.IFD_DATAOBJECT_FLAG);
+				} 
+				if (obj == null) {	
+					System.out.println(htLocalizedNameToObject.toString().replace(',','\n') + "?");
+					log("! phase2cRezipEntry could not find object for " + lNameForObj + "\n REASON: "
+							+ extractScriptFile + " does not catch this recognized " + rezipVendor.getVendorName()
+							+ " pattern" + "\n ignoring this dataset");
 				}
 			}
 		}
 		String basePath = baseName + (parent == null ? "" : parent);
 		if (newDir != null) {
 			newDir = "";
-			boolean isMultiple = currentRezipRepresentation.isMultiple();
-			if (isMultiple) {
-				System.out.println("isMultiple!!" + currentRezipRepresentation);
-			} else if (parent == null) {
+			if (parent == null) {
 				originPath = basePath.substring(0, basePath.length() - 1);
+			} else {
+				String localParent = localizePath(parent);
+				if (obj == null) {
+					obj = getObjectFromLocalizedName(localParent, IFDConst.IFD_DATAOBJECT_FLAG);
+				}
+				// allow the first spectrum to not have _n in its id,
+				// but any later spectrum must have this
+				String ext = (localParent.equals(lastLocalClonedParent) ? "_" + thisDir : "");
+				lastLocalClonedParent = localParent;
+				obj = helper.cloneData((IFDDataObject) obj, ext, true);
 			}
 			if (originPath.endsWith(".zip")) {
 				if (lenOffset > 0) {
@@ -1001,11 +1039,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				originPath += ".zip";
 				localizedName += ".zip";
 			}
-			if (this.localizedName == null || isMultiple)
+			if (this.localizedName == null)
 				this.localizedName = localizedName;
-			if (isMultiple && obj != null) {
-				addDeferredPropertyOrRepresentation(MetadataReceiverI.DeferredProperty.newPage((obj.getIDorIndex().endsWith("/" + thisDir) ? null : "_" + thisDir), obj, localizedName));
-			}
 		} else {
 			newDir = "1/";
 			lenOffset = dirName.length();
@@ -1019,9 +1054,9 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 			if (this.localizedName == null)
 				this.localizedName = localizedName;
-			String msg = "Extractor correcting " + rezipVendor.getVendorName() + " directory name to " + localizedName + "|"
-					+ newDir;
-			addProperty(IFDConst.IFD_PROPERTY_DATAOBJECT_NOTE, msg);
+			String msg = "Extractor correcting " + rezipVendor.getVendorName() + " directory name to " + localizedName
+					+ "|" + newDir;
+			addProperty(IFDConst.IFD_PROPERTY_NOTE, msg);
 			log("!" + msg);
 		}
 		localizedName = localizePath(originPath);
@@ -1108,6 +1143,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				// extract this file into the collection
 				DeferredProperty dp = new DeferredProperty(key, (isBytesOnly || isInlineBytes ? typeData : localName));
 				dp.isInline = (isInlineBytes || insitu);
+				addDeferredPropertyOrRepresentation(dp);
 			}
 		}
 		rezipVendor.endDataSet();
@@ -1121,7 +1157,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		IFDRepresentation r = faHelper.getSpecDataRepresentation(localizedName);
 		if (r == null) {
 			// probably the case, as this renamed representation has not been added yet.
-		} else if (!insitu){
+		} else if (!insitu) {
 			r.setLength(len);
 		}
 		if (originPath.endsWith(".zip"))
@@ -1134,13 +1170,29 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	}
 
 	/**
+	 * parent of /test/1/ is /test/
+	 * 
+	 * @param entryName
+	 * @return
+	 */
+	private static String getFileParent(String entryName) {
+		int pt1 = entryName.lastIndexOf("|");
+		entryName = entryName.replace('\\', '/');
+		int pt = entryName.lastIndexOf('/', entryName.length() - 2);
+		if (pt <= pt1) {
+			pt = entryName.lastIndexOf("/");
+		}
+		return (pt < 0 ? entryName : entryName.substring(0, pt));
+	}
+
+	/**
 	 * Should be no throwing of Exceptions here -- we know if we have (?<param>...)
 	 * groups.
 	 * 
 	 * @param m
 	 * @return
 	 */
-	private String phase2cGetParamName(Matcher m){
+	private String phase2cGetParamName(Matcher m) {
 		try {
 			if (cachePatternHasVendors)
 				return m.group("param");
@@ -1176,11 +1228,15 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				continue;
 			}
 			assoc = null;
-			final String originPath = dp.originPath;//a[0]
-			String localizedName = dp.localizedName;//a[1]
-			final String key = dp.key;//a[2];
-			Object value = dp.value;//a[3];
-			boolean isInline = dp.isInline;//(a[4] == Boolean.TRUE);
+			final String originPath = dp.originPath;// a[0]
+			
+			if (originPath != null && originPath.indexOf(".cdxml") >= 0)
+				System.out.println("???" + originPath + dp.key + " " + dp.value);
+			
+			String localizedName = dp.localizedName;// a[1]
+			final String key = dp.key;// a[2];
+			Object value = dp.value;// a[3];
+			boolean isInline = dp.isInline;// (a[4] == Boolean.TRUE);
 			switch (key) {
 			case NEW_RESOURCE_KEY:
 				initializeResource(dp.resource, false);
@@ -1196,7 +1252,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				}
 				cloning = true;
 				break;
-			case IFDExtractor.PAGE_ID_PROPERTY_SOURCE:
+			case IFDExtractorMain.PAGE_ID_PROPERTY_SOURCE:
 				if (pageCompoundID == null)
 					pageCompoundID = inferCompoundID((String) value);
 				continue;
@@ -1223,10 +1279,11 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 			if (spec == null && !cloning) {
 				// just here to notify of an issue
-				logDigitalItemIgnored(originPath, localizedName, "phase 2d no spec data to associate this structure with", "processDeferredObjectProperties");
+				logDigitalItemIgnored(originPath, localizedName,
+						"phase 2d no spec data to associate this structure with", "processDeferredObjectProperties");
 				continue;
 			}
-			
+
 			if (spec instanceof IFDStructure) {
 				struc = (IFDStructure) spec;
 				spec = null;
@@ -1245,15 +1302,16 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				// from reportVendor-- Bruker adds this for thumb.png and pdf files.
 				// Mestrec will add #page1.cdx or #page1.mol
 				Object data = null;
-				String mediaType = dp.mediaType;//(String) a[5];
-				String note = dp.note;//(String) a[6];
+				String mediaType = dp.mediaType;// (String) a[5];
+				String note = dp.note;// (String) a[6];
 				if (isWritableRepresentation) {
 					// from DefaultStructureHelper - a PNG version of a CIF file, for example.
 					StructureData sd = (StructureData) value;
 					byte[] bytes = sd.bytes;
 					String oPath = sd.originPath;
 					String localName = localizePath(oPath);
-					if (thisPageInvalidatedStructureRepKey != null && localName.startsWith(thisPageInvalidatedStructureRepKey)) {
+					if (thisPageInvalidatedStructureRepKey != null
+							&& localName.startsWith(thisPageInvalidatedStructureRepKey)) {
 						// "NMR DATA/product/3a-H.mnova#page1.cdx.mol"
 						// but 3a-C and 3a-H might have the same cdx on different pages
 						continue;
@@ -1261,7 +1319,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					if (!insitu)
 						writeOriginToCollection(oPath, bytes, 0);
 					if (extractorResource.isDefaultStructurePath) {
-						IFDStructureRepresentation rep = (IFDStructureRepresentation) faHelper.getStructureCollection().getRepresentation("" + extractorResource.id, localName);
+						IFDStructureRepresentation rep = (IFDStructureRepresentation) faHelper.getStructureCollection()
+								.getRepresentation("" + extractorResource.id, localName);
 						if (rep != null)
 							rep.setData(bytes);
 					}
@@ -1274,7 +1333,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				String keyPath = null;
 				if (isInline) {
 					if (value instanceof String) {
-						data = value;						
+						data = value;
 					} else {
 						keyPath = ((Object[]) value)[0].toString();
 						data = ((Object[]) value)[1];
@@ -1290,8 +1349,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				}
 				IFDRepresentableObject<?> obj = (isStructureRep ? struc : phase2dGetClonedData(spec));
 				linkLocalizedNameToObject(keyPath, null, obj);
-				IFDRepresentation r = obj.findOrAddRepresentation(null, faHelper.getCurrentSource().getID(),
-						originPath, extractorResource.rootPath, keyPath, data, key, mediaType);
+				IFDRepresentation r = obj.findOrAddRepresentation(null, faHelper.getCurrentSource().getID(), originPath,
+						extractorResource.rootPath, keyPath, data, key, mediaType);
 				if (note != null)
 					r.addNote(note);
 				if (!isInline)
@@ -1310,13 +1369,13 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					// e.g. MNova extracted _page=10
 					// clear structure for not allowing an MNova structure to carry to next page?
 //					struc = null; 
-						if (cloneOriginObject == null) {
-							// first time through, get the parent MNova object
-							// which has the origin information and at least one property.
-							specToClone = cloneOriginObject = localSpec;
-						} else {
-							specToClone = localSpec = cloneOriginObject;
-						}
+					if (cloneOriginObject == null) {
+						// first time through, get the parent MNova object
+						// which has the origin information and at least one property.
+						specToClone = cloneOriginObject = localSpec;
+					} else {
+						specToClone = localSpec = cloneOriginObject;
+					}
 				} else if (value instanceof Object[]) {
 					// e.g. Bruker created a new object from multiple <n>/ directories
 					Object[] a = (Object[]) value;
@@ -1329,7 +1388,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				} else {
 					System.out.println("L2 ? How can this be??");
 				}
-				
+
 				String idExtension = (String) value;
 				if (assoc == null && specToClone != null)
 					assoc = faHelper.findCompound(null, specToClone);
@@ -1343,11 +1402,11 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					// internal Bruker directories
 					// or MNova extract
 				}
-				//specToClone.dumpProperties("local");
+				// specToClone.dumpProperties("local");
 				newSpec = faHelper.cloneData(specToClone, idExtension, replaceOld);
 				phase2AddCloneMap(specToClone, newSpec);
 				spec = localSpec = newSpec;
-				//newSpec.dumpProperties("new");
+				// newSpec.dumpProperties("new");
 				struc = faHelper.getFirstStructureForSpec(localSpec, assoc == null);
 				if (sample == null)
 					sample = faHelper.getFirstSampleForSpec(localSpec, assoc == null);
@@ -1365,7 +1424,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					// update that.
 					if (removeAllRepresentations)
 						newSpec.clear();
-					((FAIRSpecCompoundAssociation)assoc).addDataObject(newSpec);
+					((FAIRSpecCompoundAssociation) assoc).addDataObject(newSpec);
 				}
 				if (struc == null && sample == null) {
 					log("!SpecData " + spec + " added " + (assoc == null ? "" : "to " + assoc));
@@ -1413,13 +1472,14 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					if (!insitu)
 						writeOriginToCollection(oPath, bytes, 0);
 					if (extractorResource.isDefaultStructurePath) {
-						IFDStructureRepresentation rep = (IFDStructureRepresentation) faHelper.getStructureCollection().getRepresentation("" + extractorResource.id, localName);
+						IFDStructureRepresentation rep = (IFDStructureRepresentation) faHelper.getStructureCollection()
+								.getRepresentation("" + extractorResource.id, localName);
 						if (rep != null)
 							rep.setData(bytes);
 					}
-					
-					addFileAndCacheRepresentation(oPath, localName, insitu ? bytes : null, bytes.length, ifdRepType, null,
-							null);
+
+					addFileAndCacheRepresentation(oPath, localName, insitu ? bytes : null, bytes.length, ifdRepType,
+							null, null);
 					linkLocalizedNameToObject(localName, null, struc);
 					if (sample == null) {
 						assoc = faHelper.findCompound(struc, (IFDDataObject) spec);
@@ -1430,7 +1490,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					log("!Structure " + struc + " created and associated with " + spec);
 				} else {
 					// structure has already been found for this representation
-					// invalidate this (cdx/mol) representation and all derived representations (.mol, .png)  
+					// invalidate this (cdx/mol) representation and all derived representations
+					// (.mol, .png)
 					thisPageInvalidatedStructureRepKey = localName + ".";
 					invalidateCachedRepresentation(oPath, localName, struc);
 					assoc = faHelper.findCompound(struc, (IFDDataObject) spec);
@@ -1469,7 +1530,11 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				if (key.equals(FAIRSpecExtractorHelper.DATAOBJECT_ORIGINATING_SAMPLE_ID)) {
 					helper.addSpecOriginatingSampleRef(extractorResource.rootPath, localSpec, (String) value);
 				}
+				if(key == IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_TIMESTAMP) {
+					phase2AddSpectraToTimeStampHashMap(localSpec, (Long) value);
+				}
 				phase2dSetPropertyIfNotAlreadySet(localSpec, key, value, originPath);
+
 			}
 		}
 		if (assoc == null) {
@@ -1483,13 +1548,13 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	}
 
 	private static String inferCompoundID(String s) {
-	    s = s.toUpperCase();
-	    int pt = s.indexOf("COMPOUND ");
-	    if (pt < 0)
-	    	return null;
-	    s = s.substring(pt + 9);
-	    pt = s.indexOf(" ");
-	    return (pt < 0 ? s : s.substring(0, pt));
+		s = s.toUpperCase();
+		int pt = s.indexOf("COMPOUND ");
+		if (pt < 0)
+			return null;
+		s = s.substring(pt + 9);
+		pt = s.indexOf(" ");
+		return (pt < 0 ? s : s.substring(0, pt));
 	}
 
 	/**
@@ -1511,14 +1576,14 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 	/**
 	 * Get the clone source
+	 * 
 	 * @param spec
 	 * @return
 	 */
 	private IFDRepresentableObject<?> phase2dGetClonedData(IFDRepresentableObject<?> spec) {
 		if (htCloneMap.isEmpty())
 			return spec;
-		IFDRepresentableObject<?> d = (spec.isValid() ? null : 
-			getCloned(spec));
+		IFDRepresentableObject<?> d = (spec.isValid() ? null : getCloned(spec));
 		return (d == null ? spec : d);
 	}
 
@@ -1530,8 +1595,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	protected IFDRepresentableObject<?> getCloned(IFDRepresentableObject<?> oldSpec) {
 		return htCloneMap.get(oldSpec.getIDorIndex());
 	}
-
-
+	
 	private void phase2dSetPropertyIfNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath) {
 		Object currentValue = faHelper.setPropertyValueNotAlreadySet(obj, key, value, originPath);
 		if (currentValue != null && !currentValue.equals(value)) {
@@ -1546,12 +1610,32 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 		}
 	}
+	
+	/**
+	 * Use a 30-minute hash to group spectra into initial bins. Later, we will check
+	 * more carefully.
+	 * 
+	 * @param obj
+	 * @param time
+	 * @return
+	 */
+	protected IFDDataObject phase2AddSpectraToTimeStampHashMap(IFDDataObject obj, Long time) {
+		Integer timeStamp = Integer.valueOf((int) (time % 1800)); // 30-min intervals	
+		if (timestampSpectraObjectHashMap == null) 
+			timestampSpectraObjectHashMap = new HashMap<>();
+		ArrayList<IFDDataObject> objList = timestampSpectraObjectHashMap.get(timeStamp);
+	    if (objList == null) {
+	    	timestampSpectraObjectHashMap.put(timeStamp, objList = new ArrayList<>());
+	    }
+	    objList.add(obj);
+	    return obj;
+	}
 
 	private void phase2eIterate() throws MalformedURLException, IOException, IFDException {
 		ParserIterator iter = new ParserIterator();
 		while (iter.hasNext()) {
 			nextParser(iter);
-			phase2ReadFAIRSpecReadyCollectionIteratively(getTopZipStream(), "", PHASE_2E, null);
+			phase2ReadFAIRSpecReadyCollectionIteratively(getTopZipStream(), "", PHASE_2E, null, 0);
 		}
 	}
 
@@ -1576,7 +1660,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	/**
 	 * From DefaultVendorPlugin.addProperty(String, Object)
 	 * 
-	 * or 
+	 * or
 	 * 
 	 * phase2cRezipEntry (for IFDConst.IFD_PROPERTY_DATAOBJECT_NOTE)
 	 * 
@@ -1586,6 +1670,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	public void addProperty(String key, Object val) {
 		if (val != IFDProperty.NULL)
 			log(this.localizedName + " addProperty " + key + "=" + val);
+		System.out.println(String.format("%s:%s", key, val.toString()));
 		addDeferredPropertyOrRepresentation(new DeferredProperty(key, val));
 	}
 
@@ -1595,7 +1680,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * 
 	 * addProperty(...) from IFDVendorPluginI.accept(...)
 	 * 
-	 * addProperties(...) from phase2aProcessEntry(...) or phase2cRezipEntry 
+	 * addProperties(...) from phase2aProcessEntry(...) or phase2cRezipEntry
 	 * 
 	 * initializeResource(...) [NEW_RESOURCE_KEY]
 	 * 
@@ -1607,7 +1692,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 *                  a vendor plugin to pass back both a file name and a byte
 	 *                  array to create a new digital object extracted from the
 	 *                  original object, for example, from an MNova object
-	 *                  extraction; special keys include NEW_RESOURCE_KEY and NEW_PAGE_KEY
+	 *                  extraction; special keys include NEW_RESOURCE_KEY and
+	 *                  NEW_PAGE_KEY
 	 * @param val       either a String value or an Object[] with elements byte[]
 	 *                  and String name
 	 * @param mediaType a media type for a representation, or null
@@ -1623,24 +1709,23 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		p.originPath = originPath;
 		p.localizedName = localizedName;
 		p.resource = extractorResource;
-		deferredPropertyList
-				.add(deferredPropertyPointer++, p);
+		deferredPropertyList.add(deferredPropertyPointer++, p);
 		if (p.key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
-			// Phase 2a has identified a structure before a compound has been established in Phase 2b.
+			// Phase 2a has identified a structure before a compound has been established in
+			// Phase 2b.
 			// Mestrelab vendor plug-in has found a MOL or SDF file in Phase 2b.
-			
+
 			// val is Object[] {byte[] bytes, String name}
 			// Pass data to structure property manager in order
 			// to add (by coming right back here) InChI, SMILES, and InChIKey.
 			StructureData sd = (StructureData) p.value;
-			String standardInChI = getStructurePropertyManager().processStructureRepresentation(
-					sd.originPath, sd.bytes, sd.type, sd.standardInChI, false, true);
+			String standardInChI = getStructurePropertyManager().processStructureRepresentation(sd.originPath, sd.bytes,
+					sd.type, sd.standardInChI, false, true);
 			if (standardInChI != null) {
-			  sd.standardInChI = standardInChI;
+				sd.standardInChI = standardInChI;
 			}
 		}
 	}
-
 
 	/**
 	 * Register a digital item as significant and to be included in the collection.
@@ -1658,8 +1743,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @throws IOException not really; just because addFileToFileLists could do that
 	 *                     in other cases
 	 */
-	private CacheRepresentation addFileAndCacheRepresentation(String originPath, String localizedName, Object data, long len,
-			String ifdType, String fileNameForMediaType, String mediaType) throws IOException {
+	private CacheRepresentation addFileAndCacheRepresentation(String originPath, String localizedName, Object data,
+			long len, String ifdType, String fileNameForMediaType, String mediaType) throws IOException {
 		if (localizedName == null)
 			localizedName = localizePath(originPath);
 		if (mediaType == null) {
@@ -1677,8 +1762,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	}
 
 	/**
-	 * As duplicate structure representation has been found. 
-	 * Perhaps from two different pages in an MNova file.
+	 * As duplicate structure representation has been found. Perhaps from two
+	 * different pages in an MNova file.
 	 * 
 	 * @param localName
 	 * @param struc
@@ -1687,10 +1772,9 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		CacheRepresentation rep = new CacheRepresentation(new IFDReference(faHelper.getCurrentSource().getID(),
 				originPath, extractorResource.rootPath, localizedName), null, 0, null, null);
 		rep.isValid = false;
+		logWarn("Dublicate structure " + originPath + " ignored! Found: " + struc, "invalidateCachedRepresentation");
 		vendorCache.put(localizedName, rep);
 	}
-
-
 
 	/**
 	 * Add metadata from a simple file (default IFD_METADATA) with key=value pairs
@@ -1729,7 +1813,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	private InputStream getTopZipStream() throws MalformedURLException, IOException {
 		return (localizedTopLevelZipURL.equals(FindingAidCreator.CRAWLER_NAME) ? crawlerInputStream
 				: localizedTopLevelZipURL.endsWith("/") ? new DirectoryInputStream(localizedTopLevelZipURL)
-				: new URL(localizedTopLevelZipURL).openStream());
+						: new URL(localizedTopLevelZipURL).openStream());
 	}
 
 	/**
@@ -1760,7 +1844,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		}
 		lstManifest = resource.lstManifest;
 		lstIgnored = resource.lstIgnored;
-		boolean addProp = ((faHelper.getCurrentSource() != faHelper.addOrSetSource(resource.getRemoteSource(), resource.rootPath)) && isInit);
+		boolean addProp = ((faHelper.getCurrentSource() != faHelper.addOrSetSource(resource.getRemoteSource(),
+				resource.rootPath)) && isInit);
 		extractorResource = resource;
 		if (addProp)
 			addDeferredPropertyOrRepresentation(new DeferredProperty(NEW_RESOURCE_KEY, null));
@@ -1770,9 +1855,9 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	}
 
 	/**
-	 * Link one or more local names and type to an object such as
-	 * a spectrum or structure. Later in the process, this representation will be
-	 * added to the object.
+	 * Link one or more local names and type to an object such as a spectrum or
+	 * structure. Later in the process, this representation will be added to the
+	 * object.
 	 * 
 	 * @param localizedName
 	 * @param type
@@ -1832,13 +1917,12 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	}
 
 	/**
-	 * A new 
-	 * Pull a full row from a file such as Manifest.xlsx with headers including a
-	 * compound numbers, for example.
+	 * A new Pull a full row from a file such as Manifest.xlsx with headers
+	 * including a compound numbers, for example.
 	 * 
 	 * Called from FAIRSpecExtractorHelper.addObject and checkAddNewObject
 	 * 
-	 * @param o an IFDObject such as a Structure, DataObject, or Compound
+	 * @param o     an IFDObject such as a Structure, DataObject, or Compound
 	 * @param idKey one of the .id keys for the object
 	 */
 	@Override
@@ -1864,7 +1948,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	private byte[] writeOriginToCollection(String originPath, byte[] bytes, long len) throws IOException {
 		lstWritten.add(localizePath(originPath), (bytes == null ? len : bytes.length));
 		if (insitu) {
-			return bytes; 
+			return bytes;
 		}
 		if (!noOutput && bytes != null)
 			writeBytesToFile(bytes, getAbsoluteFileTarget(originPath));
@@ -1885,9 +1969,9 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		switch (mode) {
 		case LOG_IGNORED:
 			// fileName will be an origin name
-			  lstIgnored.add(fileName, len);
-			  // though ignored, still added to collection
-			  writeDigitalItem(fileName, ais, len, mode);
+			lstIgnored.add(fileName, len);
+			// though ignored, still added to collection
+			writeDigitalItem(fileName, ais, len, mode);
 			break;
 		case LOG_REJECTED:
 			// fileName will be an origin name
@@ -1961,8 +2045,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	}
 
 	/**
-	 * Clean up the zip entry name to remove '/', ' ', and add ".zip" if there
-	 * is a trailing '/' in the name. Zip paths marks '|' are switched to '..'.
+	 * Clean up the zip entry name to remove '/', ' ', and add ".zip" if there is a
+	 * trailing '/' in the name. Zip paths marks '|' are switched to '..'.
 	 * 
 	 * Used in Phases 2 (directly) and 3 (indirectly) only.
 	 * 

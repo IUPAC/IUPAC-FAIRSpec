@@ -12,6 +12,7 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
 import org.iupac.fairdata.contrib.fairspec.dataobject.FAIRSpecDataObject;
 import org.iupac.fairdata.core.IFDAssociation;
+import org.iupac.fairdata.core.IFDAttribute;
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDRepresentableObject;
@@ -75,6 +76,12 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 			.getProp("FAIRSPEC_EXTRACTOR_RELATED_METADATA_MAP");
 	public static final String FAIRSPEC_EXTRACTOR_LOCAL_SOURCE_FILE = IFDConst
 			.getProp("FAIRSPEC_EXTRACTOR_LOCAL_SOURCE_FILE");
+	public static final String FAIRSPEC_EXTRACTOR_COMPOUND_ID_DIR = IFDConst
+			.getProp("FAIRSPEC_EXTRACTOR_COMPOUND_ID_DIR");
+	public static final String FAIRSPEC_EXTRACTOR_STRUCTURE_ID_DIR = IFDConst
+			.getProp("FAIRSPEC_EXTRACTOR_STRUCTURE_ID_DIR");
+
+	
 	public static final String EXIT = "EXIT";
 
 	/**
@@ -206,7 +213,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	public static final String DATAOBJECT_FAIRSPEC_FLAG = IFDConst.getProp("DATAOBJECT_FAIRSPEC_FLAG");
 
 	public static final String DATAOBJECT_ORIGINATING_SAMPLE_ID = IFDConst
-			.getProp(IFDConst.IFD_PROPERTY_DATAOBJECT_ORIGINATING_SAMPLE_ID);
+			.getProp(IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_ORIGINATING_SAMPLE_ID);
 
 	private static final String IFD_PROPERTY_SAMPLE_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			IFDConst.IFD_SAMPLE_FLAG, IFDConst.IFD_ID_FLAG);
@@ -219,8 +226,8 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	public static final String IFD_PROPERTY_FAIRSPEC_COMPOUND_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			"fairspec.compound.id");
 
-	public static final String TIMESTAMP_GMT = "timestamp_gmt";
-	public static final String TIMESTAMP_LOCAL = "timestamp_local";
+	public static final String DATE_TIME_GMT = "time_gmt";
+	public static final String TIME_LOCAL = "time_local";
 
 
 	/**
@@ -330,7 +337,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 			return currentStructure;
 		case ClassTypes.DataObject:
 			if (currentDataObject == null) {
-				if (IFDConst.isID(param) && byId) {
+				if (IFDConst.isID(param)) {
 					currentDataObject = (IFDDataObject) checkAddNewObject(getSpecCollection(), type, rootPath, param,
 							value, localizedName, currentOriginPath, len, false);
 					if (currentDataObject != null)
@@ -660,6 +667,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	public IFDDataObject cloneData(IFDDataObject localSpec, String idExtension, boolean andReplace) {
 		// this will invalidate localSpec -- 1.mnova, for example.
 		// TODO clean out invalidated data
+		System.out.println(localSpec.getID() + " " + idExtension);
 		IFDDataObject data = getSpecCollection().cloneData(localSpec, idExtension, andReplace);
 		if (compoundCollection != null) {
 			for (IFDAssociation a : compoundCollection) {
@@ -764,6 +772,30 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 		sb.append("]\n");
 		sb.append("}\n");
 		return sb.toString();
+	}
+
+	/**
+	 * Merge object objFrom into objTo if they are found to be identical
+	 * @param objFrom
+	 * @param objTo
+	 * @return true if objects were identical
+	 */
+	@Override
+	public boolean mergeDataObjectsIfMatching(IFDDataObject objFrom, IFDDataObject objTo) {
+		if (!IFDDataObject.areIdentical(objFrom, objTo))
+			return false;
+		// 1. merge attributes
+		// 2. merge representations
+		// 3. mark dup as invalid
+		// do NOT transfer IFDProperties, just represntations and attributes
+		// only transfer attributes that are non-existant
+		IFDAttribute.mergeAll(objFrom.getAttributes(), objTo.getAttributes());
+		System.out.println("!FSEH Merging " + objFrom + " into " + objTo);
+		for (int i = 0, n = objFrom.size(); i < n; i++) {
+			objTo.add(objFrom.get(i));
+		}
+		objFrom.setValid(false);
+		return true;
 	}
 
 }

@@ -3,25 +3,17 @@ package com.integratedgraphics.extractor;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDException;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundAssociation;
-import org.iupac.fairdata.contrib.fairspec.FAIRSpecCompoundCollection;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper.FileList;
-import org.iupac.fairdata.core.IFDAssociation;
 import org.iupac.fairdata.core.IFDCollection;
-import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 import org.iupac.fairdata.core.IFDRepresentation;
 import org.iupac.fairdata.dataobject.IFDDataObject;
-import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.dataobject.IFDDataObjectRepresentation;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer;
 
@@ -51,6 +43,8 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	private String resourceList;
 
 	private String contentsFile = "c:/temp/t.xls";
+
+	private int timestampRemovalCount;
 
 	@SuppressWarnings("unchecked")
 	protected String processPhase3() throws IFDException, IOException {
@@ -140,7 +134,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	 * @return a serializer
 	 */
 	private IFDSerializerI getSerializer() {
-		return new IFDDefaultJSONSerializer(isByID);
+		return new IFDDefaultJSONSerializer();
 	}
 
 	private void outputListJSON(String name, File file) throws IOException {
@@ -151,51 +145,38 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	}
 
 	/**
-	 * Look for spectra with identical labels, and remove duplicates.
-	 * 
-	 * If a structure has lost all its associations, remove it.
-	 * 
-	 * This is experimental. For now, these are NOT ACTUALLY REMOVED. (Issues were
-	 * found with same-named PDF files that were embedded in different Bruker
-	 * directories but had the same name, which was being assigned the ID
+	 * Look for spectra with identical timestamps mod 1800 (30 minutes).
+	 * Some of these will be valid differences, so we now check to see
+	 * if they are truly identical, and if so, we merge the second (which will be MNova)
+	 * into the first (Bruker) as simply another representation, not a new spectrum.
 	 * 
 	 * 
 	 */
 	private void phase3cCheckForDuplicateSpecData() {
-		BitSet bs = new BitSet();
-		FAIRSpecCompoundCollection ssc = faHelper.getCompoundCollection();
-		boolean isFound = false;
-		boolean doRemove = false;
-		int n = 0;
-		// wondering where these duplicates come from.
-		Map<Integer, IFDObject<?>> map = new HashMap<>();
-		for (IFDAssociation assoc : ssc) {
-			IFDDataObjectCollection c = ((FAIRSpecCompoundAssociation) assoc).getDataObjectCollection();
-			List<Object> found = new ArrayList<>();
-			for (IFDRepresentableObject<?> spec : c) {
-				int i = spec.getIndex();
-				if (bs.get(i)) {
-					found.add((IFDDataObject) spec);
-					log("! Extractor found duplicate DataObject reference " + spec + " for " + assoc.getFirstObj1()
-							+ " in " + assoc + " and " + map.get(i) + " template order needs changing? ");
-					isFound = true;
-				} else {
-					bs.set(i);
-					map.put(i, assoc);
+		timestampRemovalCount = 0;
+		if (timestampSpectraObjectHashMap == null) 
+			return;
+		for (Entry<Integer, ArrayList<IFDDataObject>> e : 		 
+			timestampSpectraObjectHashMap.entrySet()) {
+			List<IFDDataObject> list = e.getValue();
+			int n = list.size();
+			if (n < 2)
+				continue;
+			for (int i = 0; i < list.size(); i++) {
+				IFDDataObject o1 = list.get(i);
+				for (int j = i + 1; j < list.size(); j++) {
+					IFDDataObject o2 = list.get(j);
+					if (helper.mergeDataObjectsIfMatching(o2, o1)) {
+						list.remove(o2);
+						--j;
+						log("!phase 3c timestamp duplicate objects merged: " + o2.getID() + " -> " + o1.getID());
+						timestampRemovalCount++;
+					}
+					
 				}
 			}
-			n += found.size();
-			if (found.size() > 0) {
-				// log("!! Extractor found the same DataObject ID in : " + found.size());
-				// BH not removing these for now.
-				if (doRemove)
-					c.removeAll(found);
-			}
-		}
-		if (isFound && doRemove) {
-			n += helper.removeStructuresWithNoAssociations();
-			if (n > 0)
-				log("! " + n + " objects removed");
+			
+			log("!phase 3c timestamp check merged " + timestampRemovalCount + "data objects");
 		}
 	}
 
@@ -267,9 +248,6 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		for (String ckey : vendorCache.keySet()) {
 			CacheRepresentation r = vendorCache.get(ckey);
 			IFDRepresentableObject<?> obj = getObjectFromLocalizedName(ckey, null);
-			if (obj == null) {
-				obj = getCloned(obj);
-			}
 			if (obj == null || !r.isValid) {
 				String path = r.getRef().getOriginPath().toString();
 				if (r.isValid) {

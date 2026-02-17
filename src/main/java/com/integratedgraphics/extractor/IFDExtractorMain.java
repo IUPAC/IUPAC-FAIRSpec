@@ -1,0 +1,321 @@
+package com.integratedgraphics.extractor;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+
+import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.common.IFDException;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+
+/**
+ * Copyright 2021-2024 Integrated Graphics and Robert M. Hanson
+ * 
+ * A class to handle the extraction of objects from a "raw" dataset by
+ * processing the full paths within a ZIP file as directed by an extraction
+ * template (from the extract/ folder for the test)
+ * 
+ * following the sequence:
+ * 
+ * initialize(ifdExtractScriptFile)
+ * 
+ * setLocalSourceDir(sourceDir)
+ * 
+ * setCachePattern(pattern)
+ * 
+ * setRezipCachePattern(pattern)
+ * 
+ * extractObjects(targetDir);
+ * 
+ * Features:
+ * 
+ * 
+ * ... uses template-directed processing of full file paths
+ * 
+ * ... metadata property information is from
+ * org.iupac.common.fairspec.properties
+ * 
+ * ... allows for an XLSX or OpenSheets file that contains additional metadata
+ * 
+ * ... creates IFDFAIRSpecFindingAid objects ready for serialization
+ * 
+ * ... serializes using org.iupac.util.IFDDefaultJSONSerializer
+ * 
+ * ... zip files are processed recursively
+ * 
+ * ... zip files other than Bruker directories are unpacked
+ * 
+ * ... "broken" Bruker directories (those without a simple integer root path)
+ * are corrected.
+ * 
+ * ... binary MNova files are scanned for metadata, PNG, and MOL files (only,
+ * not spectra)
+ * 
+ * ... MNova metadata references page number in file using #page=
+ * 
+ * ... allow CLI command
+ * 
+ * See superclasses for more information
+ * 
+ * @author hansonr
+ *
+ */
+public class IFDExtractorMain extends IFDExtractorLayer3 {
+
+	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/IFDExtractor.java";
+
+	// TODO: test rootpath and file lists for case with two root paths -- does it
+	// make sense that that manifests are cleared?
+
+	// TODO: update GitHub README.md
+
+	private static final String debugFlags = "-sttxEnuropAfter=end";
+
+	public static final String PAGE_ID_PROPERTY_SOURCE = "*idf.property.compound.id.source*";
+
+// not avaialable -- see IFDExtractor
+//	
+//	protected static String getCommandLineHelp() {
+//		return "\nformat: java -jar IFDExtractor.jar [IFD-extract.json] [localSourceArchive] [targetDir] [extractorFlags]" //
+//				+ "\n" + "\nwhere" //
+//				+ "\n" //
+//				+ "\n[IFD-extract.json] is the IFD extraction template for this collection" //
+//				+ "\n[localSourceArchive] is the source .zip, .tar.gz, .tar, .tgz, or .rar file" //
+//				+ "\n[targetDir] is the target directory for the collection (which you are responsible to empty first)" //
+//				+ "\n" //
+//				+ "\n" + "[extractorFlags] are one or more of:" //
+//				+ "\n" //
+//				+ "\n-addPublicationMetadata (only for post-publication-related collections; include ALL Crossref or DataCite metadata)" //
+//				+ "\n-dataciteDown (only for post-publication-related collections)" //
+//				+ "\n-debugging (lots of messages)" //
+//				+ "\n-debugReadonly (readonly, no publicationmetadata)" //
+//				+ "\n-findingAidOnly (only create a finding aid)" //
+//				+ "\n-nolaunch (don't launch the landing page)" //
+//				+ "\n-noclean (don't empty the destination collection directory before extraction; allows additional files to be zipped)" //
+//				+ "\n-noignored (don't include ignored files -- treat them as REJECTED)" //
+//				+ "\n-nolandingPage (don't create a landing page)" //
+//				+ "\n-nopubinfo (ignore all publication info)" //
+//				+ "\n-nostopOnFailure (continue if there is an error)" //
+//				+ "\n-nozip (don't zip up the target directory)" //
+//				+ "\n-readonly (just create a log file)" //
+//				+ "\n-requirePubInfo (throw an error is datacite cannot be reached; post-publication-related collections only)"
+//				+ "\n" + "\nor, to run the DOICrawler:" + "\n" //
+//				+ "\n" + "\njava -jar IFDExtractor.jar -doi [DOI] [targetDir] [crawlerFlags]" //
+//				+ "\n" + "\nwhere" //
+//				+ "\n" //
+//				+ "\n[DOI] is a Document Object Identifier such as 10.14469/hpc/10386" //
+//				+ "\n[targetDir] is the target directory for the output" //
+//				+ "\n" //
+//				+ "\n" + "and [crawlerFlags] as above and also optionally:" //
+//				+ "\n" //
+//				+ "\n-download (additionally download files from the repository)" //
+//		;
+//	}
+
+	public IFDExtractorMain() {
+		initializeExtractor();
+	}
+
+	public void runExtraction(String ifdExtractFile, String localSourceArchive, String targetDir, String baseDir,
+			String flags) {
+		runExtraction(new String[] { ifdExtractFile, localSourceArchive, targetDir, baseDir, flags });
+	}
+
+	public void runExtraction(String[] args) {
+
+		System.out.println(Arrays.toString(args));
+		processFlags(args, debugFlags);
+		String localSourceArchive = null;
+		String targetDir = null;
+		String ifdExtractJSONFilename;
+		switch (args.length) {
+		default:
+		case 4:
+			baseDir = args[3];
+			//$FALL-THROUGH$
+		case 3:
+			targetDir = args[2];
+			//$FALL-THROUGH$
+		case 2:
+			localSourceArchive = args[1];
+			if ("-".equals(localSourceArchive))
+				localSourceArchive = null;
+			//$FALL-THROUGH$
+		case 1:
+			ifdExtractJSONFilename = args[0];
+			break;
+		case 0:
+			ifdExtractJSONFilename = null;
+		}
+		if (ifdExtractJSONFilename == null)
+			throw new NullPointerException("No IFD-extract.json or test set?");
+		if (targetDir == null)
+			targetDir = "site";
+
+		FAIRSpecUtilities.setLogging(targetDir + "/extractor.log");
+		int failed = 0;
+		logToSys("Extractor.runExtraction output to " + new File(targetDir).getAbsolutePath());
+		// ./extract/ should be in the main Eclipse project directory.
+		long t0 = System.currentTimeMillis();
+		new File(targetDir).mkdirs();
+		String flags = "\n" + dumpFlags() + "\n IFD version " + IFDConst.IFD_VERSION + "\n";
+		String json = (readOnly ? null : "{\"findingaids\":[\".\"]}");
+		try {
+			File ifdExtractScriptFile = new File(ifdExtractJSONFilename).getAbsoluteFile();
+			File targetPath = new File(targetDir).getAbsoluteFile();
+			String sourcePath = (localSourceArchive == null ? null : new File(localSourceArchive).getAbsolutePath());
+			run(ifdExtractScriptFile, targetPath, sourcePath);
+			logToSys("Extractor.runExtraction ok ");
+		} catch (Exception e) {
+			failed = 1;
+			logErr("Exception " + e, "runExtraction");
+			e.printStackTrace();
+		}
+		String warnings = "";
+		if (failed == 0 || !stopOnAnyFailure) {
+			logToSys("!Extractor.runExtraction time/sec=" + (System.currentTimeMillis() - t0) / 1000.0);
+			ifdExtractJSONFilename = null;
+			if (this.warnings > 0) {
+				warnings += "======== " + ": " + this.warnings + " warnings for " + targetDir + "\n" + strWarnings;
+				try {
+					FAIRSpecUtilities.writeBytesToFile((warnings).getBytes(),
+							new File(targetDir + "/_IFD_warnings.txt"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		finalizeExtraction(json, 1, failed, -1, -1, flags);
+		int n = ExtractorUtils.clearTempFiles();
+		log("!" + n + " temp files cleared");
+		FAIRSpecUtilities.setLogging(null);
+	}
+
+	@Override
+	public String processFlags(String[] args, String moreFlags) {
+		String flags = super.processFlags(args, moreFlags);
+		stopAfter = getFlagEquals(flags, "-stopafter");
+		return flags;
+	}
+
+	public String dumpFlags() {
+		String s = " stopOnAnyFailure = " + stopOnAnyFailure //
+				+ "\n debugging = " + debugging //
+				+ "\n readOnly = " + readOnly //
+				+ "\n debugReadOnly = " + debugReadOnly //
+				+ "\n allowNoPubInfo = " + !allowNoPubInfo //
+				+ "\n noLandingPage = " + !createLandingPage //
+				+ "\n noLaunch = " + !launchLandingPage //
+				+ "\n skipPubInfo = " + skipPubInfo //
+				+ "\n localSourceArchive = " + localSourceDir //
+				+ "\n targetDir = " + targetPath //
+				+ "\n createZippedCollection = " + createZippedCollection; //
+		return s;
+	}
+
+	/**
+	 * @return the FindingAid as a string
+	 */
+	public final String extractAndCreateFindingAid() throws IOException, IFDException {
+
+		// set up the extraction
+
+		processPhase1();
+		FAIRSpecUtilities.refreshLog();
+
+		checkStopAfter("1");
+
+		// now actually do the extraction.
+
+		processPhase2();
+		FAIRSpecUtilities.refreshLog();
+		checkStopAfter("2");
+
+		// finish up all processing
+		return processPhase3();
+	}
+
+	public void finalizeExtraction(String json, int n, int failed, int nWarnings, int nErrors, String flags) {
+		if (failed == 0) {
+			try {
+				if (json != null) {
+					String dir = targetPath.getAbsolutePath().replace('\\', '/');
+					// TODO the problem is here. We have abolute paths.
+					String s = FAIRSpecUtilities.rep(json, dir + "/", "./");
+					File f = new File(dir + "/_IFD_findingaids.json");
+					FAIRSpecUtilities.writeBytesToFile(s.getBytes(), f);
+					logToSys("Extractor.runExtraction File " + f.getAbsolutePath() + " created ");
+					f = new File(dir + "/_IFD_findingaids.js");
+					FAIRSpecUtilities.writeBytesToFile(("IFD.findingAids=" + s).getBytes(), f);
+					logToSys("Extractor.runExtraction File " + f.getAbsolutePath() + " created \n" + json);
+				} else {
+					logToSys("Extractor.runExtraction _IFD_findingaids.json was not created for\n" + json);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if (nErrors == -1)
+			nErrors = errors;
+
+		createExtractorFilesJSON(nErrors, nWarnings, false);
+		logToSys("!Extractor.runExtraction flags " + flags);
+		logToSys("!Extractor " + (failed == 0 ? "done" : "failed") + " total=" + n + " failed=" + failed + " errors="
+				+ nErrors + " warnings=" + nWarnings);
+	}
+
+	@Override
+	public String getCodeSource() {
+		return codeSource;
+	}
+
+	@Override
+	public String getVersion() {
+		return IFDExtractor.version;
+	}
+
+	public void run(File ifdExtractScriptFile, File targetPath, String localsourceArchive)
+			throws IOException, IFDException {
+		setTargetPath(targetPath);
+		extractScriptFile = ifdExtractScriptFile;
+		// this is the directory that the assets and index.html will be put in
+		extractScriptFileDir = extractScriptFile.getParent();
+		htmlPath = (insitu ? new File(extractScriptFileDir) : targetPath);
+
+		if (assetsOnly && !insitu) {
+			buildSite(null, baseDir, launchLandingPage);
+			return;
+		}
+
+		log("!Extractor\n ifdExtractScriptFile= " + ifdExtractScriptFile + "\n localsourceArchive = "
+				+ localsourceArchive + "\n targetDir = " + targetPath.getAbsolutePath());
+
+		// first create objects, a List<String>
+		if ("-".equals(localsourceArchive))
+			localsourceArchive = null;
+		if (localsourceArchive != null && localsourceArchive.indexOf("://") < 0)
+			localsourceArchive = "file:///" + localsourceArchive.replace('\\', '/');
+		localSourceDir = localsourceArchive;
+		// Scan data from IFD-extract.json and set up the parsers
+
+		String serializedFA = extractAndCreateFindingAid();
+		if (serializedFA == null) {
+			if (!allowNoPubInfo) {
+				throw new IFDException("Extractor failed");
+			}
+		} else if (createLandingPage) {
+			buildLandingPage(serializedFA, htmlPath);
+		}
+
+		log("!Extractor extracted " + lstManifest.size() + " files (" + lstManifest.getByteCount() + " bytes)"
+				+ "; ignored " + lstIgnored.size() + " files (" + lstIgnored.getByteCount() + " bytes)" + "; rejected "
+				+ lstRejected.size() + " files (" + lstRejected.getByteCount() + " bytes)");
+	}
+
+	private void buildLandingPage(String serializedFA, File htmlPath) throws IOException {
+		if (insitu)
+			FAIRSpecUtilities.writeBytesToFile(serializedFA.getBytes(), new File(htmlPath, "IFD.findingaid.json"));
+		buildSite(htmlPath, baseDir, launchLandingPage);
+	}
+
+}

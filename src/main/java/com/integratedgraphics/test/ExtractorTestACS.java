@@ -7,7 +7,7 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 import com.integratedgraphics.extractor.FindingAidCreator;
-import com.integratedgraphics.extractor.IFDExtractor;
+import com.integratedgraphics.extractor.IFDExtractorMain;
 import com.integratedgraphics.html.PageCreator;
 
 /**
@@ -52,7 +52,7 @@ public class ExtractorTestACS extends ExtractorTest {
 	 * @param last
 	 * @param createFindingAidJSONList
 	 */
-	private static void runACSExtractionTest(String[] args,
+     static void runACSExtractionTest(String[] args,
 			String findACSID, int first, int last, boolean createFindingAidJSONList) {
 		String localSourceArchive = args[1];
 		String targetDir = args[2];
@@ -68,7 +68,7 @@ public class ExtractorTestACS extends ExtractorTest {
 		int nWarnings = 0;
 		int nErrors = 0;
 		String warnings = "";
-		IFDExtractor extractor = null;
+		IFDExtractorMain extractor = null;
 		String sflags = null;
 		String targetDir0 = targetDir;
 		// ./extract/ should be in the main Eclipse project directory.
@@ -78,7 +78,7 @@ public class ExtractorTestACS extends ExtractorTest {
 			String extractInfo = acsTestSet[i];
 			if (findACSID != null && !extractInfo.contains(findACSID))
 				continue;
-			extractor = new IFDExtractor();
+			extractor = new IFDExtractorMain();
 			extractor.logToSys("Extractor.runExtractionTest output to " + new File(targetDir).getAbsolutePath());
 			extractor.logToSys("Extractor.runExtraction " + i + " " + extractInfo);
 			String ifdExtractFile;
@@ -159,7 +159,7 @@ public class ExtractorTestACS extends ExtractorTest {
 			File htmlPath = new File(targetDir0);
 			try {
 				if (json != null)
-					PageCreator.buildSite(htmlPath, true, null, false);
+					extractor.buildSite(htmlPath, null, false);
 				((FindingAidCreator) extractor).setTargetPath(htmlPath);
 				extractor.finalizeExtraction(json, n, failed, nWarnings, nErrors, sflags);
 			} catch (Exception e) {
@@ -180,7 +180,7 @@ public class ExtractorTestACS extends ExtractorTest {
 	 */
 	protected static String[] setSourceTargetArgs(String[] args, String ifdExtractJSONFilename, String localSourceArchive, String targetDir, String flags) {
 		if (args == null)
-			args = new String[0];
+			args = new String[4];
 		String[] a = new String[Math.max(4,  args.length)];
 		a[0] = (args.length < 1 || args[0] == null ? ifdExtractJSONFilename : args[0]);
 		a[1] = (args.length < 2 || args[1] == null ? localSourceArchive : args[1]);
@@ -217,12 +217,12 @@ public class ExtractorTestACS extends ExtractorTest {
 /*2*/		"./extract/acs.orglett.0c00624/IFD-extract.json#21947274",   // 2 -- struc/ added; 1143 files; MANY bruker dirs
 /*3*/		"./extract/acs.orglett.0c00755/IFD-extract.json#22150197",  // 3 -- LARGE MANY bruker dirs
 /*4*/		"./extract/acs.orglett.0c00788/IFD-extract.json#22125318",   // 4 -- jeol jdfs
-/*5*/		"./extract/acs.orglett.0c00874/IFD-extract.json#22233351",   // 5 -- bruker dirs
+/*5*/		"./extract/acs.orglett.0c00874/IFD-extract.json#22233351",   // 5 -- bruker dirs with multiple /n/ folders
 /*6*/		"./extract/acs.orglett.0c00967/IFD-extract.json#22111341",   // 6 -- bruker dirs + jeol jdfs
 
 /*7*/		"./extract/acs.orglett.0c01022/IFD-extract.json#22195341",   // 7 -- many mnovas with CDX files
 
-/*8*/		"./extract/acs.orglett.0c01043/IFD-extract.json#22232721",  // 8 -- LARGE single 158-MB mnova -- IGNORING!
+/*8*/		"./extract/acs.orglett.0c01043/IFD-extract.json#22232721",  // 8 -- LARGE single 158-MB mnova
 /*9*/		"./extract/acs.orglett.0c01153/IFD-extract.json#22284726,22284720",  // 9 -- LARGE two remote locations; bruker dirs + cdx + one mnova
 
 /*10*/		"./extract/acs.orglett.0c01197/IFD-extract.json#22491647",  // 10 -- many mnovas with PNG only
@@ -231,26 +231,57 @@ public class ExtractorTestACS extends ExtractorTest {
 /*12*/		"./extract/acs.orglett.0c01297/IFD-extract.json#22612484",  // 12 --  bruker dirs
 /*13*/      "./extract/acs.orgLett.9b02307/IFD-extract.json#acs.orglett.9b02307.NMR.rar"    // 13 -- Ley, May
 	};
+	public static String syntaxString = 
+			"ACS: java -jar IFDExtractor.jar " //
+			+ "--test acs " //
+			+ "--DOI acs.joc.0c00770 " //
+			+ "--targetDir <TARGET_DIR> " //
+			+ "--localSource <LOCAL_SOURCE_ARCHIVE>" //
+			+ "\n"; //
+
 
 	public static void main(String[] args) {
 		// args[] may override localSourceArchive as ars[1] 
 		// and testDir as args[2]; args[0] is ignored;
-		int first = 7; // first test to run
-		int last = 7; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
+		int first = 12; // first test to run
+		int last = 12; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
+		run(args, first, last, null, null);
+	}
+
+	private static void run(String[] args, int first, int last, String localSourceArchive, String targetDir) {
 					  // file test
 		String findACSID = null;//"1022" to ignore first/last;
 		String flags = null;//"-assetsOnly"; // "-datacitedown"
-		
 		/**
 		 * a local dir if you have already downloaded the zip files, otherwise null to
 		 * download from FigShare;
 		 */
-		String localSourceArchive = "c:/temp/iupac/acs/zip";//-";
-		
-		String targetDir = "c:/temp/iupac/test";//acs/ifd2025-08";
+		if (args ==  null) {
+			args = new String[4];
+		} else {
+			localSourceArchive = "c:/temp/iupac/acs/zip";//-";
+			targetDir = "c:/temp/iupac/test2026";//);//acs/ifd2025-08";
+		}
 		args = setSourceTargetArgs(args, null, localSourceArchive, targetDir, flags);
 		boolean createFindingAidJSONList = true;
 		runACSExtractionTest(args, findACSID, first, last, createFindingAidJSONList);
+	}
+
+	/**
+	 * Run the --DOI parameter if in the form [i,j] where i >= 0 and j <= 13
+	 * @param firstLast
+	 */
+	public static void runSet(String firstLast, String localSourceArchive, String targetDir) {
+		firstLast = firstLast.replace('-', ',');
+		int pt =  firstLast.indexOf('[');
+		targetDir = targetDir.replace('[', '_').replace(']','_').replace('\\', '/');
+		if (pt >= 0) {
+			String[] a = firstLast.substring(pt+1, firstLast.indexOf("]")).split(",");
+			int first = Integer.parseInt(a[0]);
+			int last = Integer.parseInt(a[1]);
+			run(null, first, last, localSourceArchive, targetDir);
+		}
+		
 	}
 
 }

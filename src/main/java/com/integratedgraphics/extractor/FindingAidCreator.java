@@ -21,6 +21,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAidHelperI;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+import org.iupac.fairdata.contrib.fairspec.schema.FAIRSpecSchemaGenerator;
 import org.iupac.fairdata.core.IFDFindingAid;
 import org.iupac.fairdata.core.IFDObject;
 import org.iupac.fairdata.extract.DefaultStructureHelper;
@@ -32,7 +33,8 @@ import com.integratedgraphics.extractor.ExtractorUtils.AWrap;
 import com.integratedgraphics.extractor.ExtractorUtils.ArchiveEntry;
 import com.integratedgraphics.extractor.ExtractorUtils.ArchiveInputStream;
 import com.integratedgraphics.html.PageCreator;
-import com.integratedgraphics.ifd.api.VendorPluginI;
+import com.integratedgraphics.ifd.api.AnalysisObjectPluginI;
+import com.integratedgraphics.ifd.api.DataObjectVendorPluginI;
 
 /**
  * This abstract class backs MetadataExtractor and DOICrawler,
@@ -43,47 +45,10 @@ import com.integratedgraphics.ifd.api.VendorPluginI;
  */
 public abstract class FindingAidCreator implements MetadataReceiverI {
 
-	public static final String version = "0.1.0-beta+2025.09.01";
-	// 2026.07.24 version 0.1.0-beta with FAIRSpec-ready paper
-	// 2025.02.17 version 0.0.7-beta integrates the crawler
-	// 2024.12.02 version 0.0.6 fully refactored, revised; adds creation of landing
-	// page and -nolandingpage -nolaunch flags
-	// 2024.11.03 version 0.0.6 adding support for DOICrawler
-	// 2024.05.28 version 0.0.5 moved to com.integratedgraphics.extractor.Extractor
-	// 2023.01.09 version 0.0.4 adds MNova_Page_Header parameter
-	// 2023.01.07 version 0.0.4 adds CDX reading by Jmol
-	// 2023.01.01 version 0.0.4 accepts structures automatically from ./structures/
-	// and ./structures.zip
-	// 2022.12.30 version 0.0.4 ACS 0-7 with structures; fixing rezip issue of
-	// Bruker files placed in _IFD.ignored.json
-	// 2022.12.29 version 0.0.4 ACS 0-4 with structures; fixing *-* Regex for ACS#4
-	// acs.orglett.0c00788
-	// 2022.12.27 version 0.0.4 ACS 0-2 working
-	// 2022.12.27 version 0.0.4 introduces FAIRSpecCompoundAssociation
-	// 2022.12.23 version 0.0.4 fixes from ACS testing, Bruker directories with
-	// multiple numbered subdirectories adds "-<n>" to the id
-	// 2022.12.14 version 0.0.4 allows for local directory parsing (no zip or
-	// tar.gz)
-	// 2022.12.13 verison 0.0.4 adds "EXIT" and comment-only "..." for
-	// IFD-extract.json
-	// 2022.12.10 version 0.0.4 adds CDXML reading by Jmol and conversion of CIF to
-	// PNG along with Jmol 15.2.82 fixes for V3000 and XmlChemDrawReader
-	// 2022.12.01 version 0.0.4 fixes multi-page MNova with compound association
-	// (ACS 22567817#./extract/acs.joc.0c00770)
-	// 2022.11.29 version 0.0.4 allows for a representation to be both a structure
-	// and a data object
-	// 2022.11.27 version 0.0.4 adds parameters from a Metadata file as XLSX or ODS
-	// 2022.11.23 version 0.0.3 fixes missing properties in NMR; upgrades to
-	// double-precision Jmol-SwingJS JmolDataD.jar
-	// 2022.11.21 version 0.0.3 fixes minor details; ICL.v6, ACS.0, ACS.5 working
-	// adds command-line arguments, distinguishes REJECTED and IGNORED
-	// 2022.11.17 version 0.0.3 allows associations "byID"
-	// 2022.11.14 version 0.0.3 "compound identifier" as organizing association
-	// 2022.06.09 MNovaMetadataReader CDX export fails due to buffer pointer error.
-
 	static {
 		FAIRSpecFindingAid.loadProperties();
-		VendorPluginI.init();
+		DataObjectVendorPluginI.init();
+		AnalysisObjectPluginI.init();
 	}
 
 	/**
@@ -99,9 +64,9 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	protected boolean debugging = false;
 	public boolean readOnly = false;
 
-	final protected boolean isByID = true; // forcing
+//	final protected boolean isByID = true; // forcing
 
-    final protected boolean isByIDSet = true;
+//    final protected boolean isByIDSet = true;
 
 	/**
 	 * set true to only create finding aides, not extract file data
@@ -285,10 +250,6 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			addPublicationMetadata = true;
 		}
 
-		if (flags.indexOf("-byid;") >= 0) {
-			setExtractorOption(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID, "true");
-		}
-
 		if (flags.indexOf("-datacitedown;") >= 0) {
 			dataciteUp = false;
 		}
@@ -372,8 +333,6 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	/**
 	 * Set options from command-line, IFD-extract.json, and extractor.config.json.
 	 * 
-	 * Note that setting isByID is only allowed once. Thus:
-	 * 
 	 * - extractor.config.json overrides built-in defaults - IFD-extract.json
 	 * overrides extractor.config.json
 	 * 
@@ -383,13 +342,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	 * @param val
 	 */
 	protected void setExtractorOption(String key, String val) {
-//		if (!isByIDSet && key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_BYID)) {
-//			isByID = val.equalsIgnoreCase("true");
-//			isByIDSet = true;
-//			getHelper().setById(isByID);
-//		} else {
-			checkFlags(val);
-//		}
+		checkFlags(val);
 	}
 
 	/**
@@ -433,14 +386,27 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			datadoi = (String) faHelper.getFindingAid()
 					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI);
 		// then check for a data URI (nonstandard, but possible)
-		if (datadoi == null)
+		if (datadoi == null) {
 			datadoi = (String) faHelper.getFindingAid()
 					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI);
+			if (datadoi != null)
+				logWarn(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI + " not found; trying "
+						+ IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI + "=" + datadoi
+						, "processPubURI");
+
+				
+		}
 		String pubdoi = (String) faHelper.getFindingAid()
 				.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_DOI);
-		if (pubdoi == null)
+		if (pubdoi == null) {
 			pubdoi = (String) faHelper.getFindingAid()
 					.getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI);
+			if (pubdoi != null)
+				logWarn(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_DOI + " not found; trying "
+						+ IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_URI + "=" + pubdoi
+						, "processPubURI");
+			
+		}
 		return processDOIURLs(pubdoi, datadoi, faHelper);
 	}
 
@@ -461,19 +427,19 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 
 	protected void logNote(String msg, String method) {
 		msg = "!NOTE: " + msg + " -- Extractor." + method + " " + ifdid + " "
-				+ thisRootPath;
+				+ (thisRootPath == null ? "" : thisRootPath);
 		log(msg);
 	}
 
 	protected void logWarn(String msg, String method) {
 		msg = "! WARNING: " + msg + " -- Extractor." + method + " " + ifdid + " "
-				+ thisRootPath;
+				+ (thisRootPath == null ? "" : thisRootPath);
 		log(msg);
 	}
 
 	public void logErr(String msg, String method) {
 		msg = "!! ERROR: " + msg + " -- Extractor." + method + " " + ifdid + " "
-				+ thisRootPath;
+				+ (thisRootPath == null ? "" : thisRootPath);
 		log(msg);
 	}
 
@@ -534,13 +500,13 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		return getHelper().getFindingAid();
 	}
 
-	protected void buildSite(File htmlPath) {
+	public void buildSite(File htmlPath, String baseDir, boolean launchLandingPage) {
 		if (htmlPath == null)
 			htmlPath = targetPath;
 		try {
-			PageCreator.buildSite(htmlPath, true, baseDir, launchLandingPage);
+			String schema = FAIRSpecUtilities.getResource(FAIRSpecSchemaGenerator.class, FAIRSpecSchemaGenerator.IDF_SCHEMA_FILE);
+			PageCreator.buildSite(htmlPath, true, baseDir, schema, launchLandingPage);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -621,7 +587,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		for (int i = bs.nextSetBit(0); i >= 0; i = bs.nextSetBit(i + 1)) {
 			String ret = m.group(group + i);
 			if (ret != null && ret.length() > 0) {
-				return VendorPluginI.activeVendors.get(i).vendor;
+				return DataObjectVendorPluginI.activeVendors.get(i).vendor;
 			}
 		}
 		return null;
@@ -637,14 +603,14 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		if (vendorCachePattern == null)
 			return;
 		System.out.println("FAC.extractSpecProp " + f.getName());
-		VendorPluginI vendor = null;
+		DataObjectVendorPluginI vendor = null;
 		String localPath = f.getAbsolutePath();
 		ArchiveInputStream ais = null;
 		try {
 			if (!FAIRSpecUtilities.isZip(localPath)){
 				Matcher m = vendorCachePattern.matcher(localPath);
 				if (m.find()) {
-					vendor = (VendorPluginI) getPropertyManager(m, false, true);
+					vendor = (DataObjectVendorPluginI) getPropertyManager(m, false, true);
 					if (vendor == null || vendor.isDerived())
 						return;
 					byte[] bytes = FAIRSpecUtilities.getBytesAndClose(new FileInputStream(f));
@@ -658,7 +624,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 				return;
 			vendor.initializeDataSet(this);
 			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(localPath));
-			ais = new ArchiveInputStream(bis, null);
+			ais = new ArchiveInputStream(bis, null, -1);
 			ArchiveEntry zipEntry = null;
 			while ((zipEntry = ais.getNextEntry()) != null) {
 				String name = zipEntry.getName();
@@ -693,11 +659,11 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	 * @param localPath
 	 * @return vendor PropertyManagerI
 	 */
-	private VendorPluginI crawlerGetVendorForZipFile(String localPath) {
+	private DataObjectVendorPluginI crawlerGetVendorForZipFile(String localPath) {
 		ArchiveInputStream ais = null;
 		try {
 			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(localPath));
-			ais = new ArchiveInputStream(bis, null);
+			ais = new ArchiveInputStream(bis, null, -1);
 			ArchiveEntry zipEntry = null;
 			while ((zipEntry = ais.getNextEntry()) != null) {
 				String name = zipEntry.getName();
@@ -708,7 +674,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 				name = "zip|" + name;
 				Matcher m = rezipCachePattern.matcher(name);
 				if (m.find())
-					return (VendorPluginI) getPropertyManager(m, false, false);
+					return (DataObjectVendorPluginI) getPropertyManager(m, false, false);
 			}
 			return null;
 		} catch (IOException e) {
@@ -765,8 +731,8 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		}
 		cachePatternHasStructures = (sp.indexOf("<struc>") >= 0);
 		String s = "";
-		for (int i = 0; i < VendorPluginI.activeVendors.size(); i++) {
-			String cp = VendorPluginI.activeVendors.get(i).vcache;
+		for (int i = 0; i < DataObjectVendorPluginI.activeVendors.size(); i++) {
+			String cp = DataObjectVendorPluginI.activeVendors.get(i).vcache;
 			if (cp != null) {
 				bsPropertyVendors.set(i);
 				s += "|" + cp;
@@ -787,8 +753,8 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		vendorCachePattern = Pattern.compile(s);
 		
 		s = "";
-		for (int i = 0; i < VendorPluginI.activeVendors.size(); i++) {
-			String cp = VendorPluginI.activeVendors.get(i).vrezip;
+		for (int i = 0; i < DataObjectVendorPluginI.activeVendors.size(); i++) {
+			String cp = DataObjectVendorPluginI.activeVendors.get(i).vrezip;
 			if (cp != null) {
 				bsRezipVendors.set(i);
 				s = s + "|" + cp;
@@ -848,7 +814,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			"_IFD_fileURLMap.txt",
 			"_IFD_config.js",
 			"_IFD_findingaids.js",
-			
+			FAIRSpecSchemaGenerator.IDF_SCHEMA_FILE,		
 			"crawler.log",
 			"extractor.log",			
 	};

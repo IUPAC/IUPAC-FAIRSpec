@@ -1,347 +1,620 @@
 package com.integratedgraphics.extractor;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.iupac.fairdata.common.IFDConst;
-import org.iupac.fairdata.common.IFDException;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.OptionGroup;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.PosixParser;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
+import com.integratedgraphics.test.ExtractorTestACS;
+import com.integratedgraphics.test.ExtractorTestDryad;
+
+
 /**
- * Copyright 2021-2024 Integrated Graphics and Robert M. Hanson
+ * This class interprets command line options and starts the appropriate program. 
+ * The primary subclass of FindingAidCreator is now IFDExtractorMain. By removing
+ * this loader class from that stack, we allow a cleaner, faster loading from the 
+ * command line and can generate less extraneous output. 
  * 
- * A class to handle the extraction of objects from a "raw" dataset by
- * processing the full paths within a ZIP file as directed by an extraction
- * template (from the extract/ folder for the test)
- * 
- * following the sequence:
- * 
- * initialize(ifdExtractScriptFile)
- * 
- * setLocalSourceDir(sourceDir)
- * 
- * setCachePattern(pattern)
- * 
- * setRezipCachePattern(pattern)
- * 
- * extractObjects(targetDir);
- * 
- * Features:
- * 
- * 
- * ... uses template-directed processing of full file paths
- * 
- * ... metadata property information is from
- * org.iupac.common.fairspec.properties
- * 
- * ... allows for an XLSX or OpenSheets file that contains additional metadata
- * 
- * ... creates IFDFAIRSpecFindingAid objects ready for serialization
- * 
- * ... serializes using org.iupac.util.IFDDefaultJSONSerializer
- * 
- * ... zip files are processed recursively
- * 
- * ... zip files other than Bruker directories are unpacked
- * 
- * ... "broken" Bruker directories (those without a simple integer root path)
- * are corrected.
- * 
- * ... binary MNova files are scanned for metadata, PNG, and MOL files (only,
- * not spectra)
- * 
- * ... MNova metadata references page number in file using #page=
- * 
- * 
- * See superclasses for more information
- * 
- * @author hansonr
+ * @author Fay Nguyen
  *
  */
-public class IFDExtractor extends IFDExtractorLayer3 {
+class IFDExtractor {
 
-	// TODO spectrum fingerprint
+	public static final String version = "0.1.2+2026.01.25";
+	// 2026.01.25 version 0.1.2-beta refactored and much improved; adds CLI and timestamp-merging of NMR data
+	// 2025.07.24 version 0.1.0-beta with FAIRSpec-ready paper
+	// 2025.02.17 version 0.0.7-beta integrates the crawler
+	// 2024.12.02 version 0.0.6 fully refactored, revised; adds creation of landing
+	// page and -nolandingpage -nolaunch flags
+	// 2024.11.03 version 0.0.6 adding support for DOICrawler
+	// 2024.05.28 version 0.0.5 moved to com.integratedgraphics.extractor.Extractor
+	// 2023.01.09 version 0.0.4 adds MNova_Page_Header parameter
+	// 2023.01.07 version 0.0.4 adds CDX reading by Jmol
+	// 2023.01.01 version 0.0.4 accepts structures automatically from ./structures/
+	// and ./structures.zip
+	// 2022.12.30 version 0.0.4 ACS 0-7 with structures; fixing rezip issue of
+	// Bruker files placed in _IFD.ignored.json
+	// 2022.12.29 version 0.0.4 ACS 0-4 with structures; fixing *-* Regex for ACS#4
+	// acs.orglett.0c00788
+	// 2022.12.27 version 0.0.4 ACS 0-2 working
+	// 2022.12.27 version 0.0.4 introduces FAIRSpecCompoundAssociation
+	// 2022.12.23 version 0.0.4 fixes from ACS testing, Bruker directories with
+	// multiple numbered subdirectories adds "-<n>" to the id
+	// 2022.12.14 version 0.0.4 allows for local directory parsing (no zip or
+	// tar.gz)
+	// 2022.12.13 verison 0.0.4 adds "EXIT" and comment-only "..." for
+	// IFD-extract.json
+	// 2022.12.10 version 0.0.4 adds CDXML reading by Jmol and conversion of CIF to
+	// PNG along with Jmol 15.2.82 fixes for V3000 and XmlChemDrawReader
+	// 2022.12.01 version 0.0.4 fixes multi-page MNova with compound association
+	// (ACS 22567817#./extract/acs.joc.0c00770)
+	// 2022.11.29 version 0.0.4 allows for a representation to be both a structure
+	// and a data object
+	// 2022.11.27 version 0.0.4 adds parameters from a Metadata file as XLSX or ODS
+	// 2022.11.23 version 0.0.3 fixes missing properties in NMR; upgrades to
+	// double-precision Jmol-SwingJS JmolDataD.jar
+	// 2022.11.21 version 0.0.3 fixes minor details; ICL.v6, ACS.0, ACS.5 working
+	// adds command-line arguments, distinguishes REJECTED and IGNORED
+	// 2022.11.17 version 0.0.3 allows associations "byID"
+	// 2022.11.14 version 0.0.3 "compound identifier" as organizing association
+	// 2022.06.09 MNovaMetadataReader CDX export fails due to buffer pointer error.
 	
-	protected static final String codeSource = "https://github.com/IUPAC/IUPAC-FAIRSpec/blob/main/src/main/java/com/integratedgraphics/extractor/IFDExtractor.java";
 
-	// TODO: test rootpath and file lists for case with two root paths -- does it
-	// make sense that that manifests are cleared?
+		List<String> cliExtractorFlagList = new ArrayList<>();
 
-	// TODO: update GitHub README.md
+		boolean cliIsCrawler = false;
+		boolean runningSchemaValidation = false;
+		private String schemaFile;
+
+		String cliLocalSourceArchivePath = null;
+
+		String cliDOI = null;
+		String cliTargetDir = null;
+		String cliSource = "dryad";
+
+		private String cliExtractFilePath;
 
 
+		private Options getOptions() {
+			Options options = new Options();
 
-	private static final String debugFlags = "-stopAfter=end";
+			// help -h
+			OptionBuilder.withLongOpt("help");
+			OptionBuilder.withDescription("Get help for commands.");
+			options.addOption(OptionBuilder.create("h"));
 
-	public static final String PAGE_ID_PROPERTY_SOURCE = "*idf.property.compound.id.source*";
+			// version -v
+			OptionBuilder.withLongOpt("version");
+			OptionBuilder.withDescription("Get the current version of the IFD Extractor.");
+			options.addOption(OptionBuilder.create("v"));
 
-	protected static String getCommandLineHelp() {
-		return "\nformat: java -jar IFDExtractor.jar [IFD-extract.json] [localSourceArchive] [targetDir] [extractorFlags]" //
-				+ "\n" + "\nwhere" //
-				+ "\n" //
-				+ "\n[IFD-extract.json] is the IFD extraction template for this collection" //
-				+ "\n[localSourceArchive] is the source .zip, .tar.gz, .tar, .tgz, or .rar file" //
-				+ "\n[targetDir] is the target directory for the collection (which you are responsible to empty first)" //
-				+ "\n" //
-				+ "\n" + "[extractorFlags] are one or more of:" //
-				+ "\n" //
-				+ "\n-addPublicationMetadata (only for post-publication-related collections; include ALL Crossref or DataCite metadata)" //
-				+ "\n-byID (order compounds by ID, not by index; overrides IFD_extract.json setting)"
-				+ "\n-dataciteDown (only for post-publication-related collections)" //
-				+ "\n-debugging (lots of messages)" //
-				+ "\n-debugReadonly (readonly, no publicationmetadata)" //
-				+ "\n-findingAidOnly (only create a finding aid)" //
-				+ "\n-nolaunch (don't launch the landing page)" //
-				+ "\n-noclean (don't empty the destination collection directory before extraction; allows additional files to be zipped)" //
-				+ "\n-noignored (don't include ignored files -- treat them as REJECTED)" //
-				+ "\n-nolandingPage (don't create a landing page)" //
-				+ "\n-nopubinfo (ignore all publication info)" //
-				+ "\n-nostopOnFailure (continue if there is an error)" //
-				+ "\n-nozip (don't zip up the target directory)" //
-				+ "\n-readonly (just create a log file)" //
-				+ "\n-requirePubInfo (throw an error is datacite cannot be reached; post-publication-related collections only)"				
-				+ "\n" + "\nor, to run the DOICrawler:"
-				+ "\n" //
-				+ "\n" + "\njava -jar IFDExtractor.jar -doi [DOI] [targetDir] [crawlerFlags]" //
-				+ "\n" + "\nwhere" //
-				+ "\n" //
-				+ "\n[DOI] is a Document Object Identifier such as 10.14469/hpc/10386" //
-				+ "\n[targetDir] is the target directory for the output" //
-				+ "\n" //
-				+ "\n" + "and [crawlerFlags] as above and also optionally:" //
-				+ "\n" //
-				+ "\n-download (additionally download files from the repository)" //
-				;
-	}
+			// Required options
 
-	public IFDExtractor() {
-		initializeExtractor();
-	}
+			// targetDirectory -T
+			OptionBuilder.withLongOpt("targetDir");
+			OptionBuilder.withDescription("Target output directory for the finding aid");
+			OptionBuilder.isRequired();
+			OptionBuilder.hasArg(true);
+			OptionBuilder.withArgName("TARGET_DIR");
+			options.addOption(OptionBuilder.create("T"));
 
-	public void runExtraction(String ifdExtractFile, String localSourceArchive, String targetDir, String baseDir, String flags) {
-		runExtraction(new String[] { ifdExtractFile, localSourceArchive, targetDir, baseDir, flags });
-	}
 
-	public void runExtraction(String[] args) {
+			// -test
+			OptionBuilder.withLongOpt("test");
+			OptionBuilder.withDescription("For testing purpose (-test [dryad|acs|icl])");
+			OptionBuilder.hasArg(true);
+			OptionBuilder.withArgName("SOURCE");
+			options.addOption(OptionBuilder.create(null));
 
-		System.out.println(Arrays.toString(args));
-	    processFlags(args, debugFlags);
-		String localSourceArchive = null;
-		String targetDir = null;
-		String ifdExtractJSONFilename;
-		switch (args.length) {
-		default:
-		case 4:
-			baseDir = args[3];
-			//$FALL-THROUGH$
-		case 3:
-			targetDir = args[2];
-			//$FALL-THROUGH$
-		case 2:
-			localSourceArchive = args[1];
-			if ("-".equals(localSourceArchive))
-				localSourceArchive = null;
-			//$FALL-THROUGH$
-		case 1:
-			ifdExtractJSONFilename = args[0];
-			break;
-		case 0:
-			ifdExtractJSONFilename = null;
+			// Optional options
+			
+			// -debug 
+			OptionBuilder.withLongOpt("debug");
+			OptionBuilder.withDescription("This will print out all debugging messages");
+			options.addOption(OptionBuilder.create(null));
+
+			// -validate 
+			OptionBuilder.withLongOpt("validate");
+			OptionBuilder.withDescription("This will run the schema validation");
+			options.addOption(OptionBuilder.create(null));
+
+			// -schema 
+			OptionBuilder.withLongOpt("schema");
+			OptionBuilder.withDescription("Optional file location for schema; implies --validate");
+			OptionBuilder.hasArg(true);
+			OptionBuilder.withArgName("SCHEMA");
+			options.addOption(OptionBuilder.create(null));
+
+			// assetsonly -a
+			OptionBuilder.withLongOpt("assetsOnly");
+			OptionBuilder.withDescription("Asset Only");
+			options.addOption(OptionBuilder.create("a"));
+
+			// addPublicationMetadata -A
+			OptionBuilder.withLongOpt("addPublicationMetadata");
+			OptionBuilder.withDescription(
+					"Include ALL Crossref or DataCiteOnly for post-publication-related collections; in metadata.");
+			options.addOption(OptionBuilder.create("A"));
+
+// byID is deprecated -- always byID true		    
+//		    //byID -B
+//		    OptionBuilder.withLongOpt("byID");
+//			OptionBuilder.withDescription("Order compounds by ID, not by index; overrides IFD_extract.json setting");
+//		    options.addOption(OptionBuilder.create("B"));
+//		    
+			// noclean -c
+			OptionBuilder.withLongOpt("noClean");
+			OptionBuilder.withDescription(
+					"Don't empty the destination collection directory before extraction; allows additional files to be zipped");
+			options.addOption(OptionBuilder.create("c"));
+
+			// dataciteDown -C
+			OptionBuilder.withLongOpt("dataciteDown");
+			OptionBuilder.withDescription("Only for post-publication-related collections.");
+			options.addOption(OptionBuilder.create("C"));
+
+			// DOI -D
+			OptionBuilder.withLongOpt("doi");
+			OptionBuilder.withDescription("DOI/Identifier.");
+			OptionBuilder.hasArg(true);
+			OptionBuilder.withArgName("DOI");
+			options.addOption(OptionBuilder.create("D"));
+
+			// embedpdf -E
+			OptionBuilder.withLongOpt("embedPdf");
+			OptionBuilder.withDescription("Loads PDF documents into finding aids for cross-domain viewing of spectra");
+			options.addOption(OptionBuilder.create("E"));
+
+			// findingAidOnly -F
+			OptionBuilder.withLongOpt("findingAidOnly");
+			OptionBuilder.withDescription("Only create a finding aid");
+			options.addOption(OptionBuilder.create("F"));
+
+			// nolandingPage -g
+			OptionBuilder.withLongOpt("noLandingPage");
+			OptionBuilder.withDescription("Don't create a landing page");
+			options.addOption(OptionBuilder.create("g"));
+
+			// noignored -i
+			OptionBuilder.withLongOpt("noIgnored");
+			OptionBuilder.withDescription("Don't include ignored files -- treat them as REJECTED");
+			options.addOption(OptionBuilder.create("i"));
+
+			// nolaunch -l
+			OptionBuilder.withLongOpt("noLaunch");
+			OptionBuilder.withDescription("Don't launch the landing page");
+			options.addOption(OptionBuilder.create("l"));
+
+			// insitu -N
+			OptionBuilder.withLongOpt("insitu");
+			OptionBuilder.withDescription(
+					"Setting insitu true generates an entirely self-contained finding aid, without local files and any rezipping in the origin directory.");
+			options.addOption(OptionBuilder.create("N"));
+
+			// readonly -O
+			OptionBuilder.withLongOpt("readOnly");
+			OptionBuilder.withDescription("Just create a log file");
+			options.addOption(OptionBuilder.create("O"));
+
+			// Group for public information
+			OptionGroup pubInfoGroup = new OptionGroup();
+
+			// requirePubInfo -I
+			OptionBuilder.withLongOpt("requirePubInfo");
+			OptionBuilder.withDescription(
+					"Throw an error is datacite cannot be reached; post-publication-related collections only");
+			pubInfoGroup.addOption(OptionBuilder.create("I"));
+
+			// nopubinfo -p
+			OptionBuilder.withLongOpt("noPubInfo");
+			OptionBuilder.withDescription("Ignore all publication info");
+			pubInfoGroup.addOption(OptionBuilder.create("p"));
+
+			pubInfoGroup.setRequired(false);
+			options.addOptionGroup(pubInfoGroup);
+
+			// extractspecproperties -P
+			OptionBuilder.withLongOpt("extractSpecProperties");
+			OptionBuilder.withDescription("For crawler: Extract spectra properties");
+			options.addOption(OptionBuilder.create("P"));
+
+			// debugReadonly -R
+			OptionBuilder.withLongOpt("debugReadonly");
+			OptionBuilder.withDescription("Readonly, no publication metadata");
+			options.addOption(OptionBuilder.create("R"));
+
+			// nostopOnFailure -s
+			OptionBuilder.withLongOpt("noStopOnFailure");
+			OptionBuilder.withDescription("Continue if there is an error");
+			options.addOption(OptionBuilder.create("s"));
+
+			// localSourceArchive -S
+			OptionBuilder.withLongOpt("localSource");
+			OptionBuilder.withDescription("Local Source Archive");
+			OptionBuilder.hasArg(true);
+			OptionBuilder.withArgName("LOCAL_SOURCE_PATH");
+			options.addOption(OptionBuilder.create("S"));
+
+			// nodownload -x
+			OptionBuilder.withLongOpt("noDownload");
+			OptionBuilder.withDescription("For crawler only: do not download files from the repository");
+			options.addOption(OptionBuilder.create("x"));
+
+			// IFDExtract.json file -X
+			OptionBuilder.withLongOpt("IFDExtractFile");
+			OptionBuilder.withDescription("Input IFD-extract.json configuration file, if used");
+			OptionBuilder.hasArg(true);
+			OptionBuilder.withArgName("IFD_EXTRAC_FILE");
+			options.addOption(OptionBuilder.create("X"));
+
+			// crawl -W
+			OptionBuilder.withLongOpt("crawler");
+			OptionBuilder.withDescription("Run the crawler");
+			options.addOption(OptionBuilder.create("W"));
+
+			// addifdtypes -Y
+			OptionBuilder.withLongOpt("addIfdTypes");
+			OptionBuilder.withDescription("Add IFD Types");
+			options.addOption(OptionBuilder.create("Y"));
+
+			// nozip -z
+			OptionBuilder.withLongOpt("noZip");
+			OptionBuilder.withDescription("Don't zip up the target directory");
+			options.addOption(OptionBuilder.create("z"));
+
+			return options;
 		}
-		if (ifdExtractJSONFilename == null)
-			throw new NullPointerException("No IFD-extract.json or test set?");
-		if (targetDir == null)
-			targetDir = "site";
-		FAIRSpecUtilities.setLogging(targetDir + "/extractor.log");
-		int failed = 0;
-		logToSys("Extractor.runExtraction output to " + new File(targetDir).getAbsolutePath());
-		// ./extract/ should be in the main Eclipse project directory.
-		long t0 = System.currentTimeMillis();
-		new File(targetDir).mkdirs();
-		String flags = "\n" + dumpFlags() + "\n IFD version " + IFDConst.IFD_VERSION + "\n";
-		String json = (readOnly ? null : "{\"findingaids\":[\".\"]}");
+
+		private void checkOptions(CommandLine line, Options options) {
+			if (line.hasOption("h")) {
+				helpManual(options);
+				return;
+			}
+
+			// file options
+
+			cliDOI = line.getOptionValue("D");
+			cliTargetDir = line.getOptionValue("T");
+			schemaFile = line.getOptionValue("schema");
+
+			if (line.hasOption("X")) {
+				cliExtractFilePath = line.getOptionValue("X");
+			}
+
+			if (line.hasOption("S")) {
+				cliLocalSourceArchivePath = line.getOptionValue("S");
+			}
+
+			// check special test options
+
+			String testCase = line.getOptionValue("test");
+			if (testCase != null)
+				testCase = testCase.toLowerCase();
+
+			if ("icl".equals(testCase) || line.hasOption("W")) {
+				cliIsCrawler = true;
+				if (!"icl".equals(testCase)) {
+					throw new RuntimeException("Error: Crawler only works with --test ICL.");
+				}
+			}
+			if (testCase != null) {
+				if (cliDOI == null) {
+					throw new RuntimeException("Test cases require a DOI using --doi or -D");
+				}
+				switch (testCase) {
+				case "acs":
+					break;
+				case "dryad":
+					if (!line.hasOption("S")) {
+						throw new RuntimeException(
+								"Error: Require dryad dataset local source archive using --localSource.");
+					}
+					break;
+				case "icl":
+					if (!cliIsCrawler) {
+						throw new RuntimeException("Error: This source only works with --crawler.");
+					}
+					break;
+				default:
+					throw new RuntimeException("Error: Invalid source: " + testCase);
+				}
+				cliSource = testCase;
+			}
+
+			// add all other flags to cliExtractorFlagList
+
+			if (line.hasOption("a")) {
+				cliExtractorFlagList.add("-assetonly");
+			}
+			if (line.hasOption("A")) {
+				cliExtractorFlagList.add("-addpublicationmetadata");
+			}
+
+//			if(line.hasOption("B")) {
+//				extractorFlagList.add("-byid");
+//			}
+//			
+			if (line.hasOption("c")) {
+				cliExtractorFlagList.add("-noclean");
+			}
+			if (line.hasOption("C")) {
+				cliExtractorFlagList.add("-datacitedown");
+			}
+			if (line.hasOption("debug")) {
+				cliExtractorFlagList.add("-debugging");
+			}
+			if (line.hasOption("E")) {
+				cliExtractorFlagList.add("-embedpdf");
+			}
+			if (line.hasOption("F")) {
+				cliExtractorFlagList.add("-findingaidonly");
+			}
+			if (line.hasOption("g")) {
+				cliExtractorFlagList.add("-nolandingpage");
+			}
+			if (line.hasOption("i")) {
+				cliExtractorFlagList.add("-noignored");
+			}
+			if (line.hasOption("l")) {
+				cliExtractorFlagList.add("-nolaunch");
+			}
+			if (line.hasOption("N")) {
+				cliExtractorFlagList.add("-insitu");
+			}
+			if (line.hasOption("O")) {
+				cliExtractorFlagList.add("-readonly");
+			}
+			if (line.hasOption("p")) {
+				cliExtractorFlagList.add("-nopubinfo");
+			}
+			if (cliIsCrawler && line.hasOption("P")) {
+				cliExtractorFlagList.add("-extractspecproperties");
+			}
+			if (line.hasOption("R")) {
+				cliExtractorFlagList.add("-readonly");
+			}
+			if (line.hasOption("I")) {
+				cliExtractorFlagList.add("-requirepubinfo");
+			}
+			if (line.hasOption("s")) {
+				cliExtractorFlagList.add("-nostoponfailure");
+			}
+			if (cliIsCrawler && line.hasOption("x")) {
+				cliExtractorFlagList.add("-nodownload");
+			}
+			if (line.hasOption("Y")) {
+				cliExtractorFlagList.add("-addifdtypes");
+			}
+			if (line.hasOption("z")) {
+				cliExtractorFlagList.add("-nozip");
+			}
+			if (schemaFile != null || line.hasOption("validate")) {
+				runningSchemaValidation = true;
+			}
+		}
+
+	// print out the help manuals
+	private void helpManual(Options options) {
+		String header = "\nFAIRSPec Finding Aid CLI manual version " + version + "\n" //
+				+ "Using IFD-extract.json: java -jar IFDExtractor.jar " //
+				+ "--IFDExtractFile <IFD-extract.json file>" //
+				+ "--targetDir <TARGET_DIR>" //
+				+ "\n" //
+				+ "Crawler: java -jar IFDExtractor.jar --crawler " //
+				+ ICLDOICrawler.syntaxString //
+				+ ExtractorTestDryad.syntaxString //
+				+ ExtractorTestACS.syntaxString //
+				+ "Manual: java -jar IFDExtractor.jar " //
+				+ "--help\n" //
+				+ "Options list:\n\n\n"; //
+		String footer = "\nPlease report issues at https://github.com/IUPAC/IUPAC-FAIRSpec/issues";
+		HelpFormatter formatter = new HelpFormatter();
+		formatter.printHelp("IFDExtractor", header, options, footer, true);
+	}
+
+		boolean parseCommandLine(String[] args) {
+			Options options = getOptions();
+			// No arguments
+			if (args.length == 0) {
+				helpManual(options);
+				return false;
+			}
+			// Argument for manual
+			if (args.length == 1) {
+				if (args[0].equals("-h") || args[0].equals("--help")) {
+					helpManual(options);
+					return false;
+				} else if (args[0].equals("-v") || args[0].equals("--version")) {
+					System.out.println("IFDExractor version " + version);
+					return false;
+				} else {
+					System.out.println("Please include required arguments");
+					helpManual(options);
+					return false;
+				}
+			}
+			CommandLineParser parser = new PosixParser();
+			CommandLine line = null;
+			try {
+				line = parser.parse(options, args);
+				checkOptions(line, options);
+				return true;
+			} catch (Exception e) {
+				// Handle cases where the required options are not provided
+				// Handle cases where the input doesn't match the defined options
+				System.err.println("Error parsing arguments: " + e.getMessage());
+				return false;
+			}
+		}
+
+	private void load() throws Exception {
+
+		String ifdExtractFilePath = cliExtractFilePath; // -X option
+		String localArchivePath = cliLocalSourceArchivePath; // -S option
+		String targetDir = cliTargetDir; // -T option
+
+		// Include slash at the end of the output directory
+		if (!targetDir.endsWith("/")) {
+			targetDir += "/";
+		}
+		// Special case with crawler
+		if (cliIsCrawler && cliSource.equals("icl")) {
+			List<String> crawlerArgs = new ArrayList<String>();
+			crawlerArgs.add(cliDOI);
+			crawlerArgs.add(targetDir);
+			for (String arg : cliExtractorFlagList) {
+				crawlerArgs.add(arg);
+			}
+			DOICrawler crawler = new DOICrawler(crawlerArgs.toArray(new String[0]));
+			crawler.setCustomizer(new ICLDOICrawler(crawler));
+			crawler.crawl();
+			targetDir += cleanPath(cliDOI);
+		} else {
+			if (cliDOI != null)
+				targetDir += cliDOI.toLowerCase() + "_out/";
+
+			// Handle the extract file path
+
+			// these next are for Eclipse testing
+
+			// note that "./" now stands for the RESOURCE in
+			// com/integrategraphics/extractor/
+
+			switch (cliSource == null ? "" : cliSource) {
+			case "dryad":
+				if (ifdExtractFilePath == null)
+					ifdExtractFilePath = "./extract/dryad/" + cliDOI + "/IFD-extract.json";
+				break;
+			case "acs":
+				// for acs include the whole doi acs.*.XXXXX
+				if (ifdExtractFilePath == null) {
+					ifdExtractFilePath = "./extract/" + cliDOI + "/IFD-extract.json";
+				}
+				// Exception handling
+				switch (cliDOI) {
+				case "acs.orgLett9b02307":
+					if (localArchivePath == null) {
+						throw new RuntimeException(
+								"Download NMR.rar from https://www.repository.cam.ac.uk/bitstreams/983933fe-6c07-4793-bf32-0d715d2d9087/download,\nrename it into acs.orglett.9b02307.NMR.rar,\nand pass the path of the folder containing this RAR file to the flag -S.");
+					}
+					localArchivePath = new File(localArchivePath).getAbsolutePath();
+					new IFDExtractorMain().run(new File(ifdExtractFilePath).getAbsoluteFile(),
+							new File(targetDir).getAbsoluteFile(), localArchivePath);
+					return;
+				default:
+					if (cliDOI.startsWith("[")) {
+						ExtractorTestACS.runSet(cliDOI, localArchivePath, targetDir);
+						return;
+					}
+					break;
+				}
+				break;
+			default:
+				break;
+			}
+			if (ifdExtractFilePath != null) {
+				new IFDExtractorMain().runExtraction(ifdExtractFilePath, localArchivePath, targetDir, null,
+						String.join(" ", cliExtractorFlagList));
+			}
+		}
+		if (cliDOI != null && runningSchemaValidation) {
+			// If the syntax has -schema flag, run schema validation on the finding aid
+			// generated
+			String[] ret = { null };
+			boolean ok = vaidateFindingAid(targetDir, cliDOI, ret);
+			System.out.println(ret[0]);
+			if (ok) {
+				System.out.printf("Validation SUCCESSFUL for %s\n", targetDir);
+			} else {
+				System.out.printf("Validation FAILED for %s\n", targetDir);
+
+			}
+		}
+	}
+
+
+	private String cleanPath(String path) {
+		return path.replace('\\', '_').replace('/', '_');
+	}
+
+	/**
+	 * Validate a FAIRSpec Finding Aid.
+	 * 
+	 * Requires check-jsonschema installed and allowed on command line.
+	 * 
+	 * pip install check-jsonschema
+	 * 
+	 * Syntax: check-jsonschema --verbose --schemafile <schemaPath> <findingAidPath>
+	 * -o text;
+	 * 
+	 * @param targetDir
+	 * @param ret       text return
+	 * @return true if valid; false if not
+	 * 
+	 */
+	private boolean vaidateFindingAid(String targetDir, String name, String[] ret) {
+		name = name.replace('\\', '_').replace('/', '_');
+		String findingAidPath = targetDir + "/" + "IFD.findingaid.json";
+		String schemaPath = targetDir + "/" + "IFD.findingaid.schema.json";
+		boolean ok = FAIRSpecUtilities.validateFindingAid(targetDir, findingAidPath, schemaPath, ret);
+		String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		Path successLogPath = Paths.get(targetDir + "/" + name + "_schema_valid.txt");
+		Path errorLogPath = Paths.get(targetDir + "/" + name + "_schema_error.txt");
+		Path p = null;
 		try {
-			File ifdExtractScriptFile = new File(ifdExtractJSONFilename).getAbsoluteFile();
-			File targetPath = new File(targetDir).getAbsoluteFile();
-			String sourcePath = (localSourceArchive == null ? null : new File(localSourceArchive).getAbsolutePath());
-			run(ifdExtractScriptFile, targetPath, sourcePath);
-			logToSys("Extractor.runExtraction ok ");
+			p = errorLogPath;
+			Files.deleteIfExists(p);
+			p = successLogPath;
+			Files.deleteIfExists(p);
+			if (ok) {
+				Files.createFile(p);
+				FAIRSpecUtilities.appendToFile(p, "Schema validation run on: " + timeStamp + "\n");
+				FAIRSpecUtilities.appendToFile(p, ret[0]);
+			} else {
+				p = errorLogPath;
+				Files.createFile(p);
+				FAIRSpecUtilities.appendToFile(p, "Schema validation run on: " + timeStamp + "\n");
+				FAIRSpecUtilities.appendToFile(p, ret[0]);
+			}
 		} catch (Exception e) {
-			failed = 1;
-			logErr("Exception " + e, "runExtraction");
+			System.out.println("Could not write to file " + p);
+		}
+		return ok;
+	}
+
+	/**
+	 * See above for explanation of parameters and options. 
+	 * 
+	 * There is no general API for creating finding aids. This interface is 
+	 * primarily for in-house testing.
+	 * 
+	 */
+	private static void loadExtractor(String[] args) {
+		try {
+			IFDExtractor loader = new IFDExtractor();
+			// If it just prints out the help or header, quit
+			if (loader.parseCommandLine(args))
+				loader.load();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String warnings = "";
-		if (failed == 0 || !stopOnAnyFailure) {
-			logToSys("!Extractor.runExtraction time/sec=" + (System.currentTimeMillis() - t0) / 1000.0);
-			ifdExtractJSONFilename = null;
-			if (this.warnings > 0) {
-				warnings += "======== " + ": " + this.warnings + " warnings for " + targetDir + "\n" + strWarnings;
-				try {
-					FAIRSpecUtilities.writeBytesToFile((warnings).getBytes(),
-							new File(targetDir + "/_IFD_warnings.txt"));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		finalizeExtraction(json, 1, failed, -1, -1, flags);
-		FAIRSpecUtilities.setLogging(null);
 	}
 
-	@Override
-	public String processFlags(String[] args, String moreFlags) {
-		String flags = super.processFlags(args, moreFlags);
-		stopAfter = getFlagEquals(flags, "-stopafter");
-		return flags;
-	}
-
-	public String dumpFlags() {
-		String s = " stopOnAnyFailure = " + stopOnAnyFailure //
-				+ "\n debugging = " + debugging //
-				+ "\n readOnly = " + readOnly //
-				+ "\n debugReadOnly = " + debugReadOnly //
-				+ "\n allowNoPubInfo = " + !allowNoPubInfo //
-				+ "\n noLandingPage = " + !createLandingPage //
-				+ "\n noLaunch = " + !launchLandingPage //
-				+ "\n skipPubInfo = " + skipPubInfo //
-				+ "\n localSourceArchive = " + localSourceDir //
-				+ "\n targetDir = " + targetPath //
-				+ "\n createZippedCollection = " + createZippedCollection; //
-		return s;
-	}
-
-	/**
-	 * @return the FindingAid as a string
-	 */
-	public final String extractAndCreateFindingAid()
-			throws IOException, IFDException {
-		
-		// set up the extraction
-
-		processPhase1();
-		FAIRSpecUtilities.refreshLog();
-
-		checkStopAfter("1");
-
-		// now actually do the extraction.
-
-		processPhase2();
-		FAIRSpecUtilities.refreshLog();
-		checkStopAfter("2");
-	
-		// finish up all processing
-		return processPhase3();
-	}
-
-	public void finalizeExtraction(String json, int n, int failed, int nWarnings, int nErrors, String flags) {
-		if (failed == 0) {
-			try {
-				if (json != null) {
-					String dir = targetPath.getAbsolutePath().replace('\\','/');
-					// TODO the problem is here. We have abolute paths.
-					String s = FAIRSpecUtilities.rep(json, dir + "/", "./");
-					File f = new File(dir + "/_IFD_findingaids.json");
-					FAIRSpecUtilities.writeBytesToFile(s.getBytes(), f);
-					logToSys("Extractor.runExtraction File " + f.getAbsolutePath() + " created ");
-					f = new File(dir + "/_IFD_findingaids.js");
-					FAIRSpecUtilities.writeBytesToFile(("IFD.findingAids=" + s).getBytes(), f);
-					logToSys("Extractor.runExtraction File " + f.getAbsolutePath() + " created \n" + json);
-				} else {
-					logToSys("Extractor.runExtraction _IFD_findingaids.json was not created for\n" + json);
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		if (nErrors == -1)
-			nErrors = errors;
-		
-		createExtractorFilesJSON(nErrors, nWarnings, false);
-		logToSys("!Extractor.runExtraction flags " + flags);
-		logToSys("!Extractor " + (failed == 0 ? "done" : "failed") + " total=" + n + " failed=" + failed + " errors="
-				+ nErrors + " warnings=" + nWarnings);
-	}
-
-	@Override
-	public String getCodeSource() {
-		return codeSource;
-	}
-
-	@Override
-	public String getVersion() {
-		return version;
-	}
-
-	public void run(File ifdExtractScriptFile, File targetPath, String localsourceArchive)
-			throws IOException, IFDException {
-		setTargetPath(targetPath);
-		extractScriptFile = ifdExtractScriptFile;
-		// this is the directory that the assets and index.html will be put in
-		extractScriptFileDir = extractScriptFile.getParent();
-		htmlPath = (insitu ? new File(extractScriptFileDir) : targetPath);
-
-		if (assetsOnly && !insitu) {
-			buildSite(null);
-			return;
-		}
-		
-		log("!Extractor\n ifdExtractScriptFile= " + ifdExtractScriptFile + "\n localsourceArchive = "
-				+ localsourceArchive + "\n targetDir = " + targetPath.getAbsolutePath());		
-		
-		// first create objects, a List<String>
-		if ("-".equals(localsourceArchive))
-			localsourceArchive = null;
-		if (localsourceArchive != null && localsourceArchive.indexOf("://") < 0)
-			localsourceArchive = "file:///" + localsourceArchive.replace('\\', '/');
-		localSourceDir = localsourceArchive;
-		// Scan data from IFD-extract.json and set up the parsers
-
-		String serializedFA = extractAndCreateFindingAid();
-		if (serializedFA == null) {
-			if (!allowNoPubInfo) {
-				throw new IFDException("Extractor failed");
-			}
-		} else if (createLandingPage) {
-			buildLandingPage(serializedFA, htmlPath);
-		}
-
-		log("!Extractor extracted " + lstManifest.size() + " files (" + lstManifest.getByteCount() + " bytes)"
-				+ "; ignored " + lstIgnored.size() + " files (" + lstIgnored.getByteCount() + " bytes)" + "; rejected "
-				+ lstRejected.size() + " files (" + lstRejected.getByteCount() + " bytes)");
-	}
-
-	private void buildLandingPage(String serializedFA, File htmlPath) throws IOException {
-		if (insitu)
-			FAIRSpecUtilities.writeBytesToFile(serializedFA.getBytes(), new File(htmlPath, "IFD.findingaid.json"));
-		buildSite(htmlPath);
-	}
-
-	/**
-	 * Minimal command-line interface for now. There are several flags set from
-	 * ExtractorTest. Right now these are not included in the options, and we also
-	 * need to use proper -x or --xxxx flags.
-	 * 
-	 * Just haven't implemented that yet.
-	 * 
-	 * @param args [0] extractionFile.json, [1] sourcePath, [2] targetDir
-	 * 
-	 */
 	public static void main(String[] args) {
-
-		if (args.length == 0) {
-			System.out.println(getCommandLineHelp());
-			return;
-		}
-		if (args[0].equals("-doi")) {
-			// entry point for DOICrawler
-			args[0] = null;
-			DOICrawler.main(args);
-			return;
-		}
-		// just run one IFD-extract.json
-		new IFDExtractor().runExtraction(args);
+		loadExtractor(args);
 	}
 
 }

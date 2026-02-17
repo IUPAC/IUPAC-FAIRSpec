@@ -1,0 +1,26 @@
+{"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
+ {"example":"Dryad testing"},
+ 
+ {"journal":"acs.orglett"},{"hash":"5c01955"},
+ {"dryadID":"f7m0cfz7t"},
+
+  {"#IFD.property.collectionset.source_data_license_uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+  {"#IFD.property.collectionset.source_data_license_name":"cc-by-nc-4.0"},
+
+  {"IFDid=IFD.property.collectionset.id":"{journal}.{hash}"},
+  
+  {"IFD.property.collectionset.source_publication_doi":"https://doi.org/10.1021/{IFDid}"},
+  {"IFD.property.collectionset.source_data_doi":"https://doi.org/10.5061/dryad.{dryadID}"},
+  {"IFD.property.collectionset.source_data_uri":"https://doi.org/10.5061/dryad.{dryadID}"},
+
+ 
+  {"path":"*.zip|*/"},
+
+  {"FAIRSpec.extractor.object":"{path}{IFD.representation.structure.mol::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}.mol}"},
+  {"FAIRSpec.extractor.object":
+  "{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::madangolideB}*}.jdf}"},
+  {"FAIRSpec.extractor.object":
+  "{path}{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::madangolide}*}.jdf}"},
+  
+  ""
+ ]}

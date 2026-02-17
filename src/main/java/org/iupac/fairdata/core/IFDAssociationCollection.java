@@ -18,11 +18,8 @@ import org.iupac.fairdata.api.IFDSerializerI;
 @SuppressWarnings("serial")
 public abstract class IFDAssociationCollection extends IFDCollection<IFDAssociation> {
 
-	protected boolean byID;
-
-	protected IFDAssociationCollection(String label, String type, boolean byID) {
+	protected IFDAssociationCollection(String label, String type) {
 		super(label, type);
-		this.byID = byID;
 	}
 
 	/**
@@ -45,7 +42,6 @@ public abstract class IFDAssociationCollection extends IFDCollection<IFDAssociat
 
 	@Override
 	public boolean add(IFDAssociation a) {
-		a.setByID(byID);
 		return super.add(a);
 	}
 
@@ -145,21 +141,15 @@ public abstract class IFDAssociationCollection extends IFDCollection<IFDAssociat
 				list.add(cp.getIDorIndex());
 			}
 		}
-		if (byID) {
-			for (int i = size(); --i >= 0;)
-				get(i).setTypeList(list);
-		} else {
-			serializer.addObject("collections", list);
-		}
+		for (int i = size(); --i >= 0;)
+			get(i).setTypeList(list);
 	}
 
 	@Override
 	protected void serializeList(IFDSerializerI serializer) {
 		if (size() == 0)
 			return;
-		if (byID) {
-			Collections.sort(this);
-		}
+		Collections.sort(this);
 		super.serializeList(serializer);
 	}
 

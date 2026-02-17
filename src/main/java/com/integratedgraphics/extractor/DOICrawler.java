@@ -407,12 +407,15 @@ public class DOICrawler extends FindingAidCreator {
 			// </subjects>
 			//
 			String key = attrs.get("subjectscheme");
-			if (key == null) {
-				crawler.customizeText(DATACITE_SUBJECT, s);
-			} else {
+			crawler.customizeText(DATACITE_SUBJECT, s);
+			if (key != null) {
 				switch (key) {
 				case FAIRDATA_SUBJECT_SCHEME:
 					key = attrs.get("valueuri");
+					if (key == null) {
+						crawler.log("!! valueuri missing for subject " + FAIRDATA_SUBJECT_SCHEME + " in " + crawler.currentXML);
+						return;
+					}
 					if (key.startsWith(IFD_SCHEME_URI)) {
 						key = key.substring(key.lastIndexOf('/') + 1);
 					}
@@ -605,6 +608,8 @@ public class DOICrawler extends FindingAidCreator {
 
 	private CrawlerInputStream myInputStream;
 
+	private String currentXML;
+
 	protected void setIgnoreKeys(String[] keys) {
 		this.ignoreKeys = new HashSet<>();
 		for (int i = keys.length; --i >= 0;)
@@ -621,7 +626,7 @@ public class DOICrawler extends FindingAidCreator {
 		System.out.println("DOICrawler args=" + Arrays.toString(args));
 
 		int arg0 = (args.length > 0 && args[0] == null ? 1 : 0);
-		initialDOI = (args.length == arg0 ? null : args[arg0]);
+		initialDOI = stripDirSlash(args.length == arg0 ? null : args[arg0]);
 		String flags = processFlags(args, "-nozip");
 		if (flags.indexOf("-nodownload;") >= 0) {
 			doDownload = false;
@@ -638,14 +643,17 @@ public class DOICrawler extends FindingAidCreator {
 		} catch (MalformedURLException e) {
 			addException(e);
 		}
-		String outdir = args.length > 1 ? args[1] : DEFAULT_OUTDIR;
+		String outdir = stripDirSlash(args.length > 1 ? args[1] : DEFAULT_OUTDIR);
 		topDir = new File(outdir);
 //		if (insitu)
 //			localMap = new HashMap<>();
 	}
 
+	private static String stripDirSlash(String path) {
+		return (path.endsWith("/") ? path.substring(0, path.length() - 1) : path);
+	}
 
-	boolean crawl() {
+	public boolean crawl() {
 		// set extractSpecProperties true to retrieving data files
 		// otherwise, URLs are just touched using the "head" option in https
 		faId = initialDOI.replace('/', '_');
@@ -692,7 +700,7 @@ public class DOICrawler extends FindingAidCreator {
 
 	@Override
 	public String getVersion() {
-		return "DoiCrawler " + version;
+		return "DoiCrawler " + IFDExtractor.version;
 	}
 
 	public String newCompound(String id) {
@@ -727,7 +735,7 @@ public class DOICrawler extends FindingAidCreator {
 		// "compound.id"
 
 		if (ignoreKeys != null && ignoreKeys.contains(key)) {
-			log("! ignoring unknown key " + key);
+			log("!! DOICrawler ignoring unknown key " + key + " with value " + value);
 			return;
 		}
 		doiRecord.addProperty(key, cleanData(value));
@@ -870,7 +878,7 @@ public class DOICrawler extends FindingAidCreator {
 			processRecords(null, doiList);
 			String aid = faHelper.generateFindingAid(targetPath);
 			if (aid != null && createLandingPage) {
-				buildSite(null);
+				buildSite(null, baseDir, launchLandingPage);
 			}
 
 		} catch (Throwable e) {
@@ -1133,10 +1141,12 @@ public class DOICrawler extends FindingAidCreator {
 		}
 		logAttr("open", doi.toString());
 		InputStream is;
+		String prevXML = currentXML;
 		try {
 			File dataFile = new File(dataDir, sfile);
 			boolean haveData = dataFile.exists();
-			System.out.println("reading " + (haveData ? dataFile : doi.toString()));
+			currentXML = (haveData ? dataFile.toString() : doi.toString());
+			System.out.println("reading " + currentXML);
 			if (haveData) {
 				is = new FileInputStream(dataFile);
 			} else {
@@ -1165,6 +1175,7 @@ public class DOICrawler extends FindingAidCreator {
 		}
 		logAttr("close", doi.toString());
 		popURLStack(currentPath, currentDesc);
+		currentXML = prevXML;
 		return true;
 	}
 
@@ -1274,6 +1285,7 @@ public class DOICrawler extends FindingAidCreator {
 			// note that length may be 0 (unknown)
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod("HEAD");
+			log("! requesting HEAD for " + url);
 			Map<String, List<String>> map = con.getHeaderFields();
 			mediaType = map.get("Content-Type").get(0);
 			String s = "\tURL=" + url;

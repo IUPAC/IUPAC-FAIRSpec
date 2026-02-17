@@ -6,11 +6,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
 
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
@@ -34,6 +37,8 @@ import com.integratedgraphics.zip.ZipInputStream;
 import com.junrar.Archive;
 import com.junrar.exception.RarException;
 import com.junrar.rarfile.FileHeader;
+
+import javajs.util.Rdr;
 
 /**
  * A set of static classes for use by MetadataExtractor, primarily
@@ -117,7 +122,7 @@ public class ExtractorUtils {
 		private Map<String, String> keys;
 
 		private ExtractorResource dataSource;
-		private IFDExtractor extractor;
+		private IFDExtractorMain extractor;
 		private boolean hasData;
 		private List<Object> replacements;
 		private ArrayList<String> keyList;
@@ -126,12 +131,19 @@ public class ExtractorUtils {
 		 * @param sObj
 		 * @throws IFDException
 		 */
-		public ObjectParser(IFDExtractor extractor, ExtractorResource resource, String sObj) throws IFDException {
+		public ObjectParser(IFDExtractorMain extractor, ExtractorResource resource, String sObj) throws IFDException {
 			this.extractor = extractor;
 			index = parserCount++;
 			dataSource = resource;
 			sData = sObj.substring(sObj.charAt(0) == '|' ? 1 : 0);
 			init();
+		}
+		
+		@Override
+		public boolean equals(Object o) {
+			return (o instanceof ObjectParser
+					&& ((ObjectParser)o).sData.equals(sData) 
+					&& ((ObjectParser)o).dataSource.equals(dataSource));
 		}
 
 		/**
@@ -167,13 +179,13 @@ public class ExtractorUtils {
 			//
 			// {IFD.property.dataobject.label::*} becomes \\E(?<IFD0nmr0param0expt>.+)\\Q
 			//
-			// {IFD.representation.spec.nmr.vendor.dataset::{IFD.property.sample.label::*-*}-{IFD.property.dataobject.label::*}.jdf}
+			// {IFD.representation.spec.nmr.dataobject.dataset::{IFD.property.sample.label::*-*}-{IFD.property.dataobject.label::*}.jdf}
 			//
 			// becomes:
 			//
 			// ^(?<IFD0nmr0representation0vendor0dataset>(?<IFD0structure0param0compound0id>([^-](?:-[^-]+)*))\\Q-\\E(?<IFD0nmr0param0expt>.+)\\Q.jdf\\E)$
 			//
-			// {id=IFD.property.sample.label::*}.zip|{IFD.representation.spec.nmr.vendor.dataset::{id}_{IFD.property.dataobject.label::*}/}
+			// {id=IFD.property.sample.label::*}.zip|{IFD.representation.spec.nmr.dataobject.dataset::{id}_{IFD.property.dataobject.label::*}/}
 			//
 			// becomes:
 			//
@@ -194,17 +206,6 @@ public class ExtractorUtils {
 
 			s = FAIRSpecUtilities.rep(s, "**/", TEMP_ANY_DIRECTORIES);
 
-			Matcher m;
-			// *-* becomes \\E([^-]+(?:-[^-]+)*)\\Q and matches a-b-c
-			if (s.indexOf("*") != s.lastIndexOf("*")) {
-				while ((m = pStarDotStar.matcher(s)).find()) {
-					String schar = m.group(1);
-					char c = schar.charAt(0);
-					s = FAIRSpecUtilities.rep(s, "*" + schar + "*",
-							TEMP_ANY_SEP_ANY_GROUPS.replaceAll("" + TEMP_ANY_SEP_ANY_CHAR2, "\\\\Q" + c + "\\\\E")
-									.replace(TEMP_ANY_SEP_ANY_CHAR, c));
-				}
-			}
 			// * becomes \\E.+\\Q
 
 			s = FAIRSpecUtilities.rep(s, "*", REGEX_ANY_NOT_PIPE_OR_DIR);
@@ -214,6 +215,11 @@ public class ExtractorUtils {
 			// \\E(?<IFD0nmr0param0expt>\\Qxxx\\E)\\Q
 			// <id> becomes \\k<id>
 
+			int pt = -1;
+			while ((pt = s.indexOf("]+\\Q^")) >= 0) {
+				char c = s.charAt(pt + 5);
+				s = s.substring(0, pt) + c + "]+\\Q" + s.substring(pt + 6);
+			}
 			s = compileIFDDefs(s, true, true);
 
 			// restore '*'
@@ -720,6 +726,42 @@ public class ExtractorUtils {
 	}
 
 	/**
+	 * for ZipFile creation
+	 */
+
+	private static String tempDir = "c:/temp/";
+
+	public static String setTempDir(String dir) {
+		if (!dir.endsWith("/"))
+			dir += "/";
+		tempDir = dir;
+		return new File(tempDir).getAbsolutePath();
+	}
+	/**
+	 * optionally disable ZipFile creation in Layer 2 for testing
+	 */
+
+	private static boolean useZipFile = true;
+
+	public static void useZipFile(boolean tf) {
+		useZipFile = tf;
+	}
+	
+	private static int maxLevel = 0;
+
+	public static int clearTempFiles() {
+		for (int i = 1; i <= maxLevel; i++) {
+			File f = new File(tempDir + "temp" + i + ".zip");
+			if (f.exists())
+				f.delete();
+		}
+		int ret = maxLevel;
+		maxLevel = 0;
+		return ret;
+	}
+
+	
+	/**
 	 * A static class to allow for either ZipInputStream or TarArchiveInputStream
 	 * 
 	 * @author hansonr
@@ -731,13 +773,13 @@ public class ExtractorUtils {
 		private DirectoryInputStream dis;
 		private RARInputStream ris;
 		protected InputStream is;
-
+		private Enumeration<? extends ZipEntry> zfenum;
+		private ZipFile zf;
 		protected ArchiveInputStream() throws IOException {
-			this(null, null);
+			this(null, null, -1);
 		}
 
-		public ArchiveInputStream(InputStream is, String fname) throws IOException {
-
+		public ArchiveInputStream(InputStream is, String fname, int level) throws IOException {
 			if (is instanceof ArchiveInputStream)
 				is = new BufferedInputStream(((ArchiveInputStream) is).getStream());
 			if (is instanceof DirectoryInputStream) {
@@ -748,12 +790,26 @@ public class ExtractorUtils {
 			} else if (is instanceof ZipInputStream) {
 				this.is = is;
 			} else if (ZipUtil.isZipS(is)) {
-				this.is = zis = new ZipInputStream(is);
+				if (useZipFile && level >= 0) {
+					if (fname == null) {
+						if (maxLevel < level)
+							maxLevel = level;
+						fname = tempDir + "temp" + level + ".zip";
+			    		FileOutputStream fos = new FileOutputStream(fname);
+			    		FAIRSpecUtilities.getLimitedStreamBytes(is, -1, fos, false, true);	
+					} else if (fname.startsWith("file:///"))
+						fname = fname.substring(8);
+		    		zf = new ZipFile(fname);
+		    		zfenum = zf.entries();
+				} else {
+					this.is = zis = new ZipInputStream(is);
+				}
 			} else if (ZipUtil.isGzipS(is)) {
 				this.is = tis = ZipUtil.newTarGZInputStream(is);
 			} else if (fname != null && fname.endsWith(".tar")) {
 				this.is = tis = ZipUtil.newTarInputStream(is);
-			} else if (fname != null && fname.endsWith(".rar")) {
+			} else if (fname != null && (fname.endsWith(".rar")
+					|| ZipUtil.isRAR(is))) {
 				this.is = ris = new RARInputStream(is);
 			}
 		}
@@ -870,6 +926,17 @@ public class ExtractorUtils {
 					return new ArchiveEntry();
 				}
 			}
+			if (zfenum != null) {
+				try {
+					ZipEntry ze = (zfenum.hasMoreElements() ? zfenum.nextElement() : null); 
+					if (ze == null)
+				      return null;
+					is = zf.getInputStream(ze);					
+					return new ArchiveEntry(ze);
+				} catch (Exception e) {
+					return new ArchiveEntry();
+				}
+			}
 			if (dis != null)
 				return dis.getNextEntry();
 			return null;
@@ -881,6 +948,8 @@ public class ExtractorUtils {
 				dis.close();
 			if (is != null)
 				is.close();
+			if (zf != null)
+				zf.close();
 		}
 
 		public InputStream getStream() {
@@ -1033,9 +1102,8 @@ public class ExtractorUtils {
 	 */
 	public static class CacheRepresentation extends IFDRepresentation {
 
-		protected String rezipOrigin;
-		public boolean isMultiple;
-		public boolean isValid = true;
+		private String rezipOrigin;
+		boolean isValid = true;
 
 		public CacheRepresentation(IFDReference ifdReference, Object o, long len, String type, String mediaType) {
 			super(ifdReference, o, len, type, mediaType);
@@ -1049,14 +1117,23 @@ public class ExtractorUtils {
 			return rezipOrigin;
 		}
 
-		public void setIsMultiple() {
-			isMultiple = true;
-		}
-
-		public boolean isMultiple() {
-			return isMultiple;
-		}
-
 	}
+
+	
+	public static File getJarFile(Class<?> classInJar) throws Exception {
+		java.security.CodeSource codeSource = classInJar.getProtectionDomain().getCodeSource();
+		File jarFile = null;
+		if (codeSource.getLocation() != null) {
+//      jarFile = new File(codeSource.getLocation().getPath());
+			jarFile = new File(codeSource.getLocation().toURI());
+		} else {
+			String path = classInJar.getResource(classInJar.getSimpleName() + ".class").getPath(); //$NON-NLS-1$
+			String jarFilePath = path.substring(path.indexOf(":") + 1, path.indexOf("!")); //$NON-NLS-1$ //$NON-NLS-2$
+			jarFilePath = java.net.URLDecoder.decode(jarFilePath, "UTF-8"); //$NON-NLS-1$
+			jarFile = new File(jarFilePath);
+		}
+		return jarFile;
+	}
+
 
 }

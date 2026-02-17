@@ -1,0 +1,131 @@
+Path to Compounds
+FID for Publication.zip|FID for Publication/2r/
+FID for Publication.zip|FID for Publication/2u/
+FID for Publication.zip|FID for Publication/2g/
+FID for Publication.zip|FID for Publication/2i/
+FID for Publication.zip|FID for Publication/2ac/
+FID for Publication.zip|FID for Publication/2n/
+FID for Publication.zip|FID for Publication/2t/
+FID for Publication.zip|FID for Publication/2s/
+FID for Publication.zip|FID for Publication/2z/
+FID for Publication.zip|FID for Publication/2ab/
+FID for Publication.zip|FID for Publication/2o/
+FID for Publication.zip|FID for Publication/2h/
+FID for Publication.zip|FID for Publication/2a/
+FID for Publication.zip|FID for Publication/2f/
+FID for Publication.zip|FID for Publication/2i + 2i'/
+FID for Publication.zip|FID for Publication/2i'/
+FID for Publication.zip|FID for Publication/2c/
+FID for Publication.zip|FID for Publication/2d/
+FID for Publication.zip|FID for Publication/2m/
+FID for Publication.zip|FID for Publication/2j/
+FID for Publication.zip|FID for Publication/2x/
+FID for Publication.zip|FID for Publication/2v/
+FID for Publication.zip|FID for Publication/2q/
+FID for Publication.zip|FID for Publication/3/
+FID for Publication.zip|FID for Publication/2k/
+FID for Publication.zip|FID for Publication/2aa/
+FID for Publication.zip|FID for Publication/2l/
+FID for Publication.zip|FID for Publication/2e/
+FID for Publication.zip|FID for Publication/2b/
+FID for Publication.zip|FID for Publication/2p/
+FID for Publication.zip|FID for Publication/2w/
+FID for Publication.zip|FID for Publication/2y/
+
+Possible file path: 
+{'*.zip|*/*/'}
+2r
+Structure of compound 2r.mol
+
+2u
+Structure of compound 2u.mol
+
+2g
+Structure of compound 2g.mol
+
+2i
+Structure of compound 2i.mol
+
+2ac
+Structure of compound 2ac.mol
+
+2n
+Structure of compound 2n.mol
+
+2t
+Structure of compound 2t.mol
+
+2s
+Structure of compound 2s.mol
+
+2z
+Structure of compound 2z.mol
+
+2ab
+Structure of compound 2ab.mol
+
+2o
+Structure of compound 2o.mol
+
+2h
+Structure of compound 2h.mol
+
+2a
+Structure of compound 2a.mol
+
+2f
+Structure of compound 2f.mol
+
+2i + 2i'
+Structure of compounds 2i+2i'.mol
+
+2i'
+Structure of compound 2i'.mol
+
+2c
+Structure of compound 2c.mol
+
+2d
+Structure of compound 2d.mol
+
+2m
+Structure of compound 2m.mol
+
+2j
+Structure of compound 2j.mol
+
+2x
+Structure of compound 2x.mol
+
+2v
+Structure of compound 2v.mol
+
+2q
+Structure of compound 2q.mol
+
+3
+Structure of compound 3.mol
+
+2k
+Structure of compound 2k.mol
+
+2aa
+Structure of compound 2aa.mol
+
+2l
+Structure of compound 2l.mol
+
+2e
+Structure of compound 2e.mol
+
+2b
+Structure of compound 2b.mol
+
+2p
+Structure of compound 2p.mol
+
+2w
+Structure of compound 2w.mol
+
+2y
+Structure of compound 2y.mol

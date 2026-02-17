@@ -25,18 +25,13 @@ public interface IFDObjectI<T> {
 	
 	int getObjectCount();
 	
-	String getTimestamp();
-	
 	void setDescription(String description);
 	
-
 	void setID(String id);
 
 	void setLabel(String label);
 
 	void setNote(String note);
-
-	void setTimestamp(String timestamp);
 
 	String getDOI();
 

@@ -1,0 +1,60 @@
+---
+title: "test"
+output: html_document
+---
+
+```{r}
+devtools::install_github("r-lib/conflicted")
+library(conflicted)
+library(dplyr)
+library(tidyverse)
+library(tidymodels)
+library(usemodels)
+
+file_list <- read.table("output_path.csv", header= FALSE, sep = "/", 
+                        col.names = c("V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10", "V11", "V12", "V13", "V14", "V15"),
+                        fill = TRUE)
+
+file_list2 <- file_list |>
+  select(V3:V8) |>
+  mutate(compound_number = "NA",
+         procs = ifelse(V8 == "procs", TRUE, FALSE),
+         compound_number = ifelse(procs == TRUE, V4, "NA"))
+
+
+results <- read.csv("parsed_paths.csv") 
+
+results |>
+  distinct(compound_label)
+```
+
+Identifying the compound numbers, figure out what the compound numbers are 
+
+
+```{r}
+set.seed(2568)
+file_name_split <- initial_split(file_list2, prop=0.5)
+
+file_name_training = training(file_name_split)
+file_name_testing = testing(file_name_split)
+```
+
+
+
+# Testing output of the Python script
+```{r}
+fileb <- read.csv("predicted_compoundsb.csv", header = TRUE)
+
+fileb |>
+  dplyr::select(predicted_compound) |>
+  distinct()
+
+file_mcv <- read.csv("predicted_compounds_mcv.csv", header = TRUE)
+
+file_mcv |>
+  dplyr::select(predicted_compound) |>
+  count(predicted_compound) |>
+
+sum(file_mcv$predicted_compound)
+```
+

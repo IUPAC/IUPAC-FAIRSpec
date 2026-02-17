@@ -1,18 +1,22 @@
 package org.iupac.fairdata.contrib.fairspec;
 
+import java.awt.Desktop;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -333,6 +337,7 @@ public class FAIRSpecUtilities {
 			if (!newName.equals(name))
 				s = rep(s, name, newName);
 		}
+		System.out.println("" + s);
 		return s;
 	}
 
@@ -863,20 +868,49 @@ public class FAIRSpecUtilities {
 		return name.endsWith(".zip") || name.endsWith(".tgz") || name.endsWith(".tar") || name.endsWith(".rar")
 				|| name.endsWith("tar.gz") || name.endsWith(".ifdcrawler");
 	}
-
-	/**
-	 * Simple Java method of displaying a page in the default browser.
-	 * 
-	 * @param url
-	 * @throws Exception
-	 */
+	 
 	public static void showUrl(String url) throws Exception {
-		Class<?> c = Class.forName("java.awt.Desktop");
-		Method getDesktop = c.getMethod("getDesktop", new Class[] {});
-		Object deskTop = getDesktop.invoke(null, new Object[] {});
-		Method browse = c.getMethod("browse", new Class[] { URI.class });
-		Object arguments[] = { new URI(url) };
-		browse.invoke(deskTop, arguments);
+		//Get the name of the OS running on the machine
+		String os = System.getProperty("os.name").toLowerCase();
+		
+		File file = new File(url);
+		if (!file.exists()) {
+            System.err.println("File not found: " + url);
+            return;
+        }
+       
+		try {
+			if (os.contains("win") || os.contains("nix") || os.contains("nux")) {
+				if (Desktop.isDesktopSupported()) {
+					Desktop.getDesktop().browse(new URI(url));
+					return;
+				}
+			} else if (os.contains("mac")) {
+				Runtime.getRuntime().exec(new String[]{"open", "-na", "Google Chrome", "--args", "--user-data-dir=/tmp/chrome_dev_test", "--allow-file-access-from-files", new File(url).toURI().toString()});
+				System.out.println("OS: Open the website " + file.toURI().toString());
+				return;
+            }
+		}
+		catch (Error e){
+			System.err.println("Failed to open browser: " + e.getMessage());
+		}
+		/*
+		try {
+			// windows (or mac?)
+			if (Desktop.isDesktopSupported()) {
+				Desktop.getDesktop().browse(new URI(url));
+				return;
+			}
+		} catch (Exception e) {
+		}
+		try {
+			// mac
+			Runtime.getRuntime().exec("open " + url);
+			return;
+		} catch (Exception e) {
+		}
+		Runtime.getRuntime().exec("xdg-open " + url);
+		*/
 	}
 
 	public static String toJSON(StringBuffer sb, String[] list, String rootPath, boolean withBrackets) {
@@ -978,6 +1012,75 @@ public class FAIRSpecUtilities {
 			case "image/jpg":
 				return true;
 			}
+		return false;
+	}
+
+	public static void appendToFile(Path filePath, String content) throws IOException {
+	    try (FileWriter writer = new FileWriter(new File(filePath.toString()), true)) {
+	        writer.write(content);
+	        writer.close();
+	    }
+	}
+
+	/**
+	 * Validate a FAIRSpec Finding Aid.
+	 * 
+	 * Requires check-jsonschema allowed on command line.
+	 * 
+	 * Syntax: check-jsonschema --verbose --schemafile <schemaPath> <findingAidPath>
+	 * -o text;
+	 * 
+	 * @param targetDir
+	 * @param findingAidPath
+	 * @param schemaPath
+	 * @param ret
+	 * @author Khanh Tra Nguyen (Fay) Tran
+	 */
+	public static boolean validateFindingAid(String targetDir, String findingAidPath, String schemaPath,
+			String[] ret) {
+		// Check whether the target directory exists
+		Path outputFolderPath = Paths.get(targetDir).toAbsolutePath();
+		if (!Files.isDirectory(outputFolderPath)) {
+			System.err.printf(ret[0] = "The folder %s does not exist or is not a directory.\n", outputFolderPath);
+			return false;
+		}
+		File faFile = new File(findingAidPath);
+		File scFile = new File(schemaPath);
+		// Check whether the finding aid and finding aid schema generated properly
+		if (!faFile.exists()) {
+			System.err.printf(ret[0] = "The file %s does not exist.\n", faFile.getAbsolutePath());
+			return false;
+		}
+		if (!scFile.exists()) {
+			System.err.printf(ret[0] = "The file %s does not exist.\n", scFile.getAbsolutePath());
+			return false;
+		}
+
+		// Syntax to run check-jsonschema (Required: Python and check-jsonschema
+		// library)
+		List<String> command = new ArrayList<>();
+		command.add("check-jsonschema");
+		command.add("--verbose");
+		command.add("--schemafile");
+		command.add(schemaPath);
+		command.add(findingAidPath);
+		command.add("-o");
+		command.add("text");
+
+		try {
+			// Run the schema validation
+			ProcessBuilder builder = new ProcessBuilder(command);
+			builder.redirectErrorStream(true);
+			Process process = builder.start();
+			BufferedInputStream is = new BufferedInputStream(process.getInputStream());
+			// Retrieve the exit code to check whether the finding aid is valid or not
+			int exitCode = process.waitFor();
+			ret[0] = new String(getBytesAndClose(is), "utf-8");
+			return (exitCode == 0);
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+			ret[0] = e.getMessage();
+		}
 		return false;
 	}
 }

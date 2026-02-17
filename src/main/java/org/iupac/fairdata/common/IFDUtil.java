@@ -11,6 +11,9 @@ public class IFDUtil {
 	 */
 	public static String getNumericalSortKey(String id) {
 		int[] ret = new int[2];
+		if (id == null) {
+			id = "_";
+		}
 		id = id.toUpperCase();
 		int val = getBestNumber(id, ret);
 		if (val == 0)

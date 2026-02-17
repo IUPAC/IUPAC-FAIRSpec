@@ -8,8 +8,8 @@ import org.iupac.fairdata.structure.IFDStructure;
 @SuppressWarnings({ "serial" })
 public class IFDStructureDataAssociationCollection extends IFDAssociationCollection {
 
-	public IFDStructureDataAssociationCollection(boolean byID) {
-		super(null, null, byID);
+	public IFDStructureDataAssociationCollection() {
+		super(null, null);
 	}
 
 	public IFDStructureDataAssociation addAssociation(IFDStructure struc, IFDDataObject data) throws IFDException {
@@ -19,13 +19,11 @@ public class IFDStructureDataAssociationCollection extends IFDAssociationCollect
 		} else if (!sda.getDataObjectCollection().contains(data)) {
 			sda.addDataObject(data);
 		}
-		sda.setByID(byID);
 		return sda;
 	}
 	
 	public IFDStructureDataAssociation addAssociation(IFDStructureDataAssociation a) throws IFDException {
 		add(a);
-		a.setByID(byID);
 		return a;
 	}
 	

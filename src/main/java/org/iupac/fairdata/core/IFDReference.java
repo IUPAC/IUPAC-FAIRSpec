@@ -47,10 +47,6 @@ public class IFDReference implements IFDSerializableI {
 
 	private String insituExt;
 	
-	public IFDReference() {
-		this(null, null, null, null);
-	}
-
 	/**
 	 * 
 	 * @param resourceID provides the resource path, ultimately

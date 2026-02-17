@@ -1285,16 +1285,19 @@
 		var spec = IFD.getCollection(aidID).spectra[id];
 		var method = spec.exptMethod.toLowerCase();
 		var structureIDs = IFD.getStructureIDsForSpectra(aidID, [id]);
-		var sampleID = spec.ifdProperties && spec.ifdProperties.originating_sample_id;
+		var sampleID = (spec.expt_originating_sample_id || spec.ifdProperties && spec.ifdProperties.originating_sample_id);
 		var sid = (IFD.byID ? id : spec.id); 
 		var s = "<table padding=3><tr><td valign=top>"
 			+ getHeader("Spectrum/a  ", "Spectrum ", sid) + "<h3>" 
 			+ (sampleID ? "&nbsp;&nbsp;&nbsp; sample " + sampleID : "")
 			+ "</h3>"
 			+ "</td>"; 
-		var title = getObjectProperty(spec, method + ".expt_title");
-		if (title)
-			s += "<td>&nbsp;&nbsp;</td><td><b>" + title + "</b></td>"
+		// new 0.1.3 finding aid has expt_title, expt_originating_sample_id, expt_timestamp, and instr_manufacturer_name
+		var expt_title = (spec.expt_title || getObjectProperty(spec, method + ".expt_title"));
+		if (expt_title)
+			s += "<td>&nbsp;&nbsp;</td><td>"
+				+ "<b> <span title='IFD.dataobject.expt_title'>" + expt_title + "</span></b>"
+				+"</td>"
 		s += "</tr></table>";
 		var smiles = null;
 		if (structureIDs.length) {

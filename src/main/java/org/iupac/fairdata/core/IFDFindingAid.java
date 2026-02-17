@@ -12,6 +12,7 @@ import java.util.TreeMap;
 import org.iupac.fairdata.api.IFDSerializerI;
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDException;
+import org.iupac.fairdata.contrib.fairspec.schema.FAIRSpecSchemaGenerator;
 
 /**
  * The IFDFindingAid class is a master class for the organizing metadata
@@ -26,7 +27,7 @@ import org.iupac.fairdata.common.IFDException;
  *
  */
 @SuppressWarnings("serial")
-public class IFDFindingAid extends IFDObject<IFDObject<?>> {
+public abstract class IFDFindingAid extends IFDObject<IFDObject<?>> {
 
 	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_FINDINGAID_FLAG);
 	
@@ -180,6 +181,7 @@ public class IFDFindingAid extends IFDObject<IFDObject<?>> {
 			if (id != null && id.length() > 0)
 				serializer.addAttr("id", getID());
 			serializer.addObject("version", getVersion());
+			serializer.addObject("schema", FAIRSpecSchemaGenerator.getSchemaURI(null));
 			serializer.addObject("created", df.format(date));
 			if (getCreator() != null)
 				serializer.addObject("createdBy", getCreator());

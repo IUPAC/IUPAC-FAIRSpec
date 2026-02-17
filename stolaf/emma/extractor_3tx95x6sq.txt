@@ -1,0 +1,51 @@
+Path to Compounds
+Spectra.zip|Spectra/HRMS for Publication/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5r/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5u/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5i/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5n/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5g/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5t/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5s/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5a/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5f/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5o/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5h/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7j/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7m/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/9/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/11/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7d/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7c/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7b/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7e/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/10/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7l/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/8/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7k/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7p/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5m/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5j/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5c/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5d/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5v/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5q/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5e/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5b/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5k/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5l/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5p/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/5w/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7n/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/4a/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7i/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7g/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/12/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/13/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7f/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7a/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7h/
+Spectra.zip|Spectra/FID for Publication.zip|FID for Publication/7o/
+
+Possible file path: 
+{'*.zip|*/*/', '*.zip|*/*.zip|*/*/'}

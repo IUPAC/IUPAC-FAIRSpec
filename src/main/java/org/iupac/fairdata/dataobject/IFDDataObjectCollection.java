@@ -1,5 +1,8 @@
 package org.iupac.fairdata.dataobject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.iupac.fairdata.core.IFDCollection;
 import org.iupac.fairdata.core.IFDRepresentableObject;
 
@@ -35,8 +38,17 @@ public class IFDDataObjectCollection extends IFDCollection<IFDRepresentableObjec
 	 */
 	public IFDDataObject cloneData(IFDDataObject data, String newID, boolean andReplace) {
 		IFDDataObject newData = data.clone();
-		if (newID != null)
-			newData.setID((data.getID() == null ? "" : data.getID()) + newID);
+		if (newID != null) {
+			String oldid = (data.getID() == null ? "" : data.getID());
+			if (oldid.endsWith("/"))
+				oldid = oldid.substring(0, oldid.length() - 1);
+			if (newID.startsWith("_page")) {
+				int pt = oldid.lastIndexOf("_page");
+				if (pt >= 0)
+					oldid = oldid.substring(0, pt);
+			}
+			newData.setID(oldid + newID);
+		}
 		if (andReplace) {
 			data.setReplaced();
 		}

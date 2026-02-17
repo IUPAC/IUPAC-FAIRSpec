@@ -1,11 +1,14 @@
-{"knownVendors" : [
-	"com.integratedgraphics.ifd.vendor.bruker.BrukerIFDVendorPlugin",
-	"com.integratedgraphics.ifd.vendor.jcamp.JCAMPDXIFDVendorPlugin",
-	"com.integratedgraphics.ifd.vendor.jeol.JeolIFDVendorPlugin",
-	"com.integratedgraphics.ifd.vendor.mestrelab.MestrelabIFDVendorPlugin",
-	"com.integratedgraphics.ifd.vendor.varian.VarianIFDVendorPlugin"
-	],
-	
+{"knownDataObjectVendors" : [
+	"com.integratedgraphics.ifd.dataobject.bruker.BrukerDataObjectVendorPlugin",
+	"com.integratedgraphics.ifd.dataobject.jcamp.JCAMPDXDataObjectVendorPlugin",
+	"com.integratedgraphics.ifd.dataobject.jeol.JeolDataObjectVendorPlugin",
+	"com.integratedgraphics.ifd.dataobject.mestrelab.MestrelabDataObjectVendorPlugin",
+	"com.integratedgraphics.ifd.dataobject.varian.VarianDataObjectVendorPlugin"
+	],	
+ "knownAnalysisStandards" : [
+    "com.integratedgraphics.ifd.analysis.nmrml.NMRMLAnalysisObjectPlugin",
+    "com.integratedgraphics.ifd.analysis.nmredata.NMReDATAAnalysisObjectPlugin"
+    ],
 "defaultScripts" : [
 	 "replacements do not apply to default structure paths",
 	 {"FAIRSpec.extractor.replacements":null},			

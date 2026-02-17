@@ -4,3 +4,6 @@
 /site2/
 /build/
 /docs-local/
+c:/
+.DS_Store
+manifest.txt

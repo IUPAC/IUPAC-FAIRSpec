@@ -49,4 +49,6 @@ public interface FAIRSpecExtractorHelperI extends FAIRSpecFindingAidHelperI {
 
 	String dumpState();
 
+	boolean mergeDataObjectsIfMatching(IFDDataObject from, IFDDataObject to);
+
 }

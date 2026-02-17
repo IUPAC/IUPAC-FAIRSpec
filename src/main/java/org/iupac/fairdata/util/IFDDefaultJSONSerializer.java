@@ -19,23 +19,9 @@ import org.iupac.fairdata.core.IFDObject;
  */
 public class IFDDefaultJSONSerializer implements IFDSerializerI {
 
-	public IFDDefaultJSONSerializer(boolean byIDIgnored) {
-//		this.byID = byID;
+	public IFDDefaultJSONSerializer() {
 	} 
-//	
-//	private boolean byID;
-	
-//	@Override
-//	public void setByID(boolean tf) {
-//		byID = tf;
-//	}
 
-//	@Override
-//	public boolean isByID() {
-//		return byID;
-//	}
-
-	
 	private Obj thisObj;
 	private List<Obj> stack = new ArrayList<>();
 	
@@ -118,11 +104,7 @@ public class IFDDefaultJSONSerializer implements IFDSerializerI {
 	}
 	
 	@Override
-	public void addCollection(String key, IFDCollection<? extends IFDObject<?>> list, boolean byID) {
-		if (!byID) {
-			addList(key, list);
-			return;
-		}
+	public void addCollection(String key, IFDCollection<? extends IFDObject<?>> list) {
 		thisObj.appendKey(key);
 		String sep = "";
 		thisObj.append("{");

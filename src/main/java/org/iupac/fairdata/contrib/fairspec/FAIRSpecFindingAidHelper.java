@@ -148,23 +148,6 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		}
 	}
 	
-	/**
-	 * Always true. 
-	 * 
-	 * Set associations to be listed by ID, not by index.
-	 * 
-	 * This option is deprecated, as TRUE is the only way to 
-	 * guarantee unique IDs. 
-	 * 
-	 * Making this final simplifies FindingAid parsing. 
-	 */
-	final protected boolean byId = true;
-
-//	@Override
-//	public void setById(boolean tf) {
-//		byId = tf;
-//	}
-
 	@Override
 	public FAIRSpecCompoundAssociation getThisCompound() {
 		return thisCompound;
@@ -364,8 +347,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 
 	public IFDSampleStructureAssociationCollection getSampleStructureCollection() {
 		if (sampleStructureCollection == null) {
-			associations[SAMPLE_STRUCTURE_COLLECTION] = sampleStructureCollection = new IFDSampleStructureAssociationCollection(
-					byId);
+			associations[SAMPLE_STRUCTURE_COLLECTION] = sampleStructureCollection = new IFDSampleStructureAssociationCollection();
 			sampleStructureCollection.setID("sample-structure associations");
 		}
 		return sampleStructureCollection;
@@ -374,7 +356,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	public IFDSampleDataAssociationCollection getSampleDataCollection() {
 		if (sampleDataCollection == null) {
 			associations[SAMPLE_DATA_COLLECTION] = sampleDataCollection = new IFDSampleDataAssociationCollection(
-					byId);
+					);
 			sampleDataCollection.setID("sample-spectra associations");
 		}
 		return sampleDataCollection;
@@ -384,7 +366,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	public FAIRSpecCompoundCollection getCompoundCollection() {
 		if (compoundCollection == null) {
 			associations[STRUCTURE_DATA_COLLECTION] = compoundCollection = new FAIRSpecCompoundCollection(
-					byId);
+					);
 			compoundCollection.setID("compounds");
 		}
 		return compoundCollection;
@@ -393,7 +375,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	public IFDStructureDataAnalysisAssociationCollection getStructureDataAnalysisCollection() {
 		if (structureDataAnalysisCollection == null)
 			associations[STRUCTURE_DATA_ANALYSIS_COLLECTION] = structureDataAnalysisCollection = new IFDStructureDataAnalysisAssociationCollection(
-					byId);
+					);
 		structureDataAnalysisCollection.setID("structure-spectra-analyses");
 		return structureDataAnalysisCollection;
 	}
@@ -514,15 +496,15 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	@SuppressWarnings("unchecked")
 	public String createSerialization(File targetDir, ArrayList<Object> products, IFDSerializerI serializer, long[] t) throws IOException {
 		if (serializer == null)
-			serializer = new IFDDefaultJSONSerializer(byId);
+			serializer = new IFDDefaultJSONSerializer();
 		// subclasses should be able to use this directly with no changes.
 		if (t == null) {
 			t = new long[3];
 		}
-		System.out.println("FAH.ser1 " + targetDir);
+		//System.out.println("FAH.ser1 " + targetDir);
 		t[0] = System.currentTimeMillis();
 		String serializedFindingAid = serializer.serialize(findingAid).toString();
-		System.out.println("FAH.ser2 " + serializedFindingAid.length());
+		//System.out.println("FAH.ser2 " + serializedFindingAid.length());
 		t[0] = System.currentTimeMillis() - t[0];
 	
 		if (targetDir == null)
@@ -530,7 +512,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		
 		String aidName = "IFD" + IFDConst.IFD_FINDINGAID_FLAG + serializer.getFileExt();
 		String faPath = targetDir.toString().replace('\\', '/') + "/" + aidName;
-		System.out.println("FAH.ser3 " + faPath);
+		//System.out.println("FAH.ser3 " + faPath);
 		FAIRSpecUtilities.writeBytesToFile(serializedFindingAid.getBytes(), new File(faPath));
 		System.out.println("created " + faPath);
 		if (products != null) {
@@ -577,6 +559,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		associations = null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public String dumpState() {
 		IFDCollectionSet cs = new IFDCollectionSet(null);
 		for (int i = 0; i < objectCollections.length; i++)
