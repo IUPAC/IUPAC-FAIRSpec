@@ -234,9 +234,10 @@ public class ExtractorTestACS extends ExtractorTest {
 	public static String syntaxString = 
 			"ACS: java -jar IFDExtractor.jar " //
 			+ "--test acs " //
-			+ "--DOI acs.joc.0c00770 " //
+			+ "[--DOI acs.joc.0c00770 or --DOI [2] or --DOI [n-m] where n >= 0 and 0 < m = 13" //
 			+ "--targetDir <TARGET_DIR> " //
 			+ "--localSource <LOCAL_SOURCE_ARCHIVE>" //
+			+ "\n    note that this a limited set of examples acs.joc.0c0070 is just one of them, [0]"
 			+ "\n"; //
 
 
@@ -278,7 +279,7 @@ public class ExtractorTestACS extends ExtractorTest {
 		if (pt >= 0) {
 			String[] a = firstLast.substring(pt+1, firstLast.indexOf("]")).split(",");
 			int first = Integer.parseInt(a[0]);
-			int last = Integer.parseInt(a[1]);
+			int last = (a.length == 1 ? first : Integer.parseInt(a[1]));
 			run(null, first, last, localSourceArchive, targetDir);
 		}
 		
