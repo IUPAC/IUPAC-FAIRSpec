@@ -643,14 +643,14 @@ public class DOICrawler extends FindingAidCreator {
 		} catch (MalformedURLException e) {
 			addException(e);
 		}
-		String outdir = stripDirSlash(args.length > 1 ? args[1] : DEFAULT_OUTDIR);
+		String outdir = stripDirSlash(args.length > 1  && args[1] != null ? args[1] : DEFAULT_OUTDIR);
 		topDir = new File(outdir);
 //		if (insitu)
 //			localMap = new HashMap<>();
 	}
 
 	private static String stripDirSlash(String path) {
-		return (path.endsWith("/") ? path.substring(0, path.length() - 1) : path);
+		return (path == null ? null : path.endsWith("/") ? path.substring(0, path.length() - 1) : path);
 	}
 
 	public boolean crawl() {
