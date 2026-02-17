@@ -7,12 +7,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -1008,6 +1012,75 @@ public class FAIRSpecUtilities {
 			case "image/jpg":
 				return true;
 			}
+		return false;
+	}
+
+	public static void appendToFile(Path filePath, String content) throws IOException {
+	    try (FileWriter writer = new FileWriter(new File(filePath.toString()), true)) {
+	        writer.write(content);
+	        writer.close();
+	    }
+	}
+
+	/**
+	 * Validate a FAIRSpec Finding Aid.
+	 * 
+	 * Requires check-jsonschema allowed on command line.
+	 * 
+	 * Syntax: check-jsonschema --verbose --schemafile <schemaPath> <findingAidPath>
+	 * -o text;
+	 * 
+	 * @param targetDir
+	 * @param findingAidPath
+	 * @param schemaPath
+	 * @param ret
+	 * @author Khanh Tra Nguyen (Fay) Tran
+	 */
+	public static boolean validateFindingAid(String targetDir, String findingAidPath, String schemaPath,
+			String[] ret) {
+		// Check whether the target directory exists
+		Path outputFolderPath = Paths.get(targetDir).toAbsolutePath();
+		if (!Files.isDirectory(outputFolderPath)) {
+			System.err.printf(ret[0] = "The folder %s does not exist or is not a directory.\n", outputFolderPath);
+			return false;
+		}
+		File faFile = new File(findingAidPath);
+		File scFile = new File(schemaPath);
+		// Check whether the finding aid and finding aid schema generated properly
+		if (!faFile.exists()) {
+			System.err.printf(ret[0] = "The file %s does not exist.\n", faFile.getAbsolutePath());
+			return false;
+		}
+		if (!scFile.exists()) {
+			System.err.printf(ret[0] = "The file %s does not exist.\n", scFile.getAbsolutePath());
+			return false;
+		}
+
+		// Syntax to run check-jsonschema (Required: Python and check-jsonschema
+		// library)
+		List<String> command = new ArrayList<>();
+		command.add("check-jsonschema");
+		command.add("--verbose");
+		command.add("--schemafile");
+		command.add(schemaPath);
+		command.add(findingAidPath);
+		command.add("-o");
+		command.add("text");
+
+		try {
+			// Run the schema validation
+			ProcessBuilder builder = new ProcessBuilder(command);
+			builder.redirectErrorStream(true);
+			Process process = builder.start();
+			BufferedInputStream is = new BufferedInputStream(process.getInputStream());
+			// Retrieve the exit code to check whether the finding aid is valid or not
+			int exitCode = process.waitFor();
+			ret[0] = new String(getBytesAndClose(is), "utf-8");
+			return (exitCode == 0);
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+			ret[0] = e.getMessage();
+		}
 		return false;
 	}
 }

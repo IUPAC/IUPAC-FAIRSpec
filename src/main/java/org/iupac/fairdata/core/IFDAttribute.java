@@ -10,7 +10,7 @@ import org.iupac.fairdata.api.IFDSerializerI;
  * A class associating a name with either a single value or a list of values
  * where the item is not a standard IFDProperty. 
  * 
- * All values must be String Number, or NumberString. 
+ * All values must be String, Number, Boolean, or NumberString. 
  * 
  * (NumberString preserves the precision given in an input string, such as from 
  * a JDX file or a Bruker DX-style parameter file. 
@@ -105,25 +105,37 @@ public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> 
 	private final String name;
 	private Object value;
 	private List<Object> values;
-    private boolean isString;
+    private char type;
 
 	public IFDAttribute(String name, String value) {
 		this.name = name;
 		this.value = value;
-		isString = true;
+		type = 's';
 	}
 
 	public IFDAttribute(String name, Number value) {
 		this.name = name;
 		this.value = value;
+		type = 'n';
 	}
 
+	public IFDAttribute(String name, Boolean value) {
+		this.name = name;
+		this.value = value;
+		type = 'b';
+	}
 
 	public IFDAttribute(String name, NumberString value) {
 		this.name = name;
 		this.value = value;
+		type = 'n';
 	}
 
+	private IFDAttribute(String name, Object value, char type) {
+		this.name = name;
+		this.value = value;
+		this.type = type;
+	}
 
 	public String getName() {
 		return name;
@@ -157,15 +169,14 @@ public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> 
 	 public static void add(List<IFDAttribute> attributes, String name, Object value) {
 		if (value == null || name == null)
 			return;
-		boolean isString = value instanceof String;
-		boolean isNumber = !isString && value instanceof Number;
-		if (!isString && !isNumber && !(value instanceof NumberString))
+		char type = typeof(value);
+		if (type == '?')
 			throw new RuntimeException("Attributes must be either String or Number adding " + value + " type " + value.getClass().getName());
 		IFDAttribute p = null;
 		for (int i = attributes.size(); --i >= 0;) {
 			p = attributes.get(i);
 			if (p.name.equals(name))  {
-				if (p.isString != isString) {
+				if (p.type != type) {
 					throw new RuntimeException("Atribute values must not be of mixed type.");
 				}
  				if (p.values != null ? p.values.contains(value)
@@ -180,10 +191,15 @@ public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> 
 				return;
 			}
 		}
-		attributes.add(isString 
-				? new IFDAttribute(name, (String) value) 
-						: isNumber ? new IFDAttribute(name, (Number) value)
-								: new IFDAttribute(name, (NumberString) value));
+		attributes.add(new IFDAttribute(name, value, type));
+	}
+
+	private static char typeof(Object value) {
+		return (value instanceof String ? 's'
+				: value instanceof Number ? 'n'
+				: value instanceof NumberString ? 'n'
+				: value instanceof Boolean ? 'b'
+		        : '?');
 	}
 
 	public static void remove(List<IFDAttribute> params, String name) {

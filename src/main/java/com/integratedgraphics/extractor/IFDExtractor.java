@@ -1,10 +1,6 @@
 package com.integratedgraphics.extractor;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,8 +16,10 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.PosixParser;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 import com.integratedgraphics.test.ExtractorTestACS;
+import com.integratedgraphics.test.ExtractorTestDryad;
 
 
 /**
@@ -79,6 +77,7 @@ class IFDExtractor {
 
 		boolean cliIsCrawler = false;
 		boolean runningSchemaValidation = false;
+		private String schemaFile;
 
 		String cliLocalSourceArchivePath = null;
 
@@ -87,6 +86,7 @@ class IFDExtractor {
 		String cliSource = "dryad";
 
 		private String cliExtractFilePath;
+
 
 		private Options getOptions() {
 			Options options = new Options();
@@ -111,6 +111,7 @@ class IFDExtractor {
 			OptionBuilder.withArgName("TARGET_DIR");
 			options.addOption(OptionBuilder.create("T"));
 
+
 			// -test
 			OptionBuilder.withLongOpt("test");
 			OptionBuilder.withDescription("For testing purpose (-test [dryad|acs|icl])");
@@ -118,17 +119,24 @@ class IFDExtractor {
 			OptionBuilder.withArgName("SOURCE");
 			options.addOption(OptionBuilder.create(null));
 
+			// Optional options
+			
 			// -debug 
 			OptionBuilder.withLongOpt("debug");
 			OptionBuilder.withDescription("This will print out all debugging messages");
 			options.addOption(OptionBuilder.create(null));
 
-			// -schema 
-			OptionBuilder.withLongOpt("schema");
+			// -validate 
+			OptionBuilder.withLongOpt("validate");
 			OptionBuilder.withDescription("This will run the schema validation");
 			options.addOption(OptionBuilder.create(null));
 
-			// Optional options
+			// -schema 
+			OptionBuilder.withLongOpt("schema");
+			OptionBuilder.withDescription("Optional file location for schema; implies --validate");
+			OptionBuilder.hasArg(true);
+			OptionBuilder.withArgName("SCHEMA");
+			options.addOption(OptionBuilder.create(null));
 
 			// assetsonly -a
 			OptionBuilder.withLongOpt("assetsOnly");
@@ -280,6 +288,8 @@ class IFDExtractor {
 
 			cliDOI = line.getOptionValue("D");
 			cliTargetDir = line.getOptionValue("T");
+			schemaFile = line.getOptionValue("schema");
+
 			if (line.hasOption("X")) {
 				cliExtractFilePath = line.getOptionValue("X");
 			}
@@ -294,9 +304,9 @@ class IFDExtractor {
 			if (testCase != null)
 				testCase = testCase.toLowerCase();
 
-			if (line.hasOption("W")) {
+			if ("icl".equals(testCase) || line.hasOption("W")) {
 				cliIsCrawler = true;
-				if (testCase == null || !testCase.equals("icl")) {
+				if (!"icl".equals(testCase)) {
 					throw new RuntimeException("Error: Crawler only works with --test ICL.");
 				}
 			}
@@ -391,43 +401,29 @@ class IFDExtractor {
 			if (line.hasOption("z")) {
 				cliExtractorFlagList.add("-nozip");
 			}
-			if (line.hasOption("schema")) {
+			if (schemaFile != null || line.hasOption("validate")) {
 				runningSchemaValidation = true;
 			}
 		}
 
-		// print out the help manuals
-		private void helpManual(Options options) {
-			String header = "\nFAIRSPec Finding Aid CLI manual version " + version + "\n" //
-					+ "Using IFD-extract.json: java -jar IFDExtractor.jar " //
-					+ "--IFDExtractFile <IFD-extract.json file>" //
-					+ "--targetDir <TARGET_DIR>" //
-					+ "\n" //
-					+ "Crawler: java -jar IFDExtractor.jar --crawler " //
-					+ "--test icl " //
-					+ "--DOI \"10.14469/hpc/XXXXX\" " //
-					+ "--targetDir <TARGET_DIR> " //
-					+ "[additional flags] " //
-					+ "\n" //
-					+ "Dryad: java -jar IFDExtractor.jar " //
-					+ "--test dryad " //
-					+ "--targetDir <TARGET_DIR> " //
-					+ "--localSource <LOCAL_SOURCE_ARCHIVE> " //
-					+ "--DOI 2bvq83c2q " //
-					+ "\n" //
-					+ "ACS: java -jar IFDExtractor.jar " //
-					+ "--test acs " //
-					+ "--DOI acs.joc.0c00770 " //
-					+ "--targetDir <TARGET_DIR> " //
-					+ "--localSource <LOCAL_SOURCE_ARCHIVE>" //
-					+ "\n" //
-					+ "Manual: java -jar IFDExtractor.jar " //
-					+ "--help\n" //
-					+ "Options list:\n\n\n"; //
-			String footer = "\nPlease report issues at https://github.com/IUPAC/IUPAC-FAIRSpec/issues";
-			HelpFormatter formatter = new HelpFormatter();
-			formatter.printHelp("IFDExtractor", header, options, footer, true);
-		}
+	// print out the help manuals
+	private void helpManual(Options options) {
+		String header = "\nFAIRSPec Finding Aid CLI manual version " + version + "\n" //
+				+ "Using IFD-extract.json: java -jar IFDExtractor.jar " //
+				+ "--IFDExtractFile <IFD-extract.json file>" //
+				+ "--targetDir <TARGET_DIR>" //
+				+ "\n" //
+				+ "Crawler: java -jar IFDExtractor.jar --crawler " //
+				+ ICLDOICrawler.syntaxString //
+				+ ExtractorTestDryad.syntaxString //
+				+ ExtractorTestACS.syntaxString //
+				+ "Manual: java -jar IFDExtractor.jar " //
+				+ "--help\n" //
+				+ "Options list:\n\n\n"; //
+		String footer = "\nPlease report issues at https://github.com/IUPAC/IUPAC-FAIRSpec/issues";
+		HelpFormatter formatter = new HelpFormatter();
+		formatter.printHelp("IFDExtractor", header, options, footer, true);
+	}
 
 		boolean parseCommandLine(String[] args) {
 			Options options = getOptions();
@@ -485,147 +481,118 @@ class IFDExtractor {
 			DOICrawler crawler = new DOICrawler(crawlerArgs.toArray(new String[0]));
 			crawler.setCustomizer(new ICLDOICrawler(crawler));
 			crawler.crawl();
-			if (runningSchemaValidation){
-				schemaValidation(targetDir);
-			}
-			return;
-		}
+			targetDir += cleanPath(cliDOI);
+		} else {
+			if (cliDOI != null)
+				targetDir += cliDOI.toLowerCase() + "_out/";
 
-		if (cliDOI != null)
-			targetDir += cliDOI.toLowerCase() + "_out/";
+			// Handle the extract file path
 
-		// Handle the extract file path
-		
-		// these next are for Eclipse testing
-		
-		// note that "./" now stands for the RESOURCE in com/integrategraphics/extractor/
+			// these next are for Eclipse testing
 
-		switch (cliSource == null ? "" : cliSource) {
-		case "dryad":
-			if (ifdExtractFilePath == null)
-				ifdExtractFilePath = "./extract/dryad/" + cliDOI + "/IFD-extract.json";
-			break;
-		case "acs":
-			// for acs include the whole doi acs.*.XXXXX
-			if (ifdExtractFilePath == null) {
-				ifdExtractFilePath = "./extract/" + cliDOI + "/IFD-extract.json";
-			}
-			// Exception handling
-			switch (cliDOI) {
-			case "acs.orgLett9b02307":
-				if (localArchivePath == null) {
-					throw new RuntimeException(
-							"Download NMR.rar from https://www.repository.cam.ac.uk/bitstreams/983933fe-6c07-4793-bf32-0d715d2d9087/download,\nrename it into acs.orglett.9b02307.NMR.rar,\nand pass the path of the folder containing this RAR file to the flag -S.");
+			// note that "./" now stands for the RESOURCE in
+			// com/integrategraphics/extractor/
+
+			switch (cliSource == null ? "" : cliSource) {
+			case "dryad":
+				if (ifdExtractFilePath == null)
+					ifdExtractFilePath = "./extract/dryad/" + cliDOI + "/IFD-extract.json";
+				break;
+			case "acs":
+				// for acs include the whole doi acs.*.XXXXX
+				if (ifdExtractFilePath == null) {
+					ifdExtractFilePath = "./extract/" + cliDOI + "/IFD-extract.json";
 				}
-				localArchivePath = new File(localArchivePath).getAbsolutePath();
-				new IFDExtractorMain().run(new File(ifdExtractFilePath).getAbsoluteFile(),
-						new File(targetDir).getAbsoluteFile(), localArchivePath);
-				return;
-			default:
-				if (cliDOI.startsWith("[")) {
+				// Exception handling
+				switch (cliDOI) {
+				case "acs.orgLett9b02307":
+					if (localArchivePath == null) {
+						throw new RuntimeException(
+								"Download NMR.rar from https://www.repository.cam.ac.uk/bitstreams/983933fe-6c07-4793-bf32-0d715d2d9087/download,\nrename it into acs.orglett.9b02307.NMR.rar,\nand pass the path of the folder containing this RAR file to the flag -S.");
+					}
+					localArchivePath = new File(localArchivePath).getAbsolutePath();
+					new IFDExtractorMain().run(new File(ifdExtractFilePath).getAbsoluteFile(),
+							new File(targetDir).getAbsoluteFile(), localArchivePath);
+					return;
+				default:
+					if (cliDOI.startsWith("[")) {
 						ExtractorTestACS.runSet(cliDOI, localArchivePath, targetDir);
 						return;
+					}
+					break;
 				}
 				break;
+			default:
+				break;
 			}
-			break;
-		default:
-			break;
+			if (ifdExtractFilePath != null) {
+				new IFDExtractorMain().runExtraction(ifdExtractFilePath, localArchivePath, targetDir, null,
+						String.join(" ", cliExtractorFlagList));
+			}
 		}
-		if (ifdExtractFilePath != null) {
-			new IFDExtractorMain().runExtraction(ifdExtractFilePath, localArchivePath, targetDir, null,
-					String.join(" ", cliExtractorFlagList));
-		}
-		// shouldn't we continue here?
-		if (runningSchemaValidation){
-			schemaValidation(targetDir);
+		if (cliDOI != null && runningSchemaValidation) {
+			// If the syntax has -schema flag, run schema validation on the finding aid
+			// generated
+			String[] ret = { null };
+			boolean ok = vaidateFindingAid(targetDir, cliDOI, ret);
+			System.out.println(ret[0]);
+			if (ok) {
+				System.out.printf("Validation SUCCESSFUL for %s\n", targetDir);
+			} else {
+				System.out.printf("Validation FAILED for %s\n", targetDir);
+
+			}
 		}
 	}
 
-	private static void saveToFile(Path filePath, String content) throws IOException {
-        try (FileWriter writer = new FileWriter(new File(filePath.toString()), true)) {
-            writer.write(content);
-        }
-    }
+
+	private String cleanPath(String path) {
+		return path.replace('\\', '_').replace('/', '_');
+	}
 
 	/**
-	 * If the syntax has -schema flag, run schema validation on the finding aid generated
+	 * Validate a FAIRSpec Finding Aid.
+	 * 
+	 * Requires check-jsonschema installed and allowed on command line.
+	 * 
+	 * pip install check-jsonschema
+	 * 
+	 * Syntax: check-jsonschema --verbose --schemafile <schemaPath> <findingAidPath>
+	 * -o text;
+	 * 
+	 * @param targetDir
+	 * @param ret       text return
+	 * @return true if valid; false if not
+	 * 
 	 */
-	private void schemaValidation(String targetDir) throws IOException{
-		// Check whether the target directory exists
-		Path outputFolderPath = Paths.get(targetDir).toAbsolutePath();
-		if (!Files.isDirectory(outputFolderPath)){
-			System.err.printf("The folder %s does not exist or is not a directory.\n", outputFolderPath);
-			return;
-		}
-
-		// Designated names for the schema validation logs
-		String successLogName = this.cliDOI + "_schema_valid.txt";
-		String errorLogName = this.cliDOI + "_schema_valid_error.txt";
-		
-		// Check whether the finding aid and finding aid schema generated properly
-		Path findingAidPath = Paths.get(outputFolderPath + "/IFD.findingaid.json");
-		Path findingAidSchemaPath = Paths.get(outputFolderPath + "/IFD.findingaid.schema.json");
-		if (!Files.exists(findingAidPath)){
-			System.err.printf("The file %s does not exist in the folder %s.\n", findingAidPath.getFileName(), outputFolderPath);
-			return;
-		}
-		if (!Files.exists(findingAidSchemaPath)){
-			System.err.printf("The file %s does not exist in the folder %s.\n", findingAidSchemaPath.getFileName(), outputFolderPath);
-			return;
-		}
-
-		// Syntax to run check-jsonschema (Required: Python and check-jsonschema library)
-		List<String> command = new ArrayList<>();
-        command.add("check-jsonschema");
-        command.add("--verbose");
-        command.add("--schemafile");
-        command.add(findingAidSchemaPath.toString());
-        command.add(findingAidPath.toString());
-        command.add("-o");
-        command.add("text");
-
+	private boolean vaidateFindingAid(String targetDir, String name, String[] ret) {
+		name = name.replace('\\', '_').replace('/', '_');
+		String findingAidPath = targetDir + "/" + "IFD.findingaid.json";
+		String schemaPath = targetDir + "/" + "IFD.findingaid.schema.json";
+		boolean ok = FAIRSpecUtilities.validateFindingAid(targetDir, findingAidPath, schemaPath, ret);
+		String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		Path successLogPath = Paths.get(targetDir + "/" + name + "_schema_valid.txt");
+		Path errorLogPath = Paths.get(targetDir + "/" + name + "_schema_error.txt");
+		Path p = null;
 		try {
-			// Run the schema validation
-            ProcessBuilder builder = new ProcessBuilder(command);
-            builder.redirectErrorStream(true); 
-            
-            Process process = builder.start();
-			
-			String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            StringBuilder output = new StringBuilder();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                output.append(line).append("\n");
-            }
-
-			// Retrieve the exit code to check whether the finding aid is valid or not
-            int exitCode = process.waitFor();
-			
-			Path errorLogPath =  Paths.get(outputFolderPath + "/" + errorLogName);
-			if (Files.exists(errorLogPath)){
-				Files.delete(errorLogPath);
+			p = errorLogPath;
+			Files.deleteIfExists(p);
+			p = successLogPath;
+			Files.deleteIfExists(p);
+			if (ok) {
+				Files.createFile(p);
+				FAIRSpecUtilities.appendToFile(p, "Schema validation run on: " + timeStamp + "\n");
+				FAIRSpecUtilities.appendToFile(p, ret[0]);
+			} else {
+				p = errorLogPath;
+				Files.createFile(p);
+				FAIRSpecUtilities.appendToFile(p, "Schema validation run on: " + timeStamp + "\n");
+				FAIRSpecUtilities.appendToFile(p, ret[0]);
 			}
-			Path successLogPath =  Paths.get(outputFolderPath + "/" + successLogName);
-			if (Files.exists(successLogPath)){
-				Files.delete(successLogPath);
-			}
-            if (exitCode == 0) {
-				Files.createFile(successLogPath);
-				saveToFile(successLogPath, "Schema validation run on: " + timeStamp + "\n");
-                saveToFile(successLogPath, output.toString());
-				System.out.printf("Validation SUCCESSFUL for %s\n", targetDir);
-            } else {
-				Files.createFile(errorLogPath);
-				saveToFile(errorLogPath, "Schema validation run on: " + timeStamp + "\n");
-                saveToFile(errorLogPath, output.toString());
-				System.out.printf("Validation FAILED for %s\n", targetDir);
-            }
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
+		} catch (Exception e) {
+			System.out.println("Could not write to file " + p);
+		}
+		return ok;
 	}
 
 	/**

@@ -27,7 +27,7 @@ import org.iupac.fairdata.contrib.fairspec.schema.FAIRSpecSchemaGenerator;
  *
  */
 @SuppressWarnings("serial")
-public class IFDFindingAid extends IFDObject<IFDObject<?>> {
+public abstract class IFDFindingAid extends IFDObject<IFDObject<?>> {
 
 	private static String propertyPrefix = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG, IFDConst.IFD_FINDINGAID_FLAG);
 	

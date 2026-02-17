@@ -313,7 +313,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 * units
 	 * 
 	 */
-	protected PropertyMap htProps = new PropertyMap();
+	protected PropertyMap ifdProperties = new PropertyMap();
 
 	/**
 	 * generic properties that could be anything but are not in the list of known
@@ -406,11 +406,11 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	 */
 	protected void setProperties(String propertyPrefix, String notKey) {
 		myPropertyPrefix = propertyPrefix;
-		IFDConst.setProperties(htProps, propertyPrefix, notKey);
+		IFDConst.setProperties(ifdProperties, propertyPrefix, notKey);
 	} 
 
 	public Map<String, IFDProperty> getProperties() {
-		return htProps;
+		return ifdProperties;
 	}
 
 	public final List<IFDAttribute> getAttributes() {
@@ -430,10 +430,10 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			return null;
 		}
 		// check for a known property
-		IFDProperty p = IFDConst.getIFDProperty(htProps, key);
+		IFDProperty p = IFDConst.getIFDProperty(ifdProperties, key);
 		if (p != null) {
 			hasProperty = true;
-			htProps.put(key, p = p.getClone(value));
+			ifdProperties.put(key, p = p.getClone(value));
 			return p;
 		}
 		// add/remove parameter
@@ -461,7 +461,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	
 	
 	public String getPropertySource(String key) {
-		IFDProperty p = htProps.get(key);
+		IFDProperty p = ifdProperties.get(key);
 		return (p == null ? null : p.getSource());
 	}
 	
@@ -542,7 +542,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 	}
 
 	public Object getPropertyValue(String key) {
-		IFDProperty p = htProps.get(key);
+		IFDProperty p = ifdProperties.get(key);
 		return (p ==  null ? null : p.getValue());
 	}
 
@@ -738,7 +738,7 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 			Map<String, Object> map = new TreeMap<>();
 			String propPrefix = getPropertyPrefixForSerialization() + '.';
 			int prefixLength = propPrefix.length();
-			for (Entry<String, IFDProperty> e : htProps.entrySet()) {
+			for (Entry<String, IFDProperty> e : ifdProperties.entrySet()) {
 				Object val = e.getValue().getValue();
 				if (val != null) {
 					String key = e.getKey();
@@ -853,9 +853,9 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		o.index = indexCount++;
 		// o.id must be adjusted later
 		o.attributes = new ArrayList<>();
-		o.htProps = new PropertyMap();
+		o.ifdProperties = new PropertyMap();
 		o.setProperties(myPropertyPrefix, null);
-		for (Entry<String, IFDProperty> p : htProps.entrySet()) {
+		for (Entry<String, IFDProperty> p : ifdProperties.entrySet()) {
 			Object val = p.getValue().getValue();
 			if (val != null)
 				o.setPropertyValue(p.getKey(), val);

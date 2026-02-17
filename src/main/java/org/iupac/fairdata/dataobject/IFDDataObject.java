@@ -70,7 +70,7 @@ public abstract class IFDDataObject extends IFDRepresentableObject<IFDDataObject
 	 */
 	@Override
 	public IFDProperty setPropertyValue(String key, Object value) {
-		IFDProperty p = IFDConst.getIFDProperty(htProps, key);
+		IFDProperty p = IFDConst.getIFDProperty(ifdProperties, key);
 		if (p == null) {
 			String prefix = getIFDPropertyPrefix();
 			if (key.startsWith(IFDConst.IFD_PROPERTY_DATAOBJECT_FLAG) && !key.startsWith(prefix)) {

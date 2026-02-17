@@ -6,7 +6,7 @@
 pip install check-jsonschema
 ```
 
-2. Open the file `/IUPAC_FAIRSPEC/dev-linux/validation/` and change the `DATA_DIRECTORY` with the absolute path to the folder that stores the ouput folders of the extraction. The output folder should be categorized
+2. Open the file `/IUPAC_FAIRSPEC/dev-linux/validation/` and change the `DATA_DIRECTORY` to the absolute path of the folder that stores the ouput folders of the extraction. The output folder should be categorized
 
 Example:
 

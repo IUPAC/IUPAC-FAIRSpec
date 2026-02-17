@@ -746,6 +746,7 @@
             "type": [
               "string",
               "number",
+              "boolean",
               "array"
               ]
           }

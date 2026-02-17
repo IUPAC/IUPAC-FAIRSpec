@@ -46,9 +46,9 @@ import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 
 		private final static String[] defaultIgnoreKeys = {
 				"compound.id",
-				"IFD.property.dataobject.fairspec.comp.description",
-				"IFD.property.dataobject.fairspec.xrd.description", 
-				"IFD.property.dataobject.fairspec.ir.description", 
+//				"IFD.property.dataobject.fairspec.comp.description",
+//				"IFD.property.dataobject.fairspec.xrd.description", 
+//				"IFD.property.dataobject.fairspec.ir.description", 
 				"IFD.Comp.IR", 
 				"IFD.Comp.NMR",
 		};
@@ -138,6 +138,14 @@ import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 		}
 
 	private static boolean debug = true;
+
+	public static String syntaxString = 
+			"--test icl " //
+			+ "--DOI \"10.14469/hpc/XXXXX\" " //
+			+ "--targetDir <TARGET_DIR> " //
+			+ "[additional flags] " //
+			+ "\n" //
+			;
 
 	public static void main(String[] args) {
 		if (debug) {

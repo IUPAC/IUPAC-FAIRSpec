@@ -231,6 +231,14 @@ public class ExtractorTestACS extends ExtractorTest {
 /*12*/		"./extract/acs.orglett.0c01297/IFD-extract.json#22612484",  // 12 --  bruker dirs
 /*13*/      "./extract/acs.orgLett.9b02307/IFD-extract.json#acs.orglett.9b02307.NMR.rar"    // 13 -- Ley, May
 	};
+	public static String syntaxString = 
+			"ACS: java -jar IFDExtractor.jar " //
+			+ "--test acs " //
+			+ "--DOI acs.joc.0c00770 " //
+			+ "--targetDir <TARGET_DIR> " //
+			+ "--localSource <LOCAL_SOURCE_ARCHIVE>" //
+			+ "\n"; //
+
 
 	public static void main(String[] args) {
 		// args[] may override localSourceArchive as ars[1] 
@@ -260,7 +268,7 @@ public class ExtractorTestACS extends ExtractorTest {
 	}
 
 	/**
-	 * Run the --DOI parameter if in the form [i,j] where i >= 0 andj <= 13
+	 * Run the --DOI parameter if in the form [i,j] where i >= 0 and j <= 13
 	 * @param firstLast
 	 */
 	public static void runSet(String firstLast, String localSourceArchive, String targetDir) {

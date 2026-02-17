@@ -24,6 +24,15 @@ import com.integratedgraphics.extractor.IFDExtractorMain;
  */
 public class ExtractorTestDryad {
 
+	public static String syntaxString = 
+			"Dryad: java -jar IFDExtractor.jar " //
+			+ "--test dryad " //
+			+ "--targetDir <TARGET_DIR> " //
+			+ "--localSource <LOCAL_SOURCE_ARCHIVE> " //
+			+ "--DOI 2bvq83c2q " //
+			+ "\n" //
+			;
+	
 	public static void main(String[] args) {
 
 		
