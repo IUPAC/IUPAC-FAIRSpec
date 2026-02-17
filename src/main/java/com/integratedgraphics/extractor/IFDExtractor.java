@@ -32,7 +32,7 @@ import com.integratedgraphics.test.ExtractorTestDryad;
  */
 class IFDExtractor {
 
-	public static final String version = "0.1.2+2026.01.25";
+	public static final String version = "0.1.2+2026.02.17";
 	// 2026.01.25 version 0.1.2-beta refactored and much improved; adds CLI and
 	// timestamp-merging of NMR data
 	// 2025.07.24 version 0.1.0-beta with FAIRSpec-ready paper
@@ -42,7 +42,7 @@ class IFDExtractor {
 	// 2024.11.03 version 0.0.6 adding support for DOICrawler
 	// 2024.05.28 version 0.0.5 moved to com.integratedgraphics.extractor.Extractor
 	// 2023.01.09 version 0.0.4 adds MNova_Page_Header parameter
-	// 2023.01.07 version 0.0.4 adds CDX reading by Jmol
+	// 2023.01.07 version 0.0.4 adds CDX reading by Jvalmol
 	// 2023.01.01 version 0.0.4 accepts structures automatically from ./structures/
 	// and ./structures.zip
 	// 2022.12.30 version 0.0.4 ACS 0-7 with structures; fixing rezip issue of
