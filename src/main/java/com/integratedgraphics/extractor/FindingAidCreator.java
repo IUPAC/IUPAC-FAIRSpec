@@ -867,7 +867,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			File f = new File(targetPath, name);
 			if (f.exists()) {
 				s += (pt++ == 0 ? "\n" : ",\n");
-				s += "\"" + (useFullPath ? "file:///" + f.toString().replace('\\', '/') : name) + "\"";
+				s += "\"" + (useFullPath ? "file:///" + ExtractorUtils.fixPath(f.toString(), false) : name) + "\"";
 			}
 		}
 		s += "\n]";

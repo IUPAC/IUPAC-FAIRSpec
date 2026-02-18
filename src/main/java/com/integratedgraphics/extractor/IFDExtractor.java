@@ -81,6 +81,10 @@ class IFDExtractor {
 	String cliLocalSourceArchivePath = null;
 
 	String cliDOI = null;
+	String cliDataDOI = null;
+	String cliDataURL = null;
+	String cliPubDOI = null;
+	String cliPubURL = null;
 	String cliTargetDir = null;
 	String cliSource = "dryad";
 
@@ -123,7 +127,19 @@ class IFDExtractor {
 		newOptionVal(options, '\0', "schema", "Optional file location for schema; implies --validate", "SCHEMA", false);
 
 		// DOI -D
-		newOptionVal(options, 'D', "doi", "DOI/Identifier.", "DOI", false);
+		newOptionVal(options, 'D', "doi", "test DOI", "DOI", false);
+
+		// dataDOI
+		newOptionVal(options, '\0', "dataDOI", "data DOI", "DATADOI", false);
+
+		// dataURL
+		newOptionVal(options, '\0', "dataURL", "data URL", "DATAURL", false);
+
+		// pubDOI
+		newOptionVal(options, '\0', "pubDOI", "publication DOI", "PUBDOI", false);
+
+		// pubURL
+		newOptionVal(options, '\0', "pubURL", "publication URL", "PUBURL", false);
 
 		// assetsonly -a
 		newOption(options, 'a', "assetsOnly", "Assets Only");
@@ -230,6 +246,10 @@ class IFDExtractor {
 		// file options
 
 		cliDOI = line.getOptionValue("D");
+		cliDataDOI = line.getOptionValue("dataDOI");
+		cliDataURL = line.getOptionValue("dataURL");
+		cliPubDOI = line.getOptionValue("pubDOI");
+
 		cliTargetDir = line.getOptionValue("T");
 		schemaFile = line.getOptionValue("schema");
 
@@ -410,9 +430,7 @@ class IFDExtractor {
 		String targetDir = cliTargetDir; // -T option
 
 		// Include slash at the end of the output directory
-		if (targetDir != null && !targetDir.endsWith("/")) {
-			targetDir += "/";
-		}
+		targetDir = ExtractorUtils.fixPath(targetDir, true);
 		// Special case with crawler
 		if (cliIsCrawler && cliSource.equals("icl")) {
 			List<String> crawlerArgs = new ArrayList<String>();
@@ -490,10 +508,6 @@ class IFDExtractor {
 		}
 	}
 
-	private String cleanPath(String path) {
-		return path.replace('\\', '_').replace('/', '_');
-	}
-
 	/**
 	 * Validate a FAIRSpec Finding Aid.
 	 * 
@@ -510,13 +524,14 @@ class IFDExtractor {
 	 * 
 	 */
 	private boolean vaidateFindingAid(String targetDir, String name, String[] ret) {
-		name = name.replace('\\', '_').replace('/', '_');
-		String findingAidPath = targetDir + "/" + "IFD.findingaid.json";
-		String schemaPath = targetDir + "/" + "IFD.findingaid.schema.json";
+		name = ExtractorUtils.pathToFileName(name);
+		targetDir = ExtractorUtils.fixPath(targetDir, true);
+		String findingAidPath = targetDir + "IFD.findingaid.json";
+		String schemaPath = targetDir + "IFD.findingaid.schema.json";
 		boolean ok = FAIRSpecUtilities.validateFindingAid(targetDir, findingAidPath, schemaPath, ret);
 		String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		Path successLogPath = Paths.get(targetDir + "/" + name + "_schema_valid.txt");
-		Path errorLogPath = Paths.get(targetDir + "/" + name + "_schema_error.txt");
+		Path successLogPath = Paths.get(targetDir + name + "_schema_valid.txt");
+		Path errorLogPath = Paths.get(targetDir + name + "_schema_error.txt");
 		Path p = null;
 		try {
 			p = errorLogPath;

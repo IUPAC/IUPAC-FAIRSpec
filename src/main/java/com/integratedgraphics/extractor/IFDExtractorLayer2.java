@@ -711,8 +711,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 		if (rezipCachePattern != null && (m = rezipCachePattern.matcher(originPath)).find()) {
 
-			// e.g. exptno/pdata/1/procs
-
+			// e.g. exptno/pdata/1/procs or xxxx/xxx/fid.zip|procs
+			
 			DataObjectVendorPluginI v = phase2aGetVendorForRezip(m);
 			originPath = m.group("path" + v.getIndex());
 			if (originPath.equals(lastRezipPath)) {
@@ -726,9 +726,9 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				String basePath = (validDir != null ? originPath
 						: baseOriginPath.endsWith("|") && isTopZipDir(originPath)
 								? baseOriginPath.substring(0, baseOriginPath.length() - 1)
+							// else 
 								: getFileParent(originPath) + "/");
 				String newZipPath = (validDir == null ? originPath + "1/" : originPath);
-				String newParentPath = getFileParent(originPath);
 				String localPath = localizePath(newZipPath);
 				CacheRepresentation rep = new CacheRepresentation(new IFDReference(faHelper.getCurrentSource().getID(), originPath, extractorResource.rootPath,
 						localPath),
@@ -980,7 +980,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		int lenOffset = (parent == null ? 0 : parent.length() + 1);
 		// because Bruker directories must start with a number
 		// xxx/1/ is OK
-		// yyy.zzip|xxx/ 
+		// yyy.zip|xxx/ is not 
 		int pt = dirName.length() - 1;
 		String thisDir = (lenOffset < pt ? dirName.substring(lenOffset, pt) : "");
 		String newDir = rezipVendor.getRezipPrefix(dirName);
@@ -1170,7 +1170,12 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	}
 
 	/**
-	 * parent of /test/1/ is /test/
+	 * parent of /test/name is /test
+	 * 
+	 * parent of /test/1/ is /test
+	 * 
+	 * parent of xxx.zip|test is  xxx.zip|test ??  
+	 * parent of /test/xxx.zip|test is /test/ ??
 	 * 
 	 * @param entryName
 	 * @return

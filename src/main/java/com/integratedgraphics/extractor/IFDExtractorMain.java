@@ -239,7 +239,7 @@ public class IFDExtractorMain extends IFDExtractorLayer3 {
 		if (failed == 0) {
 			try {
 				if (json != null) {
-					String dir = targetPath.getAbsolutePath().replace('\\', '/');
+					String dir = ExtractorUtils.fixPath(targetPath.getAbsolutePath(), false);
 					// TODO the problem is here. We have abolute paths.
 					String s = FAIRSpecUtilities.rep(json, dir + "/", "./");
 					File f = new File(dir + "/_IFD_findingaids.json");
@@ -274,7 +274,7 @@ public class IFDExtractorMain extends IFDExtractorLayer3 {
 		return IFDExtractor.version;
 	}
 
-	public void run(File ifdExtractScriptFile, File targetPath, String localsourceArchive)
+	public void run(File ifdExtractScriptFile, File targetPath, String localSourceArchive)
 			throws IOException, IFDException {
 		setTargetPath(targetPath);
 		extractScriptFile = ifdExtractScriptFile;
@@ -288,14 +288,16 @@ public class IFDExtractorMain extends IFDExtractorLayer3 {
 		}
 
 		log("!Extractor\n ifdExtractScriptFile= " + ifdExtractScriptFile + "\n localsourceArchive = "
-				+ localsourceArchive + "\n targetDir = " + targetPath.getAbsolutePath());
+				+ localSourceArchive + "\n targetDir = " + targetPath.getAbsolutePath());
 
 		// first create objects, a List<String>
-		if ("-".equals(localsourceArchive))
-			localsourceArchive = null;
-		if (localsourceArchive != null && localsourceArchive.indexOf("://") < 0)
-			localsourceArchive = "file:///" + localsourceArchive.replace('\\', '/');
-		localSourceDir = localsourceArchive;
+		if ("-".equals(localSourceArchive))
+			localSourceArchive = null;
+		else if (localSourceArchive != null)
+			localSourceArchive = ExtractorUtils.fixPath(localSourceArchive, false);
+		if (localSourceArchive != null && localSourceArchive.indexOf("://") < 0)
+			localSourceArchive = "file:///" + localSourceArchive;
+		localSourceDir = localSourceArchive;
 		// Scan data from IFD-extract.json and set up the parsers
 
 		String serializedFA = extractAndCreateFindingAid();

@@ -656,7 +656,7 @@ public class DOICrawler extends FindingAidCreator {
 	public boolean crawl() {
 		// set extractSpecProperties true to retrieving data files
 		// otherwise, URLs are just touched using the "head" option in https
-		faId = initialDOI.replace('/', '_');
+		faId = ExtractorUtils.pathToFileName(initialDOI);
 		targetPath = new File(topDir, faId);
 		targetPath.mkdirs();
 		faHelper = new FAIRSpecFindingAidHelper(getCodeSource() + " " + getVersion());
@@ -1339,7 +1339,7 @@ public class DOICrawler extends FindingAidCreator {
 				}
 				addRecord(rec);
 				String name = thisCompoundID + "/" + dataType + "/" + pidDescription
-						+ localFile.toString().replace('\\', '/');
+						+ ExtractorUtils.fixPath(localFile.toString(), false);
 				// log("!!!!" + name);
 				if (usingCrawlerInputStream)
 					myInputStream.addFile(name, surl, thisCompoundID, dataType, subdir, pidDescription, localFile, len);
