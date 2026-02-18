@@ -497,7 +497,7 @@ public class ExtractorUtils {
 			super(null, 0);
 			this.file = file;
 			isDir = file.isDirectory();
-			this.name = name.replace('\\', '/') + (isDir ? "/" : "");
+			this.name = ExtractorUtils.fixPath(name, false) + (isDir ? "/" : "");
 			size = (isDir ? 0 : file.length());
 		}
 
@@ -1133,6 +1133,39 @@ public class ExtractorUtils {
 			jarFile = new File(jarFilePath);
 		}
 		return jarFile;
+	}
+
+
+	/**
+	 * Convert all Windows '\\' to UNIX '/' and add or remove '/' from the end of the name, as desired
+	 * @param path
+	 * @param asDir true to return path with trailing '/'
+	 * @return fixed path
+	 */
+	public static String fixPath(String path, boolean asDir) {
+		if (path == null)
+			return null;
+		path = path.replace('\\', '/');
+		boolean hasSlash = path.endsWith("/");
+		if (hasSlash == asDir)
+			return path;
+		if (asDir)
+			path += "/";
+		else
+			path = path.substring(0, path.length() - 1);
+		return path;
+	}
+
+
+	/**
+	 * Convert '\\' and '/' to inderscore and remove any trailing '/'.
+	 * 
+	 * @param path
+	 * @return revised path
+	 */
+	public static String pathToFileName(String path) {
+		path = fixPath(path, false);
+		return path.replace('\\', '_').replace('/', '_');
 	}
 
 

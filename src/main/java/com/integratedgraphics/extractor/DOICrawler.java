@@ -643,20 +643,20 @@ public class DOICrawler extends FindingAidCreator {
 		} catch (MalformedURLException e) {
 			addException(e);
 		}
-		String outdir = stripDirSlash(args.length > 1 ? args[1] : DEFAULT_OUTDIR);
+		String outdir = stripDirSlash(args.length > 1  && args[1] != null ? args[1] : DEFAULT_OUTDIR);
 		topDir = new File(outdir);
 //		if (insitu)
 //			localMap = new HashMap<>();
 	}
 
 	private static String stripDirSlash(String path) {
-		return (path.endsWith("/") ? path.substring(0, path.length() - 1) : path);
+		return (path == null ? null : path.endsWith("/") ? path.substring(0, path.length() - 1) : path);
 	}
 
 	public boolean crawl() {
 		// set extractSpecProperties true to retrieving data files
 		// otherwise, URLs are just touched using the "head" option in https
-		faId = initialDOI.replace('/', '_');
+		faId = ExtractorUtils.pathToFileName(initialDOI);
 		targetPath = new File(topDir, faId);
 		targetPath.mkdirs();
 		faHelper = new FAIRSpecFindingAidHelper(getCodeSource() + " " + getVersion());
@@ -1339,7 +1339,7 @@ public class DOICrawler extends FindingAidCreator {
 				}
 				addRecord(rec);
 				String name = thisCompoundID + "/" + dataType + "/" + pidDescription
-						+ localFile.toString().replace('\\', '/');
+						+ ExtractorUtils.fixPath(localFile.toString(), false);
 				// log("!!!!" + name);
 				if (usingCrawlerInputStream)
 					myInputStream.addFile(name, surl, thisCompoundID, dataType, subdir, pidDescription, localFile, len);

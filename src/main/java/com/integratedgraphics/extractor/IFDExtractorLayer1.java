@@ -80,7 +80,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	protected boolean useJarResource;
 	private String getFileStringData(File f) throws IOException {
 		if (useJarResource || !f.exists()) {
-			String path = f.getAbsolutePath().replace('\\', '/');
+			String path = ExtractorUtils.fixPath(f.getAbsolutePath(), false);
 			int ptThis = path.indexOf("/./");
 			if (ptThis >= 0) {
 				path = path.substring(ptThis + 3);
@@ -104,7 +104,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 					Path ppath = Paths.get(resourceUrl.toURI());
 					if (Files.isDirectory(ppath)) {
 						System.out.println("scanning directory " + ppath);
-						return "file:///" + ppath.toString().replace('\\', '/') + "/";
+						return "file:///" + ExtractorUtils.fixPath(ppath.toString(), true);
 					}
 				} catch (URISyntaxException e) {
 				}
@@ -513,7 +513,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 
 	protected String toAbsolutePath(String fname) {
 		if (fname.startsWith("./"))
-			fname = extractScriptFileDir.replace('\\', '/') + fname.substring(1);
+			fname = ExtractorUtils.fixPath(extractScriptFileDir, false) + fname.substring(1);
 		return fname;
 	}
 
@@ -527,10 +527,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 */
 	protected String localizeURL(String sUrl) throws IFDException {
 		if (sUrl == null) {
-//			if (new File(localSourceFile).isAbsolute())
 			sUrl = localSourceFile;
-//			else
-//				sUrl = localSourceDir + "/" + localSourceFile;
 		} else {
 			boolean isRelative = sUrl != null && (sUrl.startsWith("./") || sUrl.indexOf("/./") >= 0);
 			if (!isRelative && !sUrl.startsWith("file:///") && localSourceDir != null) {
@@ -539,7 +536,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 				} else if (localSourceDir.endsWith("/*")) {
 					sUrl = localSourceDir.substring(0, localSourceDir.length() - 1);
 				} else {
-					int pt = sUrl.lastIndexOf("/");
+					int pt = sUrl.lastIndexOf('/');
 					if (pt >= 0) {
 						sUrl = localSourceDir + sUrl.substring(pt);
 						if (!FAIRSpecUtilities.isZip(sUrl) && !sUrl.endsWith("/"))
