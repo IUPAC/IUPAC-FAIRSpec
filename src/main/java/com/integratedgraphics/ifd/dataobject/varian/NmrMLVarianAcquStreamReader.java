@@ -17,7 +17,7 @@ import org.nmrml.parser.Acqu;
 import com.integratedgraphics.ifd.dataobject.nmrml.NmrMLHeader;
 
 /**
- * Reader for Varian's propar files
+ * Reader for Varian's procpar file
  *
  * @author Daniel Jacob
  *

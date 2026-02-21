@@ -541,10 +541,6 @@ public class DOICrawler extends FindingAidCreator {
 	private URL dataCiteMetadataURL;
 
 	/**
-	 * set to false using -nodownload flag
-	 */
-	private boolean doDownload = true;
-	/**
 	 * doiList is what we are generating during XML parsing
 	 */
 	private List<DoiRecord> doiList;
@@ -628,9 +624,6 @@ public class DOICrawler extends FindingAidCreator {
 		int arg0 = (args.length > 0 && args[0] == null ? 1 : 0);
 		initialDOI = stripDirSlash(args.length == arg0 ? null : args[arg0]);
 		String flags = processFlags(args, "-nozip");
-		if (flags.indexOf("-nodownload;") >= 0) {
-			doDownload = false;
-		}
 		if (flags.indexOf("-extractspecproperties;") >= 0) {
 			extractSpecProperties = initializePropertyExtraction();
 		}

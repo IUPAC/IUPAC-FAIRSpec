@@ -1,0 +1,114 @@
+MNovaMetadataReader  -o c:/temp/mnova/test --testall
+ version 14.2.1-27684 no spectrum found for c:/temp/mnova/test/cyclohex.mnova. page 1
+Test 1 on test/mnova/cyclohex.mnova OK
+ version 12.0.0-20080 FID page 1 at 68457 len 262144 matches data structure size
+Test 2 on test/mnova/3a-C.mnova OK
+ version 12.0.3-21384 FID page 1 at 95307 len 262144 matches data structure size
+ version 12.0.3-21384 FID page 2 at 461968 len 262144 matches data structure size
+Test 3 on test/mnova/1.mnova OK
+Test 4 on test/mnova/1-deleted.mnova OK
+ version 14.2.1-27684 FID page 1 at 113274 len 262144 matches data structure size
+ version 14.2.1-27684 FID page 2 at 526408 len 262144 matches data structure size
+Test 5 on test/mnova/1-v14.mnova OK
+ version 14.2.1-27684 FID page 1 at 133885 len 262144 matches data structure size
+Test 6 on test/mnova/3a-C-taxol.mnova OK
+ version 14.2.1-27684 FID page 1 at 168273 len 262144 matches data structure size
+ version 14.2.1-27684 FID page 2 at 630149 len 262144 matches data structure size
+Test 7 on test/mnova/1-caff-taxol.mnova OK
+ version 14.2.1-27684 FID page 1 at 168281 len 262144 matches data structure size
+ version 14.2.1-27684 FID page 2 at 657811 len 262144 matches data structure size
+Test 8 on test/mnova/1-caff-taxol-rev.mnova OK
+ version 14.2.1-27684 FID page 1 at 207204 len 262144 matches data structure size
+ version 14.2.1-27684 FID page 2 at 620338 len 262144 matches data structure size
+Test 9 on test/mnova/1-caff-taxol-delete.mnova OK
+ version 14.2.1-27684 FID page 1 at 156956 len 262144 matches data structure size
+ version 14.2.1-27684 FID page 2 at 614171 len 262144 matches data structure size
+Test 10 on test/mnova/1-taxol-drop.mnova OK
+ version 14.2.1-27684 FID page 1 at 157403 len 262144 matches data structure size
+ version 14.2.1-27684 FID page 2 at 630128 len 262144 matches data structure size
+Test 11 on test/mnova/1-taxol-drop-move.mnova OK
+ version 14.2.1-27684 FID page 1 at 104983 len 262144 matches data structure size
+Test 12 on test/mnova/3a-c-morphine.mnova OK
+ version 7.1.0-9185 FID page 1 at 528230 len 131072 matches data structure size
+ version 7.1.0-9185 FID page 2 at 972728 len 131072 matches data structure size
+ version 7.1.0-9185 FID page 3 at 1410759 len 262144 matches data structure size
+ version 7.1.0-9185 FID page 4 at 1985566 len 131072 matches data structure size
+ version 7.1.0-9185 FID page 5 at 2422559 len 131072 matches data structure size
+ version 7.1.0-9185 FID page 6 at 2865260 len 131072 matches data structure size
+ version 7.1.0-9185 FID page 7 at 3311069 len 131072 matches data structure size
+ version 7.1.0-9185 FID page 8 at 3754814 len 131072 matches data structure size
+ version 7.1.0-9185 FID page 9 at 4194906 len 131072 matches data structure size
+ version 7.1.0-9185 FID page 10 at 4635932 len 262144 matches data structure size
+ version 7.1.0-9185 FID page 11 at 5213786 len 131072 matches data structure size
+ version 7.1.0-9185 FID page 12 at 5666231 len 262144 matches data structure size
+ version 7.1.0-9185 FID page 13 at 6254748 len 131072 matches data structure size
+ version 7.1.0-9185 FID page 14 at 7155026 len 262144 matches data structure size
+ version 7.1.0-9185 FID page 15 at 7748871 len 131072 matches data structure size
+ version 7.1.0-9185 FID page 16 at 8203589 len 262144 matches data structure size
+ version 7.1.0-9185 FID page 17 at 8791387 len 131072 matches data structure size
+ version 7.1.0-9185 FID page 18 at 9250494 len 262144 matches data structure size
+ version 7.1.0-9185 FID page 19 at 9989974 len 419432 matches data structure size
+ version 7.1.0-9185 FID page 20 at 10875988 len 419432 matches data structure size
+ version 7.1.0-9185 FID page 21 at 11556079 len 209712 matches data structure size
+ version 7.1.0-9185 FID page 22 at 16901968 len 3354624 matches data structure size
+ version 7.1.0-9185 FID page 23 at 23716208 len 1677312 matches data structure size
+ version 7.1.0-9185 FID page 24 at 25857968 len 419432 matches data structure size
+ version 7.1.0-9185 FID page 25 at 27625429 len 419432 matches data structure size
+ version 7.1.0-9185 FID page 26 at 28299301 len 209712 matches data structure size
+ version 7.1.0-9185 FID page 27 at 31973466 len 1677312 matches data structure size
+ version 7.1.0-9185 FID page 28 at 38791798 len 3354624 matches data structure size
+ version 7.1.0-9185 FID page 29 at 42716014 len 419432 matches data structure size
+ version 7.1.0-9185 FID page 30 at 44592618 len 419432 matches data structure size
+ version 7.1.0-9185 FID page 31 at 45280404 len 209712 matches data structure size
+ version 7.1.0-9185 FID page 32 at 49073974 len 1677312 matches data structure size
+ version 7.1.0-9185 FID page 33 at 56008275 len 3354624 matches data structure size
+ version 7.1.0-9185 FID page 34 at 59830197 len 419432 matches data structure size
+ version 7.1.0-9185 FID page 35 at 77059666 len 16777216 matches data structure size
+ version 7.1.0-9185 FID page 36 at 94294477 len 419432 matches data structure size
+ version 7.1.0-9185 FID page 37 at 95698701 len 52428 matches data structure size
+ version 7.1.0-9185 FID page 38 at 96215482 len 419432 matches data structure size
+ version 7.1.0-9185 FID page 39 at 96894268 len 209712 matches data structure size
+ version 7.1.0-9185 FID page 40 at 115664633 len 16777216 matches data structure size
+ version 7.1.0-9185 FID page 41 at 137580025 len 3354624 matches data structure size
+ version 7.1.0-9185 FID page 42 at 149428766 len 6711296 matches data structure size
+ version 7.1.0-9185 FID page 43 at 156456858 len 131072 matches data structure size
+ version 7.1.0-9185 FID page 44 at 157363059 len 131072 matches data structure size
+ version 7.1.0-9185 FID page 45 at 157825015 len 262144 matches data structure size
+Test 13 on c:\temp\iupac\acs\zip\22232721\metadatanmr\nmr spectra.mnova OK
+ version 12.0.0-20080 FID page 1 at 60080 len 262144 matches data structure size
+Test 14 on test/mnova/3aa-C.mnova OK
+ version 6.1.0-6224 FID page 1 at 566438 len 262144 matches data structure size
+ version 6.1.0-6224 FID page 2 at 1410134 len 262144 matches data structure size
+Test 15 on test/mnova/10.mnova OK
+ version 6.1.0-6224 FID page 1 at 73381 len 262144 matches data structure size
+ version 6.1.0-6224 FID page 2 at 414375 len 262144 matches data structure size
+ version 6.1.0-6224 FID page 3 at 1252037 len 524288 matches data structure size
+Test 16 on test/mnova/Substrate_1'h.mnova OK
+ version 6.1.0-6224 FID page 1 at 551058 len 524288 matches data structure size
+ version 6.1.0-6224 FID page 2 at 1388023 len 262144 matches data structure size
+Test 17 on test/mnova/Substrate_1k.mnova OK
+ version 6.1.0-6224 FID page 1 at 563351 len 262144 matches data structure size
+ version 6.1.0-6224 FID page 2 at 1404013 len 262144 matches data structure size
+Test 18 on test/mnova/Products_3a.mnova OK
+ version 12.0.0-20080 FID page 1 at 62947 len 262144 matches data structure size
+Test 19 on test/mnova/5-H.mnova OK
+ version 14.3.3-33362 FID page 1 at 105666 len 296760 matches data structure size
+Test 20 on c:/temp/iupac/henry/Procter/10/10-C/10-C.mnova OK
+ version 16.0.0-39276 FID page 1 at 65795 len 260000 matches data structure size
+ version 16.0.0-39276 FID page 2 at 411705 len 260000 matches data structure size
+Test 21 on c:/temp/mnova/test/2.mnova OK
+ version 16.0.0-39276 FID page 1 at 46817 len 131072 matches data structure size
+Test 22 on c:/temp/mnova/test/test3.mnova OK
+ version 16.0.0-39276 FID page 1 at 53809 len 131072 matches data structure size
+ version 16.0.0-39276 FID page 2 at 238922 len 65536 matches data structure size
+Test 23 on c:/temp/mnova/test/test4.mnova OK
+ version 16.0.0-39276 FID page 1 at 121985 len 262144 matches data structure size
+Test 24 on c:/temp/mnova/test/test-predict.mnova OK
+ version 14.3.3-33362 FID page 1 at 812509 len 131072 matches data structure size
+ version 14.3.3-33362 FID page 2 at 1193439 len 131072 matches data structure size
+ version 14.3.3-33362 FID page 3 at 1424020 len 131072 matches data structure size
+ version 14.3.3-33362 FID page 4 at 1661373 len 131072 matches data structure size
+ version 14.3.3-33362 FID page 5 at 2746037 len 1474560 matches data structure size
+Test 25 on c:/temp/mnova/test/t.mnova OK
+
+All tests successful

@@ -62,6 +62,11 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 
 
 	protected boolean debugging = false;
+	
+	
+	/**
+	 * set true to not create a finding aid and not creating a collection
+	 */
 	public boolean readOnly = false;
 
 //	final protected boolean isByID = true; // forcing
@@ -69,7 +74,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 //    final protected boolean isByIDSet = true;
 
 	/**
-	 * set true to only create finding aides, not extract file data
+	 * set true to only create finding aids, not extract file data
 	 */
 	protected boolean createFindingAidOnly = false;
 
@@ -164,10 +169,20 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	protected boolean cleanCollectionDir = true;
 
 	/**
-	 * just build the site -- do not actually process files
+	 * flag to open files and manifest contents, but don't run the extractor
+	 */
+	protected boolean analyzeOnly;
+	
+	/**
+	 * flag to just rebuild the site -- do not actually process files
 	 */
 	public boolean assetsOnly;
 
+	/**
+	 * set to false using --nodownload flag
+	 */
+	protected boolean doDownload = true;
+	
 	protected String ifdid = "";
 
 	protected String baseDir;
@@ -192,7 +207,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		stopOnAnyFailure = true; // set false to allow continuing after an error.
 
 		debugging = false; // true for verbose listing of all files
-		createFindingAidOnly = false; // true if extraction files already exist or you otherwise don't want not write
+		createFindingAidOnly = false; // true if extraction files already exist or you otherwise don't want to write them
 
 		allowNoPubInfo = true;// debugReadOnly; // true to allow no internet connection and so no pub calls
 
@@ -209,10 +224,10 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		
 		cleanCollectionDir &= !insitu;
 		readOnly |= debugReadOnly; // for testing; when true, no output other than a log file is produced
-		noOutput = (createFindingAidOnly || readOnly);
-		skipPubInfo = !dataciteUp || debugReadOnly; // true to allow no internet connection and so no pub calls
+		noOutput = (createFindingAidOnly || readOnly || analyzeOnly);
+		skipPubInfo = !dataciteUp || debugReadOnly || analyzeOnly; // true to allow no internet connection and so no pub calls
 		
-		createLandingPage &= !readOnly;
+		createLandingPage &= !readOnly && !analyzeOnly;
 		launchLandingPage &= createLandingPage && !assetsOnly;
 
 	}
@@ -310,6 +325,10 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		}
 		if (flags.indexOf("-assetsonly;") >= 0) {
 			assetsOnly = true;
+		}
+
+		if (flags.indexOf("-nodownload;") >= 0) {
+			doDownload = false;
 		}
 
 // not working 

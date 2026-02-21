@@ -28,6 +28,12 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 	protected Long dataObjectGMTTimestamp, dataObjectLocalTimestamp;
 	private String dataObjectLocalTimeOffset;
 
+	/**
+	 *  default false
+	 * 
+	 */
+	protected boolean haveFID;
+	
 	protected NMRVendorPlugin() {
 		super();
 	}

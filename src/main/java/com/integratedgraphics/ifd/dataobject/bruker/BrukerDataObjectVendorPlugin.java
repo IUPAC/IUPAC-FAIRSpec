@@ -98,6 +98,8 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 		// be the| symbol, and that will be attached by IFDDefaultVendorPlugin in
 		// super.getRezipRegex()
 		rezipRegex = "pdata/[^/]+/procs$";
+		// only if pdata is not present
+		rezipRegex2 = "fid$|ser&";
 	}
 
 	/**

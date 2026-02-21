@@ -10,9 +10,20 @@ import com.integratedgraphics.ifd.dataobject.nmrml.NmrMLDataObjectVendorPlugin;
 public class VarianDataObjectVendorPlugin extends NmrMLDataObjectVendorPlugin {
 
 	static {
-		register(com.integratedgraphics.ifd.dataobject.varian.VarianDataObjectVendorPlugin.class);
+		register(VarianDataObjectVendorPlugin.class);
 	}
 
+	public VarianDataObjectVendorPlugin() {
+		super();
+		paramRegex += "|procpar$";
+		// rezip triggers for procs in a directory (1, 2, 3...) below a pdata directory,
+		// such as pdata/1/procs. We do not add the "/" before pdata, because that could
+		// be the| symbol, and that will be attached by IFDDefaultVendorPlugin in
+		// super.getRezipRegex()
+		rezipRegex = "fid$";
+
+
+	}
 	@Override
 	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
 		super.accept(extractor, originPath, bytes);
