@@ -135,6 +135,8 @@ System.out.println("DFH " + bytes.length + " " + originPath);
 
 	public static final String MOL_FILE_DATA = STRUC_FILE_DATA_KEY + "mol";
 
+	public static final String XYZ_FILE_DATA = STRUC_FILE_DATA_KEY + "xyz";
+
 	public static final String CDX_FILE_DATA = STRUC_FILE_DATA_KEY + "cdx";
 
 	public static final String CDXML_FILE_DATA = STRUC_FILE_DATA_KEY + "cdxml";

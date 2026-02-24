@@ -8,9 +8,13 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
+import java.util.TreeMap;
 
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
@@ -31,6 +35,7 @@ public class ByteBlockReader {
 	 */
 	public static boolean testing = true;// false;
 
+	public static String pointerTest = null; // "version" for instance
 	/**
 	 * when testing, show integers read
 	 */
@@ -76,11 +81,19 @@ public class ByteBlockReader {
 	 */
 	private long mark;
 
+	protected int len;
+
+	
+	protected BlockData body;
+
+	private int nBlocks;
+	
 	public ByteBlockReader(InputStream in) throws IOException {
 		this(FAIRSpecUtilities.getLimitedStreamBytes(in, -1, null, true, true));
 	}
 
 	public ByteBlockReader(byte[] bytes) {
+		this.len = bytes.length;
 		this.in = new RewindableInputStream(bytes);
 	}
 
@@ -202,14 +215,35 @@ public class ByteBlockReader {
 	/**
 	 * Read a 32-bit integer as a byte block data pointer, adding its value to the
 	 * address of the byte that follows it.
-	 * 
+	 * @param why 
 	 * @return
 	 * @throws IOException
 	 */
-	public long readPointer() throws IOException {
-		int len = readInt();
-		long pos = getPosition();
-		return pos + len;
+	public long readPointer(String why) throws IOException {
+		long navail = getAvailable();
+		int len = peekInt();
+		if (len < 0 || len > navail)
+			throw new IOException("invalid length " + len + " for nextBlock where pos=" + getPosition() + " navail=" + navail);
+		return getPosition() + readInt() + 4;
+	}
+
+	/**
+	 * check a pointer for its file structure block
+	 * @param pos less than or equal to 0 is relative to the current position
+	 * @param why
+	 */
+	protected void findPointer(long pos, String why) {
+		if (pos <= 0)
+			pos = getPosition() + pos;
+		BlockData block = body.findBlock(pos);
+		String msg = "!! " + why + " pointer " + pos + (block == null ? " block could not be found" : " is in block " + block.path + " + " + (pos - block.loc));
+		if (block != null && "stack".equals(block.name)) {
+		  int pt = (int)(pos - block.loc) / 4; 
+		  msg += " index " + pt;
+		}
+		if (strDebug != null && strDebug.indexOf(msg) < 0)
+			strDebug.append(msg).append('\n');
+		System.out.println(msg);
 	}
 
 	public long readLongPtr() throws IOException {
@@ -302,9 +336,23 @@ public class ByteBlockReader {
 		return l;
 	}
 
+	protected StringBuffer sbOut;
+
+	protected StringBuffer strDebug;
+
+	protected Map<String, BlockData> htPathToBlock = new HashMap<>();
+	
+	protected BlockData getBlockFromPath(String path) {
+		return htPathToBlock.get(path);
+	}
+
 	private void dump(String type, long val, int len, String hex, String s) {
-		System.out.println("read" + type + " " + (position - len) + ": " + hex + " = " + val
-				+ (type == "Int" ? " -> " + (position + val) : "") + " " + s);
+		String msg = "read" + type + " " + (position - len) + ": " + hex + " = " + val
+				+ (type == "Int" ? " -> " + (position + val) : "") + " " + s;
+		if (sbOut == null)
+			System.out.println(msg);
+		else 
+			sbOut.append(msg).append('\n');
 	}
 
 	private String toHex(int i) {
@@ -314,7 +362,7 @@ public class ByteBlockReader {
 
 	private String toHex(long i) {
 		String s = "0000000000000000" + Long.toHexString(i).toUpperCase();
-		return "0x" + s.substring(s.length() - 16);
+		return "0x" + s.substring(s.length() - 8);
 	}
 
 	/**
@@ -656,23 +704,41 @@ public class ByteBlockReader {
 	/**
 	 * Read out the next n integers, resetting the input stream after doing so.
 	 * 
-	 * @param n
+	 * @param n negative number show prevous -n ints
 	 * @throws IOException
 	 */
 	public void peekInts(int n) throws IOException {
-		if (getAvailable() == 0)
+		if (n < 0) {
+			seekIn(4 * n);
+			peekIntsSb(null, -n);
+			readInts(-n);
 			return;
-		System.out.println("PeekInts " + n + " pos=" + getPosition() + " navail=" + getAvailable());
+		}
+		peekIntsSb(null, n);
+	}
+
+	public void peekIntsSb(StringBuffer sb, int n) throws IOException {
+
+		if (getAvailable() < 4 * n)
+			n = getAvailable()/4;
+		String msg = "PeekInts " + n + " pos=" + getPosition();// + " navail=" + getAvailable();
+		if (sb == null)
+			System.out.println(msg);
+		else 
+			sb.append(msg).append('\n');
 		boolean bt = testing;
 		boolean bi = showInts;
 		boolean bc = showChars;
-		testing = showInts = showChars = true;
+		this.sbOut = sb;
+		testing = showInts = true;
+		//showChars = false;
 		markIn(n * 4);
 		readInts(n);
 		resetIn();
 		testing = bt;
 		showInts = bi;
 		showChars = bc;
+		this.sbOut = null;
 	}
 
 	/**
@@ -758,7 +824,7 @@ public class ByteBlockReader {
 	}
 
 	/**
-	 * Look from this position to the end of file for integers that point to the
+	 * Look from position pos to loc integers that point to the
 	 * specified location as:
 	 * 
 	 * [aa] [bb] [cc] [dd] references loc such that
@@ -768,25 +834,18 @@ public class ByteBlockReader {
 	 * @param loc
 	 * @throws IOException
 	 */
-	public void findRef(int loc) throws IOException {
-		int n = getAvailable() - 4;
+	public void findRef(long pos, long loc) throws IOException {
+		long n = loc - pos;
+		seekIn(pos);
 		if (n < 0)
 			return;
-		markIn(n + 4);
-		setBuf(n + 4);
-		for (int i = 0; i < n;) {
-			buffer.mark();
-			int val = buffer.getInt();
-			buffer.reset();
-			if (i >= loc)
-				break;
+		for (long i = pos; i < loc; i++) {
+			seekIn(i);
+			int val = readInt();
 			if (i + 4 + val == loc) {
-				if (testing)
 					System.out.println(i + "\t0x" + toHex(i) + "\t+\t" + val + "\t0x" + toHex(val) + "\t=\t" + loc);
-			}
-			buffer.position(++i);
+			}			
 		}
-		resetIn();
 	}
 
 	public List<Object> traceRef(int loc, boolean isTop) throws IOException {
@@ -886,16 +945,9 @@ public class ByteBlockReader {
 	 * @throws IOException when that integer is less than 0 or greater than the
 	 *                     number of bytes available.
 	 */
-	public boolean nextBlock() throws IOException {
-		long navail = getAvailable();
-		if (navail == 0)
-			return false;
-		long pos = getPosition();
-		int len = readInt();
-		if (len < 0 || len > navail)
-			throw new IOException("invalid length " + len + " for nextBlock where pos=" + pos + " navail=" + navail);
-		skipIn(len);
-		return true;
+	public void nextBlock() throws IOException {
+		long pos = readPointer("nextblock");
+		seekIn(pos);
 	}
 
 	public void skipBlocks(int n) throws IOException {
@@ -916,9 +968,9 @@ public class ByteBlockReader {
 	 * @return true if successful
 	 * @throws IOException
 	 */
-	public boolean nextSubblock(int n) throws IOException {
+	public void nextSubblock(int n) throws IOException {
 		readInts(n);
-		return nextBlock();
+		nextBlock();
 	}
 
 	/**
@@ -1096,26 +1148,60 @@ public class ByteBlockReader {
 	 * Each pointer points to its forward-relative location. The difference between
 	 * two sequential pointers gives the length.
 	 * 
-	 * 
-	 * @return
+	 * @return the pointer to the next block
 	 * @throws IOException
 	 */
-	public Stack<BlockData> getObjectStack() throws IOException {
+	public Stack<BlockData> getObjectStack(long pos0, String why) throws IOException {
+		seekIn(pos0);
 		Stack<Long> ptrStack = new Stack<>();
 		Stack<BlockData> objStack = new Stack<>();
-		while (peekInt() > 0)
-			ptrStack.push(readPointer());
-		readInt(); // 0
-//		showStack(ptrStack);
-		long pt = getPosition();
-		while (ptrStack.size() > 0) {
-			long ptr = ptrStack.pop();
-			int len = (int) (ptr - pt);
-			objStack.push(new BlockData(pt, len));
-			pt = ptr;
+		try {// 
+	    int len0 = peekInt();
+	    int len;
+		while ((len = peekInt()) != 0) {
+			if (len0 == 16 && (len < 0 || getPosition() + 4 + len > this.len)) {
+				if (pos0 == this.len - 21) {
+					// legitimate EOF
+					return null;
+				}
+				int[] a = new int[] {readInt(), readInt(), readInt(), readInt()};				//skipIn(16);
+
+				System.out.println("!!!Found 16 x x x x at " + pos0  +"-- skipping " + Arrays.toString(a));
+				return getObjectStack(getPosition(), why);
+			}
+			ptrStack.push(readPointer(why));
 		}
-		seekIn(pt);
+		} catch (Exception e) {
+			
+			
+			
+			System.out.println("EOF found" + e);
+			// EOF found
+			return null;
+		}
+		readInt(); // 0
+		long ptNext = getPosition(); // start of data
+		while (ptrStack.size() > 0) {
+			long ptr = ptrStack.pop().longValue();
+			long len = (ptr - ptNext);
+			objStack.push(new BlockData(ptNext, len));
+			ptNext = ptr;
+		}
+		seekIn(ptNext);
 		return objStack;
+	}
+
+	public void testStack(Stack<BlockData> stack, int max) throws IOException {
+		if (stack == null)
+			return;
+		Enumeration<BlockData> e = stack.elements();
+		int i = 0;
+		while (e.hasMoreElements()) {
+			BlockData obj = e.nextElement();
+			System.out.println("obj " + ++i + " " + obj);
+			if (obj.len < max)
+				peekIntsAt(obj.loc, (int) obj.len/4);
+		}
 	}
 
 	public void showStack(Stack<?> stack) {
@@ -1127,15 +1213,99 @@ public class ByteBlockReader {
 		System.out.println();
 	}
 
-	public class BlockData {
-		public long loc;
-		public int len;
+	protected void getBlockStructure(BlockData body) throws IOException {
+		int n = 0;
+		strDebug = new StringBuffer();
+		while (getAvailable() > 0) {
+			long pt0 = getPosition();
+			Stack<BlockData> s = getObjectStack(pt0, null);
+			if (s == null)
+				break;
+			BlockData block = new BlockData(pt0, 0, "block" + ++n);
+			if (n > 4) {
+				System.out.println("5 blocks");
+			}
+			long ptData = s.get(0).loc;
+			long ptNext = getPosition();
+			block.addSubblock(new BlockData(pt0, ptData - pt0, "stack"));
+			//seekIn(pt0);
+			//readInts(s.size() + 1);
+			//pt = getPosition(); // start of data
+			block.addStack(s);
+			block.len = ptNext - pt0;
+			body.addSubblock(block);
+			seekIn(ptNext);
+		}
+	}
 
-		public BlockData(long loc, int len) {
-			this.loc = loc;
-			this.len = len;
+	public class BlockData {
+		public String name;
+		private int globalPtr;
+		public int localIndex;
+		public long loc;
+		public long len;
+		Stack<BlockData> subblocks;
+		BlockData parent;
+		String id;
+		private String path;
+		private List<BlockData> pages;
+
+		public BlockData(long loc, long len) {
+			this(loc, len, null);
+		}
+		
+		private BlockData findBlock(long pos) {
+			if (pages != null) {
+				for (int i = 0; i < pages.size(); i++) {
+					BlockData b = pages.get(i).findBlock(pos);
+					if (b != null)
+						return b;
+				}
+			}
+			if (subblocks != null) {
+				for (int i = 0; i < subblocks.size(); i++) {
+					BlockData b = subblocks.get(i).findBlock(pos);
+					if (b != null)
+						return b;
+				}
+			}
+			return (pos >= loc && pos < loc + len ? this : null);
 		}
 
+		public BlockData(long loc, long len, String name) {
+			this.name = name;
+			this.loc = loc;
+			this.len = len;
+			globalPtr = nBlocks++;			
+		}
+
+		public void setSubblocks(Stack<BlockData> blocks) {
+			subblocks = blocks;
+			for (int i = blocks.size(); --i >= 0;) {
+				BlockData bd = blocks.get(i);
+				bd.setParent(this, i);
+			}
+		}
+		
+		private void setParent(BlockData parent, int i) {
+			this.parent = parent;
+			localIndex = i;
+		}
+
+		public void addPage(BlockData bd) {
+		   if (pages == null)
+			   pages = new ArrayList<BlockData>();
+		   pages.add(bd);
+		   
+		}
+		
+		public void addSubblock(BlockData bd) {
+			if (subblocks == null)
+				subblocks = new Stack<BlockData>();
+			subblocks.add(bd);		
+			bd.setParent(this, subblocks.size());
+		}
+		
 		public void seek() throws IOException {
 			seekIn(loc);
 		}
@@ -1151,11 +1321,104 @@ public class ByteBlockReader {
 			seekIn(pt);
 			return bytes;
 		}
+		
+		/**
+		 * Get a subblock. 0-based
+		 * 
+		 * @param i -n for "from the end", with -1 being the last one 
+		 * @return
+		 */
+		public BlockData getSubblock(int i) {
+			if (i < 0)
+				i = subblocks.size() + i;
+			return (i < 0 || i >= subblocks.size() ? null : subblocks.get(i));
+		}
+		public void addStack(Stack<BlockData> s) {
+			for (BlockData bd : s) {
+				addSubblock(bd);
+			}
+		}
+
+		public void setPaths(String pathName) throws IOException {
+			if (pathName == null && path != null)
+				clearPaths();
+			path = (pathName == null ? "" : pathName + ".") + getTag();
+			htPathToBlock .put(path, this);
+			if (subblocks != null)
+				for (int i = 0; i < subblocks.size(); i++)
+					subblocks.get(i).setPaths(path);
+			if (pages != null)
+				for (int i = 0; i < pages.size(); i++)
+					pages.get(i).setPaths(path);
+		}
+
+		public void clearPaths() throws IOException {
+			htPathToBlock.remove(path);
+			path = null;
+			if (subblocks != null)
+				for (int i = 0; i < subblocks.size(); i++)
+					subblocks.get(i).clearPaths();
+		}
+
+		public void getStack(StringBuffer sb, String pathName) throws IOException {
+			sb.append(path).append(getInfo()).append('\n');
+			test(sb);
+			if (subblocks != null)
+				for (int i = 0; i < subblocks.size(); i++)
+					subblocks.get(i).getStack(sb, path);
+			if (pages != null)
+				for (int i = 0; i < pages.size(); i++)
+					pages.get(i).getStack(sb, path);
+		}
+		
+		private void test(StringBuffer sb) throws IOException {
+			if (subblocks != null)
+				return;
+//			seek();
+//			peekIntsSb(sb, (int) (Math.ceil(Math.min(len/4., 5))));		
+		}
+
+		protected String getTag() {
+			return (path != null ? path : getNameOrID());
+		}
+
+		protected String getNameOrID() {
+			return (name != null ? name : "" + (localIndex >= 0 ? localIndex : globalPtr));
+		}
 
 		@Override
 		public String toString() {
-			return "[Block loc=" + loc + " len=" + len + " to " + (loc + len) + "]";
+			return "[Block " + getTag() + getInfo()	+ "]";
 		}
+
+		private String getInfo() {
+			return " loc=" + loc + " len=" + len + " to " + (loc + len);
+		}
+
+		public void map(Map<String, Object> map) {
+			map.put("path",  path);
+			map.put("location", Integer.valueOf((int)loc));
+			map.put("length",  Integer.valueOf((int) len));
+			if (subblocks != null) {
+				Map<String, Object> submap = new TreeMap<>();
+				map.put("subblocks", submap);
+				for (int i = 0; i < subblocks.size(); i++) {
+					Map<String, Object> m = new TreeMap<>();
+					submap.put(subblocks.get(i).getNameOrID(), m);
+					subblocks.get(i).map(m);
+				}
+			}
+			if (pages != null) {
+			    List<Object> pageList = new ArrayList<>();
+				map.put("pages", pageList);
+				for (int i = 0; i < pages.size(); i++) {
+					Map<String, Object> m = new TreeMap<>();
+					pageList.add(m);
+					pages.get(i).map(m);
+				}
+			}
+		}
+
 	}
 
 	public void peekBufferInts(int n) {
