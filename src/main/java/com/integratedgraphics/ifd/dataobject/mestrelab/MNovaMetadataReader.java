@@ -285,6 +285,12 @@ class MNovaMetadataReader extends ByteBlockReader {
 	private boolean isQuiet;
 	private BlockData fileStructure;
 
+	private String fileBlockPageData;
+
+	private String fileBlockVersionData;
+
+	private String fileBlockPagesData;
+
 //	private static boolean debugging;
 
 	/**
@@ -317,7 +323,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 			setByteOrder(ByteOrder.BIG_ENDIAN);
 			if (!readMagicNumberAndByteOrder())
 				return false;
-			getFileStructure();
+			getFileStructure(true);
 			test();
 			readFileAsStack();
 			if (strDebug != null)
@@ -369,7 +375,9 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 */
 	private void readVersion() throws IOException {
 		long pt0 = getPosition();
-		getBlockFromPath("file.body.block1").getSubblock(-1).seek();
+		// it is file.body.block1.data6 or file.body.part1.block1.data6
+		// but just in case this ever changes, leaving it here as "last block"
+		getBlockFromPath(fileBlockVersionData).getSubblock(-1).seek();
 		long pt = getPosition();
 		readUTF16String(); // MestReNova
 		mnovaVersion = readUTF16String(); // 12.0.0-20080
@@ -415,8 +423,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	}
 
 	private void readToPages() throws IOException {
-		getBlockFromPath("file.body.block3").seek();
-		findPointer(0, "toPages3");
+		getBlockFromPath(fileBlockPagesData).seek();
 	}
 
 	/**
@@ -447,7 +454,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		System.out.println("page " + page + " ends at " + ptNextBlock + "/" + len);
 		if (readPageBlockStack(ptNextBlock) == null)
 			return -1;
-		Stack<BlockData> stack = getObjectStack(getPosition(), "page" + n);
+		Stack<BlockData> stack = getPointerStack(getPosition(), len, "page" + n);
 		if (stack == null)
 			return -1;
 		int ns = stack.size();
@@ -479,7 +486,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		seekIn(pt);
 		if (testing)
 			System.out.println("--- readPages " + getPosition());
-		getBlockFromPath("file.body.block3.3").seek();
+		getBlockFromPath(fileBlockPageData).seek();
 		skipIn(8);
 		nPagesTotal = readInt();
 		System.out.println("--- reading " + nPagesTotal + " pages at " + (getPosition() - 4));
@@ -561,7 +568,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		findPointer(0, "pagetextheader4");
 		readPointer(null); // to END
 		nextBlock(); // 189 -> 39337 bytes in 1.mnova; 197 in v14
-		Stack<BlockData> s = getObjectStack(getPosition(), "page block");
+		Stack<BlockData> s = getPointerStack(getPosition(), len, "page block");
 		// testStack(s, -2);
 		return s;
 	}
@@ -591,7 +598,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		seekIn(pt1);
 		// testStack(s);
 		s.get(s.size() - 1).seek(); // page header
-		Stack<BlockData> s1 = getObjectStack(getPosition(), null);
+		Stack<BlockData> s1 = getPointerStack(getPosition(), len, null);
 		// testStack(s1, -2);
 
 		String title = null;
@@ -615,7 +622,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	private boolean readToParameters(long pt0) throws IOException {
 		seekIn(pt0);
 		findPointer(pt0, "params0");
-		Stack<BlockData> stack = getObjectStack(pt0, null);
+		Stack<BlockData> stack = getPointerStack(pt0, len, null);
 		// testStack(stack, -1);
 		// third from last data block is the parameter block
 		BlockData params = stack.get(stack.size() - 3);
@@ -1343,43 +1350,75 @@ class MNovaMetadataReader extends ByteBlockReader {
 		System.out.println("\n===Pages end at " + getPosition() + " available=" + getAvailable());
 	}
 
-	private void getFileStructure() throws IOException {
-		
+	/**
+	 * 
+	 * @param isNew  -- ignored -- here just in case we have to go back.
+	 * @throws IOException
+	 */
+	private void getFileStructure(boolean isNew) throws IOException {
 		resetIn();
+
 		readHeader();
+		long ptBody = getPosition();
 		fileStructure = new BlockData(0, len, "file");
-		fileStructure.addSubblock(new BlockData(0, 27, "header"));
-		BlockData body = new BlockData(27, len - 27, "body");
+		fileStructure.addSubblock(new BlockData(0, ptBody, "header"));
+		BlockData body = this.body = new BlockData(ptBody, len - ptBody, "body");
 		fileStructure.addSubblock(body);
-		this.body = body;
-		getBlockStructure(body);
+
+//		if (isNew) {
+			fileBlockPagesData = "file.body.part4.block1";
+			fileBlockPageData = "file.body.part4.block1.data2";
+			fileBlockVersionData = "file.body.part1.block1";
+			Stack<BlockData> stack = followPointer(27, len, "part");
+			if (stack != null) {
+				body.addStack(stack);
+				for (BlockData bd : stack) {
+					getBlockStructure(bd, 0);
+				}
+			}
+//		} else {
+//			fileBlockPagesData = "file.body.block3";
+//			fileBlockPageData = "file.body.block3.data2";
+//			fileBlockVersionData = "file.body.block1";
+//			getBlockStructure(body, 0);
+//		}
 		fileStructure.setPaths(null);
-		BlockData bd33 = getBlockFromPath("file.body.block3.3");
-		bd33.seek();
-		skipIn(12);
-		getBlockStructure(bd33);
+		getFileStructurePages(isNew);
+	}
+
+	private void getFileStructurePages(boolean isNew) throws IOException {
+		BlockData bd33 = getBlockFromPath(fileBlockPageData);
+		getBlockStructure(bd33, 12);
 		fileStructure.setPaths(null);
-//		testFileStructure();
-		BlockData bd331 = getBlockFromPath("file.body.block3.3.block1");
+		testFileStructure();
+		BlockData bd331 = getBlockFromPath(fileBlockPageData + ".block1");
 		BlockData bdlast = (bd331 == null ? null : bd331.getSubblock(-1));
 		int pageCount = 0;
 		if (bdlast != null) {
 			bdlast.seek();
+			System.out.println("page=bdlast is " + bdlast);
 			long pos;
 			int npages = 0;
 			while ((pos = getPosition()) < len) {
+				System.out.println("page-a-pos " + pos);
+				peekInts(1);
 				// each page is two blocks.
 				nextBlock();
+				System.out.println("page-b-ptNext ptr " + getPosition());
+				peekInts(1);
 				long ptNext = (getAvailable() < 4 ? len : readPointer(null));
 				BlockData bd = new BlockData(pos, ptNext - pos, "page" + ++npages);
+				System.out.println("page-c-bdlast next is at " + (getPosition() - 4) + " to " + ptNext+bd);
 				body.addPage(bd);
-				System.out.println(bd);
 				pageCount++;
 				seekIn(ptNext);
 			}
 		}
 		fileStructure.setPaths(null);
 		nPagesTotal = pageCount;
+
+		// TODO Auto-generated method stub
+		
 	}
 
 	private int readToPageCount() throws IOException {
@@ -1588,10 +1627,27 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 * @throws IOException
 	 */
 	private void test() throws IOException {
+		//Stack<BlockData> s = followPointer(27, len, "block");
+		//System.out.println(s);
+//		findRef(30000, 38528);
+//	    seekIn(38628);
+//	    peekInts(30);
+//		testFileStructure();
+//
+//		//System.out.println(followPointer(38728, 765767,"test ").toString().replace(',','\n'));
+//		getFileStructure(false);
+//		
+//		
+//		
+		//findRef(0, 12871);
 		testFileStructure();
-		readVersion();
+//		readVersion();
 
-		testFIDs(nPagesTotal);
+//		System.out.println(followPointer(12969, len,"test ").toString().replace(',','\n'));
+		
+		System.out.println("OK");
+		
+//		testFIDs(nPagesTotal);
 
 		if (true)
 			return;
@@ -1743,7 +1799,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		defaultTest = testFiles.length;
 
 		// defaults for testall
-		testFile0 = 1;
+		testFile0 = 1;//1
 		testFile1 = testFiles.length;
 
 		testPage = -1; // just this page if positive
