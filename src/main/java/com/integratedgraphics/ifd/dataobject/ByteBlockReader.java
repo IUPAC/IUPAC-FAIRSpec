@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +16,6 @@ import java.util.Stack;
 import java.util.TreeMap;
 
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-
-import com.integratedgraphics.ifd.dataobject.ByteBlockReader.BlockData;
 
 /**
  * A reader that can process blocks that contain an initial byte length followed
@@ -237,8 +234,10 @@ public class ByteBlockReader {
 	protected void findPointer(long pos, String why) {
 		if (pos <= 0)
 			pos = getPosition() + pos;
-		BlockData block = body.findBlock(pos);
-		String msg = "!! " + why + " pointer " + pos + (block == null ? " block could not be found" : " is in block " + block.path + " + " + (pos - block.loc));
+		BlockData block = (pos == len ? null : body.findBlock(pos, why != "nopage"));
+		String msg = "!! " + why + " pointer " + pos 
+				+ (block != null ? " is in block " + block.path + " + " + (pos - block.loc)
+						: pos ==  len ? " is EOF" : " block could not be found");
 		if (block != null && "stack".equals(block.name)) {
 		  int pt = (int)(pos - block.loc) / 4; 
 		  msg += " index " + pt;
@@ -1185,7 +1184,7 @@ public class ByteBlockReader {
 	 * @return the pointer to the next block
 	 * @throws IOException
 	 */
-	public Stack<BlockData> getPointerStack(long pos0, long pos1, String why) throws IOException {
+	public Stack<BlockData> getDataStack(long pos0, long pos1, String why) throws IOException {
 		seekIn(pos0);
 		Stack<Long> ptrStack = new Stack<>();
 		Stack<BlockData> objStack = new Stack<>();
@@ -1210,7 +1209,7 @@ public class ByteBlockReader {
 					//System.out.println("!!!Found 16 x x x x at " + pos0 + "-- skipping " + Arrays.toString(a));
 					// or
 					skipIn(16);
-					return getPointerStack(getPosition(), pos1, why);
+					return getDataStack(getPosition(), pos1, why);
 				}
 				ptrStack.push(readPointer(why));
 			}
@@ -1225,8 +1224,10 @@ public class ByteBlockReader {
 		while (ptrStack.size() > 0) {
 			long ptr = ptrStack.pop().longValue();
 			long len = ptr - ptNext;
-			if (ptr > pos1)
+			if (ptr > pos1) {
+				// setting negative len
 				len = -len;
+			}
 			BlockData bd = new BlockData(ptNext, len);
 			objStack.push(bd);
 			ptNext = ptr;
@@ -1262,21 +1263,26 @@ public class ByteBlockReader {
 		strDebug = new StringBuffer();
 		bd.seek();
 		skipIn(byteShift);
+		long ptNext = -1;
 		while (getAvailable() > 0) {
 			long pt0 = getPosition();
 			long pt1 = bd.loc + 4 + bd.len;
-			Stack<BlockData> s = getPointerStack(pt0, pt1, null);
-			if (s == null)
+			Stack<BlockData> s = getDataStack(pt0, pt1, null);
+			if (s == null || s.size() == 0) {
+				if (ptNext > pt0)
+					seekIn(ptNext);
 				break;
+			}
 			BlockData block = new BlockData(pt0, 0, "block" + ++n);
 			long ptData = s.get(0).loc;
-			long ptNext = getPosition();
+			ptNext = getPosition();
 			block.addSubblock(new BlockData(pt0, ptData - pt0, "stack"));
 			block.addStack(s);
 			block.len = ptNext - pt0;
 			bd.addSubblock(block);
 			seekIn(ptNext);
 		}
+		
 	}
 
 	public class BlockData {
@@ -1295,17 +1301,17 @@ public class ByteBlockReader {
 			this(loc, len, null);
 		}
 		
-		private BlockData findBlock(long pos) {
-			if (pages != null) {
+		private BlockData findBlock(long pos, boolean checkPages) {
+			if (checkPages && pages != null) {
 				for (int i = 0; i < pages.size(); i++) {
-					BlockData b = pages.get(i).findBlock(pos);
+					BlockData b = pages.get(i).findBlock(pos, false);
 					if (b != null)
 						return b;
 				}
 			}
 			if (subblocks != null) {
 				for (int i = 0; i < subblocks.size(); i++) {
-					BlockData b = subblocks.get(i).findBlock(pos);
+					BlockData b = subblocks.get(i).findBlock(pos, checkPages);
 					if (b != null)
 						return b;
 				}
@@ -1370,10 +1376,13 @@ public class ByteBlockReader {
 		 * @return
 		 */
 		public BlockData getSubblock(int i) {
+			if (subblocks == null)
+			  return null;
 			if (i < 0)
 				i = subblocks.size() + i;
 			return (i < 0 || i >= subblocks.size() ? null : subblocks.get(i));
 		}
+		
 		public void addStack(Stack<BlockData> s) {
 			for (BlockData bd : s) {
 				if (bd.len > 0)
@@ -1461,6 +1470,10 @@ public class ByteBlockReader {
 					pages.get(i).map(m);
 				}
 			}
+		}
+
+		public int getSubblockCount() {
+			return (subblocks == null ? 0 : subblocks.size());
 		}
 
 	}
