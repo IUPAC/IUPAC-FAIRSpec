@@ -138,6 +138,7 @@ public class ByteBlockReader {
 		public long len;
 		Stack<BlockData> subblocks;
 		BlockData parent;
+		int dataBlockCount;
 		String id;
 		private String path;
 		private List<BlockData> pages;
@@ -230,7 +231,7 @@ public class ByteBlockReader {
 		
 		public void addStack(Stack<BlockData> s) {
 			for (BlockData bd : s) {
-				if (bd.len > 0)
+				if (bd.len > 0) 
 					addSubblock(bd);
 			}
 		}
@@ -293,20 +294,20 @@ public class ByteBlockReader {
 			map.put("location", Integer.valueOf((int)loc));
 			map.put("length",  Integer.valueOf((int) len));
 			if (subblocks != null) {
-				Map<String, Object> submap = new TreeMap<>();
-				map.put("subblocks", submap);
+				Map<String, Object> subMap = new TreeMap<>();
+				map.put("subblocks", subMap);
 				for (int i = 0; i < subblocks.size(); i++) {
 					Map<String, Object> m = new TreeMap<>();
-					submap.put(subblocks.get(i).getNameOrID(), m);
+					subMap.put(subblocks.get(i).getNameOrID(), m);
 					subblocks.get(i).map(m);
 				}
 			}
 			if (pages != null) {
-			    List<Object> pageList = new ArrayList<>();
-				map.put("pages", pageList);
+				Map<String, Object> pageMap = new TreeMap<>();
+				map.put("pages", pageMap);
 				for (int i = 0; i < pages.size(); i++) {
 					Map<String, Object> m = new TreeMap<>();
-					pageList.add(m);
+					pageMap.put(pages.get(i).getNameOrID(), m);
 					pages.get(i).map(m);
 				}
 			}
@@ -314,6 +315,11 @@ public class ByteBlockReader {
 
 		public int getSubblockCount() {
 			return (subblocks == null ? 0 : subblocks.size());
+		}
+
+		public int getDataBlockCount() {
+			int n = getSubblockCount();
+			return (n == 0 ? 0 : "stack".equals(subblocks.get(0).name) ? n - 1 : n);
 		}
 	}
 	
@@ -586,6 +592,11 @@ public class ByteBlockReader {
 			sbOut.append(msg).append('\n');
 	}
 
+	private String toHex(byte b) {
+		String s = Integer.toHexString(b + 0xFF00).toUpperCase();
+		return "0x" + s.substring(s.length() - 2);
+	}
+
 	private String toHex(int i) {
 		String s = "00000000" + Integer.toHexString(i).toUpperCase();
 		return "0x" + s.substring(s.length() - 8);
@@ -593,7 +604,7 @@ public class ByteBlockReader {
 
 	private String toHex(long i) {
 		String s = "0000000000000000" + Long.toHexString(i).toUpperCase();
-		return "0x" + s.substring(s.length() - 8);
+		return "0x" + s.substring(s.length() - 16);
 	}
 
 	/**
@@ -610,6 +621,16 @@ public class ByteBlockReader {
 		if (testing)
 			System.out.println("ReadDouble 0x" + Long.toHexString(l).toUpperCase() + "\t" + d);
 		return d;
+	}
+
+	public float readFloat() throws IOException {
+		setBuf(4);
+		float f = buffer.getFloat();
+		buffer.position(buffer.position() - 4);
+		int l = buffer.getInt();
+		if (testing)
+			System.out.println("ReadFloat 0x" + Integer.toHexString(l).toUpperCase() + "\t" + f);
+		return f;
 	}
 
 	/**
@@ -1488,32 +1509,58 @@ public class ByteBlockReader {
 		System.out.println();
 	}
 
-	protected void getBlockStructure(BlockData bd, int byteShift) throws IOException {
-		int n = 0;
+	protected void getBlockStructure(BlockData bdParent, int byteShift, int i0) throws IOException {
+		int n = i0;
 		strDebug = new StringBuffer();
-		bd.seek();
+		bdParent.seek();
+		if (byteShift > 0) {
+			bdParent.addSubblock(new BlockData(getPosition(), byteShift, "block" + ++n));
+		}
+		bdParent.seek();
 		skipIn(byteShift);
 		long ptNext = -1;
-		while (getAvailable() > 0) {
-			long pt0 = getPosition();
-			long pt1 = bd.loc + 4 + bd.len;
+		long ptEnd = bdParent.loc + bdParent.len;
+		long lastEnd = ptEnd;
+		long pt0;
+		long pt1 = bdParent.loc + bdParent.len + 4;
+		while (getAvailable() > 0 && (pt0 = getPosition()) < ptEnd) {
 			Stack<BlockData> s = getDataStack(pt0, pt1, null);
 			if (s == null || s.size() == 0) {
 				if (ptNext > pt0)
 					seekIn(ptNext);
 				break;
 			}
-			BlockData block = new BlockData(pt0, 0, "block" + ++n);
-			long ptData = s.get(0).loc;
-			ptNext = getPosition();
-			block.addSubblock(new BlockData(pt0, ptData - pt0, "stack"));
-			block.addStack(s);
-			block.len = ptNext - pt0;
-			bd.addSubblock(block);
+			ptNext = addParentBlockDataStack(bdParent, s, pt0, ++n);
 			seekIn(ptNext);
+			lastEnd = ptNext;
 		}		
+		if (false && lastEnd < ptEnd) {
+			Stack<BlockData> s = followPointer(lastEnd, ptEnd, "data");
+			if (s != null && s.size() > 0) {
+			  addParentBlockDataStack(bdParent, s, lastEnd, ++n);				
+			}
+//			bdParent.addSubblock(new BlockData(lastEnd, ptEnd - lastEnd, "block" + ++n));
+		}
+		return;
+		
 	}
 
+
+	private long addParentBlockDataStack(BlockData bdParent, Stack<BlockData> s, long pt0, int n) {
+		BlockData block = new BlockData(pt0, 0, "block" + n);
+		long ptData = s.get(0).loc;
+		long ptNext = getPosition();
+		if (ptData > pt0)
+			block.addSubblock(new BlockData(pt0, ptData - pt0, "stack"));
+		block.addStack(s);
+		if (ptNext == pt0) {
+			BlockData bdlast = s.get(s.size() - 1);
+			ptNext = bdlast.loc + bdlast.len; 							
+		}
+		block.len = ptNext - pt0;
+		bdParent.addSubblock(block);
+		return ptNext;
+	}
 
 	/**
 	 * Dump the contents as a list of 64-bit floating-point numbers.
@@ -1569,6 +1616,19 @@ public class ByteBlockReader {
 		}
 		seekIn(ptr);
 		testing = t;
+	}
+	public String bytesToHex(int n) throws IOException {
+		if (n == 0)
+			return "";
+		long pt = getPosition();
+		byte[] bytes = readBytes(n);
+		seekIn(pt);
+		String s = "";
+		for (int i = 0; i < n; i++) {
+			String sb = Integer.toHexString(bytes[i] + 0xFF00).toUpperCase();
+			s += "  " + sb.substring(sb.length() - 2);
+		}
+		return s;
 	}
 
 }
