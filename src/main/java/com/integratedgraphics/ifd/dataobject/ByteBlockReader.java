@@ -22,7 +22,7 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
  * by a series of bytes. It allows for reading the bytes with a variable byte
  * order, creating smaller ByteBuffers to handle chunks of the byte array.
  * 
- * Extended for MNova and Jeol
+ * Extended for MNovaMetadataReader and NmrMLJeolAcquStreamReader.
  * 
  * @author hansonr
  *
@@ -86,6 +86,236 @@ public class ByteBlockReader {
 	protected BlockData body;
 
 	private int nBlocks;
+
+	/**
+	 * The BlockData class holds information about a subarray of bytes within the
+	 * file. This array has a location and length. In addition it has a unique
+	 * identifier that may be just a simple global serial number, or it could be a
+	 * given name, such as "header" or "body" or "page".
+	 * 
+	 * 
+	 * A block may contain subblocks, list as one of:
+	 * 
+	 * "block1", "block2",...
+	 * 
+	 * "data1", "data2",...
+	 * 
+	 * "page1", "page2",... ("body" block only)
+	 * 
+	 * A block that contains subblocks will have a special subblock named "stack",
+	 * which identifies a sequential set of integer lengths found within the file.
+	 * 
+	 * A "path" field identifies the hierarchy of blocks. So, for example, in a
+	 * MNova file,  
+	 * 
+	 * 
+	 * 
+	 * 
+	 * "block" and "page" type BlockData start with at least one length integer that
+	 * also serves as a forward pointer to the first byte after the data. This
+	 * integer length does not include its own four bytes.
+	 * 
+	 * "data" type BlockData may or may not start with an integer length/pointer. 
+	 * 
+	 * There is no information within the file that I can see that clearly defines the 
+	 * start and and of individual data items. So there is some guesswork here. 
+	 * 
+	 * But a common occurrance is a set of monotonically decreasing pointers that 
+	 * ends with a 0 integer, forming a package of fully delineated data items. 
+	 * 
+	 * Since I have never seen any actual specification for the format, I could 
+	 * be completely wrong about all this. All I know is it that it makes some
+	 * sense, and for what I need, it works. 
+	 * 
+	 * @author hanso
+	 *
+	 */
+	public class BlockData {
+		public String name;
+		private int globalPtr;
+		public int localIndex;
+		public long loc;
+		public long len;
+		Stack<BlockData> subblocks;
+		BlockData parent;
+		String id;
+		private String path;
+		private List<BlockData> pages;
+
+		public BlockData(long loc, long len) {
+			this(loc, len, null);
+		}
+		
+		private BlockData findBlock(long pos, boolean checkPages) {
+			if (checkPages && pages != null) {
+				for (int i = 0; i < pages.size(); i++) {
+					BlockData b = pages.get(i).findBlock(pos, false);
+					if (b != null)
+						return b;
+				}
+			}
+			if (subblocks != null) {
+				for (int i = 0; i < subblocks.size(); i++) {
+					BlockData b = subblocks.get(i).findBlock(pos, checkPages);
+					if (b != null)
+						return b;
+				}
+			}
+			return (pos >= loc && pos < loc + len ? this : null);
+		}
+
+		public BlockData(long loc, long len, String name) {
+			this.name = name;
+			this.loc = loc;
+			this.len = len;
+			globalPtr = nBlocks++;			
+		}
+
+		public void setSubblocks(Stack<BlockData> blocks) {
+			subblocks = blocks;
+			for (int i = blocks.size(); --i >= 0;) {
+				BlockData bd = blocks.get(i);
+				bd.setParent(this, i);
+			}
+		}
+		
+		private void setParent(BlockData parent, int i) {
+			this.parent = parent;
+			localIndex = i;
+		}
+
+		public void addPage(BlockData bd) {
+		   if (pages == null)
+			   pages = new ArrayList<BlockData>();
+		   pages.add(bd);
+		   
+		}
+		
+		public void addSubblock(BlockData bd) {
+			if (subblocks == null)
+				subblocks = new Stack<BlockData>();
+			bd.setParent(this, subblocks.size());
+			subblocks.add(bd);		
+		}
+		
+		public void seek() throws IOException {
+			seekIn(loc);
+		}
+
+		public void skip() throws IOException {
+			seekIn(loc + len);
+		}
+
+		public byte[] getData() throws IOException {
+			long pt = getPosition();
+			seekIn(loc);
+			byte[] bytes = readBytes(len);
+			seekIn(pt);
+			return bytes;
+		}
+		
+		/**
+		 * Get a subblock. 0-based
+		 * 
+		 * @param i -n for "from the end", with -1 being the last one 
+		 * @return
+		 */
+		public BlockData getSubblock(int i) {
+			if (subblocks == null)
+			  return null;
+			if (i < 0)
+				i = subblocks.size() + i;
+			return (i < 0 || i >= subblocks.size() ? null : subblocks.get(i));
+		}
+		
+		public void addStack(Stack<BlockData> s) {
+			for (BlockData bd : s) {
+				if (bd.len > 0)
+					addSubblock(bd);
+			}
+		}
+
+		public void setPaths(String pathName) throws IOException {
+			if (pathName == null && path != null)
+				clearPaths();
+			path = (pathName == null ? "" : pathName + ".") + getTag();
+			htPathToBlock .put(path, this);
+			if (subblocks != null)
+				for (int i = 0; i < subblocks.size(); i++)
+					subblocks.get(i).setPaths(path);
+			if (pages != null)
+				for (int i = 0; i < pages.size(); i++)
+					pages.get(i).setPaths(path);
+		}
+
+		public void clearPaths() throws IOException {
+			htPathToBlock.remove(path);
+			path = null;
+			if (subblocks != null)
+				for (int i = 0; i < subblocks.size(); i++)
+					subblocks.get(i).clearPaths();
+		}
+
+		public void getStack(StringBuffer sb, String pathName) throws IOException {
+			sb.append(path).append(getInfo()).append('\n');
+			seek();
+			if (subblocks != null) {
+				for (int i = 0; i < subblocks.size(); i++) {
+					subblocks.get(i).getStack(sb, path);
+				}
+			}
+			if (pages != null) {
+				for (int i = 0; i < pages.size(); i++) {
+					pages.get(i).getStack(sb, path);
+				}
+			}
+		}
+		
+		protected String getTag() {
+			return (path != null ? path : getNameOrID());
+		}
+
+		protected String getNameOrID() {
+			return (name != null ? name : "data" + (localIndex >= 0 ? localIndex : globalPtr));
+		}
+
+		@Override
+		public String toString() {
+			return "[Block " + getTag() + getInfo()	+ "]";
+		}
+
+		private String getInfo() {
+			return " loc=" + loc + " len=" + len + " to " + (loc + len);
+		}
+
+		public void map(Map<String, Object> map) {
+			map.put("path",  path);
+			map.put("location", Integer.valueOf((int)loc));
+			map.put("length",  Integer.valueOf((int) len));
+			if (subblocks != null) {
+				Map<String, Object> submap = new TreeMap<>();
+				map.put("subblocks", submap);
+				for (int i = 0; i < subblocks.size(); i++) {
+					Map<String, Object> m = new TreeMap<>();
+					submap.put(subblocks.get(i).getNameOrID(), m);
+					subblocks.get(i).map(m);
+				}
+			}
+			if (pages != null) {
+			    List<Object> pageList = new ArrayList<>();
+				map.put("pages", pageList);
+				for (int i = 0; i < pages.size(); i++) {
+					Map<String, Object> m = new TreeMap<>();
+					pageList.add(m);
+					pages.get(i).map(m);
+				}
+			}
+		}
+
+		public int getSubblockCount() {
+			return (subblocks == null ? 0 : subblocks.size());
+		}
+	}
 	
 	public ByteBlockReader(InputStream in) throws IOException {
 		this(FAIRSpecUtilities.getLimitedStreamBytes(in, -1, null, true, true));
@@ -1151,8 +1381,8 @@ public class ByteBlockReader {
 			loc = peekPointer();
 			int n = 0;
 			while (pos < loc && loc <= target) {
-//				System.out.println("found" + pos + " to " + loc  + " for " + prefix);
-//				peekInts(1);
+				//System.out.println("found" + pos + " to " + loc  + " for " + prefix);
+				//peekInts(1);
 				BlockData bd = new BlockData(pos, loc - pos, prefix + ++n);
 				stack.add(bd);
 				if (loc == target) {
@@ -1281,211 +1511,18 @@ public class ByteBlockReader {
 			block.len = ptNext - pt0;
 			bd.addSubblock(block);
 			seekIn(ptNext);
-		}
-		
+		}		
 	}
 
-	public class BlockData {
-		public String name;
-		private int globalPtr;
-		public int localIndex;
-		public long loc;
-		public long len;
-		Stack<BlockData> subblocks;
-		BlockData parent;
-		String id;
-		private String path;
-		private List<BlockData> pages;
 
-		public BlockData(long loc, long len) {
-			this(loc, len, null);
-		}
-		
-		private BlockData findBlock(long pos, boolean checkPages) {
-			if (checkPages && pages != null) {
-				for (int i = 0; i < pages.size(); i++) {
-					BlockData b = pages.get(i).findBlock(pos, false);
-					if (b != null)
-						return b;
-				}
-			}
-			if (subblocks != null) {
-				for (int i = 0; i < subblocks.size(); i++) {
-					BlockData b = subblocks.get(i).findBlock(pos, checkPages);
-					if (b != null)
-						return b;
-				}
-			}
-			return (pos >= loc && pos < loc + len ? this : null);
-		}
-
-		public BlockData(long loc, long len, String name) {
-			this.name = name;
-			this.loc = loc;
-			this.len = len;
-			globalPtr = nBlocks++;			
-		}
-
-		public void setSubblocks(Stack<BlockData> blocks) {
-			subblocks = blocks;
-			for (int i = blocks.size(); --i >= 0;) {
-				BlockData bd = blocks.get(i);
-				bd.setParent(this, i);
-			}
-		}
-		
-		private void setParent(BlockData parent, int i) {
-			this.parent = parent;
-			localIndex = i;
-		}
-
-		public void addPage(BlockData bd) {
-		   if (pages == null)
-			   pages = new ArrayList<BlockData>();
-		   pages.add(bd);
-		   
-		}
-		
-		public void addSubblock(BlockData bd) {
-			if (subblocks == null)
-				subblocks = new Stack<BlockData>();
-			bd.setParent(this, subblocks.size());
-			subblocks.add(bd);		
-		}
-		
-		public void seek() throws IOException {
-			seekIn(loc);
-		}
-
-		public void skip() throws IOException {
-			seekIn(loc + len);
-		}
-
-		public byte[] getData() throws IOException {
-			long pt = getPosition();
-			seekIn(loc);
-			byte[] bytes = readBytes(len);
-			seekIn(pt);
-			return bytes;
-		}
-		
-		/**
-		 * Get a subblock. 0-based
-		 * 
-		 * @param i -n for "from the end", with -1 being the last one 
-		 * @return
-		 */
-		public BlockData getSubblock(int i) {
-			if (subblocks == null)
-			  return null;
-			if (i < 0)
-				i = subblocks.size() + i;
-			return (i < 0 || i >= subblocks.size() ? null : subblocks.get(i));
-		}
-		
-		public void addStack(Stack<BlockData> s) {
-			for (BlockData bd : s) {
-				if (bd.len > 0)
-					addSubblock(bd);
-			}
-		}
-
-		public void setPaths(String pathName) throws IOException {
-			if (pathName == null && path != null)
-				clearPaths();
-			path = (pathName == null ? "" : pathName + ".") + getTag();
-			htPathToBlock .put(path, this);
-			if (subblocks != null)
-				for (int i = 0; i < subblocks.size(); i++)
-					subblocks.get(i).setPaths(path);
-			if (pages != null)
-				for (int i = 0; i < pages.size(); i++)
-					pages.get(i).setPaths(path);
-		}
-
-		public void clearPaths() throws IOException {
-			htPathToBlock.remove(path);
-			path = null;
-			if (subblocks != null)
-				for (int i = 0; i < subblocks.size(); i++)
-					subblocks.get(i).clearPaths();
-		}
-
-		public void getStack(StringBuffer sb, String pathName) throws IOException {
-			sb.append(path).append(getInfo()).append('\n');
-			seek();
-			test(sb);
-			if (subblocks != null) {
-				for (int i = 0; i < subblocks.size(); i++) {
-					subblocks.get(i).getStack(sb, path);
-				}
-			}
-			if (pages != null) {
-				for (int i = 0; i < pages.size(); i++) {
-					pages.get(i).getStack(sb, path);
-				}
-			}
-		}
-		
-		private void test(StringBuffer sb) throws IOException {
-			//peekIntsSb(sb, 5);
-		}
-
-		protected String getTag() {
-			return (path != null ? path : getNameOrID());
-		}
-
-		protected String getNameOrID() {
-			return (name != null ? name : "data" + (localIndex >= 0 ? localIndex : globalPtr));
-		}
-
-		@Override
-		public String toString() {
-			return "[Block " + getTag() + getInfo()	+ "]";
-		}
-
-		private String getInfo() {
-			return " loc=" + loc + " len=" + len + " to " + (loc + len);
-		}
-
-		public void map(Map<String, Object> map) {
-			map.put("path",  path);
-			map.put("location", Integer.valueOf((int)loc));
-			map.put("length",  Integer.valueOf((int) len));
-			if (subblocks != null) {
-				Map<String, Object> submap = new TreeMap<>();
-				map.put("subblocks", submap);
-				for (int i = 0; i < subblocks.size(); i++) {
-					Map<String, Object> m = new TreeMap<>();
-					submap.put(subblocks.get(i).getNameOrID(), m);
-					subblocks.get(i).map(m);
-				}
-			}
-			if (pages != null) {
-			    List<Object> pageList = new ArrayList<>();
-				map.put("pages", pageList);
-				for (int i = 0; i < pages.size(); i++) {
-					Map<String, Object> m = new TreeMap<>();
-					pageList.add(m);
-					pages.get(i).map(m);
-				}
-			}
-		}
-
-		public int getSubblockCount() {
-			return (subblocks == null ? 0 : subblocks.size());
-		}
-
-	}
-
-	public void peekBufferInts(int n) {
-		markBuffer();
-		for (int i = 0; i < n; i++) {
-			getInt();
-		}
-		resetBuffer();
-	}
-
+	/**
+	 * Dump the contents as a list of 64-bit floating-point numbers.
+	 *  
+	 * @param loc
+	 * @param len
+	 * @param fname
+	 * @throws IOException
+	 */
 	public void extractDoubles(long loc, int len, String fname) throws IOException {
 		boolean t = testing;
 		testing = false;
@@ -1506,6 +1543,14 @@ public class ByteBlockReader {
 		testing = t;
 	}
 
+	/**
+	 * Dump the contents as a list of integers.  
+	 * 
+	 * @param loc
+	 * @param len
+	 * @param fname
+	 * @throws IOException
+	 */
 	public void extractInts(long loc, int len, String fname) throws IOException {
 		boolean t = testing;
 		testing = false;
