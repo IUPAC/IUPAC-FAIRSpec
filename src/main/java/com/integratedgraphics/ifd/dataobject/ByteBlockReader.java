@@ -135,7 +135,7 @@ public class ByteBlockReader {
 		private int globalPtr;
 		public int localIndex;
 		public long loc;
-		public long len;
+		private long len;
 		Stack<BlockData> subblocks;
 		BlockData parent;
 		int dataBlockCount;
@@ -168,7 +168,7 @@ public class ByteBlockReader {
 		public BlockData(long loc, long len, String name) {
 			this.name = name;
 			this.loc = loc;
-			this.len = len;
+			setLength(len);
 			globalPtr = nBlocks++;			
 		}
 
@@ -189,7 +189,7 @@ public class ByteBlockReader {
 		   if (pages == null)
 			   pages = new ArrayList<BlockData>();
 		   pages.add(bd);
-		   
+		   len += bd.len;
 		}
 		
 		public void addSubblock(BlockData bd) {
@@ -327,7 +327,19 @@ public class ByteBlockReader {
 		public long next() {
 			return loc + len;
 		}
-	}
+
+		public Stack<BlockData> getSubblocks() {
+			return subblocks;
+		}
+
+		public void setLength(long l) {
+			len = l;
+		}
+
+		public long getLength() {
+			return len;
+		}
+}
 	
 	public ByteBlockReader(InputStream in) throws IOException {
 		this(FAIRSpecUtilities.getLimitedStreamBytes(in, -1, null, true, true));
@@ -597,11 +609,6 @@ public class ByteBlockReader {
 			System.out.println(msg);
 		else 
 			sbOut.append(msg).append('\n');
-	}
-
-	private String toHex(byte b) {
-		String s = Integer.toHexString(b + 0xFF00).toUpperCase();
-		return "0x" + s.substring(s.length() - 2);
 	}
 
 	private String toHex(int i) {
@@ -1489,7 +1496,7 @@ public class ByteBlockReader {
 			long ptr = ptrStack.pop().longValue();
 			long len = ptr - ptNext;
 			if (ptr > pos1) {
-				// setting negative len
+				// setting negative len indicates abandon this
 				len = -len;
 			}
 			BlockData bd = new BlockData(ptNext, len);
@@ -1508,8 +1515,9 @@ public class ByteBlockReader {
 		while (e.hasMoreElements()) {
 			BlockData obj = e.nextElement();
 			System.out.println("obj " + ++i + " " + obj);
-			if (obj.len < max)
-				peekIntsAt(obj.loc, (int) obj.len/4);
+			long len = obj.getLength();
+			if (len < max)
+				peekIntsAt(obj.loc, (int) (len/4));
 		}
 	}
 
@@ -1529,8 +1537,7 @@ public class ByteBlockReader {
 		if (byteShift > 0) {
 			bdParent.addSubblock(new BlockData(getPosition(), byteShift, "block" + ++n));
 		}
-		bdParent.seek();
-		skipIn(byteShift);
+		skipIn(Math.abs(byteShift));
 		long ptNext = -1;
 		long ptEnd = bdParent.next();
 		long pt0;
@@ -1561,7 +1568,7 @@ public class ByteBlockReader {
 			BlockData bdlast = s.get(s.size() - 1);
 			ptNext = bdlast.next(); 							
 		}
-		block.len = ptNext - pt0;
+		block.setLength(ptNext - pt0);
 		bdParent.addSubblock(block);
 		return ptNext;
 	}
