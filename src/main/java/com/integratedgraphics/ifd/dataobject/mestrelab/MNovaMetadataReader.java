@@ -1204,7 +1204,6 @@ class MNovaMetadataReader extends ByteBlockReader {
 		}
 		getFileStructurePages(isNew);
 		fileStructure.setPaths(null);
-		testFileStructure();
 	}
 
 	private Object getFileStructureForJSON() {
@@ -1320,6 +1319,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 				return false;
 			}
 			System.out.println("MNova file closed for " + filename);			
+			rdr.testFileStructure();
 			rdr.writeToFile("out", new String(rdr.getFileStructureStr().toString()).getBytes());
 			if (rdr.reportData != null) {
 				IFDDefaultJSONSerializer serializer = new IFDDefaultJSONSerializer();
