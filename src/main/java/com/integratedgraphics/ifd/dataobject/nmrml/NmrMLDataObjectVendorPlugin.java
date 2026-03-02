@@ -13,6 +13,10 @@ public abstract class NmrMLDataObjectVendorPlugin extends NMRVendorPlugin {
 
 	private static Map<String, String> ifdMap = new HashMap<>();
 
+	public NmrMLDataObjectVendorPlugin() {
+		super();
+	}
+	
 	static {
 		String[] keys = { //
 				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_DIMENSION"), //prop

@@ -142,7 +142,7 @@ class IFDExtractor {
 		newOptionVal(options, '\0', "pubURL", "publication URL", "PUBURL", false);
 
 		// assetsonly -a
-		newOption(options, 'a', "assetsOnly", "Assets Only");
+		newOption(options, 'a', "assetsOnly", "assets only; JavaScript/HTML has changed, so just rebuild website; don't actually process any files");
 
 		// addPublicationMetadata -A
 		newOption(options, 'A', "addPublicationMetadata",
@@ -188,7 +188,7 @@ class IFDExtractor {
 		newOption(options, 's', "noStopOnFailure", "Continue if there is an error");
 
 		// nodownload -x
-		newOption(options, 'x', "noDownload", "For crawler only: do not download files from the repository");
+		newOption(options, 'x', "noDownload", "For crawler, do not download files from the repository; for extractor download data files only if necessary");
 
 		// crawl -W
 		newOption(options, 'W', "crawler", "Run the crawler");
@@ -198,6 +198,10 @@ class IFDExtractor {
 
 		// nozip -z
 		newOption(options, 'z', "noZip", "Don't zip up the target directory");
+
+		// analyze only
+		newOption(options, '\0', "analyzeOnly", "Analyze the dataset only -- no finding aid or FAIRSpec collection creation");
+
 
 		// Group for public information
 		OptionGroup pubInfoGroup = new OptionGroup();

@@ -103,6 +103,8 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	}
 
 	private void writeContents() {
+		if (noOutput)
+			return;
 		StringBuilder sb = new StringBuilder();
 		 for (String k : htArchiveContents.keySet()) {
 			 sb.append(k).append('\n');
@@ -138,6 +140,8 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	}
 
 	private void outputListJSON(String name, File file) throws IOException {
+		if (noOutput)
+			return;
 		int[] ret = new int[1];
 		String json = helper.getFileListJSON(name, rootLists, resourceList, extractScriptFile.getName(), ret);
 		writeBytesToFile(json.getBytes(), file);

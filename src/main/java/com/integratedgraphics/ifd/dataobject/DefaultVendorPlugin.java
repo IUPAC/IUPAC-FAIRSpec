@@ -55,6 +55,13 @@ public abstract class DefaultVendorPlugin implements DataObjectVendorPluginI {
 	 * 
 	 */
 	protected String rezipRegex;
+	
+	/**
+	 * a second regex expression that will trigger rezipping if the first is not found. 
+	 * Case in point is Bruker data with just acqu and fid. 
+	 * 
+	 */
+	protected String rezipRegex2;
 
 	/**
 	 * whether or not this vendor plugin is involved in rezipping currently

@@ -42,6 +42,9 @@ import com.integratedgraphics.html.PageCreator;
  */
 public class ExtractorTestACS extends ExtractorTest {
 
+	/**
+	 * ??
+	 */
 	private static boolean acsAssetsOnly = false;//true;
 	
 	/**

@@ -331,7 +331,7 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 		boolean isDerived = key.startsWith("!");
 		String k = ifdMap.get(isDerived ? key.substring(1) : key);
 		// TODO? but not all keys are like this key = "MNova_" + key;
-		if (k == null && key.equals("Page_Header")) {
+		if (k == null && key.equals(MNovaMetadataReader.PAGE_TITLE)) {
 			addProperty(IFDConst.IFD_PROPERTY_DESCRIPTION, val);
 			addProperty(IFDExtractorMain.PAGE_ID_PROPERTY_SOURCE, val);
 		}
