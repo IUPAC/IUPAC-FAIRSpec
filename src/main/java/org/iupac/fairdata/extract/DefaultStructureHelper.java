@@ -66,6 +66,11 @@ public class DefaultStructureHelper implements PropertyManagerI {
 	 */
 	private MetadataReceiverI extractor;
 
+	@Override
+	public void setExtractor(MetadataReceiverI extractor) {
+		this.extractor = extractor;
+	}
+
 	private Viewer jmolViewer;
 
 	/**

@@ -83,6 +83,11 @@ public abstract class DefaultVendorPlugin implements DataObjectVendorPluginI {
 	}
 	
 	@Override
+	public void setExtractor(MetadataReceiverI extractor) {
+		this.extractor = extractor;
+	}
+
+	@Override
 	public void setIndex(int index) {
 		this.index = index;
 	}

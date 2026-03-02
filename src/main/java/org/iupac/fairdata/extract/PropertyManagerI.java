@@ -71,4 +71,6 @@ public interface PropertyManagerI {
 	 */
 	boolean isDerived();
 
+	void setExtractor(MetadataReceiverI extractor);
+
 }

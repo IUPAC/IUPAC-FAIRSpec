@@ -279,7 +279,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	private String thisCompoundDirID;
 	private String thisStructureDirID;
 	private String lastLocalClonedParent;
-	
+
 	/**
 	 * The main extraction phase. Find and extract all objects of interest from a
 	 * ZIP file.
@@ -627,7 +627,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			boolean doCheck = (v != null);
 			boolean isStructure = (doCheck && v == structurePropertyManager);
 			boolean doExtract = (!doCheck || v.doExtract(originPath));
-
 //			1. we don't have params, but we want the file extracted 
 //		      - generic file, just save it.  doExtract and not doCheck
 //			2. we have params and there is extraction
@@ -712,7 +711,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		if (rezipCachePattern != null && (m = rezipCachePattern.matcher(originPath)).find()) {
 
 			// e.g. exptno/pdata/1/procs or xxxx/xxx/fid.zip|procs
-			
+
 			DataObjectVendorPluginI v = phase2aGetVendorForRezip(m);
 			originPath = m.group("path" + v.getIndex());
 			if (originPath.equals(lastRezipPath)) {
@@ -726,14 +725,12 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				String basePath = (validDir != null ? originPath
 						: baseOriginPath.endsWith("|") && isTopZipDir(originPath)
 								? baseOriginPath.substring(0, baseOriginPath.length() - 1)
-							// else 
+								// else
 								: getFileParent(originPath) + "/");
 				String newZipPath = (validDir == null ? originPath + "1/" : originPath);
 				String localPath = localizePath(newZipPath);
-				CacheRepresentation rep = new CacheRepresentation(new IFDReference(faHelper.getCurrentSource().getID(), originPath, extractorResource.rootPath,
-						localPath),
-						v,
-						len, null, "application/zip");
+				CacheRepresentation rep = new CacheRepresentation(new IFDReference(faHelper.getCurrentSource().getID(),
+						originPath, extractorResource.rootPath, localPath), v, len, null, "application/zip");
 				// if this is a zip file, the data object will have been set to xxx.zip
 				// but later we might give this up
 				rep.setRezipOrigin(basePath);
@@ -961,7 +958,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		// xxx.zip/zzz/2/pdata --> xxx_1.zip/2/pdata (ICL; localname xxx.zip)
 
 		String entryName = entry.getName();
-			
+
 		boolean isDir = (entry.isDirectory());
 		String dirName = (isDir ? entryName : entryName.substring(0, entryName.lastIndexOf('/') + 1));
 		// dirName = 63/ ok
@@ -980,7 +977,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		int lenOffset = (parent == null ? 0 : parent.length() + 1);
 		// because Bruker directories must start with a number
 		// xxx/1/ is OK
-		// yyy.zip|xxx/ is not 
+		// yyy.zip|xxx/ is not
 		int pt = dirName.length() - 1;
 		String thisDir = (lenOffset < pt ? dirName.substring(lenOffset, pt) : "");
 		String newDir = rezipVendor.getRezipPrefix(dirName);
@@ -998,14 +995,16 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			if (obj == null) {
 				if (isDir) {
 					// was a directory
-					obj = getObjectFromLocalizedName(localizePath(getFileParent(originPath) + "/"), IFDConst.IFD_DATAOBJECT_FLAG);
+					obj = getObjectFromLocalizedName(localizePath(getFileParent(originPath) + "/"),
+							IFDConst.IFD_DATAOBJECT_FLAG);
 				}
 				if (obj == null && baseName.endsWith("|")) {
 					// was a zip file
-					obj = getObjectFromLocalizedName(localizePath(baseName.substring(0, baseName.length() - 1)), IFDConst.IFD_DATAOBJECT_FLAG);
-				} 
-				if (obj == null) {	
-					System.out.println(htLocalizedNameToObject.toString().replace(',','\n') + "?");
+					obj = getObjectFromLocalizedName(localizePath(baseName.substring(0, baseName.length() - 1)),
+							IFDConst.IFD_DATAOBJECT_FLAG);
+				}
+				if (obj == null) {
+					System.out.println(htLocalizedNameToObject.toString().replace(',', '\n') + "?");
 					log("! phase2cRezipEntry could not find object for " + lNameForObj + "\n REASON: "
 							+ extractScriptFile + " does not catch this recognized " + rezipVendor.getVendorName()
 							+ " pattern" + "\n ignoring this dataset");
@@ -1026,7 +1025,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				// but any later spectrum must have this
 				String ext = (localParent.equals(lastLocalClonedParent) ? "_" + thisDir : "");
 				lastLocalClonedParent = localParent;
-				obj = helper.cloneData((IFDDataObject) obj, ext, true);
+				obj = cloneData((IFDDataObject) obj, ext, true);
 			}
 			if (originPath.endsWith(".zip")) {
 				if (lenOffset > 0) {
@@ -1174,8 +1173,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * 
 	 * parent of /test/1/ is /test
 	 * 
-	 * parent of xxx.zip|test is  xxx.zip|test ??  
-	 * parent of /test/xxx.zip|test is /test/ ??
+	 * parent of xxx.zip|test is xxx.zip|test ?? parent of /test/xxx.zip|test is
+	 * /test/ ??
 	 * 
 	 * @param entryName
 	 * @return
@@ -1234,10 +1233,10 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 			assoc = null;
 			final String originPath = dp.originPath;// a[0]
-			
+
 			if (originPath != null && originPath.indexOf(".cdxml") >= 0)
 				System.out.println("???" + originPath + dp.key + " " + dp.value);
-			
+
 			String localizedName = dp.localizedName;// a[1]
 			final String key = dp.key;// a[2];
 			Object value = dp.value;// a[3];
@@ -1408,8 +1407,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					// or MNova extract
 				}
 				// specToClone.dumpProperties("local");
-				newSpec = faHelper.cloneData(specToClone, idExtension, replaceOld);
-				phase2AddCloneMap(specToClone, newSpec);
+				newSpec = cloneData(specToClone, idExtension, replaceOld);
 				spec = localSpec = newSpec;
 				// newSpec.dumpProperties("new");
 				struc = faHelper.getFirstStructureForSpec(localSpec, assoc == null);
@@ -1535,9 +1533,10 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				if (key.equals(FAIRSpecExtractorHelper.DATAOBJECT_ORIGINATING_SAMPLE_ID)) {
 					helper.addSpecOriginatingSampleRef(extractorResource.rootPath, localSpec, (String) value);
 				}
-				if(key == IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_TIMESTAMP) {
+				if (key == IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_TIMESTAMP) {
 					phase2AddSpectraToTimeStampHashMap(localSpec, (Long) value);
 				}
+				System.out.println("adding " + key + " value " + value + " to " + localSpec + " " + originPath);
 				phase2dSetPropertyIfNotAlreadySet(localSpec, key, value, originPath);
 
 			}
@@ -1550,6 +1549,12 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			// but why is it the lastLocal?
 			vendorCache.remove(lastLocal);
 		}
+	}
+
+	private IFDDataObject cloneData(IFDDataObject specToClone, String idExtension, boolean replaceOld) {
+		IFDDataObject newSpec = faHelper.cloneData(specToClone, idExtension, replaceOld);
+		phase2AddCloneMap(specToClone, newSpec);
+		return newSpec;
 	}
 
 	private static String inferCompoundID(String s) {
@@ -1600,7 +1605,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	protected IFDRepresentableObject<?> getCloned(IFDRepresentableObject<?> oldSpec) {
 		return htCloneMap.get(oldSpec.getIDorIndex());
 	}
-	
+
 	private void phase2dSetPropertyIfNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath) {
 		Object currentValue = faHelper.setPropertyValueNotAlreadySet(obj, key, value, originPath);
 		if (currentValue != null && !currentValue.equals(value)) {
@@ -1615,7 +1620,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 		}
 	}
-	
+
 	/**
 	 * Use a 30-minute hash to group spectra into initial bins. Later, we will check
 	 * more carefully.
@@ -1625,15 +1630,15 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * @return
 	 */
 	protected IFDDataObject phase2AddSpectraToTimeStampHashMap(IFDDataObject obj, Long time) {
-		Integer timeStamp = Integer.valueOf((int) (time % 1800)); // 30-min intervals	
-		if (timestampSpectraObjectHashMap == null) 
+		Integer timeStamp = Integer.valueOf((int) (time % 1800)); // 30-min intervals
+		if (timestampSpectraObjectHashMap == null)
 			timestampSpectraObjectHashMap = new HashMap<>();
 		ArrayList<IFDDataObject> objList = timestampSpectraObjectHashMap.get(timeStamp);
-	    if (objList == null) {
-	    	timestampSpectraObjectHashMap.put(timeStamp, objList = new ArrayList<>());
-	    }
-	    objList.add(obj);
-	    return obj;
+		if (objList == null) {
+			timestampSpectraObjectHashMap.put(timeStamp, objList = new ArrayList<>());
+		}
+		objList.add(obj);
+		return obj;
 	}
 
 	private void phase2eIterate() throws MalformedURLException, IOException, IFDException {

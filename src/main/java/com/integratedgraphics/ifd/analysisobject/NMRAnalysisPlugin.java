@@ -16,6 +16,11 @@ public class NMRAnalysisPlugin extends DefaultAnalysisPlugin {
 
 	
 	@Override
+	public void setExtractor(MetadataReceiverI extractor) {
+		this.extractor = extractor;
+	}
+
+	@Override
 	public String getParamRegex() {
 		// TODO Auto-generated method stub
 		return null;

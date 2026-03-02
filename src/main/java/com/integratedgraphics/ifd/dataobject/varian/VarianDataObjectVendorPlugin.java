@@ -20,7 +20,7 @@ public class VarianDataObjectVendorPlugin extends NmrMLDataObjectVendorPlugin {
 		// such as pdata/1/procs. We do not add the "/" before pdata, because that could
 		// be the| symbol, and that will be attached by IFDDefaultVendorPlugin in
 		// super.getRezipRegex()
-		rezipRegex = "fid$";
+		rezipRegex = "procpar$";
 
 
 	}
