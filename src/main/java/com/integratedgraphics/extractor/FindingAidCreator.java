@@ -803,6 +803,11 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		return htStructureRepCache.get(w);
 	}
 
+	/**
+	 * cache the structure bytes
+	 * 
+	 * @return true if the structure is already in the cache
+	 */
 	@Override
 	public boolean hasStructureFor(byte[] bytes) {
 		if (bytes == null)

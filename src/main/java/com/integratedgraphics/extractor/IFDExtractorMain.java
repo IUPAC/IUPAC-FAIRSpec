@@ -71,7 +71,7 @@ public class IFDExtractorMain extends IFDExtractorLayer3 {
 
 	private static final String debugFlags = "-sttxEnuropAfter=end";
 
-	public static final String PAGE_ID_PROPERTY_SOURCE = "*idf.property.compound.id.source*";
+	
 
 // not avaialable -- see IFDExtractor
 //	

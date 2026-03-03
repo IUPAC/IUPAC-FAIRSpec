@@ -1167,6 +1167,4 @@ public class ExtractorUtils {
 		path = fixPath(path, false);
 		return path.replace('\\', '_').replace('/', '_');
 	}
-
-
 }

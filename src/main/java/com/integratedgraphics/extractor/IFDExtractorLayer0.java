@@ -204,7 +204,12 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 */
 	protected List<ObjectParser> objectParsers;
 
+	/**
+	 *  not implemented
+	 */
 	protected ObjectParser compoundDirParser, structureDirParser;
+
+	
 	protected boolean haveDirParser;
 	
 	/**

@@ -38,21 +38,38 @@ public class DefaultStructureHelper implements PropertyManagerI {
 
 	private static final String defaultStructureFilePattern = IFDConst.getProp("IFD_DEFAULT_STRUCTURE_FILE_PATTERN");;
 
+	private static boolean generate3D = false;
+	
 	public static class StructureData {
+		public int id;
 		public byte[] bytes;
+		public byte[] pngBytes;
 		public String originPath;
 		public String type;
 		public String standardInChI;
+		public String fixedHInChI;
 		public String mediaType;
 		public String cssData;
+		public String molData;
+		public byte[] cdxData;
+		public String mol2dData;
+		public String smiles;
+		public String molecularFormula;
+		public String warning;
+		public String note;
+		public String cellFormula;
+		public String empiricalFormula;
+		public String inchiKey;
+		
 		
 		@Override
 		public String toString() {
 			return "[SD " + bytes.length + " " + originPath + " " + mediaType + " " + standardInChI + "]";
 		}
 
-		public StructureData(byte[] bytes, String originPath, String type, String standardInChI, String mediaType, String cssData) {
+		public StructureData(int id, byte[] bytes, String originPath, String type, String standardInChI, String mediaType, String cssData) {
 			this.bytes = bytes;
+			this.id = id;
 			this.originPath = originPath;
 			this.type = type;
 			this.standardInChI = standardInChI;
@@ -61,6 +78,8 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		}
 
 	}
+	
+	static int nid = 0;
 	/**
 	 * the associated extractor
 	 */
@@ -95,16 +114,13 @@ public class DefaultStructureHelper implements PropertyManagerI {
 
 	private Map<String, String> fileToType = new HashMap<>();
 
-	private boolean createRepresentation;
-
 	/**
+	 * Q: Why does extractor==null (in Phase 2c) negate "embedded"?
 	 */
 	@Override
 	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
-System.out.println("DFH " + bytes.length + " " + originPath);
 		this.extractor = extractor;
-		createRepresentation = (extractor != null); 
-		return processStructureRepresentation(originPath, bytes, null, null, createRepresentation, false);
+		return processStructureRepresentation(null, originPath, bytes, (extractor != null));
 	}
 	
 	protected Viewer getJmolViewer() {
@@ -129,6 +145,8 @@ System.out.println("DFH " + bytes.length + " " + originPath);
 	}
 
 	String jmolVersion = null;
+
+	private StructureData currentStructureData;
 
 	/**
 	 * create associations using ID rather than index numbers
@@ -164,167 +182,248 @@ System.out.println("DFH " + bytes.length + " " + originPath);
 		return null; // n/a
 	}
 
-	public String processStructureRepresentation(String originPath, byte[] bytes, String type, String standardInChI,
-			boolean isEmbedded, boolean returnInChI) {
+	private String processStructureRepresentation(StructureData sd, String originPath, byte[] bytes,
+			boolean isEmbedded) {
+		String type = (sd == null ? null : sd.type);
 		if (type == null) {
 			type = fileToType.get(originPath);
 			if (type != null)
-				return (returnInChI ? null : type);
+				return type;
+		}
+		if (sd != null) {
+			originPath = sd.originPath;
+			bytes = sd.bytes;
 		}
 		String ext = originPath.substring(originPath.lastIndexOf('.') + 1);
 		if (type == null)
 			type = getType(ext, bytes, true);
-		String smiles = null, fixedhInchi = null, inchiKey = null, molecularFormula = null, cellFormula = null,
-				empiricalFormula = null;
 		boolean isCIF = ext.equals("cif");
 		boolean isCDXML = !isCIF && ext.equals("cdxml");
 		boolean isCDX = !isCIF && ext.equals("cdx");
 		boolean isCML = ext.equals("cml");
-		String note = null, warning = null;
-		// We use Jmol for reading all files and creating standard and hydrogen-only InChI and InChIKeys
-		
-		// We use CDK for creating the images and converting SMILES to "canonical" smiles and to InChI
-		
-		if (isCIF || isCDX || isCDXML || isCML || ext.equals("mol") || ext.equals("sdf")) {
+		// We use Jmol for reading all files and creating standard and hydrogen-only
+		// InChI and InChIKeys
+
+		// We use CDK for creating the images and converting SMILES to "canonical"
+		// smiles and to InChI
+		boolean isMol = false;
+		if (isCIF || isCDX || isCDXML || isCML || (isMol = ext.equals("mol") || ext.equals("sdf"))) {
 			try {
-				String data = (isCDX ? ";base64," + Base64.getBase64(bytes) : new String(bytes));
-				//System.out.println(data);
 				Viewer v = getJmolViewer();
-				String s = "set allowembeddedscripts false;load DATA \"model\"\n" + data
-						+ "\nend \"model\" 1 FILTER 'no3D;noHydrogen'";
-				s = v.scriptWait(s);
-				int pt = s.indexOf("Warning:");
-				warning = (pt >= 0 ? s.substring(pt, s.indexOf("\\n", pt)) : null);
+				String data = (isCDX ? ";base64," + Base64.getBase64(bytes) : new String(bytes));
+				// System.out.println(data);
+				// sd may come from MNova
+				if (sd == null || sd != currentStructureData) {
+					sd = getDeferredStructureData(++nid, bytes, originPath, type, null,
+							IFDConst.getMediaTypesForExtension(ext));
+					System.out.println("Jmol for " + originPath);
+					// this first load will not create a 3D structure and will not adda any H atoms
+					// it is for a test of 2D; it is NOT suitabble for InChI if this is a 2D no-H
+					// model
+					String s = "set allowembeddedscripts false;load DATA \"model\"\n" + data
+							+ "\nend \"model\" 1 FILTER 'no3D;noHydrogen'";
+					s = v.scriptWait(s);
+					int pt = s.indexOf("Warning:");
+					sd.warning = (pt >= 0 ? s.substring(pt, s.indexOf("\\n", pt)) : null);
+				}
 				BS atoms = v.bsA();
-				if (standardInChI == null)
-					standardInChI = v.getInchi(atoms, null, null);
-				if (standardInChI == null)
-					extractor.log("! InChI could not be created for " + originPath);
-				System.out.println(originPath + " ???? " + standardInChI);
+
+				boolean hasBonds;
+				if (isCIF) {
+					hasBonds = v.getCurrentModelAuxInfo().containsKey("hasBonds");
+					sd.standardInChI = "?";
+				} else {
+					hasBonds = true;
+					if (sd.warning == null && sd.smiles == null) {
+						sd.smiles = v.getSmilesOpt(atoms, 0, 0, 0, "/noaromatic/");
+						sd.molecularFormula = v.evaluateExpression("{1.1 && configuration=1}.find('SMILES','MF')")
+								.toString();
+					}
+					if (sd.smiles == null || sd.smiles.indexOf("Xx") >= 0) {
+						extractor.log("! DefaultStructureHelper WARNING: SMILES could not be created for " + originPath
+								+ " MF=" + sd.molecularFormula);
+						sd.smiles = null;
+						sd.molecularFormula = null;
+					}
+				}
+
+				boolean is2D = "2D".equals(v.getCurrentModelAuxInfo().get("dimension"));
+				// We use noaromatic here because we want a
+				// target SMILES, not a substructure smiles.
+				// Targets with aromatic atoms must match aromatic atoms exactly
+				
+				if (sd.mol2dData == null) {
+					if (isCDXML || isCDX) {
+						// issue here is that these may be quite unviewable.
+						String molData = (String) v.evaluateExpression("write('MOL')");
+						if (molData != null && molData.indexOf("2D") >= 0)
+							sd.mol2dData = molData;
+					} else if (isMol) {
+						if (is2D)
+							sd.mol2dData = new String(bytes);
+					}
+				}
+				
+				IAtomContainer mol = null;
+				
+				if (sd.pngBytes == null) {
+					if (isCIF) {
+						if (hasBonds) {
+							v.scriptWait("configuration 1;display selected;set zshade;rotate best;refresh");
+							sd.molecularFormula = v.evaluateExpression("{visible && configuration=1}.find('MF')")
+									.toString();
+							sd.pngBytes = v.getImageAsBytes("png", 500, 500, -1, new String[1]);
+						}
+						v.scriptWait("load DATA \"model\"\n" + data
+								+ "\nend \"model\" 1 packed;configuration 1;display selected;set zshade;rotate best");
+						sd.cellFormula = v
+								.evaluateExpression(
+										"{visible && configuration=1 && within(unitcell)}.find('CELLFORMULA')")
+								.toString();
+						sd.empiricalFormula = v
+								.evaluateExpression(
+										"{visible && configuration=1 && within(unitcell)}.find('CELLFORMULA', true)")
+								.toString();
+						if (sd.pngBytes == null) {
+							sd.pngBytes = v.getImageAsBytes("png", 500, 500, -1, new String[1]);							
+						}
+					} else if (sd.smiles != null) {
+						mol = getCDKSmiles(sd, mol);
+						ByteArrayOutputStream bos = new ByteArrayOutputStream();
+						writeCDKMoleculePNG(mol, bos);
+						sd.pngBytes = bos.toByteArray();
+					} else if (!is2D) {
+						sd.pngBytes = v.getImageAsBytes("png", 500, 500, -1, new String[1]);
+					}
+				}
+
+
+				if (sd.smiles != null && sd.standardInChI == null) {
+					if (getCDKInchi(mol, sd) == null) {
+						sd.standardInChI = "?";
+						extractor.log("! DefaultStructureHelper WARNING: InChI could not be created for " + originPath);
+					};
+				}
+
+				if (sd.molData == null && generate3D) {
+					if (is2D && generate3D) {
+						// generate 3D model
+						String s = "set allowembeddedscripts false;load DATA \"model\"\n" + data + "\nend \"model\" 1";
+						v.scriptWait(s);
+						is2D = false;
+						atoms = v.bsA();
+					}
+					if (isCDXML || isCDX) {
+						// issue here is that these may be quite unviewable.
+						String molData = (String) v.evaluateExpression("write('MOL')");
+						if (molData != null && molData.indexOf("2D") < 0)
+							sd.molData = molData;
+					} else if (isMol) {
+						if (!is2D)
+							sd.molData = new String(bytes);
+					}
+				}
+
 				if (isEmbedded) {
-					// add the representation
+					// add the representation from an accept
 					String stype = (isCIF ? CIF_FILE_DATA
 							: isCDXML ? CDXML_FILE_DATA
 									: isCDX ? CDX_FILE_DATA : isCML ? CML_FILE_DATA : MOL_FILE_DATA);
-					// We use noaromatic here because we want a
-					// target SMILES, not a substructure smiles.
-					// Targets with aromatic atoms must match aromatic atoms exactly
-					extractor
-							.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(stype,
-									getDeferredObject(bytes, originPath, type, standardInChI, IFDConst.getMediaTypesForExtension(ext)),
-									false, null, warning));
-					return (returnInChI ? standardInChI : stype);
+					extractor.addDeferredPropertyOrRepresentation(
+							DeferredProperty.newStructureRep(stype, sd, false, null, sd.warning));
+					return stype;
 				}
-				note = (warning == null ? "generated from " + originPath + " by Jmol " + jmolVersion : warning);
-				boolean is2D = "2D".equals(v.getCurrentModelAuxInfo().get("dimension"));
-				if (isCIF) {
-					if (v.getCurrentModelAuxInfo().containsKey("hasBonds")) {
-						v.scriptWait("configuration 1;display selected;set zshade;rotate best;refresh");
-						molecularFormula = v.evaluateExpression("{visible && configuration=1}.find('MF')").toString();
-						bytes = v.getImageAsBytes("png", 500, 500, -1, new String[1]);
-					}
-					v.scriptWait("load DATA \"model\"\n" + data
-							+ "\nend \"model\" 1 packed;configuration 1;display selected;set zshade;rotate best");
 
-					cellFormula = v.evaluateExpression("{visible && configuration=1 && within(unitcell)}.find('CELLFORMULA')").toString();
-					empiricalFormula = v.evaluateExpression("{visible && configuration=1 && within(unitcell)}.find('CELLFORMULA', true)")
-							.toString();
-				} else {
-					bytes = null;
-					// We use noaromatic here because we want a
-					// target SMILES, not a substructure smiles.
-					// Targets with aromatic atoms must match aromatic atoms exactly
-					if (warning == null) {
-						smiles = v.getSmilesOpt(atoms, 0, 0, 0, "/noaromatic/");
-						molecularFormula = v.evaluateExpression("{1.1 && configuration=1}.find('SMILES','MF')")
-								.toString();
-					}
-					if (smiles == null || smiles.indexOf("Xx") >= 0) {
-						extractor.log("! DefaultStructureHelper WARNING: SMILES could not be created for " + originPath
-								+ " MF=" + molecularFormula);
-						smiles = null;
-						molecularFormula = null;
-					} else {
-						if (standardInChI == null) {
-							extractor.log("! DefaultStructureHelper WARNING: InChI could not be created for "
-									+ originPath);
-						} else {
-							fixedhInchi = v.getInchi(atoms, null, "fixedh");
-							inchiKey = v.getInchi(atoms, null, "key");
-						}
-					}
-					// using SMILES here to get implicit H count
-					String mol2d = null;
-					if (isCDXML || isCDX) {
-						// issue here is that these may be quite unviewable.
-						mol2d = (String) v.evaluateExpression("write('MOL')");
-						if (mol2d != null && mol2d.indexOf("2D") >= 0)
-							extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(IFDConst.IFD_REP_STRUCTURE_MOL_2D,
-									getDeferredObject(mol2d.getBytes(), originPath + ".mol" , null, standardInChI, null), false,
-									"chemical/x-mdl-molfile", note));
-					}
-//					if (is2D) {
-//						JMEJmol jme = (JMEJmol) org.jmol.api.Interface.getInterface("jme.JMEJmol", v, "FAIRSpec");
-//						jme.options("headless");
-//						jme.readMolFile(mol2d == null ? data : mol2d);
-//						bytes = jme.toBorderedPNG(null, 10, 10);
-//					}
-					if (is2D && smiles != null) {
-						IAtomContainer mol = CDK.getCDKMoleculeFromSmiles(smiles);
-						smiles = getCDKSmiles(smiles, mol);
-						ByteArrayOutputStream bos = new ByteArrayOutputStream();
-						writeCDKMoleculePNG(mol, bos);
-						bytes = bos.toByteArray();
-					}
-				}
-				if (bytes == null && !is2D) {
-					bytes = v.getImageAsBytes("png", 500, 500, -1, new String[1]);
-				}
+			
 			} catch (Exception e) {
 				extractor.log("!! Jmol error generating "
-						+ (smiles == null ? "SMILES" : standardInChI == null ? "InChI" : "InChIKey") + " for "
+						+ (sd.smiles == null ? "SMILES" : sd.standardInChI == null ? "InChI" : "InChIKey") + " for "
 						+ originPath);
 				jmolViewer = null;
+				currentStructureData = null;
 				e.printStackTrace();
 			}
-			if (standardInChI != null && !"?".equals(standardInChI)) {
-				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(STANDARD_INCHI, standardInChI, true, "chemical/x-inchi",
-						note));
-				if (fixedhInchi != null) {
-					extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(FIXEDH_INCHI, fixedhInchi, true, "chemical/x-inchi",
-							note));
-				}
-				if (inchiKey != null) {
-					extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(INCHIKEY, inchiKey, true, "chemical/x-inchikey", null));
-				}
-			} else {
-				standardInChI = null;
+			// add additional representations
+			sd.note = (sd.warning == null ? "generated from " + originPath + " by Jmol-SwingJS " + jmolVersion : sd.warning);
+			if (sd.mol2dData != null) {
+				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(
+						IFDConst.IFD_REP_STRUCTURE_MOL_2D, getDeferredStructureData(++nid, sd.mol2dData.getBytes(),
+								originPath + ".2d.mol", null, sd.standardInChI, null),
+						false, "chemical/x-mdl-molfile", sd.note));
 			}
-			if (smiles != null) {
-				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(SMILES, smiles, true, "chemical/x-smiles", note));
+			if (sd.molData != null) {
+				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(
+						IFDConst.IFD_REP_STRUCTURE_MOL, getDeferredStructureData(++nid, sd.mol2dData.getBytes(),
+								originPath + ".mol", null, sd.standardInChI, null),
+						false, "chemical/x-mdl-molfile", sd.note));
+			}
+			String note1 = (sd.warning == null ? sd.note + "/CDK-SwingJS" : sd.note);
+			if (sd.standardInChI != null && !"?".equals(sd.standardInChI)) {
+				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(STANDARD_INCHI,
+						sd.standardInChI, true, "chemical/x-inchi", note1));
+				if (sd.fixedHInChI != null) {
+					extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(FIXEDH_INCHI,
+							sd.fixedHInChI, true, "chemical/x-inchi", note1));
+				}
+				if (sd.inchiKey != null) {
+					extractor.addDeferredPropertyOrRepresentation(
+							DeferredProperty.newStructureRep(INCHIKEY, sd.inchiKey, true, "chemical/x-inchikey", note1));
+				}
+			}
+			if (sd.smiles != null) {
+				extractor.addDeferredPropertyOrRepresentation(
+						DeferredProperty.newStructureRep(SMILES, sd.smiles, true, "chemical/x-smiles", note1));
 			}
 			// .getFileType(Rdr.getBufferedReader(Rdr.getBIS(bytes), null));
-			if (bytes != null) {
-				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(IFDConst.IFD_REP_STRUCTURE_PNG,
-						getDeferredObject( bytes, originPath + ".png", IFDConst.IFD_REP_STRUCTURE_PNG, standardInChI, "image/png"),
-						false, "image/png", note));
+			if (sd.pngBytes != null) {
+				extractor.addDeferredPropertyOrRepresentation(
+						DeferredProperty.newStructureRep(IFDConst.IFD_REP_STRUCTURE_PNG,
+								getDeferredStructureData(nid++, sd.pngBytes, originPath + ".png",
+										IFDConst.IFD_REP_STRUCTURE_PNG, sd.standardInChI, "image/png"),
+								false, "image/png", (sd.mol2dData == null ? sd.note : note1)));
 			}
-			if (molecularFormula != null) {
-				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(MOLECULAR_FORMULA, molecularFormula, true, null, note));
+			if (sd.molecularFormula != null) {
+				extractor.addDeferredPropertyOrRepresentation(
+						DeferredProperty.newStructureRep(MOLECULAR_FORMULA, sd.molecularFormula, true, null, sd.note));
 			}
-			if (empiricalFormula != null) {
-				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(EMPIRICAL_FORMULA, empiricalFormula, true, null, note));
+			if (sd.empiricalFormula != null) {
+				extractor.addDeferredPropertyOrRepresentation(
+						DeferredProperty.newStructureRep(EMPIRICAL_FORMULA, sd.empiricalFormula, true, null, sd.note));
 			}
-			if (cellFormula != null) {
-				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(CELL_FORMULA, cellFormula, true, null, note));
+			if (sd.cellFormula != null) {
+				extractor.addDeferredPropertyOrRepresentation(
+						DeferredProperty.newStructureRep(CELL_FORMULA, sd.cellFormula, true, null, sd.note));
 			}
 		}
 		fileToType.put(originPath, type);
-		return (returnInChI ? standardInChI : type);
+		return type;
 	}
-	
-	private static String getCDKSmiles(String smiles, IAtomContainer mol) throws IOException {
-		return CDK.getSmilesFromCDKMolecule(mol);
+
+	private String getCDKInchi(IAtomContainer mol, StructureData sd) {
+		try {
+			if (mol == null)
+				mol = CDK.getCDKMoleculeFromSmiles(sd.smiles);
+			String s = CDK.getInChIFromCDKMolecule(mol, null);
+			if (s != null) {
+				sd.standardInChI = s;
+				sd.inchiKey = CDK.getInChIKey(mol, null);
+				sd.fixedHInChI = CDK.getInChIFromCDKMolecule(mol, "fixedh");
+			}
+			return s;
+		} catch (Exception e) {
+		}
+		return null;
+	}
+
+	private static IAtomContainer getCDKSmiles(StructureData sd, IAtomContainer mol) throws IOException {
+		try {
+			if (mol == null)
+				mol = CDK.getCDKMoleculeFromSmiles(sd.smiles);
+			sd.smiles = CDK.getSmilesFromCDKMolecule(mol);
+			return mol;
+		} catch (Exception e) {
+		}
+		return null;
 	}
 		
 	private static void writeCDKMoleculePNG(IAtomContainer mol, OutputStream os) throws IOException {
@@ -356,10 +455,11 @@ System.out.println("DFH " + bytes.length + " " + originPath);
 	 * @param mediaType
 	 * @return
 	 */
-	private static StructureData getDeferredObject(byte[] bytes, String originPath, String type, String standardInChI,
+	private StructureData getDeferredStructureData(int id, byte[] bytes, String originPath, String type, String standardInChI,
 			String mediaType) {
-		return new StructureData(bytes, originPath, type, 
-				(standardInChI == null ? "?" : standardInChI), mediaType, null);
+		currentStructureData = new StructureData(id, bytes, originPath, type, 
+				standardInChI, mediaType, null);
+		return currentStructureData;
 	}
 
 	/**
@@ -436,6 +536,10 @@ System.out.println("DFH " + bytes.length + " " + originPath);
 	@Override
 	public boolean isDerived() {
 		return false;
+	}
+
+	public void processStructureData(StructureData sd) {
+		processStructureRepresentation(sd, null, null, false);
 	}
 
 }

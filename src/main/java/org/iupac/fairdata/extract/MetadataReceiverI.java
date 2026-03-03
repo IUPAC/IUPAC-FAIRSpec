@@ -1,5 +1,7 @@
 package org.iupac.fairdata.extract;
 
+import java.util.Arrays;
+
 import org.iupac.fairdata.core.IFDFindingAid;
 import org.iupac.fairdata.core.IFDObject;
 
@@ -19,6 +21,19 @@ import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
 public interface MetadataReceiverI {
 
 	class DeferredProperty {
+
+		/**
+		 * 
+		 */
+		public final static String PAGE_ID_PROPERTY_SOURCE = "*idf.property.compound.id.source*";
+
+		/**
+		 * a key for the deferredObjectList that indicates we have a new resource
+		 * setting
+		 */
+		public final static String NEW_RESOURCE_KEY = "*NEW_RESOURCE*";
+
+
 		/**
 		 * a key for the deferredObjectList that flags a structure with a spectrum;
 		 * needs attention, as this was created prior to the idea of a compound
@@ -26,41 +41,69 @@ public interface MetadataReceiverI {
 		 * 
 		 */
 		public static final String NEW_PAGE_KEY = "*NEW_PAGE*";
-	
+
+		public String processNote;
 		public String originPath;
 		public String localizedName;
+
+		/**
+		 * representation or property key; the key "_struc" is used by a vendor plugin
+		 * to pass back both a file name and a byte array to create a new digital object
+		 * extracted from the original object, for example, from an MNova object
+		 * extraction; special keys include NEW_RESOURCE_KEY and NEW_PAGE_KEY
+		 */
 		public String key;
+		
+		/**
+		 * either a String value or an Object[] with elements byte[] and String name
+		 */
 		public Object value;
+
+		/**
+		 * representation data is being provided as inline-data, to be saved only in the
+		 * finding aid (InChI, SMILES, InChIKey)
+		 * 
+		 */
 		public boolean isInline;
+		
+		/**
+		 * mediaType a media type for a representation, or null
+		 */
 		public String mediaType;
 		public String note;
 		public byte[] bytes;
+		/**
+		 * origin path
+		 */
 		public String oPath;
+		/**
+		 * resource where this representation was found
+		 */
 		public ExtractorResource resource;
-		public boolean newPageDone;
-		public String sampleName;
-	
+
 		public DeferredProperty(String key, Object value) {
 			this.key = key;
 			this.value = value;
 		}
-	
+
 		public static DeferredProperty newPage(Object... value) {
 			DeferredProperty dp = new DeferredProperty(NEW_PAGE_KEY, value);
 			return dp;
 		}
 
-		public static DeferredProperty newStructureRep(String key, Object value, boolean isInline,
-				String mediaType, String note) {
+		public static DeferredProperty newStructureRep(String key, Object value, boolean isInline, String mediaType,
+				String note) {
 			DeferredProperty dp = new DeferredProperty(key, value);
 			dp.isInline = isInline;
 			dp.mediaType = mediaType;
 			dp.note = note;
 			return dp;
 		}
-		
+
+		@Override
 		public String toString() {
-			return "[DP " + key + " : " + value + "]";
+			return "[DP " + (processNote == null ? null : processNote + "\n  ") + key + " : " + (value instanceof Object[] ? Arrays.toString((Object[]) value) : value)
+					+ (key == NEW_RESOURCE_KEY ? resource.toString() : " ln=" + localizedName + " op=" + originPath + "]");
 		}
 	}
 
