@@ -2110,7 +2110,19 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		int pt = -1;
 		while ((pt = path.indexOf('|', pt + 1)) >= 0)
 			path = path.substring(0, pt) + ".." + path.substring(++pt);
-		return path.replace('/', '_').replace('#', '_').replace(' ', '_') + (isDir ? ".zip" : "");
+		return 
+				path.replace('/', '_')
+				.replace('#', '_')
+				.replace(' ', '_')
+				// Windows disallowed characters
+				.replace('\\', '_')
+				.replace('<', '_')
+				.replace('>', '_')
+				.replace(':', '_')
+				.replace('\"', '_')
+				.replace('?', '_')
+				.replace('*', '_')
+				+ (isDir ? ".zip" : "");
 	}
 
 //	static {

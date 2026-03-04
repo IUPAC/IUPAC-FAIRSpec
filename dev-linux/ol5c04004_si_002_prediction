@@ -1,0 +1,5 @@
+.
+./acs2_preprocessing.sh
+./dryad_preprocessing.sh
+./file_list_ol5c04004_si_002.txt
+./README.md

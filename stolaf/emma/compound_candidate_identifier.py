@@ -21,7 +21,7 @@ df = pd.DataFrame({"parts": path_parts})
 # create file paths with the zip files
 df["path_text_final"] = df["parts"].apply(lambda x: " / ".join(x))
 df["path_text_final"] = df["path_text_final"].str.replace(" / ", "/")
-df["path_text_final"] = df["path_text_final"].str.replace(".zip../", ".zip|")
+df["path_text_final"] = df["path_text_final"].str.replace(".zip__/", ".zip|")
 df["path_text_final"] = df["path_text_final"].str.replace("../test2/", "")
 
 # create clean file paths for analysis
