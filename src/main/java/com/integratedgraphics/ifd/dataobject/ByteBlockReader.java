@@ -83,8 +83,6 @@ public class ByteBlockReader {
 	protected int len;
 
 	
-	protected BlockData body;
-
 	private int nBlocks;
 
 	/**
@@ -134,42 +132,43 @@ public class ByteBlockReader {
 		public String name;
 		private int globalPtr;
 		public int localIndex;
-		public long loc;
-		private long len;
+		public long blockLoc;
+		private long blockLen;
 		Stack<BlockData> subblocks;
 		BlockData parent;
 		int dataBlockCount;
 		String id;
 		private String path;
 		private List<BlockData> pages;
+		private boolean lenSet;
 
 		public BlockData(long loc, long len) {
 			this(loc, len, null);
 		}
 		
-		private BlockData findBlock(long pos, boolean checkPages) {
-			if (checkPages && pages != null) {
+		public BlockData(long loc, long len, String name) {
+			this.name = name;
+			this.blockLoc = loc;
+			setLength(len);
+			globalPtr = nBlocks++;			
+		}
+
+		public BlockData findBlock(long pos) {
+			if (pages != null) {
 				for (int i = 0; i < pages.size(); i++) {
-					BlockData b = pages.get(i).findBlock(pos, false);
+					BlockData b = pages.get(i).findBlock(pos);
 					if (b != null)
 						return b;
 				}
 			}
 			if (subblocks != null) {
 				for (int i = 0; i < subblocks.size(); i++) {
-					BlockData b = subblocks.get(i).findBlock(pos, checkPages);
+					BlockData b = subblocks.get(i).findBlock(pos);
 					if (b != null)
 						return b;
 				}
 			}
-			return (pos >= loc && pos < next() ? this : null);
-		}
-
-		public BlockData(long loc, long len, String name) {
-			this.name = name;
-			this.loc = loc;
-			setLength(len);
-			globalPtr = nBlocks++;			
+			return (pos >= blockLoc && pos < next() ? this : null);
 		}
 
 		public void setSubblocks(Stack<BlockData> blocks) {
@@ -189,7 +188,8 @@ public class ByteBlockReader {
 		   if (pages == null)
 			   pages = new ArrayList<BlockData>();
 		   pages.add(bd);
-		   len += bd.len;
+		   if (!lenSet)
+			   blockLen += bd.blockLen;
 		}
 		
 		public void addSubblock(BlockData bd) {
@@ -200,7 +200,7 @@ public class ByteBlockReader {
 		}
 		
 		public void seek() throws IOException {
-			seekIn(loc);
+			seekIn(blockLoc);
 		}
 
 		public void skip() throws IOException {
@@ -209,8 +209,8 @@ public class ByteBlockReader {
 
 		public byte[] getData() throws IOException {
 			long pt = getPosition();
-			seekIn(loc);
-			byte[] bytes = readBytes(len);
+			seekIn(blockLoc);
+			byte[] bytes = readBytes(blockLen);
 			seekIn(pt);
 			return bytes;
 		}
@@ -231,7 +231,7 @@ public class ByteBlockReader {
 		
 		public void addStack(Stack<BlockData> s) {
 			for (BlockData bd : s) {
-				if (bd.len > 0) 
+				if (bd.blockLen > 0) 
 					addSubblock(bd);
 			}
 		}
@@ -288,13 +288,13 @@ public class ByteBlockReader {
 		}
 
 		private String getInfo() {
-			return " loc=" + loc + " len=" + len + " to " + next();
+			return " loc=" + blockLoc + " len=" + blockLen + " to " + next();
 		}
 
 		public void map(Map<String, Object> map) {
 			map.put("path",  path);
-			map.put("location", Integer.valueOf((int)loc));
-			map.put("length",  Integer.valueOf((int) len));
+			map.put("location", Integer.valueOf((int)blockLoc));
+			map.put("length",  Integer.valueOf((int) blockLen));
 			if (subblocks != null) {
 				Map<String, Object> subMap = new TreeMap<>();
 				map.put("subblocks", subMap);
@@ -325,7 +325,7 @@ public class ByteBlockReader {
 		}
 
 		public long next() {
-			return loc + len;
+			return blockLoc + blockLen;
 		}
 
 		public Stack<BlockData> getSubblocks() {
@@ -333,11 +333,12 @@ public class ByteBlockReader {
 		}
 
 		public void setLength(long l) {
-			len = l;
+			blockLen = l;
+			lenSet = (l != 0);
 		}
 
 		public long getLength() {
-			return len;
+			return blockLen;
 		}
 }
 	
@@ -486,15 +487,15 @@ public class ByteBlockReader {
 	 * @param pos less than or equal to 0 is relative to the current position
 	 * @param why
 	 */
-	protected void findPointer(long pos, String why) {
+	protected void findPointer(BlockData bd, long pos, String why) {
 		if (pos <= 0)
 			pos = getPosition() + pos;
-		BlockData block = (pos == len ? null : body.findBlock(pos, why != "nopage"));
+		BlockData block = (pos == len ? null : bd.findBlock(pos));
 		String msg = "!! " + why + " pointer " + pos 
-				+ (block != null ? " is in block " + block.path + " + " + (pos - block.loc)
+				+ (block != null ? " is in block " + block.path + " + " + (pos - block.blockLoc)
 						: pos ==  len ? " is EOF" : " block could not be found");
 		if (block != null && "stack".equals(block.name)) {
-		  int pt = (int)(pos - block.loc) / 4; 
+		  int pt = (int)(pos - block.blockLoc) / 4; 
 		  msg += " index " + pt;
 		}
 		if (strDebug != null && strDebug.indexOf(msg) < 0)
@@ -1103,19 +1104,51 @@ public class ByteBlockReader {
 	 */
 	public void findRef(long pos, long loc) throws IOException {
 		System.out.println("finding all pointers to " + loc + " after " + pos);
+		String s = "";
 		long n = loc - pos;
 		seekIn(pos);
 		if (n < 0)
 			return;
+		int nfound = 0;
 		for (long i = pos; i < loc; i++) {
 			seekIn(i);
+			if (getAvailable() < 4)
+				break;
 			int val = readInt();
 			if (i + 4 + val == loc) {
-					System.out.println(i + "\t0x" + toHex(i) + "\t+\t" + val + "\t0x" + toHex(val) + "\t=\t" + loc);
+					String msg = i + "\t0x" + toHex(i) + "\t+\t" + val + " (0x" + toHex(val) + ")\t=\t" + loc;
+					s += msg + "\n";
+					System.out.println(msg);
 					followPointer(i, len, "ref=" + loc);
+					nfound++;
 			}			
 		}
-		System.out.println("done");
+		System.out.println("done " + nfound + "\n" + s);
+		if (nfound == 0) {
+			seekIn(loc);
+			peekInts(-5);
+			peekInts(1);
+		} else {
+		}
+	}
+
+	public long findRefRev(long pos, long loc) throws IOException {
+		System.out.println("finding all pointers to " + loc + " after " + pos);
+		String s = "";
+		long n = loc - pos;
+		seekIn(loc);
+		if (n >= 4) {
+			for (long i = loc; --i >= pos;) {
+				seekIn(i);
+				if (getAvailable() < 4)
+					break;
+				int val = readInt();
+				if (i + 4 + val == loc) {
+					return i;
+				}
+			}
+		}
+		return -1;
 	}
 
 	public List<Object> traceRef(int loc, boolean isTop) throws IOException {
@@ -1418,8 +1451,9 @@ public class ByteBlockReader {
 			loc = peekPointer();
 			int n = 0;
 			while (pos < loc && loc <= target) {
-				System.out.println("found " + pos + " to " + loc  + " for " + prefix);
-				BlockData bd = new BlockData(pos, loc - pos, prefix + ++n);
+				long len = loc - pos;
+				System.out.println("followPointer found " + pos + "+" + (len-4) + "->" + loc  + " for " + prefix);
+				BlockData bd = new BlockData(pos, len, prefix + ++n);
 				stack.add(bd);
 				if (loc == target) {
 					break;
@@ -1429,8 +1463,12 @@ public class ByteBlockReader {
 				loc = -1; // in case of exception
 				loc = peekPointer();
 			}
-			if (loc == target)
+			if (loc == target) {
+				seekIn(p0);
+				peekInts(-30);
+				peekInts(10);
 				System.out.println("!!! OK " + p0);
+			}
 		} catch (Exception e) {
 			if (pos < target) {
 				seekIn(pos);
@@ -1517,7 +1555,7 @@ public class ByteBlockReader {
 			System.out.println("obj " + ++i + " " + obj);
 			long len = obj.getLength();
 			if (len < max)
-				peekIntsAt(obj.loc, (int) (len/4));
+				peekIntsAt(obj.blockLoc, (int) (len/4));
 		}
 	}
 
@@ -1559,7 +1597,7 @@ public class ByteBlockReader {
 
 	private long addParentBlockDataStack(BlockData bdParent, Stack<BlockData> s, long pt0, int n) {
 		BlockData block = new BlockData(pt0, 0, "block" + n);
-		long ptData = s.get(0).loc;
+		long ptData = s.get(0).blockLoc;
 		long ptNext = getPosition();
 		if (ptData > pt0)
 			block.addSubblock(new BlockData(pt0, ptData - pt0, "stack"));
