@@ -1465,8 +1465,6 @@ public class ByteBlockReader {
 			}
 			if (loc == target) {
 				seekIn(p0);
-				peekInts(-30);
-				peekInts(10);
 				System.out.println("!!! OK " + p0);
 			}
 		} catch (Exception e) {

@@ -524,7 +524,6 @@ class MNovaMetadataReader extends ByteBlockReader {
 	    	return false;
 	    paramData.seek();
 		readPointer();
-		peekInts(5);
 		return (readInt() == 0);
 	}
 
@@ -1061,12 +1060,13 @@ class MNovaMetadataReader extends ByteBlockReader {
 		long ptr = lastPosition + skip;
 		seekIn(ptr);
 		while (readByte() != 0) {
+			// GO TO END OF STRING
 		}
 		ptr = getPosition() - 1;
 		long pt0 = findRefRev(lastPosition, ptr);
 		int mlen = (int) (ptr - pt0);
-		if (pt0 < 0 || mlen < 200) {
-			System.out.println("MOL invalid at " + ptr + " len=" + mlen + " maybe just a test file with one atom?");
+		if (pt0 < 0) {
+			// SOMETHING AMISS HERE.
 			seekIn(lastPosition);
 			return false;
 		}
@@ -1376,7 +1376,6 @@ class MNovaMetadataReader extends ByteBlockReader {
 				return false;
 			}
 			System.out.println("MNova file closed for " + filename);			
-			rdr.testFileStructure();
 			rdr.writeToFile("out", new String(rdr.getFileStructureStr().toString()).getBytes());
 			if (rdr.reportData != null) {
 				IFDDefaultJSONSerializer serializer = new IFDDefaultJSONSerializer();
