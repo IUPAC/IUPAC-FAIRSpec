@@ -1,14 +1,14 @@
 # !/bin/bash
 
-# for Windows BASH; python call does not work
+# for Git-BASH (running in Windows cmd tab); everything works
 
 # requires sudo apt update 
 # requires sudo apt install unzip
 
-# WBash requires /mnt 
-Emma_Algorithm="/mnt/c/temp/iupac/compound_candidate_identifier.py"
-Zip_Source_Directory="/mnt/c/temp/iupac/acs2/data"
-Working_Directory="/mnt/c/temp/iupac/acs2/test2"
+# GitBash does not start with /mnt
+Emma_Algorithm="/c/temp/iupac/compound_candidate_identifier.py"
+Zip_Source_Directory="/c/temp/iupac/acs2/data"
+Working_Directory="/c/temp/iupac/acs2/test2"
 
 if [ ! -f "${Emma_Algorithm}" ]; then
     echo "Error: ${Emma_Algorithm} does not exist" >&2
@@ -55,16 +55,18 @@ Zip_Root="${Zip_Source_Directory}/${doi}"
     fi
 
 DOI_Dir="${Working_Directory}/${doi}"
-// WBash uses sudo
-sudo mkdir $DOI_Dir
 
+// GitBash cannot use sudo in Windows env.
 # Clear the folder for prediction if it exists
-if [ -d "${Prediction_Directory}" ]; then
-  sudo rm -rf "${Prediction_Directory}"
+if [ ! -d "${Prediction_Directory}" ]; then
+  mkdir $DOI_Dir
 fi
 
 Prediction_Directory="${DOI_Dir}/${doi}_prediction"
-
+# Clear the folder for prediction if it exists
+if [ -d "${Prediction_Directory}" ]; then
+  rm -rf "${Prediction_Directory}"
+fi
 
 Unzip_Dir="${DOI_Dir}/${doi}_unzip"
 if [ -d "$Unzip_Dir" ]; then
@@ -81,6 +83,7 @@ unzip_recursive() {
   while [ "$(find . -path "*/__MACOSX" -prune -o -type f -name '*.zip' -print | wc -l)" -gt 0 ]; do
 
       # Find each zip, extract to {name}.zip__, then delete the archive
+      # Note - output from echo is not coming through from the exec shell
       find . -path "*/__MACOSX" -prune -o -type f -name "*.zip" -exec sh -c '
           zip_file="$0"
           dest_dir="${zip_file}__"
@@ -98,15 +101,15 @@ unzip_recursive() {
 
 if [ ! $doUnzip ]; then
   # Clear existing zip files from this directory
-  sudo rm -f "$DOI_Dir"/*.zip 
+  rm -f "$DOI_Dir"/*.zip 
 
   # Clear any existing unzipped folder if present
-  sudo rm -rf "$DOI_Dir"/*_unzip
+  rm -rf "$DOI_Dir"/*_unzip
 
   # Create a new folder to store unzipped data if it has not existed beforehand
   # e.g. jo4c02094_unzip
   echo unzip dir is ${Unzip_Dir}
-  sudo mkdir ${Unzip_Dir}
+  mkdir ${Unzip_Dir}
 
   # copy top-level zip files to the <DOI> directory
   cp "${Zip_Root}"*.zip ${DOI_Dir}
@@ -124,7 +127,7 @@ if [ ! $doUnzip ]; then
 
   # cd to the top of the <DOI>_unzip directory
   cd ${Unzip_Dir}
-  sudo rm -rf __MACOS*
+  rm -rf __MACOS*
 
 fi
 
@@ -140,7 +143,8 @@ find "." -print > "$OUTPUT_FILE"
 # Run the compound_candidate_identifier script to generate output files
 cd "${Prediction_Directory}"
 # this next line fails because pandas is not present and can't be installed or found
-python3 "${Emma_Algorithm}" $doi
+# GitBash uses 'py' here
+py "${Emma_Algorithm}" $doi
 
 cd "${Prediction_Directory}"
 echo "done"

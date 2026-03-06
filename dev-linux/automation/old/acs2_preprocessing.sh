@@ -1,5 +1,11 @@
 # !/bin/bash
 
+# NOTE-DON'T RUN THIS ORIGINAL SCRIPT -- it predates acs2_preprocessing2.sh
+
+exit
+
+
+
 ACS_Directory="c:/temp/iupac/acs2/test"
 IUPAC_Directory="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/../../"
 
