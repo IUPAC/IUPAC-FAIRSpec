@@ -129,9 +129,9 @@ import org.iupac.fairdata.common.IFDException;
  *
  * The org/iupac/fairdata/derived package includes a number of more specific
  * types of associations, including: IFDStructureDataAssociation,
- * IFDSampleDataAssociation, IFDStructureDataAnalysis, and
- * IFDSampleDataAnalysis, along with their respective collections. These classes
- * associate specific structures, samples, and data to each other.
+ * IFDSampleDataAssociation and IFDStructureDataAnalysis, along with their
+ * respective collections. These classes associate specific structures, samples,
+ * and data to each other.
  * 
  * 
  * -- IFDStructureDataAssociation --

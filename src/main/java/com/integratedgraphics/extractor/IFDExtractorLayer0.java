@@ -51,6 +51,7 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 * debugging help
 	 */
 	protected String stopAfter;
+	protected String currentPhase;
 	protected Map<String, Map<String, ArchiveEntry>> htArchiveContents = new LinkedHashMap<>();
 	
 	/**_I
@@ -70,6 +71,10 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 			log("stopping after " + what);
 			System.exit(0);
 		}
+	}
+
+	protected void setCurrentPhase(String phase) {
+		currentPhase = phase;
 	}
 
 	/**

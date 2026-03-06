@@ -84,8 +84,8 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	//		public final static String StructureDataAssociation = "org.iupac.fairdata.derived.IFDStructureDataAssociation";
 	//		public final static String StructureDataAssociationCollection = "org.iupac.fairdata.derived.IFDStructureDataAssociationCollection";
 	//
-			public final static String SampleDataAnalysis = "org.iupac.fairdata.derived.IFDSampleDataAnalysis";
-			public final static String SampleDataAnalysisCollection = "org.iupac.fairdata.derived.IFDSampleDataAnalysisCollection";
+//			public final static String SampleDataAnalysis = "org.iupac.fairdata.derived.IFDSampleDataAnalysis";
+//			public final static String SampleDataAnalysisCollection = "org.iupac.fairdata.derived.IFDSampleDataAnalysisCollection";
 	
 			public final static String StructureDataAnalysis = "org.iupac.fairdata.derived.IFDStructureDataAnalysis";
 			public final static String StructureDataAnalysisCollection = "org.iupac.fairdata.derived.IFDStructureDataAnalysisCollection";
@@ -199,8 +199,8 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			return ClassTypes.SampleDataAssociation;
 		if (key.startsWith("\0analysis.structuredata"))
 			return ClassTypes.StructureDataAnalysis;
-		if (key.startsWith("\0analysis.sampledata"))
-			return ClassTypes.SampleDataAnalysis;
+//		if (key.startsWith("\0analysis.sampledata"))
+//			return ClassTypes.SampleDataAnalysis;
 		if (key.startsWith("\0dataobject.fairspec.")) {
 			// adds next part, e.g "nmr"
 			return key.replace('\0', '.').substring(0, key.indexOf(".", 21));

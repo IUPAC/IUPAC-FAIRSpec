@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.iupac.fairdata.common.IFDConst;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.extract.MetadataReceiverI.DeferredProperty;
 import org.jmol.api.JmolViewer;
 import org.jmol.util.DefaultLogger;
@@ -158,6 +159,8 @@ public class DefaultStructureHelper implements PropertyManagerI {
 
 	public static final String MOL_FILE_DATA = STRUC_FILE_DATA_KEY + "mol";
 
+	public static final String MOL2D_FILE_DATA = STRUC_FILE_DATA_KEY + "mol_2d";
+
 	public static final String XYZ_FILE_DATA = STRUC_FILE_DATA_KEY + "xyz";
 
 	public static final String CDX_FILE_DATA = STRUC_FILE_DATA_KEY + "cdx";
@@ -197,6 +200,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		String ext = originPath.substring(originPath.lastIndexOf('.') + 1);
 		if (type == null)
 			type = getType(ext, bytes, true);
+		fileToType.put(originPath, type);
 		boolean isCIF = ext.equals("cif");
 		boolean isCDXML = !isCIF && ext.equals("cdxml");
 		boolean isCDX = !isCIF && ext.equals("cdx");
@@ -227,7 +231,8 @@ public class DefaultStructureHelper implements PropertyManagerI {
 					sd.warning = (pt >= 0 ? s.substring(pt, s.indexOf("\\n", pt)) : null);
 				}
 				BS atoms = v.bsA();
-
+				if (atoms.isEmpty())
+					return type;
 				boolean hasBonds;
 				if (isCIF) {
 					hasBonds = v.getCurrentModelAuxInfo().containsKey("hasBonds");
@@ -263,7 +268,9 @@ public class DefaultStructureHelper implements PropertyManagerI {
 							sd.mol2dData = new String(bytes);
 					}
 				}
-				
+				if (sd.mol2dData != null) {
+					sd.molData = null;
+				}
 				IAtomContainer mol = null;
 				
 				if (sd.pngBytes == null) {
@@ -346,15 +353,18 @@ public class DefaultStructureHelper implements PropertyManagerI {
 			// add additional representations
 			sd.note = (sd.warning == null ? "generated from " + originPath + " by Jmol-SwingJS " + jmolVersion : sd.warning);
 			if (sd.mol2dData != null) {
+				if (!originPath.endsWith(".mol"))
+					originPath += ".2d.mol";
 				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(
 						IFDConst.IFD_REP_STRUCTURE_MOL_2D, getDeferredStructureData(++nid, sd.mol2dData.getBytes(),
-								originPath + ".2d.mol", null, sd.standardInChI, null),
+								originPath, null, sd.standardInChI, null),
 						false, "chemical/x-mdl-molfile", sd.note));
-			}
-			if (sd.molData != null) {
+			} else if (sd.molData != null) {
+				if (!originPath.endsWith(".mol"))
+					originPath += ".mol";
 				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(
 						IFDConst.IFD_REP_STRUCTURE_MOL, getDeferredStructureData(++nid, sd.mol2dData.getBytes(),
-								originPath + ".mol", null, sd.standardInChI, null),
+								originPath, null, sd.standardInChI, null),
 						false, "chemical/x-mdl-molfile", sd.note));
 			}
 			String note1 = (sd.warning == null ? sd.note + "/CDK-SwingJS" : sd.note);
@@ -395,7 +405,6 @@ public class DefaultStructureHelper implements PropertyManagerI {
 						DeferredProperty.newStructureRep(CELL_FORMULA, sd.cellFormula, true, null, sd.note));
 			}
 		}
-		fileToType.put(originPath, type);
 		return type;
 	}
 
@@ -474,10 +483,11 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		switch (ext) {
 		case "png":
 			return IFDConst.IFD_REP_STRUCTURE_PNG;
+		case "mol_2d":
 		case "mol":
-			return (isMol2D(bytes) ? IFDConst.IFD_REP_STRUCTURE_MOL_2D : IFDConst.IFD_REP_STRUCTURE_MOL);
+			return (FAIRSpecUtilities.isMol2D(bytes) ? IFDConst.IFD_REP_STRUCTURE_MOL_2D : IFDConst.IFD_REP_STRUCTURE_MOL);
 		case "sdf":
-			return (isMol2D(bytes) ? IFDConst.IFD_REP_STRUCTURE_SDF_2D : IFDConst.IFD_REP_STRUCTURE_SDF);
+			return (FAIRSpecUtilities.isMol2D(bytes) ? IFDConst.IFD_REP_STRUCTURE_SDF_2D : IFDConst.IFD_REP_STRUCTURE_SDF);
 		case "cdx":
 			return IFDConst.IFD_REP_STRUCTURE_CDX;
 		case "cdxml":
@@ -491,32 +501,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		}
 	}
 
-	private static boolean isMol2D(byte[] bytes) {
-		if (bytes == null)
-			return false;
-		int line = 0;
-		int linept = 0;
-		for (int i = 0; i < bytes.length; i++) {
-			switch (bytes[i]) {
-			case 0xD:
-				if (bytes[i + 1] == 0xA) {
-					continue;
-				}
-				//$FALL-THROUGH$
-			case 0xA:
-				if (++line == 2) {
-					// GSMACCS-II10169115362D
-					// 0.........1.........2
-					// 0123456789012345678901
-					int ptdim = linept + 20;
-					return (i > ptdim + 1 && bytes[ptdim] == '2' && bytes[ptdim+1] == 'D');
-				}
-				linept = i + 1;
-				break;
-			}
-		}
-		return false;
-	}
+	
 	
 //	static {
 //		System.out.println(isMol2D(("https://files.rcsb.org/download/1pgb.pdb\n" + 

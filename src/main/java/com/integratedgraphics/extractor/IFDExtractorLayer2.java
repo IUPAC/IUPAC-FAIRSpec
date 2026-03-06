@@ -57,7 +57,8 @@ import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
 import com.integratedgraphics.ifd.api.DataObjectVendorPluginI;
 
 /**
- * Phase 2: Carry out the actual extraction of metadata.
+ * Phase 2: Carry out the actual extraction of metadata and creation of the
+ * collection model. 
  * 
  * Set up the target directory for files:
  * 
@@ -76,7 +77,8 @@ import com.integratedgraphics.ifd.api.DataObjectVendorPluginI;
  * 
  * This pass generates the ordered map of the archive contents, by resource, for
  * use in the next phases. During this initial phase, the CollectionSet is not
- * built, and digital item bytes are not checked. Only the filenames are
+ * built. Metadata is extracted from files such as MNova and Jeol jfl files, but not
+ * from datasets that will be rezipped -- specifically Bruker and , and digital item bytes are not checked. Only the filenames are
  * checked.
  * 
  * Process files in the FAIRSpec-ready collection, extracting metadata and
@@ -269,11 +271,13 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * structure and an object
 	 */
 	private boolean allowMultipleObjectsForRepresentations = true;
-	private String thisCompoundDirID;
-	private String thisStructureDirID;
 	private String lastLocalClonedParent;
 	protected File propertyListFile;
 	protected boolean dumpPropertyList = true;
+
+	private String thisCompoundDirID;
+	private String thisStructureDirID;
+	private boolean deferringProperties;
 
 	/**
 	 * The main extraction phase. Find and extract all objects of interest from a
@@ -284,7 +288,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		if (haveExtracted)
 			throw new IFDException("Only one extraction per instance of Extractor is allowed (for now).");
 		haveExtracted = true;
-
+		deferringProperties = true;
 		// String s = "test/ok/here/1c.pdf"; // test/**/*.pdf
 		// Pattern p = Pattern.compile("^\\Qtest\\E/(?:[^/]+/)*(.+\\Q.pdf\\E)$");
 		// Matcher m = p.mat cher(s);
@@ -305,259 +309,128 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 		// There is one parser created for each of the IFD-extract.json
 		// "FAIRSpec.extractor.object" records.
-		// Each of phases 2a, 2b, 2c, and 2d iterate over these records.
+		// Each of phases 2a-e iterate over these records.
 
-		// Phase 2a
+		// Phase 2a -- preliminary extractions
+		phase2aProcess();
+	
+		// Phase 2b -- create objects, including associations
+		phase2bProcess();
 
-		// scan the FAIRSpec-ready collection
-		//
-		// Create the IUPAC FAIRSpec Data Collection.
-		//
-		// Extract all metadata and embedded representations,
-		// saving them for later proccessing as "deferred".
-		//
-		// The finding aid objects themselves are not created yet.
-		//
+		// Phase 2c -- rezipping
+		phase2cProcess();
+
+		// Phase 2d - deferred properties processing
+		phase2dProcess();
+
+		// Phase 2e -- final check for completeness
+		phase2eProcess();
+	}
+
+	/**
+	 * Phase 2a -- preliminary extraction
+	 * 
+	 * Start creating the IUPAC FAIRSpec Data Collection.
+	 * 
+	 * Scan the FAIRSpec-ready collection based on the configuration files
+	 * IFD-extract.json and extractor.config.json.
+	 * 
+	 * Extract data items, for example JEOL .jfd files, MNova files, Bruker data set
+	 * .png files, and structure files.
+	 * 
+	 * Extract all metadata and embedded representations from MNova files, and
+	 * generate all related metadata for structure files (InChI, SMILES, PNG)
+	 * 
+	 * Saving all metadata for later proccessing as "deferred" until after rezipping
+	 * has concluded (Phase 2c).
+	 * 
+	 * The finding aid objects themselves are not created until Phase 2b.
+	 * 
+	 * 
+	 * @throws IOException
+	 * @throws IFDException
+	 */
+	private void phase2aProcess() throws IOException, IFDException {
+		setCurrentPhase(PHASE_2A);
 		phase2aIterate(htArchiveContents);
-
 		checkStopAfter(PHASE_2A);
+	}
 
-		// Phase 2b
-
+	/**
+	 * Phase 2b -- create objects, including associations
+	 * 
+	 * Run through the FAIRSpec-ready collection again, this time just using the
+	 * zip entry map, creating objects in the Finding Aid.
+	 * 
+	 * This will also add metadata from a spreadsheet file.
+	 * 
+	 * @throws IOException
+	 * @throws IFDException
+	 */
+	private void phase2bProcess() throws IOException, IFDException {
+		setCurrentPhase(PHASE_2B);
 		log("!Phase 2b create IFDObjects from the FAIRSpec-ready collection");
-
-		// Now run through the FAIRSpec-ready collection again, this time
-		// creating objects in the Finding Aid.
-		//
-		// This will also add metadata from a spreadsheet file.
-
 		phase2bIterate(htArchiveContents);
-
 		checkStopAfter(PHASE_2B);
+	}
 
-		// Phase 2c
-
+	/*
+	 * Phase 2c -- rezipping
+	 * 
+	 * All objects have been created.
+	 * 
+	 * An important feature of Extractor is that it can repackage zip files,
+	 * rejecting data items that are totally unnecessary (.icloud, __MACOS,
+	 * .desktop).
+	 * 
+	 * Here we extract additional properties and representations using
+	 * IFDVendorPluginI services.
+	 * 
+	 */
+	private void phase2cProcess() throws MalformedURLException, IOException, IFDException {
+		setCurrentPhase(PHASE_2C);
 		log("!Phase 2c process all rezippable datasets and create their IUPAC FAIRSpec Data Collection");
-
-		// All objects have been created.
-
-		// An important feature of Extractor is that it can repackage zip files,
-		// removing resources that are totally unnecessary and extracting properties
-		// and representations using IFDVendorPluginI services.
-
-		deferredPropertyPointer = 0;
 		if (rezipCache != null && rezipCache.size() > 0) {
+			// reset the pointer to zero, adding any
+			// additional properties BEFORE what is already on the list from Phase 2a or 2b.
+			resetDeferredPropertyList(false);
 			System.out.println(rezipCache.toString().replace(',', '\n'));
 			phase2cGetNextRezipName();
 			lastRezipPath = null;
 			phase2cIterate();
 		}
-
 		checkStopAfter(PHASE_2C);
-
-		// Phase 2d
-
-		log("!Phase 2d process all deferred object properties");
-
-		phase2dProcessDeferredObjectProperties(null);
-
-		checkStopAfter(PHASE_2D);
-
-		// Phase 2e
-
-		// ensure that all files in the FAIRSpec-ready collection have been processed,
-		// or flag them as rejected or ignored
-
-		log("!Phase 2e check rejected files and update lists");
-
-		phase2eIterate();
-
-		return;
-	}
-
-	private void phase2aIterate(Map<String, Map<String, ArchiveEntry>> contents) throws IOException, IFDException {
-
-		// Scan through parsers for resource changes
-
-		ParserIterator iter = new ParserIterator();
-		log("!Phase 2a initializing data sources ");
-		ExtractorResource currentSource = extractorResource;
-		while (iter.hasNext()) {
-			while (iter.hasNext() && nextParser(iter) != null && extractorResource == currentSource) {
-				// skip to next resource
-			}
-			currentSource = extractorResource;
-			if (!phase2aNewExtractorResource())
-				continue;
-
-			// first build the file list
-			// Scan URL zip stream for files.
-			log("!retrieving " + localizedTopLevelZipURL);
-			URL url = new URL(localizedTopLevelZipURL);
-			// for JS
-			long[] retLength = new long[1];
-			InputStream is = openLocalFileInputStream(url, retLength);
-			long len = retLength[0];
-			if (len > 0)
-				faHelper.setCurrentResourceByteLength(len);
-			Map<String, ArchiveEntry> zipFileMap = new LinkedHashMap<String, ArchiveEntry>();
-			phase2ReadFAIRSpecReadyCollectionIteratively(is, "", PHASE_2A, zipFileMap, 0);
-			contents.put(localizedTopLevelZipURL, zipFileMap);
-		}
-	}
-
-	private boolean phase2aNewExtractorResource() throws IOException {
-		String source = targetPath + "/" + extractorResource.rootPath;
-		if (rootPaths.contains(source))
-			return false;
-		rootPaths.add(source);
-		if (cleanCollectionDir) {
-			File dir = new File(source);
-			log("!Phase 2a cleaning directory " + dir);
-			FileUtils.cleanDirectory(dir);
-		}
-		return true;
 	}
 
 	/**
-	 * Phase 2a check to see what should be done with a zip entry. We can extract it
-	 * or ignore it; and we can check it to sees if it is the trigger for extracting
-	 * a zip file in a second pass.
+	 * Phase 2d - deferred properties processing
+	 * @throws IOException 
+	 * @throws IFDException 
 	 * 
-	 * @param originPath path to this entry including | and / but not rootPath
-	 * @param ais
-	 * @param zipEntry
-	 * @param accepted   file name has been accepted by lstAccepted
-	 * @throws FileNotFoundException
-	 * @throws IOException
 	 */
-	private void phase2aProcessEntry(String baseOriginPath, String originPath, InputStream ais, ArchiveEntry zipEntry,
-			boolean accepted) throws FileNotFoundException, IOException {
-		long len = zipEntry.getSize();
-		Matcher m = null;
+	private void phase2dProcess() throws IFDException, IOException {
+		setCurrentPhase(PHASE_2D);
+		log("!Phase 2d process all deferred object properties");
+		phase2dProcessDeferredObjectProperties(null);
+		deferringProperties = false;		
+		checkStopAfter(PHASE_2D);
+	}
 
-		// check for files that should be pulled out - these might be JDX files, for
-		// example.
-		// "param" appears if a vendor has flagged these files for parameter extraction.
-
-		boolean isFound = false;
-		if (vendorCachePattern != null && (isFound = (m = vendorCachePattern.matcher(originPath)).find()) || accepted) {
-			PropertyManagerI v = (isFound ? getPropertyManager(m, true, true) : null);
-			boolean doCheck = (v != null);
-			boolean isStructure = (doCheck && v == structurePropertyManager);
-			boolean doExtract = (!doCheck || v.doExtract(originPath));
-//			1. we don't have params, but we want the file extracted 
-//		      - generic file, just save it.  doExtract and not doCheck
-//			2. we have params and there is extraction
-//		      - save file and also check it for parameters  doExtract and doCheck
-//			3. nothing to check and no extraction  !doCheck  and !doExtract
-//		      - ignore completely
-
-			if (doExtract) {
-				String ext = (isFound ? m.group("ext") : originPath.substring(originPath.lastIndexOf(".") + 1));
-				File f = getAbsoluteFileTarget(originPath);
-				boolean embeddableImage = originPath.endsWith(".png");
-				boolean embedOnly = (insitu || embedPDF && originPath.endsWith(".pdf"));
-				boolean toByteArray = (embeddableImage || doCheck || noOutput || embedOnly);
-				boolean doWrite = toByteArray && !embedOnly;
-				OutputStream os = (toByteArray ? new ByteArrayOutputStream() : new FileOutputStream(f));
-				if (os != null)
-					FAIRSpecUtilities.getLimitedStreamBytes(ais, len, os, false, true);
-				String localizedName = localizePath(originPath);
-				boolean isIFDMetadataFile = zipEntry.getName().endsWith(ifdRelatedMetadataFileName);
-				String type = null;
-				byte[] bytes = null;
-				if (toByteArray) {
-					// doCheck or noOutput or insitu
-					bytes = ((ByteArrayOutputStream) os).toByteArray();
-					len = bytes.length;
-					if (doCheck) {
-						// set this.localizedName for parameters
-						// preserve this.localizedName, as we might be in a rezip.
-						// as, for example, a JDX file within a Bruker dataset
-						String oldOriginPath = this.originPath;
-						String oldLocal = this.localizedName;
-						this.originPath = originPath;
-						this.localizedName = localizedName;
-						// indicating "this" here notifies the vendor plug-in that
-						// this is a one-shot file, not a collection.
-						if (logging())
-							log("Phase 2a accepting " + originPath);
-						type = (isIFDMetadataFile ? IFDConst.IFD_PROPERTY_FLAG
-								: isStructure && hasStructureFor(bytes) ? IFDProperty.NULL
-										: v.accept(this, originPath, bytes));
-
-						if (type == IFDConst.IFD_PROPERTY_FLAG) {
-							// IFD metadata file
-							// Q: What triggers this? Nothing?
-							// could be accepting a metadata file?
-							addIFDMetadata(new String(bytes));
-							// this is now handled in Phase 2c
-						} else {
-							deferredPropertyList.add(null);
-							this.localizedName = oldLocal;
-							this.originPath = oldOriginPath;
-							if (type == null) {
-								logWarn("Failed to read " + originPath + " (ignored)", v.getClass().getName());
-							} else if (type == IFDProperty.NULL) {
-								lstIgnored.add(originPath, len);
-								logDigitalItemIgnored(originPath, localizedName, "phase 2a equivalent structure",
-										"phase2a");
-								return;
-							} else if (IFDConst.isStructure(type)
-									|| type.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
-								return;
-							}
-						}
-					}
-				} else {
-					doWrite = true;
-					len = f.length();
-				}
-				if (doWrite)
-					writeOriginToCollection(originPath, bytes, len);
-				addFileAndCacheRepresentation(originPath, localizedName, embedOnly || embeddableImage ? bytes : null,
-						len, type, ext, null);
-			}
-		}
-
-		// here we look for the "trigger" file within a zip file that indicates that we
-		// (may) have a certain vendor's files that need looking into. The case in point
-		// is finding a procs file within a Bruker data set. Or, in principle, an acqus
-		// file and just an FID but no pdata/ directory. But for now we want to see that
-		// processed data.
-
-		if (rezipCachePattern != null && (m = rezipCachePattern.matcher(originPath)).find()) {
-
-			// e.g. exptno/pdata/1/procs or xxxx/xxx/fid.zip|procs
-
-			DataObjectVendorPluginI v = phase2aGetVendorForRezip(m);
-			originPath = m.group("path" + v.getIndex());
-			if (originPath.equals(lastRezipPath)) {
-				// e.g. exptno/pdata/1/procs
-				// e.g. exptno/pdata/999/procs
-				if (logging())
-					log("duplicate path (pdata/n, pdata/m)" + originPath);
-			} else {
-				lastRezipPath = originPath;
-				String validDir = v.getRezipPrefix(originPath);
-				String basePath = (validDir != null ? originPath
-						: baseOriginPath.endsWith("|") && isTopZipDir(originPath)
-								? baseOriginPath.substring(0, baseOriginPath.length() - 1)
-								// else
-								: getFileParent(originPath) + "/");
-				String newZipPath = (validDir == null ? originPath + "1/" : originPath);
-				String localPath = localizePath(newZipPath);
-				CacheRepresentation rep = new CacheRepresentation(new IFDReference(faHelper.getCurrentSource().getID(),
-						originPath, extractorResource.rootPath, localPath), v, len, null, "application/zip");
-				// if this is a zip file, the data object will have been set to xxx.zip
-				// but later we might give this up
-				rep.setRezipOrigin(basePath);
-				log("!rezip pattern found " + originPath + " as \n" + rep.getRef().getLocalName());
-				rezipCache.add(rep);
-			}
-		}
-
+	/**
+	 * Phase 2e -- final check for completeness
+	 * 
+	 * Ensure that all files in the FAIRSpec-ready collection have been processed,
+	 * or flag them as rejected or ignored.
+	 * 
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 * @throws IFDException
+	 */
+	private void phase2eProcess() throws MalformedURLException, IOException, IFDException {
+		setCurrentPhase(PHASE_2E);
+		log("!Phase 2e check rejected files and update lists");
+		phase2eIterate();
+		checkStopAfter(PHASE_2E);		
 	}
 
 	private static boolean isTopZipDir(String originPath) {
@@ -647,19 +520,21 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 			String oPath = baseOriginPath + name;
 			boolean accepted = false;
-			if (!isDir) {
+			if (isDir) {
+				if (haveDirParser) {
+					// this is not implemented
+					checkCompoundStructureDir(baseOriginPath + name);
+				}
+				if (logging())
+					log("Phase " + phase + " checking zip directory: " + n + " " + oPath);
+			} else {
 				dirPt = -1;
 				firstFileEntry = null;
 				if (size == 0)
 					continue;
-			}
-			if (isDir) {
-				if (haveDirParser)
-					checkCompoundStructureDir(baseOriginPath + name);
-				if (logging())
-					log("Phase " + phase + " checking zip directory: " + n + " " + oPath);
-			} else {
-				accepted = checkRejected(phase, oPath, size, ais);
+				// only PHASE_2A processes accepted
+				if (phase == PHASE_2A)
+					accepted = phase2aCheckRejected(phase, oPath, size, ais);
 			}
 			if (debugging)
 				log("reading zip entry: " + n + " " + oPath);
@@ -707,24 +582,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			ais.close();
 	}
 
-	private boolean checkRejected(String phase, String oPath, long size, ArchiveInputStream ais) throws IOException {
-		if (lstRejected.accept(oPath)) {
-			// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX,
-			// acs.joc.0c00770/22567817
-			if (phase == PHASE_2A)
-				addFileToFileLists(oPath, LOG_REJECTED, size, null);
-		} else if (lstIgnored.accept(oPath)) {
-			// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX,
-			// acs.joc.0c00770/22567817
-			if (phase == PHASE_2A)
-				addFileToFileLists(oPath, LOG_IGNORED, size, ais);
-		} else if (phase == PHASE_2A && lstAccepted.accept(oPath)) {
-			addFileToFileLists(oPath, LOG_ACCEPTED, size, null);
-			return true;
-		}
-		return false;
-	}
-
 	/**
 	 * Early idea for defining structure and compound directories; but
 	 * this was never implemented. Instead, we have the default structures/ dir only. 
@@ -737,9 +594,9 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		if (compoundDirParser != null) {
 			if (compoundDirParser.match(dir).find()) {
 				int pt = dir.lastIndexOf("/", len - 2);
-				thisCompoundDirID = dir.substring(pt, len - 1);
+				String cdir = thisCompoundDirID = dir.substring(pt, len - 1);
 				if (structureDirParser == compoundDirParser) {
-					thisStructureDirID = thisCompoundDirID;
+					thisStructureDirID = cdir;
 					return;
 				}
 			}
@@ -751,13 +608,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 		}
 
-	}
-
-	private void addProperties(List<IFDProperty> props) {
-		for (int i = 0, n = props.size(); i < n; i++) {
-			IFDProperty p = props.get(i);
-			addDeferredPropertyOrRepresentation(new DeferredProperty(p.getName(), p.getValue()));
-		}
 	}
 
 	/**
@@ -777,6 +627,239 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		}
 		return null;
 	}
+
+	private void phase2aIterate(Map<String, Map<String, ArchiveEntry>> contents) throws IOException, IFDException {
+
+		// Scan through parsers for resource changes
+
+		ParserIterator iter = new ParserIterator();
+		log("!Phase 2a initializing data sources ");
+		ExtractorResource currentSource = extractorResource;
+		while (iter.hasNext()) {
+			while (iter.hasNext() && nextParser(iter) != null && extractorResource == currentSource) {
+				// skip to next resource
+			}
+			currentSource = extractorResource;
+			if (!phase2aNewExtractorResource())
+				continue;
+
+			// first build the file list
+			// Scan URL zip stream for files.
+			log("!retrieving " + localizedTopLevelZipURL);
+			URL url = new URL(localizedTopLevelZipURL);
+			// for JS
+			long[] retLength = new long[1];
+			InputStream is = openLocalFileInputStream(url, retLength);
+			long len = retLength[0];
+			if (len > 0)
+				faHelper.setCurrentResourceByteLength(len);
+			Map<String, ArchiveEntry> zipFileMap = new LinkedHashMap<String, ArchiveEntry>();
+			phase2ReadFAIRSpecReadyCollectionIteratively(is, "", PHASE_2A, zipFileMap, 0);
+			contents.put(localizedTopLevelZipURL, zipFileMap);
+		}
+	}
+
+	/**
+	 * Add the source to rootPaths only if not already seen.
+	 * 
+	 * @return true if this is a new resource that needs processing
+	 * 
+	 * @throws IOException
+	 */
+	private boolean phase2aNewExtractorResource() throws IOException {
+		String source = targetPath + "/" + extractorResource.rootPath;
+		if (rootPaths.contains(source))
+			return false;
+		rootPaths.add(source);
+		if (cleanCollectionDir) {
+			File dir = new File(source);
+			log("!Phase 2a cleaning directory " + dir);
+			FileUtils.cleanDirectory(dir);
+		}
+		return true;
+	}
+
+	/**
+	 * Phase 2a check to see what should be done with a zip entry. We can extract it
+	 * or ignore it; and we can check it to sees if it is the trigger for extracting
+	 * a zip file in a second pass.
+	 * 
+	 * @param originPath path to this entry including | and / but not rootPath
+	 * @param ais
+	 * @param zipEntry
+	 * @param accepted   file name has been accepted by lstAccepted
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	private void phase2aProcessEntry(String baseOriginPath, String originPath, InputStream ais, ArchiveEntry zipEntry,
+			boolean accepted) throws FileNotFoundException, IOException {
+		long len = zipEntry.getSize();
+		Matcher managerMatcher = null;
+
+		// check for files that should be pulled out - these might be JDX files, for
+		// example.
+		// "param" appears if a vendor has flagged these files for parameter extraction.
+
+		boolean isFound = false;
+		if (propertyManagerCachePattern != null && (isFound = (managerMatcher = propertyManagerCachePattern.matcher(originPath)).find()) || accepted) {
+			PropertyManagerI mgr = (isFound ? getPropertyManager(managerMatcher, true, true) : null);
+			boolean doCheck = (mgr != null);
+			boolean isStructure = (doCheck && mgr == structurePropertyManager);
+			boolean doExtract = (!doCheck || mgr.doExtract(originPath));
+			// Note that we only deal here with "extractable" files. 
+			// In the case of Bruker datasets, which will be repackaged in Phase 2c, 
+			// this does NOT include acqu, for example.
+			
+//			1. we don't have params, but we want the file extracted 
+//		      - generic file, just save it.  doExtract and not doCheck
+//			2. we have params and there is extraction
+//		      - save file and also check it for parameters  doExtract and doCheck
+//			3. nothing to check and no extraction  !doCheck  and !doExtract
+//		      - ignore completely
+
+			if (doExtract) {
+				String ext = (isFound ? managerMatcher.group("ext") : originPath.substring(originPath.lastIndexOf(".") + 1));
+				File f = getAbsoluteFileTarget(originPath);
+				boolean embeddableImage = originPath.endsWith(".png");
+				boolean embedOnly = (insitu || embedPDF && originPath.endsWith(".pdf"));
+				boolean toByteArray = (embeddableImage || doCheck || noOutput || embedOnly);
+				boolean doWrite = toByteArray && !embedOnly;
+				OutputStream os = (toByteArray ? new ByteArrayOutputStream() : new FileOutputStream(f));
+				if (os != null)
+					FAIRSpecUtilities.getLimitedStreamBytes(ais, len, os, false, true);
+				String localizedName = localizePath(originPath);
+				String type = null;
+				byte[] bytes = null;
+				if (toByteArray) {
+					// doCheck or noOutput or insitu
+					bytes = ((ByteArrayOutputStream) os).toByteArray();
+					len = bytes.length;
+					if (doCheck) {
+						// set this.localizedName for parameters
+						// preserve this.localizedName, as we might be in a rezip.
+						// as, for example, a JDX file within a Bruker dataset
+						String oldOriginPath = this.originPath;
+						String oldLocal = this.localizedName;
+						this.originPath = originPath;
+						this.localizedName = localizedName;
+						// indicating "this" here notifies the vendor plug-in that
+						// this is a one-shot file, not a collection.
+						if (logging())
+							log("Phase 2a accepting " + originPath);
+						boolean isIFDMetadataFile = zipEntry.getName().endsWith(ifdRelatedMetadataFileName);
+						type = (isIFDMetadataFile ? IFDConst.IFD_PROPERTY_FLAG
+								: isStructure && hasStructureFor(bytes) ? IFDProperty.NULL
+										: mgr.accept(this, originPath, bytes));
+
+						if (type == IFDConst.IFD_PROPERTY_FLAG) {
+							// IFD metadata file
+							// Q: What triggers this? Nothing?
+							// could be accepting a metadata file?
+							addIFDMetadata(new String(bytes));
+							// this is now handled in Phase 2c
+						} else {
+							deferredPropertyList.add(null);
+							this.localizedName = oldLocal;
+							this.originPath = oldOriginPath;
+							if (type == null) {
+								logWarn("Failed to read " + originPath + " (ignored)", mgr.getClass().getName());
+							} else if (type == IFDProperty.NULL) {
+								lstIgnored.add(originPath, len);
+								logDigitalItemIgnored(originPath, localizedName, "phase 2a equivalent structure",
+										"phase2a");
+								return;
+							} else if (IFDConst.isStructure(type)
+									|| type.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)) {
+								return;
+							}
+						}
+					}
+				} else {
+					doWrite = true;
+					len = f.length();
+				}
+				if (doWrite)
+					writeOriginToCollection(originPath, bytes, len);
+				addFileAndCacheRepresentation(originPath, localizedName, embedOnly || embeddableImage ? bytes : null,
+						len, type, ext, null);
+			}
+		}
+
+		// here we look for the "trigger" file within a zip file that indicates that we
+		// (may) have a certain vendor's files that need looking into. The case in point
+		// is finding a procs file within a Bruker data set. Or, in principle, an acqus
+		// file and just an FID but no pdata/ directory. But for now we want to see that
+		// processed data.
+
+		if (rezipCachePattern != null && (managerMatcher = rezipCachePattern.matcher(originPath)).find()) {
+
+			// e.g. exptno/pdata/1/procs or xxxx/xxx/fid.zip|procs
+
+			DataObjectVendorPluginI v = phase2aGetVendorForRezip(managerMatcher);
+			originPath = managerMatcher.group("path" + v.getIndex());
+			if (originPath.equals(lastRezipPath)) {
+				// e.g. exptno/pdata/1/procs
+				// e.g. exptno/pdata/999/procs
+				if (logging())
+					log("duplicate path (pdata/n, pdata/m)" + originPath);
+			} else {
+				lastRezipPath = originPath;
+				String validDir = v.getRezipPrefix(originPath);
+				String basePath = (validDir != null ? originPath
+						: baseOriginPath.endsWith("|") && isTopZipDir(originPath)
+								? baseOriginPath.substring(0, baseOriginPath.length() - 1)
+								// else
+								: getFileParent(originPath) + "/");
+				String newZipPath = (validDir == null ? originPath + "1/" : originPath);
+				String localPath = localizePath(newZipPath);
+				CacheRepresentation rep = new CacheRepresentation(new IFDReference(faHelper.getCurrentSource().getID(),
+						originPath, extractorResource.rootPath, localPath), v, len, null, "application/zip");
+				// if this is a zip file, the data object will have been set to xxx.zip
+				// but later we might give this up
+				rep.setRezipOrigin(basePath);
+				log("!rezip pattern found " + originPath + " as \n" + rep.getRef().getLocalName());
+				rezipCache.add(rep);
+			}
+		}
+	}
+
+	/**
+	 * Phase 2a only - check for rejected, ignored, and accepted.
+	 * 
+	 * rejected -- do not include in collection. Example: .MACOS files
+	 * 
+	 * ignored -- include in collection, but do not process. Example: .doc files
+	 * 
+	 * accepted -- accept such files without regard to vendor acceptance, pulling
+	 * them from ZIP files if necessary.
+	 * 
+	 * @param phase
+	 * @param oPath
+	 * @param size
+	 * @param ais
+	 * @return
+	 * @throws IOException
+	 */
+	private boolean phase2aCheckRejected(String phase, String oPath, long size, ArchiveInputStream ais) throws IOException {
+		if (lstRejected.accept(oPath)) {
+			// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX,
+			// acs.joc.0c00770/22567817
+				addFileToFileLists(oPath, LOG_REJECTED, size, null);
+				return false;
+		} 
+		if (lstIgnored.accept(oPath)) {
+			// Test 9: acs.orglett.0c01153/22284726,22284729 MACOSX,
+			// acs.joc.0c00770/22567817
+				addFileToFileLists(oPath, LOG_IGNORED, size, ais);
+				return false;
+		} 
+		if (!lstAccepted.accept(oPath)) {
+			return false;
+		}
+		addFileToFileLists(oPath, LOG_ACCEPTED, size, null);
+		return true;
+	}
+
 
 	private void phase2bIterate(Map<String, Map<String, ArchiveEntry>> htArchiveContents)
 			throws IOException, IFDException {
@@ -988,7 +1071,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		int pt = dirName.length() - 1;
 		String thisDir = (lenOffset < pt ? dirName.substring(lenOffset, pt) : "");
 		String newDir = rezipVendor.getRezipPrefix(dirName);
-		Matcher m = null;
 		String localizedName = localizePath(originPath);
 		String lNameForObj = localizedName;
 		// look for the object associated with this path
@@ -1091,8 +1173,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				break;
 			if (isDir)
 				continue;
-			PropertyManagerI mgr = null;
-
 			this.originPath = entryPath;
 			String localName = localizePath(baseName + entryName);
 			// prevent this file from being placed on the ignored list
@@ -1113,9 +1193,11 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			// false for MNova within Bruker? TODO: But wouldn't that possibly have
 			// structures?
 			// directory, for example
-			boolean doCache = (!isIFDMetadataFile && vendorCachePattern != null
-					&& (m = vendorCachePattern.matcher(entryName)).find() && phase2cGetParamName(m) != null
-					&& ((mgr = getPropertyManager(m, true, true)) == null || mgr.doExtract(entryName)));
+			PropertyManagerI mgr = null;
+			Matcher managerMatcher = null;
+			boolean doCache = (!isIFDMetadataFile && propertyManagerCachePattern != null
+					&& (managerMatcher = propertyManagerCachePattern.matcher(entryName)).find() && phase2cGetParamName(managerMatcher) != null
+					&& ((mgr = getPropertyManager(managerMatcher, true, true)) == null || mgr.doExtract(entryName)));
 			boolean doCheck = (doCache || mgr != null || isIFDMetadataFile);
 
 			len = entry.getSize();
@@ -1217,6 +1299,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * have been created for all resources. This includes writing extracted
 	 * representations to files.
 	 * 
+	 * In the end, clears the deferredPropertyList, 
+	 * 
 	 * @throws IFDException
 	 * @throws IOException
 	 */
@@ -1230,22 +1314,22 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				state.cloneOriginObject = null;
 				continue;
 			}
-			System.out.println("Ix2 " + dp);
+			System.out.println("IFDE2 " + dp);
 			state.assoc = null;
 			// note that multi-page MNOVA here would be the same as previous.
 			final String key = dp.key;// a[2];
 			final Object value = dp.value;// a[3];
 			final boolean isInline = dp.isInline;// (a[4] == Boolean.TRUE);
+			boolean isNewPage = false;
 			switch (key) {
 			case DeferredProperty.NEW_RESOURCE_KEY:
 				initializeResource(dp.resource, false);
 				continue;
 			case DeferredProperty.NEW_PAGE_KEY:
-				if (state.processNewPageKey(value))
+				if (!state.processNewPageKey(value))
 					continue;
-				if (state.cloning)
-					state.processNewPage(dp);
-				continue;
+				isNewPage = true;
+				break;
 			case DeferredProperty.PAGE_ID_PROPERTY_SOURCE:
 				// looking at the title of an MNova page
 				// if it starts with "COMPOUND ", then we accept that.
@@ -1294,6 +1378,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			}
 
 			// just a property
+			if (state.cloning && isNewPage)
+				state.processNewPage(dp);
 			boolean isStructure = (type == FAIRSpecFindingAidHelper.ClassTypes.Structure);
 			if (isStructure) {
 				if (state.struc == null) {
@@ -1315,16 +1401,15 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 
 			}
 		}
+		// end of property list
 		if (dumpPropertyList) {
 			writePropertyList();
 		}
 		if (state.assoc == null) {
-			deferredPropertyList.clear();
-			deferredPropertyPointer = 0;
-			htStructureRepCache = null;
+			resetDeferredPropertyList(true);
 		} else if (state.cloning) {
 			// but why is it the lastLocal?
-			vendorCache.remove(lastLocal);
+			propertyManagerCache.remove(lastLocal);
 		}
 	}
 
@@ -1339,6 +1424,14 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		private IFDRepresentableObject<?> object;
 		private String thisPageInvalidatedStructureRepKey;
 
+		protected Map<AWrap, IFDStructure> htStructureRepCache = new HashMap<>();
+
+		private IFDStructure getCachedStructure(AWrap w, byte[] bytes, String inchi) {
+			bytes = (inchi == null || inchi.length() < 2 ? bytes : inchi.getBytes());
+			w.setBytes(bytes);
+			return htStructureRepCache.get(w);
+		}
+		
 		/**
 		 * we have found an object associated with this representation or property
 		 * @param ifdObject
@@ -1494,10 +1587,10 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			if (newLocalName != null)
 				localName = newLocalName;
 			htLocalizedNameToObject.put(localName, object); // for internal use
-			CacheRepresentation rep = vendorCache.get(localName);
+			CacheRepresentation rep = propertyManagerCache.get(localName);
 			if (newLocalName != localName) {
 				String ckey = localName + idExtension.replace('_', '#') + "\0" + idExtension;
-				vendorCache.put(ckey, rep);
+				propertyManagerCache.put(ckey, rep);
 				htLocalizedNameToObject.put(ckey, object);
 			}
 		}
@@ -1530,7 +1623,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 					struc = helper.addStructureForSpec(extractorResource.rootPath, (IFDDataObject) object, ifdRepType,
 							oPath, localName, name);
 				}
-				cacheStructure(w, struc);
+				htStructureRepCache.put(w, struc);
 				if (!insitu)
 					writeOriginToCollection(oPath, bytes, 0);
 				if (extractorResource.isDefaultStructurePath) {
@@ -1584,10 +1677,10 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				// done reading MNova file
 				cloning = false;
 				cloneOriginObject = null;
-				return true;
+				return false;
 			}
 			cloning = true;
-			return false;
+			return true;
 		}
 	}
 
@@ -1647,7 +1740,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	}
 
 	private void phase2dSetPropertyIfNotAlreadySet(IFDObject<?> obj, String key, Object value, String originPath) {
-		System.out.println(obj);
 		Object currentValue = faHelper.setPropertyValueNotAlreadySet(obj, key, value, originPath);
 		if (currentValue != null && !currentValue.equals(value)) {
 			String msg = originPath + " property " + key + " can't set value '" + value + "', as it is already set to '"
@@ -1687,7 +1779,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			phase2ReadFAIRSpecReadyCollectionIteratively(getTopZipStream(), "", PHASE_2E, null, 0);
 		}
 	}
-
+	
 	private void phase2eCheckOrReject(ArchiveInputStream ais, String oPath, long len) throws IOException {
 		String localizedName = localizePath(oPath);
 		Object obj = htLocalizedNameToObject.get(localizedName);
@@ -1723,6 +1815,12 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		addDeferredPropertyOrRepresentation(new DeferredProperty(key, val));
 	}
 
+	private void resetDeferredPropertyList(boolean andClear) {
+		if (andClear)
+			deferredPropertyList.clear();
+		deferredPropertyPointer = 0;
+	}
+
 	/**
 	 * Cache the property or representation created by an IFDVendorPluginI class or
 	 * returned from the DefaultStructureHelper for later processing. This method is
@@ -1737,10 +1835,16 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 * 
 	 * DefaultStructureHelper.processRepresentation(...) only.
 	 * 
+	 * Note that when the deferredPropertyPointer is reset to 0, 
+	 * items are added BEFORE items that were already on the list before
+	 * the pointer was reset to 0.
+	 * 
 	 * @param p
 	 */
 	@Override
 	public void addDeferredPropertyOrRepresentation(DeferredProperty p) {
+		if (!deferringProperties)
+			return;
 		if (p == null) {
 			deferredPropertyList.add(deferredPropertyPointer++, null);
 			return;
@@ -1791,7 +1895,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		addFileToFileLists(localizedName, LOG_OUTPUT, len, null);
 		CacheRepresentation rep = new CacheRepresentation(new IFDReference(faHelper.getCurrentSource().getID(),
 				originPath, extractorResource.rootPath, localizedName), data, len, ifdType, mediaType);
-		vendorCache.put(localizedName, rep);
+		propertyManagerCache.put(localizedName, rep);
 		return rep;
 	}
 
@@ -1807,7 +1911,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				originPath, extractorResource.rootPath, localizedName), null, 0, null, null);
 		rep.isValid = false;
 		logWarn("Duplicate structure " + originPath + " ignored! Found: " + struc, "invalidateCachedRepresentation");
-		vendorCache.put(localizedName, rep);
+		propertyManagerCache.put(localizedName, rep);
 	}
 
 	/**
@@ -1818,6 +1922,13 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	 */
 	private void addIFDMetadata(String data) {
 		addProperties(FAIRSpecUtilities.getIFDPropertyList(data, ifdRelatedMetadataMap));
+	}
+	
+	private void addProperties(List<IFDProperty> props) {
+		for (int i = 0, n = props.size(); i < n; i++) {
+			IFDProperty p = props.get(i);
+			addDeferredPropertyOrRepresentation(new DeferredProperty(p.getName(), p.getValue()));
+		}
 	}
 
 //	private IFDRepresentableObject<?> getClonedDataSource(IFDRepresentableObject<?> spec) {

@@ -21,8 +21,6 @@ public class VarianDataObjectVendorPlugin extends NmrMLDataObjectVendorPlugin {
 		// be the| symbol, and that will be attached by IFDDefaultVendorPlugin in
 		// super.getRezipRegex()
 		rezipRegex = "procpar$";
-
-
 	}
 	@Override
 	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
@@ -45,6 +43,16 @@ public class VarianDataObjectVendorPlugin extends NmrMLDataObjectVendorPlugin {
 	@Override
 	public String getVendorDataSetKey() {
 		return IFD_REP_DATAOBJECT_FAIRSPEC_NMR_VENDOR_DATASET;
+	}
+
+	@Override
+	public boolean doRezipInclude(MetadataReceiverI extractor, String baseName, String entryName) {
+		return !entryName.endsWith(".mnova");
+	}
+
+	@Override
+	public boolean doExtract(String entryName) {
+		return false;
 	}
 
 

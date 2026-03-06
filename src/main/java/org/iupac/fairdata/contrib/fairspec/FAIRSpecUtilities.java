@@ -1083,4 +1083,31 @@ public class FAIRSpecUtilities {
 		}
 		return false;
 	}
+
+	public static boolean isMol2D(byte[] bytes) {
+		if (bytes == null)
+			return false;
+		int line = 0;
+		int linept = 0;
+		for (int i = 0; i < bytes.length; i++) {
+			switch (bytes[i]) {
+			case 0xD:
+				if (bytes[i + 1] == 0xA) {
+					continue;
+				}
+				//$FALL-THROUGH$
+			case 0xA:
+				if (++line == 2) {
+					// GSMACCS-II10169115362D
+					// 0.........1.........2
+					// 0123456789012345678901
+					int ptdim = linept + 20;
+					return (i > ptdim + 1 && bytes[ptdim] == '2' && bytes[ptdim+1] == 'D');
+				}
+				linept = i + 1;
+				break;
+			}
+		}
+		return false;
+	}
 }

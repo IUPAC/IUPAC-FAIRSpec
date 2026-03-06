@@ -32,7 +32,7 @@ public class ByteBlockReader {
 	/**
 	 * set to true for debugging
 	 */
-	public static boolean testing = true;// false;
+	public static boolean testing = false;
 
 	public static String pointerTest = null; // "version" for instance
 	/**
@@ -688,7 +688,7 @@ public class ByteBlockReader {
 		String s = new String(setBuf(len), 0, len);
 		if (testing)
 			System.out.println("readString >" + s + "<");
-		return s.trim();
+		return s;
 	}
 
 	/**

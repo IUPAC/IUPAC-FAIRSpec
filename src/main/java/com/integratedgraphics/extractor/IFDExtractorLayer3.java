@@ -50,6 +50,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	protected String processPhase3() throws IFDException, IOException {
 
 		// Phase 3a
+		setCurrentPhase("3a");
 
 		// Update lengths for representations.
 		// Flag files that are unused because they did not fit a configuration record.
@@ -58,6 +59,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		checkStopAfter("3a");
 
 		// Phase 3b
+		setCurrentPhase("3b");
 		
 		// Clean up the collection by removing any unmanifested files.
 
@@ -76,6 +78,8 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 			phase3bRemoveUnmanifestedRepresentations();
 		}
 		checkStopAfter("3b");
+
+		setCurrentPhase("3c");
 
 		phase3cCheckForDuplicateSpecData();
 		checkStopAfter("3c1");
@@ -99,6 +103,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		// Create the finding aid serialization
 
 		String serializedFA = phase3SerializeFindingAid();
+		
 		return serializedFA;
 	}
 
@@ -249,8 +254,8 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	 * Set the type and len fields for structure and spec data
 	 */
 	private void phase3aUpdateCachedRepresentations() {
-		for (String ckey : vendorCache.keySet()) {
-			CacheRepresentation r = vendorCache.get(ckey);
+		for (String ckey : propertyManagerCache.keySet()) {
+			CacheRepresentation r = propertyManagerCache.get(ckey);
 			IFDRepresentableObject<?> obj = getObjectFromLocalizedName(ckey, null);
 			if (obj == null || !r.isValid) {
 				String path = r.getRef().getOriginPath().toString();

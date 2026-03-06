@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.util.Map;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
 import com.integratedgraphics.ifd.dataobject.DefaultVendorPlugin;
@@ -13,7 +14,6 @@ import jspecview.source.JDXReader;
 public class JCAMPDXDataObjectVendorPlugin extends DefaultVendorPlugin {
 
 	protected final static String IFD_REP_DATAOBJECT_FAIRSPEC_UNKNOWN_VENDOR_DATASET = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_UNKNOWN.VENDOR_DATASET");
-    protected final static String IFD_PROPERTY_DATAOBJECT_FAIRSPEC_UNKNOWN_INSTR_MANUFACTURER_NAME = getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_UNKNOWN.INSTR_MANUFACTURER_NAME");
     
 	static {
 		register(com.integratedgraphics.ifd.dataobject.jcamp.JCAMPDXDataObjectVendorPlugin.class);
@@ -22,21 +22,18 @@ public class JCAMPDXDataObjectVendorPlugin extends DefaultVendorPlugin {
 	private DefaultVendorPlugin delegatedPlugin;
 	
 	protected String datasetKey;
-	protected String vendorKey;
 
 	private String jcampType;
 	
 	public JCAMPDXDataObjectVendorPlugin() {
 		paramRegex = "\\.jdx$|\\.dx$";
 		datasetKey = IFD_REP_DATAOBJECT_FAIRSPEC_UNKNOWN_VENDOR_DATASET;
-		vendorKey = IFD_PROPERTY_DATAOBJECT_FAIRSPEC_UNKNOWN_INSTR_MANUFACTURER_NAME;
 		jcampType = null;
 	}
 
 	protected void setJCAMPType(String type) {
 		jcampType = type;
 		datasetKey = getProp("IFD_REP_DATAOBJECT_FAIRSPEC_" + type + ".VENDOR_DATASET");
-	    vendorKey = getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_" + type + ".INSTR_MANUFACTURER_NAME");
 	}
 
 	@Override
@@ -117,7 +114,7 @@ public class JCAMPDXDataObjectVendorPlugin extends DefaultVendorPlugin {
 	@Override
 	public void reportVendor() {
 		if (delegatedPlugin == null)
-			addProperty(vendorKey, getVendorName());
+			addProperty(IFDConst.IFD_PROPERTY_DATAOBJECT_INSTR_MANUFACTURER_NAME, getVendorName());
 		else 
 			delegatedPlugin.reportVendor();
 	}

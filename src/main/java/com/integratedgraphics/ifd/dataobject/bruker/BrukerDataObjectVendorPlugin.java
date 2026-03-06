@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDAttribute;
 import org.iupac.fairdata.core.IFDProperty;
@@ -42,7 +43,7 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 				"##$EXP", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_ID"), //prop
 				"##$PULPROG", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_PULSE_PROGRAM"), //prop
 				"##$TE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_THERMODYNAMIC_TEMPERATURE"), //prop
-				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_TITLE"), //prop
+				"TITLE", IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_TITLE, //prop
 				"NF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_NOMINAL_FREQ"), //prop
 				"PF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_PROTON_FREQ"), //prop
 				"##$PROBHD", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_PROBE_TYPE"), //prop

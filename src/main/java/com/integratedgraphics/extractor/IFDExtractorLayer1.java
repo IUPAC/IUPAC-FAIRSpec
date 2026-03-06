@@ -64,7 +64,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 * properties or representations from them in Phase 2b that will need to be
 	 * processed in Phase 2c.
 	 */
-	protected Map<String, ExtractorUtils.CacheRepresentation> vendorCache;
+	protected Map<String, ExtractorUtils.CacheRepresentation> propertyManagerCache;
 
 	protected boolean processPhase1() throws IOException, IFDException {
 		log("!Extracting " + extractScriptFile.getAbsolutePath());
@@ -73,7 +73,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		if (!processPubURI())
 			return false;
 		initializePropertyExtraction();
-		vendorCache = new LinkedHashMap<String, ExtractorUtils.CacheRepresentation>();
+		propertyManagerCache = new LinkedHashMap<String, ExtractorUtils.CacheRepresentation>();
 		return true;
 	}
 

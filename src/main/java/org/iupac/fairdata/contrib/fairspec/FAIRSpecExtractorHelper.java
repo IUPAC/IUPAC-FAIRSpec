@@ -212,8 +212,7 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	public static final String FAIRSPEC_EXTRACT_VERSION = IFDConst.getProp("FAIRSPEC_EXTRACT_VERSION");
 	public static final String DATAOBJECT_FAIRSPEC_FLAG = IFDConst.getProp("DATAOBJECT_FAIRSPEC_FLAG");
 
-	public static final String DATAOBJECT_ORIGINATING_SAMPLE_ID = IFDConst
-			.getProp(IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_ORIGINATING_SAMPLE_ID);
+	public static final String DATAOBJECT_ORIGINATING_SAMPLE_ID = IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_ORIGINATING_SAMPLE_ID;
 
 	private static final String IFD_PROPERTY_SAMPLE_ID = IFDConst.concat(IFDConst.IFD_PROPERTY_FLAG,
 			IFDConst.IFD_SAMPLE_FLAG, IFDConst.IFD_ID_FLAG);

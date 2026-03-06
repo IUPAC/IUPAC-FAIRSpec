@@ -346,7 +346,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 
 	private void readHeader() throws IOException {
 		seekIn(0);
-		String mestrelabResearchSL = readSimpleString(23);
+		String mestrelabResearchSL = readSimpleString(23).trim();
 		readInt();// byte order mark 
 		System.out.println(mestrelabResearchSL);
 	}
@@ -1082,12 +1082,19 @@ class MNovaMetadataReader extends ByteBlockReader {
 //		peekInts(10);
 		mlen = peekInt();
 		String s = readLenStringSafely();
-		boolean isOK = (s.indexOf('\0') < 0);
-		if (isOK) {			
+		// don't allow files with no atoms or bonds, which are 
+		// certainly more than 100 characters
+		boolean isOK = (mlen > 100 && s.indexOf('\0') < 0);
+		if (isOK) {
+			if (s.charAt(0) <= ' ') {
+				s = "MNova "+ s;
+				//don't leave this with whitespace at the beginning of the file
+			}
 			System.out.println(s);
 			nMOL++;
 			byte[] bytes = s.getBytes();
-			handleFileData(nBlock, DefaultStructureHelper.MOL_FILE_DATA, bytes, pt0, mlen, null, null);
+			handleFileData(nBlock, DefaultStructureHelper.MOL_FILE_DATA, 
+					bytes, pt0, mlen, null, null);
 		}
 		seekIn(lastPosition);
 		return isOK;
@@ -1351,7 +1358,6 @@ class MNovaMetadataReader extends ByteBlockReader {
 	private static boolean runFileTest(String fname, String outdir) {
 		try {
 			// create structures for a specific file given
-			createStructureFiles = (testFile != null);
 			File f = new File(fname);
 			String filename = f.getAbsolutePath();
 			byte[] bytes = FAIRSpecUtilities.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
@@ -2009,14 +2015,16 @@ peekInts(10);
 	
 	public static void main(String[] args) {
 
+		createStructureFiles = true;
+
 		testing = false; // verbose option
 
 		// default for --test
 		defaultTest = testFiles.length;
 
 		// defaults for testall
-		testFileFirst = 1;
-		testFileLast = testFiles.length;
+		testFileFirst = 13;
+		testFileLast = 13;//testFiles.length;
 
 //		debugging = true; // passed on
 

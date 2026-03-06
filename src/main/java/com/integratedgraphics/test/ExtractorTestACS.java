@@ -243,28 +243,19 @@ public class ExtractorTestACS extends ExtractorTest {
 			+ "\n    note that this a limited set of examples acs.joc.0c0070 is just one of them, [0]"
 			+ "\n"; //
 
-
-	public static void main(String[] args) {
-		// args[] may override localSourceArchive as ars[1] 
-		// and testDir as args[2]; args[0] is ignored;
-		int first = 12; // first test to run
-		int last = 12; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
-		run(args, first, last, null, null);
-	}
-
 	private static void run(String[] args, int first, int last, String localSourceArchive, String targetDir) {
-					  // file test
-		String findACSID = null;//"1022" to ignore first/last;
-		String flags = null;//"-assetsOnly"; // "-datacitedown"
+		// file test
+		String findACSID = null;// "1022" to ignore first/last;
+		String flags = null;// "-assetsOnly"; // "-datacitedown"
 		/**
 		 * a local dir if you have already downloaded the zip files, otherwise null to
 		 * download from FigShare;
 		 */
-		if (args ==  null) {
+		if (args == null) {
 			args = new String[4];
 		} else {
-			localSourceArchive = "c:/temp/iupac/acs/zip";//-";
-			targetDir = "c:/temp/iupac/test2026";//);//acs/ifd2025-08";
+			localSourceArchive = "c:/temp/iupac/acs/zip";// -";
+			targetDir = "c:/temp/iupac/test2026b";// );//acs/ifd2025-08";
 		}
 		args = setSourceTargetArgs(args, null, localSourceArchive, targetDir, flags);
 		boolean createFindingAidJSONList = true;
@@ -273,19 +264,28 @@ public class ExtractorTestACS extends ExtractorTest {
 
 	/**
 	 * Run the --DOI parameter if in the form [i,j] where i >= 0 and j <= 13
+	 * 
 	 * @param firstLast
 	 */
 	public static void runSet(String firstLast, String localSourceArchive, String targetDir) {
 		firstLast = firstLast.replace('-', ',');
-		int pt =  firstLast.indexOf('[');
-		targetDir = targetDir.replace('[', '_').replace(']','_').replace('\\', '/');
+		int pt = firstLast.indexOf('[');
+		targetDir = targetDir.replace('[', '_').replace(']', '_').replace('\\', '/');
 		if (pt >= 0) {
-			String[] a = firstLast.substring(pt+1, firstLast.indexOf("]")).split(",");
+			String[] a = firstLast.substring(pt + 1, firstLast.indexOf("]")).split(",");
 			int first = Integer.parseInt(a[0]);
 			int last = (a.length == 1 ? first : Integer.parseInt(a[1]));
 			run(null, first, last, localSourceArchive, targetDir);
 		}
-		
+
+	}
+
+	public static void main(String[] args) {
+		// args[] may override localSourceArchive as ars[1] 
+		// and testDir as args[2]; args[0] is ignored;
+		int first = 8; // first test to run
+		int last = 8; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
+		run(args, first, last, null, null);
 	}
 
 }

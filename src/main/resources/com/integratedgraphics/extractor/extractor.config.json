@@ -6,8 +6,8 @@
 	"com.integratedgraphics.ifd.dataobject.varian.VarianDataObjectVendorPlugin"
 	],	
  "knownAnalysisStandards" : [
-    "com.integratedgraphics.ifd.analysis.nmrml.NMRMLAnalysisObjectPlugin",
-    "com.integratedgraphics.ifd.analysis.nmredata.NMReDATAAnalysisObjectPlugin"
+    "com.integratedgraphics.ifd.analysisobject.nmrml.NMRMLAnalysisObjectPlugin",
+    "com.integratedgraphics.ifd.analysisobject.nmredata.NMReDATAAnalysisObjectPlugin"
     ],
 "defaultScripts" : [
 	 "replacements do not apply to default structure paths",

@@ -220,6 +220,8 @@ public class IFDExtractorMain extends IFDExtractorLayer3 {
 
 		// set up the extraction
 
+		setCurrentPhase("1");
+
 		processPhase1();
 		FAIRSpecUtilities.refreshLog();
 
@@ -227,11 +229,13 @@ public class IFDExtractorMain extends IFDExtractorLayer3 {
 
 		// now actually do the extraction.
 
+		setCurrentPhase("2");
 		processPhase2();
 		FAIRSpecUtilities.refreshLog();
 		checkStopAfter("2");
 
 		// finish up all processing
+		setCurrentPhase("3");
 		return processPhase3();
 	}
 

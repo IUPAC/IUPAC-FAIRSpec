@@ -102,7 +102,7 @@ public interface MetadataReceiverI {
 
 		@Override
 		public String toString() {
-			return "[DP " + (processNote == null ? null : processNote + "\n  ") + key + " : " + (value instanceof Object[] ? Arrays.toString((Object[]) value) : value)
+			return "[DP " + (processNote == null ? "" : processNote + "\n  ") + key + " : " + (value instanceof Object[] ? Arrays.toString((Object[]) value) : value)
 					+ (key == NEW_RESOURCE_KEY ? resource.toString() : " ln=" + localizedName + " op=" + originPath + "]");
 		}
 	}

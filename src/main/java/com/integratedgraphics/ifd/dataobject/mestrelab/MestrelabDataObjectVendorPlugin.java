@@ -70,7 +70,7 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 				"Probe", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_PROBE_TYPE"), //prop
 				"Temperature", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_THERMODYNAMIC_TEMPERATURE"), //prop
 				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_DIMENSION"), //prop
-				"TITLE", getProp(IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_TITLE), //prop
+				"TITLE", IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_TITLE, //prop
 				"Spectrometer Frequency", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_1"), //prop
 				"Spectrometer Frequency2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_2"), //prop
 				"Spectrometer Frequency3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_3"), //prop
@@ -281,6 +281,7 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 		case DefaultStructureHelper.CDXML_FILE_DATA:
 			structureType = ".cdxml";
 			break;
+		case DefaultStructureHelper.MOL2D_FILE_DATA:
 		case DefaultStructureHelper.MOL_FILE_DATA:
 			structureType = ".mol";
 			break;
@@ -320,6 +321,12 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 
 	// private
 
+	
+	@Override
+	public void addProperty(String key, Object val) {
+		report(key, val);
+	}
+
 	/**
 	 * Report the found property back to the IFDMetadataReceiverI class.
 	 * 
@@ -331,14 +338,14 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 		String k = ifdMap.get(isDerived ? key.substring(1) : key);
 		// TODO? but not all keys are like this key = "MNova_" + key;
 		if (k == null && key.equals(MNovaMetadataReader.PAGE_TITLE)) {
-			addProperty(IFDConst.IFD_PROPERTY_DESCRIPTION, val);
-			addProperty(MetadataReceiverI.DeferredProperty.PAGE_ID_PROPERTY_SOURCE, val);
+			super.addProperty(IFDConst.IFD_PROPERTY_DESCRIPTION, val);
+			super.addProperty(MetadataReceiverI.DeferredProperty.PAGE_ID_PROPERTY_SOURCE, val);
 		}
 		// SM and DIM are derived
 		if (!isDerived)
-			addProperty(key, val);
+			super.addProperty(key, val);
 		if (k != null)
-			addProperty(k, val);
+			super.addProperty(k, val);
 	}
 
 	private void close() {

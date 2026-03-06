@@ -61,7 +61,7 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader implements NmrMLH
 		Locale.setDefault(new Locale("en", "US"));
 		Acqu acquisition = new Acqu(Acqu.Spectrometer.JEOL);
 
-		String File_Identifier = readSimpleString(8);
+		String File_Identifier = readSimpleString(8).trim();
 		if (fprt)
 			System.out.println("Header: File_Identifier = " + File_Identifier);
 
