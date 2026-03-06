@@ -200,6 +200,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 
 	private final static byte[] pngKey = new byte[] { (byte) 0x89, 'P', 'N', 'G' };
 
+	private final static String EMPTY_MOL = "  0  0  0  0  0  0  0  0  0  0";
 	private static final int minBlockLengthForStructureData = 50;
 
 	private MestrelabDataObjectVendorPlugin plugin;
@@ -1084,7 +1085,8 @@ class MNovaMetadataReader extends ByteBlockReader {
 		String s = readLenStringSafely();
 		// don't allow files with no atoms or bonds, which are 
 		// certainly more than 100 characters
-		boolean isOK = (mlen > 100 && s.indexOf('\0') < 0);
+		int ptV = s.indexOf("V2000");
+		boolean isOK = (ptV < 0 ||  s.lastIndexOf(EMPTY_MOL, ptV) < 0);
 		if (isOK) {
 			if (s.charAt(0) <= ' ') {
 				s = "MNova "+ s;

@@ -283,8 +283,8 @@ public class ExtractorTestACS extends ExtractorTest {
 	public static void main(String[] args) {
 		// args[] may override localSourceArchive as ars[1] 
 		// and testDir as args[2]; args[0] is ignored;
-		int first = 8; // first test to run
-		int last = 8; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
+		int first = 7; // first test to run
+		int last =  7; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
 		run(args, first, last, null, null);
 	}
 
