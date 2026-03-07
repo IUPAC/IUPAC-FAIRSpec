@@ -1,21 +1,94 @@
 # !/bin/bash
 
-# for Git-BASH (running in Windows cmd tab); everything works
+# defaults for these three globals
+
+Emma_Algorithm="/c/temp/iupac/compound_candidate_identifier.py"
+
+# holds a bunch of ZIP files downloaded from FigShare
+Zip_Source_Directory="/c/temp/iupac/acs2/data"
+
+# where everything is going to be put
+Working_Directory="/c/temp/iupac/acs2/test2"
+
+# Each set of zip files for a given "doi" (actually just part of that) 
+# will have its own directory. A "doi" in this case is the starting string of the zip file
+# for example, for 
+# pub DOI https://doi.org/10.1021/acs.joc.4c03150
+# we have:
+# SI URI https://acs.figshare.com/articles/dataset/A_Twist_on_Controlling_the_Equilibrium_of_Dynamic_Thia-Michael_Reactions/28555606 
+# SI DOI https://doi.org/10.1021/acs.joc.4c03150.s005	
+# SI URI https://acs.figshare.com/articles/dataset/A_Twist_on_Controlling_the_Equilibrium_of_Dynamic_Thia-Michael_Reactions/28555603
+# SI DOI https://doi.org/10.1021/acs.joc.4c03150.s00
+# and the "doi" here is just the common element there, sort of -- really a prefix: "jo4c03150"
+# because the Figshare download from the ACS portal delivers
+# jo4c03150_si_004.zip
+# jo4c03150_si_005.zip
 
 # requires sudo apt update 
 # requires sudo apt install unzip
 
-# GitBash does not start with /mnt
-Emma_Algorithm="/c/temp/iupac/compound_candidate_identifier.py"
-Zip_Source_Directory="/c/temp/iupac/acs2/data"
-Working_Directory="/c/temp/iupac/acs2/test2"
 
-if [ ! -f "${Emma_Algorithm}" ]; then
-    echo "Error: ${Emma_Algorithm} does not exist" >&2
-    exit 1
+OPTS=$(getopt -o :d:nuf:t -a -l doi:,nounzip,unzip,file:,test -n "$0" -- "$@")
+if [[ $? -ne 0 ]]; then
+    echo "$? failed parsing [optional -doi(d)] <doi(s)> -nounzip(n) -unzip(u) -file(f) <doiListFile>"
+    exit 1;
 fi
 
-# check that these directories exist
+doi="?"
+doUnzip="?"
+dois="?"
+isTest=1
+eval set -- "$OPTS"
+while true; do
+  # noting that | --xxx is not necessary; here for convenience only; -xxx will also work
+  case "$1" in
+    -d | --doi) # one or comma-separated list
+        doi="$2"
+        shift 2
+        ;;
+    -n | --nounzip)
+        doUnzip=1
+        shift
+        ;;
+    -u | --unzip)
+        doUnzip=0
+        shift
+        ;;
+    -f | --file) # one per line
+        mapfile -t dois < "$2"  
+        echo "read ${#dois[@]} DOIs from $2"
+        doi=""
+        shift 2
+        ;;
+    -t | --test) # just report source file information
+        isTest=0
+        shift 1
+        ;;
+    --) 
+    echo "-- $1"
+        shift
+        break
+        ;;
+    *)
+        echo "Internal error!" >&2
+        exit 1
+        ;;  
+    esac
+done
+
+# also accepts one or more comma-separated DOIs
+for arg; do
+    dois="?"
+    if [[ $doi == "?" ]]; then
+        doi=$arg
+    else
+        doi+=",$arg"
+    fi
+done
+
+echo "doUnzip=${doUnzip} doi=${doi} dois=${dois}"
+
+# check that the source and working directories exist
 check_dir_exists() {
     local dir_path="$1"
     if [ ! -d "$dir_path" ]; then
@@ -29,6 +102,12 @@ check_dir_exists() {
 check_dir_exists ${Zip_Source_Directory}
 check_dir_exists ${Working_Directory}
 
+# check that the python file exists -- maybe jus a warning?
+if [ ! -f "${Emma_Algorithm}" ]; then
+    echo "Error: ${Emma_Algorithm} does not exist" >&2
+    exit 1
+fi
+
 function yes_or_no {
     while true; do
         read -p "$* [y/n]: " yn
@@ -41,110 +120,160 @@ function yes_or_no {
 }
 
 # Ask the user to input the DOI for the ACS dataset they want to work on
-read -p "Please enter the DOI of the ACS set you want to work on (e.g. jo4c02094): " doi
+if [[ "${doi}" == "?" ]]; then 
+  read -p "Please enter the DOI of the ACS set you want to work on (e.g. jo4c02094): " doi
+fi
 
-Zip_Root="${Zip_Source_Directory}/${doi}"
-# make sure this doi has zip files
+# allow for a comma-separated list
+if [[ ! "${doi}" == "?" && ! ${doi} == "" ]]; then
+    IFS="," read -ra dois <<< "${doi}"
+    IFS=$' \t\n' 
+fi
 
-    if [ ! -f "${Zip_Root}"*.zip ]; then
-        echo "Error: no zip files found for $doi"
-        exit 1
-    else
-        ls --format 'single-column' "${Zip_Root}"*.zip
-        echo "OK"
+# default to --unzip for more than one
+if [[ doUnzip == "?" && dois[@] -ne 1 ]]; then
+   doUnzip = 0
+fi
+
+tempfile=$(mktemp)
+
+# now one BIG loop
+
+for doi in "${dois[@]}"
+do
+    # trim lines and skip blank lines
+    doi=$(echo "$doi" | xargs)
+    if [[ "${doi}" == "" ]]; then
+        continue
+    fi
+    echo "processing $doi"
+
+    # make sure the doi has zip files
+    Zip_Root="${Zip_Source_Directory}/${doi}"
+    files=("${Zip_Root}"*.zip)
+    if [ ${#files[@]} == 0 ]; then
+        echo "Error: no zip files found for ${Zip_root}*.zip"
+        continue
     fi
 
-DOI_Dir="${Working_Directory}/${doi}"
+    echo "${#files[@]} zip files for $doi"
 
-// GitBash cannot use sudo in Windows env.
-# Clear the folder for prediction if it exists
-if [ ! -d "${Prediction_Directory}" ]; then
-  mkdir $DOI_Dir
-fi
+    # only to here if testing
+    if [ ${isTest} == 0 ]; then
+        continue
+    fi
 
-Prediction_Directory="${DOI_Dir}/${doi}_prediction"
-# Clear the folder for prediction if it exists
-if [ -d "${Prediction_Directory}" ]; then
-  rm -rf "${Prediction_Directory}"
-fi
+    DOI_Dir="${Working_Directory}/${doi}"
+    # Create the DOI directory if it does not exist
+    if [ ! -d "${DOI_Dir}" ]; then
+        mkdir $DOI_Dir
+    fi
 
-Unzip_Dir="${DOI_Dir}/${doi}_unzip"
-if [ -d "$Unzip_Dir" ]; then
-  doUnzip=$(yes_or_no "Do you want to unzip files?")
-fi
+    Prediction_Directory="${DOI_Dir}/${doi}_prediction"
+    # Clear the folder for prediction if it exists
+    if [ -d "${Prediction_Directory}" ]; then
+    rm -rf "${Prediction_Directory}"
+    fi
 
-unzip_recursive() {
-  
-  # TODO clear out __MACOSX files; could also be __MACOS I think
-  find . -name "__MACOSX" -type d -exec rm -rf {} + 2>/dev/null
+    Unzip_Dir="${DOI_Dir}/${doi}_unzip"
+    # ask to unzip if the _unzip directory exists 
+    if [[ doUnzip == "?" && -d "$Unzip_Dir" ]]; then
+    doUnzip=$(yes_or_no "Do you want to unzip files?")
+    fi
+
+    unzip_recursive() {
     
-  # Continuously search for zip files until none are left
-  
-  while [ "$(find . -path "*/__MACOSX" -prune -o -type f -name '*.zip' -print | wc -l)" -gt 0 ]; do
+    echo "test ${Unzip_Dir}"
 
-      # Find each zip, extract to {name}.zip__, then delete the archive
-      # Note - output from echo is not coming through from the exec shell
-      find . -path "*/__MACOSX" -prune -o -type f -name "*.zip" -exec sh -c '
-          zip_file="$0"
-          dest_dir="${zip_file}__"
-          if unzip -o -d "$dest_dir" "$zip_file" -x "__MACOSX/*" "*/__MACOSX/*"; then
-              rm "$zip_file"
-              echo "Extracted and removed: $zip_file"
-          else
-              echo "Error unzipping: $zip_file"
-              exit 1
-          fi
-      ' "{}" \;
-  done
-  find . -name "__MACOSX" -type d -exec rm -rf {} + 2>/dev/null
-}
+    # TODO clear out __MACOSX files; could also be __MACOS I think
+    find . -name "__MACOSX" -type d -exec rm -rf {} + 2>/dev/null
+        
+    # Continuously search for zip files until none are left
+    
+    while [ "$(find . -path "*/__MACOSX" -prune -o -type f -name '*.zip' -print | wc -l)" -gt 0 ]; do
 
-if [ ! $doUnzip ]; then
-  # Clear existing zip files from this directory
-  rm -f "$DOI_Dir"/*.zip 
+        # Find each zip, extract to {name}.zip__, then delete the archive
+        # Note - output from echo is not coming through from the exec shell
+        find . -path "*/__MACOSX" -prune -o -type f -name "*.zip" -exec sh -c '
+            zip_file="$0"
+            dest_dir="${zip_file}__"
+            if unzip -o -d "$dest_dir" "$zip_file" -x "__MACOSX/*" "*/__MACOSX/*"; then
+                rm "$zip_file"
+                echo "Extracted and removed: $zip_file"
+            else
+                echo "Error unzipping: $zip_file"
+                exit 1
+            fi
 
-  # Clear any existing unzipped folder if present
-  rm -rf "$DOI_Dir"/*_unzip
 
-  # Create a new folder to store unzipped data if it has not existed beforehand
-  # e.g. jo4c02094_unzip
-  echo unzip dir is ${Unzip_Dir}
-  mkdir ${Unzip_Dir}
+        ' "{}" \;
+    done
+    find . -name "__MACOSX" -type d -exec rm -rf {} + 2>/dev/null
+    }
 
-  # copy top-level zip files to the <DOI> directory
-  cp "${Zip_Root}"*.zip ${DOI_Dir}
-  cd ${DOI_Dir}
-  ls *.zip
+    if [ ! $doUnzip ]; then
 
-  # unzip these top-level zip files into the <DOI>_unzip directory
-  unzip "${Zip_Root}"*.zip -d ${Unzip_Dir}
+        # Clear existing zip files from this directory
+        rm -f "$DOI_Dir"/*.zip 
 
-  # cd to the top of the <DOI>_unzip directory
-  cd ${Unzip_Dir}
+        # Clear any existing unzipped folder if present
+        rm -rf "$DOI_Dir"/*_unzip
 
-  # Call the recursive function to unzip all .zip files in the dataset
-  unzip_recursive
+        # Create a new folder to store unzipped data if it has not existed beforehand
+        # e.g. jo4c02094_unzip
+        echo unzip dir is ${Unzip_Dir}
+        mkdir ${Unzip_Dir}
 
-  # cd to the top of the <DOI>_unzip directory
-  cd ${Unzip_Dir}
-  rm -rf __MACOS*
+        # copy zip files to the DOI directory
+        cp "${Zip_Root}"*.zip ${DOI_Dir}
+        cd ${DOI_Dir}
+        ls *.zip
 
-fi
+        # unzip these top-level zip files into the <DOI>_unzip directory
+        unzip "${Zip_Root}"*.zip -d ${Unzip_Dir}
 
-# Create a new folder to store the output from running compound_candidate_identifier.py 
-mkdir "${Prediction_Directory}"
+        # cd to the top of the <DOI>_unzip directory
+        cd ${Unzip_Dir}
 
-# Create the list of all the directories and files in the dataset in the prediction folder
-OUTPUT_FILE="${Prediction_Directory}/file_list_${doi}.txt"
-echo "creating ${OUTPUT_FILE}"
-cd "${Unzip_Dir}"
-find "." -print > "$OUTPUT_FILE"
+        # Call the recursive function to unzip all .zip files in the dataset
+        unzip_recursive
 
-# Run the compound_candidate_identifier script to generate output files
-cd "${Prediction_Directory}"
-# this next line fails because pandas is not present and can't be installed or found
-# GitBash uses 'py' here
-py "${Emma_Algorithm}" $doi
+        # cd to the top of the <DOI>_unzip directory
+        cd ${Unzip_Dir}
+        rm -rf __MACOS*
 
-cd "${Prediction_Directory}"
+    fi # if doUnZip
+
+    # Create a new folder to store the output from running compound_candidate_identifier.py 
+    mkdir "${Prediction_Directory}"
+
+    # Create the list of all the directories and files in the dataset in the prediction folder
+    OUTPUT_FILE="${Prediction_Directory}/file_list_${doi}.txt"
+    echo "creating ${OUTPUT_FILE}"
+    cd "${Unzip_Dir}"
+    find "." -print > "$OUTPUT_FILE"
+
+    # Run the compound_candidate_identifier script to generate output files
+    cd "${Prediction_Directory}"
+
+    # this next line fails because pandas is not present and can't be installed or found
+    py "${Emma_Algorithm}" $doi > "${Prediction_Directory}/emma.log"  2> "$tempfile"
+    iserr=$(stat -c%s "$tempfile")
+
+    if [[ ! ${iserr} == "0" ]]; then
+        errFile="${Prediction_Directory}/emma.err"
+        echo "!!!!!!!!!!Python errors for ${doi} - see $errFile !!!!!!!!!!"
+        cp "$tempfile" "$errFile"
+    else
+        echo "No Python errors for ${doi}" 
+    fi
+ 
+    cd "${Prediction_Directory}"
+
+
+done # for doi
+
+# Clean up the temporary file
+rm -f "$tempfile"
+
 echo "done"

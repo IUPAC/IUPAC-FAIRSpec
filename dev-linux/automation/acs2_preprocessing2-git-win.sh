@@ -1,14 +1,92 @@
 # !/bin/bash
 
+# defaults for these three globals
+
+Emma_Algorithm="/c/temp/iupac/compound_candidate_identifier.py"
+
+# holds a bunch of ZIP files downloaded from FigShare
+Zip_Source_Directory="/c/temp/iupac/acs2/data"
+
+# where everything is going to be put
+Working_Directory="/c/temp/iupac/acs2/test2"
+
+# Each set of zip files for a given "doi" (actually just part of that) 
+# will have its own directory. A "doi" in this case is the starting string of the zip file
+# for example, for 
+# pub DOI https://doi.org/10.1021/acs.joc.4c03150
+# we have:
+# SI URI https://acs.figshare.com/articles/dataset/A_Twist_on_Controlling_the_Equilibrium_of_Dynamic_Thia-Michael_Reactions/28555606 
+# SI DOI https://doi.org/10.1021/acs.joc.4c03150.s005	
+# SI URI https://acs.figshare.com/articles/dataset/A_Twist_on_Controlling_the_Equilibrium_of_Dynamic_Thia-Michael_Reactions/28555603
+# SI DOI https://doi.org/10.1021/acs.joc.4c03150.s00
+# and the "doi" here is just the common element there, sort of -- really a prefix: "jo4c03150"
+# because the Figshare download from the ACS portal delivers
+# jo4c03150_si_004.zip
+# jo4c03150_si_005.zip
 
 # requires sudo apt update 
 # requires sudo apt install unzip
 
-# check these three globals
 
-Emma_Algorithm="/c/temp/iupac/compound_candidate_identifier.py"
-Zip_Source_Directory="/c/temp/iupac/acs2/data"
-Working_Directory="/c/temp/iupac/acs2/test2"
+OPTS=$(getopt -o :d:nuf:t -a -l doi:,nounzip,unzip,file:,test -n "$0" -- "$@")
+if [[ $? -ne 0 ]]; then
+    echo "$? failed parsing [optional -doi(d)] <doi(s)> -nounzip(n) -unzip(u) -file(f) <doiListFile>"
+    exit 1;
+fi
+
+doi="?"
+doUnzip="?"
+dois="?"
+isTest=1
+eval set -- "$OPTS"
+while true; do
+  # noting that | --xxx is not necessary; here for convenience only; -xxx will also work
+  case "$1" in
+    -d | --doi) # one or comma-separated list
+        doi="$2"
+        shift 2
+        ;;
+    -n | --nounzip)
+        doUnzip=1
+        shift
+        ;;
+    -u | --unzip)
+        doUnzip=0
+        shift
+        ;;
+    -f | --file) # one per line
+        mapfile -t dois < "$2"  
+        echo "read ${#dois[@]} DOIs from $2"
+        doi=""
+        shift 2
+        ;;
+    -t | --test) # just report source file information
+        isTest=0
+        shift 1
+        ;;
+    --) 
+    echo "-- $1"
+        shift
+        break
+        ;;
+    *)
+        echo "Internal error!" >&2
+        exit 1
+        ;;  
+    esac
+done
+
+# also accepts one or more comma-separated DOIs
+for arg; do
+    dois="?"
+    if [[ $doi == "?" ]]; then
+        doi=$arg
+    else
+        doi+=",$arg"
+    fi
+done
+
+echo "doUnzip=${doUnzip} doi=${doi} dois=${dois}"
 
 # check that the source and working directories exist
 check_dir_exists() {
@@ -30,27 +108,6 @@ if [ ! -f "${Emma_Algorithm}" ]; then
     exit 1
 fi
 
-# paramters <doi> and --nozip (or -nozip)
-doi="?"
-doUnzip="?"
-dois=""
-
-if [[ "$1" == "--nozip" || "$1" == "-nozip" ]]; then
-    doUnzip=1
-fi
-if [[ "$1" == "--zip" || "$1" == "-zip" ]]; then
-    doUnzip=0
-fi
-
-if [[ ! "$2" == "" ]]; then
-    doi="$2"
-fi
-
-if [[ "$doi" == "?" && "$doUnzip" == "?" && ! "$1" == "" ]]; then
-    doi="$1"
-fi
-
-
 function yes_or_no {
     while true; do
         read -p "$* [y/n]: " yn
@@ -68,12 +125,12 @@ if [[ "${doi}" == "?" ]]; then
 fi
 
 # allow for a comma-separated list
-if [[ ! "${doi}" == "?" ]]; then
+if [[ ! "${doi}" == "?" && ! ${doi} == "" ]]; then
     IFS="," read -ra dois <<< "${doi}"
     IFS=$' \t\n' 
 fi
 
-# default to --zip for more than one
+# default to --unzip for more than one
 if [[ doUnzip == "?" && dois[@] -ne 1 ]]; then
    doUnzip = 0
 fi
@@ -84,7 +141,11 @@ tempfile=$(mktemp)
 
 for doi in "${dois[@]}"
 do
-
+    # trim lines and skip blank lines
+    doi=$(echo "$doi" | xargs)
+    if [[ "${doi}" == "" ]]; then
+        continue
+    fi
     echo "processing $doi"
 
     # make sure the doi has zip files
@@ -97,8 +158,13 @@ do
 
     echo "${#files[@]} zip files for $doi"
 
+    # only to here if testing
+    if [ ${isTest} == 0 ]; then
+        continue
+    fi
+
     DOI_Dir="${Working_Directory}/${doi}"
-    # Clear the folder for prediction if it exists
+    # Create the DOI directory if it does not exist
     if [ ! -d "${DOI_Dir}" ]; then
         mkdir $DOI_Dir
     fi
@@ -110,7 +176,7 @@ do
     fi
 
     Unzip_Dir="${DOI_Dir}/${doi}_unzip"
-
+    # ask to unzip if the _unzip directory exists 
     if [[ doUnzip == "?" && -d "$Unzip_Dir" ]]; then
     doUnzip=$(yes_or_no "Do you want to unzip files?")
     fi
@@ -193,11 +259,13 @@ do
     # this next line fails because pandas is not present and can't be installed or found
     py "${Emma_Algorithm}" $doi > "${Prediction_Directory}/emma.log"  2> "$tempfile"
     iserr=$(stat -c%s "$tempfile")
-    echo "$iserr"
-    if [[ ! iserr == "0" ]]; then
+
+    if [[ ! ${iserr} == "0" ]]; then
         errFile="${Prediction_Directory}/emma.err"
-        echo "Python errors with ${doi} - see $errFile"
+        echo "!!!!!!!!!!Python errors for ${doi} - see $errFile !!!!!!!!!!"
         cp "$tempfile" "$errFile"
+    else
+        echo "No Python errors for ${doi}" 
     fi
  
     cd "${Prediction_Directory}"
