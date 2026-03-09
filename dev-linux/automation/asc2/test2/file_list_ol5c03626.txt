@@ -1,0 +1,2811 @@
+.
+./FID for publication
+./FID for publication/.DS_Store
+./FID for publication/10a-10h
+./FID for publication/10a-10h/.DS_Store
+./FID for publication/10a-10h/10a-H and C NMR
+./FID for publication/10a-10h/10a-H and C NMR/.DS_Store
+./FID for publication/10a-10h/10a-H and C NMR/C NMR
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/.DS_Store
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/acqu
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/acqus
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/au
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/au/src
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/au/src/au_zg
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/au/src/proc_1d
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/audita.txt
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/fid
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/format.temp
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/lists
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/lists/cpd
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/lists/cpd/waltz65
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/lists/form
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/lists/form/plot_acqu.form
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/lists/pp
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/lists/pp/Avance.incl
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/lists/pp/Delay.incl
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/lists/pp/zgpg30
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/pdata
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/pdata/.DS_Store
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/pdata/1
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/pdata/1/title
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/prosol_History
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/pulseprogram.precomp
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/scon2
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/shimvalues
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/specpar
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/uxnmr.info
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/uxnmr.par
+./FID for publication/10a-10h/10a-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/10a-10h/10a-H and C NMR/H NMR
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/.DS_Store
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/acqu
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/acqus
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/au
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/au/src
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/au/src/au_zg
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/au/src/proc_1d
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/audita.txt
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/fid
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/format.temp
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/lists
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/lists/form
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/lists/form/plot_acqu.form
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/lists/pp
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/lists/pp/Avance.incl
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/lists/pp/zg30
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/pdata
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/pdata/.DS_Store
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/pdata/1
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/pdata/1/title
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/prosol_History
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/pulseprogram.precomp
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/scon2
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/shimvalues
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/specpar
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/topshimreport
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/uxnmr.info
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/uxnmr.par
+./FID for publication/10a-10h/10a-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/10a-10h/10e-H and C NMR
+./FID for publication/10a-10h/10e-H and C NMR/C NMR
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/acqu
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/acqus
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/audita.txt
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/cpdprg2
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/fid
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/format.temp
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/pdata
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/pdata/1
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/pdata/1/title
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/prosol_History
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/pulseprogram
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/scon2
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/shimvalues
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/specpar
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/stanprogram3438
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/uxnmr.info
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/uxnmr.par
+./FID for publication/10a-10h/10e-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/10a-10h/10e-H and C NMR/H NMR
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/acqu
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/acqus
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/audita.txt
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/fid
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/format.temp
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/pdata
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/pdata/1
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/pdata/1/title
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/prosol_History
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/pulseprogram
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/scon2
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/shimvalues
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/specpar
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/stanprogram3438
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/uxnmr.info
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/uxnmr.par
+./FID for publication/10a-10h/10e-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/10a-10h/10f-H and C NMR
+./FID for publication/10a-10h/10f-H and C NMR/C NMR
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/acqu
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/acqus
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/audita.txt
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/cpdprg2
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/fid
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/format.temp
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/pdata
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/pdata/1
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/pdata/1/title
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/prosol_History
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/pulseprogram
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/scon2
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/shimvalues
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/specpar
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/stanprogram3438
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/uxnmr.info
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/uxnmr.par
+./FID for publication/10a-10h/10f-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/10a-10h/10f-H and C NMR/H NMR
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/acqu
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/acqus
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/audita.txt
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/fid
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/format.ased
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/format.temp
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/pdata
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/pdata/1
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/pdata/1/title
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/prosol_History
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/pulseprogram
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/scon2
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/shimvalues
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/specpar
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/stanprogram3438
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/uxnmr.info
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/uxnmr.par
+./FID for publication/10a-10h/10f-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/10a-10h/10g-H and C NMR
+./FID for publication/10a-10h/10g-H and C NMR/.DS_Store
+./FID for publication/10a-10h/10g-H and C NMR/C NMR
+./FID for publication/10a-10h/10g-H and C NMR/C NMR/fid
+./FID for publication/10a-10h/10g-H and C NMR/C NMR/log
+./FID for publication/10a-10h/10g-H and C NMR/C NMR/procpar
+./FID for publication/10a-10h/10g-H and C NMR/C NMR/text
+./FID for publication/10a-10h/10g-H and C NMR/H NMR
+./FID for publication/10a-10h/10g-H and C NMR/H NMR/.DS_Store
+./FID for publication/10a-10h/10g-H and C NMR/H NMR/fid
+./FID for publication/10a-10h/10g-H and C NMR/H NMR/log
+./FID for publication/10a-10h/10g-H and C NMR/H NMR/procpar
+./FID for publication/10a-10h/10g-H and C NMR/H NMR/text
+./FID for publication/10a-10h/10h-H and C NMR
+./FID for publication/10a-10h/10h-H and C NMR/C NMR
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/acqu
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/acqus
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/audita.txt
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/cpdprg2
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/fid
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/format.temp
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/pdata
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/pdata/1
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/pdata/1/thumb.png
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/pdata/1/title
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/prosol_History
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/pulseprogram
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/scon2
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/shimvalues
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/specpar
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/stanprogram3457
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/uxnmr.info
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/uxnmr.par
+./FID for publication/10a-10h/10h-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/10a-10h/10h-H and C NMR/H NMR
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/chronlog
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/fidlist
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/fidlog
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/macdir
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/macdir/ACQlist
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/macdir/maclib_attic
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/macdir/sampleglobal
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/parlib
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/psglib
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/scoutlog
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/shapelib
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/cpnodeinfo
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/errorlog
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/EXPLIST
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/expqueue
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/fidlog
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/info
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/info/Sqn0001
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/info/Sqn0001/prop
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/LONGLIST
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/scoutlog
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/sqdir
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/sqdir/enterSQ
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/sqdir/info
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/sqdir/info/Sqn0001
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/sqdir/info/Sqn0001/prop
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/sqdir/scoutfid_enterSQ
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/sqdir/scoutfid_study.xml
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/sqdir/study.xml
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/dirinfo/xmldir/sqdir.info
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/plots
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/PROTON_01.fid
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/PROTON_01.fid/fid
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/PROTON_01.fid/log
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/PROTON_01.fid/procpar
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/PROTON_01.fid/text
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/scoutfids
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/spectra
+./FID for publication/10a-10h/10h-H and C NMR/H NMR/studypar
+./FID for publication/11a-11h
+./FID for publication/11a-11h/.DS_Store
+./FID for publication/11a-11h/11a-H and C NMR
+./FID for publication/11a-11h/11a-H and C NMR/5
+./FID for publication/11a-11h/11a-H and C NMR/5/acqu
+./FID for publication/11a-11h/11a-H and C NMR/5/acqus
+./FID for publication/11a-11h/11a-H and C NMR/5/adcInfo_TRX1.xml
+./FID for publication/11a-11h/11a-H and C NMR/5/au
+./FID for publication/11a-11h/11a-H and C NMR/5/au/src
+./FID for publication/11a-11h/11a-H and C NMR/5/au/src/au_zg
+./FID for publication/11a-11h/11a-H and C NMR/5/au/src/proc_1d
+./FID for publication/11a-11h/11a-H and C NMR/5/audita.txt
+./FID for publication/11a-11h/11a-H and C NMR/5/fid
+./FID for publication/11a-11h/11a-H and C NMR/5/format.temp
+./FID for publication/11a-11h/11a-H and C NMR/5/lists
+./FID for publication/11a-11h/11a-H and C NMR/5/lists/form
+./FID for publication/11a-11h/11a-H and C NMR/5/lists/form/plot_acqu.form
+./FID for publication/11a-11h/11a-H and C NMR/5/lists/pp
+./FID for publication/11a-11h/11a-H and C NMR/5/lists/pp/Avance.incl
+./FID for publication/11a-11h/11a-H and C NMR/5/lists/pp/zg30
+./FID for publication/11a-11h/11a-H and C NMR/5/pdata
+./FID for publication/11a-11h/11a-H and C NMR/5/pdata/1
+./FID for publication/11a-11h/11a-H and C NMR/5/pdata/1/1i
+./FID for publication/11a-11h/11a-H and C NMR/5/pdata/1/1r
+./FID for publication/11a-11h/11a-H and C NMR/5/pdata/1/auditp.txt
+./FID for publication/11a-11h/11a-H and C NMR/5/pdata/1/intrng
+./FID for publication/11a-11h/11a-H and C NMR/5/pdata/1/outd
+./FID for publication/11a-11h/11a-H and C NMR/5/pdata/1/peaklist.xml
+./FID for publication/11a-11h/11a-H and C NMR/5/pdata/1/peakrng
+./FID for publication/11a-11h/11a-H and C NMR/5/pdata/1/peaks
+./FID for publication/11a-11h/11a-H and C NMR/5/pdata/1/proc
+./FID for publication/11a-11h/11a-H and C NMR/5/pdata/1/procs
+./FID for publication/11a-11h/11a-H and C NMR/5/pdata/1/title
+./FID for publication/11a-11h/11a-H and C NMR/5/prosol_History
+./FID for publication/11a-11h/11a-H and C NMR/5/pulseprogram.precomp
+./FID for publication/11a-11h/11a-H and C NMR/5/scon2
+./FID for publication/11a-11h/11a-H and C NMR/5/shimvalues
+./FID for publication/11a-11h/11a-H and C NMR/5/specpar
+./FID for publication/11a-11h/11a-H and C NMR/5/topshimreport
+./FID for publication/11a-11h/11a-H and C NMR/5/uxnmr.info
+./FID for publication/11a-11h/11a-H and C NMR/5/uxnmr.par
+./FID for publication/11a-11h/11a-H and C NMR/5/vtc_pid_settings
+./FID for publication/11a-11h/11a-H and C NMR/6
+./FID for publication/11a-11h/11a-H and C NMR/6/acqu
+./FID for publication/11a-11h/11a-H and C NMR/6/acqus
+./FID for publication/11a-11h/11a-H and C NMR/6/adcInfo_TRX2.xml
+./FID for publication/11a-11h/11a-H and C NMR/6/au
+./FID for publication/11a-11h/11a-H and C NMR/6/au/src
+./FID for publication/11a-11h/11a-H and C NMR/6/au/src/au_zg
+./FID for publication/11a-11h/11a-H and C NMR/6/au/src/proc_1d
+./FID for publication/11a-11h/11a-H and C NMR/6/audita.txt
+./FID for publication/11a-11h/11a-H and C NMR/6/fid
+./FID for publication/11a-11h/11a-H and C NMR/6/format.temp
+./FID for publication/11a-11h/11a-H and C NMR/6/lists
+./FID for publication/11a-11h/11a-H and C NMR/6/lists/cpd
+./FID for publication/11a-11h/11a-H and C NMR/6/lists/cpd/waltz65
+./FID for publication/11a-11h/11a-H and C NMR/6/lists/form
+./FID for publication/11a-11h/11a-H and C NMR/6/lists/form/plot_acqu.form
+./FID for publication/11a-11h/11a-H and C NMR/6/lists/pp
+./FID for publication/11a-11h/11a-H and C NMR/6/lists/pp/Avance.incl
+./FID for publication/11a-11h/11a-H and C NMR/6/lists/pp/Delay.incl
+./FID for publication/11a-11h/11a-H and C NMR/6/lists/pp/zgpg30
+./FID for publication/11a-11h/11a-H and C NMR/6/pdata
+./FID for publication/11a-11h/11a-H and C NMR/6/pdata/1
+./FID for publication/11a-11h/11a-H and C NMR/6/pdata/1/1i
+./FID for publication/11a-11h/11a-H and C NMR/6/pdata/1/1r
+./FID for publication/11a-11h/11a-H and C NMR/6/pdata/1/auditp.txt
+./FID for publication/11a-11h/11a-H and C NMR/6/pdata/1/intrng
+./FID for publication/11a-11h/11a-H and C NMR/6/pdata/1/outd
+./FID for publication/11a-11h/11a-H and C NMR/6/pdata/1/peaklist.xml
+./FID for publication/11a-11h/11a-H and C NMR/6/pdata/1/peakrng
+./FID for publication/11a-11h/11a-H and C NMR/6/pdata/1/peaks
+./FID for publication/11a-11h/11a-H and C NMR/6/pdata/1/proc
+./FID for publication/11a-11h/11a-H and C NMR/6/pdata/1/procs
+./FID for publication/11a-11h/11a-H and C NMR/6/pdata/1/title
+./FID for publication/11a-11h/11a-H and C NMR/6/prosol_History
+./FID for publication/11a-11h/11a-H and C NMR/6/pulseprogram.precomp
+./FID for publication/11a-11h/11a-H and C NMR/6/scon2
+./FID for publication/11a-11h/11a-H and C NMR/6/shimvalues
+./FID for publication/11a-11h/11a-H and C NMR/6/specpar
+./FID for publication/11a-11h/11a-H and C NMR/6/uxnmr.info
+./FID for publication/11a-11h/11a-H and C NMR/6/uxnmr.par
+./FID for publication/11a-11h/11a-H and C NMR/6/vtc_pid_settings
+./FID for publication/11a-11h/11b-H and C NMR
+./FID for publication/11a-11h/11b-H and C NMR/C NMR
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/acqu
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/acqus
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/audita.txt
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/cpdprg2
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/fid
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/format.temp
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/pdata
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/pdata/1
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/pdata/1/title
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/prosol_History
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/pulseprogram
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/scon2
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/shimvalues
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/specpar
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/stanprogram3438
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/stanprogram3579
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/uxnmr.info
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/uxnmr.par
+./FID for publication/11a-11h/11b-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/11a-11h/11b-H and C NMR/H NMR
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/acqu
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/acqus
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/audita.txt
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/fid
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/format.temp
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/pdata
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/pdata/1
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/pdata/1/title
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/prosol_History
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/pulseprogram
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/scon2
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/shimvalues
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/specpar
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/stanprogram3438
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/stanprogram3579
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/uxnmr.info
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/uxnmr.par
+./FID for publication/11a-11h/11b-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/11a-11h/11c- H and C NMR
+./FID for publication/11a-11h/11c- H and C NMR/.DS_Store
+./FID for publication/11a-11h/11c- H and C NMR/C NMR
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/acqu
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/acqus
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/audita.txt
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/cpdprg2
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/fid
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/format.temp
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/pdata
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/pdata/1
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/pdata/1/1i
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/pdata/1/1r
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/pdata/1/outd
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/pdata/1/proc
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/pdata/1/procs
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/pdata/1/title
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/prosol_History
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/pulseprogram
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/scon2
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/shimvalues
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/specpar
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/stanprogram3438
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/uxnmr.info
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/uxnmr.par
+./FID for publication/11a-11h/11c- H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/11a-11h/11c- H and C NMR/H NMR
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/chronlog
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/craftlog
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/fidlist
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/fidlog
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/macdir
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/macdir/ACQlist
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/macdir/EXPLIST
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/macdir/LONGLIST
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/macdir/maclib_attic
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/macdir/sampleglobal
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/parlib
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/psglib
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/scoutlog
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/shapelib
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/spectrumlog
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/cpnodeinfo
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/craftlog
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/errorlog
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/EXPLIST
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/expqueue
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/fidlog
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/info
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/info/Sqn0001
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/info/Sqn0001/prop
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/LONGLIST
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/scoutlog
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/spectrumlog
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/sqdir
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/sqdir/enterSQ
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/sqdir/error_enterSQ
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/sqdir/error_study.xml
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/sqdir/info
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/sqdir/info/Sqn0001
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/sqdir/info/Sqn0001/prop
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/sqdir/scoutfid_enterSQ
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/sqdir/scoutfid_error_enterSQ
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/sqdir/scoutfid_error_study.xml
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/sqdir/scoutfid_study.xml
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/sqdir/study.xml
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/dirinfo/xmldir/sqdir.info
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/FAL1095-9-12-PROTON_01.fid
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/FAL1095-9-12-PROTON_01.fid/fid
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/FAL1095-9-12-PROTON_01.fid/log
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/FAL1095-9-12-PROTON_01.fid/procpar
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/FAL1095-9-12-PROTON_01.fid/text
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/plots
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/scoutfids
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/spectra
+./FID for publication/11a-11h/11c- H and C NMR/H NMR/studypar
+./FID for publication/11a-11h/11d-H and C NMR
+./FID for publication/11a-11h/11d-H and C NMR/C NMR
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/acqu
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/acqus
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/audita.txt
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/cpdprg2
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/fid
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/format.temp
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/pdata
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/pdata/1
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/pdata/1/title
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/prosol_History
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/pulseprogram
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/scon2
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/shimvalues
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/specpar
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/stanprogram3438
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/uxnmr.info
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/uxnmr.par
+./FID for publication/11a-11h/11d-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/11a-11h/11d-H and C NMR/H NMR
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/acqu
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/acqus
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/audita.txt
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/fid
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/format.temp
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/pdata
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/pdata/1
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/pdata/1/title
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/prosol_History
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/pulseprogram
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/scon2
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/shimvalues
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/specpar
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/stanprogram3438
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/stanprogram3579
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/uxnmr.info
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/uxnmr.par
+./FID for publication/11a-11h/11d-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/11a-11h/11e-H and C NMR
+./FID for publication/11a-11h/11e-H and C NMR/C NMR
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/acqu
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/acqus
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/audita.txt
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/cpdprg2
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/fid
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/format.temp
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/pdata
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/pdata/1
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/pdata/1/title
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/prosol_History
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/pulseprogram
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/scon2
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/shimvalues
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/specpar
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/stanprogram3438
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/stanprogram3579
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/uxnmr.info
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/uxnmr.par
+./FID for publication/11a-11h/11e-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/11a-11h/11e-H and C NMR/H NMR
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/acqu
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/acqus
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/audita.txt
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/fid
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/format.temp
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/pdata
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/pdata/1
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/pdata/1/title
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/prosol_History
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/pulseprogram
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/scon2
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/shimvalues
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/specpar
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/stanprogram3438
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/stanprogram3579
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/uxnmr.info
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/uxnmr.par
+./FID for publication/11a-11h/11e-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/11a-11h/11f-H and C NMR
+./FID for publication/11a-11h/11f-H and C NMR/C NMR
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/acqu
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/acqus
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/audita.txt
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/cpdprg2
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/fid
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/format.temp
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/pdata
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/pdata/1
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/pdata/1/title
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/prosol_History
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/pulseprogram
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/scon2
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/shimvalues
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/specpar
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/stanprogram3438
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/uxnmr.info
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/uxnmr.par
+./FID for publication/11a-11h/11f-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/11a-11h/11f-H and C NMR/H NMR
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/acqu
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/acqus
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/audita.txt
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/fid
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/format.temp
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/pdata
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/pdata/1
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/pdata/1/title
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/prosol_History
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/pulseprogram
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/scon2
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/shimvalues
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/specpar
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/stanprogram3438
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/stanprogram3579
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/uxnmr.info
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/uxnmr.par
+./FID for publication/11a-11h/11f-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/11a-11h/11g-H and C NMR
+./FID for publication/11a-11h/11g-H and C NMR/.DS_Store
+./FID for publication/11a-11h/11g-H and C NMR/C NMR
+./FID for publication/11a-11h/11g-H and C NMR/C NMR/.DS_Store
+./FID for publication/11a-11h/11g-H and C NMR/C NMR/C NMR.fid
+./FID for publication/11a-11h/11g-H and C NMR/C NMR/C NMR.fid/fid
+./FID for publication/11a-11h/11g-H and C NMR/C NMR/C NMR.fid/log
+./FID for publication/11a-11h/11g-H and C NMR/C NMR/C NMR.fid/procpar
+./FID for publication/11a-11h/11g-H and C NMR/C NMR/C NMR.fid/text
+./FID for publication/11a-11h/11g-H and C NMR/H NMR
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/.DS_Store
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/acqu
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/acqus
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/adcInfo_TRX1.xml
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/au
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/au/src
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/au/src/au_zg
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/au/src/proc_1d
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/audita.txt
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/fid
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/format.temp
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/lists
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/lists/form
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/lists/form/plot_acqu.form
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/lists/pp
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/lists/pp/Avance.incl
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/lists/pp/zg30
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/pdata
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/pdata/1
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/pdata/1/1i
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/pdata/1/1r
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/pdata/1/auditp.txt
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/pdata/1/intrng
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/pdata/1/outd
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/pdata/1/peaklist.xml
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/pdata/1/peakrng
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/pdata/1/peaks
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/pdata/1/proc
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/pdata/1/procs
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/pdata/1/title
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/prosol_History
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/pulseprogram.precomp
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/scon2
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/shimvalues
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/specpar
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/topshimreport
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/uxnmr.info
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/uxnmr.par
+./FID for publication/11a-11h/11g-H and C NMR/H NMR/1/vtc_pid_settings
+./FID for publication/11a-11h/11h-H and C NMR
+./FID for publication/11a-11h/11h-H and C NMR/C NMR
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/acqu
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/acqus
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/au
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/au/src
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/au/src/au_zg
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/au/src/proc_1d
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/audita.txt
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/fid
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/format.temp
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/lists
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/lists/cpd
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/lists/cpd/waltz65
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/lists/form
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/lists/form/plot_acqu.form
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/lists/pp
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/lists/pp/Avance.incl
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/lists/pp/Delay.incl
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/lists/pp/zgpg30
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/pdata
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/pdata/1
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/pdata/1/title
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/prosol_History
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/pulseprogram.precomp
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/scon2
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/shimvalues
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/specpar
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/uxnmr.info
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/uxnmr.par
+./FID for publication/11a-11h/11h-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/11a-11h/11h-H and C NMR/H NMR
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/acqu
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/acqus
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/au
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/au/src
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/au/src/au_zg
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/au/src/proc_1d
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/audita.txt
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/fid
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/format.temp
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/lists
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/lists/form
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/lists/form/plot_acqu.form
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/lists/pp
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/lists/pp/Avance.incl
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/lists/pp/zg30
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/pdata
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/pdata/1
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/pdata/1/title
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/prosol_History
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/pulseprogram.precomp
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/scon2
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/shimvalues
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/specpar
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/topshimreport
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/uxnmr.info
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/uxnmr.par
+./FID for publication/11a-11h/11h-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/12b-12f
+./FID for publication/12b-12f/.DS_Store
+./FID for publication/12b-12f/12b-H and C NMR
+./FID for publication/12b-12f/12b-H and C NMR/.DS_Store
+./FID for publication/12b-12f/12b-H and C NMR/C NMR
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/.DS_Store
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/acqu
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/acqus
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/audita.txt
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/cpdprg2
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/fid
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/format.temp
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pdata
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pdata/.DS_Store
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pdata/1
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pdata/1/title
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/prosol_History
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/pulseprogram
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/scon2
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/shimvalues
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/specpar
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/stanprogram3438
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/uxnmr.info
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/uxnmr.par
+./FID for publication/12b-12f/12b-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/12b-12f/12b-H and C NMR/H NMR
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/acqu
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/acqus
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/audita.txt
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/fid
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/format.temp
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/pdata
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/pdata/1
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/pdata/1/title
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/prosol_History
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/pulseprogram
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/scon2
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/shimvalues
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/specpar
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/stanprogram3438
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/uxnmr.info
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/uxnmr.par
+./FID for publication/12b-12f/12b-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/12b-12f/12c-H and C NMR
+./FID for publication/12b-12f/12c-H and C NMR/1
+./FID for publication/12b-12f/12c-H and C NMR/1/acqu
+./FID for publication/12b-12f/12c-H and C NMR/1/acqus
+./FID for publication/12b-12f/12c-H and C NMR/1/adcInfo_TRX1.xml
+./FID for publication/12b-12f/12c-H and C NMR/1/audita.txt
+./FID for publication/12b-12f/12c-H and C NMR/1/fid
+./FID for publication/12b-12f/12c-H and C NMR/1/format.temp
+./FID for publication/12b-12f/12c-H and C NMR/1/pdata
+./FID for publication/12b-12f/12c-H and C NMR/1/pdata/1
+./FID for publication/12b-12f/12c-H and C NMR/1/pdata/1/1i
+./FID for publication/12b-12f/12c-H and C NMR/1/pdata/1/1r
+./FID for publication/12b-12f/12c-H and C NMR/1/pdata/1/auditp.txt
+./FID for publication/12b-12f/12c-H and C NMR/1/pdata/1/intrng
+./FID for publication/12b-12f/12c-H and C NMR/1/pdata/1/outd
+./FID for publication/12b-12f/12c-H and C NMR/1/pdata/1/parm.txt
+./FID for publication/12b-12f/12c-H and C NMR/1/pdata/1/peaklist.xml
+./FID for publication/12b-12f/12c-H and C NMR/1/pdata/1/peakrng
+./FID for publication/12b-12f/12c-H and C NMR/1/pdata/1/peaks
+./FID for publication/12b-12f/12c-H and C NMR/1/pdata/1/proc
+./FID for publication/12b-12f/12c-H and C NMR/1/pdata/1/procs
+./FID for publication/12b-12f/12c-H and C NMR/1/pdata/1/title
+./FID for publication/12b-12f/12c-H and C NMR/1/prosol_History
+./FID for publication/12b-12f/12c-H and C NMR/1/pulseprogram
+./FID for publication/12b-12f/12c-H and C NMR/1/scon2
+./FID for publication/12b-12f/12c-H and C NMR/1/shimvalues
+./FID for publication/12b-12f/12c-H and C NMR/1/specpar
+./FID for publication/12b-12f/12c-H and C NMR/1/stanprogram3438
+./FID for publication/12b-12f/12c-H and C NMR/1/stanprogram3579
+./FID for publication/12b-12f/12c-H and C NMR/1/uxnmr.info
+./FID for publication/12b-12f/12c-H and C NMR/1/uxnmr.par
+./FID for publication/12b-12f/12c-H and C NMR/1/vtc_pid_settings
+./FID for publication/12b-12f/12c-H and C NMR/2
+./FID for publication/12b-12f/12c-H and C NMR/2/acqu
+./FID for publication/12b-12f/12c-H and C NMR/2/acqus
+./FID for publication/12b-12f/12c-H and C NMR/2/adcInfo_TRX2.xml
+./FID for publication/12b-12f/12c-H and C NMR/2/audita.txt
+./FID for publication/12b-12f/12c-H and C NMR/2/cpdprg2
+./FID for publication/12b-12f/12c-H and C NMR/2/fid
+./FID for publication/12b-12f/12c-H and C NMR/2/format.temp
+./FID for publication/12b-12f/12c-H and C NMR/2/pdata
+./FID for publication/12b-12f/12c-H and C NMR/2/pdata/1
+./FID for publication/12b-12f/12c-H and C NMR/2/pdata/1/1i
+./FID for publication/12b-12f/12c-H and C NMR/2/pdata/1/1r
+./FID for publication/12b-12f/12c-H and C NMR/2/pdata/1/auditp.txt
+./FID for publication/12b-12f/12c-H and C NMR/2/pdata/1/intrng
+./FID for publication/12b-12f/12c-H and C NMR/2/pdata/1/outd
+./FID for publication/12b-12f/12c-H and C NMR/2/pdata/1/parm.txt
+./FID for publication/12b-12f/12c-H and C NMR/2/pdata/1/peaklist.xml
+./FID for publication/12b-12f/12c-H and C NMR/2/pdata/1/peakrng
+./FID for publication/12b-12f/12c-H and C NMR/2/pdata/1/peaks
+./FID for publication/12b-12f/12c-H and C NMR/2/pdata/1/proc
+./FID for publication/12b-12f/12c-H and C NMR/2/pdata/1/procs
+./FID for publication/12b-12f/12c-H and C NMR/2/pdata/1/title
+./FID for publication/12b-12f/12c-H and C NMR/2/prosol_History
+./FID for publication/12b-12f/12c-H and C NMR/2/pulseprogram
+./FID for publication/12b-12f/12c-H and C NMR/2/scon2
+./FID for publication/12b-12f/12c-H and C NMR/2/shimvalues
+./FID for publication/12b-12f/12c-H and C NMR/2/specpar
+./FID for publication/12b-12f/12c-H and C NMR/2/stanprogram3438
+./FID for publication/12b-12f/12c-H and C NMR/2/stanprogram3579
+./FID for publication/12b-12f/12c-H and C NMR/2/uxnmr.info
+./FID for publication/12b-12f/12c-H and C NMR/2/uxnmr.par
+./FID for publication/12b-12f/12c-H and C NMR/2/vtc_pid_settings
+./FID for publication/12b-12f/12d-H and C NMR
+./FID for publication/12b-12f/12d-H and C NMR/C NMR
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/acqu
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/acqus
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/audita.txt
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/cpdprg2
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/fid
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/format.temp
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/pdata
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/pdata/1
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/pdata/1/title
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/prosol_History
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/pulseprogram
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/scon2
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/shimvalues
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/specpar
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/stanprogram3438
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/stanprogram3579
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/uxnmr.info
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/uxnmr.par
+./FID for publication/12b-12f/12d-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/12b-12f/12d-H and C NMR/H NMR
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/acqu
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/acqus
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/audita.txt
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/fid
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/format.temp
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/pdata
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/pdata/1
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/pdata/1/title
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/prosol_History
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/pulseprogram
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/scon2
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/shimvalues
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/specpar
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/uxnmr.info
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/uxnmr.par
+./FID for publication/12b-12f/12d-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/12b-12f/12e-H and C NMR
+./FID for publication/12b-12f/12e-H and C NMR/.DS_Store
+./FID for publication/12b-12f/12e-H and C NMR/C NMR
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/acqu
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/acqus
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/audita.txt
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/cpdprg2
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/fid
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/format.temp
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/pdata
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/pdata/1
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/pdata/1/title
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/prosol_History
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/pulseprogram
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/scon2
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/shimvalues
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/specpar
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/stanprogram3438
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/uxnmr.info
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/uxnmr.par
+./FID for publication/12b-12f/12e-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/12b-12f/12e-H and C NMR/H NMR
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/.DS_Store
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/acqu
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/acqus
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/audita.txt
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/fid
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/format.temp
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pdata
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pdata/.DS_Store
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pdata/1
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pdata/1/title
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/prosol_History
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/pulseprogram
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/scon2
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/shimvalues
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/specpar
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/stanprogram3438
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/uxnmr.info
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/uxnmr.par
+./FID for publication/12b-12f/12e-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/12b-12f/12f-H and C NMR
+./FID for publication/12b-12f/12f-H and C NMR/C NMR
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/acqu
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/acqus
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/audita.txt
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/cpdprg2
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/fid
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/format.temp
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/pdata
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/pdata/1
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/pdata/1/title
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/prosol_History
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/pulseprogram
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/scon2
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/shimvalues
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/specpar
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/stanprogram3438
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/uxnmr.info
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/uxnmr.par
+./FID for publication/12b-12f/12f-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/12b-12f/12f-H and C NMR/H NMR
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/acqu
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/acqus
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/audita.txt
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/fid
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/format.temp
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/pdata
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/pdata/1
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/pdata/1/title
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/prosol_History
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/pulseprogram
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/scon2
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/shimvalues
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/specpar
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/stanprogram3438
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/uxnmr.info
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/uxnmr.par
+./FID for publication/12b-12f/12f-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/14e-H and C NMR
+./FID for publication/14e-H and C NMR/C NMR
+./FID for publication/14e-H and C NMR/C NMR/acqu
+./FID for publication/14e-H and C NMR/C NMR/acqus
+./FID for publication/14e-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/14e-H and C NMR/C NMR/audita.txt
+./FID for publication/14e-H and C NMR/C NMR/cpdprg2
+./FID for publication/14e-H and C NMR/C NMR/fid
+./FID for publication/14e-H and C NMR/C NMR/format.temp
+./FID for publication/14e-H and C NMR/C NMR/pdata
+./FID for publication/14e-H and C NMR/C NMR/pdata/1
+./FID for publication/14e-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/14e-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/14e-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/14e-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/14e-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/14e-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/14e-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/14e-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/14e-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/14e-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/14e-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/14e-H and C NMR/C NMR/pdata/1/title
+./FID for publication/14e-H and C NMR/C NMR/prosol_History
+./FID for publication/14e-H and C NMR/C NMR/pulseprogram
+./FID for publication/14e-H and C NMR/C NMR/scon2
+./FID for publication/14e-H and C NMR/C NMR/shimvalues
+./FID for publication/14e-H and C NMR/C NMR/specpar
+./FID for publication/14e-H and C NMR/C NMR/stanprogram3438
+./FID for publication/14e-H and C NMR/C NMR/uxnmr.info
+./FID for publication/14e-H and C NMR/C NMR/uxnmr.par
+./FID for publication/14e-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/14e-H and C NMR/H NMR
+./FID for publication/14e-H and C NMR/H NMR/acqu
+./FID for publication/14e-H and C NMR/H NMR/acqus
+./FID for publication/14e-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/14e-H and C NMR/H NMR/audita.txt
+./FID for publication/14e-H and C NMR/H NMR/fid
+./FID for publication/14e-H and C NMR/H NMR/format.temp
+./FID for publication/14e-H and C NMR/H NMR/pdata
+./FID for publication/14e-H and C NMR/H NMR/pdata/1
+./FID for publication/14e-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/14e-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/14e-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/14e-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/14e-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/14e-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/14e-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/14e-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/14e-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/14e-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/14e-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/14e-H and C NMR/H NMR/pdata/1/title
+./FID for publication/14e-H and C NMR/H NMR/prosol_History
+./FID for publication/14e-H and C NMR/H NMR/pulseprogram
+./FID for publication/14e-H and C NMR/H NMR/scon2
+./FID for publication/14e-H and C NMR/H NMR/shimvalues
+./FID for publication/14e-H and C NMR/H NMR/specpar
+./FID for publication/14e-H and C NMR/H NMR/stanprogram3438
+./FID for publication/14e-H and C NMR/H NMR/uxnmr.info
+./FID for publication/14e-H and C NMR/H NMR/uxnmr.par
+./FID for publication/14e-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/5a-5h
+./FID for publication/5a-5h/.DS_Store
+./FID for publication/5a-5h/5a-H and C NMR
+./FID for publication/5a-5h/5a-H and C NMR/C NMR
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/acqu
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/acqus
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/au
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/au/src
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/au/src/au_zg
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/au/src/proc_1d
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/audita.txt
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/fid
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/format.temp
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/lists
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/lists/cpd
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/lists/cpd/waltz65
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/lists/form
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/lists/form/plot_acqu.form
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/lists/pp
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/lists/pp/Avance.incl
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/lists/pp/Delay.incl
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/lists/pp/zgpg30
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/pdata
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/pdata/1
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/pdata/1/thumb.png
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/pdata/1/title
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/prosol_History
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/pulseprogram.precomp
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/scon2
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/shimvalues
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/specpar
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/uxnmr.info
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/uxnmr.par
+./FID for publication/5a-5h/5a-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/5a-5h/5a-H and C NMR/H NMR
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/acqu
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/acqus
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/adcInfo_TRX1.xml
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/au
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/au/src
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/au/src/au_zg
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/au/src/proc_1d
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/audita.txt
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/fid
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/format.temp
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/lists
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/lists/form
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/lists/form/plot_acqu.form
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/lists/pp
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/lists/pp/Avance.incl
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/lists/pp/zg30
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/pdata
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/pdata/1
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/pdata/1/1i
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/pdata/1/1r
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/pdata/1/auditp.txt
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/pdata/1/intrng
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/pdata/1/outd
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/pdata/1/peaklist.xml
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/pdata/1/peakrng
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/pdata/1/peaks
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/pdata/1/proc
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/pdata/1/procs
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/pdata/1/title
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/prosol_History
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/pulseprogram.precomp
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/scon2
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/shimvalues
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/specpar
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/topshimreport
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/uxnmr.info
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/uxnmr.par
+./FID for publication/5a-5h/5a-H and C NMR/H NMR/1/vtc_pid_settings
+./FID for publication/5a-5h/5b-H and C NMR
+./FID for publication/5a-5h/5b-H and C NMR/C NMR
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/acqu
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/acqus
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/audita.txt
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/cpdprg2
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/fid
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/format.temp
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/pdata
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/pdata/1
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/pdata/1/title
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/prosol_History
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/pulseprogram
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/scon2
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/shimvalues
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/specpar
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/stanprogram3438
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/uxnmr.info
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/uxnmr.par
+./FID for publication/5a-5h/5b-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/5a-5h/5b-H and C NMR/H NMR
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/acqu
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/acqus
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/audita.txt
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/fid
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/format.temp
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/pdata
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/pdata/1
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/pdata/1/title
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/prosol_History
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/pulseprogram
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/scon2
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/shimvalues
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/specpar
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/stanprogram3438
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/uxnmr.info
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/uxnmr.par
+./FID for publication/5a-5h/5b-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/5a-5h/5c-H and C NMR
+./FID for publication/5a-5h/5c-H and C NMR/C NMR
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/acqu
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/acqus
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/audita.txt
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/cpdprg2
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/fid
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/format.temp
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/pdata
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/pdata/1
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/pdata/1/title
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/prosol_History
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/pulseprogram
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/scon2
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/shimvalues
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/specpar
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/stanprogram3438
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/uxnmr.info
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/uxnmr.par
+./FID for publication/5a-5h/5c-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/5a-5h/5c-H and C NMR/H NMR
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/acqu
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/acqus
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/audita.txt
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/fid
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/format.temp
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/pdata
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/pdata/1
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/pdata/1/title
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/prosol_History
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/pulseprogram
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/scon2
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/shimvalues
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/specpar
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/stanprogram3438
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/uxnmr.info
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/uxnmr.par
+./FID for publication/5a-5h/5c-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/5a-5h/5d-H and C NMR
+./FID for publication/5a-5h/5d-H and C NMR/C NMR
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/acqu
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/acqus
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/audita.txt
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/cpdprg2
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/fid
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/format.temp
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/pdata
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/pdata/1
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/pdata/1/title
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/prosol_History
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/pulseprogram
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/scon2
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/shimvalues
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/specpar
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/stanprogram3438
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/uxnmr.info
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/uxnmr.par
+./FID for publication/5a-5h/5d-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/5a-5h/5d-H and C NMR/H NMR
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/acqu
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/acqus
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/audita.txt
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/fid
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/format.temp
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/pdata
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/pdata/1
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/pdata/1/title
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/prosol_History
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/pulseprogram
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/scon2
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/shimvalues
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/specpar
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/stanprogram3438
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/uxnmr.info
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/uxnmr.par
+./FID for publication/5a-5h/5d-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/5a-5h/5e-H and C NMR
+./FID for publication/5a-5h/5e-H and C NMR/C NMR
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/acqu
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/acqus
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/audita.txt
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/cpdprg2
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/fid
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/format.temp
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/pdata
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/pdata/1
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/pdata/1/title
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/prosol_History
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/pulseprogram
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/scon2
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/shimvalues
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/specpar
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/stanprogram3438
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/uxnmr.info
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/uxnmr.par
+./FID for publication/5a-5h/5e-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/5a-5h/5e-H and C NMR/H NMR
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/acqu
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/acqus
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/audita.txt
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/fid
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/format.temp
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/pdata
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/pdata/1
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/pdata/1/title
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/prosol_History
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/pulseprogram
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/scon2
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/shimvalues
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/specpar
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/stanprogram3438
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/uxnmr.info
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/uxnmr.par
+./FID for publication/5a-5h/5e-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/5a-5h/5f-H and C NMR
+./FID for publication/5a-5h/5f-H and C NMR/C NMR
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/acqu
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/acqus
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/audita.txt
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/cpdprg2
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/fid
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/format.temp
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/pdata
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/pdata/1
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/pdata/1/title
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/prosol_History
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/pulseprogram
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/scon2
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/shimvalues
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/specpar
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/stanprogram3438
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/stanprogram3579
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/uxnmr.info
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/uxnmr.par
+./FID for publication/5a-5h/5f-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/5a-5h/5f-H and C NMR/H NMR
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/acqu
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/acqus
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/audita.txt
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/fid
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/format.ased
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/format.temp
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/pdata
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/pdata/1
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/pdata/1/title
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/prosol_History
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/pulseprogram
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/scon2
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/shimvalues
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/specpar
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/stanprogram3438
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/stanprogram3579
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/uxnmr.info
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/uxnmr.par
+./FID for publication/5a-5h/5f-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/5a-5h/5g-H and C NMR
+./FID for publication/5a-5h/5g-H and C NMR/.DS_Store
+./FID for publication/5a-5h/5g-H and C NMR/C NMR
+./FID for publication/5a-5h/5g-H and C NMR/C NMR/fid
+./FID for publication/5a-5h/5g-H and C NMR/C NMR/log
+./FID for publication/5a-5h/5g-H and C NMR/C NMR/procpar
+./FID for publication/5a-5h/5g-H and C NMR/C NMR/text
+./FID for publication/5a-5h/5g-H and C NMR/H NMR
+./FID for publication/5a-5h/5g-H and C NMR/H NMR/.DS_Store
+./FID for publication/5a-5h/5g-H and C NMR/H NMR/fid
+./FID for publication/5a-5h/5g-H and C NMR/H NMR/log
+./FID for publication/5a-5h/5g-H and C NMR/H NMR/procpar
+./FID for publication/5a-5h/5g-H and C NMR/H NMR/text
+./FID for publication/5a-5h/5h-H and C NMR
+./FID for publication/5a-5h/5h-H and C NMR/C NMR
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/acqu
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/acqus
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/audita.txt
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/cpdprg2
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/fid
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/format.temp
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/pdata
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/pdata/1
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/pdata/1/thumb.png
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/pdata/1/title
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/prosol_History
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/pulseprogram
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/scon2
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/shimvalues
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/specpar
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/stanprogram3457
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/uxnmr.info
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/uxnmr.par
+./FID for publication/5a-5h/5h-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/5a-5h/5h-H and C NMR/H NMR
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/acqu
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/acqus
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/audita.txt
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/fid
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/format.temp
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/pdata
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/pdata/1
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/pdata/1/thumb.png
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/pdata/1/title
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/prosol_History
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/pulseprogram
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/scon2
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/shimvalues
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/specpar
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/stanprogram3457
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/uxnmr.info
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/uxnmr.par
+./FID for publication/5a-5h/5h-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/7a-7f
+./FID for publication/7a-7f/.DS_Store
+./FID for publication/7a-7f/7a-H and C NMR
+./FID for publication/7a-7f/7a-H and C NMR/.DS_Store
+./FID for publication/7a-7f/7a-H and C NMR/C NMR
+./FID for publication/7a-7f/7a-H and C NMR/C NMR/fid
+./FID for publication/7a-7f/7a-H and C NMR/C NMR/log
+./FID for publication/7a-7f/7a-H and C NMR/C NMR/procpar
+./FID for publication/7a-7f/7a-H and C NMR/C NMR/text
+./FID for publication/7a-7f/7a-H and C NMR/H NMR.fid
+./FID for publication/7a-7f/7a-H and C NMR/H NMR.fid/.DS_Store
+./FID for publication/7a-7f/7a-H and C NMR/H NMR.fid/fid
+./FID for publication/7a-7f/7a-H and C NMR/H NMR.fid/log
+./FID for publication/7a-7f/7a-H and C NMR/H NMR.fid/procpar
+./FID for publication/7a-7f/7a-H and C NMR/H NMR.fid/text
+./FID for publication/7a-7f/7b-H and C NMR
+./FID for publication/7a-7f/7b-H and C NMR/C NMR
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/acqu
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/acqus
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/audita.txt
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/cpdprg2
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/fid
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/format.temp
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/pdata
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/pdata/1
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/pdata/1/title
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/prosol_History
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/pulseprogram
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/scon2
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/shimvalues
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/specpar
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/stanprogram3438
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/stanprogram3579
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/uxnmr.info
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/uxnmr.par
+./FID for publication/7a-7f/7b-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/7a-7f/7b-H and C NMR/H NMR
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/acqu
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/acqus
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/audita.txt
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/fid
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/format.ased
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/format.temp
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/pdata
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/pdata/1
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/pdata/1/title
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/prosol_History
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/pulseprogram
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/scon2
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/shimvalues
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/specpar
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/stanprogram3438
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/stanprogram3579
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/uxnmr.info
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/uxnmr.par
+./FID for publication/7a-7f/7b-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/7a-7f/7c-H and C NMR
+./FID for publication/7a-7f/7c-H and C NMR/C NMR
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/acqu
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/acqus
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/audita.txt
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/cpdprg2
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/fid
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/format.temp
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/pdata
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/pdata/1
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/pdata/1/title
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/prosol_History
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/pulseprogram
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/scon2
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/shimvalues
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/specpar
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/stanprogram3293
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/stanprogram3643
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/uxnmr.info
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/uxnmr.par
+./FID for publication/7a-7f/7c-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/7a-7f/7c-H and C NMR/H NMR
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/acqu
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/acqus
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/audita.txt
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/fid
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/format.temp
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/pdata
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/pdata/1
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/pdata/1/title
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/prosol_History
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/pulseprogram
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/scon2
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/shimvalues
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/specpar
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/stanprogram3293
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/stanprogram3643
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/uxnmr.info
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/uxnmr.par
+./FID for publication/7a-7f/7c-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/7a-7f/7d-H and C NMR
+./FID for publication/7a-7f/7d-H and C NMR/.DS_Store
+./FID for publication/7a-7f/7d-H and C NMR/C NMR
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/acqu
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/acqus
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/audita.txt
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/cpdprg2
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/fid
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/format.temp
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/pdata
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/pdata/1
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/pdata/1/title
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/prosol_History
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/pulseprogram
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/scon2
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/shimvalues
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/specpar
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/stanprogram3438
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/uxnmr.info
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/uxnmr.par
+./FID for publication/7a-7f/7d-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/7a-7f/7d-H and C NMR/H NMR
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/acqu
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/acqus
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/audita.txt
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/fid
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/format.temp
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/pdata
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/pdata/1
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/pdata/1/title
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/prosol_History
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/pulseprogram
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/scon2
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/shimvalues
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/specpar
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/stanprogram3438
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/uxnmr.info
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/uxnmr.par
+./FID for publication/7a-7f/7d-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/.DS_Store
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/acqu
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/acqus
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/adcInfo_TRX1.xml
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/audita.txt
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/fid
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/format.temp
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/pdata
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/pdata/1
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/pdata/1/1i
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/pdata/1/1r
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/pdata/1/auditp.txt
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/pdata/1/intrng
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/pdata/1/outd
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/pdata/1/parm.txt
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/pdata/1/peaklist.xml
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/pdata/1/peakrng
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/pdata/1/peaks
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/pdata/1/proc
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/pdata/1/procs
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/pdata/1/title
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/prosol_History
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/pulseprogram
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/scon2
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/shimvalues
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/specpar
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/stanprogram3293
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/uxnmr.info
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/uxnmr.par
+./FID for publication/7a-7f/7d-H and C NMR/H NMR-Boc/1/vtc_pid_settings
+./FID for publication/7a-7f/7e-H and C NMR
+./FID for publication/7a-7f/7e-H and C NMR/C NMR
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/acqu
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/acqus
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/audita.txt
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/cpdprg2
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/fid
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/format.temp
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/pdata
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/pdata/1
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/pdata/1/title
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/prosol_History
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/pulseprogram
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/scon2
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/shimvalues
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/specpar
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/stanprogram3438
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/stanprogram3579
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/uxnmr.info
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/uxnmr.par
+./FID for publication/7a-7f/7e-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/7a-7f/7e-H and C NMR/H NMR
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/acqu
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/acqus
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/audita.txt
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/fid
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/format.temp
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/pdata
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/pdata/1
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/pdata/1/title
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/prosol_History
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/pulseprogram
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/scon2
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/shimvalues
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/specpar
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/stanprogram3438
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/stanprogram3579
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/uxnmr.info
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/uxnmr.par
+./FID for publication/7a-7f/7e-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/7a-7f/7f-H and C NMR
+./FID for publication/7a-7f/7f-H and C NMR/C NMR
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/acqu
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/acqus
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/audita.txt
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/cpdprg2
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/fid
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/format.temp
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/pdata
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/pdata/1
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/pdata/1/title
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/prosol_History
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/pulseprogram
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/scon2
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/shimvalues
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/specpar
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/stanprogram3438
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/stanprogram3579
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/uxnmr.info
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/uxnmr.par
+./FID for publication/7a-7f/7f-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/7a-7f/7f-H and C NMR/H NMR
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/acqu
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/acqus
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/audita.txt
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/fid
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/format.temp
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/pdata
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/pdata/1
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/pdata/1/title
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/prosol_History
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/pulseprogram
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/scon2
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/shimvalues
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/specpar
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/stanprogram3438
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/uxnmr.info
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/uxnmr.par
+./FID for publication/7a-7f/7f-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/8b-8d
+./FID for publication/8b-8d/.DS_Store
+./FID for publication/8b-8d/8b-H and C NMR
+./FID for publication/8b-8d/8b-H and C NMR/.DS_Store
+./FID for publication/8b-8d/8b-H and C NMR/C NMR
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/.DS_Store
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/acqu
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/acqus
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/audita.txt
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/cpdprg2
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/fid
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/format.temp
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pdata
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pdata/.DS_Store
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pdata/1
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pdata/1/title
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/prosol_History
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/pulseprogram
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/scon2
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/shimvalues
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/specpar
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/stanprogram3438
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/uxnmr.info
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/uxnmr.par
+./FID for publication/8b-8d/8b-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/8b-8d/8b-H and C NMR/H NMR
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/.DS_Store
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/acqu
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/acqus
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/audita.txt
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/fid
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/format.temp
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pdata
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pdata/.DS_Store
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pdata/1
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pdata/1/title
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/prosol_History
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/pulseprogram
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/scon2
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/shimvalues
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/specpar
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/stanprogram3438
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/uxnmr.info
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/uxnmr.par
+./FID for publication/8b-8d/8b-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/8b-8d/8c-H and C NMR
+./FID for publication/8b-8d/8c-H and C NMR/C NMR
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/acqu
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/acqus
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/audita.txt
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/cpdprg2
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/fid
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/format.temp
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/pdata
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/pdata/1
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/pdata/1/title
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/prosol_History
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/pulseprogram
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/scon2
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/shimvalues
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/specpar
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/stanprogram3438
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/stanprogram3579
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/uxnmr.info
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/uxnmr.par
+./FID for publication/8b-8d/8c-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/8b-8d/8c-H and C NMR/H NMR
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/acqu
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/acqus
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/audita.txt
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/fid
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/format.temp
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/pdata
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/pdata/1
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/pdata/1/title
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/prosol_History
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/pulseprogram
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/scon2
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/shimvalues
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/specpar
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/stanprogram3438
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/stanprogram3579
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/uxnmr.info
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/uxnmr.par
+./FID for publication/8b-8d/8c-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/8b-8d/8d-H and C NMR
+./FID for publication/8b-8d/8d-H and C NMR/C NMR
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/acqu
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/acqus
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/audita.txt
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/cpdprg2
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/fid
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/format.temp
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/pdata
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/pdata/1
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/pdata/1/title
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/prosol_History
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/pulseprogram
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/scon2
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/shimvalues
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/specpar
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/stanprogram3438
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/stanprogram3579
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/uxnmr.info
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/uxnmr.par
+./FID for publication/8b-8d/8d-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/8b-8d/8d-H and C NMR/H NMR
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/acqu
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/acqus
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/audita.txt
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/fid
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/format.temp
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/pdata
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/pdata/1
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/pdata/1/title
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/prosol_History
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/pulseprogram
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/scon2
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/shimvalues
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/specpar
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/stanprogram3438
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/stanprogram3579
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/uxnmr.info
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/uxnmr.par
+./FID for publication/8b-8d/8d-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/9a-9h
+./FID for publication/9a-9h/.DS_Store
+./FID for publication/9a-9h/9a-H and C NMR
+./FID for publication/9a-9h/9a-H and C NMR/.DS_Store
+./FID for publication/9a-9h/9a-H and C NMR/C NMR
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/acqu
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/acqus
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/adcInfo_TRX3.xml
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/au
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/au/src
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/au/src/au_zg
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/au/src/proc_1d
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/audita.txt
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/fid
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/format.ased
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/format.temp
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/lists
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/lists/cpd
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/lists/cpd/waltz65
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/lists/form
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/lists/form/plot_acqu.form
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/lists/pp
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/lists/pp/Avance.incl
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/lists/pp/Delay.incl
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/lists/pp/zgpg30
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/pdata
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/pdata/1
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/pdata/1/title
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/preemp_default_Z150336_0001
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/prosol_History
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/pulseprogram.precomp
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/scon2
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/shimvalues
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/specpar
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/topshimreport
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/uxnmr.info
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/uxnmr.par
+./FID for publication/9a-9h/9a-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/9a-9h/9a-H and C NMR/H NMR.fid
+./FID for publication/9a-9h/9a-H and C NMR/H NMR.fid/.DS_Store
+./FID for publication/9a-9h/9a-H and C NMR/H NMR.fid/fid
+./FID for publication/9a-9h/9a-H and C NMR/H NMR.fid/log
+./FID for publication/9a-9h/9a-H and C NMR/H NMR.fid/procpar
+./FID for publication/9a-9h/9a-H and C NMR/H NMR.fid/text
+./FID for publication/9a-9h/9b-H and C NMR
+./FID for publication/9a-9h/9b-H and C NMR/.DS_Store
+./FID for publication/9a-9h/9b-H and C NMR/C NMR
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/.DS_Store
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/acqu
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/acqus
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/audita.txt
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/cpdprg2
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/fid
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/format.temp
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pdata
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pdata/.DS_Store
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pdata/1
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pdata/1/title
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/prosol_History
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/pulseprogram
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/scon2
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/shimvalues
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/specpar
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/stanprogram3438
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/stanprogram3579
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/uxnmr.info
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/uxnmr.par
+./FID for publication/9a-9h/9b-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/9a-9h/9b-H and C NMR/H NMR
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/acqu
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/acqus
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/audita.txt
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/fid
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/format.temp
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/pdata
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/pdata/1
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/pdata/1/title
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/prosol_History
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/pulseprogram
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/scon2
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/shimvalues
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/specpar
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/stanprogram3438
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/stanprogram3579
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/uxnmr.info
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/uxnmr.par
+./FID for publication/9a-9h/9b-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/9a-9h/9c-H and C NMR
+./FID for publication/9a-9h/9c-H and C NMR/C NMR
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/acqu
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/acqus
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/audita.txt
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/cpdprg2
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/fid
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/format.temp
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/pdata
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/pdata/1
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/pdata/1/title
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/prosol_History
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/pulseprogram
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/scon2
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/shimvalues
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/specpar
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/stanprogram3438
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/stanprogram3579
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/uxnmr.info
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/uxnmr.par
+./FID for publication/9a-9h/9c-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/9a-9h/9c-H and C NMR/H NMR
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/acqu
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/acqus
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/audita.txt
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/fid
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/format.temp
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/pdata
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/pdata/1
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/pdata/1/title
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/prosol_History
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/pulseprogram
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/scon2
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/shimvalues
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/specpar
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/stanprogram3438
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/uxnmr.info
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/uxnmr.par
+./FID for publication/9a-9h/9c-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/9a-9h/9d-H and C NMR
+./FID for publication/9a-9h/9d-H and C NMR/.DS_Store
+./FID for publication/9a-9h/9d-H and C NMR/C NMR
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/.DS_Store
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/acqu
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/acqus
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/audita.txt
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/cpdprg2
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/fid
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/format.temp
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pdata
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pdata/.DS_Store
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pdata/1
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pdata/1/title
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/prosol_History
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/pulseprogram
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/scon2
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/shimvalues
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/specpar
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/stanprogram21377
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/stanprogram21426
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/uxnmr.info
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/uxnmr.par
+./FID for publication/9a-9h/9d-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/9a-9h/9d-H and C NMR/H NMR
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/chronlog
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/craftlog
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/fidlist
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/fidlog
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/macdir
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/macdir/ACQlist
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/macdir/EXPLIST
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/macdir/LONGLIST
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/macdir/maclib_attic
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/macdir/sampleglobal
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/parlib
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/psglib
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/scoutlog
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/shapelib
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/spectrumlog
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/cpnodeinfo
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/craftlog
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/errorlog
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/EXPLIST
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/expqueue
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/fidlog
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/info
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/info/Sqn0001
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/info/Sqn0001/prop
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/LONGLIST
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/scoutlog
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/spectrumlog
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/sqdir
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/sqdir/enterSQ
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/sqdir/error_enterSQ
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/sqdir/error_study.xml
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/sqdir/info
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/sqdir/info/Sqn0001
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/sqdir/info/Sqn0001/prop
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/sqdir/scoutfid_enterSQ
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/sqdir/scoutfid_error_enterSQ
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/sqdir/scoutfid_error_study.xml
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/sqdir/scoutfid_study.xml
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/sqdir/study.xml
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/dirinfo/xmldir/sqdir.info
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/FAL-BR-PHT-PROTON_01.fid
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/FAL-BR-PHT-PROTON_01.fid/fid
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/FAL-BR-PHT-PROTON_01.fid/log
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/FAL-BR-PHT-PROTON_01.fid/procpar
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/FAL-BR-PHT-PROTON_01.fid/text
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/plots
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/scoutfids
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/spectra
+./FID for publication/9a-9h/9d-H and C NMR/H NMR/studypar
+./FID for publication/9a-9h/9e-H and C NMR
+./FID for publication/9a-9h/9e-H and C NMR/C NMR
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/acqu
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/acqus
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/audita.txt
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/cpdprg2
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/fid
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/format.temp
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/pdata
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/pdata/1
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/pdata/1/title
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/prosol_History
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/pulseprogram
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/scon2
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/shimvalues
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/specpar
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/stanprogram3438
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/stanprogram3579
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/uxnmr.info
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/uxnmr.par
+./FID for publication/9a-9h/9e-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/9a-9h/9e-H and C NMR/H NMR
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/acqu
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/acqus
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/audita.txt
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/fid
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/format.temp
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/pdata
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/pdata/1
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/pdata/1/title
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/prosol_History
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/pulseprogram
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/scon2
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/shimvalues
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/specpar
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/stanprogram3438
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/stanprogram3579
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/uxnmr.info
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/uxnmr.par
+./FID for publication/9a-9h/9e-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/9a-9h/9f-H and C NMR
+./FID for publication/9a-9h/9f-H and C NMR/C NMR
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/acqu
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/acqus
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/audita.txt
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/cpdprg2
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/fid
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/format.temp
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/pdata
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/pdata/1
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/pdata/1/parm.txt
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/pdata/1/title
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/prosol_History
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/pulseprogram
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/scon2
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/shimvalues
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/specpar
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/stanprogram3438
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/uxnmr.info
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/uxnmr.par
+./FID for publication/9a-9h/9f-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/9a-9h/9f-H and C NMR/H NMR
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/acqu
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/acqus
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/audita.txt
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/fid
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/format.temp
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/pdata
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/pdata/1
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/pdata/1/parm.txt
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/pdata/1/title
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/prosol_History
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/pulseprogram
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/scon2
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/shimvalues
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/specpar
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/stanprogram3438
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/uxnmr.info
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/uxnmr.par
+./FID for publication/9a-9h/9f-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/9a-9h/9g-H and C NMR
+./FID for publication/9a-9h/9g-H and C NMR/C NMR
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/acqu
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/acqus
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/adcInfo_TRX2.xml
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/au
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/au/src
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/au/src/au_zg
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/au/src/proc_1d
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/audita.txt
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/fid
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/format.temp
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/lists
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/lists/cpd
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/lists/cpd/waltz65
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/lists/form
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/lists/form/plot_acqu.form
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/lists/pp
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/lists/pp/Avance.incl
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/lists/pp/Delay.incl
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/lists/pp/zgpg30
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/pdata
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/pdata/1
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/pdata/1/1i
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/pdata/1/1r
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/pdata/1/auditp.txt
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/pdata/1/intrng
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/pdata/1/outd
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/pdata/1/peaklist.xml
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/pdata/1/peakrng
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/pdata/1/peaks
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/pdata/1/proc
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/pdata/1/procs
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/pdata/1/title
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/prosol_History
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/pulseprogram.precomp
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/scon2
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/shimvalues
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/specpar
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/uxnmr.info
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/uxnmr.par
+./FID for publication/9a-9h/9g-H and C NMR/C NMR/vtc_pid_settings
+./FID for publication/9a-9h/9g-H and C NMR/H NMR
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/acqu
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/acqus
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/adcInfo_TRX1.xml
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/au
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/au/src
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/au/src/au_zg
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/au/src/proc_1d
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/audita.txt
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/fid
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/format.temp
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/lists
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/lists/form
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/lists/form/plot_acqu.form
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/lists/pp
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/lists/pp/Avance.incl
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/lists/pp/zg30
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/pdata
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/pdata/1
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/pdata/1/1i
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/pdata/1/1r
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/pdata/1/auditp.txt
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/pdata/1/intrng
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/pdata/1/outd
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/pdata/1/peaklist.xml
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/pdata/1/peakrng
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/pdata/1/peaks
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/pdata/1/proc
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/pdata/1/procs
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/pdata/1/title
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/prosol_History
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/pulseprogram.precomp
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/scon2
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/shimvalues
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/specpar
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/topshimreport
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/uxnmr.info
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/uxnmr.par
+./FID for publication/9a-9h/9g-H and C NMR/H NMR/vtc_pid_settings
+./FID for publication/9a-9h/9h-H and C NMR
+./FID for publication/9a-9h/9h-H and C NMR/.DS_Store
+./FID for publication/9a-9h/9h-H and C NMR/C NMR
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/acqu
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/acqus
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/adcInfo_TRX2.xml
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/audita.txt
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/cpdprg2
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/fid
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/format.temp
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/pdata
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/pdata/1
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/pdata/1/1i
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/pdata/1/1r
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/pdata/1/auditp.txt
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/pdata/1/outd
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/pdata/1/proc
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/pdata/1/procs
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/pdata/1/thumb.png
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/pdata/1/title
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/prosol_History
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/pulseprogram
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/scon2
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/shimvalues
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/specpar
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/stanprogram3457
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/uxnmr.info
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/uxnmr.par
+./FID for publication/9a-9h/9h-H and C NMR/C NMR/2/vtc_pid_settings
+./FID for publication/9a-9h/9h-H and C NMR/H NMR
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/acqu
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/acqus
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/adcInfo_TRX1.xml
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/au
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/au/src
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/au/src/au_zg
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/au/src/proc_1d
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/audita.txt
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/fid
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/format.temp
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/lists
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/lists/form
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/lists/form/plot_acqu.form
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/lists/pp
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/lists/pp/Avance.incl
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/lists/pp/zg30
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/pdata
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/pdata/1
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/pdata/1/1i
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/pdata/1/1r
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/pdata/1/auditp.txt
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/pdata/1/intrng
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/pdata/1/outd
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/pdata/1/peaklist.xml
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/pdata/1/peakrng
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/pdata/1/peaks
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/pdata/1/proc
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/pdata/1/procs
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/pdata/1/title
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/prosol_History
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/pulseprogram.precomp
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/scon2
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/shimvalues
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/specpar
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/topshimreport
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/uxnmr.info
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/uxnmr.par
+./FID for publication/9a-9h/9h-H and C NMR/H NMR/1/vtc_pid_settings
