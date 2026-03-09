@@ -1,11 +1,8 @@
 # !/bin/bash
 
-# for Windows BASH; python call does not work
-
 # requires sudo apt update 
 # requires sudo apt install unzip
 
-# WBash requires /mnt 
 Emma_Algorithm="/mnt/c/temp/iupac/compound_candidate_identifier.py"
 Zip_Source_Directory="/mnt/c/temp/iupac/acs2/data"
 Working_Directory="/mnt/c/temp/iupac/acs2/test2"
@@ -55,21 +52,46 @@ Zip_Root="${Zip_Source_Directory}/${doi}"
     fi
 
 DOI_Dir="${Working_Directory}/${doi}"
-// WBash uses sudo
 sudo mkdir $DOI_Dir
+
+Unzip_Dir="${DOI_Dir}/${doi}_unzip"
+Prediction_Directory="${DOI_Dir}/${doi}_prediction"
 
 # Clear the folder for prediction if it exists
 if [ -d "${Prediction_Directory}" ]; then
   sudo rm -rf "${Prediction_Directory}"
 fi
 
-Prediction_Directory="${DOI_Dir}/${doi}_prediction"
-
-
-Unzip_Dir="${DOI_Dir}/${doi}_unzip"
 if [ -d "$Unzip_Dir" ]; then
+
   doUnzip=$(yes_or_no "Do you want to unzip files?")
+
 fi
+
+
+: ' 
+UNUSED
+unzip_files() {
+    for file in *.zip; do
+      filename="${file}__"
+    	unzip "$file" -d "$filename"
+      echo "$file"
+    	echo "FILENAME: $filename"
+    	if [ -d "$filename" ]; then
+        echo "'$filename' is a directory."
+        pwd
+        cd "$filename"
+        pwd
+        unzip_files
+    
+      else
+        echo "'$filename' is not a directory (or does not exist)."
+        cd .. # might have to reevaluate this line
+      fi
+    done
+}
+
+'
 
 unzip_recursive() {
   
@@ -109,6 +131,7 @@ if [ ! $doUnzip ]; then
   sudo mkdir ${Unzip_Dir}
 
   # copy top-level zip files to the <DOI> directory
+
   cp "${Zip_Root}"*.zip ${DOI_Dir}
   cd ${DOI_Dir}
   ls *.zip
@@ -124,6 +147,7 @@ if [ ! $doUnzip ]; then
 
   # cd to the top of the <DOI>_unzip directory
   cd ${Unzip_Dir}
+
   sudo rm -rf __MACOS*
 
 fi

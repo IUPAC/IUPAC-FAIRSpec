@@ -28,14 +28,14 @@ Working_Directory="/c/temp/iupac/acs2/test2"
 # requires sudo apt install unzip
 
 
-OPTS=$(getopt -o :d:nuf:t -a -l doi:,nounzip,unzip,file:,test -n "$0" -- "$@")
+OPTS=$(getopt -o :d:cf:t -a -l doi:,clean,file:,test -n "$0" -- "$@")
 if [[ $? -ne 0 ]]; then
-    echo "$? failed parsing [optional -doi(d)] <doi(s)> -nounzip(n) -unzip(u) -file(f) <doiListFile>"
+    echo "$? failed parsing [optional -[d]oi] <doi(s)> -[c]lean -[f]ile <doiListFile>"
     exit 1;
 fi
 
 doi="?"
-doUnzip="?"
+doClean=false
 dois="?"
 isTest=1
 eval set -- "$OPTS"
@@ -46,12 +46,8 @@ while true; do
         doi="$2"
         shift 2
         ;;
-    -n | --nounzip)
-        doUnzip=1
-        shift
-        ;;
-    -u | --unzip)
-        doUnzip=0
+    -c | --clean)
+        doClean=true
         shift
         ;;
     -f | --file) # one per line
@@ -86,8 +82,7 @@ for arg; do
     fi
 done
 
-echo "doUnzip=${doUnzip} doi=${doi} dois=${dois}"
-
+echo "doClean=${doClean} doi=${doi} dois=${dois}"
 # check that the source and working directories exist
 check_dir_exists() {
     local dir_path="$1"
@@ -130,12 +125,41 @@ if [[ ! "${doi}" == "?" && ! ${doi} == "" ]]; then
     IFS=$' \t\n' 
 fi
 
-# default to --unzip for more than one
-if [[ doUnzip == "?" && dois[@] -ne 1 ]]; then
-   doUnzip = 0
-fi
+tempFile=$(mktemp)
 
-tempfile=$(mktemp)
+# the recursive unzip
+
+unzip_recursive() {
+
+    # cd to the top of the <DOI>_unzip directory
+    cd ${Unzip_Dir}
+
+    # TODO clear out __MACOSX files; could also be __MACOS I think
+    find . -name "__MACOSX" -type d -exec rm -rf {} + 2>/dev/null
+        
+    # Continuously search for zip files until none are left
+    
+    while [ "$(find . -path "*/__MACOSX" -prune -o -type f -name '*.zip' -print | wc -l)" -gt 0 ]; do
+
+        # Find each zip, extract to {name}.zip__, then delete the archive
+        # Note - output from echo is not coming through from the exec shell
+        find . -path "*/__MACOSX" -prune -o -type f -name "*.zip" -exec sh -c '
+            zip_file="$0"
+            dest_dir="${zip_file}__"
+            if unzip -o -d "$dest_dir" "$zip_file" -x "__MACOSX/*" "*/__MACOSX/*"; then
+                rm "$zip_file"
+                echo "Extracted and removed: $zip_file"
+            else
+                echo "Error unzipping: $zip_file"
+                exit 1
+            fi
+
+
+        ' "{}" \;
+    done
+    find . -name "__MACOSX" -type d -exec rm -rf {} + 2>/dev/null
+}
+
 
 # now one BIG loop
 
@@ -169,55 +193,24 @@ do
         mkdir $DOI_Dir
     fi
 
-    Prediction_Directory="${DOI_Dir}/${doi}_prediction"
-    # Clear the folder for prediction if it exists
-    if [ -d "${Prediction_Directory}" ]; then
-    rm -rf "${Prediction_Directory}"
-    fi
+    # the list of all the directories and files in the dataset
+    fileListFile="${DOI_Dir}/file_list_${doi}.txt"
 
     Unzip_Dir="${DOI_Dir}/${doi}_unzip"
-    # ask to unzip if the _unzip directory exists 
-    if [[ doUnzip == "?" && -d "$Unzip_Dir" ]]; then
-    doUnzip=$(yes_or_no "Do you want to unzip files?")
+
+    doCleanMe=$doClean
+
+    if [ ! -f ${fileListFile} ]; then
+        doCleanMe=true
     fi
 
-    unzip_recursive() {
-    
-    echo "test ${Unzip_Dir}"
-
-    # TODO clear out __MACOSX files; could also be __MACOS I think
-    find . -name "__MACOSX" -type d -exec rm -rf {} + 2>/dev/null
-        
-    # Continuously search for zip files until none are left
-    
-    while [ "$(find . -path "*/__MACOSX" -prune -o -type f -name '*.zip' -print | wc -l)" -gt 0 ]; do
-
-        # Find each zip, extract to {name}.zip__, then delete the archive
-        # Note - output from echo is not coming through from the exec shell
-        find . -path "*/__MACOSX" -prune -o -type f -name "*.zip" -exec sh -c '
-            zip_file="$0"
-            dest_dir="${zip_file}__"
-            if unzip -o -d "$dest_dir" "$zip_file" -x "__MACOSX/*" "*/__MACOSX/*"; then
-                rm "$zip_file"
-                echo "Extracted and removed: $zip_file"
-            else
-                echo "Error unzipping: $zip_file"
-                exit 1
-            fi
-
-
-        ' "{}" \;
-    done
-    find . -name "__MACOSX" -type d -exec rm -rf {} + 2>/dev/null
-    }
-
-    if [ ! $doUnzip ]; then
+    if $doCleanMe; then
 
         # Clear existing zip files from this directory
         rm -f "$DOI_Dir"/*.zip 
 
-        # Clear any existing unzipped folder if present
-        rm -rf "$DOI_Dir"/*_unzip
+        # Clear the existing unzip folder if present
+        rm -rf "${Unzip_Dir}"
 
         # Create a new folder to store unzipped data if it has not existed beforehand
         # e.g. jo4c02094_unzip
@@ -232,8 +225,6 @@ do
         # unzip these top-level zip files into the <DOI>_unzip directory
         unzip "${Zip_Root}"*.zip -d ${Unzip_Dir}
 
-        # cd to the top of the <DOI>_unzip directory
-        cd ${Unzip_Dir}
 
         # Call the recursive function to unzip all .zip files in the dataset
         unzip_recursive
@@ -241,29 +232,36 @@ do
         # cd to the top of the <DOI>_unzip directory
         cd ${Unzip_Dir}
         rm -rf __MACOS*
+       # Create the list of all the directories and files in the dataset
+        find "." -print > "$fileListFile"
+ 
+    fi
 
-    fi # if doUnZip
+    # The prediction only needs the file list, not the unzipped files. We could delete those here.
+
+    Prediction_Directory="${DOI_Dir}/${doi}_prediction"
+    # Clear the folder for prediction if it exists
+    if [ -d "${Prediction_Directory}" ]; then
+        rm -rf "${Prediction_Directory}"
+    fi
 
     # Create a new folder to store the output from running compound_candidate_identifier.py 
     mkdir "${Prediction_Directory}"
 
-    # Create the list of all the directories and files in the dataset in the prediction folder
-    OUTPUT_FILE="${Prediction_Directory}/file_list_${doi}.txt"
-    echo "creating ${OUTPUT_FILE}"
-    cd "${Unzip_Dir}"
-    find "." -print > "$OUTPUT_FILE"
+    # add the file list
+    cp "${fileListFile}" "${Prediction_Directory}/"
 
-    # Run the compound_candidate_identifier script to generate output files
+    # Run the compound_candidate_identifier script to generate output files from the prediction directory
     cd "${Prediction_Directory}"
 
     # this next line fails because pandas is not present and can't be installed or found
-    py "${Emma_Algorithm}" $doi > "${Prediction_Directory}/emma.log"  2> "$tempfile"
-    iserr=$(stat -c%s "$tempfile")
+    py "${Emma_Algorithm}" $doi > "${Prediction_Directory}/emma.log"  2> "$tempFile"
+    iserr=$(stat -c%s "$tempFile")
 
     if [[ ! ${iserr} == "0" ]]; then
         errFile="${Prediction_Directory}/emma.err"
         echo "!!!!!!!!!!Python errors for ${doi} - see $errFile !!!!!!!!!!"
-        cp "$tempfile" "$errFile"
+        cp "$tempFile" "$errFile"
     else
         echo "No Python errors for ${doi}" 
     fi
@@ -274,6 +272,6 @@ do
 done # for doi
 
 # Clean up the temporary file
-rm -f "$tempfile"
+rm -f "$tempFile"
 
 echo "done"

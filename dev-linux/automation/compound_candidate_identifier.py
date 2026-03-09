@@ -6,6 +6,10 @@ import itertools
 import sys
 import numpy as np
 
+# compound_candidate_identifier.py
+# 2025.03.08 BH -- changed "specpar" to "procpar" 
+# 2025.03.05 BH -- changed "zip.." to "zip__" since Windows cannot handle file/directory names ending with '.'
+
 # command line arguments
 dataset_DOI = sys.argv[1]
 
@@ -25,7 +29,7 @@ df["path_text_final"] = df["path_text_final"].str.replace(".zip__/", ".zip|")
 df["path_text_final"] = df["path_text_final"].str.replace("../test2/", "")
 
 # create clean file paths for analysis
-df['parts'] = df['parts'].apply(lambda x: [item for item in x if '.zip..' not in item])
+df['parts'] = df['parts'].apply(lambda x: [item for item in x if '.zip__' not in item])
 df["path_text"] = df["parts"].apply(lambda x: " / ".join(x))
 
 TOTAL_PATHS = len(df)
@@ -36,7 +40,7 @@ IGNORE_FOLDERS = {
 }
 
 FILE_LIKE_NAMES = {
-    "acqu", "acqus", "acqu2s", "proc", "procs", "specpar", "title", "outd", "shimvalues",
+    "acqu", "acqus", "acqu2s", "proc", "procs", "procpar", "title", "outd", "shimvalues",
     "scon2", "pulseprogram", "cpdprg2", "precom.output", "fq1list", "vtc_pid_settings", "Catalyst"
 }
 
