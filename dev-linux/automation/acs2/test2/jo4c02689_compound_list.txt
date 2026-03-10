@@ -1,1 +1,1 @@
-jo4c02689 jo4c02689_si_001;jo4c02689_si_002;jo4c02689_si_003;jo4c02689_si_004
+jo4c02689 2D NMR data of 1;2D NMR data of 2;2D NMR data of 3;compound 4.mnova

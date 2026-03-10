@@ -1,1 +1,1 @@
-jo5c00526 jo5c00526_si_002;NMR spectra of macrocycles;jo5c00526_si_003
+jo5c00526 NMR spectra of Br-Fu-Bpin monomer;NMR spectra of macrocycles;NMR spectra quantifying conversion (representative spectra for 1 expt);Pd2dba3 catalyst;XYZ Coordinates

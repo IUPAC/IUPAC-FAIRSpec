@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\temp\iupac\compound_id.py", line 26, in <module>
+    print(f"parts: {df['parts'].toList()}")
+                    ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hanso\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\generic.py", line 6206, in __getattr__
+    return object.__getattribute__(self, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Series' object has no attribute 'toList'. Did you mean: 'to_list'?

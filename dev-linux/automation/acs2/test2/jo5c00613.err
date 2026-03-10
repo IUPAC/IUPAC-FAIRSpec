@@ -1,7 +1,7 @@
 Traceback (most recent call last):
-  File "C:\temp\iupac\compound_candidate_identifier.py", line 99, in <module>
+  File "C:\temp\iupac\compound_id.py", line 100, in <module>
     print(f"\n\nAll initial compound candidates: \n {set(all_initial_candidates)}\n")
   File "C:\Users\hanso\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
     return codecs.charmap_encode(input,self.errors,encoding_table)[0]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'charmap' codec can't encode character '\u8418' in position 190: character maps to <undefined>
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 62-65: character maps to <undefined>
