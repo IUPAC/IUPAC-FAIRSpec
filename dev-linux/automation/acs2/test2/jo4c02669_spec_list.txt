@@ -1,0 +1,1 @@
+jo4c02669 1a 13C;1a DEPT;1a H;1b 13C;1b DEPT;1b H;2a 13C;2a 1H;2a DEPT;2b C;2b DEPT;2b H;3a C;3a DEPT;3a H;3b C;3b DEPT;3b H;3b HMQC;3b Temperature;nan;3c C;3c DEPT;3c H

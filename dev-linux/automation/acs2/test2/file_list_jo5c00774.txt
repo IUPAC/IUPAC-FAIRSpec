@@ -1,0 +1,770 @@
+.
+jo5c00774_si_002
+jo5c00774_si_002/Supplementary compound and compunational data ver2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/CDFT data of 10·H+.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/CDFT data of 1·H+.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/CDFT data of 2·H+.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/CDFT data of 3·H+.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/CDFT data of 4·H+.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/CDFT data of 5·H+.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/CDFT data of 6·H+.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/CDFT data of 7·H+.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/CDFT data of 8·H+.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/CDFT data of 9·H+.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/CDFT results (Multiwfn).txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N/input.bibtex
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N/input.cpcm
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N/input.cpcm_corr
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N/input.densities
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N/input.densitiesinfo
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N/input.gbw
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N/input.inp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N/input.o1701634
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N/input.property.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N/input.smd.out
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N/input.wfx
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N/input.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N/N.wfn
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N/result.out
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N/run.sh
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1/input.bibtex
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1/input.cpcm
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1/input.cpcm_corr
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1/input.densities
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1/input.densitiesinfo
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1/input.gbw
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1/input.inp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1/input.o1706705
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1/input.property.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1/input.smd.out
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1/input.wfx
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1/input.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1/N+1.out
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1/N+1.wfn
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N+1/run.sh
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1/input.bibtex
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1/input.cpcm
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1/input.cpcm_corr
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1/input.densities
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1/input.densitiesinfo
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1/input.gbw
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1/input.inp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1/input.o1706717
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1/input.property.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1/input.smd.out
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1/input.wfx
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1/input.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1/N-1.out
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1/N-1.wfn
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-1/run.sh
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2/input.bibtex
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2/input.cpcm
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2/input.cpcm_corr
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2/input.densities
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2/input.densitiesinfo
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2/input.gbw
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2/input.inp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2/input.o1706729
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2/input.property.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2/input.smd.out
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2/input.wfx
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2/input.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2/N-2.out
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2/N-2.wfn
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Conceptual DFT computation of imine·H+/Typical data of CDFT computation/N-2/run.sh
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+/Optimized cartesian coordinates of 10·H+.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+/Optimized cartesian coordinates of 1·H+.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+/Optimized cartesian coordinates of 2·H+.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+/Optimized cartesian coordinates of 3·H+.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+/Optimized cartesian coordinates of 4·H+.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+/Optimized cartesian coordinates of 5·H+.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+/Optimized cartesian coordinates of 6·H+.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+/Optimized cartesian coordinates of 7·H+.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+/Optimized cartesian coordinates of 8·H+.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+/Optimized cartesian coordinates of 9·H+.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+/Optimized cartesian coordinates of CB7.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+/Typical input file for optimization.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+@CB7
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+@CB7/Optimized cartesian coordinates of 10·H+@CB7.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+@CB7/Optimized cartesian coordinates of 1·H+@CB7.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+@CB7/Optimized cartesian coordinates of 2·H+@CB7.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+@CB7/Optimized cartesian coordinates of 3·H+@CB7.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+@CB7/Optimized cartesian coordinates of 4·H+@CB7.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+@CB7/Optimized cartesian coordinates of 5·H+@CB7.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+@CB7/Optimized cartesian coordinates of 6·H+@CB7.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+@CB7/Optimized cartesian coordinates of 7·H+@CB7.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+@CB7/Optimized cartesian coordinates of 8·H+@CB7.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+@CB7/Optimized cartesian coordinates of 9·H+@CB7.xyz
+jo5c00774_si_002/Supplementary compound and compunational data ver2/Computational data/Optimization of imine·H+@CB7/Typical input file for optimization.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/cpdprg2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pdata/1/email_Jan14-2025-kshi2-20_10_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/stanprogram21606
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/topshimreport
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 1.zip__/Jan14-2025-kshi2-20/10/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/cpdprg2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pdata/1/email_Feb16-2025-kshi2-11_11_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/stanprogram13832
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 10.zip__/Feb16-2025-kshi2-11/11/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/cpdprg2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pdata/1/email_Jan14-2025-kshi2-21_10_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/stanprogram21606
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/topshimreport
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 2.zip__/Jan14-2025-kshi2-21/10/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/cpdprg2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pdata/1/email_Feb20-2025-kshi2-2_10_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/stanprogram13832
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/topshimreport
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 3.zip__/Feb20-2025-kshi2-2/10/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/cpdprg2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pdata/1/email_Jan14-2025-kshi2-20_10_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/stanprogram21606
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/topshimreport
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 4.zip__/Jan14-2025-kshi2-20/10/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/cpdprg2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/pdata/1/thumb.png
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/stanprogram5340
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 5.zip__/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/cpdprg2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata/1/email_Feb15-2025-kshi2-7_11_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/stanprogram13832
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/cpdprg2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pdata/1/email_Feb15-2025-kshi2-5_11_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/stanprogram13832
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 8.zip__/Feb15-2025-kshi2-5/11/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/cpdprg2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pdata/1/email_Feb15-2025-kshi2-6_11_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/stanprogram13832
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 9.zip__/Feb15-2025-kshi2-6/11/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pdata/1/email_Feb23-2023-kshi2-5_10_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/stanprogram15214
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/topshimreport
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 1.zip__/Feb23-2023-kshi2-5/10/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pdata/1/email_Aug31-2023-kshi2-17_10_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/stanprogram8012
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/topshimreport
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 10.zip__/Aug31-2023-kshi2-17/10/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pdata/1/email_May05-2023-kshi2-11_10_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/stanprogram6169
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/topshimreport
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 2.zip__/May05-2023-kshi2-11/10/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pdata/1/email_Apr17-2023-kshi2-11_10_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/stanprogram14476
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/topshimreport
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 3.zip__/Apr17-2023-kshi2-11/10/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pdata/1/email_Aug30-2023-kshi2-3_10_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/stanprogram8012
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/topshimreport
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 4.zip__/Aug30-2023-kshi2-3/10/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pdata/1/email_Feb19-2023-kshi2-12_10_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/stanprogram25332
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/topshimreport
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 5.zip__/Feb19-2023-kshi2-12/10/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pdata/1/email_Apr09-2023-kshi2-15_10_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/stanprogram18292
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/topshimreport
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 6.zip__/Apr09-2023-kshi2-15/10/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pdata/1/email_Jun05-2023-kshi2-16_10_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/stanprogram24226
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/topshimreport
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 7.zip__/Jun05-2023-kshi2-16/10/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pdata/1/email_Mar31-2023-kshi2-17_10_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/stanprogram18292
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/topshimreport
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 8.zip__/Mar31-2023-kshi2-17/10/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/acqu
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/acqus
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/audita.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/fid
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/format.temp
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/fq1list
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pdata
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pdata/1
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pdata/1/1i
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pdata/1/1r
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pdata/1/auditp.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pdata/1/email_Jun12-2023-kshi2-8_10_1.pdf
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pdata/1/intrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pdata/1/outd
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pdata/1/parm.txt
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pdata/1/peaklist.xml
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pdata/1/peakrng
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pdata/1/peaks
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pdata/1/proc
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pdata/1/procs
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pdata/1/title
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/precom.output
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/prosol_History
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/pulseprogram
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/scon2
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/shimvalues
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/specpar
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/stanprogram24226
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/topshimreport
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/uxnmr.info
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/uxnmr.par
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/1H NMR data of compound 9.zip__/Jun12-2023-kshi2-8/10/vtc_pid_settings
+jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/Details and notes.txt

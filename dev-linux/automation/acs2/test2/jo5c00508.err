@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "C:\temp\iupac\compound_candidate_identifier.py", line 350, in <module>
+    tokens_in_compound_folder_name.append(max_token)
+                                          ^^^^^^^^^
+NameError: name 'max_token' is not defined

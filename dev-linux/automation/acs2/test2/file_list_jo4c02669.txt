@@ -1,0 +1,722 @@
+.
+jo4c02669_si_001
+jo4c02669_si_001/FID for Publication
+jo4c02669_si_001/FID for Publication/1a
+jo4c02669_si_001/FID for Publication/1a/13C
+jo4c02669_si_001/FID for Publication/1a/13C/acqu
+jo4c02669_si_001/FID for Publication/1a/13C/acqus
+jo4c02669_si_001/FID for Publication/1a/13C/audita.txt
+jo4c02669_si_001/FID for Publication/1a/13C/cpdprg2
+jo4c02669_si_001/FID for Publication/1a/13C/fid
+jo4c02669_si_001/FID for Publication/1a/13C/format.temp
+jo4c02669_si_001/FID for Publication/1a/13C/pdata
+jo4c02669_si_001/FID for Publication/1a/13C/pdata/1
+jo4c02669_si_001/FID for Publication/1a/13C/pdata/1/1i
+jo4c02669_si_001/FID for Publication/1a/13C/pdata/1/1r
+jo4c02669_si_001/FID for Publication/1a/13C/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/1a/13C/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/1a/13C/pdata/1/outd
+jo4c02669_si_001/FID for Publication/1a/13C/pdata/1/parm.txt
+jo4c02669_si_001/FID for Publication/1a/13C/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/1a/13C/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/1a/13C/pdata/1/proc
+jo4c02669_si_001/FID for Publication/1a/13C/pdata/1/procs
+jo4c02669_si_001/FID for Publication/1a/13C/prosol_History
+jo4c02669_si_001/FID for Publication/1a/13C/pulseprogram
+jo4c02669_si_001/FID for Publication/1a/13C/scon2
+jo4c02669_si_001/FID for Publication/1a/13C/shimvalues
+jo4c02669_si_001/FID for Publication/1a/13C/uxnmr.par
+jo4c02669_si_001/FID for Publication/1a/DEPT
+jo4c02669_si_001/FID for Publication/1a/DEPT/acqu
+jo4c02669_si_001/FID for Publication/1a/DEPT/acqus
+jo4c02669_si_001/FID for Publication/1a/DEPT/audita.txt
+jo4c02669_si_001/FID for Publication/1a/DEPT/cpdprg2
+jo4c02669_si_001/FID for Publication/1a/DEPT/fid
+jo4c02669_si_001/FID for Publication/1a/DEPT/format.temp
+jo4c02669_si_001/FID for Publication/1a/DEPT/pdata
+jo4c02669_si_001/FID for Publication/1a/DEPT/pdata/1
+jo4c02669_si_001/FID for Publication/1a/DEPT/pdata/1/1i
+jo4c02669_si_001/FID for Publication/1a/DEPT/pdata/1/1r
+jo4c02669_si_001/FID for Publication/1a/DEPT/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/1a/DEPT/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/1a/DEPT/pdata/1/outd
+jo4c02669_si_001/FID for Publication/1a/DEPT/pdata/1/parm.txt
+jo4c02669_si_001/FID for Publication/1a/DEPT/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/1a/DEPT/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/1a/DEPT/pdata/1/proc
+jo4c02669_si_001/FID for Publication/1a/DEPT/pdata/1/procs
+jo4c02669_si_001/FID for Publication/1a/DEPT/prosol_History
+jo4c02669_si_001/FID for Publication/1a/DEPT/pulseprogram
+jo4c02669_si_001/FID for Publication/1a/DEPT/scon2
+jo4c02669_si_001/FID for Publication/1a/DEPT/shimvalues
+jo4c02669_si_001/FID for Publication/1a/DEPT/uxnmr.par
+jo4c02669_si_001/FID for Publication/1a/H
+jo4c02669_si_001/FID for Publication/1a/H/acqu
+jo4c02669_si_001/FID for Publication/1a/H/acqus
+jo4c02669_si_001/FID for Publication/1a/H/audita.txt
+jo4c02669_si_001/FID for Publication/1a/H/fid
+jo4c02669_si_001/FID for Publication/1a/H/format.temp
+jo4c02669_si_001/FID for Publication/1a/H/pdata
+jo4c02669_si_001/FID for Publication/1a/H/pdata/1
+jo4c02669_si_001/FID for Publication/1a/H/pdata/1/1i
+jo4c02669_si_001/FID for Publication/1a/H/pdata/1/1r
+jo4c02669_si_001/FID for Publication/1a/H/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/1a/H/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/1a/H/pdata/1/outd
+jo4c02669_si_001/FID for Publication/1a/H/pdata/1/parm.txt
+jo4c02669_si_001/FID for Publication/1a/H/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/1a/H/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/1a/H/pdata/1/proc
+jo4c02669_si_001/FID for Publication/1a/H/pdata/1/procs
+jo4c02669_si_001/FID for Publication/1a/H/prosol_History
+jo4c02669_si_001/FID for Publication/1a/H/pulseprogram
+jo4c02669_si_001/FID for Publication/1a/H/scon2
+jo4c02669_si_001/FID for Publication/1a/H/shimvalues
+jo4c02669_si_001/FID for Publication/1a/H/uxnmr.par
+jo4c02669_si_001/FID for Publication/1b
+jo4c02669_si_001/FID for Publication/1b/13C
+jo4c02669_si_001/FID for Publication/1b/13C/acqu
+jo4c02669_si_001/FID for Publication/1b/13C/acqus
+jo4c02669_si_001/FID for Publication/1b/13C/audita.txt
+jo4c02669_si_001/FID for Publication/1b/13C/cpdprg2
+jo4c02669_si_001/FID for Publication/1b/13C/fid
+jo4c02669_si_001/FID for Publication/1b/13C/format.temp
+jo4c02669_si_001/FID for Publication/1b/13C/pdata
+jo4c02669_si_001/FID for Publication/1b/13C/pdata/1
+jo4c02669_si_001/FID for Publication/1b/13C/pdata/1/1i
+jo4c02669_si_001/FID for Publication/1b/13C/pdata/1/1r
+jo4c02669_si_001/FID for Publication/1b/13C/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/1b/13C/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/1b/13C/pdata/1/outd
+jo4c02669_si_001/FID for Publication/1b/13C/pdata/1/parm.txt
+jo4c02669_si_001/FID for Publication/1b/13C/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/1b/13C/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/1b/13C/pdata/1/proc
+jo4c02669_si_001/FID for Publication/1b/13C/pdata/1/procs
+jo4c02669_si_001/FID for Publication/1b/13C/prosol_History
+jo4c02669_si_001/FID for Publication/1b/13C/pulseprogram
+jo4c02669_si_001/FID for Publication/1b/13C/scon2
+jo4c02669_si_001/FID for Publication/1b/13C/shimvalues
+jo4c02669_si_001/FID for Publication/1b/13C/uxnmr.par
+jo4c02669_si_001/FID for Publication/1b/DEPT
+jo4c02669_si_001/FID for Publication/1b/DEPT/acqu
+jo4c02669_si_001/FID for Publication/1b/DEPT/acqus
+jo4c02669_si_001/FID for Publication/1b/DEPT/audita.txt
+jo4c02669_si_001/FID for Publication/1b/DEPT/cpdprg2
+jo4c02669_si_001/FID for Publication/1b/DEPT/fid
+jo4c02669_si_001/FID for Publication/1b/DEPT/format.temp
+jo4c02669_si_001/FID for Publication/1b/DEPT/pdata
+jo4c02669_si_001/FID for Publication/1b/DEPT/pdata/1
+jo4c02669_si_001/FID for Publication/1b/DEPT/pdata/1/1i
+jo4c02669_si_001/FID for Publication/1b/DEPT/pdata/1/1r
+jo4c02669_si_001/FID for Publication/1b/DEPT/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/1b/DEPT/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/1b/DEPT/pdata/1/outd
+jo4c02669_si_001/FID for Publication/1b/DEPT/pdata/1/parm.txt
+jo4c02669_si_001/FID for Publication/1b/DEPT/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/1b/DEPT/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/1b/DEPT/pdata/1/proc
+jo4c02669_si_001/FID for Publication/1b/DEPT/pdata/1/procs
+jo4c02669_si_001/FID for Publication/1b/DEPT/prosol_History
+jo4c02669_si_001/FID for Publication/1b/DEPT/pulseprogram
+jo4c02669_si_001/FID for Publication/1b/DEPT/scon2
+jo4c02669_si_001/FID for Publication/1b/DEPT/shimvalues
+jo4c02669_si_001/FID for Publication/1b/DEPT/uxnmr.par
+jo4c02669_si_001/FID for Publication/1b/H
+jo4c02669_si_001/FID for Publication/1b/H/acqu
+jo4c02669_si_001/FID for Publication/1b/H/acqus
+jo4c02669_si_001/FID for Publication/1b/H/audita.txt
+jo4c02669_si_001/FID for Publication/1b/H/fid
+jo4c02669_si_001/FID for Publication/1b/H/format.temp
+jo4c02669_si_001/FID for Publication/1b/H/pdata
+jo4c02669_si_001/FID for Publication/1b/H/pdata/1
+jo4c02669_si_001/FID for Publication/1b/H/pdata/1/1i
+jo4c02669_si_001/FID for Publication/1b/H/pdata/1/1r
+jo4c02669_si_001/FID for Publication/1b/H/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/1b/H/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/1b/H/pdata/1/outd
+jo4c02669_si_001/FID for Publication/1b/H/pdata/1/parm.txt
+jo4c02669_si_001/FID for Publication/1b/H/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/1b/H/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/1b/H/pdata/1/proc
+jo4c02669_si_001/FID for Publication/1b/H/pdata/1/procs
+jo4c02669_si_001/FID for Publication/1b/H/prosol_History
+jo4c02669_si_001/FID for Publication/1b/H/pulseprogram
+jo4c02669_si_001/FID for Publication/1b/H/scon2
+jo4c02669_si_001/FID for Publication/1b/H/shimvalues
+jo4c02669_si_001/FID for Publication/1b/H/uxnmr.par
+jo4c02669_si_001/FID for Publication/2a
+jo4c02669_si_001/FID for Publication/2a/13C
+jo4c02669_si_001/FID for Publication/2a/13C/acqu
+jo4c02669_si_001/FID for Publication/2a/13C/acqus
+jo4c02669_si_001/FID for Publication/2a/13C/audita.txt
+jo4c02669_si_001/FID for Publication/2a/13C/cpdprg2
+jo4c02669_si_001/FID for Publication/2a/13C/fid
+jo4c02669_si_001/FID for Publication/2a/13C/format.temp
+jo4c02669_si_001/FID for Publication/2a/13C/pdata
+jo4c02669_si_001/FID for Publication/2a/13C/pdata/1
+jo4c02669_si_001/FID for Publication/2a/13C/pdata/1/1i
+jo4c02669_si_001/FID for Publication/2a/13C/pdata/1/1r
+jo4c02669_si_001/FID for Publication/2a/13C/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/2a/13C/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/2a/13C/pdata/1/outd
+jo4c02669_si_001/FID for Publication/2a/13C/pdata/1/parm.txt
+jo4c02669_si_001/FID for Publication/2a/13C/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/2a/13C/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/2a/13C/pdata/1/proc
+jo4c02669_si_001/FID for Publication/2a/13C/pdata/1/procs
+jo4c02669_si_001/FID for Publication/2a/13C/prosol_History
+jo4c02669_si_001/FID for Publication/2a/13C/pulseprogram
+jo4c02669_si_001/FID for Publication/2a/13C/scon2
+jo4c02669_si_001/FID for Publication/2a/13C/shimvalues
+jo4c02669_si_001/FID for Publication/2a/13C/uxnmr.par
+jo4c02669_si_001/FID for Publication/2a/1H
+jo4c02669_si_001/FID for Publication/2a/1H/acqu
+jo4c02669_si_001/FID for Publication/2a/1H/acqus
+jo4c02669_si_001/FID for Publication/2a/1H/audita.txt
+jo4c02669_si_001/FID for Publication/2a/1H/fid
+jo4c02669_si_001/FID for Publication/2a/1H/format.temp
+jo4c02669_si_001/FID for Publication/2a/1H/pdata
+jo4c02669_si_001/FID for Publication/2a/1H/pdata/1
+jo4c02669_si_001/FID for Publication/2a/1H/pdata/1/1i
+jo4c02669_si_001/FID for Publication/2a/1H/pdata/1/1r
+jo4c02669_si_001/FID for Publication/2a/1H/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/2a/1H/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/2a/1H/pdata/1/outd
+jo4c02669_si_001/FID for Publication/2a/1H/pdata/1/parm.txt
+jo4c02669_si_001/FID for Publication/2a/1H/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/2a/1H/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/2a/1H/pdata/1/proc
+jo4c02669_si_001/FID for Publication/2a/1H/pdata/1/procs
+jo4c02669_si_001/FID for Publication/2a/1H/prosol_History
+jo4c02669_si_001/FID for Publication/2a/1H/pulseprogram
+jo4c02669_si_001/FID for Publication/2a/1H/scon2
+jo4c02669_si_001/FID for Publication/2a/1H/shimvalues
+jo4c02669_si_001/FID for Publication/2a/1H/uxnmr.par
+jo4c02669_si_001/FID for Publication/2a/DEPT
+jo4c02669_si_001/FID for Publication/2a/DEPT/acqu
+jo4c02669_si_001/FID for Publication/2a/DEPT/acqus
+jo4c02669_si_001/FID for Publication/2a/DEPT/audita.txt
+jo4c02669_si_001/FID for Publication/2a/DEPT/cpdprg2
+jo4c02669_si_001/FID for Publication/2a/DEPT/fid
+jo4c02669_si_001/FID for Publication/2a/DEPT/format.temp
+jo4c02669_si_001/FID for Publication/2a/DEPT/pdata
+jo4c02669_si_001/FID for Publication/2a/DEPT/pdata/1
+jo4c02669_si_001/FID for Publication/2a/DEPT/pdata/1/1i
+jo4c02669_si_001/FID for Publication/2a/DEPT/pdata/1/1r
+jo4c02669_si_001/FID for Publication/2a/DEPT/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/2a/DEPT/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/2a/DEPT/pdata/1/outd
+jo4c02669_si_001/FID for Publication/2a/DEPT/pdata/1/parm.txt
+jo4c02669_si_001/FID for Publication/2a/DEPT/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/2a/DEPT/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/2a/DEPT/pdata/1/proc
+jo4c02669_si_001/FID for Publication/2a/DEPT/pdata/1/procs
+jo4c02669_si_001/FID for Publication/2a/DEPT/prosol_History
+jo4c02669_si_001/FID for Publication/2a/DEPT/pulseprogram
+jo4c02669_si_001/FID for Publication/2a/DEPT/scon2
+jo4c02669_si_001/FID for Publication/2a/DEPT/shimvalues
+jo4c02669_si_001/FID for Publication/2a/DEPT/uxnmr.par
+jo4c02669_si_001/FID for Publication/2b
+jo4c02669_si_001/FID for Publication/2b/C
+jo4c02669_si_001/FID for Publication/2b/C/acqu
+jo4c02669_si_001/FID for Publication/2b/C/acqus
+jo4c02669_si_001/FID for Publication/2b/C/audita.txt
+jo4c02669_si_001/FID for Publication/2b/C/cpdprg2
+jo4c02669_si_001/FID for Publication/2b/C/fid
+jo4c02669_si_001/FID for Publication/2b/C/format.temp
+jo4c02669_si_001/FID for Publication/2b/C/pdata
+jo4c02669_si_001/FID for Publication/2b/C/pdata/1
+jo4c02669_si_001/FID for Publication/2b/C/pdata/1/1i
+jo4c02669_si_001/FID for Publication/2b/C/pdata/1/1r
+jo4c02669_si_001/FID for Publication/2b/C/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/2b/C/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/2b/C/pdata/1/outd
+jo4c02669_si_001/FID for Publication/2b/C/pdata/1/parm.txt
+jo4c02669_si_001/FID for Publication/2b/C/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/2b/C/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/2b/C/pdata/1/proc
+jo4c02669_si_001/FID for Publication/2b/C/pdata/1/procs
+jo4c02669_si_001/FID for Publication/2b/C/prosol_History
+jo4c02669_si_001/FID for Publication/2b/C/pulseprogram
+jo4c02669_si_001/FID for Publication/2b/C/scon2
+jo4c02669_si_001/FID for Publication/2b/C/shimvalues
+jo4c02669_si_001/FID for Publication/2b/C/uxnmr.par
+jo4c02669_si_001/FID for Publication/2b/DEPT
+jo4c02669_si_001/FID for Publication/2b/DEPT/acqu
+jo4c02669_si_001/FID for Publication/2b/DEPT/acqus
+jo4c02669_si_001/FID for Publication/2b/DEPT/audita.txt
+jo4c02669_si_001/FID for Publication/2b/DEPT/cpdprg2
+jo4c02669_si_001/FID for Publication/2b/DEPT/fid
+jo4c02669_si_001/FID for Publication/2b/DEPT/format.temp
+jo4c02669_si_001/FID for Publication/2b/DEPT/pdata
+jo4c02669_si_001/FID for Publication/2b/DEPT/pdata/1
+jo4c02669_si_001/FID for Publication/2b/DEPT/pdata/1/1i
+jo4c02669_si_001/FID for Publication/2b/DEPT/pdata/1/1r
+jo4c02669_si_001/FID for Publication/2b/DEPT/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/2b/DEPT/pdata/1/curdat2
+jo4c02669_si_001/FID for Publication/2b/DEPT/pdata/1/outd
+jo4c02669_si_001/FID for Publication/2b/DEPT/pdata/1/portf
+jo4c02669_si_001/FID for Publication/2b/DEPT/pdata/1/proc
+jo4c02669_si_001/FID for Publication/2b/DEPT/pdata/1/procs
+jo4c02669_si_001/FID for Publication/2b/DEPT/prosol_History
+jo4c02669_si_001/FID for Publication/2b/DEPT/pulseprogram
+jo4c02669_si_001/FID for Publication/2b/DEPT/scon2
+jo4c02669_si_001/FID for Publication/2b/DEPT/shimvalues
+jo4c02669_si_001/FID for Publication/2b/DEPT/uxnmr.par
+jo4c02669_si_001/FID for Publication/2b/H
+jo4c02669_si_001/FID for Publication/2b/H/acqu
+jo4c02669_si_001/FID for Publication/2b/H/acqus
+jo4c02669_si_001/FID for Publication/2b/H/audita.txt
+jo4c02669_si_001/FID for Publication/2b/H/fid
+jo4c02669_si_001/FID for Publication/2b/H/format.temp
+jo4c02669_si_001/FID for Publication/2b/H/pdata
+jo4c02669_si_001/FID for Publication/2b/H/pdata/1
+jo4c02669_si_001/FID for Publication/2b/H/pdata/1/1i
+jo4c02669_si_001/FID for Publication/2b/H/pdata/1/1r
+jo4c02669_si_001/FID for Publication/2b/H/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/2b/H/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/2b/H/pdata/1/outd
+jo4c02669_si_001/FID for Publication/2b/H/pdata/1/parm.txt
+jo4c02669_si_001/FID for Publication/2b/H/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/2b/H/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/2b/H/pdata/1/proc
+jo4c02669_si_001/FID for Publication/2b/H/pdata/1/procs
+jo4c02669_si_001/FID for Publication/2b/H/prosol_History
+jo4c02669_si_001/FID for Publication/2b/H/pulseprogram
+jo4c02669_si_001/FID for Publication/2b/H/scon2
+jo4c02669_si_001/FID for Publication/2b/H/shimvalues
+jo4c02669_si_001/FID for Publication/2b/H/uxnmr.par
+jo4c02669_si_001/FID for Publication/3a
+jo4c02669_si_001/FID for Publication/3a/C
+jo4c02669_si_001/FID for Publication/3a/C/acqu
+jo4c02669_si_001/FID for Publication/3a/C/acqus
+jo4c02669_si_001/FID for Publication/3a/C/adcInfo_TRX2.xml
+jo4c02669_si_001/FID for Publication/3a/C/au
+jo4c02669_si_001/FID for Publication/3a/C/au/src
+jo4c02669_si_001/FID for Publication/3a/C/au/src/au_zg
+jo4c02669_si_001/FID for Publication/3a/C/au/src/proc_1d
+jo4c02669_si_001/FID for Publication/3a/C/audita.txt
+jo4c02669_si_001/FID for Publication/3a/C/fid
+jo4c02669_si_001/FID for Publication/3a/C/format.temp
+jo4c02669_si_001/FID for Publication/3a/C/lists
+jo4c02669_si_001/FID for Publication/3a/C/lists/cpd
+jo4c02669_si_001/FID for Publication/3a/C/lists/cpd/waltz65
+jo4c02669_si_001/FID for Publication/3a/C/lists/form
+jo4c02669_si_001/FID for Publication/3a/C/lists/form/plot_acqu.form
+jo4c02669_si_001/FID for Publication/3a/C/lists/pp
+jo4c02669_si_001/FID for Publication/3a/C/lists/pp/Avance.incl
+jo4c02669_si_001/FID for Publication/3a/C/lists/pp/Delay.incl
+jo4c02669_si_001/FID for Publication/3a/C/lists/pp/zgpg30
+jo4c02669_si_001/FID for Publication/3a/C/pdata
+jo4c02669_si_001/FID for Publication/3a/C/pdata/1
+jo4c02669_si_001/FID for Publication/3a/C/pdata/1/1i
+jo4c02669_si_001/FID for Publication/3a/C/pdata/1/1r
+jo4c02669_si_001/FID for Publication/3a/C/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/3a/C/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/3a/C/pdata/1/outd
+jo4c02669_si_001/FID for Publication/3a/C/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/3a/C/pdata/1/peakrng
+jo4c02669_si_001/FID for Publication/3a/C/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/3a/C/pdata/1/proc
+jo4c02669_si_001/FID for Publication/3a/C/pdata/1/procs
+jo4c02669_si_001/FID for Publication/3a/C/pdata/1/title
+jo4c02669_si_001/FID for Publication/3a/C/prosol_History
+jo4c02669_si_001/FID for Publication/3a/C/pulseprogram.precomp
+jo4c02669_si_001/FID for Publication/3a/C/scon2
+jo4c02669_si_001/FID for Publication/3a/C/shimvalues
+jo4c02669_si_001/FID for Publication/3a/C/specpar
+jo4c02669_si_001/FID for Publication/3a/C/uxnmr.info
+jo4c02669_si_001/FID for Publication/3a/C/uxnmr.par
+jo4c02669_si_001/FID for Publication/3a/C/vtc_pid_settings
+jo4c02669_si_001/FID for Publication/3a/DEPT
+jo4c02669_si_001/FID for Publication/3a/DEPT/acqu
+jo4c02669_si_001/FID for Publication/3a/DEPT/acqus
+jo4c02669_si_001/FID for Publication/3a/DEPT/adcInfo_TRX2.xml
+jo4c02669_si_001/FID for Publication/3a/DEPT/au
+jo4c02669_si_001/FID for Publication/3a/DEPT/au/src
+jo4c02669_si_001/FID for Publication/3a/DEPT/au/src/au_zg
+jo4c02669_si_001/FID for Publication/3a/DEPT/au/src/proc_1d
+jo4c02669_si_001/FID for Publication/3a/DEPT/audita.txt
+jo4c02669_si_001/FID for Publication/3a/DEPT/fid
+jo4c02669_si_001/FID for Publication/3a/DEPT/format.temp
+jo4c02669_si_001/FID for Publication/3a/DEPT/lists
+jo4c02669_si_001/FID for Publication/3a/DEPT/lists/cpd
+jo4c02669_si_001/FID for Publication/3a/DEPT/lists/cpd/waltz65
+jo4c02669_si_001/FID for Publication/3a/DEPT/lists/form
+jo4c02669_si_001/FID for Publication/3a/DEPT/lists/form/plot_acqu.form
+jo4c02669_si_001/FID for Publication/3a/DEPT/lists/pp
+jo4c02669_si_001/FID for Publication/3a/DEPT/lists/pp/Avance.incl
+jo4c02669_si_001/FID for Publication/3a/DEPT/lists/pp/Delay.incl
+jo4c02669_si_001/FID for Publication/3a/DEPT/lists/pp/deptsp135
+jo4c02669_si_001/FID for Publication/3a/DEPT/lists/wave
+jo4c02669_si_001/FID for Publication/3a/DEPT/lists/wave/Crp60comp.4
+jo4c02669_si_001/FID for Publication/3a/DEPT/pdata
+jo4c02669_si_001/FID for Publication/3a/DEPT/pdata/1
+jo4c02669_si_001/FID for Publication/3a/DEPT/pdata/1/1i
+jo4c02669_si_001/FID for Publication/3a/DEPT/pdata/1/1r
+jo4c02669_si_001/FID for Publication/3a/DEPT/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/3a/DEPT/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/3a/DEPT/pdata/1/outd
+jo4c02669_si_001/FID for Publication/3a/DEPT/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/3a/DEPT/pdata/1/peakrng
+jo4c02669_si_001/FID for Publication/3a/DEPT/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/3a/DEPT/pdata/1/proc
+jo4c02669_si_001/FID for Publication/3a/DEPT/pdata/1/procs
+jo4c02669_si_001/FID for Publication/3a/DEPT/pdata/1/title
+jo4c02669_si_001/FID for Publication/3a/DEPT/prosol_History
+jo4c02669_si_001/FID for Publication/3a/DEPT/pulseprogram.precomp
+jo4c02669_si_001/FID for Publication/3a/DEPT/scon2
+jo4c02669_si_001/FID for Publication/3a/DEPT/shimvalues
+jo4c02669_si_001/FID for Publication/3a/DEPT/specpar
+jo4c02669_si_001/FID for Publication/3a/DEPT/uxnmr.info
+jo4c02669_si_001/FID for Publication/3a/DEPT/uxnmr.par
+jo4c02669_si_001/FID for Publication/3a/DEPT/vtc_pid_settings
+jo4c02669_si_001/FID for Publication/3a/H
+jo4c02669_si_001/FID for Publication/3a/H/acqu
+jo4c02669_si_001/FID for Publication/3a/H/acqus
+jo4c02669_si_001/FID for Publication/3a/H/adcInfo_TRX1.xml
+jo4c02669_si_001/FID for Publication/3a/H/au
+jo4c02669_si_001/FID for Publication/3a/H/au/src
+jo4c02669_si_001/FID for Publication/3a/H/au/src/au_zg
+jo4c02669_si_001/FID for Publication/3a/H/au/src/proc_1d
+jo4c02669_si_001/FID for Publication/3a/H/audita.txt
+jo4c02669_si_001/FID for Publication/3a/H/fid
+jo4c02669_si_001/FID for Publication/3a/H/format.temp
+jo4c02669_si_001/FID for Publication/3a/H/lists
+jo4c02669_si_001/FID for Publication/3a/H/lists/form
+jo4c02669_si_001/FID for Publication/3a/H/lists/form/plot_acqu.form
+jo4c02669_si_001/FID for Publication/3a/H/lists/pp
+jo4c02669_si_001/FID for Publication/3a/H/lists/pp/Avance.incl
+jo4c02669_si_001/FID for Publication/3a/H/lists/pp/zg30
+jo4c02669_si_001/FID for Publication/3a/H/pdata
+jo4c02669_si_001/FID for Publication/3a/H/pdata/1
+jo4c02669_si_001/FID for Publication/3a/H/pdata/1/1i
+jo4c02669_si_001/FID for Publication/3a/H/pdata/1/1r
+jo4c02669_si_001/FID for Publication/3a/H/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/3a/H/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/3a/H/pdata/1/outd
+jo4c02669_si_001/FID for Publication/3a/H/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/3a/H/pdata/1/peakrng
+jo4c02669_si_001/FID for Publication/3a/H/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/3a/H/pdata/1/proc
+jo4c02669_si_001/FID for Publication/3a/H/pdata/1/procs
+jo4c02669_si_001/FID for Publication/3a/H/pdata/1/title
+jo4c02669_si_001/FID for Publication/3a/H/prosol_History
+jo4c02669_si_001/FID for Publication/3a/H/pulseprogram.precomp
+jo4c02669_si_001/FID for Publication/3a/H/scon2
+jo4c02669_si_001/FID for Publication/3a/H/shimvalues
+jo4c02669_si_001/FID for Publication/3a/H/specpar
+jo4c02669_si_001/FID for Publication/3a/H/topshimreport
+jo4c02669_si_001/FID for Publication/3a/H/uxnmr.info
+jo4c02669_si_001/FID for Publication/3a/H/uxnmr.par
+jo4c02669_si_001/FID for Publication/3a/H/vtc_pid_settings
+jo4c02669_si_001/FID for Publication/3b
+jo4c02669_si_001/FID for Publication/3b/C
+jo4c02669_si_001/FID for Publication/3b/C/acqu
+jo4c02669_si_001/FID for Publication/3b/C/acqus
+jo4c02669_si_001/FID for Publication/3b/C/audita.txt
+jo4c02669_si_001/FID for Publication/3b/C/cpdprg2
+jo4c02669_si_001/FID for Publication/3b/C/fid
+jo4c02669_si_001/FID for Publication/3b/C/format.temp
+jo4c02669_si_001/FID for Publication/3b/C/pdata
+jo4c02669_si_001/FID for Publication/3b/C/pdata/1
+jo4c02669_si_001/FID for Publication/3b/C/pdata/1/1i
+jo4c02669_si_001/FID for Publication/3b/C/pdata/1/1r
+jo4c02669_si_001/FID for Publication/3b/C/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/3b/C/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/3b/C/pdata/1/outd
+jo4c02669_si_001/FID for Publication/3b/C/pdata/1/parm.txt
+jo4c02669_si_001/FID for Publication/3b/C/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/3b/C/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/3b/C/pdata/1/proc
+jo4c02669_si_001/FID for Publication/3b/C/pdata/1/procs
+jo4c02669_si_001/FID for Publication/3b/C/prosol_History
+jo4c02669_si_001/FID for Publication/3b/C/pulseprogram
+jo4c02669_si_001/FID for Publication/3b/C/scon2
+jo4c02669_si_001/FID for Publication/3b/C/shimvalues
+jo4c02669_si_001/FID for Publication/3b/C/uxnmr.par
+jo4c02669_si_001/FID for Publication/3b/DEPT
+jo4c02669_si_001/FID for Publication/3b/DEPT/acqu
+jo4c02669_si_001/FID for Publication/3b/DEPT/acqus
+jo4c02669_si_001/FID for Publication/3b/DEPT/audita.txt
+jo4c02669_si_001/FID for Publication/3b/DEPT/cpdprg2
+jo4c02669_si_001/FID for Publication/3b/DEPT/fid
+jo4c02669_si_001/FID for Publication/3b/DEPT/format.temp
+jo4c02669_si_001/FID for Publication/3b/DEPT/pdata
+jo4c02669_si_001/FID for Publication/3b/DEPT/pdata/1
+jo4c02669_si_001/FID for Publication/3b/DEPT/pdata/1/1i
+jo4c02669_si_001/FID for Publication/3b/DEPT/pdata/1/1r
+jo4c02669_si_001/FID for Publication/3b/DEPT/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/3b/DEPT/pdata/1/curdat2
+jo4c02669_si_001/FID for Publication/3b/DEPT/pdata/1/outd
+jo4c02669_si_001/FID for Publication/3b/DEPT/pdata/1/portf
+jo4c02669_si_001/FID for Publication/3b/DEPT/pdata/1/proc
+jo4c02669_si_001/FID for Publication/3b/DEPT/pdata/1/procs
+jo4c02669_si_001/FID for Publication/3b/DEPT/prosol_History
+jo4c02669_si_001/FID for Publication/3b/DEPT/pulseprogram
+jo4c02669_si_001/FID for Publication/3b/DEPT/scon2
+jo4c02669_si_001/FID for Publication/3b/DEPT/shimvalues
+jo4c02669_si_001/FID for Publication/3b/DEPT/uxnmr.par
+jo4c02669_si_001/FID for Publication/3b/H
+jo4c02669_si_001/FID for Publication/3b/H/acqu
+jo4c02669_si_001/FID for Publication/3b/H/acqus
+jo4c02669_si_001/FID for Publication/3b/H/audita.txt
+jo4c02669_si_001/FID for Publication/3b/H/fid
+jo4c02669_si_001/FID for Publication/3b/H/format.temp
+jo4c02669_si_001/FID for Publication/3b/H/pdata
+jo4c02669_si_001/FID for Publication/3b/H/pdata/1
+jo4c02669_si_001/FID for Publication/3b/H/pdata/1/1i
+jo4c02669_si_001/FID for Publication/3b/H/pdata/1/1r
+jo4c02669_si_001/FID for Publication/3b/H/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/3b/H/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/3b/H/pdata/1/outd
+jo4c02669_si_001/FID for Publication/3b/H/pdata/1/parm.txt
+jo4c02669_si_001/FID for Publication/3b/H/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/3b/H/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/3b/H/pdata/1/proc
+jo4c02669_si_001/FID for Publication/3b/H/pdata/1/procs
+jo4c02669_si_001/FID for Publication/3b/H/prosol_History
+jo4c02669_si_001/FID for Publication/3b/H/pulseprogram
+jo4c02669_si_001/FID for Publication/3b/H/scon2
+jo4c02669_si_001/FID for Publication/3b/H/shimvalues
+jo4c02669_si_001/FID for Publication/3b/H/uxnmr.par
+jo4c02669_si_001/FID for Publication/3b/HMQC
+jo4c02669_si_001/FID for Publication/3b/HMQC/acqu
+jo4c02669_si_001/FID for Publication/3b/HMQC/acqu2
+jo4c02669_si_001/FID for Publication/3b/HMQC/acqu2s
+jo4c02669_si_001/FID for Publication/3b/HMQC/acqus
+jo4c02669_si_001/FID for Publication/3b/HMQC/adcInfo_TRX1.xml
+jo4c02669_si_001/FID for Publication/3b/HMQC/au
+jo4c02669_si_001/FID for Publication/3b/HMQC/au/src
+jo4c02669_si_001/FID for Publication/3b/HMQC/au/src/au_zg
+jo4c02669_si_001/FID for Publication/3b/HMQC/au/src/proc_no
+jo4c02669_si_001/FID for Publication/3b/HMQC/audita.txt
+jo4c02669_si_001/FID for Publication/3b/HMQC/format.temp
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists/cpd
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists/cpd/garp
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists/form
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists/form/plot_acqu.form
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists/gp
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists/gp/EA
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists/gp/SMSQ10.100
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists/pp
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists/pp/Avance.incl
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists/pp/Delay.incl
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists/pp/Grad.incl
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists/pp/hsqcdietgpsisp.2
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists/wave
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists/wave/Crp60,0.5,20.1
+jo4c02669_si_001/FID for Publication/3b/HMQC/lists/wave/Crp60comp.4
+jo4c02669_si_001/FID for Publication/3b/HMQC/pdata
+jo4c02669_si_001/FID for Publication/3b/HMQC/pdata/1
+jo4c02669_si_001/FID for Publication/3b/HMQC/pdata/1/curdat2
+jo4c02669_si_001/FID for Publication/3b/HMQC/pdata/1/outd
+jo4c02669_si_001/FID for Publication/3b/HMQC/pdata/1/proc
+jo4c02669_si_001/FID for Publication/3b/HMQC/pdata/1/proc2
+jo4c02669_si_001/FID for Publication/3b/HMQC/pdata/1/proc2s
+jo4c02669_si_001/FID for Publication/3b/HMQC/pdata/1/procs
+jo4c02669_si_001/FID for Publication/3b/HMQC/pdata/1/title
+jo4c02669_si_001/FID for Publication/3b/HMQC/prosol_History
+jo4c02669_si_001/FID for Publication/3b/HMQC/pulseprogram.precomp
+jo4c02669_si_001/FID for Publication/3b/HMQC/scon2
+jo4c02669_si_001/FID for Publication/3b/HMQC/ser
+jo4c02669_si_001/FID for Publication/3b/HMQC/shimvalues
+jo4c02669_si_001/FID for Publication/3b/HMQC/specpar
+jo4c02669_si_001/FID for Publication/3b/HMQC/uxnmr.info
+jo4c02669_si_001/FID for Publication/3b/HMQC/uxnmr.par
+jo4c02669_si_001/FID for Publication/3b/HMQC/vtc_pid_settings
+jo4c02669_si_001/FID for Publication/3b/Temperature
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/acqu
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/acqus
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/adcInfo_TRX1.xml
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/au
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/au/src
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/au/src/au_zg
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/au/src/proc_1d
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/audita.txt
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/fid
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/format.temp
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/lists
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/lists/form
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/lists/form/plot_acqu.form
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/lists/pp
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/lists/pp/Avance.incl
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/lists/pp/zg30
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/pdata
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/pdata/1
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/pdata/1/1i
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/pdata/1/1r
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/pdata/1/outd
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/pdata/1/peakrng
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/pdata/1/proc
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/pdata/1/procs
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/pdata/1/title
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/prosol_History
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/pulseprogram.precomp
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/scon2
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/shimvalues
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/specpar
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/topshimreport
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/uxnmr.info
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/uxnmr.par
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 25C/vtc_pid_settings
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/acqu
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/acqus
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/adcInfo_TRX1.xml
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/au
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/au/src
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/au/src/au_zg
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/au/src/proc_1d
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/audita.txt
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/fid
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/format.temp
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/lists
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/lists/form
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/lists/form/plot_acqu.form
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/lists/pp
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/lists/pp/Avance.incl
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/lists/pp/zg30
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/pdata
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/pdata/1
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/pdata/1/1i
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/pdata/1/1r
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/pdata/1/assocs
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/pdata/1/outd
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/pdata/1/peakrng
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/pdata/1/proc
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/pdata/1/procs
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/pdata/1/title
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/prosol_History
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/pulseprogram.precomp
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/scon2
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/shimvalues
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/specpar
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/topshimreport
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/uxnmr.info
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/uxnmr.par
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 40C/vtc_pid_settings
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/acqu
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/acqus
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/adcInfo_TRX1.xml
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/au
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/au/src
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/au/src/au_zg
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/au/src/proc_1d
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/audita.txt
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/fid
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/format.temp
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/lists
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/lists/form
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/lists/form/plot_acqu.form
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/lists/pp
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/lists/pp/Avance.incl
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/lists/pp/zg30
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pdata
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pdata/1
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pdata/1/1i
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pdata/1/1r
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pdata/1/assocs
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pdata/1/outd
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pdata/1/peakrng
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pdata/1/proc
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pdata/1/procs
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pdata/1/thumb.png
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pdata/1/title
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/prosol_History
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/pulseprogram.precomp
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/scon2
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/shimvalues
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/specpar
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/topshimreport
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/uxnmr.info
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/uxnmr.par
+jo4c02669_si_001/FID for Publication/3b/Temperature/H 50C/vtc_pid_settings
+jo4c02669_si_001/FID for Publication/3c
+jo4c02669_si_001/FID for Publication/3c/C
+jo4c02669_si_001/FID for Publication/3c/C/acqu
+jo4c02669_si_001/FID for Publication/3c/C/acqus
+jo4c02669_si_001/FID for Publication/3c/C/audita.txt
+jo4c02669_si_001/FID for Publication/3c/C/cpdprg2
+jo4c02669_si_001/FID for Publication/3c/C/Document 1.mnova
+jo4c02669_si_001/FID for Publication/3c/C/fid
+jo4c02669_si_001/FID for Publication/3c/C/format.temp
+jo4c02669_si_001/FID for Publication/3c/C/pdata
+jo4c02669_si_001/FID for Publication/3c/C/pdata/1
+jo4c02669_si_001/FID for Publication/3c/C/pdata/1/1i
+jo4c02669_si_001/FID for Publication/3c/C/pdata/1/1r
+jo4c02669_si_001/FID for Publication/3c/C/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/3c/C/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/3c/C/pdata/1/outd
+jo4c02669_si_001/FID for Publication/3c/C/pdata/1/parm.txt
+jo4c02669_si_001/FID for Publication/3c/C/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/3c/C/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/3c/C/pdata/1/proc
+jo4c02669_si_001/FID for Publication/3c/C/pdata/1/procs
+jo4c02669_si_001/FID for Publication/3c/C/prosol_History
+jo4c02669_si_001/FID for Publication/3c/C/pulseprogram
+jo4c02669_si_001/FID for Publication/3c/C/scon2
+jo4c02669_si_001/FID for Publication/3c/C/shimvalues
+jo4c02669_si_001/FID for Publication/3c/C/uxnmr.par
+jo4c02669_si_001/FID for Publication/3c/DEPT
+jo4c02669_si_001/FID for Publication/3c/DEPT/acqu
+jo4c02669_si_001/FID for Publication/3c/DEPT/acqus
+jo4c02669_si_001/FID for Publication/3c/DEPT/audita.txt
+jo4c02669_si_001/FID for Publication/3c/DEPT/cpdprg2
+jo4c02669_si_001/FID for Publication/3c/DEPT/fid
+jo4c02669_si_001/FID for Publication/3c/DEPT/format.temp
+jo4c02669_si_001/FID for Publication/3c/DEPT/pdata
+jo4c02669_si_001/FID for Publication/3c/DEPT/pdata/1
+jo4c02669_si_001/FID for Publication/3c/DEPT/pdata/1/1i
+jo4c02669_si_001/FID for Publication/3c/DEPT/pdata/1/1r
+jo4c02669_si_001/FID for Publication/3c/DEPT/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/3c/DEPT/pdata/1/curdat2
+jo4c02669_si_001/FID for Publication/3c/DEPT/pdata/1/outd
+jo4c02669_si_001/FID for Publication/3c/DEPT/pdata/1/portf
+jo4c02669_si_001/FID for Publication/3c/DEPT/pdata/1/proc
+jo4c02669_si_001/FID for Publication/3c/DEPT/pdata/1/procs
+jo4c02669_si_001/FID for Publication/3c/DEPT/prosol_History
+jo4c02669_si_001/FID for Publication/3c/DEPT/pulseprogram
+jo4c02669_si_001/FID for Publication/3c/DEPT/scon2
+jo4c02669_si_001/FID for Publication/3c/DEPT/shimvalues
+jo4c02669_si_001/FID for Publication/3c/DEPT/uxnmr.par
+jo4c02669_si_001/FID for Publication/3c/H
+jo4c02669_si_001/FID for Publication/3c/H/acqu
+jo4c02669_si_001/FID for Publication/3c/H/acqus
+jo4c02669_si_001/FID for Publication/3c/H/audita.txt
+jo4c02669_si_001/FID for Publication/3c/H/fid
+jo4c02669_si_001/FID for Publication/3c/H/format.temp
+jo4c02669_si_001/FID for Publication/3c/H/pdata
+jo4c02669_si_001/FID for Publication/3c/H/pdata/1
+jo4c02669_si_001/FID for Publication/3c/H/pdata/1/1i
+jo4c02669_si_001/FID for Publication/3c/H/pdata/1/1r
+jo4c02669_si_001/FID for Publication/3c/H/pdata/1/auditp.txt
+jo4c02669_si_001/FID for Publication/3c/H/pdata/1/intrng
+jo4c02669_si_001/FID for Publication/3c/H/pdata/1/outd
+jo4c02669_si_001/FID for Publication/3c/H/pdata/1/parm.txt
+jo4c02669_si_001/FID for Publication/3c/H/pdata/1/peaklist.xml
+jo4c02669_si_001/FID for Publication/3c/H/pdata/1/peaks
+jo4c02669_si_001/FID for Publication/3c/H/pdata/1/proc
+jo4c02669_si_001/FID for Publication/3c/H/pdata/1/procs
+jo4c02669_si_001/FID for Publication/3c/H/prosol_History
+jo4c02669_si_001/FID for Publication/3c/H/pulseprogram
+jo4c02669_si_001/FID for Publication/3c/H/scon2
+jo4c02669_si_001/FID for Publication/3c/H/shimvalues
+jo4c02669_si_001/FID for Publication/3c/H/uxnmr.par
+jo4c02669_si_001/FID for Publication/Data.docx

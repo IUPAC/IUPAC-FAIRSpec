@@ -1,0 +1,206 @@
+.
+jo4c03181_si_002
+jo4c03181_si_002/All NMR Data
+jo4c03181_si_002/All NMR Data/1n
+jo4c03181_si_002/All NMR Data/1n/1n 13C.mnova
+jo4c03181_si_002/All NMR Data/1n/1n 1H.mnova
+jo4c03181_si_002/All NMR Data/1o
+jo4c03181_si_002/All NMR Data/1o/1o 13C.mnova
+jo4c03181_si_002/All NMR Data/1o/1o 1H.mnova
+jo4c03181_si_002/All NMR Data/1p
+jo4c03181_si_002/All NMR Data/1p/1p 13C.mnova
+jo4c03181_si_002/All NMR Data/1p/1p 1H.mnova
+jo4c03181_si_002/All NMR Data/1q
+jo4c03181_si_002/All NMR Data/1q/1q 13C.mnova
+jo4c03181_si_002/All NMR Data/1q/1q 1H.mnova
+jo4c03181_si_002/All NMR Data/3a
+jo4c03181_si_002/All NMR Data/3a/3a 13C.mnova
+jo4c03181_si_002/All NMR Data/3a/3a 19F.mnova
+jo4c03181_si_002/All NMR Data/3a/3a 1H.mnova
+jo4c03181_si_002/All NMR Data/3a (2D NMR- COSY, HSQC and HMBC)
+jo4c03181_si_002/All NMR Data/3a (2D NMR- COSY, HSQC and HMBC)/3a COSY-2.jdf
+jo4c03181_si_002/All NMR Data/3a (2D NMR- COSY, HSQC and HMBC)/3a HMBC-2.jdf
+jo4c03181_si_002/All NMR Data/3a (2D NMR- COSY, HSQC and HMBC)/3a HSQC-2.jdf
+jo4c03181_si_002/All NMR Data/3b
+jo4c03181_si_002/All NMR Data/3b/3b 13C.mnova
+jo4c03181_si_002/All NMR Data/3b/3b 19F.mnova
+jo4c03181_si_002/All NMR Data/3b/3b 1H.mnova
+jo4c03181_si_002/All NMR Data/3c
+jo4c03181_si_002/All NMR Data/3c/3c 13C.mnova
+jo4c03181_si_002/All NMR Data/3c/3c 19F.mnova
+jo4c03181_si_002/All NMR Data/3c/3c 1H.mnova
+jo4c03181_si_002/All NMR Data/3d
+jo4c03181_si_002/All NMR Data/3d/3d 13C.mnova
+jo4c03181_si_002/All NMR Data/3d/3d 19F.mnova
+jo4c03181_si_002/All NMR Data/3d/3d 1H.mnova
+jo4c03181_si_002/All NMR Data/3e
+jo4c03181_si_002/All NMR Data/3e/3e 13C.mnova
+jo4c03181_si_002/All NMR Data/3e/3e 19F.mnova
+jo4c03181_si_002/All NMR Data/3e/3e 1H.mnova
+jo4c03181_si_002/All NMR Data/3f
+jo4c03181_si_002/All NMR Data/3f/3f 13C.mnova
+jo4c03181_si_002/All NMR Data/3f/3f 19F.mnova
+jo4c03181_si_002/All NMR Data/3f/3f 1H.mnova
+jo4c03181_si_002/All NMR Data/3g
+jo4c03181_si_002/All NMR Data/3g/3g 13C.mnova
+jo4c03181_si_002/All NMR Data/3g/3g 19F.mnova
+jo4c03181_si_002/All NMR Data/3g/3g 1H.mnova
+jo4c03181_si_002/All NMR Data/3h
+jo4c03181_si_002/All NMR Data/3h/3h 13C.mnova
+jo4c03181_si_002/All NMR Data/3h/3h 19F.mnova
+jo4c03181_si_002/All NMR Data/3h/3h 1H.mnova
+jo4c03181_si_002/All NMR Data/3i
+jo4c03181_si_002/All NMR Data/3i/3i 13C.mnova
+jo4c03181_si_002/All NMR Data/3i/3i 19F.mnova
+jo4c03181_si_002/All NMR Data/3i/3i 1H.mnova
+jo4c03181_si_002/All NMR Data/3j
+jo4c03181_si_002/All NMR Data/3j/3j 13C.mnova
+jo4c03181_si_002/All NMR Data/3j/3j 1H.mnova
+jo4c03181_si_002/All NMR Data/3j/3j19F.mnova
+jo4c03181_si_002/All NMR Data/3k
+jo4c03181_si_002/All NMR Data/3k/3k 13C.mnova
+jo4c03181_si_002/All NMR Data/3k/3k 19F.mnova
+jo4c03181_si_002/All NMR Data/3k/3k 1H.mnova
+jo4c03181_si_002/All NMR Data/3l
+jo4c03181_si_002/All NMR Data/3l/3l 13C.mnova
+jo4c03181_si_002/All NMR Data/3l/3l 19F.mnova
+jo4c03181_si_002/All NMR Data/3l/3l 1H.mnova
+jo4c03181_si_002/All NMR Data/3m
+jo4c03181_si_002/All NMR Data/3m/3m 13C.mnova
+jo4c03181_si_002/All NMR Data/3m/3m 19F.mnova
+jo4c03181_si_002/All NMR Data/3m/3m 1H.mnova
+jo4c03181_si_002/All NMR Data/3n
+jo4c03181_si_002/All NMR Data/3n/3n 13C.mnova
+jo4c03181_si_002/All NMR Data/3n/3n 19F.mnova
+jo4c03181_si_002/All NMR Data/3n/3n 1H.mnova
+jo4c03181_si_002/All NMR Data/3o
+jo4c03181_si_002/All NMR Data/3o/3o 13C.mnova
+jo4c03181_si_002/All NMR Data/3o/3o 19F.mnova
+jo4c03181_si_002/All NMR Data/3o/3o 1H.mnova
+jo4c03181_si_002/All NMR Data/3p
+jo4c03181_si_002/All NMR Data/3p/3p 13C.mnova
+jo4c03181_si_002/All NMR Data/3p/3p 19F.mnova
+jo4c03181_si_002/All NMR Data/3p/3p 1H.mnova
+jo4c03181_si_002/All NMR Data/3q
+jo4c03181_si_002/All NMR Data/3q/3q 13C.mnova
+jo4c03181_si_002/All NMR Data/3q/3q 19F.mnova
+jo4c03181_si_002/All NMR Data/3q/3q 1H.mnova
+jo4c03181_si_002/All NMR Data/3r
+jo4c03181_si_002/All NMR Data/3r/3r 13C.mnova
+jo4c03181_si_002/All NMR Data/3r/3r 19F.mnova
+jo4c03181_si_002/All NMR Data/3r/3r 1H.mnova
+jo4c03181_si_002/All NMR Data/3s
+jo4c03181_si_002/All NMR Data/3s/3s 13C.mnova
+jo4c03181_si_002/All NMR Data/3s/3s 19F.mnova
+jo4c03181_si_002/All NMR Data/3s/3s 1H.mnova
+jo4c03181_si_002/All NMR Data/3t
+jo4c03181_si_002/All NMR Data/3t/3t 13C.mnova
+jo4c03181_si_002/All NMR Data/3t/3t 19F.mnova
+jo4c03181_si_002/All NMR Data/3t/3t 1H.mnova
+jo4c03181_si_002/All NMR Data/3u
+jo4c03181_si_002/All NMR Data/3u/3u 13C.mnova
+jo4c03181_si_002/All NMR Data/3u/3u 19F.mnova
+jo4c03181_si_002/All NMR Data/3u/3u 1H.mnova
+jo4c03181_si_002/All NMR Data/4a
+jo4c03181_si_002/All NMR Data/4a/4a 13C.mnova
+jo4c03181_si_002/All NMR Data/4a/4a 19F.mnova
+jo4c03181_si_002/All NMR Data/4a/4a 1H.mnova
+jo4c03181_si_002/All NMR Data/4a (2D NMR-COSY, HSQC and HMBC)
+jo4c03181_si_002/All NMR Data/4a (2D NMR-COSY, HSQC and HMBC)/4a  HMBC-2.jdf
+jo4c03181_si_002/All NMR Data/4a (2D NMR-COSY, HSQC and HMBC)/4a  HSQC-2.jdf
+jo4c03181_si_002/All NMR Data/4a (2D NMR-COSY, HSQC and HMBC)/4a COSY-2.jdf
+jo4c03181_si_002/All NMR Data/4b
+jo4c03181_si_002/All NMR Data/4b/4b 13C.mnova
+jo4c03181_si_002/All NMR Data/4b/4b 19F.mnova
+jo4c03181_si_002/All NMR Data/4b/4b 1H.mnova
+jo4c03181_si_002/All NMR Data/4c
+jo4c03181_si_002/All NMR Data/4c/4c 13C.mnova
+jo4c03181_si_002/All NMR Data/4c/4c 19F.mnova
+jo4c03181_si_002/All NMR Data/4c/4c 1H.mnova
+jo4c03181_si_002/All NMR Data/4d
+jo4c03181_si_002/All NMR Data/4d/4d 13C.mnova
+jo4c03181_si_002/All NMR Data/4d/4d 19F.mnova
+jo4c03181_si_002/All NMR Data/4d/4d 1H.mnova
+jo4c03181_si_002/All NMR Data/4e
+jo4c03181_si_002/All NMR Data/4e/4e 13C.mnova
+jo4c03181_si_002/All NMR Data/4e/4e 19F.mnova
+jo4c03181_si_002/All NMR Data/4e/4e 1H.mnova
+jo4c03181_si_002/All NMR Data/4f
+jo4c03181_si_002/All NMR Data/4f/4f 13C.mnova
+jo4c03181_si_002/All NMR Data/4f/4f 19F.mnova
+jo4c03181_si_002/All NMR Data/4f/4f 1H.mnova
+jo4c03181_si_002/All NMR Data/4g
+jo4c03181_si_002/All NMR Data/4g/4g 13C.mnova
+jo4c03181_si_002/All NMR Data/4g/4g 19F.mnova
+jo4c03181_si_002/All NMR Data/4g/4g 1H.mnova
+jo4c03181_si_002/All NMR Data/4h
+jo4c03181_si_002/All NMR Data/4h/4h 13C.mnova
+jo4c03181_si_002/All NMR Data/4h/4h 19F.mnova
+jo4c03181_si_002/All NMR Data/4h/4h 1H.mnova
+jo4c03181_si_002/All NMR Data/4i
+jo4c03181_si_002/All NMR Data/4i/4i 13C.mnova
+jo4c03181_si_002/All NMR Data/4i/4i 19F.mnova
+jo4c03181_si_002/All NMR Data/4i/4i 1H.mnova
+jo4c03181_si_002/All NMR Data/4j
+jo4c03181_si_002/All NMR Data/4j/4j 13C.mnova
+jo4c03181_si_002/All NMR Data/4j/4j 19F.mnova
+jo4c03181_si_002/All NMR Data/4j/4j 1H.mnova
+jo4c03181_si_002/All NMR Data/4k
+jo4c03181_si_002/All NMR Data/4k/4k 13C.mnova
+jo4c03181_si_002/All NMR Data/4k/4k 19F.mnova
+jo4c03181_si_002/All NMR Data/4k/4k 1H.mnova
+jo4c03181_si_002/All NMR Data/4l
+jo4c03181_si_002/All NMR Data/4l/4l 13C.mnova
+jo4c03181_si_002/All NMR Data/4l/4l 19F.mnova
+jo4c03181_si_002/All NMR Data/4l/4l 1H.mnova
+jo4c03181_si_002/All NMR Data/4m
+jo4c03181_si_002/All NMR Data/4m/4m 13C.mnova
+jo4c03181_si_002/All NMR Data/4m/4m 19F.mnova
+jo4c03181_si_002/All NMR Data/4m/4m 1H.mnova
+jo4c03181_si_002/All NMR Data/4n
+jo4c03181_si_002/All NMR Data/4n/4n 13C.mnova
+jo4c03181_si_002/All NMR Data/4n/4n 19F.mnova
+jo4c03181_si_002/All NMR Data/4n/4n 1H.mnova
+jo4c03181_si_002/All NMR Data/4o
+jo4c03181_si_002/All NMR Data/4o/4o 13C.mnova
+jo4c03181_si_002/All NMR Data/4o/4o 19F.mnova
+jo4c03181_si_002/All NMR Data/4o/4o 1H.mnova
+jo4c03181_si_002/All NMR Data/4p
+jo4c03181_si_002/All NMR Data/4p/4p 13C.mnova
+jo4c03181_si_002/All NMR Data/4p/4p 19F.mnova
+jo4c03181_si_002/All NMR Data/4p/4p 1H.mnova
+jo4c03181_si_002/All NMR Data/4q
+jo4c03181_si_002/All NMR Data/4q/4q 13C.mnova
+jo4c03181_si_002/All NMR Data/4q/4q 19F.mnova
+jo4c03181_si_002/All NMR Data/4q/4q 1H.mnova
+jo4c03181_si_002/All NMR Data/4r
+jo4c03181_si_002/All NMR Data/4r/4r 13C.mnova
+jo4c03181_si_002/All NMR Data/4r/4r 19F.mnova
+jo4c03181_si_002/All NMR Data/4r/4r 1H.mnova
+jo4c03181_si_002/All NMR Data/4s
+jo4c03181_si_002/All NMR Data/4s/4s 13C.mnova
+jo4c03181_si_002/All NMR Data/4s/4s 19F.mnova
+jo4c03181_si_002/All NMR Data/4s/4s 1H.mnova
+jo4c03181_si_002/All NMR Data/4t
+jo4c03181_si_002/All NMR Data/4t/4t 13C.mnova
+jo4c03181_si_002/All NMR Data/4t/4t 19F.mnova
+jo4c03181_si_002/All NMR Data/4t/4t 1H.mnova
+jo4c03181_si_002/All NMR Data/5
+jo4c03181_si_002/All NMR Data/5/5 13C.mnova
+jo4c03181_si_002/All NMR Data/5/5 19F.mnova
+jo4c03181_si_002/All NMR Data/5/5 1H.mnova
+jo4c03181_si_002/All NMR Data/5 (2D NMR - COSY and HSQC)
+jo4c03181_si_002/All NMR Data/5 (2D NMR - COSY and HSQC)/5 COSY-2.jdf
+jo4c03181_si_002/All NMR Data/5 (2D NMR - COSY and HSQC)/5 HSQC-2.jdf
+jo4c03181_si_002/All NMR Data/i
+jo4c03181_si_002/All NMR Data/i/i 13C.mnova
+jo4c03181_si_002/All NMR Data/i/i 1H.mnova
+jo4c03181_si_002/All NMR Data/ii
+jo4c03181_si_002/All NMR Data/ii/ii 13C.mnova
+jo4c03181_si_002/All NMR Data/ii/ii 1H.mnova
+jo4c03181_si_002/All NMR Data/iii
+jo4c03181_si_002/All NMR Data/iii/iii 13C.mnova
+jo4c03181_si_002/All NMR Data/iii/iii 1H.mnova
+jo4c03181_si_002/All NMR Data/iv
+jo4c03181_si_002/All NMR Data/iv/iv 13C.mnova
+jo4c03181_si_002/All NMR Data/iv/iv 1H.mnova

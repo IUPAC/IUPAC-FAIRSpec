@@ -1,0 +1,33 @@
+.
+jo4c02844_si_002
+jo4c02844_si_002/NMR Fid
+jo4c02844_si_002/NMR Fid/10_13C.mnova
+jo4c02844_si_002/NMR Fid/10_1H.mnova
+jo4c02844_si_002/NMR Fid/11_13C.mnova
+jo4c02844_si_002/NMR Fid/11_1H.mnova
+jo4c02844_si_002/NMR Fid/12_13C.mnova
+jo4c02844_si_002/NMR Fid/12_1H.mnova
+jo4c02844_si_002/NMR Fid/13_13C.mnova
+jo4c02844_si_002/NMR Fid/13_1H.mnova
+jo4c02844_si_002/NMR Fid/14_13C.mnova
+jo4c02844_si_002/NMR Fid/14_1H.mnova
+jo4c02844_si_002/NMR Fid/15_13C.mnova
+jo4c02844_si_002/NMR Fid/15_1H.mnova
+jo4c02844_si_002/NMR Fid/1_13C.mnova
+jo4c02844_si_002/NMR Fid/1_1H.mnova
+jo4c02844_si_002/NMR Fid/2_13C.mnova
+jo4c02844_si_002/NMR Fid/2_1H.mnova
+jo4c02844_si_002/NMR Fid/3_13C.mnova
+jo4c02844_si_002/NMR Fid/3_1H.mnova
+jo4c02844_si_002/NMR Fid/4_13C.mnova
+jo4c02844_si_002/NMR Fid/4_1H.mnova
+jo4c02844_si_002/NMR Fid/5_13C.mnova
+jo4c02844_si_002/NMR Fid/5_1H.mnova
+jo4c02844_si_002/NMR Fid/6_13C.mnova
+jo4c02844_si_002/NMR Fid/6_1H.mnova
+jo4c02844_si_002/NMR Fid/7_13C.mnova
+jo4c02844_si_002/NMR Fid/7_1H.mnova
+jo4c02844_si_002/NMR Fid/8_13C.mnova
+jo4c02844_si_002/NMR Fid/8_1H.mnova
+jo4c02844_si_002/NMR Fid/9_13C.mnova
+jo4c02844_si_002/NMR Fid/9_1H.mnova

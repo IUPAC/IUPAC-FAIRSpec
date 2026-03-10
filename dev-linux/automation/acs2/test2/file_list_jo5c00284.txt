@@ -1,0 +1,149 @@
+.
+jo5c00284_si_003
+jo5c00284_si_003/CompRotationalBarriers_xyz_files
+jo5c00284_si_003/CompRotationalBarriers_xyz_files/DM-MTC_GS.xyz
+jo5c00284_si_003/CompRotationalBarriers_xyz_files/DM-MTC_TS1.xyz
+jo5c00284_si_003/CompRotationalBarriers_xyz_files/DM-MTC_TS2.xyz
+jo5c00284_si_003/CompRotationalBarriers_xyz_files/iso-DM-MTC_GS.xyz
+jo5c00284_si_003/CompRotationalBarriers_xyz_files/iso-DM-MTC_TS1.xyz
+jo5c00284_si_003/CompRotationalBarriers_xyz_files/iso-DM-MTC_TS2.xyz
+jo5c00284_si_003/CompRotationalBarriers_xyz_files/MB-MTC_GS.xyz
+jo5c00284_si_003/CompRotationalBarriers_xyz_files/MB-MTC_TS1.xyz
+jo5c00284_si_003/CompRotationalBarriers_xyz_files/MB-MTC_TS2.xyz
+jo5c00284_si_003/CompRotationalBarriers_xyz_files/MT-MTC_GS.xyz
+jo5c00284_si_003/CompRotationalBarriers_xyz_files/MT-MTC_TS1.xyz
+jo5c00284_si_003/CompRotationalBarriers_xyz_files/MT-MTC_TS2.xyz
+jo5c00284_si_003/CompRotationalBarriers_xyz_files/MTC_GS.xyz
+jo5c00284_si_003/CompRotationalBarriers_xyz_files/MTC_TS1.xyz
+jo5c00284_si_003/CompRotationalBarriers_xyz_files/MTC_TS2.xyz
+jo5c00284_si_003/VCD Reports
+jo5c00284_si_003/VCD Reports/(+) and (-) Colchicine VCD Report.pdf
+jo5c00284_si_003/VCD Reports/(+) and (-) DM-MTC VCD Report.pdf
+jo5c00284_si_003/VCD Reports/(+) and (-) Isocolchicine VCD Report.pdf
+jo5c00284_si_003/VCD Reports/(+) and (-) IsoDM-MTC VCD Report.pdf
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/.DS_Store
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Bejcecine
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Bejcecine/bejcecine-C1.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Bejcecine/bejcecine-C2.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Bejcecine/bejcecine-C3.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Bejcecine/bejcecine-C4.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Bejcecine/bejcecine-C5.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Bejcecine/bejcecine-C6.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Colchicine
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Colchicine/.DS_Store
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Colchicine/Dimer
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Colchicine/Dimer/colchicine dimer (pdb).pdb
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Colchicine/Dimer/colchicine-dimer-C1.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Colchicine/Dimer/colchicine-dimer-C2.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Colchicine/Dimer/colchicine-dimer-C3.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Colchicine/Dimer/colchicine-dimer-C4.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Colchicine/Dimer/colchicine-dimer-C5.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Colchicine/Dimer/colchicine-dimer-C6.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Colchicine/Monomer
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Colchicine/Monomer/Colchicine-C1.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Colchicine/Monomer/Colchicine-C2.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Colchicine/Monomer/Colchicine-C3.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Colchicine/Monomer/Colchicine-C4.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isobejcecine
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isobejcecine/isobejcecine-C1.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isobejcecine/isobejcecine-C2.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isobejcecine/isobejcecine-C3.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isobejcecine/isobejcecine-C4.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/.DS_Store
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/colchicine dimer (pdb).pdb
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/colchicine dimer (pdb2).pdb
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/isocolchicine-dimer-C1.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/isocolchicine-dimer-C2.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/isocolchicine-dimer-C3.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/isocolchicine-dimer-C4.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/isocolchicine-dimer-C5.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/isocolchicine-dimer-C6.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/isocolchicine-dimer-C7.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C1.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C2.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C3.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C4.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C5.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C6.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C7.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C8.mol
+jo5c00284_si_003/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C9.mol
+jo5c00284_si_003/VCD Reports/DFT Coordinates for VCD.docx
+jo5c00284_si_004
+jo5c00284_si_004/CompRotationalBarriers_xyz_files
+jo5c00284_si_004/CompRotationalBarriers_xyz_files/DM-MTC_GS.xyz
+jo5c00284_si_004/CompRotationalBarriers_xyz_files/DM-MTC_TS1.xyz
+jo5c00284_si_004/CompRotationalBarriers_xyz_files/DM-MTC_TS2.xyz
+jo5c00284_si_004/CompRotationalBarriers_xyz_files/iso-DM-MTC_GS.xyz
+jo5c00284_si_004/CompRotationalBarriers_xyz_files/iso-DM-MTC_TS1.xyz
+jo5c00284_si_004/CompRotationalBarriers_xyz_files/iso-DM-MTC_TS2.xyz
+jo5c00284_si_004/CompRotationalBarriers_xyz_files/MB-MTC_GS.xyz
+jo5c00284_si_004/CompRotationalBarriers_xyz_files/MB-MTC_TS1.xyz
+jo5c00284_si_004/CompRotationalBarriers_xyz_files/MB-MTC_TS2.xyz
+jo5c00284_si_004/CompRotationalBarriers_xyz_files/MT-MTC_GS.xyz
+jo5c00284_si_004/CompRotationalBarriers_xyz_files/MT-MTC_TS1.xyz
+jo5c00284_si_004/CompRotationalBarriers_xyz_files/MT-MTC_TS2.xyz
+jo5c00284_si_004/CompRotationalBarriers_xyz_files/MTC_GS.xyz
+jo5c00284_si_004/CompRotationalBarriers_xyz_files/MTC_TS1.xyz
+jo5c00284_si_004/CompRotationalBarriers_xyz_files/MTC_TS2.xyz
+jo5c00284_si_004/VCD Reports
+jo5c00284_si_004/VCD Reports/(+) and (-) Colchicine VCD Report.pdf
+jo5c00284_si_004/VCD Reports/(+) and (-) DM-MTC VCD Report.pdf
+jo5c00284_si_004/VCD Reports/(+) and (-) Isocolchicine VCD Report.pdf
+jo5c00284_si_004/VCD Reports/(+) and (-) IsoDM-MTC VCD Report.pdf
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/.DS_Store
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Bejcecine
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Bejcecine/bejcecine-C1.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Bejcecine/bejcecine-C2.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Bejcecine/bejcecine-C3.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Bejcecine/bejcecine-C4.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Bejcecine/bejcecine-C5.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Bejcecine/bejcecine-C6.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Colchicine
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Colchicine/.DS_Store
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Colchicine/Dimer
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Colchicine/Dimer/colchicine dimer (pdb).pdb
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Colchicine/Dimer/colchicine-dimer-C1.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Colchicine/Dimer/colchicine-dimer-C2.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Colchicine/Dimer/colchicine-dimer-C3.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Colchicine/Dimer/colchicine-dimer-C4.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Colchicine/Dimer/colchicine-dimer-C5.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Colchicine/Dimer/colchicine-dimer-C6.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Colchicine/Monomer
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Colchicine/Monomer/Colchicine-C1.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Colchicine/Monomer/Colchicine-C2.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Colchicine/Monomer/Colchicine-C3.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Colchicine/Monomer/Colchicine-C4.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isobejcecine
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isobejcecine/isobejcecine-C1.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isobejcecine/isobejcecine-C2.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isobejcecine/isobejcecine-C3.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isobejcecine/isobejcecine-C4.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/.DS_Store
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/colchicine dimer (pdb).pdb
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/colchicine dimer (pdb2).pdb
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/isocolchicine-dimer-C1.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/isocolchicine-dimer-C2.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/isocolchicine-dimer-C3.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/isocolchicine-dimer-C4.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/isocolchicine-dimer-C5.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/isocolchicine-dimer-C6.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Dimer/isocolchicine-dimer-C7.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C1.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C2.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C3.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C4.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C5.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C6.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C7.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C8.mol
+jo5c00284_si_004/VCD Reports/Conformer-MOL-files/Isocolchicine/Monomer/isocolchicine-C9.mol
+jo5c00284_si_004/VCD Reports/DFT Coordinates for VCD.docx

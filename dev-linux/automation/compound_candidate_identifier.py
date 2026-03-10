@@ -16,7 +16,7 @@ dataset_DOI = sys.argv[1]
 # Read file paths
 filename = f"file_list_{dataset_DOI}.txt"
 
-with open(filename, "r") as f:
+with open(filename, "r", encoding="utf-8") as f:
     paths = [line.strip() for line in f if line.strip()]
 
 path_parts = [list(Path(p).parts) for p in paths]
@@ -491,10 +491,14 @@ for compound in compounds_to_be_added:
   final_df = add_compound(final_df, df, compound)
   
 # final identified compounds
-print(f"\nFinal identified compounds:\n {final_df['compound'].unique()} \n\n Final number of identified compounds:{final_df['compound'].nunique()}\n")
+
+final_ids = final_df['compound'].unique().tolist()
+final_id_count = final_df['compound'].nunique()
+
+print(f"\nFinal identified compounds: {final_id_count} {final_ids}\n")
 
 # create the final csv after the second run through
-final_df.to_csv(f'output_{dataset_DOI}.csv', index=False)
+final_df.to_csv(f'{dataset_DOI}_output.csv', index=False)
 
 # creating the "tech" column in final_df 
 # NOTE: This column is not finalized/working 100%
@@ -519,6 +523,9 @@ df_exploded = (
 df_exploded = df_exploded.rename(columns={'Key': 'test_folder', 'Value': 'important_file'})
 df_exploded = df_exploded[["compound_name", "tech", "compound", "test_folder", "important_file"]]
 df_exploded["spectra_ID"] = df_exploded["compound_name"] + ' ' + df_exploded["test_folder"]
+
+final_specIds = df_exploded["spectra_ID"].unique().tolist()
+
 df_exploded = df_exploded.explode('important_file')  
 
 # create the two different path_text
@@ -658,7 +665,27 @@ def promote_child_compounds(df_exploded, multiplier=5, min_children=6):
 df_exploded = promote_child_compounds(df_exploded, multiplier=4, min_children=6)
 
 # write file to TSV
-df_exploded.to_csv(f'final_output_{dataset_DOI}.tsv', index=False, sep='\t')
+df_exploded.to_csv(f'{dataset_DOI}_final_output.tsv', index=False, sep='\t')
+
+# write compound list
+
+with open(f'{dataset_DOI}_compound_list.txt', "w", encoding="utf-8") as f:
+    f.write(f'{dataset_DOI} '+';'.join(final_ids))
+
+with open(f'../../{dataset_DOI}_compound_list.txt', "w", encoding="utf-8") as f:
+    f.write(f'{dataset_DOI} '+';'.join(final_ids))
+
+# compound_count is a file with length the number of compounds
+with open(f'../../{dataset_DOI}_compound_count', "w", encoding="utf-8") as f:
+    f.write("0" * final_id_count)
+
+print(f"{final_id_count}")
+
+# write Spectra_id
+
+with open(f'../../{dataset_DOI}_spec_list.txt', "w", encoding="utf-8") as f:
+    f.write(f'{dataset_DOI} '+';'.join(list(map(str, final_specIds))))
 
 # print output info to terminal
-print(f"Final Output: \n \t final_output_{dataset_DOI}.tsv \n\t output_{dataset_DOI}.csv \n\t file_list_{dataset_DOI}.txt\n")
+print(f"Final Output: \n \t {dataset_DOI}_final_output.tsv \n\t {dataset_DOI}_output.csv \n\t {dataset_DOI}_file_list.txt\n")
+

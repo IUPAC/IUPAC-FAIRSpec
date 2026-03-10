@@ -1,0 +1,119 @@
+.
+jo5c00092_si_002
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/ACP
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/ACP/5_Cycloalkene_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/ACP/5_Cycloalkene_Radical_Vinyl_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/ACP/6_Cycloalkene_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/ACP/6_Cycloalkene_Radical_Vinyl_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/ACP/7_Cycloalkene_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/ACP/7_Cycloalkene_Radical_Vinyl_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/ACP/8_Cycloalkene_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/ACP/8_Cycloalkene_Radical_Vinyl_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/CBS
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/CBS/5_Cycloalkene_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/CBS/5_Cycloalkene_Radical_Vinyl_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/CBS/6_Cycloalkene_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/CBS/6_Cycloalkene_Radical_Vinyl_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/CBS/7_Cycloalkene_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/CBS/7_Cycloalkene_Radical_Vinyl_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/CBS/8_Cycloalkene_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/CBS/8_Cycloalkene_Radical_Vinyl_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 5-ACP
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 5-ACP/5_Bz_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 5-ACP/5_Bz_Radical_Alpha_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 5-ACP/5_Bz_Radical_Exo_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 5-ACP/5_CH3_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 5-ACP/5_CH3_Radical_Alpha_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 5-ACP/5_CH3_Raical_Exo_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 5-ACP/5_H_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 5-ACP/5_H_Radical_Alpha_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 6-ACP
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 6-ACP/6_Bz_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 6-ACP/6_Bz_Radical_Alpha_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 6-ACP/6_Bz_Radical_Exo_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 6-ACP/6_CH3_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 6-ACP/6_CH3_Radical_Alpha_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 6-ACP/6_CH3_Radical_Exo_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 6-ACP/6_H_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 6-ACP/6_H_Radical_alpha_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 7-ACP
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 7-ACP/7_Bz_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 7-ACP/7_Bz_Radical_Alpha_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 7-ACP/7_Bz_Radical_Beta_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 7-ACP/7_Bz_Radical_Exo_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 7-ACP/7_Bz_Radical_Gamma_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 7-ACP/7_CH3_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 7-ACP/7_CH3_Radical_Alpha_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 7-ACP/7_CH3_Radical_Exo_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 7-ACP/7_H_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 7-ACP/7_H_Radical_alpha_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_Bz_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_Bz_Radical_Alpha_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_Bz_Radical_Beta_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_Bz_Radical_Delta_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_Bz_Radical_Exo_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_Bz_Radical_Gamma_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_CH3_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_CH3_Radical_Alpha_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_CH3_Radical_Beta_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_CH3_Radical_Delta_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_CH3_Radical_Exo_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_CH3_Radical_Gamma_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_H_Parent_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_H_Radical_Alpha_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_H_Radical_Beta_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_H_Radical_Delta_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/ACP/Ring 8-ACP/8_H_Radical_Gamma_ACP.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 5-CBS
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 5-CBS/5_Bz_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 5-CBS/5_Bz_Radical_Alpha_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 5-CBS/5_Bz_Radical_Exo_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 5-CBS/5_CH3_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 5-CBS/5_CH3_Radical_Alpha_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 5-CBS/5_CH3_Radical_Exo_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 5-CBS/5_H_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 5-CBS/5_H_Radical_Alpha_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 6-CBS
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 6-CBS/6_Bz_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 6-CBS/6_Bz_Radical_Alpha_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 6-CBS/6_Bz_Radical_Exo_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 6-CBS/6_CH3_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 6-CBS/6_CH3_Radical_Alpha_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 6-CBS/6_CH3_Radical_Exo_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 6-CBS/6_H_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 6-CBS/6_H_Radical_alpha_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 7-CBS
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 7-CBS/7_Bz_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 7-CBS/7_Bz_Radical_Alpha_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 7-CBS/7_Bz_Radical_Beta_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 7-CBS/7_Bz_Radical_Exo_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 7-CBS/7_Bz_Radical_Gamma_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 7-CBS/7_CH3_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 7-CBS/7_CH3_Radical_Alpha_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 7-CBS/7_CH3_Radical_Exo_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 7-CBS/7_H_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 7-CBS/7_H_Radical_alpha_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_Bz_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_Bz_Radical_Alpha_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_Bz_Radical_Beta_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_Bz_Radical_Delta_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_Bz_Radical_Exo_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_Bz_Radical_Gamma_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_CH3_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_CH3_Radical_Alpha_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_CH3_Radical_Beta_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_CH3_Radical_Delta_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_CH3_Radical_Exo_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_CH3_Radical_Gamma_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_H_Parent_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_H_Radical_Alpha_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_H_Radical_Beta_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_H_Radical_Delta_CBS.xyz
+jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Lactams/CBS/Ring 8-CBS/8_H_Radical_Gamma_CBS.xyz
