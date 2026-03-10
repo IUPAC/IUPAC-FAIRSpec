@@ -7,6 +7,7 @@ import sys
 import numpy as np
 
 # compound_candidate_identifier.py
+# 2025.03.10 BH -- adds [1:] to Path(p).parts so that we skip the first directory
 # 2025.03.08 BH -- changed "specpar" to "procpar" 
 # 2025.03.05 BH -- changed "zip.." to "zip__" since Windows cannot handle file/directory names ending with '.'
 
@@ -19,7 +20,7 @@ filename = f"file_list_{dataset_DOI}.txt"
 with open(filename, "r", encoding="utf-8") as f:
     paths = [line.strip() for line in f if line.strip()]
 
-path_parts = [list(Path(p).parts) for p in paths]
+path_parts = [list(Path(p).parts[1:]) for p in paths]
 df = pd.DataFrame({"parts": path_parts})
 
 # create file paths with the zip files
