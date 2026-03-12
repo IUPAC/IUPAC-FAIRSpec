@@ -670,22 +670,19 @@ df_exploded.to_csv(f'{dataset_DOI}_final_output.tsv', index=False, sep='\t')
 
 # write compound list
 
-with open(f'{dataset_DOI}_compound_list.txt', "w", encoding="utf-8") as f:
-    f.write(f'{dataset_DOI} '+';'.join(final_ids))
-
-with open(f'../../{dataset_DOI}_compound_list.txt', "w", encoding="utf-8") as f:
-    f.write(f'{dataset_DOI} '+';'.join(final_ids))
-
-# compound_count is a file with length the number of compounds
-with open(f'../../{dataset_DOI}_compound_count', "w", encoding="utf-8") as f:
-    f.write("0" * final_id_count)
-
-print(f"{final_id_count}")
+print(f"final ID count: {final_id_count}")
 
 # write Spectra_id
 
-with open(f'../../{dataset_DOI}_spec_list.txt', "w", encoding="utf-8") as f:
-    f.write(f'{dataset_DOI} '+';'.join(list(map(str, final_specIds))))
+with open(f'{dataset_DOI}_compound_list.txt', "w", encoding="utf-8") as f:
+    f.write(f'{dataset_DOI} '+';'.join(list(map(str, final_ids)))+'\n')
+
+# compound_count is a file with length the number of compounds
+with open(f'{dataset_DOI}_compound_count', "w", encoding="utf-8") as f:
+    f.write("0" * final_id_count+'\n')
+
+with open(f'{dataset_DOI}_spec_list.txt', "w", encoding="utf-8") as f:
+    f.write(f'{dataset_DOI} '+';'.join(list(map(str, final_specIds)))+'\n')
 
 # print output info to terminal
 print(f"Final Output: \n \t {dataset_DOI}_final_output.tsv \n\t {dataset_DOI}_output.csv \n\t {dataset_DOI}_file_list.txt\n")

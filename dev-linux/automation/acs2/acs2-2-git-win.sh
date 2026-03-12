@@ -115,7 +115,6 @@ check_dir_exists() {
     fi
 }
 
-check_dir_exists ${Zip_Source_Directory}
 check_dir_exists ${Working_Directory}
 
 # check that the python file exists -- maybe jus a warning?
@@ -166,7 +165,7 @@ unzip_recursive() {
         while read -d '' file; do
             echo "Unzipping file: $file"
             dest_dir="${file}__"
-            if unzip "$file" -x '__MACOSX/*' -d "$dest_dir"; then
+            if unzip "$file" -j -x '__MACOSX/*' -d "$dest_dir"; then
                 rm "$file"
                 echo "Extracted and removed: $file"
             else
@@ -183,10 +182,12 @@ unzip_recursive() {
 for doi in "${dois[@]}"
 do
     # trim lines and skip blank lines and # lines
+    doi="${doi%% *}"
     doi=$(echo "$doi" | xargs)
     if [[ "${doi}" == "" || ${doi:0:1} == "#" ]]; then
         continue
     fi
+
     if [[ "${doi}" == "EXIT" || "${doi}" == "STOP" ]]; then
         break;
     fi
@@ -216,10 +217,11 @@ do
 
         if (! $listOnly); then 
 
-exit
             echo "cleaning $doi"
 
+
             # make sure the doi has zip files
+            check_dir_exists ${Zip_Source_Directory}
             Zip_Root="${Zip_Source_Directory}/${doi}"
             files=("${Zip_Root}"*.zip)
             if [ ${#files[@]} == 0 ]; then
@@ -261,7 +263,6 @@ exit
             
             # Call the recursive function to unzip all .zip files in the dataset
             unzip_recursive
-
         fi
 
         # create the working-directory file list
@@ -269,9 +270,12 @@ exit
         cd ${Unzip_Dir}
         rm -rf __MACOS*
         # Create the list of all the directories and files in the dataset
-        fileList=$(find . -print)
+        fileList=$(find . -type f | grep -v -F "/." | grep -v -F "dirinfo")
+        find . -type d -empty -delete  # at least this once, because the unzipping is already done
+        dirList=$(find . -type d -print)
         # remove "./" 
         fileList=${fileList//\.\//}
+        dirList=${dirList//\.\//}
         echo "${fileList}" > "${fileListFile}"
 
     elif $newPredictionOnly; then
@@ -288,34 +292,150 @@ exit
         continue
     fi
 
-     echo "predicting $doi"
-     
+    prune_file_list() {
+
+        # fileList does not contain directories, but if we are looking
+        # for a directory, we want to put at least the first file in the directory into that
+        var=$1
+        var1="/${var}"
+        isfile=$2
+        # remove /.*
+        # remove /pdata/*
+        # and reverse order of lines
+        # also remove unneeded directories
+        if $isfile; then
+          fdata=$fileList
+        else
+          fdata=$dirList
+        fi
+        fdata=$(echo "$fdata" | grep "${var1}$")
+
+        if [[ ! "$fdata" == "" ]]; then
+            lines=""
+            files=""
+            readarray -t files <<< "$fileList"
+            readarray -t lines <<< "$fdata" 
+            nlines=${#lines[@]}
+            thisline=0
+            nfiles=${#files[@]}
+            thisfile=0
+            newPath=true
+            if $isfile; then
+                # we have /procpar 
+                # delete anything else in its directory
+                path="${line%%$var1*}/"
+                while [[ $thisfile -lt $nfiles ]]; do
+                    if $newPath; then
+                        newPath=false
+                        line=${lines[thisline]}
+                        path="${line%%$var1*}"
+                        havePath=false
+                    fi
+                    file=${files[thisfile]}
+                    if [[ "${file}" == "${path}"* ]]; then
+                        havePath=true
+                        if [[ ! "$file" == "$line" ]]; then
+#                            echo "removing ${files[thisfile]}"
+                            files[thisfile]=""
+                        fi
+                    elif $havePath; then
+                        ((thisline++))
+                        if [[ $thisline -eq $nlines ]]; then
+                            break
+                        fi
+                        newLine=true;
+                        continue
+                    fi
+                    ((thisfile++))
+                done
+            else 
+                # if we have /pdata/ files in this file list
+                # delete anything else in the directory containing it or its directory
+                # except if there is no actual file in the directory, just leave the first file there (acqu)
+                while [[ $thisfile -lt $nfiles ]]; do
+                    if $newPath; then
+                        newPath=false
+                        line=${lines[thisline]}
+                        path0="${line%%$var1*}/"
+                        path1="${line}/"
+                        if [[ "$fileList" == *"$path1"* ]]; then
+                            haveVar2=true
+                        else
+                            haveVar2=false
+                            echo "zip file does not have $path1 !"
+                        fi
+                        havePath=false
+                    fi
+                    file=${files[thisfile]}
+#                    echo -e "looking for ${path0}\n with ${file}"
+                    if [[ "${file}" == "${path0}"* ]]; then
+                        if $havePath; then
+                            # remove file
+#                            echo "removing ${files[thisfile]}"
+                            files[thisfile]=""
+                        elif $haveVar2; then
+                            # replace file with directory
+#                            echo "replacing ${file}"
+                            files[thisfile]="${line}"
+                            havePath=true
+                        else
+#                            echo "leaving ${file}"
+                            havePath=true
+                        fi
+                    elif $havePath; then
+#                        echo "done path"
+                        # look for next line and do not increment file pointer
+                        ((thisline++))
+                        if [[ $thisline -eq $nlines ]]; then
+#                            echo "I'm here"
+                            break
+                        fi
+                        newPath=true
+                        continue
+                    fi
+                    ((thisfile++))
+                done
+            fi
+
+            SAVEIFS=$IFS
+            IFS=$'\n'
+            fileList="${files[*]}"
+            IFS=$SAVEIFS
+            # remove blank lines
+            fileList=$(echo "$fileList" | awk 'NF')
+#            echo "$fileList"
+#            exit
+
+        fi
+    }
+
+    echo "pruning ${doi}"
+    # add the file list to Prediction (for processing)
+    fileList=$(<"${fileListFile}")
+    # but see jo5c00061 [10_NC] fileList=${fileList//-/\/}
+    prune_file_list "procpar" true 
+    prune_file_list "pdata" false   
+
+    echo "predicting $doi"
+ #   echo "$fileList"
+
+    # clear output files that are in the working directory
+    rm -f "${Working_Directory}/${doi}"_.*
+
     # Clear the folder for prediction if it exists
     if [ -d "${Prediction_Dir}" ]; then
         rm -rf "${Prediction_Dir}"
     fi
 
-    process_file_list() {
-        echo "OK"
-    }
-
     # Create a new folder to store the output from running compound_candidate_identifier.py 
     mkdir "${Prediction_Dir}"
-
-    # add the file list to Prediction (for processing)
-    fileList=$(<"${fileListFile}")
-    process_file_list     
     echo "${fileList}" > "${Prediction_Dir}/${fileListName}"
-
-    # Run the compound_candidate_identifier script to generate output files from the prediction directory
     cd "${Prediction_Dir}"
 
-    # clear output files that are in the working directory
-    rm -f "${Working_Directory}/${doi}"_.*
-  
+    # ensure UTF-8
+    export PYTHONIOENCODING=utf-8
     # this next line fails in gnu bash because pandas is not present and can't be installed or found
     py "${Emma_Algorithm}" $doi > "${Prediction_Dir}/emma.log"  2> "$tempFile"
- 
     # report errors
     iserr=$(stat -c%s "$tempFile")
     if [[ ! ${iserr} == "0" ]]; then
@@ -325,11 +445,16 @@ exit
         cp "$tempFile" "${Working_Directory}/${doi}.err"
     else
         echo "No Python errors for ${doi}" 
-    fi
+        cp "${Prediction_Dir}/${doi}_compound_list.txt" "${Working_Directory}"
+        cp "${Prediction_Dir}/${doi}_compound_count" "${Working_Directory}"
+        cp "${Prediction_Dir}/${doi}_spec_list.txt" "${Working_Directory}"
+        cd "${Working_Director}"
+        cat "${doi}_compound_list.txt"
+        filename="${Prediction_Dir}/${doi}_compound_count"
+        echo -e "\n${doi} $(wc -c < $filename) compounds"
+   fi
  
-    cd "${Prediction_Dir}"
-
-
+ 
 done # for doi
 
 # Clean up the temporary file
