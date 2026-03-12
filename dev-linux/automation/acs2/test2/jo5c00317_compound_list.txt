@@ -1,1 +1,1 @@
-jo5c00317 jo5c00317_si_002;jo5c00317_si_003;jo5c00317_si_004
+jo5c00317 11-C;11-H;compound 31 C;compound 31 COSY;compound 31 H;compound 31 HSQC;compound 31 NOE;compound 31HMBC;10-C;10-H;compound11-COSY;compound11-HMBC;compound11-HSQC;compound11-NOE;11a-C;11a-H;12-C;12-H;13-C;13-H;14-C;14-H;16-C;16-H;17-C;17-H;18-C;18-H;19-C;19-H;20-C;20-H;23-C;23-H;24-C;24-H;29-C;29-H;30-C;30-H

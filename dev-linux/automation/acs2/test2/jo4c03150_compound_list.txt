@@ -1,1 +1,1 @@
-jo4c03150 1Br,H;1Cl,H;1F,Cl;1F,F;1F,H;1F,NO2;1F,OMe;1H,Br;1H,Cl;1H,F;1H,I;1H,Me;1I,H;1Me,H;2Br,H;2Cl,H;2F,CF3;2F,Cl;2F,F;2F,H;2F,OMe;2H,Br;2H,Cl;2H,F;2H,Me;2Me,H;S1Br,H;S1Cl,H;S1F,H;S1F,NO2;S1F,OMe;S1H,Br;S1H,Cl;S1H,F;Manuscript_SI_Data
+jo4c03150 1Br,H;1H;1Cl,H;1F,Cl;1F,F;1F,H;1F,NO2;1F,OMe;1H,I;1I,H;1Me,H;2Br,H;2Cl,H;2F,CF3;2F,Cl;2F,F;2F,H;2F,OMe;2H,Br;2H,F;2Me,H;S1Br,H;S1Cl,H;S1F,H;S1F,NO2;S1F,OMe;S1H,Br;S1H,Cl;S1H,F;Conformer Coordinates for DFT;Diastereomer-RR;Diastereomer-RS;Python Analysis Scripts

@@ -1,6 +1,9 @@
 # !/bin/bash
 
 # acs2-2-git-win.sh
+
+# 2025.03.12 BH -- fixes ZIP and .xxx.ZIP issues
+# 2025.03.11 BH -- streamlined file list generation
 # 2025.03.10 BH from acs2_preprocessing2-git-win.sh
 # works with adapted alogrithm and experiments with ways to enhance functionality
 
@@ -159,140 +162,28 @@ unzip_recursive() {
         
     # Continuously search for zip files until none are left
     
-    while [ "$(find . -path "*/__MACOSX" -prune -o -type f -name '*.zip' -print | wc -l)" -gt 0 ]; do
+    while [ "$(find . -path "*/__MACOSX" -prune -o -type f -iname '*.zip' -print | wc -l)" -gt 0 ]; do
         # Find each zip, extract to {name}.zip__, then delete the archive
         # Note - output from echo is not coming through from the exec shell
+        # remove any .* files, especially .*.zip  (jo4c02893) 
+        find . -name "\.*" -delete
         while read -d '' file; do
             echo "Unzipping file: $file"
             dest_dir="${file}__"
-            if unzip "$file" -j -x '__MACOSX/*' -d "$dest_dir"; then
+            if unzip -o "$file" -x '__MACOS*/*' '*/__MACOS*/*' '.*' -d "$dest_dir"; then
                 rm "$file"
+                rm -f "${dest_dir}/.*"
                 echo "Extracted and removed: $file"
             else
                 echo "Error unzipping: $file"
                 exit 1
             fi
-        done < <(find . -type f -name "*.zip" -print0)
+        done < <(find . -type f -iname "*.zip" -print0)
         find . -name "__MACOSX" -type d -exec rm -rf {} + 2>/dev/null
     done
 }
 
-# now one BIG loop
-
-for doi in "${dois[@]}"
-do
-    # trim lines and skip blank lines and # lines
-    doi="${doi%% *}"
-    doi=$(echo "$doi" | xargs)
-    if [[ "${doi}" == "" || ${doi:0:1} == "#" ]]; then
-        continue
-    fi
-
-    if [[ "${doi}" == "EXIT" || "${doi}" == "STOP" ]]; then
-        break;
-    fi
-
-    DOI_Dir="${Working_Directory}/${doi}"
-    # Create the DOI directory if it does not exist
-    if [ ! -d "${DOI_Dir}" ]; then
-        mkdir $DOI_Dir
-    fi
-
-    # the list of all the directories and files in the dataset
-    fileListName="file_list_${doi}.txt"
-    fileListFile="${Working_Directory}/${fileListName}"
-
-    Unzip_Dir="${DOI_Dir}/${doi}_unzip"
-
-    doCleanMe=$doClean
-
-    if [ ! -f ${fileListFile} ]; then
-        doCleanMe=true
-    fi
-
-    Prediction_Dir="${DOI_Dir}/${doi}_prediction"
-    finalOutputFile="${Prediction_Dir}/${doi}_final_output.tsv"
-
-    if $doCleanMe; then
-
-        if (! $listOnly); then 
-
-            echo "cleaning $doi"
-
-
-            # make sure the doi has zip files
-            check_dir_exists ${Zip_Source_Directory}
-            Zip_Root="${Zip_Source_Directory}/${doi}"
-            files=("${Zip_Root}"*.zip)
-            if [ ${#files[@]} == 0 ]; then
-                echo "Error: no zip files found for ${Zip_root}*.zip"
-                continue
-            fi
-
-            echo "${#files[@]} zip files for $doi"
-
-            # only to here if testing
-            if $isTest; then
-                continue
-            fi
-
-            # Clear existing zip files from this directory
-            rm -f "$DOI_Dir"/*.zip 
-
-            # Clear the existing unzip folder if present
-            rm -rf "${Unzip_Dir}"
-
-            # Create a new folder to store unzipped data if it has not existed beforehand
-            # e.g. jo4c02094_unzip
-            echo unzip dir is ${Unzip_Dir}
-            mkdir ${Unzip_Dir}
-
-            # copy zip files to the DOI directory
-            cp "${Zip_Root}"*.zip ${DOI_Dir}
-            cd ${DOI_Dir}
-            ls *.zip
-
-            # unzip these top-level zip files into the <DOI>_unzip directory
-
-            for file in "${DOI_Dir}/"*.zip; do
-                echo $file
-                file=$(basename ${file})
-                fileRoot=$(echo "$file" | cut -d '.' -f 1)   
-                unzip "${DOI_Dir}/"'*.zip' -x '__MACOS*/*' '*/__MACOS*/*' -d "${Unzip_Dir}/${fileRoot}"    
-            done
-            
-            # Call the recursive function to unzip all .zip files in the dataset
-            unzip_recursive
-        fi
-
-        # create the working-directory file list
-        # cd to the top of the <DOI>_unzip directory
-        cd ${Unzip_Dir}
-        rm -rf __MACOS*
-        # Create the list of all the directories and files in the dataset
-        fileList=$(find . -type f | grep -v -F "/." | grep -v -F "dirinfo")
-        find . -type d -empty -delete  # at least this once, because the unzipping is already done
-        dirList=$(find . -type d -print)
-        # remove "./" 
-        fileList=${fileList//\.\//}
-        dirList=${dirList//\.\//}
-        echo "${fileList}" > "${fileListFile}"
-
-    elif $newPredictionOnly; then
-        if [ -d "${Prediction_Dir}" ]; then
-            if [ -f "${finalOutputFile}" ]; then
-                continue
-            fi
-        fi
-    fi
-
-    # The prediction only needs the file list, not the unzipped files. We could delete those here.
-
-    if $unzipOnly; then
-        continue
-    fi
-
-    prune_file_list() {
+prune_file_list() {
 
         # fileList does not contain directories, but if we are looking
         # for a directory, we want to put at least the first file in the directory into that
@@ -407,17 +298,139 @@ do
 #            exit
 
         fi
-    }
+ }
 
-    echo "pruning ${doi}"
-    # add the file list to Prediction (for processing)
-    fileList=$(<"${fileListFile}")
-    # but see jo5c00061 [10_NC] fileList=${fileList//-/\/}
-    prune_file_list "procpar" true 
-    prune_file_list "pdata" false   
+# now one BIG loop
+
+errors=""
+doiCount=0
+for doi in "${dois[@]}"
+do
+    # trim lines and skip blank lines and # lines
+    doi="${doi%% *}"
+    doi=$(echo "$doi" | xargs)
+    if [[ "${doi}" == "" || ${doi:0:1} == "#" ]]; then
+        continue
+    fi
+
+    if [[ "${doi}" == "EXIT" || "${doi}" == "STOP" ]]; then
+        break;
+    fi
+
+    DOI_Dir="${Working_Directory}/${doi}"
+    # Create the DOI directory if it does not exist
+    if [ ! -d "${DOI_Dir}" ]; then
+        mkdir $DOI_Dir
+    fi
+
+    # the list of all the directories and files in the dataset
+    fileListName="file_list_${doi}.txt"
+    fileListFileRaw="${Working_Directory}/raw_${fileListName}"
+    fileListFilePruned="${Working_Directory}/${fileListName}"
+
+    Unzip_Dir="${DOI_Dir}/${doi}_unzip"
+
+    doCleanMe=$doClean
+
+    if [ ! -f ${fileListFilePruned} ]; then
+        doCleanMe=true
+    fi
+
+    Prediction_Dir="${DOI_Dir}/${doi}_prediction"
+    finalOutputFile="${Prediction_Dir}/${doi}_final_output.tsv"
+
+    ((doiCount++))
+
+    if $doCleanMe; then
+
+        if (! $listOnly); then 
+
+            echo "cleaning $doi"
+
+
+            # make sure the doi has zip files
+            check_dir_exists ${Zip_Source_Directory}
+            Zip_Root="${Zip_Source_Directory}/${doi}"
+            files=("${Zip_Root}"*.zip)
+            if [ ${#files[@]} == 0 ]; then
+                echo "Error: no zip files found for ${Zip_root}*.zip"
+                errors+="$\n${doiCount} ${doi} no zip files"
+                continue
+            fi
+
+            echo "${#files[@]} zip files for $doi"
+
+            # only to here if testing
+            if $isTest; then
+                continue
+            fi
+
+            # Clear existing zip files from this directory
+            rm -f "$DOI_Dir"/*.zip 
+
+            # Clear the existing unzip folder if present
+            rm -rf "${Unzip_Dir}"
+
+            # Create a new folder to store unzipped data if it has not existed beforehand
+            # e.g. jo4c02094_unzip
+            echo unzip dir is ${Unzip_Dir}
+            mkdir ${Unzip_Dir}
+
+            # copy zip files to the DOI directory
+            cp "${Zip_Root}"*.zip ${DOI_Dir}
+            cd ${DOI_Dir}
+            ls *.zip
+
+            # unzip these top-level zip files into the <DOI>_unzip directory
+            for file in "${DOI_Dir}/"*.zip; do
+                echo $file
+                file=$(basename ${file})
+                fileRoot=$(echo "$file" | cut -d '.' -f 1)   
+                Root_Dir="${Unzip_Dir}/${fileRoot}"
+                unzip -o "${DOI_Dir}/"'*.zip' -x '__MACOS*/*' '*/__MACOS*/*' '.*' -d "${Root_Dir}"    
+                rm -f "${Root_Dir}/.*"
+                ls "${Root_Dir}"
+            done
+            
+            # Call the recursive function to unzip all .zip files in the dataset
+            unzip_recursive
+            
+        fi
+
+        # create the working-directory file list
+        # cd to the top of the <DOI>_unzip directory
+        cd ${Unzip_Dir}
+        rm -rf __MACOS*
+        # Create the list of all the directories and files in the dataset
+        fileList=$(find . -type f | grep -v -F "/." | grep -v -F "dirinfo")
+        find . -type d -empty -delete  # at least this once, because the unzipping is already done
+        dirList=$(find . -type d -print)
+        # remove "./" 
+        fileList=${fileList//\.\//}
+        dirList=${dirList//\.\//}
+        echo "${fileList}" > "${fileListFileRaw}"
+        echo "pruning ${doi}"
+        # add the file list to Prediction (for processing)
+        # but see jo5c00061 [10_NC] fileList=${fileList//-/\/}
+        prune_file_list "procpar" true 
+        prune_file_list "pdata" false   
+        echo "${fileList}" > "${fileListFilePruned}"
+
+    elif $newPredictionOnly; then
+        if [ -d "${Prediction_Dir}" ]; then
+            if [ -f "${finalOutputFile}" ]; then
+                continue
+            fi
+        fi
+    fi
+
+    # The prediction only needs the file list, not the unzipped files. We could delete those here.
+
+    if $unzipOnly; then
+        continue
+    fi
 
     echo "predicting $doi"
- #   echo "$fileList"
 
     # clear output files that are in the working directory
     rm -f "${Working_Directory}/${doi}"_.*
@@ -429,19 +442,23 @@ do
 
     # Create a new folder to store the output from running compound_candidate_identifier.py 
     mkdir "${Prediction_Dir}"
-    echo "${fileList}" > "${Prediction_Dir}/${fileListName}"
+    cp "${fileListFilePruned}" "${Prediction_Dir}/${fileListName}"
     cd "${Prediction_Dir}"
 
     # ensure UTF-8
     export PYTHONIOENCODING=utf-8
     # this next line fails in gnu bash because pandas is not present and can't be installed or found
-    py "${Emma_Algorithm}" $doi > "${Prediction_Dir}/emma.log"  2> "$tempFile"
+    logFile="${Prediction_Dir}/emma.log"
+    py "${Emma_Algorithm}" $doi > "${logFile}"  2> "$tempFile"
     # report errors
+    cat "$logFile"
     iserr=$(stat -c%s "$tempFile")
     if [[ ! ${iserr} == "0" ]]; then
         errFile="${Prediction_Dir}/emma.err"
+        errors+="\n${doiCount} ${doi}"
         echo "!!!!!!!!!!Python errors for ${doi} - see $errFile !!!!!!!!!!"
         cp "$tempFile" "$errFile"
+        cat "$errFile"
         cp "$tempFile" "${Working_Directory}/${doi}.err"
     else
         echo "No Python errors for ${doi}" 
@@ -451,8 +468,10 @@ do
         cd "${Working_Director}"
         cat "${doi}_compound_list.txt"
         filename="${Prediction_Dir}/${doi}_compound_count"
-        echo -e "\n${doi} $(wc -c < $filename) compounds"
+        nf=$(cat "${fileListFilePruned}" | grep -c '^')
+        echo -e "\n${doiCount} ${doi} $(wc -c < $filename) compounds ${nf} files"
    fi
+
  
  
 done # for doi
@@ -460,4 +479,6 @@ done # for doi
 # Clean up the temporary file
 rm -f "$tempFile"
 
-echo "done"
+if [[ ! "$errors" == "" ]]; then
+    echo -e "errors:${errors}\n\ndone"
+fi

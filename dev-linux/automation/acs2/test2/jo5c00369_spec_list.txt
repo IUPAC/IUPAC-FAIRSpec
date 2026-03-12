@@ -1,1 +1,1 @@
-jo5c00369 Silole-AC Silole-AC CNMR;Silole-AC Silole-AC HNMR;Silole-Ph-AC Silole-Ph-AC NMR;Silole-Ph-PXZ NMR 13C;Silole-PXZ Silole-PXZ NMR
+jo5c00369 Silole-AC CNMR NA;Silole-AC HNMR NA;1 NA;13 NA;Silole-Ph-PXZ NMR 13C;1H NA;Silole-PXZ CNMR NA;Silole-PXZ HNMR NA

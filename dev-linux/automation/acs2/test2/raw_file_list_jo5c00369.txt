@@ -1,0 +1,181 @@
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/acqu
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/acqus
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/audita.txt
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/cpdprg2
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/fid
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/format.temp
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/fq1list
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/overflow_log_dru1.txt
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/pdata/1/1i
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/pdata/1/1r
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/pdata/1/auditp.txt
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/pdata/1/intrng
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/pdata/1/outd
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/pdata/1/parm.txt
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/pdata/1/peaklist.xml
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/pdata/1/peakrng
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/pdata/1/peaks
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/pdata/1/proc
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/pdata/1/procs
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/pdata/1/title
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/precom.output
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/pulseprogram
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/scon2
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/shimvalues
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/specpar
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/stanprogram5108
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/uxnmr.info
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/uxnmr.par
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC CNMR/vtc_pid_settings
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/acqu
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/acqus
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/audita.txt
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/fid
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/format.temp
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/fq1list
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/pdata/1/1i
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/pdata/1/1r
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/pdata/1/auditp.txt
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/pdata/1/intrng
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/pdata/1/outd
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/pdata/1/parm.txt
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/pdata/1/peaklist.xml
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/pdata/1/peakrng
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/pdata/1/peaks
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/pdata/1/proc
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/pdata/1/procs
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/pdata/1/title
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/precom.output
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/pulseprogram
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/scon2
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/shimvalues
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/specpar
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/stanprogram5108
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/uxnmr.info
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/uxnmr.par
+jo5c00369_si_002/zipped file of FID data/Silole-AC/Silole-AC HNMR/vtc_pid_settings
+jo5c00369_si_002/zipped file of FID data/Silole-AC.mnova
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/acqu
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/acqus
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/audita.txt
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/fid
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/format.temp
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/pdata/1/1i
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/pdata/1/1r
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/pdata/1/auditp.txt
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/pdata/1/outd
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/pdata/1/parm.txt
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/pdata/1/peaklist.xml
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/pdata/1/peaks
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/pdata/1/proc
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/pdata/1/procs
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/pdata/1/title
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/pulseprogram
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/scon2
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/shimvalues
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/1/uxnmr.par
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/acqu
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/acqus
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/audita.txt
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/cpdprg2
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/fid
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/format.temp
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/pdata/1/1i
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/pdata/1/1r
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/pdata/1/auditp.txt
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/pdata/1/intrng
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/pdata/1/outd
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/pdata/1/parm.txt
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/pdata/1/peaklist.xml
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/pdata/1/peaks
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/pdata/1/proc
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/pdata/1/procs
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/pdata/1/title
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/pulseprogram
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/scon2
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC/Silole-Ph-AC NMR/13/uxnmr.par
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC.mnova
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/acqu
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/acqus
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/audita.txt
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/cpdprg2
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/fid
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/format.temp
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/fq1list
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/pdata/1/1i
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/pdata/1/1r
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/pdata/1/auditp.txt
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/pdata/1/intrng
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/pdata/1/outd
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/pdata/1/parm.txt
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/pdata/1/peaklist.xml
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/pdata/1/peakrng
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/pdata/1/peaks
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/pdata/1/proc
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/pdata/1/procs
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/pdata/1/title
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/precom.output
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/pulseprogram
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/scon2
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/shimvalues
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/specpar
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/stanprogram5108
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/uxnmr.info
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/uxnmr.par
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/13C/vtc_pid_settings
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/acqu
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/acqus
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/audita.txt
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/fid
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/format.temp
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/pdata/1/1i
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/pdata/1/1r
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/pdata/1/auditp.txt
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/pdata/1/outd
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/pdata/1/parm.txt
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/pdata/1/peaklist.xml
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/pdata/1/peaks
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/pdata/1/proc
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/pdata/1/procs
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/pdata/1/title
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/pulseprogram
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/scon2
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/shimvalues
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ/Silole-Ph-PXZ NMR/1H/uxnmr.par
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ.mnova
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/acqu
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/acqus
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/audita.txt
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/cpdprg2
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/fid
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/format.temp
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/pdata/1/1i
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/pdata/1/1r
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/pdata/1/auditp.txt
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/pdata/1/intrng
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/pdata/1/outd
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/pdata/1/proc
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/pdata/1/procs
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/pdata/1/title
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/pulseprogram
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/scon2
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ CNMR/uxnmr.par
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/acqu
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/acqus
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/audita.txt
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/fid
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/format.temp
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/pdata/1/1i
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/pdata/1/1r
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/pdata/1/auditp.txt
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/pdata/1/outd
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/pdata/1/parm.txt
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/pdata/1/peaklist.xml
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/pdata/1/peaks
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/pdata/1/proc
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/pdata/1/procs
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/pulseprogram
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/scon2
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/shimvalues
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ/Silole-PXZ NMR/Silole-PXZ HNMR/uxnmr.par
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ.mnova

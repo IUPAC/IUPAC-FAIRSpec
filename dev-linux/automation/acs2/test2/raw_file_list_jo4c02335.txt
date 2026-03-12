@@ -1,0 +1,1439 @@
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/(DSN-790 13C ) spot-1.mnova
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/acqu
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/acqus
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/audita.txt
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/cpdprg2
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/fid
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/format.temp
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/fq1list
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/pdata/1/1i
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/pdata/1/1r
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/pdata/1/outd
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/pdata/1/proc
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/pdata/1/procs
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/pdata/1/title
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/prosol_History
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/pulseprogram
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/scon2
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/shimvalues
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/specpar
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/uxnmr.info
+jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/uxnmr.par
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/(DSN-790 1H ) spot-1.mnova
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/acqu
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/acqus
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/audita.txt
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/fid
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/format.temp
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/fq1list
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/pdata/1/1i
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/pdata/1/1r
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/pdata/1/integrals.txt
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/pdata/1/intrng
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/pdata/1/outd
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/pdata/1/proc
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/pdata/1/procs
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/pdata/1/title
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/prosol_History
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/pulseprogram
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/scon2
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/shimvalues
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/specpar
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/uxnmr.info
+jo4c02335_si_002/FID Files/10_(DSN-799 1H ) spot-1/uxnmr.par
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/(DSN-799 13c ) Spot-II.mnova
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/acqu
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/acqus
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/audita.txt
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/cpdprg2
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/fid
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/format.temp
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/fq1list
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/pdata/1/outd
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/pdata/1/proc
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/pdata/1/procs
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/pdata/1/title
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/prosol_History
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/pulseprogram
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/scon2
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/shimvalues
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/specpar
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/uxnmr.info
+jo4c02335_si_002/FID Files/11_(DSN-799 13C ) Spot-II/uxnmr.par
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/(DSN-799 1H ) Spot-II.mnova
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/acqu
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/acqus
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/audita.txt
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/fid
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/format.temp
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/fq1list
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/pdata/1/outd
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/pdata/1/proc
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/pdata/1/procs
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/pdata/1/title
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/prosol_History
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/pulseprogram
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/scon2
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/shimvalues
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/specpar
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/uxnmr.info
+jo4c02335_si_002/FID Files/11_(DSN-799 1H ) Spot-II/uxnmr.par
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/(DSN-625 13C ).mnova
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/acqu
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/acqus
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/audita.txt
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/cpdprg2
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/fid
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/format.temp
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/fq1list
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/pdata/1/title
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/prosol_History
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/pulseprogram
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/scon2
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/shimvalues
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/specpar
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/uxnmr.info
+jo4c02335_si_002/FID Files/3aa_(DSN-625 13 C )/uxnmr.par
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/(DSN-625 1 H ).mnova
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/acqu
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/acqus
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/audita.txt
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/fid
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/format.temp
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/fq1list
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/pdata/1/1i
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/pdata/1/1r
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/prosol_History
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/scon2
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/shimvalues
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/specpar
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3aa_(DSN-625 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/(DSN-613 13C ).mnova
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/acqu
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/acqus
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/audita.txt
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/fid
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/format.temp
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/fq1list
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/prosol_History
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/scon2
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/shimvalues
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/specpar
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3ab_(DSN-613 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/(DSN-613 1H ).mnova
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/acqu
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/acqus
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/audita.txt
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/fid
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/format.temp
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/fq1list
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/prosol_History
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/scon2
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/shimvalues
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/specpar
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3ab_(DSN-613 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/(DSN-619 13C ).mnova
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/acqu
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/acqus
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/audita.txt
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/fid
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/format.temp
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/fq1list
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/pdata/1/1i
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/pdata/1/1r
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/prosol_History
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/scon2
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/shimvalues
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/specpar
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3ac_(DSN-619 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/(DSN-619 1H ).mnova
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/acqu
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/acqus
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/audita.txt
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/fid
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/format.temp
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/fq1list
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/pdata/1/1i
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/pdata/1/1r
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/prosol_History
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/scon2
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/shimvalues
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/specpar
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3ac_(DSN-619 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/(DSN-634 13C ).mnova
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/acqu
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/acqus
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/audita.txt
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/fid
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/format.temp
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/fq1list
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/prosol_History
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/scon2
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/shimvalues
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/specpar
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3ad_(DSN-634 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/(DSN-634 1H ).mnova
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/acqu
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/acqus
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/audita.txt
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/fid
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/format.temp
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/fq1list
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/pdata/1/1i
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/pdata/1/1r
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/prosol_History
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/scon2
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/shimvalues
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/specpar
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3ad_(DSN-634 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/(DSN-690 13C ).mnova
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/acqu
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/acqus
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/audita.txt
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/cpdprg2
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/fid
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/format.temp
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/fq1list
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/pdata/1/outd
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/pdata/1/proc
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/pdata/1/procs
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/pdata/1/title
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/prosol_History
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/pulseprogram
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/scon2
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/shimvalues
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/specpar
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/uxnmr.info
+jo4c02335_si_002/FID Files/3ae_(DSN-690 13C)/uxnmr.par
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/(DSN-690 1H ).mnova
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/acqu
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/acqus
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/audita.txt
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/fid
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/format.temp
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/fq1list
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/prosol_History
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/scon2
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/shimvalues
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/specpar
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3ae_(DSN-690 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/(DSN-808 13C ).mnova
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/acqu
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/acqus
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/audita.txt
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/cpdprg2
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/fid
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/format.temp
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/fq1list
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/pdata/1/outd
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/pdata/1/proc
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/pdata/1/procs
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/pdata/1/title
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/prosol_History
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/pulseprogram
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/scon2
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/shimvalues
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/specpar
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/uxnmr.info
+jo4c02335_si_002/FID Files/3af_(DSN-808 13C)/uxnmr.par
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/(DSN-808 1H ).mnova
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/acqu
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/acqus
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/audita.txt
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/fid
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/format.temp
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/fq1list
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/pdata/1/1i
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/pdata/1/1r
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/prosol_History
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/scon2
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/shimvalues
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/specpar
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3af_(DSN-808 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/(DSN-633 13C ).mnova
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/acqu
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/acqus
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/audita.txt
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/fid
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/format.temp
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/fq1list
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/prosol_History
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/scon2
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/shimvalues
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/specpar
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3ag_(DSN-633 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/(DSN-633 1H ).mnova
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/acqu
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/acqus
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/audita.txt
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/fid
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/format.temp
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/fq1list
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/prosol_History
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/scon2
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/shimvalues
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/specpar
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3ag_(DSN-633 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/(DSN-692 13C ).mnova
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/acqu
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/acqus
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/audita.txt
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/fid
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/format.temp
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/fq1list
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/prosol_History
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/scon2
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/shimvalues
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/specpar
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3ah_(DSN-692 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/(DSN-692 1H ).mnova
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/acqu
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/acqus
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/audita.txt
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/fid
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/format.temp
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/fq1list
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/pdata/1/1i
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/pdata/1/1r
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/prosol_History
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/scon2
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/shimvalues
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/specpar
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3ah_(DSN-692 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/(DSN-691 13C ).mnova
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/acqu
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/acqus
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/audita.txt
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/fid
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/format.temp
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/fq1list
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/prosol_History
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/scon2
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/shimvalues
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/specpar
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3ai_(DSN-691 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/(DSN-691 1H ).mnova
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/acqu
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/acqus
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/audita.txt
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/fid
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/format.temp
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/fq1list
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/prosol_History
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/scon2
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/shimvalues
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/specpar
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3ai_(DSN-691 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/(DSN-812 13C ).mnova
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/acqu
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/acqus
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/audita.txt
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/fid
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/format.temp
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/fq1list
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/prosol_History
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/scon2
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/shimvalues
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/specpar
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3aj_(DSN-812 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/(DSN-812 1H ).mnova
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/acqu
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/acqus
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/audita.txt
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/fid
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/format.temp
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/fq1list
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/pdata/1/1i
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/pdata/1/1r
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/prosol_History
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/scon2
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/shimvalues
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/specpar
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3aj_(DSN-812 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/(DSN-603 13C ).mnova
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/acqu
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/acqus
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/audita.txt
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/fid
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/format.temp
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/fq1list
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/prosol_History
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/scon2
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/shimvalues
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/specpar
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3ak_(DSN-603 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/(DSN-603 19F NMR ).mnova
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/acqu
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/acqus
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/audita.txt
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/fid
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/format.temp
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/fq1list
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/pdata/1/title
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/prosol_History
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/pulseprogram
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/scon2
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/shimvalues
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/specpar
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/uxnmr.info
+jo4c02335_si_002/FID Files/3ak_(DSN-603 19F )/uxnmr.par
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/(DSN-603 1H NMR ).mnova
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/acqu
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/acqus
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/audita.txt
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/fid
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/format.temp
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/fq1list
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/pdata/1/outd
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/pdata/1/proc
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/pdata/1/procs
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/pdata/1/title
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/prosol_History
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/pulseprogram
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/scon2
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/shimvalues
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/specpar
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/uxnmr.info
+jo4c02335_si_002/FID Files/3ak_(DSN-603 1H NMR)/uxnmr.par
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/(DSN-617 13C ).mnova
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/acqu
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/acqus
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/audita.txt
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/fid
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/format.temp
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/fq1list
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/prosol_History
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/scon2
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/shimvalues
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/specpar
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3al_(DSN-617 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/(DSN-617 19F ).mnova
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/acqu
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/acqus
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/audita.txt
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/fid
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/format.temp
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/fq1list
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/pdata/1/outd
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/pdata/1/proc
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/pdata/1/procs
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/pdata/1/title
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/prosol_History
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/pulseprogram
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/scon2
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/shimvalues
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/specpar
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/uxnmr.info
+jo4c02335_si_002/FID Files/3al_(DSN-617 19F )/uxnmr.par
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/(DSN-617 1H ).mnova
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/acqu
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/acqus
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/audita.txt
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/fid
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/format.temp
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/fq1list
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/prosol_History
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/scon2
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/shimvalues
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/specpar
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3al_(DSN-617 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/(DSN-977 13C ).mnova
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/acqu
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/acqus
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/audita.txt
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/fid
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/format.temp
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/fq1list
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/prosol_History
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/scon2
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/shimvalues
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/specpar
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3am_(DSN-977 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/(DSN-977 1H ).mnova
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/acqu
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/acqus
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/audita.txt
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/fid
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/format.temp
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/fq1list
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/prosol_History
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/scon2
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/shimvalues
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/specpar
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3am_(DSN-977 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/(DSN-798 13C ).mnova
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/acqu
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/acqus
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/audita.txt
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/fid
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/format.temp
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/fq1list
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/prosol_History
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/scon2
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/shimvalues
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/specpar
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3an_(DSN-798 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/(DSN-798 1H ).mnova
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/acqu
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/acqus
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/audita.txt
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/fid
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/format.temp
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/fq1list
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/pdata/1/1i
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/pdata/1/1r
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/prosol_History
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/scon2
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/shimvalues
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/specpar
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3an_(DSN-798 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/(DSN-817 13C ).mnova
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/acqu
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/acqus
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/audita.txt
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/fid
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/format.temp
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/fq1list
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/prosol_History
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/scon2
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/shimvalues
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/specpar
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3ao_(DSN-817 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/(DSN-817 1H ).mnova
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/acqu
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/acqus
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/audita.txt
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/fid
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/format.temp
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/fq1list
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/pdata/1/1i
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/pdata/1/1r
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/prosol_History
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/scon2
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/shimvalues
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/specpar
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3ao_(DSN-817 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/(DSN-815 13C ).mnova
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/acqu
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/acqus
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/audita.txt
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/fid
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/format.temp
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/fq1list
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/prosol_History
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/scon2
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/shimvalues
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/specpar
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3ap_(DSN-815 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/(DSN-815 1H ).mnova
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/acqu
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/acqus
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/audita.txt
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/fid
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/format.temp
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/fq1list
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/prosol_History
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/scon2
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/shimvalues
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/specpar
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3ap_(DSN-815 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/(DSN-635 1H ).mnova
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/acqu
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/acqus
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/audita.txt
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/fid
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/format.temp
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/fq1list
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/prosol_History
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/pulseprogram
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/scon2
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/shimvalues
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/specpar
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3aq_(DSN-635  1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/(DSN-635 13C ).mnova
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/acqu
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/acqus
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/audita.txt
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/fid
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/format.temp
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/fq1list
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/prosol_History
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/scon2
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/shimvalues
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/specpar
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3aq_(DSN-635 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/(DSN-635 19F ).mnova
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/acqu
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/acqus
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/audita.txt
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/cpdprg2
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/fid
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/format.temp
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/fq1list
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/pdata/1/outd
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/pdata/1/proc
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/pdata/1/procs
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/pdata/1/title
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/prosol_History
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/pulseprogram
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/scon2
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/shimvalues
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/specpar
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/uxnmr.info
+jo4c02335_si_002/FID Files/3aq_(DSN-635 19F )/uxnmr.par
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/(DSN-701 13 C ).mnova
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/acqu
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/acqus
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/audita.txt
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/cpdprg2
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/fid
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/format.temp
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/fq1list
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/pdata/1/title
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/prosol_History
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/pulseprogram
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/scon2
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/shimvalues
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/specpar
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/uxnmr.info
+jo4c02335_si_002/FID Files/3ar_(DSN-701 13 C )/uxnmr.par
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/(DSN-692 1H ).mnova
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/acqu
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/acqus
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/audita.txt
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/fid
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/format.temp
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/fq1list
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/pdata/1/1i
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/pdata/1/1r
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/prosol_History
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/scon2
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/shimvalues
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/specpar
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-692 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/(DSN-701 1H ).mnova
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/acqu
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/acqus
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/audita.txt
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/cpdprg2
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/fid
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/format.temp
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/fq1list
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/prosol_History
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/scon2
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/shimvalues
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/specpar
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3ar_(DSN-701 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/(DSN-809 13C ).mnova
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/acqu
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/acqus
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/audita.txt
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/fid
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/format.temp
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/fq1list
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/prosol_History
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/scon2
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/shimvalues
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/specpar
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3as_(DSN-809 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/(DSN-809 1H ).mnova
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/acqu
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/acqus
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/audita.txt
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/fid
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/format.temp
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/fq1list
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/prosol_History
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/scon2
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/shimvalues
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/specpar
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3as_(DSN-809 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/(DSN-818 13H ).mnova
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/acqu
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/acqus
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/audita.txt
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/fid
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/format.temp
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/fq1list
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/prosol_History
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/scon2
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/shimvalues
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/specpar
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3at_(DSN-818 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/(DSN-818 1H ).mnova
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/acqu
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/acqus
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/audita.txt
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/fid
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/format.temp
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/fq1list
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/pdata/1/1i
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/pdata/1/1r
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/prosol_History
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/scon2
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/shimvalues
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/specpar
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3at_(DSN-818 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/(DSN-1045 13C).mnova
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/acqu
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/acqus
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/audita.txt
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/cpdprg2
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/fid
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/format.temp
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/fq1list
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/pdata/1/outd
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/pdata/1/proc
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/pdata/1/procs
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/pdata/1/title
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/prosol_History
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/pulseprogram
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/scon2
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/shimvalues
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/specpar
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/uxnmr.info
+jo4c02335_si_002/FID Files/3au_(DSN-1045 13C)/uxnmr.par
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/(DSN-1045 1H).mnova
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/acqu
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/acqus
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/audita.txt
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/fid
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/format.temp
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/fq1list
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/pdata/1/outd
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/pdata/1/proc
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/pdata/1/procs
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/pdata/1/title
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/prosol_History
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/pulseprogram
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/scon2
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/shimvalues
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/specpar
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/uxnmr.info
+jo4c02335_si_002/FID Files/3au_(DSN-1045 1H)/uxnmr.par
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/(DSN-1062 13C).mnova
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/acqu
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/acqus
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/audita.txt
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/cpdprg2
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/fid
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/format.temp
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/fq1list
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/pdata/1/outd
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/pdata/1/proc
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/pdata/1/procs
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/pdata/1/title
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/prosol_History
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/pulseprogram
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/scon2
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/shimvalues
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/specpar
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/uxnmr.info
+jo4c02335_si_002/FID Files/3av_(DSN-1062 13C)/uxnmr.par
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/(DSN-1062 1H).mnova
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/acqu
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/acqus
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/audita.txt
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/fid
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/format.temp
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/fq1list
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/pdata/1/outd
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/pdata/1/proc
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/pdata/1/procs
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/pdata/1/title
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/prosol_History
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/pulseprogram
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/scon2
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/shimvalues
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/specpar
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/uxnmr.info
+jo4c02335_si_002/FID Files/3av_(DSN-1062 1H)/uxnmr.par
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/(DSN-1061 13C ).mnova
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/acqu
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/acqus
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/audita.txt
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/cpdprg2
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/fid
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/format.temp
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/fq1list
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/pdata/1/outd
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/pdata/1/proc
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/pdata/1/procs
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/pdata/1/title
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/prosol_History
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/pulseprogram
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/scon2
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/shimvalues
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/specpar
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/uxnmr.info
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 13C)/uxnmr.par
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/(DSN-1061 1H).mnova
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/acqu
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/acqus
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/audita.txt
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/fid
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/format.temp
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/fq1list
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/pdata/1/1i
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/pdata/1/1r
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/pdata/1/integrals.txt
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/pdata/1/intrng
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/pdata/1/outd
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/pdata/1/proc
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/pdata/1/procs
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/pdata/1/title
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/prosol_History
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/pulseprogram
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/scon2
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/shimvalues
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/specpar
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/uxnmr.info
+jo4c02335_si_002/FID Files/3aw_(DSN-1061 1H)/uxnmr.par
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/(DSN-877 13C ).mnova
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/acqu
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/acqus
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/audita.txt
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/fid
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/format.temp
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/fq1list
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/prosol_History
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/scon2
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/shimvalues
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/specpar
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3ba_(DSN-877 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/(DSN-877 1H ).mnova
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/acqu
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/acqus
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/audita.txt
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/fid
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/format.temp
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/fq1list
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/prosol_History
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/scon2
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/shimvalues
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/specpar
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3ba_(DSN-877 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/(DSN-884 13C ).mnova
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/acqu
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/acqus
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/audita.txt
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/fid
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/format.temp
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/fq1list
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/pdata/1/1i
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/pdata/1/1r
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/prosol_History
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/scon2
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/shimvalues
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/specpar
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3ca_(DSN-884 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/(DSN-884 1H ).mnova
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/acqu
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/acqus
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/audita.txt
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/fid
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/format.temp
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/fq1list
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/prosol_History
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/scon2
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/shimvalues
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/specpar
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3ca_(DSN-884 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/(DSN-820 13C ).mnova
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/acqu
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/acqus
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/audita.txt
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/fid
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/format.temp
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/fq1list
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/prosol_History
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/scon2
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/shimvalues
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/specpar
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3da_(DSN-820 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/(DSN-820 1H ).mnova
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/acqu
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/acqus
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/audita.txt
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/fid
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/format.temp
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/fq1list
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/pdata/1/1i
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/pdata/1/1r
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/pdata/1/auditp.txt
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/pdata/1/thumb.png
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/prosol_History
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/scon2
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/shimvalues
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/specpar
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3da_(DSN-820 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/(DSN-683 13C ).mnova
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/acqu
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/acqus
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/audita.txt
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/fid
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/format.temp
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/fq1list
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/prosol_History
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/scon2
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/shimvalues
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/specpar
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3ea_(DSN-683 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/(DSN-683 1H ).mnova
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/acqu
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/acqus
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/audita.txt
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/fid
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/format.temp
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/fq1list
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/prosol_History
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/pulseprogram
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/scon2
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/shimvalues
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/specpar
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/3ea_(DSN-683 1H )/uxnmr.par
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/(DSN-681 13C Spot-I ).mnova
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/acqu
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/acqus
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/audita.txt
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/cpdprg2
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/fid
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/format.temp
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/fq1list
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/prosol_History
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/pulseprogram
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/scon2
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/shimvalues
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/specpar
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/3eb_(DSN-681 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/( DSN-681 1H Spot-I ).mnova
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/acqu
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/acqus
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/audita.txt
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/fid
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/format.temp
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/fq1list
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/pdata/1/outd
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/pdata/1/proc
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/pdata/1/procs
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/pdata/1/title
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/prosol_History
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/pulseprogram
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/scon2
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/shimvalues
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/specpar
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/uxnmr.info
+jo4c02335_si_002/FID Files/3eb_(DSN-681 1H  )/uxnmr.par
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/acqu
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/acqus
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/AG-307_13C.mnova
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/audita.txt
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/cpdprg2
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/fid
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/format.temp
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/fq1list
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/pdata/1/outd
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/pdata/1/proc
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/pdata/1/procs
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/pdata/1/title
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/prosol_History
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/pulseprogram
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/scon2
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/shimvalues
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/specpar
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/uxnmr.info
+jo4c02335_si_002/FID Files/3fa_(AG-307 13C)/uxnmr.par
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/acqu
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/acqus
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/AG-307_1H.mnova
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/audita.txt
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/fid
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/format.temp
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/fq1list
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/pdata/302/outd
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/pdata/302/proc
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/pdata/302/procs
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/pdata/302/thumb.png
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/pdata/302/title
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/pulseprogram
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/scon2
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/shimvalues
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/specpar
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/uxnmr.info
+jo4c02335_si_002/FID Files/3fa_(AG-307 1H)/uxnmr.par
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/acqu
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/acqus
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/AG-313_13C.mnova
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/audita.txt
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/cpdprg2
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/fid
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/format.temp
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/fq1list
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/pdata/1/outd
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/pdata/1/proc
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/pdata/1/procs
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/pdata/1/title
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/prosol_History
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/pulseprogram
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/scon2
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/shimvalues
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/specpar
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/uxnmr.info
+jo4c02335_si_002/FID Files/3ga_(AG-313 13C)/uxnmr.par
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/acqu
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/acqus
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/AG-213_1H.mnova
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/audita.txt
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/fid
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/format.temp
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/fq1list
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/pdata/1/outd
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/pdata/1/proc
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/pdata/1/procs
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/pdata/1/title
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/prosol_History
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/pulseprogram
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/scon2
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/shimvalues
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/specpar
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/uxnmr.info
+jo4c02335_si_002/FID Files/3ga_(AG-313 1H)/uxnmr.par
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/acqu
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/acqus
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/AG-301_13C Spot-II.mnova
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/audita.txt
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/cpdprg2
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/fid
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/format.temp
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/fq1list
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/pdata/1/outd
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/pdata/1/proc
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/pdata/1/procs
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/pdata/1/title
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/prosol_History
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/pulseprogram
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/scon2
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/shimvalues
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/specpar
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/uxnmr.info
+jo4c02335_si_002/FID Files/3ha'-(AG-301 13C) spot-II/uxnmr.par
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/acqu
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/acqus
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/AG-301 1H-SPOT-II.mnova
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/audita.txt
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/fid
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/format.temp
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/fq1list
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/pdata/1/outd
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/pdata/1/proc
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/pdata/1/procs
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/pdata/1/title
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/prosol_History
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/pulseprogram
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/scon2
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/shimvalues
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/specpar
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/uxnmr.info
+jo4c02335_si_002/FID Files/3ha'_(AG-301_1H) spot-II/uxnmr.par
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/acqu
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/acqus
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/AG-301_13C.mnova
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/audita.txt
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/cpdprg2
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/fid
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/format.temp
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/fq1list
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/pdata/1/outd
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/pdata/1/proc
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/pdata/1/procs
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/pdata/1/title
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/prosol_History
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/pulseprogram
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/scon2
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/shimvalues
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/specpar
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/uxnmr.info
+jo4c02335_si_002/FID Files/3ha_(AG-301 13C) Spot-I/uxnmr.par
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/acqu
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/acqus
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/AG-301_1H.mnova
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/audita.txt
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/fid
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/format.temp
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/fq1list
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/pdata/1/outd
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/pdata/1/proc
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/pdata/1/procs
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/pdata/1/title
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/prosol_History
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/pulseprogram
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/scon2
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/shimvalues
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/specpar
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/uxnmr.info
+jo4c02335_si_002/FID Files/3ha_(AG-3011H) spot-I/uxnmr.par
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/(DSN-642 13C ).mnova
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/acqu
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/acqus
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/audita.txt
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/cpdprg2
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/fid
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/format.temp
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/fq1list
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/pdata/1/outd
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/pdata/1/proc
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/pdata/1/procs
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/pdata/1/title
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/prosol_History
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/pulseprogram
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/scon2
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/shimvalues
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/specpar
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/uxnmr.info
+jo4c02335_si_002/FID Files/6_(DSN-642 13C )/uxnmr.par
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/(DSN-642 1H ).mnova
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/acqu
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/acqus
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/audita.txt
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/fid
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/format.temp
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/fq1list
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/pdata/1/outd
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/pdata/1/proc
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/pdata/1/procs
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/pdata/1/title
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/prosol_History
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/pulseprogram
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/scon2
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/shimvalues
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/specpar
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/uxnmr.info
+jo4c02335_si_002/FID Files/6_(DSN-642 1H )/uxnmr.par

@@ -1,1 +1,1 @@
-jo4c02689  NMR data 1 42; NMR data 1 43; NMR data 1 61; NMR data 1 64; NMR data 1 65; NMR data 1 66; NMR data 1 68; NMR data 2 2; NMR data 2 3; NMR data 2 41; NMR data 2 44; NMR data 2 45; NMR data 2 46; NMR data 2 48; NMR data 3 1; NMR data 3 2; NMR data 3 3; NMR data 3 41; NMR data 3 44; NMR data 3 45; NMR data 3 46; NMR data 3 48;nan
+jo4c02689 42 NA;43 NA;61 NA;64 NA;65 NA;66 NA;68 NA;2 NA;3 NA;41 NA;44 NA;45 NA;46 NA;48 NA;1 NA;nan

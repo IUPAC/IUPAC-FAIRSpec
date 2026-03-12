@@ -1,0 +1,4517 @@
+jo4c02921_si_002/FIDs/1a/1/acqu
+jo4c02921_si_002/FIDs/1a/1/acqus
+jo4c02921_si_002/FIDs/1a/1/audita.txt
+jo4c02921_si_002/FIDs/1a/1/fid
+jo4c02921_si_002/FIDs/1a/1/format.temp
+jo4c02921_si_002/FIDs/1a/1/fq1list
+jo4c02921_si_002/FIDs/1a/1/pdata/1/outd
+jo4c02921_si_002/FIDs/1a/1/pdata/1/proc
+jo4c02921_si_002/FIDs/1a/1/pdata/1/procs
+jo4c02921_si_002/FIDs/1a/1/pdata/1/title
+jo4c02921_si_002/FIDs/1a/1/precom.output
+jo4c02921_si_002/FIDs/1a/1/prosol_History
+jo4c02921_si_002/FIDs/1a/1/pulseprogram
+jo4c02921_si_002/FIDs/1a/1/scon2
+jo4c02921_si_002/FIDs/1a/1/shimvalues
+jo4c02921_si_002/FIDs/1a/1/specpar
+jo4c02921_si_002/FIDs/1a/1/stanprogram25306
+jo4c02921_si_002/FIDs/1a/1/topshimreport
+jo4c02921_si_002/FIDs/1a/1/uxnmr.info
+jo4c02921_si_002/FIDs/1a/1/uxnmr.par
+jo4c02921_si_002/FIDs/1a/2/acqu
+jo4c02921_si_002/FIDs/1a/2/acqus
+jo4c02921_si_002/FIDs/1a/2/audita.txt
+jo4c02921_si_002/FIDs/1a/2/cpdprg2
+jo4c02921_si_002/FIDs/1a/2/fid
+jo4c02921_si_002/FIDs/1a/2/format.temp
+jo4c02921_si_002/FIDs/1a/2/fq1list
+jo4c02921_si_002/FIDs/1a/2/pdata/1/1i
+jo4c02921_si_002/FIDs/1a/2/pdata/1/1r
+jo4c02921_si_002/FIDs/1a/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/1a/2/pdata/1/outd
+jo4c02921_si_002/FIDs/1a/2/pdata/1/proc
+jo4c02921_si_002/FIDs/1a/2/pdata/1/procs
+jo4c02921_si_002/FIDs/1a/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/1a/2/pdata/1/title
+jo4c02921_si_002/FIDs/1a/2/precom.output
+jo4c02921_si_002/FIDs/1a/2/prosol_History
+jo4c02921_si_002/FIDs/1a/2/pulseprogram
+jo4c02921_si_002/FIDs/1a/2/scon2
+jo4c02921_si_002/FIDs/1a/2/shimvalues
+jo4c02921_si_002/FIDs/1a/2/specpar
+jo4c02921_si_002/FIDs/1a/2/stanprogram25306
+jo4c02921_si_002/FIDs/1a/2/uxnmr.info
+jo4c02921_si_002/FIDs/1a/2/uxnmr.par
+jo4c02921_si_002/FIDs/1a/3/acqu
+jo4c02921_si_002/FIDs/1a/3/acqus
+jo4c02921_si_002/FIDs/1a/3/audita.txt
+jo4c02921_si_002/FIDs/1a/3/fid
+jo4c02921_si_002/FIDs/1a/3/format.temp
+jo4c02921_si_002/FIDs/1a/3/fq1list
+jo4c02921_si_002/FIDs/1a/3/pdata/1/outd
+jo4c02921_si_002/FIDs/1a/3/pdata/1/proc
+jo4c02921_si_002/FIDs/1a/3/pdata/1/procs
+jo4c02921_si_002/FIDs/1a/3/pdata/1/title
+jo4c02921_si_002/FIDs/1a/3/precom.output
+jo4c02921_si_002/FIDs/1a/3/prosol_History
+jo4c02921_si_002/FIDs/1a/3/pulseprogram
+jo4c02921_si_002/FIDs/1a/3/scon2
+jo4c02921_si_002/FIDs/1a/3/shimvalues
+jo4c02921_si_002/FIDs/1a/3/specpar
+jo4c02921_si_002/FIDs/1a/3/stanprogram25306
+jo4c02921_si_002/FIDs/1a/3/topshimreport
+jo4c02921_si_002/FIDs/1a/3/uxnmr.info
+jo4c02921_si_002/FIDs/1a/3/uxnmr.par
+jo4c02921_si_002/FIDs/1a/4/acqu
+jo4c02921_si_002/FIDs/1a/4/acqus
+jo4c02921_si_002/FIDs/1a/4/audita.txt
+jo4c02921_si_002/FIDs/1a/4/cpdprg2
+jo4c02921_si_002/FIDs/1a/4/fid
+jo4c02921_si_002/FIDs/1a/4/format.temp
+jo4c02921_si_002/FIDs/1a/4/fq1list
+jo4c02921_si_002/FIDs/1a/4/pdata/1/outd
+jo4c02921_si_002/FIDs/1a/4/pdata/1/proc
+jo4c02921_si_002/FIDs/1a/4/pdata/1/procs
+jo4c02921_si_002/FIDs/1a/4/pdata/1/title
+jo4c02921_si_002/FIDs/1a/4/precom.output
+jo4c02921_si_002/FIDs/1a/4/prosol_History
+jo4c02921_si_002/FIDs/1a/4/pulseprogram
+jo4c02921_si_002/FIDs/1a/4/scon2
+jo4c02921_si_002/FIDs/1a/4/shimvalues
+jo4c02921_si_002/FIDs/1a/4/specpar
+jo4c02921_si_002/FIDs/1a/4/stanprogram25306
+jo4c02921_si_002/FIDs/1a/4/uxnmr.info
+jo4c02921_si_002/FIDs/1a/4/uxnmr.par
+jo4c02921_si_002/FIDs/1a/5/acqu
+jo4c02921_si_002/FIDs/1a/5/acqus
+jo4c02921_si_002/FIDs/1a/5/audita.txt
+jo4c02921_si_002/FIDs/1a/5/cpdprg2
+jo4c02921_si_002/FIDs/1a/5/fid
+jo4c02921_si_002/FIDs/1a/5/format.temp
+jo4c02921_si_002/FIDs/1a/5/fq1list
+jo4c02921_si_002/FIDs/1a/5/pdata/1/outd
+jo4c02921_si_002/FIDs/1a/5/pdata/1/proc
+jo4c02921_si_002/FIDs/1a/5/pdata/1/procs
+jo4c02921_si_002/FIDs/1a/5/pdata/1/title
+jo4c02921_si_002/FIDs/1a/5/precom.output
+jo4c02921_si_002/FIDs/1a/5/prosol_History
+jo4c02921_si_002/FIDs/1a/5/pulseprogram
+jo4c02921_si_002/FIDs/1a/5/scon2
+jo4c02921_si_002/FIDs/1a/5/shimvalues
+jo4c02921_si_002/FIDs/1a/5/specpar
+jo4c02921_si_002/FIDs/1a/5/stanprogram25306
+jo4c02921_si_002/FIDs/1a/5/uxnmr.info
+jo4c02921_si_002/FIDs/1a/5/uxnmr.par
+jo4c02921_si_002/FIDs/1a/6/acqu
+jo4c02921_si_002/FIDs/1a/6/acqu2
+jo4c02921_si_002/FIDs/1a/6/acqu2s
+jo4c02921_si_002/FIDs/1a/6/acqus
+jo4c02921_si_002/FIDs/1a/6/audita.txt
+jo4c02921_si_002/FIDs/1a/6/cpdprg2
+jo4c02921_si_002/FIDs/1a/6/EA
+jo4c02921_si_002/FIDs/1a/6/format.temp
+jo4c02921_si_002/FIDs/1a/6/fq1list
+jo4c02921_si_002/FIDs/1a/6/gpnam1
+jo4c02921_si_002/FIDs/1a/6/gpnam2
+jo4c02921_si_002/FIDs/1a/6/gpnam3
+jo4c02921_si_002/FIDs/1a/6/gpnam4
+jo4c02921_si_002/FIDs/1a/6/gradient_calib
+jo4c02921_si_002/FIDs/1a/6/pdata/1/outd
+jo4c02921_si_002/FIDs/1a/6/pdata/1/proc
+jo4c02921_si_002/FIDs/1a/6/pdata/1/proc2
+jo4c02921_si_002/FIDs/1a/6/pdata/1/proc2s
+jo4c02921_si_002/FIDs/1a/6/pdata/1/procs
+jo4c02921_si_002/FIDs/1a/6/pdata/1/title
+jo4c02921_si_002/FIDs/1a/6/precom.output
+jo4c02921_si_002/FIDs/1a/6/prosol_History
+jo4c02921_si_002/FIDs/1a/6/pulseprogram
+jo4c02921_si_002/FIDs/1a/6/scon2
+jo4c02921_si_002/FIDs/1a/6/ser
+jo4c02921_si_002/FIDs/1a/6/shimvalues
+jo4c02921_si_002/FIDs/1a/6/specpar
+jo4c02921_si_002/FIDs/1a/6/spnam3
+jo4c02921_si_002/FIDs/1a/6/spnam7
+jo4c02921_si_002/FIDs/1a/6/stanprogram25306
+jo4c02921_si_002/FIDs/1a/6/uxnmr.info
+jo4c02921_si_002/FIDs/1a/6/uxnmr.par
+jo4c02921_si_002/FIDs/1a/7/acqu
+jo4c02921_si_002/FIDs/1a/7/acqu2
+jo4c02921_si_002/FIDs/1a/7/acqu2s
+jo4c02921_si_002/FIDs/1a/7/acqus
+jo4c02921_si_002/FIDs/1a/7/audita.txt
+jo4c02921_si_002/FIDs/1a/7/EA
+jo4c02921_si_002/FIDs/1a/7/format.temp
+jo4c02921_si_002/FIDs/1a/7/fq1list
+jo4c02921_si_002/FIDs/1a/7/gpnam1
+jo4c02921_si_002/FIDs/1a/7/gpnam2
+jo4c02921_si_002/FIDs/1a/7/gpnam3
+jo4c02921_si_002/FIDs/1a/7/gradient_calib
+jo4c02921_si_002/FIDs/1a/7/pdata/1/outd
+jo4c02921_si_002/FIDs/1a/7/pdata/1/proc
+jo4c02921_si_002/FIDs/1a/7/pdata/1/proc2
+jo4c02921_si_002/FIDs/1a/7/pdata/1/proc2s
+jo4c02921_si_002/FIDs/1a/7/pdata/1/procs
+jo4c02921_si_002/FIDs/1a/7/pdata/1/title
+jo4c02921_si_002/FIDs/1a/7/precom.output
+jo4c02921_si_002/FIDs/1a/7/prosol_History
+jo4c02921_si_002/FIDs/1a/7/pulseprogram
+jo4c02921_si_002/FIDs/1a/7/scon2
+jo4c02921_si_002/FIDs/1a/7/ser
+jo4c02921_si_002/FIDs/1a/7/shimvalues
+jo4c02921_si_002/FIDs/1a/7/specpar
+jo4c02921_si_002/FIDs/1a/7/stanprogram25306
+jo4c02921_si_002/FIDs/1a/7/uxnmr.info
+jo4c02921_si_002/FIDs/1a/7/uxnmr.par
+jo4c02921_si_002/FIDs/1b/1/acqu
+jo4c02921_si_002/FIDs/1b/1/acqus
+jo4c02921_si_002/FIDs/1b/1/audita.txt
+jo4c02921_si_002/FIDs/1b/1/fid
+jo4c02921_si_002/FIDs/1b/1/format.temp
+jo4c02921_si_002/FIDs/1b/1/fq1list
+jo4c02921_si_002/FIDs/1b/1/pdata/1/outd
+jo4c02921_si_002/FIDs/1b/1/pdata/1/proc
+jo4c02921_si_002/FIDs/1b/1/pdata/1/procs
+jo4c02921_si_002/FIDs/1b/1/pdata/1/title
+jo4c02921_si_002/FIDs/1b/1/precom.output
+jo4c02921_si_002/FIDs/1b/1/prosol_History
+jo4c02921_si_002/FIDs/1b/1/pulseprogram
+jo4c02921_si_002/FIDs/1b/1/scon2
+jo4c02921_si_002/FIDs/1b/1/shimvalues
+jo4c02921_si_002/FIDs/1b/1/specpar
+jo4c02921_si_002/FIDs/1b/1/stanprogram24354
+jo4c02921_si_002/FIDs/1b/1/uxnmr.info
+jo4c02921_si_002/FIDs/1b/1/uxnmr.par
+jo4c02921_si_002/FIDs/1b/1/vtc_pid_settings
+jo4c02921_si_002/FIDs/1b/10/acqu
+jo4c02921_si_002/FIDs/1b/10/acqu2
+jo4c02921_si_002/FIDs/1b/10/acqu2s
+jo4c02921_si_002/FIDs/1b/10/acqus
+jo4c02921_si_002/FIDs/1b/10/audita.txt
+jo4c02921_si_002/FIDs/1b/10/EA
+jo4c02921_si_002/FIDs/1b/10/format.temp
+jo4c02921_si_002/FIDs/1b/10/fq1list
+jo4c02921_si_002/FIDs/1b/10/gpnam1
+jo4c02921_si_002/FIDs/1b/10/gradient_calib
+jo4c02921_si_002/FIDs/1b/10/pdata/1/clevels
+jo4c02921_si_002/FIDs/1b/10/pdata/1/outd
+jo4c02921_si_002/FIDs/1b/10/pdata/1/proc
+jo4c02921_si_002/FIDs/1b/10/pdata/1/proc2
+jo4c02921_si_002/FIDs/1b/10/pdata/1/proc2s
+jo4c02921_si_002/FIDs/1b/10/pdata/1/procs
+jo4c02921_si_002/FIDs/1b/10/pdata/1/title
+jo4c02921_si_002/FIDs/1b/10/precom.output
+jo4c02921_si_002/FIDs/1b/10/prosol_History
+jo4c02921_si_002/FIDs/1b/10/pulseprogram
+jo4c02921_si_002/FIDs/1b/10/scon2
+jo4c02921_si_002/FIDs/1b/10/ser
+jo4c02921_si_002/FIDs/1b/10/shimvalues
+jo4c02921_si_002/FIDs/1b/10/specpar
+jo4c02921_si_002/FIDs/1b/10/stanprogram23566
+jo4c02921_si_002/FIDs/1b/10/uxnmr.info
+jo4c02921_si_002/FIDs/1b/10/uxnmr.par
+jo4c02921_si_002/FIDs/1b/10/vtc_pid_settings
+jo4c02921_si_002/FIDs/1b/2/acqu
+jo4c02921_si_002/FIDs/1b/2/acqus
+jo4c02921_si_002/FIDs/1b/2/audita.txt
+jo4c02921_si_002/FIDs/1b/2/cpdprg2
+jo4c02921_si_002/FIDs/1b/2/fid
+jo4c02921_si_002/FIDs/1b/2/format.temp
+jo4c02921_si_002/FIDs/1b/2/fq1list
+jo4c02921_si_002/FIDs/1b/2/pdata/1/outd
+jo4c02921_si_002/FIDs/1b/2/pdata/1/proc
+jo4c02921_si_002/FIDs/1b/2/pdata/1/procs
+jo4c02921_si_002/FIDs/1b/2/pdata/1/title
+jo4c02921_si_002/FIDs/1b/2/precom.output
+jo4c02921_si_002/FIDs/1b/2/prosol_History
+jo4c02921_si_002/FIDs/1b/2/pulseprogram
+jo4c02921_si_002/FIDs/1b/2/scon2
+jo4c02921_si_002/FIDs/1b/2/shimvalues
+jo4c02921_si_002/FIDs/1b/2/specpar
+jo4c02921_si_002/FIDs/1b/2/stanprogram24354
+jo4c02921_si_002/FIDs/1b/2/uxnmr.info
+jo4c02921_si_002/FIDs/1b/2/uxnmr.par
+jo4c02921_si_002/FIDs/1b/2/vtc_pid_settings
+jo4c02921_si_002/FIDs/1b/3/acqu
+jo4c02921_si_002/FIDs/1b/3/acqus
+jo4c02921_si_002/FIDs/1b/3/audita.txt
+jo4c02921_si_002/FIDs/1b/3/cpdprg2
+jo4c02921_si_002/FIDs/1b/3/fid
+jo4c02921_si_002/FIDs/1b/3/format.temp
+jo4c02921_si_002/FIDs/1b/3/fq1list
+jo4c02921_si_002/FIDs/1b/3/pdata/1/outd
+jo4c02921_si_002/FIDs/1b/3/pdata/1/proc
+jo4c02921_si_002/FIDs/1b/3/pdata/1/procs
+jo4c02921_si_002/FIDs/1b/3/pdata/1/title
+jo4c02921_si_002/FIDs/1b/3/precom.output
+jo4c02921_si_002/FIDs/1b/3/prosol_History
+jo4c02921_si_002/FIDs/1b/3/pulseprogram
+jo4c02921_si_002/FIDs/1b/3/scon2
+jo4c02921_si_002/FIDs/1b/3/shimvalues
+jo4c02921_si_002/FIDs/1b/3/specpar
+jo4c02921_si_002/FIDs/1b/3/spnam5
+jo4c02921_si_002/FIDs/1b/3/stanprogram24354
+jo4c02921_si_002/FIDs/1b/3/uxnmr.info
+jo4c02921_si_002/FIDs/1b/3/uxnmr.par
+jo4c02921_si_002/FIDs/1b/3/vtc_pid_settings
+jo4c02921_si_002/FIDs/1b/4/acqu
+jo4c02921_si_002/FIDs/1b/4/acqu2
+jo4c02921_si_002/FIDs/1b/4/acqu2s
+jo4c02921_si_002/FIDs/1b/4/acqus
+jo4c02921_si_002/FIDs/1b/4/audita.txt
+jo4c02921_si_002/FIDs/1b/4/EA
+jo4c02921_si_002/FIDs/1b/4/format.temp
+jo4c02921_si_002/FIDs/1b/4/fq1list
+jo4c02921_si_002/FIDs/1b/4/gpnam1
+jo4c02921_si_002/FIDs/1b/4/gpnam2
+jo4c02921_si_002/FIDs/1b/4/gpnam3
+jo4c02921_si_002/FIDs/1b/4/gradient_calib
+jo4c02921_si_002/FIDs/1b/4/pdata/1/clevels
+jo4c02921_si_002/FIDs/1b/4/pdata/1/outd
+jo4c02921_si_002/FIDs/1b/4/pdata/1/proc
+jo4c02921_si_002/FIDs/1b/4/pdata/1/proc2
+jo4c02921_si_002/FIDs/1b/4/pdata/1/proc2s
+jo4c02921_si_002/FIDs/1b/4/pdata/1/procs
+jo4c02921_si_002/FIDs/1b/4/pdata/1/title
+jo4c02921_si_002/FIDs/1b/4/precom.output
+jo4c02921_si_002/FIDs/1b/4/prosol_History
+jo4c02921_si_002/FIDs/1b/4/pulseprogram
+jo4c02921_si_002/FIDs/1b/4/scon2
+jo4c02921_si_002/FIDs/1b/4/ser
+jo4c02921_si_002/FIDs/1b/4/shimvalues
+jo4c02921_si_002/FIDs/1b/4/specpar
+jo4c02921_si_002/FIDs/1b/4/stanprogram24354
+jo4c02921_si_002/FIDs/1b/4/uxnmr.info
+jo4c02921_si_002/FIDs/1b/4/uxnmr.par
+jo4c02921_si_002/FIDs/1b/4/vtc_pid_settings
+jo4c02921_si_002/FIDs/1b/5/acqu
+jo4c02921_si_002/FIDs/1b/5/acqu2
+jo4c02921_si_002/FIDs/1b/5/acqu2s
+jo4c02921_si_002/FIDs/1b/5/acqus
+jo4c02921_si_002/FIDs/1b/5/audita.txt
+jo4c02921_si_002/FIDs/1b/5/cpdprg2
+jo4c02921_si_002/FIDs/1b/5/EA
+jo4c02921_si_002/FIDs/1b/5/format.temp
+jo4c02921_si_002/FIDs/1b/5/fq1list
+jo4c02921_si_002/FIDs/1b/5/gpnam1
+jo4c02921_si_002/FIDs/1b/5/gpnam2
+jo4c02921_si_002/FIDs/1b/5/gradient_calib
+jo4c02921_si_002/FIDs/1b/5/pdata/1/clevels
+jo4c02921_si_002/FIDs/1b/5/pdata/1/outd
+jo4c02921_si_002/FIDs/1b/5/pdata/1/proc
+jo4c02921_si_002/FIDs/1b/5/pdata/1/proc2
+jo4c02921_si_002/FIDs/1b/5/pdata/1/proc2s
+jo4c02921_si_002/FIDs/1b/5/pdata/1/procs
+jo4c02921_si_002/FIDs/1b/5/pdata/1/title
+jo4c02921_si_002/FIDs/1b/5/precom.output
+jo4c02921_si_002/FIDs/1b/5/prosol_History
+jo4c02921_si_002/FIDs/1b/5/pulseprogram
+jo4c02921_si_002/FIDs/1b/5/scon2
+jo4c02921_si_002/FIDs/1b/5/ser
+jo4c02921_si_002/FIDs/1b/5/shimvalues
+jo4c02921_si_002/FIDs/1b/5/specpar
+jo4c02921_si_002/FIDs/1b/5/stanprogram24354
+jo4c02921_si_002/FIDs/1b/5/uxnmr.info
+jo4c02921_si_002/FIDs/1b/5/uxnmr.par
+jo4c02921_si_002/FIDs/1b/5/vtc_pid_settings
+jo4c02921_si_002/FIDs/1b/6/acqu
+jo4c02921_si_002/FIDs/1b/6/acqu2
+jo4c02921_si_002/FIDs/1b/6/acqu2s
+jo4c02921_si_002/FIDs/1b/6/acqus
+jo4c02921_si_002/FIDs/1b/6/pdata/1/clevels
+jo4c02921_si_002/FIDs/1b/6/pdata/1/outd
+jo4c02921_si_002/FIDs/1b/6/pdata/1/proc
+jo4c02921_si_002/FIDs/1b/6/pdata/1/proc2
+jo4c02921_si_002/FIDs/1b/6/pdata/1/proc2s
+jo4c02921_si_002/FIDs/1b/6/pdata/1/procs
+jo4c02921_si_002/FIDs/1b/6/pdata/1/title
+jo4c02921_si_002/FIDs/1b/7/acqu
+jo4c02921_si_002/FIDs/1b/7/acqus
+jo4c02921_si_002/FIDs/1b/7/audita.txt
+jo4c02921_si_002/FIDs/1b/7/cpdprg2
+jo4c02921_si_002/FIDs/1b/7/fid
+jo4c02921_si_002/FIDs/1b/7/format.temp
+jo4c02921_si_002/FIDs/1b/7/fq1list
+jo4c02921_si_002/FIDs/1b/7/pdata/1/outd
+jo4c02921_si_002/FIDs/1b/7/pdata/1/proc
+jo4c02921_si_002/FIDs/1b/7/pdata/1/procs
+jo4c02921_si_002/FIDs/1b/7/pdata/1/title
+jo4c02921_si_002/FIDs/1b/7/precom.output
+jo4c02921_si_002/FIDs/1b/7/prosol_History
+jo4c02921_si_002/FIDs/1b/7/pulseprogram
+jo4c02921_si_002/FIDs/1b/7/scon2
+jo4c02921_si_002/FIDs/1b/7/shimvalues
+jo4c02921_si_002/FIDs/1b/7/specpar
+jo4c02921_si_002/FIDs/1b/7/stanprogram23566
+jo4c02921_si_002/FIDs/1b/7/uxnmr.info
+jo4c02921_si_002/FIDs/1b/7/uxnmr.par
+jo4c02921_si_002/FIDs/1b/7/vtc_pid_settings
+jo4c02921_si_002/FIDs/1b/8/acqu
+jo4c02921_si_002/FIDs/1b/8/acqus
+jo4c02921_si_002/FIDs/1b/8/audita.txt
+jo4c02921_si_002/FIDs/1b/8/cpdprg2
+jo4c02921_si_002/FIDs/1b/8/fid
+jo4c02921_si_002/FIDs/1b/8/format.temp
+jo4c02921_si_002/FIDs/1b/8/fq1list
+jo4c02921_si_002/FIDs/1b/8/pdata/1/outd
+jo4c02921_si_002/FIDs/1b/8/pdata/1/proc
+jo4c02921_si_002/FIDs/1b/8/pdata/1/procs
+jo4c02921_si_002/FIDs/1b/8/pdata/1/title
+jo4c02921_si_002/FIDs/1b/8/precom.output
+jo4c02921_si_002/FIDs/1b/8/prosol_History
+jo4c02921_si_002/FIDs/1b/8/pulseprogram
+jo4c02921_si_002/FIDs/1b/8/scon2
+jo4c02921_si_002/FIDs/1b/8/shimvalues
+jo4c02921_si_002/FIDs/1b/8/specpar
+jo4c02921_si_002/FIDs/1b/8/spnam5
+jo4c02921_si_002/FIDs/1b/8/stanprogram23566
+jo4c02921_si_002/FIDs/1b/8/uxnmr.info
+jo4c02921_si_002/FIDs/1b/8/uxnmr.par
+jo4c02921_si_002/FIDs/1b/8/vtc_pid_settings
+jo4c02921_si_002/FIDs/1b/9/acqu
+jo4c02921_si_002/FIDs/1b/9/acqu2
+jo4c02921_si_002/FIDs/1b/9/acqu2s
+jo4c02921_si_002/FIDs/1b/9/acqus
+jo4c02921_si_002/FIDs/1b/9/audita.txt
+jo4c02921_si_002/FIDs/1b/9/EA
+jo4c02921_si_002/FIDs/1b/9/format.temp
+jo4c02921_si_002/FIDs/1b/9/fq1list
+jo4c02921_si_002/FIDs/1b/9/gpnam1
+jo4c02921_si_002/FIDs/1b/9/gpnam2
+jo4c02921_si_002/FIDs/1b/9/gpnam3
+jo4c02921_si_002/FIDs/1b/9/gradient_calib
+jo4c02921_si_002/FIDs/1b/9/pdata/1/clevels
+jo4c02921_si_002/FIDs/1b/9/pdata/1/outd
+jo4c02921_si_002/FIDs/1b/9/pdata/1/proc
+jo4c02921_si_002/FIDs/1b/9/pdata/1/proc2
+jo4c02921_si_002/FIDs/1b/9/pdata/1/proc2s
+jo4c02921_si_002/FIDs/1b/9/pdata/1/procs
+jo4c02921_si_002/FIDs/1b/9/pdata/1/title
+jo4c02921_si_002/FIDs/1b/9/precom.output
+jo4c02921_si_002/FIDs/1b/9/prosol_History
+jo4c02921_si_002/FIDs/1b/9/pulseprogram
+jo4c02921_si_002/FIDs/1b/9/scon2
+jo4c02921_si_002/FIDs/1b/9/ser
+jo4c02921_si_002/FIDs/1b/9/shimvalues
+jo4c02921_si_002/FIDs/1b/9/specpar
+jo4c02921_si_002/FIDs/1b/9/stanprogram23566
+jo4c02921_si_002/FIDs/1b/9/uxnmr.info
+jo4c02921_si_002/FIDs/1b/9/uxnmr.par
+jo4c02921_si_002/FIDs/1b/9/vtc_pid_settings
+jo4c02921_si_002/FIDs/1c/1/acqu
+jo4c02921_si_002/FIDs/1c/1/acqus
+jo4c02921_si_002/FIDs/1c/1/audita.txt
+jo4c02921_si_002/FIDs/1c/1/fid
+jo4c02921_si_002/FIDs/1c/1/format.temp
+jo4c02921_si_002/FIDs/1c/1/fq1list
+jo4c02921_si_002/FIDs/1c/1/pdata/1/outd
+jo4c02921_si_002/FIDs/1c/1/pdata/1/proc
+jo4c02921_si_002/FIDs/1c/1/pdata/1/procs
+jo4c02921_si_002/FIDs/1c/1/pdata/1/title
+jo4c02921_si_002/FIDs/1c/1/precom.output
+jo4c02921_si_002/FIDs/1c/1/prosol_History
+jo4c02921_si_002/FIDs/1c/1/pulseprogram
+jo4c02921_si_002/FIDs/1c/1/scon2
+jo4c02921_si_002/FIDs/1c/1/shimvalues
+jo4c02921_si_002/FIDs/1c/1/specpar
+jo4c02921_si_002/FIDs/1c/1/stanprogram3529
+jo4c02921_si_002/FIDs/1c/1/topshimreport
+jo4c02921_si_002/FIDs/1c/1/uxnmr.info
+jo4c02921_si_002/FIDs/1c/1/uxnmr.par
+jo4c02921_si_002/FIDs/1c/2/acqu
+jo4c02921_si_002/FIDs/1c/2/acqus
+jo4c02921_si_002/FIDs/1c/2/audita.txt
+jo4c02921_si_002/FIDs/1c/2/cpdprg2
+jo4c02921_si_002/FIDs/1c/2/fid
+jo4c02921_si_002/FIDs/1c/2/format.temp
+jo4c02921_si_002/FIDs/1c/2/fq1list
+jo4c02921_si_002/FIDs/1c/2/pdata/1/outd
+jo4c02921_si_002/FIDs/1c/2/pdata/1/proc
+jo4c02921_si_002/FIDs/1c/2/pdata/1/procs
+jo4c02921_si_002/FIDs/1c/2/pdata/1/title
+jo4c02921_si_002/FIDs/1c/2/precom.output
+jo4c02921_si_002/FIDs/1c/2/prosol_History
+jo4c02921_si_002/FIDs/1c/2/pulseprogram
+jo4c02921_si_002/FIDs/1c/2/scon2
+jo4c02921_si_002/FIDs/1c/2/shimvalues
+jo4c02921_si_002/FIDs/1c/2/specpar
+jo4c02921_si_002/FIDs/1c/2/stanprogram3529
+jo4c02921_si_002/FIDs/1c/2/uxnmr.info
+jo4c02921_si_002/FIDs/1c/2/uxnmr.par
+jo4c02921_si_002/FIDs/1c/3/acqu
+jo4c02921_si_002/FIDs/1c/3/acqu2
+jo4c02921_si_002/FIDs/1c/3/acqu2s
+jo4c02921_si_002/FIDs/1c/3/acqus
+jo4c02921_si_002/FIDs/1c/3/audita.txt
+jo4c02921_si_002/FIDs/1c/3/EA
+jo4c02921_si_002/FIDs/1c/3/format.temp
+jo4c02921_si_002/FIDs/1c/3/fq1list
+jo4c02921_si_002/FIDs/1c/3/gpnam1
+jo4c02921_si_002/FIDs/1c/3/gpnam2
+jo4c02921_si_002/FIDs/1c/3/gpnam3
+jo4c02921_si_002/FIDs/1c/3/gradient_calib
+jo4c02921_si_002/FIDs/1c/3/pdata/1/outd
+jo4c02921_si_002/FIDs/1c/3/pdata/1/proc
+jo4c02921_si_002/FIDs/1c/3/pdata/1/proc2
+jo4c02921_si_002/FIDs/1c/3/pdata/1/proc2s
+jo4c02921_si_002/FIDs/1c/3/pdata/1/procs
+jo4c02921_si_002/FIDs/1c/3/pdata/1/title
+jo4c02921_si_002/FIDs/1c/3/precom.output
+jo4c02921_si_002/FIDs/1c/3/prosol_History
+jo4c02921_si_002/FIDs/1c/3/pulseprogram
+jo4c02921_si_002/FIDs/1c/3/scon2
+jo4c02921_si_002/FIDs/1c/3/ser
+jo4c02921_si_002/FIDs/1c/3/shimvalues
+jo4c02921_si_002/FIDs/1c/3/specpar
+jo4c02921_si_002/FIDs/1c/3/stanprogram3529
+jo4c02921_si_002/FIDs/1c/3/uxnmr.info
+jo4c02921_si_002/FIDs/1c/3/uxnmr.par
+jo4c02921_si_002/FIDs/1c/4/acqu
+jo4c02921_si_002/FIDs/1c/4/acqu2
+jo4c02921_si_002/FIDs/1c/4/acqu2s
+jo4c02921_si_002/FIDs/1c/4/acqus
+jo4c02921_si_002/FIDs/1c/4/audita.txt
+jo4c02921_si_002/FIDs/1c/4/cpdprg2
+jo4c02921_si_002/FIDs/1c/4/EA
+jo4c02921_si_002/FIDs/1c/4/format.temp
+jo4c02921_si_002/FIDs/1c/4/fq1list
+jo4c02921_si_002/FIDs/1c/4/gpnam1
+jo4c02921_si_002/FIDs/1c/4/gpnam2
+jo4c02921_si_002/FIDs/1c/4/gpnam3
+jo4c02921_si_002/FIDs/1c/4/gpnam4
+jo4c02921_si_002/FIDs/1c/4/gradient_calib
+jo4c02921_si_002/FIDs/1c/4/pdata/1/outd
+jo4c02921_si_002/FIDs/1c/4/pdata/1/proc
+jo4c02921_si_002/FIDs/1c/4/pdata/1/proc2
+jo4c02921_si_002/FIDs/1c/4/pdata/1/proc2s
+jo4c02921_si_002/FIDs/1c/4/pdata/1/procs
+jo4c02921_si_002/FIDs/1c/4/pdata/1/title
+jo4c02921_si_002/FIDs/1c/4/precom.output
+jo4c02921_si_002/FIDs/1c/4/prosol_History
+jo4c02921_si_002/FIDs/1c/4/pulseprogram
+jo4c02921_si_002/FIDs/1c/4/scon2
+jo4c02921_si_002/FIDs/1c/4/ser
+jo4c02921_si_002/FIDs/1c/4/shimvalues
+jo4c02921_si_002/FIDs/1c/4/specpar
+jo4c02921_si_002/FIDs/1c/4/spnam3
+jo4c02921_si_002/FIDs/1c/4/spnam7
+jo4c02921_si_002/FIDs/1c/4/stanprogram3529
+jo4c02921_si_002/FIDs/1c/4/uxnmr.info
+jo4c02921_si_002/FIDs/1c/4/uxnmr.par
+jo4c02921_si_002/FIDs/1c/5/acqu
+jo4c02921_si_002/FIDs/1c/5/acqus
+jo4c02921_si_002/FIDs/1c/5/audita.txt
+jo4c02921_si_002/FIDs/1c/5/fid
+jo4c02921_si_002/FIDs/1c/5/format.temp
+jo4c02921_si_002/FIDs/1c/5/fq1list
+jo4c02921_si_002/FIDs/1c/5/pdata/1/outd
+jo4c02921_si_002/FIDs/1c/5/pdata/1/proc
+jo4c02921_si_002/FIDs/1c/5/pdata/1/procs
+jo4c02921_si_002/FIDs/1c/5/pdata/1/title
+jo4c02921_si_002/FIDs/1c/5/precom.output
+jo4c02921_si_002/FIDs/1c/5/prosol_History
+jo4c02921_si_002/FIDs/1c/5/pulseprogram
+jo4c02921_si_002/FIDs/1c/5/scon2
+jo4c02921_si_002/FIDs/1c/5/shimvalues
+jo4c02921_si_002/FIDs/1c/5/specpar
+jo4c02921_si_002/FIDs/1c/5/stanprogram2362
+jo4c02921_si_002/FIDs/1c/5/topshimreport
+jo4c02921_si_002/FIDs/1c/5/uxnmr.info
+jo4c02921_si_002/FIDs/1c/5/uxnmr.par
+jo4c02921_si_002/FIDs/1c/6/acqu
+jo4c02921_si_002/FIDs/1c/6/acqus
+jo4c02921_si_002/FIDs/1c/6/audita.txt
+jo4c02921_si_002/FIDs/1c/6/cpdprg2
+jo4c02921_si_002/FIDs/1c/6/fid
+jo4c02921_si_002/FIDs/1c/6/format.temp
+jo4c02921_si_002/FIDs/1c/6/fq1list
+jo4c02921_si_002/FIDs/1c/6/pdata/1/outd
+jo4c02921_si_002/FIDs/1c/6/pdata/1/proc
+jo4c02921_si_002/FIDs/1c/6/pdata/1/procs
+jo4c02921_si_002/FIDs/1c/6/pdata/1/title
+jo4c02921_si_002/FIDs/1c/6/precom.output
+jo4c02921_si_002/FIDs/1c/6/prosol_History
+jo4c02921_si_002/FIDs/1c/6/pulseprogram
+jo4c02921_si_002/FIDs/1c/6/scon2
+jo4c02921_si_002/FIDs/1c/6/shimvalues
+jo4c02921_si_002/FIDs/1c/6/specpar
+jo4c02921_si_002/FIDs/1c/6/stanprogram2362
+jo4c02921_si_002/FIDs/1c/6/uxnmr.info
+jo4c02921_si_002/FIDs/1c/6/uxnmr.par
+jo4c02921_si_002/FIDs/1c/7/acqu
+jo4c02921_si_002/FIDs/1c/7/acqu2
+jo4c02921_si_002/FIDs/1c/7/acqu2s
+jo4c02921_si_002/FIDs/1c/7/acqus
+jo4c02921_si_002/FIDs/1c/7/audita.txt
+jo4c02921_si_002/FIDs/1c/7/cpdprg2
+jo4c02921_si_002/FIDs/1c/7/EA
+jo4c02921_si_002/FIDs/1c/7/format.temp
+jo4c02921_si_002/FIDs/1c/7/fq1list
+jo4c02921_si_002/FIDs/1c/7/gpnam1
+jo4c02921_si_002/FIDs/1c/7/gpnam2
+jo4c02921_si_002/FIDs/1c/7/gpnam3
+jo4c02921_si_002/FIDs/1c/7/gpnam4
+jo4c02921_si_002/FIDs/1c/7/gradient_calib
+jo4c02921_si_002/FIDs/1c/7/pdata/1/outd
+jo4c02921_si_002/FIDs/1c/7/pdata/1/proc
+jo4c02921_si_002/FIDs/1c/7/pdata/1/proc2
+jo4c02921_si_002/FIDs/1c/7/pdata/1/proc2s
+jo4c02921_si_002/FIDs/1c/7/pdata/1/procs
+jo4c02921_si_002/FIDs/1c/7/pdata/1/title
+jo4c02921_si_002/FIDs/1c/7/precom.output
+jo4c02921_si_002/FIDs/1c/7/prosol_History
+jo4c02921_si_002/FIDs/1c/7/pulseprogram
+jo4c02921_si_002/FIDs/1c/7/scon2
+jo4c02921_si_002/FIDs/1c/7/ser
+jo4c02921_si_002/FIDs/1c/7/shimvalues
+jo4c02921_si_002/FIDs/1c/7/specpar
+jo4c02921_si_002/FIDs/1c/7/spnam3
+jo4c02921_si_002/FIDs/1c/7/spnam7
+jo4c02921_si_002/FIDs/1c/7/stanprogram2362
+jo4c02921_si_002/FIDs/1c/7/uxnmr.info
+jo4c02921_si_002/FIDs/1c/7/uxnmr.par
+jo4c02921_si_002/FIDs/1c/8/acqu
+jo4c02921_si_002/FIDs/1c/8/acqu2
+jo4c02921_si_002/FIDs/1c/8/acqu2s
+jo4c02921_si_002/FIDs/1c/8/acqus
+jo4c02921_si_002/FIDs/1c/8/audita.txt
+jo4c02921_si_002/FIDs/1c/8/EA
+jo4c02921_si_002/FIDs/1c/8/format.temp
+jo4c02921_si_002/FIDs/1c/8/fq1list
+jo4c02921_si_002/FIDs/1c/8/gpnam1
+jo4c02921_si_002/FIDs/1c/8/gpnam2
+jo4c02921_si_002/FIDs/1c/8/gpnam3
+jo4c02921_si_002/FIDs/1c/8/gradient_calib
+jo4c02921_si_002/FIDs/1c/8/pdata/1/outd
+jo4c02921_si_002/FIDs/1c/8/pdata/1/proc
+jo4c02921_si_002/FIDs/1c/8/pdata/1/proc2
+jo4c02921_si_002/FIDs/1c/8/pdata/1/proc2s
+jo4c02921_si_002/FIDs/1c/8/pdata/1/procs
+jo4c02921_si_002/FIDs/1c/8/pdata/1/title
+jo4c02921_si_002/FIDs/1c/8/precom.output
+jo4c02921_si_002/FIDs/1c/8/prosol_History
+jo4c02921_si_002/FIDs/1c/8/pulseprogram
+jo4c02921_si_002/FIDs/1c/8/scon2
+jo4c02921_si_002/FIDs/1c/8/ser
+jo4c02921_si_002/FIDs/1c/8/shimvalues
+jo4c02921_si_002/FIDs/1c/8/specpar
+jo4c02921_si_002/FIDs/1c/8/stanprogram2362
+jo4c02921_si_002/FIDs/1c/8/uxnmr.info
+jo4c02921_si_002/FIDs/1c/8/uxnmr.par
+jo4c02921_si_002/FIDs/2b/1/acqu
+jo4c02921_si_002/FIDs/2b/1/acqus
+jo4c02921_si_002/FIDs/2b/1/audita.txt
+jo4c02921_si_002/FIDs/2b/1/fid
+jo4c02921_si_002/FIDs/2b/1/format.temp
+jo4c02921_si_002/FIDs/2b/1/pdata/1/1i
+jo4c02921_si_002/FIDs/2b/1/pdata/1/1r
+jo4c02921_si_002/FIDs/2b/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/2b/1/pdata/1/outd
+jo4c02921_si_002/FIDs/2b/1/pdata/1/proc
+jo4c02921_si_002/FIDs/2b/1/pdata/1/procs
+jo4c02921_si_002/FIDs/2b/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/2b/1/pdata/1/title
+jo4c02921_si_002/FIDs/2b/1/pulseprogram
+jo4c02921_si_002/FIDs/2b/1/scon2
+jo4c02921_si_002/FIDs/2b/1/shimvalues
+jo4c02921_si_002/FIDs/2b/1/specpar
+jo4c02921_si_002/FIDs/2b/1/uxnmr.info
+jo4c02921_si_002/FIDs/2b/1/uxnmr.par
+jo4c02921_si_002/FIDs/2b/2/acqu
+jo4c02921_si_002/FIDs/2b/2/acqus
+jo4c02921_si_002/FIDs/2b/2/audita.txt
+jo4c02921_si_002/FIDs/2b/2/cpdprg2
+jo4c02921_si_002/FIDs/2b/2/fid
+jo4c02921_si_002/FIDs/2b/2/format.temp
+jo4c02921_si_002/FIDs/2b/2/fq1list
+jo4c02921_si_002/FIDs/2b/2/overflow_log_dru1.txt
+jo4c02921_si_002/FIDs/2b/2/pdata/1/1i
+jo4c02921_si_002/FIDs/2b/2/pdata/1/1r
+jo4c02921_si_002/FIDs/2b/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/2b/2/pdata/1/outd
+jo4c02921_si_002/FIDs/2b/2/pdata/1/proc
+jo4c02921_si_002/FIDs/2b/2/pdata/1/procs
+jo4c02921_si_002/FIDs/2b/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/2b/2/pdata/1/title
+jo4c02921_si_002/FIDs/2b/2/precom.output
+jo4c02921_si_002/FIDs/2b/2/pulseprogram
+jo4c02921_si_002/FIDs/2b/2/scon2
+jo4c02921_si_002/FIDs/2b/2/shimvalues
+jo4c02921_si_002/FIDs/2b/2/specpar
+jo4c02921_si_002/FIDs/2b/2/uxnmr.info
+jo4c02921_si_002/FIDs/2b/2/uxnmr.par
+jo4c02921_si_002/FIDs/2c/1/acqu
+jo4c02921_si_002/FIDs/2c/1/acqus
+jo4c02921_si_002/FIDs/2c/1/audita.txt
+jo4c02921_si_002/FIDs/2c/1/fid
+jo4c02921_si_002/FIDs/2c/1/format.temp
+jo4c02921_si_002/FIDs/2c/1/fq1list
+jo4c02921_si_002/FIDs/2c/1/pdata/1/1i
+jo4c02921_si_002/FIDs/2c/1/pdata/1/1r
+jo4c02921_si_002/FIDs/2c/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/2c/1/pdata/1/outd
+jo4c02921_si_002/FIDs/2c/1/pdata/1/proc
+jo4c02921_si_002/FIDs/2c/1/pdata/1/procs
+jo4c02921_si_002/FIDs/2c/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/2c/1/pdata/1/title
+jo4c02921_si_002/FIDs/2c/1/precom.output
+jo4c02921_si_002/FIDs/2c/1/pulseprogram
+jo4c02921_si_002/FIDs/2c/1/scon2
+jo4c02921_si_002/FIDs/2c/1/shimvalues
+jo4c02921_si_002/FIDs/2c/1/specpar
+jo4c02921_si_002/FIDs/2c/1/uxnmr.info
+jo4c02921_si_002/FIDs/2c/1/uxnmr.par
+jo4c02921_si_002/FIDs/2c/2/acqu
+jo4c02921_si_002/FIDs/2c/2/acqus
+jo4c02921_si_002/FIDs/2c/2/audita.txt
+jo4c02921_si_002/FIDs/2c/2/cpdprg2
+jo4c02921_si_002/FIDs/2c/2/fid
+jo4c02921_si_002/FIDs/2c/2/format.temp
+jo4c02921_si_002/FIDs/2c/2/fq1list
+jo4c02921_si_002/FIDs/2c/2/pdata/1/1i
+jo4c02921_si_002/FIDs/2c/2/pdata/1/1r
+jo4c02921_si_002/FIDs/2c/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/2c/2/pdata/1/outd
+jo4c02921_si_002/FIDs/2c/2/pdata/1/proc
+jo4c02921_si_002/FIDs/2c/2/pdata/1/procs
+jo4c02921_si_002/FIDs/2c/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/2c/2/pdata/1/title
+jo4c02921_si_002/FIDs/2c/2/precom.output
+jo4c02921_si_002/FIDs/2c/2/pulseprogram
+jo4c02921_si_002/FIDs/2c/2/scon2
+jo4c02921_si_002/FIDs/2c/2/shimvalues
+jo4c02921_si_002/FIDs/2c/2/specpar
+jo4c02921_si_002/FIDs/2c/2/uxnmr.info
+jo4c02921_si_002/FIDs/2c/2/uxnmr.par
+jo4c02921_si_002/FIDs/2e/1/acqu
+jo4c02921_si_002/FIDs/2e/1/acqus
+jo4c02921_si_002/FIDs/2e/1/audita.txt
+jo4c02921_si_002/FIDs/2e/1/fid
+jo4c02921_si_002/FIDs/2e/1/format.temp
+jo4c02921_si_002/FIDs/2e/1/fq1list
+jo4c02921_si_002/FIDs/2e/1/pdata/1/1i
+jo4c02921_si_002/FIDs/2e/1/pdata/1/1r
+jo4c02921_si_002/FIDs/2e/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/2e/1/pdata/1/outd
+jo4c02921_si_002/FIDs/2e/1/pdata/1/proc
+jo4c02921_si_002/FIDs/2e/1/pdata/1/procs
+jo4c02921_si_002/FIDs/2e/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/2e/1/pdata/1/title
+jo4c02921_si_002/FIDs/2e/1/precom.output
+jo4c02921_si_002/FIDs/2e/1/pulseprogram
+jo4c02921_si_002/FIDs/2e/1/scon2
+jo4c02921_si_002/FIDs/2e/1/shimvalues
+jo4c02921_si_002/FIDs/2e/1/specpar
+jo4c02921_si_002/FIDs/2e/1/uxnmr.info
+jo4c02921_si_002/FIDs/2e/1/uxnmr.par
+jo4c02921_si_002/FIDs/2e/2/acqu
+jo4c02921_si_002/FIDs/2e/2/acqus
+jo4c02921_si_002/FIDs/2e/2/audita.txt
+jo4c02921_si_002/FIDs/2e/2/cpdprg2
+jo4c02921_si_002/FIDs/2e/2/fid
+jo4c02921_si_002/FIDs/2e/2/format.temp
+jo4c02921_si_002/FIDs/2e/2/fq1list
+jo4c02921_si_002/FIDs/2e/2/pdata/1/1i
+jo4c02921_si_002/FIDs/2e/2/pdata/1/1r
+jo4c02921_si_002/FIDs/2e/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/2e/2/pdata/1/outd
+jo4c02921_si_002/FIDs/2e/2/pdata/1/proc
+jo4c02921_si_002/FIDs/2e/2/pdata/1/procs
+jo4c02921_si_002/FIDs/2e/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/2e/2/pdata/1/title
+jo4c02921_si_002/FIDs/2e/2/precom.output
+jo4c02921_si_002/FIDs/2e/2/pulseprogram
+jo4c02921_si_002/FIDs/2e/2/scon2
+jo4c02921_si_002/FIDs/2e/2/shimvalues
+jo4c02921_si_002/FIDs/2e/2/specpar
+jo4c02921_si_002/FIDs/2e/2/uxnmr.info
+jo4c02921_si_002/FIDs/2e/2/uxnmr.par
+jo4c02921_si_002/FIDs/2f/1/acqu
+jo4c02921_si_002/FIDs/2f/1/acqus
+jo4c02921_si_002/FIDs/2f/1/audita.txt
+jo4c02921_si_002/FIDs/2f/1/fid
+jo4c02921_si_002/FIDs/2f/1/format.temp
+jo4c02921_si_002/FIDs/2f/1/fq1list
+jo4c02921_si_002/FIDs/2f/1/pdata/1/outd
+jo4c02921_si_002/FIDs/2f/1/pdata/1/proc
+jo4c02921_si_002/FIDs/2f/1/pdata/1/procs
+jo4c02921_si_002/FIDs/2f/1/pdata/1/title
+jo4c02921_si_002/FIDs/2f/1/precom.output
+jo4c02921_si_002/FIDs/2f/1/prosol_History
+jo4c02921_si_002/FIDs/2f/1/pulseprogram
+jo4c02921_si_002/FIDs/2f/1/scon2
+jo4c02921_si_002/FIDs/2f/1/shimvalues
+jo4c02921_si_002/FIDs/2f/1/specpar
+jo4c02921_si_002/FIDs/2f/1/stanprogram22019
+jo4c02921_si_002/FIDs/2f/1/topshimreport
+jo4c02921_si_002/FIDs/2f/1/uxnmr.info
+jo4c02921_si_002/FIDs/2f/1/uxnmr.par
+jo4c02921_si_002/FIDs/2f/2/acqu
+jo4c02921_si_002/FIDs/2f/2/acqus
+jo4c02921_si_002/FIDs/2f/2/audita.txt
+jo4c02921_si_002/FIDs/2f/2/cpdprg2
+jo4c02921_si_002/FIDs/2f/2/fid
+jo4c02921_si_002/FIDs/2f/2/format.temp
+jo4c02921_si_002/FIDs/2f/2/fq1list
+jo4c02921_si_002/FIDs/2f/2/pdata/1/outd
+jo4c02921_si_002/FIDs/2f/2/pdata/1/proc
+jo4c02921_si_002/FIDs/2f/2/pdata/1/procs
+jo4c02921_si_002/FIDs/2f/2/pdata/1/title
+jo4c02921_si_002/FIDs/2f/2/precom.output
+jo4c02921_si_002/FIDs/2f/2/prosol_History
+jo4c02921_si_002/FIDs/2f/2/pulseprogram
+jo4c02921_si_002/FIDs/2f/2/scon2
+jo4c02921_si_002/FIDs/2f/2/shimvalues
+jo4c02921_si_002/FIDs/2f/2/specpar
+jo4c02921_si_002/FIDs/2f/2/stanprogram22019
+jo4c02921_si_002/FIDs/2f/2/uxnmr.info
+jo4c02921_si_002/FIDs/2f/2/uxnmr.par
+jo4c02921_si_002/FIDs/2g/1/acqu
+jo4c02921_si_002/FIDs/2g/1/acqus
+jo4c02921_si_002/FIDs/2g/1/audita.txt
+jo4c02921_si_002/FIDs/2g/1/fid
+jo4c02921_si_002/FIDs/2g/1/format.temp
+jo4c02921_si_002/FIDs/2g/1/fq1list
+jo4c02921_si_002/FIDs/2g/1/pdata/1/1i
+jo4c02921_si_002/FIDs/2g/1/pdata/1/1r
+jo4c02921_si_002/FIDs/2g/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/2g/1/pdata/1/outd
+jo4c02921_si_002/FIDs/2g/1/pdata/1/proc
+jo4c02921_si_002/FIDs/2g/1/pdata/1/procs
+jo4c02921_si_002/FIDs/2g/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/2g/1/pdata/1/title
+jo4c02921_si_002/FIDs/2g/1/precom.output
+jo4c02921_si_002/FIDs/2g/1/pulseprogram
+jo4c02921_si_002/FIDs/2g/1/scon2
+jo4c02921_si_002/FIDs/2g/1/shimvalues
+jo4c02921_si_002/FIDs/2g/1/specpar
+jo4c02921_si_002/FIDs/2g/1/uxnmr.info
+jo4c02921_si_002/FIDs/2g/1/uxnmr.par
+jo4c02921_si_002/FIDs/2g/2/acqu
+jo4c02921_si_002/FIDs/2g/2/acqus
+jo4c02921_si_002/FIDs/2g/2/audita.txt
+jo4c02921_si_002/FIDs/2g/2/cpdprg2
+jo4c02921_si_002/FIDs/2g/2/fid
+jo4c02921_si_002/FIDs/2g/2/format.temp
+jo4c02921_si_002/FIDs/2g/2/fq1list
+jo4c02921_si_002/FIDs/2g/2/pdata/1/1i
+jo4c02921_si_002/FIDs/2g/2/pdata/1/1r
+jo4c02921_si_002/FIDs/2g/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/2g/2/pdata/1/outd
+jo4c02921_si_002/FIDs/2g/2/pdata/1/proc
+jo4c02921_si_002/FIDs/2g/2/pdata/1/procs
+jo4c02921_si_002/FIDs/2g/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/2g/2/pdata/1/title
+jo4c02921_si_002/FIDs/2g/2/precom.output
+jo4c02921_si_002/FIDs/2g/2/pulseprogram
+jo4c02921_si_002/FIDs/2g/2/scon2
+jo4c02921_si_002/FIDs/2g/2/shimvalues
+jo4c02921_si_002/FIDs/2g/2/specpar
+jo4c02921_si_002/FIDs/2g/2/uxnmr.info
+jo4c02921_si_002/FIDs/2g/2/uxnmr.par
+jo4c02921_si_002/FIDs/2m/1/acqu
+jo4c02921_si_002/FIDs/2m/1/acqus
+jo4c02921_si_002/FIDs/2m/1/audita.txt
+jo4c02921_si_002/FIDs/2m/1/fid
+jo4c02921_si_002/FIDs/2m/1/format.temp
+jo4c02921_si_002/FIDs/2m/1/pdata/1/1i
+jo4c02921_si_002/FIDs/2m/1/pdata/1/1r
+jo4c02921_si_002/FIDs/2m/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/2m/1/pdata/1/outd
+jo4c02921_si_002/FIDs/2m/1/pdata/1/proc
+jo4c02921_si_002/FIDs/2m/1/pdata/1/procs
+jo4c02921_si_002/FIDs/2m/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/2m/1/pdata/1/title
+jo4c02921_si_002/FIDs/2m/1/pulseprogram
+jo4c02921_si_002/FIDs/2m/1/scon2
+jo4c02921_si_002/FIDs/2m/1/shimvalues
+jo4c02921_si_002/FIDs/2m/1/specpar
+jo4c02921_si_002/FIDs/2m/1/uxnmr.info
+jo4c02921_si_002/FIDs/2m/1/uxnmr.par
+jo4c02921_si_002/FIDs/2m/2/acqu
+jo4c02921_si_002/FIDs/2m/2/acqus
+jo4c02921_si_002/FIDs/2m/2/audita.txt
+jo4c02921_si_002/FIDs/2m/2/cpdprg2
+jo4c02921_si_002/FIDs/2m/2/fid
+jo4c02921_si_002/FIDs/2m/2/format.temp
+jo4c02921_si_002/FIDs/2m/2/fq1list
+jo4c02921_si_002/FIDs/2m/2/pdata/1/1i
+jo4c02921_si_002/FIDs/2m/2/pdata/1/1r
+jo4c02921_si_002/FIDs/2m/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/2m/2/pdata/1/outd
+jo4c02921_si_002/FIDs/2m/2/pdata/1/proc
+jo4c02921_si_002/FIDs/2m/2/pdata/1/procs
+jo4c02921_si_002/FIDs/2m/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/2m/2/pdata/1/title
+jo4c02921_si_002/FIDs/2m/2/precom.output
+jo4c02921_si_002/FIDs/2m/2/pulseprogram
+jo4c02921_si_002/FIDs/2m/2/scon2
+jo4c02921_si_002/FIDs/2m/2/shimvalues
+jo4c02921_si_002/FIDs/2m/2/specpar
+jo4c02921_si_002/FIDs/2m/2/uxnmr.info
+jo4c02921_si_002/FIDs/2m/2/uxnmr.par
+jo4c02921_si_002/FIDs/2n/1/acqu
+jo4c02921_si_002/FIDs/2n/1/acqus
+jo4c02921_si_002/FIDs/2n/1/audita.txt
+jo4c02921_si_002/FIDs/2n/1/fid
+jo4c02921_si_002/FIDs/2n/1/format.temp
+jo4c02921_si_002/FIDs/2n/1/pdata/1/1i
+jo4c02921_si_002/FIDs/2n/1/pdata/1/1r
+jo4c02921_si_002/FIDs/2n/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/2n/1/pdata/1/outd
+jo4c02921_si_002/FIDs/2n/1/pdata/1/proc
+jo4c02921_si_002/FIDs/2n/1/pdata/1/procs
+jo4c02921_si_002/FIDs/2n/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/2n/1/pdata/1/title
+jo4c02921_si_002/FIDs/2n/1/pulseprogram
+jo4c02921_si_002/FIDs/2n/1/scon2
+jo4c02921_si_002/FIDs/2n/1/shimvalues
+jo4c02921_si_002/FIDs/2n/1/specpar
+jo4c02921_si_002/FIDs/2n/1/uxnmr.info
+jo4c02921_si_002/FIDs/2n/1/uxnmr.par
+jo4c02921_si_002/FIDs/2n/2/acqu
+jo4c02921_si_002/FIDs/2n/2/acqus
+jo4c02921_si_002/FIDs/2n/2/audita.txt
+jo4c02921_si_002/FIDs/2n/2/cpdprg2
+jo4c02921_si_002/FIDs/2n/2/fid
+jo4c02921_si_002/FIDs/2n/2/format.temp
+jo4c02921_si_002/FIDs/2n/2/fq1list
+jo4c02921_si_002/FIDs/2n/2/pdata/1/1i
+jo4c02921_si_002/FIDs/2n/2/pdata/1/1r
+jo4c02921_si_002/FIDs/2n/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/2n/2/pdata/1/outd
+jo4c02921_si_002/FIDs/2n/2/pdata/1/proc
+jo4c02921_si_002/FIDs/2n/2/pdata/1/procs
+jo4c02921_si_002/FIDs/2n/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/2n/2/pdata/1/title
+jo4c02921_si_002/FIDs/2n/2/precom.output
+jo4c02921_si_002/FIDs/2n/2/pulseprogram
+jo4c02921_si_002/FIDs/2n/2/scon2
+jo4c02921_si_002/FIDs/2n/2/shimvalues
+jo4c02921_si_002/FIDs/2n/2/specpar
+jo4c02921_si_002/FIDs/2n/2/uxnmr.info
+jo4c02921_si_002/FIDs/2n/2/uxnmr.par
+jo4c02921_si_002/FIDs/3a-major/1/acqu
+jo4c02921_si_002/FIDs/3a-major/1/acqus
+jo4c02921_si_002/FIDs/3a-major/1/audita.txt
+jo4c02921_si_002/FIDs/3a-major/1/fid
+jo4c02921_si_002/FIDs/3a-major/1/format.ased
+jo4c02921_si_002/FIDs/3a-major/1/format.temp
+jo4c02921_si_002/FIDs/3a-major/1/fq1list
+jo4c02921_si_002/FIDs/3a-major/1/pdata/1/1i
+jo4c02921_si_002/FIDs/3a-major/1/pdata/1/1r
+jo4c02921_si_002/FIDs/3a-major/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3a-major/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3a-major/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3a-major/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3a-major/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3a-major/1/pdata/1/title
+jo4c02921_si_002/FIDs/3a-major/1/precom.output
+jo4c02921_si_002/FIDs/3a-major/1/prosol_History
+jo4c02921_si_002/FIDs/3a-major/1/pulseprogram
+jo4c02921_si_002/FIDs/3a-major/1/scon2
+jo4c02921_si_002/FIDs/3a-major/1/shimvalues
+jo4c02921_si_002/FIDs/3a-major/1/specpar
+jo4c02921_si_002/FIDs/3a-major/1/stanprogram21140
+jo4c02921_si_002/FIDs/3a-major/1/uxnmr.info
+jo4c02921_si_002/FIDs/3a-major/1/uxnmr.par
+jo4c02921_si_002/FIDs/3a-major/2/acqu
+jo4c02921_si_002/FIDs/3a-major/2/acqus
+jo4c02921_si_002/FIDs/3a-major/2/audita.txt
+jo4c02921_si_002/FIDs/3a-major/2/cpdprg2
+jo4c02921_si_002/FIDs/3a-major/2/fid
+jo4c02921_si_002/FIDs/3a-major/2/format.temp
+jo4c02921_si_002/FIDs/3a-major/2/fq1list
+jo4c02921_si_002/FIDs/3a-major/2/pdata/1/1i
+jo4c02921_si_002/FIDs/3a-major/2/pdata/1/1r
+jo4c02921_si_002/FIDs/3a-major/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3a-major/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3a-major/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3a-major/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3a-major/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3a-major/2/pdata/1/title
+jo4c02921_si_002/FIDs/3a-major/2/precom.output
+jo4c02921_si_002/FIDs/3a-major/2/prosol_History
+jo4c02921_si_002/FIDs/3a-major/2/pulseprogram
+jo4c02921_si_002/FIDs/3a-major/2/scon2
+jo4c02921_si_002/FIDs/3a-major/2/shimvalues
+jo4c02921_si_002/FIDs/3a-major/2/specpar
+jo4c02921_si_002/FIDs/3a-major/2/stanprogram21140
+jo4c02921_si_002/FIDs/3a-major/2/uxnmr.info
+jo4c02921_si_002/FIDs/3a-major/2/uxnmr.par
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/acqu
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/acqus
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/audita.txt
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/fid
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/format.temp
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/fq1list
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/pdata/1/title
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/precom.output
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/prosol_History
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/pulseprogram
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/scon2
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/shimvalues
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/specpar
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/stanprogram11918
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/topshimreport
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/uxnmr.info
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/1/uxnmr.par
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/acqu
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/acqus
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/audita.txt
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/cpdprg2
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/fid
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/format.temp
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/fq1list
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/pdata/1/title
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/precom.output
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/prosol_History
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/pulseprogram
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/scon2
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/shimvalues
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/specpar
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/stanprogram11918
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/topshimreport
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/uxnmr.info
+jo4c02921_si_002/FIDs/3a-minor/MK25_001-1-minor/2/uxnmr.par
+jo4c02921_si_002/FIDs/3b/1/acqu
+jo4c02921_si_002/FIDs/3b/1/acqus
+jo4c02921_si_002/FIDs/3b/1/audita.txt
+jo4c02921_si_002/FIDs/3b/1/fid
+jo4c02921_si_002/FIDs/3b/1/format.temp
+jo4c02921_si_002/FIDs/3b/1/fq1list
+jo4c02921_si_002/FIDs/3b/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3b/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3b/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3b/1/pdata/1/title
+jo4c02921_si_002/FIDs/3b/1/precom.output
+jo4c02921_si_002/FIDs/3b/1/prosol_History
+jo4c02921_si_002/FIDs/3b/1/pulseprogram
+jo4c02921_si_002/FIDs/3b/1/scon2
+jo4c02921_si_002/FIDs/3b/1/shimvalues
+jo4c02921_si_002/FIDs/3b/1/specpar
+jo4c02921_si_002/FIDs/3b/1/stanprogram1409
+jo4c02921_si_002/FIDs/3b/1/topshimreport
+jo4c02921_si_002/FIDs/3b/1/uxnmr.info
+jo4c02921_si_002/FIDs/3b/1/uxnmr.par
+jo4c02921_si_002/FIDs/3b/2/acqu
+jo4c02921_si_002/FIDs/3b/2/acqus
+jo4c02921_si_002/FIDs/3b/2/audita.txt
+jo4c02921_si_002/FIDs/3b/2/cpdprg2
+jo4c02921_si_002/FIDs/3b/2/fid
+jo4c02921_si_002/FIDs/3b/2/format.temp
+jo4c02921_si_002/FIDs/3b/2/fq1list
+jo4c02921_si_002/FIDs/3b/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3b/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3b/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3b/2/pdata/1/title
+jo4c02921_si_002/FIDs/3b/2/precom.output
+jo4c02921_si_002/FIDs/3b/2/prosol_History
+jo4c02921_si_002/FIDs/3b/2/pulseprogram
+jo4c02921_si_002/FIDs/3b/2/scon2
+jo4c02921_si_002/FIDs/3b/2/shimvalues
+jo4c02921_si_002/FIDs/3b/2/specpar
+jo4c02921_si_002/FIDs/3b/2/stanprogram1409
+jo4c02921_si_002/FIDs/3b/2/uxnmr.info
+jo4c02921_si_002/FIDs/3b/2/uxnmr.par
+jo4c02921_si_002/FIDs/3c/1/acqu
+jo4c02921_si_002/FIDs/3c/1/acqus
+jo4c02921_si_002/FIDs/3c/1/audita.txt
+jo4c02921_si_002/FIDs/3c/1/fid
+jo4c02921_si_002/FIDs/3c/1/format.temp
+jo4c02921_si_002/FIDs/3c/1/pdata/1/1i
+jo4c02921_si_002/FIDs/3c/1/pdata/1/1r
+jo4c02921_si_002/FIDs/3c/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3c/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3c/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3c/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3c/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3c/1/pdata/1/title
+jo4c02921_si_002/FIDs/3c/1/pulseprogram
+jo4c02921_si_002/FIDs/3c/1/scon2
+jo4c02921_si_002/FIDs/3c/1/shimvalues
+jo4c02921_si_002/FIDs/3c/1/specpar
+jo4c02921_si_002/FIDs/3c/1/uxnmr.info
+jo4c02921_si_002/FIDs/3c/1/uxnmr.par
+jo4c02921_si_002/FIDs/3c/2/acqu
+jo4c02921_si_002/FIDs/3c/2/acqus
+jo4c02921_si_002/FIDs/3c/2/audita.txt
+jo4c02921_si_002/FIDs/3c/2/cpdprg2
+jo4c02921_si_002/FIDs/3c/2/fid
+jo4c02921_si_002/FIDs/3c/2/format.temp
+jo4c02921_si_002/FIDs/3c/2/pdata/1/1i
+jo4c02921_si_002/FIDs/3c/2/pdata/1/1r
+jo4c02921_si_002/FIDs/3c/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3c/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3c/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3c/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3c/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3c/2/pdata/1/title
+jo4c02921_si_002/FIDs/3c/2/pulseprogram
+jo4c02921_si_002/FIDs/3c/2/scon2
+jo4c02921_si_002/FIDs/3c/2/shimvalues
+jo4c02921_si_002/FIDs/3c/2/specpar
+jo4c02921_si_002/FIDs/3c/2/uxnmr.info
+jo4c02921_si_002/FIDs/3c/2/uxnmr.par
+jo4c02921_si_002/FIDs/3d/1/acqu
+jo4c02921_si_002/FIDs/3d/1/acqus
+jo4c02921_si_002/FIDs/3d/1/audita.txt
+jo4c02921_si_002/FIDs/3d/1/fid
+jo4c02921_si_002/FIDs/3d/1/format.temp
+jo4c02921_si_002/FIDs/3d/1/fq1list
+jo4c02921_si_002/FIDs/3d/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3d/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3d/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3d/1/pdata/1/title
+jo4c02921_si_002/FIDs/3d/1/precom.output
+jo4c02921_si_002/FIDs/3d/1/prosol_History
+jo4c02921_si_002/FIDs/3d/1/pulseprogram
+jo4c02921_si_002/FIDs/3d/1/scon2
+jo4c02921_si_002/FIDs/3d/1/shimvalues
+jo4c02921_si_002/FIDs/3d/1/specpar
+jo4c02921_si_002/FIDs/3d/1/stanprogram22019
+jo4c02921_si_002/FIDs/3d/1/topshimreport
+jo4c02921_si_002/FIDs/3d/1/uxnmr.info
+jo4c02921_si_002/FIDs/3d/1/uxnmr.par
+jo4c02921_si_002/FIDs/3d/2/acqu
+jo4c02921_si_002/FIDs/3d/2/acqus
+jo4c02921_si_002/FIDs/3d/2/audita.txt
+jo4c02921_si_002/FIDs/3d/2/cpdprg2
+jo4c02921_si_002/FIDs/3d/2/fid
+jo4c02921_si_002/FIDs/3d/2/format.temp
+jo4c02921_si_002/FIDs/3d/2/fq1list
+jo4c02921_si_002/FIDs/3d/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3d/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3d/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3d/2/pdata/1/title
+jo4c02921_si_002/FIDs/3d/2/precom.output
+jo4c02921_si_002/FIDs/3d/2/prosol_History
+jo4c02921_si_002/FIDs/3d/2/pulseprogram
+jo4c02921_si_002/FIDs/3d/2/scon2
+jo4c02921_si_002/FIDs/3d/2/shimvalues
+jo4c02921_si_002/FIDs/3d/2/specpar
+jo4c02921_si_002/FIDs/3d/2/stanprogram22019
+jo4c02921_si_002/FIDs/3d/2/uxnmr.info
+jo4c02921_si_002/FIDs/3d/2/uxnmr.par
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/acqu
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/acqus
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/audita.txt
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/fid
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/format.temp
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/fq1list
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/pdata/1/title
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/precom.output
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/prosol_History
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/pulseprogram
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/scon2
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/shimvalues
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/specpar
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/stanprogram11918
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/topshimreport
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/uxnmr.info
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/1/uxnmr.par
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/acqu
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/acqus
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/audita.txt
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/cpdprg2
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/fid
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/format.temp
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/fq1list
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/pdata/1/title
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/precom.output
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/prosol_History
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/pulseprogram
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/scon2
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/shimvalues
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/specpar
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/stanprogram11918
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/uxnmr.info
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/2/uxnmr.par
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/acqu
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/acqus
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/audita.txt
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/cpdprg2
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/fid
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/format.temp
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/fq1list
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/pdata/1/outd
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/pdata/1/proc
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/pdata/1/procs
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/pdata/1/title
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/precom.output
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/prosol_History
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/pulseprogram
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/scon2
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/shimvalues
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/specpar
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/stanprogram11918
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/uxnmr.info
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/3/uxnmr.par
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/acqu
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/acqus
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/audita.txt
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/fid
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/format.temp
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/fq1list
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/pdata/1/outd
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/pdata/1/proc
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/pdata/1/procs
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/pdata/1/title
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/precom.output
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/prosol_History
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/pulseprogram
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/scon2
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/shimvalues
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/specpar
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/stanprogram11918
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/topshimreport
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/uxnmr.info
+jo4c02921_si_002/FIDs/3e-major/MK25_002-major/4/uxnmr.par
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/acqu
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/acqus
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/audita.txt
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/fid
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/format.temp
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/fq1list
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/pdata/1/title
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/precom.output
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/prosol_History
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/pulseprogram
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/scon2
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/shimvalues
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/specpar
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/stanprogram11918
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/topshimreport
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/uxnmr.info
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/1/uxnmr.par
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/acqu
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/acqus
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/audita.txt
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/cpdprg2
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/fid
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/format.temp
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/fq1list
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/pdata/1/title
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/precom.output
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/prosol_History
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/pulseprogram
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/scon2
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/shimvalues
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/specpar
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/stanprogram11918
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/uxnmr.info
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/2/uxnmr.par
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/acqu
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/acqus
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/audita.txt
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/cpdprg2
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/fid
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/format.temp
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/fq1list
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/pdata/1/outd
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/pdata/1/proc
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/pdata/1/procs
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/pdata/1/title
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/precom.output
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/prosol_History
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/pulseprogram
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/scon2
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/shimvalues
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/specpar
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/stanprogram11918
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/topshimreport
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/uxnmr.info
+jo4c02921_si_002/FIDs/3f-major/MK25_003-major/3/uxnmr.par
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/acqu
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/acqus
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/audita.txt
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/fid
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/format.temp
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/fq1list
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/pdata/1/title
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/precom.output
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/prosol_History
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/pulseprogram
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/scon2
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/shimvalues
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/specpar
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/stanprogram11918
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/topshimreport
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/uxnmr.info
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/1/uxnmr.par
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/acqu
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/acqus
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/audita.txt
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/cpdprg2
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/fid
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/format.temp
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/fq1list
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/pdata/1/outd
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/pdata/1/proc
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/pdata/1/procs
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/pdata/1/title
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/precom.output
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/prosol_History
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/pulseprogram
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/scon2
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/shimvalues
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/specpar
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/stanprogram11918
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/topshimreport
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/uxnmr.info
+jo4c02921_si_002/FIDs/3f-minor/MK25_003-F1+F2/3/uxnmr.par
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/acqu
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/acqus
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/audita.txt
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/fid
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/format.temp
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/fq1list
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/pdata/1/title
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/precom.output
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/prosol_History
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/pulseprogram
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/scon2
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/shimvalues
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/specpar
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/stanprogram3421
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/topshimreport
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/uxnmr.info
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/1/uxnmr.par
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/acqu
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/acqus
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/audita.txt
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/cpdprg2
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/fid
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/format.temp
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/fq1list
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/pdata/1/title
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/precom.output
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/prosol_History
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/pulseprogram
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/scon2
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/shimvalues
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/specpar
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/stanprogram3421
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/topshimreport
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/uxnmr.info
+jo4c02921_si_002/FIDs/3h-major/MK25_017-2/2/uxnmr.par
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/acqu
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/acqus
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/audita.txt
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/fid
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/format.temp
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/fq1list
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/pdata/1/title
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/precom.output
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/prosol_History
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/pulseprogram
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/scon2
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/shimvalues
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/specpar
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/stanprogram3421
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/topshimreport
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/uxnmr.info
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/1/uxnmr.par
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/acqu
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/acqus
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/audita.txt
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/fid
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/format.temp
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/fq1list
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/pdata/1/title
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/precom.output
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/prosol_History
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/pulseprogram
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/scon2
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/shimvalues
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/specpar
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/stanprogram3421
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/topshimreport
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/uxnmr.info
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/2/uxnmr.par
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/acqu
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/acqus
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/audita.txt
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/cpdprg2
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/fid
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/format.temp
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/fq1list
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/pdata/1/outd
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/pdata/1/proc
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/pdata/1/procs
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/pdata/1/title
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/precom.output
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/prosol_History
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/pulseprogram
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/scon2
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/shimvalues
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/specpar
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/stanprogram3421
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/uxnmr.info
+jo4c02921_si_002/FIDs/3h-minor/MK25_017-1/3/uxnmr.par
+jo4c02921_si_002/FIDs/3i/1/acqu
+jo4c02921_si_002/FIDs/3i/1/acqus
+jo4c02921_si_002/FIDs/3i/1/audita.txt
+jo4c02921_si_002/FIDs/3i/1/fid
+jo4c02921_si_002/FIDs/3i/1/format.temp
+jo4c02921_si_002/FIDs/3i/1/fq1list
+jo4c02921_si_002/FIDs/3i/1/pdata/1/1i
+jo4c02921_si_002/FIDs/3i/1/pdata/1/1r
+jo4c02921_si_002/FIDs/3i/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3i/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3i/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3i/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3i/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3i/1/pdata/1/title
+jo4c02921_si_002/FIDs/3i/1/precom.output
+jo4c02921_si_002/FIDs/3i/1/prosol_History
+jo4c02921_si_002/FIDs/3i/1/pulseprogram
+jo4c02921_si_002/FIDs/3i/1/scon2
+jo4c02921_si_002/FIDs/3i/1/shimvalues
+jo4c02921_si_002/FIDs/3i/1/specpar
+jo4c02921_si_002/FIDs/3i/1/stanprogram30388
+jo4c02921_si_002/FIDs/3i/1/uxnmr.info
+jo4c02921_si_002/FIDs/3i/1/uxnmr.par
+jo4c02921_si_002/FIDs/3i/2/acqu
+jo4c02921_si_002/FIDs/3i/2/acqus
+jo4c02921_si_002/FIDs/3i/2/audita.txt
+jo4c02921_si_002/FIDs/3i/2/cpdprg2
+jo4c02921_si_002/FIDs/3i/2/fid
+jo4c02921_si_002/FIDs/3i/2/format.temp
+jo4c02921_si_002/FIDs/3i/2/fq1list
+jo4c02921_si_002/FIDs/3i/2/pdata/1/1i
+jo4c02921_si_002/FIDs/3i/2/pdata/1/1r
+jo4c02921_si_002/FIDs/3i/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3i/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3i/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3i/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3i/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3i/2/pdata/1/title
+jo4c02921_si_002/FIDs/3i/2/precom.output
+jo4c02921_si_002/FIDs/3i/2/prosol_History
+jo4c02921_si_002/FIDs/3i/2/pulseprogram
+jo4c02921_si_002/FIDs/3i/2/scon2
+jo4c02921_si_002/FIDs/3i/2/shimvalues
+jo4c02921_si_002/FIDs/3i/2/specpar
+jo4c02921_si_002/FIDs/3i/2/stanprogram30388
+jo4c02921_si_002/FIDs/3i/2/uxnmr.info
+jo4c02921_si_002/FIDs/3i/2/uxnmr.par
+jo4c02921_si_002/FIDs/3j/1/acqu
+jo4c02921_si_002/FIDs/3j/1/acqus
+jo4c02921_si_002/FIDs/3j/1/audita.txt
+jo4c02921_si_002/FIDs/3j/1/fid
+jo4c02921_si_002/FIDs/3j/1/format.temp
+jo4c02921_si_002/FIDs/3j/1/fq1list
+jo4c02921_si_002/FIDs/3j/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3j/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3j/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3j/1/pdata/1/title
+jo4c02921_si_002/FIDs/3j/1/precom.output
+jo4c02921_si_002/FIDs/3j/1/prosol_History
+jo4c02921_si_002/FIDs/3j/1/pulseprogram
+jo4c02921_si_002/FIDs/3j/1/scon2
+jo4c02921_si_002/FIDs/3j/1/shimvalues
+jo4c02921_si_002/FIDs/3j/1/specpar
+jo4c02921_si_002/FIDs/3j/1/stanprogram1776
+jo4c02921_si_002/FIDs/3j/1/topshimreport
+jo4c02921_si_002/FIDs/3j/1/uxnmr.info
+jo4c02921_si_002/FIDs/3j/1/uxnmr.par
+jo4c02921_si_002/FIDs/3j/2/acqu
+jo4c02921_si_002/FIDs/3j/2/acqus
+jo4c02921_si_002/FIDs/3j/2/audita.txt
+jo4c02921_si_002/FIDs/3j/2/cpdprg2
+jo4c02921_si_002/FIDs/3j/2/fid
+jo4c02921_si_002/FIDs/3j/2/format.temp
+jo4c02921_si_002/FIDs/3j/2/fq1list
+jo4c02921_si_002/FIDs/3j/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3j/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3j/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3j/2/pdata/1/title
+jo4c02921_si_002/FIDs/3j/2/precom.output
+jo4c02921_si_002/FIDs/3j/2/prosol_History
+jo4c02921_si_002/FIDs/3j/2/pulseprogram
+jo4c02921_si_002/FIDs/3j/2/scon2
+jo4c02921_si_002/FIDs/3j/2/shimvalues
+jo4c02921_si_002/FIDs/3j/2/specpar
+jo4c02921_si_002/FIDs/3j/2/stanprogram1776
+jo4c02921_si_002/FIDs/3j/2/uxnmr.info
+jo4c02921_si_002/FIDs/3j/2/uxnmr.par
+jo4c02921_si_002/FIDs/3k/1/acqu
+jo4c02921_si_002/FIDs/3k/1/acqus
+jo4c02921_si_002/FIDs/3k/1/audita.txt
+jo4c02921_si_002/FIDs/3k/1/fid
+jo4c02921_si_002/FIDs/3k/1/format.temp
+jo4c02921_si_002/FIDs/3k/1/fq1list
+jo4c02921_si_002/FIDs/3k/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3k/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3k/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3k/1/pdata/1/title
+jo4c02921_si_002/FIDs/3k/1/precom.output
+jo4c02921_si_002/FIDs/3k/1/prosol_History
+jo4c02921_si_002/FIDs/3k/1/pulseprogram
+jo4c02921_si_002/FIDs/3k/1/scon2
+jo4c02921_si_002/FIDs/3k/1/shimvalues
+jo4c02921_si_002/FIDs/3k/1/specpar
+jo4c02921_si_002/FIDs/3k/1/stanprogram1776
+jo4c02921_si_002/FIDs/3k/1/topshimreport
+jo4c02921_si_002/FIDs/3k/1/uxnmr.info
+jo4c02921_si_002/FIDs/3k/1/uxnmr.par
+jo4c02921_si_002/FIDs/3k/2/acqu
+jo4c02921_si_002/FIDs/3k/2/acqus
+jo4c02921_si_002/FIDs/3k/2/audita.txt
+jo4c02921_si_002/FIDs/3k/2/cpdprg2
+jo4c02921_si_002/FIDs/3k/2/fid
+jo4c02921_si_002/FIDs/3k/2/format.temp
+jo4c02921_si_002/FIDs/3k/2/fq1list
+jo4c02921_si_002/FIDs/3k/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3k/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3k/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3k/2/pdata/1/title
+jo4c02921_si_002/FIDs/3k/2/precom.output
+jo4c02921_si_002/FIDs/3k/2/prosol_History
+jo4c02921_si_002/FIDs/3k/2/pulseprogram
+jo4c02921_si_002/FIDs/3k/2/scon2
+jo4c02921_si_002/FIDs/3k/2/shimvalues
+jo4c02921_si_002/FIDs/3k/2/specpar
+jo4c02921_si_002/FIDs/3k/2/stanprogram1776
+jo4c02921_si_002/FIDs/3k/2/uxnmr.info
+jo4c02921_si_002/FIDs/3k/2/uxnmr.par
+jo4c02921_si_002/FIDs/3l/1/acqu
+jo4c02921_si_002/FIDs/3l/1/acqus
+jo4c02921_si_002/FIDs/3l/1/audita.txt
+jo4c02921_si_002/FIDs/3l/1/fid
+jo4c02921_si_002/FIDs/3l/1/format.temp
+jo4c02921_si_002/FIDs/3l/1/fq1list
+jo4c02921_si_002/FIDs/3l/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3l/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3l/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3l/1/pdata/1/title
+jo4c02921_si_002/FIDs/3l/1/precom.output
+jo4c02921_si_002/FIDs/3l/1/prosol_History
+jo4c02921_si_002/FIDs/3l/1/pulseprogram
+jo4c02921_si_002/FIDs/3l/1/scon2
+jo4c02921_si_002/FIDs/3l/1/shimvalues
+jo4c02921_si_002/FIDs/3l/1/specpar
+jo4c02921_si_002/FIDs/3l/1/stanprogram1776
+jo4c02921_si_002/FIDs/3l/1/topshimreport
+jo4c02921_si_002/FIDs/3l/1/uxnmr.info
+jo4c02921_si_002/FIDs/3l/1/uxnmr.par
+jo4c02921_si_002/FIDs/3l/2/acqu
+jo4c02921_si_002/FIDs/3l/2/acqus
+jo4c02921_si_002/FIDs/3l/2/audita.txt
+jo4c02921_si_002/FIDs/3l/2/cpdprg2
+jo4c02921_si_002/FIDs/3l/2/fid
+jo4c02921_si_002/FIDs/3l/2/format.temp
+jo4c02921_si_002/FIDs/3l/2/fq1list
+jo4c02921_si_002/FIDs/3l/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3l/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3l/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3l/2/pdata/1/title
+jo4c02921_si_002/FIDs/3l/2/precom.output
+jo4c02921_si_002/FIDs/3l/2/prosol_History
+jo4c02921_si_002/FIDs/3l/2/pulseprogram
+jo4c02921_si_002/FIDs/3l/2/scon2
+jo4c02921_si_002/FIDs/3l/2/shimvalues
+jo4c02921_si_002/FIDs/3l/2/specpar
+jo4c02921_si_002/FIDs/3l/2/stanprogram1776
+jo4c02921_si_002/FIDs/3l/2/uxnmr.info
+jo4c02921_si_002/FIDs/3l/2/uxnmr.par
+jo4c02921_si_002/FIDs/3m/1/acqu
+jo4c02921_si_002/FIDs/3m/1/acqus
+jo4c02921_si_002/FIDs/3m/1/audita.txt
+jo4c02921_si_002/FIDs/3m/1/fid
+jo4c02921_si_002/FIDs/3m/1/format.temp
+jo4c02921_si_002/FIDs/3m/1/fq1list
+jo4c02921_si_002/FIDs/3m/1/pdata/1/1i
+jo4c02921_si_002/FIDs/3m/1/pdata/1/1r
+jo4c02921_si_002/FIDs/3m/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3m/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3m/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3m/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3m/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3m/1/pdata/1/title
+jo4c02921_si_002/FIDs/3m/1/precom.output
+jo4c02921_si_002/FIDs/3m/1/prosol_History
+jo4c02921_si_002/FIDs/3m/1/pulseprogram
+jo4c02921_si_002/FIDs/3m/1/scon2
+jo4c02921_si_002/FIDs/3m/1/shimvalues
+jo4c02921_si_002/FIDs/3m/1/specpar
+jo4c02921_si_002/FIDs/3m/1/stanprogram26204
+jo4c02921_si_002/FIDs/3m/1/uxnmr.info
+jo4c02921_si_002/FIDs/3m/1/uxnmr.par
+jo4c02921_si_002/FIDs/3m/2/acqu
+jo4c02921_si_002/FIDs/3m/2/acqus
+jo4c02921_si_002/FIDs/3m/2/audita.txt
+jo4c02921_si_002/FIDs/3m/2/cpdprg2
+jo4c02921_si_002/FIDs/3m/2/fid
+jo4c02921_si_002/FIDs/3m/2/format.temp
+jo4c02921_si_002/FIDs/3m/2/fq1list
+jo4c02921_si_002/FIDs/3m/2/pdata/1/1i
+jo4c02921_si_002/FIDs/3m/2/pdata/1/1r
+jo4c02921_si_002/FIDs/3m/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3m/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3m/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3m/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3m/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3m/2/pdata/1/title
+jo4c02921_si_002/FIDs/3m/2/precom.output
+jo4c02921_si_002/FIDs/3m/2/prosol_History
+jo4c02921_si_002/FIDs/3m/2/pulseprogram
+jo4c02921_si_002/FIDs/3m/2/scon2
+jo4c02921_si_002/FIDs/3m/2/shimvalues
+jo4c02921_si_002/FIDs/3m/2/specpar
+jo4c02921_si_002/FIDs/3m/2/stanprogram26204
+jo4c02921_si_002/FIDs/3m/2/uxnmr.info
+jo4c02921_si_002/FIDs/3m/2/uxnmr.par
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/acqu
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/acqus
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/audita.txt
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/fid
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/format.temp
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/fq1list
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/pdata/1/title
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/precom.output
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/prosol_History
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/pulseprogram
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/scon2
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/shimvalues
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/specpar
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/stanprogram11918
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/topshimreport
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/uxnmr.info
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/1/uxnmr.par
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/acqu
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/acqus
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/audita.txt
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/cpdprg2
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/fid
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/format.temp
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/fq1list
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/pdata/1/title
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/precom.output
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/prosol_History
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/pulseprogram
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/scon2
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/shimvalues
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/specpar
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/stanprogram11918
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/topshimreport
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/uxnmr.info
+jo4c02921_si_002/FIDs/3n-major/MK25_008-F3/2/uxnmr.par
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/acqu
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/acqus
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/audita.txt
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/fid
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/format.temp
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/fq1list
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/pdata/1/title
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/precom.output
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/prosol_History
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/pulseprogram
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/scon2
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/shimvalues
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/specpar
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/stanprogram11918
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/topshimreport
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/uxnmr.info
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/1/uxnmr.par
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/acqu
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/acqus
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/audita.txt
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/cpdprg2
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/fid
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/format.temp
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/fq1list
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/pdata/1/title
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/precom.output
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/prosol_History
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/pulseprogram
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/scon2
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/shimvalues
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/specpar
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/stanprogram11918
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/topshimreport
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/uxnmr.info
+jo4c02921_si_002/FIDs/3n-minor/MK25_009-F1/2/uxnmr.par
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/acqu
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/acqus
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/audita.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/fid
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/format.temp
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/fq1list
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/pdata/1/1i
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/pdata/1/1r
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/pdata/1/integrals.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/pdata/1/title
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/precom.output
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/pulseprogram
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/scon2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/shimvalues
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/specpar
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/uxnmr.info
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/1/uxnmr.par
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/acqu
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/acqus
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/audita.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/EA
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/fid
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/format.temp
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/gpnam1
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/gpnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/gradient_calib
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/pdata/1/title
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/pulseprogram
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/scon2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/shimvalues
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/specpar
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/spnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/spnam29
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/spnam30
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/uxnmr.info
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/10/uxnmr.par
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/acqu
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/acqus
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/audita.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/EA
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/fid
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/format.temp
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/gpnam1
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/gpnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/gradient_calib
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/pdata/1/title
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/pulseprogram
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/scon2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/shimvalues
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/specpar
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/spnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/spnam29
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/spnam30
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/uxnmr.info
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/11/uxnmr.par
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/acqu
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/acqus
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/audita.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/EA
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/fid
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/format.temp
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/gpnam1
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/gpnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/gradient_calib
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/pdata/1/title
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/pulseprogram
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/scon2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/shimvalues
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/specpar
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/spnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/spnam29
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/spnam30
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/uxnmr.info
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/12/uxnmr.par
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/acqu
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/acqus
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/audita.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/EA
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/fid
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/format.temp
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/gpnam1
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/gpnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/gradient_calib
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/pdata/1/title
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/pulseprogram
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/scon2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/shimvalues
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/specpar
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/spnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/spnam29
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/spnam30
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/uxnmr.info
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/13/uxnmr.par
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/acqu
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/acqus
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/audita.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/EA
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/fid
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/format.temp
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/gpnam1
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/gpnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/gradient_calib
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/pdata/1/1i
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/pdata/1/1r
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/pdata/1/title
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/pulseprogram
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/scon2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/shimvalues
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/specpar
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/spnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/spnam29
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/spnam30
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/uxnmr.info
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/14/uxnmr.par
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/acqu
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/acqus
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/audita.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/cpdprg2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/fid
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/format.temp
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/fq1list
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/pdata/1/1i
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/pdata/1/1r
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/pdata/1/title
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/precom.output
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/pulseprogram
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/scon2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/shimvalues
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/specpar
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/uxnmr.info
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/2/uxnmr.par
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/acqu
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/acqus
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/audita.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/cpdprg2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/fid
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/format.temp
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/pdata/1/1i
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/pdata/1/1r
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/pdata/1/title
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/pulseprogram
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/scon2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/shimvalues
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/specpar
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/uxnmr.info
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/3/uxnmr.par
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/acqu
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/acqu2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/acqu2s
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/acqus
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/audita.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/EA
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/format.ased
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/format.temp
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/gpnam1
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/gpnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/gpnam3
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/gradient_calib
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/pdata/1/2rr
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/pdata/1/clevels
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/pdata/1/proc2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/pdata/1/proc2s
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/pdata/1/title
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/pulseprogram
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/scon2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/ser
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/shimvalues
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/specpar
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/uxnmr.info
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/4/uxnmr.par
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/acqu
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/acqu2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/acqu2s
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/acqus
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/audita.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/cpdprg2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/EA
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/format.ased
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/format.temp
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/gpnam1
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/gpnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/gpnam3
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/gpnam4
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/gradient_calib
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/pdata/1/2ii
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/pdata/1/2ir
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/pdata/1/2ri
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/pdata/1/2rr
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/pdata/1/clevels
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/pdata/1/proc2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/pdata/1/proc2s
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/pdata/1/title
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/pulseprogram
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/scon2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/ser
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/shimvalues
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/specpar
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/spnam3
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/spnam7
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/uxnmr.info
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/5/uxnmr.par
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/acqu
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/acqu2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/acqu2s
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/acqus
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/audita.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/EA
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/format.ased
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/format.temp
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/gpnam1
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/gpnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/gpnam3
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/gpnam4
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/gpnam5
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/gpnam6
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/gradient_calib
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/pdata/1/2rr
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/pdata/1/clevels
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/pdata/1/proc2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/pdata/1/proc2s
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/pdata/1/title
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/pulseprogram
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/scon2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/ser
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/shimvalues
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/specpar
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/uxnmr.info
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/6/uxnmr.par
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/acqu
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/acqus
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/audita.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/EA
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/fid
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/format.temp
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/gpnam1
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/gpnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/gradient_calib
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/pdata/1/1i
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/pdata/1/1r
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/pdata/1/title
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/pulseprogram
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/scon2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/shimvalues
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/specpar
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/spnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/spnam29
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/spnam30
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/uxnmr.info
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/7/uxnmr.par
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/acqu
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/acqus
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/audita.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/EA
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/fid
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/format.temp
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/gpnam1
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/gpnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/gradient_calib
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/pdata/1/title
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/pulseprogram
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/scon2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/shimvalues
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/specpar
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/spnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/spnam29
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/spnam30
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/uxnmr.info
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/8/uxnmr.par
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/acqu
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/acqus
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/audita.txt
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/EA
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/fid
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/format.temp
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/gpnam1
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/gpnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/gradient_calib
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/pdata/1/title
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/pulseprogram
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/scon2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/shimvalues
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/specpar
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/spnam2
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/spnam29
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/spnam30
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/uxnmr.info
+jo4c02921_si_002/FIDs/3o_major/SP18-214A bbo/9/uxnmr.par
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/acqu
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/acqus
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/audita.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/fid
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/format.temp
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/fq1list
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/pdata/1/1i
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/pdata/1/1r
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/pdata/1/integrals.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/pdata/1/title
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/precom.output
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/pulseprogram
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/scon2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/shimvalues
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/specpar
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/uxnmr.info
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/1/uxnmr.par
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/acqu
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/acqus
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/audita.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/EA
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/fid
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/format.temp
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/gpnam1
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/gpnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/gradient_calib
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/pdata/1/title
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/pulseprogram
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/scon2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/shimvalues
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/specpar
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/spnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/spnam29
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/spnam30
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/uxnmr.info
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/10/uxnmr.par
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/acqu
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/acqus
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/audita.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/EA
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/fid
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/format.temp
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/gpnam1
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/gpnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/gradient_calib
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/pdata/1/title
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/pulseprogram
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/scon2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/shimvalues
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/specpar
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/spnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/spnam29
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/spnam30
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/uxnmr.info
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/11/uxnmr.par
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/acqu
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/acqus
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/audita.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/EA
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/fid
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/format.temp
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/gpnam1
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/gpnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/gradient_calib
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/pdata/1/title
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/pulseprogram
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/scon2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/shimvalues
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/specpar
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/spnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/spnam29
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/spnam30
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/uxnmr.info
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/12/uxnmr.par
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/acqu
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/acqus
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/audita.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/EA
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/fid
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/format.temp
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/gpnam1
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/gpnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/gradient_calib
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/pdata/1/title
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/pulseprogram
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/scon2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/shimvalues
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/specpar
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/spnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/spnam29
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/spnam30
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/uxnmr.info
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/13/uxnmr.par
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/acqu
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/acqus
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/audita.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/EA
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/fid
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/format.temp
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/gpnam1
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/gpnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/gradient_calib
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/pdata/1/title
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/pulseprogram
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/scon2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/shimvalues
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/specpar
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/spnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/spnam29
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/spnam30
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/uxnmr.info
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/14/uxnmr.par
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/acqu
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/acqus
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/audita.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/cpdprg2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/fid
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/format.temp
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/fq1list
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/pdata/1/1i
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/pdata/1/1r
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/pdata/1/title
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/precom.output
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/pulseprogram
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/scon2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/shimvalues
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/specpar
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/uxnmr.info
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/2/uxnmr.par
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/acqu
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/acqus
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/audita.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/cpdprg2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/fid
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/format.temp
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/pdata/1/1i
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/pdata/1/1r
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/pdata/1/title
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/pulseprogram
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/scon2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/shimvalues
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/specpar
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/uxnmr.info
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/3/uxnmr.par
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/acqu
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/acqu2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/acqu2s
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/acqus
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/audita.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/EA
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/format.ased
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/format.temp
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/gpnam1
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/gpnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/gpnam3
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/gradient_calib
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/pdata/1/2rr
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/pdata/1/clevels
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/pdata/1/proc2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/pdata/1/proc2s
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/pdata/1/title
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/pulseprogram
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/scon2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/ser
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/shimvalues
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/specpar
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/uxnmr.info
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/4/uxnmr.par
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/acqu
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/acqu2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/acqu2s
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/acqus
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/audita.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/cpdprg2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/EA
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/format.ased
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/format.temp
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/gpnam1
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/gpnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/gpnam3
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/gpnam4
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/gradient_calib
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/pdata/1/2ii
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/pdata/1/2ir
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/pdata/1/2ri
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/pdata/1/2rr
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/pdata/1/clevels
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/pdata/1/proc2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/pdata/1/proc2s
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/pdata/1/title
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/pulseprogram
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/scon2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/ser
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/shimvalues
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/specpar
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/spnam3
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/spnam7
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/uxnmr.info
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/5/uxnmr.par
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/acqu
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/acqu2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/acqu2s
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/acqus
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/audita.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/EA
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/format.ased
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/format.temp
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/gpnam1
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/gpnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/gpnam3
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/gpnam4
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/gpnam5
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/gpnam6
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/gradient_calib
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/pdata/1/2rr
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/pdata/1/clevels
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/pdata/1/proc2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/pdata/1/proc2s
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/pdata/1/title
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/pulseprogram
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/scon2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/ser
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/shimvalues
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/specpar
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/uxnmr.info
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/6/uxnmr.par
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/acqu
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/acqus
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/audita.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/EA
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/fid
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/format.temp
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/gpnam1
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/gpnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/gradient_calib
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/pdata/1/title
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/pulseprogram
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/scon2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/shimvalues
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/specpar
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/spnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/spnam29
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/spnam30
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/uxnmr.info
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/7/uxnmr.par
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/acqu
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/acqus
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/audita.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/EA
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/fid
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/format.temp
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/gpnam1
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/gpnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/gradient_calib
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/pdata/1/title
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/pulseprogram
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/scon2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/shimvalues
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/specpar
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/spnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/spnam29
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/spnam30
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/uxnmr.info
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/8/uxnmr.par
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/acqu
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/acqus
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/audita.txt
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/EA
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/fid
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/format.temp
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/gpnam1
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/gpnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/gradient_calib
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/pdata/1/intrng
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/pdata/1/outd
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/pdata/1/proc
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/pdata/1/procs
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/pdata/1/reg
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/pdata/1/title
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/pulseprogram
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/scon2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/shimvalues
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/specpar
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/spnam2
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/spnam29
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/spnam30
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/uxnmr.info
+jo4c02921_si_002/FIDs/3o_minor/SP18-214B bbo/9/uxnmr.par
+jo4c02921_si_002/FIDs/3p_major/1/acqu
+jo4c02921_si_002/FIDs/3p_major/1/acqus
+jo4c02921_si_002/FIDs/3p_major/1/audita.txt
+jo4c02921_si_002/FIDs/3p_major/1/fid
+jo4c02921_si_002/FIDs/3p_major/1/format.temp
+jo4c02921_si_002/FIDs/3p_major/1/fq1list
+jo4c02921_si_002/FIDs/3p_major/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3p_major/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3p_major/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3p_major/1/pdata/1/title
+jo4c02921_si_002/FIDs/3p_major/1/precom.output
+jo4c02921_si_002/FIDs/3p_major/1/prosol_History
+jo4c02921_si_002/FIDs/3p_major/1/pulseprogram
+jo4c02921_si_002/FIDs/3p_major/1/scon2
+jo4c02921_si_002/FIDs/3p_major/1/shimvalues
+jo4c02921_si_002/FIDs/3p_major/1/specpar
+jo4c02921_si_002/FIDs/3p_major/1/stanprogram28348
+jo4c02921_si_002/FIDs/3p_major/1/uxnmr.info
+jo4c02921_si_002/FIDs/3p_major/1/uxnmr.par
+jo4c02921_si_002/FIDs/3p_major/1/vtc_pid_settings
+jo4c02921_si_002/FIDs/3p_major/2/acqu
+jo4c02921_si_002/FIDs/3p_major/2/acqus
+jo4c02921_si_002/FIDs/3p_major/2/audita.txt
+jo4c02921_si_002/FIDs/3p_major/2/cpdprg2
+jo4c02921_si_002/FIDs/3p_major/2/fid
+jo4c02921_si_002/FIDs/3p_major/2/format.temp
+jo4c02921_si_002/FIDs/3p_major/2/fq1list
+jo4c02921_si_002/FIDs/3p_major/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3p_major/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3p_major/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3p_major/2/pdata/1/title
+jo4c02921_si_002/FIDs/3p_major/2/precom.output
+jo4c02921_si_002/FIDs/3p_major/2/prosol_History
+jo4c02921_si_002/FIDs/3p_major/2/pulseprogram
+jo4c02921_si_002/FIDs/3p_major/2/scon2
+jo4c02921_si_002/FIDs/3p_major/2/shimvalues
+jo4c02921_si_002/FIDs/3p_major/2/specpar
+jo4c02921_si_002/FIDs/3p_major/2/stanprogram28348
+jo4c02921_si_002/FIDs/3p_major/2/uxnmr.info
+jo4c02921_si_002/FIDs/3p_major/2/uxnmr.par
+jo4c02921_si_002/FIDs/3p_major/2/vtc_pid_settings
+jo4c02921_si_002/FIDs/3p_minor/1/acqu
+jo4c02921_si_002/FIDs/3p_minor/1/acqus
+jo4c02921_si_002/FIDs/3p_minor/1/audita.txt
+jo4c02921_si_002/FIDs/3p_minor/1/fid
+jo4c02921_si_002/FIDs/3p_minor/1/format.temp
+jo4c02921_si_002/FIDs/3p_minor/1/fq1list
+jo4c02921_si_002/FIDs/3p_minor/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3p_minor/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3p_minor/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3p_minor/1/pdata/1/title
+jo4c02921_si_002/FIDs/3p_minor/1/precom.output
+jo4c02921_si_002/FIDs/3p_minor/1/prosol_History
+jo4c02921_si_002/FIDs/3p_minor/1/pulseprogram
+jo4c02921_si_002/FIDs/3p_minor/1/scon2
+jo4c02921_si_002/FIDs/3p_minor/1/shimvalues
+jo4c02921_si_002/FIDs/3p_minor/1/specpar
+jo4c02921_si_002/FIDs/3p_minor/1/stanprogram28348
+jo4c02921_si_002/FIDs/3p_minor/1/uxnmr.info
+jo4c02921_si_002/FIDs/3p_minor/1/uxnmr.par
+jo4c02921_si_002/FIDs/3p_minor/1/vtc_pid_settings
+jo4c02921_si_002/FIDs/3p_minor/2/acqu
+jo4c02921_si_002/FIDs/3p_minor/2/acqus
+jo4c02921_si_002/FIDs/3p_minor/2/audita.txt
+jo4c02921_si_002/FIDs/3p_minor/2/cpdprg2
+jo4c02921_si_002/FIDs/3p_minor/2/fid
+jo4c02921_si_002/FIDs/3p_minor/2/format.temp
+jo4c02921_si_002/FIDs/3p_minor/2/fq1list
+jo4c02921_si_002/FIDs/3p_minor/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3p_minor/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3p_minor/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3p_minor/2/pdata/1/title
+jo4c02921_si_002/FIDs/3p_minor/2/precom.output
+jo4c02921_si_002/FIDs/3p_minor/2/prosol_History
+jo4c02921_si_002/FIDs/3p_minor/2/pulseprogram
+jo4c02921_si_002/FIDs/3p_minor/2/scon2
+jo4c02921_si_002/FIDs/3p_minor/2/shimvalues
+jo4c02921_si_002/FIDs/3p_minor/2/specpar
+jo4c02921_si_002/FIDs/3p_minor/2/stanprogram28348
+jo4c02921_si_002/FIDs/3p_minor/2/uxnmr.info
+jo4c02921_si_002/FIDs/3p_minor/2/uxnmr.par
+jo4c02921_si_002/FIDs/3p_minor/2/vtc_pid_settings
+jo4c02921_si_002/FIDs/3p_minor_new/1/acqu
+jo4c02921_si_002/FIDs/3p_minor_new/1/acqus
+jo4c02921_si_002/FIDs/3p_minor_new/1/audita.txt
+jo4c02921_si_002/FIDs/3p_minor_new/1/fid
+jo4c02921_si_002/FIDs/3p_minor_new/1/format.temp
+jo4c02921_si_002/FIDs/3p_minor_new/1/fq1list
+jo4c02921_si_002/FIDs/3p_minor_new/1/pdata/1/1i
+jo4c02921_si_002/FIDs/3p_minor_new/1/pdata/1/1r
+jo4c02921_si_002/FIDs/3p_minor_new/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3p_minor_new/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3p_minor_new/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3p_minor_new/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3p_minor_new/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3p_minor_new/1/pdata/1/title
+jo4c02921_si_002/FIDs/3p_minor_new/1/precom.output
+jo4c02921_si_002/FIDs/3p_minor_new/1/prosol_History
+jo4c02921_si_002/FIDs/3p_minor_new/1/pulseprogram
+jo4c02921_si_002/FIDs/3p_minor_new/1/scon2
+jo4c02921_si_002/FIDs/3p_minor_new/1/shimvalues
+jo4c02921_si_002/FIDs/3p_minor_new/1/specpar
+jo4c02921_si_002/FIDs/3p_minor_new/1/stanprogram31715
+jo4c02921_si_002/FIDs/3p_minor_new/1/uxnmr.info
+jo4c02921_si_002/FIDs/3p_minor_new/1/uxnmr.par
+jo4c02921_si_002/FIDs/3p_minor_new/1/vtc_pid_settings
+jo4c02921_si_002/FIDs/3p_minor_new/2/acqu
+jo4c02921_si_002/FIDs/3p_minor_new/2/acqus
+jo4c02921_si_002/FIDs/3p_minor_new/2/audita.txt
+jo4c02921_si_002/FIDs/3p_minor_new/2/cpdprg2
+jo4c02921_si_002/FIDs/3p_minor_new/2/fid
+jo4c02921_si_002/FIDs/3p_minor_new/2/format.temp
+jo4c02921_si_002/FIDs/3p_minor_new/2/fq1list
+jo4c02921_si_002/FIDs/3p_minor_new/2/pdata/1/1i
+jo4c02921_si_002/FIDs/3p_minor_new/2/pdata/1/1r
+jo4c02921_si_002/FIDs/3p_minor_new/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3p_minor_new/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3p_minor_new/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3p_minor_new/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3p_minor_new/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3p_minor_new/2/pdata/1/title
+jo4c02921_si_002/FIDs/3p_minor_new/2/precom.output
+jo4c02921_si_002/FIDs/3p_minor_new/2/prosol_History
+jo4c02921_si_002/FIDs/3p_minor_new/2/pulseprogram
+jo4c02921_si_002/FIDs/3p_minor_new/2/scon2
+jo4c02921_si_002/FIDs/3p_minor_new/2/shimvalues
+jo4c02921_si_002/FIDs/3p_minor_new/2/specpar
+jo4c02921_si_002/FIDs/3p_minor_new/2/stanprogram31715
+jo4c02921_si_002/FIDs/3p_minor_new/2/uxnmr.info
+jo4c02921_si_002/FIDs/3p_minor_new/2/uxnmr.par
+jo4c02921_si_002/FIDs/3p_minor_new/2/vtc_pid_settings
+jo4c02921_si_002/FIDs/3p_minor_new/3/acqu
+jo4c02921_si_002/FIDs/3p_minor_new/3/acqus
+jo4c02921_si_002/FIDs/3p_minor_new/3/audita.txt
+jo4c02921_si_002/FIDs/3p_minor_new/3/cpdprg2
+jo4c02921_si_002/FIDs/3p_minor_new/3/fid
+jo4c02921_si_002/FIDs/3p_minor_new/3/format.temp
+jo4c02921_si_002/FIDs/3p_minor_new/3/fq1list
+jo4c02921_si_002/FIDs/3p_minor_new/3/pdata/1/outd
+jo4c02921_si_002/FIDs/3p_minor_new/3/pdata/1/proc
+jo4c02921_si_002/FIDs/3p_minor_new/3/pdata/1/procs
+jo4c02921_si_002/FIDs/3p_minor_new/3/pdata/1/title
+jo4c02921_si_002/FIDs/3p_minor_new/3/precom.output
+jo4c02921_si_002/FIDs/3p_minor_new/3/prosol_History
+jo4c02921_si_002/FIDs/3p_minor_new/3/pulseprogram
+jo4c02921_si_002/FIDs/3p_minor_new/3/scon2
+jo4c02921_si_002/FIDs/3p_minor_new/3/shimvalues
+jo4c02921_si_002/FIDs/3p_minor_new/3/specpar
+jo4c02921_si_002/FIDs/3p_minor_new/3/stanprogram31715
+jo4c02921_si_002/FIDs/3p_minor_new/3/uxnmr.info
+jo4c02921_si_002/FIDs/3p_minor_new/3/uxnmr.par
+jo4c02921_si_002/FIDs/3p_minor_new/3/vtc_pid_settings
+jo4c02921_si_002/FIDs/3q/1/acqu
+jo4c02921_si_002/FIDs/3q/1/acqus
+jo4c02921_si_002/FIDs/3q/1/audita.txt
+jo4c02921_si_002/FIDs/3q/1/fid
+jo4c02921_si_002/FIDs/3q/1/format.temp
+jo4c02921_si_002/FIDs/3q/1/fq1list
+jo4c02921_si_002/FIDs/3q/1/pdata/1/1i
+jo4c02921_si_002/FIDs/3q/1/pdata/1/1r
+jo4c02921_si_002/FIDs/3q/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3q/1/pdata/1/integrals.txt
+jo4c02921_si_002/FIDs/3q/1/pdata/1/intrng
+jo4c02921_si_002/FIDs/3q/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/1/pdata/1/reg
+jo4c02921_si_002/FIDs/3q/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3q/1/pdata/1/title
+jo4c02921_si_002/FIDs/3q/1/precom.output
+jo4c02921_si_002/FIDs/3q/1/pulseprogram
+jo4c02921_si_002/FIDs/3q/1/scon2
+jo4c02921_si_002/FIDs/3q/1/shimvalues
+jo4c02921_si_002/FIDs/3q/1/specpar
+jo4c02921_si_002/FIDs/3q/1/uxnmr.info
+jo4c02921_si_002/FIDs/3q/1/uxnmr.par
+jo4c02921_si_002/FIDs/3q/10/acqu
+jo4c02921_si_002/FIDs/3q/10/acqus
+jo4c02921_si_002/FIDs/3q/10/audita.txt
+jo4c02921_si_002/FIDs/3q/10/EA
+jo4c02921_si_002/FIDs/3q/10/fid
+jo4c02921_si_002/FIDs/3q/10/format.temp
+jo4c02921_si_002/FIDs/3q/10/gpnam1
+jo4c02921_si_002/FIDs/3q/10/gpnam2
+jo4c02921_si_002/FIDs/3q/10/gradient_calib
+jo4c02921_si_002/FIDs/3q/10/pdata/1/intrng
+jo4c02921_si_002/FIDs/3q/10/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/10/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/10/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/10/pdata/1/reg
+jo4c02921_si_002/FIDs/3q/10/pdata/1/title
+jo4c02921_si_002/FIDs/3q/10/pulseprogram
+jo4c02921_si_002/FIDs/3q/10/scon2
+jo4c02921_si_002/FIDs/3q/10/shimvalues
+jo4c02921_si_002/FIDs/3q/10/specpar
+jo4c02921_si_002/FIDs/3q/10/spnam2
+jo4c02921_si_002/FIDs/3q/10/spnam29
+jo4c02921_si_002/FIDs/3q/10/spnam30
+jo4c02921_si_002/FIDs/3q/10/uxnmr.info
+jo4c02921_si_002/FIDs/3q/10/uxnmr.par
+jo4c02921_si_002/FIDs/3q/11/acqu
+jo4c02921_si_002/FIDs/3q/11/acqus
+jo4c02921_si_002/FIDs/3q/11/audita.txt
+jo4c02921_si_002/FIDs/3q/11/EA
+jo4c02921_si_002/FIDs/3q/11/fid
+jo4c02921_si_002/FIDs/3q/11/format.temp
+jo4c02921_si_002/FIDs/3q/11/gpnam1
+jo4c02921_si_002/FIDs/3q/11/gpnam2
+jo4c02921_si_002/FIDs/3q/11/gradient_calib
+jo4c02921_si_002/FIDs/3q/11/pdata/1/intrng
+jo4c02921_si_002/FIDs/3q/11/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/11/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/11/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/11/pdata/1/reg
+jo4c02921_si_002/FIDs/3q/11/pdata/1/title
+jo4c02921_si_002/FIDs/3q/11/pulseprogram
+jo4c02921_si_002/FIDs/3q/11/scon2
+jo4c02921_si_002/FIDs/3q/11/shimvalues
+jo4c02921_si_002/FIDs/3q/11/specpar
+jo4c02921_si_002/FIDs/3q/11/spnam2
+jo4c02921_si_002/FIDs/3q/11/spnam29
+jo4c02921_si_002/FIDs/3q/11/spnam30
+jo4c02921_si_002/FIDs/3q/11/uxnmr.info
+jo4c02921_si_002/FIDs/3q/11/uxnmr.par
+jo4c02921_si_002/FIDs/3q/12/acqu
+jo4c02921_si_002/FIDs/3q/12/acqus
+jo4c02921_si_002/FIDs/3q/12/audita.txt
+jo4c02921_si_002/FIDs/3q/12/EA
+jo4c02921_si_002/FIDs/3q/12/fid
+jo4c02921_si_002/FIDs/3q/12/format.temp
+jo4c02921_si_002/FIDs/3q/12/gpnam1
+jo4c02921_si_002/FIDs/3q/12/gpnam2
+jo4c02921_si_002/FIDs/3q/12/gradient_calib
+jo4c02921_si_002/FIDs/3q/12/pdata/1/intrng
+jo4c02921_si_002/FIDs/3q/12/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/12/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/12/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/12/pdata/1/reg
+jo4c02921_si_002/FIDs/3q/12/pdata/1/title
+jo4c02921_si_002/FIDs/3q/12/pulseprogram
+jo4c02921_si_002/FIDs/3q/12/scon2
+jo4c02921_si_002/FIDs/3q/12/shimvalues
+jo4c02921_si_002/FIDs/3q/12/specpar
+jo4c02921_si_002/FIDs/3q/12/spnam2
+jo4c02921_si_002/FIDs/3q/12/spnam29
+jo4c02921_si_002/FIDs/3q/12/spnam30
+jo4c02921_si_002/FIDs/3q/12/uxnmr.info
+jo4c02921_si_002/FIDs/3q/12/uxnmr.par
+jo4c02921_si_002/FIDs/3q/13/acqu
+jo4c02921_si_002/FIDs/3q/13/acqus
+jo4c02921_si_002/FIDs/3q/13/audita.txt
+jo4c02921_si_002/FIDs/3q/13/EA
+jo4c02921_si_002/FIDs/3q/13/fid
+jo4c02921_si_002/FIDs/3q/13/format.temp
+jo4c02921_si_002/FIDs/3q/13/gpnam1
+jo4c02921_si_002/FIDs/3q/13/gpnam2
+jo4c02921_si_002/FIDs/3q/13/gradient_calib
+jo4c02921_si_002/FIDs/3q/13/pdata/1/intrng
+jo4c02921_si_002/FIDs/3q/13/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/13/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/13/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/13/pdata/1/reg
+jo4c02921_si_002/FIDs/3q/13/pdata/1/title
+jo4c02921_si_002/FIDs/3q/13/pulseprogram
+jo4c02921_si_002/FIDs/3q/13/scon2
+jo4c02921_si_002/FIDs/3q/13/shimvalues
+jo4c02921_si_002/FIDs/3q/13/specpar
+jo4c02921_si_002/FIDs/3q/13/spnam2
+jo4c02921_si_002/FIDs/3q/13/spnam29
+jo4c02921_si_002/FIDs/3q/13/spnam30
+jo4c02921_si_002/FIDs/3q/13/uxnmr.info
+jo4c02921_si_002/FIDs/3q/13/uxnmr.par
+jo4c02921_si_002/FIDs/3q/14/acqu
+jo4c02921_si_002/FIDs/3q/14/acqus
+jo4c02921_si_002/FIDs/3q/14/audita.txt
+jo4c02921_si_002/FIDs/3q/14/EA
+jo4c02921_si_002/FIDs/3q/14/fid
+jo4c02921_si_002/FIDs/3q/14/format.temp
+jo4c02921_si_002/FIDs/3q/14/gpnam1
+jo4c02921_si_002/FIDs/3q/14/gpnam2
+jo4c02921_si_002/FIDs/3q/14/gradient_calib
+jo4c02921_si_002/FIDs/3q/14/pdata/1/intrng
+jo4c02921_si_002/FIDs/3q/14/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/14/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/14/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/14/pdata/1/reg
+jo4c02921_si_002/FIDs/3q/14/pdata/1/title
+jo4c02921_si_002/FIDs/3q/14/pulseprogram
+jo4c02921_si_002/FIDs/3q/14/scon2
+jo4c02921_si_002/FIDs/3q/14/shimvalues
+jo4c02921_si_002/FIDs/3q/14/specpar
+jo4c02921_si_002/FIDs/3q/14/spnam2
+jo4c02921_si_002/FIDs/3q/14/spnam29
+jo4c02921_si_002/FIDs/3q/14/spnam30
+jo4c02921_si_002/FIDs/3q/14/uxnmr.info
+jo4c02921_si_002/FIDs/3q/14/uxnmr.par
+jo4c02921_si_002/FIDs/3q/15/acqu
+jo4c02921_si_002/FIDs/3q/15/acqus
+jo4c02921_si_002/FIDs/3q/15/audita.txt
+jo4c02921_si_002/FIDs/3q/15/EA
+jo4c02921_si_002/FIDs/3q/15/fid
+jo4c02921_si_002/FIDs/3q/15/format.temp
+jo4c02921_si_002/FIDs/3q/15/gpnam1
+jo4c02921_si_002/FIDs/3q/15/gpnam2
+jo4c02921_si_002/FIDs/3q/15/gradient_calib
+jo4c02921_si_002/FIDs/3q/15/pdata/1/intrng
+jo4c02921_si_002/FIDs/3q/15/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/15/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/15/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/15/pdata/1/reg
+jo4c02921_si_002/FIDs/3q/15/pdata/1/title
+jo4c02921_si_002/FIDs/3q/15/pulseprogram
+jo4c02921_si_002/FIDs/3q/15/scon2
+jo4c02921_si_002/FIDs/3q/15/shimvalues
+jo4c02921_si_002/FIDs/3q/15/specpar
+jo4c02921_si_002/FIDs/3q/15/spnam2
+jo4c02921_si_002/FIDs/3q/15/spnam29
+jo4c02921_si_002/FIDs/3q/15/spnam30
+jo4c02921_si_002/FIDs/3q/15/uxnmr.info
+jo4c02921_si_002/FIDs/3q/15/uxnmr.par
+jo4c02921_si_002/FIDs/3q/16/acqu
+jo4c02921_si_002/FIDs/3q/16/acqus
+jo4c02921_si_002/FIDs/3q/16/audita.txt
+jo4c02921_si_002/FIDs/3q/16/EA
+jo4c02921_si_002/FIDs/3q/16/fid
+jo4c02921_si_002/FIDs/3q/16/format.temp
+jo4c02921_si_002/FIDs/3q/16/gpnam1
+jo4c02921_si_002/FIDs/3q/16/gpnam2
+jo4c02921_si_002/FIDs/3q/16/gradient_calib
+jo4c02921_si_002/FIDs/3q/16/pdata/1/intrng
+jo4c02921_si_002/FIDs/3q/16/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/16/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/16/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/16/pdata/1/reg
+jo4c02921_si_002/FIDs/3q/16/pdata/1/title
+jo4c02921_si_002/FIDs/3q/16/pulseprogram
+jo4c02921_si_002/FIDs/3q/16/scon2
+jo4c02921_si_002/FIDs/3q/16/shimvalues
+jo4c02921_si_002/FIDs/3q/16/specpar
+jo4c02921_si_002/FIDs/3q/16/spnam2
+jo4c02921_si_002/FIDs/3q/16/spnam29
+jo4c02921_si_002/FIDs/3q/16/spnam30
+jo4c02921_si_002/FIDs/3q/16/uxnmr.info
+jo4c02921_si_002/FIDs/3q/16/uxnmr.par
+jo4c02921_si_002/FIDs/3q/17/acqu
+jo4c02921_si_002/FIDs/3q/17/acqus
+jo4c02921_si_002/FIDs/3q/17/audita.txt
+jo4c02921_si_002/FIDs/3q/17/EA
+jo4c02921_si_002/FIDs/3q/17/fid
+jo4c02921_si_002/FIDs/3q/17/format.temp
+jo4c02921_si_002/FIDs/3q/17/gpnam1
+jo4c02921_si_002/FIDs/3q/17/gpnam2
+jo4c02921_si_002/FIDs/3q/17/gradient_calib
+jo4c02921_si_002/FIDs/3q/17/pdata/1/intrng
+jo4c02921_si_002/FIDs/3q/17/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/17/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/17/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/17/pdata/1/reg
+jo4c02921_si_002/FIDs/3q/17/pdata/1/title
+jo4c02921_si_002/FIDs/3q/17/pulseprogram
+jo4c02921_si_002/FIDs/3q/17/scon2
+jo4c02921_si_002/FIDs/3q/17/shimvalues
+jo4c02921_si_002/FIDs/3q/17/specpar
+jo4c02921_si_002/FIDs/3q/17/spnam2
+jo4c02921_si_002/FIDs/3q/17/spnam29
+jo4c02921_si_002/FIDs/3q/17/spnam30
+jo4c02921_si_002/FIDs/3q/17/uxnmr.info
+jo4c02921_si_002/FIDs/3q/17/uxnmr.par
+jo4c02921_si_002/FIDs/3q/18/acqu
+jo4c02921_si_002/FIDs/3q/18/acqus
+jo4c02921_si_002/FIDs/3q/18/audita.txt
+jo4c02921_si_002/FIDs/3q/18/EA
+jo4c02921_si_002/FIDs/3q/18/fid
+jo4c02921_si_002/FIDs/3q/18/format.temp
+jo4c02921_si_002/FIDs/3q/18/gpnam1
+jo4c02921_si_002/FIDs/3q/18/gpnam2
+jo4c02921_si_002/FIDs/3q/18/gradient_calib
+jo4c02921_si_002/FIDs/3q/18/pdata/1/intrng
+jo4c02921_si_002/FIDs/3q/18/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/18/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/18/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/18/pdata/1/reg
+jo4c02921_si_002/FIDs/3q/18/pdata/1/title
+jo4c02921_si_002/FIDs/3q/18/pulseprogram
+jo4c02921_si_002/FIDs/3q/18/scon2
+jo4c02921_si_002/FIDs/3q/18/shimvalues
+jo4c02921_si_002/FIDs/3q/18/specpar
+jo4c02921_si_002/FIDs/3q/18/spnam2
+jo4c02921_si_002/FIDs/3q/18/spnam29
+jo4c02921_si_002/FIDs/3q/18/spnam30
+jo4c02921_si_002/FIDs/3q/18/uxnmr.info
+jo4c02921_si_002/FIDs/3q/18/uxnmr.par
+jo4c02921_si_002/FIDs/3q/19/acqu
+jo4c02921_si_002/FIDs/3q/19/acqus
+jo4c02921_si_002/FIDs/3q/19/audita.txt
+jo4c02921_si_002/FIDs/3q/19/EA
+jo4c02921_si_002/FIDs/3q/19/fid
+jo4c02921_si_002/FIDs/3q/19/format.temp
+jo4c02921_si_002/FIDs/3q/19/gpnam1
+jo4c02921_si_002/FIDs/3q/19/gpnam2
+jo4c02921_si_002/FIDs/3q/19/gradient_calib
+jo4c02921_si_002/FIDs/3q/19/pdata/1/intrng
+jo4c02921_si_002/FIDs/3q/19/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/19/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/19/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/19/pdata/1/reg
+jo4c02921_si_002/FIDs/3q/19/pdata/1/title
+jo4c02921_si_002/FIDs/3q/19/pulseprogram
+jo4c02921_si_002/FIDs/3q/19/scon2
+jo4c02921_si_002/FIDs/3q/19/shimvalues
+jo4c02921_si_002/FIDs/3q/19/specpar
+jo4c02921_si_002/FIDs/3q/19/spnam2
+jo4c02921_si_002/FIDs/3q/19/spnam29
+jo4c02921_si_002/FIDs/3q/19/spnam30
+jo4c02921_si_002/FIDs/3q/19/uxnmr.info
+jo4c02921_si_002/FIDs/3q/19/uxnmr.par
+jo4c02921_si_002/FIDs/3q/2/acqu
+jo4c02921_si_002/FIDs/3q/2/acqus
+jo4c02921_si_002/FIDs/3q/2/audita.txt
+jo4c02921_si_002/FIDs/3q/2/cpdprg2
+jo4c02921_si_002/FIDs/3q/2/fid
+jo4c02921_si_002/FIDs/3q/2/format.temp
+jo4c02921_si_002/FIDs/3q/2/fq1list
+jo4c02921_si_002/FIDs/3q/2/pdata/1/1i
+jo4c02921_si_002/FIDs/3q/2/pdata/1/1r
+jo4c02921_si_002/FIDs/3q/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3q/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3q/2/pdata/1/title
+jo4c02921_si_002/FIDs/3q/2/precom.output
+jo4c02921_si_002/FIDs/3q/2/pulseprogram
+jo4c02921_si_002/FIDs/3q/2/scon2
+jo4c02921_si_002/FIDs/3q/2/shimvalues
+jo4c02921_si_002/FIDs/3q/2/specpar
+jo4c02921_si_002/FIDs/3q/2/uxnmr.info
+jo4c02921_si_002/FIDs/3q/2/uxnmr.par
+jo4c02921_si_002/FIDs/3q/20/acqu
+jo4c02921_si_002/FIDs/3q/20/acqus
+jo4c02921_si_002/FIDs/3q/20/audita.txt
+jo4c02921_si_002/FIDs/3q/20/EA
+jo4c02921_si_002/FIDs/3q/20/fid
+jo4c02921_si_002/FIDs/3q/20/format.temp
+jo4c02921_si_002/FIDs/3q/20/gpnam1
+jo4c02921_si_002/FIDs/3q/20/gpnam2
+jo4c02921_si_002/FIDs/3q/20/gradient_calib
+jo4c02921_si_002/FIDs/3q/20/pdata/1/intrng
+jo4c02921_si_002/FIDs/3q/20/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/20/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/20/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/20/pdata/1/reg
+jo4c02921_si_002/FIDs/3q/20/pdata/1/title
+jo4c02921_si_002/FIDs/3q/20/pulseprogram
+jo4c02921_si_002/FIDs/3q/20/scon2
+jo4c02921_si_002/FIDs/3q/20/shimvalues
+jo4c02921_si_002/FIDs/3q/20/specpar
+jo4c02921_si_002/FIDs/3q/20/spnam2
+jo4c02921_si_002/FIDs/3q/20/spnam29
+jo4c02921_si_002/FIDs/3q/20/spnam30
+jo4c02921_si_002/FIDs/3q/20/uxnmr.info
+jo4c02921_si_002/FIDs/3q/20/uxnmr.par
+jo4c02921_si_002/FIDs/3q/21/acqu
+jo4c02921_si_002/FIDs/3q/21/acqus
+jo4c02921_si_002/FIDs/3q/21/audita.txt
+jo4c02921_si_002/FIDs/3q/21/EA
+jo4c02921_si_002/FIDs/3q/21/fid
+jo4c02921_si_002/FIDs/3q/21/format.temp
+jo4c02921_si_002/FIDs/3q/21/gpnam1
+jo4c02921_si_002/FIDs/3q/21/gpnam2
+jo4c02921_si_002/FIDs/3q/21/gradient_calib
+jo4c02921_si_002/FIDs/3q/21/pdata/1/intrng
+jo4c02921_si_002/FIDs/3q/21/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/21/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/21/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/21/pdata/1/reg
+jo4c02921_si_002/FIDs/3q/21/pdata/1/title
+jo4c02921_si_002/FIDs/3q/21/pulseprogram
+jo4c02921_si_002/FIDs/3q/21/scon2
+jo4c02921_si_002/FIDs/3q/21/shimvalues
+jo4c02921_si_002/FIDs/3q/21/specpar
+jo4c02921_si_002/FIDs/3q/21/spnam2
+jo4c02921_si_002/FIDs/3q/21/spnam29
+jo4c02921_si_002/FIDs/3q/21/spnam30
+jo4c02921_si_002/FIDs/3q/21/uxnmr.info
+jo4c02921_si_002/FIDs/3q/21/uxnmr.par
+jo4c02921_si_002/FIDs/3q/3/acqu
+jo4c02921_si_002/FIDs/3q/3/acqus
+jo4c02921_si_002/FIDs/3q/3/audita.txt
+jo4c02921_si_002/FIDs/3q/3/cpdprg2
+jo4c02921_si_002/FIDs/3q/3/fid
+jo4c02921_si_002/FIDs/3q/3/format.temp
+jo4c02921_si_002/FIDs/3q/3/pdata/1/1i
+jo4c02921_si_002/FIDs/3q/3/pdata/1/1r
+jo4c02921_si_002/FIDs/3q/3/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3q/3/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/3/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/3/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/3/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3q/3/pdata/1/title
+jo4c02921_si_002/FIDs/3q/3/pulseprogram
+jo4c02921_si_002/FIDs/3q/3/scon2
+jo4c02921_si_002/FIDs/3q/3/shimvalues
+jo4c02921_si_002/FIDs/3q/3/specpar
+jo4c02921_si_002/FIDs/3q/3/uxnmr.info
+jo4c02921_si_002/FIDs/3q/3/uxnmr.par
+jo4c02921_si_002/FIDs/3q/4/acqu
+jo4c02921_si_002/FIDs/3q/4/acqu2
+jo4c02921_si_002/FIDs/3q/4/acqu2s
+jo4c02921_si_002/FIDs/3q/4/acqus
+jo4c02921_si_002/FIDs/3q/4/audita.txt
+jo4c02921_si_002/FIDs/3q/4/EA
+jo4c02921_si_002/FIDs/3q/4/format.ased
+jo4c02921_si_002/FIDs/3q/4/format.temp
+jo4c02921_si_002/FIDs/3q/4/gpnam1
+jo4c02921_si_002/FIDs/3q/4/gpnam2
+jo4c02921_si_002/FIDs/3q/4/gpnam3
+jo4c02921_si_002/FIDs/3q/4/gradient_calib
+jo4c02921_si_002/FIDs/3q/4/pdata/1/2rr
+jo4c02921_si_002/FIDs/3q/4/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3q/4/pdata/1/clevels
+jo4c02921_si_002/FIDs/3q/4/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/4/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/4/pdata/1/proc2
+jo4c02921_si_002/FIDs/3q/4/pdata/1/proc2s
+jo4c02921_si_002/FIDs/3q/4/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/4/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3q/4/pdata/1/title
+jo4c02921_si_002/FIDs/3q/4/pulseprogram
+jo4c02921_si_002/FIDs/3q/4/scon2
+jo4c02921_si_002/FIDs/3q/4/ser
+jo4c02921_si_002/FIDs/3q/4/shimvalues
+jo4c02921_si_002/FIDs/3q/4/specpar
+jo4c02921_si_002/FIDs/3q/4/uxnmr.info
+jo4c02921_si_002/FIDs/3q/4/uxnmr.par
+jo4c02921_si_002/FIDs/3q/5/acqu
+jo4c02921_si_002/FIDs/3q/5/acqu2
+jo4c02921_si_002/FIDs/3q/5/acqu2s
+jo4c02921_si_002/FIDs/3q/5/acqus
+jo4c02921_si_002/FIDs/3q/5/audita.txt
+jo4c02921_si_002/FIDs/3q/5/cpdprg2
+jo4c02921_si_002/FIDs/3q/5/EA
+jo4c02921_si_002/FIDs/3q/5/format.ased
+jo4c02921_si_002/FIDs/3q/5/format.temp
+jo4c02921_si_002/FIDs/3q/5/gpnam1
+jo4c02921_si_002/FIDs/3q/5/gpnam2
+jo4c02921_si_002/FIDs/3q/5/gpnam3
+jo4c02921_si_002/FIDs/3q/5/gpnam4
+jo4c02921_si_002/FIDs/3q/5/gradient_calib
+jo4c02921_si_002/FIDs/3q/5/pdata/1/2ii
+jo4c02921_si_002/FIDs/3q/5/pdata/1/2ir
+jo4c02921_si_002/FIDs/3q/5/pdata/1/2ri
+jo4c02921_si_002/FIDs/3q/5/pdata/1/2rr
+jo4c02921_si_002/FIDs/3q/5/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3q/5/pdata/1/clevels
+jo4c02921_si_002/FIDs/3q/5/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/5/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/5/pdata/1/proc2
+jo4c02921_si_002/FIDs/3q/5/pdata/1/proc2s
+jo4c02921_si_002/FIDs/3q/5/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/5/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3q/5/pdata/1/title
+jo4c02921_si_002/FIDs/3q/5/pulseprogram
+jo4c02921_si_002/FIDs/3q/5/scon2
+jo4c02921_si_002/FIDs/3q/5/ser
+jo4c02921_si_002/FIDs/3q/5/shimvalues
+jo4c02921_si_002/FIDs/3q/5/specpar
+jo4c02921_si_002/FIDs/3q/5/spnam3
+jo4c02921_si_002/FIDs/3q/5/spnam7
+jo4c02921_si_002/FIDs/3q/5/uxnmr.info
+jo4c02921_si_002/FIDs/3q/5/uxnmr.par
+jo4c02921_si_002/FIDs/3q/6/acqu
+jo4c02921_si_002/FIDs/3q/6/acqu2
+jo4c02921_si_002/FIDs/3q/6/acqu2s
+jo4c02921_si_002/FIDs/3q/6/acqus
+jo4c02921_si_002/FIDs/3q/6/audita.txt
+jo4c02921_si_002/FIDs/3q/6/EA
+jo4c02921_si_002/FIDs/3q/6/format.temp
+jo4c02921_si_002/FIDs/3q/6/gpnam1
+jo4c02921_si_002/FIDs/3q/6/gpnam2
+jo4c02921_si_002/FIDs/3q/6/gpnam3
+jo4c02921_si_002/FIDs/3q/6/gpnam4
+jo4c02921_si_002/FIDs/3q/6/gpnam5
+jo4c02921_si_002/FIDs/3q/6/gpnam6
+jo4c02921_si_002/FIDs/3q/6/gradient_calib
+jo4c02921_si_002/FIDs/3q/6/pdata/1/2rr
+jo4c02921_si_002/FIDs/3q/6/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3q/6/pdata/1/clevels
+jo4c02921_si_002/FIDs/3q/6/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/6/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/6/pdata/1/proc2
+jo4c02921_si_002/FIDs/3q/6/pdata/1/proc2s
+jo4c02921_si_002/FIDs/3q/6/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/6/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3q/6/pdata/1/title
+jo4c02921_si_002/FIDs/3q/6/pulseprogram
+jo4c02921_si_002/FIDs/3q/6/scon2
+jo4c02921_si_002/FIDs/3q/6/ser
+jo4c02921_si_002/FIDs/3q/6/shimvalues
+jo4c02921_si_002/FIDs/3q/6/specpar
+jo4c02921_si_002/FIDs/3q/6/uxnmr.info
+jo4c02921_si_002/FIDs/3q/6/uxnmr.par
+jo4c02921_si_002/FIDs/3q/7/acqu
+jo4c02921_si_002/FIDs/3q/7/acqus
+jo4c02921_si_002/FIDs/3q/7/audita.txt
+jo4c02921_si_002/FIDs/3q/7/fid
+jo4c02921_si_002/FIDs/3q/7/format.temp
+jo4c02921_si_002/FIDs/3q/7/fq1list
+jo4c02921_si_002/FIDs/3q/7/pdata/1/1i
+jo4c02921_si_002/FIDs/3q/7/pdata/1/1r
+jo4c02921_si_002/FIDs/3q/7/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/3q/7/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/7/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/7/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/7/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/3q/7/pdata/1/title
+jo4c02921_si_002/FIDs/3q/7/precom.output
+jo4c02921_si_002/FIDs/3q/7/pulseprogram
+jo4c02921_si_002/FIDs/3q/7/scon2
+jo4c02921_si_002/FIDs/3q/7/shimvalues
+jo4c02921_si_002/FIDs/3q/7/specpar
+jo4c02921_si_002/FIDs/3q/7/uxnmr.info
+jo4c02921_si_002/FIDs/3q/7/uxnmr.par
+jo4c02921_si_002/FIDs/3q/8/acqu
+jo4c02921_si_002/FIDs/3q/8/acqus
+jo4c02921_si_002/FIDs/3q/8/audita.txt
+jo4c02921_si_002/FIDs/3q/8/EA
+jo4c02921_si_002/FIDs/3q/8/fid
+jo4c02921_si_002/FIDs/3q/8/format.temp
+jo4c02921_si_002/FIDs/3q/8/gpnam1
+jo4c02921_si_002/FIDs/3q/8/gpnam2
+jo4c02921_si_002/FIDs/3q/8/gradient_calib
+jo4c02921_si_002/FIDs/3q/8/pdata/1/intrng
+jo4c02921_si_002/FIDs/3q/8/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/8/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/8/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/8/pdata/1/reg
+jo4c02921_si_002/FIDs/3q/8/pdata/1/title
+jo4c02921_si_002/FIDs/3q/8/pulseprogram
+jo4c02921_si_002/FIDs/3q/8/scon2
+jo4c02921_si_002/FIDs/3q/8/shimvalues
+jo4c02921_si_002/FIDs/3q/8/specpar
+jo4c02921_si_002/FIDs/3q/8/spnam2
+jo4c02921_si_002/FIDs/3q/8/spnam29
+jo4c02921_si_002/FIDs/3q/8/spnam30
+jo4c02921_si_002/FIDs/3q/8/uxnmr.info
+jo4c02921_si_002/FIDs/3q/8/uxnmr.par
+jo4c02921_si_002/FIDs/3q/9/acqu
+jo4c02921_si_002/FIDs/3q/9/acqus
+jo4c02921_si_002/FIDs/3q/9/audita.txt
+jo4c02921_si_002/FIDs/3q/9/EA
+jo4c02921_si_002/FIDs/3q/9/fid
+jo4c02921_si_002/FIDs/3q/9/format.temp
+jo4c02921_si_002/FIDs/3q/9/gpnam1
+jo4c02921_si_002/FIDs/3q/9/gpnam2
+jo4c02921_si_002/FIDs/3q/9/gradient_calib
+jo4c02921_si_002/FIDs/3q/9/pdata/1/intrng
+jo4c02921_si_002/FIDs/3q/9/pdata/1/outd
+jo4c02921_si_002/FIDs/3q/9/pdata/1/proc
+jo4c02921_si_002/FIDs/3q/9/pdata/1/procs
+jo4c02921_si_002/FIDs/3q/9/pdata/1/reg
+jo4c02921_si_002/FIDs/3q/9/pdata/1/title
+jo4c02921_si_002/FIDs/3q/9/pulseprogram
+jo4c02921_si_002/FIDs/3q/9/scon2
+jo4c02921_si_002/FIDs/3q/9/shimvalues
+jo4c02921_si_002/FIDs/3q/9/specpar
+jo4c02921_si_002/FIDs/3q/9/spnam2
+jo4c02921_si_002/FIDs/3q/9/spnam29
+jo4c02921_si_002/FIDs/3q/9/spnam30
+jo4c02921_si_002/FIDs/3q/9/uxnmr.info
+jo4c02921_si_002/FIDs/3q/9/uxnmr.par
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/acqu
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/acqus
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/audita.txt
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/fid
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/format.temp
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/fq1list
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/pdata/1/title
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/precom.output
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/prosol_History
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/pulseprogram
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/scon2
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/shimvalues
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/specpar
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/stanprogram11918
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/topshimreport
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/uxnmr.info
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/1/uxnmr.par
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/acqu
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/acqus
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/audita.txt
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/cpdprg2
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/fid
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/format.temp
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/fq1list
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/pdata/1/title
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/precom.output
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/prosol_History
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/pulseprogram
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/scon2
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/shimvalues
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/specpar
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/stanprogram11918
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/topshimreport
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/uxnmr.info
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/2/uxnmr.par
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/acqu
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/acqus
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/audita.txt
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/cpdprg2
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/fid
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/format.temp
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/fq1list
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/pdata/1/outd
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/pdata/1/proc
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/pdata/1/procs
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/pdata/1/title
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/precom.output
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/prosol_History
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/pulseprogram
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/scon2
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/shimvalues
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/specpar
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/stanprogram11918
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/uxnmr.info
+jo4c02921_si_002/FIDs/3r/MK25_004-F1/3/uxnmr.par
+jo4c02921_si_002/FIDs/3s/1/acqu
+jo4c02921_si_002/FIDs/3s/1/acqus
+jo4c02921_si_002/FIDs/3s/1/audita.txt
+jo4c02921_si_002/FIDs/3s/1/fid
+jo4c02921_si_002/FIDs/3s/1/format.temp
+jo4c02921_si_002/FIDs/3s/1/fq1list
+jo4c02921_si_002/FIDs/3s/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3s/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3s/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3s/1/pdata/1/title
+jo4c02921_si_002/FIDs/3s/1/precom.output
+jo4c02921_si_002/FIDs/3s/1/prosol_History
+jo4c02921_si_002/FIDs/3s/1/pulseprogram
+jo4c02921_si_002/FIDs/3s/1/scon2
+jo4c02921_si_002/FIDs/3s/1/shimvalues
+jo4c02921_si_002/FIDs/3s/1/specpar
+jo4c02921_si_002/FIDs/3s/1/stanprogram20999
+jo4c02921_si_002/FIDs/3s/1/topshimreport
+jo4c02921_si_002/FIDs/3s/1/uxnmr.info
+jo4c02921_si_002/FIDs/3s/1/uxnmr.par
+jo4c02921_si_002/FIDs/3s/2/acqu
+jo4c02921_si_002/FIDs/3s/2/acqus
+jo4c02921_si_002/FIDs/3s/2/audita.txt
+jo4c02921_si_002/FIDs/3s/2/cpdprg2
+jo4c02921_si_002/FIDs/3s/2/fid
+jo4c02921_si_002/FIDs/3s/2/format.temp
+jo4c02921_si_002/FIDs/3s/2/fq1list
+jo4c02921_si_002/FIDs/3s/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3s/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3s/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3s/2/pdata/1/title
+jo4c02921_si_002/FIDs/3s/2/precom.output
+jo4c02921_si_002/FIDs/3s/2/prosol_History
+jo4c02921_si_002/FIDs/3s/2/pulseprogram
+jo4c02921_si_002/FIDs/3s/2/scon2
+jo4c02921_si_002/FIDs/3s/2/shimvalues
+jo4c02921_si_002/FIDs/3s/2/specpar
+jo4c02921_si_002/FIDs/3s/2/stanprogram20999
+jo4c02921_si_002/FIDs/3s/2/uxnmr.info
+jo4c02921_si_002/FIDs/3s/2/uxnmr.par
+jo4c02921_si_002/FIDs/3t/1/acqu
+jo4c02921_si_002/FIDs/3t/1/acqus
+jo4c02921_si_002/FIDs/3t/1/audita.txt
+jo4c02921_si_002/FIDs/3t/1/fid
+jo4c02921_si_002/FIDs/3t/1/format.temp
+jo4c02921_si_002/FIDs/3t/1/fq1list
+jo4c02921_si_002/FIDs/3t/1/pdata/1/outd
+jo4c02921_si_002/FIDs/3t/1/pdata/1/proc
+jo4c02921_si_002/FIDs/3t/1/pdata/1/procs
+jo4c02921_si_002/FIDs/3t/1/pdata/1/title
+jo4c02921_si_002/FIDs/3t/1/precom.output
+jo4c02921_si_002/FIDs/3t/1/prosol_History
+jo4c02921_si_002/FIDs/3t/1/pulseprogram
+jo4c02921_si_002/FIDs/3t/1/scon2
+jo4c02921_si_002/FIDs/3t/1/shimvalues
+jo4c02921_si_002/FIDs/3t/1/specpar
+jo4c02921_si_002/FIDs/3t/1/stanprogram3676
+jo4c02921_si_002/FIDs/3t/1/topshimreport
+jo4c02921_si_002/FIDs/3t/1/uxnmr.info
+jo4c02921_si_002/FIDs/3t/1/uxnmr.par
+jo4c02921_si_002/FIDs/3t/2/acqu
+jo4c02921_si_002/FIDs/3t/2/acqus
+jo4c02921_si_002/FIDs/3t/2/audita.txt
+jo4c02921_si_002/FIDs/3t/2/cpdprg2
+jo4c02921_si_002/FIDs/3t/2/fid
+jo4c02921_si_002/FIDs/3t/2/format.temp
+jo4c02921_si_002/FIDs/3t/2/fq1list
+jo4c02921_si_002/FIDs/3t/2/pdata/1/outd
+jo4c02921_si_002/FIDs/3t/2/pdata/1/proc
+jo4c02921_si_002/FIDs/3t/2/pdata/1/procs
+jo4c02921_si_002/FIDs/3t/2/pdata/1/title
+jo4c02921_si_002/FIDs/3t/2/precom.output
+jo4c02921_si_002/FIDs/3t/2/prosol_History
+jo4c02921_si_002/FIDs/3t/2/pulseprogram
+jo4c02921_si_002/FIDs/3t/2/scon2
+jo4c02921_si_002/FIDs/3t/2/shimvalues
+jo4c02921_si_002/FIDs/3t/2/specpar
+jo4c02921_si_002/FIDs/3t/2/stanprogram3676
+jo4c02921_si_002/FIDs/3t/2/uxnmr.info
+jo4c02921_si_002/FIDs/3t/2/uxnmr.par
+jo4c02921_si_002/FIDs/3t/3/acqu
+jo4c02921_si_002/FIDs/3t/3/acqus
+jo4c02921_si_002/FIDs/3t/3/audita.txt
+jo4c02921_si_002/FIDs/3t/3/cpdprg2
+jo4c02921_si_002/FIDs/3t/3/fid
+jo4c02921_si_002/FIDs/3t/3/format.temp
+jo4c02921_si_002/FIDs/3t/3/fq1list
+jo4c02921_si_002/FIDs/3t/3/pdata/1/outd
+jo4c02921_si_002/FIDs/3t/3/pdata/1/proc
+jo4c02921_si_002/FIDs/3t/3/pdata/1/procs
+jo4c02921_si_002/FIDs/3t/3/pdata/1/title
+jo4c02921_si_002/FIDs/3t/3/precom.output
+jo4c02921_si_002/FIDs/3t/3/prosol_History
+jo4c02921_si_002/FIDs/3t/3/pulseprogram
+jo4c02921_si_002/FIDs/3t/3/scon2
+jo4c02921_si_002/FIDs/3t/3/shimvalues
+jo4c02921_si_002/FIDs/3t/3/specpar
+jo4c02921_si_002/FIDs/3t/3/stanprogram3676
+jo4c02921_si_002/FIDs/3t/3/uxnmr.info
+jo4c02921_si_002/FIDs/3t/3/uxnmr.par
+jo4c02921_si_002/FIDs/3t/4/acqu
+jo4c02921_si_002/FIDs/3t/4/acqu2
+jo4c02921_si_002/FIDs/3t/4/acqu2s
+jo4c02921_si_002/FIDs/3t/4/acqus
+jo4c02921_si_002/FIDs/3t/4/audita.txt
+jo4c02921_si_002/FIDs/3t/4/cpdprg2
+jo4c02921_si_002/FIDs/3t/4/EA
+jo4c02921_si_002/FIDs/3t/4/format.temp
+jo4c02921_si_002/FIDs/3t/4/fq1list
+jo4c02921_si_002/FIDs/3t/4/gpnam1
+jo4c02921_si_002/FIDs/3t/4/gpnam2
+jo4c02921_si_002/FIDs/3t/4/gpnam3
+jo4c02921_si_002/FIDs/3t/4/gpnam4
+jo4c02921_si_002/FIDs/3t/4/gradient_calib
+jo4c02921_si_002/FIDs/3t/4/pdata/1/outd
+jo4c02921_si_002/FIDs/3t/4/pdata/1/proc
+jo4c02921_si_002/FIDs/3t/4/pdata/1/proc2
+jo4c02921_si_002/FIDs/3t/4/pdata/1/proc2s
+jo4c02921_si_002/FIDs/3t/4/pdata/1/procs
+jo4c02921_si_002/FIDs/3t/4/pdata/1/title
+jo4c02921_si_002/FIDs/3t/4/precom.output
+jo4c02921_si_002/FIDs/3t/4/prosol_History
+jo4c02921_si_002/FIDs/3t/4/pulseprogram
+jo4c02921_si_002/FIDs/3t/4/scon2
+jo4c02921_si_002/FIDs/3t/4/ser
+jo4c02921_si_002/FIDs/3t/4/shimvalues
+jo4c02921_si_002/FIDs/3t/4/specpar
+jo4c02921_si_002/FIDs/3t/4/spnam3
+jo4c02921_si_002/FIDs/3t/4/spnam7
+jo4c02921_si_002/FIDs/3t/4/stanprogram3676
+jo4c02921_si_002/FIDs/3t/4/uxnmr.info
+jo4c02921_si_002/FIDs/3t/4/uxnmr.par
+jo4c02921_si_002/FIDs/3t/5/acqu
+jo4c02921_si_002/FIDs/3t/5/acqu2
+jo4c02921_si_002/FIDs/3t/5/acqu2s
+jo4c02921_si_002/FIDs/3t/5/acqus
+jo4c02921_si_002/FIDs/3t/5/audita.txt
+jo4c02921_si_002/FIDs/3t/5/EA
+jo4c02921_si_002/FIDs/3t/5/format.temp
+jo4c02921_si_002/FIDs/3t/5/fq1list
+jo4c02921_si_002/FIDs/3t/5/gpnam1
+jo4c02921_si_002/FIDs/3t/5/gpnam2
+jo4c02921_si_002/FIDs/3t/5/gpnam3
+jo4c02921_si_002/FIDs/3t/5/gradient_calib
+jo4c02921_si_002/FIDs/3t/5/pdata/1/outd
+jo4c02921_si_002/FIDs/3t/5/pdata/1/proc
+jo4c02921_si_002/FIDs/3t/5/pdata/1/proc2
+jo4c02921_si_002/FIDs/3t/5/pdata/1/proc2s
+jo4c02921_si_002/FIDs/3t/5/pdata/1/procs
+jo4c02921_si_002/FIDs/3t/5/pdata/1/title
+jo4c02921_si_002/FIDs/3t/5/precom.output
+jo4c02921_si_002/FIDs/3t/5/prosol_History
+jo4c02921_si_002/FIDs/3t/5/pulseprogram
+jo4c02921_si_002/FIDs/3t/5/scon2
+jo4c02921_si_002/FIDs/3t/5/ser
+jo4c02921_si_002/FIDs/3t/5/shimvalues
+jo4c02921_si_002/FIDs/3t/5/specpar
+jo4c02921_si_002/FIDs/3t/5/stanprogram3676
+jo4c02921_si_002/FIDs/3t/5/uxnmr.info
+jo4c02921_si_002/FIDs/3t/5/uxnmr.par
+jo4c02921_si_002/FIDs/4/1/acqu
+jo4c02921_si_002/FIDs/4/1/acqus
+jo4c02921_si_002/FIDs/4/1/audita.txt
+jo4c02921_si_002/FIDs/4/1/fid
+jo4c02921_si_002/FIDs/4/1/format.ased
+jo4c02921_si_002/FIDs/4/1/format.temp
+jo4c02921_si_002/FIDs/4/1/fq1list
+jo4c02921_si_002/FIDs/4/1/pdata/1/1i
+jo4c02921_si_002/FIDs/4/1/pdata/1/1r
+jo4c02921_si_002/FIDs/4/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/4/1/pdata/1/outd
+jo4c02921_si_002/FIDs/4/1/pdata/1/proc
+jo4c02921_si_002/FIDs/4/1/pdata/1/procs
+jo4c02921_si_002/FIDs/4/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/4/1/pdata/1/title
+jo4c02921_si_002/FIDs/4/1/precom.output
+jo4c02921_si_002/FIDs/4/1/prosol_History
+jo4c02921_si_002/FIDs/4/1/pulseprogram
+jo4c02921_si_002/FIDs/4/1/scon2
+jo4c02921_si_002/FIDs/4/1/shimvalues
+jo4c02921_si_002/FIDs/4/1/specpar
+jo4c02921_si_002/FIDs/4/1/stanprogram1118
+jo4c02921_si_002/FIDs/4/1/uxnmr.info
+jo4c02921_si_002/FIDs/4/1/uxnmr.par
+jo4c02921_si_002/FIDs/4/1/vtc_pid_settings
+jo4c02921_si_002/FIDs/4/2/acqu
+jo4c02921_si_002/FIDs/4/2/acqus
+jo4c02921_si_002/FIDs/4/2/audita.txt
+jo4c02921_si_002/FIDs/4/2/cpdprg2
+jo4c02921_si_002/FIDs/4/2/fid
+jo4c02921_si_002/FIDs/4/2/format.ased
+jo4c02921_si_002/FIDs/4/2/format.temp
+jo4c02921_si_002/FIDs/4/2/fq1list
+jo4c02921_si_002/FIDs/4/2/pdata/1/1i
+jo4c02921_si_002/FIDs/4/2/pdata/1/1r
+jo4c02921_si_002/FIDs/4/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/4/2/pdata/1/outd
+jo4c02921_si_002/FIDs/4/2/pdata/1/proc
+jo4c02921_si_002/FIDs/4/2/pdata/1/procs
+jo4c02921_si_002/FIDs/4/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/4/2/pdata/1/title
+jo4c02921_si_002/FIDs/4/2/precom.output
+jo4c02921_si_002/FIDs/4/2/prosol_History
+jo4c02921_si_002/FIDs/4/2/pulseprogram
+jo4c02921_si_002/FIDs/4/2/scon2
+jo4c02921_si_002/FIDs/4/2/shimvalues
+jo4c02921_si_002/FIDs/4/2/specpar
+jo4c02921_si_002/FIDs/4/2/stanprogram1118
+jo4c02921_si_002/FIDs/4/2/uxnmr.info
+jo4c02921_si_002/FIDs/4/2/uxnmr.par
+jo4c02921_si_002/FIDs/4/2/vtc_pid_settings
+jo4c02921_si_002/FIDs/4/3/acqu
+jo4c02921_si_002/FIDs/4/3/acqus
+jo4c02921_si_002/FIDs/4/3/audita.txt
+jo4c02921_si_002/FIDs/4/3/cpdprg2
+jo4c02921_si_002/FIDs/4/3/fid
+jo4c02921_si_002/FIDs/4/3/format.temp
+jo4c02921_si_002/FIDs/4/3/fq1list
+jo4c02921_si_002/FIDs/4/3/pdata/1/1i
+jo4c02921_si_002/FIDs/4/3/pdata/1/1r
+jo4c02921_si_002/FIDs/4/3/pdata/1/assocs
+jo4c02921_si_002/FIDs/4/3/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/4/3/pdata/1/outd
+jo4c02921_si_002/FIDs/4/3/pdata/1/proc
+jo4c02921_si_002/FIDs/4/3/pdata/1/procs
+jo4c02921_si_002/FIDs/4/3/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/4/3/pdata/1/title
+jo4c02921_si_002/FIDs/4/3/precom.output
+jo4c02921_si_002/FIDs/4/3/pulseprogram
+jo4c02921_si_002/FIDs/4/3/scon2
+jo4c02921_si_002/FIDs/4/3/shimvalues
+jo4c02921_si_002/FIDs/4/3/specpar
+jo4c02921_si_002/FIDs/4/3/uxnmr.info
+jo4c02921_si_002/FIDs/4/3/uxnmr.par
+jo4c02921_si_002/FIDs/4/4/acqu
+jo4c02921_si_002/FIDs/4/4/acqu2
+jo4c02921_si_002/FIDs/4/4/acqu2s
+jo4c02921_si_002/FIDs/4/4/acqus
+jo4c02921_si_002/FIDs/4/4/audita.txt
+jo4c02921_si_002/FIDs/4/4/EA
+jo4c02921_si_002/FIDs/4/4/format.ased
+jo4c02921_si_002/FIDs/4/4/format.temp
+jo4c02921_si_002/FIDs/4/4/gpnam1
+jo4c02921_si_002/FIDs/4/4/gpnam2
+jo4c02921_si_002/FIDs/4/4/gpnam3
+jo4c02921_si_002/FIDs/4/4/gradient_calib
+jo4c02921_si_002/FIDs/4/4/pdata/1/2rr
+jo4c02921_si_002/FIDs/4/4/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/4/4/pdata/1/clevels
+jo4c02921_si_002/FIDs/4/4/pdata/1/curdat2
+jo4c02921_si_002/FIDs/4/4/pdata/1/outd
+jo4c02921_si_002/FIDs/4/4/pdata/1/proc
+jo4c02921_si_002/FIDs/4/4/pdata/1/proc2
+jo4c02921_si_002/FIDs/4/4/pdata/1/proc2s
+jo4c02921_si_002/FIDs/4/4/pdata/1/procs
+jo4c02921_si_002/FIDs/4/4/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/4/4/pdata/1/title
+jo4c02921_si_002/FIDs/4/4/pulseprogram
+jo4c02921_si_002/FIDs/4/4/scon2
+jo4c02921_si_002/FIDs/4/4/ser
+jo4c02921_si_002/FIDs/4/4/shimvalues
+jo4c02921_si_002/FIDs/4/4/specpar
+jo4c02921_si_002/FIDs/4/4/uxnmr.info
+jo4c02921_si_002/FIDs/4/4/uxnmr.par
+jo4c02921_si_002/FIDs/4/5/acqu
+jo4c02921_si_002/FIDs/4/5/acqu2
+jo4c02921_si_002/FIDs/4/5/acqu2s
+jo4c02921_si_002/FIDs/4/5/acqus
+jo4c02921_si_002/FIDs/4/5/audita.txt
+jo4c02921_si_002/FIDs/4/5/cpdprg2
+jo4c02921_si_002/FIDs/4/5/EA
+jo4c02921_si_002/FIDs/4/5/format.temp
+jo4c02921_si_002/FIDs/4/5/gpnam1
+jo4c02921_si_002/FIDs/4/5/gpnam2
+jo4c02921_si_002/FIDs/4/5/gpnam3
+jo4c02921_si_002/FIDs/4/5/gpnam4
+jo4c02921_si_002/FIDs/4/5/gradient_calib
+jo4c02921_si_002/FIDs/4/5/pdata/1/2ii
+jo4c02921_si_002/FIDs/4/5/pdata/1/2ir
+jo4c02921_si_002/FIDs/4/5/pdata/1/2ri
+jo4c02921_si_002/FIDs/4/5/pdata/1/2rr
+jo4c02921_si_002/FIDs/4/5/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/4/5/pdata/1/clevels
+jo4c02921_si_002/FIDs/4/5/pdata/1/outd
+jo4c02921_si_002/FIDs/4/5/pdata/1/proc
+jo4c02921_si_002/FIDs/4/5/pdata/1/proc2
+jo4c02921_si_002/FIDs/4/5/pdata/1/proc2s
+jo4c02921_si_002/FIDs/4/5/pdata/1/procs
+jo4c02921_si_002/FIDs/4/5/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/4/5/pdata/1/title
+jo4c02921_si_002/FIDs/4/5/pulseprogram
+jo4c02921_si_002/FIDs/4/5/scon2
+jo4c02921_si_002/FIDs/4/5/ser
+jo4c02921_si_002/FIDs/4/5/shimvalues
+jo4c02921_si_002/FIDs/4/5/specpar
+jo4c02921_si_002/FIDs/4/5/spnam3
+jo4c02921_si_002/FIDs/4/5/spnam7
+jo4c02921_si_002/FIDs/4/5/uxnmr.info
+jo4c02921_si_002/FIDs/4/5/uxnmr.par
+jo4c02921_si_002/FIDs/4/6/acqu
+jo4c02921_si_002/FIDs/4/6/acqu2
+jo4c02921_si_002/FIDs/4/6/acqu2s
+jo4c02921_si_002/FIDs/4/6/acqus
+jo4c02921_si_002/FIDs/4/6/audita.txt
+jo4c02921_si_002/FIDs/4/6/EA
+jo4c02921_si_002/FIDs/4/6/format.temp
+jo4c02921_si_002/FIDs/4/6/gpnam1
+jo4c02921_si_002/FIDs/4/6/gpnam2
+jo4c02921_si_002/FIDs/4/6/gpnam3
+jo4c02921_si_002/FIDs/4/6/gradient_calib
+jo4c02921_si_002/FIDs/4/6/pdata/1/2rr
+jo4c02921_si_002/FIDs/4/6/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/4/6/pdata/1/clevels
+jo4c02921_si_002/FIDs/4/6/pdata/1/outd
+jo4c02921_si_002/FIDs/4/6/pdata/1/proc
+jo4c02921_si_002/FIDs/4/6/pdata/1/proc2
+jo4c02921_si_002/FIDs/4/6/pdata/1/proc2s
+jo4c02921_si_002/FIDs/4/6/pdata/1/procs
+jo4c02921_si_002/FIDs/4/6/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/4/6/pdata/1/title
+jo4c02921_si_002/FIDs/4/6/pulseprogram
+jo4c02921_si_002/FIDs/4/6/scon2
+jo4c02921_si_002/FIDs/4/6/ser
+jo4c02921_si_002/FIDs/4/6/shimvalues
+jo4c02921_si_002/FIDs/4/6/specpar
+jo4c02921_si_002/FIDs/4/6/uxnmr.info
+jo4c02921_si_002/FIDs/4/6/uxnmr.par
+jo4c02921_si_002/FIDs/4/7/acqu
+jo4c02921_si_002/FIDs/4/7/acqu2
+jo4c02921_si_002/FIDs/4/7/acqu2s
+jo4c02921_si_002/FIDs/4/7/acqus
+jo4c02921_si_002/FIDs/4/7/audita.txt
+jo4c02921_si_002/FIDs/4/7/EA
+jo4c02921_si_002/FIDs/4/7/format.temp
+jo4c02921_si_002/FIDs/4/7/gpnam1
+jo4c02921_si_002/FIDs/4/7/gradient_calib
+jo4c02921_si_002/FIDs/4/7/pdata/1/2ii
+jo4c02921_si_002/FIDs/4/7/pdata/1/2ir
+jo4c02921_si_002/FIDs/4/7/pdata/1/2ri
+jo4c02921_si_002/FIDs/4/7/pdata/1/2rr
+jo4c02921_si_002/FIDs/4/7/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/4/7/pdata/1/clevels
+jo4c02921_si_002/FIDs/4/7/pdata/1/outd
+jo4c02921_si_002/FIDs/4/7/pdata/1/proc
+jo4c02921_si_002/FIDs/4/7/pdata/1/proc2
+jo4c02921_si_002/FIDs/4/7/pdata/1/proc2s
+jo4c02921_si_002/FIDs/4/7/pdata/1/procs
+jo4c02921_si_002/FIDs/4/7/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/4/7/pdata/1/title
+jo4c02921_si_002/FIDs/4/7/pulseprogram
+jo4c02921_si_002/FIDs/4/7/scon2
+jo4c02921_si_002/FIDs/4/7/ser
+jo4c02921_si_002/FIDs/4/7/shimvalues
+jo4c02921_si_002/FIDs/4/7/specpar
+jo4c02921_si_002/FIDs/4/7/uxnmr.info
+jo4c02921_si_002/FIDs/4/7/uxnmr.par
+jo4c02921_si_002/FIDs/5/1/acqu
+jo4c02921_si_002/FIDs/5/1/acqus
+jo4c02921_si_002/FIDs/5/1/audita.txt
+jo4c02921_si_002/FIDs/5/1/fid
+jo4c02921_si_002/FIDs/5/1/format.temp
+jo4c02921_si_002/FIDs/5/1/fq1list
+jo4c02921_si_002/FIDs/5/1/pdata/1/1i
+jo4c02921_si_002/FIDs/5/1/pdata/1/1r
+jo4c02921_si_002/FIDs/5/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/5/1/pdata/1/integrals.txt
+jo4c02921_si_002/FIDs/5/1/pdata/1/intrng
+jo4c02921_si_002/FIDs/5/1/pdata/1/outd
+jo4c02921_si_002/FIDs/5/1/pdata/1/proc
+jo4c02921_si_002/FIDs/5/1/pdata/1/procs
+jo4c02921_si_002/FIDs/5/1/pdata/1/reg
+jo4c02921_si_002/FIDs/5/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/5/1/pdata/1/title
+jo4c02921_si_002/FIDs/5/1/precom.output
+jo4c02921_si_002/FIDs/5/1/pulseprogram
+jo4c02921_si_002/FIDs/5/1/scon2
+jo4c02921_si_002/FIDs/5/1/shimvalues
+jo4c02921_si_002/FIDs/5/1/specpar
+jo4c02921_si_002/FIDs/5/1/uxnmr.info
+jo4c02921_si_002/FIDs/5/1/uxnmr.par
+jo4c02921_si_002/FIDs/5/10/acqu
+jo4c02921_si_002/FIDs/5/10/acqus
+jo4c02921_si_002/FIDs/5/10/audita.txt
+jo4c02921_si_002/FIDs/5/10/EA
+jo4c02921_si_002/FIDs/5/10/fid
+jo4c02921_si_002/FIDs/5/10/format.temp
+jo4c02921_si_002/FIDs/5/10/gpnam1
+jo4c02921_si_002/FIDs/5/10/gpnam2
+jo4c02921_si_002/FIDs/5/10/gradient_calib
+jo4c02921_si_002/FIDs/5/10/pdata/1/intrng
+jo4c02921_si_002/FIDs/5/10/pdata/1/outd
+jo4c02921_si_002/FIDs/5/10/pdata/1/proc
+jo4c02921_si_002/FIDs/5/10/pdata/1/procs
+jo4c02921_si_002/FIDs/5/10/pdata/1/reg
+jo4c02921_si_002/FIDs/5/10/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/5/10/pdata/1/title
+jo4c02921_si_002/FIDs/5/10/pulseprogram
+jo4c02921_si_002/FIDs/5/10/scon2
+jo4c02921_si_002/FIDs/5/10/shimvalues
+jo4c02921_si_002/FIDs/5/10/specpar
+jo4c02921_si_002/FIDs/5/10/spnam2
+jo4c02921_si_002/FIDs/5/10/spnam29
+jo4c02921_si_002/FIDs/5/10/spnam30
+jo4c02921_si_002/FIDs/5/10/uxnmr.info
+jo4c02921_si_002/FIDs/5/10/uxnmr.par
+jo4c02921_si_002/FIDs/5/11/acqu
+jo4c02921_si_002/FIDs/5/11/acqus
+jo4c02921_si_002/FIDs/5/11/audita.txt
+jo4c02921_si_002/FIDs/5/11/EA
+jo4c02921_si_002/FIDs/5/11/fid
+jo4c02921_si_002/FIDs/5/11/format.temp
+jo4c02921_si_002/FIDs/5/11/gpnam1
+jo4c02921_si_002/FIDs/5/11/gpnam2
+jo4c02921_si_002/FIDs/5/11/gradient_calib
+jo4c02921_si_002/FIDs/5/11/pdata/1/intrng
+jo4c02921_si_002/FIDs/5/11/pdata/1/outd
+jo4c02921_si_002/FIDs/5/11/pdata/1/proc
+jo4c02921_si_002/FIDs/5/11/pdata/1/procs
+jo4c02921_si_002/FIDs/5/11/pdata/1/reg
+jo4c02921_si_002/FIDs/5/11/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/5/11/pdata/1/title
+jo4c02921_si_002/FIDs/5/11/pulseprogram
+jo4c02921_si_002/FIDs/5/11/scon2
+jo4c02921_si_002/FIDs/5/11/shimvalues
+jo4c02921_si_002/FIDs/5/11/specpar
+jo4c02921_si_002/FIDs/5/11/spnam2
+jo4c02921_si_002/FIDs/5/11/spnam29
+jo4c02921_si_002/FIDs/5/11/spnam30
+jo4c02921_si_002/FIDs/5/11/uxnmr.info
+jo4c02921_si_002/FIDs/5/11/uxnmr.par
+jo4c02921_si_002/FIDs/5/12/acqu
+jo4c02921_si_002/FIDs/5/12/acqus
+jo4c02921_si_002/FIDs/5/12/audita.txt
+jo4c02921_si_002/FIDs/5/12/EA
+jo4c02921_si_002/FIDs/5/12/fid
+jo4c02921_si_002/FIDs/5/12/format.temp
+jo4c02921_si_002/FIDs/5/12/gpnam1
+jo4c02921_si_002/FIDs/5/12/gpnam2
+jo4c02921_si_002/FIDs/5/12/gradient_calib
+jo4c02921_si_002/FIDs/5/12/pdata/1/intrng
+jo4c02921_si_002/FIDs/5/12/pdata/1/outd
+jo4c02921_si_002/FIDs/5/12/pdata/1/proc
+jo4c02921_si_002/FIDs/5/12/pdata/1/procs
+jo4c02921_si_002/FIDs/5/12/pdata/1/reg
+jo4c02921_si_002/FIDs/5/12/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/5/12/pdata/1/title
+jo4c02921_si_002/FIDs/5/12/pulseprogram
+jo4c02921_si_002/FIDs/5/12/scon2
+jo4c02921_si_002/FIDs/5/12/shimvalues
+jo4c02921_si_002/FIDs/5/12/specpar
+jo4c02921_si_002/FIDs/5/12/spnam2
+jo4c02921_si_002/FIDs/5/12/spnam29
+jo4c02921_si_002/FIDs/5/12/spnam30
+jo4c02921_si_002/FIDs/5/12/uxnmr.info
+jo4c02921_si_002/FIDs/5/12/uxnmr.par
+jo4c02921_si_002/FIDs/5/13/acqu
+jo4c02921_si_002/FIDs/5/13/acqus
+jo4c02921_si_002/FIDs/5/13/audita.txt
+jo4c02921_si_002/FIDs/5/13/EA
+jo4c02921_si_002/FIDs/5/13/fid
+jo4c02921_si_002/FIDs/5/13/format.temp
+jo4c02921_si_002/FIDs/5/13/gpnam1
+jo4c02921_si_002/FIDs/5/13/gpnam2
+jo4c02921_si_002/FIDs/5/13/gradient_calib
+jo4c02921_si_002/FIDs/5/13/pdata/1/intrng
+jo4c02921_si_002/FIDs/5/13/pdata/1/outd
+jo4c02921_si_002/FIDs/5/13/pdata/1/proc
+jo4c02921_si_002/FIDs/5/13/pdata/1/procs
+jo4c02921_si_002/FIDs/5/13/pdata/1/reg
+jo4c02921_si_002/FIDs/5/13/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/5/13/pdata/1/title
+jo4c02921_si_002/FIDs/5/13/pulseprogram
+jo4c02921_si_002/FIDs/5/13/scon2
+jo4c02921_si_002/FIDs/5/13/shimvalues
+jo4c02921_si_002/FIDs/5/13/specpar
+jo4c02921_si_002/FIDs/5/13/spnam2
+jo4c02921_si_002/FIDs/5/13/spnam29
+jo4c02921_si_002/FIDs/5/13/spnam30
+jo4c02921_si_002/FIDs/5/13/uxnmr.info
+jo4c02921_si_002/FIDs/5/13/uxnmr.par
+jo4c02921_si_002/FIDs/5/14/acqu
+jo4c02921_si_002/FIDs/5/14/acqus
+jo4c02921_si_002/FIDs/5/14/audita.txt
+jo4c02921_si_002/FIDs/5/14/EA
+jo4c02921_si_002/FIDs/5/14/fid
+jo4c02921_si_002/FIDs/5/14/format.temp
+jo4c02921_si_002/FIDs/5/14/gpnam1
+jo4c02921_si_002/FIDs/5/14/gpnam2
+jo4c02921_si_002/FIDs/5/14/gradient_calib
+jo4c02921_si_002/FIDs/5/14/pdata/1/intrng
+jo4c02921_si_002/FIDs/5/14/pdata/1/outd
+jo4c02921_si_002/FIDs/5/14/pdata/1/proc
+jo4c02921_si_002/FIDs/5/14/pdata/1/procs
+jo4c02921_si_002/FIDs/5/14/pdata/1/reg
+jo4c02921_si_002/FIDs/5/14/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/5/14/pdata/1/title
+jo4c02921_si_002/FIDs/5/14/pulseprogram
+jo4c02921_si_002/FIDs/5/14/scon2
+jo4c02921_si_002/FIDs/5/14/shimvalues
+jo4c02921_si_002/FIDs/5/14/specpar
+jo4c02921_si_002/FIDs/5/14/spnam2
+jo4c02921_si_002/FIDs/5/14/spnam29
+jo4c02921_si_002/FIDs/5/14/spnam30
+jo4c02921_si_002/FIDs/5/14/uxnmr.info
+jo4c02921_si_002/FIDs/5/14/uxnmr.par
+jo4c02921_si_002/FIDs/5/15/acqu
+jo4c02921_si_002/FIDs/5/15/acqus
+jo4c02921_si_002/FIDs/5/15/audita.txt
+jo4c02921_si_002/FIDs/5/15/EA
+jo4c02921_si_002/FIDs/5/15/fid
+jo4c02921_si_002/FIDs/5/15/format.temp
+jo4c02921_si_002/FIDs/5/15/gpnam1
+jo4c02921_si_002/FIDs/5/15/gpnam2
+jo4c02921_si_002/FIDs/5/15/gradient_calib
+jo4c02921_si_002/FIDs/5/15/pdata/1/intrng
+jo4c02921_si_002/FIDs/5/15/pdata/1/outd
+jo4c02921_si_002/FIDs/5/15/pdata/1/proc
+jo4c02921_si_002/FIDs/5/15/pdata/1/procs
+jo4c02921_si_002/FIDs/5/15/pdata/1/reg
+jo4c02921_si_002/FIDs/5/15/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/5/15/pdata/1/title
+jo4c02921_si_002/FIDs/5/15/pulseprogram
+jo4c02921_si_002/FIDs/5/15/scon2
+jo4c02921_si_002/FIDs/5/15/shimvalues
+jo4c02921_si_002/FIDs/5/15/specpar
+jo4c02921_si_002/FIDs/5/15/spnam2
+jo4c02921_si_002/FIDs/5/15/spnam29
+jo4c02921_si_002/FIDs/5/15/spnam30
+jo4c02921_si_002/FIDs/5/15/uxnmr.info
+jo4c02921_si_002/FIDs/5/15/uxnmr.par
+jo4c02921_si_002/FIDs/5/2/acqu
+jo4c02921_si_002/FIDs/5/2/acqus
+jo4c02921_si_002/FIDs/5/2/audita.txt
+jo4c02921_si_002/FIDs/5/2/cpdprg2
+jo4c02921_si_002/FIDs/5/2/fid
+jo4c02921_si_002/FIDs/5/2/format.temp
+jo4c02921_si_002/FIDs/5/2/fq1list
+jo4c02921_si_002/FIDs/5/2/pdata/1/1i
+jo4c02921_si_002/FIDs/5/2/pdata/1/1r
+jo4c02921_si_002/FIDs/5/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/5/2/pdata/1/outd
+jo4c02921_si_002/FIDs/5/2/pdata/1/proc
+jo4c02921_si_002/FIDs/5/2/pdata/1/procs
+jo4c02921_si_002/FIDs/5/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/5/2/pdata/1/title
+jo4c02921_si_002/FIDs/5/2/precom.output
+jo4c02921_si_002/FIDs/5/2/pulseprogram
+jo4c02921_si_002/FIDs/5/2/scon2
+jo4c02921_si_002/FIDs/5/2/shimvalues
+jo4c02921_si_002/FIDs/5/2/specpar
+jo4c02921_si_002/FIDs/5/2/uxnmr.info
+jo4c02921_si_002/FIDs/5/2/uxnmr.par
+jo4c02921_si_002/FIDs/5/3/acqu
+jo4c02921_si_002/FIDs/5/3/acqus
+jo4c02921_si_002/FIDs/5/3/audita.txt
+jo4c02921_si_002/FIDs/5/3/cpdprg2
+jo4c02921_si_002/FIDs/5/3/fid
+jo4c02921_si_002/FIDs/5/3/format.temp
+jo4c02921_si_002/FIDs/5/3/pdata/1/1i
+jo4c02921_si_002/FIDs/5/3/pdata/1/1r
+jo4c02921_si_002/FIDs/5/3/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/5/3/pdata/1/outd
+jo4c02921_si_002/FIDs/5/3/pdata/1/proc
+jo4c02921_si_002/FIDs/5/3/pdata/1/procs
+jo4c02921_si_002/FIDs/5/3/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/5/3/pdata/1/title
+jo4c02921_si_002/FIDs/5/3/pulseprogram
+jo4c02921_si_002/FIDs/5/3/scon2
+jo4c02921_si_002/FIDs/5/3/shimvalues
+jo4c02921_si_002/FIDs/5/3/specpar
+jo4c02921_si_002/FIDs/5/3/uxnmr.info
+jo4c02921_si_002/FIDs/5/3/uxnmr.par
+jo4c02921_si_002/FIDs/5/4/acqu
+jo4c02921_si_002/FIDs/5/4/acqu2
+jo4c02921_si_002/FIDs/5/4/acqu2s
+jo4c02921_si_002/FIDs/5/4/acqus
+jo4c02921_si_002/FIDs/5/4/audita.txt
+jo4c02921_si_002/FIDs/5/4/EA
+jo4c02921_si_002/FIDs/5/4/format.ased
+jo4c02921_si_002/FIDs/5/4/format.temp
+jo4c02921_si_002/FIDs/5/4/gpnam1
+jo4c02921_si_002/FIDs/5/4/gpnam2
+jo4c02921_si_002/FIDs/5/4/gpnam3
+jo4c02921_si_002/FIDs/5/4/gradient_calib
+jo4c02921_si_002/FIDs/5/4/pdata/1/2rr
+jo4c02921_si_002/FIDs/5/4/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/5/4/pdata/1/clevels
+jo4c02921_si_002/FIDs/5/4/pdata/1/outd
+jo4c02921_si_002/FIDs/5/4/pdata/1/proc
+jo4c02921_si_002/FIDs/5/4/pdata/1/proc2
+jo4c02921_si_002/FIDs/5/4/pdata/1/proc2s
+jo4c02921_si_002/FIDs/5/4/pdata/1/procs
+jo4c02921_si_002/FIDs/5/4/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/5/4/pdata/1/title
+jo4c02921_si_002/FIDs/5/4/pulseprogram
+jo4c02921_si_002/FIDs/5/4/scon2
+jo4c02921_si_002/FIDs/5/4/ser
+jo4c02921_si_002/FIDs/5/4/shimvalues
+jo4c02921_si_002/FIDs/5/4/specpar
+jo4c02921_si_002/FIDs/5/4/uxnmr.info
+jo4c02921_si_002/FIDs/5/4/uxnmr.par
+jo4c02921_si_002/FIDs/5/5/acqu
+jo4c02921_si_002/FIDs/5/5/acqu2
+jo4c02921_si_002/FIDs/5/5/acqu2s
+jo4c02921_si_002/FIDs/5/5/acqus
+jo4c02921_si_002/FIDs/5/5/audita.txt
+jo4c02921_si_002/FIDs/5/5/cpdprg2
+jo4c02921_si_002/FIDs/5/5/EA
+jo4c02921_si_002/FIDs/5/5/format.ased
+jo4c02921_si_002/FIDs/5/5/format.temp
+jo4c02921_si_002/FIDs/5/5/gpnam1
+jo4c02921_si_002/FIDs/5/5/gpnam2
+jo4c02921_si_002/FIDs/5/5/gpnam3
+jo4c02921_si_002/FIDs/5/5/gpnam4
+jo4c02921_si_002/FIDs/5/5/gradient_calib
+jo4c02921_si_002/FIDs/5/5/pdata/1/2ii
+jo4c02921_si_002/FIDs/5/5/pdata/1/2ir
+jo4c02921_si_002/FIDs/5/5/pdata/1/2ri
+jo4c02921_si_002/FIDs/5/5/pdata/1/2rr
+jo4c02921_si_002/FIDs/5/5/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/5/5/pdata/1/clevels
+jo4c02921_si_002/FIDs/5/5/pdata/1/outd
+jo4c02921_si_002/FIDs/5/5/pdata/1/proc
+jo4c02921_si_002/FIDs/5/5/pdata/1/proc2
+jo4c02921_si_002/FIDs/5/5/pdata/1/proc2s
+jo4c02921_si_002/FIDs/5/5/pdata/1/procs
+jo4c02921_si_002/FIDs/5/5/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/5/5/pdata/1/title
+jo4c02921_si_002/FIDs/5/5/pulseprogram
+jo4c02921_si_002/FIDs/5/5/scon2
+jo4c02921_si_002/FIDs/5/5/ser
+jo4c02921_si_002/FIDs/5/5/shimvalues
+jo4c02921_si_002/FIDs/5/5/specpar
+jo4c02921_si_002/FIDs/5/5/spnam3
+jo4c02921_si_002/FIDs/5/5/spnam7
+jo4c02921_si_002/FIDs/5/5/uxnmr.info
+jo4c02921_si_002/FIDs/5/5/uxnmr.par
+jo4c02921_si_002/FIDs/5/6/acqu
+jo4c02921_si_002/FIDs/5/6/acqu2
+jo4c02921_si_002/FIDs/5/6/acqu2s
+jo4c02921_si_002/FIDs/5/6/acqus
+jo4c02921_si_002/FIDs/5/6/audita.txt
+jo4c02921_si_002/FIDs/5/6/EA
+jo4c02921_si_002/FIDs/5/6/format.ased
+jo4c02921_si_002/FIDs/5/6/format.temp
+jo4c02921_si_002/FIDs/5/6/gpnam1
+jo4c02921_si_002/FIDs/5/6/gpnam2
+jo4c02921_si_002/FIDs/5/6/gpnam3
+jo4c02921_si_002/FIDs/5/6/gpnam4
+jo4c02921_si_002/FIDs/5/6/gpnam5
+jo4c02921_si_002/FIDs/5/6/gpnam6
+jo4c02921_si_002/FIDs/5/6/gradient_calib
+jo4c02921_si_002/FIDs/5/6/pdata/1/2rr
+jo4c02921_si_002/FIDs/5/6/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/5/6/pdata/1/clevels
+jo4c02921_si_002/FIDs/5/6/pdata/1/outd
+jo4c02921_si_002/FIDs/5/6/pdata/1/proc
+jo4c02921_si_002/FIDs/5/6/pdata/1/proc2
+jo4c02921_si_002/FIDs/5/6/pdata/1/proc2s
+jo4c02921_si_002/FIDs/5/6/pdata/1/procs
+jo4c02921_si_002/FIDs/5/6/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/5/6/pdata/1/title
+jo4c02921_si_002/FIDs/5/6/pulseprogram
+jo4c02921_si_002/FIDs/5/6/scon2
+jo4c02921_si_002/FIDs/5/6/ser
+jo4c02921_si_002/FIDs/5/6/shimvalues
+jo4c02921_si_002/FIDs/5/6/specpar
+jo4c02921_si_002/FIDs/5/6/uxnmr.info
+jo4c02921_si_002/FIDs/5/6/uxnmr.par
+jo4c02921_si_002/FIDs/5/7/acqu
+jo4c02921_si_002/FIDs/5/7/acqus
+jo4c02921_si_002/FIDs/5/7/audita.txt
+jo4c02921_si_002/FIDs/5/7/EA
+jo4c02921_si_002/FIDs/5/7/fid
+jo4c02921_si_002/FIDs/5/7/format.temp
+jo4c02921_si_002/FIDs/5/7/gpnam1
+jo4c02921_si_002/FIDs/5/7/gpnam2
+jo4c02921_si_002/FIDs/5/7/gradient_calib
+jo4c02921_si_002/FIDs/5/7/pdata/1/1i
+jo4c02921_si_002/FIDs/5/7/pdata/1/1r
+jo4c02921_si_002/FIDs/5/7/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/5/7/pdata/1/intrng
+jo4c02921_si_002/FIDs/5/7/pdata/1/outd
+jo4c02921_si_002/FIDs/5/7/pdata/1/proc
+jo4c02921_si_002/FIDs/5/7/pdata/1/procs
+jo4c02921_si_002/FIDs/5/7/pdata/1/reg
+jo4c02921_si_002/FIDs/5/7/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/5/7/pdata/1/title
+jo4c02921_si_002/FIDs/5/7/pulseprogram
+jo4c02921_si_002/FIDs/5/7/scon2
+jo4c02921_si_002/FIDs/5/7/shimvalues
+jo4c02921_si_002/FIDs/5/7/specpar
+jo4c02921_si_002/FIDs/5/7/spnam2
+jo4c02921_si_002/FIDs/5/7/spnam29
+jo4c02921_si_002/FIDs/5/7/spnam30
+jo4c02921_si_002/FIDs/5/7/uxnmr.info
+jo4c02921_si_002/FIDs/5/7/uxnmr.par
+jo4c02921_si_002/FIDs/5/8/acqu
+jo4c02921_si_002/FIDs/5/8/acqus
+jo4c02921_si_002/FIDs/5/8/audita.txt
+jo4c02921_si_002/FIDs/5/8/EA
+jo4c02921_si_002/FIDs/5/8/fid
+jo4c02921_si_002/FIDs/5/8/format.temp
+jo4c02921_si_002/FIDs/5/8/gpnam1
+jo4c02921_si_002/FIDs/5/8/gpnam2
+jo4c02921_si_002/FIDs/5/8/gradient_calib
+jo4c02921_si_002/FIDs/5/8/pdata/1/1i
+jo4c02921_si_002/FIDs/5/8/pdata/1/1r
+jo4c02921_si_002/FIDs/5/8/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/5/8/pdata/1/intrng
+jo4c02921_si_002/FIDs/5/8/pdata/1/outd
+jo4c02921_si_002/FIDs/5/8/pdata/1/proc
+jo4c02921_si_002/FIDs/5/8/pdata/1/procs
+jo4c02921_si_002/FIDs/5/8/pdata/1/reg
+jo4c02921_si_002/FIDs/5/8/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/5/8/pdata/1/title
+jo4c02921_si_002/FIDs/5/8/pulseprogram
+jo4c02921_si_002/FIDs/5/8/scon2
+jo4c02921_si_002/FIDs/5/8/shimvalues
+jo4c02921_si_002/FIDs/5/8/specpar
+jo4c02921_si_002/FIDs/5/8/spnam2
+jo4c02921_si_002/FIDs/5/8/spnam29
+jo4c02921_si_002/FIDs/5/8/spnam30
+jo4c02921_si_002/FIDs/5/8/uxnmr.info
+jo4c02921_si_002/FIDs/5/8/uxnmr.par
+jo4c02921_si_002/FIDs/5/9/acqu
+jo4c02921_si_002/FIDs/5/9/acqus
+jo4c02921_si_002/FIDs/5/9/audita.txt
+jo4c02921_si_002/FIDs/5/9/EA
+jo4c02921_si_002/FIDs/5/9/fid
+jo4c02921_si_002/FIDs/5/9/format.temp
+jo4c02921_si_002/FIDs/5/9/gpnam1
+jo4c02921_si_002/FIDs/5/9/gpnam2
+jo4c02921_si_002/FIDs/5/9/gradient_calib
+jo4c02921_si_002/FIDs/5/9/pdata/1/intrng
+jo4c02921_si_002/FIDs/5/9/pdata/1/outd
+jo4c02921_si_002/FIDs/5/9/pdata/1/proc
+jo4c02921_si_002/FIDs/5/9/pdata/1/procs
+jo4c02921_si_002/FIDs/5/9/pdata/1/reg
+jo4c02921_si_002/FIDs/5/9/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/5/9/pdata/1/title
+jo4c02921_si_002/FIDs/5/9/pulseprogram
+jo4c02921_si_002/FIDs/5/9/scon2
+jo4c02921_si_002/FIDs/5/9/shimvalues
+jo4c02921_si_002/FIDs/5/9/specpar
+jo4c02921_si_002/FIDs/5/9/spnam2
+jo4c02921_si_002/FIDs/5/9/spnam29
+jo4c02921_si_002/FIDs/5/9/spnam30
+jo4c02921_si_002/FIDs/5/9/uxnmr.info
+jo4c02921_si_002/FIDs/5/9/uxnmr.par
+jo4c02921_si_002/FIDs/6/1/acqu
+jo4c02921_si_002/FIDs/6/1/acqus
+jo4c02921_si_002/FIDs/6/1/audita.txt
+jo4c02921_si_002/FIDs/6/1/fid
+jo4c02921_si_002/FIDs/6/1/format.ased
+jo4c02921_si_002/FIDs/6/1/format.temp
+jo4c02921_si_002/FIDs/6/1/pdata/1/1i
+jo4c02921_si_002/FIDs/6/1/pdata/1/1r
+jo4c02921_si_002/FIDs/6/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/6/1/pdata/1/outd
+jo4c02921_si_002/FIDs/6/1/pdata/1/proc
+jo4c02921_si_002/FIDs/6/1/pdata/1/procs
+jo4c02921_si_002/FIDs/6/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/6/1/pdata/1/title
+jo4c02921_si_002/FIDs/6/1/pulseprogram
+jo4c02921_si_002/FIDs/6/1/scon2
+jo4c02921_si_002/FIDs/6/1/shimvalues
+jo4c02921_si_002/FIDs/6/1/specpar
+jo4c02921_si_002/FIDs/6/1/uxnmr.info
+jo4c02921_si_002/FIDs/6/1/uxnmr.par
+jo4c02921_si_002/FIDs/6/2/acqu
+jo4c02921_si_002/FIDs/6/2/acqus
+jo4c02921_si_002/FIDs/6/2/audita.txt
+jo4c02921_si_002/FIDs/6/2/cpdprg2
+jo4c02921_si_002/FIDs/6/2/fid
+jo4c02921_si_002/FIDs/6/2/format.ased
+jo4c02921_si_002/FIDs/6/2/format.temp
+jo4c02921_si_002/FIDs/6/2/pdata/1/1i
+jo4c02921_si_002/FIDs/6/2/pdata/1/1r
+jo4c02921_si_002/FIDs/6/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/6/2/pdata/1/outd
+jo4c02921_si_002/FIDs/6/2/pdata/1/proc
+jo4c02921_si_002/FIDs/6/2/pdata/1/procs
+jo4c02921_si_002/FIDs/6/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/6/2/pdata/1/title
+jo4c02921_si_002/FIDs/6/2/pulseprogram
+jo4c02921_si_002/FIDs/6/2/scon2
+jo4c02921_si_002/FIDs/6/2/shimvalues
+jo4c02921_si_002/FIDs/6/2/specpar
+jo4c02921_si_002/FIDs/6/2/uxnmr.info
+jo4c02921_si_002/FIDs/6/2/uxnmr.par
+jo4c02921_si_002/FIDs/6/3/acqu
+jo4c02921_si_002/FIDs/6/3/acqus
+jo4c02921_si_002/FIDs/6/3/audita.txt
+jo4c02921_si_002/FIDs/6/3/cpdprg2
+jo4c02921_si_002/FIDs/6/3/fid
+jo4c02921_si_002/FIDs/6/3/format.ased
+jo4c02921_si_002/FIDs/6/3/format.temp
+jo4c02921_si_002/FIDs/6/3/fq1list
+jo4c02921_si_002/FIDs/6/3/pdata/1/1i
+jo4c02921_si_002/FIDs/6/3/pdata/1/1r
+jo4c02921_si_002/FIDs/6/3/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/6/3/pdata/1/outd
+jo4c02921_si_002/FIDs/6/3/pdata/1/proc
+jo4c02921_si_002/FIDs/6/3/pdata/1/procs
+jo4c02921_si_002/FIDs/6/3/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/6/3/pdata/1/title
+jo4c02921_si_002/FIDs/6/3/precom.output
+jo4c02921_si_002/FIDs/6/3/pulseprogram
+jo4c02921_si_002/FIDs/6/3/scon2
+jo4c02921_si_002/FIDs/6/3/shimvalues
+jo4c02921_si_002/FIDs/6/3/specpar
+jo4c02921_si_002/FIDs/6/3/uxnmr.info
+jo4c02921_si_002/FIDs/6/3/uxnmr.par
+jo4c02921_si_002/FIDs/6/4/acqu
+jo4c02921_si_002/FIDs/6/4/acqu2
+jo4c02921_si_002/FIDs/6/4/acqu2s
+jo4c02921_si_002/FIDs/6/4/acqus
+jo4c02921_si_002/FIDs/6/4/audita.txt
+jo4c02921_si_002/FIDs/6/4/EA
+jo4c02921_si_002/FIDs/6/4/format.temp
+jo4c02921_si_002/FIDs/6/4/gpnam1
+jo4c02921_si_002/FIDs/6/4/gpnam2
+jo4c02921_si_002/FIDs/6/4/gpnam3
+jo4c02921_si_002/FIDs/6/4/gradient_calib
+jo4c02921_si_002/FIDs/6/4/pdata/1/2rr
+jo4c02921_si_002/FIDs/6/4/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/6/4/pdata/1/clevels
+jo4c02921_si_002/FIDs/6/4/pdata/1/outd
+jo4c02921_si_002/FIDs/6/4/pdata/1/proc
+jo4c02921_si_002/FIDs/6/4/pdata/1/proc2
+jo4c02921_si_002/FIDs/6/4/pdata/1/proc2s
+jo4c02921_si_002/FIDs/6/4/pdata/1/procs
+jo4c02921_si_002/FIDs/6/4/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/6/4/pdata/1/title
+jo4c02921_si_002/FIDs/6/4/pulseprogram
+jo4c02921_si_002/FIDs/6/4/scon2
+jo4c02921_si_002/FIDs/6/4/ser
+jo4c02921_si_002/FIDs/6/4/shimvalues
+jo4c02921_si_002/FIDs/6/4/specpar
+jo4c02921_si_002/FIDs/6/4/uxnmr.info
+jo4c02921_si_002/FIDs/6/4/uxnmr.par
+jo4c02921_si_002/FIDs/6/5/acqu
+jo4c02921_si_002/FIDs/6/5/acqu2
+jo4c02921_si_002/FIDs/6/5/acqu2s
+jo4c02921_si_002/FIDs/6/5/acqus
+jo4c02921_si_002/FIDs/6/5/audita.txt
+jo4c02921_si_002/FIDs/6/5/cpdprg2
+jo4c02921_si_002/FIDs/6/5/EA
+jo4c02921_si_002/FIDs/6/5/format.temp
+jo4c02921_si_002/FIDs/6/5/gpnam1
+jo4c02921_si_002/FIDs/6/5/gpnam2
+jo4c02921_si_002/FIDs/6/5/gpnam3
+jo4c02921_si_002/FIDs/6/5/gpnam4
+jo4c02921_si_002/FIDs/6/5/gradient_calib
+jo4c02921_si_002/FIDs/6/5/pdata/1/2ii
+jo4c02921_si_002/FIDs/6/5/pdata/1/2ir
+jo4c02921_si_002/FIDs/6/5/pdata/1/2ri
+jo4c02921_si_002/FIDs/6/5/pdata/1/2rr
+jo4c02921_si_002/FIDs/6/5/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/6/5/pdata/1/clevels
+jo4c02921_si_002/FIDs/6/5/pdata/1/outd
+jo4c02921_si_002/FIDs/6/5/pdata/1/proc
+jo4c02921_si_002/FIDs/6/5/pdata/1/proc2
+jo4c02921_si_002/FIDs/6/5/pdata/1/proc2s
+jo4c02921_si_002/FIDs/6/5/pdata/1/procs
+jo4c02921_si_002/FIDs/6/5/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/6/5/pdata/1/title
+jo4c02921_si_002/FIDs/6/5/pulseprogram
+jo4c02921_si_002/FIDs/6/5/scon2
+jo4c02921_si_002/FIDs/6/5/ser
+jo4c02921_si_002/FIDs/6/5/shimvalues
+jo4c02921_si_002/FIDs/6/5/specpar
+jo4c02921_si_002/FIDs/6/5/spnam3
+jo4c02921_si_002/FIDs/6/5/spnam7
+jo4c02921_si_002/FIDs/6/5/uxnmr.info
+jo4c02921_si_002/FIDs/6/5/uxnmr.par
+jo4c02921_si_002/FIDs/6/6/acqu
+jo4c02921_si_002/FIDs/6/6/acqu2
+jo4c02921_si_002/FIDs/6/6/acqu2s
+jo4c02921_si_002/FIDs/6/6/acqus
+jo4c02921_si_002/FIDs/6/6/audita.txt
+jo4c02921_si_002/FIDs/6/6/EA
+jo4c02921_si_002/FIDs/6/6/format.temp
+jo4c02921_si_002/FIDs/6/6/gpnam1
+jo4c02921_si_002/FIDs/6/6/gpnam2
+jo4c02921_si_002/FIDs/6/6/gpnam3
+jo4c02921_si_002/FIDs/6/6/gradient_calib
+jo4c02921_si_002/FIDs/6/6/pdata/1/2rr
+jo4c02921_si_002/FIDs/6/6/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/6/6/pdata/1/clevels
+jo4c02921_si_002/FIDs/6/6/pdata/1/outd
+jo4c02921_si_002/FIDs/6/6/pdata/1/proc
+jo4c02921_si_002/FIDs/6/6/pdata/1/proc2
+jo4c02921_si_002/FIDs/6/6/pdata/1/proc2s
+jo4c02921_si_002/FIDs/6/6/pdata/1/procs
+jo4c02921_si_002/FIDs/6/6/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/6/6/pdata/1/title
+jo4c02921_si_002/FIDs/6/6/pulseprogram
+jo4c02921_si_002/FIDs/6/6/scon2
+jo4c02921_si_002/FIDs/6/6/ser
+jo4c02921_si_002/FIDs/6/6/shimvalues
+jo4c02921_si_002/FIDs/6/6/specpar
+jo4c02921_si_002/FIDs/6/6/uxnmr.info
+jo4c02921_si_002/FIDs/6/6/uxnmr.par
+jo4c02921_si_002/FIDs/6/7/acqu
+jo4c02921_si_002/FIDs/6/7/acqu2
+jo4c02921_si_002/FIDs/6/7/acqu2s
+jo4c02921_si_002/FIDs/6/7/acqus
+jo4c02921_si_002/FIDs/6/7/audita.txt
+jo4c02921_si_002/FIDs/6/7/EA
+jo4c02921_si_002/FIDs/6/7/format.temp
+jo4c02921_si_002/FIDs/6/7/gpnam1
+jo4c02921_si_002/FIDs/6/7/gradient_calib
+jo4c02921_si_002/FIDs/6/7/pdata/1/2ii
+jo4c02921_si_002/FIDs/6/7/pdata/1/2ir
+jo4c02921_si_002/FIDs/6/7/pdata/1/2ri
+jo4c02921_si_002/FIDs/6/7/pdata/1/2rr
+jo4c02921_si_002/FIDs/6/7/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/6/7/pdata/1/clevels
+jo4c02921_si_002/FIDs/6/7/pdata/1/outd
+jo4c02921_si_002/FIDs/6/7/pdata/1/parm.txt
+jo4c02921_si_002/FIDs/6/7/pdata/1/proc
+jo4c02921_si_002/FIDs/6/7/pdata/1/proc2
+jo4c02921_si_002/FIDs/6/7/pdata/1/proc2s
+jo4c02921_si_002/FIDs/6/7/pdata/1/procs
+jo4c02921_si_002/FIDs/6/7/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/6/7/pdata/1/title
+jo4c02921_si_002/FIDs/6/7/pulseprogram
+jo4c02921_si_002/FIDs/6/7/sample_info.prop
+jo4c02921_si_002/FIDs/6/7/scon2
+jo4c02921_si_002/FIDs/6/7/ser
+jo4c02921_si_002/FIDs/6/7/shimvalues
+jo4c02921_si_002/FIDs/6/7/specpar
+jo4c02921_si_002/FIDs/6/7/uxnmr.info
+jo4c02921_si_002/FIDs/6/7/uxnmr.par
+jo4c02921_si_002/FIDs/9a/1/acqu
+jo4c02921_si_002/FIDs/9a/1/acqus
+jo4c02921_si_002/FIDs/9a/1/audita.txt
+jo4c02921_si_002/FIDs/9a/1/fid
+jo4c02921_si_002/FIDs/9a/1/format.temp
+jo4c02921_si_002/FIDs/9a/1/fq1list
+jo4c02921_si_002/FIDs/9a/1/pdata/1/1i
+jo4c02921_si_002/FIDs/9a/1/pdata/1/1r
+jo4c02921_si_002/FIDs/9a/1/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/9a/1/pdata/1/integrals.txt
+jo4c02921_si_002/FIDs/9a/1/pdata/1/intrng
+jo4c02921_si_002/FIDs/9a/1/pdata/1/outd
+jo4c02921_si_002/FIDs/9a/1/pdata/1/proc
+jo4c02921_si_002/FIDs/9a/1/pdata/1/procs
+jo4c02921_si_002/FIDs/9a/1/pdata/1/reg
+jo4c02921_si_002/FIDs/9a/1/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/9a/1/pdata/1/title
+jo4c02921_si_002/FIDs/9a/1/precom.output
+jo4c02921_si_002/FIDs/9a/1/pulseprogram
+jo4c02921_si_002/FIDs/9a/1/scon2
+jo4c02921_si_002/FIDs/9a/1/shimvalues
+jo4c02921_si_002/FIDs/9a/1/specpar
+jo4c02921_si_002/FIDs/9a/1/uxnmr.info
+jo4c02921_si_002/FIDs/9a/1/uxnmr.par
+jo4c02921_si_002/FIDs/9a/10/acqu
+jo4c02921_si_002/FIDs/9a/10/acqus
+jo4c02921_si_002/FIDs/9a/10/audita.txt
+jo4c02921_si_002/FIDs/9a/10/EA
+jo4c02921_si_002/FIDs/9a/10/fid
+jo4c02921_si_002/FIDs/9a/10/format.temp
+jo4c02921_si_002/FIDs/9a/10/gpnam1
+jo4c02921_si_002/FIDs/9a/10/gpnam2
+jo4c02921_si_002/FIDs/9a/10/gradient_calib
+jo4c02921_si_002/FIDs/9a/10/pdata/1/intrng
+jo4c02921_si_002/FIDs/9a/10/pdata/1/outd
+jo4c02921_si_002/FIDs/9a/10/pdata/1/proc
+jo4c02921_si_002/FIDs/9a/10/pdata/1/procs
+jo4c02921_si_002/FIDs/9a/10/pdata/1/reg
+jo4c02921_si_002/FIDs/9a/10/pdata/1/title
+jo4c02921_si_002/FIDs/9a/10/pulseprogram
+jo4c02921_si_002/FIDs/9a/10/scon2
+jo4c02921_si_002/FIDs/9a/10/shimvalues
+jo4c02921_si_002/FIDs/9a/10/specpar
+jo4c02921_si_002/FIDs/9a/10/spnam2
+jo4c02921_si_002/FIDs/9a/10/spnam29
+jo4c02921_si_002/FIDs/9a/10/spnam30
+jo4c02921_si_002/FIDs/9a/10/uxnmr.info
+jo4c02921_si_002/FIDs/9a/10/uxnmr.par
+jo4c02921_si_002/FIDs/9a/11/acqu
+jo4c02921_si_002/FIDs/9a/11/acqus
+jo4c02921_si_002/FIDs/9a/11/audita.txt
+jo4c02921_si_002/FIDs/9a/11/EA
+jo4c02921_si_002/FIDs/9a/11/fid
+jo4c02921_si_002/FIDs/9a/11/format.temp
+jo4c02921_si_002/FIDs/9a/11/gpnam1
+jo4c02921_si_002/FIDs/9a/11/gpnam2
+jo4c02921_si_002/FIDs/9a/11/gradient_calib
+jo4c02921_si_002/FIDs/9a/11/pdata/1/intrng
+jo4c02921_si_002/FIDs/9a/11/pdata/1/outd
+jo4c02921_si_002/FIDs/9a/11/pdata/1/proc
+jo4c02921_si_002/FIDs/9a/11/pdata/1/procs
+jo4c02921_si_002/FIDs/9a/11/pdata/1/reg
+jo4c02921_si_002/FIDs/9a/11/pdata/1/title
+jo4c02921_si_002/FIDs/9a/11/pulseprogram
+jo4c02921_si_002/FIDs/9a/11/scon2
+jo4c02921_si_002/FIDs/9a/11/shimvalues
+jo4c02921_si_002/FIDs/9a/11/specpar
+jo4c02921_si_002/FIDs/9a/11/spnam2
+jo4c02921_si_002/FIDs/9a/11/spnam29
+jo4c02921_si_002/FIDs/9a/11/spnam30
+jo4c02921_si_002/FIDs/9a/11/uxnmr.info
+jo4c02921_si_002/FIDs/9a/11/uxnmr.par
+jo4c02921_si_002/FIDs/9a/12/acqu
+jo4c02921_si_002/FIDs/9a/12/acqus
+jo4c02921_si_002/FIDs/9a/12/audita.txt
+jo4c02921_si_002/FIDs/9a/12/EA
+jo4c02921_si_002/FIDs/9a/12/fid
+jo4c02921_si_002/FIDs/9a/12/format.temp
+jo4c02921_si_002/FIDs/9a/12/gpnam1
+jo4c02921_si_002/FIDs/9a/12/gpnam2
+jo4c02921_si_002/FIDs/9a/12/gradient_calib
+jo4c02921_si_002/FIDs/9a/12/pdata/1/intrng
+jo4c02921_si_002/FIDs/9a/12/pdata/1/outd
+jo4c02921_si_002/FIDs/9a/12/pdata/1/proc
+jo4c02921_si_002/FIDs/9a/12/pdata/1/procs
+jo4c02921_si_002/FIDs/9a/12/pdata/1/reg
+jo4c02921_si_002/FIDs/9a/12/pdata/1/title
+jo4c02921_si_002/FIDs/9a/12/pulseprogram
+jo4c02921_si_002/FIDs/9a/12/scon2
+jo4c02921_si_002/FIDs/9a/12/shimvalues
+jo4c02921_si_002/FIDs/9a/12/specpar
+jo4c02921_si_002/FIDs/9a/12/spnam2
+jo4c02921_si_002/FIDs/9a/12/spnam29
+jo4c02921_si_002/FIDs/9a/12/spnam30
+jo4c02921_si_002/FIDs/9a/12/uxnmr.info
+jo4c02921_si_002/FIDs/9a/12/uxnmr.par
+jo4c02921_si_002/FIDs/9a/13/acqu
+jo4c02921_si_002/FIDs/9a/13/acqus
+jo4c02921_si_002/FIDs/9a/13/audita.txt
+jo4c02921_si_002/FIDs/9a/13/EA
+jo4c02921_si_002/FIDs/9a/13/fid
+jo4c02921_si_002/FIDs/9a/13/format.temp
+jo4c02921_si_002/FIDs/9a/13/gpnam1
+jo4c02921_si_002/FIDs/9a/13/gpnam2
+jo4c02921_si_002/FIDs/9a/13/gradient_calib
+jo4c02921_si_002/FIDs/9a/13/pdata/1/intrng
+jo4c02921_si_002/FIDs/9a/13/pdata/1/outd
+jo4c02921_si_002/FIDs/9a/13/pdata/1/proc
+jo4c02921_si_002/FIDs/9a/13/pdata/1/procs
+jo4c02921_si_002/FIDs/9a/13/pdata/1/reg
+jo4c02921_si_002/FIDs/9a/13/pdata/1/title
+jo4c02921_si_002/FIDs/9a/13/pulseprogram
+jo4c02921_si_002/FIDs/9a/13/scon2
+jo4c02921_si_002/FIDs/9a/13/shimvalues
+jo4c02921_si_002/FIDs/9a/13/specpar
+jo4c02921_si_002/FIDs/9a/13/spnam2
+jo4c02921_si_002/FIDs/9a/13/spnam29
+jo4c02921_si_002/FIDs/9a/13/spnam30
+jo4c02921_si_002/FIDs/9a/13/uxnmr.info
+jo4c02921_si_002/FIDs/9a/13/uxnmr.par
+jo4c02921_si_002/FIDs/9a/14/acqu
+jo4c02921_si_002/FIDs/9a/14/acqus
+jo4c02921_si_002/FIDs/9a/14/audita.txt
+jo4c02921_si_002/FIDs/9a/14/EA
+jo4c02921_si_002/FIDs/9a/14/fid
+jo4c02921_si_002/FIDs/9a/14/format.temp
+jo4c02921_si_002/FIDs/9a/14/gpnam1
+jo4c02921_si_002/FIDs/9a/14/gpnam2
+jo4c02921_si_002/FIDs/9a/14/gradient_calib
+jo4c02921_si_002/FIDs/9a/14/pdata/1/intrng
+jo4c02921_si_002/FIDs/9a/14/pdata/1/outd
+jo4c02921_si_002/FIDs/9a/14/pdata/1/proc
+jo4c02921_si_002/FIDs/9a/14/pdata/1/procs
+jo4c02921_si_002/FIDs/9a/14/pdata/1/reg
+jo4c02921_si_002/FIDs/9a/14/pdata/1/title
+jo4c02921_si_002/FIDs/9a/14/pulseprogram
+jo4c02921_si_002/FIDs/9a/14/scon2
+jo4c02921_si_002/FIDs/9a/14/shimvalues
+jo4c02921_si_002/FIDs/9a/14/specpar
+jo4c02921_si_002/FIDs/9a/14/spnam2
+jo4c02921_si_002/FIDs/9a/14/spnam29
+jo4c02921_si_002/FIDs/9a/14/spnam30
+jo4c02921_si_002/FIDs/9a/14/uxnmr.info
+jo4c02921_si_002/FIDs/9a/14/uxnmr.par
+jo4c02921_si_002/FIDs/9a/15/acqu
+jo4c02921_si_002/FIDs/9a/15/acqus
+jo4c02921_si_002/FIDs/9a/15/audita.txt
+jo4c02921_si_002/FIDs/9a/15/EA
+jo4c02921_si_002/FIDs/9a/15/fid
+jo4c02921_si_002/FIDs/9a/15/format.temp
+jo4c02921_si_002/FIDs/9a/15/gpnam1
+jo4c02921_si_002/FIDs/9a/15/gpnam2
+jo4c02921_si_002/FIDs/9a/15/gradient_calib
+jo4c02921_si_002/FIDs/9a/15/pdata/1/intrng
+jo4c02921_si_002/FIDs/9a/15/pdata/1/outd
+jo4c02921_si_002/FIDs/9a/15/pdata/1/proc
+jo4c02921_si_002/FIDs/9a/15/pdata/1/procs
+jo4c02921_si_002/FIDs/9a/15/pdata/1/reg
+jo4c02921_si_002/FIDs/9a/15/pdata/1/title
+jo4c02921_si_002/FIDs/9a/15/pulseprogram
+jo4c02921_si_002/FIDs/9a/15/scon2
+jo4c02921_si_002/FIDs/9a/15/shimvalues
+jo4c02921_si_002/FIDs/9a/15/specpar
+jo4c02921_si_002/FIDs/9a/15/spnam2
+jo4c02921_si_002/FIDs/9a/15/spnam29
+jo4c02921_si_002/FIDs/9a/15/spnam30
+jo4c02921_si_002/FIDs/9a/15/uxnmr.info
+jo4c02921_si_002/FIDs/9a/15/uxnmr.par
+jo4c02921_si_002/FIDs/9a/2/acqu
+jo4c02921_si_002/FIDs/9a/2/acqus
+jo4c02921_si_002/FIDs/9a/2/audita.txt
+jo4c02921_si_002/FIDs/9a/2/cpdprg2
+jo4c02921_si_002/FIDs/9a/2/fid
+jo4c02921_si_002/FIDs/9a/2/format.temp
+jo4c02921_si_002/FIDs/9a/2/fq1list
+jo4c02921_si_002/FIDs/9a/2/pdata/1/1i
+jo4c02921_si_002/FIDs/9a/2/pdata/1/1r
+jo4c02921_si_002/FIDs/9a/2/pdata/1/auditp.txt
+jo4c02921_si_002/FIDs/9a/2/pdata/1/outd
+jo4c02921_si_002/FIDs/9a/2/pdata/1/proc
+jo4c02921_si_002/FIDs/9a/2/pdata/1/procs
+jo4c02921_si_002/FIDs/9a/2/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/9a/2/pdata/1/title
+jo4c02921_si_002/FIDs/9a/2/precom.output
+jo4c02921_si_002/FIDs/9a/2/pulseprogram
+jo4c02921_si_002/FIDs/9a/2/scon2
+jo4c02921_si_002/FIDs/9a/2/shimvalues
+jo4c02921_si_002/FIDs/9a/2/specpar
+jo4c02921_si_002/FIDs/9a/2/uxnmr.info
+jo4c02921_si_002/FIDs/9a/2/uxnmr.par
+jo4c02921_si_002/FIDs/9a/3/acqu
+jo4c02921_si_002/FIDs/9a/3/acqus
+jo4c02921_si_002/FIDs/9a/3/audita.txt
+jo4c02921_si_002/FIDs/9a/3/cpdprg2
+jo4c02921_si_002/FIDs/9a/3/fid
+jo4c02921_si_002/FIDs/9a/3/format.temp
+jo4c02921_si_002/FIDs/9a/3/pdata/1/outd
+jo4c02921_si_002/FIDs/9a/3/pdata/1/proc
+jo4c02921_si_002/FIDs/9a/3/pdata/1/procs
+jo4c02921_si_002/FIDs/9a/3/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/9a/3/pdata/1/title
+jo4c02921_si_002/FIDs/9a/3/pulseprogram
+jo4c02921_si_002/FIDs/9a/3/scon2
+jo4c02921_si_002/FIDs/9a/3/shimvalues
+jo4c02921_si_002/FIDs/9a/3/specpar
+jo4c02921_si_002/FIDs/9a/3/spnam5
+jo4c02921_si_002/FIDs/9a/3/uxnmr.info
+jo4c02921_si_002/FIDs/9a/3/uxnmr.par
+jo4c02921_si_002/FIDs/9a/4/acqu
+jo4c02921_si_002/FIDs/9a/4/acqu2
+jo4c02921_si_002/FIDs/9a/4/acqu2s
+jo4c02921_si_002/FIDs/9a/4/acqus
+jo4c02921_si_002/FIDs/9a/4/audita.txt
+jo4c02921_si_002/FIDs/9a/4/EA
+jo4c02921_si_002/FIDs/9a/4/format.ased
+jo4c02921_si_002/FIDs/9a/4/format.temp
+jo4c02921_si_002/FIDs/9a/4/gpnam1
+jo4c02921_si_002/FIDs/9a/4/gpnam2
+jo4c02921_si_002/FIDs/9a/4/gpnam3
+jo4c02921_si_002/FIDs/9a/4/gradient_calib
+jo4c02921_si_002/FIDs/9a/4/overflow_log_dru1.txt
+jo4c02921_si_002/FIDs/9a/4/pdata/1/clevels
+jo4c02921_si_002/FIDs/9a/4/pdata/1/outd
+jo4c02921_si_002/FIDs/9a/4/pdata/1/proc
+jo4c02921_si_002/FIDs/9a/4/pdata/1/proc2
+jo4c02921_si_002/FIDs/9a/4/pdata/1/proc2s
+jo4c02921_si_002/FIDs/9a/4/pdata/1/procs
+jo4c02921_si_002/FIDs/9a/4/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/9a/4/pdata/1/title
+jo4c02921_si_002/FIDs/9a/4/pulseprogram
+jo4c02921_si_002/FIDs/9a/4/scon2
+jo4c02921_si_002/FIDs/9a/4/ser
+jo4c02921_si_002/FIDs/9a/4/shimvalues
+jo4c02921_si_002/FIDs/9a/4/specpar
+jo4c02921_si_002/FIDs/9a/4/uxnmr.info
+jo4c02921_si_002/FIDs/9a/4/uxnmr.par
+jo4c02921_si_002/FIDs/9a/5/acqu
+jo4c02921_si_002/FIDs/9a/5/acqu2
+jo4c02921_si_002/FIDs/9a/5/acqu2s
+jo4c02921_si_002/FIDs/9a/5/acqus
+jo4c02921_si_002/FIDs/9a/5/audita.txt
+jo4c02921_si_002/FIDs/9a/5/cpdprg2
+jo4c02921_si_002/FIDs/9a/5/EA
+jo4c02921_si_002/FIDs/9a/5/format.ased
+jo4c02921_si_002/FIDs/9a/5/format.temp
+jo4c02921_si_002/FIDs/9a/5/gpnam1
+jo4c02921_si_002/FIDs/9a/5/gpnam2
+jo4c02921_si_002/FIDs/9a/5/gpnam3
+jo4c02921_si_002/FIDs/9a/5/gpnam4
+jo4c02921_si_002/FIDs/9a/5/gradient_calib
+jo4c02921_si_002/FIDs/9a/5/overflow_log_dru1.txt
+jo4c02921_si_002/FIDs/9a/5/pdata/1/clevels
+jo4c02921_si_002/FIDs/9a/5/pdata/1/outd
+jo4c02921_si_002/FIDs/9a/5/pdata/1/proc
+jo4c02921_si_002/FIDs/9a/5/pdata/1/proc2
+jo4c02921_si_002/FIDs/9a/5/pdata/1/proc2s
+jo4c02921_si_002/FIDs/9a/5/pdata/1/procs
+jo4c02921_si_002/FIDs/9a/5/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/9a/5/pdata/1/title
+jo4c02921_si_002/FIDs/9a/5/pulseprogram
+jo4c02921_si_002/FIDs/9a/5/scon2
+jo4c02921_si_002/FIDs/9a/5/ser
+jo4c02921_si_002/FIDs/9a/5/shimvalues
+jo4c02921_si_002/FIDs/9a/5/specpar
+jo4c02921_si_002/FIDs/9a/5/spnam3
+jo4c02921_si_002/FIDs/9a/5/spnam7
+jo4c02921_si_002/FIDs/9a/5/uxnmr.info
+jo4c02921_si_002/FIDs/9a/5/uxnmr.par
+jo4c02921_si_002/FIDs/9a/6/acqu
+jo4c02921_si_002/FIDs/9a/6/acqu2
+jo4c02921_si_002/FIDs/9a/6/acqu2s
+jo4c02921_si_002/FIDs/9a/6/acqus
+jo4c02921_si_002/FIDs/9a/6/audita.txt
+jo4c02921_si_002/FIDs/9a/6/EA
+jo4c02921_si_002/FIDs/9a/6/format.ased
+jo4c02921_si_002/FIDs/9a/6/format.temp
+jo4c02921_si_002/FIDs/9a/6/gpnam1
+jo4c02921_si_002/FIDs/9a/6/gpnam2
+jo4c02921_si_002/FIDs/9a/6/gpnam3
+jo4c02921_si_002/FIDs/9a/6/gpnam4
+jo4c02921_si_002/FIDs/9a/6/gpnam5
+jo4c02921_si_002/FIDs/9a/6/gpnam6
+jo4c02921_si_002/FIDs/9a/6/gradient_calib
+jo4c02921_si_002/FIDs/9a/6/pdata/1/clevels
+jo4c02921_si_002/FIDs/9a/6/pdata/1/outd
+jo4c02921_si_002/FIDs/9a/6/pdata/1/proc
+jo4c02921_si_002/FIDs/9a/6/pdata/1/proc2
+jo4c02921_si_002/FIDs/9a/6/pdata/1/proc2s
+jo4c02921_si_002/FIDs/9a/6/pdata/1/procs
+jo4c02921_si_002/FIDs/9a/6/pdata/1/thumb.png
+jo4c02921_si_002/FIDs/9a/6/pdata/1/title
+jo4c02921_si_002/FIDs/9a/6/pulseprogram
+jo4c02921_si_002/FIDs/9a/6/scon2
+jo4c02921_si_002/FIDs/9a/6/ser
+jo4c02921_si_002/FIDs/9a/6/shimvalues
+jo4c02921_si_002/FIDs/9a/6/specpar
+jo4c02921_si_002/FIDs/9a/6/uxnmr.info
+jo4c02921_si_002/FIDs/9a/6/uxnmr.par
+jo4c02921_si_002/FIDs/9a/7/acqu
+jo4c02921_si_002/FIDs/9a/7/acqus
+jo4c02921_si_002/FIDs/9a/7/audita.txt
+jo4c02921_si_002/FIDs/9a/7/EA
+jo4c02921_si_002/FIDs/9a/7/fid
+jo4c02921_si_002/FIDs/9a/7/format.temp
+jo4c02921_si_002/FIDs/9a/7/gpnam1
+jo4c02921_si_002/FIDs/9a/7/gpnam2
+jo4c02921_si_002/FIDs/9a/7/gradient_calib
+jo4c02921_si_002/FIDs/9a/7/pdata/1/intrng
+jo4c02921_si_002/FIDs/9a/7/pdata/1/outd
+jo4c02921_si_002/FIDs/9a/7/pdata/1/proc
+jo4c02921_si_002/FIDs/9a/7/pdata/1/procs
+jo4c02921_si_002/FIDs/9a/7/pdata/1/reg
+jo4c02921_si_002/FIDs/9a/7/pdata/1/title
+jo4c02921_si_002/FIDs/9a/7/pulseprogram
+jo4c02921_si_002/FIDs/9a/7/scon2
+jo4c02921_si_002/FIDs/9a/7/shimvalues
+jo4c02921_si_002/FIDs/9a/7/specpar
+jo4c02921_si_002/FIDs/9a/7/spnam2
+jo4c02921_si_002/FIDs/9a/7/spnam29
+jo4c02921_si_002/FIDs/9a/7/spnam30
+jo4c02921_si_002/FIDs/9a/7/uxnmr.info
+jo4c02921_si_002/FIDs/9a/7/uxnmr.par
+jo4c02921_si_002/FIDs/9a/8/acqu
+jo4c02921_si_002/FIDs/9a/8/acqus
+jo4c02921_si_002/FIDs/9a/8/audita.txt
+jo4c02921_si_002/FIDs/9a/8/EA
+jo4c02921_si_002/FIDs/9a/8/fid
+jo4c02921_si_002/FIDs/9a/8/format.temp
+jo4c02921_si_002/FIDs/9a/8/gpnam1
+jo4c02921_si_002/FIDs/9a/8/gpnam2
+jo4c02921_si_002/FIDs/9a/8/gradient_calib
+jo4c02921_si_002/FIDs/9a/8/pdata/1/intrng
+jo4c02921_si_002/FIDs/9a/8/pdata/1/outd
+jo4c02921_si_002/FIDs/9a/8/pdata/1/proc
+jo4c02921_si_002/FIDs/9a/8/pdata/1/procs
+jo4c02921_si_002/FIDs/9a/8/pdata/1/reg
+jo4c02921_si_002/FIDs/9a/8/pdata/1/title
+jo4c02921_si_002/FIDs/9a/8/pulseprogram
+jo4c02921_si_002/FIDs/9a/8/scon2
+jo4c02921_si_002/FIDs/9a/8/shimvalues
+jo4c02921_si_002/FIDs/9a/8/specpar
+jo4c02921_si_002/FIDs/9a/8/spnam2
+jo4c02921_si_002/FIDs/9a/8/spnam29
+jo4c02921_si_002/FIDs/9a/8/spnam30
+jo4c02921_si_002/FIDs/9a/8/uxnmr.info
+jo4c02921_si_002/FIDs/9a/8/uxnmr.par
+jo4c02921_si_002/FIDs/9a/9/acqu
+jo4c02921_si_002/FIDs/9a/9/acqus
+jo4c02921_si_002/FIDs/9a/9/audita.txt
+jo4c02921_si_002/FIDs/9a/9/EA
+jo4c02921_si_002/FIDs/9a/9/fid
+jo4c02921_si_002/FIDs/9a/9/format.temp
+jo4c02921_si_002/FIDs/9a/9/gpnam1
+jo4c02921_si_002/FIDs/9a/9/gpnam2
+jo4c02921_si_002/FIDs/9a/9/gradient_calib
+jo4c02921_si_002/FIDs/9a/9/pdata/1/intrng
+jo4c02921_si_002/FIDs/9a/9/pdata/1/outd
+jo4c02921_si_002/FIDs/9a/9/pdata/1/proc
+jo4c02921_si_002/FIDs/9a/9/pdata/1/procs
+jo4c02921_si_002/FIDs/9a/9/pdata/1/reg
+jo4c02921_si_002/FIDs/9a/9/pdata/1/title
+jo4c02921_si_002/FIDs/9a/9/pulseprogram
+jo4c02921_si_002/FIDs/9a/9/scon2
+jo4c02921_si_002/FIDs/9a/9/shimvalues
+jo4c02921_si_002/FIDs/9a/9/specpar
+jo4c02921_si_002/FIDs/9a/9/spnam2
+jo4c02921_si_002/FIDs/9a/9/spnam29
+jo4c02921_si_002/FIDs/9a/9/spnam30
+jo4c02921_si_002/FIDs/9a/9/uxnmr.info
+jo4c02921_si_002/FIDs/9a/9/uxnmr.par
+jo4c02921_si_002/FIDs/9b/1/acqu
+jo4c02921_si_002/FIDs/9b/1/acqus
+jo4c02921_si_002/FIDs/9b/1/audita.txt
+jo4c02921_si_002/FIDs/9b/1/fid
+jo4c02921_si_002/FIDs/9b/1/format.temp
+jo4c02921_si_002/FIDs/9b/1/fq1list
+jo4c02921_si_002/FIDs/9b/1/pdata/1/outd
+jo4c02921_si_002/FIDs/9b/1/pdata/1/proc
+jo4c02921_si_002/FIDs/9b/1/pdata/1/procs
+jo4c02921_si_002/FIDs/9b/1/pdata/1/title
+jo4c02921_si_002/FIDs/9b/1/precom.output
+jo4c02921_si_002/FIDs/9b/1/prosol_History
+jo4c02921_si_002/FIDs/9b/1/pulseprogram
+jo4c02921_si_002/FIDs/9b/1/scon2
+jo4c02921_si_002/FIDs/9b/1/shimvalues
+jo4c02921_si_002/FIDs/9b/1/specpar
+jo4c02921_si_002/FIDs/9b/1/stanprogram1409
+jo4c02921_si_002/FIDs/9b/1/topshimreport
+jo4c02921_si_002/FIDs/9b/1/uxnmr.info
+jo4c02921_si_002/FIDs/9b/1/uxnmr.par
+jo4c02921_si_002/FIDs/9b/2/acqu
+jo4c02921_si_002/FIDs/9b/2/acqus
+jo4c02921_si_002/FIDs/9b/2/audita.txt
+jo4c02921_si_002/FIDs/9b/2/cpdprg2
+jo4c02921_si_002/FIDs/9b/2/fid
+jo4c02921_si_002/FIDs/9b/2/format.temp
+jo4c02921_si_002/FIDs/9b/2/fq1list
+jo4c02921_si_002/FIDs/9b/2/pdata/1/outd
+jo4c02921_si_002/FIDs/9b/2/pdata/1/proc
+jo4c02921_si_002/FIDs/9b/2/pdata/1/procs
+jo4c02921_si_002/FIDs/9b/2/pdata/1/title
+jo4c02921_si_002/FIDs/9b/2/precom.output
+jo4c02921_si_002/FIDs/9b/2/prosol_History
+jo4c02921_si_002/FIDs/9b/2/pulseprogram
+jo4c02921_si_002/FIDs/9b/2/scon2
+jo4c02921_si_002/FIDs/9b/2/shimvalues
+jo4c02921_si_002/FIDs/9b/2/specpar
+jo4c02921_si_002/FIDs/9b/2/stanprogram1409
+jo4c02921_si_002/FIDs/9b/2/uxnmr.info
+jo4c02921_si_002/FIDs/9b/2/uxnmr.par
+jo4c02921_si_002/FIDs/9c/1/acqu
+jo4c02921_si_002/FIDs/9c/1/acqus
+jo4c02921_si_002/FIDs/9c/1/audita.txt
+jo4c02921_si_002/FIDs/9c/1/fid
+jo4c02921_si_002/FIDs/9c/1/format.temp
+jo4c02921_si_002/FIDs/9c/1/fq1list
+jo4c02921_si_002/FIDs/9c/1/pdata/1/outd
+jo4c02921_si_002/FIDs/9c/1/pdata/1/proc
+jo4c02921_si_002/FIDs/9c/1/pdata/1/procs
+jo4c02921_si_002/FIDs/9c/1/pdata/1/title
+jo4c02921_si_002/FIDs/9c/1/precom.output
+jo4c02921_si_002/FIDs/9c/1/prosol_History
+jo4c02921_si_002/FIDs/9c/1/pulseprogram
+jo4c02921_si_002/FIDs/9c/1/scon2
+jo4c02921_si_002/FIDs/9c/1/shimvalues
+jo4c02921_si_002/FIDs/9c/1/specpar
+jo4c02921_si_002/FIDs/9c/1/stanprogram3599
+jo4c02921_si_002/FIDs/9c/1/topshimreport
+jo4c02921_si_002/FIDs/9c/1/uxnmr.info
+jo4c02921_si_002/FIDs/9c/1/uxnmr.par
+jo4c02921_si_002/FIDs/9c/1/vtc_pid_settings
+jo4c02921_si_002/FIDs/9c/2/acqu
+jo4c02921_si_002/FIDs/9c/2/acqus
+jo4c02921_si_002/FIDs/9c/2/audita.txt
+jo4c02921_si_002/FIDs/9c/2/cpdprg2
+jo4c02921_si_002/FIDs/9c/2/fid
+jo4c02921_si_002/FIDs/9c/2/format.temp
+jo4c02921_si_002/FIDs/9c/2/fq1list
+jo4c02921_si_002/FIDs/9c/2/pdata/1/outd
+jo4c02921_si_002/FIDs/9c/2/pdata/1/proc
+jo4c02921_si_002/FIDs/9c/2/pdata/1/procs
+jo4c02921_si_002/FIDs/9c/2/pdata/1/title
+jo4c02921_si_002/FIDs/9c/2/precom.output
+jo4c02921_si_002/FIDs/9c/2/prosol_History
+jo4c02921_si_002/FIDs/9c/2/pulseprogram
+jo4c02921_si_002/FIDs/9c/2/scon2
+jo4c02921_si_002/FIDs/9c/2/shimvalues
+jo4c02921_si_002/FIDs/9c/2/specpar
+jo4c02921_si_002/FIDs/9c/2/stanprogram3599
+jo4c02921_si_002/FIDs/9c/2/uxnmr.info
+jo4c02921_si_002/FIDs/9c/2/uxnmr.par
+jo4c02921_si_002/FIDs/9c/2/vtc_pid_settings

@@ -1,1 +1,1 @@
-jo5c00545 Compound 10;Compound 11;Compound 12;Compound 15;Compound 18;Compound 4
+jo5c00545 10-C;10-H;11-C;11-H;12-C;12-H;15-C;15-H;18-C;18-H;4-C;4-H

@@ -1,5 +1,5 @@
 Traceback (most recent call last):
-  File "C:\temp\iupac\compound_id.py", line 310, in <module>
+  File "C:\temp\iupac\compound_id.py", line 380, in <module>
     filtered_df_regex = diff_df[diff_df['compound_path'].apply(lambda x: any(k in x for k in FILE_PATH_KEYWORDS))]
                                 ~~~~~~~^^^^^^^^^^^^^^^^^
   File "C:\Users\hanso\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\frame.py", line 4378, in __getitem__

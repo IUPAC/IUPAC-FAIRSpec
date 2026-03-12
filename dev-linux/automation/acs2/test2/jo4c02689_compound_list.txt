@@ -1,1 +1,1 @@
-jo4c02689 2D NMR data of 1;2D NMR data of 2;2D NMR data of 3;compound 4.mnova
+jo4c02689 42;43;61;64;65;66;68;2;3;41;44;45;46;48;1;compound 4.mnova

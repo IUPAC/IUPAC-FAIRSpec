@@ -1,1 +1,1 @@
-ol5c03626 10a-10h;11a-11h;12b-12f;14e-H and C NMR;5a-5h;7a-7f;8b-8d;9a-9h
+ol5c03626 C NMR;H NMR;10a-10h;PROTON_01.fid;5;6;11a-11h;FAL1095-9-12-PROTON_01.fid;C NMR.fid;1;2;5a-5h;7a-7f;H NMR.fid;9a-9h;FAL-BR-PHT-PROTON_01.fid

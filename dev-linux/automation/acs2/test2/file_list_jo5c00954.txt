@@ -1,73 +1,41 @@
-.
-jo5c00954_si_002
-jo5c00954_si_002/(e) FAIR-Data
-jo5c00954_si_002/(e) FAIR-Data/.DS_Store
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/.DS_Store
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/CARBON_01.fid
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/CARBON_01.fid/fid
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/CARBON_01.fid/log
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/CARBON_01.fid/procpar
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/CARBON_01.fid/text
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/gCOSY_01.fid
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/gCOSY_01.fid/fid
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/gCOSY_01.fid/log
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/gCOSY_01.fid/procpar
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/gCOSY_01.fid/text
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/PROTON_01.fid
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/PROTON_01.fid/fid
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/PROTON_01.fid/log
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/PROTON_01.fid/procpar
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Authentic Standard/PROTON_01.fid/text
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/.DS_Store
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/CARBON_01.fid
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/CARBON_01.fid/fid
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/CARBON_01.fid/log
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/CARBON_01.fid/procpar
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/CARBON_01.fid/text
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/gCOSY_01.fid
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/gCOSY_01.fid/fid
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/gCOSY_01.fid/log
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/gCOSY_01.fid/procpar
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/gCOSY_01.fid/text
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/PROTON_01.fid
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/PROTON_01.fid/.DS_Store
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/PROTON_01.fid/fid
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/PROTON_01.fid/log
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/PROTON_01.fid/procpar
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Mixture/PROTON_01.fid/text
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/.DS_Store
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/HRMS
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/HRMS/.DS_Store
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/HRMS/HRMS-RawData.csv
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/HRMS/HRMS-Report.pdf
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/.DS_Store
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/CARBON_01.fid
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/CARBON_01.fid/fid
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/CARBON_01.fid/log
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/CARBON_01.fid/procpar
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/CARBON_01.fid/text
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/gCOSY_01.fid
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/gCOSY_01.fid/fid
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/gCOSY_01.fid/log
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/gCOSY_01.fid/procpar
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/gCOSY_01.fid/text
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/PROTON_01.fid
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/PROTON_01.fid/fid
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/PROTON_01.fid/log
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/PROTON_01.fid/procpar
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/NMR/PROTON_01.fid/text
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/Specific Rotation
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/Specific Rotation/.DS_Store
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/Specific Rotation/c = 0.016
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/Specific Rotation/c = 0.016/Readings_data_20250526211005.csv
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/Specific Rotation/c = 0.016/Readings_data_20250526211226.csv
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/Specific Rotation/c = 0.016/Readings_data_20250526211416.csv
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/Specific Rotation/c = 0.032
-jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/Specific Rotation/c = 0.032/.DS_Store
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/Specific Rotation/c = 0.032/Readings_data_20250523204254.csv
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/Specific Rotation/c = 0.032/Readings_data_20250523204722.csv
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/Specific Rotation/c = 0.032/Readings_data_20250523205020.csv
@@ -75,9 +43,6 @@ jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/Specific Rotation/
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/Specific Rotation/c = 0.032/Readings_data_20250523210306.csv
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/Specific Rotation/c = 0.032/Readings_data_20250523210703.csv
 jo5c00954_si_002/(e) FAIR-Data/Compound 1 - Synthetic Product/Specific Rotation/Tabulated Data.xlsx
-jo5c00954_si_002/(e) FAIR-Data/Compound 7
-jo5c00954_si_002/(e) FAIR-Data/Compound 7/.DS_Store
-jo5c00954_si_002/(e) FAIR-Data/Compound 7/MicroED
 jo5c00954_si_002/(e) FAIR-Data/Compound 7/MicroED/checkCIF_PLATON page 2.pdf
 jo5c00954_si_002/(e) FAIR-Data/Compound 7/MicroED/ED-25021.cif
 jo5c00954_si_002/(e) FAIR-Data/Compound 7/MicroED/ED-25021.docx

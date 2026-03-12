@@ -1,0 +1,3986 @@
+jo5c00330_si_002/3aa/3aa 13C NMR/acqu
+jo5c00330_si_002/3aa/3aa 13C NMR/acqus
+jo5c00330_si_002/3aa/3aa 13C NMR/audita.txt
+jo5c00330_si_002/3aa/3aa 13C NMR/fid
+jo5c00330_si_002/3aa/3aa 13C NMR/format.temp
+jo5c00330_si_002/3aa/3aa 13C NMR/fq1list
+jo5c00330_si_002/3aa/3aa 13C NMR/pdata/1/1i
+jo5c00330_si_002/3aa/3aa 13C NMR/pdata/1/1r
+jo5c00330_si_002/3aa/3aa 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3aa/3aa 13C NMR/pdata/1/outd
+jo5c00330_si_002/3aa/3aa 13C NMR/pdata/1/proc
+jo5c00330_si_002/3aa/3aa 13C NMR/pdata/1/procs
+jo5c00330_si_002/3aa/3aa 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3aa/3aa 13C NMR/pdata/1/title
+jo5c00330_si_002/3aa/3aa 13C NMR/precom.output
+jo5c00330_si_002/3aa/3aa 13C NMR/pulseprogram
+jo5c00330_si_002/3aa/3aa 13C NMR/scon2
+jo5c00330_si_002/3aa/3aa 13C NMR/shimvalues
+jo5c00330_si_002/3aa/3aa 13C NMR/specpar
+jo5c00330_si_002/3aa/3aa 13C NMR/uxnmr.info
+jo5c00330_si_002/3aa/3aa 13C NMR/uxnmr.par
+jo5c00330_si_002/3aa/3aa 13C NMR/vtc_pid_settings
+jo5c00330_si_002/3aa/3aa 1H NMR/acqu
+jo5c00330_si_002/3aa/3aa 1H NMR/acqus
+jo5c00330_si_002/3aa/3aa 1H NMR/audita.txt
+jo5c00330_si_002/3aa/3aa 1H NMR/cpdprg2
+jo5c00330_si_002/3aa/3aa 1H NMR/fid
+jo5c00330_si_002/3aa/3aa 1H NMR/format.temp
+jo5c00330_si_002/3aa/3aa 1H NMR/fq1list
+jo5c00330_si_002/3aa/3aa 1H NMR/pdata/1/1i
+jo5c00330_si_002/3aa/3aa 1H NMR/pdata/1/1r
+jo5c00330_si_002/3aa/3aa 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3aa/3aa 1H NMR/pdata/1/outd
+jo5c00330_si_002/3aa/3aa 1H NMR/pdata/1/proc
+jo5c00330_si_002/3aa/3aa 1H NMR/pdata/1/procs
+jo5c00330_si_002/3aa/3aa 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3aa/3aa 1H NMR/pdata/1/title
+jo5c00330_si_002/3aa/3aa 1H NMR/precom.output
+jo5c00330_si_002/3aa/3aa 1H NMR/pulseprogram
+jo5c00330_si_002/3aa/3aa 1H NMR/scon2
+jo5c00330_si_002/3aa/3aa 1H NMR/shimvalues
+jo5c00330_si_002/3aa/3aa 1H NMR/specpar
+jo5c00330_si_002/3aa/3aa 1H NMR/stanprogram47996
+jo5c00330_si_002/3aa/3aa 1H NMR/uxnmr.info
+jo5c00330_si_002/3aa/3aa 1H NMR/uxnmr.par
+jo5c00330_si_002/3aa/3aa 1H NMR/vtc_pid_settings
+jo5c00330_si_002/3aa/3aa.mnova
+jo5c00330_si_002/3ab/3ab 13C NMR/acqu
+jo5c00330_si_002/3ab/3ab 13C NMR/acqus
+jo5c00330_si_002/3ab/3ab 13C NMR/audita.txt
+jo5c00330_si_002/3ab/3ab 13C NMR/cpdprg2
+jo5c00330_si_002/3ab/3ab 13C NMR/fid
+jo5c00330_si_002/3ab/3ab 13C NMR/format.temp
+jo5c00330_si_002/3ab/3ab 13C NMR/fq1list
+jo5c00330_si_002/3ab/3ab 13C NMR/pdata/1/1i
+jo5c00330_si_002/3ab/3ab 13C NMR/pdata/1/1r
+jo5c00330_si_002/3ab/3ab 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ab/3ab 13C NMR/pdata/1/outd
+jo5c00330_si_002/3ab/3ab 13C NMR/pdata/1/proc
+jo5c00330_si_002/3ab/3ab 13C NMR/pdata/1/procs
+jo5c00330_si_002/3ab/3ab 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ab/3ab 13C NMR/pdata/1/title
+jo5c00330_si_002/3ab/3ab 13C NMR/precom.output
+jo5c00330_si_002/3ab/3ab 13C NMR/pulseprogram
+jo5c00330_si_002/3ab/3ab 13C NMR/scon2
+jo5c00330_si_002/3ab/3ab 13C NMR/shimvalues
+jo5c00330_si_002/3ab/3ab 13C NMR/specpar
+jo5c00330_si_002/3ab/3ab 13C NMR/uxnmr.info
+jo5c00330_si_002/3ab/3ab 13C NMR/uxnmr.par
+jo5c00330_si_002/3ab/3ab 1H NMR/acqu
+jo5c00330_si_002/3ab/3ab 1H NMR/acqus
+jo5c00330_si_002/3ab/3ab 1H NMR/audita.txt
+jo5c00330_si_002/3ab/3ab 1H NMR/fid
+jo5c00330_si_002/3ab/3ab 1H NMR/format.temp
+jo5c00330_si_002/3ab/3ab 1H NMR/pdata/1/1i
+jo5c00330_si_002/3ab/3ab 1H NMR/pdata/1/1r
+jo5c00330_si_002/3ab/3ab 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ab/3ab 1H NMR/pdata/1/outd
+jo5c00330_si_002/3ab/3ab 1H NMR/pdata/1/proc
+jo5c00330_si_002/3ab/3ab 1H NMR/pdata/1/procs
+jo5c00330_si_002/3ab/3ab 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ab/3ab 1H NMR/pdata/1/title
+jo5c00330_si_002/3ab/3ab 1H NMR/pulseprogram
+jo5c00330_si_002/3ab/3ab 1H NMR/scon2
+jo5c00330_si_002/3ab/3ab 1H NMR/shimvalues
+jo5c00330_si_002/3ab/3ab 1H NMR/specpar
+jo5c00330_si_002/3ab/3ab 1H NMR/uxnmr.info
+jo5c00330_si_002/3ab/3ab 1H NMR/uxnmr.par
+jo5c00330_si_002/3ab/3ab.mnova
+jo5c00330_si_002/3ac/3ac 13C NMR/acqu
+jo5c00330_si_002/3ac/3ac 13C NMR/acqus
+jo5c00330_si_002/3ac/3ac 13C NMR/audita.txt
+jo5c00330_si_002/3ac/3ac 13C NMR/cpdprg2
+jo5c00330_si_002/3ac/3ac 13C NMR/fid
+jo5c00330_si_002/3ac/3ac 13C NMR/format.temp
+jo5c00330_si_002/3ac/3ac 13C NMR/fq1list
+jo5c00330_si_002/3ac/3ac 13C NMR/pdata/1/1i
+jo5c00330_si_002/3ac/3ac 13C NMR/pdata/1/1r
+jo5c00330_si_002/3ac/3ac 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ac/3ac 13C NMR/pdata/1/outd
+jo5c00330_si_002/3ac/3ac 13C NMR/pdata/1/proc
+jo5c00330_si_002/3ac/3ac 13C NMR/pdata/1/procs
+jo5c00330_si_002/3ac/3ac 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ac/3ac 13C NMR/pdata/1/title
+jo5c00330_si_002/3ac/3ac 13C NMR/precom.output
+jo5c00330_si_002/3ac/3ac 13C NMR/pulseprogram
+jo5c00330_si_002/3ac/3ac 13C NMR/scon2
+jo5c00330_si_002/3ac/3ac 13C NMR/shimvalues
+jo5c00330_si_002/3ac/3ac 13C NMR/specpar
+jo5c00330_si_002/3ac/3ac 13C NMR/uxnmr.info
+jo5c00330_si_002/3ac/3ac 13C NMR/uxnmr.par
+jo5c00330_si_002/3ac/3ac 13C NMR/vtc_pid_settings
+jo5c00330_si_002/3ac/3ac 1H NMR/acqu
+jo5c00330_si_002/3ac/3ac 1H NMR/acqus
+jo5c00330_si_002/3ac/3ac 1H NMR/audita.txt
+jo5c00330_si_002/3ac/3ac 1H NMR/fid
+jo5c00330_si_002/3ac/3ac 1H NMR/format.temp
+jo5c00330_si_002/3ac/3ac 1H NMR/fq1list
+jo5c00330_si_002/3ac/3ac 1H NMR/pdata/1/1i
+jo5c00330_si_002/3ac/3ac 1H NMR/pdata/1/1r
+jo5c00330_si_002/3ac/3ac 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ac/3ac 1H NMR/pdata/1/outd
+jo5c00330_si_002/3ac/3ac 1H NMR/pdata/1/proc
+jo5c00330_si_002/3ac/3ac 1H NMR/pdata/1/procs
+jo5c00330_si_002/3ac/3ac 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ac/3ac 1H NMR/pdata/1/title
+jo5c00330_si_002/3ac/3ac 1H NMR/precom.output
+jo5c00330_si_002/3ac/3ac 1H NMR/pulseprogram
+jo5c00330_si_002/3ac/3ac 1H NMR/scon2
+jo5c00330_si_002/3ac/3ac 1H NMR/shimvalues
+jo5c00330_si_002/3ac/3ac 1H NMR/specpar
+jo5c00330_si_002/3ac/3ac 1H NMR/uxnmr.info
+jo5c00330_si_002/3ac/3ac 1H NMR/uxnmr.par
+jo5c00330_si_002/3ac/3ac 1H NMR/vtc_pid_settings
+jo5c00330_si_002/3ac/3ac.mnova
+jo5c00330_si_002/3ad/3ad 13C NMR/acqu
+jo5c00330_si_002/3ad/3ad 13C NMR/acqus
+jo5c00330_si_002/3ad/3ad 13C NMR/audita.txt
+jo5c00330_si_002/3ad/3ad 13C NMR/cpdprg2
+jo5c00330_si_002/3ad/3ad 13C NMR/fid
+jo5c00330_si_002/3ad/3ad 13C NMR/format.temp
+jo5c00330_si_002/3ad/3ad 13C NMR/fq1list
+jo5c00330_si_002/3ad/3ad 13C NMR/pdata/1/1i
+jo5c00330_si_002/3ad/3ad 13C NMR/pdata/1/1r
+jo5c00330_si_002/3ad/3ad 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ad/3ad 13C NMR/pdata/1/outd
+jo5c00330_si_002/3ad/3ad 13C NMR/pdata/1/proc
+jo5c00330_si_002/3ad/3ad 13C NMR/pdata/1/procs
+jo5c00330_si_002/3ad/3ad 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ad/3ad 13C NMR/pdata/1/title
+jo5c00330_si_002/3ad/3ad 13C NMR/precom.output
+jo5c00330_si_002/3ad/3ad 13C NMR/pulseprogram
+jo5c00330_si_002/3ad/3ad 13C NMR/scon2
+jo5c00330_si_002/3ad/3ad 13C NMR/shimvalues
+jo5c00330_si_002/3ad/3ad 13C NMR/specpar
+jo5c00330_si_002/3ad/3ad 13C NMR/uxnmr.info
+jo5c00330_si_002/3ad/3ad 13C NMR/uxnmr.par
+jo5c00330_si_002/3ad/3ad 13C NMR/vtc_pid_settings
+jo5c00330_si_002/3ad/3ad 1H NMR/acqu
+jo5c00330_si_002/3ad/3ad 1H NMR/acqus
+jo5c00330_si_002/3ad/3ad 1H NMR/audita.txt
+jo5c00330_si_002/3ad/3ad 1H NMR/fid
+jo5c00330_si_002/3ad/3ad 1H NMR/format.temp
+jo5c00330_si_002/3ad/3ad 1H NMR/pdata/1/1i
+jo5c00330_si_002/3ad/3ad 1H NMR/pdata/1/1r
+jo5c00330_si_002/3ad/3ad 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ad/3ad 1H NMR/pdata/1/outd
+jo5c00330_si_002/3ad/3ad 1H NMR/pdata/1/proc
+jo5c00330_si_002/3ad/3ad 1H NMR/pdata/1/procs
+jo5c00330_si_002/3ad/3ad 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ad/3ad 1H NMR/pdata/1/title
+jo5c00330_si_002/3ad/3ad 1H NMR/pulseprogram
+jo5c00330_si_002/3ad/3ad 1H NMR/scon2
+jo5c00330_si_002/3ad/3ad 1H NMR/shimvalues
+jo5c00330_si_002/3ad/3ad 1H NMR/specpar
+jo5c00330_si_002/3ad/3ad 1H NMR/uxnmr.info
+jo5c00330_si_002/3ad/3ad 1H NMR/uxnmr.par
+jo5c00330_si_002/3ad/3ad 1H NMR/vtc_pid_settings
+jo5c00330_si_002/3ad/3ad.mnova
+jo5c00330_si_002/3ae/3ae 13C NMR/acqu
+jo5c00330_si_002/3ae/3ae 13C NMR/acqus
+jo5c00330_si_002/3ae/3ae 13C NMR/audita.txt
+jo5c00330_si_002/3ae/3ae 13C NMR/cpdprg2
+jo5c00330_si_002/3ae/3ae 13C NMR/fid
+jo5c00330_si_002/3ae/3ae 13C NMR/format.temp
+jo5c00330_si_002/3ae/3ae 13C NMR/fq1list
+jo5c00330_si_002/3ae/3ae 13C NMR/pdata/1/1i
+jo5c00330_si_002/3ae/3ae 13C NMR/pdata/1/1r
+jo5c00330_si_002/3ae/3ae 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ae/3ae 13C NMR/pdata/1/outd
+jo5c00330_si_002/3ae/3ae 13C NMR/pdata/1/proc
+jo5c00330_si_002/3ae/3ae 13C NMR/pdata/1/procs
+jo5c00330_si_002/3ae/3ae 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ae/3ae 13C NMR/pdata/1/title
+jo5c00330_si_002/3ae/3ae 13C NMR/precom.output
+jo5c00330_si_002/3ae/3ae 13C NMR/pulseprogram
+jo5c00330_si_002/3ae/3ae 13C NMR/scon2
+jo5c00330_si_002/3ae/3ae 13C NMR/shimvalues
+jo5c00330_si_002/3ae/3ae 13C NMR/specpar
+jo5c00330_si_002/3ae/3ae 13C NMR/uxnmr.info
+jo5c00330_si_002/3ae/3ae 13C NMR/uxnmr.par
+jo5c00330_si_002/3ae/3ae 13C NMR/vtc_pid_settings
+jo5c00330_si_002/3ae/3ae 1H NMR/acqu
+jo5c00330_si_002/3ae/3ae 1H NMR/acqus
+jo5c00330_si_002/3ae/3ae 1H NMR/audita.txt
+jo5c00330_si_002/3ae/3ae 1H NMR/fid
+jo5c00330_si_002/3ae/3ae 1H NMR/format.temp
+jo5c00330_si_002/3ae/3ae 1H NMR/pdata/1/1i
+jo5c00330_si_002/3ae/3ae 1H NMR/pdata/1/1r
+jo5c00330_si_002/3ae/3ae 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ae/3ae 1H NMR/pdata/1/outd
+jo5c00330_si_002/3ae/3ae 1H NMR/pdata/1/proc
+jo5c00330_si_002/3ae/3ae 1H NMR/pdata/1/procs
+jo5c00330_si_002/3ae/3ae 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ae/3ae 1H NMR/pdata/1/title
+jo5c00330_si_002/3ae/3ae 1H NMR/pulseprogram
+jo5c00330_si_002/3ae/3ae 1H NMR/scon2
+jo5c00330_si_002/3ae/3ae 1H NMR/shimvalues
+jo5c00330_si_002/3ae/3ae 1H NMR/specpar
+jo5c00330_si_002/3ae/3ae 1H NMR/uxnmr.info
+jo5c00330_si_002/3ae/3ae 1H NMR/uxnmr.par
+jo5c00330_si_002/3ae/3ae 1H NMR/vtc_pid_settings
+jo5c00330_si_002/3ae/3ae.mnova
+jo5c00330_si_002/3af/3af 13C NMR/acqu
+jo5c00330_si_002/3af/3af 13C NMR/acqus
+jo5c00330_si_002/3af/3af 13C NMR/audita.txt
+jo5c00330_si_002/3af/3af 13C NMR/fid
+jo5c00330_si_002/3af/3af 13C NMR/format.temp
+jo5c00330_si_002/3af/3af 13C NMR/fq1list
+jo5c00330_si_002/3af/3af 13C NMR/pdata/1/1i
+jo5c00330_si_002/3af/3af 13C NMR/pdata/1/1r
+jo5c00330_si_002/3af/3af 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3af/3af 13C NMR/pdata/1/outd
+jo5c00330_si_002/3af/3af 13C NMR/pdata/1/proc
+jo5c00330_si_002/3af/3af 13C NMR/pdata/1/procs
+jo5c00330_si_002/3af/3af 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3af/3af 13C NMR/pdata/1/title
+jo5c00330_si_002/3af/3af 13C NMR/precom.output
+jo5c00330_si_002/3af/3af 13C NMR/pulseprogram
+jo5c00330_si_002/3af/3af 13C NMR/scon2
+jo5c00330_si_002/3af/3af 13C NMR/shimvalues
+jo5c00330_si_002/3af/3af 13C NMR/specpar
+jo5c00330_si_002/3af/3af 13C NMR/uxnmr.info
+jo5c00330_si_002/3af/3af 13C NMR/uxnmr.par
+jo5c00330_si_002/3af/3af 13C NMR/vtc_pid_settings
+jo5c00330_si_002/3af/3af 1H NMR/acqu
+jo5c00330_si_002/3af/3af 1H NMR/acqus
+jo5c00330_si_002/3af/3af 1H NMR/audita.txt
+jo5c00330_si_002/3af/3af 1H NMR/cpdprg2
+jo5c00330_si_002/3af/3af 1H NMR/fid
+jo5c00330_si_002/3af/3af 1H NMR/format.temp
+jo5c00330_si_002/3af/3af 1H NMR/fq1list
+jo5c00330_si_002/3af/3af 1H NMR/pdata/1/1i
+jo5c00330_si_002/3af/3af 1H NMR/pdata/1/1r
+jo5c00330_si_002/3af/3af 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3af/3af 1H NMR/pdata/1/outd
+jo5c00330_si_002/3af/3af 1H NMR/pdata/1/proc
+jo5c00330_si_002/3af/3af 1H NMR/pdata/1/procs
+jo5c00330_si_002/3af/3af 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3af/3af 1H NMR/pdata/1/title
+jo5c00330_si_002/3af/3af 1H NMR/precom.output
+jo5c00330_si_002/3af/3af 1H NMR/pulseprogram
+jo5c00330_si_002/3af/3af 1H NMR/scon2
+jo5c00330_si_002/3af/3af 1H NMR/shimvalues
+jo5c00330_si_002/3af/3af 1H NMR/specpar
+jo5c00330_si_002/3af/3af 1H NMR/uxnmr.info
+jo5c00330_si_002/3af/3af 1H NMR/uxnmr.par
+jo5c00330_si_002/3af/3af.mnova
+jo5c00330_si_002/3ag/3ag 13C NMR/acqu
+jo5c00330_si_002/3ag/3ag 13C NMR/acqus
+jo5c00330_si_002/3ag/3ag 13C NMR/audita.txt
+jo5c00330_si_002/3ag/3ag 13C NMR/cpdprg2
+jo5c00330_si_002/3ag/3ag 13C NMR/fid
+jo5c00330_si_002/3ag/3ag 13C NMR/format.temp
+jo5c00330_si_002/3ag/3ag 13C NMR/fq1list
+jo5c00330_si_002/3ag/3ag 13C NMR/pdata/1/1i
+jo5c00330_si_002/3ag/3ag 13C NMR/pdata/1/1r
+jo5c00330_si_002/3ag/3ag 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ag/3ag 13C NMR/pdata/1/outd
+jo5c00330_si_002/3ag/3ag 13C NMR/pdata/1/proc
+jo5c00330_si_002/3ag/3ag 13C NMR/pdata/1/procs
+jo5c00330_si_002/3ag/3ag 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ag/3ag 13C NMR/pdata/1/title
+jo5c00330_si_002/3ag/3ag 13C NMR/precom.output
+jo5c00330_si_002/3ag/3ag 13C NMR/pulseprogram
+jo5c00330_si_002/3ag/3ag 13C NMR/scon2
+jo5c00330_si_002/3ag/3ag 13C NMR/shimvalues
+jo5c00330_si_002/3ag/3ag 13C NMR/specpar
+jo5c00330_si_002/3ag/3ag 13C NMR/uxnmr.info
+jo5c00330_si_002/3ag/3ag 13C NMR/uxnmr.par
+jo5c00330_si_002/3ag/3ag 13C NMR/vtc_pid_settings
+jo5c00330_si_002/3ag/3ag 1H NMR/acqu
+jo5c00330_si_002/3ag/3ag 1H NMR/acqus
+jo5c00330_si_002/3ag/3ag 1H NMR/audita.txt
+jo5c00330_si_002/3ag/3ag 1H NMR/fid
+jo5c00330_si_002/3ag/3ag 1H NMR/format.temp
+jo5c00330_si_002/3ag/3ag 1H NMR/fq1list
+jo5c00330_si_002/3ag/3ag 1H NMR/pdata/1/1i
+jo5c00330_si_002/3ag/3ag 1H NMR/pdata/1/1r
+jo5c00330_si_002/3ag/3ag 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ag/3ag 1H NMR/pdata/1/outd
+jo5c00330_si_002/3ag/3ag 1H NMR/pdata/1/proc
+jo5c00330_si_002/3ag/3ag 1H NMR/pdata/1/procs
+jo5c00330_si_002/3ag/3ag 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ag/3ag 1H NMR/pdata/1/title
+jo5c00330_si_002/3ag/3ag 1H NMR/precom.output
+jo5c00330_si_002/3ag/3ag 1H NMR/pulseprogram
+jo5c00330_si_002/3ag/3ag 1H NMR/scon2
+jo5c00330_si_002/3ag/3ag 1H NMR/shimvalues
+jo5c00330_si_002/3ag/3ag 1H NMR/specpar
+jo5c00330_si_002/3ag/3ag 1H NMR/uxnmr.info
+jo5c00330_si_002/3ag/3ag 1H NMR/uxnmr.par
+jo5c00330_si_002/3ag/3ag 1H NMR/vtc_pid_settings
+jo5c00330_si_002/3ag/3ag.mnova
+jo5c00330_si_002/3ah/3ah 13C NMR/acqu
+jo5c00330_si_002/3ah/3ah 13C NMR/acqus
+jo5c00330_si_002/3ah/3ah 13C NMR/audita.txt
+jo5c00330_si_002/3ah/3ah 13C NMR/cpdprg2
+jo5c00330_si_002/3ah/3ah 13C NMR/fid
+jo5c00330_si_002/3ah/3ah 13C NMR/format.temp
+jo5c00330_si_002/3ah/3ah 13C NMR/fq1list
+jo5c00330_si_002/3ah/3ah 13C NMR/pdata/1/1i
+jo5c00330_si_002/3ah/3ah 13C NMR/pdata/1/1r
+jo5c00330_si_002/3ah/3ah 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ah/3ah 13C NMR/pdata/1/outd
+jo5c00330_si_002/3ah/3ah 13C NMR/pdata/1/proc
+jo5c00330_si_002/3ah/3ah 13C NMR/pdata/1/procs
+jo5c00330_si_002/3ah/3ah 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ah/3ah 13C NMR/pdata/1/title
+jo5c00330_si_002/3ah/3ah 13C NMR/precom.output
+jo5c00330_si_002/3ah/3ah 13C NMR/pulseprogram
+jo5c00330_si_002/3ah/3ah 13C NMR/scon2
+jo5c00330_si_002/3ah/3ah 13C NMR/shimvalues
+jo5c00330_si_002/3ah/3ah 13C NMR/specpar
+jo5c00330_si_002/3ah/3ah 13C NMR/uxnmr.info
+jo5c00330_si_002/3ah/3ah 13C NMR/uxnmr.par
+jo5c00330_si_002/3ah/3ah 19F NMR/acqu
+jo5c00330_si_002/3ah/3ah 19F NMR/acqus
+jo5c00330_si_002/3ah/3ah 19F NMR/audita.txt
+jo5c00330_si_002/3ah/3ah 19F NMR/cpdprg2
+jo5c00330_si_002/3ah/3ah 19F NMR/fid
+jo5c00330_si_002/3ah/3ah 19F NMR/format.temp
+jo5c00330_si_002/3ah/3ah 19F NMR/fq1list
+jo5c00330_si_002/3ah/3ah 19F NMR/pdata/1/1i
+jo5c00330_si_002/3ah/3ah 19F NMR/pdata/1/1r
+jo5c00330_si_002/3ah/3ah 19F NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ah/3ah 19F NMR/pdata/1/outd
+jo5c00330_si_002/3ah/3ah 19F NMR/pdata/1/proc
+jo5c00330_si_002/3ah/3ah 19F NMR/pdata/1/procs
+jo5c00330_si_002/3ah/3ah 19F NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ah/3ah 19F NMR/pdata/1/title
+jo5c00330_si_002/3ah/3ah 19F NMR/precom.output
+jo5c00330_si_002/3ah/3ah 19F NMR/pulseprogram
+jo5c00330_si_002/3ah/3ah 19F NMR/scon2
+jo5c00330_si_002/3ah/3ah 19F NMR/shimvalues
+jo5c00330_si_002/3ah/3ah 19F NMR/specpar
+jo5c00330_si_002/3ah/3ah 19F NMR/uxnmr.info
+jo5c00330_si_002/3ah/3ah 19F NMR/uxnmr.par
+jo5c00330_si_002/3ah/3ah 1H NMR/acqu
+jo5c00330_si_002/3ah/3ah 1H NMR/acqus
+jo5c00330_si_002/3ah/3ah 1H NMR/audita.txt
+jo5c00330_si_002/3ah/3ah 1H NMR/fid
+jo5c00330_si_002/3ah/3ah 1H NMR/format.temp
+jo5c00330_si_002/3ah/3ah 1H NMR/fq1list
+jo5c00330_si_002/3ah/3ah 1H NMR/pdata/1/1i
+jo5c00330_si_002/3ah/3ah 1H NMR/pdata/1/1r
+jo5c00330_si_002/3ah/3ah 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ah/3ah 1H NMR/pdata/1/outd
+jo5c00330_si_002/3ah/3ah 1H NMR/pdata/1/proc
+jo5c00330_si_002/3ah/3ah 1H NMR/pdata/1/procs
+jo5c00330_si_002/3ah/3ah 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ah/3ah 1H NMR/pdata/1/title
+jo5c00330_si_002/3ah/3ah 1H NMR/precom.output
+jo5c00330_si_002/3ah/3ah 1H NMR/pulseprogram
+jo5c00330_si_002/3ah/3ah 1H NMR/scon2
+jo5c00330_si_002/3ah/3ah 1H NMR/shimvalues
+jo5c00330_si_002/3ah/3ah 1H NMR/specpar
+jo5c00330_si_002/3ah/3ah 1H NMR/uxnmr.info
+jo5c00330_si_002/3ah/3ah 1H NMR/uxnmr.par
+jo5c00330_si_002/3ah/3ah 1H NMR/vtc_pid_settings
+jo5c00330_si_002/3ah/3ah.mnova
+jo5c00330_si_002/3ai/3ai 13C NMR/acqu
+jo5c00330_si_002/3ai/3ai 13C NMR/acqus
+jo5c00330_si_002/3ai/3ai 13C NMR/audita.txt
+jo5c00330_si_002/3ai/3ai 13C NMR/cpdprg2
+jo5c00330_si_002/3ai/3ai 13C NMR/fid
+jo5c00330_si_002/3ai/3ai 13C NMR/format.temp
+jo5c00330_si_002/3ai/3ai 13C NMR/fq1list
+jo5c00330_si_002/3ai/3ai 13C NMR/pdata/1/1i
+jo5c00330_si_002/3ai/3ai 13C NMR/pdata/1/1r
+jo5c00330_si_002/3ai/3ai 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ai/3ai 13C NMR/pdata/1/outd
+jo5c00330_si_002/3ai/3ai 13C NMR/pdata/1/proc
+jo5c00330_si_002/3ai/3ai 13C NMR/pdata/1/procs
+jo5c00330_si_002/3ai/3ai 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ai/3ai 13C NMR/pdata/1/title
+jo5c00330_si_002/3ai/3ai 13C NMR/precom.output
+jo5c00330_si_002/3ai/3ai 13C NMR/pulseprogram
+jo5c00330_si_002/3ai/3ai 13C NMR/scon2
+jo5c00330_si_002/3ai/3ai 13C NMR/shimvalues
+jo5c00330_si_002/3ai/3ai 13C NMR/specpar
+jo5c00330_si_002/3ai/3ai 13C NMR/uxnmr.info
+jo5c00330_si_002/3ai/3ai 13C NMR/uxnmr.par
+jo5c00330_si_002/3ai/3ai 13C NMR/vtc_pid_settings
+jo5c00330_si_002/3ai/3ai 1H NMR/acqu
+jo5c00330_si_002/3ai/3ai 1H NMR/acqus
+jo5c00330_si_002/3ai/3ai 1H NMR/audita.txt
+jo5c00330_si_002/3ai/3ai 1H NMR/fid
+jo5c00330_si_002/3ai/3ai 1H NMR/format.temp
+jo5c00330_si_002/3ai/3ai 1H NMR/pdata/1/1i
+jo5c00330_si_002/3ai/3ai 1H NMR/pdata/1/1r
+jo5c00330_si_002/3ai/3ai 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ai/3ai 1H NMR/pdata/1/outd
+jo5c00330_si_002/3ai/3ai 1H NMR/pdata/1/proc
+jo5c00330_si_002/3ai/3ai 1H NMR/pdata/1/procs
+jo5c00330_si_002/3ai/3ai 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ai/3ai 1H NMR/pdata/1/title
+jo5c00330_si_002/3ai/3ai 1H NMR/pulseprogram
+jo5c00330_si_002/3ai/3ai 1H NMR/scon2
+jo5c00330_si_002/3ai/3ai 1H NMR/shimvalues
+jo5c00330_si_002/3ai/3ai 1H NMR/specpar
+jo5c00330_si_002/3ai/3ai 1H NMR/uxnmr.info
+jo5c00330_si_002/3ai/3ai 1H NMR/uxnmr.par
+jo5c00330_si_002/3ai/3ai 1H NMR/vtc_pid_settings
+jo5c00330_si_002/3ai/3ai.mnova
+jo5c00330_si_002/3aj/3aj 13C NMR/acqu
+jo5c00330_si_002/3aj/3aj 13C NMR/acqus
+jo5c00330_si_002/3aj/3aj 13C NMR/audita.txt
+jo5c00330_si_002/3aj/3aj 13C NMR/cpdprg2
+jo5c00330_si_002/3aj/3aj 13C NMR/fid
+jo5c00330_si_002/3aj/3aj 13C NMR/format.temp
+jo5c00330_si_002/3aj/3aj 13C NMR/fq1list
+jo5c00330_si_002/3aj/3aj 13C NMR/pdata/1/1i
+jo5c00330_si_002/3aj/3aj 13C NMR/pdata/1/1r
+jo5c00330_si_002/3aj/3aj 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3aj/3aj 13C NMR/pdata/1/outd
+jo5c00330_si_002/3aj/3aj 13C NMR/pdata/1/proc
+jo5c00330_si_002/3aj/3aj 13C NMR/pdata/1/procs
+jo5c00330_si_002/3aj/3aj 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3aj/3aj 13C NMR/pdata/1/title
+jo5c00330_si_002/3aj/3aj 13C NMR/precom.output
+jo5c00330_si_002/3aj/3aj 13C NMR/pulseprogram
+jo5c00330_si_002/3aj/3aj 13C NMR/scon2
+jo5c00330_si_002/3aj/3aj 13C NMR/shimvalues
+jo5c00330_si_002/3aj/3aj 13C NMR/specpar
+jo5c00330_si_002/3aj/3aj 13C NMR/uxnmr.info
+jo5c00330_si_002/3aj/3aj 13C NMR/uxnmr.par
+jo5c00330_si_002/3aj/3aj 1H NMR/acqu
+jo5c00330_si_002/3aj/3aj 1H NMR/acqus
+jo5c00330_si_002/3aj/3aj 1H NMR/audita.txt
+jo5c00330_si_002/3aj/3aj 1H NMR/fid
+jo5c00330_si_002/3aj/3aj 1H NMR/format.temp
+jo5c00330_si_002/3aj/3aj 1H NMR/fq1list
+jo5c00330_si_002/3aj/3aj 1H NMR/pdata/1/1i
+jo5c00330_si_002/3aj/3aj 1H NMR/pdata/1/1r
+jo5c00330_si_002/3aj/3aj 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3aj/3aj 1H NMR/pdata/1/outd
+jo5c00330_si_002/3aj/3aj 1H NMR/pdata/1/proc
+jo5c00330_si_002/3aj/3aj 1H NMR/pdata/1/procs
+jo5c00330_si_002/3aj/3aj 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3aj/3aj 1H NMR/pdata/1/title
+jo5c00330_si_002/3aj/3aj 1H NMR/precom.output
+jo5c00330_si_002/3aj/3aj 1H NMR/pulseprogram
+jo5c00330_si_002/3aj/3aj 1H NMR/scon2
+jo5c00330_si_002/3aj/3aj 1H NMR/shimvalues
+jo5c00330_si_002/3aj/3aj 1H NMR/specpar
+jo5c00330_si_002/3aj/3aj 1H NMR/uxnmr.info
+jo5c00330_si_002/3aj/3aj 1H NMR/uxnmr.par
+jo5c00330_si_002/3aj/3aj 1H NMR/vtc_pid_settings
+jo5c00330_si_002/3aj/3aj.mnova
+jo5c00330_si_002/3am/3am 13C NMR/acqu
+jo5c00330_si_002/3am/3am 13C NMR/acqus
+jo5c00330_si_002/3am/3am 13C NMR/audita.txt
+jo5c00330_si_002/3am/3am 13C NMR/cpdprg2
+jo5c00330_si_002/3am/3am 13C NMR/fid
+jo5c00330_si_002/3am/3am 13C NMR/format.temp
+jo5c00330_si_002/3am/3am 13C NMR/fq1list
+jo5c00330_si_002/3am/3am 13C NMR/pdata/1/1i
+jo5c00330_si_002/3am/3am 13C NMR/pdata/1/1r
+jo5c00330_si_002/3am/3am 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3am/3am 13C NMR/pdata/1/outd
+jo5c00330_si_002/3am/3am 13C NMR/pdata/1/proc
+jo5c00330_si_002/3am/3am 13C NMR/pdata/1/procs
+jo5c00330_si_002/3am/3am 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3am/3am 13C NMR/pdata/1/title
+jo5c00330_si_002/3am/3am 13C NMR/precom.output
+jo5c00330_si_002/3am/3am 13C NMR/pulseprogram
+jo5c00330_si_002/3am/3am 13C NMR/scon2
+jo5c00330_si_002/3am/3am 13C NMR/shimvalues
+jo5c00330_si_002/3am/3am 13C NMR/specpar
+jo5c00330_si_002/3am/3am 13C NMR/uxnmr.info
+jo5c00330_si_002/3am/3am 13C NMR/uxnmr.par
+jo5c00330_si_002/3am/3am 13C NMR/vtc_pid_settings
+jo5c00330_si_002/3am/3am 1H NMR/acqu
+jo5c00330_si_002/3am/3am 1H NMR/acqus
+jo5c00330_si_002/3am/3am 1H NMR/audita.txt
+jo5c00330_si_002/3am/3am 1H NMR/fid
+jo5c00330_si_002/3am/3am 1H NMR/format.temp
+jo5c00330_si_002/3am/3am 1H NMR/fq1list
+jo5c00330_si_002/3am/3am 1H NMR/pdata/1/1i
+jo5c00330_si_002/3am/3am 1H NMR/pdata/1/1r
+jo5c00330_si_002/3am/3am 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3am/3am 1H NMR/pdata/1/outd
+jo5c00330_si_002/3am/3am 1H NMR/pdata/1/proc
+jo5c00330_si_002/3am/3am 1H NMR/pdata/1/procs
+jo5c00330_si_002/3am/3am 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3am/3am 1H NMR/pdata/1/title
+jo5c00330_si_002/3am/3am 1H NMR/precom.output
+jo5c00330_si_002/3am/3am 1H NMR/pulseprogram
+jo5c00330_si_002/3am/3am 1H NMR/scon2
+jo5c00330_si_002/3am/3am 1H NMR/shimvalues
+jo5c00330_si_002/3am/3am 1H NMR/specpar
+jo5c00330_si_002/3am/3am 1H NMR/uxnmr.info
+jo5c00330_si_002/3am/3am 1H NMR/uxnmr.par
+jo5c00330_si_002/3am/3am 1H NMR/vtc_pid_settings
+jo5c00330_si_002/3am/3am.mnova
+jo5c00330_si_002/3ba/3ba 13C NMR/acqu
+jo5c00330_si_002/3ba/3ba 13C NMR/acqus
+jo5c00330_si_002/3ba/3ba 13C NMR/audita.txt
+jo5c00330_si_002/3ba/3ba 13C NMR/cpdprg2
+jo5c00330_si_002/3ba/3ba 13C NMR/fid
+jo5c00330_si_002/3ba/3ba 13C NMR/format.temp
+jo5c00330_si_002/3ba/3ba 13C NMR/fq1list
+jo5c00330_si_002/3ba/3ba 13C NMR/pdata/1/1i
+jo5c00330_si_002/3ba/3ba 13C NMR/pdata/1/1r
+jo5c00330_si_002/3ba/3ba 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ba/3ba 13C NMR/pdata/1/outd
+jo5c00330_si_002/3ba/3ba 13C NMR/pdata/1/proc
+jo5c00330_si_002/3ba/3ba 13C NMR/pdata/1/procs
+jo5c00330_si_002/3ba/3ba 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ba/3ba 13C NMR/pdata/1/title
+jo5c00330_si_002/3ba/3ba 13C NMR/precom.output
+jo5c00330_si_002/3ba/3ba 13C NMR/pulseprogram
+jo5c00330_si_002/3ba/3ba 13C NMR/scon2
+jo5c00330_si_002/3ba/3ba 13C NMR/shimvalues
+jo5c00330_si_002/3ba/3ba 13C NMR/specpar
+jo5c00330_si_002/3ba/3ba 13C NMR/uxnmr.info
+jo5c00330_si_002/3ba/3ba 13C NMR/uxnmr.par
+jo5c00330_si_002/3ba/3ba 13C NMR/vtc_pid_settings
+jo5c00330_si_002/3ba/3ba 1H NMR/acqu
+jo5c00330_si_002/3ba/3ba 1H NMR/acqus
+jo5c00330_si_002/3ba/3ba 1H NMR/audita.txt
+jo5c00330_si_002/3ba/3ba 1H NMR/fid
+jo5c00330_si_002/3ba/3ba 1H NMR/format.temp
+jo5c00330_si_002/3ba/3ba 1H NMR/pdata/1/1i
+jo5c00330_si_002/3ba/3ba 1H NMR/pdata/1/1r
+jo5c00330_si_002/3ba/3ba 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ba/3ba 1H NMR/pdata/1/outd
+jo5c00330_si_002/3ba/3ba 1H NMR/pdata/1/proc
+jo5c00330_si_002/3ba/3ba 1H NMR/pdata/1/procs
+jo5c00330_si_002/3ba/3ba 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ba/3ba 1H NMR/pdata/1/title
+jo5c00330_si_002/3ba/3ba 1H NMR/pulseprogram
+jo5c00330_si_002/3ba/3ba 1H NMR/scon2
+jo5c00330_si_002/3ba/3ba 1H NMR/shimvalues
+jo5c00330_si_002/3ba/3ba 1H NMR/specpar
+jo5c00330_si_002/3ba/3ba 1H NMR/uxnmr.info
+jo5c00330_si_002/3ba/3ba 1H NMR/uxnmr.par
+jo5c00330_si_002/3ba/3ba 1H NMR/vtc_pid_settings
+jo5c00330_si_002/3ba/3ba.mnova
+jo5c00330_si_002/3ca/3ca 13C NMR/acqu
+jo5c00330_si_002/3ca/3ca 13C NMR/acqus
+jo5c00330_si_002/3ca/3ca 13C NMR/audita.txt
+jo5c00330_si_002/3ca/3ca 13C NMR/cpdprg2
+jo5c00330_si_002/3ca/3ca 13C NMR/fid
+jo5c00330_si_002/3ca/3ca 13C NMR/format.temp
+jo5c00330_si_002/3ca/3ca 13C NMR/fq1list
+jo5c00330_si_002/3ca/3ca 13C NMR/pdata/1/1i
+jo5c00330_si_002/3ca/3ca 13C NMR/pdata/1/1r
+jo5c00330_si_002/3ca/3ca 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ca/3ca 13C NMR/pdata/1/outd
+jo5c00330_si_002/3ca/3ca 13C NMR/pdata/1/proc
+jo5c00330_si_002/3ca/3ca 13C NMR/pdata/1/procs
+jo5c00330_si_002/3ca/3ca 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ca/3ca 13C NMR/pdata/1/title
+jo5c00330_si_002/3ca/3ca 13C NMR/precom.output
+jo5c00330_si_002/3ca/3ca 13C NMR/pulseprogram
+jo5c00330_si_002/3ca/3ca 13C NMR/scon2
+jo5c00330_si_002/3ca/3ca 13C NMR/shimvalues
+jo5c00330_si_002/3ca/3ca 13C NMR/specpar
+jo5c00330_si_002/3ca/3ca 13C NMR/uxnmr.info
+jo5c00330_si_002/3ca/3ca 13C NMR/uxnmr.par
+jo5c00330_si_002/3ca/3ca 13C NMR/vtc_pid_settings
+jo5c00330_si_002/3ca/3ca 1H NMR/acqu
+jo5c00330_si_002/3ca/3ca 1H NMR/acqus
+jo5c00330_si_002/3ca/3ca 1H NMR/audita.txt
+jo5c00330_si_002/3ca/3ca 1H NMR/fid
+jo5c00330_si_002/3ca/3ca 1H NMR/format.temp
+jo5c00330_si_002/3ca/3ca 1H NMR/fq1list
+jo5c00330_si_002/3ca/3ca 1H NMR/pdata/1/1i
+jo5c00330_si_002/3ca/3ca 1H NMR/pdata/1/1r
+jo5c00330_si_002/3ca/3ca 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ca/3ca 1H NMR/pdata/1/outd
+jo5c00330_si_002/3ca/3ca 1H NMR/pdata/1/proc
+jo5c00330_si_002/3ca/3ca 1H NMR/pdata/1/procs
+jo5c00330_si_002/3ca/3ca 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ca/3ca 1H NMR/pdata/1/title
+jo5c00330_si_002/3ca/3ca 1H NMR/precom.output
+jo5c00330_si_002/3ca/3ca 1H NMR/pulseprogram
+jo5c00330_si_002/3ca/3ca 1H NMR/scon2
+jo5c00330_si_002/3ca/3ca 1H NMR/shimvalues
+jo5c00330_si_002/3ca/3ca 1H NMR/specpar
+jo5c00330_si_002/3ca/3ca 1H NMR/uxnmr.info
+jo5c00330_si_002/3ca/3ca 1H NMR/uxnmr.par
+jo5c00330_si_002/3ca/3ca 1H NMR/vtc_pid_settings
+jo5c00330_si_002/3ca/3ca.mnova
+jo5c00330_si_002/3da/3da 13C NMR/acqu
+jo5c00330_si_002/3da/3da 13C NMR/acqus
+jo5c00330_si_002/3da/3da 13C NMR/audita.txt
+jo5c00330_si_002/3da/3da 13C NMR/cpdprg2
+jo5c00330_si_002/3da/3da 13C NMR/fid
+jo5c00330_si_002/3da/3da 13C NMR/format.temp
+jo5c00330_si_002/3da/3da 13C NMR/fq1list
+jo5c00330_si_002/3da/3da 13C NMR/pdata/1/1i
+jo5c00330_si_002/3da/3da 13C NMR/pdata/1/1r
+jo5c00330_si_002/3da/3da 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3da/3da 13C NMR/pdata/1/outd
+jo5c00330_si_002/3da/3da 13C NMR/pdata/1/proc
+jo5c00330_si_002/3da/3da 13C NMR/pdata/1/procs
+jo5c00330_si_002/3da/3da 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3da/3da 13C NMR/pdata/1/title
+jo5c00330_si_002/3da/3da 13C NMR/precom.output
+jo5c00330_si_002/3da/3da 13C NMR/pulseprogram
+jo5c00330_si_002/3da/3da 13C NMR/scon2
+jo5c00330_si_002/3da/3da 13C NMR/shimvalues
+jo5c00330_si_002/3da/3da 13C NMR/specpar
+jo5c00330_si_002/3da/3da 13C NMR/uxnmr.info
+jo5c00330_si_002/3da/3da 13C NMR/uxnmr.par
+jo5c00330_si_002/3da/3da 13C NMR/vtc_pid_settings
+jo5c00330_si_002/3da/3da 1H NMR/acqu
+jo5c00330_si_002/3da/3da 1H NMR/acqus
+jo5c00330_si_002/3da/3da 1H NMR/audita.txt
+jo5c00330_si_002/3da/3da 1H NMR/fid
+jo5c00330_si_002/3da/3da 1H NMR/format.temp
+jo5c00330_si_002/3da/3da 1H NMR/pdata/1/1i
+jo5c00330_si_002/3da/3da 1H NMR/pdata/1/1r
+jo5c00330_si_002/3da/3da 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3da/3da 1H NMR/pdata/1/outd
+jo5c00330_si_002/3da/3da 1H NMR/pdata/1/proc
+jo5c00330_si_002/3da/3da 1H NMR/pdata/1/procs
+jo5c00330_si_002/3da/3da 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3da/3da 1H NMR/pdata/1/title
+jo5c00330_si_002/3da/3da 1H NMR/pulseprogram
+jo5c00330_si_002/3da/3da 1H NMR/scon2
+jo5c00330_si_002/3da/3da 1H NMR/shimvalues
+jo5c00330_si_002/3da/3da 1H NMR/specpar
+jo5c00330_si_002/3da/3da 1H NMR/uxnmr.info
+jo5c00330_si_002/3da/3da 1H NMR/uxnmr.par
+jo5c00330_si_002/3da/3da 1H NMR/vtc_pid_settings
+jo5c00330_si_002/3da/3da.mnova
+jo5c00330_si_002/3ea/3ea 13C NMR/acqu
+jo5c00330_si_002/3ea/3ea 13C NMR/acqus
+jo5c00330_si_002/3ea/3ea 13C NMR/audita.txt
+jo5c00330_si_002/3ea/3ea 13C NMR/cpdprg2
+jo5c00330_si_002/3ea/3ea 13C NMR/fid
+jo5c00330_si_002/3ea/3ea 13C NMR/format.temp
+jo5c00330_si_002/3ea/3ea 13C NMR/fq1list
+jo5c00330_si_002/3ea/3ea 13C NMR/pdata/1/1i
+jo5c00330_si_002/3ea/3ea 13C NMR/pdata/1/1r
+jo5c00330_si_002/3ea/3ea 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ea/3ea 13C NMR/pdata/1/outd
+jo5c00330_si_002/3ea/3ea 13C NMR/pdata/1/proc
+jo5c00330_si_002/3ea/3ea 13C NMR/pdata/1/procs
+jo5c00330_si_002/3ea/3ea 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ea/3ea 13C NMR/pdata/1/title
+jo5c00330_si_002/3ea/3ea 13C NMR/precom.output
+jo5c00330_si_002/3ea/3ea 13C NMR/pulseprogram
+jo5c00330_si_002/3ea/3ea 13C NMR/scon2
+jo5c00330_si_002/3ea/3ea 13C NMR/shimvalues
+jo5c00330_si_002/3ea/3ea 13C NMR/specpar
+jo5c00330_si_002/3ea/3ea 13C NMR/uxnmr.info
+jo5c00330_si_002/3ea/3ea 13C NMR/uxnmr.par
+jo5c00330_si_002/3ea/3ea 13C NMR/vtc_pid_settings
+jo5c00330_si_002/3ea/3ea 1H NMR/acqu
+jo5c00330_si_002/3ea/3ea 1H NMR/acqus
+jo5c00330_si_002/3ea/3ea 1H NMR/audita.txt
+jo5c00330_si_002/3ea/3ea 1H NMR/fid
+jo5c00330_si_002/3ea/3ea 1H NMR/format.temp
+jo5c00330_si_002/3ea/3ea 1H NMR/pdata/1/1i
+jo5c00330_si_002/3ea/3ea 1H NMR/pdata/1/1r
+jo5c00330_si_002/3ea/3ea 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ea/3ea 1H NMR/pdata/1/outd
+jo5c00330_si_002/3ea/3ea 1H NMR/pdata/1/proc
+jo5c00330_si_002/3ea/3ea 1H NMR/pdata/1/procs
+jo5c00330_si_002/3ea/3ea 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ea/3ea 1H NMR/pdata/1/title
+jo5c00330_si_002/3ea/3ea 1H NMR/pulseprogram
+jo5c00330_si_002/3ea/3ea 1H NMR/scon2
+jo5c00330_si_002/3ea/3ea 1H NMR/shimvalues
+jo5c00330_si_002/3ea/3ea 1H NMR/specpar
+jo5c00330_si_002/3ea/3ea 1H NMR/uxnmr.info
+jo5c00330_si_002/3ea/3ea 1H NMR/uxnmr.par
+jo5c00330_si_002/3ea/3ea 1H NMR/vtc_pid_settings
+jo5c00330_si_002/3ea/3ea.mnova
+jo5c00330_si_002/3fa/3fa 13C NMR/acqu
+jo5c00330_si_002/3fa/3fa 13C NMR/acqus
+jo5c00330_si_002/3fa/3fa 13C NMR/audita.txt
+jo5c00330_si_002/3fa/3fa 13C NMR/cpdprg2
+jo5c00330_si_002/3fa/3fa 13C NMR/fid
+jo5c00330_si_002/3fa/3fa 13C NMR/format.temp
+jo5c00330_si_002/3fa/3fa 13C NMR/fq1list
+jo5c00330_si_002/3fa/3fa 13C NMR/pdata/1/1i
+jo5c00330_si_002/3fa/3fa 13C NMR/pdata/1/1r
+jo5c00330_si_002/3fa/3fa 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3fa/3fa 13C NMR/pdata/1/outd
+jo5c00330_si_002/3fa/3fa 13C NMR/pdata/1/proc
+jo5c00330_si_002/3fa/3fa 13C NMR/pdata/1/procs
+jo5c00330_si_002/3fa/3fa 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3fa/3fa 13C NMR/pdata/1/title
+jo5c00330_si_002/3fa/3fa 13C NMR/precom.output
+jo5c00330_si_002/3fa/3fa 13C NMR/pulseprogram
+jo5c00330_si_002/3fa/3fa 13C NMR/scon2
+jo5c00330_si_002/3fa/3fa 13C NMR/shimvalues
+jo5c00330_si_002/3fa/3fa 13C NMR/specpar
+jo5c00330_si_002/3fa/3fa 13C NMR/uxnmr.info
+jo5c00330_si_002/3fa/3fa 13C NMR/uxnmr.par
+jo5c00330_si_002/3fa/3fa 13C NMR/vtc_pid_settings
+jo5c00330_si_002/3fa/3fa 1H NMR/acqu
+jo5c00330_si_002/3fa/3fa 1H NMR/acqus
+jo5c00330_si_002/3fa/3fa 1H NMR/audita.txt
+jo5c00330_si_002/3fa/3fa 1H NMR/fid
+jo5c00330_si_002/3fa/3fa 1H NMR/format.temp
+jo5c00330_si_002/3fa/3fa 1H NMR/pdata/1/1i
+jo5c00330_si_002/3fa/3fa 1H NMR/pdata/1/1r
+jo5c00330_si_002/3fa/3fa 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3fa/3fa 1H NMR/pdata/1/outd
+jo5c00330_si_002/3fa/3fa 1H NMR/pdata/1/proc
+jo5c00330_si_002/3fa/3fa 1H NMR/pdata/1/procs
+jo5c00330_si_002/3fa/3fa 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3fa/3fa 1H NMR/pdata/1/title
+jo5c00330_si_002/3fa/3fa 1H NMR/pulseprogram
+jo5c00330_si_002/3fa/3fa 1H NMR/scon2
+jo5c00330_si_002/3fa/3fa 1H NMR/shimvalues
+jo5c00330_si_002/3fa/3fa 1H NMR/specpar
+jo5c00330_si_002/3fa/3fa 1H NMR/uxnmr.info
+jo5c00330_si_002/3fa/3fa 1H NMR/uxnmr.par
+jo5c00330_si_002/3fa/3fa 1H NMR/vtc_pid_settings
+jo5c00330_si_002/3fa/3fa.mnova
+jo5c00330_si_002/3ga/3ga 13C NMR/acqu
+jo5c00330_si_002/3ga/3ga 13C NMR/acqus
+jo5c00330_si_002/3ga/3ga 13C NMR/audita.txt
+jo5c00330_si_002/3ga/3ga 13C NMR/cpdprg2
+jo5c00330_si_002/3ga/3ga 13C NMR/fid
+jo5c00330_si_002/3ga/3ga 13C NMR/format.temp
+jo5c00330_si_002/3ga/3ga 13C NMR/fq1list
+jo5c00330_si_002/3ga/3ga 13C NMR/pdata/1/1i
+jo5c00330_si_002/3ga/3ga 13C NMR/pdata/1/1r
+jo5c00330_si_002/3ga/3ga 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ga/3ga 13C NMR/pdata/1/outd
+jo5c00330_si_002/3ga/3ga 13C NMR/pdata/1/proc
+jo5c00330_si_002/3ga/3ga 13C NMR/pdata/1/procs
+jo5c00330_si_002/3ga/3ga 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ga/3ga 13C NMR/pdata/1/title
+jo5c00330_si_002/3ga/3ga 13C NMR/precom.output
+jo5c00330_si_002/3ga/3ga 13C NMR/pulseprogram
+jo5c00330_si_002/3ga/3ga 13C NMR/scon2
+jo5c00330_si_002/3ga/3ga 13C NMR/shimvalues
+jo5c00330_si_002/3ga/3ga 13C NMR/specpar
+jo5c00330_si_002/3ga/3ga 13C NMR/uxnmr.info
+jo5c00330_si_002/3ga/3ga 13C NMR/uxnmr.par
+jo5c00330_si_002/3ga/3ga 1H NMR/acqu
+jo5c00330_si_002/3ga/3ga 1H NMR/acqus
+jo5c00330_si_002/3ga/3ga 1H NMR/audita.txt
+jo5c00330_si_002/3ga/3ga 1H NMR/fid
+jo5c00330_si_002/3ga/3ga 1H NMR/format.temp
+jo5c00330_si_002/3ga/3ga 1H NMR/fq1list
+jo5c00330_si_002/3ga/3ga 1H NMR/pdata/1/1i
+jo5c00330_si_002/3ga/3ga 1H NMR/pdata/1/1r
+jo5c00330_si_002/3ga/3ga 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ga/3ga 1H NMR/pdata/1/outd
+jo5c00330_si_002/3ga/3ga 1H NMR/pdata/1/proc
+jo5c00330_si_002/3ga/3ga 1H NMR/pdata/1/procs
+jo5c00330_si_002/3ga/3ga 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ga/3ga 1H NMR/pdata/1/title
+jo5c00330_si_002/3ga/3ga 1H NMR/precom.output
+jo5c00330_si_002/3ga/3ga 1H NMR/pulseprogram
+jo5c00330_si_002/3ga/3ga 1H NMR/scon2
+jo5c00330_si_002/3ga/3ga 1H NMR/shimvalues
+jo5c00330_si_002/3ga/3ga 1H NMR/specpar
+jo5c00330_si_002/3ga/3ga 1H NMR/uxnmr.info
+jo5c00330_si_002/3ga/3ga 1H NMR/uxnmr.par
+jo5c00330_si_002/3ga/3ga.mnova
+jo5c00330_si_002/3ka/3ka 13C NMR/acqu
+jo5c00330_si_002/3ka/3ka 13C NMR/acqus
+jo5c00330_si_002/3ka/3ka 13C NMR/audita.txt
+jo5c00330_si_002/3ka/3ka 13C NMR/cpdprg2
+jo5c00330_si_002/3ka/3ka 13C NMR/fid
+jo5c00330_si_002/3ka/3ka 13C NMR/format.temp
+jo5c00330_si_002/3ka/3ka 13C NMR/fq1list
+jo5c00330_si_002/3ka/3ka 13C NMR/pdata/1/1i
+jo5c00330_si_002/3ka/3ka 13C NMR/pdata/1/1r
+jo5c00330_si_002/3ka/3ka 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ka/3ka 13C NMR/pdata/1/outd
+jo5c00330_si_002/3ka/3ka 13C NMR/pdata/1/proc
+jo5c00330_si_002/3ka/3ka 13C NMR/pdata/1/procs
+jo5c00330_si_002/3ka/3ka 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ka/3ka 13C NMR/pdata/1/title
+jo5c00330_si_002/3ka/3ka 13C NMR/precom.output
+jo5c00330_si_002/3ka/3ka 13C NMR/pulseprogram
+jo5c00330_si_002/3ka/3ka 13C NMR/scon2
+jo5c00330_si_002/3ka/3ka 13C NMR/shimvalues
+jo5c00330_si_002/3ka/3ka 13C NMR/specpar
+jo5c00330_si_002/3ka/3ka 13C NMR/uxnmr.info
+jo5c00330_si_002/3ka/3ka 13C NMR/uxnmr.par
+jo5c00330_si_002/3ka/3ka 1H NMR/acqu
+jo5c00330_si_002/3ka/3ka 1H NMR/acqus
+jo5c00330_si_002/3ka/3ka 1H NMR/audita.txt
+jo5c00330_si_002/3ka/3ka 1H NMR/fid
+jo5c00330_si_002/3ka/3ka 1H NMR/format.temp
+jo5c00330_si_002/3ka/3ka 1H NMR/pdata/1/1i
+jo5c00330_si_002/3ka/3ka 1H NMR/pdata/1/1r
+jo5c00330_si_002/3ka/3ka 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ka/3ka 1H NMR/pdata/1/outd
+jo5c00330_si_002/3ka/3ka 1H NMR/pdata/1/proc
+jo5c00330_si_002/3ka/3ka 1H NMR/pdata/1/procs
+jo5c00330_si_002/3ka/3ka 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ka/3ka 1H NMR/pdata/1/title
+jo5c00330_si_002/3ka/3ka 1H NMR/pulseprogram
+jo5c00330_si_002/3ka/3ka 1H NMR/scon2
+jo5c00330_si_002/3ka/3ka 1H NMR/shimvalues
+jo5c00330_si_002/3ka/3ka 1H NMR/specpar
+jo5c00330_si_002/3ka/3ka 1H NMR/uxnmr.info
+jo5c00330_si_002/3ka/3ka 1H NMR/uxnmr.par
+jo5c00330_si_002/3ka/3ka.mnova
+jo5c00330_si_002/3la/cis-3la 13C NMR/acqu
+jo5c00330_si_002/3la/cis-3la 13C NMR/acqus
+jo5c00330_si_002/3la/cis-3la 13C NMR/audita.txt
+jo5c00330_si_002/3la/cis-3la 13C NMR/cpdprg2
+jo5c00330_si_002/3la/cis-3la 13C NMR/fid
+jo5c00330_si_002/3la/cis-3la 13C NMR/format.temp
+jo5c00330_si_002/3la/cis-3la 13C NMR/fq1list
+jo5c00330_si_002/3la/cis-3la 13C NMR/overflow_log_dru1.txt
+jo5c00330_si_002/3la/cis-3la 13C NMR/pdata/1/1i
+jo5c00330_si_002/3la/cis-3la 13C NMR/pdata/1/1r
+jo5c00330_si_002/3la/cis-3la 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3la/cis-3la 13C NMR/pdata/1/outd
+jo5c00330_si_002/3la/cis-3la 13C NMR/pdata/1/proc
+jo5c00330_si_002/3la/cis-3la 13C NMR/pdata/1/procs
+jo5c00330_si_002/3la/cis-3la 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3la/cis-3la 13C NMR/pdata/1/title
+jo5c00330_si_002/3la/cis-3la 13C NMR/precom.output
+jo5c00330_si_002/3la/cis-3la 13C NMR/pulseprogram
+jo5c00330_si_002/3la/cis-3la 13C NMR/scon2
+jo5c00330_si_002/3la/cis-3la 13C NMR/shimvalues
+jo5c00330_si_002/3la/cis-3la 13C NMR/specpar
+jo5c00330_si_002/3la/cis-3la 13C NMR/uxnmr.info
+jo5c00330_si_002/3la/cis-3la 13C NMR/uxnmr.par
+jo5c00330_si_002/3la/cis-3la 1H NMR/acqu
+jo5c00330_si_002/3la/cis-3la 1H NMR/acqus
+jo5c00330_si_002/3la/cis-3la 1H NMR/audita.txt
+jo5c00330_si_002/3la/cis-3la 1H NMR/fid
+jo5c00330_si_002/3la/cis-3la 1H NMR/format.temp
+jo5c00330_si_002/3la/cis-3la 1H NMR/pdata/1/1i
+jo5c00330_si_002/3la/cis-3la 1H NMR/pdata/1/1r
+jo5c00330_si_002/3la/cis-3la 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3la/cis-3la 1H NMR/pdata/1/integrals.txt
+jo5c00330_si_002/3la/cis-3la 1H NMR/pdata/1/intrng
+jo5c00330_si_002/3la/cis-3la 1H NMR/pdata/1/outd
+jo5c00330_si_002/3la/cis-3la 1H NMR/pdata/1/proc
+jo5c00330_si_002/3la/cis-3la 1H NMR/pdata/1/procs
+jo5c00330_si_002/3la/cis-3la 1H NMR/pdata/1/reg
+jo5c00330_si_002/3la/cis-3la 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3la/cis-3la 1H NMR/pdata/1/title
+jo5c00330_si_002/3la/cis-3la 1H NMR/pulseprogram
+jo5c00330_si_002/3la/cis-3la 1H NMR/scon2
+jo5c00330_si_002/3la/cis-3la 1H NMR/shimvalues
+jo5c00330_si_002/3la/cis-3la 1H NMR/specpar
+jo5c00330_si_002/3la/cis-3la 1H NMR/uxnmr.info
+jo5c00330_si_002/3la/cis-3la 1H NMR/uxnmr.par
+jo5c00330_si_002/3la/cis-3la NOE/acqu
+jo5c00330_si_002/3la/cis-3la NOE/acqus
+jo5c00330_si_002/3la/cis-3la NOE/audita.txt
+jo5c00330_si_002/3la/cis-3la NOE/EA
+jo5c00330_si_002/3la/cis-3la NOE/fid
+jo5c00330_si_002/3la/cis-3la NOE/format.temp
+jo5c00330_si_002/3la/cis-3la NOE/gpnam1
+jo5c00330_si_002/3la/cis-3la NOE/gpnam2
+jo5c00330_si_002/3la/cis-3la NOE/gradient_calib
+jo5c00330_si_002/3la/cis-3la NOE/pdata/1/1i
+jo5c00330_si_002/3la/cis-3la NOE/pdata/1/1r
+jo5c00330_si_002/3la/cis-3la NOE/pdata/1/auditp.txt
+jo5c00330_si_002/3la/cis-3la NOE/pdata/1/curdat2
+jo5c00330_si_002/3la/cis-3la NOE/pdata/1/outd
+jo5c00330_si_002/3la/cis-3la NOE/pdata/1/proc
+jo5c00330_si_002/3la/cis-3la NOE/pdata/1/procs
+jo5c00330_si_002/3la/cis-3la NOE/pdata/1/thumb.png
+jo5c00330_si_002/3la/cis-3la NOE/pdata/1/title
+jo5c00330_si_002/3la/cis-3la NOE/pulseprogram
+jo5c00330_si_002/3la/cis-3la NOE/scon2
+jo5c00330_si_002/3la/cis-3la NOE/shimvalues
+jo5c00330_si_002/3la/cis-3la NOE/specpar
+jo5c00330_si_002/3la/cis-3la NOE/spnam2
+jo5c00330_si_002/3la/cis-3la NOE/uxnmr.info
+jo5c00330_si_002/3la/cis-3la NOE/uxnmr.par
+jo5c00330_si_002/3la/cis-3la NOE/vtc_pid_settings
+jo5c00330_si_002/3la/cis-3la.mnova
+jo5c00330_si_002/3la/trans-3al 13C NMR/acqu
+jo5c00330_si_002/3la/trans-3al 13C NMR/acqus
+jo5c00330_si_002/3la/trans-3al 13C NMR/audita.txt
+jo5c00330_si_002/3la/trans-3al 13C NMR/cpdprg2
+jo5c00330_si_002/3la/trans-3al 13C NMR/fid
+jo5c00330_si_002/3la/trans-3al 13C NMR/format.temp
+jo5c00330_si_002/3la/trans-3al 13C NMR/fq1list
+jo5c00330_si_002/3la/trans-3al 13C NMR/pdata/1/1i
+jo5c00330_si_002/3la/trans-3al 13C NMR/pdata/1/1r
+jo5c00330_si_002/3la/trans-3al 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3la/trans-3al 13C NMR/pdata/1/outd
+jo5c00330_si_002/3la/trans-3al 13C NMR/pdata/1/proc
+jo5c00330_si_002/3la/trans-3al 13C NMR/pdata/1/procs
+jo5c00330_si_002/3la/trans-3al 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3la/trans-3al 13C NMR/pdata/1/title
+jo5c00330_si_002/3la/trans-3al 13C NMR/precom.output
+jo5c00330_si_002/3la/trans-3al 13C NMR/pulseprogram
+jo5c00330_si_002/3la/trans-3al 13C NMR/scon2
+jo5c00330_si_002/3la/trans-3al 13C NMR/shimvalues
+jo5c00330_si_002/3la/trans-3al 13C NMR/specpar
+jo5c00330_si_002/3la/trans-3al 13C NMR/uxnmr.info
+jo5c00330_si_002/3la/trans-3al 13C NMR/uxnmr.par
+jo5c00330_si_002/3la/trans-3al 1H NMR/acqu
+jo5c00330_si_002/3la/trans-3al 1H NMR/acqus
+jo5c00330_si_002/3la/trans-3al 1H NMR/audita.txt
+jo5c00330_si_002/3la/trans-3al 1H NMR/fid
+jo5c00330_si_002/3la/trans-3al 1H NMR/format.temp
+jo5c00330_si_002/3la/trans-3al 1H NMR/fq1list
+jo5c00330_si_002/3la/trans-3al 1H NMR/pdata/1/1i
+jo5c00330_si_002/3la/trans-3al 1H NMR/pdata/1/1r
+jo5c00330_si_002/3la/trans-3al 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3la/trans-3al 1H NMR/pdata/1/outd
+jo5c00330_si_002/3la/trans-3al 1H NMR/pdata/1/proc
+jo5c00330_si_002/3la/trans-3al 1H NMR/pdata/1/procs
+jo5c00330_si_002/3la/trans-3al 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3la/trans-3al 1H NMR/pdata/1/title
+jo5c00330_si_002/3la/trans-3al 1H NMR/precom.output
+jo5c00330_si_002/3la/trans-3al 1H NMR/pulseprogram
+jo5c00330_si_002/3la/trans-3al 1H NMR/scon2
+jo5c00330_si_002/3la/trans-3al 1H NMR/shimvalues
+jo5c00330_si_002/3la/trans-3al 1H NMR/specpar
+jo5c00330_si_002/3la/trans-3al 1H NMR/uxnmr.info
+jo5c00330_si_002/3la/trans-3al 1H NMR/uxnmr.par
+jo5c00330_si_002/3la/trans-3la NOE/acqu
+jo5c00330_si_002/3la/trans-3la NOE/acqus
+jo5c00330_si_002/3la/trans-3la NOE/audita.txt
+jo5c00330_si_002/3la/trans-3la NOE/EA
+jo5c00330_si_002/3la/trans-3la NOE/fid
+jo5c00330_si_002/3la/trans-3la NOE/format.temp
+jo5c00330_si_002/3la/trans-3la NOE/gpnam1
+jo5c00330_si_002/3la/trans-3la NOE/gpnam2
+jo5c00330_si_002/3la/trans-3la NOE/gradient_calib
+jo5c00330_si_002/3la/trans-3la NOE/pdata/1/1i
+jo5c00330_si_002/3la/trans-3la NOE/pdata/1/1r
+jo5c00330_si_002/3la/trans-3la NOE/pdata/1/auditp.txt
+jo5c00330_si_002/3la/trans-3la NOE/pdata/1/curdat2
+jo5c00330_si_002/3la/trans-3la NOE/pdata/1/outd
+jo5c00330_si_002/3la/trans-3la NOE/pdata/1/proc
+jo5c00330_si_002/3la/trans-3la NOE/pdata/1/procs
+jo5c00330_si_002/3la/trans-3la NOE/pdata/1/thumb.png
+jo5c00330_si_002/3la/trans-3la NOE/pdata/1/title
+jo5c00330_si_002/3la/trans-3la NOE/pulseprogram
+jo5c00330_si_002/3la/trans-3la NOE/scon2
+jo5c00330_si_002/3la/trans-3la NOE/shimvalues
+jo5c00330_si_002/3la/trans-3la NOE/specpar
+jo5c00330_si_002/3la/trans-3la NOE/spnam2
+jo5c00330_si_002/3la/trans-3la NOE/uxnmr.info
+jo5c00330_si_002/3la/trans-3la NOE/uxnmr.par
+jo5c00330_si_002/3la/trans-3la NOE/vtc_pid_settings
+jo5c00330_si_002/3la/trans-3la.mnova
+jo5c00330_si_002/3ma/3ma 13C NMR/acqu
+jo5c00330_si_002/3ma/3ma 13C NMR/acqus
+jo5c00330_si_002/3ma/3ma 13C NMR/audita.txt
+jo5c00330_si_002/3ma/3ma 13C NMR/cpdprg2
+jo5c00330_si_002/3ma/3ma 13C NMR/fid
+jo5c00330_si_002/3ma/3ma 13C NMR/format.temp
+jo5c00330_si_002/3ma/3ma 13C NMR/fq1list
+jo5c00330_si_002/3ma/3ma 13C NMR/pdata/1/1i
+jo5c00330_si_002/3ma/3ma 13C NMR/pdata/1/1r
+jo5c00330_si_002/3ma/3ma 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ma/3ma 13C NMR/pdata/1/outd
+jo5c00330_si_002/3ma/3ma 13C NMR/pdata/1/proc
+jo5c00330_si_002/3ma/3ma 13C NMR/pdata/1/procs
+jo5c00330_si_002/3ma/3ma 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ma/3ma 13C NMR/pdata/1/title
+jo5c00330_si_002/3ma/3ma 13C NMR/precom.output
+jo5c00330_si_002/3ma/3ma 13C NMR/pulseprogram
+jo5c00330_si_002/3ma/3ma 13C NMR/scon2
+jo5c00330_si_002/3ma/3ma 13C NMR/shimvalues
+jo5c00330_si_002/3ma/3ma 13C NMR/specpar
+jo5c00330_si_002/3ma/3ma 13C NMR/uxnmr.info
+jo5c00330_si_002/3ma/3ma 13C NMR/uxnmr.par
+jo5c00330_si_002/3ma/3ma 1H NMR/acqu
+jo5c00330_si_002/3ma/3ma 1H NMR/acqus
+jo5c00330_si_002/3ma/3ma 1H NMR/audita.txt
+jo5c00330_si_002/3ma/3ma 1H NMR/fid
+jo5c00330_si_002/3ma/3ma 1H NMR/format.temp
+jo5c00330_si_002/3ma/3ma 1H NMR/fq1list
+jo5c00330_si_002/3ma/3ma 1H NMR/pdata/1/1i
+jo5c00330_si_002/3ma/3ma 1H NMR/pdata/1/1r
+jo5c00330_si_002/3ma/3ma 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/3ma/3ma 1H NMR/pdata/1/outd
+jo5c00330_si_002/3ma/3ma 1H NMR/pdata/1/proc
+jo5c00330_si_002/3ma/3ma 1H NMR/pdata/1/procs
+jo5c00330_si_002/3ma/3ma 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/3ma/3ma 1H NMR/pdata/1/title
+jo5c00330_si_002/3ma/3ma 1H NMR/precom.output
+jo5c00330_si_002/3ma/3ma 1H NMR/pulseprogram
+jo5c00330_si_002/3ma/3ma 1H NMR/scon2
+jo5c00330_si_002/3ma/3ma 1H NMR/shimvalues
+jo5c00330_si_002/3ma/3ma 1H NMR/specpar
+jo5c00330_si_002/3ma/3ma 1H NMR/uxnmr.info
+jo5c00330_si_002/3ma/3ma 1H NMR/uxnmr.par
+jo5c00330_si_002/3ma/3ma.mnova
+jo5c00330_si_002/4/4 13C NMR/acqu
+jo5c00330_si_002/4/4 13C NMR/acqus
+jo5c00330_si_002/4/4 13C NMR/acqus_1
+jo5c00330_si_002/4/4 13C NMR/acqu_1
+jo5c00330_si_002/4/4 13C NMR/audita.txt
+jo5c00330_si_002/4/4 13C NMR/audita_1.txt
+jo5c00330_si_002/4/4 13C NMR/cpdprg2
+jo5c00330_si_002/4/4 13C NMR/cpdprg2_1
+jo5c00330_si_002/4/4 13C NMR/fid
+jo5c00330_si_002/4/4 13C NMR/fid_1
+jo5c00330_si_002/4/4 13C NMR/format.temp
+jo5c00330_si_002/4/4 13C NMR/format_1.temp
+jo5c00330_si_002/4/4 13C NMR/fq1list
+jo5c00330_si_002/4/4 13C NMR/fq1list_1
+jo5c00330_si_002/4/4 13C NMR/pdata/1/1i
+jo5c00330_si_002/4/4 13C NMR/pdata/1/1i_1
+jo5c00330_si_002/4/4 13C NMR/pdata/1/1r
+jo5c00330_si_002/4/4 13C NMR/pdata/1/1r_1
+jo5c00330_si_002/4/4 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/4/4 13C NMR/pdata/1/auditp_1.txt
+jo5c00330_si_002/4/4 13C NMR/pdata/1/outd
+jo5c00330_si_002/4/4 13C NMR/pdata/1/outd_1
+jo5c00330_si_002/4/4 13C NMR/pdata/1/proc
+jo5c00330_si_002/4/4 13C NMR/pdata/1/procs
+jo5c00330_si_002/4/4 13C NMR/pdata/1/procs_1
+jo5c00330_si_002/4/4 13C NMR/pdata/1/proc_1
+jo5c00330_si_002/4/4 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/4/4 13C NMR/pdata/1/thumb_1.png
+jo5c00330_si_002/4/4 13C NMR/pdata/1/title
+jo5c00330_si_002/4/4 13C NMR/pdata/1/title_1
+jo5c00330_si_002/4/4 13C NMR/precom.output
+jo5c00330_si_002/4/4 13C NMR/precom_1.output
+jo5c00330_si_002/4/4 13C NMR/pulseprogram
+jo5c00330_si_002/4/4 13C NMR/pulseprogram_1
+jo5c00330_si_002/4/4 13C NMR/scon2
+jo5c00330_si_002/4/4 13C NMR/scon2_1
+jo5c00330_si_002/4/4 13C NMR/shimvalues
+jo5c00330_si_002/4/4 13C NMR/shimvalues_1
+jo5c00330_si_002/4/4 13C NMR/specpar
+jo5c00330_si_002/4/4 13C NMR/specpar_1
+jo5c00330_si_002/4/4 13C NMR/uxnmr.info
+jo5c00330_si_002/4/4 13C NMR/uxnmr.par
+jo5c00330_si_002/4/4 13C NMR/uxnmr_1.info
+jo5c00330_si_002/4/4 13C NMR/uxnmr_1.par
+jo5c00330_si_002/4/4 13C NMR/vtc_pid_settings
+jo5c00330_si_002/4/4 13C NMR/vtc_pid_settings_1
+jo5c00330_si_002/4/4 1H NMR/acqu
+jo5c00330_si_002/4/4 1H NMR/acqus
+jo5c00330_si_002/4/4 1H NMR/acqus_1
+jo5c00330_si_002/4/4 1H NMR/acqu_1
+jo5c00330_si_002/4/4 1H NMR/audita.txt
+jo5c00330_si_002/4/4 1H NMR/audita_1.txt
+jo5c00330_si_002/4/4 1H NMR/fid
+jo5c00330_si_002/4/4 1H NMR/fid_1
+jo5c00330_si_002/4/4 1H NMR/format.temp
+jo5c00330_si_002/4/4 1H NMR/format_1.temp
+jo5c00330_si_002/4/4 1H NMR/pdata/1/1i
+jo5c00330_si_002/4/4 1H NMR/pdata/1/1i_1
+jo5c00330_si_002/4/4 1H NMR/pdata/1/1r
+jo5c00330_si_002/4/4 1H NMR/pdata/1/1r_1
+jo5c00330_si_002/4/4 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/4/4 1H NMR/pdata/1/auditp_1.txt
+jo5c00330_si_002/4/4 1H NMR/pdata/1/outd
+jo5c00330_si_002/4/4 1H NMR/pdata/1/outd_1
+jo5c00330_si_002/4/4 1H NMR/pdata/1/proc
+jo5c00330_si_002/4/4 1H NMR/pdata/1/procs
+jo5c00330_si_002/4/4 1H NMR/pdata/1/procs_1
+jo5c00330_si_002/4/4 1H NMR/pdata/1/proc_1
+jo5c00330_si_002/4/4 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/4/4 1H NMR/pdata/1/thumb_1.png
+jo5c00330_si_002/4/4 1H NMR/pdata/1/title
+jo5c00330_si_002/4/4 1H NMR/pdata/1/title_1
+jo5c00330_si_002/4/4 1H NMR/pulseprogram
+jo5c00330_si_002/4/4 1H NMR/pulseprogram_1
+jo5c00330_si_002/4/4 1H NMR/scon2
+jo5c00330_si_002/4/4 1H NMR/scon2_1
+jo5c00330_si_002/4/4 1H NMR/shimvalues
+jo5c00330_si_002/4/4 1H NMR/shimvalues_1
+jo5c00330_si_002/4/4 1H NMR/specpar
+jo5c00330_si_002/4/4 1H NMR/specpar_1
+jo5c00330_si_002/4/4 1H NMR/uxnmr.info
+jo5c00330_si_002/4/4 1H NMR/uxnmr.par
+jo5c00330_si_002/4/4 1H NMR/uxnmr_1.info
+jo5c00330_si_002/4/4 1H NMR/uxnmr_1.par
+jo5c00330_si_002/4/4 1H NMR/vtc_pid_settings
+jo5c00330_si_002/4/4 1H NMR/vtc_pid_settings_1
+jo5c00330_si_002/4/4' 13C NMR/acqu
+jo5c00330_si_002/4/4' 13C NMR/acqus
+jo5c00330_si_002/4/4' 13C NMR/audita.txt
+jo5c00330_si_002/4/4' 13C NMR/cpdprg2
+jo5c00330_si_002/4/4' 13C NMR/fid
+jo5c00330_si_002/4/4' 13C NMR/format.temp
+jo5c00330_si_002/4/4' 13C NMR/fq1list
+jo5c00330_si_002/4/4' 13C NMR/pdata/1/1i
+jo5c00330_si_002/4/4' 13C NMR/pdata/1/1r
+jo5c00330_si_002/4/4' 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/4/4' 13C NMR/pdata/1/outd
+jo5c00330_si_002/4/4' 13C NMR/pdata/1/proc
+jo5c00330_si_002/4/4' 13C NMR/pdata/1/procs
+jo5c00330_si_002/4/4' 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/4/4' 13C NMR/pdata/1/title
+jo5c00330_si_002/4/4' 13C NMR/precom.output
+jo5c00330_si_002/4/4' 13C NMR/pulseprogram
+jo5c00330_si_002/4/4' 13C NMR/scon2
+jo5c00330_si_002/4/4' 13C NMR/shimvalues
+jo5c00330_si_002/4/4' 13C NMR/specpar
+jo5c00330_si_002/4/4' 13C NMR/uxnmr.info
+jo5c00330_si_002/4/4' 13C NMR/uxnmr.par
+jo5c00330_si_002/4/4' 13C NMR/vtc_pid_settings
+jo5c00330_si_002/4/4' 1H NMR/acqu
+jo5c00330_si_002/4/4' 1H NMR/acqus
+jo5c00330_si_002/4/4' 1H NMR/audita.txt
+jo5c00330_si_002/4/4' 1H NMR/fid
+jo5c00330_si_002/4/4' 1H NMR/format.temp
+jo5c00330_si_002/4/4' 1H NMR/pdata/1/1i
+jo5c00330_si_002/4/4' 1H NMR/pdata/1/1r
+jo5c00330_si_002/4/4' 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/4/4' 1H NMR/pdata/1/outd
+jo5c00330_si_002/4/4' 1H NMR/pdata/1/proc
+jo5c00330_si_002/4/4' 1H NMR/pdata/1/procs
+jo5c00330_si_002/4/4' 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/4/4' 1H NMR/pdata/1/title
+jo5c00330_si_002/4/4' 1H NMR/pulseprogram
+jo5c00330_si_002/4/4' 1H NMR/scon2
+jo5c00330_si_002/4/4' 1H NMR/shimvalues
+jo5c00330_si_002/4/4' 1H NMR/specpar
+jo5c00330_si_002/4/4' 1H NMR/uxnmr.info
+jo5c00330_si_002/4/4' 1H NMR/uxnmr.par
+jo5c00330_si_002/4/4' 1H NMR/vtc_pid_settings
+jo5c00330_si_002/4/4.mnova
+jo5c00330_si_002/5/5 13C NMR/acqu
+jo5c00330_si_002/5/5 13C NMR/acqus
+jo5c00330_si_002/5/5 13C NMR/audita.txt
+jo5c00330_si_002/5/5 13C NMR/cpdprg2
+jo5c00330_si_002/5/5 13C NMR/fid
+jo5c00330_si_002/5/5 13C NMR/format.temp
+jo5c00330_si_002/5/5 13C NMR/fq1list
+jo5c00330_si_002/5/5 13C NMR/pdata/1/1i
+jo5c00330_si_002/5/5 13C NMR/pdata/1/1r
+jo5c00330_si_002/5/5 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/5/5 13C NMR/pdata/1/outd
+jo5c00330_si_002/5/5 13C NMR/pdata/1/proc
+jo5c00330_si_002/5/5 13C NMR/pdata/1/procs
+jo5c00330_si_002/5/5 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/5/5 13C NMR/pdata/1/title
+jo5c00330_si_002/5/5 13C NMR/precom.output
+jo5c00330_si_002/5/5 13C NMR/pulseprogram
+jo5c00330_si_002/5/5 13C NMR/scon2
+jo5c00330_si_002/5/5 13C NMR/shimvalues
+jo5c00330_si_002/5/5 13C NMR/specpar
+jo5c00330_si_002/5/5 13C NMR/uxnmr.info
+jo5c00330_si_002/5/5 13C NMR/uxnmr.par
+jo5c00330_si_002/5/5 13C NMR/vtc_pid_settings
+jo5c00330_si_002/5/5 1H NMR/acqu
+jo5c00330_si_002/5/5 1H NMR/acqus
+jo5c00330_si_002/5/5 1H NMR/audita.txt
+jo5c00330_si_002/5/5 1H NMR/fid
+jo5c00330_si_002/5/5 1H NMR/format.temp
+jo5c00330_si_002/5/5 1H NMR/fq1list
+jo5c00330_si_002/5/5 1H NMR/pdata/1/1i
+jo5c00330_si_002/5/5 1H NMR/pdata/1/1r
+jo5c00330_si_002/5/5 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/5/5 1H NMR/pdata/1/outd
+jo5c00330_si_002/5/5 1H NMR/pdata/1/proc
+jo5c00330_si_002/5/5 1H NMR/pdata/1/procs
+jo5c00330_si_002/5/5 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/5/5 1H NMR/pdata/1/title
+jo5c00330_si_002/5/5 1H NMR/precom.output
+jo5c00330_si_002/5/5 1H NMR/pulseprogram
+jo5c00330_si_002/5/5 1H NMR/scon2
+jo5c00330_si_002/5/5 1H NMR/shimvalues
+jo5c00330_si_002/5/5 1H NMR/specpar
+jo5c00330_si_002/5/5 1H NMR/uxnmr.info
+jo5c00330_si_002/5/5 1H NMR/uxnmr.par
+jo5c00330_si_002/5/5.mnova
+jo5c00330_si_002/raw material/1d/1d 13C NMR/acqu
+jo5c00330_si_002/raw material/1d/1d 13C NMR/acqus
+jo5c00330_si_002/raw material/1d/1d 13C NMR/audita.txt
+jo5c00330_si_002/raw material/1d/1d 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/1d/1d 13C NMR/fid
+jo5c00330_si_002/raw material/1d/1d 13C NMR/format.temp
+jo5c00330_si_002/raw material/1d/1d 13C NMR/fq1list
+jo5c00330_si_002/raw material/1d/1d 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/1d/1d 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/1d/1d 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/1d/1d 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/1d/1d 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/1d/1d 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/1d/1d 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/1d/1d 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/1d/1d 13C NMR/precom.output
+jo5c00330_si_002/raw material/1d/1d 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/1d/1d 13C NMR/scon2
+jo5c00330_si_002/raw material/1d/1d 13C NMR/shimvalues
+jo5c00330_si_002/raw material/1d/1d 13C NMR/specpar
+jo5c00330_si_002/raw material/1d/1d 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/1d/1d 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/1d/1d 1H NMR/acqu
+jo5c00330_si_002/raw material/1d/1d 1H NMR/acqus
+jo5c00330_si_002/raw material/1d/1d 1H NMR/audita.txt
+jo5c00330_si_002/raw material/1d/1d 1H NMR/fid
+jo5c00330_si_002/raw material/1d/1d 1H NMR/format.temp
+jo5c00330_si_002/raw material/1d/1d 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/1d/1d 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/1d/1d 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/1d/1d 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/1d/1d 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/1d/1d 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/1d/1d 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/1d/1d 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/1d/1d 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/1d/1d 1H NMR/scon2
+jo5c00330_si_002/raw material/1d/1d 1H NMR/shimvalues
+jo5c00330_si_002/raw material/1d/1d 1H NMR/specpar
+jo5c00330_si_002/raw material/1d/1d 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/1d/1d 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/1d/1d.mnova
+jo5c00330_si_002/raw material/1e/1e 13C NMR/acqu
+jo5c00330_si_002/raw material/1e/1e 13C NMR/acqus
+jo5c00330_si_002/raw material/1e/1e 13C NMR/audita.txt
+jo5c00330_si_002/raw material/1e/1e 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/1e/1e 13C NMR/fid
+jo5c00330_si_002/raw material/1e/1e 13C NMR/format.temp
+jo5c00330_si_002/raw material/1e/1e 13C NMR/fq1list
+jo5c00330_si_002/raw material/1e/1e 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/1e/1e 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/1e/1e 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/1e/1e 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/1e/1e 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/1e/1e 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/1e/1e 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/1e/1e 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/1e/1e 13C NMR/precom.output
+jo5c00330_si_002/raw material/1e/1e 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/1e/1e 13C NMR/scon2
+jo5c00330_si_002/raw material/1e/1e 13C NMR/shimvalues
+jo5c00330_si_002/raw material/1e/1e 13C NMR/specpar
+jo5c00330_si_002/raw material/1e/1e 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/1e/1e 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/1e/1e 19F NMR/acqu
+jo5c00330_si_002/raw material/1e/1e 19F NMR/acqus
+jo5c00330_si_002/raw material/1e/1e 19F NMR/audita.txt
+jo5c00330_si_002/raw material/1e/1e 19F NMR/cpdprg2
+jo5c00330_si_002/raw material/1e/1e 19F NMR/fid
+jo5c00330_si_002/raw material/1e/1e 19F NMR/format.temp
+jo5c00330_si_002/raw material/1e/1e 19F NMR/fq1list
+jo5c00330_si_002/raw material/1e/1e 19F NMR/pdata/1/1i
+jo5c00330_si_002/raw material/1e/1e 19F NMR/pdata/1/1r
+jo5c00330_si_002/raw material/1e/1e 19F NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/1e/1e 19F NMR/pdata/1/outd
+jo5c00330_si_002/raw material/1e/1e 19F NMR/pdata/1/proc
+jo5c00330_si_002/raw material/1e/1e 19F NMR/pdata/1/procs
+jo5c00330_si_002/raw material/1e/1e 19F NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/1e/1e 19F NMR/pdata/1/title
+jo5c00330_si_002/raw material/1e/1e 19F NMR/precom.output
+jo5c00330_si_002/raw material/1e/1e 19F NMR/pulseprogram
+jo5c00330_si_002/raw material/1e/1e 19F NMR/scon2
+jo5c00330_si_002/raw material/1e/1e 19F NMR/shimvalues
+jo5c00330_si_002/raw material/1e/1e 19F NMR/specpar
+jo5c00330_si_002/raw material/1e/1e 19F NMR/uxnmr.info
+jo5c00330_si_002/raw material/1e/1e 19F NMR/uxnmr.par
+jo5c00330_si_002/raw material/1e/1e 1H NMR/acqu
+jo5c00330_si_002/raw material/1e/1e 1H NMR/acqus
+jo5c00330_si_002/raw material/1e/1e 1H NMR/audita.txt
+jo5c00330_si_002/raw material/1e/1e 1H NMR/fid
+jo5c00330_si_002/raw material/1e/1e 1H NMR/format.temp
+jo5c00330_si_002/raw material/1e/1e 1H NMR/fq1list
+jo5c00330_si_002/raw material/1e/1e 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/1e/1e 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/1e/1e 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/1e/1e 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/1e/1e 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/1e/1e 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/1e/1e 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/1e/1e 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/1e/1e 1H NMR/precom.output
+jo5c00330_si_002/raw material/1e/1e 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/1e/1e 1H NMR/scon2
+jo5c00330_si_002/raw material/1e/1e 1H NMR/shimvalues
+jo5c00330_si_002/raw material/1e/1e 1H NMR/specpar
+jo5c00330_si_002/raw material/1e/1e 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/1e/1e 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/1e/1e.mnova
+jo5c00330_si_002/raw material/1h/1h 13C NMR/acqu
+jo5c00330_si_002/raw material/1h/1h 13C NMR/acqus
+jo5c00330_si_002/raw material/1h/1h 13C NMR/audita.txt
+jo5c00330_si_002/raw material/1h/1h 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/1h/1h 13C NMR/fid
+jo5c00330_si_002/raw material/1h/1h 13C NMR/format.temp
+jo5c00330_si_002/raw material/1h/1h 13C NMR/fq1list
+jo5c00330_si_002/raw material/1h/1h 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/1h/1h 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/1h/1h 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/1h/1h 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/1h/1h 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/1h/1h 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/1h/1h 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/1h/1h 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/1h/1h 13C NMR/precom.output
+jo5c00330_si_002/raw material/1h/1h 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/1h/1h 13C NMR/scon2
+jo5c00330_si_002/raw material/1h/1h 13C NMR/shimvalues
+jo5c00330_si_002/raw material/1h/1h 13C NMR/specpar
+jo5c00330_si_002/raw material/1h/1h 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/1h/1h 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/1h/1h 19F NMR/acqu
+jo5c00330_si_002/raw material/1h/1h 19F NMR/acqus
+jo5c00330_si_002/raw material/1h/1h 19F NMR/audita.txt
+jo5c00330_si_002/raw material/1h/1h 19F NMR/cpdprg2
+jo5c00330_si_002/raw material/1h/1h 19F NMR/fid
+jo5c00330_si_002/raw material/1h/1h 19F NMR/format.temp
+jo5c00330_si_002/raw material/1h/1h 19F NMR/fq1list
+jo5c00330_si_002/raw material/1h/1h 19F NMR/pdata/1/1i
+jo5c00330_si_002/raw material/1h/1h 19F NMR/pdata/1/1r
+jo5c00330_si_002/raw material/1h/1h 19F NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/1h/1h 19F NMR/pdata/1/outd
+jo5c00330_si_002/raw material/1h/1h 19F NMR/pdata/1/proc
+jo5c00330_si_002/raw material/1h/1h 19F NMR/pdata/1/procs
+jo5c00330_si_002/raw material/1h/1h 19F NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/1h/1h 19F NMR/pdata/1/title
+jo5c00330_si_002/raw material/1h/1h 19F NMR/precom.output
+jo5c00330_si_002/raw material/1h/1h 19F NMR/pulseprogram
+jo5c00330_si_002/raw material/1h/1h 19F NMR/scon2
+jo5c00330_si_002/raw material/1h/1h 19F NMR/shimvalues
+jo5c00330_si_002/raw material/1h/1h 19F NMR/specpar
+jo5c00330_si_002/raw material/1h/1h 19F NMR/uxnmr.info
+jo5c00330_si_002/raw material/1h/1h 19F NMR/uxnmr.par
+jo5c00330_si_002/raw material/1h/1h 1H NMR/acqu
+jo5c00330_si_002/raw material/1h/1h 1H NMR/acqus
+jo5c00330_si_002/raw material/1h/1h 1H NMR/audita.txt
+jo5c00330_si_002/raw material/1h/1h 1H NMR/fid
+jo5c00330_si_002/raw material/1h/1h 1H NMR/format.temp
+jo5c00330_si_002/raw material/1h/1h 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/1h/1h 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/1h/1h 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/1h/1h 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/1h/1h 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/1h/1h 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/1h/1h 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/1h/1h 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/1h/1h 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/1h/1h 1H NMR/scon2
+jo5c00330_si_002/raw material/1h/1h 1H NMR/shimvalues
+jo5c00330_si_002/raw material/1h/1h 1H NMR/specpar
+jo5c00330_si_002/raw material/1h/1h 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/1h/1h 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/1h/1h.mnova
+jo5c00330_si_002/raw material/1i/1i 13C NMR/acqu
+jo5c00330_si_002/raw material/1i/1i 13C NMR/acqus
+jo5c00330_si_002/raw material/1i/1i 13C NMR/audita.txt
+jo5c00330_si_002/raw material/1i/1i 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/1i/1i 13C NMR/fid
+jo5c00330_si_002/raw material/1i/1i 13C NMR/format.temp
+jo5c00330_si_002/raw material/1i/1i 13C NMR/fq1list
+jo5c00330_si_002/raw material/1i/1i 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/1i/1i 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/1i/1i 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/1i/1i 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/1i/1i 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/1i/1i 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/1i/1i 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/1i/1i 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/1i/1i 13C NMR/precom.output
+jo5c00330_si_002/raw material/1i/1i 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/1i/1i 13C NMR/scon2
+jo5c00330_si_002/raw material/1i/1i 13C NMR/shimvalues
+jo5c00330_si_002/raw material/1i/1i 13C NMR/specpar
+jo5c00330_si_002/raw material/1i/1i 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/1i/1i 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/1i/1i 1H NMR/acqu
+jo5c00330_si_002/raw material/1i/1i 1H NMR/acqus
+jo5c00330_si_002/raw material/1i/1i 1H NMR/audita.txt
+jo5c00330_si_002/raw material/1i/1i 1H NMR/fid
+jo5c00330_si_002/raw material/1i/1i 1H NMR/format.temp
+jo5c00330_si_002/raw material/1i/1i 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/1i/1i 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/1i/1i 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/1i/1i 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/1i/1i 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/1i/1i 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/1i/1i 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/1i/1i 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/1i/1i 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/1i/1i 1H NMR/scon2
+jo5c00330_si_002/raw material/1i/1i 1H NMR/shimvalues
+jo5c00330_si_002/raw material/1i/1i 1H NMR/specpar
+jo5c00330_si_002/raw material/1i/1i 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/1i/1i 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/1i/1i.mnova
+jo5c00330_si_002/raw material/1j/1j 13C NMR/acqu
+jo5c00330_si_002/raw material/1j/1j 13C NMR/acqus
+jo5c00330_si_002/raw material/1j/1j 13C NMR/audita.txt
+jo5c00330_si_002/raw material/1j/1j 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/1j/1j 13C NMR/fid
+jo5c00330_si_002/raw material/1j/1j 13C NMR/format.temp
+jo5c00330_si_002/raw material/1j/1j 13C NMR/fq1list
+jo5c00330_si_002/raw material/1j/1j 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/1j/1j 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/1j/1j 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/1j/1j 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/1j/1j 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/1j/1j 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/1j/1j 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/1j/1j 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/1j/1j 13C NMR/precom.output
+jo5c00330_si_002/raw material/1j/1j 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/1j/1j 13C NMR/scon2
+jo5c00330_si_002/raw material/1j/1j 13C NMR/shimvalues
+jo5c00330_si_002/raw material/1j/1j 13C NMR/specpar
+jo5c00330_si_002/raw material/1j/1j 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/1j/1j 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/1j/1j 1H NMR/acqu
+jo5c00330_si_002/raw material/1j/1j 1H NMR/acqus
+jo5c00330_si_002/raw material/1j/1j 1H NMR/audita.txt
+jo5c00330_si_002/raw material/1j/1j 1H NMR/fid
+jo5c00330_si_002/raw material/1j/1j 1H NMR/format.temp
+jo5c00330_si_002/raw material/1j/1j 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/1j/1j 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/1j/1j 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/1j/1j 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/1j/1j 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/1j/1j 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/1j/1j 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/1j/1j 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/1j/1j 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/1j/1j 1H NMR/scon2
+jo5c00330_si_002/raw material/1j/1j 1H NMR/shimvalues
+jo5c00330_si_002/raw material/1j/1j 1H NMR/specpar
+jo5c00330_si_002/raw material/1j/1j 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/1j/1j 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/1j/1j.mnova
+jo5c00330_si_002/raw material/1j/1m 13C NMR/acqu
+jo5c00330_si_002/raw material/1j/1m 13C NMR/acqus
+jo5c00330_si_002/raw material/1j/1m 13C NMR/audita.txt
+jo5c00330_si_002/raw material/1j/1m 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/1j/1m 13C NMR/fid
+jo5c00330_si_002/raw material/1j/1m 13C NMR/format.temp
+jo5c00330_si_002/raw material/1j/1m 13C NMR/fq1list
+jo5c00330_si_002/raw material/1j/1m 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/1j/1m 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/1j/1m 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/1j/1m 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/1j/1m 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/1j/1m 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/1j/1m 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/1j/1m 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/1j/1m 13C NMR/precom.output
+jo5c00330_si_002/raw material/1j/1m 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/1j/1m 13C NMR/scon2
+jo5c00330_si_002/raw material/1j/1m 13C NMR/shimvalues
+jo5c00330_si_002/raw material/1j/1m 13C NMR/specpar
+jo5c00330_si_002/raw material/1j/1m 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/1j/1m 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/1j/1m 1H NMR/acqu
+jo5c00330_si_002/raw material/1j/1m 1H NMR/acqus
+jo5c00330_si_002/raw material/1j/1m 1H NMR/audita.txt
+jo5c00330_si_002/raw material/1j/1m 1H NMR/fid
+jo5c00330_si_002/raw material/1j/1m 1H NMR/format.temp
+jo5c00330_si_002/raw material/1j/1m 1H NMR/fq1list
+jo5c00330_si_002/raw material/1j/1m 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/1j/1m 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/1j/1m 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/1j/1m 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/1j/1m 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/1j/1m 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/1j/1m 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/1j/1m 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/1j/1m 1H NMR/precom.output
+jo5c00330_si_002/raw material/1j/1m 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/1j/1m 1H NMR/sample_info.prop
+jo5c00330_si_002/raw material/1j/1m 1H NMR/scon2
+jo5c00330_si_002/raw material/1j/1m 1H NMR/shimvalues
+jo5c00330_si_002/raw material/1j/1m 1H NMR/specpar
+jo5c00330_si_002/raw material/1j/1m 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/1j/1m 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/1j/1m.mnova
+jo5c00330_si_002/raw material/2a/2a 13C NMR/acqu
+jo5c00330_si_002/raw material/2a/2a 13C NMR/acqus
+jo5c00330_si_002/raw material/2a/2a 13C NMR/audita.txt
+jo5c00330_si_002/raw material/2a/2a 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/2a/2a 13C NMR/fid
+jo5c00330_si_002/raw material/2a/2a 13C NMR/format.temp
+jo5c00330_si_002/raw material/2a/2a 13C NMR/fq1list
+jo5c00330_si_002/raw material/2a/2a 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2a/2a 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2a/2a 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2a/2a 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2a/2a 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2a/2a 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2a/2a 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2a/2a 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/2a/2a 13C NMR/precom.output
+jo5c00330_si_002/raw material/2a/2a 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/2a/2a 13C NMR/scon2
+jo5c00330_si_002/raw material/2a/2a 13C NMR/shimvalues
+jo5c00330_si_002/raw material/2a/2a 13C NMR/specpar
+jo5c00330_si_002/raw material/2a/2a 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/2a/2a 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/2a/2a 1H NMR/acqu
+jo5c00330_si_002/raw material/2a/2a 1H NMR/acqus
+jo5c00330_si_002/raw material/2a/2a 1H NMR/audita.txt
+jo5c00330_si_002/raw material/2a/2a 1H NMR/fid
+jo5c00330_si_002/raw material/2a/2a 1H NMR/format.temp
+jo5c00330_si_002/raw material/2a/2a 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2a/2a 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2a/2a 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2a/2a 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2a/2a 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2a/2a 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2a/2a 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2a/2a 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/2a/2a 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/2a/2a 1H NMR/scon2
+jo5c00330_si_002/raw material/2a/2a 1H NMR/shimvalues
+jo5c00330_si_002/raw material/2a/2a 1H NMR/specpar
+jo5c00330_si_002/raw material/2a/2a 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/2a/2a 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/2a/2a.mnova
+jo5c00330_si_002/raw material/2b/2b 13C NMR/acqu
+jo5c00330_si_002/raw material/2b/2b 13C NMR/acqus
+jo5c00330_si_002/raw material/2b/2b 13C NMR/audita.txt
+jo5c00330_si_002/raw material/2b/2b 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/2b/2b 13C NMR/fid
+jo5c00330_si_002/raw material/2b/2b 13C NMR/format.temp
+jo5c00330_si_002/raw material/2b/2b 13C NMR/fq1list
+jo5c00330_si_002/raw material/2b/2b 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2b/2b 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2b/2b 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2b/2b 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2b/2b 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2b/2b 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2b/2b 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2b/2b 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/2b/2b 13C NMR/precom.output
+jo5c00330_si_002/raw material/2b/2b 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/2b/2b 13C NMR/scon2
+jo5c00330_si_002/raw material/2b/2b 13C NMR/shimvalues
+jo5c00330_si_002/raw material/2b/2b 13C NMR/specpar
+jo5c00330_si_002/raw material/2b/2b 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/2b/2b 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/2b/2b 13C NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2b/2b 1H NMR/acqu
+jo5c00330_si_002/raw material/2b/2b 1H NMR/acqus
+jo5c00330_si_002/raw material/2b/2b 1H NMR/audita.txt
+jo5c00330_si_002/raw material/2b/2b 1H NMR/fid
+jo5c00330_si_002/raw material/2b/2b 1H NMR/format.temp
+jo5c00330_si_002/raw material/2b/2b 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2b/2b 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2b/2b 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2b/2b 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2b/2b 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2b/2b 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2b/2b 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2b/2b 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/2b/2b 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/2b/2b 1H NMR/scon2
+jo5c00330_si_002/raw material/2b/2b 1H NMR/shimvalues
+jo5c00330_si_002/raw material/2b/2b 1H NMR/specpar
+jo5c00330_si_002/raw material/2b/2b 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/2b/2b 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/2b/2b 1H NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2b/2b.mnova
+jo5c00330_si_002/raw material/2d/2d 13C NMR/acqu
+jo5c00330_si_002/raw material/2d/2d 13C NMR/acqus
+jo5c00330_si_002/raw material/2d/2d 13C NMR/audita.txt
+jo5c00330_si_002/raw material/2d/2d 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/2d/2d 13C NMR/fid
+jo5c00330_si_002/raw material/2d/2d 13C NMR/format.temp
+jo5c00330_si_002/raw material/2d/2d 13C NMR/fq1list
+jo5c00330_si_002/raw material/2d/2d 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2d/2d 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2d/2d 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2d/2d 13C NMR/pdata/1/intrng
+jo5c00330_si_002/raw material/2d/2d 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2d/2d 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2d/2d 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2d/2d 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2d/2d 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/2d/2d 13C NMR/precom.output
+jo5c00330_si_002/raw material/2d/2d 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/2d/2d 13C NMR/scon2
+jo5c00330_si_002/raw material/2d/2d 13C NMR/shimvalues
+jo5c00330_si_002/raw material/2d/2d 13C NMR/specpar
+jo5c00330_si_002/raw material/2d/2d 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/2d/2d 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/2d/2d 1H NMR/acqu
+jo5c00330_si_002/raw material/2d/2d 1H NMR/acqus
+jo5c00330_si_002/raw material/2d/2d 1H NMR/audita.txt
+jo5c00330_si_002/raw material/2d/2d 1H NMR/fid
+jo5c00330_si_002/raw material/2d/2d 1H NMR/format.temp
+jo5c00330_si_002/raw material/2d/2d 1H NMR/fq1list
+jo5c00330_si_002/raw material/2d/2d 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2d/2d 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2d/2d 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2d/2d 1H NMR/pdata/1/intrng
+jo5c00330_si_002/raw material/2d/2d 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2d/2d 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2d/2d 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2d/2d 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2d/2d 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/2d/2d 1H NMR/precom.output
+jo5c00330_si_002/raw material/2d/2d 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/2d/2d 1H NMR/scon2
+jo5c00330_si_002/raw material/2d/2d 1H NMR/shimvalues
+jo5c00330_si_002/raw material/2d/2d 1H NMR/specpar
+jo5c00330_si_002/raw material/2d/2d 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/2d/2d 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/2d/2d.mnova
+jo5c00330_si_002/raw material/2e/2e 13C NMR/acqu
+jo5c00330_si_002/raw material/2e/2e 13C NMR/acqus
+jo5c00330_si_002/raw material/2e/2e 13C NMR/audita.txt
+jo5c00330_si_002/raw material/2e/2e 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/2e/2e 13C NMR/fid
+jo5c00330_si_002/raw material/2e/2e 13C NMR/format.temp
+jo5c00330_si_002/raw material/2e/2e 13C NMR/fq1list
+jo5c00330_si_002/raw material/2e/2e 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2e/2e 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2e/2e 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2e/2e 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2e/2e 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2e/2e 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2e/2e 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2e/2e 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/2e/2e 13C NMR/precom.output
+jo5c00330_si_002/raw material/2e/2e 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/2e/2e 13C NMR/scon2
+jo5c00330_si_002/raw material/2e/2e 13C NMR/shimvalues
+jo5c00330_si_002/raw material/2e/2e 13C NMR/specpar
+jo5c00330_si_002/raw material/2e/2e 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/2e/2e 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/2e/2e 13C NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2e/2e 1H NMR/acqu
+jo5c00330_si_002/raw material/2e/2e 1H NMR/acqus
+jo5c00330_si_002/raw material/2e/2e 1H NMR/audita.txt
+jo5c00330_si_002/raw material/2e/2e 1H NMR/fid
+jo5c00330_si_002/raw material/2e/2e 1H NMR/format.temp
+jo5c00330_si_002/raw material/2e/2e 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2e/2e 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2e/2e 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2e/2e 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2e/2e 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2e/2e 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2e/2e 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2e/2e 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/2e/2e 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/2e/2e 1H NMR/scon2
+jo5c00330_si_002/raw material/2e/2e 1H NMR/shimvalues
+jo5c00330_si_002/raw material/2e/2e 1H NMR/specpar
+jo5c00330_si_002/raw material/2e/2e 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/2e/2e 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/2e/2e 1H NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2e/2e.mnova
+jo5c00330_si_002/raw material/2f/2f 13C NMR/acqu
+jo5c00330_si_002/raw material/2f/2f 13C NMR/acqus
+jo5c00330_si_002/raw material/2f/2f 13C NMR/audita.txt
+jo5c00330_si_002/raw material/2f/2f 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/2f/2f 13C NMR/fid
+jo5c00330_si_002/raw material/2f/2f 13C NMR/format.temp
+jo5c00330_si_002/raw material/2f/2f 13C NMR/fq1list
+jo5c00330_si_002/raw material/2f/2f 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2f/2f 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2f/2f 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2f/2f 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2f/2f 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2f/2f 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2f/2f 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2f/2f 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/2f/2f 13C NMR/precom.output
+jo5c00330_si_002/raw material/2f/2f 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/2f/2f 13C NMR/scon2
+jo5c00330_si_002/raw material/2f/2f 13C NMR/shimvalues
+jo5c00330_si_002/raw material/2f/2f 13C NMR/specpar
+jo5c00330_si_002/raw material/2f/2f 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/2f/2f 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/2f/2f 13C NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2f/2f 1H NMR/acqu
+jo5c00330_si_002/raw material/2f/2f 1H NMR/acqus
+jo5c00330_si_002/raw material/2f/2f 1H NMR/audita.txt
+jo5c00330_si_002/raw material/2f/2f 1H NMR/fid
+jo5c00330_si_002/raw material/2f/2f 1H NMR/format.temp
+jo5c00330_si_002/raw material/2f/2f 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2f/2f 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2f/2f 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2f/2f 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2f/2f 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2f/2f 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2f/2f 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2f/2f 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/2f/2f 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/2f/2f 1H NMR/scon2
+jo5c00330_si_002/raw material/2f/2f 1H NMR/shimvalues
+jo5c00330_si_002/raw material/2f/2f 1H NMR/specpar
+jo5c00330_si_002/raw material/2f/2f 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/2f/2f 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/2f/2f 1H NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2f/2f.mnova
+jo5c00330_si_002/raw material/2g/2g 13C NMR/acqu
+jo5c00330_si_002/raw material/2g/2g 13C NMR/acqus
+jo5c00330_si_002/raw material/2g/2g 13C NMR/audita.txt
+jo5c00330_si_002/raw material/2g/2g 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/2g/2g 13C NMR/fid
+jo5c00330_si_002/raw material/2g/2g 13C NMR/format.temp
+jo5c00330_si_002/raw material/2g/2g 13C NMR/fq1list
+jo5c00330_si_002/raw material/2g/2g 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2g/2g 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2g/2g 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2g/2g 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2g/2g 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2g/2g 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2g/2g 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2g/2g 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/2g/2g 13C NMR/precom.output
+jo5c00330_si_002/raw material/2g/2g 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/2g/2g 13C NMR/scon2
+jo5c00330_si_002/raw material/2g/2g 13C NMR/shimvalues
+jo5c00330_si_002/raw material/2g/2g 13C NMR/specpar
+jo5c00330_si_002/raw material/2g/2g 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/2g/2g 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/2g/2g 13C NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2g/2g 1H NMR/acqu
+jo5c00330_si_002/raw material/2g/2g 1H NMR/acqus
+jo5c00330_si_002/raw material/2g/2g 1H NMR/audita.txt
+jo5c00330_si_002/raw material/2g/2g 1H NMR/fid
+jo5c00330_si_002/raw material/2g/2g 1H NMR/format.temp
+jo5c00330_si_002/raw material/2g/2g 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2g/2g 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2g/2g 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2g/2g 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2g/2g 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2g/2g 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2g/2g 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2g/2g 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/2g/2g 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/2g/2g 1H NMR/scon2
+jo5c00330_si_002/raw material/2g/2g 1H NMR/shimvalues
+jo5c00330_si_002/raw material/2g/2g 1H NMR/specpar
+jo5c00330_si_002/raw material/2g/2g 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/2g/2g 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/2g/2g 1H NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2g/2g.mnova
+jo5c00330_si_002/raw material/2h/2h 13C NMR/acqu
+jo5c00330_si_002/raw material/2h/2h 13C NMR/acqus
+jo5c00330_si_002/raw material/2h/2h 13C NMR/audita.txt
+jo5c00330_si_002/raw material/2h/2h 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/2h/2h 13C NMR/fid
+jo5c00330_si_002/raw material/2h/2h 13C NMR/format.temp
+jo5c00330_si_002/raw material/2h/2h 13C NMR/fq1list
+jo5c00330_si_002/raw material/2h/2h 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2h/2h 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2h/2h 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2h/2h 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2h/2h 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2h/2h 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2h/2h 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2h/2h 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/2h/2h 13C NMR/precom.output
+jo5c00330_si_002/raw material/2h/2h 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/2h/2h 13C NMR/scon2
+jo5c00330_si_002/raw material/2h/2h 13C NMR/shimvalues
+jo5c00330_si_002/raw material/2h/2h 13C NMR/specpar
+jo5c00330_si_002/raw material/2h/2h 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/2h/2h 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/2h/2h 13C NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2h/2h 19F NMR/acqu
+jo5c00330_si_002/raw material/2h/2h 19F NMR/acqus
+jo5c00330_si_002/raw material/2h/2h 19F NMR/audita.txt
+jo5c00330_si_002/raw material/2h/2h 19F NMR/cpdprg2
+jo5c00330_si_002/raw material/2h/2h 19F NMR/fid
+jo5c00330_si_002/raw material/2h/2h 19F NMR/format.temp
+jo5c00330_si_002/raw material/2h/2h 19F NMR/fq1list
+jo5c00330_si_002/raw material/2h/2h 19F NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2h/2h 19F NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2h/2h 19F NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2h/2h 19F NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2h/2h 19F NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2h/2h 19F NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2h/2h 19F NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2h/2h 19F NMR/pdata/1/title
+jo5c00330_si_002/raw material/2h/2h 19F NMR/precom.output
+jo5c00330_si_002/raw material/2h/2h 19F NMR/pulseprogram
+jo5c00330_si_002/raw material/2h/2h 19F NMR/scon2
+jo5c00330_si_002/raw material/2h/2h 19F NMR/shimvalues
+jo5c00330_si_002/raw material/2h/2h 19F NMR/specpar
+jo5c00330_si_002/raw material/2h/2h 19F NMR/uxnmr.info
+jo5c00330_si_002/raw material/2h/2h 19F NMR/uxnmr.par
+jo5c00330_si_002/raw material/2h/2h 19F NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2h/2h 1H NMR/acqu
+jo5c00330_si_002/raw material/2h/2h 1H NMR/acqus
+jo5c00330_si_002/raw material/2h/2h 1H NMR/audita.txt
+jo5c00330_si_002/raw material/2h/2h 1H NMR/fid
+jo5c00330_si_002/raw material/2h/2h 1H NMR/format.temp
+jo5c00330_si_002/raw material/2h/2h 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2h/2h 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2h/2h 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2h/2h 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2h/2h 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2h/2h 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2h/2h 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2h/2h 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/2h/2h 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/2h/2h 1H NMR/scon2
+jo5c00330_si_002/raw material/2h/2h 1H NMR/shimvalues
+jo5c00330_si_002/raw material/2h/2h 1H NMR/specpar
+jo5c00330_si_002/raw material/2h/2h 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/2h/2h 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/2h/2h 1H NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2h/2h.mnova
+jo5c00330_si_002/raw material/2i/2i 13C NMR/acqu
+jo5c00330_si_002/raw material/2i/2i 13C NMR/acqus
+jo5c00330_si_002/raw material/2i/2i 13C NMR/audita.txt
+jo5c00330_si_002/raw material/2i/2i 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/2i/2i 13C NMR/fid
+jo5c00330_si_002/raw material/2i/2i 13C NMR/format.temp
+jo5c00330_si_002/raw material/2i/2i 13C NMR/fq1list
+jo5c00330_si_002/raw material/2i/2i 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2i/2i 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2i/2i 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2i/2i 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2i/2i 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2i/2i 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2i/2i 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2i/2i 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/2i/2i 13C NMR/precom.output
+jo5c00330_si_002/raw material/2i/2i 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/2i/2i 13C NMR/scon2
+jo5c00330_si_002/raw material/2i/2i 13C NMR/shimvalues
+jo5c00330_si_002/raw material/2i/2i 13C NMR/specpar
+jo5c00330_si_002/raw material/2i/2i 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/2i/2i 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/2i/2i 13C NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2i/2i 1H NMR/acqu
+jo5c00330_si_002/raw material/2i/2i 1H NMR/acqus
+jo5c00330_si_002/raw material/2i/2i 1H NMR/audita.txt
+jo5c00330_si_002/raw material/2i/2i 1H NMR/fid
+jo5c00330_si_002/raw material/2i/2i 1H NMR/format.temp
+jo5c00330_si_002/raw material/2i/2i 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2i/2i 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2i/2i 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2i/2i 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2i/2i 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2i/2i 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2i/2i 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2i/2i 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/2i/2i 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/2i/2i 1H NMR/scon2
+jo5c00330_si_002/raw material/2i/2i 1H NMR/shimvalues
+jo5c00330_si_002/raw material/2i/2i 1H NMR/specpar
+jo5c00330_si_002/raw material/2i/2i 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/2i/2i 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/2i/2i 1H NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2i/2i.mnova
+jo5c00330_si_002/raw material/2j/2j 13C NMR/acqu
+jo5c00330_si_002/raw material/2j/2j 13C NMR/acqus
+jo5c00330_si_002/raw material/2j/2j 13C NMR/audita.txt
+jo5c00330_si_002/raw material/2j/2j 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/2j/2j 13C NMR/fid
+jo5c00330_si_002/raw material/2j/2j 13C NMR/format.temp
+jo5c00330_si_002/raw material/2j/2j 13C NMR/fq1list
+jo5c00330_si_002/raw material/2j/2j 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2j/2j 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2j/2j 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2j/2j 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2j/2j 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2j/2j 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2j/2j 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2j/2j 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/2j/2j 13C NMR/precom.output
+jo5c00330_si_002/raw material/2j/2j 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/2j/2j 13C NMR/scon2
+jo5c00330_si_002/raw material/2j/2j 13C NMR/shimvalues
+jo5c00330_si_002/raw material/2j/2j 13C NMR/specpar
+jo5c00330_si_002/raw material/2j/2j 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/2j/2j 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/2j/2j 1H NMR/acqu
+jo5c00330_si_002/raw material/2j/2j 1H NMR/acqus
+jo5c00330_si_002/raw material/2j/2j 1H NMR/audita.txt
+jo5c00330_si_002/raw material/2j/2j 1H NMR/fid
+jo5c00330_si_002/raw material/2j/2j 1H NMR/format.temp
+jo5c00330_si_002/raw material/2j/2j 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2j/2j 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2j/2j 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2j/2j 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2j/2j 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2j/2j 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2j/2j 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2j/2j 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/2j/2j 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/2j/2j 1H NMR/scon2
+jo5c00330_si_002/raw material/2j/2j 1H NMR/shimvalues
+jo5c00330_si_002/raw material/2j/2j 1H NMR/specpar
+jo5c00330_si_002/raw material/2j/2j 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/2j/2j 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/2j/2j.mnova
+jo5c00330_si_002/raw material/2k/2k 13C NMR/acqu
+jo5c00330_si_002/raw material/2k/2k 13C NMR/acqus
+jo5c00330_si_002/raw material/2k/2k 13C NMR/audita.txt
+jo5c00330_si_002/raw material/2k/2k 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/2k/2k 13C NMR/fid
+jo5c00330_si_002/raw material/2k/2k 13C NMR/format.temp
+jo5c00330_si_002/raw material/2k/2k 13C NMR/fq1list
+jo5c00330_si_002/raw material/2k/2k 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2k/2k 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2k/2k 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2k/2k 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2k/2k 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2k/2k 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2k/2k 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2k/2k 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/2k/2k 13C NMR/precom.output
+jo5c00330_si_002/raw material/2k/2k 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/2k/2k 13C NMR/scon2
+jo5c00330_si_002/raw material/2k/2k 13C NMR/shimvalues
+jo5c00330_si_002/raw material/2k/2k 13C NMR/specpar
+jo5c00330_si_002/raw material/2k/2k 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/2k/2k 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/2k/2k 13C NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2k/2k 1H NMR/acqu
+jo5c00330_si_002/raw material/2k/2k 1H NMR/acqus
+jo5c00330_si_002/raw material/2k/2k 1H NMR/audita.txt
+jo5c00330_si_002/raw material/2k/2k 1H NMR/fid
+jo5c00330_si_002/raw material/2k/2k 1H NMR/format.temp
+jo5c00330_si_002/raw material/2k/2k 1H NMR/fq1list
+jo5c00330_si_002/raw material/2k/2k 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2k/2k 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2k/2k 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2k/2k 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2k/2k 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2k/2k 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2k/2k 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2k/2k 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/2k/2k 1H NMR/precom.output
+jo5c00330_si_002/raw material/2k/2k 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/2k/2k 1H NMR/scon2
+jo5c00330_si_002/raw material/2k/2k 1H NMR/shimvalues
+jo5c00330_si_002/raw material/2k/2k 1H NMR/specpar
+jo5c00330_si_002/raw material/2k/2k 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/2k/2k 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/2k/2k 1H NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2k/2k.mnova
+jo5c00330_si_002/raw material/2l/2l 13C NMR/acqu
+jo5c00330_si_002/raw material/2l/2l 13C NMR/acqus
+jo5c00330_si_002/raw material/2l/2l 13C NMR/audita.txt
+jo5c00330_si_002/raw material/2l/2l 13C NMR/cpdprg2
+jo5c00330_si_002/raw material/2l/2l 13C NMR/fid
+jo5c00330_si_002/raw material/2l/2l 13C NMR/format.temp
+jo5c00330_si_002/raw material/2l/2l 13C NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2l/2l 13C NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2l/2l 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2l/2l 13C NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2l/2l 13C NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2l/2l 13C NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2l/2l 13C NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2l/2l 13C NMR/pdata/1/title
+jo5c00330_si_002/raw material/2l/2l 13C NMR/pulseprogram
+jo5c00330_si_002/raw material/2l/2l 13C NMR/scon2
+jo5c00330_si_002/raw material/2l/2l 13C NMR/shimvalues
+jo5c00330_si_002/raw material/2l/2l 13C NMR/specpar
+jo5c00330_si_002/raw material/2l/2l 13C NMR/uxnmr.info
+jo5c00330_si_002/raw material/2l/2l 13C NMR/uxnmr.par
+jo5c00330_si_002/raw material/2l/2l 13C NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2l/2l 1H NMR/acqu
+jo5c00330_si_002/raw material/2l/2l 1H NMR/acqus
+jo5c00330_si_002/raw material/2l/2l 1H NMR/audita.txt
+jo5c00330_si_002/raw material/2l/2l 1H NMR/fid
+jo5c00330_si_002/raw material/2l/2l 1H NMR/format.temp
+jo5c00330_si_002/raw material/2l/2l 1H NMR/fq1list
+jo5c00330_si_002/raw material/2l/2l 1H NMR/pdata/1/1i
+jo5c00330_si_002/raw material/2l/2l 1H NMR/pdata/1/1r
+jo5c00330_si_002/raw material/2l/2l 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_002/raw material/2l/2l 1H NMR/pdata/1/outd
+jo5c00330_si_002/raw material/2l/2l 1H NMR/pdata/1/proc
+jo5c00330_si_002/raw material/2l/2l 1H NMR/pdata/1/procs
+jo5c00330_si_002/raw material/2l/2l 1H NMR/pdata/1/thumb.png
+jo5c00330_si_002/raw material/2l/2l 1H NMR/pdata/1/title
+jo5c00330_si_002/raw material/2l/2l 1H NMR/precom.output
+jo5c00330_si_002/raw material/2l/2l 1H NMR/pulseprogram
+jo5c00330_si_002/raw material/2l/2l 1H NMR/scon2
+jo5c00330_si_002/raw material/2l/2l 1H NMR/shimvalues
+jo5c00330_si_002/raw material/2l/2l 1H NMR/specpar
+jo5c00330_si_002/raw material/2l/2l 1H NMR/uxnmr.info
+jo5c00330_si_002/raw material/2l/2l 1H NMR/uxnmr.par
+jo5c00330_si_002/raw material/2l/2l 1H NMR/vtc_pid_settings
+jo5c00330_si_002/raw material/2l/2l.mnova
+jo5c00330_si_003/3aa/3aa 13C NMR/acqu
+jo5c00330_si_003/3aa/3aa 13C NMR/acqus
+jo5c00330_si_003/3aa/3aa 13C NMR/audita.txt
+jo5c00330_si_003/3aa/3aa 13C NMR/fid
+jo5c00330_si_003/3aa/3aa 13C NMR/format.temp
+jo5c00330_si_003/3aa/3aa 13C NMR/fq1list
+jo5c00330_si_003/3aa/3aa 13C NMR/pdata/1/1i
+jo5c00330_si_003/3aa/3aa 13C NMR/pdata/1/1r
+jo5c00330_si_003/3aa/3aa 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3aa/3aa 13C NMR/pdata/1/outd
+jo5c00330_si_003/3aa/3aa 13C NMR/pdata/1/proc
+jo5c00330_si_003/3aa/3aa 13C NMR/pdata/1/procs
+jo5c00330_si_003/3aa/3aa 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3aa/3aa 13C NMR/pdata/1/title
+jo5c00330_si_003/3aa/3aa 13C NMR/precom.output
+jo5c00330_si_003/3aa/3aa 13C NMR/pulseprogram
+jo5c00330_si_003/3aa/3aa 13C NMR/scon2
+jo5c00330_si_003/3aa/3aa 13C NMR/shimvalues
+jo5c00330_si_003/3aa/3aa 13C NMR/specpar
+jo5c00330_si_003/3aa/3aa 13C NMR/uxnmr.info
+jo5c00330_si_003/3aa/3aa 13C NMR/uxnmr.par
+jo5c00330_si_003/3aa/3aa 13C NMR/vtc_pid_settings
+jo5c00330_si_003/3aa/3aa 1H NMR/acqu
+jo5c00330_si_003/3aa/3aa 1H NMR/acqus
+jo5c00330_si_003/3aa/3aa 1H NMR/audita.txt
+jo5c00330_si_003/3aa/3aa 1H NMR/cpdprg2
+jo5c00330_si_003/3aa/3aa 1H NMR/fid
+jo5c00330_si_003/3aa/3aa 1H NMR/format.temp
+jo5c00330_si_003/3aa/3aa 1H NMR/fq1list
+jo5c00330_si_003/3aa/3aa 1H NMR/pdata/1/1i
+jo5c00330_si_003/3aa/3aa 1H NMR/pdata/1/1r
+jo5c00330_si_003/3aa/3aa 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3aa/3aa 1H NMR/pdata/1/outd
+jo5c00330_si_003/3aa/3aa 1H NMR/pdata/1/proc
+jo5c00330_si_003/3aa/3aa 1H NMR/pdata/1/procs
+jo5c00330_si_003/3aa/3aa 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3aa/3aa 1H NMR/pdata/1/title
+jo5c00330_si_003/3aa/3aa 1H NMR/precom.output
+jo5c00330_si_003/3aa/3aa 1H NMR/pulseprogram
+jo5c00330_si_003/3aa/3aa 1H NMR/scon2
+jo5c00330_si_003/3aa/3aa 1H NMR/shimvalues
+jo5c00330_si_003/3aa/3aa 1H NMR/specpar
+jo5c00330_si_003/3aa/3aa 1H NMR/stanprogram47996
+jo5c00330_si_003/3aa/3aa 1H NMR/uxnmr.info
+jo5c00330_si_003/3aa/3aa 1H NMR/uxnmr.par
+jo5c00330_si_003/3aa/3aa 1H NMR/vtc_pid_settings
+jo5c00330_si_003/3aa/3aa.mnova
+jo5c00330_si_003/3ab/3ab 13C NMR/acqu
+jo5c00330_si_003/3ab/3ab 13C NMR/acqus
+jo5c00330_si_003/3ab/3ab 13C NMR/audita.txt
+jo5c00330_si_003/3ab/3ab 13C NMR/cpdprg2
+jo5c00330_si_003/3ab/3ab 13C NMR/fid
+jo5c00330_si_003/3ab/3ab 13C NMR/format.temp
+jo5c00330_si_003/3ab/3ab 13C NMR/fq1list
+jo5c00330_si_003/3ab/3ab 13C NMR/pdata/1/1i
+jo5c00330_si_003/3ab/3ab 13C NMR/pdata/1/1r
+jo5c00330_si_003/3ab/3ab 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ab/3ab 13C NMR/pdata/1/outd
+jo5c00330_si_003/3ab/3ab 13C NMR/pdata/1/proc
+jo5c00330_si_003/3ab/3ab 13C NMR/pdata/1/procs
+jo5c00330_si_003/3ab/3ab 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ab/3ab 13C NMR/pdata/1/title
+jo5c00330_si_003/3ab/3ab 13C NMR/precom.output
+jo5c00330_si_003/3ab/3ab 13C NMR/pulseprogram
+jo5c00330_si_003/3ab/3ab 13C NMR/scon2
+jo5c00330_si_003/3ab/3ab 13C NMR/shimvalues
+jo5c00330_si_003/3ab/3ab 13C NMR/specpar
+jo5c00330_si_003/3ab/3ab 13C NMR/uxnmr.info
+jo5c00330_si_003/3ab/3ab 13C NMR/uxnmr.par
+jo5c00330_si_003/3ab/3ab 1H NMR/acqu
+jo5c00330_si_003/3ab/3ab 1H NMR/acqus
+jo5c00330_si_003/3ab/3ab 1H NMR/audita.txt
+jo5c00330_si_003/3ab/3ab 1H NMR/fid
+jo5c00330_si_003/3ab/3ab 1H NMR/format.temp
+jo5c00330_si_003/3ab/3ab 1H NMR/pdata/1/1i
+jo5c00330_si_003/3ab/3ab 1H NMR/pdata/1/1r
+jo5c00330_si_003/3ab/3ab 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ab/3ab 1H NMR/pdata/1/outd
+jo5c00330_si_003/3ab/3ab 1H NMR/pdata/1/proc
+jo5c00330_si_003/3ab/3ab 1H NMR/pdata/1/procs
+jo5c00330_si_003/3ab/3ab 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ab/3ab 1H NMR/pdata/1/title
+jo5c00330_si_003/3ab/3ab 1H NMR/pulseprogram
+jo5c00330_si_003/3ab/3ab 1H NMR/scon2
+jo5c00330_si_003/3ab/3ab 1H NMR/shimvalues
+jo5c00330_si_003/3ab/3ab 1H NMR/specpar
+jo5c00330_si_003/3ab/3ab 1H NMR/uxnmr.info
+jo5c00330_si_003/3ab/3ab 1H NMR/uxnmr.par
+jo5c00330_si_003/3ab/3ab.mnova
+jo5c00330_si_003/3ac/3ac 13C NMR/acqu
+jo5c00330_si_003/3ac/3ac 13C NMR/acqus
+jo5c00330_si_003/3ac/3ac 13C NMR/audita.txt
+jo5c00330_si_003/3ac/3ac 13C NMR/cpdprg2
+jo5c00330_si_003/3ac/3ac 13C NMR/fid
+jo5c00330_si_003/3ac/3ac 13C NMR/format.temp
+jo5c00330_si_003/3ac/3ac 13C NMR/fq1list
+jo5c00330_si_003/3ac/3ac 13C NMR/pdata/1/1i
+jo5c00330_si_003/3ac/3ac 13C NMR/pdata/1/1r
+jo5c00330_si_003/3ac/3ac 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ac/3ac 13C NMR/pdata/1/outd
+jo5c00330_si_003/3ac/3ac 13C NMR/pdata/1/proc
+jo5c00330_si_003/3ac/3ac 13C NMR/pdata/1/procs
+jo5c00330_si_003/3ac/3ac 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ac/3ac 13C NMR/pdata/1/title
+jo5c00330_si_003/3ac/3ac 13C NMR/precom.output
+jo5c00330_si_003/3ac/3ac 13C NMR/pulseprogram
+jo5c00330_si_003/3ac/3ac 13C NMR/scon2
+jo5c00330_si_003/3ac/3ac 13C NMR/shimvalues
+jo5c00330_si_003/3ac/3ac 13C NMR/specpar
+jo5c00330_si_003/3ac/3ac 13C NMR/uxnmr.info
+jo5c00330_si_003/3ac/3ac 13C NMR/uxnmr.par
+jo5c00330_si_003/3ac/3ac 13C NMR/vtc_pid_settings
+jo5c00330_si_003/3ac/3ac 1H NMR/acqu
+jo5c00330_si_003/3ac/3ac 1H NMR/acqus
+jo5c00330_si_003/3ac/3ac 1H NMR/audita.txt
+jo5c00330_si_003/3ac/3ac 1H NMR/fid
+jo5c00330_si_003/3ac/3ac 1H NMR/format.temp
+jo5c00330_si_003/3ac/3ac 1H NMR/fq1list
+jo5c00330_si_003/3ac/3ac 1H NMR/pdata/1/1i
+jo5c00330_si_003/3ac/3ac 1H NMR/pdata/1/1r
+jo5c00330_si_003/3ac/3ac 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ac/3ac 1H NMR/pdata/1/outd
+jo5c00330_si_003/3ac/3ac 1H NMR/pdata/1/proc
+jo5c00330_si_003/3ac/3ac 1H NMR/pdata/1/procs
+jo5c00330_si_003/3ac/3ac 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ac/3ac 1H NMR/pdata/1/title
+jo5c00330_si_003/3ac/3ac 1H NMR/precom.output
+jo5c00330_si_003/3ac/3ac 1H NMR/pulseprogram
+jo5c00330_si_003/3ac/3ac 1H NMR/scon2
+jo5c00330_si_003/3ac/3ac 1H NMR/shimvalues
+jo5c00330_si_003/3ac/3ac 1H NMR/specpar
+jo5c00330_si_003/3ac/3ac 1H NMR/uxnmr.info
+jo5c00330_si_003/3ac/3ac 1H NMR/uxnmr.par
+jo5c00330_si_003/3ac/3ac 1H NMR/vtc_pid_settings
+jo5c00330_si_003/3ac/3ac.mnova
+jo5c00330_si_003/3ad/3ad 13C NMR/acqu
+jo5c00330_si_003/3ad/3ad 13C NMR/acqus
+jo5c00330_si_003/3ad/3ad 13C NMR/audita.txt
+jo5c00330_si_003/3ad/3ad 13C NMR/cpdprg2
+jo5c00330_si_003/3ad/3ad 13C NMR/fid
+jo5c00330_si_003/3ad/3ad 13C NMR/format.temp
+jo5c00330_si_003/3ad/3ad 13C NMR/fq1list
+jo5c00330_si_003/3ad/3ad 13C NMR/pdata/1/1i
+jo5c00330_si_003/3ad/3ad 13C NMR/pdata/1/1r
+jo5c00330_si_003/3ad/3ad 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ad/3ad 13C NMR/pdata/1/outd
+jo5c00330_si_003/3ad/3ad 13C NMR/pdata/1/proc
+jo5c00330_si_003/3ad/3ad 13C NMR/pdata/1/procs
+jo5c00330_si_003/3ad/3ad 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ad/3ad 13C NMR/pdata/1/title
+jo5c00330_si_003/3ad/3ad 13C NMR/precom.output
+jo5c00330_si_003/3ad/3ad 13C NMR/pulseprogram
+jo5c00330_si_003/3ad/3ad 13C NMR/scon2
+jo5c00330_si_003/3ad/3ad 13C NMR/shimvalues
+jo5c00330_si_003/3ad/3ad 13C NMR/specpar
+jo5c00330_si_003/3ad/3ad 13C NMR/uxnmr.info
+jo5c00330_si_003/3ad/3ad 13C NMR/uxnmr.par
+jo5c00330_si_003/3ad/3ad 13C NMR/vtc_pid_settings
+jo5c00330_si_003/3ad/3ad 1H NMR/acqu
+jo5c00330_si_003/3ad/3ad 1H NMR/acqus
+jo5c00330_si_003/3ad/3ad 1H NMR/audita.txt
+jo5c00330_si_003/3ad/3ad 1H NMR/fid
+jo5c00330_si_003/3ad/3ad 1H NMR/format.temp
+jo5c00330_si_003/3ad/3ad 1H NMR/pdata/1/1i
+jo5c00330_si_003/3ad/3ad 1H NMR/pdata/1/1r
+jo5c00330_si_003/3ad/3ad 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ad/3ad 1H NMR/pdata/1/outd
+jo5c00330_si_003/3ad/3ad 1H NMR/pdata/1/proc
+jo5c00330_si_003/3ad/3ad 1H NMR/pdata/1/procs
+jo5c00330_si_003/3ad/3ad 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ad/3ad 1H NMR/pdata/1/title
+jo5c00330_si_003/3ad/3ad 1H NMR/pulseprogram
+jo5c00330_si_003/3ad/3ad 1H NMR/scon2
+jo5c00330_si_003/3ad/3ad 1H NMR/shimvalues
+jo5c00330_si_003/3ad/3ad 1H NMR/specpar
+jo5c00330_si_003/3ad/3ad 1H NMR/uxnmr.info
+jo5c00330_si_003/3ad/3ad 1H NMR/uxnmr.par
+jo5c00330_si_003/3ad/3ad 1H NMR/vtc_pid_settings
+jo5c00330_si_003/3ad/3ad.mnova
+jo5c00330_si_003/3ae/3ae 13C NMR/acqu
+jo5c00330_si_003/3ae/3ae 13C NMR/acqus
+jo5c00330_si_003/3ae/3ae 13C NMR/audita.txt
+jo5c00330_si_003/3ae/3ae 13C NMR/cpdprg2
+jo5c00330_si_003/3ae/3ae 13C NMR/fid
+jo5c00330_si_003/3ae/3ae 13C NMR/format.temp
+jo5c00330_si_003/3ae/3ae 13C NMR/fq1list
+jo5c00330_si_003/3ae/3ae 13C NMR/pdata/1/1i
+jo5c00330_si_003/3ae/3ae 13C NMR/pdata/1/1r
+jo5c00330_si_003/3ae/3ae 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ae/3ae 13C NMR/pdata/1/outd
+jo5c00330_si_003/3ae/3ae 13C NMR/pdata/1/proc
+jo5c00330_si_003/3ae/3ae 13C NMR/pdata/1/procs
+jo5c00330_si_003/3ae/3ae 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ae/3ae 13C NMR/pdata/1/title
+jo5c00330_si_003/3ae/3ae 13C NMR/precom.output
+jo5c00330_si_003/3ae/3ae 13C NMR/pulseprogram
+jo5c00330_si_003/3ae/3ae 13C NMR/scon2
+jo5c00330_si_003/3ae/3ae 13C NMR/shimvalues
+jo5c00330_si_003/3ae/3ae 13C NMR/specpar
+jo5c00330_si_003/3ae/3ae 13C NMR/uxnmr.info
+jo5c00330_si_003/3ae/3ae 13C NMR/uxnmr.par
+jo5c00330_si_003/3ae/3ae 13C NMR/vtc_pid_settings
+jo5c00330_si_003/3ae/3ae 1H NMR/acqu
+jo5c00330_si_003/3ae/3ae 1H NMR/acqus
+jo5c00330_si_003/3ae/3ae 1H NMR/audita.txt
+jo5c00330_si_003/3ae/3ae 1H NMR/fid
+jo5c00330_si_003/3ae/3ae 1H NMR/format.temp
+jo5c00330_si_003/3ae/3ae 1H NMR/pdata/1/1i
+jo5c00330_si_003/3ae/3ae 1H NMR/pdata/1/1r
+jo5c00330_si_003/3ae/3ae 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ae/3ae 1H NMR/pdata/1/outd
+jo5c00330_si_003/3ae/3ae 1H NMR/pdata/1/proc
+jo5c00330_si_003/3ae/3ae 1H NMR/pdata/1/procs
+jo5c00330_si_003/3ae/3ae 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ae/3ae 1H NMR/pdata/1/title
+jo5c00330_si_003/3ae/3ae 1H NMR/pulseprogram
+jo5c00330_si_003/3ae/3ae 1H NMR/scon2
+jo5c00330_si_003/3ae/3ae 1H NMR/shimvalues
+jo5c00330_si_003/3ae/3ae 1H NMR/specpar
+jo5c00330_si_003/3ae/3ae 1H NMR/uxnmr.info
+jo5c00330_si_003/3ae/3ae 1H NMR/uxnmr.par
+jo5c00330_si_003/3ae/3ae 1H NMR/vtc_pid_settings
+jo5c00330_si_003/3ae/3ae.mnova
+jo5c00330_si_003/3af/3af 13C NMR/acqu
+jo5c00330_si_003/3af/3af 13C NMR/acqus
+jo5c00330_si_003/3af/3af 13C NMR/audita.txt
+jo5c00330_si_003/3af/3af 13C NMR/fid
+jo5c00330_si_003/3af/3af 13C NMR/format.temp
+jo5c00330_si_003/3af/3af 13C NMR/fq1list
+jo5c00330_si_003/3af/3af 13C NMR/pdata/1/1i
+jo5c00330_si_003/3af/3af 13C NMR/pdata/1/1r
+jo5c00330_si_003/3af/3af 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3af/3af 13C NMR/pdata/1/outd
+jo5c00330_si_003/3af/3af 13C NMR/pdata/1/proc
+jo5c00330_si_003/3af/3af 13C NMR/pdata/1/procs
+jo5c00330_si_003/3af/3af 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3af/3af 13C NMR/pdata/1/title
+jo5c00330_si_003/3af/3af 13C NMR/precom.output
+jo5c00330_si_003/3af/3af 13C NMR/pulseprogram
+jo5c00330_si_003/3af/3af 13C NMR/scon2
+jo5c00330_si_003/3af/3af 13C NMR/shimvalues
+jo5c00330_si_003/3af/3af 13C NMR/specpar
+jo5c00330_si_003/3af/3af 13C NMR/uxnmr.info
+jo5c00330_si_003/3af/3af 13C NMR/uxnmr.par
+jo5c00330_si_003/3af/3af 13C NMR/vtc_pid_settings
+jo5c00330_si_003/3af/3af 1H NMR/acqu
+jo5c00330_si_003/3af/3af 1H NMR/acqus
+jo5c00330_si_003/3af/3af 1H NMR/audita.txt
+jo5c00330_si_003/3af/3af 1H NMR/cpdprg2
+jo5c00330_si_003/3af/3af 1H NMR/fid
+jo5c00330_si_003/3af/3af 1H NMR/format.temp
+jo5c00330_si_003/3af/3af 1H NMR/fq1list
+jo5c00330_si_003/3af/3af 1H NMR/pdata/1/1i
+jo5c00330_si_003/3af/3af 1H NMR/pdata/1/1r
+jo5c00330_si_003/3af/3af 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3af/3af 1H NMR/pdata/1/outd
+jo5c00330_si_003/3af/3af 1H NMR/pdata/1/proc
+jo5c00330_si_003/3af/3af 1H NMR/pdata/1/procs
+jo5c00330_si_003/3af/3af 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3af/3af 1H NMR/pdata/1/title
+jo5c00330_si_003/3af/3af 1H NMR/precom.output
+jo5c00330_si_003/3af/3af 1H NMR/pulseprogram
+jo5c00330_si_003/3af/3af 1H NMR/scon2
+jo5c00330_si_003/3af/3af 1H NMR/shimvalues
+jo5c00330_si_003/3af/3af 1H NMR/specpar
+jo5c00330_si_003/3af/3af 1H NMR/uxnmr.info
+jo5c00330_si_003/3af/3af 1H NMR/uxnmr.par
+jo5c00330_si_003/3af/3af.mnova
+jo5c00330_si_003/3ag/3ag 13C NMR/acqu
+jo5c00330_si_003/3ag/3ag 13C NMR/acqus
+jo5c00330_si_003/3ag/3ag 13C NMR/audita.txt
+jo5c00330_si_003/3ag/3ag 13C NMR/cpdprg2
+jo5c00330_si_003/3ag/3ag 13C NMR/fid
+jo5c00330_si_003/3ag/3ag 13C NMR/format.temp
+jo5c00330_si_003/3ag/3ag 13C NMR/fq1list
+jo5c00330_si_003/3ag/3ag 13C NMR/pdata/1/1i
+jo5c00330_si_003/3ag/3ag 13C NMR/pdata/1/1r
+jo5c00330_si_003/3ag/3ag 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ag/3ag 13C NMR/pdata/1/outd
+jo5c00330_si_003/3ag/3ag 13C NMR/pdata/1/proc
+jo5c00330_si_003/3ag/3ag 13C NMR/pdata/1/procs
+jo5c00330_si_003/3ag/3ag 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ag/3ag 13C NMR/pdata/1/title
+jo5c00330_si_003/3ag/3ag 13C NMR/precom.output
+jo5c00330_si_003/3ag/3ag 13C NMR/pulseprogram
+jo5c00330_si_003/3ag/3ag 13C NMR/scon2
+jo5c00330_si_003/3ag/3ag 13C NMR/shimvalues
+jo5c00330_si_003/3ag/3ag 13C NMR/specpar
+jo5c00330_si_003/3ag/3ag 13C NMR/uxnmr.info
+jo5c00330_si_003/3ag/3ag 13C NMR/uxnmr.par
+jo5c00330_si_003/3ag/3ag 13C NMR/vtc_pid_settings
+jo5c00330_si_003/3ag/3ag 1H NMR/acqu
+jo5c00330_si_003/3ag/3ag 1H NMR/acqus
+jo5c00330_si_003/3ag/3ag 1H NMR/audita.txt
+jo5c00330_si_003/3ag/3ag 1H NMR/fid
+jo5c00330_si_003/3ag/3ag 1H NMR/format.temp
+jo5c00330_si_003/3ag/3ag 1H NMR/fq1list
+jo5c00330_si_003/3ag/3ag 1H NMR/pdata/1/1i
+jo5c00330_si_003/3ag/3ag 1H NMR/pdata/1/1r
+jo5c00330_si_003/3ag/3ag 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ag/3ag 1H NMR/pdata/1/outd
+jo5c00330_si_003/3ag/3ag 1H NMR/pdata/1/proc
+jo5c00330_si_003/3ag/3ag 1H NMR/pdata/1/procs
+jo5c00330_si_003/3ag/3ag 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ag/3ag 1H NMR/pdata/1/title
+jo5c00330_si_003/3ag/3ag 1H NMR/precom.output
+jo5c00330_si_003/3ag/3ag 1H NMR/pulseprogram
+jo5c00330_si_003/3ag/3ag 1H NMR/scon2
+jo5c00330_si_003/3ag/3ag 1H NMR/shimvalues
+jo5c00330_si_003/3ag/3ag 1H NMR/specpar
+jo5c00330_si_003/3ag/3ag 1H NMR/uxnmr.info
+jo5c00330_si_003/3ag/3ag 1H NMR/uxnmr.par
+jo5c00330_si_003/3ag/3ag 1H NMR/vtc_pid_settings
+jo5c00330_si_003/3ag/3ag.mnova
+jo5c00330_si_003/3ah/3ah 13C NMR/acqu
+jo5c00330_si_003/3ah/3ah 13C NMR/acqus
+jo5c00330_si_003/3ah/3ah 13C NMR/audita.txt
+jo5c00330_si_003/3ah/3ah 13C NMR/cpdprg2
+jo5c00330_si_003/3ah/3ah 13C NMR/fid
+jo5c00330_si_003/3ah/3ah 13C NMR/format.temp
+jo5c00330_si_003/3ah/3ah 13C NMR/fq1list
+jo5c00330_si_003/3ah/3ah 13C NMR/pdata/1/1i
+jo5c00330_si_003/3ah/3ah 13C NMR/pdata/1/1r
+jo5c00330_si_003/3ah/3ah 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ah/3ah 13C NMR/pdata/1/outd
+jo5c00330_si_003/3ah/3ah 13C NMR/pdata/1/proc
+jo5c00330_si_003/3ah/3ah 13C NMR/pdata/1/procs
+jo5c00330_si_003/3ah/3ah 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ah/3ah 13C NMR/pdata/1/title
+jo5c00330_si_003/3ah/3ah 13C NMR/precom.output
+jo5c00330_si_003/3ah/3ah 13C NMR/pulseprogram
+jo5c00330_si_003/3ah/3ah 13C NMR/scon2
+jo5c00330_si_003/3ah/3ah 13C NMR/shimvalues
+jo5c00330_si_003/3ah/3ah 13C NMR/specpar
+jo5c00330_si_003/3ah/3ah 13C NMR/uxnmr.info
+jo5c00330_si_003/3ah/3ah 13C NMR/uxnmr.par
+jo5c00330_si_003/3ah/3ah 19F NMR/acqu
+jo5c00330_si_003/3ah/3ah 19F NMR/acqus
+jo5c00330_si_003/3ah/3ah 19F NMR/audita.txt
+jo5c00330_si_003/3ah/3ah 19F NMR/cpdprg2
+jo5c00330_si_003/3ah/3ah 19F NMR/fid
+jo5c00330_si_003/3ah/3ah 19F NMR/format.temp
+jo5c00330_si_003/3ah/3ah 19F NMR/fq1list
+jo5c00330_si_003/3ah/3ah 19F NMR/pdata/1/1i
+jo5c00330_si_003/3ah/3ah 19F NMR/pdata/1/1r
+jo5c00330_si_003/3ah/3ah 19F NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ah/3ah 19F NMR/pdata/1/outd
+jo5c00330_si_003/3ah/3ah 19F NMR/pdata/1/proc
+jo5c00330_si_003/3ah/3ah 19F NMR/pdata/1/procs
+jo5c00330_si_003/3ah/3ah 19F NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ah/3ah 19F NMR/pdata/1/title
+jo5c00330_si_003/3ah/3ah 19F NMR/precom.output
+jo5c00330_si_003/3ah/3ah 19F NMR/pulseprogram
+jo5c00330_si_003/3ah/3ah 19F NMR/scon2
+jo5c00330_si_003/3ah/3ah 19F NMR/shimvalues
+jo5c00330_si_003/3ah/3ah 19F NMR/specpar
+jo5c00330_si_003/3ah/3ah 19F NMR/uxnmr.info
+jo5c00330_si_003/3ah/3ah 19F NMR/uxnmr.par
+jo5c00330_si_003/3ah/3ah 1H NMR/acqu
+jo5c00330_si_003/3ah/3ah 1H NMR/acqus
+jo5c00330_si_003/3ah/3ah 1H NMR/audita.txt
+jo5c00330_si_003/3ah/3ah 1H NMR/fid
+jo5c00330_si_003/3ah/3ah 1H NMR/format.temp
+jo5c00330_si_003/3ah/3ah 1H NMR/fq1list
+jo5c00330_si_003/3ah/3ah 1H NMR/pdata/1/1i
+jo5c00330_si_003/3ah/3ah 1H NMR/pdata/1/1r
+jo5c00330_si_003/3ah/3ah 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ah/3ah 1H NMR/pdata/1/outd
+jo5c00330_si_003/3ah/3ah 1H NMR/pdata/1/proc
+jo5c00330_si_003/3ah/3ah 1H NMR/pdata/1/procs
+jo5c00330_si_003/3ah/3ah 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ah/3ah 1H NMR/pdata/1/title
+jo5c00330_si_003/3ah/3ah 1H NMR/precom.output
+jo5c00330_si_003/3ah/3ah 1H NMR/pulseprogram
+jo5c00330_si_003/3ah/3ah 1H NMR/scon2
+jo5c00330_si_003/3ah/3ah 1H NMR/shimvalues
+jo5c00330_si_003/3ah/3ah 1H NMR/specpar
+jo5c00330_si_003/3ah/3ah 1H NMR/uxnmr.info
+jo5c00330_si_003/3ah/3ah 1H NMR/uxnmr.par
+jo5c00330_si_003/3ah/3ah 1H NMR/vtc_pid_settings
+jo5c00330_si_003/3ah/3ah.mnova
+jo5c00330_si_003/3ai/3ai 13C NMR/acqu
+jo5c00330_si_003/3ai/3ai 13C NMR/acqus
+jo5c00330_si_003/3ai/3ai 13C NMR/audita.txt
+jo5c00330_si_003/3ai/3ai 13C NMR/cpdprg2
+jo5c00330_si_003/3ai/3ai 13C NMR/fid
+jo5c00330_si_003/3ai/3ai 13C NMR/format.temp
+jo5c00330_si_003/3ai/3ai 13C NMR/fq1list
+jo5c00330_si_003/3ai/3ai 13C NMR/pdata/1/1i
+jo5c00330_si_003/3ai/3ai 13C NMR/pdata/1/1r
+jo5c00330_si_003/3ai/3ai 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ai/3ai 13C NMR/pdata/1/outd
+jo5c00330_si_003/3ai/3ai 13C NMR/pdata/1/proc
+jo5c00330_si_003/3ai/3ai 13C NMR/pdata/1/procs
+jo5c00330_si_003/3ai/3ai 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ai/3ai 13C NMR/pdata/1/title
+jo5c00330_si_003/3ai/3ai 13C NMR/precom.output
+jo5c00330_si_003/3ai/3ai 13C NMR/pulseprogram
+jo5c00330_si_003/3ai/3ai 13C NMR/scon2
+jo5c00330_si_003/3ai/3ai 13C NMR/shimvalues
+jo5c00330_si_003/3ai/3ai 13C NMR/specpar
+jo5c00330_si_003/3ai/3ai 13C NMR/uxnmr.info
+jo5c00330_si_003/3ai/3ai 13C NMR/uxnmr.par
+jo5c00330_si_003/3ai/3ai 13C NMR/vtc_pid_settings
+jo5c00330_si_003/3ai/3ai 1H NMR/acqu
+jo5c00330_si_003/3ai/3ai 1H NMR/acqus
+jo5c00330_si_003/3ai/3ai 1H NMR/audita.txt
+jo5c00330_si_003/3ai/3ai 1H NMR/fid
+jo5c00330_si_003/3ai/3ai 1H NMR/format.temp
+jo5c00330_si_003/3ai/3ai 1H NMR/pdata/1/1i
+jo5c00330_si_003/3ai/3ai 1H NMR/pdata/1/1r
+jo5c00330_si_003/3ai/3ai 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ai/3ai 1H NMR/pdata/1/outd
+jo5c00330_si_003/3ai/3ai 1H NMR/pdata/1/proc
+jo5c00330_si_003/3ai/3ai 1H NMR/pdata/1/procs
+jo5c00330_si_003/3ai/3ai 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ai/3ai 1H NMR/pdata/1/title
+jo5c00330_si_003/3ai/3ai 1H NMR/pulseprogram
+jo5c00330_si_003/3ai/3ai 1H NMR/scon2
+jo5c00330_si_003/3ai/3ai 1H NMR/shimvalues
+jo5c00330_si_003/3ai/3ai 1H NMR/specpar
+jo5c00330_si_003/3ai/3ai 1H NMR/uxnmr.info
+jo5c00330_si_003/3ai/3ai 1H NMR/uxnmr.par
+jo5c00330_si_003/3ai/3ai 1H NMR/vtc_pid_settings
+jo5c00330_si_003/3ai/3ai.mnova
+jo5c00330_si_003/3aj/3aj 13C NMR/acqu
+jo5c00330_si_003/3aj/3aj 13C NMR/acqus
+jo5c00330_si_003/3aj/3aj 13C NMR/audita.txt
+jo5c00330_si_003/3aj/3aj 13C NMR/cpdprg2
+jo5c00330_si_003/3aj/3aj 13C NMR/fid
+jo5c00330_si_003/3aj/3aj 13C NMR/format.temp
+jo5c00330_si_003/3aj/3aj 13C NMR/fq1list
+jo5c00330_si_003/3aj/3aj 13C NMR/pdata/1/1i
+jo5c00330_si_003/3aj/3aj 13C NMR/pdata/1/1r
+jo5c00330_si_003/3aj/3aj 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3aj/3aj 13C NMR/pdata/1/outd
+jo5c00330_si_003/3aj/3aj 13C NMR/pdata/1/proc
+jo5c00330_si_003/3aj/3aj 13C NMR/pdata/1/procs
+jo5c00330_si_003/3aj/3aj 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3aj/3aj 13C NMR/pdata/1/title
+jo5c00330_si_003/3aj/3aj 13C NMR/precom.output
+jo5c00330_si_003/3aj/3aj 13C NMR/pulseprogram
+jo5c00330_si_003/3aj/3aj 13C NMR/scon2
+jo5c00330_si_003/3aj/3aj 13C NMR/shimvalues
+jo5c00330_si_003/3aj/3aj 13C NMR/specpar
+jo5c00330_si_003/3aj/3aj 13C NMR/uxnmr.info
+jo5c00330_si_003/3aj/3aj 13C NMR/uxnmr.par
+jo5c00330_si_003/3aj/3aj 1H NMR/acqu
+jo5c00330_si_003/3aj/3aj 1H NMR/acqus
+jo5c00330_si_003/3aj/3aj 1H NMR/audita.txt
+jo5c00330_si_003/3aj/3aj 1H NMR/fid
+jo5c00330_si_003/3aj/3aj 1H NMR/format.temp
+jo5c00330_si_003/3aj/3aj 1H NMR/fq1list
+jo5c00330_si_003/3aj/3aj 1H NMR/pdata/1/1i
+jo5c00330_si_003/3aj/3aj 1H NMR/pdata/1/1r
+jo5c00330_si_003/3aj/3aj 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3aj/3aj 1H NMR/pdata/1/outd
+jo5c00330_si_003/3aj/3aj 1H NMR/pdata/1/proc
+jo5c00330_si_003/3aj/3aj 1H NMR/pdata/1/procs
+jo5c00330_si_003/3aj/3aj 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3aj/3aj 1H NMR/pdata/1/title
+jo5c00330_si_003/3aj/3aj 1H NMR/precom.output
+jo5c00330_si_003/3aj/3aj 1H NMR/pulseprogram
+jo5c00330_si_003/3aj/3aj 1H NMR/scon2
+jo5c00330_si_003/3aj/3aj 1H NMR/shimvalues
+jo5c00330_si_003/3aj/3aj 1H NMR/specpar
+jo5c00330_si_003/3aj/3aj 1H NMR/uxnmr.info
+jo5c00330_si_003/3aj/3aj 1H NMR/uxnmr.par
+jo5c00330_si_003/3aj/3aj 1H NMR/vtc_pid_settings
+jo5c00330_si_003/3aj/3aj.mnova
+jo5c00330_si_003/3am/3am 13C NMR/acqu
+jo5c00330_si_003/3am/3am 13C NMR/acqus
+jo5c00330_si_003/3am/3am 13C NMR/audita.txt
+jo5c00330_si_003/3am/3am 13C NMR/cpdprg2
+jo5c00330_si_003/3am/3am 13C NMR/fid
+jo5c00330_si_003/3am/3am 13C NMR/format.temp
+jo5c00330_si_003/3am/3am 13C NMR/fq1list
+jo5c00330_si_003/3am/3am 13C NMR/pdata/1/1i
+jo5c00330_si_003/3am/3am 13C NMR/pdata/1/1r
+jo5c00330_si_003/3am/3am 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3am/3am 13C NMR/pdata/1/outd
+jo5c00330_si_003/3am/3am 13C NMR/pdata/1/proc
+jo5c00330_si_003/3am/3am 13C NMR/pdata/1/procs
+jo5c00330_si_003/3am/3am 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3am/3am 13C NMR/pdata/1/title
+jo5c00330_si_003/3am/3am 13C NMR/precom.output
+jo5c00330_si_003/3am/3am 13C NMR/pulseprogram
+jo5c00330_si_003/3am/3am 13C NMR/scon2
+jo5c00330_si_003/3am/3am 13C NMR/shimvalues
+jo5c00330_si_003/3am/3am 13C NMR/specpar
+jo5c00330_si_003/3am/3am 13C NMR/uxnmr.info
+jo5c00330_si_003/3am/3am 13C NMR/uxnmr.par
+jo5c00330_si_003/3am/3am 13C NMR/vtc_pid_settings
+jo5c00330_si_003/3am/3am 1H NMR/acqu
+jo5c00330_si_003/3am/3am 1H NMR/acqus
+jo5c00330_si_003/3am/3am 1H NMR/audita.txt
+jo5c00330_si_003/3am/3am 1H NMR/fid
+jo5c00330_si_003/3am/3am 1H NMR/format.temp
+jo5c00330_si_003/3am/3am 1H NMR/fq1list
+jo5c00330_si_003/3am/3am 1H NMR/pdata/1/1i
+jo5c00330_si_003/3am/3am 1H NMR/pdata/1/1r
+jo5c00330_si_003/3am/3am 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3am/3am 1H NMR/pdata/1/outd
+jo5c00330_si_003/3am/3am 1H NMR/pdata/1/proc
+jo5c00330_si_003/3am/3am 1H NMR/pdata/1/procs
+jo5c00330_si_003/3am/3am 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3am/3am 1H NMR/pdata/1/title
+jo5c00330_si_003/3am/3am 1H NMR/precom.output
+jo5c00330_si_003/3am/3am 1H NMR/pulseprogram
+jo5c00330_si_003/3am/3am 1H NMR/scon2
+jo5c00330_si_003/3am/3am 1H NMR/shimvalues
+jo5c00330_si_003/3am/3am 1H NMR/specpar
+jo5c00330_si_003/3am/3am 1H NMR/uxnmr.info
+jo5c00330_si_003/3am/3am 1H NMR/uxnmr.par
+jo5c00330_si_003/3am/3am 1H NMR/vtc_pid_settings
+jo5c00330_si_003/3am/3am.mnova
+jo5c00330_si_003/3ba/3ba 13C NMR/acqu
+jo5c00330_si_003/3ba/3ba 13C NMR/acqus
+jo5c00330_si_003/3ba/3ba 13C NMR/audita.txt
+jo5c00330_si_003/3ba/3ba 13C NMR/cpdprg2
+jo5c00330_si_003/3ba/3ba 13C NMR/fid
+jo5c00330_si_003/3ba/3ba 13C NMR/format.temp
+jo5c00330_si_003/3ba/3ba 13C NMR/fq1list
+jo5c00330_si_003/3ba/3ba 13C NMR/pdata/1/1i
+jo5c00330_si_003/3ba/3ba 13C NMR/pdata/1/1r
+jo5c00330_si_003/3ba/3ba 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ba/3ba 13C NMR/pdata/1/outd
+jo5c00330_si_003/3ba/3ba 13C NMR/pdata/1/proc
+jo5c00330_si_003/3ba/3ba 13C NMR/pdata/1/procs
+jo5c00330_si_003/3ba/3ba 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ba/3ba 13C NMR/pdata/1/title
+jo5c00330_si_003/3ba/3ba 13C NMR/precom.output
+jo5c00330_si_003/3ba/3ba 13C NMR/pulseprogram
+jo5c00330_si_003/3ba/3ba 13C NMR/scon2
+jo5c00330_si_003/3ba/3ba 13C NMR/shimvalues
+jo5c00330_si_003/3ba/3ba 13C NMR/specpar
+jo5c00330_si_003/3ba/3ba 13C NMR/uxnmr.info
+jo5c00330_si_003/3ba/3ba 13C NMR/uxnmr.par
+jo5c00330_si_003/3ba/3ba 13C NMR/vtc_pid_settings
+jo5c00330_si_003/3ba/3ba 1H NMR/acqu
+jo5c00330_si_003/3ba/3ba 1H NMR/acqus
+jo5c00330_si_003/3ba/3ba 1H NMR/audita.txt
+jo5c00330_si_003/3ba/3ba 1H NMR/fid
+jo5c00330_si_003/3ba/3ba 1H NMR/format.temp
+jo5c00330_si_003/3ba/3ba 1H NMR/pdata/1/1i
+jo5c00330_si_003/3ba/3ba 1H NMR/pdata/1/1r
+jo5c00330_si_003/3ba/3ba 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ba/3ba 1H NMR/pdata/1/outd
+jo5c00330_si_003/3ba/3ba 1H NMR/pdata/1/proc
+jo5c00330_si_003/3ba/3ba 1H NMR/pdata/1/procs
+jo5c00330_si_003/3ba/3ba 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ba/3ba 1H NMR/pdata/1/title
+jo5c00330_si_003/3ba/3ba 1H NMR/pulseprogram
+jo5c00330_si_003/3ba/3ba 1H NMR/scon2
+jo5c00330_si_003/3ba/3ba 1H NMR/shimvalues
+jo5c00330_si_003/3ba/3ba 1H NMR/specpar
+jo5c00330_si_003/3ba/3ba 1H NMR/uxnmr.info
+jo5c00330_si_003/3ba/3ba 1H NMR/uxnmr.par
+jo5c00330_si_003/3ba/3ba 1H NMR/vtc_pid_settings
+jo5c00330_si_003/3ba/3ba.mnova
+jo5c00330_si_003/3ca/3ca 13C NMR/acqu
+jo5c00330_si_003/3ca/3ca 13C NMR/acqus
+jo5c00330_si_003/3ca/3ca 13C NMR/audita.txt
+jo5c00330_si_003/3ca/3ca 13C NMR/cpdprg2
+jo5c00330_si_003/3ca/3ca 13C NMR/fid
+jo5c00330_si_003/3ca/3ca 13C NMR/format.temp
+jo5c00330_si_003/3ca/3ca 13C NMR/fq1list
+jo5c00330_si_003/3ca/3ca 13C NMR/pdata/1/1i
+jo5c00330_si_003/3ca/3ca 13C NMR/pdata/1/1r
+jo5c00330_si_003/3ca/3ca 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ca/3ca 13C NMR/pdata/1/outd
+jo5c00330_si_003/3ca/3ca 13C NMR/pdata/1/proc
+jo5c00330_si_003/3ca/3ca 13C NMR/pdata/1/procs
+jo5c00330_si_003/3ca/3ca 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ca/3ca 13C NMR/pdata/1/title
+jo5c00330_si_003/3ca/3ca 13C NMR/precom.output
+jo5c00330_si_003/3ca/3ca 13C NMR/pulseprogram
+jo5c00330_si_003/3ca/3ca 13C NMR/scon2
+jo5c00330_si_003/3ca/3ca 13C NMR/shimvalues
+jo5c00330_si_003/3ca/3ca 13C NMR/specpar
+jo5c00330_si_003/3ca/3ca 13C NMR/uxnmr.info
+jo5c00330_si_003/3ca/3ca 13C NMR/uxnmr.par
+jo5c00330_si_003/3ca/3ca 13C NMR/vtc_pid_settings
+jo5c00330_si_003/3ca/3ca 1H NMR/acqu
+jo5c00330_si_003/3ca/3ca 1H NMR/acqus
+jo5c00330_si_003/3ca/3ca 1H NMR/audita.txt
+jo5c00330_si_003/3ca/3ca 1H NMR/fid
+jo5c00330_si_003/3ca/3ca 1H NMR/format.temp
+jo5c00330_si_003/3ca/3ca 1H NMR/fq1list
+jo5c00330_si_003/3ca/3ca 1H NMR/pdata/1/1i
+jo5c00330_si_003/3ca/3ca 1H NMR/pdata/1/1r
+jo5c00330_si_003/3ca/3ca 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ca/3ca 1H NMR/pdata/1/outd
+jo5c00330_si_003/3ca/3ca 1H NMR/pdata/1/proc
+jo5c00330_si_003/3ca/3ca 1H NMR/pdata/1/procs
+jo5c00330_si_003/3ca/3ca 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ca/3ca 1H NMR/pdata/1/title
+jo5c00330_si_003/3ca/3ca 1H NMR/precom.output
+jo5c00330_si_003/3ca/3ca 1H NMR/pulseprogram
+jo5c00330_si_003/3ca/3ca 1H NMR/scon2
+jo5c00330_si_003/3ca/3ca 1H NMR/shimvalues
+jo5c00330_si_003/3ca/3ca 1H NMR/specpar
+jo5c00330_si_003/3ca/3ca 1H NMR/uxnmr.info
+jo5c00330_si_003/3ca/3ca 1H NMR/uxnmr.par
+jo5c00330_si_003/3ca/3ca 1H NMR/vtc_pid_settings
+jo5c00330_si_003/3ca/3ca.mnova
+jo5c00330_si_003/3da/3da 13C NMR/acqu
+jo5c00330_si_003/3da/3da 13C NMR/acqus
+jo5c00330_si_003/3da/3da 13C NMR/audita.txt
+jo5c00330_si_003/3da/3da 13C NMR/cpdprg2
+jo5c00330_si_003/3da/3da 13C NMR/fid
+jo5c00330_si_003/3da/3da 13C NMR/format.temp
+jo5c00330_si_003/3da/3da 13C NMR/fq1list
+jo5c00330_si_003/3da/3da 13C NMR/pdata/1/1i
+jo5c00330_si_003/3da/3da 13C NMR/pdata/1/1r
+jo5c00330_si_003/3da/3da 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3da/3da 13C NMR/pdata/1/outd
+jo5c00330_si_003/3da/3da 13C NMR/pdata/1/proc
+jo5c00330_si_003/3da/3da 13C NMR/pdata/1/procs
+jo5c00330_si_003/3da/3da 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3da/3da 13C NMR/pdata/1/title
+jo5c00330_si_003/3da/3da 13C NMR/precom.output
+jo5c00330_si_003/3da/3da 13C NMR/pulseprogram
+jo5c00330_si_003/3da/3da 13C NMR/scon2
+jo5c00330_si_003/3da/3da 13C NMR/shimvalues
+jo5c00330_si_003/3da/3da 13C NMR/specpar
+jo5c00330_si_003/3da/3da 13C NMR/uxnmr.info
+jo5c00330_si_003/3da/3da 13C NMR/uxnmr.par
+jo5c00330_si_003/3da/3da 13C NMR/vtc_pid_settings
+jo5c00330_si_003/3da/3da 1H NMR/acqu
+jo5c00330_si_003/3da/3da 1H NMR/acqus
+jo5c00330_si_003/3da/3da 1H NMR/audita.txt
+jo5c00330_si_003/3da/3da 1H NMR/fid
+jo5c00330_si_003/3da/3da 1H NMR/format.temp
+jo5c00330_si_003/3da/3da 1H NMR/pdata/1/1i
+jo5c00330_si_003/3da/3da 1H NMR/pdata/1/1r
+jo5c00330_si_003/3da/3da 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3da/3da 1H NMR/pdata/1/outd
+jo5c00330_si_003/3da/3da 1H NMR/pdata/1/proc
+jo5c00330_si_003/3da/3da 1H NMR/pdata/1/procs
+jo5c00330_si_003/3da/3da 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3da/3da 1H NMR/pdata/1/title
+jo5c00330_si_003/3da/3da 1H NMR/pulseprogram
+jo5c00330_si_003/3da/3da 1H NMR/scon2
+jo5c00330_si_003/3da/3da 1H NMR/shimvalues
+jo5c00330_si_003/3da/3da 1H NMR/specpar
+jo5c00330_si_003/3da/3da 1H NMR/uxnmr.info
+jo5c00330_si_003/3da/3da 1H NMR/uxnmr.par
+jo5c00330_si_003/3da/3da 1H NMR/vtc_pid_settings
+jo5c00330_si_003/3da/3da.mnova
+jo5c00330_si_003/3ea/3ea 13C NMR/acqu
+jo5c00330_si_003/3ea/3ea 13C NMR/acqus
+jo5c00330_si_003/3ea/3ea 13C NMR/audita.txt
+jo5c00330_si_003/3ea/3ea 13C NMR/cpdprg2
+jo5c00330_si_003/3ea/3ea 13C NMR/fid
+jo5c00330_si_003/3ea/3ea 13C NMR/format.temp
+jo5c00330_si_003/3ea/3ea 13C NMR/fq1list
+jo5c00330_si_003/3ea/3ea 13C NMR/pdata/1/1i
+jo5c00330_si_003/3ea/3ea 13C NMR/pdata/1/1r
+jo5c00330_si_003/3ea/3ea 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ea/3ea 13C NMR/pdata/1/outd
+jo5c00330_si_003/3ea/3ea 13C NMR/pdata/1/proc
+jo5c00330_si_003/3ea/3ea 13C NMR/pdata/1/procs
+jo5c00330_si_003/3ea/3ea 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ea/3ea 13C NMR/pdata/1/title
+jo5c00330_si_003/3ea/3ea 13C NMR/precom.output
+jo5c00330_si_003/3ea/3ea 13C NMR/pulseprogram
+jo5c00330_si_003/3ea/3ea 13C NMR/scon2
+jo5c00330_si_003/3ea/3ea 13C NMR/shimvalues
+jo5c00330_si_003/3ea/3ea 13C NMR/specpar
+jo5c00330_si_003/3ea/3ea 13C NMR/uxnmr.info
+jo5c00330_si_003/3ea/3ea 13C NMR/uxnmr.par
+jo5c00330_si_003/3ea/3ea 13C NMR/vtc_pid_settings
+jo5c00330_si_003/3ea/3ea 1H NMR/acqu
+jo5c00330_si_003/3ea/3ea 1H NMR/acqus
+jo5c00330_si_003/3ea/3ea 1H NMR/audita.txt
+jo5c00330_si_003/3ea/3ea 1H NMR/fid
+jo5c00330_si_003/3ea/3ea 1H NMR/format.temp
+jo5c00330_si_003/3ea/3ea 1H NMR/pdata/1/1i
+jo5c00330_si_003/3ea/3ea 1H NMR/pdata/1/1r
+jo5c00330_si_003/3ea/3ea 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ea/3ea 1H NMR/pdata/1/outd
+jo5c00330_si_003/3ea/3ea 1H NMR/pdata/1/proc
+jo5c00330_si_003/3ea/3ea 1H NMR/pdata/1/procs
+jo5c00330_si_003/3ea/3ea 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ea/3ea 1H NMR/pdata/1/title
+jo5c00330_si_003/3ea/3ea 1H NMR/pulseprogram
+jo5c00330_si_003/3ea/3ea 1H NMR/scon2
+jo5c00330_si_003/3ea/3ea 1H NMR/shimvalues
+jo5c00330_si_003/3ea/3ea 1H NMR/specpar
+jo5c00330_si_003/3ea/3ea 1H NMR/uxnmr.info
+jo5c00330_si_003/3ea/3ea 1H NMR/uxnmr.par
+jo5c00330_si_003/3ea/3ea 1H NMR/vtc_pid_settings
+jo5c00330_si_003/3ea/3ea.mnova
+jo5c00330_si_003/3fa/3fa 13C NMR/acqu
+jo5c00330_si_003/3fa/3fa 13C NMR/acqus
+jo5c00330_si_003/3fa/3fa 13C NMR/audita.txt
+jo5c00330_si_003/3fa/3fa 13C NMR/cpdprg2
+jo5c00330_si_003/3fa/3fa 13C NMR/fid
+jo5c00330_si_003/3fa/3fa 13C NMR/format.temp
+jo5c00330_si_003/3fa/3fa 13C NMR/fq1list
+jo5c00330_si_003/3fa/3fa 13C NMR/pdata/1/1i
+jo5c00330_si_003/3fa/3fa 13C NMR/pdata/1/1r
+jo5c00330_si_003/3fa/3fa 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3fa/3fa 13C NMR/pdata/1/outd
+jo5c00330_si_003/3fa/3fa 13C NMR/pdata/1/proc
+jo5c00330_si_003/3fa/3fa 13C NMR/pdata/1/procs
+jo5c00330_si_003/3fa/3fa 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3fa/3fa 13C NMR/pdata/1/title
+jo5c00330_si_003/3fa/3fa 13C NMR/precom.output
+jo5c00330_si_003/3fa/3fa 13C NMR/pulseprogram
+jo5c00330_si_003/3fa/3fa 13C NMR/scon2
+jo5c00330_si_003/3fa/3fa 13C NMR/shimvalues
+jo5c00330_si_003/3fa/3fa 13C NMR/specpar
+jo5c00330_si_003/3fa/3fa 13C NMR/uxnmr.info
+jo5c00330_si_003/3fa/3fa 13C NMR/uxnmr.par
+jo5c00330_si_003/3fa/3fa 13C NMR/vtc_pid_settings
+jo5c00330_si_003/3fa/3fa 1H NMR/acqu
+jo5c00330_si_003/3fa/3fa 1H NMR/acqus
+jo5c00330_si_003/3fa/3fa 1H NMR/audita.txt
+jo5c00330_si_003/3fa/3fa 1H NMR/fid
+jo5c00330_si_003/3fa/3fa 1H NMR/format.temp
+jo5c00330_si_003/3fa/3fa 1H NMR/pdata/1/1i
+jo5c00330_si_003/3fa/3fa 1H NMR/pdata/1/1r
+jo5c00330_si_003/3fa/3fa 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3fa/3fa 1H NMR/pdata/1/outd
+jo5c00330_si_003/3fa/3fa 1H NMR/pdata/1/proc
+jo5c00330_si_003/3fa/3fa 1H NMR/pdata/1/procs
+jo5c00330_si_003/3fa/3fa 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3fa/3fa 1H NMR/pdata/1/title
+jo5c00330_si_003/3fa/3fa 1H NMR/pulseprogram
+jo5c00330_si_003/3fa/3fa 1H NMR/scon2
+jo5c00330_si_003/3fa/3fa 1H NMR/shimvalues
+jo5c00330_si_003/3fa/3fa 1H NMR/specpar
+jo5c00330_si_003/3fa/3fa 1H NMR/uxnmr.info
+jo5c00330_si_003/3fa/3fa 1H NMR/uxnmr.par
+jo5c00330_si_003/3fa/3fa 1H NMR/vtc_pid_settings
+jo5c00330_si_003/3fa/3fa.mnova
+jo5c00330_si_003/3ga/3ga 13C NMR/acqu
+jo5c00330_si_003/3ga/3ga 13C NMR/acqus
+jo5c00330_si_003/3ga/3ga 13C NMR/audita.txt
+jo5c00330_si_003/3ga/3ga 13C NMR/cpdprg2
+jo5c00330_si_003/3ga/3ga 13C NMR/fid
+jo5c00330_si_003/3ga/3ga 13C NMR/format.temp
+jo5c00330_si_003/3ga/3ga 13C NMR/fq1list
+jo5c00330_si_003/3ga/3ga 13C NMR/pdata/1/1i
+jo5c00330_si_003/3ga/3ga 13C NMR/pdata/1/1r
+jo5c00330_si_003/3ga/3ga 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ga/3ga 13C NMR/pdata/1/outd
+jo5c00330_si_003/3ga/3ga 13C NMR/pdata/1/proc
+jo5c00330_si_003/3ga/3ga 13C NMR/pdata/1/procs
+jo5c00330_si_003/3ga/3ga 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ga/3ga 13C NMR/pdata/1/title
+jo5c00330_si_003/3ga/3ga 13C NMR/precom.output
+jo5c00330_si_003/3ga/3ga 13C NMR/pulseprogram
+jo5c00330_si_003/3ga/3ga 13C NMR/scon2
+jo5c00330_si_003/3ga/3ga 13C NMR/shimvalues
+jo5c00330_si_003/3ga/3ga 13C NMR/specpar
+jo5c00330_si_003/3ga/3ga 13C NMR/uxnmr.info
+jo5c00330_si_003/3ga/3ga 13C NMR/uxnmr.par
+jo5c00330_si_003/3ga/3ga 1H NMR/acqu
+jo5c00330_si_003/3ga/3ga 1H NMR/acqus
+jo5c00330_si_003/3ga/3ga 1H NMR/audita.txt
+jo5c00330_si_003/3ga/3ga 1H NMR/fid
+jo5c00330_si_003/3ga/3ga 1H NMR/format.temp
+jo5c00330_si_003/3ga/3ga 1H NMR/fq1list
+jo5c00330_si_003/3ga/3ga 1H NMR/pdata/1/1i
+jo5c00330_si_003/3ga/3ga 1H NMR/pdata/1/1r
+jo5c00330_si_003/3ga/3ga 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ga/3ga 1H NMR/pdata/1/outd
+jo5c00330_si_003/3ga/3ga 1H NMR/pdata/1/proc
+jo5c00330_si_003/3ga/3ga 1H NMR/pdata/1/procs
+jo5c00330_si_003/3ga/3ga 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ga/3ga 1H NMR/pdata/1/title
+jo5c00330_si_003/3ga/3ga 1H NMR/precom.output
+jo5c00330_si_003/3ga/3ga 1H NMR/pulseprogram
+jo5c00330_si_003/3ga/3ga 1H NMR/scon2
+jo5c00330_si_003/3ga/3ga 1H NMR/shimvalues
+jo5c00330_si_003/3ga/3ga 1H NMR/specpar
+jo5c00330_si_003/3ga/3ga 1H NMR/uxnmr.info
+jo5c00330_si_003/3ga/3ga 1H NMR/uxnmr.par
+jo5c00330_si_003/3ga/3ga.mnova
+jo5c00330_si_003/3ka/3ka 13C NMR/acqu
+jo5c00330_si_003/3ka/3ka 13C NMR/acqus
+jo5c00330_si_003/3ka/3ka 13C NMR/audita.txt
+jo5c00330_si_003/3ka/3ka 13C NMR/cpdprg2
+jo5c00330_si_003/3ka/3ka 13C NMR/fid
+jo5c00330_si_003/3ka/3ka 13C NMR/format.temp
+jo5c00330_si_003/3ka/3ka 13C NMR/fq1list
+jo5c00330_si_003/3ka/3ka 13C NMR/pdata/1/1i
+jo5c00330_si_003/3ka/3ka 13C NMR/pdata/1/1r
+jo5c00330_si_003/3ka/3ka 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ka/3ka 13C NMR/pdata/1/outd
+jo5c00330_si_003/3ka/3ka 13C NMR/pdata/1/proc
+jo5c00330_si_003/3ka/3ka 13C NMR/pdata/1/procs
+jo5c00330_si_003/3ka/3ka 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ka/3ka 13C NMR/pdata/1/title
+jo5c00330_si_003/3ka/3ka 13C NMR/precom.output
+jo5c00330_si_003/3ka/3ka 13C NMR/pulseprogram
+jo5c00330_si_003/3ka/3ka 13C NMR/scon2
+jo5c00330_si_003/3ka/3ka 13C NMR/shimvalues
+jo5c00330_si_003/3ka/3ka 13C NMR/specpar
+jo5c00330_si_003/3ka/3ka 13C NMR/uxnmr.info
+jo5c00330_si_003/3ka/3ka 13C NMR/uxnmr.par
+jo5c00330_si_003/3ka/3ka 1H NMR/acqu
+jo5c00330_si_003/3ka/3ka 1H NMR/acqus
+jo5c00330_si_003/3ka/3ka 1H NMR/audita.txt
+jo5c00330_si_003/3ka/3ka 1H NMR/fid
+jo5c00330_si_003/3ka/3ka 1H NMR/format.temp
+jo5c00330_si_003/3ka/3ka 1H NMR/pdata/1/1i
+jo5c00330_si_003/3ka/3ka 1H NMR/pdata/1/1r
+jo5c00330_si_003/3ka/3ka 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ka/3ka 1H NMR/pdata/1/outd
+jo5c00330_si_003/3ka/3ka 1H NMR/pdata/1/proc
+jo5c00330_si_003/3ka/3ka 1H NMR/pdata/1/procs
+jo5c00330_si_003/3ka/3ka 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ka/3ka 1H NMR/pdata/1/title
+jo5c00330_si_003/3ka/3ka 1H NMR/pulseprogram
+jo5c00330_si_003/3ka/3ka 1H NMR/scon2
+jo5c00330_si_003/3ka/3ka 1H NMR/shimvalues
+jo5c00330_si_003/3ka/3ka 1H NMR/specpar
+jo5c00330_si_003/3ka/3ka 1H NMR/uxnmr.info
+jo5c00330_si_003/3ka/3ka 1H NMR/uxnmr.par
+jo5c00330_si_003/3ka/3ka.mnova
+jo5c00330_si_003/3la/cis-3la 13C NMR/acqu
+jo5c00330_si_003/3la/cis-3la 13C NMR/acqus
+jo5c00330_si_003/3la/cis-3la 13C NMR/audita.txt
+jo5c00330_si_003/3la/cis-3la 13C NMR/cpdprg2
+jo5c00330_si_003/3la/cis-3la 13C NMR/fid
+jo5c00330_si_003/3la/cis-3la 13C NMR/format.temp
+jo5c00330_si_003/3la/cis-3la 13C NMR/fq1list
+jo5c00330_si_003/3la/cis-3la 13C NMR/overflow_log_dru1.txt
+jo5c00330_si_003/3la/cis-3la 13C NMR/pdata/1/1i
+jo5c00330_si_003/3la/cis-3la 13C NMR/pdata/1/1r
+jo5c00330_si_003/3la/cis-3la 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3la/cis-3la 13C NMR/pdata/1/outd
+jo5c00330_si_003/3la/cis-3la 13C NMR/pdata/1/proc
+jo5c00330_si_003/3la/cis-3la 13C NMR/pdata/1/procs
+jo5c00330_si_003/3la/cis-3la 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3la/cis-3la 13C NMR/pdata/1/title
+jo5c00330_si_003/3la/cis-3la 13C NMR/precom.output
+jo5c00330_si_003/3la/cis-3la 13C NMR/pulseprogram
+jo5c00330_si_003/3la/cis-3la 13C NMR/scon2
+jo5c00330_si_003/3la/cis-3la 13C NMR/shimvalues
+jo5c00330_si_003/3la/cis-3la 13C NMR/specpar
+jo5c00330_si_003/3la/cis-3la 13C NMR/uxnmr.info
+jo5c00330_si_003/3la/cis-3la 13C NMR/uxnmr.par
+jo5c00330_si_003/3la/cis-3la 1H NMR/acqu
+jo5c00330_si_003/3la/cis-3la 1H NMR/acqus
+jo5c00330_si_003/3la/cis-3la 1H NMR/audita.txt
+jo5c00330_si_003/3la/cis-3la 1H NMR/fid
+jo5c00330_si_003/3la/cis-3la 1H NMR/format.temp
+jo5c00330_si_003/3la/cis-3la 1H NMR/pdata/1/1i
+jo5c00330_si_003/3la/cis-3la 1H NMR/pdata/1/1r
+jo5c00330_si_003/3la/cis-3la 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3la/cis-3la 1H NMR/pdata/1/integrals.txt
+jo5c00330_si_003/3la/cis-3la 1H NMR/pdata/1/intrng
+jo5c00330_si_003/3la/cis-3la 1H NMR/pdata/1/outd
+jo5c00330_si_003/3la/cis-3la 1H NMR/pdata/1/proc
+jo5c00330_si_003/3la/cis-3la 1H NMR/pdata/1/procs
+jo5c00330_si_003/3la/cis-3la 1H NMR/pdata/1/reg
+jo5c00330_si_003/3la/cis-3la 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3la/cis-3la 1H NMR/pdata/1/title
+jo5c00330_si_003/3la/cis-3la 1H NMR/pulseprogram
+jo5c00330_si_003/3la/cis-3la 1H NMR/scon2
+jo5c00330_si_003/3la/cis-3la 1H NMR/shimvalues
+jo5c00330_si_003/3la/cis-3la 1H NMR/specpar
+jo5c00330_si_003/3la/cis-3la 1H NMR/uxnmr.info
+jo5c00330_si_003/3la/cis-3la 1H NMR/uxnmr.par
+jo5c00330_si_003/3la/cis-3la NOE/acqu
+jo5c00330_si_003/3la/cis-3la NOE/acqus
+jo5c00330_si_003/3la/cis-3la NOE/audita.txt
+jo5c00330_si_003/3la/cis-3la NOE/EA
+jo5c00330_si_003/3la/cis-3la NOE/fid
+jo5c00330_si_003/3la/cis-3la NOE/format.temp
+jo5c00330_si_003/3la/cis-3la NOE/gpnam1
+jo5c00330_si_003/3la/cis-3la NOE/gpnam2
+jo5c00330_si_003/3la/cis-3la NOE/gradient_calib
+jo5c00330_si_003/3la/cis-3la NOE/pdata/1/1i
+jo5c00330_si_003/3la/cis-3la NOE/pdata/1/1r
+jo5c00330_si_003/3la/cis-3la NOE/pdata/1/auditp.txt
+jo5c00330_si_003/3la/cis-3la NOE/pdata/1/curdat2
+jo5c00330_si_003/3la/cis-3la NOE/pdata/1/outd
+jo5c00330_si_003/3la/cis-3la NOE/pdata/1/proc
+jo5c00330_si_003/3la/cis-3la NOE/pdata/1/procs
+jo5c00330_si_003/3la/cis-3la NOE/pdata/1/thumb.png
+jo5c00330_si_003/3la/cis-3la NOE/pdata/1/title
+jo5c00330_si_003/3la/cis-3la NOE/pulseprogram
+jo5c00330_si_003/3la/cis-3la NOE/scon2
+jo5c00330_si_003/3la/cis-3la NOE/shimvalues
+jo5c00330_si_003/3la/cis-3la NOE/specpar
+jo5c00330_si_003/3la/cis-3la NOE/spnam2
+jo5c00330_si_003/3la/cis-3la NOE/uxnmr.info
+jo5c00330_si_003/3la/cis-3la NOE/uxnmr.par
+jo5c00330_si_003/3la/cis-3la NOE/vtc_pid_settings
+jo5c00330_si_003/3la/cis-3la.mnova
+jo5c00330_si_003/3la/trans-3al 13C NMR/acqu
+jo5c00330_si_003/3la/trans-3al 13C NMR/acqus
+jo5c00330_si_003/3la/trans-3al 13C NMR/audita.txt
+jo5c00330_si_003/3la/trans-3al 13C NMR/cpdprg2
+jo5c00330_si_003/3la/trans-3al 13C NMR/fid
+jo5c00330_si_003/3la/trans-3al 13C NMR/format.temp
+jo5c00330_si_003/3la/trans-3al 13C NMR/fq1list
+jo5c00330_si_003/3la/trans-3al 13C NMR/pdata/1/1i
+jo5c00330_si_003/3la/trans-3al 13C NMR/pdata/1/1r
+jo5c00330_si_003/3la/trans-3al 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3la/trans-3al 13C NMR/pdata/1/outd
+jo5c00330_si_003/3la/trans-3al 13C NMR/pdata/1/proc
+jo5c00330_si_003/3la/trans-3al 13C NMR/pdata/1/procs
+jo5c00330_si_003/3la/trans-3al 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3la/trans-3al 13C NMR/pdata/1/title
+jo5c00330_si_003/3la/trans-3al 13C NMR/precom.output
+jo5c00330_si_003/3la/trans-3al 13C NMR/pulseprogram
+jo5c00330_si_003/3la/trans-3al 13C NMR/scon2
+jo5c00330_si_003/3la/trans-3al 13C NMR/shimvalues
+jo5c00330_si_003/3la/trans-3al 13C NMR/specpar
+jo5c00330_si_003/3la/trans-3al 13C NMR/uxnmr.info
+jo5c00330_si_003/3la/trans-3al 13C NMR/uxnmr.par
+jo5c00330_si_003/3la/trans-3al 1H NMR/acqu
+jo5c00330_si_003/3la/trans-3al 1H NMR/acqus
+jo5c00330_si_003/3la/trans-3al 1H NMR/audita.txt
+jo5c00330_si_003/3la/trans-3al 1H NMR/fid
+jo5c00330_si_003/3la/trans-3al 1H NMR/format.temp
+jo5c00330_si_003/3la/trans-3al 1H NMR/fq1list
+jo5c00330_si_003/3la/trans-3al 1H NMR/pdata/1/1i
+jo5c00330_si_003/3la/trans-3al 1H NMR/pdata/1/1r
+jo5c00330_si_003/3la/trans-3al 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3la/trans-3al 1H NMR/pdata/1/outd
+jo5c00330_si_003/3la/trans-3al 1H NMR/pdata/1/proc
+jo5c00330_si_003/3la/trans-3al 1H NMR/pdata/1/procs
+jo5c00330_si_003/3la/trans-3al 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3la/trans-3al 1H NMR/pdata/1/title
+jo5c00330_si_003/3la/trans-3al 1H NMR/precom.output
+jo5c00330_si_003/3la/trans-3al 1H NMR/pulseprogram
+jo5c00330_si_003/3la/trans-3al 1H NMR/scon2
+jo5c00330_si_003/3la/trans-3al 1H NMR/shimvalues
+jo5c00330_si_003/3la/trans-3al 1H NMR/specpar
+jo5c00330_si_003/3la/trans-3al 1H NMR/uxnmr.info
+jo5c00330_si_003/3la/trans-3al 1H NMR/uxnmr.par
+jo5c00330_si_003/3la/trans-3la NOE/acqu
+jo5c00330_si_003/3la/trans-3la NOE/acqus
+jo5c00330_si_003/3la/trans-3la NOE/audita.txt
+jo5c00330_si_003/3la/trans-3la NOE/EA
+jo5c00330_si_003/3la/trans-3la NOE/fid
+jo5c00330_si_003/3la/trans-3la NOE/format.temp
+jo5c00330_si_003/3la/trans-3la NOE/gpnam1
+jo5c00330_si_003/3la/trans-3la NOE/gpnam2
+jo5c00330_si_003/3la/trans-3la NOE/gradient_calib
+jo5c00330_si_003/3la/trans-3la NOE/pdata/1/1i
+jo5c00330_si_003/3la/trans-3la NOE/pdata/1/1r
+jo5c00330_si_003/3la/trans-3la NOE/pdata/1/auditp.txt
+jo5c00330_si_003/3la/trans-3la NOE/pdata/1/curdat2
+jo5c00330_si_003/3la/trans-3la NOE/pdata/1/outd
+jo5c00330_si_003/3la/trans-3la NOE/pdata/1/proc
+jo5c00330_si_003/3la/trans-3la NOE/pdata/1/procs
+jo5c00330_si_003/3la/trans-3la NOE/pdata/1/thumb.png
+jo5c00330_si_003/3la/trans-3la NOE/pdata/1/title
+jo5c00330_si_003/3la/trans-3la NOE/pulseprogram
+jo5c00330_si_003/3la/trans-3la NOE/scon2
+jo5c00330_si_003/3la/trans-3la NOE/shimvalues
+jo5c00330_si_003/3la/trans-3la NOE/specpar
+jo5c00330_si_003/3la/trans-3la NOE/spnam2
+jo5c00330_si_003/3la/trans-3la NOE/uxnmr.info
+jo5c00330_si_003/3la/trans-3la NOE/uxnmr.par
+jo5c00330_si_003/3la/trans-3la NOE/vtc_pid_settings
+jo5c00330_si_003/3la/trans-3la.mnova
+jo5c00330_si_003/3ma/3ma 13C NMR/acqu
+jo5c00330_si_003/3ma/3ma 13C NMR/acqus
+jo5c00330_si_003/3ma/3ma 13C NMR/audita.txt
+jo5c00330_si_003/3ma/3ma 13C NMR/cpdprg2
+jo5c00330_si_003/3ma/3ma 13C NMR/fid
+jo5c00330_si_003/3ma/3ma 13C NMR/format.temp
+jo5c00330_si_003/3ma/3ma 13C NMR/fq1list
+jo5c00330_si_003/3ma/3ma 13C NMR/pdata/1/1i
+jo5c00330_si_003/3ma/3ma 13C NMR/pdata/1/1r
+jo5c00330_si_003/3ma/3ma 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ma/3ma 13C NMR/pdata/1/outd
+jo5c00330_si_003/3ma/3ma 13C NMR/pdata/1/proc
+jo5c00330_si_003/3ma/3ma 13C NMR/pdata/1/procs
+jo5c00330_si_003/3ma/3ma 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ma/3ma 13C NMR/pdata/1/title
+jo5c00330_si_003/3ma/3ma 13C NMR/precom.output
+jo5c00330_si_003/3ma/3ma 13C NMR/pulseprogram
+jo5c00330_si_003/3ma/3ma 13C NMR/scon2
+jo5c00330_si_003/3ma/3ma 13C NMR/shimvalues
+jo5c00330_si_003/3ma/3ma 13C NMR/specpar
+jo5c00330_si_003/3ma/3ma 13C NMR/uxnmr.info
+jo5c00330_si_003/3ma/3ma 13C NMR/uxnmr.par
+jo5c00330_si_003/3ma/3ma 1H NMR/acqu
+jo5c00330_si_003/3ma/3ma 1H NMR/acqus
+jo5c00330_si_003/3ma/3ma 1H NMR/audita.txt
+jo5c00330_si_003/3ma/3ma 1H NMR/fid
+jo5c00330_si_003/3ma/3ma 1H NMR/format.temp
+jo5c00330_si_003/3ma/3ma 1H NMR/fq1list
+jo5c00330_si_003/3ma/3ma 1H NMR/pdata/1/1i
+jo5c00330_si_003/3ma/3ma 1H NMR/pdata/1/1r
+jo5c00330_si_003/3ma/3ma 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/3ma/3ma 1H NMR/pdata/1/outd
+jo5c00330_si_003/3ma/3ma 1H NMR/pdata/1/proc
+jo5c00330_si_003/3ma/3ma 1H NMR/pdata/1/procs
+jo5c00330_si_003/3ma/3ma 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/3ma/3ma 1H NMR/pdata/1/title
+jo5c00330_si_003/3ma/3ma 1H NMR/precom.output
+jo5c00330_si_003/3ma/3ma 1H NMR/pulseprogram
+jo5c00330_si_003/3ma/3ma 1H NMR/scon2
+jo5c00330_si_003/3ma/3ma 1H NMR/shimvalues
+jo5c00330_si_003/3ma/3ma 1H NMR/specpar
+jo5c00330_si_003/3ma/3ma 1H NMR/uxnmr.info
+jo5c00330_si_003/3ma/3ma 1H NMR/uxnmr.par
+jo5c00330_si_003/3ma/3ma.mnova
+jo5c00330_si_003/4/4 13C NMR/acqu
+jo5c00330_si_003/4/4 13C NMR/acqus
+jo5c00330_si_003/4/4 13C NMR/acqus_1
+jo5c00330_si_003/4/4 13C NMR/acqu_1
+jo5c00330_si_003/4/4 13C NMR/audita.txt
+jo5c00330_si_003/4/4 13C NMR/audita_1.txt
+jo5c00330_si_003/4/4 13C NMR/cpdprg2
+jo5c00330_si_003/4/4 13C NMR/cpdprg2_1
+jo5c00330_si_003/4/4 13C NMR/fid
+jo5c00330_si_003/4/4 13C NMR/fid_1
+jo5c00330_si_003/4/4 13C NMR/format.temp
+jo5c00330_si_003/4/4 13C NMR/format_1.temp
+jo5c00330_si_003/4/4 13C NMR/fq1list
+jo5c00330_si_003/4/4 13C NMR/fq1list_1
+jo5c00330_si_003/4/4 13C NMR/pdata/1/1i
+jo5c00330_si_003/4/4 13C NMR/pdata/1/1i_1
+jo5c00330_si_003/4/4 13C NMR/pdata/1/1r
+jo5c00330_si_003/4/4 13C NMR/pdata/1/1r_1
+jo5c00330_si_003/4/4 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/4/4 13C NMR/pdata/1/auditp_1.txt
+jo5c00330_si_003/4/4 13C NMR/pdata/1/outd
+jo5c00330_si_003/4/4 13C NMR/pdata/1/outd_1
+jo5c00330_si_003/4/4 13C NMR/pdata/1/proc
+jo5c00330_si_003/4/4 13C NMR/pdata/1/procs
+jo5c00330_si_003/4/4 13C NMR/pdata/1/procs_1
+jo5c00330_si_003/4/4 13C NMR/pdata/1/proc_1
+jo5c00330_si_003/4/4 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/4/4 13C NMR/pdata/1/thumb_1.png
+jo5c00330_si_003/4/4 13C NMR/pdata/1/title
+jo5c00330_si_003/4/4 13C NMR/pdata/1/title_1
+jo5c00330_si_003/4/4 13C NMR/precom.output
+jo5c00330_si_003/4/4 13C NMR/precom_1.output
+jo5c00330_si_003/4/4 13C NMR/pulseprogram
+jo5c00330_si_003/4/4 13C NMR/pulseprogram_1
+jo5c00330_si_003/4/4 13C NMR/scon2
+jo5c00330_si_003/4/4 13C NMR/scon2_1
+jo5c00330_si_003/4/4 13C NMR/shimvalues
+jo5c00330_si_003/4/4 13C NMR/shimvalues_1
+jo5c00330_si_003/4/4 13C NMR/specpar
+jo5c00330_si_003/4/4 13C NMR/specpar_1
+jo5c00330_si_003/4/4 13C NMR/uxnmr.info
+jo5c00330_si_003/4/4 13C NMR/uxnmr.par
+jo5c00330_si_003/4/4 13C NMR/uxnmr_1.info
+jo5c00330_si_003/4/4 13C NMR/uxnmr_1.par
+jo5c00330_si_003/4/4 13C NMR/vtc_pid_settings
+jo5c00330_si_003/4/4 13C NMR/vtc_pid_settings_1
+jo5c00330_si_003/4/4 1H NMR/acqu
+jo5c00330_si_003/4/4 1H NMR/acqus
+jo5c00330_si_003/4/4 1H NMR/acqus_1
+jo5c00330_si_003/4/4 1H NMR/acqu_1
+jo5c00330_si_003/4/4 1H NMR/audita.txt
+jo5c00330_si_003/4/4 1H NMR/audita_1.txt
+jo5c00330_si_003/4/4 1H NMR/fid
+jo5c00330_si_003/4/4 1H NMR/fid_1
+jo5c00330_si_003/4/4 1H NMR/format.temp
+jo5c00330_si_003/4/4 1H NMR/format_1.temp
+jo5c00330_si_003/4/4 1H NMR/pdata/1/1i
+jo5c00330_si_003/4/4 1H NMR/pdata/1/1i_1
+jo5c00330_si_003/4/4 1H NMR/pdata/1/1r
+jo5c00330_si_003/4/4 1H NMR/pdata/1/1r_1
+jo5c00330_si_003/4/4 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/4/4 1H NMR/pdata/1/auditp_1.txt
+jo5c00330_si_003/4/4 1H NMR/pdata/1/outd
+jo5c00330_si_003/4/4 1H NMR/pdata/1/outd_1
+jo5c00330_si_003/4/4 1H NMR/pdata/1/proc
+jo5c00330_si_003/4/4 1H NMR/pdata/1/procs
+jo5c00330_si_003/4/4 1H NMR/pdata/1/procs_1
+jo5c00330_si_003/4/4 1H NMR/pdata/1/proc_1
+jo5c00330_si_003/4/4 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/4/4 1H NMR/pdata/1/thumb_1.png
+jo5c00330_si_003/4/4 1H NMR/pdata/1/title
+jo5c00330_si_003/4/4 1H NMR/pdata/1/title_1
+jo5c00330_si_003/4/4 1H NMR/pulseprogram
+jo5c00330_si_003/4/4 1H NMR/pulseprogram_1
+jo5c00330_si_003/4/4 1H NMR/scon2
+jo5c00330_si_003/4/4 1H NMR/scon2_1
+jo5c00330_si_003/4/4 1H NMR/shimvalues
+jo5c00330_si_003/4/4 1H NMR/shimvalues_1
+jo5c00330_si_003/4/4 1H NMR/specpar
+jo5c00330_si_003/4/4 1H NMR/specpar_1
+jo5c00330_si_003/4/4 1H NMR/uxnmr.info
+jo5c00330_si_003/4/4 1H NMR/uxnmr.par
+jo5c00330_si_003/4/4 1H NMR/uxnmr_1.info
+jo5c00330_si_003/4/4 1H NMR/uxnmr_1.par
+jo5c00330_si_003/4/4 1H NMR/vtc_pid_settings
+jo5c00330_si_003/4/4 1H NMR/vtc_pid_settings_1
+jo5c00330_si_003/4/4' 13C NMR/acqu
+jo5c00330_si_003/4/4' 13C NMR/acqus
+jo5c00330_si_003/4/4' 13C NMR/audita.txt
+jo5c00330_si_003/4/4' 13C NMR/cpdprg2
+jo5c00330_si_003/4/4' 13C NMR/fid
+jo5c00330_si_003/4/4' 13C NMR/format.temp
+jo5c00330_si_003/4/4' 13C NMR/fq1list
+jo5c00330_si_003/4/4' 13C NMR/pdata/1/1i
+jo5c00330_si_003/4/4' 13C NMR/pdata/1/1r
+jo5c00330_si_003/4/4' 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/4/4' 13C NMR/pdata/1/outd
+jo5c00330_si_003/4/4' 13C NMR/pdata/1/proc
+jo5c00330_si_003/4/4' 13C NMR/pdata/1/procs
+jo5c00330_si_003/4/4' 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/4/4' 13C NMR/pdata/1/title
+jo5c00330_si_003/4/4' 13C NMR/precom.output
+jo5c00330_si_003/4/4' 13C NMR/pulseprogram
+jo5c00330_si_003/4/4' 13C NMR/scon2
+jo5c00330_si_003/4/4' 13C NMR/shimvalues
+jo5c00330_si_003/4/4' 13C NMR/specpar
+jo5c00330_si_003/4/4' 13C NMR/uxnmr.info
+jo5c00330_si_003/4/4' 13C NMR/uxnmr.par
+jo5c00330_si_003/4/4' 13C NMR/vtc_pid_settings
+jo5c00330_si_003/4/4' 1H NMR/acqu
+jo5c00330_si_003/4/4' 1H NMR/acqus
+jo5c00330_si_003/4/4' 1H NMR/audita.txt
+jo5c00330_si_003/4/4' 1H NMR/fid
+jo5c00330_si_003/4/4' 1H NMR/format.temp
+jo5c00330_si_003/4/4' 1H NMR/pdata/1/1i
+jo5c00330_si_003/4/4' 1H NMR/pdata/1/1r
+jo5c00330_si_003/4/4' 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/4/4' 1H NMR/pdata/1/outd
+jo5c00330_si_003/4/4' 1H NMR/pdata/1/proc
+jo5c00330_si_003/4/4' 1H NMR/pdata/1/procs
+jo5c00330_si_003/4/4' 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/4/4' 1H NMR/pdata/1/title
+jo5c00330_si_003/4/4' 1H NMR/pulseprogram
+jo5c00330_si_003/4/4' 1H NMR/scon2
+jo5c00330_si_003/4/4' 1H NMR/shimvalues
+jo5c00330_si_003/4/4' 1H NMR/specpar
+jo5c00330_si_003/4/4' 1H NMR/uxnmr.info
+jo5c00330_si_003/4/4' 1H NMR/uxnmr.par
+jo5c00330_si_003/4/4' 1H NMR/vtc_pid_settings
+jo5c00330_si_003/4/4.mnova
+jo5c00330_si_003/5/5 13C NMR/acqu
+jo5c00330_si_003/5/5 13C NMR/acqus
+jo5c00330_si_003/5/5 13C NMR/audita.txt
+jo5c00330_si_003/5/5 13C NMR/cpdprg2
+jo5c00330_si_003/5/5 13C NMR/fid
+jo5c00330_si_003/5/5 13C NMR/format.temp
+jo5c00330_si_003/5/5 13C NMR/fq1list
+jo5c00330_si_003/5/5 13C NMR/pdata/1/1i
+jo5c00330_si_003/5/5 13C NMR/pdata/1/1r
+jo5c00330_si_003/5/5 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/5/5 13C NMR/pdata/1/outd
+jo5c00330_si_003/5/5 13C NMR/pdata/1/proc
+jo5c00330_si_003/5/5 13C NMR/pdata/1/procs
+jo5c00330_si_003/5/5 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/5/5 13C NMR/pdata/1/title
+jo5c00330_si_003/5/5 13C NMR/precom.output
+jo5c00330_si_003/5/5 13C NMR/pulseprogram
+jo5c00330_si_003/5/5 13C NMR/scon2
+jo5c00330_si_003/5/5 13C NMR/shimvalues
+jo5c00330_si_003/5/5 13C NMR/specpar
+jo5c00330_si_003/5/5 13C NMR/uxnmr.info
+jo5c00330_si_003/5/5 13C NMR/uxnmr.par
+jo5c00330_si_003/5/5 13C NMR/vtc_pid_settings
+jo5c00330_si_003/5/5 1H NMR/acqu
+jo5c00330_si_003/5/5 1H NMR/acqus
+jo5c00330_si_003/5/5 1H NMR/audita.txt
+jo5c00330_si_003/5/5 1H NMR/fid
+jo5c00330_si_003/5/5 1H NMR/format.temp
+jo5c00330_si_003/5/5 1H NMR/fq1list
+jo5c00330_si_003/5/5 1H NMR/pdata/1/1i
+jo5c00330_si_003/5/5 1H NMR/pdata/1/1r
+jo5c00330_si_003/5/5 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/5/5 1H NMR/pdata/1/outd
+jo5c00330_si_003/5/5 1H NMR/pdata/1/proc
+jo5c00330_si_003/5/5 1H NMR/pdata/1/procs
+jo5c00330_si_003/5/5 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/5/5 1H NMR/pdata/1/title
+jo5c00330_si_003/5/5 1H NMR/precom.output
+jo5c00330_si_003/5/5 1H NMR/pulseprogram
+jo5c00330_si_003/5/5 1H NMR/scon2
+jo5c00330_si_003/5/5 1H NMR/shimvalues
+jo5c00330_si_003/5/5 1H NMR/specpar
+jo5c00330_si_003/5/5 1H NMR/uxnmr.info
+jo5c00330_si_003/5/5 1H NMR/uxnmr.par
+jo5c00330_si_003/5/5.mnova
+jo5c00330_si_003/raw material/1d/1d 13C NMR/acqu
+jo5c00330_si_003/raw material/1d/1d 13C NMR/acqus
+jo5c00330_si_003/raw material/1d/1d 13C NMR/audita.txt
+jo5c00330_si_003/raw material/1d/1d 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/1d/1d 13C NMR/fid
+jo5c00330_si_003/raw material/1d/1d 13C NMR/format.temp
+jo5c00330_si_003/raw material/1d/1d 13C NMR/fq1list
+jo5c00330_si_003/raw material/1d/1d 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/1d/1d 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/1d/1d 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/1d/1d 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/1d/1d 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/1d/1d 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/1d/1d 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/1d/1d 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/1d/1d 13C NMR/precom.output
+jo5c00330_si_003/raw material/1d/1d 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/1d/1d 13C NMR/scon2
+jo5c00330_si_003/raw material/1d/1d 13C NMR/shimvalues
+jo5c00330_si_003/raw material/1d/1d 13C NMR/specpar
+jo5c00330_si_003/raw material/1d/1d 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/1d/1d 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/1d/1d 1H NMR/acqu
+jo5c00330_si_003/raw material/1d/1d 1H NMR/acqus
+jo5c00330_si_003/raw material/1d/1d 1H NMR/audita.txt
+jo5c00330_si_003/raw material/1d/1d 1H NMR/fid
+jo5c00330_si_003/raw material/1d/1d 1H NMR/format.temp
+jo5c00330_si_003/raw material/1d/1d 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/1d/1d 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/1d/1d 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/1d/1d 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/1d/1d 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/1d/1d 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/1d/1d 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/1d/1d 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/1d/1d 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/1d/1d 1H NMR/scon2
+jo5c00330_si_003/raw material/1d/1d 1H NMR/shimvalues
+jo5c00330_si_003/raw material/1d/1d 1H NMR/specpar
+jo5c00330_si_003/raw material/1d/1d 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/1d/1d 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/1d/1d.mnova
+jo5c00330_si_003/raw material/1e/1e 13C NMR/acqu
+jo5c00330_si_003/raw material/1e/1e 13C NMR/acqus
+jo5c00330_si_003/raw material/1e/1e 13C NMR/audita.txt
+jo5c00330_si_003/raw material/1e/1e 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/1e/1e 13C NMR/fid
+jo5c00330_si_003/raw material/1e/1e 13C NMR/format.temp
+jo5c00330_si_003/raw material/1e/1e 13C NMR/fq1list
+jo5c00330_si_003/raw material/1e/1e 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/1e/1e 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/1e/1e 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/1e/1e 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/1e/1e 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/1e/1e 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/1e/1e 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/1e/1e 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/1e/1e 13C NMR/precom.output
+jo5c00330_si_003/raw material/1e/1e 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/1e/1e 13C NMR/scon2
+jo5c00330_si_003/raw material/1e/1e 13C NMR/shimvalues
+jo5c00330_si_003/raw material/1e/1e 13C NMR/specpar
+jo5c00330_si_003/raw material/1e/1e 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/1e/1e 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/1e/1e 19F NMR/acqu
+jo5c00330_si_003/raw material/1e/1e 19F NMR/acqus
+jo5c00330_si_003/raw material/1e/1e 19F NMR/audita.txt
+jo5c00330_si_003/raw material/1e/1e 19F NMR/cpdprg2
+jo5c00330_si_003/raw material/1e/1e 19F NMR/fid
+jo5c00330_si_003/raw material/1e/1e 19F NMR/format.temp
+jo5c00330_si_003/raw material/1e/1e 19F NMR/fq1list
+jo5c00330_si_003/raw material/1e/1e 19F NMR/pdata/1/1i
+jo5c00330_si_003/raw material/1e/1e 19F NMR/pdata/1/1r
+jo5c00330_si_003/raw material/1e/1e 19F NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/1e/1e 19F NMR/pdata/1/outd
+jo5c00330_si_003/raw material/1e/1e 19F NMR/pdata/1/proc
+jo5c00330_si_003/raw material/1e/1e 19F NMR/pdata/1/procs
+jo5c00330_si_003/raw material/1e/1e 19F NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/1e/1e 19F NMR/pdata/1/title
+jo5c00330_si_003/raw material/1e/1e 19F NMR/precom.output
+jo5c00330_si_003/raw material/1e/1e 19F NMR/pulseprogram
+jo5c00330_si_003/raw material/1e/1e 19F NMR/scon2
+jo5c00330_si_003/raw material/1e/1e 19F NMR/shimvalues
+jo5c00330_si_003/raw material/1e/1e 19F NMR/specpar
+jo5c00330_si_003/raw material/1e/1e 19F NMR/uxnmr.info
+jo5c00330_si_003/raw material/1e/1e 19F NMR/uxnmr.par
+jo5c00330_si_003/raw material/1e/1e 1H NMR/acqu
+jo5c00330_si_003/raw material/1e/1e 1H NMR/acqus
+jo5c00330_si_003/raw material/1e/1e 1H NMR/audita.txt
+jo5c00330_si_003/raw material/1e/1e 1H NMR/fid
+jo5c00330_si_003/raw material/1e/1e 1H NMR/format.temp
+jo5c00330_si_003/raw material/1e/1e 1H NMR/fq1list
+jo5c00330_si_003/raw material/1e/1e 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/1e/1e 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/1e/1e 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/1e/1e 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/1e/1e 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/1e/1e 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/1e/1e 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/1e/1e 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/1e/1e 1H NMR/precom.output
+jo5c00330_si_003/raw material/1e/1e 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/1e/1e 1H NMR/scon2
+jo5c00330_si_003/raw material/1e/1e 1H NMR/shimvalues
+jo5c00330_si_003/raw material/1e/1e 1H NMR/specpar
+jo5c00330_si_003/raw material/1e/1e 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/1e/1e 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/1e/1e.mnova
+jo5c00330_si_003/raw material/1h/1h 13C NMR/acqu
+jo5c00330_si_003/raw material/1h/1h 13C NMR/acqus
+jo5c00330_si_003/raw material/1h/1h 13C NMR/audita.txt
+jo5c00330_si_003/raw material/1h/1h 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/1h/1h 13C NMR/fid
+jo5c00330_si_003/raw material/1h/1h 13C NMR/format.temp
+jo5c00330_si_003/raw material/1h/1h 13C NMR/fq1list
+jo5c00330_si_003/raw material/1h/1h 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/1h/1h 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/1h/1h 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/1h/1h 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/1h/1h 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/1h/1h 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/1h/1h 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/1h/1h 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/1h/1h 13C NMR/precom.output
+jo5c00330_si_003/raw material/1h/1h 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/1h/1h 13C NMR/scon2
+jo5c00330_si_003/raw material/1h/1h 13C NMR/shimvalues
+jo5c00330_si_003/raw material/1h/1h 13C NMR/specpar
+jo5c00330_si_003/raw material/1h/1h 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/1h/1h 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/1h/1h 19F NMR/acqu
+jo5c00330_si_003/raw material/1h/1h 19F NMR/acqus
+jo5c00330_si_003/raw material/1h/1h 19F NMR/audita.txt
+jo5c00330_si_003/raw material/1h/1h 19F NMR/cpdprg2
+jo5c00330_si_003/raw material/1h/1h 19F NMR/fid
+jo5c00330_si_003/raw material/1h/1h 19F NMR/format.temp
+jo5c00330_si_003/raw material/1h/1h 19F NMR/fq1list
+jo5c00330_si_003/raw material/1h/1h 19F NMR/pdata/1/1i
+jo5c00330_si_003/raw material/1h/1h 19F NMR/pdata/1/1r
+jo5c00330_si_003/raw material/1h/1h 19F NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/1h/1h 19F NMR/pdata/1/outd
+jo5c00330_si_003/raw material/1h/1h 19F NMR/pdata/1/proc
+jo5c00330_si_003/raw material/1h/1h 19F NMR/pdata/1/procs
+jo5c00330_si_003/raw material/1h/1h 19F NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/1h/1h 19F NMR/pdata/1/title
+jo5c00330_si_003/raw material/1h/1h 19F NMR/precom.output
+jo5c00330_si_003/raw material/1h/1h 19F NMR/pulseprogram
+jo5c00330_si_003/raw material/1h/1h 19F NMR/scon2
+jo5c00330_si_003/raw material/1h/1h 19F NMR/shimvalues
+jo5c00330_si_003/raw material/1h/1h 19F NMR/specpar
+jo5c00330_si_003/raw material/1h/1h 19F NMR/uxnmr.info
+jo5c00330_si_003/raw material/1h/1h 19F NMR/uxnmr.par
+jo5c00330_si_003/raw material/1h/1h 1H NMR/acqu
+jo5c00330_si_003/raw material/1h/1h 1H NMR/acqus
+jo5c00330_si_003/raw material/1h/1h 1H NMR/audita.txt
+jo5c00330_si_003/raw material/1h/1h 1H NMR/fid
+jo5c00330_si_003/raw material/1h/1h 1H NMR/format.temp
+jo5c00330_si_003/raw material/1h/1h 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/1h/1h 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/1h/1h 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/1h/1h 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/1h/1h 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/1h/1h 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/1h/1h 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/1h/1h 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/1h/1h 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/1h/1h 1H NMR/scon2
+jo5c00330_si_003/raw material/1h/1h 1H NMR/shimvalues
+jo5c00330_si_003/raw material/1h/1h 1H NMR/specpar
+jo5c00330_si_003/raw material/1h/1h 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/1h/1h 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/1h/1h.mnova
+jo5c00330_si_003/raw material/1i/1i 13C NMR/acqu
+jo5c00330_si_003/raw material/1i/1i 13C NMR/acqus
+jo5c00330_si_003/raw material/1i/1i 13C NMR/audita.txt
+jo5c00330_si_003/raw material/1i/1i 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/1i/1i 13C NMR/fid
+jo5c00330_si_003/raw material/1i/1i 13C NMR/format.temp
+jo5c00330_si_003/raw material/1i/1i 13C NMR/fq1list
+jo5c00330_si_003/raw material/1i/1i 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/1i/1i 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/1i/1i 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/1i/1i 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/1i/1i 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/1i/1i 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/1i/1i 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/1i/1i 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/1i/1i 13C NMR/precom.output
+jo5c00330_si_003/raw material/1i/1i 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/1i/1i 13C NMR/scon2
+jo5c00330_si_003/raw material/1i/1i 13C NMR/shimvalues
+jo5c00330_si_003/raw material/1i/1i 13C NMR/specpar
+jo5c00330_si_003/raw material/1i/1i 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/1i/1i 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/1i/1i 1H NMR/acqu
+jo5c00330_si_003/raw material/1i/1i 1H NMR/acqus
+jo5c00330_si_003/raw material/1i/1i 1H NMR/audita.txt
+jo5c00330_si_003/raw material/1i/1i 1H NMR/fid
+jo5c00330_si_003/raw material/1i/1i 1H NMR/format.temp
+jo5c00330_si_003/raw material/1i/1i 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/1i/1i 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/1i/1i 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/1i/1i 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/1i/1i 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/1i/1i 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/1i/1i 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/1i/1i 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/1i/1i 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/1i/1i 1H NMR/scon2
+jo5c00330_si_003/raw material/1i/1i 1H NMR/shimvalues
+jo5c00330_si_003/raw material/1i/1i 1H NMR/specpar
+jo5c00330_si_003/raw material/1i/1i 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/1i/1i 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/1i/1i.mnova
+jo5c00330_si_003/raw material/1j/1j 13C NMR/acqu
+jo5c00330_si_003/raw material/1j/1j 13C NMR/acqus
+jo5c00330_si_003/raw material/1j/1j 13C NMR/audita.txt
+jo5c00330_si_003/raw material/1j/1j 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/1j/1j 13C NMR/fid
+jo5c00330_si_003/raw material/1j/1j 13C NMR/format.temp
+jo5c00330_si_003/raw material/1j/1j 13C NMR/fq1list
+jo5c00330_si_003/raw material/1j/1j 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/1j/1j 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/1j/1j 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/1j/1j 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/1j/1j 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/1j/1j 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/1j/1j 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/1j/1j 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/1j/1j 13C NMR/precom.output
+jo5c00330_si_003/raw material/1j/1j 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/1j/1j 13C NMR/scon2
+jo5c00330_si_003/raw material/1j/1j 13C NMR/shimvalues
+jo5c00330_si_003/raw material/1j/1j 13C NMR/specpar
+jo5c00330_si_003/raw material/1j/1j 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/1j/1j 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/1j/1j 1H NMR/acqu
+jo5c00330_si_003/raw material/1j/1j 1H NMR/acqus
+jo5c00330_si_003/raw material/1j/1j 1H NMR/audita.txt
+jo5c00330_si_003/raw material/1j/1j 1H NMR/fid
+jo5c00330_si_003/raw material/1j/1j 1H NMR/format.temp
+jo5c00330_si_003/raw material/1j/1j 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/1j/1j 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/1j/1j 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/1j/1j 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/1j/1j 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/1j/1j 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/1j/1j 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/1j/1j 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/1j/1j 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/1j/1j 1H NMR/scon2
+jo5c00330_si_003/raw material/1j/1j 1H NMR/shimvalues
+jo5c00330_si_003/raw material/1j/1j 1H NMR/specpar
+jo5c00330_si_003/raw material/1j/1j 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/1j/1j 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/1j/1j.mnova
+jo5c00330_si_003/raw material/1j/1m 13C NMR/acqu
+jo5c00330_si_003/raw material/1j/1m 13C NMR/acqus
+jo5c00330_si_003/raw material/1j/1m 13C NMR/audita.txt
+jo5c00330_si_003/raw material/1j/1m 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/1j/1m 13C NMR/fid
+jo5c00330_si_003/raw material/1j/1m 13C NMR/format.temp
+jo5c00330_si_003/raw material/1j/1m 13C NMR/fq1list
+jo5c00330_si_003/raw material/1j/1m 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/1j/1m 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/1j/1m 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/1j/1m 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/1j/1m 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/1j/1m 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/1j/1m 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/1j/1m 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/1j/1m 13C NMR/precom.output
+jo5c00330_si_003/raw material/1j/1m 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/1j/1m 13C NMR/scon2
+jo5c00330_si_003/raw material/1j/1m 13C NMR/shimvalues
+jo5c00330_si_003/raw material/1j/1m 13C NMR/specpar
+jo5c00330_si_003/raw material/1j/1m 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/1j/1m 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/1j/1m 1H NMR/acqu
+jo5c00330_si_003/raw material/1j/1m 1H NMR/acqus
+jo5c00330_si_003/raw material/1j/1m 1H NMR/audita.txt
+jo5c00330_si_003/raw material/1j/1m 1H NMR/fid
+jo5c00330_si_003/raw material/1j/1m 1H NMR/format.temp
+jo5c00330_si_003/raw material/1j/1m 1H NMR/fq1list
+jo5c00330_si_003/raw material/1j/1m 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/1j/1m 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/1j/1m 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/1j/1m 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/1j/1m 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/1j/1m 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/1j/1m 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/1j/1m 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/1j/1m 1H NMR/precom.output
+jo5c00330_si_003/raw material/1j/1m 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/1j/1m 1H NMR/sample_info.prop
+jo5c00330_si_003/raw material/1j/1m 1H NMR/scon2
+jo5c00330_si_003/raw material/1j/1m 1H NMR/shimvalues
+jo5c00330_si_003/raw material/1j/1m 1H NMR/specpar
+jo5c00330_si_003/raw material/1j/1m 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/1j/1m 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/1j/1m.mnova
+jo5c00330_si_003/raw material/2a/2a 13C NMR/acqu
+jo5c00330_si_003/raw material/2a/2a 13C NMR/acqus
+jo5c00330_si_003/raw material/2a/2a 13C NMR/audita.txt
+jo5c00330_si_003/raw material/2a/2a 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/2a/2a 13C NMR/fid
+jo5c00330_si_003/raw material/2a/2a 13C NMR/format.temp
+jo5c00330_si_003/raw material/2a/2a 13C NMR/fq1list
+jo5c00330_si_003/raw material/2a/2a 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2a/2a 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2a/2a 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2a/2a 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2a/2a 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2a/2a 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2a/2a 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2a/2a 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/2a/2a 13C NMR/precom.output
+jo5c00330_si_003/raw material/2a/2a 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/2a/2a 13C NMR/scon2
+jo5c00330_si_003/raw material/2a/2a 13C NMR/shimvalues
+jo5c00330_si_003/raw material/2a/2a 13C NMR/specpar
+jo5c00330_si_003/raw material/2a/2a 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/2a/2a 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/2a/2a 1H NMR/acqu
+jo5c00330_si_003/raw material/2a/2a 1H NMR/acqus
+jo5c00330_si_003/raw material/2a/2a 1H NMR/audita.txt
+jo5c00330_si_003/raw material/2a/2a 1H NMR/fid
+jo5c00330_si_003/raw material/2a/2a 1H NMR/format.temp
+jo5c00330_si_003/raw material/2a/2a 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2a/2a 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2a/2a 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2a/2a 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2a/2a 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2a/2a 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2a/2a 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2a/2a 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/2a/2a 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/2a/2a 1H NMR/scon2
+jo5c00330_si_003/raw material/2a/2a 1H NMR/shimvalues
+jo5c00330_si_003/raw material/2a/2a 1H NMR/specpar
+jo5c00330_si_003/raw material/2a/2a 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/2a/2a 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/2a/2a.mnova
+jo5c00330_si_003/raw material/2b/2b 13C NMR/acqu
+jo5c00330_si_003/raw material/2b/2b 13C NMR/acqus
+jo5c00330_si_003/raw material/2b/2b 13C NMR/audita.txt
+jo5c00330_si_003/raw material/2b/2b 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/2b/2b 13C NMR/fid
+jo5c00330_si_003/raw material/2b/2b 13C NMR/format.temp
+jo5c00330_si_003/raw material/2b/2b 13C NMR/fq1list
+jo5c00330_si_003/raw material/2b/2b 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2b/2b 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2b/2b 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2b/2b 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2b/2b 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2b/2b 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2b/2b 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2b/2b 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/2b/2b 13C NMR/precom.output
+jo5c00330_si_003/raw material/2b/2b 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/2b/2b 13C NMR/scon2
+jo5c00330_si_003/raw material/2b/2b 13C NMR/shimvalues
+jo5c00330_si_003/raw material/2b/2b 13C NMR/specpar
+jo5c00330_si_003/raw material/2b/2b 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/2b/2b 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/2b/2b 13C NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2b/2b 1H NMR/acqu
+jo5c00330_si_003/raw material/2b/2b 1H NMR/acqus
+jo5c00330_si_003/raw material/2b/2b 1H NMR/audita.txt
+jo5c00330_si_003/raw material/2b/2b 1H NMR/fid
+jo5c00330_si_003/raw material/2b/2b 1H NMR/format.temp
+jo5c00330_si_003/raw material/2b/2b 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2b/2b 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2b/2b 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2b/2b 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2b/2b 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2b/2b 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2b/2b 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2b/2b 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/2b/2b 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/2b/2b 1H NMR/scon2
+jo5c00330_si_003/raw material/2b/2b 1H NMR/shimvalues
+jo5c00330_si_003/raw material/2b/2b 1H NMR/specpar
+jo5c00330_si_003/raw material/2b/2b 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/2b/2b 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/2b/2b 1H NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2b/2b.mnova
+jo5c00330_si_003/raw material/2d/2d 13C NMR/acqu
+jo5c00330_si_003/raw material/2d/2d 13C NMR/acqus
+jo5c00330_si_003/raw material/2d/2d 13C NMR/audita.txt
+jo5c00330_si_003/raw material/2d/2d 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/2d/2d 13C NMR/fid
+jo5c00330_si_003/raw material/2d/2d 13C NMR/format.temp
+jo5c00330_si_003/raw material/2d/2d 13C NMR/fq1list
+jo5c00330_si_003/raw material/2d/2d 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2d/2d 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2d/2d 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2d/2d 13C NMR/pdata/1/intrng
+jo5c00330_si_003/raw material/2d/2d 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2d/2d 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2d/2d 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2d/2d 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2d/2d 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/2d/2d 13C NMR/precom.output
+jo5c00330_si_003/raw material/2d/2d 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/2d/2d 13C NMR/scon2
+jo5c00330_si_003/raw material/2d/2d 13C NMR/shimvalues
+jo5c00330_si_003/raw material/2d/2d 13C NMR/specpar
+jo5c00330_si_003/raw material/2d/2d 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/2d/2d 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/2d/2d 1H NMR/acqu
+jo5c00330_si_003/raw material/2d/2d 1H NMR/acqus
+jo5c00330_si_003/raw material/2d/2d 1H NMR/audita.txt
+jo5c00330_si_003/raw material/2d/2d 1H NMR/fid
+jo5c00330_si_003/raw material/2d/2d 1H NMR/format.temp
+jo5c00330_si_003/raw material/2d/2d 1H NMR/fq1list
+jo5c00330_si_003/raw material/2d/2d 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2d/2d 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2d/2d 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2d/2d 1H NMR/pdata/1/intrng
+jo5c00330_si_003/raw material/2d/2d 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2d/2d 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2d/2d 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2d/2d 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2d/2d 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/2d/2d 1H NMR/precom.output
+jo5c00330_si_003/raw material/2d/2d 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/2d/2d 1H NMR/scon2
+jo5c00330_si_003/raw material/2d/2d 1H NMR/shimvalues
+jo5c00330_si_003/raw material/2d/2d 1H NMR/specpar
+jo5c00330_si_003/raw material/2d/2d 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/2d/2d 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/2d/2d.mnova
+jo5c00330_si_003/raw material/2e/2e 13C NMR/acqu
+jo5c00330_si_003/raw material/2e/2e 13C NMR/acqus
+jo5c00330_si_003/raw material/2e/2e 13C NMR/audita.txt
+jo5c00330_si_003/raw material/2e/2e 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/2e/2e 13C NMR/fid
+jo5c00330_si_003/raw material/2e/2e 13C NMR/format.temp
+jo5c00330_si_003/raw material/2e/2e 13C NMR/fq1list
+jo5c00330_si_003/raw material/2e/2e 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2e/2e 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2e/2e 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2e/2e 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2e/2e 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2e/2e 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2e/2e 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2e/2e 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/2e/2e 13C NMR/precom.output
+jo5c00330_si_003/raw material/2e/2e 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/2e/2e 13C NMR/scon2
+jo5c00330_si_003/raw material/2e/2e 13C NMR/shimvalues
+jo5c00330_si_003/raw material/2e/2e 13C NMR/specpar
+jo5c00330_si_003/raw material/2e/2e 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/2e/2e 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/2e/2e 13C NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2e/2e 1H NMR/acqu
+jo5c00330_si_003/raw material/2e/2e 1H NMR/acqus
+jo5c00330_si_003/raw material/2e/2e 1H NMR/audita.txt
+jo5c00330_si_003/raw material/2e/2e 1H NMR/fid
+jo5c00330_si_003/raw material/2e/2e 1H NMR/format.temp
+jo5c00330_si_003/raw material/2e/2e 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2e/2e 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2e/2e 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2e/2e 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2e/2e 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2e/2e 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2e/2e 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2e/2e 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/2e/2e 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/2e/2e 1H NMR/scon2
+jo5c00330_si_003/raw material/2e/2e 1H NMR/shimvalues
+jo5c00330_si_003/raw material/2e/2e 1H NMR/specpar
+jo5c00330_si_003/raw material/2e/2e 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/2e/2e 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/2e/2e 1H NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2e/2e.mnova
+jo5c00330_si_003/raw material/2f/2f 13C NMR/acqu
+jo5c00330_si_003/raw material/2f/2f 13C NMR/acqus
+jo5c00330_si_003/raw material/2f/2f 13C NMR/audita.txt
+jo5c00330_si_003/raw material/2f/2f 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/2f/2f 13C NMR/fid
+jo5c00330_si_003/raw material/2f/2f 13C NMR/format.temp
+jo5c00330_si_003/raw material/2f/2f 13C NMR/fq1list
+jo5c00330_si_003/raw material/2f/2f 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2f/2f 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2f/2f 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2f/2f 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2f/2f 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2f/2f 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2f/2f 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2f/2f 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/2f/2f 13C NMR/precom.output
+jo5c00330_si_003/raw material/2f/2f 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/2f/2f 13C NMR/scon2
+jo5c00330_si_003/raw material/2f/2f 13C NMR/shimvalues
+jo5c00330_si_003/raw material/2f/2f 13C NMR/specpar
+jo5c00330_si_003/raw material/2f/2f 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/2f/2f 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/2f/2f 13C NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2f/2f 1H NMR/acqu
+jo5c00330_si_003/raw material/2f/2f 1H NMR/acqus
+jo5c00330_si_003/raw material/2f/2f 1H NMR/audita.txt
+jo5c00330_si_003/raw material/2f/2f 1H NMR/fid
+jo5c00330_si_003/raw material/2f/2f 1H NMR/format.temp
+jo5c00330_si_003/raw material/2f/2f 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2f/2f 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2f/2f 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2f/2f 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2f/2f 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2f/2f 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2f/2f 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2f/2f 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/2f/2f 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/2f/2f 1H NMR/scon2
+jo5c00330_si_003/raw material/2f/2f 1H NMR/shimvalues
+jo5c00330_si_003/raw material/2f/2f 1H NMR/specpar
+jo5c00330_si_003/raw material/2f/2f 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/2f/2f 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/2f/2f 1H NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2f/2f.mnova
+jo5c00330_si_003/raw material/2g/2g 13C NMR/acqu
+jo5c00330_si_003/raw material/2g/2g 13C NMR/acqus
+jo5c00330_si_003/raw material/2g/2g 13C NMR/audita.txt
+jo5c00330_si_003/raw material/2g/2g 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/2g/2g 13C NMR/fid
+jo5c00330_si_003/raw material/2g/2g 13C NMR/format.temp
+jo5c00330_si_003/raw material/2g/2g 13C NMR/fq1list
+jo5c00330_si_003/raw material/2g/2g 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2g/2g 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2g/2g 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2g/2g 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2g/2g 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2g/2g 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2g/2g 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2g/2g 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/2g/2g 13C NMR/precom.output
+jo5c00330_si_003/raw material/2g/2g 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/2g/2g 13C NMR/scon2
+jo5c00330_si_003/raw material/2g/2g 13C NMR/shimvalues
+jo5c00330_si_003/raw material/2g/2g 13C NMR/specpar
+jo5c00330_si_003/raw material/2g/2g 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/2g/2g 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/2g/2g 13C NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2g/2g 1H NMR/acqu
+jo5c00330_si_003/raw material/2g/2g 1H NMR/acqus
+jo5c00330_si_003/raw material/2g/2g 1H NMR/audita.txt
+jo5c00330_si_003/raw material/2g/2g 1H NMR/fid
+jo5c00330_si_003/raw material/2g/2g 1H NMR/format.temp
+jo5c00330_si_003/raw material/2g/2g 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2g/2g 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2g/2g 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2g/2g 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2g/2g 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2g/2g 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2g/2g 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2g/2g 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/2g/2g 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/2g/2g 1H NMR/scon2
+jo5c00330_si_003/raw material/2g/2g 1H NMR/shimvalues
+jo5c00330_si_003/raw material/2g/2g 1H NMR/specpar
+jo5c00330_si_003/raw material/2g/2g 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/2g/2g 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/2g/2g 1H NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2g/2g.mnova
+jo5c00330_si_003/raw material/2h/2h 13C NMR/acqu
+jo5c00330_si_003/raw material/2h/2h 13C NMR/acqus
+jo5c00330_si_003/raw material/2h/2h 13C NMR/audita.txt
+jo5c00330_si_003/raw material/2h/2h 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/2h/2h 13C NMR/fid
+jo5c00330_si_003/raw material/2h/2h 13C NMR/format.temp
+jo5c00330_si_003/raw material/2h/2h 13C NMR/fq1list
+jo5c00330_si_003/raw material/2h/2h 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2h/2h 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2h/2h 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2h/2h 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2h/2h 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2h/2h 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2h/2h 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2h/2h 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/2h/2h 13C NMR/precom.output
+jo5c00330_si_003/raw material/2h/2h 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/2h/2h 13C NMR/scon2
+jo5c00330_si_003/raw material/2h/2h 13C NMR/shimvalues
+jo5c00330_si_003/raw material/2h/2h 13C NMR/specpar
+jo5c00330_si_003/raw material/2h/2h 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/2h/2h 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/2h/2h 13C NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2h/2h 19F NMR/acqu
+jo5c00330_si_003/raw material/2h/2h 19F NMR/acqus
+jo5c00330_si_003/raw material/2h/2h 19F NMR/audita.txt
+jo5c00330_si_003/raw material/2h/2h 19F NMR/cpdprg2
+jo5c00330_si_003/raw material/2h/2h 19F NMR/fid
+jo5c00330_si_003/raw material/2h/2h 19F NMR/format.temp
+jo5c00330_si_003/raw material/2h/2h 19F NMR/fq1list
+jo5c00330_si_003/raw material/2h/2h 19F NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2h/2h 19F NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2h/2h 19F NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2h/2h 19F NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2h/2h 19F NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2h/2h 19F NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2h/2h 19F NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2h/2h 19F NMR/pdata/1/title
+jo5c00330_si_003/raw material/2h/2h 19F NMR/precom.output
+jo5c00330_si_003/raw material/2h/2h 19F NMR/pulseprogram
+jo5c00330_si_003/raw material/2h/2h 19F NMR/scon2
+jo5c00330_si_003/raw material/2h/2h 19F NMR/shimvalues
+jo5c00330_si_003/raw material/2h/2h 19F NMR/specpar
+jo5c00330_si_003/raw material/2h/2h 19F NMR/uxnmr.info
+jo5c00330_si_003/raw material/2h/2h 19F NMR/uxnmr.par
+jo5c00330_si_003/raw material/2h/2h 19F NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2h/2h 1H NMR/acqu
+jo5c00330_si_003/raw material/2h/2h 1H NMR/acqus
+jo5c00330_si_003/raw material/2h/2h 1H NMR/audita.txt
+jo5c00330_si_003/raw material/2h/2h 1H NMR/fid
+jo5c00330_si_003/raw material/2h/2h 1H NMR/format.temp
+jo5c00330_si_003/raw material/2h/2h 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2h/2h 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2h/2h 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2h/2h 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2h/2h 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2h/2h 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2h/2h 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2h/2h 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/2h/2h 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/2h/2h 1H NMR/scon2
+jo5c00330_si_003/raw material/2h/2h 1H NMR/shimvalues
+jo5c00330_si_003/raw material/2h/2h 1H NMR/specpar
+jo5c00330_si_003/raw material/2h/2h 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/2h/2h 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/2h/2h 1H NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2h/2h.mnova
+jo5c00330_si_003/raw material/2i/2i 13C NMR/acqu
+jo5c00330_si_003/raw material/2i/2i 13C NMR/acqus
+jo5c00330_si_003/raw material/2i/2i 13C NMR/audita.txt
+jo5c00330_si_003/raw material/2i/2i 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/2i/2i 13C NMR/fid
+jo5c00330_si_003/raw material/2i/2i 13C NMR/format.temp
+jo5c00330_si_003/raw material/2i/2i 13C NMR/fq1list
+jo5c00330_si_003/raw material/2i/2i 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2i/2i 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2i/2i 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2i/2i 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2i/2i 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2i/2i 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2i/2i 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2i/2i 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/2i/2i 13C NMR/precom.output
+jo5c00330_si_003/raw material/2i/2i 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/2i/2i 13C NMR/scon2
+jo5c00330_si_003/raw material/2i/2i 13C NMR/shimvalues
+jo5c00330_si_003/raw material/2i/2i 13C NMR/specpar
+jo5c00330_si_003/raw material/2i/2i 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/2i/2i 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/2i/2i 13C NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2i/2i 1H NMR/acqu
+jo5c00330_si_003/raw material/2i/2i 1H NMR/acqus
+jo5c00330_si_003/raw material/2i/2i 1H NMR/audita.txt
+jo5c00330_si_003/raw material/2i/2i 1H NMR/fid
+jo5c00330_si_003/raw material/2i/2i 1H NMR/format.temp
+jo5c00330_si_003/raw material/2i/2i 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2i/2i 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2i/2i 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2i/2i 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2i/2i 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2i/2i 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2i/2i 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2i/2i 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/2i/2i 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/2i/2i 1H NMR/scon2
+jo5c00330_si_003/raw material/2i/2i 1H NMR/shimvalues
+jo5c00330_si_003/raw material/2i/2i 1H NMR/specpar
+jo5c00330_si_003/raw material/2i/2i 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/2i/2i 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/2i/2i 1H NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2i/2i.mnova
+jo5c00330_si_003/raw material/2j/2j 13C NMR/acqu
+jo5c00330_si_003/raw material/2j/2j 13C NMR/acqus
+jo5c00330_si_003/raw material/2j/2j 13C NMR/audita.txt
+jo5c00330_si_003/raw material/2j/2j 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/2j/2j 13C NMR/fid
+jo5c00330_si_003/raw material/2j/2j 13C NMR/format.temp
+jo5c00330_si_003/raw material/2j/2j 13C NMR/fq1list
+jo5c00330_si_003/raw material/2j/2j 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2j/2j 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2j/2j 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2j/2j 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2j/2j 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2j/2j 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2j/2j 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2j/2j 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/2j/2j 13C NMR/precom.output
+jo5c00330_si_003/raw material/2j/2j 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/2j/2j 13C NMR/scon2
+jo5c00330_si_003/raw material/2j/2j 13C NMR/shimvalues
+jo5c00330_si_003/raw material/2j/2j 13C NMR/specpar
+jo5c00330_si_003/raw material/2j/2j 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/2j/2j 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/2j/2j 1H NMR/acqu
+jo5c00330_si_003/raw material/2j/2j 1H NMR/acqus
+jo5c00330_si_003/raw material/2j/2j 1H NMR/audita.txt
+jo5c00330_si_003/raw material/2j/2j 1H NMR/fid
+jo5c00330_si_003/raw material/2j/2j 1H NMR/format.temp
+jo5c00330_si_003/raw material/2j/2j 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2j/2j 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2j/2j 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2j/2j 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2j/2j 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2j/2j 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2j/2j 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2j/2j 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/2j/2j 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/2j/2j 1H NMR/scon2
+jo5c00330_si_003/raw material/2j/2j 1H NMR/shimvalues
+jo5c00330_si_003/raw material/2j/2j 1H NMR/specpar
+jo5c00330_si_003/raw material/2j/2j 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/2j/2j 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/2j/2j.mnova
+jo5c00330_si_003/raw material/2k/2k 13C NMR/acqu
+jo5c00330_si_003/raw material/2k/2k 13C NMR/acqus
+jo5c00330_si_003/raw material/2k/2k 13C NMR/audita.txt
+jo5c00330_si_003/raw material/2k/2k 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/2k/2k 13C NMR/fid
+jo5c00330_si_003/raw material/2k/2k 13C NMR/format.temp
+jo5c00330_si_003/raw material/2k/2k 13C NMR/fq1list
+jo5c00330_si_003/raw material/2k/2k 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2k/2k 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2k/2k 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2k/2k 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2k/2k 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2k/2k 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2k/2k 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2k/2k 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/2k/2k 13C NMR/precom.output
+jo5c00330_si_003/raw material/2k/2k 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/2k/2k 13C NMR/scon2
+jo5c00330_si_003/raw material/2k/2k 13C NMR/shimvalues
+jo5c00330_si_003/raw material/2k/2k 13C NMR/specpar
+jo5c00330_si_003/raw material/2k/2k 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/2k/2k 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/2k/2k 13C NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2k/2k 1H NMR/acqu
+jo5c00330_si_003/raw material/2k/2k 1H NMR/acqus
+jo5c00330_si_003/raw material/2k/2k 1H NMR/audita.txt
+jo5c00330_si_003/raw material/2k/2k 1H NMR/fid
+jo5c00330_si_003/raw material/2k/2k 1H NMR/format.temp
+jo5c00330_si_003/raw material/2k/2k 1H NMR/fq1list
+jo5c00330_si_003/raw material/2k/2k 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2k/2k 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2k/2k 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2k/2k 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2k/2k 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2k/2k 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2k/2k 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2k/2k 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/2k/2k 1H NMR/precom.output
+jo5c00330_si_003/raw material/2k/2k 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/2k/2k 1H NMR/scon2
+jo5c00330_si_003/raw material/2k/2k 1H NMR/shimvalues
+jo5c00330_si_003/raw material/2k/2k 1H NMR/specpar
+jo5c00330_si_003/raw material/2k/2k 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/2k/2k 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/2k/2k 1H NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2k/2k.mnova
+jo5c00330_si_003/raw material/2l/2l 13C NMR/acqu
+jo5c00330_si_003/raw material/2l/2l 13C NMR/acqus
+jo5c00330_si_003/raw material/2l/2l 13C NMR/audita.txt
+jo5c00330_si_003/raw material/2l/2l 13C NMR/cpdprg2
+jo5c00330_si_003/raw material/2l/2l 13C NMR/fid
+jo5c00330_si_003/raw material/2l/2l 13C NMR/format.temp
+jo5c00330_si_003/raw material/2l/2l 13C NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2l/2l 13C NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2l/2l 13C NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2l/2l 13C NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2l/2l 13C NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2l/2l 13C NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2l/2l 13C NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2l/2l 13C NMR/pdata/1/title
+jo5c00330_si_003/raw material/2l/2l 13C NMR/pulseprogram
+jo5c00330_si_003/raw material/2l/2l 13C NMR/scon2
+jo5c00330_si_003/raw material/2l/2l 13C NMR/shimvalues
+jo5c00330_si_003/raw material/2l/2l 13C NMR/specpar
+jo5c00330_si_003/raw material/2l/2l 13C NMR/uxnmr.info
+jo5c00330_si_003/raw material/2l/2l 13C NMR/uxnmr.par
+jo5c00330_si_003/raw material/2l/2l 13C NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2l/2l 1H NMR/acqu
+jo5c00330_si_003/raw material/2l/2l 1H NMR/acqus
+jo5c00330_si_003/raw material/2l/2l 1H NMR/audita.txt
+jo5c00330_si_003/raw material/2l/2l 1H NMR/fid
+jo5c00330_si_003/raw material/2l/2l 1H NMR/format.temp
+jo5c00330_si_003/raw material/2l/2l 1H NMR/fq1list
+jo5c00330_si_003/raw material/2l/2l 1H NMR/pdata/1/1i
+jo5c00330_si_003/raw material/2l/2l 1H NMR/pdata/1/1r
+jo5c00330_si_003/raw material/2l/2l 1H NMR/pdata/1/auditp.txt
+jo5c00330_si_003/raw material/2l/2l 1H NMR/pdata/1/outd
+jo5c00330_si_003/raw material/2l/2l 1H NMR/pdata/1/proc
+jo5c00330_si_003/raw material/2l/2l 1H NMR/pdata/1/procs
+jo5c00330_si_003/raw material/2l/2l 1H NMR/pdata/1/thumb.png
+jo5c00330_si_003/raw material/2l/2l 1H NMR/pdata/1/title
+jo5c00330_si_003/raw material/2l/2l 1H NMR/precom.output
+jo5c00330_si_003/raw material/2l/2l 1H NMR/pulseprogram
+jo5c00330_si_003/raw material/2l/2l 1H NMR/scon2
+jo5c00330_si_003/raw material/2l/2l 1H NMR/shimvalues
+jo5c00330_si_003/raw material/2l/2l 1H NMR/specpar
+jo5c00330_si_003/raw material/2l/2l 1H NMR/uxnmr.info
+jo5c00330_si_003/raw material/2l/2l 1H NMR/uxnmr.par
+jo5c00330_si_003/raw material/2l/2l 1H NMR/vtc_pid_settings
+jo5c00330_si_003/raw material/2l/2l.mnova

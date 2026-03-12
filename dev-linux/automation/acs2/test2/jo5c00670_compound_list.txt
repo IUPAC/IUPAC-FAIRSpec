@@ -1,1 +1,1 @@
-jo5c00670 3 13C;4c 13C;4c 1H;5a 13C;5a 1H;5g 13C;5g 1H;6a 1H;6b 13C;6b 1H;6g 13C;6g 1H;7a 13C;7a 1H;7b 13C;7b 1H;7d 13C;7d 1H;7k 13C;7k 1H;FID for Publication
+jo5c00670 2 1H;3 1H;4a 1H;4b 1H;4c 13C;4c 1H;4d 1H;4e 1H;2;1;5b 1H;7a 13C;7a 1H;7c major 1H;7c minor 1H;7d 13C;7d 1H;7e major 1H;7e minor 1H;7i 1H
