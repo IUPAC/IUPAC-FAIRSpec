@@ -200,7 +200,7 @@ prune_file_list() {
           fdata=$dirList
         fi
         fdata=$(echo "$fdata" | grep "${var1}$")
-
+    echo "${fdata}"
         if [[ ! "$fdata" == "" ]]; then
             lines=""
             files=""
@@ -214,19 +214,18 @@ prune_file_list() {
             if $isfile; then
                 # we have /procpar 
                 # delete anything else in its directory
-                path="${line%%$var1*}/"
                 while [[ $thisfile -lt $nfiles ]]; do
                     if $newPath; then
                         newPath=false
                         line=${lines[thisline]}
-                        path="${line%%$var1*}"
+                        path="${line%%$var1}/"
                         havePath=false
                     fi
                     file=${files[thisfile]}
                     if [[ "${file}" == "${path}"* ]]; then
                         havePath=true
                         if [[ ! "$file" == "$line" ]]; then
-#                            echo "removing ${files[thisfile]}"
+                            echo "removing ${files[thisfile]}"
                             files[thisfile]=""
                         fi
                     elif $havePath; then
@@ -234,7 +233,7 @@ prune_file_list() {
                         if [[ $thisline -eq $nlines ]]; then
                             break
                         fi
-                        newLine=true;
+                        newPath=true
                         continue
                     fi
                     ((thisfile++))
@@ -397,6 +396,7 @@ do
             
         fi
 
+
         # create the working-directory file list
         # cd to the top of the <DOI>_unzip directory
         cd ${Unzip_Dir}
@@ -412,8 +412,10 @@ do
         echo "pruning ${doi}"
         # add the file list to Prediction (for processing)
         # but see jo5c00061 [10_NC] fileList=${fileList//-/\/}
-        prune_file_list "procpar" true 
+
         prune_file_list "pdata" false   
+        prune_file_list "acqu" true 
+        prune_file_list "procpar" true 
         echo "${fileList}" > "${fileListFilePruned}"
 
     elif $newPredictionOnly; then

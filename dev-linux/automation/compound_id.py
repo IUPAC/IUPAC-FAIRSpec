@@ -163,7 +163,7 @@ def static_get_parent_count(row, path_col, compound_col):
         return None
     else:
         idx += 2
-    print(f"count_slash {idx} {path} {path[:idx]} {compound} {compound_col} {path_col}")  
+    #print(f"count_slash {idx} {path} {path[:idx]} {compound} {compound_col} {path_col}")  
     return path[:idx].count('/')
 
 def static_get_data_frame_for_filepaths_after_compounds(df):
@@ -178,7 +178,7 @@ def static_get_data_frame_for_filepaths_after_compounds(df):
         for p, s in dfzip
         if s is not None and s < len(p) and p[s] in valid_labels
     ]
-    print(f"records={records}\n")
+    #print(f"records={records}\n")
     return pd.DataFrame(records)
 
 def static_map_dataset_folders_for_compound(diff_df, final_df, target_compound):
@@ -261,7 +261,7 @@ def static_list_useful_files(diff_df):
     return useful_file_map
 
 def static_get_global_folders(all_initial_candidates):
-    print(f"TEST candidate_freq {candidate_freq}\n")
+    #print(f"TEST candidate_freq {candidate_freq}\n")
     return {
         folder for folder, count in candidate_freq.items()
         if count / overall_path_count >= GLOBAL_THRESHOLD
@@ -333,7 +333,7 @@ def static_get_final_compound_name(final_df, counts_series):
     for compound_folder in final_df['compound']:
         max_count = 0
         for value, count in counts_series.items():
-            print(f"val={value} count={count}")
+            #print(f"val={value} count={count}")
             if value in compound_folder:
                 if count > max_count:
                     max_token = value
@@ -455,7 +455,7 @@ final_df = pd.DataFrame(df["compound_label"].unique(), columns=['compound'])
 # creates dataset_folders column which includes the dataset folders for each identified compound
 static_map_dataset_folders(diff_df, final_df)
 
-print(f"diff_df={diff_df}")
+#print(f"diff_df={diff_df}")
 
 # extract the useful files from the diff_df (includes all file paths after the compounds)
 useful_files = static_list_useful_files(diff_df)
@@ -597,7 +597,7 @@ def add_compound(final_df, diff_df, compound):
           new_list = row[idx-1:]
           new_path = '/'.join(new_list)
           pdata_paths.append(new_path)
-          print(pdata_paths)
+          #print(pdata_paths)
         continue
     compound_df = pd.DataFrame({"compound_path": new_data, "identified_compound": compound})
     useful_files = static_list_useful_files(compound_df)
