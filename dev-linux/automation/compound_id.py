@@ -7,6 +7,7 @@ import sys
 import numpy as np
 
 # compound_name.py
+# 2026.03.14 BH -- refactoring, commenting
 # 2026.03.13 BH -- refactoring, commenting, fixing n/pdata using text.isdigit()
 # 2026.03.12 BH -- refactored for clearer defs
 # 2026.03.12 BH -- better reporting
@@ -115,17 +116,21 @@ def print_column(df,name):
     '''
     print(f"TEST {name}\n {df[name]}\n")
 
-def set_path_parts_and_initial_candidates(df): 
+def create_data_frame(paths):
     '''
-    set columns 'path_text_final' and clean the file paths for analysis
+    create a data frame with columns 'parts', 'path_text', 'path_text_final', and 'initial_candidates'
     '''       
+    path_parts = [list(map(str, Path(p).parts[1:])) for p in paths]
+    df = pd.DataFrame({"parts": path_parts})
     # create file paths with the zip files
     df["path_text_final"] = df["parts"].apply(lambda x: " / ".join(x))
     df["path_text_final"] = df["path_text_final"].str.replace(" / ", "/")
     df["path_text_final"] = df["path_text_final"].str.replace(".zip__/", ".zip|")
-    df["path_text_final"] = df["path_text_final"].str.replace("../test2/", "")
 
     # create clean file paths for analysis
+    # NOTE BH: It's not clear to me why we remove the zip paths. Sometimes those are 
+    # the only place the compound numbers are present. For example:
+    # jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata
     df['parts'] = df['parts'].apply(lambda x: [item for item in x if '.zip__' not in item])
     df["path_text"] = df["parts"].apply(lambda x: " / ".join(x))
     
@@ -133,7 +138,8 @@ def set_path_parts_and_initial_candidates(df):
     df["initial_candidates"] = df["parts"].apply(
         lambda parts: [part for part in parts if is_basic_candidate(part)]
     )
-
+    return df
+    
 def is_basic_candidate(folder):
     """
     Not a defined data object name (pdata, procpar, acqu)
@@ -867,9 +873,8 @@ filename = f"file_list_{dataset_DOI}.txt"
 with open(filename, "r", encoding="utf-8") as f:
     paths = [line.strip() for line in f if line.strip()]
 
-path_parts = [list(map(str, Path(p).parts[1:])) for p in paths]
-df = pd.DataFrame({"parts": path_parts})
-set_path_parts_and_initial_candidates(df)
+df = create_data_frame(paths)
+
 overall_path_count = len(df)
 
 # set the initial set of possible candidates
