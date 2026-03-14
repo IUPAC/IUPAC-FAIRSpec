@@ -6,99 +6,12 @@ import itertools
 import sys
 import numpy as np
 
-# compound_name.py
-# 2026.03.13 BH -- refactoring, commenting, fixing n/pdata using text.isdigit()
-# 2026.03.12 BH -- refactored for clearer defs
-# 2026.03.12 BH -- better reporting
-# 2026.03.10 BH -- from compound_id_candidate_identifier.py
-# 2026.03.08 BH -- changed "specpar" to "procpar" 
-# 2026.03.05 BH -- changed "zip.." to "zip__" since Windows cannot handle file/directory names ending with '.'
-
-# command line arguments
-dataset_DOI = sys.argv[1]
-
-### Domain knowledge
-
-IGNORE_FOLDERS = {
-    # lower-case here
-    "used_from", "startingmaterial"
-}
-
-IGNORE_SUBSTRINGS = {
-    # lower-case here
-    "zip"
-}
-
-IGNORE_PARENTS = {
-    ".", "..", "", ".DS_Store", "pdata", "fid", "ser", "used_from"
-}
-
-# The Bash script running this method will strip out
-#  - all files other than pdata in the directory containing pdata
-#  - all files other than procpar in a directory containing procpar
-#  - all files in the pdata directory
-# Note that acqu is here because it is possible to have a Bruker directory with no pdata
-# In that case, the first file in the direcory (acqu) is kept
-
-DATA_OBJECT_NAMES = {
-    "pdata", "procpar", "acqu"
-}
-
-# NOTE: 1h keyword is removed because of frequent use of 1h also as a compound_id number
-EXPERIMENT_KEYWORDS = ( "13c",  "cosy", "hsqc", "hmbc", "dept", "jmod", "noesy", "13c jmod")
-
-STRUCTURE_EXTENSIONS = {
-   ".mol", ".cdxml", ".cdx"
-}
-
-DATA_OBJECT_EXTENSIONS = {
-   ".spc", ".jdf", ".jdx", ".mnova"
-}
-
-# FILE_EXTENSIONS = {
-#    ".txt", ".par", ".fid", ".ser", ".json", ".xml", ".temp", ".png", ".info", ".spc"
-#}
-
-# TODO: why the differences here?
-FILE_EXTENSIONS_FOR_ADD_IMAGE = ('.pdf', '.png', '.mol', '.cdx', '.cdxml', '.sdf', '.dx', '.jdx')
-
-# NOTE: USEFUL_EXTENSIONS can be altered to find any files of interest
-USEFUL_EXTENSIONS = ('.mol', 'cdx', 'cdxml', '.jdf' ,'.mnova', 'pdata', 'procpar', 'acqu', '.pdf', '.png')
+# pdata.py
 
 # TODO-this should be broken out by resource path (first path)
 GLOBAL_THRESHOLD = 0.3  # fractional frequency to qualify as a common, global path;
 
 
-
-######### all methods are static methods (they do not reference global values, only their parameters)
-
-# def add_compound_id(df, final_df, compound_id):
-# def add_parent_folder_column(df, final_df, ignore_parents=None):
-# def add_representations(df, paths_list):
-# def clean_parent_of_experiment(parts, candidates, global_folders):
-# def contains_experiment_keyword(name):
-# def generate_df_for_tsv(df, final_df):
-# def get_data_frame_for_filepaths_after_compound_ids(df):
-# def get_final_compound_name(final_df, counts_series):
-# def get_global_folders(all_initial_candidates, candidate_freq):
-# def has_data_object_extension(name):
-# def has_structure_extension(name):
-# def is_basic_candidate(folder):
-# def is_candidate(folder, global_folders):
-# def is_data_object(token):
-# def is_pure_experiment_folder(name):
-# def lambda_choose_weak_label(row, order, freq, folders, min_freq=3, max_frac=0.5):
-# def lambda_find_full_important_file_path(row, paths_list):
-# def lambda_get_parent_count(row, path_col, compound_id_col):
-# def lambda_set_is_experiment(row):
-# def add_useful_files(compound_root_df, final_df):
-# def map_dataset_folders(compound_root_df, final_df):
-# def map_dataset_folders_for_compound_id(df, compound_name):
-# def parent_of_structure_or_data_object(parts):
-# def path_to_pdata(path):
-# def print_column(df,name):
-# def promote_child_compound_ids(df, multiplier=5, min_children=6):
-# def set_path_parts_and_initial_candidates(df):
 
 def print_column(df,name):
     '''
@@ -771,145 +684,85 @@ def generate_final_df(compound_root_df, final_df):
 ############## end of method definitions
 
 
+def remove_zip(parts):
+    '''
+      remove all ".zip__"
+    '''
+
+    def fix_a(p):
+        if ".zip__" in p.lower():
+            return p[:-6]
+        return p
+
+    return [fix_a(p) for p in parts]
+
+def find_ids(parts, compound_ids, spec_ids, path):
+    last = len(parts) - 1
+    if last < 1 or parts[last] != "pdata": 
+        compound_ids.append(None)
+        spec_ids.append(None)
+        return
+    compound_id = None
+    spec_id = None
+    i = 0
+    while i < last:
+        parent = parts[i]
+        child = parts[i + 1]
+        if (i + 2 <= last):
+            grandchild = parts[i + 2]
+            if child != grandchild and child in grandchild:
+                i += 1
+                continue
+        if parent != child and parent in child:
+
+            # jo4c02600_si_002/1H NMR, 13C NMR and 19F NMR Spectra/6c/6c-H/1/pdata
+            break
+        if i == last - 2:
+            if parent != child:
+                # jo4c02737_si_002/FID_revised/6m/1H/pdata
+                child = parent + "_" + child
+            break
+        i += 1
+    print(f"{parent} \t{child} \t{path}")    
+    compound_ids.append(parent)
+    spec_ids.append(child)
+
+def checkParts(path_parts, first, last, paths):
+    compound_ids = []
+    spec_ids = []
+    i = first
+    while i < last:
+        find_ids(path_parts[i], compound_ids, spec_ids, paths[i])
+        i += 1
+    return (compound_ids, spec_ids)
+
+
 # Read file paths
-filename = f"file_list_{dataset_DOI}.txt"
+filename = "pdata_all.txt"
 with open(filename, "r", encoding="utf-8") as f:
     paths = [line.strip() for line in f if line.strip()]
-
 path_parts = [list(map(str, Path(p).parts[1:])) for p in paths]
-df = pd.DataFrame({"parts": path_parts})
-set_path_parts_and_initial_candidates(df)
-overall_path_count = len(df)
-all_initial_candidates = df['initial_candidates'].explode().tolist()
+path_parts2 = [remove_zip(p) for p in path_parts]
+first = 0
+lp = len(paths)
+while first < lp and not ("-------" in paths[first]):
+    first += 1
+while first < lp:
+    #012345678901234567890
+    #---------- FILE_LIST_JO4C02089.TXT
+    doi = paths[first][21:-4].lower()
+    print(f"{doi} {first}")
+    last = first + 1
+    while last < lp and not ("-------" in paths[last]):
+        last += 1
+    if last - first > 5:    
+        (compound_ids, spec_ids) = checkParts(path_parts2, first + 1, last - 1, paths)
+        with open(f'test2/{doi}_compound_id_pdata.txt', "w", encoding="utf-8") as f:
+            m = f'{doi} '+';'.join(compound_ids)+'\n'
+            f.write(m)
+        with open(f'test2/{doi}_data_object_id_pdata.txt', "w", encoding="utf-8") as f:
+            m = f'{doi} '+';'.join(spec_ids)+'\n'
+            f.write(m)
+    first = last
 
-# print initial candidates
-print(f"\n\nAll initial compound_id candidates: \n {set(all_initial_candidates)}\n")
-
-###### frequency analysis for global folders
-
-candidate_freq = Counter(all_initial_candidates)
-global_folders = get_global_folders(all_initial_candidates, candidate_freq)
-print(f"Identified global folders: \n {global_folders}\n")
-
-# re-extract candidates after removing globals
-df["compound_id_candidates"] = df["parts"].apply(
-    lambda parts: [p for p in parts if is_candidate(p, global_folders)]
-)
-
-#print_column(df,"compound_id_candidates")
-
-# identify each file path with a compound_id
-df["compound_id_label"] = df.apply(lambda_choose_weak_label, freq=candidate_freq, globals=global_folders, axis='columns', order=1)
-
-print_column(df,"compound_id_label")
-
-# filter the original DataFrame for rows where the count is greater than or equal to the average 
-class_name_average = df["compound_id_label"].value_counts().mean()
-occurrence_per_row = df.groupby('compound_id_label')['compound_id_label'].transform('count')
-df = df[occurrence_per_row >= class_name_average - (class_name_average/.75)]
-
-#print_column(df, "path_text")
-#print_column(df, "compound_id_label")
-
-# add to df a count of parents before compound_id_label
-df['parent_count'] = df.apply(
-    lambda row: lambda_get_parent_count(row, 'path_text','compound_id_label'), axis='columns'
-)
-
-# create compound_root_df, includes all of the filepaths after compound_ids
-# this assumes that all the important information is after the compound_id ID
-compound_root_df = get_data_frame_for_filepaths_after_compound_ids(df)
-#print(f"compound_root_df={compound_root_df}")
-'''
-compound_root_df=              compound_id_path identified_compound_id
-0         [3aa-1H, procpar]              3aa-1H
-1   [3aaa-19F.fid, procpar]        3aaa-19F.fid
-2        [3aaa-1H, procpar]             3aaa-1H
-3     [3ab-1H.fid, procpar]          3ab-1H.fid
-4         [3ab-77Se, pdata]            3ab-77Se
-..                      ...                 ...
-66          [4-77Se, pdata]              4-77Se
-67            [5-1H, pdata]                5-1H
-68          [5-77Se, pdata]              5-77Se
-69            [6-1H, pdata]                6-1H
-70          [6-77Se, pdata]              6-77Se
-'''
-
-# creating the final_df, includes all of the information with each compound_id label once
-final_df = pd.DataFrame(df["compound_id_label"].unique(), columns=['compound_id'])
-
-# creates dataset_folders column which includes the dataset folders for each identified compound_id
-map_dataset_folders(compound_root_df, final_df)
-
-# extract the useful files from the compound_root_df (includes all file paths after the compound_ids)
-add_useful_files(compound_root_df, final_df)
-
-fix_compound_ids(final_df)
-
-final_df = generate_final_df(compound_root_df, final_df)
-
-# drops identified compound_ids who has dataset folders that are also identified compound_ids
-all_compound_ids = set(final_df['compound_id'].dropna().unique())
-
-final_df['is_match'] = final_df.apply(
-    lambda row: any(folder in all_compound_ids for folder in row['dataset_folders']) 
-    if isinstance(row['dataset_folders'], list) else False, 
-    axis='columns'
-)
-
-final_df = final_df[~final_df['is_match']]
-final_df = final_df.drop(columns=['is_match'])
-
-final_df['is_experiment'] = final_df.apply(lambda_set_is_experiment, axis='columns')
-
-# call the second check functions
-add_parent_folder_column(df, final_df)
-compound_ids_to_be_added = set(final_df[final_df['is_experiment'] == True]['parent_folder'])
-final_df = final_df[~final_df['is_experiment']]
-final_df = final_df.drop(columns=['is_experiment'])
-final_df = final_df.drop(columns=['parent_folder'])
-
-for compound_id in compound_ids_to_be_added:
-  final_df = add_compound_id(df, final_df, compound_id)
-  
-# final identified compound_ids
-
-final_compound_ids = final_df['compound_id'].unique().tolist()
-
-# create the final csv data frame now, after the second run through
-df_for_CSV = final_df.copy()
-
-# creating the "tech" column in final_df 
-# NOTE: This column is not finalized/working 100%
-final_df["tech"] = "NA"
-mask = final_df["pdata_path"].apply(lambda row: len(row) > 0 and ("pdata" in row[0]))
-final_df.loc[mask, "tech"] = "NMR"
-
-(df_for_TSV, final_spec_ids) = generate_df_for_tsv(df, final_df)
-
-# write df_for_TSV to <doi>_final_output.tsv
-df_for_TSV.to_csv(f'{dataset_DOI}_final_output.tsv', index=False, sep='\t')
-
-# write <doi>_output.csv 
-df_for_CSV.to_csv(f'{dataset_DOI}_output.csv', index=False)
-
-
-
-# write <doi>_compound_id_list.txt and <doi>_compound_id_count
-# compound_id_count is a file with length the number of compound_ids
-with open(f'{dataset_DOI}_compound_id_list.txt', "w", encoding="utf-8") as f:
-    f.write(f'{dataset_DOI} '+';'.join(list(map(str, final_compound_ids)))+'\n')
-final_id_count = len(final_compound_ids)
-with open(f'{dataset_DOI}_compound_id_count', "w", encoding="utf-8") as f:
-    f.write("0" * final_id_count)
-
-# write <doi>_spec_id_list.txt and <doi>_spec_id_count
-with open(f'{dataset_DOI}_data_object_id_list.txt', "w", encoding="utf-8") as f:
-    f.write(f'{dataset_DOI} '+';'.join(list(map(str, final_spec_ids)))+'\n')
-final_spec_id_count = len(final_spec_ids)
-with open(f'{dataset_DOI}_data_object_id_count', "w", encoding="utf-8") as f:
-    f.write("0" * final_spec_id_count)
-
-
-print(f"final compound ID count: {final_id_count}  final data object ID count: {final_spec_id_count}")
 
