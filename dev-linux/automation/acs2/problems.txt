@@ -5,6 +5,28 @@
 # use -p to do predictions only, on all 
 # use -n to run python on just new predictions (no _Prediction directory)
 
+# failed for pdata.py:
+
+jo4c02335 507
+jo4c02652 1668
+jo4c02921 2199
+jo4c03085 2449
+jo4c03092 2480
+jo4c03094 2601
+jo5c00184 3492
+jo5c00189 3737
+jo5c00316 4118
+jo5c00317 4217
+jo5c00472 4662
+jo5c00526 4955
+jo5c00609 4999
+jo5c00670 5324
+jo5c00774 5767
+jo5c00912 5862
+ol5c02536 6116
+
+STOP
+
 # remaining errors:
 
 jo4c02600 # 4a;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m;4n;4o;4p;4q;4r;4s;4t;5a;5b;5c;5d;5e;5f;5g;5h;5i;6a;6b;6c;6d

@@ -104,7 +104,6 @@ GLOBAL_THRESHOLD = 0.3  # fractional frequency to qualify as a common, global pa
 # def map_dataset_folders_for_compound_id(df, compound_name):
 # def parent_of_structure_or_data_object(parts):
 # def path_to_pdata(path):
-# def path_to_pdata(path):
 # def print_column(df,name):
 # def prune_child_compound_ids(df, multiplier=5, min_children=6):
 # def set_path_parts_and_initial_candidates(df): 
@@ -275,16 +274,6 @@ def map_dataset_folders_for_compound_id(df, compound_name):
         if len(row["parts"]) > 2
     }
     return folders
-
-def path_to_pdata(path):
-    '''
-        finding pdata paths
-    '''
-    if "pdata" in path:
-        idx = path.index("pdata")
-        if idx > 0: # this goes back TWO paths or ONE path? set to ONE here
-            return path[:idx]
-    return path
 
 def path_to_pdata(path):
     '''
