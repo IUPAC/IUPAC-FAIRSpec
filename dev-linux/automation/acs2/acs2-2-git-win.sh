@@ -444,6 +444,7 @@ do
 
     # Create a new folder to store the output from running compound_candidate_identifier.py 
     mkdir "${Prediction_Dir}"
+    cp "${fileListFileRaw}" "${Prediction_Dir}/raw_${fileListName}"
     cp "${fileListFilePruned}" "${Prediction_Dir}/${fileListName}"
     cd "${Prediction_Dir}"
 
@@ -464,14 +465,17 @@ do
         cp "$tempFile" "${Working_Directory}/${doi}.err"
     else
         echo "No Python errors for ${doi}" 
-        cp "${Prediction_Dir}/${doi}_compound_list.txt" "${Working_Directory}"
-        cp "${Prediction_Dir}/${doi}_compound_count" "${Working_Directory}"
-        cp "${Prediction_Dir}/${doi}_spec_list.txt" "${Working_Directory}"
+        cp "${Prediction_Dir}/${doi}_compound_id_list.txt" "${Working_Directory}"
+        cp "${Prediction_Dir}/${doi}_compound_id_count" "${Working_Directory}"
+        cp "${Prediction_Dir}/${doi}_data_object_id_list.txt" "${Working_Directory}"
+        cp "${Prediction_Dir}/${doi}_data_object_id_count" "${Working_Directory}"
         cd "${Working_Director}"
-        cat "${doi}_compound_list.txt"
-        filename="${Prediction_Dir}/${doi}_compound_count"
+        cat "${doi}_compound_id_list.txt"
+        cat "${doi}_spec_id_list.txt"
+        filenameC="${doi}_compound_id_count"
+        filenameD="${doi}_data_object_id_count"
         nf=$(cat "${fileListFilePruned}" | grep -c '^')
-        echo -e "\n${doiCount} ${doi} $(wc -c < $filename) compounds ${nf} files"
+        echo -e "\n${doiCount} ${doi} $(wc -c < $filenameC) compounds $(wc -c < $filenameD) data objects ${nf} files"
    fi
 
  

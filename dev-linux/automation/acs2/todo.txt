@@ -4,14 +4,14 @@
 # use -p to do predictions only, on all 
 # use -n to run python on just new predictions (no _Prediction directory)
 
-ol5c03626
-ol5c04969
-ol5c02536
+ol5c03626 # 10a-10h;11a-11h;12b-12f;14e-H and C NMR;5a-5h;7a-7f;8b-8d;9a-9h
 STOP
 
-# a huge spectroscopy set
-jo5c00741
+# fixed: 
+jo4c02893 # jo4c02893_si_002/FIDs/1[4]H.ZIP # did not unzip (capital letters)
+jo4c02335 # jo4c02335_si_002/FID Files/10_(DSN-799 13C )  spot-I/pdata
 
+#jo5c00161 # just mp4 files
 jo4c02089
 jo4c02094
 jo4c02335
@@ -28,47 +28,6 @@ jo4c02669
 jo4c02689
 jo4c02691
 jo4c02715
-
-
-jo5c00171
-jo5c00184
-jo5c00188
-jo5c00189
-jo5c00193
-jo5c00228
-jo5c00246
-jo5c00270
-jo5c00284
-jo5c00316
-jo5c00317
-jo5c00330
-jo5c00369
-jo5c00389
-jo5c00424
-jo5c00472
-jo5c00474
-jo5c00508
-jo5c00513
-jo5c00521
-jo5c00526
-jo5c00545
-jo5c00606
-jo5c00609
-jo5c00613
-jo5c00614
-jo5c00649
-jo5c00670
-jo5c00717
-jo5c00727
-jo5c00774
-jo5c00794
-jo5c00808
-jo5c00884
-jo5c00912
-jo5c00940
-jo5c00952
-jo5c00954
-jo5c01002
 jo4c02737
 jo4c02787
 jo4c02834
@@ -92,9 +51,50 @@ jo4c03180
 jo4c03181
 jo5c00007
 jo5c00061
-jo5c00092
+#jo5c00092 jo5c00092_si_002/BDEs for Lactams & Cycloalkenes XYZ/Cycloalkene/ACP/5_Cycloalkene_Parent_ACP.xyz  ---- just xyz files
 jo5c00117
 jo5c00149
 jo5c00156
-jo5c00161
-
+jo5c00171
+jo5c00184
+jo5c00188
+jo5c00189
+jo5c00193
+#jo5c00228 jo5c00228_si_002/revised2/revised manuscript Lefevre2.docx   !!!!! just DOC files
+#jo4c02546 calculation only
+jo5c00270
+jo5c00284
+jo5c00316
+jo5c00317
+jo5c00330
+jo5c00369
+jo5c00389
+jo5c00424
+jo5c00472
+jo5c00474
+jo5c00508
+jo5c00513
+jo5c00521
+jo5c00526
+jo5c00545
+jo5c00606
+jo5c00609
+jo5c00613
+#jo5c00614 computation only
+jo5c00649
+jo5c00670
+jo5c00717
+jo5c00727
+jo5c00741 # a huge spectroscopy set
+jo5c00774
+jo5c00794
+#jo5c00808 jo5c00808_si_002/1c.xyz  !!!!! just xyz files
+jo5c00884
+jo5c00912
+#jo5c00940 computation only
+jo5c00952
+jo5c00954
+jo5c01002
+ol5c02536 # jo4c02089_si_002/Schmidt_Potsdam_M140_FAIR_Data_revised/24l-FID/24l-C/pdata/1
+ol5c03626 # ol5c03626_si_002/FID for publication/10a-10h/10a-H and C NMR/C NMR/pdata
+ol5c04969
