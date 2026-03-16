@@ -1,0 +1,1246 @@
+
+---------- FILE_LIST_JO4C02089.TXT
+
+---------- FILE_LIST_JO4C02094.TXT
+
+---------- FILE_LIST_JO4C02335.TXT
+
+---------- FILE_LIST_JO4C02429.TXT
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3aa.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3ab.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3ac.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3ad.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3ae.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3af.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3ag.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3ah.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3ai.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3aj.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3ak.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3al.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3am.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3bb.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3bc.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3bd.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3be.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3bh.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3bl.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3bn.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3bo.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3ca.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3cb.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3cc.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3cd.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3ce.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3ch.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 3co.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 5aa.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 5ab.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 5ad.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 5ae.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 5ag.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of 5ah.mnova
+jo4c02429_si_002/Fid Files/Fid Files/13C NMR of intermediate A.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3aa.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3ab.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3ac.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3ad.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3ae.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3af.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3ag.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3ah.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3ai.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3aj.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3ak.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3al.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3am.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3bb.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3bc.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3bd.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3be.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3bh.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3bl.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3bn.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3bo.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3ca.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3cb.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3cc.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3cd.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3ce.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3ch.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 3co.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 5aa.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 5ab.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 5ad.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 5ae.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 5ag.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of 5ah.mnova
+jo4c02429_si_002/Fid Files/Fid Files/1H NMR of intermediate A.mnova
+
+---------- FILE_LIST_JO4C02450.TXT
+
+---------- FILE_LIST_JO4C02490.TXT
+
+---------- FILE_LIST_JO4C02546.TXT
+
+---------- FILE_LIST_JO4C02600.TXT
+
+---------- FILE_LIST_JO4C02622.TXT
+jo4c02622_si_001/1/1a/1a.mnova
+jo4c02622_si_001/1/1b/1b.mnova
+jo4c02622_si_001/1/1c/1c.mnova
+jo4c02622_si_001/1/1d/1d.mnova
+jo4c02622_si_001/1/1e/1e.mnova
+jo4c02622_si_001/1/1f/1f.mnova
+jo4c02622_si_001/1/1g/1g.mnova
+jo4c02622_si_001/1/1h/1h.mnova
+jo4c02622_si_001/1/1i/1i.mnova
+jo4c02622_si_001/1/1j/1j.mnova
+jo4c02622_si_001/1/1k/1k.mnova
+jo4c02622_si_001/1/1l/1l.mnova
+jo4c02622_si_001/1/1m/1m.mnova
+jo4c02622_si_001/1/1n/1n.mnova
+jo4c02622_si_001/1/1o/1o.mnova
+jo4c02622_si_001/1/1p/1p.mnova
+jo4c02622_si_001/1/1q/1q.mnova
+jo4c02622_si_001/1/1r/1r.mnova
+jo4c02622_si_001/1/1s/1s.mnova
+jo4c02622_si_001/2a/2a.mnova
+jo4c02622_si_001/3/3a/3a.mnova
+jo4c02622_si_001/3/3ab/3ab.mnova
+jo4c02622_si_001/3/3ac/3ac.mnova
+jo4c02622_si_001/3/3b/3b.mnova
+jo4c02622_si_001/3/3c/3c.mnova
+jo4c02622_si_001/3/3d/3d.mnova
+jo4c02622_si_001/3/3e/3e.mnova
+jo4c02622_si_001/3/3f/3f.mnova
+jo4c02622_si_001/3/3g/3g.mnova
+jo4c02622_si_001/3/3h/3h.mnova
+jo4c02622_si_001/3/3i/3i.mnova
+jo4c02622_si_001/3/3j/3j.mnova
+jo4c02622_si_001/3/3k/3k.mnova
+jo4c02622_si_001/3/3l/3l.mnova
+jo4c02622_si_001/3/3m/3m.mnova
+jo4c02622_si_001/3/3n/3n.mnova
+jo4c02622_si_001/3/3p/3p.mnova
+jo4c02622_si_001/3/3q/3q.mnova
+jo4c02622_si_001/4/4.mnova
+jo4c02622_si_001/5/5.mnova
+jo4c02622_si_001/7/7.mnova
+jo4c02622_si_001/8/8a/8a.mnova
+jo4c02622_si_001/8/8b/8b.mnova
+jo4c02622_si_001/8/8c/8c.mnova
+jo4c02622_si_001/S1/S1a/S1a.mnova
+jo4c02622_si_001/S1/S1b/S1b.mnova
+jo4c02622_si_001/S1/S1c/S1c.mnova
+jo4c02622_si_001/S1/S1d/S1d.mnova
+jo4c02622_si_001/S1/S1e/S1e.mnova
+jo4c02622_si_001/S1/S1f/S1f.mnova
+jo4c02622_si_001/S1/S1g/S1g.mnova
+jo4c02622_si_001/S1/S1h/S1h.mnova
+jo4c02622_si_001/S1/S1i/S1i.mnova
+jo4c02622_si_001/S1/S1j/S1j.mnova
+jo4c02622_si_001/S1/S1k/S1k.mnova
+jo4c02622_si_001/S1/S1l/S1l.mnova
+jo4c02622_si_001/S1/S1m/S1m.mnova
+jo4c02622_si_001/S1/S1n/S1n.mnova
+jo4c02622_si_001/S1/S1o/S1o.mnova
+jo4c02622_si_001/S1/S1p/S1p.mnova
+jo4c02622_si_001/S1/S1q/S1q.mnova
+jo4c02622_si_001/S1/S1r/S1r.mnova
+jo4c02622_si_001/S1/S1s/S1s.mnova
+jo4c02622_si_001/S1/S1t/S1t.mnova
+jo4c02622_si_001/S1/S1u/S1u.mnova
+jo4c02622_si_002/1/1a/1a.mnova
+jo4c02622_si_002/1/1b/1b.mnova
+jo4c02622_si_002/1/1c/1c.mnova
+jo4c02622_si_002/1/1d/1d.mnova
+jo4c02622_si_002/1/1e/1e.mnova
+jo4c02622_si_002/1/1f/1f.mnova
+jo4c02622_si_002/1/1g/1g.mnova
+jo4c02622_si_002/1/1h/1h.mnova
+jo4c02622_si_002/1/1i/1i.mnova
+jo4c02622_si_002/1/1j/1j.mnova
+jo4c02622_si_002/1/1k/1k.mnova
+jo4c02622_si_002/1/1l/1l.mnova
+jo4c02622_si_002/1/1m/1m.mnova
+jo4c02622_si_002/1/1n/1n.mnova
+jo4c02622_si_002/1/1o/1o.mnova
+jo4c02622_si_002/1/1p/1p.mnova
+jo4c02622_si_002/1/1q/1q.mnova
+jo4c02622_si_002/1/1r/1r.mnova
+jo4c02622_si_002/1/1s/1s.mnova
+jo4c02622_si_002/2a/2a.mnova
+jo4c02622_si_002/3/3a/3a.mnova
+jo4c02622_si_002/3/3ab/3ab.mnova
+jo4c02622_si_002/3/3ac/3ac.mnova
+jo4c02622_si_002/3/3b/3b.mnova
+jo4c02622_si_002/3/3c/3c.mnova
+jo4c02622_si_002/3/3d/3d.mnova
+jo4c02622_si_002/3/3e/3e.mnova
+jo4c02622_si_002/3/3f/3f.mnova
+jo4c02622_si_002/3/3g/3g.mnova
+jo4c02622_si_002/3/3h/3h.mnova
+jo4c02622_si_002/3/3i/3i.mnova
+jo4c02622_si_002/3/3j/3j.mnova
+jo4c02622_si_002/3/3k/3k.mnova
+jo4c02622_si_002/3/3l/3l.mnova
+jo4c02622_si_002/3/3m/3m.mnova
+jo4c02622_si_002/3/3n/3n.mnova
+jo4c02622_si_002/3/3p/3p.mnova
+jo4c02622_si_002/3/3q/3q.mnova
+jo4c02622_si_002/4/4.mnova
+jo4c02622_si_002/5/5.mnova
+jo4c02622_si_002/7/7.mnova
+jo4c02622_si_002/8/8a/8a.mnova
+jo4c02622_si_002/8/8b/8b.mnova
+jo4c02622_si_002/8/8c/8c.mnova
+jo4c02622_si_002/S1/S1a/S1a.mnova
+jo4c02622_si_002/S1/S1b/S1b.mnova
+jo4c02622_si_002/S1/S1c/S1c.mnova
+jo4c02622_si_002/S1/S1d/S1d.mnova
+jo4c02622_si_002/S1/S1e/S1e.mnova
+jo4c02622_si_002/S1/S1f/S1f.mnova
+jo4c02622_si_002/S1/S1g/S1g.mnova
+jo4c02622_si_002/S1/S1h/S1h.mnova
+jo4c02622_si_002/S1/S1i/S1i.mnova
+jo4c02622_si_002/S1/S1j/S1j.mnova
+jo4c02622_si_002/S1/S1k/S1k.mnova
+jo4c02622_si_002/S1/S1l/S1l.mnova
+jo4c02622_si_002/S1/S1m/S1m.mnova
+jo4c02622_si_002/S1/S1n/S1n.mnova
+jo4c02622_si_002/S1/S1o/S1o.mnova
+jo4c02622_si_002/S1/S1p/S1p.mnova
+jo4c02622_si_002/S1/S1q/S1q.mnova
+jo4c02622_si_002/S1/S1r/S1r.mnova
+jo4c02622_si_002/S1/S1s/S1s.mnova
+jo4c02622_si_002/S1/S1t/S1t.mnova
+jo4c02622_si_002/S1/S1u/S1u.mnova
+jo4c02622_si_004/1/1a/1a.mnova
+jo4c02622_si_004/1/1b/1b.mnova
+jo4c02622_si_004/1/1c/1c.mnova
+jo4c02622_si_004/1/1d/1d.mnova
+jo4c02622_si_004/1/1e/1e.mnova
+jo4c02622_si_004/1/1f/1f.mnova
+jo4c02622_si_004/1/1g/1g.mnova
+jo4c02622_si_004/1/1h/1h.mnova
+jo4c02622_si_004/1/1i/1i.mnova
+jo4c02622_si_004/1/1j/1j.mnova
+jo4c02622_si_004/1/1k/1k.mnova
+jo4c02622_si_004/1/1l/1l.mnova
+jo4c02622_si_004/1/1m/1m.mnova
+jo4c02622_si_004/1/1n/1n.mnova
+jo4c02622_si_004/1/1o/1o.mnova
+jo4c02622_si_004/1/1p/1p.mnova
+jo4c02622_si_004/1/1q/1q.mnova
+jo4c02622_si_004/1/1r/1r.mnova
+jo4c02622_si_004/1/1s/1s.mnova
+jo4c02622_si_004/2a/2a.mnova
+jo4c02622_si_004/3/3a/3a.mnova
+jo4c02622_si_004/3/3ab/3ab.mnova
+jo4c02622_si_004/3/3ac/3ac.mnova
+jo4c02622_si_004/3/3b/3b.mnova
+jo4c02622_si_004/3/3c/3c.mnova
+jo4c02622_si_004/3/3d/3d.mnova
+jo4c02622_si_004/3/3e/3e.mnova
+jo4c02622_si_004/3/3f/3f.mnova
+jo4c02622_si_004/3/3g/3g.mnova
+jo4c02622_si_004/3/3h/3h.mnova
+jo4c02622_si_004/3/3i/3i.mnova
+jo4c02622_si_004/3/3j/3j.mnova
+jo4c02622_si_004/3/3k/3k.mnova
+jo4c02622_si_004/3/3l/3l.mnova
+jo4c02622_si_004/3/3m/3m.mnova
+jo4c02622_si_004/3/3n/3n.mnova
+jo4c02622_si_004/3/3p/3p.mnova
+jo4c02622_si_004/3/3q/3q.mnova
+jo4c02622_si_004/4/4.mnova
+jo4c02622_si_004/5/5.mnova
+jo4c02622_si_004/7/7.mnova
+jo4c02622_si_004/8/8a/8a.mnova
+jo4c02622_si_004/8/8b/8b.mnova
+jo4c02622_si_004/8/8c/8c.mnova
+jo4c02622_si_004/S1/S1a/S1a.mnova
+jo4c02622_si_004/S1/S1b/S1b.mnova
+jo4c02622_si_004/S1/S1c/S1c.mnova
+jo4c02622_si_004/S1/S1d/S1d.mnova
+jo4c02622_si_004/S1/S1e/S1e.mnova
+jo4c02622_si_004/S1/S1f/S1f.mnova
+jo4c02622_si_004/S1/S1g/S1g.mnova
+jo4c02622_si_004/S1/S1h/S1h.mnova
+jo4c02622_si_004/S1/S1i/S1i.mnova
+jo4c02622_si_004/S1/S1j/S1j.mnova
+jo4c02622_si_004/S1/S1k/S1k.mnova
+jo4c02622_si_004/S1/S1l/S1l.mnova
+jo4c02622_si_004/S1/S1m/S1m.mnova
+jo4c02622_si_004/S1/S1n/S1n.mnova
+jo4c02622_si_004/S1/S1o/S1o.mnova
+jo4c02622_si_004/S1/S1p/S1p.mnova
+jo4c02622_si_004/S1/S1q/S1q.mnova
+jo4c02622_si_004/S1/S1r/S1r.mnova
+jo4c02622_si_004/S1/S1s/S1s.mnova
+jo4c02622_si_004/S1/S1t/S1t.mnova
+jo4c02622_si_004/S1/S1u/S1u.mnova
+
+---------- FILE_LIST_JO4C02634.TXT
+
+---------- FILE_LIST_JO4C02638.TXT
+
+---------- FILE_LIST_JO4C02652.TXT
+
+---------- FILE_LIST_JO4C02669.TXT
+
+---------- FILE_LIST_JO4C02689.TXT
+jo4c02689_si_001/compound 4.mnova
+jo4c02689_si_002/compound 4.mnova
+jo4c02689_si_003/compound 4.mnova
+jo4c02689_si_004/compound 4.mnova
+
+---------- FILE_LIST_JO4C02691.TXT
+jo4c02691_si_002/FAIR Data - FID files/10i/1H/Z_NaphthylBrIA_1.mnova
+
+---------- FILE_LIST_JO4C02715.TXT
+
+---------- FILE_LIST_JO4C02737.TXT
+
+---------- FILE_LIST_JO4C02787.TXT
+jo4c02787_si_002/NMR-FID/10 13C.mnova
+jo4c02787_si_002/NMR-FID/10 1H.mnova
+jo4c02787_si_002/NMR-FID/11 13C.mnova
+jo4c02787_si_002/NMR-FID/11 1H.mnova
+jo4c02787_si_002/NMR-FID/13 13C.mnova
+jo4c02787_si_002/NMR-FID/13 1H.mnova
+jo4c02787_si_002/NMR-FID/3a 13C.mnova
+jo4c02787_si_002/NMR-FID/3a 1H.mnova
+jo4c02787_si_002/NMR-FID/3aa 13C.mnova
+jo4c02787_si_002/NMR-FID/3aa 1H.mnova
+jo4c02787_si_002/NMR-FID/3ab 13C.mnova
+jo4c02787_si_002/NMR-FID/3ab 1H.mnova
+jo4c02787_si_002/NMR-FID/3ac 13C.mnova
+jo4c02787_si_002/NMR-FID/3ac 1H.mnova
+jo4c02787_si_002/NMR-FID/3b 13C.mnova
+jo4c02787_si_002/NMR-FID/3b 1H.mnova
+jo4c02787_si_002/NMR-FID/3c 13C.mnova
+jo4c02787_si_002/NMR-FID/3c 1H.mnova
+jo4c02787_si_002/NMR-FID/3d 13C.mnova
+jo4c02787_si_002/NMR-FID/3d 1H.mnova
+jo4c02787_si_002/NMR-FID/3e 13C.mnova
+jo4c02787_si_002/NMR-FID/3e 1H.mnova
+jo4c02787_si_002/NMR-FID/3f 13C.mnova
+jo4c02787_si_002/NMR-FID/3f 1H.mnova
+jo4c02787_si_002/NMR-FID/3g 13C.mnova
+jo4c02787_si_002/NMR-FID/3g 19F.mnova
+jo4c02787_si_002/NMR-FID/3g 1H.mnova
+jo4c02787_si_002/NMR-FID/3h 13C.mnova
+jo4c02787_si_002/NMR-FID/3h 1H.mnova
+jo4c02787_si_002/NMR-FID/3i 13C.mnova
+jo4c02787_si_002/NMR-FID/3i 1H.mnova
+jo4c02787_si_002/NMR-FID/3j 13C.mnova
+jo4c02787_si_002/NMR-FID/3j 19F.mnova
+jo4c02787_si_002/NMR-FID/3j 1H.mnova
+jo4c02787_si_002/NMR-FID/3k 13C.mnova
+jo4c02787_si_002/NMR-FID/3k 19F.mnova
+jo4c02787_si_002/NMR-FID/3k 1H.mnova
+jo4c02787_si_002/NMR-FID/3l 13C.mnova
+jo4c02787_si_002/NMR-FID/3l 1H.mnova
+jo4c02787_si_002/NMR-FID/3m 13C.mnova
+jo4c02787_si_002/NMR-FID/3m 1H.mnova
+jo4c02787_si_002/NMR-FID/3n 13C.mnova
+jo4c02787_si_002/NMR-FID/3n 1H.mnova
+jo4c02787_si_002/NMR-FID/3o 13C.mnova
+jo4c02787_si_002/NMR-FID/3o 1H.mnova
+jo4c02787_si_002/NMR-FID/3p 13C.mnova
+jo4c02787_si_002/NMR-FID/3p 1H.mnova
+jo4c02787_si_002/NMR-FID/3q 13C.mnova
+jo4c02787_si_002/NMR-FID/3q 1H.mnova
+jo4c02787_si_002/NMR-FID/3r 13C.mnova
+jo4c02787_si_002/NMR-FID/3r 1H.mnova
+jo4c02787_si_002/NMR-FID/3s 13C.mnova
+jo4c02787_si_002/NMR-FID/3s 1H.mnova
+jo4c02787_si_002/NMR-FID/3t 13C.mnova
+jo4c02787_si_002/NMR-FID/3t 1H.mnova
+jo4c02787_si_002/NMR-FID/3u 13C.mnova
+jo4c02787_si_002/NMR-FID/3u 1H.mnova
+jo4c02787_si_002/NMR-FID/3v 13C.mnova
+jo4c02787_si_002/NMR-FID/3v 1H.mnova
+jo4c02787_si_002/NMR-FID/3w 13C.mnova
+jo4c02787_si_002/NMR-FID/3w 1H.mnova
+jo4c02787_si_002/NMR-FID/3x 13C.mnova
+jo4c02787_si_002/NMR-FID/3x 1H.mnova
+jo4c02787_si_002/NMR-FID/3y 13C.mnova
+jo4c02787_si_002/NMR-FID/3y 1H.mnova
+jo4c02787_si_002/NMR-FID/3z 13C.mnova
+jo4c02787_si_002/NMR-FID/3z 1H.mnova
+jo4c02787_si_002/NMR-FID/5a 13C.mnova
+jo4c02787_si_002/NMR-FID/5a 1H.mnova
+jo4c02787_si_002/NMR-FID/5b 13C.mnova
+jo4c02787_si_002/NMR-FID/5b 1H.mnova
+jo4c02787_si_002/NMR-FID/5c 13C.mnova
+jo4c02787_si_002/NMR-FID/5c 1H.mnova
+jo4c02787_si_002/NMR-FID/5d 13C.mnova
+jo4c02787_si_002/NMR-FID/5d 19F.mnova
+jo4c02787_si_002/NMR-FID/5d 1H.mnova
+jo4c02787_si_002/NMR-FID/5e 13C.mnova
+jo4c02787_si_002/NMR-FID/5e 1H.mnova
+jo4c02787_si_002/NMR-FID/5f 13C.mnova
+jo4c02787_si_002/NMR-FID/5f 1H.mnova
+jo4c02787_si_002/NMR-FID/5g 13C.mnova
+jo4c02787_si_002/NMR-FID/5g 1H.mnova
+jo4c02787_si_002/NMR-FID/5h 13C.mnova
+jo4c02787_si_002/NMR-FID/5h 1H.mnova
+jo4c02787_si_002/NMR-FID/5i 13C.mnova
+jo4c02787_si_002/NMR-FID/5i 1H.mnova
+jo4c02787_si_002/NMR-FID/5j 13C.mnova
+jo4c02787_si_002/NMR-FID/5j 1H.mnova
+jo4c02787_si_002/NMR-FID/5k 13C.mnova
+jo4c02787_si_002/NMR-FID/5k 1H.mnova
+jo4c02787_si_002/NMR-FID/5l 13C.mnova
+jo4c02787_si_002/NMR-FID/5l 1H.mnova
+jo4c02787_si_002/NMR-FID/5m 13C.mnova
+jo4c02787_si_002/NMR-FID/5m 1H.mnova
+jo4c02787_si_002/NMR-FID/5n 13 C.mnova
+jo4c02787_si_002/NMR-FID/5n 1H.mnova
+jo4c02787_si_002/NMR-FID/5n NOESY.mnova
+jo4c02787_si_002/NMR-FID/5o 13C.mnova
+jo4c02787_si_002/NMR-FID/5o 1H.mnova
+jo4c02787_si_002/NMR-FID/5p 13C.mnova
+jo4c02787_si_002/NMR-FID/5p 1H.mnova
+jo4c02787_si_002/NMR-FID/5q 13C.mnova
+jo4c02787_si_002/NMR-FID/5q 1H.mnova
+jo4c02787_si_002/NMR-FID/5r 13C.mnova
+jo4c02787_si_002/NMR-FID/5r 1H.mnova
+jo4c02787_si_002/NMR-FID/5s 13C.mnova
+jo4c02787_si_002/NMR-FID/5s 1H.mnova
+jo4c02787_si_002/NMR-FID/7 13C.mnova
+jo4c02787_si_002/NMR-FID/7 1H.mnova
+jo4c02787_si_002/NMR-FID/8 13C.mnova
+jo4c02787_si_002/NMR-FID/8 1H.mnova
+jo4c02787_si_002/NMR-FID/9 13C.mnova
+jo4c02787_si_002/NMR-FID/9 1H.mnova
+
+---------- FILE_LIST_JO4C02834.TXT
+jo4c02834_si_001/FAIR data/10g.mnova
+jo4c02834_si_001/FAIR data/11g.mnova
+jo4c02834_si_001/FAIR data/12g.mnova
+jo4c02834_si_001/FAIR data/1a-d.mnova
+jo4c02834_si_001/FAIR data/1b.mnova
+jo4c02834_si_001/FAIR data/1h.mnova
+jo4c02834_si_001/FAIR data/1i.mnova
+jo4c02834_si_001/FAIR data/1k.mnova
+jo4c02834_si_001/FAIR data/1l.mnova
+jo4c02834_si_001/FAIR data/1p.mnova
+jo4c02834_si_001/FAIR data/1r.mnova
+jo4c02834_si_001/FAIR data/1s.mnova
+jo4c02834_si_001/FAIR data/1t.mnova
+jo4c02834_si_001/FAIR data/1u.mnova
+jo4c02834_si_001/FAIR data/1v.mnova
+jo4c02834_si_001/FAIR data/1w.mnova
+jo4c02834_si_001/FAIR data/1x.mnova
+jo4c02834_si_001/FAIR data/1y.mnova
+jo4c02834_si_001/FAIR data/2a-d1.mnova
+jo4c02834_si_001/FAIR data/2a-d8.mnova
+jo4c02834_si_001/FAIR data/2a.mnova
+jo4c02834_si_001/FAIR data/2b.mnova
+jo4c02834_si_001/FAIR data/2c.mnova
+jo4c02834_si_001/FAIR data/2d.mnova
+jo4c02834_si_001/FAIR data/2e.mnova
+jo4c02834_si_001/FAIR data/2f.mnova
+jo4c02834_si_001/FAIR data/2g.mnova
+jo4c02834_si_001/FAIR data/2h.mnova
+jo4c02834_si_001/FAIR data/2i.mnova
+jo4c02834_si_001/FAIR data/2j.mnova
+jo4c02834_si_001/FAIR data/2k.mnova
+jo4c02834_si_001/FAIR data/2l.mnova
+jo4c02834_si_001/FAIR data/2m.mnova
+jo4c02834_si_001/FAIR data/2n.mnova
+jo4c02834_si_001/FAIR data/2o.mnova
+jo4c02834_si_001/FAIR data/2s.mnova
+jo4c02834_si_001/FAIR data/2t.mnova
+jo4c02834_si_001/FAIR data/2u.mnova
+jo4c02834_si_001/FAIR data/2v.mnova
+jo4c02834_si_001/FAIR data/2w.mnova
+jo4c02834_si_001/FAIR data/2x.mnova
+jo4c02834_si_001/FAIR data/2y.mnova
+jo4c02834_si_001/FAIR data/2z.mnova
+jo4c02834_si_001/FAIR data/3.mnova
+jo4c02834_si_001/FAIR data/4.mnova
+jo4c02834_si_001/FAIR data/5g.mnova
+jo4c02834_si_001/FAIR data/6g.mnova
+jo4c02834_si_001/FAIR data/7g.mnova
+jo4c02834_si_001/FAIR data/7g’.mnova
+jo4c02834_si_001/FAIR data/9g.mnova
+
+---------- FILE_LIST_JO4C02842.TXT
+
+---------- FILE_LIST_JO4C02844.TXT
+jo4c02844_si_002/NMR Fid/10_13C.mnova
+jo4c02844_si_002/NMR Fid/10_1H.mnova
+jo4c02844_si_002/NMR Fid/11_13C.mnova
+jo4c02844_si_002/NMR Fid/11_1H.mnova
+jo4c02844_si_002/NMR Fid/12_13C.mnova
+jo4c02844_si_002/NMR Fid/12_1H.mnova
+jo4c02844_si_002/NMR Fid/13_13C.mnova
+jo4c02844_si_002/NMR Fid/13_1H.mnova
+jo4c02844_si_002/NMR Fid/14_13C.mnova
+jo4c02844_si_002/NMR Fid/14_1H.mnova
+jo4c02844_si_002/NMR Fid/15_13C.mnova
+jo4c02844_si_002/NMR Fid/15_1H.mnova
+jo4c02844_si_002/NMR Fid/1_13C.mnova
+jo4c02844_si_002/NMR Fid/1_1H.mnova
+jo4c02844_si_002/NMR Fid/2_13C.mnova
+jo4c02844_si_002/NMR Fid/2_1H.mnova
+jo4c02844_si_002/NMR Fid/3_13C.mnova
+jo4c02844_si_002/NMR Fid/3_1H.mnova
+jo4c02844_si_002/NMR Fid/4_13C.mnova
+jo4c02844_si_002/NMR Fid/4_1H.mnova
+jo4c02844_si_002/NMR Fid/5_13C.mnova
+jo4c02844_si_002/NMR Fid/5_1H.mnova
+jo4c02844_si_002/NMR Fid/6_13C.mnova
+jo4c02844_si_002/NMR Fid/6_1H.mnova
+jo4c02844_si_002/NMR Fid/7_13C.mnova
+jo4c02844_si_002/NMR Fid/7_1H.mnova
+jo4c02844_si_002/NMR Fid/8_13C.mnova
+jo4c02844_si_002/NMR Fid/8_1H.mnova
+jo4c02844_si_002/NMR Fid/9_13C.mnova
+jo4c02844_si_002/NMR Fid/9_1H.mnova
+
+---------- FILE_LIST_JO4C02860.TXT
+jo4c02860_si_001/NMR/A1/A1-H.mnova
+jo4c02860_si_001/NMR/A10/A10-H.mnova
+jo4c02860_si_001/NMR/A11/A11-H.mnova
+jo4c02860_si_001/NMR/A12/A12-H.mnova
+jo4c02860_si_001/NMR/A13/A13-H.mnova
+jo4c02860_si_001/NMR/A14/A14-H.mnova
+jo4c02860_si_001/NMR/A15/A15-H.mnova
+jo4c02860_si_001/NMR/A16/A16-H.mnova
+jo4c02860_si_001/NMR/A17/A17-H.mnova
+jo4c02860_si_001/NMR/A18/A18-H.mnova
+jo4c02860_si_001/NMR/A19/A19-H.mnova
+jo4c02860_si_001/NMR/A2/A2-H.mnova
+jo4c02860_si_001/NMR/A20/A20-H.mnova
+jo4c02860_si_001/NMR/A21/A21-H.mnova
+jo4c02860_si_001/NMR/A22/A22-H.mnova
+jo4c02860_si_001/NMR/A23/A23-H.mnova
+jo4c02860_si_001/NMR/A24/A24-H.mnova
+jo4c02860_si_001/NMR/A25/A25-H.mnova
+jo4c02860_si_001/NMR/A26/A26-H.mnova
+jo4c02860_si_001/NMR/A27/A27-H.mnova
+jo4c02860_si_001/NMR/A28/A28-H.mnova
+jo4c02860_si_001/NMR/A29/A29-H.mnova
+jo4c02860_si_001/NMR/A3/A3-H.mnova
+jo4c02860_si_001/NMR/A30/A30-H.mnova
+jo4c02860_si_001/NMR/A31/A31-H.mnova
+jo4c02860_si_001/NMR/A4/A4-H.mnova
+jo4c02860_si_001/NMR/A5/A5-H.mnova
+jo4c02860_si_001/NMR/A6/A6-H.mnova
+jo4c02860_si_001/NMR/A7/A7-H.mnova
+jo4c02860_si_001/NMR/A8/A8-H.mnova
+jo4c02860_si_001/NMR/A9/A9-H.mnova
+jo4c02860_si_001/NMR/C1/C1-C.mnova
+jo4c02860_si_001/NMR/C1/C1-D.mnova
+jo4c02860_si_001/NMR/C1/C1-H.mnova
+jo4c02860_si_001/NMR/C10/C10-C.mnova
+jo4c02860_si_001/NMR/C10/C10-D.mnova
+jo4c02860_si_001/NMR/C10/C10-H.mnova
+jo4c02860_si_001/NMR/C11/C11-C.mnova
+jo4c02860_si_001/NMR/C11/C11-D.mnova
+jo4c02860_si_001/NMR/C11/C11-F.mnova
+jo4c02860_si_001/NMR/C11/C11-H.mnova
+jo4c02860_si_001/NMR/C12/C12-C.mnova
+jo4c02860_si_001/NMR/C12/C12-D.mnova
+jo4c02860_si_001/NMR/C12/C12-H.mnova
+jo4c02860_si_001/NMR/C13/C13-C.mnova
+jo4c02860_si_001/NMR/C13/C13-D.mnova
+jo4c02860_si_001/NMR/C13/C13-H.mnova
+jo4c02860_si_001/NMR/C14/C14-C.mnova
+jo4c02860_si_001/NMR/C14/C14-D.mnova
+jo4c02860_si_001/NMR/C14/C14-F.mnova
+jo4c02860_si_001/NMR/C14/C14-H.mnova
+jo4c02860_si_001/NMR/C15/C15-C.mnova
+jo4c02860_si_001/NMR/C15/C15-D.mnova
+jo4c02860_si_001/NMR/C15/C15-H.mnova
+jo4c02860_si_001/NMR/C16/C16-C.mnova
+jo4c02860_si_001/NMR/C16/C16-D.mnova
+jo4c02860_si_001/NMR/C16/C16-H.mnova
+jo4c02860_si_001/NMR/C17/C17-C.mnova
+jo4c02860_si_001/NMR/C17/C17-D.mnova
+jo4c02860_si_001/NMR/C17/C17-H.mnova
+jo4c02860_si_001/NMR/C18/C18-C.mnova
+jo4c02860_si_001/NMR/C18/C18-D.mnova
+jo4c02860_si_001/NMR/C18/C18-H.mnova
+jo4c02860_si_001/NMR/C19/C19-C.mnova
+jo4c02860_si_001/NMR/C19/C19-D.mnova
+jo4c02860_si_001/NMR/C19/C19-H.mnova
+jo4c02860_si_001/NMR/C2/C2-C.mnova
+jo4c02860_si_001/NMR/C2/C2-D.mnova
+jo4c02860_si_001/NMR/C2/C2-H.mnova
+jo4c02860_si_001/NMR/C20/C20-C.mnova
+jo4c02860_si_001/NMR/C20/C20-D.mnova
+jo4c02860_si_001/NMR/C20/C20-H.mnova
+jo4c02860_si_001/NMR/C21/C21-C.mnova
+jo4c02860_si_001/NMR/C21/C21-D.mnova
+jo4c02860_si_001/NMR/C21/C21-H.mnova
+jo4c02860_si_001/NMR/C22/C22-C.mnova
+jo4c02860_si_001/NMR/C22/C22-D.mnova
+jo4c02860_si_001/NMR/C22/C22-H.mnova
+jo4c02860_si_001/NMR/C23/C23-C.mnova
+jo4c02860_si_001/NMR/C23/C23-D.mnova
+jo4c02860_si_001/NMR/C23/C23-H.mnova
+jo4c02860_si_001/NMR/C24/C24-C.mnova
+jo4c02860_si_001/NMR/C24/C24-D.mnova
+jo4c02860_si_001/NMR/C24/C24-H.mnova
+jo4c02860_si_001/NMR/C25/C25-C.mnova
+jo4c02860_si_001/NMR/C25/C25-D.mnova
+jo4c02860_si_001/NMR/C25/C25-H.mnova
+jo4c02860_si_001/NMR/C26/C26-C.mnova
+jo4c02860_si_001/NMR/C26/C26-D.mnova
+jo4c02860_si_001/NMR/C26/C26-H.mnova
+jo4c02860_si_001/NMR/C27/C27-C.mnova
+jo4c02860_si_001/NMR/C27/C27-D.mnova
+jo4c02860_si_001/NMR/C27/C27-H.mnova
+jo4c02860_si_001/NMR/C28/C28-C.mnova
+jo4c02860_si_001/NMR/C28/C28-D.mnova
+jo4c02860_si_001/NMR/C28/C28-H.mnova
+jo4c02860_si_001/NMR/C29/C29-C.mnova
+jo4c02860_si_001/NMR/C29/C29-D.mnova
+jo4c02860_si_001/NMR/C29/C29-H.mnova
+jo4c02860_si_001/NMR/C3/C3-C.mnova
+jo4c02860_si_001/NMR/C3/C3-D.mnova
+jo4c02860_si_001/NMR/C3/C3-H.mnova
+jo4c02860_si_001/NMR/C30/C30-C.mnova
+jo4c02860_si_001/NMR/C30/C30-D.mnova
+jo4c02860_si_001/NMR/C30/C30-H.mnova
+jo4c02860_si_001/NMR/C31/C31-C.mnova
+jo4c02860_si_001/NMR/C31/C31-D.mnova
+jo4c02860_si_001/NMR/C31/C31-H.mnova
+jo4c02860_si_001/NMR/C32/C32-C.mnova
+jo4c02860_si_001/NMR/C32/C32-D.mnova
+jo4c02860_si_001/NMR/C32/C32-H.mnova
+jo4c02860_si_001/NMR/C4/C4-C.mnova
+jo4c02860_si_001/NMR/C4/C4-D.mnova
+jo4c02860_si_001/NMR/C4/C4-H.mnova
+jo4c02860_si_001/NMR/C5/C5-C.mnova
+jo4c02860_si_001/NMR/C5/C5-D.mnova
+jo4c02860_si_001/NMR/C5/C5-H.mnova
+jo4c02860_si_001/NMR/C6/C6-C.mnova
+jo4c02860_si_001/NMR/C6/C6-D.mnova
+jo4c02860_si_001/NMR/C6/C6-H.mnova
+jo4c02860_si_001/NMR/C7/C7-C.mnova
+jo4c02860_si_001/NMR/C7/C7-D.mnova
+jo4c02860_si_001/NMR/C7/C7-H.mnova
+jo4c02860_si_001/NMR/C8/C8-C.mnova
+jo4c02860_si_001/NMR/C8/C8-D.mnova
+jo4c02860_si_001/NMR/C8/C8-H.mnova
+jo4c02860_si_001/NMR/C9/C9-C.mnova
+jo4c02860_si_001/NMR/C9/C9-D.mnova
+jo4c02860_si_001/NMR/C9/C9-H.mnova
+jo4c02860_si_001/NMR/D1/D1-C.mnova
+jo4c02860_si_001/NMR/D1/D1-D.mnova
+jo4c02860_si_001/NMR/D1/D1-H.mnova
+
+---------- FILE_LIST_JO4C02893.TXT
+
+---------- FILE_LIST_JO4C02921.TXT
+
+---------- FILE_LIST_JO4C02967.TXT
+jo4c02967_si_002/1q/2i/1HNMR.mnova
+jo4c02967_si_002/2i/1HNMR.mnova
+
+---------- FILE_LIST_JO4C03015.TXT
+
+---------- FILE_LIST_JO4C03046.TXT
+
+---------- FILE_LIST_JO4C03071.TXT
+
+---------- FILE_LIST_JO4C03085.TXT
+
+---------- FILE_LIST_JO4C03092.TXT
+
+---------- FILE_LIST_JO4C03094.TXT
+
+---------- FILE_LIST_JO4C03118.TXT
+
+---------- FILE_LIST_JO4C03140.TXT
+
+---------- FILE_LIST_JO4C03150.TXT
+
+---------- FILE_LIST_JO4C03151.TXT
+
+---------- FILE_LIST_JO4C03180.TXT
+
+---------- FILE_LIST_JO4C03181.TXT
+jo4c03181_si_002/All NMR Data/1n/1n 13C.mnova
+jo4c03181_si_002/All NMR Data/1n/1n 1H.mnova
+jo4c03181_si_002/All NMR Data/1o/1o 13C.mnova
+jo4c03181_si_002/All NMR Data/1o/1o 1H.mnova
+jo4c03181_si_002/All NMR Data/1p/1p 13C.mnova
+jo4c03181_si_002/All NMR Data/1p/1p 1H.mnova
+jo4c03181_si_002/All NMR Data/1q/1q 13C.mnova
+jo4c03181_si_002/All NMR Data/1q/1q 1H.mnova
+jo4c03181_si_002/All NMR Data/3a/3a 13C.mnova
+jo4c03181_si_002/All NMR Data/3a/3a 19F.mnova
+jo4c03181_si_002/All NMR Data/3a/3a 1H.mnova
+jo4c03181_si_002/All NMR Data/3b/3b 13C.mnova
+jo4c03181_si_002/All NMR Data/3b/3b 19F.mnova
+jo4c03181_si_002/All NMR Data/3b/3b 1H.mnova
+jo4c03181_si_002/All NMR Data/3c/3c 13C.mnova
+jo4c03181_si_002/All NMR Data/3c/3c 19F.mnova
+jo4c03181_si_002/All NMR Data/3c/3c 1H.mnova
+jo4c03181_si_002/All NMR Data/3d/3d 13C.mnova
+jo4c03181_si_002/All NMR Data/3d/3d 19F.mnova
+jo4c03181_si_002/All NMR Data/3d/3d 1H.mnova
+jo4c03181_si_002/All NMR Data/3e/3e 13C.mnova
+jo4c03181_si_002/All NMR Data/3e/3e 19F.mnova
+jo4c03181_si_002/All NMR Data/3e/3e 1H.mnova
+jo4c03181_si_002/All NMR Data/3f/3f 13C.mnova
+jo4c03181_si_002/All NMR Data/3f/3f 19F.mnova
+jo4c03181_si_002/All NMR Data/3f/3f 1H.mnova
+jo4c03181_si_002/All NMR Data/3g/3g 13C.mnova
+jo4c03181_si_002/All NMR Data/3g/3g 19F.mnova
+jo4c03181_si_002/All NMR Data/3g/3g 1H.mnova
+jo4c03181_si_002/All NMR Data/3h/3h 13C.mnova
+jo4c03181_si_002/All NMR Data/3h/3h 19F.mnova
+jo4c03181_si_002/All NMR Data/3h/3h 1H.mnova
+jo4c03181_si_002/All NMR Data/3i/3i 13C.mnova
+jo4c03181_si_002/All NMR Data/3i/3i 19F.mnova
+jo4c03181_si_002/All NMR Data/3i/3i 1H.mnova
+jo4c03181_si_002/All NMR Data/3j/3j 13C.mnova
+jo4c03181_si_002/All NMR Data/3j/3j 1H.mnova
+jo4c03181_si_002/All NMR Data/3j/3j19F.mnova
+jo4c03181_si_002/All NMR Data/3k/3k 13C.mnova
+jo4c03181_si_002/All NMR Data/3k/3k 19F.mnova
+jo4c03181_si_002/All NMR Data/3k/3k 1H.mnova
+jo4c03181_si_002/All NMR Data/3l/3l 13C.mnova
+jo4c03181_si_002/All NMR Data/3l/3l 19F.mnova
+jo4c03181_si_002/All NMR Data/3l/3l 1H.mnova
+jo4c03181_si_002/All NMR Data/3m/3m 13C.mnova
+jo4c03181_si_002/All NMR Data/3m/3m 19F.mnova
+jo4c03181_si_002/All NMR Data/3m/3m 1H.mnova
+jo4c03181_si_002/All NMR Data/3n/3n 13C.mnova
+jo4c03181_si_002/All NMR Data/3n/3n 19F.mnova
+jo4c03181_si_002/All NMR Data/3n/3n 1H.mnova
+jo4c03181_si_002/All NMR Data/3o/3o 13C.mnova
+jo4c03181_si_002/All NMR Data/3o/3o 19F.mnova
+jo4c03181_si_002/All NMR Data/3o/3o 1H.mnova
+jo4c03181_si_002/All NMR Data/3p/3p 13C.mnova
+jo4c03181_si_002/All NMR Data/3p/3p 19F.mnova
+jo4c03181_si_002/All NMR Data/3p/3p 1H.mnova
+jo4c03181_si_002/All NMR Data/3q/3q 13C.mnova
+jo4c03181_si_002/All NMR Data/3q/3q 19F.mnova
+jo4c03181_si_002/All NMR Data/3q/3q 1H.mnova
+jo4c03181_si_002/All NMR Data/3r/3r 13C.mnova
+jo4c03181_si_002/All NMR Data/3r/3r 19F.mnova
+jo4c03181_si_002/All NMR Data/3r/3r 1H.mnova
+jo4c03181_si_002/All NMR Data/3s/3s 13C.mnova
+jo4c03181_si_002/All NMR Data/3s/3s 19F.mnova
+jo4c03181_si_002/All NMR Data/3s/3s 1H.mnova
+jo4c03181_si_002/All NMR Data/3t/3t 13C.mnova
+jo4c03181_si_002/All NMR Data/3t/3t 19F.mnova
+jo4c03181_si_002/All NMR Data/3t/3t 1H.mnova
+jo4c03181_si_002/All NMR Data/3u/3u 13C.mnova
+jo4c03181_si_002/All NMR Data/3u/3u 19F.mnova
+jo4c03181_si_002/All NMR Data/3u/3u 1H.mnova
+jo4c03181_si_002/All NMR Data/4a/4a 13C.mnova
+jo4c03181_si_002/All NMR Data/4a/4a 19F.mnova
+jo4c03181_si_002/All NMR Data/4a/4a 1H.mnova
+jo4c03181_si_002/All NMR Data/4b/4b 13C.mnova
+jo4c03181_si_002/All NMR Data/4b/4b 19F.mnova
+jo4c03181_si_002/All NMR Data/4b/4b 1H.mnova
+jo4c03181_si_002/All NMR Data/4c/4c 13C.mnova
+jo4c03181_si_002/All NMR Data/4c/4c 19F.mnova
+jo4c03181_si_002/All NMR Data/4c/4c 1H.mnova
+jo4c03181_si_002/All NMR Data/4d/4d 13C.mnova
+jo4c03181_si_002/All NMR Data/4d/4d 19F.mnova
+jo4c03181_si_002/All NMR Data/4d/4d 1H.mnova
+jo4c03181_si_002/All NMR Data/4e/4e 13C.mnova
+jo4c03181_si_002/All NMR Data/4e/4e 19F.mnova
+jo4c03181_si_002/All NMR Data/4e/4e 1H.mnova
+jo4c03181_si_002/All NMR Data/4f/4f 13C.mnova
+jo4c03181_si_002/All NMR Data/4f/4f 19F.mnova
+jo4c03181_si_002/All NMR Data/4f/4f 1H.mnova
+jo4c03181_si_002/All NMR Data/4g/4g 13C.mnova
+jo4c03181_si_002/All NMR Data/4g/4g 19F.mnova
+jo4c03181_si_002/All NMR Data/4g/4g 1H.mnova
+jo4c03181_si_002/All NMR Data/4h/4h 13C.mnova
+jo4c03181_si_002/All NMR Data/4h/4h 19F.mnova
+jo4c03181_si_002/All NMR Data/4h/4h 1H.mnova
+jo4c03181_si_002/All NMR Data/4i/4i 13C.mnova
+jo4c03181_si_002/All NMR Data/4i/4i 19F.mnova
+jo4c03181_si_002/All NMR Data/4i/4i 1H.mnova
+jo4c03181_si_002/All NMR Data/4j/4j 13C.mnova
+jo4c03181_si_002/All NMR Data/4j/4j 19F.mnova
+jo4c03181_si_002/All NMR Data/4j/4j 1H.mnova
+jo4c03181_si_002/All NMR Data/4k/4k 13C.mnova
+jo4c03181_si_002/All NMR Data/4k/4k 19F.mnova
+jo4c03181_si_002/All NMR Data/4k/4k 1H.mnova
+jo4c03181_si_002/All NMR Data/4l/4l 13C.mnova
+jo4c03181_si_002/All NMR Data/4l/4l 19F.mnova
+jo4c03181_si_002/All NMR Data/4l/4l 1H.mnova
+jo4c03181_si_002/All NMR Data/4m/4m 13C.mnova
+jo4c03181_si_002/All NMR Data/4m/4m 19F.mnova
+jo4c03181_si_002/All NMR Data/4m/4m 1H.mnova
+jo4c03181_si_002/All NMR Data/4n/4n 13C.mnova
+jo4c03181_si_002/All NMR Data/4n/4n 19F.mnova
+jo4c03181_si_002/All NMR Data/4n/4n 1H.mnova
+jo4c03181_si_002/All NMR Data/4o/4o 13C.mnova
+jo4c03181_si_002/All NMR Data/4o/4o 19F.mnova
+jo4c03181_si_002/All NMR Data/4o/4o 1H.mnova
+jo4c03181_si_002/All NMR Data/4p/4p 13C.mnova
+jo4c03181_si_002/All NMR Data/4p/4p 19F.mnova
+jo4c03181_si_002/All NMR Data/4p/4p 1H.mnova
+jo4c03181_si_002/All NMR Data/4q/4q 13C.mnova
+jo4c03181_si_002/All NMR Data/4q/4q 19F.mnova
+jo4c03181_si_002/All NMR Data/4q/4q 1H.mnova
+jo4c03181_si_002/All NMR Data/4r/4r 13C.mnova
+jo4c03181_si_002/All NMR Data/4r/4r 19F.mnova
+jo4c03181_si_002/All NMR Data/4r/4r 1H.mnova
+jo4c03181_si_002/All NMR Data/4s/4s 13C.mnova
+jo4c03181_si_002/All NMR Data/4s/4s 19F.mnova
+jo4c03181_si_002/All NMR Data/4s/4s 1H.mnova
+jo4c03181_si_002/All NMR Data/4t/4t 13C.mnova
+jo4c03181_si_002/All NMR Data/4t/4t 19F.mnova
+jo4c03181_si_002/All NMR Data/4t/4t 1H.mnova
+jo4c03181_si_002/All NMR Data/5/5 13C.mnova
+jo4c03181_si_002/All NMR Data/5/5 19F.mnova
+jo4c03181_si_002/All NMR Data/5/5 1H.mnova
+jo4c03181_si_002/All NMR Data/i/i 13C.mnova
+jo4c03181_si_002/All NMR Data/i/i 1H.mnova
+jo4c03181_si_002/All NMR Data/ii/ii 13C.mnova
+jo4c03181_si_002/All NMR Data/ii/ii 1H.mnova
+jo4c03181_si_002/All NMR Data/iii/iii 13C.mnova
+jo4c03181_si_002/All NMR Data/iii/iii 1H.mnova
+jo4c03181_si_002/All NMR Data/iv/iv 13C.mnova
+jo4c03181_si_002/All NMR Data/iv/iv 1H.mnova
+
+---------- FILE_LIST_JO5C00007.TXT
+
+---------- FILE_LIST_JO5C00061.TXT
+jo5c00061_si_002/NMR/[10b-CC]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[10b-NC]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[11b]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[11s]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[12b]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[13b]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[16s]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1a]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1b]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1c]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1e]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1f]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1g]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1h]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1i]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1j]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1k]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1l]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1n]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1o]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1p]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1q]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1r]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1s]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1t]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1u]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[1v]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2a]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2b]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2c]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2d]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2e]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2f]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2gg]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2g]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2i]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2j]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2k]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2l]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2m]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2n]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2o]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2s]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[2t]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[3a]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[4b]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[5b-major]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[5b-minor]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[5bII]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[6b]/[6b]/Processed Spctra.mnova
+jo5c00061_si_002/NMR/[7b]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[8b]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[8s]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[9b]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[E12s]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[E13s]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[E15b]/Processed Spectra.mnova
+jo5c00061_si_002/NMR/[E15s]/Processed Spectra.mnova
+
+---------- FILE_LIST_JO5C00117.TXT
+jo5c00117_si_002/FID data/10-C.mnova
+jo5c00117_si_002/FID data/10-F.mnova
+jo5c00117_si_002/FID data/10-H.mnova
+jo5c00117_si_002/FID data/3a-C.mnova
+jo5c00117_si_002/FID data/3a-F.mnova
+jo5c00117_si_002/FID data/3a-H.mnova
+jo5c00117_si_002/FID data/3b-C.mnova
+jo5c00117_si_002/FID data/3b-F.mnova
+jo5c00117_si_002/FID data/3b-H.mnova
+jo5c00117_si_002/FID data/3c-C.mnova
+jo5c00117_si_002/FID data/3c-F.mnova
+jo5c00117_si_002/FID data/3c-H.mnova
+jo5c00117_si_002/FID data/3d-C.mnova
+jo5c00117_si_002/FID data/3d-F.mnova
+jo5c00117_si_002/FID data/3d-H.mnova
+jo5c00117_si_002/FID data/3e-C.mnova
+jo5c00117_si_002/FID data/3e-F.mnova
+jo5c00117_si_002/FID data/3e-H.mnova
+jo5c00117_si_002/FID data/3f-C.mnova
+jo5c00117_si_002/FID data/3f-F.mnova
+jo5c00117_si_002/FID data/3f-H.mnova
+jo5c00117_si_002/FID data/3g-C.mnova
+jo5c00117_si_002/FID data/3g-F.mnova
+jo5c00117_si_002/FID data/3g-H.mnova
+jo5c00117_si_002/FID data/3h-C.mnova
+jo5c00117_si_002/FID data/3h-F.mnova
+jo5c00117_si_002/FID data/3h-H.mnova
+jo5c00117_si_002/FID data/3i-C.mnova
+jo5c00117_si_002/FID data/3i-F.mnova
+jo5c00117_si_002/FID data/3i-H.mnova
+jo5c00117_si_002/FID data/3j-C.mnova
+jo5c00117_si_002/FID data/3j-F.mnova
+jo5c00117_si_002/FID data/3j-H.mnova
+jo5c00117_si_002/FID data/3k-C.mnova
+jo5c00117_si_002/FID data/3k-F.mnova
+jo5c00117_si_002/FID data/3k-H.mnova
+jo5c00117_si_002/FID data/3l-C.mnova
+jo5c00117_si_002/FID data/3l-F.mnova
+jo5c00117_si_002/FID data/3l-H.mnova
+jo5c00117_si_002/FID data/3m-C.mnova
+jo5c00117_si_002/FID data/3m-F.mnova
+jo5c00117_si_002/FID data/3m-H.mnova
+jo5c00117_si_002/FID data/3n-C.mnova
+jo5c00117_si_002/FID data/3n-F.mnova
+jo5c00117_si_002/FID data/3n-H.mnova
+jo5c00117_si_002/FID data/3o-C.mnova
+jo5c00117_si_002/FID data/3o-F.mnova
+jo5c00117_si_002/FID data/3o-h.mnova
+jo5c00117_si_002/FID data/3p-C.mnova
+jo5c00117_si_002/FID data/3p-F.mnova
+jo5c00117_si_002/FID data/3p-H.mnova
+jo5c00117_si_002/FID data/4-C.mnova
+jo5c00117_si_002/FID data/4-F.mnova
+jo5c00117_si_002/FID data/4-H.mnova
+jo5c00117_si_002/FID data/5-C.mnova
+jo5c00117_si_002/FID data/5-F.mnova
+jo5c00117_si_002/FID data/5-H.mnova
+jo5c00117_si_002/FID data/6-C.mnova
+jo5c00117_si_002/FID data/6-H.mnova
+jo5c00117_si_002/FID data/9-C.mnova
+jo5c00117_si_002/FID data/9-H.mnova
+
+---------- FILE_LIST_JO5C00149.TXT
+
+---------- FILE_LIST_JO5C00156.TXT
+
+---------- FILE_LIST_JO5C00171.TXT
+
+---------- FILE_LIST_JO5C00184.TXT
+
+---------- FILE_LIST_JO5C00188.TXT
+
+---------- FILE_LIST_JO5C00189.TXT
+
+---------- FILE_LIST_JO5C00193.TXT
+
+---------- FILE_LIST_JO5C00246.TXT
+
+---------- FILE_LIST_JO5C00270.TXT
+
+---------- FILE_LIST_JO5C00284.TXT
+
+---------- FILE_LIST_JO5C00316.TXT
+
+---------- FILE_LIST_JO5C00317.TXT
+
+---------- FILE_LIST_JO5C00330.TXT
+jo5c00330_si_002/3aa/3aa.mnova
+jo5c00330_si_002/3ab/3ab.mnova
+jo5c00330_si_002/3ac/3ac.mnova
+jo5c00330_si_002/3ad/3ad.mnova
+jo5c00330_si_002/3ae/3ae.mnova
+jo5c00330_si_002/3af/3af.mnova
+jo5c00330_si_002/3ag/3ag.mnova
+jo5c00330_si_002/3ah/3ah.mnova
+jo5c00330_si_002/3ai/3ai.mnova
+jo5c00330_si_002/3aj/3aj.mnova
+jo5c00330_si_002/3am/3am.mnova
+jo5c00330_si_002/3ba/3ba.mnova
+jo5c00330_si_002/3ca/3ca.mnova
+jo5c00330_si_002/3da/3da.mnova
+jo5c00330_si_002/3ea/3ea.mnova
+jo5c00330_si_002/3fa/3fa.mnova
+jo5c00330_si_002/3ga/3ga.mnova
+jo5c00330_si_002/3ka/3ka.mnova
+jo5c00330_si_002/3la/cis-3la.mnova
+jo5c00330_si_002/3la/trans-3la.mnova
+jo5c00330_si_002/3ma/3ma.mnova
+jo5c00330_si_002/4/4.mnova
+jo5c00330_si_002/5/5.mnova
+jo5c00330_si_002/raw material/1d/1d.mnova
+jo5c00330_si_002/raw material/1e/1e.mnova
+jo5c00330_si_002/raw material/1h/1h.mnova
+jo5c00330_si_002/raw material/1i/1i.mnova
+jo5c00330_si_002/raw material/1j/1j.mnova
+jo5c00330_si_002/raw material/1j/1m.mnova
+jo5c00330_si_002/raw material/2a/2a.mnova
+jo5c00330_si_002/raw material/2b/2b.mnova
+jo5c00330_si_002/raw material/2d/2d.mnova
+jo5c00330_si_002/raw material/2e/2e.mnova
+jo5c00330_si_002/raw material/2f/2f.mnova
+jo5c00330_si_002/raw material/2g/2g.mnova
+jo5c00330_si_002/raw material/2h/2h.mnova
+jo5c00330_si_002/raw material/2i/2i.mnova
+jo5c00330_si_002/raw material/2j/2j.mnova
+jo5c00330_si_002/raw material/2k/2k.mnova
+jo5c00330_si_002/raw material/2l/2l.mnova
+jo5c00330_si_003/3aa/3aa.mnova
+jo5c00330_si_003/3ab/3ab.mnova
+jo5c00330_si_003/3ac/3ac.mnova
+jo5c00330_si_003/3ad/3ad.mnova
+jo5c00330_si_003/3ae/3ae.mnova
+jo5c00330_si_003/3af/3af.mnova
+jo5c00330_si_003/3ag/3ag.mnova
+jo5c00330_si_003/3ah/3ah.mnova
+jo5c00330_si_003/3ai/3ai.mnova
+jo5c00330_si_003/3aj/3aj.mnova
+jo5c00330_si_003/3am/3am.mnova
+jo5c00330_si_003/3ba/3ba.mnova
+jo5c00330_si_003/3ca/3ca.mnova
+jo5c00330_si_003/3da/3da.mnova
+jo5c00330_si_003/3ea/3ea.mnova
+jo5c00330_si_003/3fa/3fa.mnova
+jo5c00330_si_003/3ga/3ga.mnova
+jo5c00330_si_003/3ka/3ka.mnova
+jo5c00330_si_003/3la/cis-3la.mnova
+jo5c00330_si_003/3la/trans-3la.mnova
+jo5c00330_si_003/3ma/3ma.mnova
+jo5c00330_si_003/4/4.mnova
+jo5c00330_si_003/5/5.mnova
+jo5c00330_si_003/raw material/1d/1d.mnova
+jo5c00330_si_003/raw material/1e/1e.mnova
+jo5c00330_si_003/raw material/1h/1h.mnova
+jo5c00330_si_003/raw material/1i/1i.mnova
+jo5c00330_si_003/raw material/1j/1j.mnova
+jo5c00330_si_003/raw material/1j/1m.mnova
+jo5c00330_si_003/raw material/2a/2a.mnova
+jo5c00330_si_003/raw material/2b/2b.mnova
+jo5c00330_si_003/raw material/2d/2d.mnova
+jo5c00330_si_003/raw material/2e/2e.mnova
+jo5c00330_si_003/raw material/2f/2f.mnova
+jo5c00330_si_003/raw material/2g/2g.mnova
+jo5c00330_si_003/raw material/2h/2h.mnova
+jo5c00330_si_003/raw material/2i/2i.mnova
+jo5c00330_si_003/raw material/2j/2j.mnova
+jo5c00330_si_003/raw material/2k/2k.mnova
+jo5c00330_si_003/raw material/2l/2l.mnova
+
+---------- FILE_LIST_JO5C00369.TXT
+jo5c00369_si_002/zipped file of FID data/Silole-AC.mnova
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-AC.mnova
+jo5c00369_si_002/zipped file of FID data/Silole-Ph-PXZ.mnova
+jo5c00369_si_002/zipped file of FID data/Silole-PXZ.mnova
+
+---------- FILE_LIST_JO5C00389.TXT
+
+---------- FILE_LIST_JO5C00424.TXT
+
+---------- FILE_LIST_JO5C00472.TXT
+
+---------- FILE_LIST_JO5C00474.TXT
+
+---------- FILE_LIST_JO5C00508.TXT
+
+---------- FILE_LIST_JO5C00513.TXT
+
+---------- FILE_LIST_JO5C00521.TXT
+
+---------- FILE_LIST_JO5C00526.TXT
+
+---------- FILE_LIST_JO5C00545.TXT
+
+---------- FILE_LIST_JO5C00606.TXT
+
+---------- FILE_LIST_JO5C00609.TXT
+
+---------- FILE_LIST_JO5C00613.TXT
+
+---------- FILE_LIST_JO5C00649.TXT
+
+---------- FILE_LIST_JO5C00670.TXT
+
+---------- FILE_LIST_JO5C00717.TXT
+
+---------- FILE_LIST_JO5C00727.TXT
+
+---------- FILE_LIST_JO5C00741.TXT
+
+---------- FILE_LIST_JO5C00774.TXT
+
+---------- FILE_LIST_JO5C00794.TXT
+
+---------- FILE_LIST_JO5C00884.TXT
+jo5c00884_si_001/FID/3e 3f 3g.mnova
+jo5c00884_si_001/FID/Document 111.mnova
+
+---------- FILE_LIST_JO5C00912.TXT
+
+---------- FILE_LIST_JO5C00952.TXT
+jo5c00952_si_002/1o/MX1-CNMR.mnova
+jo5c00952_si_002/1o/MX1-HNMR.mnova
+
+---------- FILE_LIST_JO5C00954.TXT
+
+---------- FILE_LIST_JO5C01002.TXT
+
+---------- FILE_LIST_OL5C02536.TXT
+
+---------- FILE_LIST_OL5C03626.TXT
+
+---------- FILE_LIST_OL5C04969.TXT
+ol5c04969_si_001/10/10-C.mnova
+ol5c04969_si_001/10/10-F.mnova
+ol5c04969_si_001/10/10-H.mnova
+ol5c04969_si_001/3aa-3ad/3aa/3aa-c.mnova
+ol5c04969_si_001/3aa-3ad/3aa/3aa-f.mnova
+ol5c04969_si_001/3aa-3ad/3aa/3aa-h.mnova
+ol5c04969_si_001/3aa-3ad/3ab/SJD-3ab-C.mnova
+ol5c04969_si_001/3aa-3ad/3ab/SJD-3ab-F.mnova
+ol5c04969_si_001/3aa-3ad/3ab/SJD-3ab-H.mnova
+ol5c04969_si_001/3aa-3ad/3ac/SJD-3ac-C.mnova
+ol5c04969_si_001/3aa-3ad/3ac/SJD-3ac-F.mnova
+ol5c04969_si_001/3aa-3ad/3ac/SJD-3ac-H.mnova
+ol5c04969_si_001/3ba-3bh/3ba/3ba-C.mnova
+ol5c04969_si_001/3ba-3bh/3ba/3ba-F.mnova
+ol5c04969_si_001/3ba-3bh/3ba/3ba-H.mnova
+ol5c04969_si_001/3ba-3bh/3bb/3bb-C.mnova
+ol5c04969_si_001/3ba-3bh/3bb/3bb-F.mnova
+ol5c04969_si_001/3ba-3bh/3bb/3bb-H.mnova
+ol5c04969_si_001/3ba-3bh/3bc/378-C.mnova
+ol5c04969_si_001/3ba-3bh/3bc/3bc-F.mnova
+ol5c04969_si_001/3ba-3bh/3bc/3bc-H.mnova
+ol5c04969_si_001/3ba-3bh/3bd/3bd-C.mnova
+ol5c04969_si_001/3ba-3bh/3bd/3bd-F.mnova
+ol5c04969_si_001/3ba-3bh/3bd/3bd-H.mnova
+ol5c04969_si_001/3ba-3bh/3be/3be-C.mnova
+ol5c04969_si_001/3ba-3bh/3be/3be-F.mnova
+ol5c04969_si_001/3ba-3bh/3be/3be-H.mnova
+ol5c04969_si_001/3ba-3bh/3bf/3bf-C.mnova
+ol5c04969_si_001/3ba-3bh/3bf/3bf-F.mnova
+ol5c04969_si_001/3ba-3bh/3bf/3bf-H.mnova
+ol5c04969_si_001/3ba-3bh/3bg/3bg-C.mnova
+ol5c04969_si_001/3ba-3bh/3bg/3bg-F.mnova
+ol5c04969_si_001/3ba-3bh/3bg/3bg-H.mnova
+ol5c04969_si_001/3ba-3bh/3bh/3bh-C.mnova
+ol5c04969_si_001/3ba-3bh/3bh/3bh-F.mnova
+ol5c04969_si_001/3ba-3bh/3bh/3bh-H.mnova
+ol5c04969_si_001/3ca-3cd/3ca/3ca-C.mnova
+ol5c04969_si_001/3ca-3cd/3ca/3ca-F.mnova
+ol5c04969_si_001/3ca-3cd/3ca/3ca-H.mnova
+ol5c04969_si_001/3ca-3cd/3cb/3cb-C.mnova
+ol5c04969_si_001/3ca-3cd/3cb/3cb-F.mnova
+ol5c04969_si_001/3ca-3cd/3cb/3cb-H.mnova
+ol5c04969_si_001/3ca-3cd/3cc/3cc-C.mnova
+ol5c04969_si_001/3ca-3cd/3cc/3cc-F.mnova
+ol5c04969_si_001/3ca-3cd/3cc/3cc-H.mnova
+ol5c04969_si_001/3ca-3cd/3cd/3cd-C.mnova
+ol5c04969_si_001/3ca-3cd/3cd/3cd-F.mnova
+ol5c04969_si_001/3ca-3cd/3cd/3cd-H.mnova
+ol5c04969_si_001/3da-3dd/3da/3da-C.mnova
+ol5c04969_si_001/3da-3dd/3da/3da-F.mnova
+ol5c04969_si_001/3da-3dd/3da/3da-H.mnova
+ol5c04969_si_001/3da-3dd/3db/3db-C.mnova
+ol5c04969_si_001/3da-3dd/3db/3db-F.mnova
+ol5c04969_si_001/3da-3dd/3db/3db-H.mnova
+ol5c04969_si_001/3da-3dd/3dc/3dc-C.mnova
+ol5c04969_si_001/3da-3dd/3dc/3dc-F.mnova
+ol5c04969_si_001/3da-3dd/3dc/3dc-H.mnova
+ol5c04969_si_001/3da-3dd/3dd/3dd-C.mnova
+ol5c04969_si_001/3da-3dd/3dd/3dd-F.mnova
+ol5c04969_si_001/3da-3dd/3dd/3dd-H.mnova
+ol5c04969_si_001/3ea-3ed/3ea/3ea-C.mnova
+ol5c04969_si_001/3ea-3ed/3ea/3ea-F.mnova
+ol5c04969_si_001/3ea-3ed/3ea/3ea-H.mnova
+ol5c04969_si_001/3ea-3ed/3eb/3eb-C.mnova
+ol5c04969_si_001/3ea-3ed/3eb/3eb-F.mnova
+ol5c04969_si_001/3ea-3ed/3eb/3eb-H.mnova
+ol5c04969_si_001/3ea-3ed/3ec/3ec-C.mnova
+ol5c04969_si_001/3ea-3ed/3ec/3ec-F.mnova
+ol5c04969_si_001/3ea-3ed/3ec/3ec-H.mnova
+ol5c04969_si_001/3ea-3ed/3ed/3ed-C.mnova
+ol5c04969_si_001/3ea-3ed/3ed/3ed-F.mnova
+ol5c04969_si_001/3ea-3ed/3ed/3ed-H.mnova
+ol5c04969_si_001/3fa-3fc/3fa/3fa-C.mnova
+ol5c04969_si_001/3fa-3fc/3fa/3fa-F.mnova
+ol5c04969_si_001/3fa-3fc/3fa/3fa-H.mnova
+ol5c04969_si_001/3fa-3fc/3fb/3fb-C .mnova
+ol5c04969_si_001/3fa-3fc/3fb/3fb-F.mnova
+ol5c04969_si_001/3fa-3fc/3fb/3fb-H.mnova
+ol5c04969_si_001/3fa-3fc/3fe/3fe-C.mnova
+ol5c04969_si_001/3fa-3fc/3fe/3fe-F.mnova
+ol5c04969_si_001/3fa-3fc/3fe/3fe-H.mnova
+ol5c04969_si_001/5a-5o/5a/5a-C.mnova
+ol5c04969_si_001/5a-5o/5a/5a-F.mnova
+ol5c04969_si_001/5a-5o/5a/5a-H.mnova
+ol5c04969_si_001/5a-5o/5b/5b-C.mnova
+ol5c04969_si_001/5a-5o/5b/5b-F.mnova
+ol5c04969_si_001/5a-5o/5b/5b-H.mnova
+ol5c04969_si_001/5a-5o/5c/5c-C.mnova
+ol5c04969_si_001/5a-5o/5c/5c-F.mnova
+ol5c04969_si_001/5a-5o/5c/5c-H.mnova
+ol5c04969_si_001/5a-5o/5d/5d-C.mnova
+ol5c04969_si_001/5a-5o/5d/5d-F.mnova
+ol5c04969_si_001/5a-5o/5d/5d-H.mnova
+ol5c04969_si_001/5a-5o/5e/5e-C.mnova
+ol5c04969_si_001/5a-5o/5e/5e-F.mnova
+ol5c04969_si_001/5a-5o/5e/5e-H.mnova
+ol5c04969_si_001/5a-5o/5f/5f-C.mnova
+ol5c04969_si_001/5a-5o/5f/5f-F.mnova
+ol5c04969_si_001/5a-5o/5f/5f-H.mnova
+ol5c04969_si_001/5a-5o/5g/5g-C.mnova
+ol5c04969_si_001/5a-5o/5g/5g-F.mnova
+ol5c04969_si_001/5a-5o/5g/5g-H.mnova
+ol5c04969_si_001/5a-5o/5h/5h-C.mnova
+ol5c04969_si_001/5a-5o/5h/5h-F.mnova
+ol5c04969_si_001/5a-5o/5h/5h-H.mnova
+ol5c04969_si_001/5a-5o/5i/5i-C.mnova
+ol5c04969_si_001/5a-5o/5i/5i-F.mnova
+ol5c04969_si_001/5a-5o/5i/5i-H.mnova
+ol5c04969_si_001/5a-5o/5j/5j-C.mnova
+ol5c04969_si_001/5a-5o/5j/5j-F.mnova
+ol5c04969_si_001/5a-5o/5j/5j-H.mnova
+ol5c04969_si_001/5a-5o/5k/5k-C.mnova
+ol5c04969_si_001/5a-5o/5k/5k-F.mnova
+ol5c04969_si_001/5a-5o/5k/5k-H.mnova
+ol5c04969_si_001/5a-5o/5l/5l-C.mnova
+ol5c04969_si_001/5a-5o/5l/5l-F.mnova
+ol5c04969_si_001/5a-5o/5l/5l-H.mnova
+ol5c04969_si_001/5a-5o/5m/5m-C.mnova
+ol5c04969_si_001/5a-5o/5m/5m-F.mnova
+ol5c04969_si_001/5a-5o/5m/5m-H.mnova
+ol5c04969_si_001/5a-5o/5n/5n-C.mnova
+ol5c04969_si_001/5a-5o/5n/5n-F.mnova
+ol5c04969_si_001/5a-5o/5n/5n_H.mnova
+ol5c04969_si_001/5a-5o/5o/5o-C.mnova
+ol5c04969_si_001/5a-5o/5o/5o-F.mnova
+ol5c04969_si_001/5a-5o/5o/5o-H.mnova
+ol5c04969_si_001/7a/7a-C.mnova
+ol5c04969_si_001/7a/7a-F.mnova
+ol5c04969_si_001/7a/7a-H.mnova
+ol5c04969_si_001/7b/7b-C.mnova
+ol5c04969_si_001/7b/7b-F .mnova
+ol5c04969_si_001/7b/7b-H.mnova
+ol5c04969_si_001/8/8-C.mnova
+ol5c04969_si_001/8/8-F.mnova
+ol5c04969_si_001/8/8-H.mnova
+ol5c04969_si_001/9/9-C.mnova
+ol5c04969_si_001/9/9-F.mnova
+ol5c04969_si_001/9/9-H.mnova
