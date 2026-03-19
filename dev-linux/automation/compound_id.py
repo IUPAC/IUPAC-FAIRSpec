@@ -5,6 +5,7 @@ import re
 import itertools
 import sys
 import numpy as np
+pd.options.mode.chained_assignment = None
 
 # compound_name.py
 # 2026.03.14 BH -- refactoring, commenting
@@ -230,7 +231,7 @@ def lambda_get_parent_count(row, path_col, compound_id_col):
     if idx == -1:
         idx = path.lower().find(compound_id.lower())
     if idx == -1:
-        return None
+        return 0
     else:
         idx += 2
     #print(f"count_slash {idx} {path} {path[:idx]} {compound_id} {compound_id_col} {path_col}")  
@@ -772,7 +773,7 @@ def generate_final_df(df, compound_root_df):
     get_final_compound_name(df, counts_series)
 
     # writing the pdata file path
-    filtered_df_regex = compound_root_df[compound_root_df['compound_id_path'].apply(lambda x: x[-1] == "pdata")]
+    filtered_df_regex = compound_root_df[compound_root_df['compound_id_path'].apply(lambda x: x[-1] == "pdata")].copy()
     filtered_df_regex['my_string'] = filtered_df_regex['compound_id_path'].str.join('/')
     temp_df = filtered_df_regex.copy()
     temp_df['compound_name'] = temp_df['my_string'].str.split('/').str[0]
@@ -838,7 +839,7 @@ def update_df_for_global_folders(df, global_folders, candidate_freq):
 
     # add to df a count of parents before compound_id_label
     df['parent_count'] = df.apply(
-        lambda row: lambda_get_parent_count(row, 'path_text','compound_id_label'), axis='columns'
+        lambda row: lambda_get_parent_count(row, 'path_text','compound_id_label'), axis="columns"
     )
     return df
 
