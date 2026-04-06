@@ -30,9 +30,10 @@ import com.integratedgraphics.test.ExtractorTestDryad;
  * @author Fay Nguyen
  *
  */
-class IFDExtractor {
+public class IFDExtractor {
 
-	public static final String version = "0.1.2+2026.02.17";
+	public static final String version = "0.1.3+2026.04.01";
+	// 0.1.3+2026.04.01 adds automation
 	// 2026.01.25 version 0.1.2-beta refactored and much improved; adds CLI and
 	// timestamp-merging of NMR data
 	// 2025.07.24 version 0.1.0-beta with FAIRSpec-ready paper

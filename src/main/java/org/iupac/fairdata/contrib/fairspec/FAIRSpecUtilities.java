@@ -2,6 +2,7 @@ package org.iupac.fairdata.contrib.fairspec;
 
 import java.awt.Desktop;
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,7 +11,9 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -32,6 +35,9 @@ import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.common.IFDConst.PROPERTY_TYPE;
 import org.iupac.fairdata.core.IFDProperty;
 import org.iupac.fairdata.util.JSJSONParser;
+
+import com.integratedgraphics.extractor.ExtractorUtils;
+import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
 
 import javajs.util.Rdr;
 
@@ -666,6 +672,146 @@ public class FAIRSpecUtilities {
 			}
 		}
 
+		public static String[][] getTSVData(String file, String... headers) throws IOException {
+			List<String[]> rows = new ArrayList<>();
+			String s = getURLContentsAsString(file);
+			BufferedReader reader = new BufferedReader(new StringReader(s));
+			String line;
+			int n = 0;
+			int ncol = headers.length;
+			int[] colPt = new int[ncol];
+			while ((line = reader.readLine()) != null) {
+				String[] row = line.split("\t");
+				if (n++ == 0) {
+					for (int i = colPt.length; --i >= 0;)
+						colPt[i] = -1;
+					for (int col = 0; col < headers.length; col++) {
+						String header = headers[col];
+						for (int i = 0; i < row.length; i++) {
+							if (row[i].toLowerCase().equals(header)) {
+								colPt[col] = i;
+								break;
+							}
+						}
+					}
+					continue;
+				}
+				String[] data = new String[ncol];
+				for (int i = 0; i < colPt.length; i++) {
+					if (row.length > colPt[i])
+						data[i] = row[colPt[i]];
+				}
+				rows.add(data);
+			}
+			reader.close();
+			return rows.toArray(new String[rows.size()][]);
+		}
+	}
+
+	public static class DeferredProperty {
+		
+		static int n;
+		/**
+		 * 
+		 */
+		public final static String PAGE_ID_PROPERTY_SOURCE = "*idf.property.compound.id.source*";
+	
+		/**
+		 * a key for the deferredObjectList that indicates we have a new resource
+		 * setting
+		 */
+		public final static String NEW_RESOURCE_KEY = "*NEW_RESOURCE*";
+	
+		/**
+		 * a key for the deferredObjectList that indicates we have a new resource
+		 * setting
+		 */
+		public final static String AUTOMATION_CHECK = "*AUTOMATION_CHECK*";
+	
+		/**
+		 * a key for the deferredObjectList that flags a structure with a spectrum;
+		 * needs attention, as this was created prior to the idea of a compound
+		 * association, and it presumes there are no such associations.
+		 * 
+		 */
+		public static final String NEW_PAGE_KEY = "*NEW_PAGE*";
+	
+		public String processNote;
+		public String originPath;
+		public String localizedName;
+	
+		private int index;
+		
+		/**
+		 * representation or property key; the key "_struc" is used by a vendor plugin
+		 * to pass back both a file name and a byte array to create a new digital object
+		 * extracted from the original object, for example, from an MNova object
+		 * extraction; special keys include NEW_RESOURCE_KEY and NEW_PAGE_KEY
+		 */
+		public String key;
+	
+		/**
+		 * either a String value or an Object[] with elements byte[] and String name
+		 */
+		public Object value;
+	
+		/**
+		 * representation data is being provided as inline-data, to be saved only in the
+		 * finding aid (InChI, SMILES, InChIKey)
+		 * 
+		 */
+		public boolean isInline;
+	
+		/**
+		 * mediaType a media type for a representation, or null
+		 */
+		public String mediaType;
+		public String note;
+		public byte[] bytes;
+		/**
+		 * origin path
+		 */
+		public String oPath;
+		/**
+		 * resource where this representation was found
+		 */
+		public ExtractorUtils.ExtractorResource resource;
+
+		/**
+		 * debugging only -- current phase (2a,2b,...) of extraction, or similar note
+		 */
+		private String phase;
+	
+		public DeferredProperty(String key, Object value) {
+			this.key = key;
+			this.value = value;
+			this.index = ++n;
+		}
+	
+		public static DeferredProperty newStructureRep(String key, Object value, boolean isInline, String mediaType,
+				String note) {
+			DeferredProperty dp = new DeferredProperty(key, value);
+			dp.isInline = isInline;
+			dp.mediaType = mediaType;
+			dp.note = note;
+			return dp;
+		}
+	
+		@Override
+		public String toString() {
+			return "[DP " + index + " " 
+					+ (phase == null ? "" : phase + " ")
+					+ (processNote == null ? "" : processNote + "\n  ") + key + " : "
+					+ (value == null ? "" : value instanceof Object[] ? Arrays.toString((Object[]) value) : value)
+					+ (key == NEW_RESOURCE_KEY ? resource.toString()
+							: " ln=" + localizedName + " op=" + originPath + "]");
+		}
+
+		public void setPhase(String currentPhase) {
+			phase = currentPhase;
+			if (phase.equals("2c") && key == NEW_PAGE_KEY)
+				System.out.println("????");
+		}
 	}
 
 	public static void main(String[] args) {

@@ -38,8 +38,6 @@ import com.junrar.Archive;
 import com.junrar.exception.RarException;
 import com.junrar.rarfile.FileHeader;
 
-import javajs.util.Rdr;
-
 /**
  * A set of static classes for use by MetadataExtractor, primarily
  * 
@@ -49,6 +47,22 @@ import javajs.util.Rdr;
 public class ExtractorUtils {
 
 	/**
+	 * The ObjectParser class is key to the extractor. It uses the {....} syntax of
+	 * the IFD-extract.json configuration file, reading key/value pairs.
+	 * 
+	 * Each IFD.extract.object item in this file generates a parser that can
+	 * identify compound, structure, and spectrum identifiers and properties.
+	 * 
+	 * As a ZIP file or directory is read, each full file path, including
+	 * directories, will be parsed by regex patterns generated her from that file.
+	 * 
+	 * The regex pattern matches are then used to create or find the corresponding
+	 * compound, structure, and spectrum objects within the growing metadata model
+	 * instancce.
+	 * 
+	 * Alternatively (or in addition), if automation has been used, this specialized
+	 * automationParser will 
+	 * 
 	 * A static class for parsing the object string and using regex to match
 	 * filenames. This static class may be overridden to give it different
 	 * capabilities.
@@ -58,6 +72,12 @@ public class ExtractorUtils {
 	 */
 
 	public static class ObjectParser {
+
+		public static final int PATH        = 0;
+		public static final int CMPD_ID     = 1;
+		public static final int SPEC_ID     = 2;
+		public static final int CMPD_ID_COL = 3;
+		public static final int TYPE        = 4; // not used yet, if ever
 
 		private final static Pattern pStarDotStar = Pattern.compile("\\*([^|/])\\*");
 		private final static Pattern objectDefPattern = Pattern.compile("\\{([^:]+)::([^}]+)\\}");
@@ -121,11 +141,15 @@ public class ExtractorUtils {
 
 		private Map<String, String> keys;
 
-		private ExtractorResource dataSource;
-		private IFDExtractorMain extractor;
-		private boolean hasData;
+		protected IFDExtractorMain extractor;
+
+		protected ExtractorResource dataSource;
+		protected boolean hasData;
+
 		private List<Object> replacements;
 		private ArrayList<String> keyList;
+		
+		public boolean isAutomationParser;
 
 		/**
 		 * @param sObj
@@ -374,7 +398,7 @@ public class ExtractorUtils {
 		public String toString() {
 			return "[ObjectParser " + this.sData + "]";
 		}
-
+		
 		public Matcher match(String origin) throws IFDException {
 			if (replacements != null) {
 				try {
@@ -390,8 +414,9 @@ public class ExtractorUtils {
 			return p.matcher(origin);
 		}
 
-		public void setReplacements(List<Object> replacements) {
+		public ObjectParser setReplacements(List<Object> replacements) {
 			this.replacements = replacements;
+			return this;
 		}
 
 		public ExtractorResource getDataSource() {
@@ -417,9 +442,10 @@ public class ExtractorUtils {
 		public List<String> getKeyList() {
 			if (keyList == null) {
 				keyList = new ArrayList<String>();
-				for (String key : getKeys().keySet()) {
-					keyList.add(key);
-				}
+				if (getKeys() != null)
+					for (String key : getKeys().keySet()) {
+						keyList.add(key);
+					}
 
 			}
 			return keyList;
@@ -427,6 +453,76 @@ public class ExtractorUtils {
 
 	}
 
+	public static class AutomationParser extends ObjectParser {
+
+		List<String[]> automationData;
+		
+		boolean automationProcessed;
+
+		/**
+		 * Find the nearest path to this object that can identify a compound for it.
+		 * 
+		 * @param originPath
+		 * @return compound id or null
+		 */
+		public String getAutomationCompoundIDFromPath(String originPath) {
+			for (int i = automationData.size(); --i >= 0;) {
+				String[] info = automationData.get(i);
+				if (originPath.startsWith(info[PATH]))
+					return info[CMPD_ID];
+			}
+			return null;
+		}
+
+
+		public AutomationParser(IFDExtractorMain extractor, ExtractorResource resource, List<Object> replacements, String rootPath, String[][] data)
+				throws IFDException {
+			super(extractor, resource, "_");
+			setReplacements(replacements);
+			setAutomation(rootPath, data);
+			hasData = true;
+			isAutomationParser = true;
+		}
+
+		/**
+		 * Filter the automation list for this parser based on the root directory of the path.
+		 * There will be one parser per originating zip file or directory structure. 
+		 * Called upon reading of IFD.extractor.automation.resource_id record.
+		 * 
+		 * @param rootPath
+		 * @param data
+		 * @return
+		 */
+		private ObjectParser setAutomation(String rootPath, String[][] data) {
+			if (automationData != null)
+				return this;
+			dataSource.rootPath = rootPath;
+			automationData = new ArrayList<>();
+			String root = rootPath + "/";
+			//TODO if necessary automationCompoundColumn = new int[data.length];
+			boolean haveData = false;
+			for (int i = 0; i < data.length; i++) {
+				String[] info = data[i]; 
+				String path = info[PATH];
+				if (path.startsWith(root)) {
+					haveData = true;
+					info[PATH] = info[PATH].substring(root.length());
+					automationData.add(info);
+				} else if (haveData) {
+					break;
+				}
+			}
+			return this;
+		}
+
+
+		public static String[][] readAutomationData(String file) throws IOException {
+			return FAIRSpecUtilities.SpreadsheetReader.getTSVData(file, "path", "compound_id", "dataobject_id", "cmpd_id_col");
+		}
+
+
+	}
+	
 	/**
 	 * A static class to cover both ZipEntry and TAR entries.
 	 * 
@@ -1048,6 +1144,9 @@ public class ExtractorUtils {
 			return rootPath;
 		}
 
+		public String getAutomationPath(String originPath) {
+			return rootPath + "/" + originPath;
+		}
 		public String getRemoteSource() {
 			return (source == null ? localSourceFile : source);
 		}
@@ -1118,7 +1217,6 @@ public class ExtractorUtils {
 		}
 
 	}
-
 	
 	public static File getJarFile(Class<?> classInJar) throws Exception {
 		java.security.CodeSource codeSource = classInJar.getProtectionDomain().getCodeSource();

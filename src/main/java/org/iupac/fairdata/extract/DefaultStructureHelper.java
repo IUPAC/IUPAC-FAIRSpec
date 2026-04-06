@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
-import org.iupac.fairdata.extract.MetadataReceiverI.DeferredProperty;
+import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities.DeferredProperty;
 import org.jmol.api.JmolViewer;
 import org.jmol.util.DefaultLogger;
 import org.jmol.viewer.Viewer;
@@ -39,6 +39,39 @@ public class DefaultStructureHelper implements PropertyManagerI {
 
 	private static final String defaultStructureFilePattern = IFDConst.getProp("IFD_DEFAULT_STRUCTURE_FILE_PATTERN");;
 
+		/**
+	 * create associations using ID rather than index numbers
+	 */
+	
+	public static final String STRUC_FILE_DATA_KEY = "_struc.";
+	public static final String PNG_FILE_DATA = STRUC_FILE_DATA_KEY + "png";
+	public static final String MOL_FILE_DATA = STRUC_FILE_DATA_KEY + "mol";
+	public static final String MOL2D_FILE_DATA = STRUC_FILE_DATA_KEY + "mol_2d";
+	public static final String XYZ_FILE_DATA = STRUC_FILE_DATA_KEY + "xyz";
+	public static final String CDX_FILE_DATA = STRUC_FILE_DATA_KEY + "cdx";
+	public static final String CDXML_FILE_DATA = STRUC_FILE_DATA_KEY + "cdxml";
+	public static final String CIF_FILE_DATA = STRUC_FILE_DATA_KEY + "cif";
+	public static final String CML_FILE_DATA = STRUC_FILE_DATA_KEY + "cml";
+
+
+	public static final String SMILES = IFDConst.getProp("IFD_REP_STRUCTURE.SMILES");
+	public static final String STANDARD_INCHI = IFDConst.getProp("IFD_REP_STRUCTURE.STANDARD_INCHI");
+	public static final String FIXEDH_INCHI = IFDConst.getProp("IFD_REP_STRUCTURE.FIXEDH_INCHI");
+	public static final String INCHIKEY = IFDConst.getProp("IFD_PROPERTY_STRUCTURE.INCHIKEY");
+	public static final String MOLECULAR_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE.MOLECULAR_FORMULA");
+	public static final String EMPIRICAL_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE.EMPIRICAL_FORMULA");
+	public static final String CELL_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE.CELL_FORMULA");
+
+
+	// these are constants for switch statements. Not the greatest, but works.
+	
+	public static final String IFD_IMAGE_PNG = "IFD.representation.structure.png";
+	public static final String IFD_SMILES = "IFD.representation.structure.smiles";
+	public static final String IFD_INCHIKEY = "IFD.representation.structure.inchikey";
+	public static final String IFD_FIXEDHINCHI = "IFD.representation.structure.fixedh_inchi";
+	public static final String IFD_STANDARDINCHI = "IFD.representation.structure.standard_inchi";
+	public static final String IFD_INCHI = "IFD.representation.structure.inchi";
+
 	private static boolean generate3D = false;
 	
 	public static class StructureData {
@@ -61,6 +94,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 		public String cellFormula;
 		public String empiricalFormula;
 		public String inchiKey;
+		public String cmpdID;
 		
 		
 		@Override
@@ -148,37 +182,6 @@ public class DefaultStructureHelper implements PropertyManagerI {
 	String jmolVersion = null;
 
 	private StructureData currentStructureData;
-
-	/**
-	 * create associations using ID rather than index numbers
-	 */
-	
-	public static final String STRUC_FILE_DATA_KEY = "_struc.";
-
-	public static final String PNG_FILE_DATA = STRUC_FILE_DATA_KEY + "png";
-
-	public static final String MOL_FILE_DATA = STRUC_FILE_DATA_KEY + "mol";
-
-	public static final String MOL2D_FILE_DATA = STRUC_FILE_DATA_KEY + "mol_2d";
-
-	public static final String XYZ_FILE_DATA = STRUC_FILE_DATA_KEY + "xyz";
-
-	public static final String CDX_FILE_DATA = STRUC_FILE_DATA_KEY + "cdx";
-
-	public static final String CDXML_FILE_DATA = STRUC_FILE_DATA_KEY + "cdxml";
-
-	public static final String CIF_FILE_DATA = STRUC_FILE_DATA_KEY + "cif";
-
-	public static final String CML_FILE_DATA = STRUC_FILE_DATA_KEY + "cml";
-
-
-	private static final String SMILES = IFDConst.getProp("IFD_REP_STRUCTURE.SMILES");
-	private static final String STANDARD_INCHI = IFDConst.getProp("IFD_REP_STRUCTURE.STANDARD_INCHI");
-	private static final String FIXEDH_INCHI = IFDConst.getProp("IFD_REP_STRUCTURE.FIXEDH_INCHI");
-	private static final String INCHIKEY = IFDConst.getProp("IFD_PROPERTY_STRUCTURE.INCHIKEY");
-	private static final String MOLECULAR_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE.MOLECULAR_FORMULA");
-	private static final String EMPIRICAL_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE.EMPIRICAL_FORMULA");
-	private static final String CELL_FORMULA = IFDConst.getProp("IFD_PROPERTY_STRUCTURE.CELL_FORMULA");
 
 	@Override
 	public String getVendorDataSetKey() {
@@ -337,7 +340,7 @@ public class DefaultStructureHelper implements PropertyManagerI {
 							: isCDXML ? CDXML_FILE_DATA
 									: isCDX ? CDX_FILE_DATA : isCML ? CML_FILE_DATA : MOL_FILE_DATA);
 					extractor.addDeferredPropertyOrRepresentation(
-							DeferredProperty.newStructureRep(stype, sd, false, null, sd.warning));
+							FAIRSpecUtilities.DeferredProperty.newStructureRep(stype, sd, false, null, sd.warning));
 					return stype;
 				}
 
@@ -355,54 +358,54 @@ public class DefaultStructureHelper implements PropertyManagerI {
 			if (sd.mol2dData != null) {
 				if (!originPath.endsWith(".mol"))
 					originPath += ".2d.mol";
-				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(
+				extractor.addDeferredPropertyOrRepresentation(FAIRSpecUtilities.DeferredProperty.newStructureRep(
 						IFDConst.IFD_REP_STRUCTURE_MOL_2D, getDeferredStructureData(++nid, sd.mol2dData.getBytes(),
 								originPath, null, sd.standardInChI, null),
 						false, "chemical/x-mdl-molfile", sd.note));
 			} else if (sd.molData != null) {
 				if (!originPath.endsWith(".mol"))
 					originPath += ".mol";
-				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(
+				extractor.addDeferredPropertyOrRepresentation(FAIRSpecUtilities.DeferredProperty.newStructureRep(
 						IFDConst.IFD_REP_STRUCTURE_MOL, getDeferredStructureData(++nid, sd.mol2dData.getBytes(),
 								originPath, null, sd.standardInChI, null),
 						false, "chemical/x-mdl-molfile", sd.note));
 			}
 			String note1 = (sd.warning == null ? sd.note + "/CDK-SwingJS" : sd.note);
 			if (sd.standardInChI != null && !"?".equals(sd.standardInChI)) {
-				extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(STANDARD_INCHI,
+				extractor.addDeferredPropertyOrRepresentation(FAIRSpecUtilities.DeferredProperty.newStructureRep(STANDARD_INCHI,
 						sd.standardInChI, true, "chemical/x-inchi", note1));
 				if (sd.fixedHInChI != null) {
-					extractor.addDeferredPropertyOrRepresentation(DeferredProperty.newStructureRep(FIXEDH_INCHI,
+					extractor.addDeferredPropertyOrRepresentation(FAIRSpecUtilities.DeferredProperty.newStructureRep(FIXEDH_INCHI,
 							sd.fixedHInChI, true, "chemical/x-inchi", note1));
 				}
 				if (sd.inchiKey != null) {
 					extractor.addDeferredPropertyOrRepresentation(
-							DeferredProperty.newStructureRep(INCHIKEY, sd.inchiKey, true, "chemical/x-inchikey", note1));
+							FAIRSpecUtilities.DeferredProperty.newStructureRep(INCHIKEY, sd.inchiKey, true, "chemical/x-inchikey", note1));
 				}
 			}
 			if (sd.smiles != null) {
 				extractor.addDeferredPropertyOrRepresentation(
-						DeferredProperty.newStructureRep(SMILES, sd.smiles, true, "chemical/x-smiles", note1));
+						FAIRSpecUtilities.DeferredProperty.newStructureRep(SMILES, sd.smiles, true, "chemical/x-smiles", note1));
 			}
 			// .getFileType(Rdr.getBufferedReader(Rdr.getBIS(bytes), null));
 			if (sd.pngBytes != null) {
 				extractor.addDeferredPropertyOrRepresentation(
-						DeferredProperty.newStructureRep(IFDConst.IFD_REP_STRUCTURE_PNG,
+						FAIRSpecUtilities.DeferredProperty.newStructureRep(IFDConst.IFD_REP_STRUCTURE_PNG,
 								getDeferredStructureData(nid++, sd.pngBytes, originPath + ".png",
 										IFDConst.IFD_REP_STRUCTURE_PNG, sd.standardInChI, "image/png"),
 								false, "image/png", (sd.mol2dData == null ? sd.note : note1)));
 			}
 			if (sd.molecularFormula != null) {
 				extractor.addDeferredPropertyOrRepresentation(
-						DeferredProperty.newStructureRep(MOLECULAR_FORMULA, sd.molecularFormula, true, null, sd.note));
+						FAIRSpecUtilities.DeferredProperty.newStructureRep(MOLECULAR_FORMULA, sd.molecularFormula, true, null, sd.note));
 			}
 			if (sd.empiricalFormula != null) {
 				extractor.addDeferredPropertyOrRepresentation(
-						DeferredProperty.newStructureRep(EMPIRICAL_FORMULA, sd.empiricalFormula, true, null, sd.note));
+						FAIRSpecUtilities.DeferredProperty.newStructureRep(EMPIRICAL_FORMULA, sd.empiricalFormula, true, null, sd.note));
 			}
 			if (sd.cellFormula != null) {
 				extractor.addDeferredPropertyOrRepresentation(
-						DeferredProperty.newStructureRep(CELL_FORMULA, sd.cellFormula, true, null, sd.note));
+						FAIRSpecUtilities.DeferredProperty.newStructureRep(CELL_FORMULA, sd.cellFormula, true, null, sd.note));
 			}
 		}
 		return type;
@@ -525,6 +528,12 @@ public class DefaultStructureHelper implements PropertyManagerI {
 
 	public void processStructureData(StructureData sd) {
 		processStructureRepresentation(sd, null, null, false);
+	}
+
+	@Override
+	public String getType() {
+		// not relevant for structures, only data objects
+		return null;
 	}
 
 }

@@ -107,6 +107,11 @@ public class JCAMPDXDataObjectVendorPlugin extends DefaultVendorPlugin {
 	}
 
 	@Override
+	public String getType() {
+		return jcampType;
+	}
+		
+	@Override
 	public String getVendorDataSetKey() {
 		return (delegatedPlugin == null ? datasetKey : delegatedPlugin.getVendorDataSetKey());
 	}

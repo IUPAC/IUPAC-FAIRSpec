@@ -2,9 +2,10 @@
 
 # acs2-2-git-win.sh
 
-# 2025.03.12 BH -- fixes ZIP and .xxx.ZIP issues
-# 2025.03.11 BH -- streamlined file list generation
-# 2025.03.10 BH from acs2_preprocessing2-git-win.sh
+# 2026.04.05 BH -- working automation tested on jo4c02622
+# 2026.03.12 BH -- fixes ZIP and .xxx.ZIP issues
+# 2026.03.11 BH -- streamlined file list generation
+# 2026.03.10 BH from acs2_preprocessing2-git-win.sh
 # works with adapted alogrithm and experiments with ways to enhance functionality
 
 # defaults for these three globals
@@ -16,7 +17,8 @@ Zip_Source_Directory="/c/temp/iupac/acs2/data"
 
 # where everything is going to be put
 Working_Directory="/c/temp/iupac/acs2/test2"
-
+Output_Dir="${Working_Directory}/output"
+ 
 # Each set of zip files for a given "doi" (actually just part of that) 
 # will have its own directory. A "doi" in this case is the starting string of the zip file
 # for example, for 
@@ -106,7 +108,10 @@ for arg; do
     fi
 done
 
-echo "doClean=${doClean} doi=${doi} dois=${dois}"
+echo "doClean=${doClean} doi=${doi} dois=${dois} listOnly=${listOnly} unzipOnly=${unzipOnly}"
+
+
+
 # check that the source and working directories exist
 check_dir_exists() {
     local dir_path="$1"
@@ -157,9 +162,6 @@ unzip_recursive() {
     # cd to the top of the <DOI>_unzip directory
     cd ${Unzip_Dir}
 
-    # TODO clear out __MACOSX files; could also be __MACOS I think
-    find . -name "__MACOSX" -type d -exec rm -rf {} + 2>/dev/null
-        
     # Continuously search for zip files until none are left
     
     while [ "$(find . -path "*/__MACOSX" -prune -o -type f -iname '*.zip' -print | wc -l)" -gt 0 ]; do
@@ -179,8 +181,11 @@ unzip_recursive() {
                 exit 1
             fi
         done < <(find . -type f -iname "*.zip" -print0)
-        find . -name "__MACOSX" -type d -exec rm -rf {} + 2>/dev/null
     done
+    # TODO clear out __MACOSX files; could also be __MACOS I think
+    find . -name "__MACOSX" -type d -exec rm -rf {} + 2>/dev/null
+    find . -name "*desktop.ini" -type f -exec rm -rf {} + 2>/dev/null
+        
 }
 
 prune_file_list() {
@@ -302,6 +307,7 @@ prune_file_list() {
 # now one BIG loop
 
 errors=""
+errCount=0
 doiCount=0
 for doi in "${dois[@]}"
 do
@@ -337,12 +343,14 @@ do
 
     Prediction_Dir="${DOI_Dir}/${doi}_prediction"
     finalOutputFile="${Prediction_Dir}/${doi}_final_output.tsv"
-
+ 
     ((doiCount++))
 
     if $doCleanMe; then
 
         if (! $listOnly); then 
+
+
 
             echo "cleaning $doi"
 
@@ -354,6 +362,7 @@ do
             if [ ${#files[@]} == 0 ]; then
                 echo "Error: no zip files found for ${Zip_root}*.zip"
                 errors+="$\n${doiCount} ${doi} no zip files"
+                (( errCount += 1 ))
                 continue
             fi
 
@@ -383,10 +392,10 @@ do
             # unzip these top-level zip files into the <DOI>_unzip directory
             for file in "${DOI_Dir}/"*.zip; do
                 echo $file
-                file=$(basename ${file})
-                fileRoot=$(echo "$file" | cut -d '.' -f 1)   
+                bname=$(basename ${file})
+                fileRoot=$(echo "$bname" | cut -d '.' -f 1)   
                 Root_Dir="${Unzip_Dir}/${fileRoot}"
-                unzip -o "${DOI_Dir}/"'*.zip' -x '__MACOS*/*' '*/__MACOS*/*' '.*' -d "${Root_Dir}"    
+                unzip -o "${file}" -x '*desktop*' '__MACOS*/*' '*/__MACOS*/*' '.*' -d "${Root_Dir}"    
                 rm -f "${Root_Dir}/.*"
                 ls "${Root_Dir}"
             done
@@ -436,6 +445,7 @@ do
 
     # clear output files that are in the working directory
     rm -f "${Working_Directory}/${doi}"_.*
+    rm -f "${Working_Directory}/${doi}.err"
 
     # Clear the folder for prediction if it exists
     if [ -d "${Prediction_Dir}" ]; then
@@ -459,6 +469,7 @@ do
     if [[ ! ${iserr} == "0" ]]; then
         errFile="${Prediction_Dir}/emma.err"
         errors+="\n${doiCount} ${doi}"
+        (( errCount += 1 ))
         echo "!!!!!!!!!!Python errors for ${doi} - see $errFile !!!!!!!!!!"
         cp "$tempFile" "$errFile"
         cat "$errFile"
@@ -471,11 +482,14 @@ do
         cp "${Prediction_Dir}/${doi}_data_object_id_count" "${Working_Directory}"
         cd "${Working_Director}"
         cat "${doi}_compound_id_list.txt"
-        cat "${doi}_spec_id_list.txt"
+        cat "${doi}_data_object_id_list.txt"
         filenameC="${doi}_compound_id_count"
         filenameD="${doi}_data_object_id_count"
         nf=$(cat "${fileListFilePruned}" | grep -c '^')
         echo -e "\n${doiCount} ${doi} $(wc -c < $filenameC) compounds $(wc -c < $filenameD) data objects ${nf} files"
+        rm -r "${Output_Dir}/${doi}_prediction"
+        cp -r "${Prediction_Dir}" "${Output_Dir}"
+
    fi
 
  
@@ -486,5 +500,5 @@ done # for doi
 rm -f "$tempFile"
 
 if [[ ! "$errors" == "" ]]; then
-    echo -e "errors:${errors}\n\ndone"
+    echo -e "errors:${errors}\n${errCount} errors\ndone"
 fi

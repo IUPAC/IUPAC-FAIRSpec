@@ -166,21 +166,43 @@ public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> 
 	}
 
 
-	 public static void add(List<IFDAttribute> attributes, String name, Object value) {
+	public static void add(List<IFDAttribute> attributes, String name, Object value) {
 		if (value == null || name == null)
 			return;
 		char type = typeof(value);
 		if (type == '?')
-			throw new RuntimeException("Attributes must be either String or Number adding " + value + " type " + value.getClass().getName());
+			throw new RuntimeException("Attributes must be either String or Number adding " + value + " type "
+					+ value.getClass().getName());
 		IFDAttribute p = null;
 		for (int i = attributes.size(); --i >= 0;) {
 			p = attributes.get(i);
-			if (p.name.equals(name))  {
+			if (p.name.equals(name)) {
 				if (p.type != type) {
-					throw new RuntimeException("Atribute values must not be of mixed type.");
+					String err = null;
+					try {
+						switch (type) {
+						case 's':
+							if (p.type == 'n') {
+								value = new Double(value.toString());
+							} else {
+								err = "value is not a number";
+							}
+							break;
+						case 'n':
+							if (p.type == 's') {
+								value = value.toString();
+							} else {
+								err = "value is not a string";
+							}
+							break;
+						}
+					} catch (Exception e) {
+
+					}
+					if (err != null)
+						throw new RuntimeException("Attribute values must not be of mixed type." + err + " " + value);
 				}
- 				if (p.values != null ? p.values.contains(value)
-						: p.value.equals(value))
+				if (p.values != null ? p.values.contains(value) : p.value.equals(value))
 					continue;
 				if (p.values == null) {
 					p.values = new ArrayList<Object>();

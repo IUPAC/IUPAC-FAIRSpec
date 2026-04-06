@@ -111,10 +111,9 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 				boolean sendNewPage = (nPages > 1);
 				for (int i = 0; i < nPages; i++) {
 					PageGlobals pageGlobals = pageList.get(i);
-					reportVendor(); // really? Before start of pages? 
 					for (Entry<String, Object> p : pageGlobals.entrySet()) {
 						String key = p.getKey();
-						boolean isNewPage = key.equals(MetadataReceiverI.DeferredProperty.NEW_PAGE_KEY);
+						boolean isNewPage = key.equals(FAIRSpecUtilities.DeferredProperty.NEW_PAGE_KEY);
 						boolean isSpecialKey = key.startsWith("_");
 						// the only special key we send 
 						if (isSpecialKey ? key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)
@@ -127,7 +126,7 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 					}
 				}
 				close();
-				report(MetadataReceiverI.DeferredProperty.NEW_PAGE_KEY, IFDProperty.NULL);
+				report(FAIRSpecUtilities.DeferredProperty.NEW_PAGE_KEY, IFDProperty.NULL);
 				return getVendorDataSetKey();
 			}
 		} catch (IOException e) {
@@ -310,7 +309,8 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 		finalizeParams();
 		// the reader will be filling in params
 		pageGlobals = new PageGlobals();
-		pageGlobals.put(MetadataReceiverI.DeferredProperty.NEW_PAGE_KEY, "_page=" + page);
+		pageGlobals.put(FAIRSpecUtilities.DeferredProperty.NEW_PAGE_KEY, "_page=" + page);
+		reportVendor();
 		pageList.add(pageGlobals);
 		System.out.println("MestrelabIFDVendor ------------ page " + page);
 	}
@@ -324,7 +324,10 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 	
 	@Override
 	public void addProperty(String key, Object val) {
-		report(key, val);
+		if (pageGlobals == null)
+			report(key, val);
+		else
+			pageGlobals.put(key, val);
 	}
 
 	/**
@@ -339,7 +342,7 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 		// TODO? but not all keys are like this key = "MNova_" + key;
 		if (k == null && key.equals(MNovaMetadataReader.PAGE_TITLE)) {
 			super.addProperty(IFDConst.IFD_PROPERTY_DESCRIPTION, val);
-			super.addProperty(MetadataReceiverI.DeferredProperty.PAGE_ID_PROPERTY_SOURCE, val);
+			super.addProperty(FAIRSpecUtilities.DeferredProperty.PAGE_ID_PROPERTY_SOURCE, val);
 		}
 		// SM and DIM are derived
 		if (!isDerived)

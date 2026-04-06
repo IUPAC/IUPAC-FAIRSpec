@@ -374,19 +374,20 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	protected boolean processDOIURLs(String pubdoi, String datadoi, FAIRSpecFindingAidHelperI helper) throws IOException {
 		if (skipPubInfo)
 			return true;
-		List<Map<String, Object>> list = new ArrayList<>();
-		
 		if (pubdoi != null) {
-			String err = helper.addRelatedInfo(pubdoi, addPublicationMetadata, list, DOIInfoExtractor.CROSSREF);
+			String err = helper.addRelatedInfo(pubdoi, addPublicationMetadata, DOIInfoExtractor.CROSSREF, "publication");
 			if (err != null) {
 				logWarn(err, "processDOIURLs");
 				if (!allowNoPubInfo)
 					return false;				
 			}
 		}
-		if (datadoi != null && !skipPubInfo) {
-			String err = helper.addRelatedInfo(datadoi, addPublicationMetadata, list, 
-					DOIInfoExtractor.DATACITE);
+		if (datadoi != null) {
+			String err = helper.addRelatedInfo(datadoi, addPublicationMetadata, 
+					DOIInfoExtractor.DATACITE, "dataset");
+			if (err != null)
+				err = helper.addRelatedInfo(datadoi, addPublicationMetadata, 
+						DOIInfoExtractor.CROSSREF, "dataset");
 			if (err != null) {
 				logWarn(err, "processDOIURLs");
 				if (!allowNoPubInfo)

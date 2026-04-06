@@ -896,6 +896,7 @@
 	}
 	
 	var getFindingAid = function(url){
+		IFD.properties.shortForm = getField("shortform");
 		url || (url = getField("url"));
 		var base = getField("base");
 		if (url || base)
@@ -1281,7 +1282,7 @@
 	}
 	
 	var showSpectrum = function(aidID,id) {
-		var isAll = (IFD.resultsMode == IFD.MODE_SPECTRA);
+		var isAll = (IFD.resultsMode == IFD.MODE_SPECTRA && IFD.properties.shortForm != "true");
 		var spec = IFD.getCollection(aidID).spectra[id];
 		var method = spec.exptMethod.toLowerCase();
 		var structureIDs = IFD.getStructureIDsForSpectra(aidID, [id]);
@@ -1309,7 +1310,8 @@
 		return s;
 	}
 
-	var getHeader = function(types, prefix, name) {
+	var getHeader = function(types, prefix, name, warning) {
+		warning || (warning = "");
 		IFD.contentHeader = types;
 		var type_name = prefix;
 		if (name) {
@@ -1323,7 +1325,7 @@
 		}
 		var key = toAlphanumeric(type_name) + "_" + ++divId
 		IFD.headers.push([key,name]);
-		return "<a name=\"" + key + "\"><h3>" + type_name + "</h3></a>";
+		return "<a name=\"" + key + "\"><h3>" + type_name + "</h3>"+warning+"</a>";
 	}
 
 	var showCompound = function(aidID,id) {
@@ -1389,12 +1391,16 @@
 		var sid = struc.id || id;
 		var props = struc.ifdProperties;
 		var reps = struc.representations;
+		var w = checkNoteWarning(struc.note);
 
 		s += "<td rowspan=2 valign=\"top\">";
 		if (showID) {
 			var h = (id.indexOf("Structure") == 0 ? removeUnderline(sid) : "Structure " + sid);
+
 			s += "<span class=structurehead>"+ (IFD.resultsMode == IFD.MODE_STRUCTURES 
-					? getHeader("Structure/s", h) : h) + "</span><br>";
+					? getHeader("Structure/s", h, null, w) : h) + "</span><br>";
+		} else if (w) {
+			s += w;
 		}
 //		var v = IFD.getStructureVisual(reps);
 //		if (v && isAll){
@@ -1764,12 +1770,16 @@
 				s +=  getPDFLink(url);
 			}
 		}
-		note = (note && note.startsWith("Warning") ? note : null);
-		if (note)
-			s += "<br><span class=warning>" + note + "</span>";
+		s += checkNoteWarning(note);
 		return s;
 	}
 
+    var checkNoteWarning = function(note) {
+		note = (note && note.toLowerCase().startsWith("warning") ? note : null);
+		return (note ? "<br><span class=warning>" + note + "</span>" : "");
+    }
+   
+    
     var shortLink = function(url, name) {
     	var s = "<a target=_blank href=\"" + url + "\"";
     	if (name.length > 60) {

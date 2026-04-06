@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.iupac.fairdata.common.IFDUtil;
+import org.iupac.fairdata.extract.DefaultStructureHelper;
 
 import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 
@@ -27,9 +28,9 @@ import com.integratedgraphics.extractor.DOICrawler.DOICustomizer;
 		private static Map<String, String> hackMap = new HashMap<>();
 		
 		{
-			hackMap.put("INCHI", DOICrawler.IFD_INCHI);
-			hackMap.put("SMILES", DOICrawler.IFD_SMILES);
-			hackMap.put("INCHIKEY", DOICrawler.IFD_INCHIKEY);
+			hackMap.put("INCHI", DefaultStructureHelper.IFD_INCHI);
+			hackMap.put("SMILES", DefaultStructureHelper.IFD_SMILES);
+			hackMap.put("INCHIKEY", DefaultStructureHelper.IFD_INCHIKEY);
 			hackMap.put("NMR_SOLVENT", DOICrawler.FAIRSPEC_DATAOBJECT_FLAG + "nmr.expt_solvent");
 			hackMap.put("NMR_NUCLEUS", DOICrawler.FAIRSPEC_DATAOBJECT_FLAG + "nmr.expt_nucl1");
 			hackMap.put("NMR_NUCLEUS1", DOICrawler.FAIRSPEC_DATAOBJECT_FLAG + "nmr.expt_nucl1");

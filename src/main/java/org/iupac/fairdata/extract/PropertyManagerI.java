@@ -73,4 +73,6 @@ public interface PropertyManagerI {
 
 	void setExtractor(MetadataReceiverI extractor);
 
+	String getType();
+
 }

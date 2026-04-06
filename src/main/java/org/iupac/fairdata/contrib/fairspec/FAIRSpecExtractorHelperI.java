@@ -51,4 +51,6 @@ public interface FAIRSpecExtractorHelperI extends FAIRSpecFindingAidHelperI {
 
 	boolean mergeDataObjectsIfMatching(IFDDataObject from, IFDDataObject to);
 
+	void checkStructuresForNonequivalentInChIs();
+
 }

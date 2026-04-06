@@ -30,6 +30,7 @@ import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
  */
 abstract class IFDExtractorLayer0 extends FindingAidCreator {
 
+	protected boolean processMnovaMOL = true;
 	/**
 	 * "." here is the Eclipse project extract/ directory
 	 * 
@@ -164,6 +165,15 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 * phase 1 only
 	 */
 	protected String localSourceFile;
+
+	/**
+	 * the TSV file created by an automation Python script 
+	 * indicating predicted compound and spectra identifiers
+	 * and their association with file paths
+	 */
+	protected String tsvFile;
+
+	
 
 	/**
 	 * working local name, without the rootPath, as found in _IFD_manifest.json

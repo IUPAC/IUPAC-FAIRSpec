@@ -71,7 +71,6 @@ public class IFDExtractorMain extends IFDExtractorLayer3 {
 
 	private static final String debugFlags = "-sttxEnuropAfter=end";
 
-	
 
 // not avaialable -- see IFDExtractor
 //	
@@ -195,6 +194,7 @@ public class IFDExtractorMain extends IFDExtractorLayer3 {
 	public String processFlags(String[] args, String moreFlags) {
 		String flags = super.processFlags(args, moreFlags);
 		stopAfter = getFlagEquals(flags, "-stopafter");
+		tsvFile = getFlagEquals(flags, "-tsvfile");
 		return flags;
 	}
 

@@ -489,7 +489,7 @@ public class ExtractorTestNMRSHIFTDB extends FindingAidCreator {
 	}
 
 	@Override
-	public void addDeferredPropertyOrRepresentation(DeferredProperty p) {
+	public void addDeferredPropertyOrRepresentation(FAIRSpecUtilities.DeferredProperty p) {
 		// TODO Auto-generated method stub
 		
 	}

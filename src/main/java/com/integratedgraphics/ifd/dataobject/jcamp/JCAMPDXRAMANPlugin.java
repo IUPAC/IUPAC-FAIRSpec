@@ -27,10 +27,6 @@ public class JCAMPDXRAMANPlugin extends JCAMPDXDataObjectVendorPlugin {
 		register(com.integratedgraphics.ifd.dataobject.jcamp.JCAMPDXRAMANPlugin.class);
 	}
 
-	public JCAMPDXRAMANPlugin() {
-		setJCAMPType("RAMAN");
-	}
-	
 	@Override
 	public String accept(MetadataReceiverI extractor, String originPath, byte[] bytes) {
 		super.accept(extractor, originPath, bytes);

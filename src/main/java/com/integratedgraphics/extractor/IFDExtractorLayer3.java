@@ -82,8 +82,10 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		setCurrentPhase("3c");
 
 		phase3cCheckForDuplicateSpecData();
-		checkStopAfter("3c1");
 		helper.removeInvalidData();
+		helper.checkStructuresForNonequivalentInChIs();
+
+		
 		checkStopAfter("3c");
 		
 		if (contentsFile != null) {
@@ -306,7 +308,8 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 			rootLists.add(r.lstManifest);
 			rootLists.add(r.lstIgnored);
 		}
-		resourceList = resourceList.substring(1);
+		if (resourceList.length() > 0)
+			resourceList = resourceList.substring(1);
 		int nign = FileList.getListCount(rootLists, "ignored");
 		int nrej = FileList.getListCount(rootLists, "rejected");
 

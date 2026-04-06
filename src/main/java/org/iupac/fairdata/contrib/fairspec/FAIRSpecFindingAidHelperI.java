@@ -33,9 +33,9 @@ public interface FAIRSpecFindingAidHelperI {
 
 	public FAIRSpecCompoundAssociation createCompound(IFDStructure struc, IFDDataObject newSpec) throws IFDException;
 
-	public FAIRSpecCompoundAssociation createCompound(String thisCompoundID) throws IFDException;
+	public FAIRSpecCompoundAssociation findOrCreateCompound(String thisCompoundID) throws IFDException;
 
-	public IFDDataObject createDataObject(String id, String type);
+	public IFDDataObject findOrCreateDataObject(String id, String type);
 
 	public IFDDataObjectRepresentation createDataObjectRepresentation(IFDReference ref, Object data, long len,
 			String ifdStructureType, String mediatype);
@@ -62,7 +62,7 @@ public interface FAIRSpecFindingAidHelperI {
 
 	// deprecated public void setById(boolean isByID);
 
-	String addRelatedInfo(String pubdoi, boolean addPublicationMetadata, List<Map<String, Object>> list, String type)
+	String addRelatedInfo(String pubdoi, boolean addPublicationMetadata, String agency, String type)
 			throws IOException;
 
 	FAIRSpecCompoundAssociation findCompound(IFDStructure struc, IFDDataObject spec);
@@ -97,5 +97,6 @@ public interface FAIRSpecFindingAidHelperI {
 	FAIRSpecCompoundAssociation getThisCompound();
 
 	public void setDoIFDTypeSerialization(boolean b);
+
 
 }

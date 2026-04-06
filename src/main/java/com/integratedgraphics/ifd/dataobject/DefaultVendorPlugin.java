@@ -78,6 +78,12 @@ public abstract class DefaultVendorPlugin implements DataObjectVendorPluginI {
 	 */
 	private int index;
 
+
+	/**
+	 * e.g. "NMR" or "IR"
+	 */
+	public abstract String getType();
+
 	protected DefaultVendorPlugin() {
 		paramRegex = "IFD_METADATA$";
 	}
@@ -124,7 +130,7 @@ public abstract class DefaultVendorPlugin implements DataObjectVendorPluginI {
 	 * numerical directory name.
 	 */
 	@Override
-	public String getRezipPrefix(String dirName) {
+	public String getRezipPrefix(String dirName, byte[] bytes) {
 		return null;
 	}
 

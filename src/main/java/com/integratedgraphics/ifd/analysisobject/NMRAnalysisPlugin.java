@@ -107,5 +107,13 @@ public class NMRAnalysisPlugin extends DefaultAnalysisPlugin {
 		extractor.addProperty(key, val);
 	}
 
+	/**
+	 * For now, just null. For automation or missing line in IFD-extract.json file
+	 */
+	@Override
+	public String getType() {
+		return null;
+	}
+
 
 }

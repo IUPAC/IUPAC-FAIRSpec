@@ -48,7 +48,7 @@ public class DOIInfoExtractor {
 	 * @return null if there is an problem getting this URL
 	 * 
 	 */
-	public static Map<String, Object> getPubInfo(String uri, boolean addPublicationMetadata, String agency) throws IOException {
+	public static Map<String, Object> getPubInfo(String uri, boolean addPublicationMetadata, String agency, String type) throws IOException {
 		if (uri == null)
 			return null;
 		String url = null;
@@ -66,7 +66,7 @@ public class DOIInfoExtractor {
 			if (metadata != null) {
 				switch (agency) {
 				case CROSSREF:
-					extractCrossRefInfo(info, metadata);
+					extractCrossRefInfo(info, metadata, type);
 					break;
 				case DATACITE:
 					extractCrossCiteInfo(info, metadata);
@@ -93,8 +93,8 @@ public class DOIInfoExtractor {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static void extractCrossRefInfo(Map<String, Object> info, Map<String, Object> json) {
-		put(info,"type", "publication");
+	public static void extractCrossRefInfo(Map<String, Object> info, Map<String, Object> json, String type) {
+		put(info,"type", type);
 		Map<String, Object> message = getMap(json, "message");
 		String title = (String) getValue(message, "title", null);
 		if (title != null && title.startsWith("[") && title.endsWith("]")) {
@@ -118,7 +118,12 @@ public class DOIInfoExtractor {
 		}
 		put(info,"doi", doi);
 		put(info,"doiLink", "https://doi.org/" + doi);
-		put(info,"url", ((Map<String, Object>) getList(message, "link").get(0)).get("URL"));
+		Object url = (String) message.get("URL");
+		if (url == null) {
+			List<Object> link = getList(message, "link");
+			url = ((Map<String, Object>)link.get(0)).get("URL");
+		}
+		put(info,"url", url);
 	}
 
 	/**

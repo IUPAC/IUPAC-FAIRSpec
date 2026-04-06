@@ -219,13 +219,12 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	 * add related information from CrossRef or DataCite
 	 */
 	@Override
-	public String addRelatedInfo(String doi, boolean addPublicationMetadata, List<Map<String, Object>> list,
-			String type) throws IOException {
-		Map<String, Object> info = DOIInfoExtractor.getPubInfo(doi, addPublicationMetadata, type);
+	public String addRelatedInfo(String doi, boolean addPublicationMetadata,
+			String agency, String type) throws IOException {
+		Map<String, Object> info = DOIInfoExtractor.getPubInfo(doi, addPublicationMetadata, agency, type);
 		if (info == null || info.get("metadataSource") == null)
-			return "Could not access " + DOIInfoExtractor.getMetadataUrl(doi, type);
-		list.add(info);
-		findingAid.setRelatedTo(list);
+			return "Could not access " + DOIInfoExtractor.getMetadataUrl(doi, agency);
+		findingAid.addRelatedTo(info);
 		return null;
 	}
 	
@@ -288,8 +287,11 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		return (FAIRSpecCompoundAssociation) getCompoundCollection().addAssociation(struc, spec);
 	}
 
+	/**
+	 * create a new compound if unknown and 
+	 */
 	@Override
-	public FAIRSpecCompoundAssociation createCompound(String id) throws IFDException {
+	public FAIRSpecCompoundAssociation findOrCreateCompound(String id) throws IFDException {
 		FAIRSpecCompoundAssociation c = null;
 		if (id != null) {
 			c = findCompoundById(id);
@@ -297,14 +299,14 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		boolean isNew = (c == null);
 		if (isNew) {
 			c = createCompound(null, null);
+			if (id != null)
+				c.setPropertyValue(IFDConst.IFD_PROPERTY_ID, id);
 		} 
 		if (c != thisCompound) {
 			currentStructure = null;
 			currentDataObject = null;			
 		}
 		currentAssociation = thisCompound = c;
-		if (id != null)
-			c.setPropertyValue(IFDConst.IFD_PROPERTY_ID, id);
 		getCompoundCollection().add(c);
 		return c;
 	}
@@ -417,11 +419,19 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	}
 
 	@Override
-	public IFDDataObject createDataObject(String id, String type) {
-		IFDDataObject o = FAIRSpecDataObject.createFAIRSpecObject(type);
-		if (thisCompound != null)
-			thisCompound.addDataObject(o);
+	public IFDDataObject findOrCreateDataObject(String id, String type) {
+		IFDDataObject o = (IFDDataObject) getSpecCollection().getObjectById(id);
+		if (o == null) {
+			o = FAIRSpecDataObject.createFAIRSpecObject(type);
+			if (id != null)
+				o.setPropertyValue(IFDConst.IFD_PROPERTY_ID, id);
+		}
 		getSpecCollection().add(o);
+		if (thisCompound != null) {
+			if (o.getID().indexOf(thisCompound.getID()) < 0)
+			System.out.println("FAH add " + thisCompound + " " + o);
+			thisCompound.addDataObject(o);
+		}
 		return currentDataObject = o;
 	}
 

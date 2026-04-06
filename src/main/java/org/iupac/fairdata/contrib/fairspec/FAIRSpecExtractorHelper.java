@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -22,11 +23,13 @@ import org.iupac.fairdata.dataobject.IFDDataObjectCollection;
 import org.iupac.fairdata.derived.IFDSampleDataAssociation;
 import org.iupac.fairdata.derived.IFDStructureDataAssociation;
 import org.iupac.fairdata.derived.IFDStructureDataAssociationCollection;
+import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 import org.iupac.fairdata.sample.IFDSample;
 import org.iupac.fairdata.sample.IFDSampleCollection;
 import org.iupac.fairdata.structure.IFDStructure;
 import org.iupac.fairdata.structure.IFDStructureCollection;
+import org.iupac.fairdata.structure.IFDStructureRepresentation;
 
 /**
  * 
@@ -80,6 +83,11 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 			.getProp("FAIRSPEC_EXTRACTOR_COMPOUND_ID_DIR");
 	public static final String FAIRSPEC_EXTRACTOR_STRUCTURE_ID_DIR = IFDConst
 			.getProp("FAIRSPEC_EXTRACTOR_STRUCTURE_ID_DIR");
+	public final static String FAIRSPEC_EXTRACTOR_AUTOMATION_TSV_FILE = IFDConst
+			.getProp("FAIRSPEC_EXTRACTOR_AUTOMATION_TSV_FILE");
+	public final static String FAIRSPEC_EXTRACTOR_AUTOMATION_RESOURCE_ID = IFDConst
+			.getProp("FAIRSPEC_EXTRACTOR_AUTOMATION_RESOURCE_ID");
+
 
 	
 	public static final String EXIT = "EXIT";
@@ -666,7 +674,6 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	public IFDDataObject cloneData(IFDDataObject localSpec, String idExtension, boolean andReplace) {
 		// this will invalidate localSpec -- 1.mnova, for example.
 		// TODO clean out invalidated data
-		System.out.println(localSpec.getID() + " " + idExtension);
 		IFDDataObject data = getSpecCollection().cloneData(localSpec, idExtension, andReplace);
 		if (compoundCollection != null) {
 			for (IFDAssociation a : compoundCollection) {
@@ -781,20 +788,46 @@ public class FAIRSpecExtractorHelper extends FAIRSpecFindingAidHelper implements
 	 */
 	@Override
 	public boolean mergeDataObjectsIfMatching(IFDDataObject objFrom, IFDDataObject objTo) {
-		if (!IFDDataObject.areIdentical(objFrom, objTo))
+		if (!objTo.isValid() || !IFDDataObject.areIdentical(objFrom, objTo))
 			return false;
 		// 1. merge attributes
 		// 2. merge representations
 		// 3. mark dup as invalid
 		// do NOT transfer IFDProperties, just represntations and attributes
 		// only transfer attributes that are non-existant
-		IFDAttribute.mergeAll(objFrom.getAttributes(), objTo.getAttributes());
 		System.out.println("!FSEH Merging " + objFrom + " into " + objTo);
+		IFDAttribute.mergeAll(objFrom.getAttributes(), objTo.getAttributes());
 		for (int i = 0, n = objFrom.size(); i < n; i++) {
 			objTo.add(objFrom.get(i));
 		}
 		objFrom.setValid(false);
 		return true;
+	}
+
+	@Override
+	public void checkStructuresForNonequivalentInChIs() {
+		IFDStructureCollection c = getStructureCollection();
+		for (int i = 0, n = c.size(); i < n; i++) {
+			String warning = null;
+			IFDStructure s = c.get(i);
+			HashSet<Object> inchis = new HashSet<>();
+			for (int j = s.size(); --j >= 0;) {
+				IFDStructureRepresentation r = s.get(j);
+				String t = r.getType();
+				if (DefaultStructureHelper.STANDARD_INCHI.equals(t)) {
+					if (inchis.isEmpty()) {
+						inchis.add(r.getData());
+					} else if (!inchis.contains(r.getData())) {
+						warning = "WARNING! " + s.getIDorIndex() + " has more than one standard InChI!";
+						break;
+					}						
+				}
+			}
+			if (warning != null) {
+				s.setPropertyValue(IFDConst.IFD_PROPERTY_NOTE, warning);
+				extractor.log("! " + warning);
+			}
+		}
 	}
 
 }

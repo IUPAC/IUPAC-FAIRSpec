@@ -459,13 +459,6 @@ public class DOICrawler extends FindingAidCreator {
 	protected static final String FAIRSPEC_COMPOUND_ID = "IFD.property.fairspec.compound.id";
 	protected static final String FAIRSPEC_DATAOBJECT_FLAG = "IFD.property.dataobject.fairspec.";
 
-	protected static final String IFD_STANDARDINCHI = "IFD.representation.structure.standard_inchi";
-	protected static final String IFD_FIXEDHINCHI = "IFD.representation.structure.fixedh_inchi";
-	protected static final String IFD_INCHI = "IFD.representation.structure.inchi";
-	protected static final String IFD_INCHIKEY = "IFD.representation.structure.inchikey";
-	protected static final String IFD_SMILES = "IFD.representation.structure.smiles";
-	protected static final String IFD_IMAGE_PNG = "IFD.representation.structure.png";
-
 	private static String indent = "                              ";
 
 	private static Comparator<DoiRecord> sorter = new Comparator<DoiRecord>() {
@@ -757,14 +750,14 @@ public class DOICrawler extends FindingAidCreator {
 		String doi = doiRecord.ifdRef.getDOI();
 		try {
 			switch (key) {
-			case IFD_SMILES:
+			case DefaultStructureHelper.IFD_SMILES:
 				mol = CDK.getCDKMoleculeFromSmiles(value.toString());
 				from = "from SMILES";
 				if (mol == null) {
 					err = "invalid! SMILES could not be interpreted: " + value + " " + doi;
 				}
 				break;
-			case IFD_INCHI:
+			case DefaultStructureHelper.IFD_INCHI:
 				mol = CDK.getCDKMoleculeFromInChI(value.toString(), "fixamide fixacid");
 				from = "from InChI";
 				if (mol == null) {
@@ -787,13 +780,13 @@ public class DOICrawler extends FindingAidCreator {
 				inchi = err;
 			IFDStructureRepresentation ref;
 			if (!value.equals(inchi)) {
-				ref = faHelper.createStructureRepresentation(null, null, inchi, 0, IFD_STANDARDINCHI, null);
+				ref = faHelper.createStructureRepresentation(null, null, inchi, 0, DefaultStructureHelper.IFD_STANDARDINCHI, null);
 				ref.addNote(null);
 				ref.addNote(from);
 				if (err == null) {
 					try {
 						String inchiKey = CDK.getInChIKey(mol, "");
-						ref = faHelper.createStructureRepresentation(null, null, inchiKey, 0, IFD_INCHIKEY, null);
+						ref = faHelper.createStructureRepresentation(null, null, inchiKey, 0, DefaultStructureHelper.IFD_INCHIKEY, null);
 						ref.addNote(null);
 						ref.addNote(from);
 					} catch (Throwable t) {
@@ -802,7 +795,7 @@ public class DOICrawler extends FindingAidCreator {
 				}
 			}
 			if (fixedHInchi != null && !fixedHInchi.equals(value)) {
-				ref = faHelper.createStructureRepresentation(null, null, fixedHInchi, 0, IFD_FIXEDHINCHI, null);
+				ref = faHelper.createStructureRepresentation(null, null, fixedHInchi, 0, DefaultStructureHelper.IFD_FIXEDHINCHI, null);
 				ref.addNote(null);
 				ref.addNote(from);
 			}
@@ -813,7 +806,7 @@ public class DOICrawler extends FindingAidCreator {
 						err = cdkSmiles = "invalid! SMILES could not be calculated: " + value + " " + doi;
 					}
 				}
-				ref = faHelper.createStructureRepresentation(null, null, cdkSmiles, 0, IFD_SMILES, null);
+				ref = faHelper.createStructureRepresentation(null, null, cdkSmiles, 0, DefaultStructureHelper.IFD_SMILES, null);
 				ref.addNote(null);
 				ref.addNote(from);
 				if (mol.getAtomCount() != 0) {
@@ -837,7 +830,7 @@ public class DOICrawler extends FindingAidCreator {
 			int height = bi.getHeight();
 			if (width > 0 && height > 0) {
 				IFDStructureRepresentation ref = faHelper.createStructureRepresentation(null, null, bytes, 0,
-						IFD_IMAGE_PNG, "image/png");
+						DefaultStructureHelper.IFD_IMAGE_PNG, "image/png");
 				ref.addNote(null);
 				ref.addNote(note + " [" + width + "," + height + "]");
 			}
@@ -938,7 +931,7 @@ public class DOICrawler extends FindingAidCreator {
 						o = thisCompound;
 				} else {
 					thisCompoundID = rec.compoundID;
-					thisCompound = o = faHelper.createCompound(thisCompoundID);
+					thisCompound = o = faHelper.findOrCreateCompound(thisCompoundID);
 					if (o.getDOI() == null) {
 						o.setDOI(rec.ifdRef.getDOI());
 						o.setURL(rec.ifdRef.getURL());
@@ -997,7 +990,7 @@ public class DOICrawler extends FindingAidCreator {
 	}
 
 	private IFDObject<?> setDataObject(DoiRecord rec) {
-		IFDDataObject o = thisDataObject = faHelper.createDataObject("" + ++ids, rec.dataObjectType);
+		IFDDataObject o = thisDataObject = faHelper.findOrCreateDataObject("" + ++ids, rec.dataObjectType);
 		o.setDOI(rec.ifdRef.getDOI());
 		o.setURL(rec.ifdRef.getURL());
 		thisDataObjectType = rec.dataObjectType;
@@ -1356,7 +1349,7 @@ public class DOICrawler extends FindingAidCreator {
 	}
 
 	@Override
-	public void addDeferredPropertyOrRepresentation(DeferredProperty p) {
+	public void addDeferredPropertyOrRepresentation(FAIRSpecUtilities.DeferredProperty p) {
 		// n/a
 		
 	}
