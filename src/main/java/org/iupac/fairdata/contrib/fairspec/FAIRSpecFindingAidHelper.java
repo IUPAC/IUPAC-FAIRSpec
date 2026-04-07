@@ -139,6 +139,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 
 	private FAIRSpecCompoundAssociation thisCompound;
 
+	private int propertyCount;
 
 	public FAIRSpecFindingAidHelper(String creator) {
 		try {
@@ -147,7 +148,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			
 		}
 	}
-	
+
 	@Override
 	public FAIRSpecCompoundAssociation getThisCompound() {
 		return thisCompound;
@@ -428,8 +429,6 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		}
 		getSpecCollection().add(o);
 		if (thisCompound != null) {
-			if (o.getID().indexOf(thisCompound.getID()) < 0)
-			System.out.println("FAH add " + thisCompound + " " + o);
 			thisCompound.addDataObject(o);
 		}
 		return currentDataObject = o;
@@ -733,5 +732,6 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	public void setDoIFDTypeSerialization(boolean b) {
 		IFDObject.setDoTypeSerialization(b);
 	}
+
 
 }

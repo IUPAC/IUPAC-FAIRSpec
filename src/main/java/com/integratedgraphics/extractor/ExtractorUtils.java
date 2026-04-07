@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
@@ -78,6 +79,7 @@ public class ExtractorUtils {
 		public static final int SPEC_ID     = 2;
 		public static final int CMPD_ID_COL = 3;
 		public static final int TYPE        = 4; // not used yet, if ever
+		public static final int CMPD_PATH   = 5;
 
 		private final static Pattern pStarDotStar = Pattern.compile("\\*([^|/])\\*");
 		private final static Pattern objectDefPattern = Pattern.compile("\\{([^:]+)::([^}]+)\\}");
@@ -459,22 +461,6 @@ public class ExtractorUtils {
 		
 		boolean automationProcessed;
 
-		/**
-		 * Find the nearest path to this object that can identify a compound for it.
-		 * 
-		 * @param originPath
-		 * @return compound id or null
-		 */
-		public String getAutomationCompoundIDFromPath(String originPath) {
-			for (int i = automationData.size(); --i >= 0;) {
-				String[] info = automationData.get(i);
-				if (originPath.startsWith(info[PATH]))
-					return info[CMPD_ID];
-			}
-			return null;
-		}
-
-
 		public AutomationParser(IFDExtractorMain extractor, ExtractorResource resource, List<Object> replacements, String rootPath, String[][] data)
 				throws IFDException {
 			super(extractor, resource, "_");
@@ -482,6 +468,29 @@ public class ExtractorUtils {
 			setAutomation(rootPath, data);
 			hasData = true;
 			isAutomationParser = true;
+		}
+
+		public static String[][] readAutomationData(String data) throws IOException {
+			String[][] a = (data == null ? null : FAIRSpecUtilities.SpreadsheetReader.getTSVData(data, "path", "compound_id", "dataobject_id", "cmpd_id_col", "type", "cmpd_path"));
+			for (int i = a.length; --i >= 0;) {
+				String[] info = a[i];
+				String path = info[PATH];
+				String col = info[CMPD_ID_COL];
+				try {
+					int icol = (int) Double.parseDouble(col) + 1;
+					String[] parts = path.split("/");
+					StringBuffer sb = new StringBuffer();
+					for (int j = 1; j <= icol; j++) {
+						sb.append(parts[j]).append('/');
+					}
+					info[CMPD_PATH] = sb.toString();
+					System.out.println(info[CMPD_ID] + " " + info[CMPD_PATH]);
+				} catch (Exception e) {
+					e.printStackTrace();
+					
+				}
+			}
+			return a;
 		}
 
 		/**
@@ -500,26 +509,34 @@ public class ExtractorUtils {
 			automationData = new ArrayList<>();
 			String root = rootPath + "/";
 			//TODO if necessary automationCompoundColumn = new int[data.length];
-			boolean haveData = false;
 			for (int i = 0; i < data.length; i++) {
 				String[] info = data[i]; 
 				String path = info[PATH];
-				if (path.startsWith(root)) {
-					haveData = true;
+				if (path == null) {
+					extractor.logWarn("null path for " + rootPath + " " + Arrays.toString(info), "AutomationParser");
+				} else if (path.startsWith(root)) {
 					info[PATH] = info[PATH].substring(root.length());
 					automationData.add(info);
-				} else if (haveData) {
-					break;
 				}
 			}
 			return this;
 		}
 
-
-		public static String[][] readAutomationData(String file) throws IOException {
-			return FAIRSpecUtilities.SpreadsheetReader.getTSVData(file, "path", "compound_id", "dataobject_id", "cmpd_id_col");
+		/**
+		 * Find the nearest path to this object that can identify a compound for it.
+		 * 
+		 * @param originPath
+		 * @return compound id or null
+		 */
+		public String getAutomationCompoundIDFromPath(String originPath) {
+			for (int i = automationData.size(); --i >= 0;) {
+				String[] info = automationData.get(i);
+				System.out.println(info[CMPD_PATH] + "\n" + originPath);
+				if (info[CMPD_PATH] != null && originPath.startsWith(info[CMPD_PATH]))
+					return info[CMPD_ID];
+			}
+			return null;
 		}
-
 
 	}
 	
@@ -869,12 +886,15 @@ public class ExtractorUtils {
 		private DirectoryInputStream dis;
 		private RARInputStream ris;
 		protected InputStream is;
-		private Enumeration<? extends ZipEntry> zfenum;
+		
 		private ZipFile zf;
-		protected ArchiveInputStream() throws IOException {
-			this(null, null, -1);
-		}
-
+		private Iterator<ZipEntry> zfiter;
+		/**
+		 * We have to sort these. See jo4c02737 -- all the directories are first! 
+		 */
+		private TreeMap<String, ZipEntry> zfmap;
+		String err;
+		
 		public ArchiveInputStream(InputStream is, String fname, int level) throws IOException {
 			if (is instanceof ArchiveInputStream)
 				is = new BufferedInputStream(((ArchiveInputStream) is).getStream());
@@ -895,8 +915,7 @@ public class ExtractorUtils {
 			    		FAIRSpecUtilities.getLimitedStreamBytes(is, -1, fos, false, true);	
 					} else if (fname.startsWith("file:///"))
 						fname = fname.substring(8);
-		    		zf = new ZipFile(fname);
-		    		zfenum = zf.entries();
+					 	readZipFile(fname);
 				} else {
 					this.is = zis = new ZipInputStream(is);
 				}
@@ -908,6 +927,25 @@ public class ExtractorUtils {
 					|| ZipUtil.isRAR(is))) {
 				this.is = ris = new RARInputStream(is);
 			}
+		}
+
+		private void readZipFile(String fname) throws IOException {
+			zf = new ZipFile(fname);
+			Enumeration<? extends ZipEntry> e = zf.entries();
+			zfmap = new TreeMap<String, ZipEntry>();
+			String name = null;
+			while (e.hasMoreElements()) {
+				try {
+					ZipEntry entry = e.nextElement();
+					name = entry.getName();
+					if (isValidName(name))
+						zfmap.put(name, entry);
+				} catch (Exception ex) {
+					err = ex.getMessage() + " reading zip file " + fname + " near " + name;
+					System.err.println(err);
+				}
+			}
+			zfiter = zfmap.values().iterator();
 		}
 
 		/**
@@ -1008,10 +1046,15 @@ public class ExtractorUtils {
 		 */
 		public ArchiveEntry getNextEntry() throws IOException {
 			if (ris != null) {
-				return ris.getNextEntry();
+				RARArchiveEntry re = ris.getNextEntry();
+				while (re != null && !isValidName(re.getName()))
+					re = ris.getNextEntry();
+				return re;
 			}
 			if (tis != null) {
 				TarArchiveEntry te = tis.getNextTarEntry();
+				while (te != null && !isValidName(te.getName()))
+					te = tis.getNextTarEntry();
 				return (te == null ? null : new ArchiveEntry(te));
 			}
 			if (zis != null) {
@@ -1022,9 +1065,9 @@ public class ExtractorUtils {
 					return new ArchiveEntry();
 				}
 			}
-			if (zfenum != null) {
+			if (zfiter != null) {
 				try {
-					ZipEntry ze = (zfenum.hasMoreElements() ? zfenum.nextElement() : null); 
+					ZipEntry ze = (zfiter.hasNext() ? zfiter.next() : null); 
 					if (ze == null)
 				      return null;
 					is = zf.getInputStream(ze);					
@@ -1033,8 +1076,11 @@ public class ExtractorUtils {
 					return new ArchiveEntry();
 				}
 			}
-			if (dis != null)
-				return dis.getNextEntry();
+			if (dis != null) {
+				ArchiveEntry e = dis.getNextEntry();
+				while (e != null && !isValidName(e.getName()))
+					e = dis.getNextEntry();
+			}
 			return null;
 		}
 
@@ -1044,8 +1090,11 @@ public class ExtractorUtils {
 				dis.close();
 			if (is != null)
 				is.close();
-			if (zf != null)
+			if (zf != null) {
+				zfiter = null;
+				zfmap = null;
 				zf.close();
+			}
 		}
 
 		public InputStream getStream() {
@@ -1231,6 +1280,17 @@ public class ExtractorUtils {
 			jarFile = new File(jarFilePath);
 		}
 		return jarFile;
+	}
+
+	
+	/**
+	 * Reject all names that start with __MACOSX or have /. in them.
+	 * 
+	 * @param name
+	 * @return true to retain
+	 */
+	public static boolean isValidName(String name) {
+		return (!name.startsWith("__MACOSX") && name.indexOf("/.") < 0);
 	}
 
 

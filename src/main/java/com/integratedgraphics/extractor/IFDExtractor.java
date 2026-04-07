@@ -32,7 +32,8 @@ import com.integratedgraphics.test.ExtractorTestDryad;
  */
 public class IFDExtractor {
 
-	public static final String version = "0.1.3+2026.04.01";
+	public static final String version = "0.1.4+2026.04.05";
+	// 0.1.4+2026.04.05 develops automation and fixes ZipFileReader to sort entries using a TreeMap
 	// 0.1.3+2026.04.01 adds automation
 	// 2026.01.25 version 0.1.2-beta refactored and much improved; adds CLI and
 	// timestamp-merging of NMR data

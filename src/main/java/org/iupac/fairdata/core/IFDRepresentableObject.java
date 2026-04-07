@@ -73,6 +73,7 @@ public abstract class IFDRepresentableObject<T extends IFDRepresentation> extend
 		if (rep == null) {
 			rep = newRepresentation((localName == null ? null : new IFDReference(resourceID, originPath, rootPath, localName)), data, 0, type, mediaType);		
 			add((T) rep);
+			nRepresentations++;
 			map.put(resourceID + "::" + key, rep);
 			if (localName != null && data != null)
 				map.put(resourceID + "::" + localName, rep);

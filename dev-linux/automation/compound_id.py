@@ -24,14 +24,14 @@ dataset_DOI = sys.argv[1]
 
 ### Domain knowledge
 
-IGNORE_FOLDERS = {
+IGNORE_FOLDERS_LC = {
     # lower-case here
     "used_from", "startingmaterial"
 }
 
-IGNORE_SUBSTRINGS = {
+IGNORE_SUBSTRINGS_LC = {
     # lower-case here
-    "zip"
+    "zip", ".doc"
 }
 
 IGNORE_PARENTS = {
@@ -107,7 +107,7 @@ GLOBAL_THRESHOLD = 0.3  # fractional frequency to qualify as a common, global pa
 # def generate_df_for_tsv(df, final_df):
 # def get_data_frame_for_compound_paths(df):
 # def get_final_compound_name(final_df, counts_series):
-# def get_global_folders(all_initial_candidates, candidate_freq):
+# def get_global_folders(paths, all_initial_candidates, candidate_freq):
 # def map_dataset_folders(compound_root_df, final_df):
 # def map_dataset_folders_for_compound_id(df, compound_name):
 # def prune_child_compound_ids(df, multiplier=5, min_children=6):
@@ -131,6 +131,12 @@ def __is_data_object(token):
       #  or any(token.endswith(ext) for ext in FILE_EXTENSIONS)
     )
 
+def __is_ignore_folder(folder):
+    if folder.lower() in (x for x in IGNORE_FOLDERS_LC):
+        return False
+    if any(sub in folder.lower() for sub in IGNORE_SUBSTRINGS_LC):
+        return False
+
 def __is_basic_candidate(folder):
     """
     Not a defined data object name (pdata, procpar, acqu)
@@ -139,9 +145,7 @@ def __is_basic_candidate(folder):
     f = folder.strip()
     if __is_data_object(f):
         return False
-    if f.lower() in (x for x in IGNORE_FOLDERS):
-        return False
-    if any(sub in f.lower() for sub in IGNORE_SUBSTRINGS):
+    if (__is_ignore_folder(f)):
         return False
     return True
 
@@ -151,6 +155,7 @@ def create_data_frame(paths):
     '''       
     path_parts = [list(map(str, Path(p).parts[1:])) for p in paths]
     df = pd.DataFrame({"parts": path_parts})
+
     # create file paths with the zip files
     df["path_text_final"] = paths
     df["path_text_final"] = df["path_text_final"].str.replace(".zip__/", ".zip|")
@@ -187,11 +192,27 @@ def create_data_frame(paths):
     __print_column(df, "parts")
     return df
     
-def get_global_folders(all_initial_candidates, candidate_freq):
-    return {
+def get_global_folders(paths, all_initial_candidates, candidate_freq):
+
+    # also add all-unique top directories in each zip file
+
+    path_parts0 = [Path(p).parts[0] for p in paths]
+    path_parts1 = [Path(p).parts[1] for p in paths]
+    df_parts = pd.DataFrame({"p0":path_parts0, "p1": path_parts1})
+    df_parts = df_parts.groupby("p0")["p1"].unique()
+    print("df_parts")
+    print (df_parts)
+    # but what if there is just one compound per file?
+
+
+
+    gf = {
         folder for folder, count in candidate_freq.items()
         if count > 1 and count / overall_path_count >= GLOBAL_THRESHOLD
     }
+
+
+    return gf
 
 def update_df_for_global_folders(df, global_folders, candidate_freq):
     '''
@@ -526,8 +547,8 @@ def __is_candidate(folder, global_folders):
     '''
     if folder in global_folders:
         return False
-    if folder.lower() in (x for x in IGNORE_FOLDERS):
-        return False
+    if __is_ignore_folder(folder):
+        return false
     if __is_data_object(folder):
         return False
     return True
@@ -912,9 +933,9 @@ def generate_compound_map_df(df, compound_root_df):
     #print(f"tokens={tokens}")
     #print(f"counts_series={counts_series}")
     for val in local_df['compound_id']:
-        val = val.replace(" + ", "+")
+        val = str(val).replace(" + ", "+")
     local_df['compound_id'] = local_df['compound_id'].str.replace(' + ', '+', regex=False)               
-
+    local_df = local_df.dropna()
     get_final_compound_name(local_df, counts_series)
 
     # writing the pdata file path
@@ -1075,7 +1096,8 @@ def add_compound_ids_from_experiment_parents(df, final_df):
 # Read file paths and set global variables
 filename = f"file_list_{dataset_DOI}.txt"
 with open(filename, "r", encoding="utf-8") as f:
-    paths = [line.strip() for line in f if line.strip()]
+    paths = [str(line.strip()) for line in f if line.strip()]
+
 
 
 df = create_data_frame(paths)
@@ -1091,7 +1113,7 @@ print(f"\n\nAll initial compound_id candidates: \n {set(all_initial_candidates)}
 
 # get the global folders
 nonduplicated_candidates = df["nonduplicated_candidates"].explode().tolist()
-global_folders = get_global_folders(nonduplicated_candidates, Counter(nonduplicated_candidates))
+global_folders = get_global_folders(paths, nonduplicated_candidates, Counter(nonduplicated_candidates))
 print(f"Identified global folders: \n {global_folders}\n")
 
 # update for global folders
@@ -1101,6 +1123,9 @@ df = update_df_for_global_folders(df, global_folders, candidate_freq)
 # create compound_root_df, includes all of the filepaths after compound_ids
 # this assumes that all the important information is after the compound_id 
 compound_root_df = get_data_frame_for_compound_paths(df)
+
+print("crd")
+print(compound_root_df.to_string())
 
 # print("compound_root_df")
 # print(compound_root_df.to_string())

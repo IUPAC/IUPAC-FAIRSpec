@@ -505,7 +505,9 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		String file = localSourceDir + "/" + tsvFile;
 		String err = "";
 		try {
-			String[][] automationData = AutomationParser.readAutomationData(file);
+			String data = FAIRSpecUtilities.getURLContentsAsString(file);
+			log("!" + file + "\n" + data);
+			String[][] automationData = AutomationParser.readAutomationData(data);
 			if (automationData != null) {
 				log("!phase1ProcessAutomationTSVFile found " + automationData.length + " paths");
 				return automationData;
@@ -516,15 +518,6 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		logErr("file " + tsvFile + " could not be processed for automation data " + err,
 				"phase1ProcessAutomationTSVFile");
 		return null;
-	}
-
-	public static String join(String[] s, char c) {
-		SB sb = new SB();
-		int i0 = 0;
-		sb.append(s[i0++]);
-		for (int i = i0; i < s.length; i++)
-			sb.appendC(c).append(s[i]);
-		return sb.toString();
 	}
 
 	@SuppressWarnings("unchecked")

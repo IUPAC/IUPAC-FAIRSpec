@@ -409,7 +409,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			// reset the pointer to zero, adding any
 			// additional properties BEFORE what is already on the list from Phase 2a or 2b.
 			resetDeferredPropertyList(false);
-			System.out.println(rezipCache.toString().replace(',', '\n'));
+			//System.out.println(rezipCache.toString().replace(',', '\n'));
 			phase2cGetNextRezipName();
 			lastRezipPath = null;
 			phase2cIterate();
@@ -478,6 +478,9 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		boolean isTopLevel = (baseOriginPath.length() == 0);
 		ArchiveInputStream ais = new ArchiveInputStream(is, isTopLevel ? extractorResource.getSourceFile() : null,
 				level);
+		if (ais.err != null) {
+			logWarn(ais.err, "phase2ReadFAIRSpecReadyCollectionIterativey");
+		}
 		ArchiveEntry zipEntry = null;
 		ArchiveEntry firstFileEntry = null;
 		int n = 0;
@@ -495,8 +498,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			String name = zipEntry.getName();
 			if (name == null)
 				continue;
-			if (name.indexOf("1a.mol") >= 0)
-				System.out.println("?????");
 			n++;
 			boolean isDir = zipEntry.isDirectory();
 			long size = (isDir ? 0 : zipEntry.getSize());
@@ -591,11 +592,11 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 							entryStack.add(rezipStack.remove(0));
 						if (nextEntry != null)
 							entryStack.add(nextEntry);
-						System.out.println("next entry is " + nextEntry);
+						//System.out.println("next entry is " + nextEntry);
 						phase2cGetNextRezipName();
 						continue;
 					} else if (rezipCache.containsPath(oPath)) {
-						System.out.println(rezipCache.toString().replace(',','\n'));
+						//System.out.println(rezipCache.toString().replace(',','\n'));
 						// Bruker directory within a Bruker directory!
 						// jo4c02622 has a triple nesting. (We allow here for up to four nestings)
 						// The rezip path order is 
@@ -788,8 +789,6 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			PropertyManagerI mgr = (isFound ? getPropertyManager(managerMatcher, true, true) : null);
 			boolean haveManager = (mgr != null);
 			boolean isStructure = (haveManager && mgr == structurePropertyManager);
-			if (isStructure)
-				System.out.println("??????");
 			boolean doExtract = (!haveManager || mgr.doExtract(originPath));
 			// Note that we only deal here with "extractable" files. 
 			// In the case of Bruker datasets, which will be repackaged in Phase 2c, 
@@ -1372,6 +1371,9 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			// probably the case, as this renamed representation has not been added yet.
 		} else if (!insitu) {
 			r.setLength(len);
+		}
+		if (len < 100) {
+			logWarn("dataset is empty! " + originPath + " > " + this.localizedName, "phase2cRezipEntry");
 		}
 		if (originPath.endsWith(".zip"))
 			originPath = originPath.substring(0, originPath.length() - 4); // remove ".zip"

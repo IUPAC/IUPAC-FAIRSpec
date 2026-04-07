@@ -126,7 +126,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	protected boolean includeIgnoredFiles = true;
 
 	
-	protected FAIRSpecFindingAidHelperI faHelper;
+	public FAIRSpecFindingAidHelperI faHelper;
 
 	protected FAIRSpecFindingAidHelperI getHelper() {
 		return faHelper;

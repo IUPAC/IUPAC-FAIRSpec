@@ -1,18 +1,18 @@
 package com.integratedgraphics.test;
 
-import java.util.List;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecExtractorHelper;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
+import org.iupac.fairdata.core.IFDObject;
 
 import com.integratedgraphics.extractor.FindingAidCreator;
 import com.integratedgraphics.extractor.IFDExtractor;
 import com.integratedgraphics.extractor.IFDExtractorMain;
-import com.integratedgraphics.html.PageCreator;
 
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
@@ -33,7 +33,8 @@ public class ExtractorTestACS2 extends ExtractorTest {
 	private static class ACSInfo {
 		
 		private final static String extractionTemplate =  //
-				"{\"" + FAIRSpecExtractorHelper.FAIRSPEC_EXTRACT_VERSION + "\":\"" + IFDExtractor.version + "\",\"keys\":[\n" + // 
+				" {\"" + FAIRSpecExtractorHelper.FAIRSPEC_EXTRACT_VERSION + "\":\"" + IFDExtractor.version + "\",\"keys\":[\n" + // 
+				" {\"" + IFDConst.IFD_PROPERTY_FINDINGAID_ID + "\":\"$ACSCODE$\"},\n" + //
 				" {\"" + FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_AUTOMATION_TSV_FILE + "\":\"$TSVFILE$\"},\n" + //
 				" {\"" + IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_PUBLICATION_DOI+"\":\"$PUBDOI$\"},\n" +  //
 				" {\"" + IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_URI + "\":\"https://creativecommons.org/licenses/by-nc/4.0\"},\n" + // 
@@ -89,6 +90,7 @@ public class ExtractorTestACS2 extends ExtractorTest {
 
 		public String getExtractJson() {
 			String s = extractionTemplate //
+					.replace("$ACSCODE$", acscode)
 					.replace("$PUBDOI$", pubDOI)
 					.replace("$TSVFILE$", tsvFile);
 			String res = "";
@@ -118,12 +120,17 @@ public class ExtractorTestACS2 extends ExtractorTest {
 
 		String moreFlags = null;
 
-		int i0 = (findACSID != null ? 1 : Math.max(1, Math.min(first, last)));
-		int i1 = (findACSID != null ? articles.size() - 1 : Math.min(articles.size() - 1, Math.max(1, Math.max(first, last))));
+		int i1 = (findACSID != null ? articles.size() : Math.min(articles.size(), Math.max(1, Math.max(first, last))));
+		int i0 = (findACSID != null ? 1 : Math.min(Math.max(1, Math.min(first, last)), i1));
 		int failed = 0;
 		int n = 0;
 		int nWarnings = 0;
 		int nErrors = 0;
+		int nCompounds = 0;
+		int nStructures = 0;
+		int nSpectra = 0;
+		IFDObject.nProperties = IFDObject.nRepresentations = 0;
+		
 		String warnings = "";
 		IFDExtractorMain extractor = null;
 		String sflags = null;
@@ -172,6 +179,9 @@ public class ExtractorTestACS2 extends ExtractorTest {
 			}
 			if (extractor.assetsOnly)
 				continue;
+			nStructures += extractor.faHelper.getStructureCollection().size();
+			nSpectra += extractor.faHelper.getSpecCollection().size();
+			nCompounds += extractor.faHelper.getCompoundCollection().size();
 			nWarnings += extractor.warnings;
 			nErrors += extractor.errors;
 			extractor.logToSys("!Extractor.runExtraction job " + acsInfo.acscode + " time/sec="
@@ -179,7 +189,7 @@ public class ExtractorTestACS2 extends ExtractorTest {
 			ifdExtractFile = null;
 			if (extractor.warnings > 0) {
 				String w = "======== " + i + ": " + extractor.warnings + " warnings for " + targetDir + "\n"
-						+ extractor.strWarnings;;
+						+ extractor.strWarnings + "\n";
 				warnings += w;
 				try {
 					FAIRSpecUtilities.writeBytesToFile(w.getBytes(),
@@ -212,6 +222,10 @@ public class ExtractorTestACS2 extends ExtractorTest {
 				e.printStackTrace();
 			}		
 		}
+		System.out.println("Extractor processed:\n" + nStructures + " structures\n" + nSpectra + " spectra\n" 
+				+ nCompounds + " compounds\n" + IFDObject.nProperties + " properties\n"
+				+ IFDObject.nRepresentations + " representatios\n");
+
 		FAIRSpecUtilities.setLogging(null);
 	}
 	
@@ -254,9 +268,9 @@ public class ExtractorTestACS2 extends ExtractorTest {
 	 * for example: https://ndownloader.figshare.com/files/21947274
 	 */
 	private static String[] acs2TestSet = { //
-			/*1*/"https://doi.org/10.1021/acs.joc.4c02094.s004",//<i>Meta</i>-, Regioselective Amination of Cyclic Diaryliodoniums through Câ€“I and Câ€“O Bond Cleavages: An Access to Functionalized Coumarins
-			/*2*/"https://doi.org/10.1021/acs.joc.4c02689.s004",//Uncommon Diterpenoids with Diverse Frameworks from the South China Sea Sponge Spongia officinalis and Their Anti-inflammatory Activities
-			/*3*/"https://doi.org/10.1021/acs.joc.4c02691.s002",//Thiazoles via Formal [4 + 1] of NaSH to (Z)â€‘Bromoisocyanoalkenes
+			/*1* FAILS one cmpd per zip file; fails first column is NOT global*/"https://doi.org/10.1021/acs.joc.4c02689.s004",//Uncommon Diterpenoids with Diverse Frameworks from the South China Sea Sponge Spongia officinalis and Their Anti-inflammatory Activities
+			/*2* fails [F-NMR, 3w, 10, pdata] F-NMR    jo4c02094_si_004/F-NMR/3w/10/pdata */"https://doi.org/10.1021/acs.joc.4c02094.s004",//<i>Meta</i>-, Regioselective Amination of Cyclic Diaryliodoniums through Câ€“I and Câ€“O Bond Cleavages: An Access to Functionalized Coumarins
+			/*3* fails 2	NOESY	NOESY	NOESYprocpar	jo4c02691_si_002/FAIR Data - FID files/25/NOESY/procpar*/"https://doi.org/10.1021/acs.joc.4c02691.s002",//Thiazoles via Formal [4 + 1] of NaSH to (Z)â€‘Bromoisocyanoalkenes
 			/*4*/"https://doi.org/10.1021/acs.joc.4c02715.s002",//From Pseudocyclic to Macrocyclic Ionophores: Strategies toward the Synthesis of Cyclic Monensin Derivatives
 			/*5*/"https://doi.org/10.1021/acs.joc.4c02737.s002",//Photooxidation and Cleavage of Ethynylated 9,10-Dimethoxyanthracenes with Acid-Labile Ether Bonds
 			/*6*/"https://doi.org/10.1021/acs.joc.4c02842.s002",//One-Pot Alkynylation/Isomerization Cascade of Î²â€‘Formylated Enoates to Functionalized Ynones
@@ -272,19 +286,18 @@ public class ExtractorTestACS2 extends ExtractorTest {
 			/*16*/"https://doi.org/10.1021/acs.joc.5c00513.s002",//Blue-Light-Irradiated Copper-Catalyzed Regio-tunable Double Câ€“H/Câ€“H Cross-Coupling Reaction: A Sustainable Approach to Construct C2â€‘Indolyl-1,4-naphthoquinones
 			/*17*/"https://doi.org/10.1021/acs.joc.5c00526.s003",//Precise Synthesis of Ester-Functionalized Cyclo[6]- and Cyclo[7]furans
 			/*18*/"https://doi.org/10.1021/acs.joc.5c00609.s002",//Curcumin as a Cinnamoyl Transfer Reagent via Câ€“C(CO) Bond Scissoring in the Microwave-Assisted Reaction with Hydroxyâ€‘pâ€‘QMs
-			/*19*/"https://doi.org/10.1021/acs.joc.5c00613.s002",//Ni/Pd Dual-Catalysis Strategy for C(sp2)â€“Sb Cross-Coupling of Halostibines with Aryl Triflates and Applications of Products as Coupling Reagents, Ligands, and Anticancer Compounds
+			/*19 ZipFileReader read issue*/"https://doi.org/10.1021/acs.joc.5c00613.s002",//Ni/Pd Dual-Catalysis Strategy for C(sp2)â€“Sb Cross-Coupling of Halostibines with Aryl Triflates and Applications of Products as Coupling Reagents, Ligands, and Anticancer Compounds
 			/*20*/"https://doi.org/10.1021/acs.joc.5c00649.s002",//Do We See the True Color of Anthocyanidins?
 			/*21*/"https://doi.org/10.1021/acs.joc.5c00794.s002",//Triplet Ketone Catalysis-Enabled Functionalization of Thioanisoles with Maleimides
 			/*22*/"https://doi.org/10.1021/acs.joc.5c00912.s002",//Câ€“C Coupling Enabled by Mn Complexes with Diacyl Peroxides: Alkylation versus Oxygenation
-			/*23*/"https://doi.org/10.1021/acs.joc.4c02546.s002",//Synergy-Promoted Specific Alkyltriphenylphosphonium Binding to CB[8]
-			/*24*/"https://doi.org/10.1021/acs.joc.4c02574.s002",//Câ€“H Aminoalkylation of 5â€‘Membered Heterocycles: Influence of Descriptors, Data Set Size, and Data Quality on the Predictiveness of Machine Learning Models and Expansion of the Substrate Space Beyond 1,3-Azoles
-			/*25*/"https://doi.org/10.1021/acs.joc.4c02600.s002",//Visible-Light-Mediated Three-Component Alkene 1,2-Alkylpyridylation Reaction Using Alkylboronic Acids as Radical Precursors for the Synthesis of 4â€‘Alkylpyridines
-			/*26*/"https://doi.org/10.1021/acs.joc.4c02622.s001",//Direct Synthesis of 2â€‘Functionalized 3â€‘Nitroindoles from Diazo(nitro)acetanilides
-			/*26*/"https://doi.org/10.1021/acs.joc.4c02622.s002",//Direct Synthesis of 2â€‘Functionalized 3â€‘Nitroindoles from Diazo(nitro)acetanilides
-			/*26*/"https://doi.org/10.1021/acs.joc.4c02622.s004",//Direct Synthesis of 2â€‘Functionalized 3â€‘Nitroindoles from Diazo(nitro)acetanilides
-			/*27*/"https://doi.org/10.1021/acs.joc.4c02638.s002",//NHC-BH3â€‘Mediated Reduction of Sulfonyl Hydrazides into Disulfides and Further Cross-Coupling with Chlorostibine and Bioactivities
-			/*28*/"https://doi.org/10.1021/acs.joc.4c02652.s002",//Aryl Borane as a Catalyst for Dehydrative Amide Synthesis
-			/*29*/"https://doi.org/10.1021/acs.joc.4c02669.s001",//Controlling the Symmetry of Perylene Derivatives via Selective ortho-Borylation
+			/*23* calculation xyz only */"https://doi.org/10.1021/acs.joc.4c02546.s002",//Synergy-Promoted Specific Alkyltriphenylphosphonium Binding to CB[8]
+			/*24*/"https://doi.org/10.1021/acs.joc.4c02600.s002",//Visible-Light-Mediated Three-Component Alkene 1,2-Alkylpyridylation Reaction Using Alkylboronic Acids as Radical Precursors for the Synthesis of 4â€‘Alkylpyridines
+			/*25 embedded Bruker directories and misplaced MNova files*/"https://doi.org/10.1021/acs.joc.4c02622.s001",//Direct Synthesis of 2â€‘Functionalized 3â€‘Nitroindoles from Diazo(nitro)acetanilides
+			/*25*/"https://doi.org/10.1021/acs.joc.4c02622.s002",//Direct Synthesis of 2â€‘Functionalized 3â€‘Nitroindoles from Diazo(nitro)acetanilides
+			/*25*/"https://doi.org/10.1021/acs.joc.4c02622.s004",//Direct Synthesis of 2â€‘Functionalized 3â€‘Nitroindoles from Diazo(nitro)acetanilides
+			/*26*/"https://doi.org/10.1021/acs.joc.4c02638.s002",//NHC-BH3â€‘Mediated Reduction of Sulfonyl Hydrazides into Disulfides and Further Cross-Coupling with Chlorostibine and Bioactivities
+			/*27*/"https://doi.org/10.1021/acs.joc.4c02652.s002",//Aryl Borane as a Catalyst for Dehydrative Amide Synthesis
+			/*28*/"https://doi.org/10.1021/acs.joc.4c02669.s001",//Controlling the Symmetry of Perylene Derivatives via Selective ortho-Borylation
 	};
 	
 	static List<ACSInfo> getArticles() {
@@ -304,6 +317,9 @@ public class ExtractorTestACS2 extends ExtractorTest {
 			String supplementId = datadoi.substring(datadoi.length() - 3); // 004
 			info.add(supplementId);
 		}
+		if (info != null)
+			articles.add(info);
+		System.out.println(articles.size() + " test articles");
 		return articles;
 	}
 	
@@ -334,8 +350,8 @@ public class ExtractorTestACS2 extends ExtractorTest {
 		if (args == null) {
 			args = new String[4];
 		} else {
-			localSourceArchive = "c:/temp/iupac/acs2/test2";// -";
-			targetDir = "c:/temp/iupac/acs2/acs2025";
+			localSourceArchive = localSourceACS;
+			targetDir = localTargetDir;
 		}
 		args = setSourceTargetArgs(args, null, localSourceArchive, targetDir, flags);
 		boolean createFindingAidJSONList = true;
@@ -348,6 +364,7 @@ public class ExtractorTestACS2 extends ExtractorTest {
 	 * @param firstLast
 	 */
 	public static void runSet(String firstLast, String localSourceArchive, String targetDir) {
+		
 		firstLast = firstLast.replace('-', ',');
 		int pt = firstLast.indexOf('[');
 		targetDir = targetDir.replace('[', '_').replace(']', '_').replace('\\', '/');
@@ -360,12 +377,14 @@ public class ExtractorTestACS2 extends ExtractorTest {
 
 	}
 
+	static String localSourceACS = "c:/temp/iupac/acs2/test2";// -";
+	static String localTargetDir = "c:/temp/iupac/acs2/acs2025";
+
 	public static void main(String[] args) {
 		// args[] may override localSourceArchive as ars[1] 
 		// and testDir as args[2]; args[0] is ignored;
-		int first = 26; // first test to run
-		int last =  26; // last test to run; 13 max, 9 for smaller files only; 11 to skip single-mnova
-		run(args, first, last, null, null);
+		int first = 2; // first test to run
+		int last = 30; // last test to run
+		run(args, first, last, localSourceACS, localTargetDir);
 	}
-
 }

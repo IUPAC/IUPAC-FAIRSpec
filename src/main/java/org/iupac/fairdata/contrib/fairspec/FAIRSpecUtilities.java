@@ -672,10 +672,9 @@ public class FAIRSpecUtilities {
 			}
 		}
 
-		public static String[][] getTSVData(String file, String... headers) throws IOException {
+		public static String[][] getTSVData(String fileData, String... headers) throws IOException {
 			List<String[]> rows = new ArrayList<>();
-			String s = getURLContentsAsString(file);
-			BufferedReader reader = new BufferedReader(new StringReader(s));
+			BufferedReader reader = new BufferedReader(new StringReader(fileData));
 			String line;
 			int n = 0;
 			int ncol = headers.length;
@@ -698,7 +697,7 @@ public class FAIRSpecUtilities {
 				}
 				String[] data = new String[ncol];
 				for (int i = 0; i < colPt.length; i++) {
-					if (row.length > colPt[i])
+					if (colPt[i] >= 0 && row.length > colPt[i])
 						data[i] = row[colPt[i]];
 				}
 				rows.add(data);

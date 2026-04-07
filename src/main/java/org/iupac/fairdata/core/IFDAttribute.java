@@ -170,9 +170,16 @@ public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> 
 		if (value == null || name == null)
 			return;
 		char type = typeof(value);
-		if (type == '?')
+		if (type == '?') {
+			if (value instanceof ArrayList<?>) {
+				for (Object v: (ArrayList<?>) value) {
+					add(attributes, name, v);
+				}
+				return;
+			}
 			throw new RuntimeException("Attributes must be either String or Number adding " + value + " type "
-					+ value.getClass().getName());
+					+ value.getClass().getName());			
+		}
 		IFDAttribute p = null;
 		for (int i = attributes.size(); --i >= 0;) {
 			p = attributes.get(i);

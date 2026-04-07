@@ -98,5 +98,4 @@ public interface FAIRSpecFindingAidHelperI {
 
 	public void setDoIFDTypeSerialization(boolean b);
 
-
 }

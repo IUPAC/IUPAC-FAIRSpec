@@ -8,8 +8,6 @@ import java.util.zip.GZIPInputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.iupac.fairdata.util.IFDDefaultJSONSerializer.Base64;
 
-import javajs.util.Rdr;
-
 public class ZipUtil {
 
 	public static boolean isGzipS(InputStream is) {

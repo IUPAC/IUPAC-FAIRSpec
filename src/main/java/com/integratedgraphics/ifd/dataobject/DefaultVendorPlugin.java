@@ -128,10 +128,12 @@ public abstract class DefaultVendorPlugin implements DataObjectVendorPluginI {
 	 * Allow for a modification of the directory path to the resource in the
 	 * rezipped file. For example, all Bruker datasets must start with a fully
 	 * numerical directory name.
+	 * 
+	 * @return dirName here, to accept it by default
 	 */
 	@Override
 	public String getRezipPrefix(String dirName, byte[] bytes) {
-		return null;
+		return dirName;
 	}
 
 	@Override

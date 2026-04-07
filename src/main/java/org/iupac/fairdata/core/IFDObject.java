@@ -192,6 +192,9 @@ import org.iupac.fairdata.common.IFDException;
 @SuppressWarnings("serial")
 public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>, IFDSerializableI {
 
+	public static int nProperties;
+	public static int nRepresentations;
+	
 	public static class PropertyMap extends TreeMap<String, IFDProperty> {
 
 		@Override
@@ -429,6 +432,8 @@ public abstract class IFDObject<T> extends ArrayList<T> implements IFDObjectI<T>
 		if (IFDConst.isRepresentation(key) || checkFieldProperties(key, value)) {
 			return null;
 		}
+		nProperties++;
+		
 		// check for a known property
 		IFDProperty p = IFDConst.getIFDProperty(ifdProperties, key);
 		if (p != null) {
