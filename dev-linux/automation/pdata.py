@@ -5,13 +5,21 @@ import re
 import itertools
 import sys
 import numpy as np
+from collections import Counter
 
 # pdata.py
 
 # TODO-this should be broken out by resource path (first path)
 GLOBAL_THRESHOLD = 0.3  # fractional frequency to qualify as a common, global path;
 
+global doi 
 
+# Define the path to the script directory
+script_directory = Path(__file__).resolve().parent
+# Define the path to the IUPAC directory on MacOS
+iupac_directory = script_directory.parent.parent
+# Define the path to the pdata_all.txt
+filename = str(script_directory)+"/pdata_all.txt"
 
 def print_column(df,name):
     '''
@@ -297,17 +305,40 @@ def clean_parent_of_experiment(parts, candidates, global_folders):
             return parent
     return None
 
+def clean_repeated_parts(name):
+    '''
+    Remove duplicate tokens within a single compound name.
+    Splits on spaces, hyphens, and underscores, deduplicates while preserving
+    order, then reassembles.
+    E.g., "3ag 3ag" -> "3ag", "3ag-3ag-H" -> "3ag-H"
+    '''
+    sep_pattern = re.compile(r'([ \-_]+)')
+    parts = sep_pattern.split(name)
+    seen = set()
+    result = []
+    for part in parts:
+        if sep_pattern.fullmatch(part):
+            result.append(part)
+        elif part.lower() not in seen:
+            seen.add(part.lower())
+            result.append(part)
+    cleaned = ''.join(result).strip(' -_')
+    # Collapses any leftover duplicate whitespace
+    cleaned = re.sub(r' {2,}', ' ', cleaned)
+    return cleaned
+
 def get_final_compound_name(final_df, counts_series):
     '''
     Get just the final compound_id ids.
     Compare the tokens with the identified folders.
-    If a compound_id folder name contains multiple tokens, 
+    If a compound_id folder name contains multiple tokens,
     select the one where it is less frequent
-    OR filter out the most common token in the folder name 
+    OR filter out the most common token in the folder name
     '''
     tokens_in_compound_id_folder_name = []
     for compound_id_folder in final_df['compound_id']:
         max_count = 0
+        max_token = compound_id_folder  
         for value, count in counts_series.items():
             #print(f"val={value} count={count}")
             if value in compound_id_folder:
@@ -326,6 +357,10 @@ def get_final_compound_name(final_df, counts_series):
         if word_freq > len(tokens_in_compound_id_folder_name)/1.5:
             final_df['compound_name'] = final_df['compound_id'].str.replace(token_found, "")
             final_df['compound_name'] = final_df['compound_name'].str.replace("of ", "")
+
+    # aRemove repeated tokens within each compound_name
+    if 'compound_name' in final_df.columns:
+        final_df['compound_name'] = final_df['compound_name'].apply(clean_repeated_parts)
 
 def lambda_choose_weak_label(row, order, freq, globals, min_freq=3, max_frac=0.5):
     '''
@@ -726,6 +761,84 @@ def find_ids(parts, compound_ids, spec_ids, path):
     print(f"{parent} \t{child} \t{path}")    
     compound_ids.append(parent)
     spec_ids.append(child)
+    
+
+def choose_suitable(token1, token2, pattern = r"\d[a-zA-Z]*"):
+    '''
+    Compares two tokens and decides which one looks more similar to a compound name using regex
+    '''
+
+    match1 = re.search(pattern, token1)
+    match2 = re.search(pattern, token2)
+    
+    if match1 and not match2:
+        return token1
+    elif match2 and not match1:
+        return token2
+    return token1
+
+def strip_repeated_tokens(compound_ids):
+    '''
+    Replaces separators (if exists) in compound ID with /, tokenizes the IDs, and counts token frequencies.
+    Only keeps the token with the lowest frequency in each compound ID
+    E.g., ["18a-FID", "18b_FID", "22.FID"] -> ["18a", "18b", "22"]
+    '''
+    valid_compound_ids = [id for id in compound_ids if id is not None]
+    
+    if not valid_compound_ids:
+        return compound_ids
+        
+    token_counts = Counter()
+    modified_compound_ids = []
+    
+    # Replace separators, tokenize, and track token frequencies across all valid IDs
+    for compound_id in valid_compound_ids:
+        modified_id = compound_id
+        for sep in ('-', '_', '.','/',' '):
+            modified_id = modified_id.replace(sep, '/')
+        modified_id = modified_id.replace('.', '')
+        modified_id = modified_id.replace("'", '')
+        modified_compound_ids.append(modified_id)
+
+        compound_tokens = modified_id.split('/')
+        
+        token_counts.update(set(compound_tokens))
+           
+    # Reconstruct the IDs keeping only the unique tokens
+    result = []
+    for compound_id in modified_compound_ids:
+        if compound_id is None:
+            result.append(None)
+            continue
+            
+        modified_id = compound_id
+            
+        tokens = modified_id.split('/')
+        
+        if not tokens:
+            result.append(compound_id)
+            continue
+            
+        # Find the lowest frequency count among the tokens in this specific ID
+        min_frequency = min(token_counts[t] for t in tokens)
+        
+        # Keep all tokens in this ID that share that lowest frequency
+        kept_tokens = [t for t in tokens if token_counts[t] == min_frequency]
+        current_best_token = kept_tokens[0]
+
+        if(len(kept_tokens) > 1):
+            for i in range(1, len(kept_tokens)):
+                current_best_token = choose_suitable(current_best_token, kept_tokens[i])
+        if(current_best_token.startswith("COSY") or  
+           current_best_token.startswith("HMBC") or 
+           current_best_token.startswith("Neo") or 
+           current_best_token.startswith("NMR")):
+            continue
+        current_best_token = current_best_token.replace("compound",'')
+        current_best_token = current_best_token.replace("MHBC",'')
+        result.append(current_best_token)
+            
+    return set(result)
 
 def checkParts(path_parts, first, last, paths):
     compound_ids = []
@@ -734,11 +847,15 @@ def checkParts(path_parts, first, last, paths):
     while i < last:
         find_ids(path_parts[i], compound_ids, spec_ids, paths[i])
         i += 1
+    # Special cases: for these cases, the compound_ids got the incorrect 
+    if(doi not in  ["jo4c02335", "ol5c02536"]):
+        compound_ids = strip_repeated_tokens(compound_ids)
+    else:
+        compound_ids = strip_repeated_tokens(spec_ids)
     return (compound_ids, spec_ids)
 
 
 # Read file paths
-filename = "pdata_all.txt"
 with open(filename, "r", encoding="utf-8") as f:
     paths = [line.strip() for line in f if line.strip()]
 path_parts = [list(map(str, Path(p).parts[1:])) for p in paths]
@@ -757,10 +874,10 @@ while first < lp:
         last += 1
     if last - first > 5:    
         (compound_ids, spec_ids) = checkParts(path_parts2, first + 1, last - 1, paths)
-        with open(f'test2/{doi}_compound_id_pdata.txt', "w", encoding="utf-8") as f:
+        with open(f'{iupac_directory}/c:/temp/acs2/pdata/{doi}_compound_id_pdata.txt', "w", encoding="utf-8") as f:
             m = f'{doi} '+';'.join(compound_ids)+'\n'
             f.write(m)
-        with open(f'test2/{doi}_data_object_id_pdata.txt', "w", encoding="utf-8") as f:
+        with open(f'{iupac_directory}/c:/temp/acs2/pdata/{doi}_data_object_id_pdata.txt', "w", encoding="utf-8") as f:
             m = f'{doi} '+';'.join(spec_ids)+'\n'
             f.write(m)
     first = last
