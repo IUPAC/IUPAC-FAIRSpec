@@ -1229,7 +1229,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				lastLocalClonedParent = localParent;
 				obj = cloneData((IFDDataObject) obj, ext, true);
 			}
-			if (originPath.endsWith(".zip")) {
+			if (originPath.toLowerCase().endsWith(".zip")) {
 				if (lenOffset > 0) {
 					htZipRenamed.put(localizePath(basePath), localizedName);
 				}
@@ -1246,7 +1246,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			newDir = "101/";
 			lenOffset = dirName.length();
 			this.originPath = originPath;
-			if (originPath.endsWith(".zip")) {
+			if (originPath.toLowerCase().endsWith(".zip")) {
 				if (lenOffset > 0) {
 					htZipRenamed.put(localizePath(basePath), localizedName);
 				}
@@ -1375,7 +1375,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 		if (len < 100) {
 			logWarn("dataset is empty! " + originPath + " > " + this.localizedName, "phase2cRezipEntry");
 		}
-		if (originPath.endsWith(".zip"))
+		if (originPath.toLowerCase().endsWith(".zip"))
 			originPath = originPath.substring(0, originPath.length() - 4); // remove ".zip"
 		addFileAndCacheRepresentation(originPath, localizedName, null, len, dataType, null, "application/zip");
 		if (obj != null && !localizedName.equals(lNameForObj)) {
@@ -2318,7 +2318,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 	}
 
 	private void writePropertyList() {
-		String s = deferredPropertyList.toString().replaceAll(", \\[", "\n[");
+		String s = deferredPropertyList.toString().replace(", [", "\n[");
 		try {
 			if (propertyListFile == null) {
 				if (targetPath == null)
@@ -2450,6 +2450,7 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 				.replace('\"', '_')
 				.replace('?', '_')
 				.replace('*', '_')
+				.replace(".ZIP", ".zip")
 				+ (isDir ? ".zip" : "");
 	}
 

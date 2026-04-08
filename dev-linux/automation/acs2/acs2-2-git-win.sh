@@ -2,10 +2,9 @@
 
 # acs2-2-git-win.sh
 
-# 2026.04.05 BH -- working automation tested on jo4c02622
-# 2026.03.12 BH -- fixes ZIP and .xxx.ZIP issues
-# 2026.03.11 BH -- streamlined file list generation
-# 2026.03.10 BH from acs2_preprocessing2-git-win.sh
+# 2025.03.12 BH -- fixes ZIP and .xxx.ZIP issues
+# 2025.03.11 BH -- streamlined file list generation
+# 2025.03.10 BH from acs2_preprocessing2-git-win.sh
 # works with adapted alogrithm and experiments with ways to enhance functionality
 
 # defaults for these three globals
@@ -49,7 +48,7 @@ newPredictionOnly=false
 
 if [[ $? -ne 0 ]]; then
     echo "$? failed parsing [optional -[d]oi] <doi(s)> -[c]lean -[f]ile <doiListFile>"
-    exit 1;
+    exit 1
 fi
 
 eval set -- "$OPTS"
@@ -339,6 +338,14 @@ do
 
     if [ ! -f ${fileListFilePruned} ]; then
         doCleanMe=true
+    fi
+
+    nf=$(cat "${fileListFileRaw}" | grep -c '^')
+
+    if [ ! -f ${fileListFilePruned} ]; then
+        doCleanMe=true
+    elif (( nf < 2 )); then
+       doCleanMe=true
     fi
 
     Prediction_Dir="${DOI_Dir}/${doi}_prediction"

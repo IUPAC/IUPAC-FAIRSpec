@@ -483,7 +483,7 @@ public class ExtractorUtils {
 					for (int j = 1; j <= icol; j++) {
 						sb.append(parts[j]).append('/');
 					}
-					info[CMPD_PATH] = sb.toString();
+					info[CMPD_PATH] = sb.toString().replace("__/", "|");
 					System.out.println(info[CMPD_ID] + " " + info[CMPD_PATH]);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -1184,7 +1184,7 @@ public class ExtractorUtils {
 				zipPath = "resource" + tempID;
 			}
 			String rootPath = new File(zipPath).getName();
-			if (rootPath.endsWith(".zip") || rootPath.endsWith(".tgz") || rootPath.endsWith(".rar")
+			if (rootPath.toLowerCase().endsWith(".zip") || rootPath.endsWith(".tgz") || rootPath.endsWith(".rar")
 					|| rootPath.endsWith(".tar"))
 				rootPath = rootPath.substring(0, rootPath.length() - 4);
 			else if (rootPath.endsWith(".tar.gz"))

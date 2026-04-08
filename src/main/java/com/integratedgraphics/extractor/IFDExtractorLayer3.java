@@ -117,7 +117,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 			 sb.append(k).append('\n');
 			 Map<String, ArchiveEntry> map = htArchiveContents.get(k);
 			 for ( Entry<String, ArchiveEntry> e : map.entrySet()) {
-				 String s = e.getKey().replace('/', '\t').replaceAll("\\|", "\t|\t");
+				 String s = e.getKey().replace('/', '\t').replace("|", "\t|\t");
 				 sb.append(s).append('\n');
 			 }
 		 }

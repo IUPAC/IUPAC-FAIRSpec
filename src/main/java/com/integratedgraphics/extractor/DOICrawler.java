@@ -471,7 +471,7 @@ public class DOICrawler extends FindingAidCreator {
 	};
 
 	protected static String cleanData(String s) {
-		return s.replaceAll("\t", "\\\\t").replaceAll("\r\n", "\\\\n").replaceAll("\n", "\\\\n");
+		return s.replace("\t", "\\\\t").replace("\r\n", "\\\\n").replace("\n", "\\\\n");
 	}
 
 	protected static void sortRecords(List<DoiRecord> doiList) {

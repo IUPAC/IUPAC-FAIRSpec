@@ -109,7 +109,7 @@ GLOBAL_THRESHOLD = 0.3  # fractional frequency to qualify as a common, global pa
 # def get_final_compound_name(final_df, counts_series):
 # def get_global_folders(paths, all_initial_candidates, candidate_freq):
 # def map_dataset_folders(compound_root_df, final_df):
-# def map_dataset_folders_for_compound_id(df, compound_name):
+# def map_dataset_folders_for_compound_id(df, compound_id):
 # def prune_child_compound_ids(df, multiplier=5, min_children=6):
 # def update_df_for_global_folders(df, global_folders, candidate_freq):
 
@@ -158,6 +158,7 @@ def create_data_frame(paths):
 
     # create file paths with the zip files
     df["path_text_final"] = paths
+    print(f"test len paths {len(paths)}")
     df["path_text_final"] = df["path_text_final"].str.replace(".zip__/", ".zip|")
 
     def lambda_add_pdata_dir(parts):
@@ -173,7 +174,7 @@ def create_data_frame(paths):
     # jo5c00774_si_002/Supplementary compound and compunational data ver2/FID for publication/13C NMR data of compound 7.zip__/Feb15-2025-kshi2-7/11/pdata
     df['parts'] = df['parts'].apply(lambda parts: lambda_add_pdata_dir(parts))
     df['parts'] = df['parts'].apply(lambda x: [item.replace('acqu', 'pdata') for item in x])
-    df['parts'] = df['parts'].apply(lambda x: [item.replace('.zip__', '').replace('.ZIP__', '') for item in x])
+    #df['parts'] = df['parts'].apply(lambda x: [item.replace('.zip__', '').replace('.ZIP__', '') for item in x])
     df["path_text"] = df["parts"].apply(lambda x: " / ".join(x))
     
     #  For each path part, identify initial candidates as a "basic" candidates
@@ -426,19 +427,19 @@ def __is_pure_experiment_folder(name):
     cleaned = re.sub(r"[^a-z0-9]+", "", cleaned)
     return len(cleaned) == 0   
   
-def map_dataset_folders_for_compound_id(df, compound_name):
+def map_dataset_folders_for_compound_id(df, compound_id):
     '''
     Map the dataset folders to the correct compound_id.
 
     @return a set of 
     '''
-    mask = df["parts"].apply(lambda path: compound_name in path)
+    mask = df["parts"].apply(lambda path: compound_id in path)
     relevant_rows = df[mask]
     idx = 0
     for row in relevant_rows["parts"]:
       idx=0
       for i in row:
-        if i != compound_name:
+        if i != compound_id:
           idx += 1
         else:
           final_idx = idx
@@ -580,8 +581,10 @@ def get_final_compound_name(final_df, counts_series):
         final_df['compound_name'] = final_df['compound_id']
         word_freq = tokens_in_compound_id_folder_name.count(token_found)
         if word_freq > len(tokens_in_compound_id_folder_name)/1.5:
+            # removing "." from ".zip"
             final_df['compound_name'] = final_df['compound_id'].str.replace(token_found, "")
             final_df['compound_name'] = final_df['compound_name'].str.replace("of ", "")
+            final_df['compound_name'] = final_df['compound_name'].str.strip(".")
 
 
 # abandoned -- fails when "1r" found in "S1r" jo4c02622    
@@ -1152,6 +1155,7 @@ final_df = generate_compound_map_df(df, compound_root_df)
 final_df = add_compound_ids_from_experiment_parents(df, final_df)
 
 # get the final compound IDs and write them out
+final_compound_names = final_df['compound_name'].unique().tolist()
 final_compound_ids = final_df['compound_id'].unique().tolist()
 final_compound_id_count = len(final_compound_ids)
 
@@ -1160,6 +1164,8 @@ final_compound_id_count = len(final_compound_ids)
 # write <doi>_compound_id_list.txt and <doi>_compound_id_count
 # compound_id_count is a file with length the number of compound_ids
 
+with open(f'{dataset_DOI}_compound_name_list.txt', "w", encoding="utf-8") as f:
+    f.write(f'{dataset_DOI} '+';'.join(list(map(str, final_compound_names)))+'\n')
 with open(f'{dataset_DOI}_compound_id_list.txt', "w", encoding="utf-8") as f:
     f.write(f'{dataset_DOI} '+';'.join(list(map(str, final_compound_ids)))+'\n')
 with open(f'{dataset_DOI}_compound_id_count', "w", encoding="utf-8") as f:
@@ -1198,12 +1204,13 @@ final_df.to_csv(f'{dataset_DOI}_output.csv', index=False)
 
 final_df.to_csv(f'{dataset_DOI}_final_output.tsv', index=False, sep='\t')
 # write <doi>_spec_id_list.txt and <doi>_spec_id_count
-with open(f'{dataset_DOI}_data_object_id_list.txt', "w", encoding="utf-8") as f:
+with open(f'{dataset_DOI}_data_object_name_list.txt', "w", encoding="utf-8") as f:
     f.write(f'{dataset_DOI} '+';'.join(list(map(str, final_spec_ids)))+'\n')
 with open(f'{dataset_DOI}_data_object_id_count', "w", encoding="utf-8") as f:
     f.write("0" * final_spec_id_count)
 
 print(f"created {dataset_DOI}_compound_id_list.txt")
+print(f"created {dataset_DOI}_compound_name_list.txt")
 print(f"created {dataset_DOI}_data_object_id_list.txt")
 print(f"created {dataset_DOI}_final_output.tsv")
 print(f"final compound ID count: {final_compound_id_count}  final data object ID count: {final_spec_id_count}")
