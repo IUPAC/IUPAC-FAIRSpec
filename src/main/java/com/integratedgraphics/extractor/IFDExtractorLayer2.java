@@ -64,7 +64,7 @@ import com.integratedgraphics.ifd.api.DataObjectVendorPluginI;
  * Phase 2: Carry out the actual extraction of metadata and creation of the
  * collection model. 
  * 
- * Set up the target directory for files:
+ * Set up the target dirrectory for files:
  * 
  * _IFD_warnings.txt, _IFD_rejected.json, _IFD_ignored.json, _IFD_manifest.json,
  * IFD.findingaid.json, and IFD.collection.zip
@@ -2248,6 +2248,8 @@ abstract class IFDExtractorLayer2 extends IFDExtractorLayer1 {
 			String cmpdID = info[AutomationParser.CMPD_ID];
 			String specID = info[AutomationParser.SPEC_ID];
 			String type = (info.length > AutomationParser.TYPE ? info[AutomationParser.TYPE] : "nmr"); // default to "nmr"
+			if (type == null)
+				type = "nmr";
 		    String localizedName = localizePath(originPath);
 			automationCreateDataObjectForCompound(originPath, localizedName, cmpdID, specID, type);		
 		}	

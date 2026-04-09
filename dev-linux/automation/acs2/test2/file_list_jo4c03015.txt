@@ -1,8 +1,0 @@
-jo4c03015_si_002/PBNPf1/11B/pdata
-jo4c03015_si_002/PBNPf1/13C/13/pdata
-jo4c03015_si_002/PBNPf1/19F/pdata
-jo4c03015_si_002/PBNPf1/1H/11/pdata
-jo4c03015_si_002/PBNPf2/11B/pdata
-jo4c03015_si_002/PBNPf2/13C/3/pdata
-jo4c03015_si_002/PBNPf2/19F/pdata
-jo4c03015_si_002/PBNPf2/1H/1/pdata

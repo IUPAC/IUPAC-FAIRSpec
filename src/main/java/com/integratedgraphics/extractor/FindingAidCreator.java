@@ -147,7 +147,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 
 	protected String errorLog = "";
 
-	public int testID = -1;
+	public String testID = null;
 	
 	protected String thisRootPath;
 
@@ -492,7 +492,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		}
 		boolean toSysErr = msg.startsWith("!!") || msg.startsWith("! ");
 		boolean toSysOut = toSysErr || msg.startsWith("!");
-		if (testID >= 0)
+		if (testID != null)
 			msg = "test " + testID + ": " + msg;
 		if (logging()) {
 			try {

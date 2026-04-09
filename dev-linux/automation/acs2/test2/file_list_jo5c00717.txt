@@ -1,6 +1,0 @@
-jo5c00717_si_002/NMR pulse sequences and AU programs/au_zg_slice
-jo5c00717_si_002/NMR pulse sequences and AU programs/gradrec
-jo5c00717_si_002/NMR pulse sequences and AU programs/multi_add
-jo5c00717_si_002/NMR pulse sequences and AU programs/slice_vf
-jo5c00717_si_002/NMR pulse sequences and AU programs/zg-slice
-jo5c00717_si_002/NMR pulse sequences and AU programs/zg2dslice

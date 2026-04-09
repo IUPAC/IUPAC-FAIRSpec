@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -1343,6 +1344,26 @@ public class DOICrawler extends FindingAidCreator {
 		doiRecord.put(key, val);
 	}
 
+	
+	static {
+		
+		String x = "·";
+		byte[] b = x.getBytes();
+		System.out.println(Arrays.toString(b));
+		System.out.println(Integer.toHexString(b[0]));
+		System.out.println(Integer.toHexString(b[1]));
+		b[0] = -95;
+		b[1] = -92;
+		try {
+			x = new String(b, "UTF-8");
+			System.out.println(x);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
 	public static void main(String[] args) {
 		// we don't start this on its own right now
 		ICLDOICrawler.main(args);

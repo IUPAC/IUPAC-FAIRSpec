@@ -1,1 +1,0 @@
-jo5c00670 2 1H NA;3 1H NA;4a 1H NA;4b 1H NA;4c 13C NA;4c 1H NA;4d 1H NA;4e 1H NA;2 NA;1 NA;5b 1H NA;7a 13C NA;7a 1H NA;7c major 1H NA;7c minor 1H NA;7d 13C NA;7d 1H NA;7e major 1H NA;7e minor 1H NA;7i 1H NA

@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "C:\temp\iupac\compound_id.py", line 492, in <module>
-    final_df = add_compound(final_df, df, compound)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\temp\iupac\compound_id.py", line 464, in add_compound
-    useful_files = useful_files[compound]
-                   ~~~~~~~~~~~~^^^^^^^^^^
-KeyError: None

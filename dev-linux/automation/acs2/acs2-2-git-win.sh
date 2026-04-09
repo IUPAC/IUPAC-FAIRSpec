@@ -2,9 +2,10 @@
 
 # acs2-2-git-win.sh
 
-# 2025.03.12 BH -- fixes ZIP and .xxx.ZIP issues
-# 2025.03.11 BH -- streamlined file list generation
-# 2025.03.10 BH from acs2_preprocessing2-git-win.sh
+# 2026.04.09 BH -- excludes .xyz, .txt files from pruned file list 
+# 2026.03.12 BH -- fixes ZIP and .xxx.ZIP issues
+# 2026.03.11 BH -- streamlined file list generation
+# 2026.03.10 BH from acs2_preprocessing2-git-win.sh
 # works with adapted alogrithm and experiments with ways to enhance functionality
 
 # defaults for these three globals
@@ -450,7 +451,7 @@ do
         cd ${Unzip_Dir}
         rm -rf __MACOS*
         # Create the list of all the directories and files in the dataset
-        fileList=$(find . -type f | grep -v -F "/." | grep -v -F "dirinfo")
+        fileList=$(find . -type f | grep -v -F "/." | grep -v -F "dirinfo" | grep -v -F ".xyz" | grep -v -F ".txt" | grep -v -F ".doc")
         find . -type d -empty -delete  # at least this once, because the unzipping is already done
         dirList=$(find . -type d -print)
         # remove "./" 

@@ -10,6 +10,8 @@ import com.integratedgraphics.extractor.FindingAidCreator;
 import com.integratedgraphics.extractor.IFDExtractorMain;
 import com.integratedgraphics.html.PageCreator;
 
+import javajs.util.PT;
+
 /**
  * Copyright 2021 Integrated Graphics and Robert M. Hanson
  * 
@@ -95,6 +97,8 @@ public class ExtractorTestACS extends ExtractorTest {
 			} else {
 				ifdExtractFile = extractInfo;
 			}
+			String[] parts = PT.split(ifdExtractFile,  "/");
+			String id = (parts.length > 2 ? parts[2] : ifdExtractFile);
 			String targetSubDirectory = new File(ifdExtractFile).getParentFile().getName();
 			if (targetSubDirectory.length() > 0)
 				targetDir = targetDir0 + "/" + targetSubDirectory;
@@ -107,7 +111,7 @@ public class ExtractorTestACS extends ExtractorTest {
 			json += "\"" + targetDir + "/IFD.findingaid.json\"";
 			long t0 = System.currentTimeMillis();
 
-			extractor.testID = i;
+			extractor.testID = i + " " + id;
 			FAIRSpecUtilities.setLogging(null);
 			if (!acsAssetsOnly)
 				FAIRSpecUtilities.setLogging(targetDir + "/extractor.log");

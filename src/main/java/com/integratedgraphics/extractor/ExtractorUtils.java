@@ -78,8 +78,8 @@ public class ExtractorUtils {
 		public static final int CMPD_ID     = 1;
 		public static final int SPEC_ID     = 2;
 		public static final int CMPD_ID_COL = 3;
-		public static final int TYPE        = 4; // not used yet, if ever
-		public static final int CMPD_PATH   = 5;
+		public static final int CMPD_PATH   = 4;
+		public static final int TYPE        = 5; // keep this last;not used yet, if ever
 
 		private final static Pattern pStarDotStar = Pattern.compile("\\*([^|/])\\*");
 		private final static Pattern objectDefPattern = Pattern.compile("\\{([^:]+)::([^}]+)\\}");
@@ -471,7 +471,7 @@ public class ExtractorUtils {
 		}
 
 		public static String[][] readAutomationData(String data) throws IOException {
-			String[][] a = (data == null ? null : FAIRSpecUtilities.SpreadsheetReader.getTSVData(data, "path", "compound_id", "dataobject_id", "cmpd_id_col", "type", "cmpd_path"));
+			String[][] a = (data == null ? null : FAIRSpecUtilities.SpreadsheetReader.getTSVData(data, "path", "compound_id", "dataobject_id", "cmpd_id_col", "cmpd_path", "type"));
 			for (int i = a.length; --i >= 0;) {
 				String[] info = a[i];
 				String path = info[PATH];
@@ -941,6 +941,7 @@ public class ExtractorUtils {
 					if (isValidName(name))
 						zfmap.put(name, entry);
 				} catch (Exception ex) {
+					ex.printStackTrace();
 					err = ex.getMessage() + " reading zip file " + fname + " near " + name;
 					System.err.println(err);
 				}

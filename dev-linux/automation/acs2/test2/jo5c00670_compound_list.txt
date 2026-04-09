@@ -1,1 +1,0 @@
-jo5c00670 2 1H;3 1H;4a 1H;4b 1H;4c 13C;4c 1H;4d 1H;4e 1H;2;1;5b 1H;7a 13C;7a 1H;7c major 1H;7c minor 1H;7d 13C;7d 1H;7e major 1H;7e minor 1H;7i 1H
