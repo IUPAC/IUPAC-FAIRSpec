@@ -1,0 +1,612 @@
+
+---------- JO4C02089_COMPOUND_ID_LIST.TXT
+jo4c02089 16;18a-FID;18b-FID;18c-FID;18f-FID;18g-FID;18h-FID;18j-FID;18k-FID;18l-FID;18m-FID;18n-FID;19aa-FID;20aa-FID;20ab-FID;20af-FID;20ai-FID;20bb-FID;20cc-FID;20dd-FID;20ee-FID;20ff-FID;20gg-FID;20hh-FID;21aaa-FID;21acc-FID;22;23;24a-FID;24b-FID;24c-FID;24f-FID;24g-FID;24h-FID;24i-FID;24j-FID;24l-FID;24o-FID;24p-FID;27-FID
+
+---------- JO4C02094_COMPOUND_ID_LIST.TXT
+jo4c02094 1a;1b;1c;1d;1e;1f;1g;1h;1i;3a;3aa;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3aj;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;3z;4a;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;5a;5b;5c;5d;5e;5f;5g
+
+---------- JO4C02335_COMPOUND_ID_LIST.TXT
+jo4c02335 10_(DSN-799 13C )  spot-I;10_(DSN-799 1H ) spot-1;11_(DSN-799 13C ) Spot-II;11_(DSN-799 1H ) Spot-II;3aa_(DSN-625 13 C );3aa_(DSN-625 1H );3ab_(DSN-613 13C );3ab_(DSN-613 1H );3ac_(DSN-619 13C );3ac_(DSN-619 1H );3ad_(DSN-634 13C );3ad_(DSN-634 1H );3ae_(DSN-690 13C);3ae_(DSN-690 1H );3af_(DSN-808 13C);3af_(DSN-808 1H );3ag_(DSN-633 13C );3ag_(DSN-633 1H );3ah_(DSN-692 13C );3ah_(DSN-692 1H );3ai_(DSN-691 13C );3ai_(DSN-691 1H );3aj_(DSN-812 13C );3aj_(DSN-812 1H );3ak_(DSN-603 13C );3ak_(DSN-603 19F );3ak_(DSN-603 1H NMR);3al_(DSN-617 13C );3al_(DSN-617 19F );3al_(DSN-617 1H );3am_(DSN-977 13C );3am_(DSN-977 1H );3an_(DSN-798 13C );3an_(DSN-798 1H );3ao_(DSN-817 13C );3ao_(DSN-817 1H );3ap_(DSN-815 13C );3ap_(DSN-815 1H );3aq_(DSN-635  1H );3aq_(DSN-635 13C );3aq_(DSN-635 19F );3ar_(DSN-701 13 C );3ar_(DSN-701 1H );3as_(DSN-809 13C );3as_(DSN-809 1H );3at_(DSN-818 13C );3at_(DSN-818 1H );3au_(DSN-1045 13C);3au_(DSN-1045 1H);3av_(DSN-1062 13C);3av_(DSN-1062 1H);3aw_(DSN-1061 13C);3aw_(DSN-1061 1H);3ba_(DSN-877 13C );3ba_(DSN-877 1H );3ca_(DSN-884 13C );3ca_(DSN-884 1H );3da_(DSN-820 13C );3da_(DSN-820 1H );3ea_(DSN-683 13C );3ea_(DSN-683 1H );3eb_(DSN-681 13C );3eb_(DSN-681 1H  );3fa_(AG-307 13C);3fa_(AG-307 1H);3ga_(AG-313 13C);3ga_(AG-313 1H);3ha'-(AG-301 13C) spot-II;3ha'_(AG-301_1H) spot-II;3ha_(AG-301 13C) Spot-I;3ha_(AG-3011H) spot-I;6_(DSN-642 13C );6_(DSN-642 1H )
+
+---------- JO4C02429_COMPOUND_ID_LIST.TXT
+jo4c02429 Fid Files
+
+---------- JO4C02450_COMPOUND_ID_LIST.TXT
+jo4c02450 compound 1;Part 1 of compound 2;Part 2 of compound 2;Part 3 of compound 2;Part 1 of compound 3;Part 2 of compound 3;Part 1 of compound 4;Part 2 of compound 4
+
+---------- JO4C02490_COMPOUND_ID_LIST.TXT
+jo4c02490 10;1c;1d;1e;1g;1h;1j;2e;4h;5a;5b;5c;5d;5e;5f;5g;5h;5i;5j;5k;5l;5m;5n;5o;5p;6a;6b;6c;6d;6e;7a;7b;7c;7d;7e;7f;7g;7h;8a;8b;8c;8d;8e;8f;8g;8h;8i;8j
+
+---------- JO4C02546_COMPOUND_ID_LIST.TXT
+jo4c02546 guest_exchange;phenyl_exchange;2.xyz;2@CB8;CB7;CB8
+
+---------- JO4C02600_COMPOUND_ID_LIST.TXT
+jo4c02600 4a;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m;4n;4o;4p;4q;4r;4s;4t;5a;5b;5c;5d;5e;5f;5g;5h;5i;6a;6b;6c;6d
+
+---------- JO4C02622_COMPOUND_ID_LIST.TXT
+jo4c02622 S1a;S1b;S1c;S1d;S1e;S1f;S1g;S1h;S1i;S1j;S1k;S1l;S1m;S1n;S1o;S1p;S1q;S1r;S1s;S1t;S1u;1a;1b;1c;1d;1e;1f;1g;1h;1i;1j;1k;1l;1m;1n;1o;1p;1q;1r;1s;2a;3a;3ab;3ac;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3p;3q;4;5;7;8a;8b;8c
+
+---------- JO4C02634_COMPOUND_ID_LIST.TXT
+jo4c02634 10;11;13;15;18a;18b;19a;19b;3a;3b;3c;3d;3e;3f;3g;3h';3h;3i;3j;3k';3k;7;8;9
+
+---------- JO4C02638_COMPOUND_ID_LIST.TXT
+jo4c02638 1aa;1ab;1ac;1ad;1ae;1af;1ag;1ah;1ai;1aj;1ak;1c;1d;1g;1i;1j;1l;1m;1o;1q;1s;1v;1w;1y;1z;2a;2b;2c;2e;2f;2g;2h;2i;2j;2k;2l;2m;2n;2o;2p;2q;2r;2s;2t;2u;4C;4a;4aa;4ab;4ac;4ad;4ae;4af;4ag;4ah;4b;4d;4e;4g;4h;4i;4j;4k;4l;4m;4n;4o;4p;4q;4s;4t;4u;4v;4w;4x;4y;4z;5a;7a;S3ba;S3bb;S3bc;S3bd;S3be;S3bf;S3bg
+
+---------- JO4C02652_COMPOUND_ID_LIST.TXT
+jo4c02652 3aa;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3aj;3ak;3al;3am;3an;3ao;3ba;3bb;3ca;3cb;3da;3db;3ea;3eb;3fa;3fb;3ga;3ha;3ia;3ja;3ja_Scale up;3jp;3ka;3la;3ma;3mr;3na;3oq;2. Without Catalyst_substrate;3. Mechanism fig S2, S3, S4;4. Cat AB4 NMRs
+
+---------- JO4C02669_COMPOUND_ID_LIST.TXT
+jo4c02669 1a;1b;2a;2b;3a;3b;3c;Data.docx
+
+---------- JO4C02689_COMPOUND_ID_LIST.TXT
+jo4c02689 compound 4.mnova
+
+---------- JO4C02691_COMPOUND_ID_LIST.TXT
+jo4c02691 10a+10a';10b';10b;NOESY;10c';10c;10d;10e;10f';10f;10g;10h;10i';10i;10j';10j;10k';10k;10l;10m';10m;10n;10o;10p;10q;10r;12a;12b;12c;12d;12e;12f;12g;12h;12i;12j;12k;12l;12m;12n;12o;12p;12q;12r;12s;17e';17e;17g;17h';17h;17j';17j;17l;17m;17o;17p;17q;17r;18a';18a;18e';18e;18n;18o;18p;18q;20a;21a';21a;25;i;ii;iii;iv;v;vi;vii
+
+---------- JO4C02715_COMPOUND_ID_LIST.TXT
+jo4c02715 Compound 2;Compound 3;Compound 4;Compound 5;Compound 6;Compound 7;Compound 8
+
+---------- JO4C02737_COMPOUND_ID_LIST.TXT
+jo4c02737 1d-EPO;1d-Q;1d;1m-EPO;1m-Q;1m;2d-EPO;2d-Q;2d;2m-EPO;2m-Q;2m;3d-EPO;3d-Q;3d;3m-EPO;3m-Q;3m;4d-EPO;4d-Q;4d;4m-EPO;4m;5d-EPO;5d-Q;5d;5m-EPO;5m-Q;5m;6d-EPO;6d-Q;6d;6m-EPO;6m-Q;6m
+
+---------- JO4C02787_COMPOUND_ID_LIST.TXT
+jo4c02787 10 13C.mnova;10 1H.mnova;11 13C.mnova;11 1H.mnova;13 13C.mnova;13 1H.mnova;3a 13C.mnova;3a 1H.mnova;3aa 13C.mnova;3aa 1H.mnova;3ab 13C.mnova;3ab 1H.mnova;3ac 13C.mnova;3ac 1H.mnova;3b 13C.mnova;3b 1H.mnova;3c 13C.mnova;3c 1H.mnova;3d 13C.mnova;3d 1H.mnova;3e 13C.mnova;3e 1H.mnova;3f 13C.mnova;3f 1H.mnova;3g 13C.mnova;3g 19F.mnova;3g 1H.mnova;3h 13C.mnova;3h 1H.mnova;3i 13C.mnova;3i 1H.mnova;3j 13C.mnova;3j 19F.mnova;3j 1H.mnova;3k 13C.mnova;3k 19F.mnova;3k 1H.mnova;3l 13C.mnova;3l 1H.mnova;3m 13C.mnova;3m 1H.mnova;3n 13C.mnova;3n 1H.mnova;3o 13C.mnova;3o 1H.mnova;3p 13C.mnova;3p 1H.mnova;3q 13C.mnova;3q 1H.mnova;3r 13C.mnova;3r 1H.mnova;3s 13C.mnova;3s 1H.mnova;3t 13C.mnova;3t 1H.mnova;3u 13C.mnova;3u 1H.mnova;3v 13C.mnova;3v 1H.mnova;3w 13C.mnova;3w 1H.mnova;3x 13C.mnova;3x 1H.mnova;3y 13C.mnova;3y 1H.mnova;3z 13C.mnova;3z 1H.mnova;5a 13C.mnova;5a 1H.mnova;5b 13C.mnova;5b 1H.mnova;5c 13C.mnova;5c 1H.mnova;5d 13C.mnova;5d 19F.mnova;5d 1H.mnova;5e 13C.mnova;5e 1H.mnova;5f 13C.mnova;5f 1H.mnova;5g 13C.mnova;5g 1H.mnova;5h 13C.mnova;5h 1H.mnova;5i 13C.mnova;5i 1H.mnova;5j 13C.mnova;5j 1H.mnova;5k 13C.mnova;5k 1H.mnova;5l 13C.mnova;5l 1H.mnova;5m 13C.mnova;5m 1H.mnova;5n 13 C.mnova;5n 1H.mnova;5n NOESY.mnova;5o 13C.mnova;5o 1H.mnova;5p 13C.mnova;5p 1H.mnova;5q 13C.mnova;5q 1H.mnova;5r 13C.mnova;5r 1H.mnova;5s 13C.mnova;5s 1H.mnova;7 13C.mnova;7 1H.mnova;8 13C.mnova;8 1H.mnova;9 13C.mnova;9 1H.mnova
+
+---------- JO4C02834_COMPOUND_ID_LIST.TXT
+jo4c02834 10g.mnova;11g.mnova;12g.mnova;1a-d.mnova;1b.mnova;1h.mnova;1i.mnova;1k.mnova;1l.mnova;1p.mnova;1r.mnova;1s.mnova;1t.mnova;1u.mnova;1v.mnova;1w.mnova;1x.mnova;1y.mnova;2a-d1.mnova;2a-d8.mnova;2a.mnova;2b.mnova;2c.mnova;2d.mnova;2e.mnova;2f.mnova;2g.mnova;2h.mnova;2i.mnova;2j.mnova;2k.mnova;2l.mnova;2m.mnova;2n.mnova;2o.mnova;2s.mnova;2t.mnova;2u.mnova;2v.mnova;2w.mnova;2x.mnova;2y.mnova;2z.mnova;3.mnova;4.mnova;5g.mnova;6g.mnova;7g.mnova;7g’.mnova;9g.mnova
+
+---------- JO4C02842_COMPOUND_ID_LIST.TXT
+jo4c02842 3a;3b;3c;3d;3e;3f;3g;3h;4a;4b;4c;4d;4e;4f;6
+
+---------- JO4C02844_COMPOUND_ID_LIST.TXT
+jo4c02844 10_13C.mnova;10_1H.mnova;11_13C.mnova;11_1H.mnova;12_13C.mnova;12_1H.mnova;13_13C.mnova;13_1H.mnova;14_13C.mnova;14_1H.mnova;15_13C.mnova;15_1H.mnova;1_13C.mnova;1_1H.mnova;2_13C.mnova;2_1H.mnova;3_13C.mnova;3_1H.mnova;4_13C.mnova;4_1H.mnova;5_13C.mnova;5_1H.mnova;6_13C.mnova;6_1H.mnova;7_13C.mnova;7_1H.mnova;8_13C.mnova;8_1H.mnova;9_13C.mnova;9_1H.mnova
+
+---------- JO4C02860_COMPOUND_ID_LIST.TXT
+jo4c02860 A1;A10;A11;A12;A13;A14;A15;A16;A17;A18;A19;A2;A20;A21;A22;A23;A24;A25;A26;A27;A28;A29;A3;A30;A31;A4;A5;A6;A7;A8;A9;C1;C10;C11;C12;C13;C14;C15;C16;C17;C18;C19;C2;C20;C21;C22;C23;C24;C25;C26;C27;C28;C29;C3;C30;C31;C32;C4;C5;C6;C7;C8;C9;D1
+
+---------- JO4C02893_COMPOUND_ID_LIST.TXT
+jo4c02893 1[4]H.ZIP__;1[5]H.ZIP__;1[6]H.ZIP__;1[7]H.ZIP__
+
+---------- JO4C02921_COMPOUND_ID_LIST.TXT
+jo4c02921 1a;1b;1c;2b;2c;2e;2f;2g;2m;2n;3a-major;3a-minor;3b;3c;3d;3e-major;3f-major;3f-minor;3h-major;3h-minor;3i;3j;3k;3l;3m;3n-major;3n-minor;3o_major;3o_minor;3p_major;3p_minor;3p_minor_new;3q;3r;3s;3t;4;5;6;9a;9b;9c
+
+---------- JO4C02967_COMPOUND_ID_LIST.TXT
+jo4c02967 1a;1b;1c;1d;1e;1f;1g;1h;1i;1j;1k;1l;1m;1n;1o;1p;1q;2i;1r;1s;1t;1u;1v;1w;1x;1y;2a;2b;2c;2d;2e;2f;2g;2h;2j;2k;2l;2m;2n;2o;2p;2q;2r;2s;2t;2u;2v;2w;2x;2z;3a;3b;3e;3h;3l;3m;3o;3r;3s;4a;4b;5a;5b;5c;6;7;8
+
+---------- JO4C03015_COMPOUND_ID_LIST.TXT
+jo4c03015 11B;13C;19F;1H
+
+---------- JO4C03046_COMPOUND_ID_LIST.TXT
+jo4c03046 Compound 1.csv;Compound 10.csv;Compound 11.csv;Compound 12.csv;Compound 13.csv;Compound 14.csv;Compound 2.csv;Compound 3.csv;Compound 4.csv;Compound 5.csv;Compound 6.csv;Compound 7.csv;Compound 8.csv;Compound 9.csv;1;10;11;12;13;14;2;3;4;5;6;7;8;9
+
+---------- JO4C03071_COMPOUND_ID_LIST.TXT
+jo4c03071 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;4;5
+
+---------- JO4C03085_COMPOUND_ID_LIST.TXT
+jo4c03085 3aa-13C;3aa-1H;3aaa-13C;3aaa-19F.fid;3aaa-1H;3ab-13C.fid;3ab-1H.fid;3aba-13C.fid;3aba-19F.fid;3aba-1H.fid;3ac-13C.fid;3ac-1H.fid;3ad-13C.fid;3ad-1H.fid;3ada-13C.fid;3ada-1H.fid;3ae-13C.fid;3ae-1H.fid;3aea-13C.fid;3aea-1H.fid;3af-13C.fid;3af-1H.fid;3ag-13C.fid;3ag-19F.fid;3ag-1H.fid;3ah-13C.fid;3ah-1H.fid;3ai-13C.fid;3ai-1H.fid;3aj-13C.fid;3aj-1H.fid;3ak-13C.fid;3ak-1H.fid;3ba-13C.fid;3ba-1H.fid;3ca-13C.fid;3ca-1H.fid;3da-13C.fid;3da-1H.fid;3ea-13C.fid;3ea-1H.fid;3fa-13C.fid;3fa-1H.fid;3ga-13C.fid;3ga-1H.fid;3ha-13C.fid;3ha-1H.fid;3ia-13C.fid;3ia-1H.fid;3ja-13C.fid;3ja-19F.fid;3ja-1H.fid;3ka-13C.fid;3ka-19F.fid;3ka-1H.fid;3la-13C.fid;3la-19F.fid;3la-1H.fid;3ma-13C.fid;3ma-1H.fid;3na-13C.fid;3na-1H.fid;3oa-13C.fid;3oa-1H.fid;3pa-13C.fid;3pa-19F.fid;3pa-1H.fid;3qa-13C.fid;3qa-1H.fid;3ra-13C.fid;3ra-1H.fid;3sa-13C.fid;3sa-1H.fid;3ta-13C.fid;3ta-19F.fid;3ta-1H.fid;3ua-13C.fid;3ua-1H.fid;3va-13C.fid;3va-1H.fid;3wa-13C.fid;3wa-1H.fid;3ya-13C.fid;3ya-1H.fid;3za-13C.fid;3za-1H.fid;4-13C.fid;4-1H.fid
+
+---------- JO4C03092_COMPOUND_ID_LIST.TXT
+jo4c03092 2a;2aa;2ab;2b;2c;2d;2e;2f;2g;2h;2i;2j;2k;2l;2ls;2m;2n;2o;2p;2q;2r;2s;2t;2u;2v;2w;2x;2y;2z;3;5a;5b;5c;1a;1aa;1ab;1b;1c;1d;1e;1f;1g;1h;1i;1j;1k;1m;1n;1o;1p;1q;1r;1s;1t;1u;1v;1x;1z
+
+---------- JO4C03094_COMPOUND_ID_LIST.TXT
+jo4c03094 1aaaa-C;1aaaa-H;1aaac-C;1aaah-H;1aaak-H;1aaal-H;1aach-H;1baar-C;1caaa-C;1caah-C;3-H;4-H
+
+---------- JO4C03118_COMPOUND_ID_LIST.TXT
+jo4c03118 1-methoxyadamantane;Compound 10;Compound 11;Compound 14;Compound 15;Compound 16;Compound 17;Compound 18;Compound 19;Compound 20;Compound 21;Compound 22;Compound 23;Compound 24;Compound 26;Compound 27;Compound 28;Compound 30;Compound 31;Compound 32;Compound 34;Compound 36;Compound 6;Compound 8, 9, 10, 11, 12, 13;Compound 9
+
+---------- JO4C03140_COMPOUND_ID_LIST.TXT
+jo4c03140 26;27;28;29;30;31;32;34;35;36;37;38;39;4;40;41;42;43;44
+
+---------- JO4C03150_COMPOUND_ID_LIST.TXT
+jo4c03150 1Br,H;1Cl,H;1F,Cl;1F,F;1F,H;1F,NO2;1F,OMe;FID for Publication;1I,H;1Me,H;2Br,H;2Cl,H;2F,CF3;2F,Cl;2F,F;2F,H;2F,OMe;2H,Br;2H,Cl;2H,F;2H,Me;2Me,H;S1Br,H;S1Cl,H;S1F,H;S1F,NO2;S1F,OMe;241211_SupplementalTables.xlsx;Conformer Coordinates for DFT;DFT_Electronic_Energies_of_Conformers.png;Diastereomer-RR.avi;2FBCA-adduct.data;2FBCA-adduct.params;onetraj.10000.dump;onetraj.100000.dump;onetraj.1000000.dump;onetraj.105000.dump;onetraj.110000.dump;onetraj.115000.dump;onetraj.120000.dump;onetraj.125000.dump;onetraj.130000.dump;onetraj.135000.dump;onetraj.140000.dump;onetraj.145000.dump;onetraj.15000.dump;onetraj.150000.dump;onetraj.155000.dump;onetraj.160000.dump;onetraj.165000.dump;onetraj.170000.dump;onetraj.175000.dump;onetraj.180000.dump;onetraj.185000.dump;onetraj.190000.dump;onetraj.195000.dump;onetraj.20000.dump;onetraj.200000.dump;onetraj.205000.dump;onetraj.210000.dump;onetraj.215000.dump;onetraj.220000.dump;onetraj.225000.dump;onetraj.230000.dump;onetraj.235000.dump;onetraj.240000.dump;onetraj.245000.dump;onetraj.25000.dump;onetraj.250000.dump;onetraj.255000.dump;onetraj.260000.dump;onetraj.265000.dump;onetraj.270000.dump;onetraj.275000.dump;onetraj.280000.dump;onetraj.285000.dump;onetraj.290000.dump;onetraj.295000.dump;onetraj.30000.dump;onetraj.300000.dump;onetraj.305000.dump;onetraj.310000.dump;onetraj.315000.dump;onetraj.320000.dump;onetraj.325000.dump;onetraj.330000.dump;onetraj.335000.dump;onetraj.340000.dump;onetraj.345000.dump;onetraj.35000.dump;onetraj.350000.dump;onetraj.355000.dump;onetraj.360000.dump;onetraj.365000.dump;onetraj.370000.dump;onetraj.375000.dump;onetraj.380000.dump;onetraj.385000.dump;onetraj.390000.dump;onetraj.395000.dump;onetraj.40000.dump;onetraj.400000.dump;onetraj.405000.dump;onetraj.410000.dump;onetraj.415000.dump;onetraj.420000.dump;onetraj.425000.dump;onetraj.430000.dump;onetraj.435000.dump;onetraj.440000.dump;onetraj.445000.dump;onetraj.45000.dump;onetraj.450000.dump;onetraj.455000.dump;onetraj.460000.dump;onetraj.465000.dump;onetraj.470000.dump;onetraj.475000.dump;onetraj.480000.dump;onetraj.485000.dump;onetraj.490000.dump;onetraj.495000.dump;onetraj.5000.dump;onetraj.50000.dump;onetraj.500000.dump;onetraj.505000.dump;onetraj.510000.dump;onetraj.515000.dump;onetraj.520000.dump;onetraj.525000.dump;onetraj.530000.dump;onetraj.535000.dump;onetraj.540000.dump;onetraj.545000.dump;onetraj.55000.dump;onetraj.550000.dump;onetraj.555000.dump;onetraj.560000.dump;onetraj.565000.dump;onetraj.570000.dump;onetraj.575000.dump;onetraj.580000.dump;onetraj.585000.dump;onetraj.590000.dump;onetraj.595000.dump;onetraj.60000.dump;onetraj.600000.dump;onetraj.605000.dump;onetraj.610000.dump;onetraj.615000.dump;onetraj.620000.dump;onetraj.625000.dump;onetraj.630000.dump;onetraj.635000.dump;onetraj.640000.dump;onetraj.645000.dump;onetraj.65000.dump;onetraj.650000.dump;onetraj.655000.dump;onetraj.660000.dump;onetraj.665000.dump;onetraj.670000.dump;onetraj.675000.dump;onetraj.680000.dump;onetraj.685000.dump;onetraj.690000.dump;onetraj.695000.dump;onetraj.70000.dump;onetraj.700000.dump;onetraj.705000.dump;onetraj.710000.dump;onetraj.715000.dump;onetraj.720000.dump;onetraj.725000.dump;onetraj.730000.dump;onetraj.735000.dump;onetraj.740000.dump;onetraj.745000.dump;onetraj.75000.dump;onetraj.750000.dump;onetraj.755000.dump;onetraj.760000.dump;onetraj.765000.dump;onetraj.770000.dump;onetraj.775000.dump;onetraj.780000.dump;onetraj.785000.dump;onetraj.790000.dump;onetraj.795000.dump;onetraj.80000.dump;onetraj.800000.dump;onetraj.805000.dump;onetraj.810000.dump;onetraj.815000.dump;onetraj.820000.dump;onetraj.825000.dump;onetraj.830000.dump;onetraj.835000.dump;onetraj.840000.dump;onetraj.845000.dump;onetraj.85000.dump;onetraj.850000.dump;onetraj.855000.dump;onetraj.860000.dump;onetraj.865000.dump;onetraj.870000.dump;onetraj.875000.dump;onetraj.880000.dump;onetraj.885000.dump;onetraj.890000.dump;onetraj.895000.dump;onetraj.90000.dump;onetraj.900000.dump;onetraj.905000.dump;onetraj.910000.dump;onetraj.915000.dump;onetraj.920000.dump;onetraj.925000.dump;onetraj.930000.dump;onetraj.935000.dump;onetraj.940000.dump;on
+---------- JO4C03151_COMPOUND_ID_LIST.TXT
+jo4c03151 10;11;12;13;14;15;16;17;18;19;1i;1j;1k;1m;1n;1o;1p;1q;20;21;22;23;24;25;26;27;28;29;2aa;2z;3;30;31;32;33;34;35;36;37;38;39;4;40;41;42;43;44;45;46;47;48;49;5;50;51;52;53;54;55;56;57;58;6;7;8;9
+
+---------- JO4C03180_COMPOUND_ID_LIST.TXT
+jo4c03180 fid for 1a C NMR;fid for 1a H NMR;fid for 1b C NMR;fid for 1b H NMR;fid for 1c C NMR;fid for 1c H NMR;fid for 1d C NMR;fid for 1d H NMR;fid for 1e C NMR;fid for 1e F NMR;fid for 1e H NMR;fid for 1f C NMR;fid for 1f H NMR;fid for 1g C NMR;fid for 1g H NMR;fid for 1h C NMR;fid for 1h H NMR;fid for 1i C NMR;fid for 1i H NMR;fid for 1j C NMR;fid for 1j F NMR;fid for 1j H NMR;fid for 1k C NMR;fid for 1k H NMR;fid for 1l C NMR;fid for 1l H NMR;fid for 1m C NMR;fid for 1m H NMR;fid for 1n C NMR;fid for 1n H NMR;fid for 1o C NMR;fid for 1o H NMR;fid for 1p C NMR;fid for 1p H NMR;fid for 1q C NMR;fid for 1q H NMR;fid for 2a C NMR;fid for 2a H NMR;fid for 2a Se NMR;fid for 2b C NMR;fid for 2b H NMR;fid for 2c C NMR;fid for 2c H NMR;fid for 2d C NMR;fid for 2d F NMR;fid for 2d H NMR;fid for 2d Se NMR;fid for 2e C NMR;fid for 2e F NMR;fid for 2e H NMR;fid for 2e Se NMR;fid for 2f C NMR;fid for 2f H NMR;fid for 2g C NMR;fid for 2g H NMR;fid for 2g Se NMR;fid for 2h C NMR;fid for 2h H NMR;fid for 2h Se NMR;fid for 2i C NMR;fid for 2i H NMR;fid for 2i Se NMR;fid for 2j C NMR;fid for 2j F NMR;fid for 2j H NMR;fid for 2j Se NMR;fid for 2k C NMR;fid for 2k F NMR;fid for 2k H NMR;fid for 2k Se NMR;fid for 2l C NMR;fid for 2l H NMR;fid for 2l Se NMR;fid for 2m C NMR;fid for 2m H NMR;fid for 2m Se NMR;fid for 2n C NMR;fid for 2n H NMR;fid for 2n Se NMR;fid for 3a C NMR;fid for 3a H NMR;fid for 3a Se NMR;fid for 3aa C NMR;fid for 3aa H NMR;fid for 3aa Se NMR;fid for 3b C NMR;fid for 3b H NMR;fid for 3b Se NMR;fid for 3c C NMR;fid for 3c H NMR;fid for 3c Se NMR;fid for 4h C NMR;fid for 4h H NMR;fid for 4h Se NMR
+
+---------- JO4C03181_COMPOUND_ID_LIST.TXT
+jo4c03181 1n;1o;1p;1q;3a (2D NMR- COSY, HSQC and HMBC);3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;4a (2D NMR-COSY, HSQC and HMBC);4a;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m;4n;4o;4p;4q;4r;4s;4t;5 (2D NMR - COSY and HSQC);5;i;ii;iii;iv
+
+---------- JO5C00007_COMPOUND_ID_LIST.TXT
+jo5c00007 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m;5a;7a;Scheme 4;9a;9b;9c;1m;1n;2m;2n
+
+---------- JO5C00061_COMPOUND_ID_LIST.TXT
+jo5c00061 [10b-CC];[10b-NC];[11b];[11s];[12b];[13b];[16s];[1a];[1b];[1c];[1e];[1f];[1g];[1h];[1i];[1j];[1k];[1l];[1n];[1o];[1p];[1q];[1r];[1s];[1t];[1u];[1v];[2a];[2b];[2c];[2d];[2e];[2f];[2g];[2gg];[2i];[2j];[2k];[2l];[2m];[2n];[2o];[2s];[2t];[3a];[4b];[5b-major];[5b-minor];[5bII];[7b];[8b];[8s];[9b];[E12s];[E13s];[E15b];[E15s]
+
+---------- JO5C00117_COMPOUND_ID_LIST.TXT
+jo5c00117 10-C.mnova;10-F.mnova;10-H.mnova;3a-C.mnova;3a-F.mnova;3a-H.mnova;3b-C.mnova;3b-F.mnova;3b-H.mnova;3c-C.mnova;3c-F.mnova;3c-H.mnova;3d-C.mnova;3d-F.mnova;3d-H.mnova;3e-C.mnova;3e-F.mnova;3e-H.mnova;3f-C.mnova;3f-F.mnova;3f-H.mnova;3g-C.mnova;3g-F.mnova;3g-H.mnova;3h-C.mnova;3h-F.mnova;3h-H.mnova;3i-C.mnova;3i-F.mnova;3i-H.mnova;3j-C.mnova;3j-F.mnova;3j-H.mnova;3k-C.mnova;3k-F.mnova;3k-H.mnova;3l-C.mnova;3l-F.mnova;3l-H.mnova;3m-C.mnova;3m-F.mnova;3m-H.mnova;3n-C.mnova;3n-F.mnova;3n-H.mnova;3o-C.mnova;3o-F.mnova;3o-h.mnova;3p-C.mnova;3p-F.mnova;3p-H.mnova;4-C.mnova;4-F.mnova;4-H.mnova;5-C.mnova;5-F.mnova;5-H.mnova;6-C.mnova;6-H.mnova;9-C.mnova;9-H.mnova
+
+---------- JO5C00149_COMPOUND_ID_LIST.TXT
+jo5c00149 14;1n;3a;3aa;3ab;3ac+3ad;3ae;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y+3z;4a;4b;4c;4d;4e;4f;4g
+
+---------- JO5C00156_COMPOUND_ID_LIST.TXT
+jo5c00156 13C 3a;13C 3b;13C 3c;13C 3d;13C 3e;13C 3f;13C 3g;13C 3h;13C 3i;13C 3j;13C 3k;13C 3l;13C 3m;13C 3n;13C 3o;13C 3p;13C 3q;13C 3r;13C 3s;13C 3t;13C 6aa;13C 6bc;13C 6ca;13C 6db;13C 6eb;13C 6fb;13C 6ga;13C 6ha;13C 6ic;13C 8a;13C 8e;1H-3a;1H-3b;1H-3c;1H-3d;1H-3e;1H-3f;1H-3g;1H-3h;1H-3i;1H-3j;1H-3k;1H-3l;1H-3m;1H-3n;1H-3o;1H-3p;1H-3q;1H-3r;1H-3s;1H-3t;1H-6aa;1H-6bc;1H-6ca;1H-6db;1H-6eb;1H-6fb;1H-6ga;1H-6ha;1H-6ic;1H-8a;1H-8e;New 1 Text Document.txt;New Text Document.txt
+
+---------- JO5C00161_COMPOUND_ID_LIST.TXT
+jo5c00161 TS1 IF.mp4;TS1 IRC.mp4;TS1' IF.mp4;TS1' IRC.mp4;TS2' IF.mp4;TS2' IRC.mp4;TS5b IF.mp4;TS5b IRC.mp4;TS7 IF.mp4;TS7 IRC.mp4
+
+---------- JO5C00171_COMPOUND_ID_LIST.TXT
+jo5c00171 (E)-24;(Z)-24;10;11;12;13;14;15;18;19;20;21;22;23;25;26;27;28;29;30;31;33;34;35;39;40;41;42;43;44 (major dia);44 (minor dia);5;6;7;8;9;S1;S2;S3;S4;S5;S6
+
+---------- JO5C00184_COMPOUND_ID_LIST.TXT
+jo5c00184 13C 3a;13C 3b;13C 3c;13C 3d;13C 3e;13C 3f;13C 3g;13C 3h;13C 3i;13C 3j;13C 3k;13C 3l;13C 3m;13C 3n;13C 3o;13C 3p;13C 3q;13C 3r;13C 3s;13C 3t;13C 3u;13C 3v;13C 3w;13C 3x;13C 4a;13C 4b;13C 4c;13C 4d;13C 4e;13C 4f;13C 4g;13C 4h;13C 4i;13C 4j;13C 4k;13C 4l;13C 4m;13C 4n;13C 4o;13C 4p;13C 4q;13C 4r;13C 4s;13C 4t;13C 4u;13C 4v;13C 5a;13C 5b;13C 5c;13C 5d;13C 5e;13C 5f;13C 5g;13C 5h;13C 5i;13C 5j;13C 5k;13C 5l;13C 5m;13C 5n;13C 5o;13C 5p;13C 5q;13C 5r;13C 5s;13C 6a;13C 6b;13C 6c;13C 6d;13C 6e;13C 6f;13C 6g;13C 6h;19F 3g;19F 3k;19F 4f;19F 4g;19F 4l;19F 4v;19F 5d;19F 5e;19F 5g;19F 5q;19F 6b;19F 6e;19F 6f;19F 6g;19F 6h;1H 3a;1H 3b;1H 3c;1H 3d;1H 3e;1H 3f;1H 3g;1H 3h;1H 3i;1H 3j;1H 3k;1H 3l;1H 3m;1H 3n;1H 3o;1H 3p;1H 3q;1H 3r;1H 3s;1H 3t;1H 3u;1H 3v;1H 3w;1H 3x;1H 4a;1H 4b;1H 4c;1H 4d;1H 4e;1H 4f;1H 4g;1H 4h;1H 4i;1H 4j;1H 4k;1H 4l;1H 4m;1H 4n;1H 4o;1H 4p;1H 4q;1H 4r;1H 4s;1H 4t;1H 4u;1H 4v;1H 5a;1H 5b;1H 5c;1H 5d;1H 5e;1H 5f;1H 5g;1H 5h;1H 5i;1H 5j;1H 5k;1H 5l;1H 5m;1H 5n;1H 5o;1H 5p;1H 5q;1H 5r;1H 5s;1H 6a;1H 6b;1H 6c;1H 6d;1H 6e;1H 6f;1H 6g;1H 6h;5g-13C;5g-1H;H-D exchange 1H NMR of 1a in K3PO4;H-D exchange 1H NMR of 1a in NaOtBu;H-D exchange 1H NMR of 1a in method A;H-D exchange 1H NMR of 1a in method B
+
+---------- JO5C00188_COMPOUND_ID_LIST.TXT
+jo5c00188 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;3z;4c;4d;4e;4f;5a;5b;5c;5d;5e;5f;5g;6a
+
+---------- JO5C00189_COMPOUND_ID_LIST.TXT
+jo5c00189 2a.zip__;2b.zip__;2c.zip__;2a-k.zip__;2d;2e.zip__;2f.zip__;2g.zip__;2h.zip__;2i.zip__;2j.zip__;2k.zip__;4a.zip__;4b.zip__;4a-k.zip__;4c.zip__;4d.zip__;4e.zip__;4f.zip__;4g.zip__;4h.zip__;4i.zip__;4j.zip__;4k.zip__;5a.zip__;5b.zip__;5c.zip__;5d.zip__;5e.zip__;5a-e.zip__;6c';6c.zip__;6d.zip__;7f.zip__;9a.zip__;9b.zip__;9a-g.zip__;9c.zip__;9d.zip__;9e.zip__;9f.zip__;9g.zip__
+
+---------- JO5C00193_COMPOUND_ID_LIST.TXT
+jo5c00193 1m;1n;1p;2a';2a;2b;2c;2d;2e;2f;2g;2h;2i;2j;2k;2l;2m;2n;2o;2p;deuterated solvent experiment;light on and off
+
+---------- JO5C00246_COMPOUND_ID_LIST.TXT
+jo5c00246 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;6a;6b;6d;6g;6l;6p;6q;Scheme 4a 1H NMR
+
+---------- JO5C00270_COMPOUND_ID_LIST.TXT
+jo5c00270 10;3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3n-I;3n-II;3o-I;3o-II;3p;3s;4a;4b;4c;4d;4e;4f;4h;4i;4j;4k;4l;4o;4q;4s;6;S2;S6
+
+---------- JO5C00284_COMPOUND_ID_LIST.TXT
+jo5c00284 (+) and (-) Colchicine VCD Report.pdf;(+) and (-) DM-MTC VCD Report.pdf;(+) and (-) IsoDM-MTC VCD Report.pdf;(+) and (-) Isocolchicine VCD Report.pdf;Bejcecine;Dimer;Monomer;Isobejcecine;DFT Coordinates for VCD.docx;CompRotationalBarriers_xyz_files
+
+---------- JO5C00316_COMPOUND_ID_LIST.TXT
+jo5c00316 10;11;12;DMSO;Pyridine;14a;14b;14c;14d;2d;3a;3aa;3ab;3ac;3ad;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;3z;5;6;7;8;9
+
+---------- JO5C00317_COMPOUND_ID_LIST.TXT
+jo5c00317 compound10;compound11a;compound12;compound13;compound14;compound16;compound17;compound18;compound19;compound20;compound23;compound24;compound29;compound30;11-C;11-H;compound11-COSY;compound11-HMBC;compound11-HSQC;compound11-NOE;compound 31 C;compound 31 COSY;compound 31 H;compound 31 HSQC;compound 31 NOE;compound 31HMBC
+
+---------- JO5C00330_COMPOUND_ID_LIST.TXT
+jo5c00330 3aa;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3aj;3am;3ba;3ca;3da;3ea;3fa;3ga;3ka;3la;3ma;4;5;1d;1e;1h;1i;1j;2a;2b;2d;2e;2f;2g;2h;2i;2j;2k;2l
+
+---------- JO5C00369_COMPOUND_ID_LIST.TXT
+jo5c00369 Silole-AC.mnova;Silole-AC;Silole-PXZ.mnova;Silole-PXZ;Silole-Ph-AC.mnova;Silole-Ph-AC;Silole-Ph-PXZ.mnova;Silole-Ph-PXZ NMR
+
+---------- JO5C00389_COMPOUND_ID_LIST.TXT
+jo5c00389 11;13';13;14;15;16;17;18;19;20;5;6;7;9;SI1
+
+---------- JO5C00424_COMPOUND_ID_LIST.TXT
+jo5c00424 3a;3aa;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3ak;3al;3am;3an;3ao;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3q;3r;3s;3t
+
+---------- JO5C00472_COMPOUND_ID_LIST.TXT
+jo5c00472 2a_(SJ-1311(2)_13C)_51;2a_(SJ-1311(2)_1H)_4;2b_(BKK-BrCH2CN(2)_H)or SJ-1326(Me)__4;2b_(SJ-1326(Me)_13C)_111;2c_(SJ-1342(p-OMe)_13C)_596;2c_(SJ-1342(p-OMe)_1H)_4;2d_(SJ-1330_13C)_42;2d_(SJ-1330_19F)_1;2d_(SJ-1330_1H)_3;2e_(SJ-1327_13C)_32;2e_(SJ-1327_1H)_2;2f_(SJ-1359P_13C)_105 PURE;2f_(SJ-1359P_1H)_1 PURE;2g_(BKK-276_13C)_562;2g_(BKK-276_1H)_4;2h_(BKK-278_13C)_269;2h_(BKK-278_1H)_1;2i_(SJ-1343_13C)_402;2i_(SJ-1343_19F)_403;2i_(SJ-1343_1H)_3;2j_(BKK-275_13C)_100 CHCL3;2j_(BKK-275_1H)_1 CHCL3;2k_(BKK-274_13C)_150;2k_(BKK-274_19F)_7;2k_(BKK-274_1H)_2;2l_(BKK-244(FINAL)_13C)_100;2l_(BKK-244(FINAL)_1H)_3;2m_(BKK-245_13C)_500;2m_(BKK-245_1H)_2;2n_(SJ-1349(R)_13C)_500;2n_(SJ-1349(R)_1H)_4;2o_(BKK-723_13C)_455;2o_(BKK-723_1H)_4;2p_(SJ-1341(5-Br)_1H)_1;2p_(SJ-1341_13C)_138;2q_(BKK-713_13C)_200;2q_(BKK-713_1H)_2;2r_(BKK-381_13C)_4;2r_(BKK-381_1H)_3;2rζ_(BKK-381(2)_13C)_438_PURE;2rζ_(BKK-381(2)_1H)_42_PURE;2s_(BKK-383_13C)_456;2s_(BKK-383_1H)_2;2t_(BKK-388_13C)_40;2t_(BKK-388_1H)_6;2u_(BKK-633_13C)_107;2u_(BKK-633_1H)_1;2v_(BKK-385_13C)_425;2v_(BKK-385_19F)_6;2v_(BKK-385_1H)_3;2w_(BKK-384_13C)_433;2w_(BKK-384_1H)_3;2x_(BKK-386(2)R_13C)_210;2x_(BKK-386(2)_1H)_5;2y_(BKK-392(N-ET)_13C)_445;2y_(BKK-392(N-ET)_1H)_43;2z_(BKK-393F1_13C)_100 (TOLUENE);2z_(BKK-393F1_1H)_501 MANNUAL (TOLUENE);2α_(BKK-389(2)_13C)_536;2α_(BKK-389(2)_1H)_4;2β_(BKK-380_13C)_50;2β_(BKK-380_1H)_1;2γ_(BKK-603R2_13C)_300 PURE;2γ_(BKK-603R2_1H)_5 PURE;3a_(BKK-672_13C)_258;3a_(BKK-672_1H)_1;3b_(SJ-1326(THERMAL)_13C)_17;3b_(SJ-1326(THERMAL)_1H)_3;3c_(BKK-688_13C)_104;3c_(BKK-688_1H)_9;3d_(BKK-658_13C)_787;3d_(BKK-658_19F)_8;3d_(BKK-658_1H)_1;3e_(BKK-666_13C)_105;3e_(BKK-666_1H)_3;3f_(BKK-660_13C)_500;3f_(BKK-660_1H)_5;3g_(BKK-684(P)_13C)_2;3g_(BKK-684(P)_1H)_8;3h_(BKK-661(2)(R)_13C)_100;3h_(BKK-661(2)(R)_1H)100;3j_(BKK-685(2)_13C)_4;3j_(BKK-685(2)_1H)_2;3k_(BKK-662_13C)_101;3k_(BKK-662_19F)_856;3k_(BKK-662_1H)_7;3l'_(BKK-665(P)_13C)_1563;3l'_(BKK-665(P)_1H)_14;3l_(BKK-665(1)_13C)_424;3l_(BKK-665(1)_1H)_3;3m'_(BKK-667(2)_13C)_965_3HRS;3m'_(BKK-667(2)_1H)_177;3n_(BKK-676_13C)_499;3n_(BKK-676_1H)_1;3o_(BKK-679_13C)_789;3o_(BKK-679_1H)_2;3p_(BKK-659_13C)_345;3p_(BKK-659_1H)_2;3δ_(BKK-724(1)_13C)_400;3δ_(BKK-724(1)_1H)_3;3ε_(BKK-711_13C)_3;3ε_(BKK-711_1H)_2;4a_(SJ-1323(DTBP)_13C)_130;4a_(SJ-1323(DTBP)_1H)_8;5_(BKK-714_13C)_578;5_(BKK-714_1H)_4;7_(BKK-461(BHT)_1H)_(DSN-321 13C );7_(BKK-461(BHT)_1H)_(DSN-321 1H ) 25
+
+---------- JO5C00474_COMPOUND_ID_LIST.TXT
+jo5c00474 A1;A1_FID;A2;A2_FID;B1;B1_FID;C1;C1_FID;CH3C(CH2Br)3;CH3C(CH2Br)3_FID
+
+---------- JO5C00508_COMPOUND_ID_LIST.TXT
+jo5c00508 1;4;5;6;8;9;Instrument information for collecting and analyzing data.txt;Ph-B;bis-TFB;bis-bis-SFB;bis-s-SFB;s-TFB;s-bis-SFB;s-s-SFB
+
+---------- JO5C00513_COMPOUND_ID_LIST.TXT
+jo5c00513 1a;1aa;1ab;1ac;1ad;1ae;1b;1c;1d;1e;1f;1g;1h;1i;1j;1k;1l;1m;1n;1o;1p;1q;1r;1s;1t;1u;1v;1w;1x;2a;2b;2c;2d;2e;3a;4a;4b;4c;4d;4e;4f;4g & 4h;4i;4j;5a;5c;5d
+
+---------- JO5C00521_COMPOUND_ID_LIST.TXT
+jo5c00521 3 C;3 H;4 C;4 H;5 C;5 H;6 C;6 H;7 C;7 H
+
+---------- JO5C00526_COMPOUND_ID_LIST.TXT
+jo5c00526 NMR spectra of Br-Fu-Bpin monomer;NMR spectra of macrocycles;C6FE_0_b.xyz;C6FE_N1_b.xyz;C6FE_N2S_b.xyz;C6FE_N2T_b.xyz;C6FE_P1_b.xyz;C6FE_P2S_b.xyz;C6FE_P2T_b.xyz;C6FH_0_b.xyz;C6FM_0_b.xyz;C7FE_0_b.xyz;C7FE_N1_b.xyz;C7FE_N2S_b.xyz;C7FE_N2T_b.xyz;C7FE_P1_b.xyz;C7FE_P2S_b.xyz;C7FE_P2T_b.xyz;C7FH_0_b.xyz;C7FM_0_b.xyz;Furan-Dimer-Syn_0_b.xyz;Furan-Ester-Dimer-Syn_0_b.xyz;Furan-Ester_0_b.xyz;Furan-Methyl-Dimer-Syn_0_b.xyz;Furan-Methyl_0_b.xyz;L6FE_0_b.xyz;L6FH_0_b.xyz;L6FM_0_b.xyz;L7FE_0_b.xyz;L7FH_0_b.xyz;L7FM_0_b.xyz
+
+---------- JO5C00545_COMPOUND_ID_LIST.TXT
+jo5c00545 Compound 10;Compound 11;Compound 12;Compound 15;Compound 18;Compound 4
+
+---------- JO5C00606_COMPOUND_ID_LIST.TXT
+jo5c00606 Compound 1;Compound 10;Compound 4;Compound 5;Compound 7;Compound 8;Compound 9;Spectrometer Information.txt;comp1.mol;comp10.mol;comp4.mol;comp5.mol;comp7.mol;comp8.mol;comp9.mol
+
+---------- JO5C00609_COMPOUND_ID_LIST.TXT
+jo5c00609 10;11;12;13;14;15;16;17a;17b;17c;3a;3ab;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;3z;5a;5b;7a;7b;7c;7d;7e;9
+
+---------- JO5C00613_COMPOUND_ID_LIST.TXT
+jo5c00613 2a;2aa;2ab;2ac;2ad;2b;2c;2d;2e;2f;2g;2h;2i;2j;2k;2l;2m;2n;2o;2p;2q;2r;2s;2t;2u;2v;2w;2x;2y;2z;3a;3aa;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3aj;3ak;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;3z;4;5;6;7
+
+---------- JO5C00614_COMPOUND_ID_LIST.TXT
+jo5c00614 1A-1M Carbenes Reaction Coordinate Diagrams;CF3 Photolysis.zip__;H-Bonded Complexes Between 1A-1M and 4-Cyanophenol;Para Substituted Phenols.zip__;Diazomethane Photolysis.zip__;MPDA+HFIP Photolysis.zip__;Supporting_Information_Raw_Data_3
+
+---------- JO5C00649_COMPOUND_ID_LIST.TXT
+jo5c00649 Complex_1+2;Complex_1+3;Complex_1+4;Complex_1+5;Complex_1+6;Complex_1+7;Complex_2+3;Complex_2+4;Complex_2+5;Complex_2+6;Complex_2+7;Complex_3+4;Complex_3+5;Complex_3+6;Complex_3+7;Complex_4+5;Complex_4+6;Complex_4+7;Dimer_1+1;Dimer_2+2;Dimer_3+3;Dimer_4+4;Monomer_1;Monomer_2;Monomer_3;Monomer_4;Monomer_5;Monomer_6;Monomer_7
+
+---------- JO5C00670_COMPOUND_ID_LIST.TXT
+jo5c00670 2 1H;3 13C;4c 13C;4c 1H;5a 13C;5a 1H;5g 13C;5g 1H;6a 1H;6b 13C;6b 1H;6g 13C;6g 1H;7a 13C;7a 1H;7b 13C;7b 1H;7d 13C;7d 1H;7k 13C;7k 1H
+
+---------- JO5C00717_COMPOUND_ID_LIST.TXT
+jo5c00717 au_zg_slice;gradrec;multi_add;slice_vf;zg-slice;zg2dslice
+
+---------- JO5C00727_COMPOUND_ID_LIST.TXT
+jo5c00727 1;2;3;4;5;6;7
+
+---------- JO5C00741_COMPOUND_ID_LIST.TXT
+jo5c00741 Kaszynski_PhotoRevisit_SI.pdf;1a;1b;1c;1d;1e;1f;1g;1h;1i
+
+---------- JO5C00774_COMPOUND_ID_LIST.TXT
+jo5c00774 CDFT data of 10·H+.txt;CDFT data of 1·H+.txt;CDFT data of 2·H+.txt;CDFT data of 3·H+.txt;CDFT data of 4·H+.txt;CDFT data of 5·H+.txt;CDFT data of 6·H+.txt;CDFT data of 7·H+.txt;CDFT data of 8·H+.txt;CDFT data of 9·H+.txt;CDFT results (Multiwfn).txt;N+1;N-1;N-2;N;Optimization of imine·H+;Optimization of imine·H+@CB7;FID for publication
+
+---------- JO5C00794_COMPOUND_ID_LIST.TXT
+jo5c00794 2n;2o;2p;2q;2r;3 a;3 b;3 c;3 d;3 e;3 f;3 g;3 h;3 i;3 j;3 k;3 l;3 m;3 n;3 o;3 p;3 q;3 r;3 s;3 t;3 u;3 v;3 w;3 x;3 y;3 z;3aa;3ab;5;7;8
+
+---------- JO5C00884_COMPOUND_ID_LIST.TXT
+jo5c00884 3e 3f 3g.mnova;Document 111.mnova;HRMS data for new compounds.doc
+
+---------- JO5C00912_COMPOUND_ID_LIST.TXT
+jo5c00912 12;13;1g;1i;3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;4a;9;The information.docx
+
+---------- JO5C00952_COMPOUND_ID_LIST.TXT
+jo5c00952 1f;1h;1i;1j;1k;1l;1n;1o;1p;3aa;3ab;3ba;3bb;3ca;3da;3db;3ea;3eb;3fa;3ga;3ha;3hb;3ia;3ja;3ka;3la;3oa;3pa;4ac;4ad;4ae;4af;4ag;4ah;4ai;4aj;4ak;4al;4am;4an;4ao;4ap;4aq;6a;6b;6c;6d;deuterio 1a;deuterio 3aa
+
+---------- JO5C00954_COMPOUND_ID_LIST.TXT
+jo5c00954 CARBON_01.fid;PROTON_01.fid;gCOSY_01.fid;HRMS;Tabulated Data.xlsx;c = 0.016;c = 0.032;Compound 7
+
+---------- JO5C01002_COMPOUND_ID_LIST.TXT
+jo5c01002 1a. TE345-P;1b. TE-CZ73-P_CDCl3;1c. TE383-P_ACT;1d. TE427-P_ACT;1e. KCE40-P_CDCl3;1f. TE426-P_ACT;1g. TE524-P_CDCl3;1h. CZ69-P_DSMO;1i. TE411-P_CDCl3;1j. CZ49-P_CDCl3;1k. KCE41-P_CDCl3;1l. TE429-P_ACT;1m. TE475-P_CDCl3;1n. TE572-P_CDCl3;1o. TE554-P_CDCl3;3a. TE-P_ACT;3b. TE517-P_ACT;3c. TE387-P_CDCl3;3d. TE461-P_ACT;3e. TE502-P_ACT;3f. TE462-P_ACT;3g. TE525-P_ACT;3h. CZ75-P_ACT;3i. TE422-P_ACT;3j. TE516-P_ACT;3k. KCE45-P_ACT;3l. TE518-P_ACT;3m. TE480-P_ACT;3n. TE575-P_ACT;3o. TE558-P_ACT;4b. TE527-P_ACT;4c. TE529-P_ACE;4d. TE528-P_ACT;4e. TE531-P_ACT;4f. TE597-P_ACT;4g. TE533-P_ACE;4h. TE552-P_ACT;4i. TE530-P_ACT;4j. TE532-P_ACT;4k. TE541-P_ACT(o);5a. TE592-P_ACT (o);7a. TE506-P_CDCl3;7b. TE569-P_ACT 123;7c. TE587-P2_ACT;deuterium-1a. TE494(2)-SM_CDCl3;deuterium-3a. TE494-P_ACT
+
+---------- JO5C01060_COMPOUND_ID_LIST.TXT
+jo5c01060 10;3a;3aa';3aa;3ab';3ab;3ac';3ac;3ad';3ad;3ae';3ae;3af';3af;3ag;3ah;3ai;3aj;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r';3r;3s';3s;3t';3t;3u';3u;3v;3w';3w;3x';3x;3y';3y;3z';3z;5a';5a;5b';5b;5c';5c;5d';5d;5e';5e;5f';5f;5g';5g;5h';5h;5i';5i;5j';5j;6;7;8;9
+
+---------- JO5C01068_COMPOUND_ID_LIST.TXT
+jo5c01068 10;11a;11b;11c;11d;11e;11f;11g;11h;11i;12;13;14;15;16;17;18;19;1a';1a;1d;20;3a;3b;4a;4b;4d;5a';5a;5b;5c;8a;8b;8c;8d;8e;8f;8g;8h;8i;8j;9a;9aa;9b;9c;9d;9e;9f;9g;9h;9i
+
+---------- JO5C01082_COMPOUND_ID_LIST.TXT
+jo5c01082 1a;1b;1c;1d;1e;1f;1g;1h;1i;1j;1k;1l;1m;1n;1o;1p;1q;1r;1s;1t;1u;1v;1w;1x;1y;1z;2a;2b;2c;2d;2e;2f;2g;2h;2i;2j;2k;2l;2m';2m;2n';2n;2o;2p;2q;2r;2s;2t;2u;2v;2w;2x;2y;2z
+
+---------- JO5C01113_COMPOUND_ID_LIST.TXT
+jo5c01113 3'-C NMR;3'-H NMR;3-C NMR;3-H NMR;lzz-20230914-1-131;BN-AN-TPh-C NMR;BN-AN-TPh-H NMR;BN-ANH-TPh-C NMR;BN-ANH-TPh-H NMR
+
+---------- JO5C01140_COMPOUND_ID_LIST.TXT
+jo5c01140 Acetonitrile-HOO.xyz;Acetonitrile.xyz;CHD-HOO-Acetonitrile_TS.xyz;CHD-HOO-DABCO_TS.xyz;CHD-HOO-DMSO_TS.xyz;CHD-HOO-Methanol_TS.xyz;CHD-HOO-Pyridine_TS.xyz;Cyclohexadiene.xyz;DABCO-HOO.xyz;DABCO.xyz;DMSO-HOO.xyz;DMSO.xyz;HOO-HOO-Acetonitrile_TS.xyz;HOO-HOO-DABCO_TS.xyz;HOO-HOO-DMSO_TS.xyz;HOO-HOO-Methanol_TS.xyz;HOO-HOO-Pyridine_TS.xyz;HOO-HOO_TS.xyz;HOO.xyz;Methanol-HOO.xyz;Methanol.xyz;Pyridine-HOO.xyz;Pyridine.xyz
+
+---------- JO5C01156_COMPOUND_ID_LIST.TXT
+jo5c01156 NMR-FID
+
+---------- JO5C01207_COMPOUND_ID_LIST.TXT
+jo5c01207 QA-1.xyz;QA-I1.xyz;QA-P1.xyz;QA-P2.xyz;QA-TS1.xyz;QA-TS2.xyz;QA-TS3.xyz;QT-1.xyz;QT-I1.xyz;QT-P1.xyz;QT-P2.xyz;QT-TS1.xyz;QT-TS2.xyz;QT-TS3.xyz
+
+---------- JO5C01245_COMPOUND_ID_LIST.TXT
+jo5c01245 13C-2a';13C-3aa;13C-3ab;13C-3ac;13C-3ad;13C-3ae;13C-3af;13C-3ag;13C-3ah;13C-3ai;13C-3aj;13C-3ak;13C-3ba;13C-3ca;13C-3da;13C-3ea;13C-3fa;13C-3ga;13C-3ha;13C-3ia;13C-3ja;13C-3ka;13C-3la;13C-3ma;19F-3ae;19F-3af;19F-3ga;1H-2a';1H-3aa;1H-3ab;1H-3ac;1H-3ad;1H-3ae;1H-3af;1H-3ag;1H-3ah;1H-3ai;1H-3aj;1H-3ak;1H-3ba;1H-3ca;1H-3da;1H-3ea;1H-3fa;1H-3ga;1H-3ha;1H-3ia;1H-3ja;1H-3ka;1H-3la;1H-3ma
+
+---------- JO5C01279_COMPOUND_ID_LIST.TXT
+jo5c01279 A;B;C;D;E;F;TS-AB;TS-BC;TS-EF;Catalyst-solvent-and-other-TS;TS-CD
+
+---------- JO5C01353_COMPOUND_ID_LIST.TXT
+jo5c01353 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;4;L1;L2;L3;L4;L5;L6;L7
+
+---------- JO5C01387_COMPOUND_ID_LIST.TXT
+jo5c01387 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3Ab;3Ac;3Ad;3Ae;3Ba;3Bc;3Bd;3Be;3Ca;3Cb;3Cd;3Ce;3Da;3Db;3Ea;3Fa
+
+---------- JO5C01409_COMPOUND_ID_LIST.TXT
+jo5c01409 1;10;11'';11';11;12;14;15;16;17;18;8;9
+
+---------- JO5C01422_COMPOUND_ID_LIST.TXT
+jo5c01422 3aa;3ag;3ba;3ha;3ia;3ja';3ja;3ka;3la;4aa;4ab;4ac;4ad;4ae;4ba;4ca;4da;4ea;4fa;4ia;4ja;4la;5fa;5ha;5la;6aa
+
+---------- JO5C01427_COMPOUND_ID_LIST.TXT
+jo5c01427 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3q;3r;3s;3t;3u;3v;3w;3x;4a;4aa;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m;4n;4o;4r;4s;4t;4u;4v;4w;4y;5;6;8;I;Ia
+
+---------- JO5C01465_COMPOUND_ID_LIST.TXT
+jo5c01465 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;4a;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m;4n;4o;4p;4q;4r;4s;4t;Table 4;Table 5
+
+---------- JO5C01466_COMPOUND_ID_LIST.TXT
+jo5c01466 1.xyz;2.xyz;3-E.xyz;3-Z.xyz;3-int.xyz;4-Eg.xyz;5-Eg.xyz;7-Eg.xyz;e-iii.xyz;e-iv;ts3-E.xyz;ts3-Z.xyz;ts3-int.xyz;ts3-rot.xyz;ts3-rotE.xyz;ts3-rotZ.xyz;ts4-Ea.xyz;ts4-Eg.xyz;ts4-Za.xyz;ts4-Zg.xyz;ts5-Eg.xyz;ts5-Eg_anti.xyz;8.xyz;cis-3-E.xyz;cis-3-Z.xyz;cis-3-int.xyz;cis-ts3-E.xyz;cis-ts3-Z.xyz;cis-ts3-int.xyz;cis-ts3-rot.xyz;cis-ts3-rotE.xyz;cis-ts3-rotZ.xyz;trans-3-E.xyz;trans-3-Z.xyz;trans-3-int.xyz;trans-4-Za.xyz;trans-5-Za.xyz;trans-7-Za.xyz;trans-ts3-E.xyz;trans-ts3-Z.xyz;trans-ts3-int.xyz;trans-ts3-rot.xyz;trans-ts3-rotE.xyz;trans-ts3-rotZ.xyz;trans-ts4-Ea.xyz;trans-ts4-Eg.xyz;trans-ts4-Za.xyz;trans-ts4-Zg.xyz;trans-ts5-Za.xyz;trans-ts5-Za_anti.xyz
+
+---------- JO5C01490_COMPOUND_ID_LIST.TXT
+jo5c01490 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;D-1a;3k;3l;3m;3n;3p;3q;3r;3s;4a;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;5;6
+
+---------- JO5C01501_COMPOUND_ID_LIST.TXT
+jo5c01501 10a-13C;10a-1H;1a'-13C;1a'-1H;1a-13C;1a-1H;1b-13C;1b-1H;1c-13C;1c-1H;1d-13C;1d-1H;1e-13C;1e-1H;1f-13C;1f-1H;1g-13C;1g-1H;1h-13C;1h-1H;1i-13C;1i-1H;1j-13C;1j-1H;1k-13C;1k-1H;1l-13C;1l-1H;1m-13C;1m-1H;1n-13C;1n-1H;1o-13C;1o-1H;1p-13C;1p-1H;1q-13C;1q-1H;1r-13C;1r-1H;1s-13C;1s1H;1t-13C;1t-1H;1u-13C;1u-1H;1v-13C;1v-1H;1w-13C;1w-1H;1x-13C;1x-1H;1y-13C;1y-1H;2a-13C;2a-1H;3a-13C;3a-1H;4-13C;4-1H;4a-13C;4a-1H;5a-13C;5a-1H;6a-13C;6a-19F;6a-1H;7a-13C;7a-1H;8a-13C;8a-1H;8z-13C;8z-1H;9a-13C;9a-1H;I-13C;I-1H
+
+---------- JO5C01538_COMPOUND_ID_LIST.TXT
+jo5c01538 4a_13C;4a_1H;4b_13C;4b_1H;4c_13C;4c_1H;4d_13C;4d_1H;4e_13C;4e_19F;4e_1H;4f_13C;4f_1H;4g_13C;4g_19F;4g_1H;4h_13C;4h_1H;4i_13C;4i_1H;4j_13C;4j_1H;4k_13C;4k_1H;4l_13C;4l_19F;4l_1H;4m_13C;4m_1H;4n_13C;4n_1H;4o_13C;4o_1H;4p_13C;4p_1H;4q_13C;4q_1H;4r_13C;4r_1H;4r_COSEY;4r_NOSEY;4s_13C;4s_1H;4t_13C;4t_1H;4u_13C;4u_1H;4v_13C;4v_1H;5j_13C;5j_1H;6_13C;6_1H
+
+---------- JO5C01545_COMPOUND_ID_LIST.TXT
+jo5c01545 3a;3a2+;3b;3b2+;3c;3c2+;3d;3d2+;spectrometer.txt
+
+---------- JO5C01570_COMPOUND_ID_LIST.TXT
+jo5c01570 12;14;15;4a;4aa;4ab;4ac;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m;4n;4o;4p;4q;4r;4s;4t;4u;4v;4w;4x;4y;4z;6';6
+
+---------- JO5C01584_COMPOUND_ID_LIST.TXT
+jo5c01584 1y;3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;4a;4b;5a;5b;5c;5d;5e;5f;5g;5h;5i;5j;5k;5l;5m;5n
+
+---------- JO5C01688_COMPOUND_ID_LIST.TXT
+jo5c01688 6c.xyz;6c_BS.xyz;6ca.xyz;6ca_BS.xyz;6cp.xyz;6cp_BS.xyz;6oa,a.xyz;6oa,p.xyz;6oa,p_S1min.xyz;6op,p.xyz;TS-6ca-6c.xyz;TS-6ca-6cp.xyz;TS-6oa,a-6ca.xyz;TS-6oa,a-6oa,p.xyz;TS-6oa,p-6cp.xyz;TS-6oa,p-6op,p.xyz
+
+---------- JO5C01759_COMPOUND_ID_LIST.TXT
+jo5c01759 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;5a';5a;5b';5b;5c';5c;5d;5e;5f;5g;5h;5i;5j;5k;5l;5m;5n;5o;5p;6;7;8
+
+---------- JO5C01777_COMPOUND_ID_LIST.TXT
+jo5c01777 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;4a;5a
+
+---------- JO5C01963_COMPOUND_ID_LIST.TXT
+jo5c01963 1j;1x;1y;2ah;3a;3aa;3ab;3ac;3ad;3ae;3af;3ag;3ah;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;3z;4;5a;5b
+
+---------- JO5C01989_COMPOUND_ID_LIST.TXT
+jo5c01989 3;3_CARBON_01.fid;3_HSQCAD_01.fid;3_PROTON_01.fid;5a_CARBON_01.fid;5a_PROTON_01.fid;5b_CARBON_01.fid;5b_PROTON_01.fid;6a;6a_CARBON_01.fid;6b_PROTON_01.fid;Photoinitiation;Racemic Standard;Thermal Initiation;6b_CARBON_01.fid;7_CARBON_01.fid;7_FLUORINE_01.fid;7_PROTON_01.fid;8;8_CARBON_01.fid;8_FLUORINE_01.fid;8_PROTON_01.fid;D1;D1_CARBON_01.fid;D1_HSQCAD_01.fid;D1_PROTON_01.fid;D2;D2_CARBON_01.fid;D2_HSQCAD_01.fid;D2_PROTON_01_25C.fid;D2_PROTON_01_75C.fid;D3;D3_CARBON_01.fid;D3_HSQCAD_01.fid;D3_PROTON_01.fid;D4;D4_CARBON_01.fid;D4_HSQCAD_01.fid;D4_PROTON_01.fid;S3_CARBON_01.fid;S3_PROTON_01.fid;S4_CARBON_01.fid;S4_PROTON_01.fid;T1;T1_CARBON_01.fid;T1_HSQCAD_01.fid;T1_PROTON_01.fid;T2;T2_CARBON_01.fid;T2_HSQCAD_01.fid;T2_PROTON_01_25C.fid;T2_PROTON_01_55C.fid;T3;T3_CARBON_01.fid;T3_HSQCAD_01.fid;T3_PROTON_01.fid;T4;T4_CARBON_01.fid;T4_HSQCAD_01.fid;T4_PROTON_01.fid
+
+---------- JO5C02047_COMPOUND_ID_LIST.TXT
+jo5c02047 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3ba;3ca;3da;3ea;3fa;3ga;3ha;3ia;3ja;3ka;3la;3ma;5
+
+---------- JO5C02084_COMPOUND_ID_LIST.TXT
+jo5c02084 12-SAR-807;3a;3aa;3aaa;3aab;3aac;3aad;3aae;3aaf;3aag;3aah;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3aj;3ak;3al;3am;3an;3ao;3ap;3aq;3ar;3as;3at;3au;3av;3aw;3ax;3ay;3az;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o r;3p;3q;3r r;3s r;3t r;3u r;3v;3w;3x;3y;3z;SDD-1302;SDD-1602
+
+---------- JO5C02091_COMPOUND_ID_LIST.TXT
+jo5c02091 3a;3aa;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3b;3c;3d;3e;3f;3g;3h;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;3z;5a;5b;5c;5d;5e;5f;5g;5h;5i;5j;5k;5l;6a;6b;7;9
+
+---------- JO5C02110_COMPOUND_ID_LIST.TXT
+jo5c02110 1a-13C;1a-1H;1b-13C;1b-1H;1c-13C;1c-1H;1d-13C;1d-1H;1e-13C;1e-1H;1f-13C;1f-1H;1g-13C;1g-1H;1h-13C;1h-1H;1i-13C;1i-1H;1j-13C;1j-1H;1k-13C;1k-1H;1l-13C;1l-1H;1m-13C;1m-1H;1n-13C;1n-1H;1o-13C;1o-1H;1p-13C;1p-1H;1q-13C;1q-1H;1r-13C;1r-1H;1s-13C;1s-1H;1t-13C;1t-1H;1v-13C;1v-1H;1w-13C;1w-1H;E-3a-13C;E-3a-1H;E-3b-13C;E-3b-1H;E-3c-13C;E-3c-1H;E-3d-13C;E-3d-1H;E-3e-13C;E-3e-1H;E-3f-13C;E-3f-1H;E-3g-13C;E-3g-1H;E-3h-13C;E-3h-1H;E-3i-13C;E-3i-1H;E-3j-13C;E-3j-1H;E-3k-13C;E-3k-1H;E-3l-13C;E-3l-1H;E-3m'-13C;E-3m'-1H;E-3m-13C;E-3m-1H;E-3n-13C;E-3n-1H;E-3o-13C;E-3o-1H;E-3p-13C;E-3p-1H;E-3q-13C;E-3q-1H;E-3u-13C;E-3u-1H;E-3v-13C;E-3v-1H;E-3x-13C;E-3x-1H;EZ-3a-13C;EZ-3a-1H;EZ-3b-13C;EZ-3b-1H;EZ-3c-13C;EZ-3c-1H;EZ-3d-13C;EZ-3d-1H;EZ-3e-13C;EZ-3e-1H;EZ-3f-13C;EZ-3f-1H;EZ-3g-13C;EZ-3g-1H;EZ-3h-13C;EZ-3h-1H;EZ-3i-13C;EZ-3i-1H;EZ-3j-13C;EZ-3j-1H;EZ-3k-13C;EZ-3k-1H;EZ-3l-13C;EZ-3l-1H;EZ-3m'-13C;EZ-3m'-1H;EZ-3m-13C;EZ-3m-1H;EZ-3n-13C;EZ-3n-1H;EZ-3o-13C;EZ-3o-1H;EZ-3p-13C;EZ-3p-1H;EZ-3q-13C;EZ-3q-1H;EZ-3v-13C;EZ-3v-1H;EZ-3w-13C;EZ-3w-1H;EZ-3x-13C;EZ-3x-1H;Z-3u-13C;Z-3u-1H;Application;NMR_Instrument_and_Structure_File_Info.docx
+
+---------- JO5C02152_COMPOUND_ID_LIST.TXT
+jo5c02152 1d-C-cjz-01-03-C-20221.fid;1d-H-cjz-01-03-H-250221.fid;1e-C-lgx-13-10-3-C-250221.fid;1e-H-lgx-13-10-3-H-250221.fid;3a;lgx-12-muchan-H.fid;lgx-12-42-1-C.fid;lgx-12-42-1-F.fid;lgx-12-42-1-H.fid;lgx-12-42-2-C.fid;lgx-12-42-2-H.fid;lgx-12-42-3-C.fid;lgx-12-42-3-H.fid;lgx-12-42-4-C.fid;lgx-12-42-4-H.fid;lgx-12-42-5-C.fid;lgx-12-42-5-H.fid;lgx-12-43-1-C.fid;lgx-13-22-1-H.fid;3h;lgx-12-44-5-F.fid;lgx-12-44-5-H.fid;lgx-12-44-3-C.fid;lgx-12-44-3-H.fid;lgx-12-44-4-C.fid;lgx-12-44-4-H.fid;lgx-12-47-2-C.fid;lgx-12-47-2-H.fid;lgx-12-47-1-3-H.fid;lgx-12-47-1-C-2.fid;3n;lgx-14-17-1-H-Me.fid;lgx-12-47-4-H-250421.fid;3o;3p;lgx-12-101-C-paban.fid;lgx-12-101-H-paban.fid;3r;lgx-12-93-1.fid;3s;lgx-13-22-2-H.fid;lgx-12-47-6-C.fid;lgx-12-47-6-H.fid;3u;lgx-12-41-F-250415.fid;lgx-12-41-H-250415.fid;lgx-12-92-4-C-2.fid;lgx-12-92-4-H-2-250116.fid;3w;lgx-12-83-1-1-C-3.fid;lgx-12-84-1.fid;lgx-12-83-2-C.fid;lgx-12-83-2-H-3.fid;lgx-13-50-C-250318.fid;lgx-13-50-H-250318.fid;lgx-13-23-2-C.fid;lgx-13-23-2-H.fid;lgx-13-23-1-C.fid;lgx-13-25-1-H-2.fid;lgx-12-96-2-C.fid;lgx-12-96-2-H.fid;lgx-13-88-1-C.fid;lgx-13-88-1-F.fid;lgx-13-88-1-H.fid;lgx-13-59-3-C.fid;lgx-13-59-3-H-250528.fid;lgx-13-55-1-C-250402-54quan.fid;lgx-13-55-1-H-250402-2.fid;lgx-14-03-1-C.fid;lgx-14-06-H.fid;6b;6c;6d;lgx-14-18-3-H.fid;6e;6f;6g;lgx-14-13-3-F.fid;lgx-14-13-3-H.fid;6h;lgx-14-21-2-C-250622-40quan.fid;lgx-14-21-2-H-250622.fid;6j;lgx-14-55-H.fid;6k;6l;6m;lgx-14-20-4-1-H-250621.fid;lgx-13-85-1-H.fid;lgx-13-87-1-2-C-250619.fid;lgx-13-39-C-250225-128quan.fid;lgx-13-39-H-250217.fid;lgx-13-86-C.fid;lgx-13-86-H-250619.fid;2021611-lgy-14-94
+
+---------- JO5C02154_COMPOUND_ID_LIST.TXT
+jo5c02154 2a.mnova;2b.mnova;2c.mnova;2d.mnova;2e.mnova;2f.mnova;2g.mnova;2h.mnova;2i.mnova;2j.mnova;2k.mnova;2l.mnova;2m.mnova;2n.mnova;2o.mnova;2p.mnova;2q.mnova;2r.mnova;2s.mnova;2t.mnova;2u.mnova;2v.mnova;2w.mnova;2x.mnova;2y.mnova;2z.mnova;3aa.mnova;3ab.mnova;3ac.mnova;3ad.mnova;3ae.mnova;3af.mnova;3ag.mnova;3ah.mnova;3ba.mnova;3ca.mnova;3da.mnova;3ga.mnova;5.mnova;6.mnova;Rel-(1R,4R,7S)-7.mnova;Rel-(1S,4R,7R)-7.mnova;cis- 3al.mnova;cis-3ai.mnova;cis-3aj.mnova;cis-3ak.mnova;cis-3am.mnova;cis-3an.mnova;cis-3ao.mnova;cis-3ap.mnova;cis-3aq.mnova;cis-3ar.mnova;cis-3at.mnova;cis-3au.mnova;cis-3av.mnova;cis-3ax.mnova;cis-3ea.mnova;cis-3fa.mnova;trans-3ai.mnova;trans-3aj.mnova;trans-3ak.mnova;trans-3al.mnova;trans-3am.mnova;trans-3an.mnova;trans-3ao.mnova;trans-3ap.mnova;trans-3aq.mnova;trans-3ar.mnova;trans-3as.mnova;trans-3au.mnova;trans-3av.mnova;trans-3aw.mnova;trans-3ax.mnova;trans-3ay.mnova;trans-3az.mnova;trans-3ea.mnova;trans-3fa.mnova;trans-4aA+cis-4aA.mnova;trans-4aB+cis-4aB.mnova;trans-4aC+cis-4aC.mnova;trans-4aC.mnova;trans-4aD+cis-4aD.mnova
+
+---------- JO5C02221_COMPOUND_ID_LIST.TXT
+jo5c02221 Primary NMR FID files 3aa-3ca;Primary NMR FID files 3cb-3fa;Primary NMR FID files 3ga-3ha;Primary NMR FID files 3hb-3ja;Primary NMR FID files 3ka-3la
+
+---------- JO5C02305_COMPOUND_ID_LIST.TXT
+jo5c02305 1a;1b;1c;1d;1e;1f;1g;1h;1i;1j;1k;3ba;3bb;3bc;3bd;3be;3bf;3bg;3bh;3bi;3bj;3bk;3bl;3bm;3bn;3bo;3bp;3bq;3br;3bs;3bt;3ca;3da;3ea;3eb;3fa;3ga;3ha;3ia;3ja;3ka;4;5;6;PF-4455242
+
+---------- JO5C02308_COMPOUND_ID_LIST.TXT
+jo5c02308 Compound 1;Compound 2;Compound 3;Compound 4;Compound 5;Compound 6;Compound 7;Compound 8;Compound 9
+
+---------- JO5C02383_COMPOUND_ID_LIST.TXT
+jo5c02383 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;4a;4g;4i;4f
+
+---------- JO5C02414_COMPOUND_ID_LIST.TXT
+jo5c02414 13C NMR of 4,7-Dibromobenzo[1,2,3]thiadiazole (2Br);13C NMR of 4,7-Diiodobenzo[1,2,3]thiadiazole (2);13C NMR of 4,7-Diiodobenzo[2,1,3]thiadiazole (5I);CARBON_01.fid;13C NMR of Qbtd;13C NMR of Qibtd;13C NMR of Qibtd2;13C NMR of Qibtd3;13C NMR of Qibtd4;13C NMR of Qibtd5;1H NMR of 4,7-Dibromobenzo[1,2,3]thiadiazole (2Br);1H NMR of 4,7-Diiodobenzo[1,2,3]thiadiazole (2);PROTON_01.fid;1H NMR of 4,7-Diiodobenzo[2,1,3]thiadiazole (5I);1H NMR of Qbtd;1H NMR of Qibtd;1H NMR of Qibtd2;1H NMR of Qibtd3;1H NMR of Qibtd4;1H NMR of Qibtd5
+
+---------- JO5C02438_COMPOUND_ID_LIST.TXT
+jo5c02438 B3LYP;mol_nameR1.txt;mol_nameR1R2s.txt;mol_nameR1R3s.txt;mol_nameR1R4s.txt;mol_nameR1sR2.txt;mol_nameR2.txt;mol_nameR2conf.txt;mol_nameR2R5s.txt;mol_nameR3.txt;mol_nameR4.txt;mol_nameR4R6s.txt;mol_nameR5.txt;mol_nameR6.txt;mol_nameR6R7s.txt;mol_nameR6R7s2nd.txt;mol_nameR6R7s3rd.txt;mol_nameR7.txt;mol_name_all1.txt;mol_name_all1_design.txt;mol_name_all2.txt;mol_name_all2_design.txt;mol_name_all2_design_qTS.txt;mol_name_allR1.txt;mol_name_allR1R2s.txt;mol_name_allR1R3s.txt;mol_name_allR1R4s.txt;mol_name_allR1sR2.txt;mol_name_allR2.txt;mol_name_allR2conf.txt;mol_name_allR2R5s.txt;mol_name_allR3.txt;mol_name_allR4.txt;mol_name_allR4R6s.txt;mol_name_allR5.txt;mol_name_allR6.txt;mol_name_allR6R7s.txt;mol_name_allR6R7s2nd.txt;mol_name_allR6R7s3rd.txt;mol_name_allR7.txt;R1TS100major.xyz;R1TS100minor.xyz;R1TS101major.xyz;R1TS101minor.xyz;R1TS102major.xyz;R1TS102minor.xyz;R1TS103major.xyz;R1TS103minor.xyz;R1TS104major.xyz;R1TS104minor.xyz;R1TS105major.xyz;R1TS105minor.xyz;R1TS106major.xyz;R1TS106minor.xyz;R1TS107major.xyz;R1TS107minor.xyz;R1TS108major.xyz;R1TS108minor.xyz;R1TS109major.xyz;R1TS109minor.xyz;R1TS10major.xyz;R1TS10minor.xyz;R1TS110major.xyz;R1TS110minor.xyz;R1TS111major.xyz;R1TS111minor.xyz;R1TS112major.xyz;R1TS112minor.xyz;R1TS113major.xyz;R1TS113minor.xyz;R1TS114major.xyz;R1TS114minor.xyz;R1TS115major.xyz;R1TS115minor.xyz;R1TS116major.xyz;R1TS116minor.xyz;R1TS117major.xyz;R1TS117minor.xyz;R1TS118major.xyz;R1TS118minor.xyz;R1TS119major.xyz;R1TS119minor.xyz;R1TS11major.xyz;R1TS11minor.xyz;R1TS120major.xyz;R1TS120minor.xyz;R1TS121major.xyz;R1TS121minor.xyz;R1TS122major.xyz;R1TS122minor.xyz;R1TS123major.xyz;R1TS123minor.xyz;R1TS124major.xyz;R1TS124minor.xyz;R1TS125major.xyz;R1TS125minor.xyz;R1TS126major.xyz;R1TS126minor.xyz;R1TS127major.xyz;R1TS127minor.xyz;R1TS128major.xyz;R1TS128minor.xyz;R1TS129major.xyz;R1TS129minor.xyz;R1TS12major.xyz;R1TS12minor.xyz;R1TS130major.xyz;R1TS130minor.xyz;R1TS131major.xyz;R1TS131minor.xyz;R1TS132major.xyz;R1TS132minor.xyz;R1TS133major.xyz;R1TS133minor.xyz;R1TS134major.xyz;R1TS134minor.xyz;R1TS135major.xyz;R1TS135minor.xyz;R1TS136major.xyz;R1TS136minor.xyz;R1TS137major.xyz;R1TS137minor.xyz;R1TS138major.xyz;R1TS138minor.xyz;R1TS139major.xyz;R1TS139minor.xyz;R1TS13major.xyz;R1TS13minor.xyz;R1TS140major.xyz;R1TS140minor.xyz;R1TS141major.xyz;R1TS141minor.xyz;R1TS142major.xyz;R1TS142minor.xyz;R1TS143major.xyz;R1TS143minor.xyz;R1TS144major.xyz;R1TS144minor.xyz;R1TS145major.xyz;R1TS145minor.xyz;R1TS146major.xyz;R1TS146minor.xyz;R1TS147major.xyz;R1TS147minor.xyz;R1TS148major.xyz;R1TS148minor.xyz;R1TS149major.xyz;R1TS149minor.xyz;R1TS14major.xyz;R1TS14minor.xyz;R1TS150major.xyz;R1TS150minor.xyz;R1TS151major.xyz;R1TS151minor.xyz;R1TS152major.xyz;R1TS152minor.xyz;R1TS153major.xyz;R1TS153minor.xyz;R1TS154major.xyz;R1TS154minor.xyz;R1TS155major.xyz;R1TS155minor.xyz;R1TS156major.xyz;R1TS156minor.xyz;R1TS157major.xyz;R1TS157minor.xyz;R1TS158major.xyz;R1TS158minor.xyz;R1TS159major.xyz;R1TS159minor.xyz;R1TS15major.xyz;R1TS15minor.xyz;R1TS160major.xyz;R1TS160minor.xyz;R1TS161major.xyz;R1TS161minor.xyz;R1TS162major.xyz;R1TS162minor.xyz;R1TS163major.xyz;R1TS163minor.xyz;R1TS164major.xyz;R1TS164minor.xyz;R1TS165major.xyz;R1TS165minor.xyz;R1TS166major.xyz;R1TS166minor.xyz;R1TS167major.xyz;R1TS167minor.xyz;R1TS168major.xyz;R1TS168minor.xyz;R1TS169major.xyz;R1TS169minor.xyz;R1TS16major.xyz;R1TS16minor.xyz;R1TS170major.xyz;R1TS170minor.xyz;R1TS171major.xyz;R1TS171minor.xyz;R1TS172major.xyz;R1TS172minor.xyz;R1TS173major.xyz;R1TS173minor.xyz;R1TS174major.xyz;R1TS174minor.xyz;R1TS175major.xyz;R1TS175minor.xyz;R1TS176major.xyz;R1TS176minor.xyz;R1TS177major.xyz;R1TS177minor.xyz;R1TS178major.xyz;R1TS178minor.xyz;R1TS179major.xyz;R1TS179minor.xyz;R1TS17major.xyz;R1TS17minor.xyz;R1TS180major.xyz;R1TS180minor.xyz;R1TS181major.xyz;R1TS181minor.xyz;R1TS182major.xyz;R1TS182minor.xyz;R1TS183major.xyz;R1TS183minor.xyz;R1TS184major.xyz;R1TS184minor.xyz;R1TS185major.xyz;R1TS185minor.xyz;R1TS186major.xyz;R1TS186minor.xyz;R1TS187major.xyz;R1TS187minor.xyz;R1TS188major.xyz;R1TS188minor.xyz;R1TS189major.xyz;R1TS189minor.
+---------- JO5C02497_COMPOUND_ID_LIST.TXT
+jo5c02497 3a;3aa;3b;3c;3d;3e;3f;3g;3h;3i;3j;3l;3m;3n;3o;4a;4b;4c;4d;4f;4g;4h;4i;4j;4k;4l;4m;4n;4o;4p;4q;4r;5a;6a;Iridacycle-1a;KIE (3d+deuterio-3d);Ruthenacycle-1a;deuterio-1C;deuterio-3C
+
+---------- JO5C02500_COMPOUND_ID_LIST.TXT
+jo5c02500 14a_13C;14a_1H;15a_13C;15a_1H;16a_13C;16a_1H;16b_13C;16b_1H;17a_13C;17a_1H;17b_13C;17b_1H;18a_13C;18a_1H;18b_13C;18b_1H;19a_13C;19a_1H;19b_13C;19b_1H;1a_13C;1a_1H;1b_13C;1b_1H;20a_13C;20a_1H;20b_13C;20b_1H;21a_13C;21a_1H;21b_13C;21b_1H;22a_13C;22a_1H;22b_13C;22b_1H;23a_13C;23a_1H;23b_13C;23b_1H;24a_13C;24a_1H;24b_13C;24b_1H;2a_13C;2a_1H;2b_13C;2b_1H;4a_13C;4a_1H;4b_13C;4b_1H
+
+---------- JO5C02524_COMPOUND_ID_LIST.TXT
+jo5c02524 FID for publication.mnova
+
+---------- JO5C02653_COMPOUND_ID_LIST.TXT
+jo5c02653 3aa;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3aj;3ak;3al;3am;3an;3ao;3ap;3aq;3ar;3as;3ba;3ca;3da;3dt;3ea;3fa;3ga;3ha;3ia;3ja;3ka;3la;3ma;3na;3oa;3pa;3qa;3qt;3ra;3sa
+
+---------- JO5C02735_COMPOUND_ID_LIST.TXT
+jo5c02735 3a (R1=Ph, R2=cinnamyl, R3=H, PG=TBS);3b (R1=H, R2=cinnamyl, R3=H, PG=TBS);3c (R1=Ph, R2=cinnamyl, R3=H, PG=TMS);3d (R1=Ph, R2=cinnamyl, R3=H, PG=TBPS);3e (R1=Ph, R2=cinnamyl, R3=H, PG=Bz);3f (R1=Ph, R2=cinnamyl, R3=H, PG=cinnamyl);3g (R1=Ph, R2=naphacrylate, R3=H, PG=TBS);3h (R1=Ph, R2=pMe-cinnamyl, R3=H, PG=TBS);3j (R1=Ph, R2=pCF3-cinnamyl, R3=H, PG=TBS);3l (R1=Ph, R2=pF-cinnamyl, R3=H, PG=TBS);3m (R1=Ph, R2=pCl-cinnamyl, R3=H, PG=TBS);3n (R1=Ph, R2=pBr-cinnamyl, R3=H, PG=TBS);3o (R1=Ph, R2=mCl-cinnamyl, R3=H, PG=TBS);3p (R1=Ph, R2=oCl-cinnamyl, R3=H, PG=TBS);3q (R1=Ph, R2=mBr-cinnamyl, R3=H, PG=TBS);3r (R1=Ph, R2=oBr-cinnamyl, R3=H, PG=TBS);3s (R1=Ph, R2=furacrylate, R3=H, PG=TBS;3t (R1=Ph, R2=thiophacrylate, R3=H, PG=TBS);3u (R1=Ph, R2=fumarate, R3=H, PG=TBS);4i (R1=Ph, R2=pOMe-cinnamyl, R3=Ac, PG=TBS);4k (R1=Ph, R2=pNO2-cinnamyl, R3=Ac, PG=TBS);5b (R1=Ph, R2=phenoxybenzoate, R3=H, PG=TBS);11 (R1=Ph, R2=allyl, R3=H, PG=TBS);4a (R1=Ph, R2=cinnamyl, R3=Boc, PG=TBS);6 (R1=Ph, R2=cinnamyl, R3=Boc, PG=TBS);7 (R1=Ph, R2=cinnamyl, R3=PSI, PG=TBS);1a (R1=Ph, noPG);1b (R1=H, noPG);1c (R1=Ph, PG=TBS);1d (R1=H, PG=TBS);1e (R1=Ph, PG=TMS);1f (R1=Ph, PG=TBDPS);1g (R1=Ph, PG=Bz)
+
+---------- JO5C02870_COMPOUND_ID_LIST.TXT
+jo5c02870 (Ra,R)-2t;(Sa,R)-2t;1a;1b;1c;1d;1e;1f;1g;1h;1i;1j;1k;1l;1m;1n;1o;1p;1q;1r;1s;1t;1u;2a;2b;2c;2d;2e;2f;2g;2h;2i;2j;2k;2l;2m;2n;2o;2p;2q;2r;2s;2u;3a;3b;3c;3d-meta;3d-ortho;3d-para;3e-meta;3e-ortho;3e-para;3f-meta;3f-ortho;3f-para;3g-meta;3g-ortho;3g-para;3h;3i;3j;3k;3l;3m;4a;4b;4c;4d-meta;4d-para;4e-meta;4e-para;4f-meta;4f-para;4g-meta;4g-para;4h;4i;4j;4l;7r;7s;7t;7u;8p;8r;8s;8t;8u
+
+---------- OL4C03845_COMPOUND_ID_LIST.TXT
+ol4c03845 FID for Publication-Materials;2ah;4a;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m;4n;4o;4p;4q;4aa;4ab;4ac;4ad;4ae;4af;4ag;4ah;FID for Publication-Products 4aa-ak;4aj;4ak;5a;5b;5c;5d;5e;5f;5g;5h;5i;5j;5k;5l;5m;5n;5o;5p;5q;5r;5s;5aa;5ab;5ac;5ad;5ae;5af;5ag;5ah;5ai;5aj;10;12;13;6;8;9
+
+---------- OL4C04173_COMPOUND_ID_LIST.TXT
+ol4c04173 3a;3aa;3ab;3ac;3ad;3ae;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;3z;5a;5b;5c;5d;5e;5f;5g;5h;5i;5j;5k;5l;6;7
+
+---------- OL4C04259_COMPOUND_ID_LIST.TXT
+ol4c04259 3aa;3aaa;3ba;3bba;3ca;3cb;3cc;3cca;3cd;3ce;3cf;3cg;3ch;3ci;3da;3ea;3fa;3ga;3ha;3ia;3ja;3ka;3la;3ma;3na;3oa;3pa;3qa;3ra;3ta;3ua;3va;3wa;3ya;3za
+
+---------- OL4C04348_COMPOUND_ID_LIST.TXT
+ol4c04348 3a;3aa;3ab;3ac;3ad;3ae;3af;3ag;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;3z;5a;5b;5c;5d;5e;5f;5g;5h;5i;5k;5l;5m;5n;5o;5p;5q;5r;5s;5t;5u;5v;5w;5x;5y;7;8
+
+---------- OL4C04509_COMPOUND_ID_LIST.TXT
+ol4c04509 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;4a;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m;4n;4o;4p;4q;5a;5b;5c;5d;6;7;8
+
+---------- OL4C04625_COMPOUND_ID_LIST.TXT
+ol4c04625 3a-5.mnova;3a-6.mnova;3a.mnova;3aa.mnova;3b.mnova;3ba.mnova;3c.mnova;3ca.mnova;3d.mnova;3da.mnova;3e.mnova;3f.mnova;3g.mnova;3h.mnova;3i.mnova;3j.mnova;3k.mnova;3l.mnova;3m.mnova;3n.mnova;3o.mnova;3p.mnova;3q.mnova;3r.mnova;3s.mnova;3t.mnova;3u.mnova;3v.mnova;3w.mnova;3x.mnova;3y.mnova;3z.mnova;4a.mnova;4b.mnova;4c.mnova;4d.mnova;4e.mnova;4f.mnova;5a.mnova;6a.mnova;7a.mnova
+
+---------- OL4C04737_COMPOUND_ID_LIST.TXT
+ol4c04737 3aa;3ba;3ca;3da;3ea;3fa;3ga;3ha;3ia;3ja;3ka;3kb;3kc;3kd;3ke;3kf;3kg;3kh;3ki;3kj;3kk;3kl;3km;3ks;3la;3ma;3oa;3pa;(2R,4S)-3kr;(2S,4R)-3kr;2i;2r;2s;4aa;4ba;4qa;5kc;5ki;5na;6+6’;6;7;S1d;S1g;S1l;S1n
+
+---------- OL4C04779_COMPOUND_ID_LIST.TXT
+ol4c04779 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3aa;3ab;4b;4c;4d;4e;4f;4g;4h;4i;4j;6a;6b;deutrio-1c;deutrio-3c
+
+---------- OL4C04827_COMPOUND_ID_LIST.TXT
+ol4c04827 Application NMR;Cyclopropene;3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;SM acid
+
+---------- OL4C04834_COMPOUND_ID_LIST.TXT
+ol4c04834 3a;3aa;3ab;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3pp;3q;3r;3s;3t;3u;3v;3w;3x;3y;3z;4a;4b;4c;4d;4e;4f;4g;4h
+
+---------- OL5C00129_COMPOUND_ID_LIST.TXT
+ol5c00129 3a.mnova;3aa.mnova;3ab.mnova;3b.mnova;3c.mnova;3d.mnova;3e.mnova;3f.mnova;3g.mnova;3h.mnova;3i.mnova;3j.mnova;3k.mnova;3l.mnova;3m.mnova;3n.mnova;3o.mnova;3p.mnova;3q.mnova;3r.mnova;3s.mnova;3t.mnova;3u.mnova;3v.mnova;3w.mnova;3x.mnova;3y.mnova;3z.mnova;5.mnova;7.mnova;9.mnova;F.mnova
+
+---------- OL5C00146_COMPOUND_ID_LIST.TXT
+ol5c00146 1aa.mnova;1ab.mnova;1ac.mnova;1ad.mnova;1ae.mnova;1af.mnova;1ag.mnova;1ai.mnova;1c.mnova;1d.mnova;1e.mnova;1f.mnova;1g.mnova;1h.mnova;1n.mnova;1p.mnova;1r.mnova;1s.mnova;1t.mnova;1u.mnova;1v.mnova;1w.mnova;1x.mnova;1y.mnova;1z.mnova;4a.mnova;4aa.mnova;4ab.mnova;4ac.mnova;4ad.mnova;4ae.mnova;4af.mnova;4ag.mnova;4ah.mnova;4ai.mnova;4aj.mnova;4b.mnova;4c.mnova;4d.mnova;4e.mnova;4f.mnova;4g.mnova;4h.mnova;4i.mnova;4j.mnova;4k.mnova;4l.mnova;4m.mnova;4n.mnova;4o.mnova;4p.mnova;4q.mnova;4r.mnova;4s.mnova;4t.mnova;4u.mnova;4v.mnova;4w.mnova;4x.mnova;4y.mnova;4z.mnova;5.mnova
+
+---------- OL5C00325_COMPOUND_ID_LIST.TXT
+ol5c00325 10_Carbon.jdf;10_Proton.jdf;12_Carbon.jdf;12_Proton.jdf;13_Carbon.jdf;13_Fluorine.jdf;13_Proton.jdf;15_Carbon.jdf;15_Fluorine.jdf;15_Proton.jdf;17.Proton.jdf;17_Carbon.jdf;17_Fluorine.jdf;5a_Carbon.jdf;5a_Fluorine.jdf;5a_Proton.jdf;5b_Carbon.jdf;5b_Fluorine.jdf;5b_Proton.jdf;7_Carbon.jdf;7_Proton.jdf;9_Carbon.jdf;9_Proton.jdf
+
+---------- OL5C00519_COMPOUND_ID_LIST.TXT
+ol5c00519 1a;1b;1c;1d;1e;1f;1g;1h;1i;1j;1k;2r;2s;2t;3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;4a;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m;4n;4o;4p;4q;4r;4s;4t;4u;4v;4w;5;6;7
+
+---------- OL5C00576_COMPOUND_ID_LIST.TXT
+ol5c00576 3J.mnova;3a.mnova;3b.mnova;3c.mnova;3d.mnova;3e.mnova;3f.mnova;3g.mnova;3h.mnova;3i.mnova;3k.mnova;3l.mnova;3m.mnova;3n.mnova;3o.mnova;3p.mnova;3q.mnova;3r.mnova;3s.mnova;3t.mnova;3u.mnova;3v.mnova;3w.mnova;5a.mnova;5b.mnova;5c.mnova;5d.mnova;5e.mnova;5f.mnova;5g.mnova;5h.mnova;5i.mnova;5j.mnova;5k.mnova;5l.mnova;5m.mnova;5n.mnova;5o.mnova;6.mnova;7.mnova
+
+---------- OL5C00600_COMPOUND_ID_LIST.TXT
+ol5c00600 3a;3aa;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3aj;3ak;3al;3am;3an;3ao;3ap;3aq;3ar;3as;3at;3au;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;3z;MH Mech
+
+---------- OL5C00623_COMPOUND_ID_LIST.TXT
+ol5c00623 1a-C;1a-H;1b-C;1b-H;1c-C;1c-H;2aa-C;2aa-H;2ab-C;2ab-H;2ac-C;2ac-H;2ay-C;2ay-H;3ab-C;3ae-C;3ae-H;3af-C;3af-H;3ag-C;3aj-F;3ak-H;3ao-C;3ap-H;3b-C;3b-H;3c-C;3d-C;3d-H;3f-C;3f-H;3g-C;3g-H;3h-C;3h-H;3j-C;3m-C;3m-H;3o-C;3q-C;3r-C;3s-C;3t-C;3u-C;3v-C;3w-C;3x-C;3x-H
+
+---------- OL5C00666_COMPOUND_ID_LIST.TXT
+ol5c00666 10a_PROTON_01.fid;11a_PROTON_01.fid;12a_PROTON_01.fid;13a_PROTON_01.fid;14a_PROTON_01.fid;15a_PROTON_01.fid;16a_PROTON_02.fid;17a_PROTON_01.fid;18a_PROTON_01.fid;19aR_PROTON_01.fid;19a_PROTON_01.fid;20a_PROTON_01.fid;21a_PROTON_01.fid;22a_PROTON_01.fid;23a_PROTON_01.fid;24aR_PROTON_01.fid;24a_PROTON_01.fid;25a_PROTON_01.fid;26aR_PROTON_01.fid;26a_PROTON_01.fid;27a_PROTON_01.fid;28a_PROTON_01.fid;29a_PROTON_01.fid;2a_PROTON_01.fid;2b_PROTON_01.fid;2cR_PROTON_01.fid;2c_PROTON_01.fid;2d_PROTON_01.fid;2e_PROTON_01.fid;2f_PROTON_01.fid;2g_PROTON_01.fid;2h_PROTON_01.fid;2i_PROTON_01.fid;2j_PROTON_01.fid;2k_PROTON_01.fid;2l_PROTON_01.fid;2n_PROTON_01.fid;30a_PROTON_01.fid;30b_PROTON_01.fid;30c_PROTON_01.fid;30d_PROTON_01.fid;30e_PROTON_01.fid;30f_PROTON_01.fid;30g_PROTON_01.fid;30i_PROTON_01.fid;30j_PROTON_01.fid;30k_PROTON_01.fid;30l_PROTON_01.fid;31a_PROTON_01.fid;31c_PROTON_01.fid;31dR_PROTON_01.fid;31d_PROTON_01.fid;31gR_PROTON_01.fid;31g_PROTON_01.fid;31i_PROTON_01.fid;31j_PROTON_01.fid;31k_PROTON_01.fid;32a_PROTON_01.fid;33a_PROTON_01.fid;34a_PROTON_01.fid;35a_PROTON_01.fid;36a_PROTON_01.fid;37a_PROTON_01.fid;37e_PROTON_01.fid;37f_PROTON_01.fid;3a_PROTON_01.fid;4a_PROTON_01.fid;5a_PROTON_01.fid;6a_PROTON_01.fid;7a_PROTON_01.fid;8a_PROTON_01.fid;9a_PROTON_01.fid;10a_CARBON_01.fid;11a_CARBON_01.fid;12a_CARBON_01.fid;13a_CARBON_01.fid;14a_CARBON_01.fid;15a_CARBON_01.fid;16a_CARBON_01.fid;17a_CARBON_01.fid;18a_CARBON_01.fid;19aR_CARBON_01.fid;19a_CARBON_01.fid;20a_CARBON_01.fid;21a_CARBON_01.fid;22a_CARBON_01.fid;23a_CARBON_01.fid;24aR_CARBON_01.fid;24a_CARBON_01.fid;25a_CARBON_01.fid;26aR_CARBON_01.fid;26a_CARBON_01.fid;27a_CARBON_01.fid;28a_CARBON_01.fid;29a_CARBON_01.fid;2a_CARBON_01.fid;2b_CARBON_01.fid;2cR_CARBON_01.fid;2c_CARBON_01.fid;2d_CARBON_01.fid;2e_CARBON_01.fid;2f_CARBON_01.fid;2g_CARBON_01.fid;2h_CARBON_01.fid;2i_CARBON_01.fid;2j_CARBON_02.fid;2k_CARBON_01.fid;2l_CARBON_01.fid;2n_CARBON_01.fid;30a_CARBON_01.fid;30b_CARBON_01.fid;30c_CARBON_01.fid;30d_CARBON_01.fid;30e_CARBON_01.fid;30f_CARBON_01.fid;30g_CARBON_01.fid;30i_CARBON_01.fid;30j_CARBON_01.fid;30k_CARBON_01.fid;30l_CARBON_01.fid;31a_CARBON_01.fid;31c_CARBON_01.fid;31dR_CARBON_01.fid;31d_CARBON_01.fid;31gR_CARBON_01.fid;31g_CARBON_01.fid;31i_CARBON_01.fid;31j_CARBON_01.fid;31k_CARBON_01.fid;32a_CARBON_01.fid;33a_CARBON_01.fid;34a_CARBON_01.fid;35a_CARBON_01.fid;36a_CARBON_01.fid;37a_CARBON_01.fid;37e_CARBON_01.fid;37f_CARBON_01.fid;3a_CARBON_01.fid;4a_CARBON_01.fid;5a_CARBON_01.fid;6a_CARBON_01.fid;7a_CARBON_01.fid;8a_CARBON_01.fid;9a_CARBON_01.fid;10a_APT_01.fid;11a_APT_01.fid;12a_APT_01.fid;13a_APT_01.fid;14a_APT_01.fid;15a_APT_01.fid;16a_APT_01.fid;17a_APT_01.fid;18a_APT_01.fid;19aR_APT_01.fid;19a_APT_01.fid;20a_APT_01.fid;21a_APT_01.fid;22a_APT_01.fid;23a_APT_01.fid;24aR_APT_01.fid;24a_APT_01.fid;25a_APT_01.fid;26aR_APT_01.fid;26a_APT_01.fid;27a_APT_01.fid;28a_APT_01.fid;29a_APT_01.fid;2a_APT_01.fid;2b_APT_01.fid;2cR_APT_01.fid;2c_APT_01.fid;2d_APT_01.fid;2e_APT_01.fid;2f_APT_01.fid;2g_APT_01.fid;2h_APT_01.fid;2i_APT_01.fid;2j_APT_02.fid;2k_APT_01.fid;2l_APT_01.fid;2n_APT_01.fid;30a_APT_01.fid;30b_APT_01.fid;30c_APT_01.fid;30d_APT_01.fid;30e_APT_01.fid;30f_APT_01.fid;30g_APT_01.fid;30i_APT_01.fid;30j_APT_01.fid;30k_APT_01.fid;30l_APT_01.fid;31a_APT_01.fid;31c_APT_01.fid;31dR_APT_01.fid;31d_APT_01.fid;31gR_APT_01.fid;31g_APT_01.fid;31i_APT_01.fid;31j_APT_01.fid;31k_APT_01.fid;32a_APT_01.fid;33a_APT_01.fid;34a_APT_01.fid;35a_APT_01.fid;36a_APT_01.fid;37a_APT_01.fid;37e_APT_01.fid;37f_APT_01.fid;3a_APT_01.fid;4a_APT_01.fid;5a_APT_01.fid;6a_APT_01.fid;7a_APT_01.fid;8a_APT_01.fid;9a_APT_01.fid
+
+---------- OL5C00705_COMPOUND_ID_LIST.TXT
+ol5c00705 3a.mnova;5a.mnova;5b.mnova;5c.mnova;5d.mnova;5e.mnova;5f.mnova;5g.mnova;5h.mnova;5i.mnova;5j.mnova;5k.mnova;5l.mnova;5m.mnova;5n.mnova;5o.mnova;5p.mnova;5q.mnova;5r.mnova;5s.mnova;5t.mnova;5u.mnova;5v.mnova;5w.mnova;6a.mnova;6b.mnova;6c.mnova;6d.mnova;7a.mnova;7b.mnova;7c_first diastereomer.mnova;7c_second diastereomer.mnova;7d.mnova;7e.mnova;9a.mnova;9b.mnova
+
+---------- OL5C00711_COMPOUND_ID_LIST.TXT
+ol5c00711 2B;2E;2h;2k;2w;2x;2y;2z;3 aA;3 aB;3 aC;3 aD;3 aE;3aa;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3aj;3ak;3al;3am;3an;3ao;3ap;3aq;3ar;3as;3at;3au;3av;3aw+3aw';3ax;3ay;3az;3be;3ce;3de;3ee;4aa;5aa;cis-3ae;cis-3ay
+
+---------- OL5C00782_COMPOUND_ID_LIST.TXT
+ol5c00782 3a;3aa;3ab;3ac;3b;3c;3d F;3d;3e;3f;3g;3h;3i;3j;3k;3l F;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v F;3v;3w;3x;3y;3z;4 mninor;4;5;7a;7b;Indoline
+
+---------- OL5C00806_COMPOUND_ID_LIST.TXT
+ol5c00806 1-13C;1-1H;10-13C;10-1H;11-13C;11-1H;12-13C;12-1H;13-13C;13-1H;14-13C;14-1H;15-13C;15-1H;16-13C;16-1H;17-13C;17-1H;18-13C;18-1H;19-13C;19-1H;2-13C;2-1H;20-13C;20-1H;21-13C;21-1H;3-13C;3-1H;4-13C;4-1H;5-13C;5-1H;6-13C;6-1H;7-13C;7-1H;8-13C;8-1H;9-13C;9-1H
+
+---------- OL5C00879_COMPOUND_ID_LIST.TXT
+ol5c00879 comp 10;comp 11;comp 12-Ac;comp 12;comp 13;comp 14;comp 3;comp 4;comp 5;comp 8;comp 9;streptoglceride A(1);streptoglceride A(2)
+
+---------- OL5C00933_COMPOUND_ID_LIST.TXT
+ol5c00933 3'qa;3aa;3ab;3ac;3ad;3af;3ag;3ah;3ai;3ba;3ca;3da;3ea;3fa;3ga;3ha;3ia;3ja;3ka;3la;3ma;3na;3oa;3pa;3qa;3ra;3sa;3ta;4aa;5aa
+
+---------- OL5C00948_COMPOUND_ID_LIST.TXT
+ol5c00948 6pb';D3T-ketone;3a'a;3aa;3au;3b'a;3ba;3c'a;3ca;3d'a;3da;3e'a;3ea;3en;3fa;3ga;3ha;3ia;3ja;3ka;3la;3ma;3na;3oa;3pa';3pa;3pb;3pc;3pd;3pe;3pf;3pg;3ph;3pi;3pj;3pk;3pl;3pm;3pn;3po;3pp;3pq;3pr;3ps;3pt;3pu;3pv;3pw;3px;3py;3pz;3qa;3ra;3sa;3ta;3ua;3va;3wa;3xa;3ya;3za;isothiazole;nitroalkane
+
+---------- OL5C00976_COMPOUND_ID_LIST.TXT
+ol5c00976 11a;12a;13a;14a;15a;15b;15d;16a;16b;16c;17a;17b;18a;19a;1a;20a;20b;21a;22a;2a;3a;4a;5a;6a;7a;8a;9a
+
+---------- OL5C00995_COMPOUND_ID_LIST.TXT
+ol5c00995 10;1e;1l;1o;4a;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m';4m;4n;4o;4p;4q;4t';4t;6a';6a;6b;6c;6d;6e;6f;6g;6h;6i;6j;6k;6l;9a;9b'';9b';9b;9c
+
+---------- OL5C01081_COMPOUND_ID_LIST.TXT
+ol5c01081 1 A;1 B;1a;1b;1c;1d;1e;1f;1g;1h;1i;1j;1k;1l;1m;1n;1o;1p;1q;1r;1s;1t;1u;1v;1w;1x;1y;1z;2 B;2a;2b;2c;2d;2e;2f;2g;2h;2i;2j;2k;2l;2m;2n;2o;2p;2q;2r;2s;2t;2u;2x;2y
+
+---------- OL5C01172_COMPOUND_ID_LIST.TXT
+ol5c01172 10;11a;11b;11c;11d;12a;12b;13;2;3;4;5;6;7;8;9;peropyrene
+
+---------- OL5C01196_COMPOUND_ID_LIST.TXT
+ol5c01196 dataset;VAE_20;VAE_40;VAE_60;VAE_80;aug20;aug20_gan20;aug20_gan40;aug20_gan60;aug20xgan20;aug20xgan40;aug20xgan60;aug30;aug50;aug50_gan20;aug50_gan40;aug50_gan60;aug50xgan20;aug50xgan40;aug50xgan60;aug74+VAE40;aug74+VAE60;aug74;aug74_gan20;aug74_gan40;aug74_gan60;aug74thenVAE40;aug74thenVAE60;aug74xgan20;aug74xgan40;aug74xgan60;gan20;gan40;gan60;gan80;original;scaffold_splitting;wo_sterimol;origin_fitting.zip__;sterimol.zip__
+
+---------- OL5C01237_COMPOUND_ID_LIST.TXT
+ol5c01237 3aa;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3aj;3ak;3al;3am;3an;3ao;3ap;3aq;3ar;3as;3at;3au;3av;3bb';3bb;3cc & 3cc';4aa;4an;5a;5b;5c;5d;d1
+
+---------- OL5C01266_COMPOUND_ID_LIST.TXT
+ol5c01266 README.txt;MEP_2i_trj.xyz;MEP_2k_trj.xyz;TS-2i-min.xyz;TS-4i-min.xyz;enedione-min.xyz;hydroquinone-min.xyz;protonated-enedione-min.xyz;protonated-hydroquinone-min.xyz;protonated-quinol-min.xyz;quinol-min.xyz;MEP_4i_trj.xyz;MEP_4k_trj.xyz;TS-2k-min.xyz;TS-4k-min.xyz;table1-1a;table1-1b
+
+---------- OL5C01472_COMPOUND_ID_LIST.TXT
+ol5c01472 2a;2aa;2ab;2ac;2ad;2ae;2af;2ag;2ah;2ai;2aj;2ak;2b;2c;2d;2e;2f;2g;2h;2i;2j;2k;2l;2m;2n;2o;2p;2q;2r;2s;2t;2u;2v;2w;2x;2y;2z;3ac;3ad;3j;3k;3n;3o;3p;3w;3y;3z
+
+---------- OL5C01509_COMPOUND_ID_LIST.TXT
+ol5c01509 13;16;21;22;23;24;25;26;27;30;31;32;33;34;35;36;38;39;9
+
+---------- OL5C01576_COMPOUND_ID_LIST.TXT
+ol5c01576 10;10a;11;1a;1b;1c;1d;1e;1f;1g;1h;1i;1j;1k;1l;1m;1n;1o;1p;1q;1s;3a';3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3ka;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;3z;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m;4n;4o;4p;4q;4r;4s;5;6;7;8;9
+
+---------- OL5C01666_COMPOUND_ID_LIST.TXT
+ol5c01666 2Ni0.gif;3Ni-1.gif;3Ni-2.gif;3Ni-3.gif;3Ni-4.gif;3Ni-5.gif
+
+---------- OL5C01713_COMPOUND_ID_LIST.TXT
+ol5c01713 1-13C;1-1H;10-13C;10-19F;10-1H;11-13C;11-1H;12-13C;12-1H;13-13C;13-1H;14-13C;14-1H;15-13C;15-1H;16-13C;16-1H;17-13C;17-1H;18-13C;18-1H;19-13C;19-1H;2-13C;2-1H;20-13C;20-1H;21-13C;21-1H;22-1H;22-C-13C;3-13C;3-1H;4-13C;4-1H;5-13C;5-1H;6-13C;6-1H;7-13C;7-1H;8-13C;8-1H;9-13C;9-1H
+
+---------- OL5C01721_COMPOUND_ID_LIST.TXT
+ol5c01721 10;11;12;13;18;19;1u;1ze;1zf;1zh;2b-d2;2k;2z;3a;3b-d2;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3s;3t;3u;3v;3w;3x;3y;3z;3za;3zb;3zc;3zd;3ze;3zf;3zg;3zh;4a-q;4r;4t-zb;4zc;5a;5b;5c;5d;5e;5f;5g;5h;5i;5j;5k;5l;5m;5n;5o;5p;5q;5r;5s;5t;5u;5v;5w;5x;5y;5z;5za;5zb;5zc;5zd;6a;6b;6c;6d;6e;6f;6g;6h;6i;6j;6k;6l;6m;6n;6o;6p;6q;6r;6s;6t;6u;6v;7;8;9;Competitive C-C vs C=C K2CO3-Crude-1H;Competitive C-C vs C=C KOH-Crude-1H;Competitive Crude K2CO3-1H;Competitive Crude KOH-1H;F1;F2;F3;F4;F5;F6;L1-NHOH-NNO-Lig NMR;L2-NME-NNO-Lig NMR;L3-OME-NNO-Lig NMR;L4-QUIN-NHOH-Lig-NMR
+
+---------- OL5C01805_COMPOUND_ID_LIST.TXT
+ol5c01805 1_triflates;R3147021.fid;R3806981.fid;R4500672.fid;R3853890.fid;R3888953.fid;R4155545.fid;R4497442.fid;R4497442_C13.fid;R4492711.fid;R4492711_C13.fid;R4497412.fid;R4497412_C13.fid;R4046391.fid;R4497402.fid;R4497402_C13.fid;R4127512.fid;R4094364.fid;R350067.fid;R3740420.fid;R4497372.fid;R4497372_C13.fid;R4496339.fid;R4496339_C13.fid;R1405704.fid;R1405704_C13.fid;R1405704_P31_H1.fid;R3821286.fid;comp05b_1324-938_cdcl3;R3821286_P31_H1.fid;R4343270.fid;comp06b_1324-940_cdcl3;R4343270_P31_H1.fid;R3880799.fid;comp07b_1324-939_cdcl3;R3880799_P31_H1.fid;R3896367.fid;comp08b_1364-378_cdcl3;R3896367_P31_H1.fid;R4428406.fid;comp09b_1464-619_cdcl3;R4428406_P31_H1.fid;R4385785.fid;R4385785_P31_H1.fid;comp10b_1464-618_cdcl3;R4370937.fid;comp11b_0925-744_cdcl3;R4370937_P31_H1.fid;R4167672.fid;comp12b_0855-470_cdcl3;R4167672_P31_H1.fid;R4065618.fid;comp13b_1434-191_cdcl3;R4065618_P31_H1.fid;R4368748.fid;comp14b_0915-470_cdcl3;R4368748_P31_H1.fid;R4409637.fid;comp15b_0915-467_cdcl3;R4409637_P31_H1.fid;R3947105.fid;comp16b_0715-850_cdcl3;R3947105_P31_H1.fid;R3707549.fid;comp17b_0675-581_cdcl3;R3707549_P31_H1.fid;R3803627.fid;comp18b_1314-606_cdcl3;R3803627_P31_H1.fid;R4434295.fid;comp19b_0855-474_cdcl3;R4434295_P31_H1.fid;R4285946.fid;comp20b_1554-782_dmso;R4285946_P31_H1.fid;R4480780.fid;R4480780_C13.fid;R4480780_P31_H1.fid;R3796803.fid;comp22b_0845-813_cdcl3;R3796803_P31_H1.fid;R4409681.fid;comp23b_0905-921_cdcl3;R4409681_P31_H1.fid;R4242141.fid;comp24b_0935-560_cdcl3;R4242141_P31_H1.fid;R4245865.fid;comp26b_0965-559_dmso;R4245865_P31_H1.fid;R3724893.fid;comp01c-int1_1084-030_dmso;R3724893_P31_H1.fid;R3738928.fid;comp01c_2633-464_dmso;R3738928_P31_H1.fid;H4924724.fid;H4924724_C13.fid;H4924724_P31_H1.fid;R3813403.fid;comp17c_3123-959_cdcl3;R3813403_P31_H1.fid;H5169534.fid;H5169534_C13.fid;H5169534_P31_H1.fid;R3884278.fid;comp18c-int2_1314-607_cdcl3;R3884278_P31_H1.fid;R3869130.fid;comp18c_3043-489_cdcl3;R3869130_P31_H1.fid;R3889476.fid;comp18m_1422-496_dmso;R3889476_P31_H1.fid;R3985894.fid;comp22c-int1_0865-785_cdcl3;R3985894_P31.fid;R4058471.fid;comp22c_3113-596_dmso;R4058471_P31_H1.fid;R3992272.fid;comp22d_0875-598_cdcl3;R3992272_P31_H1.fid;R4037189.fid;comp22e_0885-288_dmso;R4037189_P31_H1.fid;H5481693.fid;H5481693_C13.fid;H5481693_P31;R3892110.fid;comp22g_1364-907_cdcl3;R3892110_P31_H1.fid;H5377650.fid;H5377650_C13.fid;comp22i_0875-584_dmso;H5377650_P31.fid;R3901541.fid;comp22j_0875-600_cdcl3;R3901541_P31_H1.fid;H5310482.fid;H5310482_C13.fid;H5310482_P31_H1.fid;R3970657.fid;comp22l_0875-597_cdcl3;R3970657_P31_H1.fid;H5310378.fid;H5310378_C13.fid;H5310378_P31_H1.fid;H5310485.fid;H5310485_C13.fid;H5310485_F19.fid;H5310485_P31.fid;BE000525s3.fid;H5310487_C13.fid;compNN-22h_0875-583_dmso;H5310487_P31.fid;H5404593.fid;H5404593_C13.fid;H5404593_P31.fid;H5172449.fid;H5172449_C13.fid;H5172449_P31_H1.fid;H5400879.fid;H5400879_C13.fid;H5400879_P31_H1.fid
+
+---------- OL5C01936_COMPOUND_ID_LIST.TXT
+ol5c01936 2a;2b;2c;2d;5a;5b;5c;5d;5e;5f;5g;5h;5i;5j;5k;6a;6b;6c;6d;6e;6f;6g;6h;6i;6j;6k;7
+
+---------- OL5C01966_COMPOUND_ID_LIST.TXT
+ol5c01966 Compound 10;Compound 11;Compound 12;Compound 13;Compound 14;Compound 15;Compound 16;Compound 17;Compound 18;Compound 19;Compound 20;Compound 21;Compound 22;Compound 23;Compound 24;Compound 25;Compound 26;Compound 3;Compound 32;Compound 4;Compound 5;Compound 6;Compound 7;Compound S2
+
+---------- OL5C02004_COMPOUND_ID_LIST.TXT
+ol5c02004 4aa';4aa;4ab';4ab;4ac';4ac;4ad;4ae;4af;4ag;4ah;4ai;4aj;4ak;4al;4am;4an;4ao;4ap;4aq;4ar;4at;4au;4av;4aw;4ax;4ay;4az;4ba;4ca;4da;4ea;4fa;4ga;4ha;4ia+4ia';4ja+4ja';4ka';4ka;5;6;7;8;9
+
+---------- OL5C02079_COMPOUND_ID_LIST.TXT
+ol5c02079 2a;2aa;2ab;2ac;2b;2c;2d;2e;2f;2g;2h;2i+2i';2i';2i;2j;2k;2l;2m;2n;2o;2p;2q;2r;2s;2t;2u;2v;2w;2x;2y;2z;3
+
+---------- OL5C02150_COMPOUND_ID_LIST.TXT
+ol5c02150 5a-13C;5a-19F;5a-1H;5b-13C;5b-19F;5b-1H;5c-13C;5c-19F;5c-1H;7a-13C;7a-19F;7a-1H;7b-13C;7b-19F;7b-1H;7c-13C;7c-19F;7c-1H
+
+---------- OL5C02270_COMPOUND_ID_LIST.TXT
+ol5c02270 Mapping_predicted_Zn_ion.ipynb;Model1_mixing_ratio_predictions.ipynb;Model2_zinc_ion_contents_prediction.ipynb;utils.py
+
+---------- OL5C02286_COMPOUND_ID_LIST.TXT
+ol5c02286 zds-20-66-3-C;3ba-zds-20-67-3;3ca-zds-20-72-3;3da-zds-20-68-3;3ea-zds-21-27-3;3fa-zds-21-28-3;3ga-zds-20-69-3;3ha-zds-21-29-3;3ia-zds-21-30-3;3ja-zds-20-70-3;3ka-zds-20-71-3;3la-zds-20-80-3;3ma-zds-20-75-3;3na-zds-20-76-3;3oa-zds-20-74-3;3pa-ZDS-20-82-3;3qa-ZDS-20-89-3;3ra-zds-20-77-3;4-zds-21-10-3;5-zds-21-9-2;6-zds-21-12-2
+
+---------- OL5C02366_COMPOUND_ID_LIST.TXT
+ol5c02366 3aa;3ab;3ac;3ad;3ae;3af;3ba;3bb;3bc;3bd;3be;3bf;3bg;3bh;3ca;3cb;3cc;3cd;3ce;3cf;3cg;3ch;3da;3db;3dc;3dd;6;7;9
+
+---------- OL5C02373_COMPOUND_ID_LIST.TXT
+ol5c02373 2c;2f;2i;2j;3aa;3ab;3ac;3ad;3ae;3af;3ag;3aj;3al;3am;3an;3ao;3ba;3ca;3da;3ea;3fa;3ga;3ha;3ia;3ja;3ka;3la;3ma;3na;5;6;7;8;L1;L2;L3;L4;L6
+
+---------- OL5C02418_COMPOUND_ID_LIST.TXT
+ol5c02418 11aa_(TJ-316-13C);11aa_(TJ-316-1H);11ba_(TJ-325-13C);11ba_(TJ-325-1H);11ma_(TJ-319-13C);11ma_(TJ-319-1H);11pa_(TJ-326-13C);11pa_(TJ-326-1H);12_(TJ-243-13C);12_(TJ-243-1H);13_(TJ-287-13C);13_(TJ-287-1H);14_(TJ-266-13C);14_(TJ-266-1H);15_(TJ-260-13C);15_(TJ-260-1H);3aa_(TJ-94-13C);3aa_(TJ-94-1H);3ab_(TJ-158-13C);3ab_(TJ-158-1H);3ac_(TJ-162-13C);3ac_(TJ-162-1H);3ba_(TJ-118-13C);3ba_(TJ-118-1H);3bb_(TJ-163-13C);3bb_(TJ-163-1H);3bc_(TJ-164-13C);3bc_(TJ-164-1H);3ca_(TJ-176-13C);3ca_(TJ-176-1H);3cb_(TJ-177-13C);3cb_(TJ-177-1H);3cc_(TJ-181-13C);3cc_(TJ-181-1H);3da_(TJ-157-13C);3da_(TJ-157-1H);3ea_(TJ-132-13C);3ea_(TJ-132-1H);3fa_(TJ-153-13C);3fa_(TJ-153-1H);3ga_(TJ-152-13C);3ga_(TJ-152-1H);3ha_(TJ-155-13C);3ha_(TJ-155-1H);3ia_(TJ-156-13C);3ia_(TJ-156-1H);3ja_(TJ-223-13C);3ja_(TJ-223-1H);3k'a_(TJ-174-13C);3k'a_(TJ-174-1H);3ka_(TJ-174-13C);3ka_(TJ-174-1H);3la_(TJ-171-13C);3la_(TJ-171-1H);3ma_(TJ-186-13C);3ma_(TJ-186-1H);3mb_(TJ-187-13C);3mb_(TJ-187-1H);3mc_(TJ-190-13C);3mc_(TJ-190-1H);3na_(TJ-317-13C);3na_(TJ-317-1H);3oa_(TJ-391-13C);3oa_(TJ-391-1H);3pa_(TJ-201-13C);3pa_(TJ-201-1H);3qa_(TJ-208-13C);3qa_(TJ-208-1H);3ra_(TJ-206-13C);3ra_(TJ-206-1H);3sa_(TJ-209-13C);3sa_(TJ-209-1H);5aa_(TJ-135-13C);5aa_(TJ-135-1H);5ab_(TJ-165-13C);5ab_(TJ-165-1H);5ba_(TJ-138-13C);5ba_(TJ-138-1H);5la_(TJ-238-13C);5la_(TJ-238-1H);5ma_(TJ-249-13C);5ma_(TJ-249-1H);5pa_(TJ-254-13C);5pa_(TJ-254-1H);7aa_(TJ-136-13C);7aa_(TJ-136-1H);7ab_(TJ-242-13C);7ab_(TJ-242-1H);7ac_(TJ-381-13C);7ac_(TJ-381-1H);7ba_(TJ-227-13C);7ba_(TJ-227-1H);7ma_(TJ-228-13C);7ma_(TJ-228-1H);7pa_(TJ-256-13C);7pa_(TJ-256-1H);9aa_(TJ-219-13C);9aa_(TJ-219-1H);9ab_(TJ-250-13C);9ab_(TJ-250-1H);9ba_(TJ-226-13C);9ba_(TJ-226-1H);9ma_(TJ-225-13C);9ma_(TJ-225-1H);9pa_(TJ-257-13C);9pa_(TJ-257-1H)
+
+---------- OL5C02448_COMPOUND_ID_LIST.TXT
+ol5c02448 1a';1a;1b;1c;1d;1e;1f;1g;1h;1i;1j;1k;1l;1m;2aa;2ab;2ad;2ae;2af;2ag;2ah;2ai;2aj;2ak;2al;2b;2c;2d;2e;2f;2h;2i;2j;2k;2l;2m;2n;2o;2p;2q;2r;2s;2t;2u;2v;2w;2x;2y;2z;3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;4a;4aa;4ab;4ac;4ad;4ae;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m;4n;4o;4p;4q;4r;4s;4t;4u;4v;4w;4x;4y;4z;5a;5b;5c';5c;5d;5e;6a;7a
+
+---------- OL5C02494_COMPOUND_ID_LIST.TXT
+ol5c02494 1a;1b;1c;1d;1e;1f;1g;1h;1i;3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;3z;3za;3zb;3zc;3zd;3ze;3zf;3zg;3zh';3zh;3zi';3zi;4a;4b;4c;4d;4e;4f;4g;4h;4i;6
+
+---------- OL5C02495_COMPOUND_ID_LIST.TXT
+ol5c02495 Compound 2_NMR-opt.pdb;Compound 4_NMR-opt.pdb;Compound 8_NMR-opt.pdb;Compound 9_NMR-opt.pdb
+
+---------- OL5C02499_COMPOUND_ID_LIST.TXT
+ol5c02499 benzoyl-radical.xyz;cyclobutyl-alkene.xyz;cyclobutyl-product-radical.xyz;cyclobutyl-ts.xyz;dimethyl-alkene.xyz;dimethyl-product-radical.xyz;dimethyl-ts.xyz
+
+---------- OL5C02536_COMPOUND_ID_LIST.TXT
+ol5c02536 compound 10 (13C);compound 11 (13C);compound 12 (13C);compound 13 (13C);compound 14 (13C);compound 15 (13C);compound 16 (13C);compound 17 (13C);compound 18 (13C);compound 19 (13C);compound 20 (13C);compound 21 (13C);compound 22 (13C);compound 23 (13C);compound 24 (13C);compound 25 (13C);compound 26 (13C);compound 27 (13C);compound 28 (13C);compound 29 (13C);compound 3 (13C);compound 30 (13C);compound 31 (13C);compound 32 (13C);compound 33 (13C);compound 34 (13C);compound 35 (13C);compound 36 (13C);compound 37 (13C);compound 38 (13C);compound 39 (13C);compound 4 (13C);compound 40 (13C);compound 41 (13C);compound 42 (13C);compound 43 (13C);compound 44 (13C);compound 45 (13C);compound 46 (13C);compound 47 (13C);compound 48 (13C);compound 49 (13C);compound 5 (13C);compound 50 (13C);compound 52 (13C);compound 53 (13C);compound 54 (13C);compound 55 (13C);compound 56 (13C);compound 57 (13C);compound 58 (13C);compound 59 (13C);compound 6 (13C);compound 60 (13C);compound 62 (13C);compound 63 (13C);compound 7 (13C);compound 8 (13C);compound 9 (13C);compound 10 (1H);compound 11 (1H);compound 12 (1H);compound 13 (1H);compound 14 (1H);compound 15 (1H);compound 16 (1H);compound 17 (1H);compound 18 (1H);compound 19 (1H);compound 20 (1H);compound 21 (1H);compound 22 (1H);compound 23 (1H);compound 24 (1H);compound 25 (1H);compound 26 (1H);compound 27 (1H);compound 28 (1H);compound 29 (1H);compound 3 (1H);compound 30 (1H);compound 31 (1H);compound 32 (1H);compound 33 (1H);compound 34 (1H);compound 35 (1H);compound 36 (1H);compound 37 (1H);compound 38 (1H);compound 39 (1H);compound 4 (1H);compound 40 (1H);compound 41 (1H);compound 42 (1H);compound 43 (1H);compound 44 (1H);compound 45 (1H);compound 46 (1H);compound 47 (1H);compound 48 (1H);compound 49 (1H);compound 5 (1H);compound 50 (1H);compound 51 (1H);compound 52 (1H);compound 53 (1H);compound 54 (1H);compound 55 (1H);compound 56 (1H);compound 57 (1H);compound 58 (1H);compound 59 (1H);compound 6 (1H);compound 60 (1H);compound 61a (1H);compound 61b (1H);compound 62 (1H);compound 63 (1H);compound 7 (1H);compound 8 (1H);compound 9 (1H);compound 58 (2D)-20250620T065802Z-1-001.zip__
+
+---------- OL5C02559_COMPOUND_ID_LIST.TXT
+ol5c02559 6a-CRI.fchk;6a-CRI.log;6b-CRI.fchk;6b-CRI.log;6c-CRI.fchk;6c-CRI.log;6d-CRI.fchk;6d-CRI.log;6e-CRI.fchk;6e-CRI.log;6f-CRI.fchk;6f-CRI.log;6g-CRI.fchk;6g-CRI.log;6h-CRI.fchk;6h-CRI.log;6i-CRI.fchk;6i-CRI.log;6j-CRI.fchk;6j-CRI.log;6k-CRI.fchk;6k-CRI.log;6l-CRI.fchk;6l-CRI.log;6m-CRI.fchk;6m-CRI.log;6n-CRI.fchk;6n-CRI.log;6o-CRI.fchk;6o-CRI.log;6p-CRI.fchk;6p-CRI.log;6a-ORI.fchk;6a-ORI.log;6b-ORI.fchk;6b-ORI.log;6c-ORI.fchk;6c-ORI.log;6d-ORI.fchk;6d-ORI.log;6e-ORI.fchk;6e-ORI.log;6f-ORI.fchk;6f-ORI.log;6g-ORI.fchk;6g-ORI.log;6h-ORI.fchk;6h-ORI.log;6i-ORI.fchk;6i-ORI.log;6j-ORI.fchk;6j-ORI.log;6k-ORI.fchk;6k-ORI.log;6l-ORI.fchk;6l-ORI.log;6m-ORI.fchk;6m-ORI.log;6n-ORI.fchk;6n-ORI.log;6o-ORI.fchk;6o-ORI.log;6p-ORI.fchk;6p-ORI.log
+
+---------- OL5C02563_COMPOUND_ID_LIST.TXT
+ol5c02563 13C NMR-3aa.mnova;13C NMR-3ab.mnova;13C NMR-3ac.mnova;13C NMR-3ad.mnova;13C NMR-3ae.mnova;13C NMR-3af.mnova;13C NMR-3ag.mnova;13C NMR-3ah.mnova;13C NMR-3ai.mnova;13C NMR-3aj.mnova;13C NMR-3ak.mnova;13C NMR-3al.mnova;13C NMR-3ba.mnova;13C NMR-3ca.mnova;13C NMR-3da.mnova;13C NMR-3ea.mnova;13C NMR-3fa.mnova;13C NMR-3ga.mnova;13C NMR-3ha.mnova;13C NMR-3ia.mnova;13C NMR-3ja.mnova;13C NMR-3ka.mnova;13C NMR-3la.mnova;13C NMR-3ma.mnova;13C NMR-3na.mnova;13C NMR-3oa.mnova;13C NMR-3pa.mnova;13C NMR-3qa.mnova;13C NMR-3ra.mnova;13C NMR-3sa.mnova;13C NMR-4.mnova;13C NMR-5.mnova;13C NMR-6.mnova;13C NMR-7.mnova;19F NMR-3ia.mnova;1H NMR-3aa.mnova;1H NMR-3ab.mnova;1H NMR-3ac.mnova;1H NMR-3ad.mnova;1H NMR-3ae.mnova;1H NMR-3af.mnova;1H NMR-3ag.mnova;1H NMR-3ah.mnova;1H NMR-3ai.mnova;1H NMR-3aj.mnova;1H NMR-3ak.mnova;1H NMR-3al.mnova;1H NMR-3ba.mnova;1H NMR-3ca.mnova;1H NMR-3da.mnova;1H NMR-3ea.mnova;1H NMR-3fa.mnova;1H NMR-3ga.mnova;1H NMR-3ha.mnova;1H NMR-3ia.mnova;1H NMR-3ja.mnova;1H NMR-3ka.mnova;1H NMR-3la.mnova;1H NMR-3ma.mnova;1H NMR-3na.mnova;1H NMR-3oa.mnova;1H NMR-3pa.mnova;1H NMR-3qa.mnova;1H NMR-3ra.mnova;1H NMR-3sa.mnova;1H NMR-4.mnova;1H NMR-5.mnova;1H NMR-6.mnova;1H NMR-7.mnova
+
+---------- OL5C02636_COMPOUND_ID_LIST.TXT
+ol5c02636 HRMS;3aa;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3aj;3ak;3al;3am;3an;3ao;3ap;3ba;3ca;3da;3ea;3fa;3ga;3ha;3ia;3ja;3ka;3ku;3la;3ma;4;5;6
+
+---------- OL5C02670_COMPOUND_ID_LIST.TXT
+ol5c02670 1a;1b;1c;1d;1e;1f;1g;1h;1i;1j;1k;1l;1m;1n;1o;1p;1q;1r;1s;1t;1u;1v;1w;1x;1y;2b;2c;2d;2e;2f;3a-[H];3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;3z;3za;3zb;3zc;3zd;4a;4b;5a;5b;5c
+
+---------- OL5C02689_COMPOUND_ID_LIST.TXT
+ol5c02689 compound1b_13C;compound1b_1H;compound2b_13C;compound2b_1H;13C.rm1;ピークリスト.txt;compound42+_1H;spectrometer.txt
+
+---------- OL5C02724_COMPOUND_ID_LIST.TXT
+ol5c02724 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;4a;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m;4n;4o;4p;4q;4r;4s;4t;4u;4v;4w;4x;4y;4z;4za;5;Rh-1a
+
+---------- OL5C02783_COMPOUND_ID_LIST.TXT
+ol5c02783 2 n;2 t;2 u;2 v;2 z;3 a;3 b;3 c;3 d;3 e;3 f;3 g;3 h;3 i;3 j;3 k;3 l;3 m;3 n;3 o;3 p;3 q;3 r;3 s;3 t;3 u;3 v;3 w;3 x;3 y;3 z;3aa;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3aj;3ak;3al;3am;3an;3ao;3ap
+
+---------- OL5C02876_COMPOUND_ID_LIST.TXT
+ol5c02876 2a;2b;2c;2d;2e;2f;2g;2h;2i;2j;2k;2l;2m;2n;5a;5b;5c';5c;5d;5e;5f;5g';5g;5h;5i;5j;5k;5l;5m;5n;5o;5p;5q;5r;5s;5t;6f;6q;7a;7b;7c;7d;7e;7f;7g;8a;8b;ent-5g;ent-5l;ent-5q;ent-6q;epi-7e;rac-6f;rac-6q
+
+---------- OL5C02878_COMPOUND_ID_LIST.TXT
+ol5c02878 3a;3aa;3aaa;3aab;3aac;3aad;3aae;3aaf;3aag;3aah;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3aj;3ak;3al;3am;3an;3ao;3ap;3aq;3ar;3as;3at;3au;3aw;3ax;3ay;3az;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;3u;3v;3w;3x;3y;3z;4;5
+
+---------- OL5C03138_COMPOUND_ID_LIST.TXT
+ol5c03138 1H NMR, 13C NMR and 19F NMR Spectra.mnova;4a-C;4a-H;4b-C;4b-H;4c-C;4c-H;4d-C;4d-H;4e-C;4e-H;4f-C;4f-H;4g-C;4g-H;4h-C;4h-H;4i-C;4i-H;4j-C;4j-F;4j-H;4k-C;4k-F;4k-H;4l-C;4l-F;4l-H;4m-C;4m-H;4n-C;4n-H;4o-C;4o-H;4p-C;4p-H;4q-C;4q-H;4r-C;4r-H;4s-C;4s-H;4t-C;4t-H;4u-C;4u-H;5a-C;5a-H;5aa-C;5aa-H;5ab-C;5ab-H;5ac-C;5ac-H;5ad-C;5ad-H;5ae-H;5b-C;5b-H;5c-C;5c-H;5d-C;5d-H;5e-C;5e-H;5f-C;5f-H;5g-C;5g-H;5h-C;5h-F;5h-H;5i-C;5i-F;5i-H;5j-C;5j-F;5j-H;5k-C;5k-H;5l-C;5l-H;5m-F;5m-H;5n-C;5n-H;5o-C;5o-H;5p-C;5p-H;5q-C;5q-H;5r-C;5r-H;5s-C;5s-H;5t-C;5t-H;5u-C;5u-H;5v-C;5v-H;5w-C;5w-H;5x-C;5x-H;5y-C;5y-H;5z-C;5z-H;6a-C;6a-H;6b-C;6b-F;6b-H;6c-C;6c-H;6d-C;6d-H;7-C;7-H;8-C;8-H;9-C;9-H;TEMPO
+
+---------- OL5C03157_COMPOUND_ID_LIST.TXT
+ol5c03157 3a;4a;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m;4n;4o;4p;4q;4r;4s;5a;5b;5c;5d;5e;5f;6
+
+---------- OL5C03186_COMPOUND_ID_LIST.TXT
+ol5c03186 5-(3-ethyl-4-methoxyphenyl)-2-methylpentan-2-ol;5-(4-methoxyphenyl)-2-methylpentan-2-ol;7-methoxy-1,1-dimethyl-1,2,3,4-tetrahydronaphthalene;III;IV;IX;VII;VIII;XI;XII;XIV;XVII;ethyl 4-(3-ethyl-4-methoxyphenyl)butanoate;ethyl 4-(4-methoxyphenyl)butanoate
+
+---------- OL5C03195_COMPOUND_ID_LIST.TXT
+ol5c03195 ABP;ABV;AEP Optimization;AEP;AEV;AMV;BPV;PPP;PPV;TPP;TPV Optimization;TPV;TTA;TTP;TTV
+
+---------- OL5C03229_COMPOUND_ID_LIST.TXT
+ol5c03229 13C of compound  4a;13C of compound  4b;13C of compound  4c;13C of compound  4d;13C of compound  4e;13C of compound  4f;13C of compound  4g;13C of compound  4h;13C of compound  4i;13C of compound  4j;13C of compound  4k;13C of compound  4l;13C of compound  4m;13C of compound  4n;13C of compound  5a;13C of compound  5b;13C of compound  5c;13C of compound 3a;13C of compound 3d;13C of compound 3g;13C of compound 3h;13C of compound 3i;13C of compound 3j;13C of compound 3k;13C of compound 3l;13C of compound 3n;13C of compound 3o;1H of compound  4a;1H of compound  4b;1H of compound  4c;1H of compound  4d;1H of compound  4e;1H of compound  4f;1H of compound  4g;1H of compound  4h;1H of compound  4i;1H of compound  4j;1H of compound  4k;1H of compound  4l;1H of compound  4m;1H of compound  4n;1H of compound  5a;1H of compound  5b;1H of compound  5c;1H of compound 3a;1H of compound 3d;1H of compound 3g;1H of compound 3h;1H of compound 3i;1H of compound 3j;1H of compound 3k;1H of compound 3l;1H of compound 3n;1H of compound 3o
+
+---------- OL5C03241_COMPOUND_ID_LIST.TXT
+ol5c03241 RC-3-D-24B-CR_CARBON_20250301_01.fid;RC-3-D-24B-CR_HSQCAD_20250301_01.fid;RC-3-D-24B-CR_PROTON_20250301_02.fid;RC-3-D-24B-CR_gHMBCAD_20250301_01.fid;RC-3-D-35A-P_CARBON_20250301_01.fid;RC-3-D-35A-P_HSQCAD_20250301_01.fid;RC-3-D-35A-P_PROTON_20250301_02.fid;RC-3-D-34B-P_CARBON_20250301_01.fid;RC-3-D-34B-P_HSQCAD_20250301_01.fid;RC-3-D-34B-P_PROTON_20250301_02.fid;RC-3-D-34B-P_gHMBCAD_20250301_01.fid;RC-3-D-37A-P_CARBON_20250301_01.fid;RC-3-D-37A-P_HSQCAD_20250301_01.fid;RC-3-D-37A-P_PROTON_20250301_02.fid;RC-3-D-37A-P_gHMBCAD_20250301_01.fid;RC-3-D-38B-P_CARBON_20250305_01.fid;RC-3-D-38B-P_HSQCAD_20250305_01.fid;RC-3-D-38B-P_PROTON_20250305_02.fid;RC-3-D-38B-P_PROTON_20250305_03.fid;RC-3-D-39A-P_CARBON_20250305_01.fid;RC-3-D-39A-P_HSQCAD_20250305_01.fid;RC-3-D-39A-P_PROTON_20250305_03.fid;RC-3-D-48A_CARBON_20250704_01.fid;RC-3-D-48A_HSQCAD_20250704_01.fid;RC-3-D-48A_PROTON_20250704_03.fid;RC-3-D-48B-P_CARBON_20250321_01.fid;RC-3-D-48B-P_PROTON_20250321_03.fid;RC-3-D-48B-P_gHSQCAD_20250321_01.fid;1i;RC-3-D-46A-P_CARBON_20250315_01.fid;RC-3-D-46A-P_PROTON_20250315_01.fid;RC-3-D-46A-P_gHMBCAD_20250315_01.fid;RC-3-D-46A-P_gHSQCAD_20250315_01.fid;RC-3-D-40B-P_CARBON_20250315_01.fid;RC-3-D-40B-P_PROTON_20250315_02.fid;RC-3-D-40B-P_gHSQCAD_20250315_01.fid;RC-3-D-41A-P_CARBON_20250309_01.fid;RC-3-D-41A-P_HSQCAD_20250309_01.fid;RC-3-D-41A-P_PROTON_20250309_02.fid;RC-3-D-41A-P_gHMBCAD_20250309_01.fid;RC-3-D-50B_CARBON_20250704_01.fid;RC-3-D-50B_HSQCAD_20250704_01.fid;RC-3-D-50B_PROTON_20250704_03.fid;RC-3-D-67B-P_CARBON_20250416_01.fid;RC-3-D-67B-P_HSQCAD_20250416_01.fid;RC-3-D-67B-P_PROTON_20250416_03.fid;RC-3-D-59B-P_CARBON_20250408_01.fid;RC-3-D-59B-P_HSQCAD_20250408_01.fid;RC-3-D-59B-P_PROTON_20250408_03.fid;RC-3-D-59A-P_CARBON_20250408_01.fid;RC-3-D-59A-P_HSQCAD_20250408_01.fid;RC-3-D-59A-P_PROTON_20250408_03.fid;RC-3-D-59A-P_gHMBCAD_20250408_01.fid;RC-3-D-55B-P_CARBON_20250328_01.fid;RC-3-D-55B-P_PROTON_20250328_03.fid;RC-3-D-55B-P_gHSQCAD_20250328_01.fid;RC-3-D-73A-P_CARBON_20250429_01.fid;RC-3-D-73A-P_HSQCAD_20250429_01.fid;RC-3-D-73A-P_PROTON_20250429_03.fid;RC-3-D-73A-P_gHMBCAD_20250429_01.fid;RC-3-D-54B-P_CARBON_20250328_01.fid;RC-3-D-54B-P_PROTON_20250328_01.fid;RC-3-D-54B-P_gHSQCAD_20250328_01.fid;RC-3-D-83A-P_CARBON_20250520_01.fid;RC-3-D-83A-P_HSQCAD_20250520_01.fid;RC-3-D-83A-P_PROTON_20250520_01.fid;RC-3-D-83A-P_PROTON_20250520_02.fid;RC-3-D-83A-P_PROTON_20250520_03.fid;RC-3-D-33B-P_CARBON_20250302_01.fid;RC-3-D-33B-P_HSQCAD_20250301_01.fid;RC-3-D-33B-P_PROTON_20250301_02.fid;RC-3-D-33B-P_gHMBCAD_20250302_01.fid;RC-3-D-35B-P_CARBON_20250301_01.fid;RC-3-D-35B-P_HSQCAD_20250301_01.fid;RC-3-D-35B-P_PROTON_20250301_02.fid;RC-3-D-35B-P_gHMBCAD_20250301_01.fid;RC-3-D-36B-P_CARBON_20250301_01.fid;RC-3-D-36B-P_HSQCAD_20250301_01.fid;RC-3-D-36B-P_PROTON_20250301_02.fid;RC-3-D-36B-P_gHMBCAD_20250301_01.fid;RC-3-D-37B-F16-22_CARBON_20250304_01.fid;RC-3-D-37B-F16-22_PROTON_20250304_01.fid;RC-3-D-39b-P_CARBON_20250309_01.fid;RC-3-D-39b-P_HSQCAD_20250309_01.fid;RC-3-D-39bP_PROTON_20250309_01.fid;RC-3-D-40A-P_CARBON_20250309_01.fid;RC-3-D-40A-P_HSQCAD_20250309_01.fid;RC-3-D-40A-P_PROTON_20250309_01.fid;RC-3-D-40A-P_gHMBCAD_20250309_01.fid;RC-3-D-49B-P_CARBON_20250321_01.fid;RC-3-D-49B-P_PROTON_20250321_02.fid;RC-3-D-49B-P_gCOSY_20250321_01.fid;RC-3-D-49B-P_gHMBCAD_20250322_01.fid;RC-3-D-49B-P_gHSQCAD_20250321_01.fid;RC-3-D-48B-P_gCOSY_20250321_01.fid;RC-3-D-48B-P_gHMBCAD_20250321_01.fid;2i;RC-3-D-46B-F24-26_CARBON_20250318_01.fid;RC-3-D-46B-F24-26_PROTON_20250318_03.fid;RC-3-D-46B-F24-26_gCOSY_20250318_01.fid;RC-3-D-46B-F24-26_gHSQCAD_20250318_01.fid;RC-3-D-43A-P_CARBON_20250312_01.fid;RC-3-D-43A-P_PROTON_20250312_01.fid;2l;RC-3-D-74A-P_CARBON_20250429_01.fid;RC-3-D-74A-P_HSQCAD_20250429_01.fid;RC-3-D-74A-P_PROTON_20250429_01.fid;RC-3-D-74A-P_gHMBCAD_20250430_01.fid;RC-3-D-62A-P_CARBON_20250410_01.fid;RC-3-D-62A-P_HSQCAD_20250410_01.fid;RC-3-D-62A-P_PROTON_20250410_03.fid;RC-3-D-62A-P_gHMBCAD_20250411_01.fid;2p;RC-3-D-74B-P_CARBON_20250430_01.fid;RC-3-D-74B-P_HSQCAD_20250430_01.fid;RC-3-D-74B-P_PROTON_20250430_03.fid;R
+---------- OL5C03345_COMPOUND_ID_LIST.TXT
+ol5c03345 10;11;12;13;14;15;16;17;18;19;20;21;23;24;25;26;27;28;29;30;31;32;33;34;35;36;37;38;39;40;41;42;43;44;45;46;47;49;50;7;8;9
+
+---------- OL5C03615_COMPOUND_ID_LIST.TXT
+ol5c03615 3aa. JSP01-P-CDCL3;3ab. JSP16-P2-CDCL3;3ac. JM431-P-RE-CDCL3;3ba. JM400-P-CDCL3;3ca. JM393-P-CDCL3;3da. JM399-P-CDCL3;3ea. JM398-P-CDCL3;3fa. JM468-P-ACE;3ga. JM405-P1-CDCL3;3ha. JM411-P-RE-CDCL3;3ia. JM346-P1-CDCL3(re);3ja. JM-ZM04-P-CDCL3;3ka. JM370-RE-P-CDCL3;3la. ZM05-P-CDCL3, ZM46(C);3ma;3oa. JSP31-P;3pa. JM-JSP06-P-RE-CDCL3;3qa. ZM10-P-RE2;4aa. TJ-n-379B-P2;4ab. JM446-P-ACE;4ba. JSP-JM436-P;4ca. JM373-P-RE-ACE;4da. JM483(rp)-P-11-CDCL3;4ea. JM377-P-RE-CDCL3;4fa. JM378-P-CDCL3;4ga. JM380-P-RE;4ha. JM379-P;4ia. ZM03-P-RE(2)-DMSO;4ja. JSP-JM415-P-RE-ACE;5a. TJ-N-359;Ruthenacycle A-TJ-N-439;deuterio-3aa;deuterio-4aa
+
+---------- OL5C03626_COMPOUND_ID_LIST.TXT
+ol5c03626 10a-10h;C NMR;H NMR;PROTON_01.fid;11a-11h;FAL1095-9-12-PROTON_01.fid;C NMR.fid;12b-12f;5a-5h;H NMR.fid;7a-7f;8b-8d;9a-9h;FAL-BR-PHT-PROTON_01.fid
+
+---------- OL5C03636_COMPOUND_ID_LIST.TXT
+ol5c03636 01. diprotio_radical_gs_12a.out;02. diprotio_cyclization_ts(12a-to-13a).out;03. diprotio_radical_closed_gs_13a.out;04. difluoro_radical_gs_12b.out;05. difluoro_radical_ts(12b-to-13b).out;06. difluoro_radical_closed_gs_13b.out;07. Difluoroanhydride reactive 18.out;08. TS1.out;09. Diradical DiRad.out;10. TS2.out;11. Cyclic Allene 19.out;12. Cyclohexene cy.out;13. 32 min.out;14. HF.out;15. 33 min.out;16. 33 from RC of TS3 and TS4.out;17. TS3.out;18. TS4.out;19. 29 min.out;20. 29 from RC of TS3.out;21. 30 min.out;22. 30 from RC of TS4.out;List of computed stationary points shown in the SI (1-22).docx;~$22 list.docx
+
+---------- OL5C03906_COMPOUND_ID_LIST.TXT
+ol5c03906 10aB;10aF;10aL;10aP;10iB;10iF;10iL;10iP;11aB;11aF;11aL;11aP;3a;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3aj;3b;3be;3bi;3bj;3c;3cj;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;6a;6ab;6ac;6ad;6ae;6af;6b;6be;6c;6d;6e;6f;6g;6h;6i;6j;6k;6l;6m;6n;6o;7a;7ag;7ah;7ai;7aj;7bi;7bj;7cj;7i;7j;7n;8a;8i;9a
+
+---------- OL5C04004_COMPOUND_ID_LIST.TXT
+ol5c04004 3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;3s;3t;4a;4b;4c;4d;4e;5;7;8
+
+---------- OL5C04277_COMPOUND_ID_LIST.TXT
+ol5c04277 FID-1;3a;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3n;3o;3p;3q;3r;4b;4c;4d;4e;4f;4g;4h;4i;4j;4k;4l;4m;4n;4o;4p;4q;4r;4s;5a;5b;5c;5d;5e;5f;5g;5h;5i;5j;5k;5l;5m;5n;5o;5p;5q;5r;6b;6c;6d;6e;6f;6g;6h;6i;6j;6k;6l;6m;6o;6p
+
+---------- OL5C04403_COMPOUND_ID_LIST.TXT
+ol5c04403 2v;2w;2x;2y;2z;3a;3aa;3ab;3ac;3ad;3ae;3af;3ag;3ah;3ai;3aj;3ak;3al;3am;3an;3ao;3ap;3aq;3ar;3b;3c;3d;3e;3f;3g;3h;3i;3j;3k;3l;3m;3o;3p;3r;3s;3t;3u;3v;3w;3x;3y;3z
+
+---------- OL5C04507_COMPOUND_ID_LIST.TXT
+ol5c04507 10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;26;27;28;29;30;31;32;33;4;9;S1;S2;S3;S4;S5;S6;S7
+
+---------- OL5C04750_COMPOUND_ID_LIST.TXT
+ol5c04750 App;2;4;6;1a;1b;1c;1d;1e;1f;1g;1h;1i;1j;3a;3b;3c;3d;3e;3f;5a;5b;5c;5d;5e;5f;5g
+
+---------- OL5C04969_COMPOUND_ID_LIST.TXT
+ol5c04969 10;3aa;3ab;3ac;3ba;3bb;3bc;3bd;3be;3bf;3bg;3bh;3ca;3cb;3cc;3cd;3da;3db;3dc;3dd;3ea;3eb;3ec;3ed;3fa;3fb;3fe;5a;5b;5c;5d;5e;5f;5g;5h;5i;5j;5k;5l;5m;5n;5o;7a;7b;8;9

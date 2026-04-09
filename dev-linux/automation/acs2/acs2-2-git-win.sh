@@ -110,7 +110,6 @@ done
 echo "doClean=${doClean} doi=${doi} dois=${dois} listOnly=${listOnly} unzipOnly=${unzipOnly}"
 
 
-
 # check that the source and working directories exist
 check_dir_exists() {
     local dir_path="$1"
@@ -187,10 +186,29 @@ unzip_recursive() {
         
 }
 
+resort_fdata() {
+    # make sure the desired item is the FIRST in the directory
+    local -n f=$1
+    var=$2
+    if [[ "$var" == "" ]]; then
+        d=$(sort <<< "$f")
+    else
+        var1="/${var}"
+        var2="/ .${var}"
+        d="${f//$var1/$var2}"
+        d1=$(sort <<< "$d")
+        d="${d1//$var2/$var1}"
+    fi
+    f="$d"
+}
+
 prune_file_list() {
+
 
         # fileList does not contain directories, but if we are looking
         # for a directory, we want to put at least the first file in the directory into that
+        # not exactly true
+        
         var=$1
         var1="/${var}"
         isfile=$2
@@ -199,12 +217,17 @@ prune_file_list() {
         # and reverse order of lines
         # also remove unneeded directories
         if $isfile; then
-          fdata=$fileList
+            fdata=$fileList
         else
-          fdata=$dirList
+            fdata="${dirList}"
         fi
         fdata=$(echo "$fdata" | grep "${var1}$")
-    echo "${fdata}"
+        if ! $isfile; then
+            resort_fdata fdata "${var}" 
+            resort_fdata fileList ""
+            #echo "pruning for ${var1}"
+            #echo "${fdata}"
+        fi
         if [[ ! "$fdata" == "" ]]; then
             lines=""
             files=""
@@ -229,7 +252,7 @@ prune_file_list() {
                     if [[ "${file}" == "${path}"* ]]; then
                         havePath=true
                         if [[ ! "$file" == "$line" ]]; then
-                            echo "removing ${files[thisfile]}"
+                            #echo "removing ${files[thisfile]}"
                             files[thisfile]=""
                         fi
                     elif $havePath; then
@@ -250,56 +273,66 @@ prune_file_list() {
                     if $newPath; then
                         newPath=false
                         line=${lines[thisline]}
+                            #echo -e "\nline=\n${line}" 
                         path0="${line%%$var1*}/"
                         path1="${line}/"
                         if [[ "$fileList" == *"$path1"* ]]; then
                             haveVar2=true
                         else
                             haveVar2=false
+                            # so we will ignore
                             echo "zip file does not have $path1 !"
                         fi
                         havePath=false
                     fi
                     file=${files[thisfile]}
-#                    echo -e "looking for ${path0}\n with ${file}"
                     if [[ "${file}" == "${path0}"* ]]; then
-                        if $havePath; then
-                            # remove file
-#                            echo "removing ${files[thisfile]}"
-                            files[thisfile]=""
-                        elif $haveVar2; then
-                            # replace file with directory
-#                            echo "replacing ${file}"
-                            files[thisfile]="${line}"
-                            havePath=true
-                        else
-#                            echo "leaving ${file}"
-                            havePath=true
+                        # xxxx/*
+                        if ! $havePath; then
+                            if $haveVar2; then
+                                # have xxxx/pdata/ somewhere
+                                # replace file with directory
+                                #echo -e "setting line $thisfile  to \n${line}"
+                                files[thisfile]="${line}"
+                                havePath=true
+                            fi
+                            ((thisfile++))
+                            continue
                         fi
-                    elif $havePath; then
-#                        echo "done path"
-                        # look for next line and do not increment file pointer
-                        ((thisline++))
+                        #echo "setting line $thisfile to blank"
+                        files[thisfile]=""
+                    else
+                        #echo -e "no match for $thisfile file\n$file\nis not in path\n$path0"
+                        # on to the next yyyy/...
+                        # Skip all directory lines that contain the current path
+                        while true; do 
+                            ((thisline++))
+                            # check that the next line has not already been removed 
+                            nextline=${lines[thisline]}
+                            #echo -e "checking\n${nextline}" 
+                            if [[ "${nextline}" == "${path0}"* ]]; then 
+                                #echo -e "skipping\n${nextline}"
+                                continue
+                            fi
+                            #echo -e "next:\n$nextline\n$file"
+                            break
+                        done
                         if [[ $thisline -eq $nlines ]]; then
-#                            echo "I'm here"
                             break
                         fi
+                        # do not increment file pointer
                         newPath=true
                         continue
                     fi
                     ((thisfile++))
                 done
             fi
-
             SAVEIFS=$IFS
             IFS=$'\n'
             fileList="${files[*]}"
             IFS=$SAVEIFS
             # remove blank lines
             fileList=$(echo "$fileList" | awk 'NF')
-#            echo "$fileList"
-#            exit
-
         fi
  }
 
@@ -318,7 +351,7 @@ do
     fi
 
     if [[ "${doi}" == "EXIT" || "${doi}" == "STOP" ]]; then
-        break;
+        break
     fi
 
     DOI_Dir="${Working_Directory}/${doi}"
@@ -412,7 +445,6 @@ do
             
         fi
 
-
         # create the working-directory file list
         # cd to the top of the <DOI>_unzip directory
         cd ${Unzip_Dir}
@@ -424,15 +456,24 @@ do
         # remove "./" 
         fileList=${fileList//\.\//}
         dirList=${dirList//\.\//}
+        # for xxx/pdata, we need to ensure that and nested xxx/..../..../pdata
+        # in this case, xxx/ will appear in dirList[i] + 1
+        # is still in the list that is the LAST entry in xxx/
+        # in case there is a nested pdata that happens to be in it: ol5c0318
+        #
+
         echo "${fileList}" > "${fileListFileRaw}"
         echo "pruning ${doi}"
         # add the file list to Prediction (for processing)
         # but see jo5c00061 [10_NC] fileList=${fileList//-/\/}
 
         prune_file_list "pdata" false   
+
         prune_file_list "acqu" true 
         prune_file_list "procpar" true 
         echo "${fileList}" > "${fileListFilePruned}"
+
+    echo -e "\nfileList is\n${fileList}"
 
     elif $newPredictionOnly; then
         if [ -d "${Prediction_Dir}" ]; then
@@ -471,6 +512,7 @@ do
     logFile="${Prediction_Dir}/emma.log"
     py "${Emma_Algorithm}" $doi > "${logFile}"  2> "$tempFile"
     # report errors
+    
     cat "$logFile"
     iserr=$(stat -c%s "$tempFile")
     if [[ ! ${iserr} == "0" ]]; then
@@ -484,6 +526,7 @@ do
     else
         echo "No Python errors for ${doi}" 
         cp "${Prediction_Dir}/${doi}_compound_id_list.txt" "${Working_Directory}"
+        cp "${Prediction_Dir}/${doi}_compound_name_list.txt" "${Working_Directory}"
         cp "${Prediction_Dir}/${doi}_compound_id_count" "${Working_Directory}"
         cp "${Prediction_Dir}/${doi}_data_object_id_list.txt" "${Working_Directory}"
         cp "${Prediction_Dir}/${doi}_data_object_id_count" "${Working_Directory}"
