@@ -479,6 +479,7 @@ do
         prune_file_list "pdata" false   
 
         prune_file_list "acqu" true 
+        prune_file_list "procs" true 
         prune_file_list "procpar" true 
         echo "${fileList}" > "${fileListFilePruned}"
 

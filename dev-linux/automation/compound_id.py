@@ -1131,10 +1131,10 @@ def add_compound_ids_from_experiment_parents(df, final_df, path_parts_zip):
 #     final_df.loc[mask, "tech'] = "NMR"
 
 def get_missing_files(df, tsv_df):
-    paths = list(tsv_df['path'])
+    paths = list(tsv_df['path'].dropna())
 
     # Filter using a list comprehension for the boolean mask
-    mask = [not any(sub in str(val) for sub in paths) for val in df['path_text_final']]
+    mask = [not any(sub in str(val) for sub in paths) for val in df['path_text_final'].dropna()]
     df_local = df[mask]
     return list(df_local['path_text_final'])
 
