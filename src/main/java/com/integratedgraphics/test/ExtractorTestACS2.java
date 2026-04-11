@@ -281,6 +281,7 @@ public class ExtractorTestACS2 extends ExtractorTest {
 			///*8 jo4c02622 embedded Bruker directories and misplaced MNova files*/"https://doi.org/10.1021/acs.joc.4c02622.s001",//Direct Synthesis of 2â€‘Functionalized 3â€‘Nitroindoles from Diazo(nitro)acetanilides
 			///*13 jo4c02689 fails one cmpd per zip file; fails first column is NOT global*/"https://doi.org/10.1021/acs.joc.4c02689.s001",//Uncommon Diterpenoids with Diverse Frameworks from the South China Sea Sponge Spongia officinalis and Their Anti-inflammatory Activities
 			///*148 ol5c00493 fails: fids annulation final.rar*/"https://doi.org/10.1021/acs.orglett.5c00493.s001",//Lewis Acid-Mediated Domino Glycosylation/Cyclization of Substituted Glycals: A Stereoselective Route Toward the Synthesis of 1,2-Annulated Câ€‘Glycosides
+			//RAR /*127 ol5c00493 */"https://doi.org/10.1021/acs.orglett.5c00493.s001",//Lewis Acid-Mediated Domino Glycosylation/Cyclization of Substituted Glycals: A Stereoselective Route Toward the Synthesis of 1,2-Annulated C‑Glycosides
 
 			// javaLine
 			/*1 jo4c02089 */"https://doi.org/10.1021/acs.joc.4c02089.s002",//Ring-Size-Dependent Selectivity of the β‑Hydride Elimination in Heck-Type Arylations of exo-Methylene Cycloketones: Chalcones versus 2‑Benzyl-1-naphthols
@@ -355,35 +356,35 @@ public class ExtractorTestACS2 extends ExtractorTest {
 
 			/*48 jo5c00246 */"https://doi.org/10.1021/acs.joc.5c00246.s002",//In Situ Generation and [3 + 2] Annulation Reactions of PropiolaldehydeA Metal-Free, Cascade Route to Pyrazole and Bipyrazole Carboxaldehydes in One Pot
 			/*49 jo5c00270 */"https://doi.org/10.1021/acs.joc.5c00270.s002",//3,3-Bis(hydroxyaryl)oxindoles and Spirooxindoles Bearing a Xanthene Moiety: Synthesis, Mechanism, and Biological Activity
-			/*50 jo5c00284 */"https://doi.org/10.1021/acs.joc.5c00284.s003",//Deconstruction of Desacetamidocolchicine’s B Ring Reveals a Class 3 Atropisomeric AC Ring with Tubulin Binding Properties
-			/*50 jo5c00284 */"https://doi.org/10.1021/acs.joc.5c00284.s004",//Deconstruction of Desacetamidocolchicine’s B Ring Reveals a Class 3 Atropisomeric AC Ring with Tubulin Binding Properties
-			/*51 jo5c00316 */"https://doi.org/10.1021/acs.joc.5c00316.s002",//Base-Assisted and Silica Gel-Promoted Indole-Substituted Indene Synthesis
-			/*52 jo5c00317 */"https://doi.org/10.1021/acs.joc.5c00317.s002",//Construction of the Tetracyclic Skeleton of Polycyclic Norcembranoids Sinudenoids B–D Via Ireland-Claisen Rearrangement
-			/*52 jo5c00317 */"https://doi.org/10.1021/acs.joc.5c00317.s003",//Construction of the Tetracyclic Skeleton of Polycyclic Norcembranoids Sinudenoids B–D Via Ireland-Claisen Rearrangement
-			/*52 jo5c00317 */"https://doi.org/10.1021/acs.joc.5c00317.s004",//Construction of the Tetracyclic Skeleton of Polycyclic Norcembranoids Sinudenoids B–D Via Ireland-Claisen Rearrangement
-			/*53 jo5c00330 */"https://doi.org/10.1021/acs.joc.5c00330.s002",//Synthesis of 3,6-Dihydro‑2H‑thiopyrans from α‑Diazo-β-diketones and Vinylthiiranes via [5 + 1] Annulation
-			/*53 jo5c00330 */"https://doi.org/10.1021/acs.joc.5c00330.s003",//Synthesis of 3,6-Dihydro‑2H‑thiopyrans from α‑Diazo-β-diketones and Vinylthiiranes via [5 + 1] Annulation
 
 
-			/*54 jo5c00369 */"https://doi.org/10.1021/acs.joc.5c00369.s002",//Phenyl Spacer Modulation of 2,5-Substituted D–A-Type Siloles for Efficient Nondoped OLEDs
-			/*55 jo5c00389 */"https://doi.org/10.1021/acs.joc.5c00389.s002",//The Anthranil Core as a π‑Conjugated Bridge in the Synthesis of Molecular Photosensitizers
+			/*50 jo5c00316 */"https://doi.org/10.1021/acs.joc.5c00316.s002",//Base-Assisted and Silica Gel-Promoted Indole-Substituted Indene Synthesis
+			/*51 jo5c00317 */"https://doi.org/10.1021/acs.joc.5c00317.s002",//Construction of the Tetracyclic Skeleton of Polycyclic Norcembranoids Sinudenoids B–D Via Ireland-Claisen Rearrangement
+			/*51 jo5c00317 */"https://doi.org/10.1021/acs.joc.5c00317.s003",//Construction of the Tetracyclic Skeleton of Polycyclic Norcembranoids Sinudenoids B–D Via Ireland-Claisen Rearrangement
+			/*51 jo5c00317 */"https://doi.org/10.1021/acs.joc.5c00317.s004",//Construction of the Tetracyclic Skeleton of Polycyclic Norcembranoids Sinudenoids B–D Via Ireland-Claisen Rearrangement
+			/*52 jo5c00330 */"https://doi.org/10.1021/acs.joc.5c00330.s002",//Synthesis of 3,6-Dihydro‑2H‑thiopyrans from α‑Diazo-β-diketones and Vinylthiiranes via [5 + 1] Annulation
+			/*52 jo5c00330 */"https://doi.org/10.1021/acs.joc.5c00330.s003",//Synthesis of 3,6-Dihydro‑2H‑thiopyrans from α‑Diazo-β-diketones and Vinylthiiranes via [5 + 1] Annulation
 
-			/*56 jo5c00424 */"https://doi.org/10.1021/acs.joc.5c00424.s002",//Visible-Light-Driven Tandem Cyclization of <i>o</i>‑Hydroxyaryl Enaminones: Access to 3‑(α-Arylsulfonamido)trifluoroethyl Chromones
-			/*57 jo5c00472 */"https://doi.org/10.1021/acs.joc.5c00472.s002",//FeCl3/TBHP-Mediated Oxidation of Indoles: Divergent Product Selectivity under Mechanochemical and Solution-Based Conditions
-			/*58 jo5c00474 */"https://doi.org/10.1021/acs.joc.5c00474.s002",//One-Pot High-Yield Synthesis of a Tripodal Triamine Building Block in an Ammonia Ethanolic Solution
-			/*59 jo5c00508 */"https://doi.org/10.1021/acs.joc.5c00508.s001",//Asymmetric and Symmetric S-zig-zag-Fused BODIPYs: Synthesis and Photophysical and Oxidative Properties
-			/*60 jo5c00513 */"https://doi.org/10.1021/acs.joc.5c00513.s002",//Blue-Light-Irradiated Copper-Catalyzed Regio-tunable Double C–H/C–H Cross-Coupling Reaction: A Sustainable Approach to Construct C2‑Indolyl-1,4-naphthoquinones
-			/*61 jo5c00521 */"https://doi.org/10.1021/acs.joc.5c00521.s001",//Synthesis of Octatrimethylsilyl-[8]cycloparaphenylene for Multifunctionalized Cycloparaphenylene
+
+			/*53 jo5c00369 */"https://doi.org/10.1021/acs.joc.5c00369.s002",//Phenyl Spacer Modulation of 2,5-Substituted D–A-Type Siloles for Efficient Nondoped OLEDs
+			/*54 jo5c00389 */"https://doi.org/10.1021/acs.joc.5c00389.s002",//The Anthranil Core as a π‑Conjugated Bridge in the Synthesis of Molecular Photosensitizers
+
+			/*55 jo5c00424 */"https://doi.org/10.1021/acs.joc.5c00424.s002",//Visible-Light-Driven Tandem Cyclization of <i>o</i>‑Hydroxyaryl Enaminones: Access to 3‑(α-Arylsulfonamido)trifluoroethyl Chromones
+			/*56 jo5c00472 */"https://doi.org/10.1021/acs.joc.5c00472.s002",//FeCl3/TBHP-Mediated Oxidation of Indoles: Divergent Product Selectivity under Mechanochemical and Solution-Based Conditions
+			/*57 jo5c00474 */"https://doi.org/10.1021/acs.joc.5c00474.s002",//One-Pot High-Yield Synthesis of a Tripodal Triamine Building Block in an Ammonia Ethanolic Solution
+			/*58 jo5c00508 */"https://doi.org/10.1021/acs.joc.5c00508.s001",//Asymmetric and Symmetric S-zig-zag-Fused BODIPYs: Synthesis and Photophysical and Oxidative Properties
+			/*59 jo5c00513 */"https://doi.org/10.1021/acs.joc.5c00513.s002",//Blue-Light-Irradiated Copper-Catalyzed Regio-tunable Double C–H/C–H Cross-Coupling Reaction: A Sustainable Approach to Construct C2‑Indolyl-1,4-naphthoquinones
+			/*60 jo5c00521 */"https://doi.org/10.1021/acs.joc.5c00521.s001",//Synthesis of Octatrimethylsilyl-[8]cycloparaphenylene for Multifunctionalized Cycloparaphenylene
 
 
 			/*61 jo5c00545 */"https://doi.org/10.1021/acs.joc.5c00545.s002",//Total Synthesis of the Melodinus Alkaloid (±)-Melohemsine K
 			/*62 jo5c00606 */"https://doi.org/10.1021/acs.joc.5c00606.s002",//Reversibility and Enantioselectivity of Palladium-Catalyzed Allylic Aminations: Ligand, Base-Additive, and Solvent Effects
 			/*63 jo5c00609 */"https://doi.org/10.1021/acs.joc.5c00609.s002",//Curcumin as a Cinnamoyl Transfer Reagent via C–C(CO) Bond Scissoring in the Microwave-Assisted Reaction with Hydroxy‑p‑QMs
+			/*64 jo5c00613 */"https://doi.org/10.1021/acs.joc.5c00613.s002",//Ni/Pd Dual-Catalysis Strategy for C(sp2)–Sb Cross-Coupling of Halostibines with Aryl Triflates and Applications of Products as Coupling Reagents, Ligands, and Anticancer Compounds
 
 
 
 
-			/*64 jo5c00649 */"https://doi.org/10.1021/acs.joc.5c00649.s002",//Do We See the True Color of Anthocyanidins?
 
 			/*65 jo5c00670 */"https://doi.org/10.1021/acs.joc.5c00670.s002",//1,3-Dipolar Cycloaddition of Nitrile Imines to 2‑Imino-thiazolo[3,2‑a]pyrimidin-3-ones: Dipole-Initiated Thiazolone-Imidazolone Rearrangement
 
@@ -420,28 +421,26 @@ public class ExtractorTestACS2 extends ExtractorTest {
 			/*78 jo5c01113 */"https://doi.org/10.1021/acs.joc.5c01113.s002",//Phenanthrene-Fused BN-Acenaphth(yl)ene: Synthesis, Structures, and Photophysical Studies
 			/*79 jo5c01140 */"https://doi.org/10.1021/acs.joc.5c01140.s002",//Solvent Effects on C–H Abstraction by Hydroperoxyl Radicals: Implication for Antioxidant Strategies
 			/*80 jo5c01156 */"https://doi.org/10.1021/acs.joc.5c01156.s002",//Annulative Coupling of β‑Ketosulfoxonium Ylides, β‑Ketothioamides, and Aldehydes: Access to Highly Functionalized Dihydrothiophenes
-			/*81 jo5c01207 */"https://doi.org/10.1021/acs.joc.5c01207.s001",//tert-BuONO-Promoted Nitrosation of 4‑Nitroisoxazole-Based Enamines: Synthesis of 5‑Cyanoisoxazoles and Their Application
-
-			/*82 jo5c01245 */"https://doi.org/10.1021/acs.joc.5c01245.s002",//Electrochemically Oxidative C–H/N–H Cross-Coupling Reactions of Sulfoximines with Imidazopyridines
-			/*83 jo5c01279 */"https://doi.org/10.1021/acs.joc.5c01279.s003",//Iron-Catalyzed Oxidation of Triols Containing Vicinal Diols into Hydroxylactones: A DFT Study
-			/*84 jo5c01353 */"https://doi.org/10.1021/acs.joc.5c01353.s002",//Chiral P,N,N-Ligands for the Manganese-Catalyzed Asymmetric Formal Hydroamination of Allylic Alcohols
-			/*85 jo5c01387 */"https://doi.org/10.1021/acs.joc.5c01387.s002",//A Noncarbenoid Approach to Imidazolidines via ZnCl2‑Catalyzed Annulation of 4‑Alkoxycarbonyl-1,2-diaza-1,3-dienes with 1,3,5-Triazinanes
-			/*86 jo5c01409 */"https://doi.org/10.1021/acs.joc.5c01409.s002",//Total Synthesis of Alanense B via Stereoselective Enolate Alkylation
-			/*87 jo5c01422 */"https://doi.org/10.1021/acs.joc.5c01422.s002",//Regioselectivity Switching in the Tandem Reaction of Skipped Diynones with Allylic Alcohols: Stereoselective Synthesis of 4‑Allyl-2-Methylene-3(2<i>H</i>)‑Furanones
-			/*88 jo5c01427 */"https://doi.org/10.1021/acs.joc.5c01427.s002",//Substrate-Directed Annulative-Sulfonylation/Desulfonylation Cascade Using (E)‑β-Iodovinyl Sulfones: A Diverse Approach for the Synthesis of Imidazo[1,2‑a]pyridines with Sulfone Motifs
-			/*89 jo5c01465 */"https://doi.org/10.1021/acs.joc.5c01465.s002",//Copper-Catalyzed Vinylsulfonium Salt Diversification with P(O)–OH Bonds: Phosphoryloxylation via an Ionic Ring-Opening Process
-			/*89 jo5c01465 */"https://doi.org/10.1021/acs.joc.5c01465.s003",//Copper-Catalyzed Vinylsulfonium Salt Diversification with P(O)–OH Bonds: Phosphoryloxylation via an Ionic Ring-Opening Process
-			/*89 jo5c01465 */"https://doi.org/10.1021/acs.joc.5c01465.s004",//Copper-Catalyzed Vinylsulfonium Salt Diversification with P(O)–OH Bonds: Phosphoryloxylation via an Ionic Ring-Opening Process
-			/*89 jo5c01465 */"https://doi.org/10.1021/acs.joc.5c01465.s005",//Copper-Catalyzed Vinylsulfonium Salt Diversification with P(O)–OH Bonds: Phosphoryloxylation via an Ionic Ring-Opening Process
-			/*90 jo5c01466 */"https://doi.org/10.1021/acs.joc.5c01466.s002",//Origin of Substituent-Modulated Regioselectivity in Phosphine-Catalyzed [3 + 2] Cyclization of Allenoates and Enones: A Kinetic Shift toward Curtin–Hammett Control
-			/*91 jo5c01490 */"https://doi.org/10.1021/acs.joc.5c01490.s002",//Synthesis of 2‑Trifluoromethylindolines via Rh(III)-Catalyzed Chelation-Assisted C–H Bond Activation and Annulation of Anilines with CF3‑Imidoyl Sulfoxonium Ylides
-			/*91 jo5c01490 */"https://doi.org/10.1021/acs.joc.5c01490.s003",//Synthesis of 2‑Trifluoromethylindolines via Rh(III)-Catalyzed Chelation-Assisted C–H Bond Activation and Annulation of Anilines with CF3‑Imidoyl Sulfoxonium Ylides
-			/*91 jo5c01490 */"https://doi.org/10.1021/acs.joc.5c01490.s004",//Synthesis of 2‑Trifluoromethylindolines via Rh(III)-Catalyzed Chelation-Assisted C–H Bond Activation and Annulation of Anilines with CF3‑Imidoyl Sulfoxonium Ylides
-			/*92 jo5c01501 */"https://doi.org/10.1021/acs.joc.5c01501.s002",//Electrochemical Oxidative Ring Opening of 1‑Acetylindoline-3-one to Access α‑Ketoamides
-			/*93 jo5c01538 */"https://doi.org/10.1021/acs.joc.5c01538.s002",//Concise, Atom-Economical, and Enantiodivergent Total Synthesis of β‑Lycorane via Organocatalyzed [4+2] Cycloaddition Reaction
-			/*94 jo5c01545 */"https://doi.org/10.1021/acs.joc.5c01545.s002",//Dual-State Mechano- and Electrochromic Responses Enabled by Sterically Strained Diazaanthraquinodimethanes
 
 
+			/*81 jo5c01245 */"https://doi.org/10.1021/acs.joc.5c01245.s002",//Electrochemically Oxidative C–H/N–H Cross-Coupling Reactions of Sulfoximines with Imidazopyridines
+
+			/*82 jo5c01353 */"https://doi.org/10.1021/acs.joc.5c01353.s002",//Chiral P,N,N-Ligands for the Manganese-Catalyzed Asymmetric Formal Hydroamination of Allylic Alcohols
+			/*83 jo5c01387 */"https://doi.org/10.1021/acs.joc.5c01387.s002",//A Noncarbenoid Approach to Imidazolidines via ZnCl2‑Catalyzed Annulation of 4‑Alkoxycarbonyl-1,2-diaza-1,3-dienes with 1,3,5-Triazinanes
+			/*84 jo5c01409 */"https://doi.org/10.1021/acs.joc.5c01409.s002",//Total Synthesis of Alanense B via Stereoselective Enolate Alkylation
+			/*85 jo5c01422 */"https://doi.org/10.1021/acs.joc.5c01422.s002",//Regioselectivity Switching in the Tandem Reaction of Skipped Diynones with Allylic Alcohols: Stereoselective Synthesis of 4‑Allyl-2-Methylene-3(2<i>H</i>)‑Furanones
+			/*86 jo5c01427 */"https://doi.org/10.1021/acs.joc.5c01427.s002",//Substrate-Directed Annulative-Sulfonylation/Desulfonylation Cascade Using (E)‑β-Iodovinyl Sulfones: A Diverse Approach for the Synthesis of Imidazo[1,2‑a]pyridines with Sulfone Motifs
+			/*87 jo5c01465 */"https://doi.org/10.1021/acs.joc.5c01465.s002",//Copper-Catalyzed Vinylsulfonium Salt Diversification with P(O)–OH Bonds: Phosphoryloxylation via an Ionic Ring-Opening Process
+			/*87 jo5c01465 */"https://doi.org/10.1021/acs.joc.5c01465.s003",//Copper-Catalyzed Vinylsulfonium Salt Diversification with P(O)–OH Bonds: Phosphoryloxylation via an Ionic Ring-Opening Process
+			/*87 jo5c01465 */"https://doi.org/10.1021/acs.joc.5c01465.s004",//Copper-Catalyzed Vinylsulfonium Salt Diversification with P(O)–OH Bonds: Phosphoryloxylation via an Ionic Ring-Opening Process
+			/*87 jo5c01465 */"https://doi.org/10.1021/acs.joc.5c01465.s005",//Copper-Catalyzed Vinylsulfonium Salt Diversification with P(O)–OH Bonds: Phosphoryloxylation via an Ionic Ring-Opening Process
+
+			/*88 jo5c01490 */"https://doi.org/10.1021/acs.joc.5c01490.s002",//Synthesis of 2‑Trifluoromethylindolines via Rh(III)-Catalyzed Chelation-Assisted C–H Bond Activation and Annulation of Anilines with CF3‑Imidoyl Sulfoxonium Ylides
+			/*88 jo5c01490 */"https://doi.org/10.1021/acs.joc.5c01490.s003",//Synthesis of 2‑Trifluoromethylindolines via Rh(III)-Catalyzed Chelation-Assisted C–H Bond Activation and Annulation of Anilines with CF3‑Imidoyl Sulfoxonium Ylides
+			/*88 jo5c01490 */"https://doi.org/10.1021/acs.joc.5c01490.s004",//Synthesis of 2‑Trifluoromethylindolines via Rh(III)-Catalyzed Chelation-Assisted C–H Bond Activation and Annulation of Anilines with CF3‑Imidoyl Sulfoxonium Ylides
+			/*89 jo5c01501 */"https://doi.org/10.1021/acs.joc.5c01501.s002",//Electrochemical Oxidative Ring Opening of 1‑Acetylindoline-3-one to Access α‑Ketoamides
+			/*90 jo5c01538 */"https://doi.org/10.1021/acs.joc.5c01538.s002",//Concise, Atom-Economical, and Enantiodivergent Total Synthesis of β‑Lycorane via Organocatalyzed [4+2] Cycloaddition Reaction
+			/*91 jo5c01545 */"https://doi.org/10.1021/acs.joc.5c01545.s002",//Dual-State Mechano- and Electrochromic Responses Enabled by Sterically Strained Diazaanthraquinodimethanes
 
 
 
@@ -452,178 +451,181 @@ public class ExtractorTestACS2 extends ExtractorTest {
 
 
 
-			/*95 jo5c01570 */"https://doi.org/10.1021/acs.joc.5c01570.s002",//Gold-Catalyzed Single O‑Transfer to Internal CF3‑Alkynes. Regioselective Synthesis of 4‑Trifluoromethylated Oxazoles
-			/*96 jo5c01584 */"https://doi.org/10.1021/acs.joc.5c01584.s002",//Tunable Synthesis of Polysubstituted Pyrroles via Silver-Catalyzed (3 + 2) Cycloaddition of α,β-Unsaturated Nitroketones with Isocyanides
-
-			/*97 jo5c01688 */"https://doi.org/10.1021/acs.joc.5c01688.s001",//Pyrene-Bridged Tetrathienyles: Synthesis and Photochromism
-
-			/*98 jo5c01759 */"https://doi.org/10.1021/acs.joc.5c01759.s001",//Photoredox Catalyzed Cyclization of Enaminones/Ketene N,S‑Acetals with β‑Ketodinitriles to Access Polysubstituted Pyrroles
-
-			/*99 jo5c01777 */"https://doi.org/10.1021/acs.joc.5c01777.s001",//Synthesis of Unsymmetrical Diaryl Disulfides via I2/DMF-Assisted Reductive Cross-Coupling of Sodium Sulfinates with Arenediazonium Tetrafluoroborates/Sodium Metabisulfite
-
-			/*100 jo5c01963 */"https://doi.org/10.1021/acs.joc.5c01963.s002",//Palladium-Catalyzed Carbonylative Cross-Coupling of Aryl (Pseudo)halides and Cyclopropanols
-			/*101 jo5c01989 */"https://doi.org/10.1021/acs.joc.5c01989.s002",//Peptidyl Glycosyl Thiols and Disulfides for Enantioselective Hydrogen Atom Transfer (HAT) and Thiyl Radical Catalysis
-
-			/*102 jo5c02047 */"https://doi.org/10.1021/acs.joc.5c02047.s002",//Photoredox-Catalyzed Deoxygenative C–H Alkylation of Azauracils via Xanthate-Activated Alcohols
-			/*103 jo5c02084 */"https://doi.org/10.1021/acs.joc.5c02084.s002",//Organophotoredox-Catalyzed Umpolung Strategy to β‑Fluoroamides via Carbamoylative Fluorination of Alkene in Aqueous Medium
-			/*104 jo5c02091 */"https://doi.org/10.1021/acs.joc.5c02091.s002",//Organophotocatalytic Regioselective Silylation/Germylation and Cascade Cyclization of 1,7-Dienes: Access to Silylated/Germylated Benzazepine Derivatives
-			/*105 jo5c02110 */"https://doi.org/10.1021/acs.joc.5c02110.s001",//Sequential Ni-Catalyzed Cross-Coupling and Ru-Catalyzed Isomerization of E/Z Alkenyl Ethers: A Stereoconvergent Route to Allylsilanes
-
-			/*106 jo5c02152 */"https://doi.org/10.1021/acs.joc.5c02152.s001",//Fe-BPsalan Complex-Catalyzed Asymmetric 1,3-Dipolar [3 + 2] Cycloaddition of Nitrones with α,β-Unsaturated Acyl Imidazoles
-			/*106 jo5c02152 */"https://doi.org/10.1021/acs.joc.5c02152.s002",//Fe-BPsalan Complex-Catalyzed Asymmetric 1,3-Dipolar [3 + 2] Cycloaddition of Nitrones with α,β-Unsaturated Acyl Imidazoles
-			/*107 jo5c02154 */"https://doi.org/10.1021/acs.joc.5c02154.s002",//Steric Hindrance-Driven Access to 3,4,7-Trihydro-1,2-oxaphosphepine 2‑Oxides from Vinyloxiranes and Phosphoryl Diazomethanes
-			/*108 jo5c02221 */"https://doi.org/10.1021/acs.joc.5c02221.s002",//Palladium-Catalyzed [3 + 2] Annulation of o‑Bromobenzyl Cyanide with Norbornene Derivatives via C(sp3)–H Bond Activation to Yield 1‑Cyanoindane
-			/*108 jo5c02221 */"https://doi.org/10.1021/acs.joc.5c02221.s003",//Palladium-Catalyzed [3 + 2] Annulation of o‑Bromobenzyl Cyanide with Norbornene Derivatives via C(sp3)–H Bond Activation to Yield 1‑Cyanoindane
-			/*108 jo5c02221 */"https://doi.org/10.1021/acs.joc.5c02221.s004",//Palladium-Catalyzed [3 + 2] Annulation of o‑Bromobenzyl Cyanide with Norbornene Derivatives via C(sp3)–H Bond Activation to Yield 1‑Cyanoindane
-			/*108 jo5c02221 */"https://doi.org/10.1021/acs.joc.5c02221.s005",//Palladium-Catalyzed [3 + 2] Annulation of o‑Bromobenzyl Cyanide with Norbornene Derivatives via C(sp3)–H Bond Activation to Yield 1‑Cyanoindane
-			/*108 jo5c02221 */"https://doi.org/10.1021/acs.joc.5c02221.s006",//Palladium-Catalyzed [3 + 2] Annulation of o‑Bromobenzyl Cyanide with Norbornene Derivatives via C(sp3)–H Bond Activation to Yield 1‑Cyanoindane
-			/*109 jo5c02305 */"https://doi.org/10.1021/acs.joc.5c02305.s002",//Palladium-Catalyzed Denitrogenative Suzuki Coupling of Benzothiatriazine Dioxides for Bi(hetero)aryl-2-sulfonamides
-			/*110 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s001",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
-			/*110 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s002",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
-			/*110 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s003",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
-			/*110 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s004",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
-			/*110 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s005",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
-			/*110 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s006",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
-			/*110 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s007",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
-			/*110 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s008",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
-			/*110 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s009",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
-			/*111 jo5c02383 */"https://doi.org/10.1021/acs.joc.5c02383.s001",//Chemoselective Synthesis of Fluorinated 1,3-Thiazines via Sonication-Assisted [3 + 3] Annulation of Thioamides and α‑CF3 Styrene
 
 
-			/*112 jo5c02414 */"https://doi.org/10.1021/acs.joc.5c02414.s002",//Benzo[1,2,3]thiadiazole as an Attractive Heteroaromatic Platform for Two-Photon Absorbing (TPA) Fluorophores: TPA Enhancement in Quasi-Quadrupolar S,N-Heteroarene-Cored Dyes via Skeletal Editing and Regioisomeric Control
-
-
-			/*113 jo5c02497 */"https://doi.org/10.1021/acs.joc.5c02497.s001",//C–H/N–H Annulation of N‑Aryl Triazolinediones with Diazo Compounds: A Route to Cinnoline Analogues
-			/*114 jo5c02500 */"https://doi.org/10.1021/acs.joc.5c02500.s001",//A Concise Approach to Enantioselective Synthesis of Euolutchuols A, B, and D and Their Structure Assignment
-			/*115 jo5c02524 */"https://doi.org/10.1021/acs.joc.5c02524.s002",//Pd- and Cu-Cocatalyzed Anaerobic Olefin Aminoboration
+			/*92 jo5c01570 */"https://doi.org/10.1021/acs.joc.5c01570.s002",//Gold-Catalyzed Single O‑Transfer to Internal CF3‑Alkynes. Regioselective Synthesis of 4‑Trifluoromethylated Oxazoles
+			/*93 jo5c01584 */"https://doi.org/10.1021/acs.joc.5c01584.s002",//Tunable Synthesis of Polysubstituted Pyrroles via Silver-Catalyzed (3 + 2) Cycloaddition of α,β-Unsaturated Nitroketones with Isocyanides
 
 
 
-			/*116 jo5c02653 */"https://doi.org/10.1021/acs.joc.5c02653.s001",//Visible-Light-Induced Amination of Pyridylphosphonium Salts: Synthesis of Heteroarylamines via Radical–Radical Coupling
+			/*94 jo5c01759 */"https://doi.org/10.1021/acs.joc.5c01759.s001",//Photoredox Catalyzed Cyclization of Enaminones/Ketene N,S‑Acetals with β‑Ketodinitriles to Access Polysubstituted Pyrroles
 
-			/*117 jo5c02735 */"https://doi.org/10.1021/acs.joc.5c02735.s002",//Enantioselective Organocatalytic Desymmetric Acylation as an Access to Orthogonally Protected myo-Inositols
-			/*118 jo5c02870 */"https://doi.org/10.1021/acs.joc.5c02870.s002",//Synthesis of Quinolizidine-Based 1,4-Azaphosphinines via Cyclization of Heteroarylmethyl(alkynyl)phosphinates
-			/*119 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s001",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
-			/*119 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s002",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
-			/*119 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s003",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
-			/*119 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s004",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
-			/*119 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s005",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
-			/*119 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s006",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
-			/*119 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s007",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
-			/*119 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s008",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
-			/*120 ol4c04173 */"https://doi.org/10.1021/acs.orglett.4c04173.s002",//Pd(OAc)2‑Catalyzed Approach to Phenanthridin-6(5H)‑one Skeletons
-			/*121 ol4c04259 */"https://doi.org/10.1021/acs.orglett.4c04259.s002",//Pd-Catalyzed/Ligand-Controlled Regioselective Asymmetric Hydrosulfonylation of Alkylallenes or Arylallenes
-			/*122 ol4c04348 */"https://doi.org/10.1021/acs.orglett.4c04348.s002",//Construction of 3,6-Difluoropyridones via a Double Defluorinative [3 + 3] Annulation of α‑Fluoro-α-sulfonylacetamides with 2‑CF3‑Alkenes
-			/*123 ol4c04509 */"https://doi.org/10.1021/acs.orglett.4c04509.s002",//Thermocontrolled Radical Nucleophilicity vs Radicophilicity in Regiodivergent C–H Functionalization
-			/*124 ol4c04625 */"https://doi.org/10.1021/acs.orglett.4c04625.s002",//Sc-Catalyzed Asymmetric [2 + 2] Annulation of 2‑Alkynylnaphthols with Dienes to Access Cyclobutene Frameworks
-			/*125 ol4c04737 */"https://doi.org/10.1021/acs.orglett.4c04737.s002",//Diverse Annulations of Alkyl(phenyl)phosphinic Chlorides and Imines
-			/*125 ol4c04737 */"https://doi.org/10.1021/acs.orglett.4c04737.s003",//Diverse Annulations of Alkyl(phenyl)phosphinic Chlorides and Imines
+			/*95 jo5c01777 */"https://doi.org/10.1021/acs.joc.5c01777.s001",//Synthesis of Unsymmetrical Diaryl Disulfides via I2/DMF-Assisted Reductive Cross-Coupling of Sodium Sulfinates with Arenediazonium Tetrafluoroborates/Sodium Metabisulfite
 
-			/*126 ol4c04779 */"https://doi.org/10.1021/acs.orglett.4c04779.s002",//Diastereoselective Synthesis of Cyclobutanes via Rh-Catalyzed Unprecedented C–C Bond Cleavage of Alkylidenecyclopropanes
-			/*127 ol4c04827 */"https://doi.org/10.1021/acs.orglett.4c04827.s001",//Catalytic Enantioselective [4+1]-Annulation of Carboxylic Acids with Cyclopropenes
-			/*128 ol4c04834 */"https://doi.org/10.1021/acs.orglett.4c04834.s002",//Visible Light-Induced Sequential Nitrogen Insertion and Benzotriazolation of Quinoxaline-2(1H)‑ones
-			/*129 ol5c00129 */"https://doi.org/10.1021/acs.orglett.5c00129.s002",//Visible-Light-Driven Synergistic Se/Fe Catalysis for the Synthesis of 2‑Aminoquinoline Derivatives
-			/*130 ol5c00146 */"https://doi.org/10.1021/acs.orglett.5c00146.s001",//TBHP-Promoted Trifluoromethyl-difluoromethylthiolation of Unactivated Alkenes with CF3SO2Na and PhSO2SCF2H
-			/*131 ol5c00325 */"https://doi.org/10.1021/acs.orglett.5c00325.s002",//Trifluoromethylation on a Nucleoside Sugar Scaffold: Design and Synthesis of 6′-Trifluoromethylcyclopentenyl-purine and -pyrimidine Nucleosides
+			/*96 jo5c01963 */"https://doi.org/10.1021/acs.joc.5c01963.s002",//Palladium-Catalyzed Carbonylative Cross-Coupling of Aryl (Pseudo)halides and Cyclopropanols
+			/*97 jo5c01989 */"https://doi.org/10.1021/acs.joc.5c01989.s002",//Peptidyl Glycosyl Thiols and Disulfides for Enantioselective Hydrogen Atom Transfer (HAT) and Thiyl Radical Catalysis
 
-			/*132 ol5c00493 */"https://doi.org/10.1021/acs.orglett.5c00493.s001",//Lewis Acid-Mediated Domino Glycosylation/Cyclization of Substituted Glycals: A Stereoselective Route Toward the Synthesis of 1,2-Annulated C‑Glycosides
-			/*133 ol5c00519 */"https://doi.org/10.1021/acs.orglett.5c00519.s002",//Pyridyl Pyrimidylsulfones as Latent Pyridyl Nucleophiles in Palladium-Catalyzed Cross-Coupling Reactions
-			/*134 ol5c00576 */"https://doi.org/10.1021/acs.orglett.5c00576.s002",//A Metal-Catalyzed Tunable Reaction of Ylides with Hydroxylamine Derivatives
-			/*135 ol5c00600 */"https://doi.org/10.1021/acs.orglett.5c00600.s002",//Direct Synthesis of Amides from Nitro Compounds and Alcohols via Borrowing Hydrogenation
-			/*136 ol5c00623 */"https://doi.org/10.1021/acs.orglett.5c00623.s002",//Fe/Mn-Synergistic Promoted C(sp3)–Bi Cross-Coupling of Alkyl Chlorides with Chlorobismuthanes to Access Air-Stable Alkylbismuthanes
-			/*137 ol5c00666 */"https://doi.org/10.1021/acs.orglett.5c00666.s002",//Synthesis of Dithioester Derivatives by Base-Mediated Fragmentation of 1,3-Dithiolanes
-			/*137 ol5c00666 */"https://doi.org/10.1021/acs.orglett.5c00666.s003",//Synthesis of Dithioester Derivatives by Base-Mediated Fragmentation of 1,3-Dithiolanes
-			/*137 ol5c00666 */"https://doi.org/10.1021/acs.orglett.5c00666.s004",//Synthesis of Dithioester Derivatives by Base-Mediated Fragmentation of 1,3-Dithiolanes
-			/*138 ol5c00705 */"https://doi.org/10.1021/acs.orglett.5c00705.s002",//Generation and Use of Bicyclo[1.1.0]butyllithium under Continuous Flow Conditions
-			/*139 ol5c00711 */"https://doi.org/10.1021/acs.orglett.5c00711.s002",//Highly Stereoselective [2 + 4] Annulation of Phosphenes and Enones with β‑Electron-Donating Groups
-			/*139 ol5c00711 */"https://doi.org/10.1021/acs.orglett.5c00711.s003",//Highly Stereoselective [2 + 4] Annulation of Phosphenes and Enones with β‑Electron-Donating Groups
-			/*140 ol5c00782 */"https://doi.org/10.1021/acs.orglett.5c00782.s001",//Carbonyl vs Hydroxy: Rhodium catalyzed carbonyl ylide triggered diastereoselective synthesis of 2,5-methano-1,3-benzoxazepines
-			/*141 ol5c00806 */"https://doi.org/10.1021/acs.orglett.5c00806.s001",//Modular Approach for Photoinduced Cycloaddition Enabling the Synthesis of Diverse Bioactive Oxazoles
+			/*98 jo5c02047 */"https://doi.org/10.1021/acs.joc.5c02047.s002",//Photoredox-Catalyzed Deoxygenative C–H Alkylation of Azauracils via Xanthate-Activated Alcohols
+			/*99 jo5c02084 */"https://doi.org/10.1021/acs.joc.5c02084.s002",//Organophotoredox-Catalyzed Umpolung Strategy to β‑Fluoroamides via Carbamoylative Fluorination of Alkene in Aqueous Medium
+			/*100 jo5c02091 */"https://doi.org/10.1021/acs.joc.5c02091.s002",//Organophotocatalytic Regioselective Silylation/Germylation and Cascade Cyclization of 1,7-Dienes: Access to Silylated/Germylated Benzazepine Derivatives
+			/*101 jo5c02110 */"https://doi.org/10.1021/acs.joc.5c02110.s001",//Sequential Ni-Catalyzed Cross-Coupling and Ru-Catalyzed Isomerization of E/Z Alkenyl Ethers: A Stereoconvergent Route to Allylsilanes
 
-			/*142 ol5c00879 */"https://doi.org/10.1021/acs.orglett.5c00879.s002",//Total Synthesis of (±)-Streptoglyceride A and of Putative (±)-Streptoglyceride C
-			/*143 ol5c00933 */"https://doi.org/10.1021/acs.orglett.5c00933.s001",//A Mechanistic Perspective on Photocatalytic EnT-Enabled C3-N-Heteroarylation of Aryl Quinoxaline via C(sp2)–C(sp2) Coupling
-			/*144 ol5c00948 */"https://doi.org/10.1021/acs.orglett.5c00948.s002",//Nitroalkanes as Ketone Synthetic Equivalents in C–N and C–S Bond Formation Reactions
-			/*145 ol5c00976 */"https://doi.org/10.1021/acs.orglett.5c00976.s002",//CAN-Mediated Synthesis of 2‑Deoxy Sugars: Access to Chiral 2‑Deoxy 3‑Bisindolyl‑C‑glycosides
-			/*146 ol5c00995 */"https://doi.org/10.1021/acs.orglett.5c00995.s002",//Unlocking the Potential of CF3-Alkynes in Gold-Catalyzed Oxygen Transfer: A Direct Route to Trifluoromethylated Compounds
-			/*147 ol5c01081 */"https://doi.org/10.1021/acs.orglett.5c01081.s002",//Ce(OTf)<sub>3</sub>‑Catalyzed Asymmetric 6π Cyclization of Triaryldivinyl Ketones
-			/*147 ol5c01081 */"https://doi.org/10.1021/acs.orglett.5c01081.s003",//Ce(OTf)3‑Catalyzed Asymmetric 6π Cyclization of Triaryldivinyl Ketones
-			/*148 ol5c01172 */"https://doi.org/10.1021/acs.orglett.5c01172.s002",//Synthesis of Parent Peropyrene and Its Derivatization
-			/*149 ol5c01196 */"https://doi.org/10.1021/acs.orglett.5c01196.s002",//Reaction Profile Forecasting by Artificial Data Generation for Wittig-Type Geminal Bromofluoroolefination
-			/*150 ol5c01237 */"https://doi.org/10.1021/acs.orglett.5c01237.s002",//Electrochemical Functionalization of Alkenes with 1,3-Dicarbonyl Compounds via Radical Addition
-			/*151 ol5c01266 */"https://doi.org/10.1021/acs.orglett.5c01266.s002",//Quinol–Enedione Rearrangement
-			/*152 ol5c01472 */"https://doi.org/10.1021/acs.orglett.5c01472.s002",//Synthesis of 8H‑Indolo[3,2,1-de]phenanthridin-8-ones via Pd(OAc)2‑Catalyzed Double Oxidative Coupling Dehydrogenations
-			/*153 ol5c01509 */"https://doi.org/10.1021/acs.orglett.5c01509.s002",//Bioinspired Stereoselective Total Synthesis of the Caged Sesquiterpenoid Daphnepapytone A
+			/*102 jo5c02152 */"https://doi.org/10.1021/acs.joc.5c02152.s001",//Fe-BPsalan Complex-Catalyzed Asymmetric 1,3-Dipolar [3 + 2] Cycloaddition of Nitrones with α,β-Unsaturated Acyl Imidazoles
+			/*102 jo5c02152 */"https://doi.org/10.1021/acs.joc.5c02152.s002",//Fe-BPsalan Complex-Catalyzed Asymmetric 1,3-Dipolar [3 + 2] Cycloaddition of Nitrones with α,β-Unsaturated Acyl Imidazoles
+			/*103 jo5c02154 */"https://doi.org/10.1021/acs.joc.5c02154.s002",//Steric Hindrance-Driven Access to 3,4,7-Trihydro-1,2-oxaphosphepine 2‑Oxides from Vinyloxiranes and Phosphoryl Diazomethanes
+			/*104 jo5c02221 */"https://doi.org/10.1021/acs.joc.5c02221.s002",//Palladium-Catalyzed [3 + 2] Annulation of o‑Bromobenzyl Cyanide with Norbornene Derivatives via C(sp3)–H Bond Activation to Yield 1‑Cyanoindane
+			/*104 jo5c02221 */"https://doi.org/10.1021/acs.joc.5c02221.s003",//Palladium-Catalyzed [3 + 2] Annulation of o‑Bromobenzyl Cyanide with Norbornene Derivatives via C(sp3)–H Bond Activation to Yield 1‑Cyanoindane
+			/*104 jo5c02221 */"https://doi.org/10.1021/acs.joc.5c02221.s004",//Palladium-Catalyzed [3 + 2] Annulation of o‑Bromobenzyl Cyanide with Norbornene Derivatives via C(sp3)–H Bond Activation to Yield 1‑Cyanoindane
+			/*104 jo5c02221 */"https://doi.org/10.1021/acs.joc.5c02221.s005",//Palladium-Catalyzed [3 + 2] Annulation of o‑Bromobenzyl Cyanide with Norbornene Derivatives via C(sp3)–H Bond Activation to Yield 1‑Cyanoindane
+			/*104 jo5c02221 */"https://doi.org/10.1021/acs.joc.5c02221.s006",//Palladium-Catalyzed [3 + 2] Annulation of o‑Bromobenzyl Cyanide with Norbornene Derivatives via C(sp3)–H Bond Activation to Yield 1‑Cyanoindane
+			/*105 jo5c02305 */"https://doi.org/10.1021/acs.joc.5c02305.s002",//Palladium-Catalyzed Denitrogenative Suzuki Coupling of Benzothiatriazine Dioxides for Bi(hetero)aryl-2-sulfonamides
+			/*106 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s001",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
+			/*106 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s002",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
+			/*106 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s003",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
+			/*106 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s004",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
+			/*106 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s005",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
+			/*106 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s006",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
+			/*106 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s007",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
+			/*106 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s008",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
+			/*106 jo5c02308 */"https://doi.org/10.1021/acs.joc.5c02308.s009",//Characteristic Flavaglines with Therapeutic Potential for Ischemic Stroke from Aglaia perviridis
+			/*107 jo5c02383 */"https://doi.org/10.1021/acs.joc.5c02383.s001",//Chemoselective Synthesis of Fluorinated 1,3-Thiazines via Sonication-Assisted [3 + 3] Annulation of Thioamides and α‑CF3 Styrene
 
-			/*154 ol5c01576 */"https://doi.org/10.1021/acs.orglett.5c01576.s002",//Ru(II)-Catalyzed Reactions of ortho-Hydroxy Enaminones with Diazonaphthoquinones: Synthesis of Unsymmetrical Biaryl Diols
-			/*155 ol5c01666 */"https://doi.org/10.1021/acs.orglett.5c01666.s003",//Loading Thiacorrole with Various Aromatic Rings: Enhanced NIR Absorption and Improved OER Activity
-			/*156 ol5c01713 */"https://doi.org/10.1021/acs.orglett.5c01713.s002",//Scalable Photoinduced Cycloaddition for the Synthesis of Biorelevant Oxazoles
-			/*157 ol5c01721 */"https://doi.org/10.1021/acs.orglett.5c01721.s002",//Manganese Complex-Catalyzed (De)hydrogenative Cyclization toward the Selective Synthesis of 2‑Substituted and 2,3-Disubstituted 4‑Quinolones
-			/*158 ol5c01805 */"https://doi.org/10.1021/acs.orglett.5c01805.s002",//P(O)Me2–Alkenes: From Synthesis to Applications
 
-			/*159 ol5c01936 */"https://doi.org/10.1021/acs.orglett.5c01936.s001",//General Strategy to Access N‑Aryl Heptamethine Indocyanines for Optical Tuning
+			/*108 jo5c02414 */"https://doi.org/10.1021/acs.joc.5c02414.s002",//Benzo[1,2,3]thiadiazole as an Attractive Heteroaromatic Platform for Two-Photon Absorbing (TPA) Fluorophores: TPA Enhancement in Quasi-Quadrupolar S,N-Heteroarene-Cored Dyes via Skeletal Editing and Regioisomeric Control
 
-			/*160 ol5c01966 */"https://doi.org/10.1021/acs.orglett.5c01966.s002",//Chan-Evans-Lam Cu(II)-Catalyzed C–O Cross-Couplings: Broadening Synthetic Access to Functionalized Vinylic Ethers
-			/*161 ol5c02004 */"https://doi.org/10.1021/acs.orglett.5c02004.s002",//Ligand-Enabled Room-Temperature Three-Component Strategy for Mono-α-arylation of Acetone with Cyclic Diaryliodonium Salts and Alkenes
 
-			/*162 ol5c02079 */"https://doi.org/10.1021/acs.orglett.5c02079.s002",//Access to SCF3‑Substituted Indolizines via a Photocatalytic Late-Stage Functionalization Protocol
-			/*163 ol5c02150 */"https://doi.org/10.1021/acs.orglett.5c02150.s002",//All-Aza meso-Benzo-Fused Triphyrins(2.1.1): Large Bathochromic Shift and Intensified Absorption via π‑Extended Conjugation
-			/*164 ol5c02270 */"https://doi.org/10.1021/acs.orglett.5c02270.s002",//Image-Based Machine Learning Using Inkjet-Printed Chemicals: Mixing Ratio Prediction and Metal Ion Detection
-
-			/*165 ol5c02286 */"https://doi.org/10.1021/acs.orglett.5c02286.s002",//Rh(III)-Catalyzed Atroposelective C–H Cyanation of 1‑Aryl benzo[h]isoquinolines
-			/*166 ol5c02366 */"https://doi.org/10.1021/acs.orglett.5c02366.s002",//Ir(III)-Photocatalyzed Stereoselective Synthesis of 2‑Azadienes
-			/*167 ol5c02373 */"https://doi.org/10.1021/acs.orglett.5c02373.s001",//Copper-Catalyzed Enantioselective Acylcyanation of Alkenes
-
-			/*168 ol5c02418 */"https://doi.org/10.1021/acs.orglett.5c02418.s001",//Inherent Weakly Coordinating Oxo-Group-Directed Ruthenium(II)-Catalyzed C5 Functionalization of 2‑Arylquinolin-4(1H)‑ones
-			/*169 ol5c02448 */"https://doi.org/10.1021/acs.orglett.5c02448.s001",//Irradiation of Bifunctional Masked Ketone Pro-Aromatics Unveils Autoinductive Autocatalysis via Electron Donor–Acceptor (EDA) Complexes
-			/*170 ol5c02494 */"https://doi.org/10.1021/acs.orglett.5c02494.s001",//HFIP-Assisted Denitrogenative Radical Fragmentation Pathway of Areneazo-2-(2-nitro)propanes: Cross-Coupling of Aryl Radicals with Alkynes and Coupling Reagents
-			/*171 ol5c02495 */"https://doi.org/10.1021/acs.orglett.5c02495.s001",//Stereoelectronic Tuning of Heteroaromatic γ‑Amino Acids for Turn Mimetic Design
-			/*172 ol5c02499 */"https://doi.org/10.1021/acs.orglett.5c02499.s001",//Subtle Strain-Release-Driven Aroylation of Four-Membered Rings via Decarboxylative Giese-Type Reactions
-			/*173 ol5c02536 */"https://doi.org/10.1021/acs.orglett.5c02536.s001",//Nickel-Catalyzed Selective Monoamination of 1,2-Diols: An Affordable Approach to Amino Alcohols
-			/*174 ol5c02559 */"https://doi.org/10.1021/acs.orglett.5c02559.s002",//Benzo[b]furan Platforms for Tailorable Photochromic Molecules
-			/*175 ol5c02563 */"https://doi.org/10.1021/acs.orglett.5c02563.s001",//Access to Tetrahydropyrido[1,2‑a]indol-6-one Derivatives via NHC-Catalyzed Radical Dearomatization of Indoles
-
-			/*176 ol5c02636 */"https://doi.org/10.1021/acs.orglett.5c02636.s001",//Iridium-Catalyzed Regio- and Enantioselective C7-Allylic Alkylation of 4‑Aminoindoles
-			/*176 ol5c02636 */"https://doi.org/10.1021/acs.orglett.5c02636.s002",//Iridium-Catalyzed Regio- and Enantioselective C7-Allylic Alkylation of 4‑Aminoindoles
-
-			/*177 ol5c02670 */"https://doi.org/10.1021/acs.orglett.5c02670.s001",//Visible-Light-Promoted Selenylative Radical Cyclization of 2‑Vinyl‑N‑Aryl Imines to 3H‑Indoles via Oxygen Photosensitization
-			/*178 ol5c02689 */"https://doi.org/10.1021/acs.orglett.5c02689.s001",//Isolation of a Transition-State Geometry via Intermolecular Stabilization in the Solid State
-
-			/*179 ol5c02724 */"https://doi.org/10.1021/acs.orglett.5c02724.s001",//Rapid Access to Spiro[4.6]-(di)benzodiazepine Indenes: Regioselective Rh(III)-Catalyzed Cascade C–H Activation/Spiroannulation
-			/*180 ol5c02783 */"https://doi.org/10.1021/acs.orglett.5c02783.s001",//Photoinduced Ligated Boryl Radical-Mediated Alkynylation of Inert Iodoalkanes
-			/*181 ol5c02876 */"https://doi.org/10.1021/acs.orglett.5c02876.s001",//Construction of Acyclic Vicinal All-Carbon Quaternary and Tertiary Carbon Stereocenters via a Stereoselective Claisen Rearrangement
-			/*182 ol5c02878 */"https://doi.org/10.1021/acs.orglett.5c02878.s001",//A Visible-Light Organophotoredox-Catalyzed anti-Markovnikov Hydrocarbamoylation of Unactivated Alkene and Cyclization Cascade via Radical Relay
-			/*183 ol5c03138 */"https://doi.org/10.1021/acs.orglett.5c03138.s002",//Visible-Light-Induced CdSeS/CdZnSe/ZnSe/ZnS Quantum-Dot-Catalyzed Three-Component Reaction for the Synthesis of α‑(4-Pyridyl)benzylaniline Derivatives
-			/*184 ol5c03157 */"https://doi.org/10.1021/acs.orglett.5c03157.s002",//Construction of Benzothiophene-Fused 1,2,4-Triazocines via a Skeletal Editing Strategy and DFT Study on the Reaction Mechanism
-			/*184 ol5c03157 */"https://doi.org/10.1021/acs.orglett.5c03157.s003",//Construction of Benzothiophene-Fused 1,2,4-Triazocines via a Skeletal Editing Strategy and DFT Study on the Reaction Mechanism
-			/*185 ol5c03186 */"https://doi.org/10.1021/acs.orglett.5c03186.s001",//Alectinib Synthesis through Formal α‑Arylation of Enone
-			/*186 ol5c03195 */"https://doi.org/10.1021/acs.orglett.5c03195.s002",//Easy Access to Vinylene-Linked Conjugated Homopolymers from Phosphonates via an O2‑Mediated Aldehyde-Free Strategy
-			/*187 ol5c03229 */"https://doi.org/10.1021/acs.orglett.5c03229.s002",//Visible-Light-Induced Difunctionalization of Styrenes with Aryl Hydrazines and tert-Butyl Nitrite: One-Pot Access to α‑Arylethanone Oximes
-			/*188 ol5c03241 */"https://doi.org/10.1021/acs.orglett.5c03241.s001",//Photochemical Flow Synthesis of Trisubstituted Oxazoles Enabled by High-Power UV–B LED Modules
-			/*189 ol5c03345 */"https://doi.org/10.1021/acs.orglett.5c03345.s002",//Three-Component Reaction through Rh(III)-Catalyzed Strain Release of Bicyclo[1.1.0]butanes
+			/*109 jo5c02497 */"https://doi.org/10.1021/acs.joc.5c02497.s001",//C–H/N–H Annulation of N‑Aryl Triazolinediones with Diazo Compounds: A Route to Cinnoline Analogues
+			/*110 jo5c02500 */"https://doi.org/10.1021/acs.joc.5c02500.s001",//A Concise Approach to Enantioselective Synthesis of Euolutchuols A, B, and D and Their Structure Assignment
+			/*111 jo5c02524 */"https://doi.org/10.1021/acs.joc.5c02524.s002",//Pd- and Cu-Cocatalyzed Anaerobic Olefin Aminoboration
 
 
 
-			/*190 ol5c03615 */"https://doi.org/10.1021/acs.orglett.5c03615.s001",//Regiodivergent Addition of Allylic Acetals in Ruthenium-Catalyzed C–H/N–H Annulation Reaction
-			/*191 ol5c03626 */"https://doi.org/10.1021/acs.orglett.5c03626.s002",//Furan Oxidation-Cyclization to Oxazepines: Favoring 7‑exo-trig over 6‑endo-trig and 5‑exo-trig Trajectories
-			/*192 ol5c03636 */"https://doi.org/10.1021/acs.orglett.5c03636.s002",//Generation [via Tetradehydro-Diels–Alder Reactions] and Reactivity of 6‑Fluorocyclohexa-1,2,4-triene Intermediates
+			/*112 jo5c02653 */"https://doi.org/10.1021/acs.joc.5c02653.s001",//Visible-Light-Induced Amination of Pyridylphosphonium Salts: Synthesis of Heteroarylamines via Radical–Radical Coupling
 
-			/*193 ol5c03906 */"https://doi.org/10.1021/acs.orglett.5c03906.s002",//C‑4 Functional Group-Driven Stereodivergent Synthesis and Late-Stage Diversification of 6‑Deoxy l‑talo/gulo Rare Sugars
-			/*194 ol5c04004 */"https://doi.org/10.1021/acs.orglett.5c04004.s002",//Pd-Catalyzed Enantioselective Double C–H Activation and Transmetalation: Synthesis of 2‑Heteroaryl/aryl-Ferrocenealdehydes
+			/*113 jo5c02735 */"https://doi.org/10.1021/acs.joc.5c02735.s002",//Enantioselective Organocatalytic Desymmetric Acylation as an Access to Orthogonally Protected myo-Inositols
+			/*114 jo5c02870 */"https://doi.org/10.1021/acs.joc.5c02870.s002",//Synthesis of Quinolizidine-Based 1,4-Azaphosphinines via Cyclization of Heteroarylmethyl(alkynyl)phosphinates
+			/*115 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s001",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
+			/*115 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s002",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
+			/*115 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s003",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
+			/*115 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s004",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
+			/*115 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s005",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
+			/*115 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s006",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
+			/*115 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s007",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
+			/*115 ol4c03845 */"https://doi.org/10.1021/acs.orglett.4c03845.s008",//Enantio- and Regioselective Propargylation and Allenylation of β,γ-Unsaturated α‑Ketoesters with Allenyl Boronate Regulated by Chiral Copper/Zinc
+			/*116 ol4c04173 */"https://doi.org/10.1021/acs.orglett.4c04173.s002",//Pd(OAc)2‑Catalyzed Approach to Phenanthridin-6(5H)‑one Skeletons
+
+			/*117 ol4c04348 */"https://doi.org/10.1021/acs.orglett.4c04348.s002",//Construction of 3,6-Difluoropyridones via a Double Defluorinative [3 + 3] Annulation of α‑Fluoro-α-sulfonylacetamides with 2‑CF3‑Alkenes
+			/*118 ol4c04509 */"https://doi.org/10.1021/acs.orglett.4c04509.s002",//Thermocontrolled Radical Nucleophilicity vs Radicophilicity in Regiodivergent C–H Functionalization
+			/*119 ol4c04625 */"https://doi.org/10.1021/acs.orglett.4c04625.s002",//Sc-Catalyzed Asymmetric [2 + 2] Annulation of 2‑Alkynylnaphthols with Dienes to Access Cyclobutene Frameworks
+			/*120 ol4c04737 */"https://doi.org/10.1021/acs.orglett.4c04737.s002",//Diverse Annulations of Alkyl(phenyl)phosphinic Chlorides and Imines
+			/*120 ol4c04737 */"https://doi.org/10.1021/acs.orglett.4c04737.s003",//Diverse Annulations of Alkyl(phenyl)phosphinic Chlorides and Imines
+
+			/*121 ol4c04779 */"https://doi.org/10.1021/acs.orglett.4c04779.s002",//Diastereoselective Synthesis of Cyclobutanes via Rh-Catalyzed Unprecedented C–C Bond Cleavage of Alkylidenecyclopropanes
+			/*122 ol4c04827 */"https://doi.org/10.1021/acs.orglett.4c04827.s001",//Catalytic Enantioselective [4+1]-Annulation of Carboxylic Acids with Cyclopropenes
+			/*123 ol4c04834 */"https://doi.org/10.1021/acs.orglett.4c04834.s002",//Visible Light-Induced Sequential Nitrogen Insertion and Benzotriazolation of Quinoxaline-2(1H)‑ones
+			/*124 ol5c00129 */"https://doi.org/10.1021/acs.orglett.5c00129.s002",//Visible-Light-Driven Synergistic Se/Fe Catalysis for the Synthesis of 2‑Aminoquinoline Derivatives
+			/*125 ol5c00146 */"https://doi.org/10.1021/acs.orglett.5c00146.s001",//TBHP-Promoted Trifluoromethyl-difluoromethylthiolation of Unactivated Alkenes with CF3SO2Na and PhSO2SCF2H
+			/*126 ol5c00325 */"https://doi.org/10.1021/acs.orglett.5c00325.s002",//Trifluoromethylation on a Nucleoside Sugar Scaffold: Design and Synthesis of 6′-Trifluoromethylcyclopentenyl-purine and -pyrimidine Nucleosides
+
+			/*128 ol5c00519 */"https://doi.org/10.1021/acs.orglett.5c00519.s002",//Pyridyl Pyrimidylsulfones as Latent Pyridyl Nucleophiles in Palladium-Catalyzed Cross-Coupling Reactions
+			/*129 ol5c00576 */"https://doi.org/10.1021/acs.orglett.5c00576.s002",//A Metal-Catalyzed Tunable Reaction of Ylides with Hydroxylamine Derivatives
+			/*130 ol5c00600 */"https://doi.org/10.1021/acs.orglett.5c00600.s002",//Direct Synthesis of Amides from Nitro Compounds and Alcohols via Borrowing Hydrogenation
+			/*131 ol5c00623 */"https://doi.org/10.1021/acs.orglett.5c00623.s002",//Fe/Mn-Synergistic Promoted C(sp3)–Bi Cross-Coupling of Alkyl Chlorides with Chlorobismuthanes to Access Air-Stable Alkylbismuthanes
+			/*132 ol5c00666 */"https://doi.org/10.1021/acs.orglett.5c00666.s002",//Synthesis of Dithioester Derivatives by Base-Mediated Fragmentation of 1,3-Dithiolanes
+			/*132 ol5c00666 */"https://doi.org/10.1021/acs.orglett.5c00666.s003",//Synthesis of Dithioester Derivatives by Base-Mediated Fragmentation of 1,3-Dithiolanes
+			/*132 ol5c00666 */"https://doi.org/10.1021/acs.orglett.5c00666.s004",//Synthesis of Dithioester Derivatives by Base-Mediated Fragmentation of 1,3-Dithiolanes
+			/*133 ol5c00705 */"https://doi.org/10.1021/acs.orglett.5c00705.s002",//Generation and Use of Bicyclo[1.1.0]butyllithium under Continuous Flow Conditions
+			/*134 ol5c00711 */"https://doi.org/10.1021/acs.orglett.5c00711.s002",//Highly Stereoselective [2 + 4] Annulation of Phosphenes and Enones with β‑Electron-Donating Groups
+			/*134 ol5c00711 */"https://doi.org/10.1021/acs.orglett.5c00711.s003",//Highly Stereoselective [2 + 4] Annulation of Phosphenes and Enones with β‑Electron-Donating Groups
+			/*135 ol5c00782 */"https://doi.org/10.1021/acs.orglett.5c00782.s001",//Carbonyl vs Hydroxy: Rhodium catalyzed carbonyl ylide triggered diastereoselective synthesis of 2,5-methano-1,3-benzoxazepines
+			/*136 ol5c00806 */"https://doi.org/10.1021/acs.orglett.5c00806.s001",//Modular Approach for Photoinduced Cycloaddition Enabling the Synthesis of Diverse Bioactive Oxazoles
+
+			/*137 ol5c00879 */"https://doi.org/10.1021/acs.orglett.5c00879.s002",//Total Synthesis of (±)-Streptoglyceride A and of Putative (±)-Streptoglyceride C
+			/*138 ol5c00933 */"https://doi.org/10.1021/acs.orglett.5c00933.s001",//A Mechanistic Perspective on Photocatalytic EnT-Enabled C3-N-Heteroarylation of Aryl Quinoxaline via C(sp2)–C(sp2) Coupling
+			/*139 ol5c00948 */"https://doi.org/10.1021/acs.orglett.5c00948.s002",//Nitroalkanes as Ketone Synthetic Equivalents in C–N and C–S Bond Formation Reactions
+			/*140 ol5c00976 */"https://doi.org/10.1021/acs.orglett.5c00976.s002",//CAN-Mediated Synthesis of 2‑Deoxy Sugars: Access to Chiral 2‑Deoxy 3‑Bisindolyl‑C‑glycosides
+			/*141 ol5c00995 */"https://doi.org/10.1021/acs.orglett.5c00995.s002",//Unlocking the Potential of CF3-Alkynes in Gold-Catalyzed Oxygen Transfer: A Direct Route to Trifluoromethylated Compounds
+			/*142 ol5c01081 */"https://doi.org/10.1021/acs.orglett.5c01081.s002",//Ce(OTf)<sub>3</sub>‑Catalyzed Asymmetric 6π Cyclization of Triaryldivinyl Ketones
+			/*142 ol5c01081 */"https://doi.org/10.1021/acs.orglett.5c01081.s003",//Ce(OTf)3‑Catalyzed Asymmetric 6π Cyclization of Triaryldivinyl Ketones
+			/*143 ol5c01172 */"https://doi.org/10.1021/acs.orglett.5c01172.s002",//Synthesis of Parent Peropyrene and Its Derivatization
+			/*144 ol5c01196 */"https://doi.org/10.1021/acs.orglett.5c01196.s002",//Reaction Profile Forecasting by Artificial Data Generation for Wittig-Type Geminal Bromofluoroolefination
+			/*145 ol5c01237 */"https://doi.org/10.1021/acs.orglett.5c01237.s002",//Electrochemical Functionalization of Alkenes with 1,3-Dicarbonyl Compounds via Radical Addition
+
+			/*146 ol5c01472 */"https://doi.org/10.1021/acs.orglett.5c01472.s002",//Synthesis of 8H‑Indolo[3,2,1-de]phenanthridin-8-ones via Pd(OAc)2‑Catalyzed Double Oxidative Coupling Dehydrogenations
+			/*147 ol5c01509 */"https://doi.org/10.1021/acs.orglett.5c01509.s002",//Bioinspired Stereoselective Total Synthesis of the Caged Sesquiterpenoid Daphnepapytone A
+
+			/*148 ol5c01576 */"https://doi.org/10.1021/acs.orglett.5c01576.s002",//Ru(II)-Catalyzed Reactions of ortho-Hydroxy Enaminones with Diazonaphthoquinones: Synthesis of Unsymmetrical Biaryl Diols
+
+			/*149 ol5c01713 */"https://doi.org/10.1021/acs.orglett.5c01713.s002",//Scalable Photoinduced Cycloaddition for the Synthesis of Biorelevant Oxazoles
+			/*150 ol5c01721 */"https://doi.org/10.1021/acs.orglett.5c01721.s002",//Manganese Complex-Catalyzed (De)hydrogenative Cyclization toward the Selective Synthesis of 2‑Substituted and 2,3-Disubstituted 4‑Quinolones
+			/*151 ol5c01805 */"https://doi.org/10.1021/acs.orglett.5c01805.s002",//P(O)Me2–Alkenes: From Synthesis to Applications
+
+			/*152 ol5c01936 */"https://doi.org/10.1021/acs.orglett.5c01936.s001",//General Strategy to Access N‑Aryl Heptamethine Indocyanines for Optical Tuning
+
+			/*153 ol5c01966 */"https://doi.org/10.1021/acs.orglett.5c01966.s002",//Chan-Evans-Lam Cu(II)-Catalyzed C–O Cross-Couplings: Broadening Synthetic Access to Functionalized Vinylic Ethers
+			/*154 ol5c02004 */"https://doi.org/10.1021/acs.orglett.5c02004.s002",//Ligand-Enabled Room-Temperature Three-Component Strategy for Mono-α-arylation of Acetone with Cyclic Diaryliodonium Salts and Alkenes
+
+			/*155 ol5c02079 */"https://doi.org/10.1021/acs.orglett.5c02079.s002",//Access to SCF3‑Substituted Indolizines via a Photocatalytic Late-Stage Functionalization Protocol
+			/*156 ol5c02150 */"https://doi.org/10.1021/acs.orglett.5c02150.s002",//All-Aza meso-Benzo-Fused Triphyrins(2.1.1): Large Bathochromic Shift and Intensified Absorption via π‑Extended Conjugation
+
+
+			/*157 ol5c02286 */"https://doi.org/10.1021/acs.orglett.5c02286.s002",//Rh(III)-Catalyzed Atroposelective C–H Cyanation of 1‑Aryl benzo[h]isoquinolines
+			/*158 ol5c02366 */"https://doi.org/10.1021/acs.orglett.5c02366.s002",//Ir(III)-Photocatalyzed Stereoselective Synthesis of 2‑Azadienes
+			/*159 ol5c02373 */"https://doi.org/10.1021/acs.orglett.5c02373.s001",//Copper-Catalyzed Enantioselective Acylcyanation of Alkenes
+
+			/*160 ol5c02418 */"https://doi.org/10.1021/acs.orglett.5c02418.s001",//Inherent Weakly Coordinating Oxo-Group-Directed Ruthenium(II)-Catalyzed C5 Functionalization of 2‑Arylquinolin-4(1H)‑ones
+			/*161 ol5c02448 */"https://doi.org/10.1021/acs.orglett.5c02448.s001",//Irradiation of Bifunctional Masked Ketone Pro-Aromatics Unveils Autoinductive Autocatalysis via Electron Donor–Acceptor (EDA) Complexes
+			/*162 ol5c02494 */"https://doi.org/10.1021/acs.orglett.5c02494.s001",//HFIP-Assisted Denitrogenative Radical Fragmentation Pathway of Areneazo-2-(2-nitro)propanes: Cross-Coupling of Aryl Radicals with Alkynes and Coupling Reagents
+
+
+			/*163 ol5c02536 */"https://doi.org/10.1021/acs.orglett.5c02536.s001",//Nickel-Catalyzed Selective Monoamination of 1,2-Diols: An Affordable Approach to Amino Alcohols
+
+			/*164 ol5c02563 */"https://doi.org/10.1021/acs.orglett.5c02563.s001",//Access to Tetrahydropyrido[1,2‑a]indol-6-one Derivatives via NHC-Catalyzed Radical Dearomatization of Indoles
+
+			/*165 ol5c02636 */"https://doi.org/10.1021/acs.orglett.5c02636.s001",//Iridium-Catalyzed Regio- and Enantioselective C7-Allylic Alkylation of 4‑Aminoindoles
+			/*165 ol5c02636 */"https://doi.org/10.1021/acs.orglett.5c02636.s002",//Iridium-Catalyzed Regio- and Enantioselective C7-Allylic Alkylation of 4‑Aminoindoles
+
+			/*166 ol5c02670 */"https://doi.org/10.1021/acs.orglett.5c02670.s001",//Visible-Light-Promoted Selenylative Radical Cyclization of 2‑Vinyl‑N‑Aryl Imines to 3H‑Indoles via Oxygen Photosensitization
+			/*167 ol5c02689 */"https://doi.org/10.1021/acs.orglett.5c02689.s001",//Isolation of a Transition-State Geometry via Intermolecular Stabilization in the Solid State
+
+			/*168 ol5c02724 */"https://doi.org/10.1021/acs.orglett.5c02724.s001",//Rapid Access to Spiro[4.6]-(di)benzodiazepine Indenes: Regioselective Rh(III)-Catalyzed Cascade C–H Activation/Spiroannulation
+			/*169 ol5c02783 */"https://doi.org/10.1021/acs.orglett.5c02783.s001",//Photoinduced Ligated Boryl Radical-Mediated Alkynylation of Inert Iodoalkanes
+			/*170 ol5c02876 */"https://doi.org/10.1021/acs.orglett.5c02876.s001",//Construction of Acyclic Vicinal All-Carbon Quaternary and Tertiary Carbon Stereocenters via a Stereoselective Claisen Rearrangement
+			/*171 ol5c02878 */"https://doi.org/10.1021/acs.orglett.5c02878.s001",//A Visible-Light Organophotoredox-Catalyzed anti-Markovnikov Hydrocarbamoylation of Unactivated Alkene and Cyclization Cascade via Radical Relay
+			/*172 ol5c03138 */"https://doi.org/10.1021/acs.orglett.5c03138.s002",//Visible-Light-Induced CdSeS/CdZnSe/ZnSe/ZnS Quantum-Dot-Catalyzed Three-Component Reaction for the Synthesis of α‑(4-Pyridyl)benzylaniline Derivatives
+			/*173 ol5c03157 */"https://doi.org/10.1021/acs.orglett.5c03157.s002",//Construction of Benzothiophene-Fused 1,2,4-Triazocines via a Skeletal Editing Strategy and DFT Study on the Reaction Mechanism
+			/*173 ol5c03157 */"https://doi.org/10.1021/acs.orglett.5c03157.s003",//Construction of Benzothiophene-Fused 1,2,4-Triazocines via a Skeletal Editing Strategy and DFT Study on the Reaction Mechanism
+			/*174 ol5c03186 */"https://doi.org/10.1021/acs.orglett.5c03186.s001",//Alectinib Synthesis through Formal α‑Arylation of Enone
+			/*175 ol5c03195 */"https://doi.org/10.1021/acs.orglett.5c03195.s002",//Easy Access to Vinylene-Linked Conjugated Homopolymers from Phosphonates via an O2‑Mediated Aldehyde-Free Strategy
+			/*176 ol5c03229 */"https://doi.org/10.1021/acs.orglett.5c03229.s002",//Visible-Light-Induced Difunctionalization of Styrenes with Aryl Hydrazines and tert-Butyl Nitrite: One-Pot Access to α‑Arylethanone Oximes
+			/*177 ol5c03241 */"https://doi.org/10.1021/acs.orglett.5c03241.s001",//Photochemical Flow Synthesis of Trisubstituted Oxazoles Enabled by High-Power UV–B LED Modules
+			/*178 ol5c03345 */"https://doi.org/10.1021/acs.orglett.5c03345.s002",//Three-Component Reaction through Rh(III)-Catalyzed Strain Release of Bicyclo[1.1.0]butanes
 
 
 
-			/*195 ol5c04277 */"https://doi.org/10.1021/acs.orglett.5c04277.s002",//Copper-Catalyzed Divergent C–S Bond Cleavage of Vinylsulfonium Salts: Controllable Phosphoryloxylation and Phosphinoylation
-			/*195 ol5c04277 */"https://doi.org/10.1021/acs.orglett.5c04277.s003",//Copper-Catalyzed Divergent C–S Bond Cleavage of Vinylsulfonium Salts: Controllable Phosphoryloxylation and Phosphinoylation
-			/*195 ol5c04277 */"https://doi.org/10.1021/acs.orglett.5c04277.s004",//Copper-Catalyzed Divergent C–S Bond Cleavage of Vinylsulfonium Salts: Controllable Phosphoryloxylation and Phosphinoylation
-			/*195 ol5c04277 */"https://doi.org/10.1021/acs.orglett.5c04277.s005",//Copper-Catalyzed Divergent C–S Bond Cleavage of Vinylsulfonium Salts: Controllable Phosphoryloxylation and Phosphinoylation
-
-			/*196 ol5c04403 */"https://doi.org/10.1021/acs.orglett.5c04403.s001",//Visible-Light-Promoted Catalytic Redox-Neutral Alkynylation of Alkyl Boronic Acids/Boronates
-
-			/*197 ol5c04507 */"https://doi.org/10.1021/acs.orglett.5c04507.s002",//Photoredox/Nickel Dual-Catalyzed Asymmetric C‑Alkylation of Nitroalkanes with α‑Bromoketones
+			/*179 ol5c03615 */"https://doi.org/10.1021/acs.orglett.5c03615.s001",//Regiodivergent Addition of Allylic Acetals in Ruthenium-Catalyzed C–H/N–H Annulation Reaction
+			/*180 ol5c03626 */"https://doi.org/10.1021/acs.orglett.5c03626.s002",//Furan Oxidation-Cyclization to Oxazepines: Favoring 7‑exo-trig over 6‑endo-trig and 5‑exo-trig Trajectories
 
 
-			/*198 ol5c04750 */"https://doi.org/10.1021/acs.orglett.5c04750.s002",//Synthesis of Carborane-Fused Lactones via Electrochemical C(sp3)–H Lactonization: Access to Benzofused Lactone Bioisosteres
-			/*199 ol5c04969 */"https://doi.org/10.1021/acs.orglett.5c04969.s001",//Access to Alkylative/Hydrodefluorination of Trifluoromethyl Ketones Using Photoexcited Dihydropyridines
+			/*181 ol5c03906 */"https://doi.org/10.1021/acs.orglett.5c03906.s002",//C‑4 Functional Group-Driven Stereodivergent Synthesis and Late-Stage Diversification of 6‑Deoxy l‑talo/gulo Rare Sugars
+			/*182 ol5c04004 */"https://doi.org/10.1021/acs.orglett.5c04004.s002",//Pd-Catalyzed Enantioselective Double C–H Activation and Transmetalation: Synthesis of 2‑Heteroaryl/aryl-Ferrocenealdehydes
+
+
+
+			/*183 ol5c04277 */"https://doi.org/10.1021/acs.orglett.5c04277.s002",//Copper-Catalyzed Divergent C–S Bond Cleavage of Vinylsulfonium Salts: Controllable Phosphoryloxylation and Phosphinoylation
+			/*183 ol5c04277 */"https://doi.org/10.1021/acs.orglett.5c04277.s003",//Copper-Catalyzed Divergent C–S Bond Cleavage of Vinylsulfonium Salts: Controllable Phosphoryloxylation and Phosphinoylation
+			/*183 ol5c04277 */"https://doi.org/10.1021/acs.orglett.5c04277.s004",//Copper-Catalyzed Divergent C–S Bond Cleavage of Vinylsulfonium Salts: Controllable Phosphoryloxylation and Phosphinoylation
+			/*183 ol5c04277 */"https://doi.org/10.1021/acs.orglett.5c04277.s005",//Copper-Catalyzed Divergent C–S Bond Cleavage of Vinylsulfonium Salts: Controllable Phosphoryloxylation and Phosphinoylation
+
+			/*184 ol5c04403 */"https://doi.org/10.1021/acs.orglett.5c04403.s001",//Visible-Light-Promoted Catalytic Redox-Neutral Alkynylation of Alkyl Boronic Acids/Boronates
+
+			/*185 ol5c04507 */"https://doi.org/10.1021/acs.orglett.5c04507.s002",//Photoredox/Nickel Dual-Catalyzed Asymmetric C‑Alkylation of Nitroalkanes with α‑Bromoketones
+
+
+			/*186 ol5c04750 */"https://doi.org/10.1021/acs.orglett.5c04750.s002",//Synthesis of Carborane-Fused Lactones via Electrochemical C(sp3)–H Lactonization: Access to Benzofused Lactone Bioisosteres
+			/*187 ol5c04969 */"https://doi.org/10.1021/acs.orglett.5c04969.s001",//Access to Alkylative/Hydrodefluorination of Trifluoromethyl Ketones Using Photoexcited Dihydropyridines
+
+
 
 	};
 	
@@ -640,14 +642,16 @@ public class ExtractorTestACS2 extends ExtractorTest {
 					articles.add(info);
 					System.out.println("article " + articles.size() + ": " + info.acscode);
 				}
-				info = new ACSInfo(i + 1, pubdoi);
+				info = new ACSInfo(articles.size() + 1, pubdoi);
 				lastPubDOI = pubdoi;
 			}
 			String supplementId = datadoi.substring(datadoi.length() - 3); // 004
 			info.add(supplementId);
 		}
-		if (info != null)
+		if (info != null) {
 			articles.add(info);
+			System.out.println("article " + articles.size() + ": " + info.acscode);
+		}
 		System.out.println(articles.size() + " test articles; " + acs2TestSet.length + " SI ZIP file");
 		return articles;
 	}
@@ -712,8 +716,8 @@ public class ExtractorTestACS2 extends ExtractorTest {
 	public static void main(String[] args) {
 		// args[] may override localSourceArchive as ars[1] 
 		// and testDir as args[2]; args[0] is ignored;
-		int first = 69; // first test to run
-		int last = 69; // last test to run
+		int first = 145; // first test to run
+		int last = 145; // last test to run
 		run(args, first, last, localSourceACS, localTargetDir);
 	}
 }

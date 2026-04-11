@@ -24,8 +24,10 @@ public class JeolDataObjectVendorPlugin extends NmrMLDataObjectVendorPlugin {
 			NmrMLJeolAcquStreamReader jeol = new NmrMLJeolAcquStreamReader(bytes);
 			System.out.println("JEOL " + originPath);
 			setParams(jeol, jeol.read());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
+			String err = e.getMessage() + " reading " + originPath;
+			addProperty("note", err);
+			System.err.println(err);
 			e.printStackTrace();
 		}
 		return getVendorDataSetKey();

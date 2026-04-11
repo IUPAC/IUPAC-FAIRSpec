@@ -9,7 +9,7 @@ import numpy as np
 pd.options.mode.chained_assignment = 'raise'
 
 # compound_id.py
-# 2026.04.08 BH -- full ACS2025 set processed; just the missing RAR reader issue left
+# 2026.04.11 BH -- fixed mnova problem when file is in zip file top directory
 # 2026.04.05 BH -- refactored, re-organized; working automation tested on jo4c02622
 # 2026.04.02 BH -- rewrote final assignment of paths to avoid search for compound ID in paths, causing error with "1r" found in "S1r" in jo4c02622 
 # 2026.03.14 BH -- refactoring, commenting
@@ -119,13 +119,13 @@ def __print_column(df, name):
     '''
     Debugging - list column in column format
     '''
-    print(f"df[{name}]\n {df[name]}\n")
+    #print(f"df[{name}]\n {df[name]}\n")
 
 def __print_df(name, df):
     '''
     Debugging - print df
     '''
-    print(f"df {name}\n {df.to_string()}\n")
+    #print(f"df {name}\n {df.to_string()}\n")
 
 
 def __is_data_object(token):
@@ -474,8 +474,7 @@ def __get_useful_file_maps(compound_root_df):
     cmpd_id_col_map = {}
 
 
-    #__print_df("crdf", compound_root_df)
-
+    
     #             compound_id_path identified_compound_id                         path_text_final
     # 0     [S1a, S1a 13C, 0, pdata]                    S1a   jo4c02622_si_001/S1/S1a/S1a 13C/pdata
     # 1      [S1a, S1a 1H, 0, pdata]                    S1a    jo4c02622_si_001/S1/S1a/S1a 1H/pdata
@@ -488,17 +487,17 @@ def __get_useful_file_maps(compound_root_df):
         path_parts = row['compound_id_path']
         compound_id = row['identified_compound_id']
         path_text_final = row['path_text_final']
-        if len(path_parts) > 2:
-            dataset_folder = str(path_parts[1])            
-        else:
-          dataset_folder = "NA"
-        for file_index in range(len(path_parts)-1):
-            filename = path_parts[file_index+1]              
+        match len(path_parts):
+            case 1:
+                dataset_folder = path_parts[0]
+            case _:
+                dataset_folder = str(path_parts[1])            
+        for file_index in range(len(path_parts)):
+            filename = path_parts[file_index]              
             if filename.lower().endswith(USEFUL_EXTENSIONS):
                 __add_map_item(useful_file_map, compound_id, dataset_folder, filename)
                 __add_map_item(path_map, compound_id, dataset_folder, path_text_final)
                 __add_map_item(cmpd_id_col_map, compound_id, dataset_folder, cmpd_id_col)
-    
     return (useful_file_map, path_map, cmpd_id_col_map)
     
 def add_useful_files(compound_root_df, final_df):
@@ -521,6 +520,8 @@ def map_dataset_folders(compound_root_df, final_df):
       Check if there are dataset folders within compound_id folders
       Return a DataFrame with columns "compound_id" and "dataset_folders"
     '''
+
+    # problem here with mnova files, no "dataset" folders
     dataset_folder_map = {}
     path_map = {}
     cmpd_id_col_map = {}
@@ -529,15 +530,15 @@ def map_dataset_folders(compound_root_df, final_df):
         compound_id = row['identified_compound_id']
         path_text_final = row['path_text_final']
         cmpd_id_col = row['compound_id_column']
-      
-      # check if there is a folder inside the compound_id folder
-        if len(path_parts) > 2:
-            folder_name = path_parts[1]          
-            if compound_id not in dataset_folder_map:
-                dataset_folder_map[compound_id] = set()
-                dataset_folder_map[compound_id].add(folder_name)
-                path_map[compound_id] = path_text_final
-                cmpd_id_col_map[compound_id] = cmpd_id_col
+        # check if there is a folder inside the compound_id folder
+        if len(path_parts) <= 2:
+            path_parts = [path_parts[0],path_parts[0],path_parts[0]]
+        folder_name = path_parts[1]
+        if compound_id not in dataset_folder_map:
+            dataset_folder_map[compound_id] = set()
+            dataset_folder_map[compound_id].add(folder_name)
+            path_map[compound_id] = path_text_final
+            cmpd_id_col_map[compound_id] = cmpd_id_col
 
     final_df['dataset_folders'] = final_df['compound_id'].map(
         lambda x: list(dataset_folder_map.get(x, []))
@@ -577,7 +578,6 @@ def get_final_compound_name(final_df, counts_series):
     for compound_id_folder in final_df['compound_id']:
         max_count = 0
         for value, count in counts_series.items():
-            #print(f"val={value} count={count}")
             if value in compound_id_folder:
                 if count > max_count:
                     max_token = value
@@ -588,15 +588,14 @@ def get_final_compound_name(final_df, counts_series):
     tokens_in_compound_id_folder_name_set = set(tokens_in_compound_id_folder_name)
 
     # finds if a token is occuring a lot, and if it is, it's likely not part of the compound_id number
+    final_df['compound_name'] = final_df['compound_id']
     for token_found in tokens_in_compound_id_folder_name_set:
-        final_df['compound_name'] = final_df['compound_id']
         word_freq = tokens_in_compound_id_folder_name.count(token_found)
         if word_freq > len(tokens_in_compound_id_folder_name)/1.5:
             # removing "." from ".zip"
-            final_df['compound_name'] = final_df['compound_id'].str.replace(token_found, "")
+            final_df['compound_name'] = final_df['compound_name'].str.replace(token_found, "")
             final_df['compound_name'] = final_df['compound_name'].str.replace("of ", "")
             final_df['compound_name'] = final_df['compound_name'].str.strip(".")
-
 
 # abandoned -- fails when "1r" found in "S1r" jo4c02622    
 # def lambda_find_full_important_file_path(row, paths_list):
@@ -744,7 +743,6 @@ def generate_df_for_tsv(df, final_df):
         .drop(columns='pdata_path')
         .drop(columns='useful_files')
         .drop(columns='path_text_final')
-        .drop(columns='__is_experiment')
         .reset_index(drop=True)
     )
 
@@ -758,7 +756,6 @@ def generate_df_for_tsv(df, final_df):
         .drop(columns='compound_name')
         .drop(columns='dataset_folders')
         .drop(columns='path_text_final')
-        .drop(columns='__is_experiment')
         .reset_index(drop=True)
     )
 
@@ -772,7 +769,6 @@ def generate_df_for_tsv(df, final_df):
         .drop(columns='compound_name')
         .drop(columns='dataset_folders')
         .drop(columns='path_text_final')
-        .drop(columns='__is_experiment')
         .reset_index(drop=True)
     )
 
@@ -867,7 +863,7 @@ def generate_compound_map_df(df, compound_root_df):
     # creating the final_df, includes all of the information with each compound_id label once
     local_df = pd.DataFrame(df['compound_id_label'].unique(), columns=['compound_id'])
 
-    #__print_df("local_df", local_df)
+    __print_df("local_df", local_df)
 
     #        compound_id
     # 0          S1a
@@ -883,7 +879,7 @@ def generate_compound_map_df(df, compound_root_df):
     # creates dataset_folders column which includes the dataset folders for each identified compound_id
     map_dataset_folders(compound_root_df, local_df)
 
-    #__print_df("local_df-1", local_df)
+    __print_df("local_df-1", local_df)
 
     #    compound_id dataset_folders                         path_text_final
     # 0          S1a       [S1a 13C]   jo4c02622_si_001/S1/S1a/S1a 13C/pdata
@@ -893,7 +889,7 @@ def generate_compound_map_df(df, compound_root_df):
 
     add_useful_files(compound_root_df, local_df)
 
-    #__print_df("local_df-2", local_df)
+    __print_df("local_df-2", local_df)
 
     #    compound_id dataset_folders                                                                                                                                              path_text_final                                                       useful_files
     # 0          S1a       [S1a 13C]      {'S1a 13C': ['jo4c02622_si_001/S1/S1a/S1a 13C/pdata'], 'S1a 1H': ['jo4c02622_si_001/S1/S1a/S1a 1H/pdata'], 'NA': ['jo4c02622_si_001/S1/S1a/S1a.mnova']}   {'S1a 13C': ['pdata'], 'S1a 1H': ['pdata'], 'NA': ['S1a.mnova']}
@@ -949,8 +945,12 @@ def generate_compound_map_df(df, compound_root_df):
         val = str(val).replace(" + ", "+")
     local_df['compound_id'] = local_df['compound_id'].str.replace(' + ', '+', regex=False)               
     local_df = local_df.dropna()
+
+    
     get_final_compound_name(local_df, counts_series)
 
+    #print(f"line954 {local_df.to_string()}")
+    
     # writing the pdata file path
     filtered_df_regex = compound_root_df[compound_root_df['compound_id_path'].apply(lambda x: x[-1] == "pdata")].copy()
     filtered_df_regex['my_string'] = filtered_df_regex['compound_id_path'].str.join('/')
@@ -962,11 +962,14 @@ def generate_compound_map_df(df, compound_root_df):
     local_df = local_df.merge(path_mapping, on='compound_id', how='left')
     local_df['pdata_path'] = local_df['pdata_path'].apply(lambda x: x if isinstance(x, list) else [])
 
+
     # organizing rows of df (could probably delete this)
     rows_order = ["compound_id_column", "compound_name", "compound_id", "dataset_folders", "pdata_path", "useful_files", "path_text_final"]
 
     #__print_df("local_df", local_df)
     local_df = local_df[rows_order]
+
+
     return local_df
 
 def __add_parent_folder_column(df, final_df, ignore_parents=None):
@@ -1016,8 +1019,12 @@ def add_compound_ids_from_experiment_parents(df, final_df, path_parts_zip):
         axis='columns'
     )
 
-    final_df = final_df[~final_df['__is_match']]
-    final_df = final_df.drop(columns=['__is_match'])
+    temp_df = final_df[~final_df['__is_match']]
+
+    if len(temp_df) == 0:
+        return final_df
+
+    final_df = temp_df.drop(columns=['__is_match'])
 
     def lambda_set_is_experiment(row):
         '''
@@ -1034,11 +1041,11 @@ def add_compound_ids_from_experiment_parents(df, final_df, path_parts_zip):
     __add_parent_folder_column(df, final_df)
     compound_ids_to_be_added = set(final_df[final_df['__is_experiment'] == True]['parent_folder'])
     final_df = final_df[~final_df['__is_experiment']]
-    #final_df = final_df.drop(columns=['__is_experiment'])
+    final_df = final_df.drop(columns=['__is_experiment'])
     try:
         final_df = final_df.drop(columns=['parent_folder'])
     except:
-        print("error!")
+        print("error in Python dropping parent folder!")
         
     def private_add_compound_id(df, final_df, compound_id, path_parts_zip):
         '''
@@ -1061,7 +1068,7 @@ def add_compound_ids_from_experiment_parents(df, final_df, path_parts_zip):
                     new_path = '/'.join(new_list)
                     pdata_paths.append(new_path)
 
-        print(f"compoundID {compound_id}")
+        # print(f"compoundID {compound_id}")
 
         new_data = []
         new_paths = []
@@ -1123,12 +1130,20 @@ def add_compound_ids_from_experiment_parents(df, final_df, path_parts_zip):
 #     mask = final_df['pdata_path'].apply(lambda row: len(row) > 0 and ("pdata" in row[0]))
 #     final_df.loc[mask, "tech'] = "NMR"
 
+def get_missing_files(df, tsv_df):
+    paths = list(tsv_df['path'])
+
+    # Filter using a list comprehension for the boolean mask
+    mask = [not any(sub in str(val) for sub in paths) for val in df['path_text_final']]
+    df_local = df[mask]
+    return list(df_local['path_text_final'])
+
 
 ############## end of method definitions
 
 
 # Read file paths and set global variables
-filename = f"file_list_{dataset_DOI}.txt"
+filename = f"{dataset_DOI}_file_list.txt"
 with open(filename, "r", encoding="utf-8") as f:
     paths = [str(line.strip()) for line in f if line.strip()]
 
@@ -1160,7 +1175,7 @@ df = update_df_for_global_folders(df, global_folders, candidate_freq)
 # this assumes that all the important information is after the compound_id 
 compound_root_df = get_data_frame_for_compound_paths(df)
 
-#__print_df("crd", compound_root_df)
+__print_df("crd", compound_root_df)
 
 # compound_root_df
 #      compound_id_column           compound_id_path identified_compound_id                         path_text_final
@@ -1171,10 +1186,13 @@ compound_root_df = get_data_frame_for_compound_paths(df)
 
 final_df = generate_compound_map_df(df, compound_root_df)
 
+__print_df("final_df", final_df)
+
 #                     compound_id_column                         compound_name compound_id dataset_folders                                       pdata_path                                                                useful_files                                                                                                                                                                                                                                                              path_text_final
 # 0                   {'S1a 13C': [1], 'S1a 1H': [1], 'NA': [1]}           S1a         S1a       [S1a 13C]        [S1a/S1a 13C/0/pdata, S1a/S1a 1H/0/pdata]       {'S1a 13C': ['pdata'], 'S1a 1H': ['pdata'], 'NA': ['S1a.mnova']}                                                                                                                           {'S1a 13C': ['jo4c02622_si_001/S1/S1a/S1a 13C/pdata'], 'S1a 1H': ['jo4c02622_si_001/S1/S1a/S1a 1H/pdata'], 'NA': ['jo4c02622_si_001/S1/S1a/S1a.mnova']}
 # 1                   {'S1b 13C': [1], 'S1b 1H': [1], 'NA': [1]}           S1b         S1b       [S1b 13C]        [S1b/S1b 13C/0/pdata, S1b/S1b 1H/0/pdata]       {'S1b 13C': ['pdata'], 'S1b 1H': ['pdata'], 'NA': ['S1b.mnova']}                                                                                                                           {'S1b 13C': ['jo4c02622_si_001/S1/S1b/S1b 13C/pdata'], 'S1b 1H': ['jo4c02622_si_001/S1/S1b/S1b 1H/pdata'], 'NA': ['jo4c02622_si_001/S1/S1b/S1b.mnova']}
 # 2                   {'S1c 13C': [1], 'S1c 1H': [1], 'NA': [1]}           S1c         S1c       [S1c 13C]        [S1c/S1c 13C/0/pdata, S1c/S1c 1H/0/pdata]       {'S1c 13C': ['pdata'], 'S1c 1H': ['pdata'], 'NA': ['S1c.mnova']}                                                                                                                           {'S1c 13C': ['jo4c02622_si_001/S1/S1c/S1c 13C/pdata'], 'S1c 1H': ['jo4c02622_si_001/S1/S1c/S1c 1H/pdata'], 'NA': ['jo4c02622_si_001/S1/S1c/S1c.mnova']}
+
 
 # final check for compound IDs from experiment parent. Necessary?
 final_df = add_compound_ids_from_experiment_parents(df, final_df, path_parts_zip)
@@ -1183,6 +1201,15 @@ final_df = add_compound_ids_from_experiment_parents(df, final_df, path_parts_zip
 final_compound_names = final_df['compound_name'].unique().tolist()
 final_compound_ids = final_df['compound_id'].unique().tolist()
 final_compound_id_count = len(final_compound_ids)
+
+(tsv_df, final_spec_ids, final_spec_id_count) = generate_df_for_tsv(df, final_df)
+
+__print_df("tsv_df", tsv_df)
+
+missing_files = get_missing_files(df, tsv_df)
+missing_files_count = len(missing_files)
+if missing_files_count > 0:
+    print(f"{missing_files_count} missing files:\n{'\n'.join(missing_files)}")
 
 ########### write files
 
@@ -1214,11 +1241,7 @@ with open(f'{dataset_DOI}_compound_id_count', "w", encoding="utf-8") as f:
 # 2          S1c       [S1c 13C]   jo4c02622_si_001/S1/S1c/S1c 13C/pdata
 # 3          S1d       [S1d 13C]   jo4c02622_si_001/S1/S1d/S1d 13C/pdata
 
-(final_df, final_spec_ids, final_spec_id_count) = generate_df_for_tsv(df, final_df)
-
-#__print_df("final_df", final_df)
-
-#     compound_name compound_id dataobject_id                  full_matched_path
+#     compound_name compound_id dataobject_id                  path
 # 0             S1a         S1a    S1a_13C   jo4c02622_si_001/S1/S1a/S1a 13C/
 # 1             S1a         S1a     S1a_1H    jo4c02622_si_001/S1/S1a/S1a 1H/
 # 2             S1a         S1a  S1a.mnova  jo4c02622_si_001/S1/S1a/S1a.mnova
@@ -1226,16 +1249,30 @@ with open(f'{dataset_DOI}_compound_id_count', "w", encoding="utf-8") as f:
 # 4             S1b         S1b     S1b_1H    jo4c02622_si_001/S1/S1b/S1b 1H/
 
 
-final_df.to_csv(f'{dataset_DOI}_final_output.tsv', index=False, sep='\t')
+tsv_df.to_csv(f'{dataset_DOI}_final_output.tsv', index=False, sep='\t')
 # write <doi>_spec_id_list.txt and <doi>_spec_id_count
 with open(f'{dataset_DOI}_data_object_id_list.txt', "w", encoding="utf-8") as f:
     f.write(f'{dataset_DOI} '+';'.join(list(map(str, final_spec_ids)))+'\n')
 with open(f'{dataset_DOI}_data_object_id_count', "w", encoding="utf-8") as f:
     f.write("0" * final_spec_id_count)
 
+with open(f'{dataset_DOI}_missing_files_list.txt', "w", encoding="utf-8") as f:
+    f.write(f'{dataset_DOI} '+';'.join(missing_files)+'\n')
+with open(f'{dataset_DOI}_missing_files_list.tsv', "w", encoding="utf-8") as f:
+    f.write('\n'.join(missing_files)+'\n')
+with open(f'{dataset_DOI}_missing_files_count', "w", encoding="utf-8") as f:
+    f.write("0" * missing_files_count)
+
 print(f"created {dataset_DOI}_compound_id_list.txt")
 print(f"created {dataset_DOI}_compound_name_list.txt")
 print(f"created {dataset_DOI}_data_object_id_list.txt")
 print(f"created {dataset_DOI}_final_output.tsv")
-print(f"final compound ID count: {final_compound_id_count}  final data object ID count: {final_spec_id_count}")
+if missing_files_count > 0:
+    print(f"created {dataset_DOI}_missing_files_list.txt")
+    print(f"created {dataset_DOI}_missing_files_list.tsv")
+
+print((f"{dataset_DOI} final compound ID count: {final_compound_id_count}\n"
+        f"{dataset_DOI} final data object ID count: {final_spec_id_count}\n"
+        f"{dataset_DOI} missing files count: {missing_files_count}"))
+
 

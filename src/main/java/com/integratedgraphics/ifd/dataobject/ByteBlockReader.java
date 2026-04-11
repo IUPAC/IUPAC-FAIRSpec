@@ -688,7 +688,7 @@ public class ByteBlockReader {
 		String s = new String(setBuf(len), 0, len);
 		if (testing)
 			System.out.println("readString >" + s + "<");
-		return s;
+		return s.trim();
 	}
 
 	/**

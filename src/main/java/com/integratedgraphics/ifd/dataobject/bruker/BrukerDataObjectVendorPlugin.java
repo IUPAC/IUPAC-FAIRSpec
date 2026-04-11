@@ -189,7 +189,8 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 	 * @return
 	 */
 	private boolean readBrukerParameterFileJDX(String originPath, byte[] bytes, boolean isFlush) {
-		int pt = originPath.lastIndexOf('/');
+		int pt1 = originPath.lastIndexOf('|');
+		int pt = Math.max(pt1, originPath.lastIndexOf('/'));
 		String fname = originPath.substring(pt + 1);
 		System.out.println("Bruker plugin processing " + originPath);
 		boolean isAcqus = fname.equals("acqus");

@@ -362,9 +362,10 @@ do
     fi
 
     # the list of all the directories and files in the dataset
-    fileListName="file_list_${doi}.txt"
-    fileListFileRaw="${Working_Directory}/raw_${fileListName}"
+    fileListName="${doi}_file_list.txt"
     fileListFilePruned="${Working_Directory}/${fileListName}"
+    fileListNameRaw="${doi}_file_list_raw.txt"
+    fileListFileRaw="${Working_Directory}/${fileListNameRaw}"
 
     Unzip_Dir="${DOI_Dir}/${doi}_unzip"
 
@@ -388,6 +389,9 @@ do
     ((doiCount++))
 
     if $doCleanMe; then
+
+        # clear output files that are in the working directory
+        rm -f "${Working_Directory}/${doi}"_*
 
         if (! $listOnly); then 
 
@@ -463,8 +467,12 @@ do
         # in case there is a nested pdata that happens to be in it: ol5c0318
         #
 
+        echo -e "${fileList}"
+        echo -e "${fileListFileRaw}"
+
         echo "${fileList}" > "${fileListFileRaw}"
         echo "pruning ${doi}"
+
         # add the file list to Prediction (for processing)
         # but see jo5c00061 [10_NC] fileList=${fileList//-/\/}
 
@@ -474,7 +482,6 @@ do
         prune_file_list "procpar" true 
         echo "${fileList}" > "${fileListFilePruned}"
 
-    echo -e "\nfileList is\n${fileList}"
 
     elif $newPredictionOnly; then
         if [ -d "${Prediction_Dir}" ]; then
@@ -490,10 +497,8 @@ do
         continue
     fi
 
-    echo "predicting $doi"
+    echo "analyzing $doi"
 
-    # clear output files that are in the working directory
-    rm -f "${Working_Directory}/${doi}"_.*
     rm -f "${Working_Directory}/${doi}.err"
 
     # Clear the folder for prediction if it exists
@@ -503,14 +508,14 @@ do
 
     # Create a new folder to store the output from running compound_candidate_identifier.py 
     mkdir "${Prediction_Dir}"
-    cp "${fileListFileRaw}" "${Prediction_Dir}/raw_${fileListName}"
+    cp "${fileListFileRaw}" "${Prediction_Dir}/${fileListNameRaw}"
     cp "${fileListFilePruned}" "${Prediction_Dir}/${fileListName}"
-    cd "${Prediction_Dir}"
 
     # ensure UTF-8
     export PYTHONIOENCODING=utf-8
     # this next line fails in gnu bash because pandas is not present and can't be installed or found
     logFile="${Prediction_Dir}/emma.log"
+    cd "${Prediction_Dir}"
     py "${Emma_Algorithm}" $doi > "${logFile}"  2> "$tempFile"
     # report errors
     
@@ -526,11 +531,13 @@ do
         cp "$tempFile" "${Working_Directory}/${doi}.err"
     else
         echo "No Python errors for ${doi}" 
-        cp "${Prediction_Dir}/${doi}_compound_id_list.txt" "${Working_Directory}"
         cp "${Prediction_Dir}/${doi}_compound_name_list.txt" "${Working_Directory}"
         cp "${Prediction_Dir}/${doi}_compound_id_count" "${Working_Directory}"
         cp "${Prediction_Dir}/${doi}_data_object_id_list.txt" "${Working_Directory}"
         cp "${Prediction_Dir}/${doi}_data_object_id_count" "${Working_Directory}"
+        cp "${Prediction_Dir}/${doi}_missing_files_list.txt" "${Working_Directory}"
+        cp "${Prediction_Dir}/${doi}_missing_files_list.tsv" "${Working_Directory}"
+             cp "${Prediction_Dir}/${doi}_missing_files_count" "${Working_Directory}"
         cd "${Working_Director}"
         cat "${doi}_compound_id_list.txt"
         cat "${doi}_data_object_id_list.txt"

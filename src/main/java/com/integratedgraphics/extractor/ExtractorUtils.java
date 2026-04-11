@@ -475,13 +475,20 @@ public class ExtractorUtils {
 			for (int i = a.length; --i >= 0;) {
 				String[] info = a[i];
 				String path = info[PATH];
+				if (path == null)
+					continue;
+				int pt = path.indexOf("|");
+				if (pt >= 0)
+					path = path.replace("|", "__/");
 				String col = info[CMPD_ID_COL];
 				try {
 					int icol = (int) Double.parseDouble(col) + 1;
 					String[] parts = path.split("/");
 					StringBuffer sb = new StringBuffer();
 					for (int j = 1; j <= icol; j++) {
-						sb.append(parts[j]).append('/');
+						sb.append(parts[j]);
+						if (!parts[j].endsWith("|"))
+							sb.append('/');
 					}
 					info[CMPD_PATH] = sb.toString().replace("__/", "|");
 					System.out.println(info[CMPD_ID] + " " + info[CMPD_PATH]);
