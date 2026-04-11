@@ -285,7 +285,7 @@ public class ExtractorTestACS2 extends ExtractorTest {
 
 			// javaLine
 			/*1 jo4c02089 */"https://doi.org/10.1021/acs.joc.4c02089.s002",//Ring-Size-Dependent Selectivity of the β‑Hydride Elimination in Heck-Type Arylations of exo-Methylene Cycloketones: Chalcones versus 2‑Benzyl-1-naphthols
-			/*-66 jo4c02094 */"https://doi.org/10.1021/acs.joc.4c02094.s002",//Meta-, Regioselective Amination of Cyclic Diaryliodoniums through C–I and C–O Bond Cleavages: An Access to Functionalized Coumarins
+			/*2 jo4c02094 */"https://doi.org/10.1021/acs.joc.4c02094.s002",//Meta-, Regioselective Amination of Cyclic Diaryliodoniums through C–I and C–O Bond Cleavages: An Access to Functionalized Coumarins
 			/*2 jo4c02094 */"https://doi.org/10.1021/acs.joc.4c02094.s003",//Meta-, Regioselective Amination of Cyclic Diaryliodoniums through C–I and C–O Bond Cleavages: An Access to Functionalized Coumarins
 			/*2 jo4c02094 */"https://doi.org/10.1021/acs.joc.4c02094.s004",//<i>Meta</i>-, Regioselective Amination of Cyclic Diaryliodoniums through C–I and C–O Bond Cleavages: An Access to Functionalized Coumarins
 			/*3 jo4c02335 */"https://doi.org/10.1021/acs.joc.4c02335.s002",//TEMPO-Mediated Direct C(sp2)–H Alkoxylation/Aryloxylation of 1,4-Quinones
@@ -720,8 +720,8 @@ public class ExtractorTestACS2 extends ExtractorTest {
 	public static void main(String[] args) {
 		// args[] may override localSourceArchive as ars[1] 
 		// and testDir as args[2]; args[0] is ignored;
-		int first = 145; // first test to run
-		int last = 145; // last test to run
+		int first = 1; // first test to run
+		int last = 200; // last test to run
 		run(args, first, last, localSourceACS, localTargetDir);
 	}
 }

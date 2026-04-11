@@ -514,6 +514,8 @@ public class ExtractorUtils {
 				return this;
 			dataSource.rootPath = rootPath;
 			automationData = new ArrayList<>();
+			if (data == null)
+				System.out.println("????");
 			String root = rootPath + "/";
 			//TODO if necessary automationCompoundColumn = new int[data.length];
 			for (int i = 0; i < data.length; i++) {
