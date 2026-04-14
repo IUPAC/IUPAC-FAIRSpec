@@ -218,11 +218,13 @@ prune_file_list() {
         # and reverse order of lines
         # also remove unneeded directories
         if $isfile; then
-            fdata=$fileList
+            fdata="${fileList}"
         else
             fdata="${dirList}"
         fi
         fdata=$(echo "$fdata" | grep "${var1}$")
+
+        
         if ! $isfile; then
             resort_fdata fdata "${var}" 
             resort_fdata fileList ""
@@ -253,7 +255,7 @@ prune_file_list() {
                     if [[ "${file}" == "${path}"* ]]; then
                         havePath=true
                         if [[ ! "$file" == "$line" ]]; then
-                            #echo "removing ${files[thisfile]}"
+                            ##echo "removing ${files[thisfile]}"
                             files[thisfile]=""
                         fi
                     elif $havePath; then
@@ -274,7 +276,7 @@ prune_file_list() {
                     if $newPath; then
                         newPath=false
                         line=${lines[thisline]}
-                            #echo -e "\nline=\n${line}" 
+                        #echo -e "\nnewPath line=\n${line}" 
                         path0="${line%%$var1*}/"
                         path1="${line}/"
                         if [[ "$fileList" == *"$path1"* ]]; then
@@ -284,25 +286,34 @@ prune_file_list() {
                             # so we will ignore
                             echo "zip file does not have $path1 !"
                         fi
+                        #echo "newPath: ${haveVar2} path0=${path0} path1=${path1}"
                         havePath=false
                     fi
                     file=${files[thisfile]}
+                    #echo "file is ${file}"
                     if [[ "${file}" == "${path0}"* ]]; then
                         # xxxx/*
+                        #echo "file is in path"
+                        #echo "havePath=$havePath"
                         if ! $havePath; then
+                            #echo "donthavePath"
                             if $haveVar2; then
+                                #echo "haveVar2"
                                 # have xxxx/pdata/ somewhere
                                 # replace file with directory
                                 #echo -e "setting line $thisfile  to \n${line}"
+                                
                                 files[thisfile]="${line}"
+                                #echo -e "${files[thisfile]}"
+                                
                                 havePath=true
                             fi
                             ((thisfile++))
                             continue
                         fi
-                        #echo "setting line $thisfile to blank"
+                        #echo "setting line $thisfile to blank was ${files[thisfile]}"
                         files[thisfile]=""
-                    else
+                    elif $havePath; then
                         #echo -e "no match for $thisfile file\n$file\nis not in path\n$path0"
                         # on to the next yyyy/...
                         # Skip all directory lines that contain the current path
@@ -315,7 +326,7 @@ prune_file_list() {
                                 #echo -e "skipping\n${nextline}"
                                 continue
                             fi
-                            #echo -e "next:\n$nextline\n$file"
+                            #echo -e "nextline,file\n$nextline\n$file"
                             break
                         done
                         if [[ $thisline -eq $nlines ]]; then
@@ -467,22 +478,36 @@ do
         # in case there is a nested pdata that happens to be in it: ol5c0318
         #
 
-        echo -e "${fileList}"
-        echo -e "${fileListFileRaw}"
-
+        #echo -e "??fileList is\n${fileList}"
+        #echo -e "??dirList is\n${dirList}"
         echo "${fileList}" > "${fileListFileRaw}"
         echo "pruning ${doi}"
 
         # add the file list to Prediction (for processing)
         # but see jo5c00061 [10_NC] fileList=${fileList//-/\/}
 
+        #echo "??filelist"
+        #echo "${fileList}"
+
+        #echo "??dirlist"
+        #echo "${dirList}"
+
         prune_file_list "pdata" false   
+        #echo "??pdata"
+        #echo "${fileList}"
 
         prune_file_list "acqu" true 
-        prune_file_list "procs" true 
-        prune_file_list "procpar" true 
-        echo "${fileList}" > "${fileListFilePruned}"
+        #echo "??acqu"
+        #echo "${fileList}"
 
+        prune_file_list "procs" true 
+        #echo "??procs"
+        #echo "${fileList}"
+
+        prune_file_list "procpar" true 
+        #echo "??procpar"
+        echo "${fileList}"
+        echo "${fileList}" > "${fileListFilePruned}"
 
     elif $newPredictionOnly; then
         if [ -d "${Prediction_Dir}" ]; then
