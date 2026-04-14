@@ -126,7 +126,7 @@ public class ExtractorTestACS2 extends ExtractorTest {
 		new File(targetDir).mkdirs();
 		String json = null;
 
-		String moreFlags = null;
+		String moreFlags = null;//"-nolaunch";
 
 		int i1 = (findACSID != null ? articles.size() : Math.min(articles.size(), Math.max(1, Math.max(first, last))));
 		int i0 = (findACSID != null ? 1 : Math.min(Math.max(1, Math.min(first, last)), i1));
