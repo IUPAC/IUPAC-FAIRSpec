@@ -82,6 +82,9 @@ USEFUL_EXTENSIONS = ('.mol', 'cdx', 'cdxml', '.jdf' ,'.mnova', 'pdata', 'procpar
 # TODO-this should be broken out by resource path (first path)
 GLOBAL_THRESHOLD = 0.3  # fractional frequency to qualify as a common, global path;
 
+# Token separators: characters to treat as delimiters when tokenizing compound IDs
+TOKEN_SEPARATORS = ('-', '_', '.', ' ', '\\', '[', ']', ',', ';', ':','(', ')')
+
 
 
 ######### all methods are static methods (they do not reference global values, only their parameters)
@@ -500,6 +503,104 @@ def __get_useful_file_maps(compound_root_df):
                 __add_map_item(cmpd_id_col_map, compound_id, dataset_folder, cmpd_id_col)
     return (useful_file_map, path_map, cmpd_id_col_map)
     
+# FAY addition 
+    
+def __choose_suitable_token(token1, token2, pattern=r"\d[a-zA-Z]*"):
+    '''
+    Compares two tokens and decides which one looks more similar to a compound name using regex.
+    Prefers tokens that start with a digit followed by letters (e.g., "3ag", "18b")
+    '''
+    match1 = re.search(pattern, token1)
+    match2 = re.search(pattern, token2)
+    
+    if match1 and not match2:
+        return token1
+    elif match2 and not match1:
+        return token2
+    
+    return token1
+
+
+def __strip_repeated_tokens(compound_ids, min_token_length=2):
+    '''
+    Removes common tokens across compound IDs by keeping only lowest-frequency tokens.
+    Replaces separators (-, _, ., /) with / and tokenizes.
+    Returns list in same order as input to maintain 1-to-1 mapping.
+    
+    param min_token_length: minimum length of token to consider
+    '''
+    # Quick exit if everything is None
+    if not any(id is not None for id in compound_ids):
+        return compound_ids
+        
+    token_counts = Counter()
+    modified_compound_ids = []
+    
+    # Process original list to preserve the exact indexing of None values
+    for compound_id in compound_ids:
+        if compound_id is None:
+            modified_compound_ids.append(None)
+            continue
+            
+        modified_id = compound_id
+        # Use centralized TOKEN_SEPARATORS for consistent tokenization
+        for sep in TOKEN_SEPARATORS:
+            modified_id = modified_id.replace(sep, '/')
+        # Remove quotes and other non-alphanumeric punctuation
+        modified_id = modified_id.replace("'", '').replace('"', '')
+        
+        modified_compound_ids.append(modified_id)
+
+        # Filtering tokens by stripping whitespace, removing empty, and filtering short tokens and pure numbers
+        compound_tokens = [
+            t.strip() for t in modified_id.split('/') 
+        ]
+        token_counts.update(set(compound_tokens))
+           
+    # Reconstruct the IDs keeping only the lowest-frequency tokens
+    result = []
+    for compound_id in modified_compound_ids:
+        if compound_id is None:
+            result.append(None)
+            continue
+            
+        tokens = [
+            t.strip() for t in compound_id.split('/') 
+            #if t.strip() and len(t.strip()) >= min_token_length and not t.strip().isdigit()
+        ]
+        
+        if not tokens:
+            result.append(compound_id)
+            continue
+            
+        min_frequency = min(token_counts.get(t, 0) for t in tokens)
+        kept_tokens = [t for t in tokens if token_counts.get(t, 0) == min_frequency]
+        
+        current_best_token = kept_tokens[0]
+
+        if len(kept_tokens) > 1:
+            for i in range(1, len(kept_tokens)):
+                current_best_token = __choose_suitable_token(current_best_token, kept_tokens[i])
+        
+        # Filter out experiment/data object keywords using existing constants
+        is_experiment = any(current_best_token.startswith(keyword.lower()) for keyword in EXPERIMENT_KEYWORDS_LC)
+        is_data_obj = any(current_best_token.startswith(keyword.lower()) for keyword in DATA_OBJECT_NAMES)
+        if is_experiment or is_data_obj or current_best_token.lower().startswith("neo"):
+            result.append(None)
+            continue
+        
+        if(current_best_token.startswith("COSY") or  
+           current_best_token.startswith("HMBC") or 
+           current_best_token.startswith("Neo") or 
+           current_best_token.startswith("NMR")):
+            continue
+        current_best_token = current_best_token.replace("compound",'')
+        current_best_token = current_best_token.replace("MHBC",'')
+        
+        result.append(current_best_token)
+            
+    return result
+
 def add_useful_files(compound_root_df, final_df):
     '''
         Deprecated.
@@ -561,7 +662,7 @@ def __is_candidate(folder, global_folders):
     if folder in global_folders:
         return False
     if __is_ignore_folder(folder):
-        return false
+        return False
     if __is_data_object(folder):
         return False
     return True
@@ -577,6 +678,7 @@ def get_final_compound_name(final_df, counts_series):
     tokens_in_compound_id_folder_name = []
     for compound_id_folder in final_df['compound_id']:
         max_count = 0
+        max_token = 0
         for value, count in counts_series.items():
             if value in compound_id_folder:
                 if count > max_count:
@@ -593,9 +695,9 @@ def get_final_compound_name(final_df, counts_series):
         word_freq = tokens_in_compound_id_folder_name.count(token_found)
         if word_freq > len(tokens_in_compound_id_folder_name)/1.5:
             # removing "." from ".zip"
-            final_df['compound_name'] = final_df['compound_name'].str.replace(token_found, "")
-            final_df['compound_name'] = final_df['compound_name'].str.replace("of ", "")
-            final_df['compound_name'] = final_df['compound_name'].str.strip(".")
+            final_df['compound_name'] = final_df['compound_name'].astype(str).str.replace(token_found, "")
+            final_df['compound_name'] = final_df['compound_name'].astype(str).str.replace("of ", "")
+            final_df['compound_name'] = final_df['compound_name'].astype(str).str.strip(".")
 
 # abandoned -- fails when "1r" found in "S1r" jo4c02622    
 # def lambda_find_full_important_file_path(row, paths_list):
@@ -899,6 +1001,21 @@ def generate_compound_map_df(df, compound_root_df):
 
     # tidy up the ' + ' business
     local_df['compound_id'] = local_df['compound_id'].str.replace(' + ', '+', regex=False)         
+
+    # FAY addition
+    
+    # Strip repeated tokens to remove repeated tokens
+    compound_id_list = local_df['compound_id'].dropna().tolist()
+    stripped_ids = __strip_repeated_tokens(compound_id_list)
+    
+    # Create mapping from original to stripped IDs (1-to-1, preserving order)
+    id_mapping = {}
+    for original_id, stripped_id in zip(compound_id_list, stripped_ids):
+        if stripped_id is not None and stripped_id.strip():
+            id_mapping[original_id] = stripped_id
+        else:
+            id_mapping[original_id] = original_id  
+    local_df['compound_id'] = local_df['compound_id'].map(id_mapping).fillna(local_df['compound_id'])
 
     # output the file paths
     unique_entries_set = set(itertools.chain.from_iterable(local_df['dataset_folders']))
