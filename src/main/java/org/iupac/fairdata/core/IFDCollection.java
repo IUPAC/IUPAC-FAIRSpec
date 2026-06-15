@@ -118,6 +118,18 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 		}
 		return null;
 	}
+	
+	public T getObjectById(String id) {
+		for (int i = size(); --i >= 0;) {
+			T o = get(i);
+			if (id.equals(o.getID())) 
+				return o;
+		}
+		return null;
+	}
+
+
+
 
 	@Override
 	protected void serializeTop(IFDSerializerI serializer) {
@@ -174,7 +186,8 @@ public abstract class IFDCollection<T extends IFDObject<?>> extends IFDObject<T>
 	 */
 	protected boolean setIDsFromIndexes() {
 		for (int i = size(); --i >= 0;) {
-			get(i).setID("[" + (i + 1) + "]");
+			if (get(i).getID() == null)
+				get(i).setID("[" + (i + 1) + "]");
 		}
 		return true;
 	}

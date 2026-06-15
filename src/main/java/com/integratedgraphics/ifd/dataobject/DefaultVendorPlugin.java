@@ -78,10 +78,21 @@ public abstract class DefaultVendorPlugin implements DataObjectVendorPluginI {
 	 */
 	private int index;
 
+
+	/**
+	 * e.g. "NMR" or "IR"
+	 */
+	public abstract String getType();
+
 	protected DefaultVendorPlugin() {
 		paramRegex = "IFD_METADATA$";
 	}
 	
+	@Override
+	public void setExtractor(MetadataReceiverI extractor) {
+		this.extractor = extractor;
+	}
+
 	@Override
 	public void setIndex(int index) {
 		this.index = index;
@@ -117,10 +128,12 @@ public abstract class DefaultVendorPlugin implements DataObjectVendorPluginI {
 	 * Allow for a modification of the directory path to the resource in the
 	 * rezipped file. For example, all Bruker datasets must start with a fully
 	 * numerical directory name.
+	 * 
+	 * @return dirName here, to accept it by default
 	 */
 	@Override
-	public String getRezipPrefix(String dirName) {
-		return null;
+	public String getRezipPrefix(String dirName, byte[] bytes) {
+		return dirName;
 	}
 
 	@Override

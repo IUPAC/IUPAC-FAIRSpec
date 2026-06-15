@@ -121,7 +121,7 @@ public interface DataObjectVendorPluginI extends PropertyManagerI {
 
 	String getRezipRegex();
 
-	String getRezipPrefix(String dirname);
+	String getRezipPrefix(String dirname, byte[] bytes);
 
 	void initializeDataSet(MetadataReceiverI extractor);
 	

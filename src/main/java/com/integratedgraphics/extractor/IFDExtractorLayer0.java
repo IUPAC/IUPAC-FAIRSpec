@@ -30,6 +30,7 @@ import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
  */
 abstract class IFDExtractorLayer0 extends FindingAidCreator {
 
+	protected boolean processMnovaMOL = true;
 	/**
 	 * "." here is the Eclipse project extract/ directory
 	 * 
@@ -51,6 +52,7 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 * debugging help
 	 */
 	protected String stopAfter;
+	protected String currentPhase;
 	protected Map<String, Map<String, ArchiveEntry>> htArchiveContents = new LinkedHashMap<>();
 	
 	/**_I
@@ -70,6 +72,10 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 			log("stopping after " + what);
 			System.exit(0);
 		}
+	}
+
+	protected void setCurrentPhase(String phase) {
+		currentPhase = phase;
 	}
 
 	/**
@@ -161,6 +167,15 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	protected String localSourceFile;
 
 	/**
+	 * the TSV file created by an automation Python script 
+	 * indicating predicted compound and spectra identifiers
+	 * and their association with file paths
+	 */
+	protected String tsvFile;
+
+	
+
+	/**
 	 * working local name, without the rootPath, as found in _IFD_manifest.json
 	 * 
 	 * phase 2 only
@@ -204,7 +219,12 @@ abstract class IFDExtractorLayer0 extends FindingAidCreator {
 	 */
 	protected List<ObjectParser> objectParsers;
 
+	/**
+	 *  not implemented
+	 */
 	protected ObjectParser compoundDirParser, structureDirParser;
+
+	
 	protected boolean haveDirParser;
 	
 	/**

@@ -60,7 +60,11 @@ public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> 
 		
 		@Override
 		public boolean equals(Object o) {
-			return (o != null && s.equals(o.toString()));
+			return (o != null && 
+					(o instanceof Number ? d == ((Number) o).doubleValue() 
+					: s.equals(o.toString())
+					)
+				   );
 		}
 		
 		@Override
@@ -91,7 +95,11 @@ public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> 
 		
 		@Override
 		public boolean equals(Object o) {
-			return (o != null && s.equals(o.toString()));
+			return (o != null && 
+					(o instanceof Number ? f == ((Number) o).floatValue() 
+					: s.equals(o.toString())
+					)
+				   );
 		}
 		
 		@Override
@@ -166,21 +174,55 @@ public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> 
 	}
 
 
-	 public static void add(List<IFDAttribute> attributes, String name, Object value) {
+	public static void add(List<IFDAttribute> attributes, String name, Object value) {
 		if (value == null || name == null)
 			return;
 		char type = typeof(value);
-		if (type == '?')
-			throw new RuntimeException("Attributes must be either String or Number adding " + value + " type " + value.getClass().getName());
+		if (type == '?') {
+			if (value instanceof ArrayList<?>) {
+				for (Object v: (ArrayList<?>) value) {
+					add(attributes, name, v);
+				}
+				return;
+			}
+			throw new RuntimeException("Attributes must be either String or Number adding " + value + " type "
+					+ value.getClass().getName());			
+		}
 		IFDAttribute p = null;
 		for (int i = attributes.size(); --i >= 0;) {
 			p = attributes.get(i);
-			if (p.name.equals(name))  {
+			if (p.name.equals(name)) {
+				// we have this attribute already
 				if (p.type != type) {
-					throw new RuntimeException("Atribute values must not be of mixed type.");
+					String err = null;
+					try {
+						switch (type) {
+						case 's':
+							// string to double
+							if (p.type == 'n') {
+								value = new Double(value.toString());
+							} else if (p.type == 'b') {
+								value = new Boolean(value.toString());
+							} else {
+								err = "value " + value + " is not a number or boolean";
+							}
+							break;
+						case 'n':
+						case 'b':
+							if (p.type == 's') {
+								value = value.toString();
+							} else {
+								err = "value " + value + " cannot be converted to a string";
+							}
+							break;
+						}
+					} catch (Exception e) {
+
+					}
+					if (err != null)
+						throw new RuntimeException("Attribute values must not be of mixed type." + err + " " + value);
 				}
- 				if (p.values != null ? p.values.contains(value)
-						: p.value.equals(value))
+				if (p.values != null ? p.values.contains(value) : p.value.equals(value))
 					continue;
 				if (p.values == null) {
 					p.values = new ArrayList<Object>();

@@ -71,7 +71,6 @@ public class IFDExtractorMain extends IFDExtractorLayer3 {
 
 	private static final String debugFlags = "-sttxEnuropAfter=end";
 
-	public static final String PAGE_ID_PROPERTY_SOURCE = "*idf.property.compound.id.source*";
 
 // not avaialable -- see IFDExtractor
 //	
@@ -195,6 +194,7 @@ public class IFDExtractorMain extends IFDExtractorLayer3 {
 	public String processFlags(String[] args, String moreFlags) {
 		String flags = super.processFlags(args, moreFlags);
 		stopAfter = getFlagEquals(flags, "-stopafter");
+		tsvFile = getFlagEquals(flags, "-tsvfile");
 		return flags;
 	}
 
@@ -220,6 +220,8 @@ public class IFDExtractorMain extends IFDExtractorLayer3 {
 
 		// set up the extraction
 
+		setCurrentPhase("1");
+
 		processPhase1();
 		FAIRSpecUtilities.refreshLog();
 
@@ -227,11 +229,13 @@ public class IFDExtractorMain extends IFDExtractorLayer3 {
 
 		// now actually do the extraction.
 
+		setCurrentPhase("2");
 		processPhase2();
 		FAIRSpecUtilities.refreshLog();
 		checkStopAfter("2");
 
 		// finish up all processing
+		setCurrentPhase("3");
 		return processPhase3();
 	}
 

@@ -50,6 +50,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	protected String processPhase3() throws IFDException, IOException {
 
 		// Phase 3a
+		setCurrentPhase("3a");
 
 		// Update lengths for representations.
 		// Flag files that are unused because they did not fit a configuration record.
@@ -58,6 +59,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		checkStopAfter("3a");
 
 		// Phase 3b
+		setCurrentPhase("3b");
 		
 		// Clean up the collection by removing any unmanifested files.
 
@@ -77,9 +79,13 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		}
 		checkStopAfter("3b");
 
+		setCurrentPhase("3c");
+
 		phase3cCheckForDuplicateSpecData();
-		checkStopAfter("3c1");
 		helper.removeInvalidData();
+		helper.checkStructuresForNonequivalentInChIs();
+
+		
 		checkStopAfter("3c");
 		
 		if (contentsFile != null) {
@@ -99,6 +105,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 		// Create the finding aid serialization
 
 		String serializedFA = phase3SerializeFindingAid();
+		
 		return serializedFA;
 	}
 
@@ -110,7 +117,7 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 			 sb.append(k).append('\n');
 			 Map<String, ArchiveEntry> map = htArchiveContents.get(k);
 			 for ( Entry<String, ArchiveEntry> e : map.entrySet()) {
-				 String s = e.getKey().replace('/', '\t').replaceAll("\\|", "\t|\t");
+				 String s = e.getKey().replace('/', '\t').replace("|", "\t|\t");
 				 sb.append(s).append('\n');
 			 }
 		 }
@@ -249,8 +256,8 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 	 * Set the type and len fields for structure and spec data
 	 */
 	private void phase3aUpdateCachedRepresentations() {
-		for (String ckey : vendorCache.keySet()) {
-			CacheRepresentation r = vendorCache.get(ckey);
+		for (String ckey : propertyManagerCache.keySet()) {
+			CacheRepresentation r = propertyManagerCache.get(ckey);
 			IFDRepresentableObject<?> obj = getObjectFromLocalizedName(ckey, null);
 			if (obj == null || !r.isValid) {
 				String path = r.getRef().getOriginPath().toString();
@@ -301,7 +308,8 @@ abstract class IFDExtractorLayer3 extends IFDExtractorLayer2 {
 			rootLists.add(r.lstManifest);
 			rootLists.add(r.lstIgnored);
 		}
-		resourceList = resourceList.substring(1);
+		if (resourceList.length() > 0)
+			resourceList = resourceList.substring(1);
 		int nign = FileList.getListCount(rootLists, "ignored");
 		int nrej = FileList.getListCount(rootLists, "rejected");
 

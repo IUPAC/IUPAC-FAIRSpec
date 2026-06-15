@@ -4,6 +4,7 @@
 
 IFD = {		
 	properties:{
+		shortForm: "false", // &shortform=true to minimize spectrum details
 		baseDir: ".",
 		aLoading: null,
 		corsOK: null,

@@ -132,9 +132,6 @@ public class ExtractorTestNMRSHIFTDB extends FindingAidCreator {
 				molProperties = m;
 				molProperties.put("#SPECID", specID);
 			}
-			if (m != null && !m.isEmpty() && !molProperties.equals(m)) {
-				System.out.println("???? " + m + "!=\n" + molProperties);
-			}
 		}
 		return molProperties;
 	}
@@ -492,7 +489,7 @@ public class ExtractorTestNMRSHIFTDB extends FindingAidCreator {
 	}
 
 	@Override
-	public void addDeferredPropertyOrRepresentation(DeferredProperty p) {
+	public void addDeferredPropertyOrRepresentation(FAIRSpecUtilities.DeferredProperty p) {
 		// TODO Auto-generated method stub
 		
 	}

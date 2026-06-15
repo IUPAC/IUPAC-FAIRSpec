@@ -23,6 +23,9 @@ import org.iupac.fairdata.util.JSJSONParser;
 
 import com.integratedgraphics.extractor.ExtractorUtils.ExtractorResource;
 import com.integratedgraphics.extractor.ExtractorUtils.ObjectParser;
+import com.integratedgraphics.extractor.ExtractorUtils.AutomationParser;
+
+import javajs.util.SB;
 
 /**
  * Extraction Phase 1.
@@ -64,7 +67,11 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 * properties or representations from them in Phase 2b that will need to be
 	 * processed in Phase 2c.
 	 */
-	protected Map<String, ExtractorUtils.CacheRepresentation> vendorCache;
+	protected Map<String, ExtractorUtils.CacheRepresentation> propertyManagerCache;
+
+	protected boolean useJarResource;
+
+	protected AutomationParser automationParser;
 
 	protected boolean processPhase1() throws IOException, IFDException {
 		log("!Extracting " + extractScriptFile.getAbsolutePath());
@@ -73,11 +80,10 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		if (!processPubURI())
 			return false;
 		initializePropertyExtraction();
-		vendorCache = new LinkedHashMap<String, ExtractorUtils.CacheRepresentation>();
+		propertyManagerCache = new LinkedHashMap<String, ExtractorUtils.CacheRepresentation>();
 		return true;
 	}
 
-	protected boolean useJarResource;
 	private String getFileStringData(File f) throws IOException {
 		if (useJarResource || !f.exists()) {
 			String path = ExtractorUtils.fixPath(f.getAbsolutePath(), false);
@@ -163,6 +169,13 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		boolean isDefaultStructurePath = false;
 		List<Object> replacements = null;
 
+		String[][] automationData = null;		
+
+		if (tsvFile != null) {
+			// from flags
+			automationData = phase1ProcessAutomationTSVFile(tsvFile);
+			tsvFile = null;
+		}		
 		for (int i = 0; i < jsonArray.size(); i++) {
 			Object o = jsonArray.get(i);
 
@@ -296,13 +309,22 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 					key = IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI;
 				}
 				 
-				if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI)) {
+				if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_REPOSITORY_DOI)) {
+					boolean isRemote = val.startsWith("http");
+					if (isRemote)
+						repositoryURI = val;
+					key = IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI;
+				}
+				 
+				if (key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_URI) ||
+						key.equals(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_DOI)) {
 					// allow for a local version (debugging mostly)
 					boolean isRemote = val.startsWith("http");
 					boolean isRelative = val.startsWith("./"); // as in "./structures"
 					if (isRelative)
 						localSourceFile = null;
 					String local = localizeURL(val);
+					// note that Windows allows //C:/.... and normalizes that to C:\....
 					boolean isFoundLocal = (local.startsWith("file:/") && new File(local.substring(6)).exists()); 
 					if (isFoundLocal) {
 						localSourceFile = local;
@@ -322,8 +344,9 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 							if (isDefaultStructurePath)
 								continue;
 						} else {
-							val = local;
-							localSourceFile = localizeURL(val);
+							val = localizeURL(local);
+							if (new File(val.substring(6)).exists())
+								localSourceFile = val;
 						}
 					}
 					source = htResources.get(val);
@@ -338,6 +361,11 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 					// go ahead and add this data source to the metadata
 				}
 
+				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_AUTOMATION_RESOURCE_ID)) {
+					// conceivably, there could be replacements here. Not tested.
+					parsers.add(new AutomationParser((IFDExtractorMain) this, source, replacements, val, automationData));
+					continue;
+				}
 				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_OBJECT)) {
 					if (source == null) {
 						if (isDefaultStructurePath)
@@ -357,6 +385,14 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 					setExtractorOption(key, val);
 					continue;
 				}
+				
+				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_AUTOMATION_TSV_FILE)) {
+					// can be overridden by argument -tsvfile [filename]
+					if (automationData == null)
+						automationData = phase1ProcessAutomationTSVFile(val);
+					continue;
+				}
+
 				if (key.equals(FAIRSpecExtractorHelper.FAIRSPEC_EXTRACTOR_COMPOUND_ID_DIR)) {
 					compoundDirParser = newObjectParser(source, val, replacements);
 					if (structureDirParser != null && structureDirParser.equals(compoundDirParser))
@@ -426,7 +462,6 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 		objectParsers = parsers;
 	}
 	
-
 	/**
 	 * Parse the script form an IFD-extract.js JSON file starting with the creation
 	 * of a Map by JSJSONParser.
@@ -464,6 +499,25 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 				+ faHelper.getFindingAid().getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_NAME)
 				+ " at "
 				+ faHelper.getFindingAid().getPropertyValue(IFDConst.IFD_PROPERTY_COLLECTIONSET_SOURCE_DATA_LICENSE_URI));
+	}
+
+	private String[][] phase1ProcessAutomationTSVFile(String tsvFile) throws IOException, IFDException {
+		String file = localSourceDir + "/" + tsvFile;
+		String err = "";
+		try {
+			String data = FAIRSpecUtilities.getURLContentsAsString(file);
+			log("!" + file + "\n" + data);
+			String[][] automationData = AutomationParser.readAutomationData(data);
+			if (automationData != null) {
+				log("!phase1ProcessAutomationTSVFile found " + automationData.length + " paths");
+				return automationData;
+			}
+		} catch (Exception e) {
+			// CONTINUE
+		}
+		logErr("file " + tsvFile + " could not be processed for automation data " + err,
+				"phase1ProcessAutomationTSVFile");
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -506,9 +560,7 @@ abstract class IFDExtractorLayer1 extends IFDExtractorLayer0 {
 	 * @throws IFDException
 	 */
 	private ObjectParser newObjectParser(ExtractorResource source, String sObj, List<Object> replacements) throws IFDException {
-		ObjectParser p = new ObjectParser((IFDExtractorMain) this, source, sObj);
-		p.setReplacements(replacements);
-		return p;
+		return new ObjectParser((IFDExtractorMain) this, source, sObj).setReplacements(replacements);
 	}
 
 	protected String toAbsolutePath(String fname) {

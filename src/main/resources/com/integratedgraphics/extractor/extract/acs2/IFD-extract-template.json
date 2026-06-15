@@ -1,0 +1,22 @@
+{"FAIRSpec.extract.version":"0.2.0-alpha","keys":[
+ "https://doi.org/10.1021/acs.joc.5c02152.s002",
+ "https://doi.org/10.1021/acs.joc.5c02152",
+ "https://doi.org/10.1021/acs.orglett.5c04969",
+ "https://doi.org/10.1021/acs.orglett.5c04969.s001",
+ 
+ "$...$ is to be completed by automation",
+
+ {"acsdoi":"https://doi.org/10.1021/"}, 
+ {"ol":"acs.orglett."},{"jo":"acs.joc."},
+ {"journal":"$JOURNAL$"},{"hash":"$HASH$"},{"supp": "$S000"},
+
+ {"IFD.property.collectionset.source_data_license_uri":"https://creativecommons.org/licenses/by-nc/4.0"},
+ {"IFD.property.collectionset.source_data_license_name":"cc-by-nc-4.0"},
+ {"IFDid=IFD.property.collectionset.id":"{acsdoi}{journal}.{hash}"},
+ {"IFD.property.collectionset.source_publication_uri":"https://doi.org/10.1021/{IFDid}"},
+
+ {"#IFD.property.collectionset.source_repository_uri":"https://pubs.acs.org/doi/suppl/10.1021/{IFDid}/suppl_file/ol{hash}_si_002.zip"},
+ {"IFD.property.collectionset.source_repository_uri":"https://ndownloader.figshare.com/files/{figshareid}"},
+
+ {"FAIRSpec.extractor.object":"*/{IFD.representation.dataobject.fairspec.nmr.vendor_dataset::{IFD.property.dataobject.id::{IFD.property.fairspec.compound.id::{IFD.property.structure.id::*}}}.mnova}"}
+]}

@@ -200,6 +200,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 
 	private final static byte[] pngKey = new byte[] { (byte) 0x89, 'P', 'N', 'G' };
 
+	private final static String EMPTY_MOL = "  0  0  0  0  0  0  0  0  0  0";
 	private static final int minBlockLengthForStructureData = 50;
 
 	private MestrelabDataObjectVendorPlugin plugin;
@@ -214,6 +215,8 @@ class MNovaMetadataReader extends ByteBlockReader {
 	private int nPagesTotal;
 	private boolean isQuiet;
 	private BlockData fileStructure;
+
+	private BlockData body, pages;
 
 	private final static String fileBlockVersionData = "file.body.part1.block1";
 
@@ -344,7 +347,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 
 	private void readHeader() throws IOException {
 		seekIn(0);
-		String mestrelabResearchSL = readSimpleString(23);
+		String mestrelabResearchSL = readSimpleString(23).trim();
 		readInt();// byte order mark 
 		System.out.println(mestrelabResearchSL);
 	}
@@ -383,7 +386,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		if (dataBlock == null)
 			return -1;
 		dataBlock.seek();
-		return dataBlock.loc;
+		return dataBlock.blockLoc;
 	}
 
 
@@ -399,7 +402,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		BlockData pageBlock = getBlockFromPath(getPagePath(page, null));
 		System.out.println(pageBlock);
 		if (pageBlock != null) {
-			System.out.println("---reading page " + nPages + " pos=" + pageBlock.loc);
+			System.out.println("---reading page " + nPages + " pos=" + pageBlock.blockLoc);
 			String title = readPageTitle(nPages);
 			System.out.println("page " + nPages + " title = " + title);
 			if (readToParameters(page)) {
@@ -414,7 +417,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 				// this does not allow for structures only.
 				searchForExports(getPosition(), pageBlock.next(), true);
 			} else {
-				// seekIn(pt0);
+				searchForExports(getPosition(), pageBlock.next(), false);
 				//
 				// this allows for structures only --
 				// but it does not work
@@ -568,6 +571,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 */
 	class Param {
 
+		long ptr;
 		String units;
 		String source;
 		String calc;
@@ -585,6 +589,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		 * @throws IOException
 		 */
 		Param(long ptr, int index) throws IOException {
+			this.ptr = ptr;
 			seekIn(ptr);
 			long pt1 = getPosition();
 			readInt(); // 8, 9, A (or 0,2 for older version)
@@ -640,6 +645,8 @@ class MNovaMetadataReader extends ByteBlockReader {
 				map.put("units", units);
 			if (source != null)
 				map.put("source", source);
+			if (ptr > 0)
+				map.put("loc", Integer.valueOf((int) ptr));
 			return map;
 		}
 	}
@@ -687,7 +694,9 @@ class MNovaMetadataReader extends ByteBlockReader {
 				if (nPagesTotal > 1)
 					pageData.put("#page", Integer.valueOf(nPages));
 			}
-			pageData.put(key, param1 == null ? val : param1.toMap());
+			Object o = (param1 == null ? val : param1.toMap());
+			pageData.put(key, o);
+			System.out.println(key + " " + o);
 			if (param2 != null)
 				pageData.put(key + "2", param2.toMap());
 		}
@@ -726,8 +735,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 					}
 					offset = (haveMOL ? -1 : findBytes(molKey, len, false, 0));
 					if (offset >= 0) {
-						haveMOL = true;
-						exportMOL(ptr, offset, nBlocks);
+						haveMOL = exportMOL(ptr, offset, nBlocks);
 					}
 					offset = (havePNG ? -1 : findBytes(pngKey, len, false, 0));
 					if (offset >= 0) {
@@ -1046,37 +1054,77 @@ class MNovaMetadataReader extends ByteBlockReader {
 		return readBytes(len);
 	}
 
-	private void exportMOL(long lastPosition, int skip, int nBlock) throws IOException {
+	private boolean exportMOL(long lastPosition, int skip, int nBlock) throws IOException {
 		// targeting the END of the mol file here, so we need to back up to its start.
 		// note that this is NOT the mol file dropped. It is created in MNova by
 		// OpenBabel.
-		seekIn(lastPosition);
 		long ptr = lastPosition + skip;
-		// testing = showChars = true;
-		// peekIntsAt(lastPosition, skip/4 + 4);
-		readPointer();
-		readInt(); // 107, 109, 110, etc.
-		readFourUnknownInts();
-		readInt(); // 0
-		nextBlock(); // -> 501150
-		nextBlock(); // 178-long Molecule block
-		readInt(); // to next
-		nextBlock();
-		nextBlock();
-		nextBlock();
-		nextSubblock(4);
-		if (peekInt() == -1) {
-			// page 4 22232721/metadatanmr/nmr spectra.mnova
-			readByte();
-			readInts(9); // DANGER, WILL ROBINSON!
+		seekIn(ptr);
+		while (readByte() != 0) {
+			// GO TO END OF STRING
 		}
-		int len = readInt();
-		if (len > 0 && getPosition() + len < ptr + 10) {
+		ptr = getPosition() - 1;
+		long pt0 = findRefRev(lastPosition, ptr);
+		int mlen = (int) (ptr - pt0);
+		if (pt0 < 0) {
+			// SOMETHING AMISS HERE.
+			seekIn(lastPosition);
+			return false;
+		}
+		seekIn(pt0);
+//		
+//		
+////		seekIn(ptr);
+//		peekInts(-200);
+//		BlockData bd = pages.findBlock(ptr);
+//		System.out.println((ptr - bd.blockLoc) + "  " + bd);
+//		// testing = showChars = true;
+//		bd.seek();
+//		peekInts(10);
+		mlen = peekInt();
+		String s = readLenStringSafely();
+		// don't allow files with no atoms or bonds, which are 
+		// certainly more than 100 characters
+		int ptV = s.indexOf("V2000");
+		boolean isOK = (ptV < 0 ||  s.lastIndexOf(EMPTY_MOL, ptV) < 0);
+		if (isOK) {
+			if (s.charAt(0) <= ' ') {
+				s = "MNova "+ s;
+				//don't leave this with whitespace at the beginning of the file
+			}
+			System.out.println(s);
 			nMOL++;
-			byte[] bytes = readBytes(len);
-			handleFileData(nBlock, DefaultStructureHelper.MOL_FILE_DATA, bytes, getPosition(), len, null, null);
+			byte[] bytes = s.getBytes();
+			handleFileData(nBlock, DefaultStructureHelper.MOL_FILE_DATA, 
+					bytes, pt0, mlen, null, null);
 		}
 		seekIn(lastPosition);
+		return isOK;
+//		readPointer();
+//		readInt(); // 107, 109, 110, etc.
+//		readFourUnknownInts();
+//		readInt(); // 0
+//		nextBlock(); // -> 501150
+//		nextBlock(); // 178-long Molecule block
+//		readInt(); // to next
+//		nextBlock();
+//		nextBlock();
+//		nextBlock();
+//		nextSubblock(4);
+//		if (peekInt() == -1) {
+//			// page 4 22232721/metadatanmr/nmr spectra.mnova
+//			readByte();
+//			readInts(9); // DANGER, WILL ROBINSON!
+//		}
+//		int len = readInt();
+//		if (len > 0 && getPosition() + len < ptr + 10) {
+//			nMOL++;
+//			// byte[]
+//			byte[] bytes = readBytes(len);
+//			handleFileData(nBlock, DefaultStructureHelper.MOL_FILE_DATA, bytes, getPosition(), len, null, null);
+//		}
+//		seekIn(lastPosition);
+//		return true;
 	}
 
 	/**
@@ -1102,7 +1150,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 			fname = "file_" + zeroFill(thisTest, 2) + "_" + zeroFill(nPages, 2) + type;
 		String s = "=====Page " + nPages + " block " + nBlock + " byte " + ptr + " " + fname + " [" + len + " bytes] "
 				+ (cssInfo != null ? cssInfo : "");
-		System.out.println(s);
+		log(s);
 		if (createStructureFiles) {
 			writeToFile(fname, fileData);
 		}
@@ -1117,6 +1165,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		File f = new File(fname);
 		try (FileOutputStream fis = new FileOutputStream(f)) {
 			fis.write(fileData);
+			fis.close();
 			System.out.println("File " + f.getAbsolutePath());
 		} catch (IOException e) {
 			logError(e);
@@ -1202,8 +1251,10 @@ class MNovaMetadataReader extends ByteBlockReader {
 				getBlockStructure(bd, 0, 0);
 			}
 		}
+		fileStructure.setPaths(null);
 		getFileStructurePages(isNew);
 		fileStructure.setPaths(null);
+		testFileStructure();
 	}
 
 	private Object getFileStructureForJSON() {
@@ -1245,7 +1296,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 		BlockData block1 = getBlockFromPath(fileBlockPageData + ".block2");
 		BlockData bdlast = (block1 == null ? null : block1.getSubblock(-1));
 		// file.body.part4.block1.data2.block2.data4, probably
-		BlockData pages = new BlockData(ptStart, ptEnd - ptStart, "pages");
+		BlockData pages = this.pages = new BlockData(ptStart, ptEnd - ptStart, "pages");
 		if (bdlast != null) {
 			try {
 			bdlast.seek();
@@ -1256,17 +1307,32 @@ class MNovaMetadataReader extends ByteBlockReader {
 				BlockData page = new BlockData(pos, 0, "page" + nPages);
 				long[] retNextPage = new long[1];
 				boolean hasData = readValidPageHeader(pos, retNextPage);
-				page.setLength(retNextPage[0] - pos);
+				long ptNext = retNextPage[0];
+				page.setLength(ptNext - pos);
 				pages.addPage(page);
 				if (hasData) {
 					getBlockStructure(page, (int) (getPosition() - pos), 0);					
 					// back up one int
 					seekIn(-4);
+					peekInts(1);
 					nextBlock(); // 172 to 39140
-					readPointer(); // to END
+					peekInts(1);
+					long pt2 = readPointer(); // to END
 					getBlockStructure(page, -(int) (getPosition() - pos), page.getSubblockCount());
-				}					
-				seekIn(retNextPage[0]);
+//					System.out.println(pt2);
+//					System.out.println(getPosition());
+//					if (getPosition() < ptNext) {
+//						nextBlock(); // 172 to 39140
+//						peekInts(10);
+//						long len2 = peekInt();
+//						pt2 = peekPointer();
+//						BlockData pageb = new BlockData(getPosition(), len2 + 4, "pageb");
+//						getBlockStructure(pageb, 0, 0);
+//						peekInts(40);
+//
+//					}
+				}
+				seekIn(ptNext);
 			}
 			} catch (Exception e) {
 				System.err.println("error indexing page data for page " + nPages + " pos=" + getPosition());
@@ -1294,7 +1360,6 @@ class MNovaMetadataReader extends ByteBlockReader {
 	private static boolean runFileTest(String fname, String outdir) {
 		try {
 			// create structures for a specific file given
-			createStructureFiles = (testFile != null);
 			File f = new File(fname);
 			String filename = f.getAbsolutePath();
 			byte[] bytes = FAIRSpecUtilities.getLimitedStreamBytes(new FileInputStream(filename), -1, null, true, true);
@@ -1319,7 +1384,6 @@ class MNovaMetadataReader extends ByteBlockReader {
 				return false;
 			}
 			System.out.println("MNova file closed for " + filename);			
-			rdr.testFileStructure();
 			rdr.writeToFile("out", new String(rdr.getFileStructureStr().toString()).getBytes());
 			if (rdr.reportData != null) {
 				IFDDefaultJSONSerializer serializer = new IFDDefaultJSONSerializer();
@@ -1491,7 +1555,217 @@ class MNovaMetadataReader extends ByteBlockReader {
 	 */
 	private void test() throws IOException {
 		
+		showChars = true;
+
+		if (len > 0)
+			return;
+// forward tracking:
 		
+//		readInt 497787: 0x0000D6A9 = 54953 -> 552744  EOF
+//		readInt 497791: 0x0000006E = 110 -> 497905  <0>  <0>  <0> n
+//		readInt 497795: 0x65B47FE2 = 1706328034 -> 1706825833 e <fffd>  <7f>  <fffd> 
+//		readInt 497799: 0xE4264D14 = -467251948 -> -466754145  <fffd> &M <14> 
+//		readInt 497803: 0x87CEEB84 = -2016482428 -> -2015984621  <fffd>  <fffd>  <fffd> 
+//		readInt 497807: 0x28E84301 = 686310145 -> 686807956 ( <fffd> C <1> 
+//		PeekInts 1 pos=497811
+//		readInt 497811: 0x00000000 = 0 -> 497815  <0>  <0>  <0>  <0> 
+		// no pointers findRef(0, 497791);
+
+seekIn(497789);
+peekInts(-80);
+
+		
+/// backtracking:		
+//		readInt 497787: 0x0000D6A9 = 54953 -> 552744  EOF
+//		readInt 497791: 0x0000006E = 110 -> 497905  <0>  <0>  <0> n
+//		readInt 497795: 0x65B47FE2 = 1706328034 -> 1706825833 e <fffd>  <7f>  <fffd> 
+//		readInt 497799: 0xE4264D14 = -467251948 -> -466754145  <fffd> &M <14> 
+//		readInt 497803: 0x87CEEB84 = -2016482428 -> -2015984621  <fffd>  <fffd>  <fffd> 
+//		readInt 497807: 0x28E84301 = 686310145 -> 686807956 ( <fffd> C <1> 
+//		PeekInts 1 pos=497811
+//		readInt 497811: 0x00000000 = 0 -> 497815  <0>  <0>  <0>  <0> 
+		findRef(0, 497811);
+		
+//		PeekInts 10 pos=497811
+//		readInt 497811: 0x00000000 = 0 -> 497815  <0>  <0>  <0>  <0> 
+//		readInt 497815: 0x00002EEB = 12011 -> 509830  <0>  <0> . <fffd> 
+//		readInt 497819: 0x00002EE3 = 12003 -> 509826  <0>  <0> . <fffd> 		
+		findRef(0, 497815);
+//		PeekInts 20 pos=497815
+//		readInt 497815: 0x00002EEB = 12011 -> 509830  <0>  <0> . <fffd> 
+		
+		
+		//**		readInt 497815: 0x00002EEB = 12011 -> 509830  <0>  <0> . <fffd> 
+//		readInt 497819: 0x00002EE3 = 12003 -> 509826  <0>  <0> . <fffd> 
+		
+		findRef(0, 509806); // trying all of these
+		
+
+//		readInt 509806: 0x00000000 = 0 -> 509810  <0>  <0>  <0>  <0> 
+//		readInt 509810: 0x00000000 = 0 -> 509814  <0>  <0>  <0>  <0> 
+//		readInt 509814: 0x00000000 = 0 -> 509818  <0>  <0>  <0>  <0> 
+//		readInt 509818: 0x00000000 = 0 -> 509822  <0>  <0>  <0>  <0> 
+//		readInt 509822: 0x00000000 = 0 -> 509826  <0>  <0>  <0>  <0> 
+		
+//		PeekInts 10 pos=497823		
+		findRef(0, 509830);
+//		PeekInts 10 pos=509830
+//		readInt 509830: 0x000000B2 = 178 -> 510012  <0>  <0>  <0>  <fffd> 
+		
+
+		findRef(0, 510012);
+
+//		readInt 510012: 0x0000A6E8 = 42728 -> 552744  <0>  <0>  <fffd>  <fffd> 
+//		PeekInts 10 pos=510016
+//		readInt 510016: 0x00000734 = 1844 -> 511864  <0>  <0>  <7> 4
+//		readInt 510020: 0x0000072C = 1836 -> 511860  <0>  <0>  <7> ,
+//		readInt 510024: 0x00000014 = 20 -> 510048  <0>  <0>  <0>  <14> 
+
+		findRef(0, 511864);
+//		511864	0x0x000000000007CF78	+	92 (0x0x0000005C)	=	511960
+//		511952	0x0x000000000007CFD0	+	4 (0x0x00000004)	=	511960
+//		511956	0x0x000000000007CFD4	+	0 (0x0x00000000)	=	511960
+		
+		findRef(0, 511960);
+//		readInt 511952: 0x00000004 = 4 -> 511960  <0>  <0>  <0>  <4> 
+//		PeekInts 10 pos=511956
+//		readInt 511956: 0x00000000 = 0 -> 511960  <0>  <0>  <0>  <0> 
+//		readInt 511960: 0x000001C6 = 454 -> 512418  <0>  <0>  <1>  <fffd> 
+//		readInt 511964: 0x0000011D = 285 -> 512253  <0>  <0>  <1>  <1d> 
+
+		findRef(0, 512253);
+//		readInt 486527: 0x0A800000 = 176160768 -> 176647299  <a>  <fffd>  <0>  <0> 
+//		PeekInts 10 pos=486531
+//		readInt 486531: 0x00006476 = 25718 -> 512253  <0>  <0> dv
+		
+// ***		readInt 511960: 0x000001C6 = 454 -> 512418  <0>  <0>  <1>  <fffd> 
+//		PeekInts 10 pos=511964
+//		readInt 511964: 0x0000011D = 285 -> 512253  <0>  <0>  <1>  <1d> 
+		
+		findRef(0, 512418);
+//		446878	0x0x000000000006D19E	+	65536 (0x0x00010000)	=	512418
+//		511960	0x0x000000000007CFD8	+	454 (0x0x000001C6)	=	512418
+//***		512253	0x0x000000000007D0FD	+	161 (0x0x000000A1)	=	512418
+
+		findRef(0, 512418);
+		findRef(0, 512434); // TAXOL model-34 in stack;
+		findRef(0, 512476); // TAXOL model;
+
+		
+		if (true)
+			return;
+		
+		
+//		file.body.part4.block1.data2.block2.stack loc=49716 len=24 to 49740	
+//		file.body.part4.block1.data2.block2.data1 loc=49740 len=17 to 49757
+//		file.body.part4.block1.data2.block2.data2 loc=49757 len=4 to 49761
+//		file.body.part4.block1.data2.block2.data3 loc=49761 len=4 to 49765
+//		file.body.part4.block1.data2.block2.data4 loc=49765 len=20 to 49785
+//		file.body.part4.block1.data2.block2.data5 loc=49785 len=502959 to 552744
+
+		
+// looking at eof pointers
+		
+		findRef(0, 497787);// deadend
+
+//		findRef(0, 497815); // deadend
+		findRef(0, 509830);
+		findRef(0, 510012);
+		
+//		followPointer(49720, len, "test");
+		
+//		followPointer found 49785+502955->552744 for test
+		
+		// start of block at file.body.part4.block1.data2.block2.data5
+//      readInt 49785: 0x0007ACAB = 502955 -> 552744  <0>  <7>  <fffd>  <fffd> 
+//		readInt 49789: 0x00000028 = 40 -> 49833  <0>  <0>  <0> (
+
+		seekIn(49833);	
+		nextBlock();
+		peekInts(12);
+		seekIn(49869);				
+
+followPointer(49833, len, "test");
+		
+		
+//		seekIn(446878); // nothing here?
+//		peekInts(-20);
+//		peekInts(10);
+
+
+//findRef(0,492503); // nothing here
+//peekInts(-20);
+//seekIn(492503);
+//peekInts(10);
+
+// 510012 --> EOF
+findRef(0,510016);
+seekIn(510016);
+peekInts(-20);
+peekInts(10);
+
+
+findRef(0,511860);
+findRef(0,511864);
+seekIn(511864);
+peekInts(-21);
+peekInts(10);
+
+		seekIn(511960); // 
+		peekInts(-20);
+		peekInts(10);
+		
+//
+//		finding all pointers to 512418 after 0
+//		446878	0x0x000000000006D19E	+	65536 (0x0x00010000)	=	512418
+//		followPointer found 446878+65536->512418 for ref=512418
+//		followPointer found 512418+40322->552744 for ref=512418
+//		!!! OK 446878
+//		511960	0x0x000000000007CFD8	+	454 (0x0x000001C6)	=	512418
+//		followPointer found 511960+454->512418 for ref=512418
+//		followPointer found 512418+40322->552744 for ref=512418
+//		!!! OK 511960
+//		512253	0x0x000000000007D0FD	+	161 (0x0x000000A1)	=	512418
+//		followPointer found 512253+161->512418 for ref=512418
+//		followPointer found 512418+40322->552744 for ref=512418
+		
+		
+		
+		seekIn(512418); // EOF
+		peekInts(-20);
+		peekInts(10);
+
+//		PeekInts 10 pos=512418
+//	readInt 512418: 0x00009D82 = 40322 -> 552744  EOF 
+//	readInt 512422: 0x000020E9 = 8425 -> 520851  <0>  <0>   <fffd> 
+//	readInt 512426: 0x000020E4 = 8420 -> 520850  <0>  <0>   <fffd> 
+//	readInt 512430: 0x000020CC = 8396 -> 520830  <0>  <0>   <fffd> 
+//*	readInt 512434: 0x00000026 = 38 -> 512476  ******************************
+//	readInt 512438: 0x0000001E = 30 -> 512472  <0>  <0>  <0>  <1e> 
+//	readInt 512442: 0x0000000D = 13 -> 512459  <0>  <0>  <0>  <d> 
+//	readInt 512446: 0x00000005 = 5 -> 512455  <0>  <0>  <0>  <5> 
+//	readInt 512450: 0x00000000 = 0 -> 512454  <0>  <0>  <0>  <0> 
+
+		
+		findRef(49785, 512476);
+		
+		seekIn(512476); // TAXOL model;
+		peekInts(-20);
+		peekInts(10);
+		findRef(49785, getPosition());
+		seekIn(425677);
+		readInt();
+		peekInts(40);
+		nextBlock();
+		readByte();
+		readInts(3);
+		nextBlock();
+		nextBlock();
+		peekInts(40);
+		
+		seekIn(425705);
+		peekInts(20);
+
 	 // ignored
 		
 		if (len > 0)
@@ -1506,7 +1780,6 @@ class MNovaMetadataReader extends ByteBlockReader {
 		test40(38700, 40);
 		seekIn(52818);
 		peekInts(20);
-		getBlockFromPath("file.body.part4.block1.data2.block2.data4").seek();
 		followPointer(38732, len, "test");
 		peekInts(200);
 //		System.out.println(followPointer(27,len,"test").toString().replace(',', '\n'));
@@ -1744,14 +2017,16 @@ class MNovaMetadataReader extends ByteBlockReader {
 	
 	public static void main(String[] args) {
 
+		createStructureFiles = true;
+
 		testing = false; // verbose option
 
 		// default for --test
 		defaultTest = testFiles.length;
 
 		// defaults for testall
-		testFileFirst = 1;
-		testFileLast = testFiles.length;
+		testFileFirst = 13;
+		testFileLast = 13;//testFiles.length;
 
 //		debugging = true; // passed on
 
@@ -1793,6 +2068,7 @@ class MNovaMetadataReader extends ByteBlockReader {
 			/* 26 */ "test/mnova/draw2.mnova", // first empty; second with drawing 
 			/* 27 */ "test/mnova/empty2.mnova", // two empty pages file
 			/* 28 */ "test/mnova/empty.mnova", // empty page file
+			/* 29 */ "c:/temp/mnova/test/12m.SiSe.mol.mnova", // just one structure from MOL drop
 			
 	};
 

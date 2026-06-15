@@ -60,6 +60,7 @@ public class IFDReference implements IFDSerializableI {
 		setOriginPath(originPath);
 		this.localDir = localDir;
 		this.localName = localName;
+		
 	}
 
 	public String getURL() {

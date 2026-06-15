@@ -61,7 +61,7 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader implements NmrMLH
 		Locale.setDefault(new Locale("en", "US"));
 		Acqu acquisition = new Acqu(Acqu.Spectrometer.JEOL);
 
-		String File_Identifier = readSimpleString(8);
+		String File_Identifier = readSimpleString(8).trim();
 		if (fprt)
 			System.out.println("Header: File_Identifier = " + File_Identifier);
 
@@ -86,7 +86,7 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader implements NmrMLH
 			System.out.println("Header: Data_Type = " + Data_Type);
 
 		String Instrument = getTerm("INSTRUMENT", readByte());
-		if (fprt)
+		if (fprt || Instrument.startsWith("ERROR"))
 			System.out.println("Header: Instrument = " + Instrument);
 		skipIn(8);// seek(24);
 		byte[] Data_Axis_Type = readBytes(8);
@@ -488,7 +488,11 @@ public class NmrMLJeolAcquStreamReader extends ByteBlockReader implements NmrMLH
 
 	@SuppressWarnings("unchecked")
 	private String getTerm(String section, int item) {
-		return (String) ((List<Object>) jeolIni.get(section)).get(item);
+		try {
+			return (String) ((List<Object>) jeolIni.get(section)).get(item);			
+		} catch (Exception e) {
+			throw new RuntimeException("Warning! " + e.getMessage() + " getting item " + item + " for JEOL " +  section);
+		}
 	}
 
 	@Override

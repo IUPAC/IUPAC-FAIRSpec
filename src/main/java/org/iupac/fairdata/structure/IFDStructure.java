@@ -21,6 +21,11 @@ public class IFDStructure extends IFDRepresentableObject<IFDStructureRepresentat
 	
 	@Override
 	protected IFDStructureRepresentation newRepresentation(IFDReference ref, Object obj, long len, String type, String subtype) {
+		if (ref != null && ref.getLocalName() != null && (ref.getLocalName().indexOf("S1s") >= 0
+				|| ref.getLocalName().indexOf("S1t") >= 0))
+			System.out.println(this);
+		
+		
 		return new IFDStructureRepresentation(ref, obj, len, type, subtype);
 	}
 	

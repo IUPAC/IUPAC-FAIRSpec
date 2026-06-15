@@ -17,7 +17,6 @@ import org.iupac.fairdata.extract.DefaultStructureHelper;
 import org.iupac.fairdata.extract.DefaultStructureHelper.StructureData;
 import org.iupac.fairdata.extract.MetadataReceiverI;
 
-import com.integratedgraphics.extractor.IFDExtractorMain;
 import com.integratedgraphics.ifd.dataobject.NMRVendorPlugin;
 import com.integratedgraphics.ifd.dataobject.mestrelab.MNovaMetadataReader.Param;
 
@@ -71,7 +70,7 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 				"Probe", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_PROBE_TYPE"), //prop
 				"Temperature", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_THERMODYNAMIC_TEMPERATURE"), //prop
 				"DIM", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_DIMENSION"), //prop
-				"TITLE", getProp(IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_TITLE), //prop
+				"TITLE", IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_TITLE, //prop
 				"Spectrometer Frequency", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_1"), //prop
 				"Spectrometer Frequency2", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_2"), //prop
 				"Spectrometer Frequency3", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_OFFSET_FREQ_3"), //prop
@@ -112,10 +111,9 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 				boolean sendNewPage = (nPages > 1);
 				for (int i = 0; i < nPages; i++) {
 					PageGlobals pageGlobals = pageList.get(i);
-					reportVendor(); // really? Before start of pages? 
 					for (Entry<String, Object> p : pageGlobals.entrySet()) {
 						String key = p.getKey();
-						boolean isNewPage = key.equals(MetadataReceiverI.DeferredProperty.NEW_PAGE_KEY);
+						boolean isNewPage = key.equals(FAIRSpecUtilities.DeferredProperty.NEW_PAGE_KEY);
 						boolean isSpecialKey = key.startsWith("_");
 						// the only special key we send 
 						if (isSpecialKey ? key.startsWith(DefaultStructureHelper.STRUC_FILE_DATA_KEY)
@@ -128,7 +126,7 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 					}
 				}
 				close();
-				report(MetadataReceiverI.DeferredProperty.NEW_PAGE_KEY, IFDProperty.NULL);
+				report(FAIRSpecUtilities.DeferredProperty.NEW_PAGE_KEY, IFDProperty.NULL);
 				return getVendorDataSetKey();
 			}
 		} catch (IOException e) {
@@ -282,12 +280,13 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 		case DefaultStructureHelper.CDXML_FILE_DATA:
 			structureType = ".cdxml";
 			break;
+		case DefaultStructureHelper.MOL2D_FILE_DATA:
 		case DefaultStructureHelper.MOL_FILE_DATA:
 			structureType = ".mol";
 			break;
 		}
 		if (structureType != null) {
-			oval = new StructureData((byte[]) oval, originPath + "#page" + page + structureType, null, null,
+			oval = new StructureData(-1, (byte[]) oval, originPath + "#page" + page + structureType, null, null,
 					FAIRSpecUtilities.mediaTypeFromFileName(structureType), null);
 		} else if (propName != null) {
 			pageGlobals.put(ifdMap.get(propName), oval);
@@ -310,7 +309,8 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 		finalizeParams();
 		// the reader will be filling in params
 		pageGlobals = new PageGlobals();
-		pageGlobals.put(MetadataReceiverI.DeferredProperty.NEW_PAGE_KEY, "_page=" + page);
+		pageGlobals.put(FAIRSpecUtilities.DeferredProperty.NEW_PAGE_KEY, "_page=" + page);
+		reportVendor();
 		pageList.add(pageGlobals);
 		System.out.println("MestrelabIFDVendor ------------ page " + page);
 	}
@@ -320,6 +320,15 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 	}
 
 	// private
+
+	
+	@Override
+	public void addProperty(String key, Object val) {
+		if (pageGlobals == null)
+			report(key, val);
+		else
+			pageGlobals.put(key, val);
+	}
 
 	/**
 	 * Report the found property back to the IFDMetadataReceiverI class.
@@ -332,14 +341,14 @@ public class MestrelabDataObjectVendorPlugin extends NMRVendorPlugin {
 		String k = ifdMap.get(isDerived ? key.substring(1) : key);
 		// TODO? but not all keys are like this key = "MNova_" + key;
 		if (k == null && key.equals(MNovaMetadataReader.PAGE_TITLE)) {
-			addProperty(IFDConst.IFD_PROPERTY_DESCRIPTION, val);
-			addProperty(IFDExtractorMain.PAGE_ID_PROPERTY_SOURCE, val);
+			super.addProperty(IFDConst.IFD_PROPERTY_DESCRIPTION, val);
+			super.addProperty(FAIRSpecUtilities.DeferredProperty.PAGE_ID_PROPERTY_SOURCE, val);
 		}
 		// SM and DIM are derived
 		if (!isDerived)
-			addProperty(key, val);
+			super.addProperty(key, val);
 		if (k != null)
-			addProperty(k, val);
+			super.addProperty(k, val);
 	}
 
 	private void close() {

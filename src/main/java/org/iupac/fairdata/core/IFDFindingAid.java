@@ -163,8 +163,10 @@ public abstract class IFDFindingAid extends IFDObject<IFDObject<?>> {
 		return map;
 	}
 	
-	public void setRelatedTo(List<Map<String, Object>> citationMap) {
-		relatedItems = citationMap;
+	public void addRelatedTo(Map<String, Object> item) {
+		if (relatedItems == null)
+			relatedItems = new ArrayList<>();
+		relatedItems.add(item);
 	}
 
 	@Override

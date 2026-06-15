@@ -126,7 +126,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	protected boolean includeIgnoredFiles = true;
 
 	
-	protected FAIRSpecFindingAidHelperI faHelper;
+	public FAIRSpecFindingAidHelperI faHelper;
 
 	protected FAIRSpecFindingAidHelperI getHelper() {
 		return faHelper;
@@ -147,7 +147,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 
 	protected String errorLog = "";
 
-	public int testID = -1;
+	public String testID = null;
 	
 	protected String thisRootPath;
 
@@ -374,19 +374,20 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	protected boolean processDOIURLs(String pubdoi, String datadoi, FAIRSpecFindingAidHelperI helper) throws IOException {
 		if (skipPubInfo)
 			return true;
-		List<Map<String, Object>> list = new ArrayList<>();
-		
 		if (pubdoi != null) {
-			String err = helper.addRelatedInfo(pubdoi, addPublicationMetadata, list, DOIInfoExtractor.CROSSREF);
+			String err = helper.addRelatedInfo(pubdoi, addPublicationMetadata, DOIInfoExtractor.CROSSREF, "publication");
 			if (err != null) {
 				logWarn(err, "processDOIURLs");
 				if (!allowNoPubInfo)
 					return false;				
 			}
 		}
-		if (datadoi != null && !skipPubInfo) {
-			String err = helper.addRelatedInfo(datadoi, addPublicationMetadata, list, 
-					DOIInfoExtractor.DATACITE);
+		if (datadoi != null) {
+			String err = helper.addRelatedInfo(datadoi, addPublicationMetadata, 
+					DOIInfoExtractor.DATACITE, "dataset");
+			if (err != null)
+				err = helper.addRelatedInfo(datadoi, addPublicationMetadata, 
+						DOIInfoExtractor.CROSSREF, "dataset");
 			if (err != null) {
 				logWarn(err, "processDOIURLs");
 				if (!allowNoPubInfo)
@@ -491,7 +492,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		}
 		boolean toSysErr = msg.startsWith("!!") || msg.startsWith("! ");
 		boolean toSysOut = toSysErr || msg.startsWith("!");
-		if (testID >= 0)
+		if (testID != null)
 			msg = "test " + testID + ": " + msg;
 		if (logging()) {
 			try {
@@ -569,7 +570,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	/**
 	 * files matched will be cached in the target directory
 	 */
-	protected Pattern vendorCachePattern;
+	protected Pattern propertyManagerCachePattern;
 
 	/**
 	 * get a new structure property manager to handle processing of MOL, SDF, and
@@ -619,7 +620,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 	 * @param f
 	 */
 	public void crawlerExtractSpecProperties(File f) {
-		if (vendorCachePattern == null)
+		if (propertyManagerCachePattern == null)
 			return;
 		System.out.println("FAC.extractSpecProp " + f.getName());
 		DataObjectVendorPluginI vendor = null;
@@ -627,7 +628,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		ArchiveInputStream ais = null;
 		try {
 			if (!FAIRSpecUtilities.isZip(localPath)){
-				Matcher m = vendorCachePattern.matcher(localPath);
+				Matcher m = propertyManagerCachePattern.matcher(localPath);
 				if (m.find()) {
 					vendor = (DataObjectVendorPluginI) getPropertyManager(m, false, true);
 					if (vendor == null || vendor.isDerived())
@@ -653,7 +654,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 					continue;
 				}				
 				byte[] bytes = FAIRSpecUtilities.getLimitedStreamBytes(ais, len, null, false, false);
-				Matcher m = vendorCachePattern.matcher(name);
+				Matcher m = propertyManagerCachePattern.matcher(name);
 				if (m.find() && vendor == getPropertyManager(m, false, true))
 					vendor.accept(this, name, bytes);
 			}
@@ -769,7 +770,7 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 			s = sp;
 		}
 		s = "(?<ext>" + s + ")";
-		vendorCachePattern = Pattern.compile(s);
+		propertyManagerCachePattern = Pattern.compile(s);
 		
 		s = "";
 		for (int i = 0; i < DataObjectVendorPluginI.activeVendors.size(); i++) {
@@ -784,25 +785,16 @@ public abstract class FindingAidCreator implements MetadataReceiverI {
 		return (extractionCachePattern != null);
 	}
 
-	protected Map<AWrap, IFDStructure> htStructureRepCache;
-
 	protected Set<AWrap> structureCache;
 	public File htmlPath;
 	
 	public static final String CRAWLER_NAME = "CRAWLER.ifdcrawler";
 
-	protected void cacheStructure(AWrap w, IFDStructure struc) {
-		htStructureRepCache.put(w, struc);
-	}
-
-	public IFDStructure getCachedStructure(AWrap w, byte[] bytes, String inchi) {
-		bytes = (inchi == null || inchi.length() < 2 ? bytes : inchi.getBytes());
-		w.setBytes(bytes);
-		if (htStructureRepCache == null)
-			htStructureRepCache = new HashMap<>();
-		return htStructureRepCache.get(w);
-	}
-
+	/**
+	 * cache the structure bytes
+	 * 
+	 * @return true if the structure is already in the cache
+	 */
 	@Override
 	public boolean hasStructureFor(byte[] bytes) {
 		if (bytes == null)

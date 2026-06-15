@@ -84,8 +84,8 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	//		public final static String StructureDataAssociation = "org.iupac.fairdata.derived.IFDStructureDataAssociation";
 	//		public final static String StructureDataAssociationCollection = "org.iupac.fairdata.derived.IFDStructureDataAssociationCollection";
 	//
-			public final static String SampleDataAnalysis = "org.iupac.fairdata.derived.IFDSampleDataAnalysis";
-			public final static String SampleDataAnalysisCollection = "org.iupac.fairdata.derived.IFDSampleDataAnalysisCollection";
+//			public final static String SampleDataAnalysis = "org.iupac.fairdata.derived.IFDSampleDataAnalysis";
+//			public final static String SampleDataAnalysisCollection = "org.iupac.fairdata.derived.IFDSampleDataAnalysisCollection";
 	
 			public final static String StructureDataAnalysis = "org.iupac.fairdata.derived.IFDStructureDataAnalysis";
 			public final static String StructureDataAnalysisCollection = "org.iupac.fairdata.derived.IFDStructureDataAnalysisCollection";
@@ -139,6 +139,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 
 	private FAIRSpecCompoundAssociation thisCompound;
 
+	private int propertyCount;
 
 	public FAIRSpecFindingAidHelper(String creator) {
 		try {
@@ -147,7 +148,7 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			
 		}
 	}
-	
+
 	@Override
 	public FAIRSpecCompoundAssociation getThisCompound() {
 		return thisCompound;
@@ -199,8 +200,8 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 			return ClassTypes.SampleDataAssociation;
 		if (key.startsWith("\0analysis.structuredata"))
 			return ClassTypes.StructureDataAnalysis;
-		if (key.startsWith("\0analysis.sampledata"))
-			return ClassTypes.SampleDataAnalysis;
+//		if (key.startsWith("\0analysis.sampledata"))
+//			return ClassTypes.SampleDataAnalysis;
 		if (key.startsWith("\0dataobject.fairspec.")) {
 			// adds next part, e.g "nmr"
 			return key.replace('\0', '.').substring(0, key.indexOf(".", 21));
@@ -219,13 +220,12 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	 * add related information from CrossRef or DataCite
 	 */
 	@Override
-	public String addRelatedInfo(String doi, boolean addPublicationMetadata, List<Map<String, Object>> list,
-			String type) throws IOException {
-		Map<String, Object> info = DOIInfoExtractor.getPubInfo(doi, addPublicationMetadata, type);
+	public String addRelatedInfo(String doi, boolean addPublicationMetadata,
+			String agency, String type) throws IOException {
+		Map<String, Object> info = DOIInfoExtractor.getPubInfo(doi, addPublicationMetadata, agency, type);
 		if (info == null || info.get("metadataSource") == null)
-			return "Could not access " + DOIInfoExtractor.getMetadataUrl(doi, type);
-		list.add(info);
-		findingAid.setRelatedTo(list);
+			return "Could not access " + DOIInfoExtractor.getMetadataUrl(doi, agency);
+		findingAid.addRelatedTo(info);
 		return null;
 	}
 	
@@ -288,8 +288,11 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		return (FAIRSpecCompoundAssociation) getCompoundCollection().addAssociation(struc, spec);
 	}
 
+	/**
+	 * create a new compound if unknown and 
+	 */
 	@Override
-	public FAIRSpecCompoundAssociation createCompound(String id) throws IFDException {
+	public FAIRSpecCompoundAssociation findOrCreateCompound(String id) throws IFDException {
 		FAIRSpecCompoundAssociation c = null;
 		if (id != null) {
 			c = findCompoundById(id);
@@ -297,14 +300,14 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 		boolean isNew = (c == null);
 		if (isNew) {
 			c = createCompound(null, null);
+			if (id != null)
+				c.setPropertyValue(IFDConst.IFD_PROPERTY_ID, id);
 		} 
 		if (c != thisCompound) {
 			currentStructure = null;
 			currentDataObject = null;			
 		}
 		currentAssociation = thisCompound = c;
-		if (id != null)
-			c.setPropertyValue(IFDConst.IFD_PROPERTY_ID, id);
 		getCompoundCollection().add(c);
 		return c;
 	}
@@ -417,11 +420,17 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	}
 
 	@Override
-	public IFDDataObject createDataObject(String id, String type) {
-		IFDDataObject o = FAIRSpecDataObject.createFAIRSpecObject(type);
-		if (thisCompound != null)
-			thisCompound.addDataObject(o);
+	public IFDDataObject findOrCreateDataObject(String id, String type) {
+		IFDDataObject o = (IFDDataObject) getSpecCollection().getObjectById(id);
+		if (o == null) {
+			o = FAIRSpecDataObject.createFAIRSpecObject(type);
+			if (id != null)
+				o.setPropertyValue(IFDConst.IFD_PROPERTY_ID, id);
+		}
 		getSpecCollection().add(o);
+		if (thisCompound != null) {
+			thisCompound.addDataObject(o);
+		}
 		return currentDataObject = o;
 	}
 
@@ -723,5 +732,6 @@ public class FAIRSpecFindingAidHelper implements FAIRSpecFindingAidHelperI {
 	public void setDoIFDTypeSerialization(boolean b) {
 		IFDObject.setDoTypeSerialization(b);
 	}
+
 
 }

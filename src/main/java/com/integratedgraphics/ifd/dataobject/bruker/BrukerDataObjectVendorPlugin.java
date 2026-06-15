@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+import org.iupac.fairdata.common.IFDConst;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 import org.iupac.fairdata.core.IFDAttribute;
 import org.iupac.fairdata.core.IFDProperty;
@@ -42,7 +43,7 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 				"##$EXP", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_ID"), //prop
 				"##$PULPROG", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_PULSE_PROGRAM"), //prop
 				"##$TE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_THERMODYNAMIC_TEMPERATURE"), //prop
-				"TITLE", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.EXPT_TITLE"), //prop
+				"TITLE", IFDConst.IFD_PROPERTY_DATAOBJECT_EXPT_TITLE, //prop
 				"NF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_NOMINAL_FREQ"), //prop
 				"PF", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_PROTON_FREQ"), //prop
 				"##$PROBHD", getProp("IFD_PROPERTY_DATAOBJECT_FAIRSPEC_NMR.INSTR_PROBE_TYPE"), //prop
@@ -103,20 +104,25 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 	}
 
 	/**
-	 * Require an unsigned integer
+	 * Require the given unsigned integer String if it is valid
+	 * or null if it is not or it is not what is in the file
 	 * 
-	 * @return the numerical directory if the path ends in /nn or /nn/, otherwise null
+	 * If the file does not contain the ##OWNER...$$.../n/ path, 
+	 * but it is an integer, then accept it and return the path anyway. 
+	 * 
+	 * @return the numerical directory if the path ends in /nn or /nn/ and agrees with job number or there is no job number, otherwise null for invalid
 	 */
 	@Override
-	public String getRezipPrefix(String path) {
+	public String getRezipPrefix(String path, byte[] bytes) {
 		path = path.replace('|', '/');
 		if (path.indexOf('/') >= 0) {
 			int pt1 = path.length() - (path.endsWith("/") ? 1 : 0);
 			int pt0 = path.lastIndexOf('/', pt1 - 1);
 			path = path.substring(pt0 + 1, pt1);
 		}				
-		return (isUnsignedInteger(path) ? path : null);
+		return (isUnsignedInteger(path) && isJobNumber(path, bytes) ? path : null);
 	}
+
 
 	/**
 	 * .mnova files will be extracted by the mestrelab plugin. They should not be
@@ -183,9 +189,10 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 	 * @return
 	 */
 	private boolean readBrukerParameterFileJDX(String originPath, byte[] bytes, boolean isFlush) {
-		int pt = originPath.lastIndexOf('/');
+		int pt1 = originPath.lastIndexOf('|');
+		int pt = Math.max(pt1, originPath.lastIndexOf('/'));
 		String fname = originPath.substring(pt + 1);
-		System.out.println("Bruker plugin processing " + fname);
+		System.out.println("Bruker plugin processing " + originPath);
 		boolean isAcqus = fname.equals("acqus");
 		if (!isAcqus && !isFlush && spec.originCache != null) {
 			spec.originCache.push(originPath);
@@ -198,14 +205,9 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 			report("TITLE", s.replace('\n',' '));
 			return true;
 		}
-		Map<String, String> map = null;
-		try {
-			map = JDXReader.getHeaderMap(new ByteArrayInputStream(bytes), null);
-		} catch (Exception e) {
-			// invalid format
-			e.printStackTrace();
+		Map<String, String> map = getHeaderMap(bytes);
+		if (map == null)
 			return false;
-		}
 		if (fname.equals("procs")) {
 			// this will be processed after acqus
 			// solvent in procs overrides solvent in acqu or acqus
@@ -235,6 +237,58 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 		}
 	    System.out.println("Bruker?? " + originPath);		
 		return false;
+	}
+
+	private static Map<String, String> getHeaderMap(byte[] bytes) {
+		Map<String, String> map = null;
+		try {
+			map = JDXReader.getHeaderMap(new ByteArrayInputStream(bytes), null);
+		} catch (Exception e) {
+			// invalid format
+			e.printStackTrace();
+		}
+		return map;
+	}
+
+	/**
+	 * Looking for a header line:
+	 * 
+	 * <code>
+	##OWNER= HP
+	$$ 2024-06-07 00:00:28.958 -0700  HP@HP-PC
+	$$ D:\Data\xxx\cyx/20240606-old/3/acqu
+	</code>
+	 * 
+	 * Only fail if we DO have information in the file that can check this.
+	 * 
+	 * @param path
+	 * @param bytes
+	 * @return
+	 */
+	private boolean isJobNumber(String path, byte[] bytes) {
+		boolean ok = true; // fail gracefully
+		if (bytes == null)
+			return ok;
+		String t = new String(bytes);
+		System.out.println(t);
+		int pt = t.indexOf("##OWNER");
+		if (pt >= 0) {
+			try {
+				t = t.substring(pt, Math.max(pt, t.indexOf("##", pt + 2)));
+				if (t.indexOf('/') < 0)
+					return true; // ##OWNER does not include $$ path info
+				String key = "/" + path + "/";
+				pt = t.indexOf(key);
+				// allow only /n/xxxx or /n/pdata/....
+				ok = (pt >= 0
+						&& (t.indexOf(key + "pdata/") == pt || t.lastIndexOf("/", pt + 1) == pt + key.length() - 1));
+				if (!ok) {
+					System.out.println("Bruker.job number " + path + " not found in ##OWNER: " + t);
+				}
+			} catch (Exception e) {
+			}
+		}
+		return ok;
 	}
 
 	private boolean processAudit(Map<String, String> map, boolean isProc) {
@@ -374,8 +428,6 @@ public class BrukerDataObjectVendorPlugin extends NMRVendorPlugin {
 	 * @param val if null, this property is removed
 	 */
 	private void report(String key, Object val) {
-		if ("$TE".equals(val))
-			System.out.println("?????");
 		addProperty(ifdMap.get(key), val);
 	}
 

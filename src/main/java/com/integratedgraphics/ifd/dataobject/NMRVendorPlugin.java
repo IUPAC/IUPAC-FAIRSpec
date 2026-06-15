@@ -39,6 +39,11 @@ public abstract class NMRVendorPlugin extends DefaultVendorPlugin {
 	}
 
 	@Override
+	public String getType() {
+		return "NMR";
+	}
+	
+	@Override
 	public void endDataSet() {
 		dataObjectLocalTimestamp = dataObjectGMTTimestamp = null;
 		dataObjectLocalTimeOffset = null;
