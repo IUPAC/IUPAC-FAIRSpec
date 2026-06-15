@@ -13,10 +13,11 @@ import org.iupac.fairdata.contrib.fairspec.FAIRSpecFindingAid;
 import org.iupac.fairdata.contrib.fairspec.FAIRSpecUtilities;
 
 /**
- * The FAIRSpeSchemaGenerator class runs independently of the Extractor and 
+ * The FAIRSpeSchemaGenerator class runs independently of the Extractor and
  * creates a fairspec.findingaid.schema.json from a template file.
  * 
- * see src/main/resources/org/iupac/fairdata/contrib/fairspec/schema/fairspecSchemaTemplate.json
+ * see
+ * src/main/resources/org/iupac/fairdata/contrib/fairspec/schema/fairspecSchemaTemplate.json
  * 
  * @author hansonr
  *
@@ -27,7 +28,13 @@ public class FAIRSpecSchemaGenerator {
 
 	private static final String SCHEMA_TEMPLATE_FILE = "fairspecSchemaTemplate.json";
 
-	private static final String schemaRoot = "https://iupac.github.io/IUPAC-FAIRSpec/schema/fairspec.schema.";
+	private static final String ioRoot = "https://iupac.github.io/IUPAC-FAIRSpec/schema/";
+	
+	private static final String githubProjectSchemaIOPath = "docs/schema/";
+
+	private static final String githubProjectSchemaDistPath = "dist/schema/";
+
+	private static final String schemaRoot = "fairspec.schema.";
 
 	private static final int COMMENT = -1;
 	private static final int IGNORE = 0;
@@ -36,28 +43,38 @@ public class FAIRSpecSchemaGenerator {
 	private static final int REPRESENTATION = 3;
 	private static final String TYPE_STRING = "\"type\" : \"string\"";
 
-
 	private static boolean debugging = true;
 
-	
 	private Map<String, String> mapProps;
 	private Map<String, String> mapReps;
 	private Map<String, String> mapValues;
-
+	
+	
 	public static String getSchemaURI(String pval) {
+		return getSchemaPath(pval, ioRoot);
+	}
+
+	/**
+	 * combine ioRoot or project dir root with "fairspec.schema." and the current version
+	 * @param pval
+	 * @param root either ioRoot (for the $ID value) or projectSchemaDirectoryPath (for the URI itself)
+	 * @return
+	 */
+	private static String getSchemaPath(String pval, String root) {
 		if (pval == null)
 			pval = IFDConst.getProp("FAIRSPEC_VERSION");
 		int pt = pval.indexOf("+");
 		if (pt > 0)
 			pval = pval.substring(0, pt);
-		return schemaRoot +  pval + ".json";
+		return root + schemaRoot + pval + ".json";
 	}
 
 	private FAIRSpecSchemaGenerator(String schemaTemplateFile, String schemaOutputDir) throws Exception {
 		String schemaTemplate;
 		if (schemaTemplateFile == null) {
 			URL url = getClass().getResource(SCHEMA_TEMPLATE_FILE);
-			schemaTemplateFile = url.toString().substring(6).replace('\\', '/').replace("/bin/", "/src/main/resources/");
+			schemaTemplateFile = url.toString().substring(6).replace('\\', '/').replace("/bin/",
+					"/src/main/resources/");
 			schemaTemplate = FAIRSpecUtilities.getResource(getClass(), SCHEMA_TEMPLATE_FILE);
 		} else {
 			schemaTemplate = FAIRSpecUtilities.getFileStringData(new File(schemaTemplateFile));
@@ -69,11 +86,20 @@ public class FAIRSpecSchemaGenerator {
 		String schema = stripComments(generateSchema(schemaTemplate));
 		File f = new File(schemaOutputDir, IDF_SCHEMA_FILE);
 		FAIRSpecUtilities.putToFile(schema.getBytes(), f);
-		
+		System.out.println("done " + f.getAbsolutePath());
+
+		new File(githubProjectSchemaIOPath).mkdirs();
+		f = new File(getSchemaPath(null, githubProjectSchemaIOPath));
+		FAIRSpecUtilities.putToFile(schema.getBytes(), f);
+		System.out.println("done " + f.getAbsolutePath());
+
+		new File(githubProjectSchemaDistPath).mkdirs();
+		f = new File(getSchemaPath(null, githubProjectSchemaDistPath));
+		FAIRSpecUtilities.putToFile(schema.getBytes(), f);
 		System.out.println("done " + f.getAbsolutePath());
 
 	}
-	
+
 	private String generateSchema(String schemaTemplate) {
 		FAIRSpecFindingAid.loadProperties();
 		getMaps();
@@ -99,7 +125,7 @@ public class FAIRSpecSchemaGenerator {
 			case IGNORE:
 			default:
 				throw new RuntimeException("Unknown schemaVariable  " + schemaVariable);
-			}	
+			}
 			String s = fillValue(schemaVariable, type, map);
 			switch (type) {
 			case COMMENT:
@@ -119,7 +145,7 @@ public class FAIRSpecSchemaGenerator {
 				// ..._$XXXX$_...
 				pt1 += 2;
 				break;
-			}			
+			}
 			schemaTemplate = schemaTemplate.substring(0, pt) + s + schemaTemplate.substring(pt1);
 			pt += s.length();
 		}
@@ -132,24 +158,24 @@ public class FAIRSpecSchemaGenerator {
 		mapReps = new TreeMap<>();
 		mapValues = new TreeMap<>();
 		for (Entry<Object, Object> p : props.entrySet()) {
-		  String key = p.getKey().toString();
-		  String val = p.getValue().toString();
-		  switch (getJavaPropertyType(key, val)) {
-		  default:
-		  case IGNORE:
-			  break;
-		  case PROPERTY:
-			  if (IFDConst.IFD_OBJECT_FIELDS.indexOf(";" + val + ";") < 0) {
-				  mapProps.put(key, val);
-			  }
-			  break;
-		  case REPRESENTATION:
-			  mapReps.put(key, val);
-			  break;
-		  case VALUE:
-			  mapValues.put(key, val);
-			  break;
-		  }
+			String key = p.getKey().toString();
+			String val = p.getValue().toString();
+			switch (getJavaPropertyType(key, val)) {
+			default:
+			case IGNORE:
+				break;
+			case PROPERTY:
+				if (IFDConst.IFD_OBJECT_FIELDS.indexOf(";" + val + ";") < 0) {
+					mapProps.put(key, val);
+				}
+				break;
+			case REPRESENTATION:
+				mapReps.put(key, val);
+				break;
+			case VALUE:
+				mapValues.put(key, val);
+				break;
+			}
 		}
 		if (debugging) {
 			dumpMap(mapProps, PROPERTY);
@@ -162,9 +188,9 @@ public class FAIRSpecSchemaGenerator {
 		String pre = (type == PROPERTY ? "P " : type == REPRESENTATION ? "R " : "V ");
 		for (Entry<String, String> e : map.entrySet()) {
 			System.out.println(pre + " " + e.getKey() + " = " + e.getValue());
-		}		
+		}
 	}
-	
+
 	private static int getJavaPropertyType(String key, String val) {
 		boolean isFlag = (val.startsWith(".") || val.endsWith("."));
 		if (isFlag || key.indexOf("_EXTRACTOR_") >= 0 || key.indexOf(".FIELD_") >= 0)
@@ -177,8 +203,9 @@ public class FAIRSpecSchemaGenerator {
 	}
 
 	private static int getVariableType(String var) {
-		return (var.equals("comment") ? COMMENT : var.indexOf(".property.") >= 0 ? PROPERTY 
-				: var.indexOf(".representation.") >= 0 ? REPRESENTATION : VALUE);
+		return (var.equals("comment") ? COMMENT
+				: var.indexOf(".property.") >= 0 ? PROPERTY
+						: var.indexOf(".representation.") >= 0 ? REPRESENTATION : VALUE);
 	}
 
 	private static String fillValue(String schemaVariable, int type, Map<String, String> map) {
@@ -232,8 +259,7 @@ public class FAIRSpecSchemaGenerator {
 
 	private static String trim(String val) {
 		int pt = val.indexOf("#");
-		return (pt < 0 ? val : 
-			val.substring(0, pt)).trim();
+		return (pt < 0 ? val : val.substring(0, pt)).trim();
 	}
 
 	private static String addRep(String var, String val, String subtype) {
@@ -246,18 +272,34 @@ public class FAIRSpecSchemaGenerator {
 		key = key.substring(ptKey + var.length() + 1);
 		if (subtype != null && key.startsWith(subtype))
 			key = key.substring(subtype.length() + 1);
-		String schema = (ptSchema > 0 ? val.substring(ptSchema + 1) : TYPE_STRING);		
+		String schema = (ptSchema > 0 ? val.substring(ptSchema + 1) : TYPE_STRING);
 		return "\"" + key + "\":{" + schema + "},\n";
 	}
-	
-	public final static void main(String[] args) {
+
+	private static String stripComments(String schema) {
+		schema = schema.replaceAll("\r\n", "\n");
+		int pt = 0;
+		while ((pt = schema.indexOf("\"$comment")) >= 0) {
+			int pt0 = schema.lastIndexOf('\n', pt);
+			if (schema.charAt(pt0 - 1) == ',')
+				pt0--;
+			schema = schema.substring(0, pt0) + schema.substring(schema.indexOf('\n', pt));
+		}
+		return schema;
+	}
+
+	static {
 		// this is the way to convert back and forth from long to date:
-		//System.out.println(Instant.ofEpochSecond(1717948362));
-		//System.out.println(Instant.ofEpochSecond(OffsetDateTime.parse("2024-06-09T23:52:42+08:00").toInstant().toEpochMilli()/1000));
-		//System.out.println(Instant.parse("2024-06-09T23:52:42Z").toEpochMilli()/1000);
-		
-		int t = (Integer.MAX_VALUE);
-		System.out.println(Instant.ofEpochSecond(t));
+		// System.out.println(Instant.ofEpochSecond(1717948362));
+		// System.out.println(Instant.ofEpochSecond(OffsetDateTime.parse("2024-06-09T23:52:42+08:00").toInstant().toEpochMilli()/1000));
+		// System.out.println(Instant.parse("2024-06-09T23:52:42Z").toEpochMilli()/1000);
+
+		//		int t = (Integer.MAX_VALUE);
+		//		System.out.println(Instant.ofEpochSecond(t));
+
+	}
+
+	public final static void main(String[] args) {
 		String schemaTemplateFile = null;
 		String schemaOutputDir = null;
 		try {
@@ -270,10 +312,10 @@ public class FAIRSpecSchemaGenerator {
 				break;
 			case 0:
 				break;
-		    default:
-		    	throw new RuntimeException("too many arguments");
+			default:
+				throw new RuntimeException("too many arguments");
 			}
-			if (schemaTemplateFile == null && schemaOutputDir == null) {
+			if (schemaTemplateFile == null) {
 				if (!debugging) {
 					System.out.println("syntax: FAIRSpecSchemaGenerator.jar <outputDir> (schemaTemplateFile)");
 					return;
@@ -285,18 +327,5 @@ public class FAIRSpecSchemaGenerator {
 			System.err.println("failed");
 		}
 	}
-	
-	private static String stripComments(String schema) {
-		schema = schema.replaceAll("\r\n", "\n");
-		int pt = 0;
-		while ((pt = schema.indexOf("\"$comment")) >= 0) {
-			int pt0 = schema.lastIndexOf('\n', pt);
-			if (schema.charAt(pt0 -1) == ',')
-				pt0--;
-			schema = schema.substring(0, pt0) + schema.substring(schema.indexOf('\n', pt));
-		}
-		return schema;
-	}
-
 
 }
