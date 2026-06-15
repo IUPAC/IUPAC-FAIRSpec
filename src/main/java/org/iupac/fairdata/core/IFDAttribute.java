@@ -60,7 +60,11 @@ public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> 
 		
 		@Override
 		public boolean equals(Object o) {
-			return (o != null && s.equals(o.toString()));
+			return (o != null && 
+					(o instanceof Number ? d == ((Number) o).doubleValue() 
+					: s.equals(o.toString())
+					)
+				   );
 		}
 		
 		@Override
@@ -91,7 +95,11 @@ public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> 
 		
 		@Override
 		public boolean equals(Object o) {
-			return (o != null && s.equals(o.toString()));
+			return (o != null && 
+					(o instanceof Number ? f == ((Number) o).floatValue() 
+					: s.equals(o.toString())
+					)
+				   );
 		}
 		
 		@Override
@@ -184,22 +192,27 @@ public class IFDAttribute implements IFDSerializableI, Comparable<IFDAttribute> 
 		for (int i = attributes.size(); --i >= 0;) {
 			p = attributes.get(i);
 			if (p.name.equals(name)) {
+				// we have this attribute already
 				if (p.type != type) {
 					String err = null;
 					try {
 						switch (type) {
 						case 's':
+							// string to double
 							if (p.type == 'n') {
 								value = new Double(value.toString());
+							} else if (p.type == 'b') {
+								value = new Boolean(value.toString());
 							} else {
-								err = "value is not a number";
+								err = "value " + value + " is not a number or boolean";
 							}
 							break;
 						case 'n':
+						case 'b':
 							if (p.type == 's') {
 								value = value.toString();
 							} else {
-								err = "value is not a string";
+								err = "value " + value + " cannot be converted to a string";
 							}
 							break;
 						}
